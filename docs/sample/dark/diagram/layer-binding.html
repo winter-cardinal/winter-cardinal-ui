@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Drag checker</title>
+	<title>Layer binding</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -33,27 +33,10 @@
 		var diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
-			width: "100%", height: "100%",
-			view: {
-				drag: {
-					checker: {
-						start: function ( e ) {
-							if( ! diagram.state.isDragging ) {
-								const layer = diagram.layer;
-								if( layer ) {
-									if( layer.hitTest( e.data.global ) ) {
-										return false;
-									}
-								}
-							}
-							return true;
-						}
-					}
-				}
-			}
+			width: "100%", height: "100%"
 		});
 
-		fetch( "../../resource/diagram/interactive.json" ).then(function( response ) {
+		fetch( "../../resource/diagram/layer-binding.json" ).then(function( response ) {
 			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();

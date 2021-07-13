@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DDropdown({
 			parent: application.stage,
@@ -53,11 +53,11 @@
 					text: {
 						value: "Pineapple"
 					}
-				}],
-				on: {
-					select: function( value, item, menu ) {
-						console.log( value, item, menu );
-					}
+				}]
+			},
+			on: {
+				select: function( value, item, dropdown ) {
+					console.log( value, item, dropdown );
 				}
 			}
 		});

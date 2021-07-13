@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.98.1
+ Winter Cardinal UI v0.100.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1829,8 +1829,14 @@
         DThemeDarkLinks.getLinkMenuOptions = function () {
             return {
                 sticky: true,
-                align: "OVER",
+                align: "RIGHT",
                 items: [
+                    {
+                        value: DLinkMenuItemId.OPEN_LINK,
+                        text: {
+                            value: this.getOpenLink()
+                        }
+                    },
                     {
                         value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
                         text: {
@@ -1845,6 +1851,9 @@
                     }
                 ]
             };
+        };
+        DThemeDarkLinks.getOpenLink = function () {
+            return "Open";
         };
         DThemeDarkLinks.getOpenLinkInNewWindow = function () {
             return "Open in new window";
@@ -2112,7 +2121,7 @@
         return DThemeDarkDialogSelect;
     }(DThemeDarkDialogCommand));
 
-    const DDragMode = wcardinal.ui.DDragMode;
+    const UtilGestureMode = wcardinal.ui.UtilGestureMode;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2135,8 +2144,8 @@
         DThemeDarkPane.prototype.getWheelSpeed = function () {
             return 2.24;
         };
-        DThemeDarkPane.prototype.getDragMode = function () {
-            return DDragMode.TOUCH;
+        DThemeDarkPane.prototype.getGestureMode = function () {
+            return UtilGestureMode.TOUCH;
         };
         return DThemeDarkPane;
     }(DThemeDarkBase));
@@ -3512,7 +3521,6 @@
                 case EShapeActionValueType.MISC:
                     return "Misc.";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toConditionLabel = function (condition) {
             var l = 20;
@@ -3538,7 +3546,6 @@
                 case EShapeActionValueBlinkType.COLOR_STROKE:
                     return "Stroke";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toShowHideTypeLabel = function (type) {
             switch (type) {
@@ -3547,7 +3554,6 @@
                 case EShapeActionValueShowHideType.HIDE:
                     return "Hide";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toTransformTypeLabel = function (type) {
             switch (type) {
@@ -3558,7 +3564,6 @@
                 case EShapeActionValueTransformType.ROTATE:
                     return "Rotate";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toTransformRotateTypeLabel = function (type) {
             switch (type) {
@@ -3567,7 +3572,6 @@
                 case EShapeActionValueTransformRotateType.ABSOLUTE:
                     return "Absolute";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toTransformMoveTypeLabel = function (type) {
             switch (type) {
@@ -3584,7 +3588,6 @@
                 case EShapeActionValueTransformMoveType.LEFT_OR_RIGHT:
                     return "Left / right";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toTransformResizeTypeLabel = function (type) {
             switch (type) {
@@ -3601,7 +3604,6 @@
                 case EShapeActionValueTransformResizeType.RELATIVE_WIDTH:
                     return "Width (%)";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toChangeColorTypeLabel = function (type) {
             if (type === EShapeActionValueChangeColorType.NONE) {
@@ -3639,7 +3641,6 @@
                 case EShapeActionValueChangeColorTarget.BRIGHTNESS:
                     return "Brightness";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toChangeTextTypeLabel = function (type) {
             switch (type) {
@@ -3648,7 +3649,6 @@
                 case EShapeActionValueChangeTextType.NUMBER:
                     return "Number";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toOpenTypeLabel = function (type) {
             switch (type) {
@@ -3673,7 +3673,6 @@
                 case EShapeActionValueOpenType.DIALOG_DATETIME:
                     return "Dialog (Datetime)";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toMiscTypeLabel = function (type) {
             switch (type) {
@@ -3695,8 +3694,13 @@
                     return "HTML element";
                 case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
                     return "HTML element (No pointer events)";
+                case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+                    return "Show / hide layers";
+                case EShapeActionValueMiscType.LAYER_GESTURE:
+                    return "Layer gesture";
+                case EShapeActionValueMiscType.GESTURE:
+                    return "Gesture";
             }
-            return "Unknown";
         };
         EThemeDarkShapeActionValue.prototype.toHtmlElementWhenLabel = function (when) {
             switch (when) {
@@ -5975,7 +5979,7 @@
             }
         };
         DThemeDarkScrollBarThumb.prototype.getBorderAlpha = function (state) {
-            if (!state.inDisabled && (state.isHovered || state.isDragging)) {
+            if (!state.inDisabled && (state.isHovered || state.isGesturing)) {
                 return 1.0;
             }
             else {
@@ -8112,7 +8116,7 @@
         DThemeDark.set("DTreeItemNonEditable", DThemeDarkTreeItemNonEditable);
     };
 
-    const DMouseModifier = wcardinal.ui.DMouseModifier;
+    const UtilGestureModifier = wcardinal.ui.UtilGestureModifier;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -8128,7 +8132,7 @@
             return 0.004;
         };
         DThemeDarkView.prototype.getWheelZoomModifier = function () {
-            return DMouseModifier.NOT_NONE;
+            return UtilGestureModifier.NOT_NONE;
         };
         DThemeDarkView.prototype.isWheelTranslationEnabled = function () {
             return true;
@@ -8137,7 +8141,7 @@
             return 14 * 0.16;
         };
         DThemeDarkView.prototype.getWheelTranslationModifier = function () {
-            return DMouseModifier.NONE;
+            return UtilGestureModifier.NONE;
         };
         DThemeDarkView.prototype.isDblClickZoomEnabled = function () {
             return true;
@@ -8146,7 +8150,7 @@
             return 2;
         };
         DThemeDarkView.prototype.getDblClickZoomModifier = function () {
-            return DMouseModifier.NONE;
+            return UtilGestureModifier.NONE;
         };
         DThemeDarkView.prototype.getDblClickZoomDuration = function () {
             return 333;
@@ -8160,16 +8164,16 @@
         DThemeDarkView.prototype.getZoomKeepRatio = function () {
             return true;
         };
-        DThemeDarkView.prototype.getDragMode = function () {
-            return DDragMode.ON;
+        DThemeDarkView.prototype.getGestureMode = function () {
+            return UtilGestureMode.ON;
         };
-        DThemeDarkView.prototype.getDragModifier = function () {
-            return DMouseModifier.NONE;
+        DThemeDarkView.prototype.getGestureModifier = function () {
+            return UtilGestureModifier.NONE;
         };
-        DThemeDarkView.prototype.getDragDurationPosition = function () {
+        DThemeDarkView.prototype.getGestureDurationPosition = function () {
             return 1;
         };
-        DThemeDarkView.prototype.getDragDurationScale = function () {
+        DThemeDarkView.prototype.getGestureDurationScale = function () {
             return 1;
         };
         return DThemeDarkView;

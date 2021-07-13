@@ -4,21 +4,21 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Menu</title>
+	<title>Replacing a menu</title>
 	<style>
 	html, body {
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #f2f2f2;
+		background-color: #2e2e2e;
 	}
 	</style>
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -45,30 +45,42 @@
 				},{
 					value: 2,
 					text: {
-						value: "Pineapple"
+						value: "Strawberry"
 					},
 					check: true
 				},{
-					separator: true
-				},{
-					value: 10,
+					value: 3,
 					text: {
-						value: "Menu 1"
-					}
-				},{
-					value: 11,
-					text: {
-						value: "Menu 2"
-					}
+						value: "Pineapple"
+					},
+					check: true
 				}]
 			},
 			on: {
-				select: function ( value, item ) {
-					console.log( "select", value, item );
-				},
+				change: function ( newValues, oldValues, items, select ) {
+					console.log( "change", newValues, oldValues, items, select );
 
-				change: function ( newValues, oldValues ) {
-					console.log( "change", newValues, oldValues );
+					// Replace a menu
+					setTimeout(function() {
+						var menu = select.menu;
+						select.menu = new wcardinal.ui.DMenu({
+							fit: true,
+							items: [{
+								value: "MELON",
+								text: {
+									value: "Melon"
+								},
+								check: true,
+							}, {
+								value: "BERRY",
+								text: {
+									value: "Berry"
+								},
+								check: true
+							}]
+						});
+						menu.destroy();
+					},1000);
 				}
 			}
 		});

@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.98.1
+ Winter Cardinal UI v0.100.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1849,8 +1849,14 @@
         DThemeWhiteLinks.getLinkMenuOptions = function () {
             return {
                 sticky: true,
-                align: "OVER",
+                align: "RIGHT",
                 items: [
+                    {
+                        value: DLinkMenuItemId.OPEN_LINK,
+                        text: {
+                            value: this.getOpenLink()
+                        }
+                    },
                     {
                         value: DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW,
                         text: {
@@ -1865,6 +1871,9 @@
                     }
                 ]
             };
+        };
+        DThemeWhiteLinks.getOpenLink = function () {
+            return "Open";
         };
         DThemeWhiteLinks.getOpenLinkInNewWindow = function () {
             return "Open in new window";
@@ -2118,7 +2127,7 @@
         return DThemeWhiteDialogSelect;
     }(DThemeWhiteDialogCommand));
 
-    const DDragMode = wcardinal.ui.DDragMode;
+    const UtilGestureMode = wcardinal.ui.UtilGestureMode;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2141,8 +2150,8 @@
         DThemeWhitePane.prototype.getWheelSpeed = function () {
             return 2.24;
         };
-        DThemeWhitePane.prototype.getDragMode = function () {
-            return DDragMode.TOUCH;
+        DThemeWhitePane.prototype.getGestureMode = function () {
+            return UtilGestureMode.TOUCH;
         };
         return DThemeWhitePane;
     }(DThemeWhiteBase));
@@ -3517,7 +3526,6 @@
                 case EShapeActionValueType.MISC:
                     return "Misc.";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toConditionLabel = function (condition) {
             var l = 20;
@@ -3543,7 +3551,6 @@
                 case EShapeActionValueBlinkType.COLOR_STROKE:
                     return "Stroke";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toShowHideTypeLabel = function (type) {
             switch (type) {
@@ -3552,7 +3559,6 @@
                 case EShapeActionValueShowHideType.HIDE:
                     return "Hide";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toTransformTypeLabel = function (type) {
             switch (type) {
@@ -3563,7 +3569,6 @@
                 case EShapeActionValueTransformType.ROTATE:
                     return "Rotate";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toTransformRotateTypeLabel = function (type) {
             switch (type) {
@@ -3572,7 +3577,6 @@
                 case EShapeActionValueTransformRotateType.ABSOLUTE:
                     return "Absolute";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toTransformMoveTypeLabel = function (type) {
             switch (type) {
@@ -3589,7 +3593,6 @@
                 case EShapeActionValueTransformMoveType.LEFT_OR_RIGHT:
                     return "Left / right";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toTransformResizeTypeLabel = function (type) {
             switch (type) {
@@ -3606,7 +3609,6 @@
                 case EShapeActionValueTransformResizeType.RELATIVE_WIDTH:
                     return "Width (%)";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toChangeColorTypeLabel = function (type) {
             if (type === EShapeActionValueChangeColorType.NONE) {
@@ -3644,7 +3646,6 @@
                 case EShapeActionValueChangeColorTarget.BRIGHTNESS:
                     return "Brightness";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toChangeTextTypeLabel = function (type) {
             switch (type) {
@@ -3653,7 +3654,6 @@
                 case EShapeActionValueChangeTextType.NUMBER:
                     return "Number";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toOpenTypeLabel = function (type) {
             switch (type) {
@@ -3678,7 +3678,6 @@
                 case EShapeActionValueOpenType.DIALOG_DATETIME:
                     return "Dialog (Datetime)";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toMiscTypeLabel = function (type) {
             switch (type) {
@@ -3700,8 +3699,13 @@
                     return "HTML element";
                 case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
                     return "HTML element (No pointer events)";
+                case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+                    return "Show / hide layers";
+                case EShapeActionValueMiscType.LAYER_GESTURE:
+                    return "Layer gesture";
+                case EShapeActionValueMiscType.GESTURE:
+                    return "Gesture";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toHtmlElementWhenLabel = function (when) {
             switch (when) {
@@ -3714,7 +3718,6 @@
                 case UtilHtmlElementWhen.ALWAYS:
                     return "Always";
             }
-            return "Unknown";
         };
         EThemeWhiteShapeActionValue.prototype.toOnInputActionLabel = function (type) {
             switch (type) {
@@ -3727,7 +3730,6 @@
                 case EShapeActionValueOnInputAction.WRITE_REMOTE:
                     return "Write (Remote)";
             }
-            return "Unknown";
         };
         return EThemeWhiteShapeActionValue;
     }());
@@ -5982,7 +5984,7 @@
             return DThemeWhiteConstants.HIGHLIGHT_COLOR;
         };
         DThemeWhiteScrollBarThumb.prototype.getBorderAlpha = function (state) {
-            if (!state.inDisabled && (state.isHovered || state.isDragging)) {
+            if (!state.inDisabled && (state.isHovered || state.isGesturing)) {
                 return 1.0;
             }
             else {
@@ -8116,7 +8118,7 @@
         DThemeWhite.set("DTreeItemNonEditable", DThemeWhiteTreeItemNonEditable);
     };
 
-    const DMouseModifier = wcardinal.ui.DMouseModifier;
+    const UtilGestureModifier = wcardinal.ui.UtilGestureModifier;
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -8132,7 +8134,7 @@
             return 0.004;
         };
         DThemeWhiteView.prototype.getWheelZoomModifier = function () {
-            return DMouseModifier.NOT_NONE;
+            return UtilGestureModifier.NOT_NONE;
         };
         DThemeWhiteView.prototype.isWheelTranslationEnabled = function () {
             return true;
@@ -8141,7 +8143,7 @@
             return 14 * 0.16;
         };
         DThemeWhiteView.prototype.getWheelTranslationModifier = function () {
-            return DMouseModifier.NONE;
+            return UtilGestureModifier.NONE;
         };
         DThemeWhiteView.prototype.isDblClickZoomEnabled = function () {
             return true;
@@ -8150,7 +8152,7 @@
             return 2;
         };
         DThemeWhiteView.prototype.getDblClickZoomModifier = function () {
-            return DMouseModifier.NONE;
+            return UtilGestureModifier.NONE;
         };
         DThemeWhiteView.prototype.getDblClickZoomDuration = function () {
             return 333;
@@ -8164,16 +8166,16 @@
         DThemeWhiteView.prototype.getZoomKeepRatio = function () {
             return true;
         };
-        DThemeWhiteView.prototype.getDragMode = function () {
-            return DDragMode.ON;
+        DThemeWhiteView.prototype.getGestureMode = function () {
+            return UtilGestureMode.ON;
         };
-        DThemeWhiteView.prototype.getDragModifier = function () {
-            return DMouseModifier.NONE;
+        DThemeWhiteView.prototype.getGestureModifier = function () {
+            return UtilGestureModifier.NONE;
         };
-        DThemeWhiteView.prototype.getDragDurationPosition = function () {
+        DThemeWhiteView.prototype.getGestureDurationPosition = function () {
             return 1;
         };
-        DThemeWhiteView.prototype.getDragDurationScale = function () {
+        DThemeWhiteView.prototype.getGestureDurationScale = function () {
             return 1;
         };
         return DThemeWhiteView;

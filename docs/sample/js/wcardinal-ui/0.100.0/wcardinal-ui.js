@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.98.1
+ Winter Cardinal UI v0.100.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -40,8 +40,9 @@
         EShapeType[EShapeType["LINE_OF_TRIANGLES"] = 16] = "LINE_OF_TRIANGLES";
         EShapeType[EShapeType["LINE_OF_TRIANGLE_ROUNDEDS"] = 17] = "LINE_OF_TRIANGLE_ROUNDEDS";
         EShapeType[EShapeType["EMBEDDED"] = 18] = "EMBEDDED";
-        EShapeType[EShapeType["LAYER"] = 19] = "LAYER";
+        EShapeType[EShapeType["EMBEDDED_LAYER"] = 19] = "EMBEDDED_LAYER";
         EShapeType[EShapeType["BUTTON"] = 20] = "BUTTON";
+        EShapeType[EShapeType["RECTANGLE_PIVOTED"] = 21] = "RECTANGLE_PIVOTED";
         EShapeType[EShapeType["EXTENSION"] = 1000] = "EXTENSION";
     })(EShapeType || (EShapeType = {}));
 
@@ -1936,7 +1937,7 @@
         FOCUS_REVERSE: "FOCUS_REVERSE",
         READ_ONLY: "READ_ONLY",
         DISABLED: "DISABLED",
-        DRAGGING: "DRAGGING",
+        GESTURING: "GESTURING",
         PRESSED: "PRESSED",
         INVALID: "INVALID",
         SUCCEEDED: "SUCCEEDED",
@@ -2477,33 +2478,33 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseStateSetImpl.prototype, "isDragging", {
+        Object.defineProperty(DBaseStateSetImpl.prototype, "isGesturing", {
             get: function () {
-                return this.is(DBaseState.DRAGGING);
+                return this.is(DBaseState.GESTURING);
             },
-            set: function (isDragging) {
-                this.set(DBaseState.DRAGGING, isDragging);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseStateSetImpl.prototype, "inDragging", {
-            get: function () {
-                return this.in(DBaseState.DRAGGING);
+            set: function (isGesturing) {
+                this.set(DBaseState.GESTURING, isGesturing);
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseStateSetImpl.prototype, "onDragging", {
+        Object.defineProperty(DBaseStateSetImpl.prototype, "inGesturing", {
             get: function () {
-                return this.on(DBaseState.DRAGGING);
+                return this.in(DBaseState.GESTURING);
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseStateSetImpl.prototype, "underDragging", {
+        Object.defineProperty(DBaseStateSetImpl.prototype, "onGesturing", {
             get: function () {
-                return this.under(DBaseState.DRAGGING);
+                return this.on(DBaseState.GESTURING);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DBaseStateSetImpl.prototype, "underGesturing", {
+            get: function () {
+                return this.under(DBaseState.GESTURING);
             },
             enumerable: false,
             configurable: true
@@ -2915,10 +2916,13 @@
                 this._doSave = true;
                 if (this._isSaved) {
                     this._isSaved = false;
-                    this._onChange(this, this.saved);
+                    this.onChange(this, this.saved);
                 }
             }
             return this;
+        };
+        DBaseStateSetImplObservable.prototype.onChange = function (newState, oldState) {
+            this._onChange(newState, oldState);
         };
         return DBaseStateSetImplObservable;
     }(DBaseStateSetImpl));
@@ -2944,6 +2948,19 @@
         function EShapeStateSetImplObservable() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        EShapeStateSetImplObservable.prototype.onChange = function (newState, oldState) {
+            if (newState.isActive) {
+                if (!oldState.isActive) {
+                    this._local.add(EShapeState.ACTIVATED).delete(EShapeState.DEACTIVATED);
+                }
+            }
+            else {
+                if (oldState.isActive) {
+                    this._local.add(EShapeState.DEACTIVATED).delete(EShapeState.ACTIVATED);
+                }
+            }
+            _super.prototype.onChange.call(this, newState, oldState);
+        };
         Object.defineProperty(EShapeStateSetImplObservable.prototype, "isClicked", {
             get: function () {
                 return this.is(EShapeState.CLICKED);
@@ -3627,6 +3644,10 @@
         EShapeBase.prototype.serializeGradient = function (manager) {
             return EShapeGradients.toGradientId(this.gradient, manager);
         };
+        EShapeBase.prototype.serializeState = function (manager) {
+            var state = this.state;
+            return (this.interactive ? 1 : 0) | (state.isFocusable ? 0 : 2) | (state.isActive ? 4 : 0);
+        };
         EShapeBase.prototype.serialize = function (manager) {
             var transform = this.transform;
             var position = transform.position;
@@ -3660,7 +3681,7 @@
                 this.serializeChildren(manager),
                 pivot.x,
                 pivot.y,
-                (this.interactive ? 1 : 0) | (this.state.isFocusable ? 0 : 2),
+                this.serializeState(manager),
                 shortcutId,
                 titleId,
                 this.uuid
@@ -6789,324 +6810,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilPointerEvent = /** @class */ (function () {
-        function UtilPointerEvent() {
-        }
-        Object.defineProperty(UtilPointerEvent, "touchable", {
-            get: function () {
-                return "ontouchstart" in document;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "tap", {
-            get: function () {
-                return "pointertap";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "down", {
-            get: function () {
-                return "pointerdown";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "enter", {
-            get: function () {
-                return "pointerenter";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "leave", {
-            get: function () {
-                return "pointerleave";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "move", {
-            get: function () {
-                return "pointermove";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "out", {
-            get: function () {
-                return "pointerout";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "over", {
-            get: function () {
-                return "pointerover";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "up", {
-            get: function () {
-                return "pointerup";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilPointerEvent, "cancel", {
-            get: function () {
-                return "pointercancel";
-            },
-            enumerable: false,
-            configurable: true
-        });
-        UtilPointerEvent.toGlobal = function (e, interactionManager, result) {
-            if ("touches" in e) {
-                var touches = e.changedTouches;
-                var touch = touches[touches.length - 1];
-                if (touch != null) {
-                    interactionManager.mapPositionToPoint(result, touch.clientX, touch.clientY);
-                }
-                else {
-                    interactionManager.mapPositionToPoint(result, 0, 0);
-                }
-            }
-            else {
-                interactionManager.mapPositionToPoint(result, e.clientX, e.clientY);
-            }
-            return result;
-        };
-        UtilPointerEvent.isValidDistance = function (e, x, y) {
-            var global = e.data.global;
-            var dx = Math.abs(x - global.x);
-            var dy = Math.abs(y - global.y);
-            var threshold = this.CLICK_DISTANCE_THRESHOLD;
-            return dx < threshold && dy < threshold;
-        };
-        UtilPointerEvent.onClick = function (target, onClick) {
-            var _this = this;
-            if (!this.touchable) {
-                target.on("click", onClick);
-            }
-            else {
-                var isDowned_1 = false;
-                var downX_1 = 0;
-                var downY_1 = 0;
-                var interactionManagerBound_1 = null;
-                var cleanup_1 = function () {
-                    isDowned_1 = false;
-                    if (interactionManagerBound_1) {
-                        interactionManagerBound_1.off(up_1, onUp_1);
-                        interactionManagerBound_1 = null;
-                    }
-                };
-                target.on("click", function (e) {
-                    if (isDowned_1) {
-                        cleanup_1();
-                    }
-                    onClick(e);
-                });
-                var up_1 = this.up;
-                var onUp_1 = function (e) {
-                    if (isDowned_1) {
-                        cleanup_1();
-                        if (_this.contains(target, e.target)) {
-                            if (_this.isValidDistance(e, downX_1, downY_1)) {
-                                onClick(e);
-                            }
-                        }
-                    }
-                };
-                target.on(this.down, function (e) {
-                    if (isDowned_1) {
-                        var global_1 = e.data.global;
-                        downX_1 = global_1.x;
-                        downY_1 = global_1.y;
-                    }
-                    else {
-                        isDowned_1 = true;
-                        var global_2 = e.data.global;
-                        downX_1 = global_2.x;
-                        downY_1 = global_2.y;
-                        if (interactionManagerBound_1) {
-                            interactionManagerBound_1.off(up_1, onUp_1);
-                            interactionManagerBound_1 = null;
-                        }
-                        var layer = DApplications.getLayer(target);
-                        if (layer) {
-                            interactionManagerBound_1 = layer.renderer.plugins.interaction;
-                            interactionManagerBound_1.once(up_1, onUp_1);
-                        }
-                    }
-                });
-            }
-        };
-        UtilPointerEvent.onLongClick = function (target, onClick, onLongClick, isLongClickable) {
-            var _this = this;
-            if (!this.touchable) {
-                target.on("click", onClick);
-            }
-            else {
-                var isDowned_2 = false;
-                var downX_2 = 0;
-                var downY_2 = 0;
-                var timeoutId_1 = null;
-                var interactionManagerBound_2 = null;
-                var cleanupTimeout_1 = function () {
-                    if (timeoutId_1 != null) {
-                        clearTimeout(timeoutId_1);
-                        timeoutId_1 = null;
-                    }
-                };
-                var cleanup_2 = function () {
-                    isDowned_2 = false;
-                    if (interactionManagerBound_2) {
-                        interactionManagerBound_2.off(up_2, onUp_2);
-                        interactionManagerBound_2.off(move_1, onMove_1);
-                        interactionManagerBound_2 = null;
-                    }
-                    cleanupTimeout_1();
-                };
-                target.on("click", function (e) {
-                    if (isDowned_2) {
-                        cleanup_2();
-                    }
-                    onClick(e);
-                });
-                var up_2 = this.up;
-                var move_1 = this.move;
-                var onUp_2 = function (e) {
-                    if (isDowned_2) {
-                        cleanup_2();
-                        if (_this.contains(target, e.target)) {
-                            if (_this.isValidDistance(e, downX_2, downY_2)) {
-                                onClick(e);
-                            }
-                        }
-                    }
-                };
-                var onMove_1 = function (e) {
-                    if (isDowned_2) {
-                        if (_this.contains(target, e.target)) {
-                            if (!_this.isValidDistance(e, downX_2, downY_2)) {
-                                cleanup_2();
-                            }
-                        }
-                    }
-                };
-                target.on(this.down, function (e) {
-                    if (!isDowned_2) {
-                        isDowned_2 = true;
-                        var global_3 = e.data.global;
-                        downX_2 = global_3.x;
-                        downY_2 = global_3.y;
-                        cleanupTimeout_1();
-                        var oe = e.data.originalEvent;
-                        if ("touches" in oe && (isLongClickable == null || isLongClickable(e))) {
-                            timeoutId_1 = window.setTimeout(function () {
-                                if (isDowned_2) {
-                                    cleanup_2();
-                                    onLongClick(e);
-                                }
-                            }, _this.LONG_CLICK_THRESHOLD);
-                        }
-                        if (interactionManagerBound_2) {
-                            interactionManagerBound_2.off(up_2, onUp_2);
-                            interactionManagerBound_2.off(move_1, onMove_1);
-                            interactionManagerBound_2 = null;
-                        }
-                        var layer = DApplications.getLayer(target);
-                        if (layer) {
-                            interactionManagerBound_2 = layer.renderer.plugins.interaction;
-                            interactionManagerBound_2.once(up_2, onUp_2);
-                            interactionManagerBound_2.on(move_1, onMove_1);
-                        }
-                    }
-                });
-            }
-        };
-        UtilPointerEvent.onDblClick = function (target, handler) {
-            var _this = this;
-            if (!this.touchable) {
-                target.addEventListener("dblclick", handler);
-            }
-            else {
-                var isDowned_3 = 0;
-                var downX_3 = 0;
-                var downY_3 = 0;
-                var clickTime_1 = 0;
-                target.addEventListener("dblclick", handler);
-                target.addEventListener("touchend", function (e) {
-                    if (isDowned_3 === 1 || isDowned_3 === 3) {
-                        var touches = e.changedTouches;
-                        var touch = touches[touches.length - 1];
-                        if (touch != null) {
-                            var dx = downX_3 - touch.clientX;
-                            var dy = downY_3 - touch.clientY;
-                            if (Math.abs(dx) + Math.abs(dy) < _this.CLICK_DISTANCE_THRESHOLD) {
-                                isDowned_3 += 1;
-                                if (isDowned_3 === 4) {
-                                    isDowned_3 = 0;
-                                    var elapsedTime = e.timeStamp - clickTime_1;
-                                    if (elapsedTime < _this.DBLCLICK_INTERVAL_THRESHOLD) {
-                                        handler(e);
-                                    }
-                                    else {
-                                        clickTime_1 = e.timeStamp;
-                                        isDowned_3 = 2;
-                                    }
-                                }
-                                else {
-                                    clickTime_1 = e.timeStamp;
-                                }
-                                return;
-                            }
-                        }
-                    }
-                    isDowned_3 = 0;
-                });
-                target.addEventListener("touchstart", function (e) {
-                    if (isDowned_3 === 0) {
-                        var touch = e.touches.item(e.touches.length - 1);
-                        if (touch != null) {
-                            isDowned_3 = 1;
-                            downX_3 = touch.clientX;
-                            downY_3 = touch.clientY;
-                            return;
-                        }
-                    }
-                    else if (isDowned_3 === 2) {
-                        var touch = e.touches.item(e.touches.length - 1);
-                        if (touch != null) {
-                            isDowned_3 = 3;
-                            downX_3 = touch.clientX;
-                            downY_3 = touch.clientY;
-                            return;
-                        }
-                    }
-                    isDowned_3 = 0;
-                });
-            }
-        };
-        UtilPointerEvent.contains = function (target, targetOrChild) {
-            var current = targetOrChild;
-            while (current != null && current !== target) {
-                current = current.parent;
-            }
-            return current === target;
-        };
-        UtilPointerEvent.CLICK_DISTANCE_THRESHOLD = 10;
-        UtilPointerEvent.DBLCLICK_INTERVAL_THRESHOLD = 333;
-        UtilPointerEvent.LONG_CLICK_THRESHOLD = 750;
-        return UtilPointerEvent;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var EShapeRuntimeReset;
     (function (EShapeRuntimeReset) {
         EShapeRuntimeReset[EShapeRuntimeReset["NONE"] = 0] = "NONE";
@@ -7147,9 +6850,24 @@
             this.isStateChanged = false;
             this.interactive = false;
         }
+        EShapeRuntime.prototype.initialize = function (shape) {
+            shape.disallowUploadedUpdate();
+            this.onInitialize(shape);
+            shape.allowUploadedUpdate();
+        };
+        EShapeRuntime.prototype.onInitialize = function (shape) {
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].initialize(shape, this);
+            }
+        };
+        EShapeRuntime.prototype.isActionable = function () {
+            return 0 < this.actions.length;
+        };
         EShapeRuntime.prototype.onClick = function (shape, e) {
-            if (shape.state.isActionable) {
-                shape.state.isClicked = true;
+            var state = shape.state;
+            if (state.isActionable) {
+                state.isClicked = true;
             }
         };
         EShapeRuntime.prototype.onDblClick = function (shape, e, interactionManager) {
@@ -7166,48 +6884,41 @@
             shape.state.isHovered = false;
         };
         EShapeRuntime.prototype.onDown = function (shape, e) {
+            // Actions
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].onDowning(shape, this, e);
+            }
             if (!shape.state.isDown) {
-                this.onDownThisBefore(shape, e);
-                // isDown state
-                shape.state.isDown = true;
+                // Down / Press
+                shape.state.addAll(EShapeState.DOWN, DBaseState.PRESSED);
+                // Focus and states
                 var layer = DApplications.getLayer(shape);
                 if (layer) {
                     // Focus
                     var focusController = layer.getFocusController();
                     focusController.focus(focusController.findParent(shape));
-                    // isPressed state
-                    var interactionManager_1 = layer.renderer.plugins.interaction;
-                    shape.state.isPressed = true;
-                    var onUp_1 = function () {
-                        shape.state.isPressed = false;
-                        interactionManager_1.off(UtilPointerEvent.up, onUp_1);
-                    };
-                    interactionManager_1.on(UtilPointerEvent.up, onUp_1);
                 }
-                this.onDownThisAfter(shape, e);
             }
-        };
-        EShapeRuntime.prototype.onDownThisBefore = function (shape, e) {
-            var actions = this.actions;
+            // Actions
             for (var i = 0, imax = actions.length; i < imax; ++i) {
-                actions[i].onDownThisBefore(shape, this, e);
-            }
-        };
-        EShapeRuntime.prototype.onDownThisAfter = function (shape, e) {
-            var actions = this.actions;
-            for (var i = 0, imax = actions.length; i < imax; ++i) {
-                actions[i].onDownThisAfter(shape, this, e);
+                actions[i].onDown(shape, this, e);
             }
         };
         EShapeRuntime.prototype.onUp = function (shape, e) {
-            if (!shape.state.isUp) {
-                shape.state.isUp = true;
-                // Click
-                this.onClick(shape, e);
+            var state = shape.state;
+            if (!state.isUp) {
+                state.set(EShapeState.UP, DBaseState.PRESSED);
             }
         };
+        EShapeRuntime.prototype.onUpOutside = function (shape, e) {
+            shape.state.isPressed = false;
+        };
         EShapeRuntime.prototype.onMove = function (shape, e) {
-            //
+            var actions = this.actions;
+            for (var i = 0, imax = actions.length; i < imax; ++i) {
+                actions[i].onMove(shape, this, e);
+            }
         };
         EShapeRuntime.prototype.onKeyDown = function (shape, e) {
             if (UtilKeyboardEvent.isActivateKey(e)) {
@@ -7217,7 +6928,12 @@
         };
         EShapeRuntime.prototype.onKeyUp = function (shape, e) {
             if (UtilKeyboardEvent.isActivateKey(e)) {
+                var state = shape.state;
+                var wasUp = state.isUp;
                 this.onUp(shape, e);
+                if (!wasUp && state.isUp) {
+                    this.onClick(shape, e);
+                }
             }
             return false;
         };
@@ -7441,6 +7157,9 @@
         function EShapeActionRuntime(reset) {
             this.reset = reset || EShapeRuntimeReset.NONE;
         }
+        EShapeActionRuntime.prototype.initialize = function (shape, runtime) {
+            // OVERRIDE THIS
+        };
         EShapeActionRuntime.prototype.execute = function (shape, runtime, time) {
             // OVERRIDE THIS
         };
@@ -7450,10 +7169,13 @@
         EShapeActionRuntime.prototype.onBlur = function (shape, runtime) {
             // DO NOTHING
         };
-        EShapeActionRuntime.prototype.onDownThisBefore = function (shape, runtime, e) {
+        EShapeActionRuntime.prototype.onDowning = function (shape, runtime, e) {
             // DO NOTHING
         };
-        EShapeActionRuntime.prototype.onDownThisAfter = function (shape, runtime, e) {
+        EShapeActionRuntime.prototype.onDown = function (shape, runtime, e) {
+            // DO NOTHING
+        };
+        EShapeActionRuntime.prototype.onMove = function (shape, runtime, e) {
             // DO NOTHING
         };
         EShapeActionRuntime.prototype.onDblClick = function (shape, runtime, e, interactionManager) {
@@ -9800,7 +9522,7 @@
             this._theme = theme;
             this._callback = callback;
             var padding = options === null || options === void 0 ? void 0 : options.padding;
-            if (padding) {
+            if (padding != null) {
                 if (isNumber(padding)) {
                     this._left = padding;
                     this._top = padding;
@@ -11321,6 +11043,263 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var UtilPointerEvent = /** @class */ (function () {
+        function UtilPointerEvent() {
+        }
+        Object.defineProperty(UtilPointerEvent, "touchable", {
+            get: function () {
+                return "ontouchstart" in document;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "tap", {
+            get: function () {
+                return "pointertap";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "down", {
+            get: function () {
+                return "pointerdown";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "enter", {
+            get: function () {
+                return "pointerenter";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "leave", {
+            get: function () {
+                return "pointerleave";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "move", {
+            get: function () {
+                return "pointermove";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "out", {
+            get: function () {
+                return "pointerout";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "over", {
+            get: function () {
+                return "pointerover";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "up", {
+            get: function () {
+                return "pointerup";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "upoutside", {
+            get: function () {
+                return "pointerupoutside";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilPointerEvent, "cancel", {
+            get: function () {
+                return "pointercancel";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilPointerEvent.toGlobal = function (e, interactionManager, result) {
+            if ("touches" in e) {
+                var touches = e.changedTouches;
+                var touch = touches[touches.length - 1];
+                if (touch != null) {
+                    interactionManager.mapPositionToPoint(result, touch.clientX, touch.clientY);
+                }
+                else {
+                    interactionManager.mapPositionToPoint(result, 0, 0);
+                }
+            }
+            else {
+                interactionManager.mapPositionToPoint(result, e.clientX, e.clientY);
+            }
+            return result;
+        };
+        UtilPointerEvent.isValidDistance = function (e, x, y) {
+            var global = e.data.global;
+            var dx = Math.abs(x - global.x);
+            var dy = Math.abs(y - global.y);
+            var threshold = this.CLICK_DISTANCE_THRESHOLD;
+            return dx < threshold && dy < threshold;
+        };
+        UtilPointerEvent.onClick = function (target, onClick) {
+            var _this = this;
+            var isDowned = false;
+            var downX = 0;
+            var downY = 0;
+            var interactionManagerBound = null;
+            var up = this.up;
+            var upoutside = this.upoutside;
+            var cancel = this.cancel;
+            var cleanup = function () {
+                isDowned = false;
+                if (interactionManagerBound) {
+                    interactionManagerBound.off(up, onUp);
+                    interactionManagerBound.off(upoutside, onCancel);
+                    interactionManagerBound.off(cancel, onCancel);
+                    interactionManagerBound = null;
+                }
+            };
+            target.on("click", function (e) {
+                if (isDowned) {
+                    cleanup();
+                }
+                onClick(e, false);
+            });
+            var onUp = function (e) {
+                if (isDowned) {
+                    cleanup();
+                    if (_this.contains(target, e.target)) {
+                        if (_this.isValidDistance(e, downX, downY)) {
+                            onClick(e, true);
+                        }
+                    }
+                }
+            };
+            var onCancel = function (e) {
+                if (isDowned) {
+                    cleanup();
+                }
+            };
+            target.on(this.down, function (e) {
+                if (isDowned) {
+                    var global_1 = e.data.global;
+                    downX = global_1.x;
+                    downY = global_1.y;
+                }
+                else {
+                    isDowned = true;
+                    var global_2 = e.data.global;
+                    downX = global_2.x;
+                    downY = global_2.y;
+                    if (interactionManagerBound) {
+                        interactionManagerBound.off(up, onUp);
+                        interactionManagerBound.off(upoutside, onCancel);
+                        interactionManagerBound.off(cancel, onCancel);
+                        interactionManagerBound = null;
+                    }
+                    var layer = DApplications.getLayer(target);
+                    if (layer) {
+                        interactionManagerBound = layer.renderer.plugins.interaction;
+                        interactionManagerBound.once(up, onUp);
+                        interactionManagerBound.once(upoutside, onCancel);
+                        interactionManagerBound.once(cancel, onCancel);
+                    }
+                }
+            });
+        };
+        UtilPointerEvent.onDblClick = function (target, onDblClick) {
+            var _this = this;
+            target.addEventListener("dblclick", function (e) { return onDblClick(e, false); });
+            if (this.touchable) {
+                var isDowned_1 = 0;
+                var downX_1 = 0;
+                var downY_1 = 0;
+                var clickTime_1 = 0;
+                target.addEventListener("touchstart", function (e) {
+                    if (isDowned_1 !== 0 && isDowned_1 !== 2) {
+                        isDowned_1 = 0;
+                        return;
+                    }
+                    var touches = e.touches;
+                    var touchesLength = touches.length;
+                    if (touchesLength <= 0) {
+                        isDowned_1 = 0;
+                        return;
+                    }
+                    var touch = touches.item(touchesLength - 1);
+                    if (touch == null) {
+                        isDowned_1 = 0;
+                        return;
+                    }
+                    isDowned_1 += 1;
+                    downX_1 = touch.clientX;
+                    downY_1 = touch.clientY;
+                });
+                target.addEventListener("touchend", function (e) {
+                    if (isDowned_1 !== 1 && isDowned_1 !== 3) {
+                        isDowned_1 = 0;
+                        return;
+                    }
+                    var touches = e.changedTouches;
+                    var touchesLength = touches.length;
+                    if (touchesLength <= 0) {
+                        isDowned_1 = 0;
+                        return;
+                    }
+                    var touch = touches[touchesLength - 1];
+                    if (touch == null) {
+                        isDowned_1 = 0;
+                        return;
+                    }
+                    var dx = downX_1 - touch.clientX;
+                    var dy = downY_1 - touch.clientY;
+                    if (_this.CLICK_DISTANCE_THRESHOLD <= Math.abs(dx) + Math.abs(dy)) {
+                        isDowned_1 = 0;
+                        return;
+                    }
+                    if (isDowned_1 === 1) {
+                        clickTime_1 = e.timeStamp;
+                        isDowned_1 = 2;
+                    }
+                    else {
+                        var elapsedTime = e.timeStamp - clickTime_1;
+                        if (elapsedTime < _this.DBLCLICK_INTERVAL_THRESHOLD) {
+                            isDowned_1 = 0;
+                            onDblClick(e, true);
+                        }
+                        else {
+                            clickTime_1 = e.timeStamp;
+                            isDowned_1 = 2;
+                        }
+                    }
+                });
+                target.addEventListener("touchcancel", function () {
+                    isDowned_1 = 0;
+                });
+            }
+        };
+        UtilPointerEvent.contains = function (target, targetOrChild) {
+            var current = targetOrChild;
+            while (current != null && current !== target) {
+                current = current.parent;
+            }
+            return current === target;
+        };
+        UtilPointerEvent.CLICK_DISTANCE_THRESHOLD = 10;
+        UtilPointerEvent.DBLCLICK_INTERVAL_THRESHOLD = 333;
+        UtilPointerEvent.LONG_CLICK_THRESHOLD = 750;
+        return UtilPointerEvent;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DBaseAuto = /** @class */ (function () {
         function DBaseAuto() {
             this._isOn = false;
@@ -12696,51 +12675,204 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DMouseModifier;
-    (function (DMouseModifier) {
-        DMouseModifier[DMouseModifier["NONE"] = 0] = "NONE";
-        DMouseModifier[DMouseModifier["CTRL"] = 1] = "CTRL";
-        DMouseModifier[DMouseModifier["SHIFT"] = 2] = "SHIFT";
-        DMouseModifier[DMouseModifier["ALT"] = 4] = "ALT";
-        DMouseModifier[DMouseModifier["AND"] = 8] = "AND";
-        DMouseModifier[DMouseModifier["OR"] = 16] = "OR";
-        DMouseModifier[DMouseModifier["NOT_NONE"] = 23] = "NOT_NONE";
-    })(DMouseModifier || (DMouseModifier = {}));
+    var UtilGestureModifier;
+    (function (UtilGestureModifier) {
+        UtilGestureModifier[UtilGestureModifier["NONE"] = 0] = "NONE";
+        UtilGestureModifier[UtilGestureModifier["CTRL"] = 1] = "CTRL";
+        UtilGestureModifier[UtilGestureModifier["SHIFT"] = 2] = "SHIFT";
+        UtilGestureModifier[UtilGestureModifier["ALT"] = 4] = "ALT";
+        UtilGestureModifier[UtilGestureModifier["AND"] = 8] = "AND";
+        UtilGestureModifier[UtilGestureModifier["OR"] = 16] = "OR";
+        UtilGestureModifier[UtilGestureModifier["NOT_NONE"] = 23] = "NOT_NONE";
+    })(UtilGestureModifier || (UtilGestureModifier = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DMouseModifiers = /** @class */ (function () {
-        function DMouseModifiers() {
+    var UtilGestureModifiers = /** @class */ (function () {
+        function UtilGestureModifiers() {
         }
-        DMouseModifiers.from = function (e) {
+        UtilGestureModifiers.from = function (e) {
             var oe = "data" in e ? e.data.originalEvent : e;
-            return ((oe.ctrlKey ? DMouseModifier.CTRL : DMouseModifier.NONE) |
-                (oe.altKey ? DMouseModifier.ALT : DMouseModifier.NONE) |
-                (oe.shiftKey ? DMouseModifier.SHIFT : DMouseModifier.NONE));
+            return ((oe.ctrlKey ? UtilGestureModifier.CTRL : UtilGestureModifier.NONE) |
+                (oe.altKey ? UtilGestureModifier.ALT : UtilGestureModifier.NONE) |
+                (oe.shiftKey ? UtilGestureModifier.SHIFT : UtilGestureModifier.NONE));
         };
-        DMouseModifiers.match = function (e, modifier) {
-            if (modifier & DMouseModifier.OR) {
-                return !!(DMouseModifiers.from(e) & modifier);
+        UtilGestureModifiers.match = function (e, modifier) {
+            if (modifier & UtilGestureModifier.OR) {
+                return !!(UtilGestureModifiers.from(e) & modifier);
             }
             else {
-                return DMouseModifiers.from(e) === modifier;
+                return UtilGestureModifiers.from(e) === modifier;
             }
         };
-        return DMouseModifiers;
+        return UtilGestureModifiers;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDragMode;
-    (function (DDragMode) {
-        DDragMode[DDragMode["OFF"] = 0] = "OFF";
-        DDragMode[DDragMode["ON"] = 1] = "ON";
-        DDragMode[DDragMode["TOUCH"] = 2] = "TOUCH";
-    })(DDragMode || (DDragMode = {}));
+    var UtilGestureMode;
+    (function (UtilGestureMode) {
+        UtilGestureMode[UtilGestureMode["OFF"] = 0] = "OFF";
+        UtilGestureMode[UtilGestureMode["ON"] = 1] = "ON";
+        UtilGestureMode[UtilGestureMode["TOUCH"] = 2] = "TOUCH";
+    })(UtilGestureMode || (UtilGestureMode = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilGestureData = /** @class */ (function () {
+        function UtilGestureData() {
+            this.pointers = new Map();
+            this.center = new pixi_js.Point();
+            this.scale = 0;
+            this.time = 0;
+        }
+        UtilGestureData.prototype.start = function (e) {
+            var oe = e.data.originalEvent;
+            if ("pointerId" in oe) {
+                this.pointers.set(oe.pointerId, oe);
+            }
+            this.doUpdate(e);
+        };
+        UtilGestureData.prototype.isUpdatable = function (e) {
+            var oe = e.data.originalEvent;
+            if ("pointerId" in oe) {
+                return this.pointers.has(oe.pointerId);
+            }
+            return true;
+        };
+        UtilGestureData.prototype.update = function (e) {
+            var oe = e.data.originalEvent;
+            if ("pointerId" in oe) {
+                this.pointers.set(oe.pointerId, oe);
+            }
+            this.doUpdate(e);
+        };
+        UtilGestureData.prototype.end = function (e) {
+            var result = true;
+            var oe = e.data.originalEvent;
+            if ("touches" in oe) {
+                result = oe.touches.length <= 0;
+            }
+            else if ("pointerId" in oe) {
+                var pointers = this.pointers;
+                pointers.delete(oe.pointerId);
+                result = pointers.size <= 0;
+            }
+            this.doUpdate(e);
+            return result;
+        };
+        UtilGestureData.prototype.bind = function (e) {
+            var interactionManager = this.interactionManager;
+            if (interactionManager) {
+                var onMove = this.onMove;
+                if (onMove) {
+                    interactionManager.on(UtilPointerEvent.move, onMove);
+                }
+                var onEnd = this.onEnd;
+                if (onEnd) {
+                    interactionManager.on(UtilPointerEvent.up, onEnd);
+                    interactionManager.on(UtilPointerEvent.upoutside, onEnd);
+                    interactionManager.on(UtilPointerEvent.cancel, onEnd);
+                }
+            }
+        };
+        UtilGestureData.prototype.unbind = function () {
+            var interactionManager = this.interactionManager;
+            if (interactionManager) {
+                var onMove = this.onMove;
+                if (onMove) {
+                    interactionManager.off(UtilPointerEvent.move, onMove);
+                }
+                var onEnd = this.onEnd;
+                if (onEnd) {
+                    interactionManager.off(UtilPointerEvent.up, onEnd);
+                    interactionManager.off(UtilPointerEvent.upoutside, onEnd);
+                    interactionManager.off(UtilPointerEvent.cancel, onEnd);
+                }
+            }
+        };
+        UtilGestureData.prototype.doUpdate = function (e) {
+            var interactionManager = this.interactionManager;
+            var center = this.center;
+            var oe = e.data.originalEvent;
+            this.scale = 0;
+            this.time = oe.timeStamp;
+            if ("touches" in oe) {
+                var touches = oe.touches;
+                var touchesLength = touches.length;
+                if (0 < touchesLength) {
+                    // Update the center
+                    var centerX = 0;
+                    var centerY = 0;
+                    for (var i = 0, imax = touches.length; i < imax; ++i) {
+                        var touch = touches[i];
+                        centerX += touch.clientX;
+                        centerY += touch.clientY;
+                    }
+                    centerX /= touchesLength;
+                    centerY /= touchesLength;
+                    if (interactionManager) {
+                        interactionManager.mapPositionToPoint(center, centerX, centerY);
+                    }
+                    else {
+                        center.set(centerX, centerY);
+                    }
+                    if (1 < touchesLength) {
+                        // Calculate the maximum distance from the center
+                        var squareDistance = 0;
+                        for (var i = 1, imax = touches.length; i < imax; ++i) {
+                            var touch = touches[i];
+                            var dx = touch.clientX - centerX;
+                            var dy = touch.clientY - centerY;
+                            squareDistance = Math.max(squareDistance, dx * dx + dy * dy);
+                        }
+                        this.scale = Math.sqrt(squareDistance);
+                    }
+                }
+            }
+            else if ("pointerId" in oe) {
+                var pointers = this.pointers;
+                var pointersSize = pointers.size;
+                if (0 < pointersSize) {
+                    // Update the center
+                    var centerX_1 = 0;
+                    var centerY_1 = 0;
+                    pointers.forEach(function (pointer) {
+                        centerX_1 += pointer.clientX;
+                        centerY_1 += pointer.clientY;
+                    });
+                    centerX_1 /= pointersSize;
+                    centerY_1 /= pointersSize;
+                    if (interactionManager) {
+                        interactionManager.mapPositionToPoint(center, centerX_1, centerY_1);
+                    }
+                    else {
+                        center.set(centerX_1, centerY_1);
+                    }
+                    if (1 < pointersSize) {
+                        // Calculate the maximum distance from the center
+                        var squareDistance_1 = 0;
+                        pointers.forEach(function (pointer) {
+                            var dx = pointer.clientX - centerX_1;
+                            var dy = pointer.clientY - centerY_1;
+                            squareDistance_1 = Math.max(squareDistance_1, dx * dx + dy * dy);
+                        });
+                        this.scale = Math.sqrt(squareDistance_1);
+                    }
+                }
+            }
+            else {
+                center.copyFrom(e.data.global);
+            }
+        };
+        return UtilGestureData;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -12910,28 +13042,28 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilDragEasingHistory = /** @class */ (function () {
-        function UtilDragEasingHistory(dx, dy, ds, dt) {
+    var UtilGestureEasingHistory = /** @class */ (function () {
+        function UtilGestureEasingHistory(dx, dy, ds, dt) {
             this.dx = dx;
             this.dy = dy;
             this.ds = ds;
             this.dt = dt;
         }
-        UtilDragEasingHistory.prototype.set = function (dx, dy, ds, dt) {
+        UtilGestureEasingHistory.prototype.set = function (dx, dy, ds, dt) {
             this.dx = dx;
             this.dy = dy;
             this.ds = ds;
             this.dt = dt;
         };
-        return UtilDragEasingHistory;
+        return UtilGestureEasingHistory;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilDragEasing = /** @class */ (function () {
-        function UtilDragEasing(onMove, options) {
+    var UtilGestureEasing = /** @class */ (function () {
+        function UtilGestureEasing(onMove, onEnd, options) {
             var _this = this;
             this._histories = [];
             this._historiesSorted = [];
@@ -12940,10 +13072,12 @@
             this._dx = 0;
             this._dy = 0;
             this._ds = 0;
-            this._dt = 0;
             this._animation = new DAnimationBase({
                 onTime: function (t) {
                     _this.onEase(t);
+                },
+                onEnd: function () {
+                    _this.onEaseEnd();
                 },
                 timing: DAnimationTimings.LINEAR,
                 duration: 1000
@@ -12964,20 +13098,21 @@
                 this._durationScale = 1;
             }
             this._onMove = onMove;
+            this._onEnd = onEnd;
         }
-        UtilDragEasing.prototype.onStart = function () {
+        UtilGestureEasing.prototype.onStart = function () {
             // History
             var histories = this._histories;
-            for (var i = histories.length, imax = UtilDragEasing.HISTORY_CAPACITY; i < imax; ++i) {
-                histories.push(new UtilDragEasingHistory(0, 0, 1, 0));
+            for (var i = histories.length, imax = UtilGestureEasing.HISTORY_CAPACITY; i < imax; ++i) {
+                histories.push(new UtilGestureEasingHistory(0, 0, 1, 0));
             }
             this._historyBegin = 0;
             this._historyEnd = -1;
             // Stop animation
             this._animation.stop();
         };
-        UtilDragEasing.prototype.onMove = function (dx, dy, ds, dt) {
-            var capacity = UtilDragEasing.HISTORY_CAPACITY;
+        UtilGestureEasing.prototype.onMove = function (dx, dy, ds, dt) {
+            var capacity = UtilGestureEasing.HISTORY_CAPACITY;
             var oldHistoryEnd = this._historyEnd;
             var newHistoryEnd = (oldHistoryEnd + 1) % capacity;
             this._historyEnd = newHistoryEnd;
@@ -12988,7 +13123,7 @@
             }
             this._histories[newHistoryEnd].set(dx, dy, ds, dt);
         };
-        UtilDragEasing.prototype.updateHistoriesSorted = function (dt) {
+        UtilGestureEasing.prototype.updateHistoriesSorted = function (dt) {
             var unsorted = this._histories;
             var sorted = this._historiesSorted;
             var begin = this._historyBegin;
@@ -13040,31 +13175,27 @@
                 return total;
             }
         };
-        UtilDragEasing.prototype.onEnd = function (ldt) {
-            var adt = this.updateHistoriesSorted(ldt);
+        UtilGestureEasing.prototype.onEnd = function (ldt) {
+            this.updateHistoriesSorted(ldt);
             var sorted = this._historiesSorted;
             var sortedLength = sorted.length;
             if (0 < sortedLength) {
                 var dx = 0;
                 var dy = 0;
                 var ds = 0;
-                var dt = 0;
                 for (var i = 0; i < sortedLength; ++i) {
                     var history_4 = sorted[i];
                     dx += history_4.dx;
                     dy += history_4.dy;
                     ds += history_4.ds;
-                    dt += history_4.dt;
                 }
-                var w = (1 - ldt / adt) / sortedLength;
+                var w = 1 / sortedLength;
                 dx *= w;
                 dy *= w;
-                ds = 1 + (ds - sortedLength) * w;
-                dt *= w;
+                ds *= w;
                 this._dx = dx;
                 this._dy = dy;
                 this._ds = ds;
-                this._dt = dt;
                 // Start animation
                 var d0 = this._durationPosition * 40 * Math.sqrt(dx * dx + dy * dy);
                 var d1 = this._durationScale * 10000 * Math.abs(ds - 1);
@@ -13072,317 +13203,336 @@
                 animation.duration = Math.max(d0, d1);
                 animation.start();
             }
+            else {
+                this.onEaseEnd();
+            }
         };
-        UtilDragEasing.prototype.onEase = function (time) {
+        UtilGestureEasing.prototype.onEase = function (time) {
             var w = 1 - time;
             this._onMove(this._dx * w, this._dy * w, 1 + (this._ds - 1) * w, time);
         };
-        UtilDragEasing.prototype.stop = function () {
+        UtilGestureEasing.prototype.onEaseEnd = function () {
+            this._onEnd();
+        };
+        UtilGestureEasing.prototype.stop = function () {
             this._animation.stop();
         };
-        UtilDragEasing.HISTORY_CAPACITY = 5;
-        return UtilDragEasing;
+        UtilGestureEasing.HISTORY_CAPACITY = 5;
+        return UtilGestureEasing;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toEasingOptions = function (options) {
-        return options == null || options === true ? undefined : options;
-    };
-    var toChecker = function (options) {
-        var _a, _b;
-        var checker = options.checker;
-        var defaultChecker = DMouseModifiers.match;
-        return {
-            start: (_a = checker === null || checker === void 0 ? void 0 : checker.start) !== null && _a !== void 0 ? _a : defaultChecker,
-            move: (_b = checker === null || checker === void 0 ? void 0 : checker.move) !== null && _b !== void 0 ? _b : defaultChecker
-        };
-    };
-    var UtilDrag = /** @class */ (function () {
-        function UtilDrag(options) {
-            var _this = this;
-            var _a;
-            var target = options.target;
-            this._target = target;
+    var UtilGesture = /** @class */ (function () {
+        function UtilGesture(options) {
+            var _a, _b, _c;
             var on = options.on;
             if (on) {
                 this._onStart = on.start;
                 this._onMove = on.move;
                 this._onEnd = on.end;
             }
-            this._modifier = (_a = options === null || options === void 0 ? void 0 : options.modifier) !== null && _a !== void 0 ? _a : DMouseModifier.NONE;
-            this._checker = toChecker(options);
-            this._interactionManager = null;
-            this._center = new pixi_js.Point();
-            this._scale = 1;
-            this._scalingCenter = new pixi_js.Point();
-            this._time = 0;
-            var easing = options.easing;
-            if (easing == null || easing !== false) {
-                var onEasingMoveBound = function (dx, dy, ds, time) {
-                    _this.onEasingMove(dx, dy, ds, time);
-                };
-                this._easing = new UtilDragEasing(onEasingMoveBound, toEasingOptions(easing));
-            }
-            this._onDownBound = function (e) {
-                _this.onDown(e);
-            };
-            this._onMoveBound = function (e) {
-                _this.onMove(e);
-            };
-            this._onEndBound = function (e) {
-                _this.onEnd(e);
-            };
-            if (options.touch) {
-                this._down = "touchstart";
-                this._move = "touchmove";
-                this._up = "touchend";
-            }
-            else {
-                this._down = UtilPointerEvent.down;
-                this._move = UtilPointerEvent.move;
-                this._up = UtilPointerEvent.up;
-            }
-            if (options.bind !== false) {
-                target.on(this._down, this._onDownBound);
+            this._modifier = (_a = options === null || options === void 0 ? void 0 : options.modifier) !== null && _a !== void 0 ? _a : UtilGestureModifier.NONE;
+            var checker = options.checker;
+            var defaultChecker = UtilGestureModifiers.match;
+            this._checkerStart = (_b = checker === null || checker === void 0 ? void 0 : checker.start) !== null && _b !== void 0 ? _b : defaultChecker;
+            this._checkerMove = (_c = checker === null || checker === void 0 ? void 0 : checker.move) !== null && _c !== void 0 ? _c : defaultChecker;
+            this._easing = options.easing;
+            this._touch = !!options.touch;
+            this._unused = [];
+            this._used = new Map();
+            var bind = options.bind;
+            if (bind != null) {
+                this.bind(bind);
             }
         }
-        UtilDrag.prototype.calcCenterAndScale = function (e, center, interactionManager) {
+        UtilGesture.prototype.newData = function (target) {
+            var used = this._used;
+            var result = used.get(target);
+            if (result != null) {
+                return result;
+            }
+            var poped = this._unused.pop();
+            if (poped != null) {
+                used.set(target, poped);
+                return poped;
+            }
+            var created = new UtilGestureData();
+            created.easing = this.newEasing(created);
+            created.onMove = this.newOnMove(created);
+            created.onEnd = this.newOnEnd(created);
+            used.set(target, created);
+            return created;
+        };
+        UtilGesture.prototype.newEasing = function (data) {
+            var _this = this;
+            var easing = this._easing;
+            if (easing == null || easing !== false) {
+                var onEasingMoveBound = function (dx, dy, ds, time) {
+                    _this.onEasingMove(dx, dy, ds, time, data);
+                };
+                var onEasingEndBound = function () {
+                    _this.onEasingEnd(data);
+                };
+                return new UtilGestureEasing(onEasingMoveBound, onEasingEndBound, this.toEasingOptions(easing));
+            }
+            return undefined;
+        };
+        UtilGesture.prototype.toEasingOptions = function (options) {
+            return options == null || options === true ? undefined : options;
+        };
+        UtilGesture.prototype.deleteData = function (data) {
+            var target = data.target;
+            if (target) {
+                if (this._used.delete(target)) {
+                    data.target = undefined;
+                    data.pointers.clear();
+                    this._unused.push(data);
+                }
+            }
+        };
+        UtilGesture.prototype.bind = function (target) {
+            var _this = this;
+            target.on(UtilPointerEvent.down, function (e) {
+                _this.onDown(target, e);
+            });
+            return this;
+        };
+        UtilGesture.prototype.isTouch = function (e) {
             var oe = e.data.originalEvent;
-            var global = e.data.global;
             if ("touches" in oe) {
-                var touches = oe.touches;
-                var touchesLength = touches.length;
-                if (0 < touchesLength) {
-                    // Update the center
-                    var first = touches[0];
-                    var centerX = first.clientX;
-                    var centerY = first.clientY;
-                    for (var i = 1, imax = touches.length; i < imax; ++i) {
-                        var touch = touches[i];
-                        centerX += touch.clientX;
-                        centerY += touch.clientY;
-                    }
-                    centerX /= touchesLength;
-                    centerY /= touchesLength;
-                    interactionManager.mapPositionToPoint(center, centerX, centerY);
-                    if (1 < touchesLength) {
-                        // Calculate the maximum distance from the center
-                        var squareDistance = 0;
-                        for (var i = 1, imax = touches.length; i < imax; ++i) {
-                            var touch = touches[i];
-                            var dx = touch.clientX - centerX;
-                            var dy = touch.clientY - centerY;
-                            squareDistance = Math.max(squareDistance, dx * dx + dy * dy);
-                        }
-                        return Math.sqrt(squareDistance);
-                    }
-                    else {
-                        return 0;
-                    }
-                }
+                return true;
             }
-            center.copyFrom(global);
-            return 0;
-        };
-        UtilDrag.prototype.onDown = function (e) {
-            var target = this._target;
-            if (this._checker.start(e, this._modifier, target)) {
-                var layer = DApplications.getLayer(target);
-                if (layer) {
-                    e.stopPropagation();
-                    if (target.state.isDragging) {
-                        var interactionManager = this._interactionManager;
-                        if (interactionManager) {
-                            var center = this._center;
-                            this._scale = this.calcCenterAndScale(e, center, interactionManager);
-                        }
-                    }
-                    else {
-                        target.state.isDragging = true;
-                        // Interaction manager
-                        var interactionManager = layer.renderer.plugins.interaction;
-                        this._interactionManager = interactionManager;
-                        // Update the center
-                        var center = this._center;
-                        this._scale = this.calcCenterAndScale(e, center, interactionManager);
-                        //
-                        this._time = e.data.originalEvent.timeStamp;
-                        // Easing util
-                        var easing = this._easing;
-                        if (easing) {
-                            easing.onStart();
-                        }
-                        // User-defined handler
-                        var onStart = this._onStart;
-                        if (onStart != null) {
-                            onStart();
-                        }
-                        // Event handler
-                        interactionManager.on(this._move, this._onMoveBound);
-                        interactionManager.on(this._up, this._onEndBound);
-                    }
-                }
+            else if ("pointerId" in oe) {
+                return oe.pointerType !== "mouse";
+            }
+            else {
+                return false;
             }
         };
-        UtilDrag.prototype.onMove = function (e) {
-            var target = this._target;
-            if (target.state.isDragging && this._checker.move(e, this._modifier, target)) {
-                var interactionManager = this._interactionManager;
-                if (interactionManager) {
-                    // Update the center
-                    var center = this._center;
-                    var centerX = center.x;
-                    var centerY = center.y;
-                    var newScale = this.calcCenterAndScale(e, center, interactionManager);
-                    var oldScale = this._scale;
-                    this._scale = newScale;
-                    var oldTime = this._time;
-                    var newTime = e.data.originalEvent.timeStamp;
-                    this._time = newTime;
-                    // Calculate the position
-                    var dx = center.x - centerX;
-                    var dy = center.y - centerY;
-                    var dt = newTime - oldTime;
-                    var ds = UtilDrag.EPSILON < oldScale ? newScale / oldScale : 1;
-                    // Easing util
-                    var easing = this._easing;
-                    if (easing) {
-                        easing.onMove(dx, dy, ds, dt);
-                    }
-                    // User-defined handler
-                    var onMove = this._onMove;
-                    if (onMove != null) {
-                        if (dx !== 0 || dy !== 0 || ds !== 1) {
-                            onMove(dx, dy, center.x, center.y, ds);
-                        }
-                    }
+        UtilGesture.prototype.onDown = function (target, e) {
+            var _a;
+            if (this._touch && !this.isTouch(e)) {
+                return;
+            }
+            if (!this._checkerStart(e, this._modifier, target)) {
+                return;
+            }
+            var layer = DApplications.getLayer(target);
+            if (layer == null) {
+                return;
+            }
+            e.stopPropagation();
+            if (target.state.isGesturing) {
+                (_a = this._used.get(target)) === null || _a === void 0 ? void 0 : _a.start(e);
+            }
+            else {
+                // User-defined handler
+                var onStart = this._onStart;
+                if (onStart != null) {
+                    onStart(target);
                 }
+                var data = this.newData(target);
+                data.target = target;
+                target.state.isGesturing = true;
+                // Interaction manager
+                var interactionManager = layer.renderer.plugins.interaction;
+                data.interactionManager = interactionManager;
+                // Update the center
+                data.start(e);
+                // Easing util
+                var easing = data.easing;
+                if (easing) {
+                    easing.onStart();
+                }
+                // Event handler
+                data.bind(e);
             }
         };
-        UtilDrag.prototype.onEnd = function (e) {
-            var target = this._target;
-            if (target.state.isDragging) {
-                var interactionManager = this._interactionManager;
-                if (interactionManager) {
-                    // Update the center
-                    var center = this._center;
-                    this._scalingCenter.copyFrom(center);
-                    this._scale = this.calcCenterAndScale(e, center, interactionManager);
-                    // Finalize
-                    var oe = e.data.originalEvent;
-                    if ("touches" in oe ? oe.touches.length <= 0 : true) {
-                        target.state.isDragging = false;
-                        // Event handler
-                        this._interactionManager = null;
-                        interactionManager.off(this._move, this._onMoveBound);
-                        interactionManager.off(this._up, this._onEndBound);
-                        // User-defined handler
-                        var onEnd = this._onEnd;
-                        if (onEnd != null) {
-                            onEnd();
-                        }
-                        // Easing util
-                        var easing = this._easing;
-                        if (easing) {
-                            easing.onEnd(e.data.originalEvent.timeStamp - this._time);
-                        }
-                    }
-                }
-            }
+        UtilGesture.prototype.newOnMove = function (data) {
+            var _this = this;
+            return function (e) {
+                _this.onMove(e, data);
+            };
         };
-        UtilDrag.prototype.onEasingMove = function (dx, dy, ds, time) {
+        UtilGesture.prototype.newOnEnd = function (data) {
+            var _this = this;
+            return function (e) {
+                _this.onEnd(e, data);
+            };
+        };
+        UtilGesture.prototype.onMove = function (e, data) {
+            var target = data.target;
+            if (target == null || !target.state.isGesturing) {
+                return;
+            }
+            if (!data.isUpdatable(e) || !this._checkerMove(e, this._modifier, target)) {
+                return;
+            }
+            // Update the center
+            var center = data.center;
+            var oldCenterX = center.x;
+            var oldCenterY = center.y;
+            var oldScale = data.scale;
+            var oldTime = data.time;
+            data.update(e);
+            var newCenterX = center.x;
+            var newCenterY = center.y;
+            var newScale = data.scale;
+            var newTime = data.time;
+            // Calculate the position
+            var dx = newCenterX - oldCenterX;
+            var dy = newCenterY - oldCenterY;
+            var dt = newTime - oldTime;
+            var epsilon = 0.00001;
+            var ds = epsilon < oldScale && epsilon < newScale ? newScale / oldScale : 1;
+            // Easing
+            var easing = data.easing;
+            if (easing) {
+                easing.onMove(dx, dy, ds, dt);
+            }
+            // Call the user-defined handler
             var onMove = this._onMove;
             if (onMove != null) {
                 if (dx !== 0 || dy !== 0 || ds !== 1) {
-                    var scalingCenter = this._scalingCenter;
-                    scalingCenter.set(scalingCenter.x + dx, scalingCenter.y + dy);
-                    onMove(dx, dy, scalingCenter.x, scalingCenter.y, ds);
+                    onMove(target, dx, dy, newCenterX, newCenterY, ds);
                 }
             }
         };
-        UtilDrag.prototype.stop = function () {
-            var easing = this._easing;
+        UtilGesture.prototype.onEnd = function (e, data) {
+            var target = data.target;
+            if (target == null || !target.state.isGesturing) {
+                return;
+            }
+            if (!data.end(e)) {
+                return;
+            }
+            // State
+            target.state.isGesturing = false;
+            // Remove event handlers
+            var interactionManager = data.interactionManager;
+            data.interactionManager = undefined;
+            if (interactionManager) {
+                var onMoveBound = data.onMove;
+                if (onMoveBound) {
+                    interactionManager.off(UtilPointerEvent.move, onMoveBound);
+                }
+                var onEndBound = data.onEnd;
+                if (onEndBound) {
+                    interactionManager.off(UtilPointerEvent.up, onEndBound);
+                    interactionManager.off(UtilPointerEvent.cancel, onEndBound);
+                }
+            }
+            // Call the user-defined handler
+            var onEnd = this._onEnd;
+            if (onEnd != null) {
+                onEnd(target);
+            }
+            // Start the Easing
+            var easing = data.easing;
             if (easing) {
-                easing.stop();
+                easing.onEnd(e.data.originalEvent.timeStamp - data.time);
+            }
+            else {
+                this.deleteData(data);
             }
         };
-        UtilDrag.EPSILON = 0.00001;
-        return UtilDrag;
+        UtilGesture.prototype.onEasingMove = function (dx, dy, ds, time, data) {
+            var target = data.target;
+            if (target == null) {
+                return;
+            }
+            var onMove = this._onMove;
+            if (onMove == null) {
+                return;
+            }
+            if (dx === 0 && dy === 0 && ds === 1) {
+                return;
+            }
+            var center = data.center;
+            var x = center.x + dx;
+            var y = center.y + dy;
+            center.set(x, y);
+            onMove(data.target, dx, dy, x, y, ds);
+        };
+        UtilGesture.prototype.onEasingEnd = function (data) {
+            this.deleteData(data);
+        };
+        UtilGesture.prototype.stop = function (target) {
+            var _a;
+            var data = this._used.get(target);
+            if (data == null) {
+                return;
+            }
+            (_a = data.easing) === null || _a === void 0 ? void 0 : _a.stop();
+            this.deleteData(data);
+        };
+        return UtilGesture;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DViewDragImpl = /** @class */ (function () {
-        function DViewDragImpl(parent, toTarget, stopper, theme, options) {
+    var DViewGestureImpl = /** @class */ (function () {
+        function DViewGestureImpl(parent, toTarget, stopper, theme, options) {
             var _this = this;
             var _a, _b, _c;
             this._parent = parent;
-            this._toTarget = toTarget;
             this._stopper = stopper;
-            var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getDragMode(), DDragMode);
-            var modifier = toEnum((_b = options === null || options === void 0 ? void 0 : options.modifier) !== null && _b !== void 0 ? _b : theme.getDragModifier(), DMouseModifier);
+            var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getGestureMode(), UtilGestureMode);
+            var modifier = toEnum((_b = options === null || options === void 0 ? void 0 : options.modifier) !== null && _b !== void 0 ? _b : theme.getGestureModifier(), UtilGestureModifier);
             var duration = (_c = options === null || options === void 0 ? void 0 : options.duration) !== null && _c !== void 0 ? _c : {
-                position: theme.getDragDurationPosition(),
-                scale: theme.getDragDurationScale()
+                position: theme.getGestureDurationPosition(),
+                scale: theme.getGestureDurationScale()
             };
-            var bind = mode === DDragMode.TOUCH;
-            this._bind = bind;
-            if (mode === DDragMode.ON || mode === DDragMode.TOUCH) {
-                this._dragUtil = new UtilDrag({
-                    target: parent,
-                    touch: bind,
+            if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
+                this._gestureUtil = new UtilGesture({
+                    touch: mode === UtilGestureMode.TOUCH,
                     modifier: modifier,
                     checker: options && options.checker,
                     easing: {
                         duration: duration
                     },
-                    bind: bind,
                     on: {
                         start: function () {
                             _this._stopper.stop();
                         },
-                        move: function (dx, dy, x, y, ds) {
-                            var target = toTarget(parent);
-                            if (target != null) {
-                                // Scale
-                                var oldScale = target.scale.y;
-                                var newScale = stopper.toNormalizedScale(oldScale * ds);
-                                var scaleRatio = newScale / oldScale;
-                                // Position
-                                var cx = x - dx;
-                                var cy = y - dy;
-                                var position = target.position;
-                                var newX = (position.x - cx) * scaleRatio + x;
-                                var newY = (position.y - cy) * scaleRatio + y;
-                                // Update
-                                target.scale.set(newScale, newScale);
-                                target.position.set(newX, newY);
-                            }
+                        move: function (target, dx, dy, x, y, ds) {
+                            _this.onGestureMove(toTarget(parent), dx, dy, x, y, ds);
                         }
                     }
                 });
             }
         }
-        DViewDragImpl.prototype.stop = function () {
-            var dragUtil = this._dragUtil;
-            if (dragUtil != null) {
-                dragUtil.stop();
+        DViewGestureImpl.prototype.onGestureMove = function (target, dx, dy, x, y, ds) {
+            if (target) {
+                // Scale
+                var oldScale = target.scale.y;
+                var newScale = this._stopper.toNormalizedScale(oldScale * ds);
+                var scaleRatio = newScale / oldScale;
+                // Position
+                var cx = x - dx;
+                var cy = y - dy;
+                var position = target.position;
+                var newX = (position.x - cx) * scaleRatio + x;
+                var newY = (position.y - cy) * scaleRatio + y;
+                // Update
+                target.scale.set(newScale, newScale);
+                target.position.set(newX, newY);
             }
         };
-        DViewDragImpl.prototype.onDown = function (e) {
-            if (!this._bind) {
-                var dragUtil = this._dragUtil;
-                if (dragUtil) {
-                    dragUtil.onDown(e);
-                }
-            }
+        DViewGestureImpl.prototype.stop = function () {
+            var _a;
+            (_a = this._gestureUtil) === null || _a === void 0 ? void 0 : _a.stop(this._parent);
         };
-        return DViewDragImpl;
+        DViewGestureImpl.prototype.onDown = function (e) {
+            var _a;
+            (_a = this._gestureUtil) === null || _a === void 0 ? void 0 : _a.onDown(this._parent, e);
+        };
+        return DViewGestureImpl;
     }());
 
     /*
@@ -13478,36 +13628,36 @@
             var wheelZoom = zoom === null || zoom === void 0 ? void 0 : zoom.wheel;
             this._isWheelZoomEnabled = (_d = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.enable) !== null && _d !== void 0 ? _d : theme.isWheelZoomEnabled();
             this._wheelZoomSpeed = (_e = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.speed) !== null && _e !== void 0 ? _e : theme.getWheelZoomSpeed();
-            this._wheelZoomModifier = toEnum((_f = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.modifier) !== null && _f !== void 0 ? _f : theme.getWheelZoomModifier(), DMouseModifier);
-            this._wheelZoomChecker = (_g = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.checker) !== null && _g !== void 0 ? _g : DMouseModifiers.match;
+            this._wheelZoomModifier = toEnum((_f = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.modifier) !== null && _f !== void 0 ? _f : theme.getWheelZoomModifier(), UtilGestureModifier);
+            this._wheelZoomChecker = (_g = wheelZoom === null || wheelZoom === void 0 ? void 0 : wheelZoom.checker) !== null && _g !== void 0 ? _g : UtilGestureModifiers.match;
             // Zoom: Dbl click
             var dblClickZoom = zoom === null || zoom === void 0 ? void 0 : zoom.dblclick;
             this._isDblClickZoomEnabled = (_h = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.enable) !== null && _h !== void 0 ? _h : theme.isDblClickZoomEnabled();
             this._dblClickZoomSpeed = (_j = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.amount) !== null && _j !== void 0 ? _j : theme.getDblClickZoomSpeed();
-            this._dblClickZoomModifier = toEnum((_k = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.modifier) !== null && _k !== void 0 ? _k : theme.getDblClickZoomModifier(), DMouseModifier);
-            this._dblClickZoomChecker = (_l = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.checker) !== null && _l !== void 0 ? _l : DMouseModifiers.match;
+            this._dblClickZoomModifier = toEnum((_k = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.modifier) !== null && _k !== void 0 ? _k : theme.getDblClickZoomModifier(), UtilGestureModifier);
+            this._dblClickZoomChecker = (_l = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.checker) !== null && _l !== void 0 ? _l : UtilGestureModifiers.match;
             this._dblclickZoomDuration = (_m = dblClickZoom === null || dblClickZoom === void 0 ? void 0 : dblClickZoom.duration) !== null && _m !== void 0 ? _m : theme.getDblClickZoomDuration();
             // Translation: Wheel
             var wheelTranslation = (_o = options === null || options === void 0 ? void 0 : options.translation) === null || _o === void 0 ? void 0 : _o.wheel;
             this._isWheelTranslationEnabled =
                 (_p = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.enable) !== null && _p !== void 0 ? _p : theme.isWheelTranslationEnabled();
             this._wheelTranslationSpeed = (_q = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.speed) !== null && _q !== void 0 ? _q : theme.getWheelTranslationSpeed();
-            this._wheelTranslationModifier = toEnum((_r = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.modifier) !== null && _r !== void 0 ? _r : theme.getWheelTranslationModifier(), DMouseModifier);
-            this._wheelTranslationChecker = (_s = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.checker) !== null && _s !== void 0 ? _s : DMouseModifiers.match;
-            // Drag
-            this._drag = new DViewDragImpl(parent, toTarget, this, theme, options === null || options === void 0 ? void 0 : options.drag);
+            this._wheelTranslationModifier = toEnum((_r = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.modifier) !== null && _r !== void 0 ? _r : theme.getWheelTranslationModifier(), UtilGestureModifier);
+            this._wheelTranslationChecker = (_s = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.checker) !== null && _s !== void 0 ? _s : UtilGestureModifiers.match;
+            // Gesture
+            this._gesture = new DViewGestureImpl(parent, toTarget, this, theme, options === null || options === void 0 ? void 0 : options.gesture);
             // Transform
             this._transform = new DViewTransformImpl(parent, toTarget, this, this._dblclickZoomDuration);
         }
-        Object.defineProperty(DViewImpl.prototype, "drag", {
+        Object.defineProperty(DViewImpl.prototype, "gesture", {
             get: function () {
-                return this._drag;
+                return this._gesture;
             },
             enumerable: false,
             configurable: true
         });
         DViewImpl.prototype.stop = function () {
-            this._drag.stop();
+            this._gesture.stop();
             this._transform.stop();
         };
         DViewImpl.prototype.reset = function (duration, stop) {
@@ -13678,7 +13828,7 @@
             return false;
         };
         DViewImpl.prototype.onDown = function (e) {
-            this._drag.onDown(e);
+            this._gesture.onDown(e);
         };
         DViewImpl.prototype.onDblClick = function (e, interactionManager) {
             if (this._isDblClickZoomEnabled &&
@@ -13806,13 +13956,20 @@
             var sresult = _super.prototype.onWheel.call(this, e, deltas, global);
             return vresult || sresult;
         };
-        DCanvasContainer.prototype.onDblClick = function (e, interactionManager) {
-            var vresult = this._view.onDblClick(e, interactionManager);
-            var sresult = _super.prototype.onDblClick.call(this, e, interactionManager);
-            return vresult || sresult;
+        DCanvasContainer.prototype.onDblClick = function (e, interactionManager, skipView) {
+            if (skipView !== true) {
+                var vresult = this._view.onDblClick(e, interactionManager);
+                var sresult = _super.prototype.onDblClick.call(this, e, interactionManager);
+                return vresult || sresult;
+            }
+            else {
+                return _super.prototype.onDblClick.call(this, e, interactionManager);
+            }
         };
-        DCanvasContainer.prototype.onDown = function (e) {
-            this._view.onDown(e);
+        DCanvasContainer.prototype.onDown = function (e, skipView) {
+            if (skipView !== true) {
+                this._view.onDown(e);
+            }
             _super.prototype.onDown.call(this, e);
         };
         DCanvasContainer.prototype.destroy = function () {
@@ -14097,7 +14254,7 @@
             enumerable: false,
             configurable: true
         });
-        UtilHtmlElement.prototype.onDownThisBefore = function (e) {
+        UtilHtmlElement.prototype.onDowning = function (e) {
             this._wasStarted = this._isStarted;
             switch (this.when) {
                 case UtilHtmlElementWhen.CLICKED:
@@ -14110,7 +14267,7 @@
                     break;
             }
         };
-        UtilHtmlElement.prototype.onDownThisAfter = function (e) {
+        UtilHtmlElement.prototype.onDown = function (e) {
             if (!this._wasStarted && this._isStarted) {
                 if ("data" in e) {
                     e.data.originalEvent.preventDefault();
@@ -14618,11 +14775,11 @@
         EShapeActionRuntimeMiscHtmlElementBase.prototype.onBlur = function (shape, runtime) {
             this.getUtil(shape, runtime).onBlur();
         };
-        EShapeActionRuntimeMiscHtmlElementBase.prototype.onDownThisBefore = function (shape, runtime, e) {
-            this.getUtil(shape, runtime).onDownThisBefore(e);
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onDowning = function (shape, runtime, e) {
+            this.getUtil(shape, runtime).onDowning(e);
         };
-        EShapeActionRuntimeMiscHtmlElementBase.prototype.onDownThisAfter = function (shape, runtime, e) {
-            this.getUtil(shape, runtime).onDownThisAfter(e);
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.onDown = function (shape, runtime, e) {
+            this.getUtil(shape, runtime).onDown(e);
         };
         EShapeActionRuntimeMiscHtmlElementBase.prototype.onDblClick = function (shape, runtime, e, interactionManager) {
             this.getUtil(shape, runtime).onDblClick(e, interactionManager);
@@ -14645,6 +14802,9 @@
         EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_REMOTE"] = 6] = "WRITE_REMOTE";
         EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT"] = 7] = "HTML_ELEMENT";
         EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT_WITHOUT_POINTER_EVENTS"] = 8] = "HTML_ELEMENT_WITHOUT_POINTER_EVENTS";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["LAYER_SHOW_HIDE"] = 9] = "LAYER_SHOW_HIDE";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["LAYER_GESTURE"] = 10] = "LAYER_GESTURE";
+        EShapeActionValueMiscType[EShapeActionValueMiscType["GESTURE"] = 11] = "GESTURE";
     })(EShapeActionValueMiscType || (EShapeActionValueMiscType = {}));
 
     /*
@@ -15217,6 +15377,2142 @@
             return new EShapeActionValueMisc(serialized[2], condition, target, serialized[4], value);
         };
         return EShapeActionValueMisc;
+    }(EShapeActionValueSubtyped));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscGestureType;
+    (function (EShapeActionValueMiscGestureType) {
+        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["NONE"] = 0] = "NONE";
+        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["DRAG"] = 1] = "DRAG";
+        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["PINCH"] = 2] = "PINCH";
+        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["ALL"] = 3] = "ALL";
+    })(EShapeActionValueMiscGestureType || (EShapeActionValueMiscGestureType = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var InteractionEvent = pixi_js.interaction.InteractionEvent;
+    var EShapeActionRuntimeMiscGesture = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscGesture, _super);
+        function EShapeActionRuntimeMiscGesture(value) {
+            var _this = _super.call(this, value, EShapeRuntimeReset.NONE) || this;
+            _this._gestureType = value.gestureType;
+            _this._scaleMin = value.scaleMin;
+            _this._scaleMax = value.scaleMax;
+            return _this;
+        }
+        EShapeActionRuntimeMiscGesture.prototype.onDown = function (shape, runtime, e) {
+            _super.prototype.onDown.call(this, shape, runtime, e);
+            if (e instanceof InteractionEvent) {
+                if (this.condition(shape, e.data.originalEvent.timeStamp)) {
+                    this.getGestureUtil().onDown(shape, e);
+                }
+            }
+        };
+        EShapeActionRuntimeMiscGesture.prototype.getGestureUtil = function () {
+            var _a;
+            return ((_a = EShapeActionRuntimeMiscGesture.GESTURE_UTIL) !== null && _a !== void 0 ? _a : (EShapeActionRuntimeMiscGesture.GESTURE_UTIL = this.newGestureUtil()));
+        };
+        EShapeActionRuntimeMiscGesture.prototype.newGestureUtil = function () {
+            var _this = this;
+            var work = new pixi_js.Point();
+            return new UtilGesture({
+                on: {
+                    move: function (target, dx, dy, x, y, ds) {
+                        _this.onGestureMove(target, dx, dy, x, y, ds, work);
+                    }
+                }
+            });
+        };
+        EShapeActionRuntimeMiscGesture.prototype.onGestureMove = function (target, dx, dy, x, y, ds, work) {
+            var parent = target.parent;
+            if (parent) {
+                var transform = target.transform;
+                var gestureType = this._gestureType;
+                var isChanged = false;
+                // Scale
+                var scaleRatio = 1;
+                if (gestureType & EShapeActionValueMiscGestureType.PINCH) {
+                    var scale = transform.scale;
+                    var oldScale = scale.y;
+                    var newScale = Math.min(this._scaleMax, Math.max(this._scaleMin, oldScale * ds));
+                    scaleRatio = newScale / oldScale;
+                    scale.set(newScale, newScale);
+                    isChanged = true;
+                }
+                // Position
+                if (gestureType & EShapeActionValueMiscGestureType.DRAG) {
+                    parent.toLocal(work.set(x, y), undefined, work);
+                    var lx = work.x;
+                    var ly = work.y;
+                    var cx = x - dx;
+                    var cy = y - dy;
+                    parent.toLocal(work.set(cx, cy), undefined, work);
+                    var lcx = work.x;
+                    var lcy = work.y;
+                    var position = transform.position;
+                    var newX = (position.x - lcx) * scaleRatio + lx;
+                    var newY = (position.y - lcy) * scaleRatio + ly;
+                    position.set(newX, newY);
+                    isChanged = true;
+                }
+                // Update
+                if (isChanged) {
+                    DApplications.update(target);
+                }
+            }
+        };
+        return EShapeActionRuntimeMiscGesture;
+    }(EShapeActionRuntimeConditional));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscGesture = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscGesture, _super);
+        function EShapeActionValueMiscGesture(condition, gestureType, scaleMin, scaleMax) {
+            var _this = _super.call(this, EShapeActionValueType.MISC, condition, EShapeActionValueMiscType.GESTURE) || this;
+            _this.gestureType = gestureType;
+            _this.scaleMin = scaleMin;
+            _this.scaleMax = scaleMax;
+            return _this;
+        }
+        EShapeActionValueMiscGesture.prototype.toRuntime = function () {
+            return new EShapeActionRuntimeMiscGesture(this);
+        };
+        EShapeActionValueMiscGesture.prototype.serialize = function (manager) {
+            var conditionId = manager.addResource(this.condition);
+            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.gestureType + "," + this.scaleMin + "," + this.scaleMax + "]");
+        };
+        EShapeActionValueMiscGesture.deserialize = function (serialized, manager) {
+            var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+            var scalingMode = serialized[3];
+            var scaleMin = serialized[4];
+            var scaleMax = serialized[5];
+            return new EShapeActionValueMiscGesture(condition, scalingMode, scaleMin, scaleMax);
+        };
+        return EShapeActionValueMiscGesture;
+    }(EShapeActionValueSubtyped));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicAtlasItem = /** @class */ (function () {
+        function DynamicAtlasItem(id, width, height, strokeWidth, baseTexture) {
+            this.id = id;
+            this.ref = 0;
+            var resolution = baseTexture.resolution;
+            this.frame = new pixi_js.Rectangle(0, 0, width * resolution, height * resolution);
+            this.texture = new pixi_js.Texture(baseTexture, new pixi_js.Rectangle(0, 0, 1, 1));
+            this.width = width;
+            this.height = height;
+            this.strokeWidth = strokeWidth;
+        }
+        DynamicAtlasItem.prototype.applyFrame = function () {
+            var resolutionInverse = 1 / this.texture.baseTexture.resolution;
+            this.texture.frame.x = this.frame.x * resolutionInverse;
+            this.texture.frame.y = this.frame.y * resolutionInverse;
+            this.texture.frame.width = this.width;
+            this.texture.frame.height = this.height;
+            this.texture.updateUvs();
+            this.texture.emit("update", this);
+        };
+        DynamicAtlasItem.prototype.destroy = function () {
+            this.texture.destroy();
+        };
+        return DynamicAtlasItem;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicAtlasItemEmpty = /** @class */ (function (_super) {
+        __extends(DynamicAtlasItemEmpty, _super);
+        function DynamicAtlasItemEmpty() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DynamicAtlasItemEmpty.prototype.render = function (context) {
+            // DO NOTHING
+        };
+        return DynamicAtlasItemEmpty;
+    }(DynamicAtlasItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicAtlasItemWhite = /** @class */ (function (_super) {
+        __extends(DynamicAtlasItemWhite, _super);
+        function DynamicAtlasItemWhite() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DynamicAtlasItemWhite.prototype.render = function (context) {
+            var frame = this.frame;
+            context.save();
+            context.fillStyle = "#ffffff";
+            context.fillRect(frame.x - 1, frame.y - 1, frame.width + 2, frame.height + 2);
+            context.restore();
+        };
+        return DynamicAtlasItemWhite;
+    }(DynamicAtlasItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var MAXIMUM_TEXTURE_SIZE = 4096;
+    var DynamicAtlas = /** @class */ (function () {
+        function DynamicAtlas(resolution) {
+            var canvas = (this._canvas = document.createElement("canvas"));
+            canvas.width = canvas.height = 256;
+            var baseTexture = (this._baseTexture = pixi_js.BaseTexture.from(canvas, {
+                mipmap: pixi_js.MIPMAP_MODES.OFF,
+                resolution: resolution
+            }));
+            this._idToDatum = {};
+            this._sortedData = [];
+            this._predefined = {
+                empty: new DynamicAtlasItemEmpty("empty", 10, 10, 0, baseTexture),
+                white: new DynamicAtlasItemWhite("white", 10, 10, 0, baseTexture)
+            };
+            this._isDirty = true;
+        }
+        DynamicAtlas.prototype.updateFrames = function (width, data) {
+            var padding = 4;
+            var x = padding;
+            var y = padding;
+            var maxRowHeight = 0;
+            for (var i = 0, imax = data.length; i < imax; ++i) {
+                var datum = data[i];
+                if (width < x + datum.frame.width + padding) {
+                    x = padding;
+                    y += maxRowHeight + padding;
+                    maxRowHeight = 0;
+                }
+                datum.frame.x = x | 0;
+                datum.frame.y = y | 0;
+                x += datum.frame.width + padding;
+                maxRowHeight = Math.max(maxRowHeight, datum.frame.height);
+            }
+            var minHeight = y + maxRowHeight + padding;
+            var result = 256;
+            while (result < minHeight) {
+                result <<= 1;
+            }
+            return Math.min(MAXIMUM_TEXTURE_SIZE, result);
+        };
+        DynamicAtlas.prototype.renderFrames = function (width, height, data) {
+            var canvas = this._canvas;
+            canvas.width = width;
+            canvas.height = height;
+            var context = canvas.getContext("2d");
+            if (context != null) {
+                for (var i = 0, imax = data.length; i < imax; ++i) {
+                    var datum = data[i];
+                    datum.render(context);
+                }
+            }
+        };
+        DynamicAtlas.prototype.applyFrames = function (data) {
+            for (var i = 0, imax = data.length; i < imax; ++i) {
+                var datum = data[i];
+                datum.applyFrame();
+            }
+        };
+        DynamicAtlas.prototype.calcCanvasWidth = function (data) {
+            var result = 128;
+            for (var i = data.length - 1; 0 <= i; --i) {
+                var datum = data[i];
+                var size = Math.max(datum.frame.width, datum.frame.height);
+                while (result < size) {
+                    result <<= 1;
+                }
+            }
+            return Math.min(MAXIMUM_TEXTURE_SIZE, result << 1);
+        };
+        DynamicAtlas.prototype.cleanup = function (data) {
+            data.sort(DynamicAtlas.ITEM_COMPARATOR);
+            for (var i = data.length - 1; 0 <= i; --i) {
+                var datum = data[i];
+                if (0 < datum.ref) {
+                    data.length = i + 1;
+                    return;
+                }
+            }
+            data.length = 0;
+        };
+        DynamicAtlas.prototype.begin = function () {
+            var data = this._sortedData;
+            for (var i = 0, imax = data.length; i < imax; ++i) {
+                var datum = data[i];
+                datum.ref = 0;
+            }
+            this._isDirty = false;
+        };
+        DynamicAtlas.prototype.end = function () {
+            var idToDatum = this._idToDatum;
+            var data = this._sortedData;
+            for (var i = 0, imax = data.length; i < imax; ++i) {
+                var datum = data[i];
+                if (datum.ref <= 0) {
+                    if (!(datum.id in this._predefined)) {
+                        datum.destroy();
+                    }
+                    delete idToDatum[datum.id];
+                    this._isDirty = true;
+                }
+            }
+        };
+        DynamicAtlas.prototype.repack = function (forcibly) {
+            if (forcibly === true || this._isDirty) {
+                this._isDirty = false;
+                var data = this._sortedData;
+                this.cleanup(data);
+                var canvasWidth = this.calcCanvasWidth(data);
+                var canvasHeight = this.updateFrames(canvasWidth, data);
+                this.renderFrames(canvasWidth, canvasHeight, data);
+                this._baseTexture.setRealSize(canvasWidth, canvasHeight);
+                this.applyFrames(data);
+            }
+        };
+        DynamicAtlas.prototype.get = function (id) {
+            var idToDatum = this._idToDatum;
+            var datum = idToDatum[id];
+            if (datum != null) {
+                datum.ref += 1;
+                return datum;
+            }
+            else {
+                var predefined = this._predefined[id];
+                if (predefined != null) {
+                    this.set(id, predefined);
+                    return predefined;
+                }
+            }
+            return null;
+        };
+        DynamicAtlas.prototype.set = function (id, item) {
+            var result = this._idToDatum[id];
+            item.ref += 1;
+            this._idToDatum[id] = item;
+            this._sortedData.push(item);
+            this._isDirty = true;
+            return result;
+        };
+        DynamicAtlas.prototype.toDirty = function () {
+            this._isDirty = true;
+        };
+        DynamicAtlas.prototype.getDefaultTexture = function () {
+            return this.get("white").texture;
+        };
+        DynamicAtlas.prototype.getBaseTexture = function () {
+            return this._baseTexture;
+        };
+        DynamicAtlas.prototype.release = function (id) {
+            var idToDatum = this._idToDatum;
+            var datum = idToDatum[id];
+            if (datum != null) {
+                datum.ref -= 1;
+                if (datum.ref <= 0) {
+                    if (!(datum.id in this._predefined)) {
+                        datum.destroy();
+                    }
+                    delete idToDatum[id];
+                    this._isDirty = true;
+                }
+            }
+        };
+        DynamicAtlas.ITEM_COMPARATOR = function (a, b) {
+            if (a.ref <= 0) {
+                if (b.ref <= 0) {
+                    return 0;
+                }
+                else {
+                    return +1;
+                }
+            }
+            else {
+                if (b.ref <= 0) {
+                    return -1;
+                }
+            }
+            if (a.frame.height < b.frame.height) {
+                return -1;
+            }
+            else if (b.frame.height < a.frame.height) {
+                return +1;
+            }
+            else {
+                return a.frame.width - b.frame.width;
+            }
+        };
+        return DynamicAtlas;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicAtlasItemFontAtlas = /** @class */ (function (_super) {
+        __extends(DynamicAtlasItemFontAtlas, _super);
+        function DynamicAtlasItemFontAtlas(atlas, baseTexture) {
+            var _this = _super.call(this, atlas.id, atlas.width / baseTexture.resolution, atlas.height / baseTexture.resolution, 0, baseTexture) || this;
+            _this.canvas = atlas.canvas;
+            return _this;
+        }
+        DynamicAtlasItemFontAtlas.prototype.render = function (context) {
+            var canvas = this.canvas;
+            if (canvas != null) {
+                var frame = this.frame;
+                context.drawImage(canvas, frame.x, frame.y, frame.width, frame.height);
+            }
+        };
+        return DynamicAtlasItemFontAtlas;
+    }(DynamicAtlasItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var ASCII_CHARACTERS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasCharacterOrigin = /** @class */ (function () {
+        function DynamicFontAtlasCharacterOrigin(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        return DynamicFontAtlasCharacterOrigin;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasCharacter = /** @class */ (function () {
+        function DynamicFontAtlasCharacter(advance, width, height, reserved) {
+            this.ref = 1;
+            this.life = 10;
+            this.x = 0;
+            this.y = 0;
+            this.width = width;
+            this.height = height;
+            this.advance = advance;
+            this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
+            this.reserved = reserved;
+        }
+        return DynamicFontAtlasCharacter;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var VERTEX_SHADER = "\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying mediump vec2 vTextureCoord;\nvoid main(void) {\n\tgl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\tvTextureCoord = aTextureCoord;\n}\n";
+    var FRAGMENT_SHADER = "\nprecision mediump float;\n\nvarying mediump vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform vec2 uSize;\n\nfloat calcDistance( float x, float y, float dx, float dy ) {\n\tfloat xd = x + dx;\n\tfloat yd = y + dy;\n\tfloat u = xd / uSize.x;\n\tfloat v = yd / uSize.y;\n\tfloat ul = (xd - 1.0) / uSize.x;\n\tfloat vt = (yd - 1.0) / uSize.y;\n\n\tfloat m = texture2D(uSampler, vec2(u , v )).a;\n\tfloat l = texture2D(uSampler, vec2(ul, v )).a;\n\tfloat t = texture2D(uSampler, vec2(u , vt)).a;\n\n\tfloat xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );\n\tfloat yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );\n\n\tbool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );\n\tbool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );\n\n\tfloat ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);\n\tfloat lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);\n\n\treturn min( ll, lt );\n}\n\nfloat calcDistancesY( float x, float y, float dx ) {\n\tfloat d = 100.0;\n\tfor( float dy=-6.0; dy<6.5; dy++ ) {\n\t\td = min( d, calcDistance( x, y, dx, dy ) );\n\t}\n\treturn d;\n}\n\nfloat calcDistances( float x, float y ) {\n\tfloat d = 100.0;\n\tfor( float dx=-6.0; dx<6.5; dx++ ) {\n\t\td = min( d, calcDistancesY( x, y, dx ) );\n\t}\n\treturn d;\n}\n\nvoid main(void) {\n\tfloat t = texture2D(uSampler, vTextureCoord).a;\n\tfloat x = vTextureCoord.x * uSize.x;\n\tfloat y = vTextureCoord.y * uSize.y;\n\tfloat d = min( 6.0, calcDistances( x, y ) ) / 12.0;\n\td = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, d);\n}\n";
+    var DynamicSDFFontGenerator = /** @class */ (function () {
+        function DynamicSDFFontGenerator() {
+            var _this = this;
+            this._gl = null;
+            this._texture = null;
+            this._shaderProgram = null;
+            this._vertexPositionAttribute = NaN;
+            this._textureCoordAttribute = NaN;
+            this._samplerUniform = NaN;
+            this._sizeUniform = NaN;
+            this._vb = null;
+            this._uvb = null;
+            var canvas = (this._canvas = document.createElement("canvas"));
+            canvas.width = 64;
+            canvas.height = 64;
+            this._onLostBound = function (e) {
+                e.preventDefault();
+            };
+            this._onRestoreBound = function () {
+                _this.restore();
+            };
+            this._onUnloadBound = function () {
+                _this.destroy();
+            };
+            canvas.addEventListener("webglcontextlost", this._onLostBound, false);
+            canvas.addEventListener("webglcontextrestored", this._onRestoreBound, false);
+            window.addEventListener("unload", this._onUnloadBound, false);
+        }
+        DynamicSDFFontGenerator.prototype.init = function () {
+            var canvas = this._canvas;
+            if (canvas != null && (this._gl == null || this._gl.isContextLost())) {
+                var config = {
+                    alpha: true,
+                    antialias: false,
+                    depth: false,
+                    stencil: false,
+                    premultipliedAlpha: false
+                };
+                var gl = canvas.getContext("webgl", config) ||
+                    canvas.getContext("experimental-webgl", config);
+                this._gl = gl;
+                if (gl != null) {
+                    gl.clearColor(1.0, 1.0, 1.0, 0.0);
+                    this.makeVertexBuffer();
+                    this.makeUvBuffer();
+                    this.makeShaders();
+                    this._texture = null;
+                }
+            }
+            return this;
+        };
+        DynamicSDFFontGenerator.prototype.restore = function () {
+            this.init();
+        };
+        DynamicSDFFontGenerator.prototype.getCanvas = function () {
+            return this._canvas;
+        };
+        DynamicSDFFontGenerator.prototype.getShader = function (gl, code, type) {
+            var shader = type
+                ? gl.createShader(gl.FRAGMENT_SHADER)
+                : gl.createShader(gl.VERTEX_SHADER);
+            if (shader != null) {
+                gl.shaderSource(shader, code);
+                gl.compileShader(shader);
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console &&
+                        console.error("Failed to compile the shader: " + gl.getShaderInfoLog(shader));
+                    return null;
+                }
+            }
+            return shader;
+        };
+        DynamicSDFFontGenerator.prototype.makeShaders = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var vertexShader = this.getShader(gl, VERTEX_SHADER, false);
+                if (vertexShader != null) {
+                    var fragmentShader = this.getShader(gl, FRAGMENT_SHADER, true);
+                    if (fragmentShader != null) {
+                        var shaderProgram = (this._shaderProgram = gl.createProgram());
+                        if (shaderProgram != null) {
+                            gl.attachShader(shaderProgram, vertexShader);
+                            gl.attachShader(shaderProgram, fragmentShader);
+                            gl.linkProgram(shaderProgram);
+                            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                                console &&
+                                    console.error("Failed to link the program: " + gl.getError());
+                                gl.deleteShader(vertexShader);
+                                gl.deleteShader(fragmentShader);
+                                return null;
+                            }
+                            else {
+                                gl.deleteShader(vertexShader);
+                                gl.deleteShader(fragmentShader);
+                                gl.useProgram(shaderProgram);
+                                this._vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+                                this._textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
+                                this._samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+                                this._sizeUniform = gl.getUniformLocation(shaderProgram, "uSize");
+                                gl.useProgram(null);
+                                return shaderProgram;
+                            }
+                        }
+                        else {
+                            gl.deleteShader(vertexShader);
+                            gl.deleteShader(fragmentShader);
+                        }
+                    }
+                    else {
+                        gl.deleteShader(vertexShader);
+                    }
+                }
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyShaders = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var shaderProgram = this._shaderProgram;
+                if (shaderProgram != null) {
+                    this._shaderProgram = null;
+                    gl.useProgram(null);
+                    gl.deleteProgram(shaderProgram);
+                }
+            }
+        };
+        DynamicSDFFontGenerator.prototype.updateTexture = function (source) {
+            var gl = this._gl;
+            var canvas = this._canvas;
+            if (gl != null && gl.isContextLost() !== true && canvas != null) {
+                var width = source.width;
+                var height = source.height;
+                if (canvas.width !== width || canvas.height !== height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                    gl.viewport(0, 0, width, height);
+                }
+                var texture = this._texture;
+                if (texture == null) {
+                    texture = this._texture = gl.createTexture();
+                    gl.bindTexture(gl.TEXTURE_2D, texture);
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+                    gl.bindTexture(gl.TEXTURE_2D, null);
+                }
+                else {
+                    gl.bindTexture(gl.TEXTURE_2D, texture);
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+                    gl.bindTexture(gl.TEXTURE_2D, null);
+                }
+                return texture;
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyTexture = function () {
+            var gl = this._gl;
+            var texture = this._texture;
+            if (gl != null && gl.isContextLost() !== true && texture != null) {
+                this._texture = null;
+                gl.bindTexture(gl.TEXTURE_2D, null);
+                gl.deleteTexture(texture);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.makeVertexBuffer = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var vb = (this._vb = gl.createBuffer());
+                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
+                var vertices = [-1.0, +1.0, +1.0, +1.0, -1.0, -1.0, +1.0, -1.0];
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+                return vb;
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyVertexBuffer = function () {
+            var gl = this._gl;
+            var vb = this._vb;
+            if (gl != null && gl.isContextLost() !== true && vb != null) {
+                this._vb = null;
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
+                gl.deleteBuffer(vb);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.makeUvBuffer = function () {
+            var gl = this._gl;
+            if (gl != null && gl.isContextLost() !== true) {
+                var uvb = (this._uvb = gl.createBuffer());
+                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
+                var uvs = [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0];
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
+                return uvb;
+            }
+            return null;
+        };
+        DynamicSDFFontGenerator.prototype.destroyUvBuffer = function () {
+            var gl = this._gl;
+            var uvb = this._uvb;
+            if (gl != null && gl.isContextLost() !== true && uvb != null) {
+                this._uvb = null;
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
+                gl.deleteBuffer(uvb);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.render = function () {
+            var gl = this._gl;
+            var canvas = this._canvas;
+            var shaderProgram = this._shaderProgram;
+            var vb = this._vb;
+            var uvb = this._uvb;
+            var texture = this._texture;
+            if (gl != null &&
+                gl.isContextLost() !== true &&
+                canvas != null &&
+                shaderProgram != null &&
+                vb != null &&
+                uvb != null &&
+                texture != null) {
+                gl.clear(gl.COLOR_BUFFER_BIT);
+                gl.useProgram(shaderProgram);
+                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
+                var vertexPositionAttribute = this._vertexPositionAttribute;
+                gl.enableVertexAttribArray(vertexPositionAttribute);
+                gl.vertexAttribPointer(vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
+                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
+                var textureCoordAttribute = this._textureCoordAttribute;
+                gl.enableVertexAttribArray(textureCoordAttribute);
+                gl.vertexAttribPointer(textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, texture);
+                gl.uniform1i(this._samplerUniform, 0);
+                gl.uniform2f(this._sizeUniform, canvas.width, canvas.height);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                gl.bindTexture(gl.TEXTURE_2D, null);
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
+                gl.useProgram(null);
+            }
+        };
+        DynamicSDFFontGenerator.prototype.read = function (copyCanvas) {
+            var gl = this._gl;
+            var canvas = this._canvas;
+            if (gl != null && gl.isContextLost() !== true && canvas != null) {
+                var width = canvas.width;
+                var height = canvas.height;
+                copyCanvas.width = width;
+                copyCanvas.height = height;
+                var copyContext = copyCanvas.getContext("2d");
+                if (copyContext != null) {
+                    copyContext.drawImage(canvas, 0, 0);
+                }
+            }
+        };
+        DynamicSDFFontGenerator.prototype.destroy = function () {
+            this.destroyVertexBuffer();
+            this.destroyUvBuffer();
+            this.destroyShaders();
+            var canvas = this._canvas;
+            if (canvas != null) {
+                this._canvas = null;
+                canvas.removeEventListener("webglcontextlost", this._onLostBound, false);
+                canvas.removeEventListener("webglcontextrestored", this._onRestoreBound, false);
+                window.removeEventListener("unload", this._onUnloadBound, false);
+            }
+            var gl = this._gl;
+            if (gl != null) {
+                this._gl = null;
+                var WebGLLoseContext = gl.getExtension("WEBGL_lose_context");
+                if (WebGLLoseContext != null) {
+                    WebGLLoseContext.loseContext();
+                }
+            }
+        };
+        DynamicSDFFontGenerator.getInstance = function () {
+            if (DynamicSDFFontGenerator._INSTANCE == null) {
+                DynamicSDFFontGenerator._INSTANCE = new DynamicSDFFontGenerator();
+            }
+            return DynamicSDFFontGenerator._INSTANCE;
+        };
+        DynamicSDFFontGenerator._INSTANCE = null;
+        return DynamicSDFFontGenerator;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicSDFFontAtlas = /** @class */ (function () {
+        function DynamicSDFFontAtlas(fontFamily) {
+            this._id = "font-atlas:" + fontFamily;
+            this._generator = DynamicSDFFontGenerator.getInstance().init();
+            this._canvas = document.createElement("canvas");
+            this._font = {
+                family: DynamicSDFFontAtlas.toFontFamily(fontFamily),
+                size: 32,
+                italic: false
+            };
+            this._characters = {};
+            this._length = 0;
+            this._width = 1;
+            this._height = 1;
+            this._isDirty = true;
+        }
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "font", {
+            get: function () {
+                return this._font;
+            },
+            set: function (font) {
+                this._font.family = font.family;
+                this._font.size = font.size;
+                this._font.italic = font.italic;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "height", {
+            get: function () {
+                return this._height;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "canvas", {
+            get: function () {
+                return this._canvas;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "generator", {
+            get: function () {
+                return this._generator;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "characters", {
+            get: function () {
+                return this._characters;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicSDFFontAtlas.prototype.begin = function () {
+            this._length = 0;
+            var characters = this._characters;
+            for (var character in characters) {
+                characters[character].ref = 0;
+            }
+        };
+        DynamicSDFFontAtlas.prototype.end = function () {
+            var characters = this._characters;
+            for (var character in characters) {
+                var data = characters[character];
+                if (data.ref <= 0) {
+                    data.life -= 1;
+                    if (data.life <= 0) {
+                        delete characters[character];
+                        this._isDirty = true;
+                    }
+                }
+            }
+        };
+        DynamicSDFFontAtlas.prototype.addAscii = function () {
+            this.add(ASCII_CHARACTERS);
+            this.addChar("...");
+        };
+        DynamicSDFFontAtlas.prototype.addChar = function (character) {
+            var characters = this._characters;
+            if (character !== "\n") {
+                var data = characters[character];
+                if (data != null) {
+                    if (data.ref <= 0) {
+                        this._length += 1;
+                    }
+                    data.ref += 1;
+                }
+                else {
+                    characters[character] = new DynamicFontAtlasCharacter(0, 1, 1, false);
+                    this._length += 1;
+                    this._isDirty = true;
+                }
+            }
+        };
+        DynamicSDFFontAtlas.prototype.add = function (characters) {
+            var iterator = UtilCharacterIterator.from(characters);
+            while (iterator.hasNext()) {
+                this.addChar(iterator.next());
+            }
+        };
+        DynamicSDFFontAtlas.prototype.get = function (character) {
+            return this._characters[character];
+        };
+        DynamicSDFFontAtlas.prototype.update = function () {
+            if (this._isDirty) {
+                var canvas = this._canvas;
+                var generator = this._generator;
+                if (canvas != null && generator != null) {
+                    var context = canvas.getContext("2d");
+                    if (context != null) {
+                        this._isDirty = false;
+                        var font = this._font;
+                        var characters = this._characters;
+                        var characterSize = font.size + 14;
+                        var width = DynamicSDFFontAtlas.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * characterSize);
+                        this._width = width;
+                        var fontStyle = (font.italic ? "italic " : "") + (font.size + "px ") + font.family;
+                        context.font = fontStyle;
+                        context.textAlign = "left";
+                        context.textBaseline = "middle";
+                        context.lineWidth = 0;
+                        context.lineCap = "round";
+                        context.lineJoin = "miter";
+                        context.miterLimit = 0;
+                        context.fillStyle = "#FFFFFF";
+                        var offsetX = 7;
+                        var offsetY = characterSize >> 1;
+                        var x = 0;
+                        var y = 0;
+                        for (var character in characters) {
+                            var data = characters[character];
+                            var advance = context.measureText(character).width;
+                            var characterWidth = Math.ceil(offsetX + advance + offsetX);
+                            var characterHeight = characterSize;
+                            if (width <= x + characterWidth) {
+                                x = 0;
+                                y += characterSize;
+                            }
+                            data.x = x;
+                            data.y = y;
+                            data.width = characterWidth;
+                            data.height = characterHeight;
+                            data.advance = advance;
+                            data.origin.x = x + offsetX;
+                            data.origin.y = y + offsetY;
+                            x += characterWidth;
+                        }
+                        var height = (this._height = y + characterSize);
+                        // Make a input canvas
+                        // Here, we need to reset the context because
+                        // context settings will be lost when we set the width/height.
+                        canvas.width = width;
+                        canvas.height = height;
+                        context.font = fontStyle;
+                        context.textAlign = "left";
+                        context.textBaseline = "middle";
+                        context.lineWidth = 0;
+                        context.lineCap = "round";
+                        context.lineJoin = "miter";
+                        context.miterLimit = 4;
+                        context.fillStyle = "#FFFFFF";
+                        context.clearRect(0, 0, width, height);
+                        for (var character in characters) {
+                            var data = characters[character];
+                            context.fillText(character, data.origin.x, data.origin.y);
+                        }
+                        // Convert to SDF font texture
+                        generator.updateTexture(canvas);
+                        generator.render();
+                        generator.read(canvas);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+        Object.defineProperty(DynamicSDFFontAtlas.prototype, "length", {
+            get: function () {
+                return this._length;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicSDFFontAtlas.prototype.toJson = function () {
+            return {
+                width: this._width,
+                height: this._height,
+                font: this._font,
+                characters: this._characters
+            };
+        };
+        DynamicSDFFontAtlas.prototype.toString = function () {
+            return JSON.stringify(this.toJson());
+        };
+        DynamicSDFFontAtlas.prototype.destroy = function () {
+            var generator = this._generator;
+            if (generator != null) {
+                this._generator = null;
+            }
+            var canvas = this._canvas;
+            if (canvas != null) {
+                this._canvas = null;
+            }
+            var characters = this._characters;
+            for (var character in characters) {
+                delete characters[character];
+            }
+        };
+        DynamicSDFFontAtlas.toFontFamily = function (fontFamily) {
+            return fontFamily === "auto" ? DynamicSDFFontAtlas.getAutoFontFamily() : fontFamily;
+        };
+        DynamicSDFFontAtlas.toPowerOf2 = function (size) {
+            var result = 32;
+            while (result < size) {
+                result <<= 1;
+            }
+            return result;
+        };
+        DynamicSDFFontAtlas.getAutoFontFamily = function () {
+            if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
+                DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance().get("DBase").getFontFamilly();
+            }
+            return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
+        };
+        DynamicSDFFontAtlas.FONT_FAMILY_AUTO = null;
+        return DynamicSDFFontAtlas;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicSDFFontAtlases = /** @class */ (function () {
+        function DynamicSDFFontAtlases() {
+            this._atlases = {};
+        }
+        DynamicSDFFontAtlases.prototype.begin = function () {
+            var atlases = this._atlases;
+            for (var family in atlases) {
+                var atlas = atlases[family];
+                atlas.begin();
+            }
+        };
+        DynamicSDFFontAtlases.prototype.end = function () {
+            var atlases = this._atlases;
+            for (var family in atlases) {
+                var atlas = atlases[family];
+                if (0 < atlas.length) {
+                    atlas.addAscii();
+                }
+                atlas.end();
+                if (atlas.length <= 0) {
+                    atlas.destroy();
+                    delete atlases[family];
+                }
+            }
+        };
+        DynamicSDFFontAtlases.prototype.add = function (family, targets) {
+            var atlas = this._atlases[family];
+            if (atlas != null) {
+                atlas.add(targets);
+            }
+            else {
+                var newAtlas = new DynamicSDFFontAtlas(family);
+                newAtlas.add(targets);
+                this._atlases[family] = newAtlas;
+            }
+        };
+        DynamicSDFFontAtlases.prototype.get = function (family) {
+            var atlas = this._atlases[family];
+            if (atlas != null) {
+                return atlas;
+            }
+            return null;
+        };
+        DynamicSDFFontAtlases.prototype.update = function (baseAtlas) {
+            var atlases = this._atlases;
+            var baseTexture = baseAtlas.getBaseTexture();
+            for (var family in atlases) {
+                var atlas = atlases[family];
+                if (atlas.update()) {
+                    var atlasId = atlas.id;
+                    var item = baseAtlas.get(atlasId);
+                    if (item != null) {
+                        var width = atlas.width;
+                        var height = atlas.height;
+                        var resolution = baseTexture.resolution;
+                        item.frame.width = width;
+                        item.frame.height = height;
+                        item.width = width / resolution;
+                        item.height = height / resolution;
+                        baseAtlas.toDirty();
+                    }
+                    else {
+                        baseAtlas.set(atlasId, new DynamicAtlasItemFontAtlas(atlas, baseTexture));
+                    }
+                }
+            }
+        };
+        DynamicSDFFontAtlases.prototype.destroy = function () {
+            var atlases = this._atlases;
+            for (var family in atlases) {
+                var atlas = atlases[family];
+                atlas.destroy();
+            }
+            this._atlases = {};
+        };
+        return DynamicSDFFontAtlases;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicAtlasItemImage = /** @class */ (function (_super) {
+        __extends(DynamicAtlasItemImage, _super);
+        function DynamicAtlasItemImage(image, baseTexture) {
+            var _this = _super.call(this, image.src, image.width / baseTexture.resolution, image.height / baseTexture.resolution, 0, baseTexture) || this;
+            _this.image = image;
+            return _this;
+        }
+        DynamicAtlasItemImage.prototype.render = function (context) {
+            var frame = this.frame;
+            var x = frame.x;
+            var y = frame.y;
+            var w = frame.width;
+            var h = frame.height;
+            var image = this.image;
+            context.drawImage(image, x, y, w, h);
+            context.drawImage(image, 0, 0, 1, h, x - 1, y - 1, 1, h + 2);
+            context.drawImage(image, 0, 0, w, 1, x, y - 1, w, 1);
+            context.drawImage(image, w - 1, 0, 1, h, x + w, y - 1, 1, h + 2);
+            context.drawImage(image, 0, h - 1, w, 1, x, y + h, w, 1);
+        };
+        return DynamicAtlasItemImage;
+    }(DynamicAtlasItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeBufferUnit = /** @class */ (function () {
+        function EShapeBufferUnit(texture, indexOffset) {
+            this.texture = texture;
+            this.indexOffset = indexOffset;
+        }
+        return EShapeBufferUnit;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeBufferUnitBuilder = /** @class */ (function () {
+        function EShapeBufferUnitBuilder() {
+            this.index = 0;
+            this.baseTexture = null;
+            this.units = [];
+        }
+        EShapeBufferUnitBuilder.prototype.begin = function () {
+            this.index = 0;
+            this.baseTexture = null;
+        };
+        EShapeBufferUnitBuilder.prototype.push = function (texture, indexOffset) {
+            if (this.index < this.units.length) {
+                var unit = this.units[this.index];
+                unit.texture = texture;
+                unit.indexOffset = indexOffset;
+            }
+            else {
+                this.units.push(new EShapeBufferUnit(texture, indexOffset));
+            }
+            this.index += 1;
+        };
+        EShapeBufferUnitBuilder.prototype.end = function () {
+            if (this.units.length !== this.index) {
+                this.units.length = this.index;
+            }
+        };
+        EShapeBufferUnitBuilder.prototype.destroy = function () {
+            this.units.length = 0;
+        };
+        return EShapeBufferUnitBuilder;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeBuffer = /** @class */ (function () {
+        function EShapeBuffer(ntriangles, renderer) {
+            var nindices = ntriangles * 3;
+            var nvertices = nindices;
+            this.vertices = new Float32Array(nvertices * 2);
+            this._vertexCapacity = nvertices;
+            this._vertexCount = 0;
+            this._vertexBuffer = null;
+            this.clippings = new Float32Array(nvertices * 3);
+            this._clippingBuffer = null;
+            this.steps = new Float32Array(nvertices * 6);
+            this._stepBuffer = null;
+            this.colorFills = new Float32Array(nvertices * 4);
+            this._colorFillBuffer = null;
+            this.colorStrokes = new Float32Array(nvertices * 4);
+            this._colorStrokeBuffer = null;
+            this.uvs = new Float32Array(nvertices * 2);
+            this._uvBuffer = null;
+            var isIndicesShort = nvertices <= 65535;
+            this.indices = isIndicesShort ? new Uint16Array(nindices) : new Uint32Array(nindices);
+            this._indexCapacity = ntriangles;
+            this._indexCount = 0;
+            this.indexCountRequested = 0;
+            this._indexBuffer = null;
+            this._renderer = renderer;
+            this._builder = new EShapeBufferUnitBuilder();
+            this._geometry = null;
+        }
+        EShapeBuffer.prototype.updateVertices = function () {
+            var vertexBuffer = this._vertexBuffer;
+            if (vertexBuffer) {
+                vertexBuffer.update();
+            }
+        };
+        EShapeBuffer.prototype.updateClippings = function () {
+            var clippingBuffer = this._clippingBuffer;
+            if (clippingBuffer) {
+                clippingBuffer.update();
+            }
+        };
+        EShapeBuffer.prototype.updateSteps = function () {
+            var stepBuffer = this._stepBuffer;
+            if (stepBuffer) {
+                stepBuffer.update();
+            }
+        };
+        EShapeBuffer.prototype.updateColorFills = function () {
+            var colorFillBuffer = this._colorFillBuffer;
+            if (colorFillBuffer) {
+                colorFillBuffer.update();
+            }
+        };
+        EShapeBuffer.prototype.updateColorStrokes = function () {
+            var colorStrokeBuffer = this._colorStrokeBuffer;
+            if (colorStrokeBuffer) {
+                colorStrokeBuffer.update();
+            }
+        };
+        EShapeBuffer.prototype.updateUvs = function () {
+            var uvBuffer = this._uvBuffer;
+            if (uvBuffer) {
+                uvBuffer.update();
+            }
+        };
+        EShapeBuffer.prototype.updateIndices = function () {
+            var indexBuffer = this._indexBuffer;
+            if (indexBuffer) {
+                indexBuffer.update();
+            }
+        };
+        EShapeBuffer.prototype.getGeometry = function () {
+            var result = this._geometry;
+            if (result == null) {
+                this._vertexBuffer = new pixi_js.Buffer(this.vertices, false, false);
+                this._clippingBuffer = new pixi_js.Buffer(this.clippings, false, false);
+                this._stepBuffer = new pixi_js.Buffer(this.steps, false, false);
+                this._colorFillBuffer = new pixi_js.Buffer(this.colorFills, false, false);
+                this._colorStrokeBuffer = new pixi_js.Buffer(this.colorStrokes, false, false);
+                this._uvBuffer = new pixi_js.Buffer(this.uvs, false, false);
+                this._indexBuffer = new pixi_js.Buffer(this.indices, false, true);
+                this._geometry = result = new pixi_js.Geometry()
+                    .addIndex(this._indexBuffer)
+                    .addAttribute("aPosition", this._vertexBuffer, 2)
+                    .addAttribute("aClipping", this._clippingBuffer, 3)
+                    .addAttribute("aStep", this._stepBuffer, 2)
+                    .addAttribute("aAntialias", this._stepBuffer, 4)
+                    .addAttribute("aColorFill", this._colorFillBuffer, 4)
+                    .addAttribute("aColorStroke", this._colorStrokeBuffer, 4)
+                    .addAttribute("aUv", this._uvBuffer, 2);
+            }
+            return result;
+        };
+        EShapeBuffer.prototype.upload = function () {
+            this._renderer.geometry.bind(this.getGeometry());
+        };
+        EShapeBuffer.prototype.render = function (shader) {
+            var renderer = this._renderer;
+            renderer.geometry.bind(this.getGeometry());
+            var units = this._builder.units;
+            var unitCount = units.length;
+            if (0 < unitCount) {
+                var type = pixi_js.DRAW_MODES.TRIANGLES;
+                var unit0 = null;
+                var unit1 = units[0];
+                var ioffset0 = 0;
+                var ioffset1 = unit1.indexOffset * 3;
+                var vcount = 0;
+                var texture = pixi_js.Texture.WHITE;
+                for (var i = 0, imax = unitCount - 1; i < imax; ++i) {
+                    unit0 = unit1;
+                    unit1 = units[i + 1];
+                    ioffset0 = ioffset1;
+                    ioffset1 = unit1.indexOffset * 3;
+                    vcount = ioffset1 - ioffset0;
+                    texture = unit0.texture || pixi_js.Texture.WHITE;
+                    if (0 < vcount && texture.valid) {
+                        shader.uniforms.sampler = renderer.texture.bind(texture);
+                        renderer.geometry.draw(type, vcount, ioffset0);
+                    }
+                }
+                vcount = this._indexCount * 3 - ioffset1;
+                texture = unit1.texture || pixi_js.Texture.WHITE;
+                if (0 < vcount && texture.valid) {
+                    shader.uniforms.sampler = renderer.texture.bind(texture);
+                    renderer.geometry.draw(type, vcount, ioffset1);
+                }
+            }
+        };
+        EShapeBuffer.prototype.isCompatible = function (shape, uploaded, vindex, iindex) {
+            return (uploaded.getBuffer() === this &&
+                uploaded.getVertexOffset() === vindex &&
+                uploaded.getIndexOffset() === iindex &&
+                uploaded.isCompatible(shape));
+        };
+        EShapeBuffer.prototype.update = function (iterator, antialiasWeight, noMoreThanOne) {
+            var builder = this._builder;
+            builder.begin();
+            var vindex = 0;
+            var iindex = 0;
+            var shape = iterator.get();
+            for (; shape != null; shape = iterator.next()) {
+                var uploaded = shape.uploaded;
+                if (uploaded == null || !this.isCompatible(shape, uploaded, vindex, iindex)) {
+                    break;
+                }
+                uploaded.update(shape);
+                uploaded.buildUnit(builder);
+                vindex += uploaded.getVertexCount();
+                iindex += uploaded.getIndexCount();
+                if (noMoreThanOne) {
+                    iterator.next();
+                    builder.end();
+                    this._vertexCount = vindex;
+                    this._indexCount = iindex;
+                    return 0 < builder.units.length;
+                }
+            }
+            for (; shape != null; shape = iterator.next()) {
+                var creater = EShapeUploadeds[shape.type] || EShapeUploadeds[EShapeType.GROUP];
+                if (creater == null) {
+                    break;
+                }
+                var uploaded = creater(this, shape, vindex, iindex, antialiasWeight);
+                if (uploaded == null) {
+                    break;
+                }
+                uploaded.buildUnit(builder);
+                vindex += uploaded.getVertexCount();
+                iindex += uploaded.getIndexCount();
+                if (noMoreThanOne) {
+                    iterator.next();
+                    break;
+                }
+            }
+            builder.end();
+            this._vertexCount = vindex;
+            this._indexCount = iindex;
+            return 0 < builder.units.length;
+        };
+        EShapeBuffer.prototype.check = function (vindex, ioffset, vcount, icount) {
+            this.indexCountRequested = icount;
+            return vindex + vcount <= this._vertexCapacity && ioffset + icount <= this._indexCapacity;
+        };
+        EShapeBuffer.prototype.destroy = function () {
+            var geometry = this._geometry;
+            if (geometry) {
+                geometry.destroy();
+            }
+            this._builder.destroy();
+        };
+        return EShapeBuffer;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DUMMY_SHAPES = [];
+    var EShapeRendererIteratorDatum = /** @class */ (function () {
+        function EShapeRendererIteratorDatum() {
+            this.index = 0;
+            this.shapes = DUMMY_SHAPES;
+        }
+        EShapeRendererIteratorDatum.prototype.reset = function (shapes) {
+            this.index = -1;
+            this.shapes = shapes;
+        };
+        EShapeRendererIteratorDatum.prototype.next = function () {
+            var index = this.index + 1;
+            this.index = index;
+            var shapes = this.shapes;
+            if (index < shapes.length) {
+                return shapes[index];
+            }
+            return null;
+        };
+        return EShapeRendererIteratorDatum;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRendererIterator = /** @class */ (function () {
+        function EShapeRendererIterator() {
+            this._index = -1;
+            this._datum = new EShapeRendererIteratorDatum();
+            this._data = [this._datum];
+            this._current = null;
+        }
+        EShapeRendererIterator.prototype.reset = function (shape, shapes) {
+            this._index = 0;
+            var current = this._data[0];
+            this._datum = current;
+            current.reset(shapes);
+            if (shape != null) {
+                this._current = shape;
+                return shape;
+            }
+            return this.next();
+        };
+        EShapeRendererIterator.prototype.get = function () {
+            return this._current;
+        };
+        EShapeRendererIterator.prototype.next = function () {
+            var datum = this._datum;
+            var shape = datum.next();
+            if (shape != null) {
+                this._current = shape;
+                var children = shape.children;
+                if (0 < children.length) {
+                    var datumIndex = (this._index = this._index + 1);
+                    var data = this._data;
+                    if (datumIndex < data.length) {
+                        var newDatum = data[datumIndex];
+                        newDatum.reset(children);
+                        this._datum = newDatum;
+                    }
+                    else {
+                        var newDatum = new EShapeRendererIteratorDatum();
+                        data.push(newDatum);
+                        newDatum.reset(children);
+                        this._datum = newDatum;
+                    }
+                }
+                return shape;
+            }
+            else {
+                var datumIndex = (this._index = this._index - 1);
+                var data = this._data;
+                if (0 <= datumIndex) {
+                    this._datum = data[datumIndex];
+                    this._current = null;
+                    return this.next();
+                }
+                else {
+                    this._current = null;
+                    return null;
+                }
+            }
+        };
+        return EShapeRendererIterator;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var VERTEX_SHADER$1 = "\nattribute vec2 aPosition;\nattribute vec3 aClipping;\nattribute vec2 aStep;\nattribute vec4 aAntialias;\nattribute vec4 aColorFill;\nattribute vec4 aColorStroke;\nattribute vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float pixelScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse( in vec2 v ) {\n\treturn vec2( -v.y, v.x );\n}\n\nvec2 toTransformedPosition( in vec2 v ) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toAntialias01( in vec4 antialias ) {\n\t// Taylor series of 1 / ( 1 - a ) = 1 + a + a^2 + ....\n\treturn 1.0 + min( vec4( 1.0 ), antialias * pixelScale );\n}\n\nvec4 toAntialias2( in vec4 antialias, in float strokeWidth ) {\n\tfloat x = min( 0.4, 0.4 / 12.0 * antialias.x * pixelScale * antialiasWeight );\n\tfloat w = clamp( strokeWidth / antialias.y, 0.0, 1.0 ) * 0.4;\n\tfloat p = w * antialias.z + antialias.w;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );\n}\n\nvec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in float strokeWidth, out float shift ) {\n\tvec2 d0 = p - pprev;\n\tvec2 d1 = pnext - p;\n\tfloat l0 = dot( d0, d0 );\n\tfloat l1 = dot( d1, d1 );\n\tvec2 nd0 = normalize( toInverse( d0 ) );\n\tvec2 nd1 = normalize( toInverse( d1 ) );\n\tvec2 nd2 = 0.00001 < l1 ? nd1 : vec2(0.0, 0.0);\n\tvec2 n0 = 0.00001 < l0 ? nd0 : nd2;\n\tvec2 n1 = 0.00001 < l1 ? nd1 : n0;\n\tvec2 n0i = toInverse( n0 );\n\tvec2 n1i = toInverse( n1 );\n\tfloat direction = sign( 4.5 - type );\n\n\t// Offset\n\tfloat cross = dot( n0i, n1 );\n\tfloat crossInverse = ( 0.00001 < abs( cross ) ? 1.0 / cross : 0.0 );\n\tfloat b = dot(n1 - n0, n0) * crossInverse;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, pmiter - pprev );\n\tfloat miterAngle1 = dot( n1i, pmiter - pnext );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = ( type == 4.0 || type == 6.0 ? n1 : n0 );\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t( miterAngle0 < 0.0 && 0.0 <= miterAngle1 ? pmiter : pbevel ) :\n\t\t( miterLength < 6.0 ? pmiter : pbevel )\n\t);\n\tvec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );\n\tshift = dot( ni, p - presult );\n\treturn toTransformedPosition( presult );\n}\n\nvec2 toStep3456( in float type ) {\n\treturn ( type < 4.5 ? vec2( 1.0, 0.0 ) : vec2( 0.0, 1.0 ) );\n}\n\nvec4 toAntialias3456( in float strokeWidth ) {\n\tfloat a = antialiasWeight / max( 0.0001, strokeWidth );\n\treturn toAntialias01( vec4( a, a, a, a ) );\n}\n\nfloat toDotAndDashScale( in float scale, in float strokeWidthScale ) {\n\treturn (\n\t\tscale == 4.0 || scale == 5.0 || scale == 6.0 || scale == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec4 toColorStroke3456( in float shift, in float scale ) {\n\tfloat x = aColorFill.x + shift;\n\tfloat y = scale * aColorFill.y;\n\tfloat z = scale * aColorFill.z;\n\tfloat w = aColorFill.w;\n\treturn vec4( x, y, z, w );\n}\n\nfloat toStrokeWidthScale( in float scale ) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin( 1.0, shapeScale ) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax( 1.0, shapeScale ) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toStep01(in vec2 size, in vec2 weight, in vec2 strokeWidth) {\n\treturn weight / max(vec2(0.00001), vec2(1.0) - strokeWidth / size);\n}\n\nvec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {\n\treturn antialiasWeight / max(vec4(0.00001), vec4(size - strokeWidth, size));\n}\n\nvoid main(void) {\n\tvec2 p012 = toTransformedPosition( aPosition );\n\n\tfloat type = aClipping.z;\n\tfloat strokeWidthScale = toStrokeWidthScale( aStep.y );\n\tfloat strokeWidth = strokeWidthScale * aStep.x;\n\n\t// type === 0 or 1\n\tvec2 size01 = aAntialias.xy;\n\tvec2 weight01 = abs(aAntialias.zw - sign(aAntialias.zw));\n\tvec2 strokeWidth01 = step(vec2(0.0), aAntialias.zw) * strokeWidth;\n\tvec2 step01 = toStep01( size01, weight01, strokeWidth01 );\n\tvec4 a01 = toAntialias01( toAntialias01b( size01, strokeWidth01 ) );\n\n\t// type === 2\n\tvec4 a2 = toAntialias2( aAntialias, strokeWidth );\n\n\t// type === 3, 4, 5 or 6\n\tfloat shift3456 = 0.0;\n\tvec2 p3456 = toPosition3456( type, aPosition, aAntialias.xy, aAntialias.zw, strokeWidth, shift3456 );\n\tvec2 step3456 = toStep3456( type );\n\tvec4 a3456 = toAntialias3456( strokeWidth );\n\tvec4 colorStroke3456 = toColorStroke3456( shift3456, toDotAndDashScale( aStep.y, strokeWidthScale ) );\n\n\t//\n\tgl_Position = vec4( ( 2.5 < type ? p3456 : p012 ), 0.0, 1.0 );\n\tvAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );\n\tvClipping = aClipping;\n\tvStep = ( 2.5 < type ? step3456 : step01 );\n\tvColorFill = ( 2.5 < type ? aColorStroke : aColorFill );\n\tvColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );\n\tvUv = aUv;\n}";
+    var FRAGMENT_SHADER$1 = "\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float pixelScale;\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tfloat type = vClipping.z;\n\tvec2 v0 = vStep;\n\tvec2 v1 = vClipping.xy;\n\tvec2 v2 = v0 * vAntialias.xy;\n\tvec2 v3 = v1 * vAntialias.zw;\n\tvec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );\n\tvec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );\n\tvec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );\n\tvec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );\n\tvec4 d = ( type == 1.0 ? d1 : d0 );\n\tvec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );\n\tvec4 color01 = texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));\n\n\tfloat l = vColorStroke.x;\n\tfloat lp0 = vColorStroke.y;\n\tfloat lp1 = vColorStroke.z;\n\tfloat lt = vColorStroke.w;\n\tfloat ld = 0.5 * pixelScale;\n\tfloat lm = mod( l, lp0 + lp1 );\n\tfloat ls0 = ( 0.0 < lp1 ? smoothstep( 0.0, ld, lm ) - smoothstep( lp0, lp0 + ld, lm ) : 1.0 );\n\tfloat ls1 = ( 0.0 <= lt ? smoothstep( 0.0, ld, l ) - smoothstep( lt - ld, lt, l ) : 1.0 );\n\tvec4 color3456 = color01 * ls0 * ls1;\n\n\tvec2 a0 = vAntialias.xy;\n\tvec2 a1 = vAntialias.zw;\n\tvec2 a2 = vec2( texture.a );\n\tvec2 a = smoothstep( a0 - a1, a0 + a1, a2 );\n\tvec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;\n\tgl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );\n}";
+    var EShapeRenderer = /** @class */ (function (_super) {
+        __extends(EShapeRenderer, _super);
+        function EShapeRenderer(renderer) {
+            var _this = _super.call(this, renderer) || this;
+            EShapeRenderer.SHADER =
+                EShapeRenderer.SHADER || pixi_js.Shader.from(VERTEX_SHADER$1, FRAGMENT_SHADER$1);
+            _this._shader = EShapeRenderer.SHADER;
+            _this._iterator = new EShapeRendererIterator();
+            _this._bufferSizeMax = _this.getBufferSizeMax(renderer);
+            return _this;
+        }
+        EShapeRenderer.prototype.getBufferSizeMax = function (renderer) {
+            var context = renderer.context;
+            var extensions = context.extensions;
+            if (1 < context.webGLVersion || !!extensions.uint32ElementIndex) {
+                return 1431655765; // 2^32 / 3
+            }
+            return 21845; // 2^16 / 3
+        };
+        EShapeRenderer.prototype.updateAtlas = function (shape, atlas, fontAtlases, defaultTexture, baseTexture) {
+            // Texture
+            // Do not access the shape.image.src here.
+            // It slows down the rendering speed significantly.
+            var imageSrc = shape.imageSrc;
+            if (imageSrc != null) {
+                var textureItem = atlas.get(imageSrc);
+                if (textureItem != null) {
+                    shape.texture = textureItem.texture;
+                }
+                else {
+                    var image = shape.image;
+                    if (image != null) {
+                        var newTextureItem = new DynamicAtlasItemImage(image, baseTexture);
+                        shape.texture = newTextureItem.texture;
+                        atlas.set(newTextureItem.id, newTextureItem);
+                    }
+                    else {
+                        shape.texture = defaultTexture;
+                    }
+                }
+            }
+            else {
+                shape.texture = defaultTexture;
+            }
+            // Font texture atlas
+            var text = shape.text;
+            var textValue = text.value;
+            if (0 < textValue.length) {
+                fontAtlases.add(text.family, textValue);
+            }
+        };
+        EShapeRenderer.prototype.updateAtlases = function (shapes, atlas, fontAtlases, defaultTexture, baseTexture) {
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                var shape = shapes[i];
+                this.updateAtlas(shape, atlas, fontAtlases, defaultTexture, baseTexture);
+                var children = shape.children;
+                for (var j = 0, jmax = children.length; j < jmax; ++j) {
+                    var child = children[j];
+                    this.updateAtlas(child, atlas, fontAtlases, defaultTexture, baseTexture);
+                    this.updateAtlases(child.children, atlas, fontAtlases, defaultTexture, baseTexture);
+                }
+            }
+        };
+        EShapeRenderer.prototype.updateFontAtlas = function (shape, atlas, fontAtlases, defaultTexture) {
+            var text = shape.text;
+            var fontAtlas = fontAtlases.get(text.family);
+            if (fontAtlas != null) {
+                var textureItem = atlas.get(fontAtlas.id);
+                if (textureItem != null) {
+                    text.atlas = fontAtlas;
+                    text.texture = textureItem.texture;
+                }
+                else {
+                    text.atlas = undefined;
+                    text.texture = defaultTexture;
+                }
+            }
+            else {
+                text.atlas = undefined;
+                text.texture = defaultTexture;
+            }
+        };
+        EShapeRenderer.prototype.updateFontAtlases = function (shapes, atlas, fontAtlases, defaultTexture) {
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                var shape = shapes[i];
+                this.updateFontAtlas(shape, atlas, fontAtlases, defaultTexture);
+                var children = shape.children;
+                for (var j = 0, jmax = children.length; j < jmax; ++j) {
+                    var child = children[j];
+                    this.updateFontAtlas(child, atlas, fontAtlases, defaultTexture);
+                    this.updateFontAtlases(child.children, atlas, fontAtlases, defaultTexture);
+                }
+            }
+        };
+        EShapeRenderer.prototype.render_ = function (container, shape, shapes, isDirty) {
+            var renderer = this.renderer;
+            var shader = this._shader;
+            if (shader != null && 0 < shapes.length) {
+                var resolution = renderer.resolution;
+                var buffers = container.getBuffers();
+                var antialiasWeight = container.getAntialiasWeight(resolution);
+                // Update textures
+                if (isDirty) {
+                    // Atlases
+                    var atlas = container.getAtlas(resolution);
+                    var fontAtlases = container.getFontAtlases();
+                    atlas.begin();
+                    fontAtlases.begin();
+                    var defaultTexture = atlas.getDefaultTexture();
+                    var baseTexture = atlas.getBaseTexture();
+                    this.updateAtlases(shapes, atlas, fontAtlases, defaultTexture, baseTexture);
+                    fontAtlases.end();
+                    fontAtlases.update(atlas);
+                    this.updateFontAtlases(shapes, atlas, fontAtlases, defaultTexture);
+                    atlas.end();
+                    atlas.repack();
+                    // Update buffers
+                    this.updateBuffers(shape, shapes, buffers, renderer, antialiasWeight);
+                }
+                // Render buffers
+                shader.uniforms.shapeScale = container.toShapeScale();
+                shader.uniforms.pixelScale = container.toPixelScale(resolution);
+                shader.uniforms.antialiasWeight = antialiasWeight;
+                shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
+                renderer.shader.bind(shader, false);
+                renderer.state.setBlendMode(pixi_js.utils.correctBlendMode(pixi_js.BLEND_MODES.NORMAL, true));
+                var buffersLength = buffers.length;
+                if (1 < buffersLength) {
+                    for (var i = 0; i < buffersLength; ++i) {
+                        buffers[i].upload();
+                    }
+                }
+                for (var i = 0; i < buffersLength; ++i) {
+                    buffers[i].render(shader);
+                }
+            }
+        };
+        EShapeRenderer.prototype.updateBuffers = function (shape, shapes, buffers, renderer, antialiasWeight) {
+            var iterator = this._iterator;
+            iterator.reset(shape, shapes);
+            var ib = 0;
+            var bufferSize = 0;
+            var bufferSizeBase = 5000;
+            var bufferSizeMax = this._bufferSizeMax;
+            while (iterator.get() != null) {
+                var buffer = null;
+                var noMoreThanOne = false;
+                if (0 < bufferSize) {
+                    buffer = new EShapeBuffer(bufferSize, renderer);
+                    buffers.splice(ib, 0, buffer);
+                    noMoreThanOne = true;
+                }
+                else if (ib < buffers.length) {
+                    buffer = buffers[ib];
+                    noMoreThanOne = false;
+                }
+                else {
+                    buffer = new EShapeBuffer(bufferSizeBase, renderer);
+                    buffers.push(buffer);
+                    noMoreThanOne = false;
+                }
+                if (buffer.update(iterator, antialiasWeight, noMoreThanOne)) {
+                    bufferSize = 0;
+                    ib += 1;
+                }
+                else {
+                    bufferSize = buffer.indexCountRequested;
+                    if (bufferSize <= bufferSizeMax) {
+                        bufferSize = Math.ceil(bufferSize / bufferSizeBase) * bufferSizeBase;
+                        bufferSize = Math.min(bufferSize, bufferSizeMax);
+                    }
+                    else {
+                        // No way to render
+                        break;
+                    }
+                }
+            }
+            if (ib < buffers.length) {
+                for (var jb = ib, ibmax = buffers.length; jb < ibmax; ++jb) {
+                    buffers[jb].destroy();
+                }
+                buffers.length = ib;
+            }
+        };
+        EShapeRenderer.SHADER = null;
+        return EShapeRenderer;
+    }(pixi_js.ObjectRenderer));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeContainer = /** @class */ (function (_super) {
+        __extends(EShapeContainer, _super);
+        function EShapeContainer() {
+            var _this = _super.call(this) || this;
+            _this._shapeRenderer = null;
+            _this.children = [];
+            _this._shape = null;
+            _this._childrenId = 0;
+            _this._childrenIdRendered = -1;
+            _this._atlas = null;
+            _this._fontAtlases = new DynamicSDFFontAtlases();
+            _this._pixelScale = 1;
+            _this._pixelScaleId = NaN;
+            _this._shapeScale = 1;
+            _this._shapeScaleId = NaN;
+            _this._work = new pixi_js.Point();
+            _this._buffers = [];
+            return _this;
+        }
+        EShapeContainer.prototype.calculateBounds = function () {
+            this._bounds.clear();
+        };
+        EShapeContainer.prototype.onChildTransformChange = function () {
+            // DO NOTHING
+        };
+        EShapeContainer.prototype.toDirty = function () {
+            return (this._childrenId += 1);
+        };
+        EShapeContainer.prototype.isDirty = function () {
+            return this._childrenIdRendered < this._childrenId;
+        };
+        EShapeContainer.prototype.render = function (renderer) {
+            if (!this.visible || this.worldAlpha <= 0 || !this.renderable) {
+                return;
+            }
+            var childrenId = this._childrenId;
+            var childrenIdRendered = this._childrenIdRendered;
+            this._childrenIdRendered = childrenId;
+            var isChildrenDirty = childrenIdRendered < childrenId;
+            var shapeRenderer = this._shapeRenderer;
+            if (shapeRenderer == null) {
+                shapeRenderer = this._shapeRenderer = new EShapeRenderer(renderer);
+            }
+            renderer.batch.setObjectRenderer(shapeRenderer);
+            var mask = this.mask;
+            var shape = this._shape;
+            var shapes = this.children;
+            if (mask) {
+                renderer.mask.push(this, mask);
+                shapeRenderer.render_(this, shape, shapes, isChildrenDirty);
+                renderer.mask.pop(this);
+            }
+            else {
+                shapeRenderer.render_(this, shape, shapes, isChildrenDirty);
+            }
+        };
+        EShapeContainer.prototype.containsPoint = function (point) {
+            return false;
+        };
+        EShapeContainer.prototype.getFontAtlases = function () {
+            return this._fontAtlases;
+        };
+        EShapeContainer.prototype.getAtlas = function (resolution) {
+            var atlas = this._atlas;
+            if (atlas == null) {
+                atlas = new DynamicAtlas(resolution);
+                this._atlas = atlas;
+            }
+            return atlas;
+        };
+        EShapeContainer.prototype.getBuffers = function () {
+            return this._buffers;
+        };
+        EShapeContainer.prototype.toShapeScale = function () {
+            this.updateTransform();
+            var transform = this.transform;
+            var worldID = transform._worldID;
+            if (worldID !== this._shapeScaleId) {
+                this._shapeScaleId = worldID;
+                var worldTransform = transform.worldTransform;
+                var a = worldTransform.a;
+                var b = worldTransform.b;
+                this._shapeScale = 1 / Math.sqrt(a * a + b * b);
+            }
+            return this._shapeScale;
+        };
+        EShapeContainer.prototype.getShapeScale = function () {
+            return this._shapeScale;
+        };
+        EShapeContainer.prototype.toPixelScale = function (resolution) {
+            var shapeScale = this.toShapeScale();
+            var shapeScaleId = this._shapeScaleId;
+            if (this._pixelScaleId !== shapeScaleId) {
+                this._pixelScaleId = shapeScaleId;
+                this._pixelScale = (1 / resolution) * shapeScale;
+            }
+            return this._pixelScale;
+        };
+        EShapeContainer.prototype.getPixelScale = function () {
+            return this._pixelScale;
+        };
+        EShapeContainer.prototype.getAntialiasWeight = function (resolution) {
+            return 1.25 / resolution;
+        };
+        EShapeContainer.prototype.hitTest = function (global, onHit) {
+            var local = this._work;
+            var children = this.children;
+            for (var i = children.length - 1; 0 <= i; --i) {
+                var child = children[i];
+                if (child.visible) {
+                    child.toLocal(global, undefined, local);
+                    var result = child.contains(local);
+                    if (result != null) {
+                        if (onHit == null || onHit(result)) {
+                            return result;
+                        }
+                    }
+                }
+            }
+            return null;
+        };
+        EShapeContainer.prototype.hitTestBBox = function (global, onHit) {
+            var local = this._work;
+            var children = this.children;
+            for (var i = children.length - 1; 0 <= i; --i) {
+                var child = children[i];
+                if (child.visible) {
+                    child.toLocal(global, undefined, local);
+                    if (child.containsBBox(local)) {
+                        if (onHit == null || onHit(child)) {
+                            return child;
+                        }
+                    }
+                }
+            }
+            return null;
+        };
+        EShapeContainer.prototype.destroy = function () {
+            // Buffer
+            var buffers = this._buffers;
+            if (buffers != null) {
+                for (var i = 0, imax = buffers.length; i < imax; ++i) {
+                    buffers[i].destroy();
+                }
+            }
+            this._buffers.length = 0;
+            // Shapes
+            var children = this.children;
+            for (var i = children.length - 1; 0 <= i; --i) {
+                children[i].destroy();
+            }
+            children.length = 0;
+            //
+            _super.prototype.destroy.call(this);
+        };
+        return EShapeContainer;
+    }(pixi_js.DisplayObject));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramLayers = /** @class */ (function () {
+        function DDiagramLayers() {
+        }
+        DDiagramLayers.toLayers = function (shape, indices) {
+            var result = [];
+            var layer = this.toLayer(shape);
+            if (layer) {
+                var container = layer.parent;
+                if (container) {
+                    var children = container.children;
+                    var childrenLength = children.length;
+                    for (var i = 0, imax = indices.length; i < imax; ++i) {
+                        var index = indices[i];
+                        if (0 <= index && index < childrenLength) {
+                            result.push(children[index]);
+                        }
+                    }
+                }
+            }
+            return result;
+        };
+        DDiagramLayers.toLayer = function (shape) {
+            var parent = shape.parent;
+            while (parent != null) {
+                if (parent instanceof EShapeContainer) {
+                    return parent;
+                }
+                if (parent.type === EShapeType.EMBEDDED_LAYER) {
+                    return parent;
+                }
+                parent = parent.parent;
+            }
+            return null;
+        };
+        DDiagramLayers.show = function (target) {
+            if (!target.visible) {
+                target.visible = true;
+                return true;
+            }
+            return false;
+        };
+        DDiagramLayers.showAll = function (targets) {
+            var isChanged = false;
+            for (var i = 0, imax = targets.length; i < imax; ++i) {
+                var layer = targets[i];
+                if (!layer.visible) {
+                    layer.visible = true;
+                    isChanged = true;
+                }
+            }
+            return isChanged;
+        };
+        DDiagramLayers.hide = function (target) {
+            if (target.visible) {
+                target.visible = false;
+                return true;
+            }
+            return false;
+        };
+        DDiagramLayers.hideAll = function (targets) {
+            var isChanged = false;
+            for (var i = 0, imax = targets.length; i < imax; ++i) {
+                var layer = targets[i];
+                if (layer.visible) {
+                    layer.visible = false;
+                    isChanged = true;
+                }
+            }
+            return isChanged;
+        };
+        DDiagramLayers.bringToFront = function (target) {
+            var parent = target.parent;
+            if (parent) {
+                return this.doBringToFront(target, parent.children, 0);
+            }
+            return false;
+        };
+        DDiagramLayers.bringAllToFront = function (targets) {
+            var targetsLength = targets.length;
+            if (0 < targetsLength) {
+                var parent_1 = targets[0].parent;
+                if (parent_1) {
+                    var isChanged = false;
+                    var layers = parent_1.children;
+                    for (var i = 0; i < targetsLength; ++i) {
+                        var layer = targets[targetsLength - 1 - i];
+                        if (this.doBringToFront(layer, layers, i)) {
+                            isChanged = true;
+                        }
+                    }
+                    return isChanged;
+                }
+            }
+            return false;
+        };
+        DDiagramLayers.doBringToFront = function (target, layers, offset) {
+            var layersLength = layers.length;
+            var ito = layersLength - 1 - offset;
+            for (var i = ito; 0 <= i; --i) {
+                var child = layers[i];
+                if (child === target) {
+                    if (i !== ito) {
+                        for (var j = i + 1; j <= ito; ++j) {
+                            layers[j - 1] = layers[j];
+                        }
+                        layers[ito] = child;
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        };
+        return DDiagramLayers;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var InteractionEvent$1 = pixi_js.interaction.InteractionEvent;
+    var EShapeActionRuntimeMiscLayerGesture = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscLayerGesture, _super);
+        function EShapeActionRuntimeMiscLayerGesture(value) {
+            var _this = _super.call(this, value, EShapeRuntimeReset.NONE) || this;
+            _this._layers = new Map();
+            _this._gestureType = value.gestureType;
+            _this._scaleMin = value.scaleMin;
+            _this._scaleMax = value.scaleMax;
+            return _this;
+        }
+        EShapeActionRuntimeMiscLayerGesture.prototype.initialize = function (shape, runtime) {
+            _super.prototype.initialize.call(this, shape, runtime);
+            var layers = this._layers;
+            var layer = layers.get(shape);
+            if (layer == null) {
+                var newLayer = DDiagramLayers.toLayer(shape);
+                if (newLayer != null) {
+                    this._layers.set(shape, newLayer);
+                }
+            }
+        };
+        EShapeActionRuntimeMiscLayerGesture.prototype.onDown = function (shape, runtime, e) {
+            _super.prototype.onDown.call(this, shape, runtime, e);
+            if (e instanceof InteractionEvent$1) {
+                var layer = this._layers.get(shape);
+                if (layer && this.condition(shape, e.data.originalEvent.timeStamp)) {
+                    this.getGestureUtil().onDown(layer, e);
+                }
+            }
+        };
+        EShapeActionRuntimeMiscLayerGesture.prototype.getGestureUtil = function () {
+            var _a;
+            return ((_a = EShapeActionRuntimeMiscLayerGesture.GESTURE_UTIL) !== null && _a !== void 0 ? _a : (EShapeActionRuntimeMiscLayerGesture.GESTURE_UTIL = this.newGestureUtil()));
+        };
+        EShapeActionRuntimeMiscLayerGesture.prototype.newGestureUtil = function () {
+            var _this = this;
+            var work = new pixi_js.Point();
+            return new UtilGesture({
+                on: {
+                    move: function (target, dx, dy, x, y, ds) {
+                        _this.onGestureMove(target, dx, dy, x, y, ds, work);
+                    }
+                }
+            });
+        };
+        EShapeActionRuntimeMiscLayerGesture.prototype.onGestureMove = function (layer, dx, dy, x, y, ds, work) {
+            var parent = layer.parent;
+            if (parent) {
+                var transform = layer.transform;
+                var gestureType = this._gestureType;
+                var isChanged = false;
+                // Scale
+                var scaleRatio = 1;
+                if (gestureType & EShapeActionValueMiscGestureType.PINCH) {
+                    var scale = transform.scale;
+                    var oldScale = scale.y;
+                    var newScale = Math.min(this._scaleMax, Math.max(this._scaleMin, oldScale * ds));
+                    scaleRatio = newScale / oldScale;
+                    scale.set(newScale, newScale);
+                    isChanged = true;
+                }
+                // Position
+                if (gestureType & EShapeActionValueMiscGestureType.DRAG) {
+                    parent.toLocal(work.set(x, y), undefined, work);
+                    var lx = work.x;
+                    var ly = work.y;
+                    var cx = x - dx;
+                    var cy = y - dy;
+                    parent.toLocal(work.set(cx, cy), undefined, work);
+                    var lcx = work.x;
+                    var lcy = work.y;
+                    var position = transform.position;
+                    var newX = (position.x - lcx) * scaleRatio + lx;
+                    var newY = (position.y - lcy) * scaleRatio + ly;
+                    position.set(newX, newY);
+                    isChanged = true;
+                }
+                // Update
+                if (isChanged) {
+                    DApplications.update(layer);
+                }
+            }
+        };
+        EShapeActionRuntimeMiscLayerGesture.prototype.toSize = function (layer, result) {
+            if ("size" in layer) {
+                result.copyFrom(layer.size);
+            }
+            else {
+                result.set(layer.width, layer.height);
+            }
+            return result;
+        };
+        return EShapeActionRuntimeMiscLayerGesture;
+    }(EShapeActionRuntimeConditional));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscLayerGesture = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscLayerGesture, _super);
+        function EShapeActionValueMiscLayerGesture(condition, gestureType, scaleMin, scaleMax) {
+            if (condition === void 0) { condition = ""; }
+            if (gestureType === void 0) { gestureType = EShapeActionValueMiscGestureType.ALL; }
+            if (scaleMin === void 0) { scaleMin = 0.05; }
+            if (scaleMax === void 0) { scaleMax = 20; }
+            var _this = _super.call(this, EShapeActionValueType.MISC, condition, EShapeActionValueMiscType.LAYER_GESTURE) || this;
+            _this.gestureType = gestureType;
+            _this.scaleMin = scaleMin;
+            _this.scaleMax = scaleMax;
+            return _this;
+        }
+        EShapeActionValueMiscLayerGesture.prototype.toRuntime = function () {
+            return new EShapeActionRuntimeMiscLayerGesture(this);
+        };
+        EShapeActionValueMiscLayerGesture.prototype.serialize = function (manager) {
+            var conditionId = manager.addResource(this.condition);
+            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.gestureType + "," + this.scaleMin + "," + this.scaleMax + "]");
+        };
+        EShapeActionValueMiscLayerGesture.deserialize = function (serialized, manager) {
+            var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+            var gestureType = serialized[3];
+            var scaleMin = serialized[4];
+            var scaleMax = serialized[5];
+            return new EShapeActionValueMiscLayerGesture(condition, gestureType, scaleMin, scaleMax);
+        };
+        return EShapeActionValueMiscLayerGesture;
+    }(EShapeActionValueSubtyped));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionRuntimeMiscLayerShowHide = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscLayerShowHide, _super);
+        function EShapeActionRuntimeMiscLayerShowHide(value) {
+            var _this = _super.call(this, value, EShapeRuntimeReset.NONE) || this;
+            _this._data = new Map();
+            _this._layers = value.layers;
+            _this._bringToFront = value.bringToFront;
+            return _this;
+        }
+        EShapeActionRuntimeMiscLayerShowHide.prototype.initialize = function (shape, runtime) {
+            _super.prototype.initialize.call(this, shape, runtime);
+            var data = this._data.get(shape);
+            if (data == null) {
+                data = this.newData(shape);
+                if (data != null) {
+                    this._data.set(shape, data);
+                }
+            }
+        };
+        EShapeActionRuntimeMiscLayerShowHide.prototype.execute = function (shape, runtime, time) {
+            var data = this._data.get(shape);
+            if (data) {
+                var newCondition = this.condition(shape, time);
+                if (data.condition !== newCondition) {
+                    data.condition = newCondition;
+                    var layers = data.layers;
+                    if (newCondition) {
+                        if (data.bringToFront) {
+                            DDiagramLayers.bringAllToFront(layers);
+                            DDiagramLayers.showAll(layers);
+                        }
+                        else {
+                            DDiagramLayers.showAll(layers);
+                        }
+                    }
+                    else {
+                        DDiagramLayers.hideAll(layers);
+                    }
+                }
+            }
+        };
+        EShapeActionRuntimeMiscLayerShowHide.prototype.newData = function (shape) {
+            var layers = DDiagramLayers.toLayers(shape, this._layers);
+            if (0 < layers.length) {
+                return {
+                    layers: layers,
+                    bringToFront: this._bringToFront,
+                    condition: null
+                };
+            }
+        };
+        return EShapeActionRuntimeMiscLayerShowHide;
+    }(EShapeActionRuntimeConditional));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscLayerShowHide = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscLayerShowHide, _super);
+        function EShapeActionValueMiscLayerShowHide(condition, layers, bringToFront) {
+            var _this = _super.call(this, EShapeActionValueType.MISC, condition, EShapeActionValueMiscType.LAYER_SHOW_HIDE) || this;
+            _this.layers = layers;
+            _this.bringToFront = bringToFront;
+            return _this;
+        }
+        EShapeActionValueMiscLayerShowHide.prototype.toRuntime = function () {
+            return new EShapeActionRuntimeMiscLayerShowHide(this);
+        };
+        EShapeActionValueMiscLayerShowHide.prototype.serialize = function (manager) {
+            var conditionId = manager.addResource(this.condition);
+            var layersId = this.serializeLayers(manager);
+            var bringToFrontId = this.bringToFront ? 1 : 0;
+            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + layersId + "," + bringToFrontId + "]");
+        };
+        EShapeActionValueMiscLayerShowHide.prototype.serializeLayers = function (manager) {
+            var layers = this.layers;
+            var result = "[";
+            var delimiter = "";
+            for (var i = 0, imax = layers.length; i < imax; ++i) {
+                result += delimiter + layers[i];
+                delimiter = ",";
+            }
+            result += "]";
+            return manager.addResource(result);
+        };
+        EShapeActionValueMiscLayerShowHide.deserialize = function (serialized, manager) {
+            var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
+            var layers = this.deserializeLayers(serialized[3], manager);
+            var bringToFront = !!serialized[4];
+            return new EShapeActionValueMiscLayerShowHide(condition, layers, bringToFront);
+        };
+        EShapeActionValueMiscLayerShowHide.deserializeLayers = function (target, manager) {
+            var resources = manager.resources;
+            var resourcesLength = resources.length;
+            if (0 <= target && target < resourcesLength) {
+                return JSON.parse(resources[target]);
+            }
+            return [];
+        };
+        return EShapeActionValueMiscLayerShowHide;
     }(EShapeActionValueSubtyped));
 
     /*
@@ -16962,6 +19258,8 @@
                 _this.state.isPressed = false;
                 if (interactionManager != null) {
                     interactionManager.off(UtilPointerEvent.up, onUp);
+                    interactionManager.off(UtilPointerEvent.upoutside, onUp);
+                    interactionManager.off(UtilPointerEvent.cancel, onUp);
                     interactionManager = null;
                 }
             };
@@ -16971,6 +19269,8 @@
                 if (layer) {
                     interactionManager = layer.renderer.plugins.interaction;
                     interactionManager.on(UtilPointerEvent.up, onUp);
+                    interactionManager.on(UtilPointerEvent.upoutside, onUp);
+                    interactionManager.on(UtilPointerEvent.cancel, onUp);
                 }
             });
         };
@@ -19146,9 +21446,9 @@
         });
         DHtmlElement.prototype.onDownThis = function (e) {
             var util = this.getUtil();
-            util.onDownThisBefore(e);
+            util.onDowning(e);
             _super.prototype.onDownThis.call(this, e);
-            util.onDownThisAfter(e);
+            util.onDown(e);
         };
         DHtmlElement.prototype.onDblClick = function (e, interactionManager) {
             this.getUtil().onDblClick(e, interactionManager);
@@ -22104,7 +24404,16 @@
                             }
                             break;
                         case EShapeActionValueType.MISC:
-                            return EShapeActionValueMisc.deserialize(serialized, manager);
+                            switch (serialized[2]) {
+                                case EShapeActionValueMiscType.GESTURE:
+                                    return EShapeActionValueMiscGesture.deserialize(serialized, manager);
+                                case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+                                    return EShapeActionValueMiscLayerShowHide.deserialize(serialized, manager);
+                                case EShapeActionValueMiscType.LAYER_GESTURE:
+                                    return EShapeActionValueMiscLayerGesture.deserialize(serialized, manager);
+                                default:
+                                    return EShapeActionValueMisc.deserialize(serialized, manager);
+                            }
                     }
                 }
             }
@@ -22176,11 +24485,17 @@
             result.tag.deserialize(item[12], manager);
             result.radius = item[13];
             result.corner = item[14];
-            result.interactive = !!(item[23] & 1);
-            result.state.isFocusable = !(item[23] & 2);
-            result.shortcut = 0 <= item[24] ? manager.resources[item[24]] : undefined;
-            result.title = 0 <= item[25] ? manager.resources[item[25]] : undefined;
-            result.uuid = item[26] != null ? item[26] : 0;
+            var item23 = item[23];
+            result.interactive = !!(item23 & 1);
+            var state = result.state;
+            state.isFocusable = !(item23 & 2);
+            state.isActive = !!(item23 & 4);
+            var item24 = item[24];
+            result.shortcut = 0 <= item24 ? manager.resources[item24] : undefined;
+            var item25 = item[25];
+            result.title = 0 <= item25 ? manager.resources[item25] : undefined;
+            var item26 = item[26];
+            result.uuid = item26 != null ? item26 : 0;
             // Children
             var childrenPromise = null;
             var childrenSerialized = item[20];
@@ -23670,6 +25985,7 @@
             if (type === void 0) { type = EShapeType.BUTTON; }
             var _this = _super.call(this, type) || this;
             _this._isToggle = false;
+            _this._isGrouped = false;
             return _this;
         }
         Object.defineProperty(EShapeButton.prototype, "isToggle", {
@@ -23682,9 +25998,24 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeButton.prototype, "isGrouped", {
+            /**
+             * All the sibling buttons whose `isGrouped` is true is considered to to be grouped.
+             */
+            get: function () {
+                return this._isGrouped;
+            },
+            set: function (isGrouped) {
+                this._isGrouped = isGrouped;
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeButton.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
-            result[15] = manager.addResource("[" + (this._isToggle ? 1 : 0) + "]");
+            var isToggle = this._isToggle ? 1 : 0;
+            var isGrouped = this._isGrouped ? 2 : 0;
+            result[15] = manager.addResource("[" + (isToggle | isGrouped) + "]");
             return result;
         };
         return EShapeButton;
@@ -23704,7 +26035,8 @@
                 manager.setExtension(resourceId, parsed);
             }
             var shape = new EShapeButton();
-            shape.isToggle = !!parsed[0];
+            shape.isToggle = !!(parsed[0] & 1);
+            shape.isGrouped = !!(parsed[0] & 2);
             return EShapeDeserializer.deserialize(item, manager, shape);
         }
         return EShapeDeserializer.deserialize(item, manager, new EShapeButton());
@@ -23762,9 +26094,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeButtonRuntimeActionAfter = /** @class */ (function (_super) {
-        __extends(EShapeButtonRuntimeActionAfter, _super);
-        function EShapeButtonRuntimeActionAfter(runtime) {
+    var EShapeButtonRuntimeAction = /** @class */ (function (_super) {
+        __extends(EShapeButtonRuntimeAction, _super);
+        function EShapeButtonRuntimeAction(runtime) {
             var _this = _super.call(this, EShapeRuntimeReset.COLOR_FILL_AND_STROKE |
                 EShapeRuntimeReset.COLOR_TEXT |
                 EShapeRuntimeReset.COLOR_TEXT_OUTLINE) || this;
@@ -23806,7 +26138,7 @@
             _this._textOutlineAlphaDisabled = textOutlineAlpha * 0.5;
             return _this;
         }
-        EShapeButtonRuntimeActionAfter.prototype.toOnHovered = function (color) {
+        EShapeButtonRuntimeAction.prototype.toOnHovered = function (color) {
             var luma = UtilRgb.toLuma(color);
             if (128 <= luma) {
                 var t = (luma - 128) / 127;
@@ -23817,7 +26149,7 @@
                 return -0.15 * (1 - t) - t * 0.175;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.execute = function (shape, runtime, time) {
+        EShapeButtonRuntimeAction.prototype.execute = function (shape, runtime, time) {
             var state = shape.state;
             shape.fill.set(undefined, this.getFillColor(state), this.getFillAlpha(state));
             shape.stroke.set(undefined, this.getStrokeColor(state), this.getStrokeAlpha(state));
@@ -23826,7 +26158,7 @@
             shape.cursor = this.getCursor(state);
             runtime.written |= EShapeRuntimeReset.COLOR_FILL_AND_STROKE;
         };
-        EShapeButtonRuntimeActionAfter.prototype.getFillColor = function (state) {
+        EShapeButtonRuntimeAction.prototype.getFillColor = function (state) {
             if (state.inDisabled) {
                 return this._fillColorDisabled;
             }
@@ -23840,7 +26172,7 @@
                 return this._fillColor;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getFillAlpha = function (state) {
+        EShapeButtonRuntimeAction.prototype.getFillAlpha = function (state) {
             if (state.inDisabled) {
                 return this._fillAlphaDisabled;
             }
@@ -23848,7 +26180,7 @@
                 return this._fillAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getStrokeColor = function (state) {
+        EShapeButtonRuntimeAction.prototype.getStrokeColor = function (state) {
             if (state.inDisabled) {
                 return this._strokeColorDisabled;
             }
@@ -23862,7 +26194,7 @@
                 return this._strokeColor;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getStrokeAlpha = function (state) {
+        EShapeButtonRuntimeAction.prototype.getStrokeAlpha = function (state) {
             if (state.inDisabled) {
                 return this._strokeAlphaDisabled;
             }
@@ -23870,7 +26202,7 @@
                 return this._strokeAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getTextColor = function (state) {
+        EShapeButtonRuntimeAction.prototype.getTextColor = function (state) {
             if (state.inDisabled) {
                 return this._textColorDisabled;
             }
@@ -23878,7 +26210,7 @@
                 return this._textColor;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getTextAlpha = function (state) {
+        EShapeButtonRuntimeAction.prototype.getTextAlpha = function (state) {
             if (state.inDisabled) {
                 return this._textAlphaDisabled;
             }
@@ -23886,7 +26218,7 @@
                 return this._textAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getTextOutlineColor = function (state) {
+        EShapeButtonRuntimeAction.prototype.getTextOutlineColor = function (state) {
             if (state.inDisabled) {
                 return this._textOutlineColorDisabled;
             }
@@ -23894,7 +26226,7 @@
                 return this._textOutlineColor;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getTextOutlineAlpha = function (state) {
+        EShapeButtonRuntimeAction.prototype.getTextOutlineAlpha = function (state) {
             if (state.inDisabled) {
                 return this._textOutlineAlphaDisabled;
             }
@@ -23902,22 +26234,22 @@
                 return this._textOutlineAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfter.prototype.getCursor = function (state) {
+        EShapeButtonRuntimeAction.prototype.getCursor = function (state) {
             if (state.isActionable) {
                 return "pointer";
             }
             return "";
         };
-        return EShapeButtonRuntimeActionAfter;
+        return EShapeButtonRuntimeAction;
     }(EShapeActionRuntime));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeButtonRuntimeActionAfterToggle = /** @class */ (function (_super) {
-        __extends(EShapeButtonRuntimeActionAfterToggle, _super);
-        function EShapeButtonRuntimeActionAfterToggle(runtime) {
+    var EShapeButtonRuntimeActionToggle = /** @class */ (function (_super) {
+        __extends(EShapeButtonRuntimeActionToggle, _super);
+        function EShapeButtonRuntimeActionToggle(runtime) {
             var _this = _super.call(this, EShapeRuntimeReset.COLOR_FILL_AND_STROKE |
                 EShapeRuntimeReset.COLOR_TEXT |
                 EShapeRuntimeReset.COLOR_TEXT_OUTLINE) || this;
@@ -23970,7 +26302,7 @@
             _this._textOutlineAlphaDisabled = textOutlineAlpha * 0.5;
             return _this;
         }
-        EShapeButtonRuntimeActionAfterToggle.prototype.toOnHovered = function (color) {
+        EShapeButtonRuntimeActionToggle.prototype.toOnHovered = function (color) {
             var luma = UtilRgb.toLuma(color);
             if (128 <= luma) {
                 var t = (luma - 128) / 127;
@@ -23981,7 +26313,7 @@
                 return -0.15 * (1 - t) - t * 0.175;
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.execute = function (shape, runtime, time) {
+        EShapeButtonRuntimeActionToggle.prototype.execute = function (shape, runtime, time) {
             var state = shape.state;
             shape.fill.set(undefined, this.getFillColor(state), this.getFillAlpha(state));
             shape.stroke.set(undefined, this.getStrokeColor(state), this.getStrokeAlpha(state));
@@ -23990,7 +26322,7 @@
             shape.cursor = this.getCursor(state);
             runtime.written |= EShapeRuntimeReset.COLOR_FILL_AND_STROKE;
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getFillColor = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getFillColor = function (state) {
             if (state.inDisabled) {
                 return this._fillColor;
             }
@@ -24017,7 +26349,7 @@
                 }
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getFillAlpha = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getFillAlpha = function (state) {
             if (state.inDisabled) {
                 return this._fillAlphaDisabled;
             }
@@ -24025,7 +26357,7 @@
                 return this._fillAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getStrokeColor = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getStrokeColor = function (state) {
             if (state.inDisabled) {
                 return this._strokeColor;
             }
@@ -24052,7 +26384,7 @@
                 }
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getStrokeAlpha = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getStrokeAlpha = function (state) {
             if (state.inDisabled) {
                 return this._strokeAlphaDisabled;
             }
@@ -24060,7 +26392,7 @@
                 return this._strokeAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getTextColor = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getTextColor = function (state) {
             if (state.inDisabled) {
                 return this._textColorDisabled;
             }
@@ -24071,7 +26403,7 @@
                 return this._textColor;
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getTextAlpha = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getTextAlpha = function (state) {
             if (state.inDisabled) {
                 return this._textAlphaDisabled;
             }
@@ -24079,7 +26411,7 @@
                 return this._textAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getTextOutlineColor = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getTextOutlineColor = function (state) {
             if (state.inDisabled) {
                 return this._textOutlineColorDisabled;
             }
@@ -24087,7 +26419,7 @@
                 return this._textOutlineColor;
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getTextOutlineAlpha = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getTextOutlineAlpha = function (state) {
             if (state.inDisabled) {
                 return this._textOutlineAlphaDisabled;
             }
@@ -24095,58 +26427,13 @@
                 return this._textOutlineAlpha;
             }
         };
-        EShapeButtonRuntimeActionAfterToggle.prototype.getCursor = function (state) {
+        EShapeButtonRuntimeActionToggle.prototype.getCursor = function (state) {
             if (state.isActionable) {
                 return "pointer";
             }
             return "";
         };
-        return EShapeButtonRuntimeActionAfterToggle;
-    }(EShapeActionRuntime));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeButtonRuntimeActionBefore = /** @class */ (function (_super) {
-        __extends(EShapeButtonRuntimeActionBefore, _super);
-        function EShapeButtonRuntimeActionBefore() {
-            return _super.call(this, EShapeRuntimeReset.NONE) || this;
-        }
-        EShapeButtonRuntimeActionBefore.prototype.execute = function (shape, runtime, time) {
-            var state = shape.state;
-            if (state.isClicked) {
-                if (!state.isActive) {
-                    state.isActivated = true;
-                }
-            }
-        };
-        return EShapeButtonRuntimeActionBefore;
-    }(EShapeActionRuntime));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeButtonRuntimeActionBeforeToggle = /** @class */ (function (_super) {
-        __extends(EShapeButtonRuntimeActionBeforeToggle, _super);
-        function EShapeButtonRuntimeActionBeforeToggle() {
-            return _super.call(this, EShapeRuntimeReset.NONE) || this;
-        }
-        EShapeButtonRuntimeActionBeforeToggle.prototype.execute = function (shape, runtime, time) {
-            var state = shape.state;
-            if (state.isClicked) {
-                if (state.isActive) {
-                    state.isActive = false;
-                    state.isDeactivated = true;
-                }
-                else {
-                    state.isActive = true;
-                    state.isActivated = true;
-                }
-            }
-        };
-        return EShapeButtonRuntimeActionBeforeToggle;
+        return EShapeButtonRuntimeActionToggle;
     }(EShapeActionRuntime));
 
     /*
@@ -24158,28 +26445,57 @@
         function EShapeButtonRuntime(shape) {
             var _this = _super.call(this, shape) || this;
             if (shape instanceof EShapeButton) {
-                var isToggle = shape.isToggle;
-                var actions = _this.actions;
-                actions.unshift(_this.newActionBefore(isToggle));
-                actions.push(_this.newActionAfter(isToggle));
+                _this._isToggle = shape.isToggle;
+                _this._isGrouped = shape.isGrouped;
             }
             return _this;
         }
-        EShapeButtonRuntime.prototype.newActionBefore = function (isToggle) {
-            var _a, _b;
-            if (isToggle) {
-                return ((_a = EShapeButtonRuntime.BEFORE_TOGGLE) !== null && _a !== void 0 ? _a : (EShapeButtonRuntime.BEFORE_TOGGLE = new EShapeButtonRuntimeActionBeforeToggle()));
+        EShapeButtonRuntime.prototype.isActionable = function () {
+            return true;
+        };
+        EShapeButtonRuntime.prototype.initialize = function (shape) {
+            this.actions.push(this._isToggle
+                ? new EShapeButtonRuntimeActionToggle(this)
+                : new EShapeButtonRuntimeAction(this));
+            _super.prototype.initialize.call(this, shape);
+        };
+        EShapeButtonRuntime.prototype.onClick = function (shape, e) {
+            var state = shape.state;
+            var wasClicked = state.isClicked;
+            state.lock();
+            _super.prototype.onClick.call(this, shape, e);
+            if (!wasClicked && state.isClicked) {
+                if (this._isToggle) {
+                    state.isActive = !state.isActive;
+                }
+                else {
+                    if (!state.isActive) {
+                        state.isActivated = true;
+                    }
+                }
             }
-            else {
-                return ((_b = EShapeButtonRuntime.BEFORE) !== null && _b !== void 0 ? _b : (EShapeButtonRuntime.BEFORE = new EShapeButtonRuntimeActionBefore()));
+            state.unlock();
+        };
+        EShapeButtonRuntime.prototype.onStateChange = function (shape, newState, oldState) {
+            _super.prototype.onStateChange.call(this, shape, newState, oldState);
+            if (this._isToggle && this._isGrouped && newState.is(EShapeState.ACTIVATED)) {
+                this.onActivated(shape);
             }
         };
-        EShapeButtonRuntime.prototype.newActionAfter = function (isToggle) {
-            if (isToggle) {
-                return new EShapeButtonRuntimeActionAfterToggle(this);
-            }
-            else {
-                return new EShapeButtonRuntimeActionAfter(this);
+        EShapeButtonRuntime.prototype.onActivated = function (shape) {
+            // Deactivate other group buttons
+            var parent = shape.parent;
+            if (parent != null) {
+                var children = parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var child = children[i];
+                    if (child !== shape &&
+                        child instanceof EShapeButton &&
+                        child.isToggle &&
+                        child.isGrouped) {
+                        child.state.isActive = false;
+                    }
+                }
             }
         };
         return EShapeButtonRuntime;
@@ -24512,6 +26828,515 @@
         EShapeDeserializers[EShapeType.CIRCLE] = deserializeCircle;
     };
 
+    var RECTANGLE_VERTEX_COUNT = 24;
+    var RECTANGLE_INDEX_COUNT = 16;
+    var RECTANGLE_WORLD_SIZE = [0, 0, 0, 0];
+    var RECTANGLE_WORK_POINT = new pixi_js.Point();
+    var buildRectangleClipping = function (clippings, voffset, worldSize) {
+        var brxi = 1 - worldSize[0];
+        var bryi = 1 - worldSize[1];
+        var ic = voffset * 3 - 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
+        // --------------------------------
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = bryi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        // --------------------------------
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        // --------------------------------
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = brxi;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+        clippings[++ic] = 1;
+        clippings[++ic] = 0;
+        clippings[++ic] = 0;
+    };
+    var buildRectangleIndex = function (indices, voffset, ioffset) {
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 3;
+        // --------------------------------
+        indices[++ii] = voffset + 8;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 6;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 9;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 10;
+        indices[++ii] = voffset + 7;
+        indices[++ii] = voffset + 11;
+        // --------------------------------
+        indices[++ii] = voffset + 12;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 16;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 13;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 14;
+        indices[++ii] = voffset + 17;
+        indices[++ii] = voffset + 15;
+        // --------------------------------
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 20;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 21;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 18;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 19;
+        indices[++ii] = voffset + 22;
+        indices[++ii] = voffset + 23;
+    };
+    var buildRectangleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
+        // b0              b1
+        // |-------|-------|
+        // |       |       |
+        // |-------|-------|
+        // |       |       |
+        // |-------|-------|
+        // b3              b2
+        var s = strokeAlign * strokeWidth;
+        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
+        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+        var work = RECTANGLE_WORK_POINT;
+        work.set(originX - sx, originY - sy);
+        internalTransform.apply(work, work);
+        var b0x = work.x;
+        var b0y = work.y;
+        work.set(originX + sx, originY - sy);
+        internalTransform.apply(work, work);
+        var b1x = work.x;
+        var b1y = work.y;
+        work.set(originX + sx, originY + sy);
+        internalTransform.apply(work, work);
+        var b2x = work.x;
+        var b2y = work.y;
+        var b3x = b0x + (b2x - b1x);
+        var b3y = b0y + (b2y - b1y);
+        var ax = toLength(b0x, b0y, b1x, b1y) * 0.5;
+        var ay = toLength(b1x, b1y, b2x, b2y) * 0.5;
+        var brx = 1;
+        var bry = 1;
+        if (ax <= ay) {
+            bry = ax / ay;
+        }
+        else {
+            brx = ay / ax;
+        }
+        worldSize[0] = brx;
+        worldSize[1] = bry;
+        worldSize[2] = ax;
+        worldSize[3] = ay;
+        // 0      1  2      3
+        // |------|--|------|
+        // |      |  |      |
+        // |------4--5------|
+        // |      |  |      |
+        // |------6--7------|
+        // |      |  |      |
+        // |------|--|------|
+        // 8      9  10     11
+        var d01x = brx * (b1x - b0x) * 0.5;
+        var d01y = brx * (b1y - b0y) * 0.5;
+        var d03x = bry * (b3x - b0x) * 0.5;
+        var d03y = bry * (b3y - b0y) * 0.5;
+        var iv = (voffset << 1) - 1;
+        vertices[++iv] = b0x;
+        vertices[++iv] = b0y;
+        vertices[++iv] = b0x + d01x;
+        vertices[++iv] = b0y + d01y;
+        vertices[++iv] = b1x - d01x;
+        vertices[++iv] = b1y - d01y;
+        vertices[++iv] = b1x;
+        vertices[++iv] = b1y;
+        vertices[++iv] = b0x + d01x + d03x;
+        vertices[++iv] = b0y + d01y + d03y;
+        vertices[++iv] = b1x - d01x + d03x;
+        vertices[++iv] = b1y - d01y + d03y;
+        vertices[++iv] = b3x + d01x - d03x;
+        vertices[++iv] = b3y + d01y - d03y;
+        vertices[++iv] = b2x - d01x - d03x;
+        vertices[++iv] = b2y - d01y - d03y;
+        vertices[++iv] = b3x;
+        vertices[++iv] = b3y;
+        vertices[++iv] = b3x + d01x;
+        vertices[++iv] = b3y + d01y;
+        vertices[++iv] = b2x - d01x;
+        vertices[++iv] = b2y - d01y;
+        vertices[++iv] = b2x;
+        vertices[++iv] = b2y;
+        // 12               20
+        // |------|--|------|
+        // |      |  |      |
+        // 13----16--18-----21
+        // |      |  |      |
+        // 14----17--19-----22
+        // |      |  |      |
+        // |------|--|------|
+        // 15               23
+        vertices[++iv] = b0x;
+        vertices[++iv] = b0y;
+        vertices[++iv] = b0x + d03x;
+        vertices[++iv] = b0y + d03y;
+        vertices[++iv] = b3x - d03x;
+        vertices[++iv] = b3y - d03y;
+        vertices[++iv] = b3x;
+        vertices[++iv] = b3y;
+        vertices[++iv] = b0x + d03x + d01x;
+        vertices[++iv] = b0y + d03y + d01y;
+        vertices[++iv] = b3x - d03x + d01x;
+        vertices[++iv] = b3y - d03y + d01y;
+        vertices[++iv] = b1x + d03x - d01x;
+        vertices[++iv] = b1y + d03y - d01y;
+        vertices[++iv] = b2x - d03x - d01x;
+        vertices[++iv] = b2y - d03y - d01y;
+        vertices[++iv] = b1x;
+        vertices[++iv] = b1y;
+        vertices[++iv] = b1x + d03x;
+        vertices[++iv] = b1y + d03y;
+        vertices[++iv] = b2x - d03x;
+        vertices[++iv] = b2y - d03y;
+        vertices[++iv] = b2x;
+        vertices[++iv] = b2y;
+    };
+    var buildRectangleStep = function (voffset, steps, strokeWidth, strokeSide, strokeStyle, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var brx = worldSize[0];
+        var bry = worldSize[1];
+        var brxi = Math.max(0, 1 - brx);
+        var bryi = Math.max(0, 1 - bry);
+        var sx = worldSize[2];
+        var sy = worldSize[3];
+        var wt;
+        var bt;
+        if (strokeSide & EShapeStrokeSide.TOP) {
+            wt = +2;
+            bt = +1 + bryi;
+        }
+        else {
+            wt = -2;
+            bt = -1 - bryi;
+        }
+        var wr;
+        var br;
+        if (strokeSide & EShapeStrokeSide.RIGHT) {
+            wr = +2;
+            br = +1 + brxi;
+        }
+        else {
+            wr = -2;
+            br = -1 - brxi;
+        }
+        var wb;
+        var bb;
+        if (strokeSide & EShapeStrokeSide.BOTTOM) {
+            wb = +2;
+            bb = +1 + bryi;
+        }
+        else {
+            wb = -2;
+            bb = -1 - bryi;
+        }
+        var wl;
+        var bl;
+        if (strokeSide & EShapeStrokeSide.LEFT) {
+            wl = +2;
+            bl = +1 + brxi;
+        }
+        else {
+            wl = -2;
+            bl = -1 - brxi;
+        }
+        // 0 1 2 3
+        var is = (voffset - 1) * 6 - 1;
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
+        // 4 5
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
+        // 6 7
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
+        // 8 9 10 11
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
+        // ------------------------------
+        // 12 13 14 15
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
+        // 16 17
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
+        // 18 19
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
+        // 20 21 22 23
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bt);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bb);
+        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
+    };
+    var fillRectangleStep = function (steps, is, v0, v1, v2, v3, v4, v5) {
+        steps[++is] = v0;
+        steps[++is] = v1;
+        steps[++is] = v2;
+        steps[++is] = v3;
+        steps[++is] = v4;
+        steps[++is] = v5;
+    };
+    var buildRectangleUv = function (uvs, voffset, textureUvs, worldSize) {
+        var x0 = textureUvs.x0;
+        var y0 = textureUvs.y0;
+        var y1 = textureUvs.y1;
+        var x1 = textureUvs.x1;
+        var y2 = textureUvs.y2;
+        var x2 = textureUvs.x2;
+        var y3 = textureUvs.y3;
+        var x3 = textureUvs.x3;
+        var brx = worldSize[0];
+        var bry = worldSize[1];
+        var d01x = brx * (x1 - x0) * 0.5;
+        var d01y = brx * (y1 - y0) * 0.5;
+        var d03x = bry * (x3 - x0) * 0.5;
+        var d03y = bry * (y3 - y0) * 0.5;
+        // UVs
+        var iuv = (voffset << 1) - 1;
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = x0 + d01x;
+        uvs[++iuv] = y0 + d01y;
+        uvs[++iuv] = x1 - d01x;
+        uvs[++iuv] = y1 - d01y;
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = x0 + d01x + d03x;
+        uvs[++iuv] = y0 + d01y + d03y;
+        uvs[++iuv] = x1 - d01x + d03x;
+        uvs[++iuv] = y1 - d01y + d03y;
+        uvs[++iuv] = x3 + d01x - d03x;
+        uvs[++iuv] = y3 + d01y - d03y;
+        uvs[++iuv] = x2 - d01x - d03x;
+        uvs[++iuv] = y2 - d01y - d03y;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x3 + d01x;
+        uvs[++iuv] = y3 + d01y;
+        uvs[++iuv] = x2 - d01x;
+        uvs[++iuv] = y2 - d01y;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        // ------------------------------
+        uvs[++iuv] = x0;
+        uvs[++iuv] = y0;
+        uvs[++iuv] = x0 + d03x;
+        uvs[++iuv] = y0 + d03y;
+        uvs[++iuv] = x3 - d03x;
+        uvs[++iuv] = y3 - d03y;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x0 + d03x + d01x;
+        uvs[++iuv] = y0 + d03y + d01y;
+        uvs[++iuv] = x3 - d03x + d01x;
+        uvs[++iuv] = y3 - d03y + d01y;
+        uvs[++iuv] = x1 + d03x - d01x;
+        uvs[++iuv] = y1 + d03y - d01y;
+        uvs[++iuv] = x2 - d03x - d01x;
+        uvs[++iuv] = y2 - d03y - d01y;
+        uvs[++iuv] = x1;
+        uvs[++iuv] = y1;
+        uvs[++iuv] = x1 + d03x;
+        uvs[++iuv] = y1 + d03y;
+        uvs[++iuv] = x2 - d03x;
+        uvs[++iuv] = y2 - d03y;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectanglePivotedUploaded = /** @class */ (function (_super) {
+        __extends(EShapeRectanglePivotedUploaded, _super);
+        function EShapeRectanglePivotedUploaded() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        EShapeRectanglePivotedUploaded.prototype.init = function (shape) {
+            _super.prototype.init.call(this, shape);
+            // Indices
+            var buffer = this.buffer;
+            buffer.updateIndices();
+            buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            // Text
+            this.initText();
+            this.update(shape);
+            return this;
+        };
+        EShapeRectanglePivotedUploaded.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexClippingStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+            this.updateText(buffer, shape);
+        };
+        EShapeRectanglePivotedUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = this.toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
+            var texture = this.toTexture(shape);
+            var textureTransformId = this.toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            if (isVertexChanged || isTransformChanged || isTextureChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                if (isVertexChanged || isTransformChanged) {
+                    // Invalidate the text layout to update the text layout.
+                    this.textSpacingHorizontal = NaN;
+                }
+                // Vertices
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildRectangleVertex(buffer.vertices, voffset, 0.5 * sizeX, 0.5 * sizeY, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, RECTANGLE_WORLD_SIZE);
+                // Steps
+                if (isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildRectangleStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_WORLD_SIZE);
+                }
+                // Clippings
+                if (isVertexChanged) {
+                    buffer.updateClippings();
+                    buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
+                }
+                // UVs
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildRectangleUv(buffer.uvs, voffset, this.toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
+                }
+            }
+        };
+        return EShapeRectanglePivotedUploaded;
+    }(EShapeTextUploaded));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createRectanglePivotedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount * TEXT_VERTEX_COUNT;
+        var ticount = tcount * TEXT_INDEX_COUNT;
+        var vcount = RECTANGLE_VERTEX_COUNT + tvcount;
+        var icount = RECTANGLE_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeRectanglePivotedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+        }
+        return null;
+    };
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -24641,6 +27466,17 @@
         }
         return EShapeEmbeddedDatum;
     }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLayerState = {
+        INVISIBLE: "INVISIBLE",
+        INTERACTIVE: "INTERACTIVE",
+        DRAGGABLE: "DRAGGABLE",
+        PINCHABLE: "PINCHABLE"
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -25819,14 +28655,28 @@
         return EShapeGroupViewer;
     }(EShapeBase));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeEmbeddedLayer = /** @class */ (function (_super) {
         __extends(EShapeEmbeddedLayer, _super);
         function EShapeEmbeddedLayer(name, isEditMode, type) {
-            if (type === void 0) { type = EShapeType.LAYER; }
+            if (type === void 0) { type = EShapeType.EMBEDDED_LAYER; }
             var _this = _super.call(this, isEditMode, type) || this;
             _this._name = name;
             return _this;
         }
+        Object.defineProperty(EShapeEmbeddedLayer.prototype, "name", {
+            get: function () {
+                return this._name;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeEmbeddedLayer.prototype.newGroupFill = function () {
+            return new EShapeFillImpl(this, false, 0xffffff, 1);
+        };
         EShapeEmbeddedLayer.prototype.isGroupSizeFittable = function () {
             return false;
         };
@@ -25856,24 +28706,80 @@
         EShapeEmbeddedLayer.prototype.serializeGradient = function (manager) {
             return -1;
         };
+        EShapeEmbeddedLayer.deserialize = function (serialized, manager, width, height) {
+            var _a, _b, _c;
+            var result = new EShapeEmbeddedLayer(this.deserializeName(serialized[0], manager), manager.isEditMode);
+            var visibility = serialized[1];
+            var visible = visibility == null || !!(visibility & 0x2);
+            if (!visible) {
+                result.visible = false;
+                result.state.add(EShapeLayerState.INVISIBLE);
+            }
+            var positionX = -0.5 * width + (serialized[2] || 0);
+            var positionY = -0.5 * height + (serialized[3] || 0);
+            result.transform.position.set(positionX, positionY);
+            var sizeX = (_a = serialized[4]) !== null && _a !== void 0 ? _a : width;
+            var sizeY = (_b = serialized[5]) !== null && _b !== void 0 ? _b : height;
+            result.size.set(sizeX, sizeY);
+            var fillId = serialized[6];
+            if (fillId != null) {
+                result.fill.deserialize(fillId, manager);
+            }
+            if (!manager.isEditMode) {
+                var state = (_c = serialized[7]) !== null && _c !== void 0 ? _c : 1;
+                var isInteractive = state & 0x1;
+                var isDraggable = state & 0x2;
+                var isPinchable = state & 0x4;
+                if (isDraggable || isPinchable) {
+                    var gestureType = (isDraggable
+                        ? EShapeActionValueMiscGestureType.DRAG
+                        : EShapeActionValueMiscGestureType.NONE) |
+                        (isPinchable
+                            ? EShapeActionValueMiscGestureType.PINCH
+                            : EShapeActionValueMiscGestureType.NONE);
+                    result.action.add(new EShapeActionValueMiscLayerGesture("", gestureType));
+                }
+                if (isInteractive || isDraggable || isPinchable) {
+                    result.interactive = true;
+                }
+            }
+            return result;
+        };
+        EShapeEmbeddedLayer.deserializeName = function (target, manager) {
+            if (isString(target)) {
+                return target;
+            }
+            else {
+                var resources = manager.resources;
+                if (0 <= target && target <= resources.length) {
+                    return resources[target];
+                }
+                return "";
+            }
+        };
         return EShapeEmbeddedLayer;
     }(EShapeGroupViewer));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeEmbeddedLayerContainer = /** @class */ (function () {
         function EShapeEmbeddedLayerContainer(width, height, isEditMode) {
             this.children = [];
-            this._x = -width * 0.5;
-            this._y = -height * 0.5;
             this._width = width;
             this._height = height;
             this._isEditMode = isEditMode;
         }
-        EShapeEmbeddedLayerContainer.prototype.create = function (name) {
-            var result = new EShapeEmbeddedLayer(name, this._isEditMode);
-            result.transform.position.set(this._x, this._y);
-            result.size.set(this._width, this._height).init();
-            this.children.push(result);
-            return result;
+        EShapeEmbeddedLayerContainer.prototype.deserialize = function (serializedLayers, manager) {
+            var serializedLayersLength = serializedLayers.length;
+            if (0 < serializedLayersLength) {
+                var width = this._width;
+                var height = this._height;
+                for (var i = 0; i < serializedLayersLength; ++i) {
+                    this.children.push(EShapeEmbeddedLayer.deserialize(serializedLayers[i], manager, width, height));
+                }
+            }
         };
         return EShapeEmbeddedLayerContainer;
     }());
@@ -25928,10 +28834,7 @@
         };
         DDiagrams.newLayer = function (serialized, container, manager) {
             // Layers
-            var serializedLayers = serialized.layers;
-            for (var i = 0, imax = serializedLayers.length; i < imax; ++i) {
-                container.create(serializedLayers[i][0] || "");
-            }
+            container.deserialize(serialized.layers, manager);
             // Items
             var serializedItems = serialized.items;
             var shapePromises = EShapeDeserializer.deserializeAll(serializedItems, manager);
@@ -26782,6 +29685,7 @@
         EShapeUploadeds[EShapeType.EMBEDDED] = createGroupUploaded;
         EShapeDeserializers[EShapeType.EMBEDDED] = deserializeEmbedded;
         EShapeCapabilities.set(EShapeType.EMBEDDED, EShapeCapability.EMBEDDED);
+        EShapeUploadeds[EShapeType.EMBEDDED_LAYER] = createRectanglePivotedUploaded;
     };
 
     /*
@@ -27579,415 +30483,6 @@
     var loadShapeGroupShadowed = function () {
         EShapeUploadeds[EShapeType.GROUP_SHADOWED] = createGroupUploaded;
         EShapeDeserializers[EShapeType.GROUP_SHADOWED] = deserializeGroupShadowed;
-    };
-
-    var RECTANGLE_VERTEX_COUNT = 24;
-    var RECTANGLE_INDEX_COUNT = 16;
-    var RECTANGLE_WORLD_SIZE = [0, 0, 0, 0];
-    var RECTANGLE_WORK_POINT = new pixi_js.Point();
-    var buildRectangleClipping = function (clippings, voffset, worldSize) {
-        var brxi = 1 - worldSize[0];
-        var bryi = 1 - worldSize[1];
-        var ic = voffset * 3 - 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = bryi;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = bryi;
-        clippings[++ic] = 0;
-        // --------------------------------
-        clippings[++ic] = 0;
-        clippings[++ic] = bryi;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = bryi;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        // --------------------------------
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = brxi;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = brxi;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        // --------------------------------
-        clippings[++ic] = brxi;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = brxi;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-        clippings[++ic] = 1;
-        clippings[++ic] = 0;
-        clippings[++ic] = 0;
-    };
-    var buildRectangleIndex = function (indices, voffset, ioffset) {
-        var ii = ioffset * 3 - 1;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 3;
-        // --------------------------------
-        indices[++ii] = voffset + 8;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 6;
-        indices[++ii] = voffset + 7;
-        indices[++ii] = voffset + 9;
-        indices[++ii] = voffset + 7;
-        indices[++ii] = voffset + 10;
-        indices[++ii] = voffset + 10;
-        indices[++ii] = voffset + 7;
-        indices[++ii] = voffset + 11;
-        // --------------------------------
-        indices[++ii] = voffset + 12;
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 16;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 13;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 14;
-        indices[++ii] = voffset + 14;
-        indices[++ii] = voffset + 17;
-        indices[++ii] = voffset + 15;
-        // --------------------------------
-        indices[++ii] = voffset + 18;
-        indices[++ii] = voffset + 20;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 18;
-        indices[++ii] = voffset + 21;
-        indices[++ii] = voffset + 22;
-        indices[++ii] = voffset + 18;
-        indices[++ii] = voffset + 22;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 19;
-        indices[++ii] = voffset + 22;
-        indices[++ii] = voffset + 23;
-    };
-    var buildRectangleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
-        // b0              b1
-        // |-------|-------|
-        // |       |       |
-        // |-------|-------|
-        // |       |       |
-        // |-------|-------|
-        // b3              b2
-        var s = strokeAlign * strokeWidth;
-        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        var work = RECTANGLE_WORK_POINT;
-        work.set(originX - sx, originY - sy);
-        internalTransform.apply(work, work);
-        var b0x = work.x;
-        var b0y = work.y;
-        work.set(originX + sx, originY - sy);
-        internalTransform.apply(work, work);
-        var b1x = work.x;
-        var b1y = work.y;
-        work.set(originX + sx, originY + sy);
-        internalTransform.apply(work, work);
-        var b2x = work.x;
-        var b2y = work.y;
-        var b3x = b0x + (b2x - b1x);
-        var b3y = b0y + (b2y - b1y);
-        var ax = toLength(b0x, b0y, b1x, b1y) * 0.5;
-        var ay = toLength(b1x, b1y, b2x, b2y) * 0.5;
-        var brx = 1;
-        var bry = 1;
-        if (ax <= ay) {
-            bry = ax / ay;
-        }
-        else {
-            brx = ay / ax;
-        }
-        worldSize[0] = brx;
-        worldSize[1] = bry;
-        worldSize[2] = ax;
-        worldSize[3] = ay;
-        // 0      1  2      3
-        // |------|--|------|
-        // |      |  |      |
-        // |------4--5------|
-        // |      |  |      |
-        // |------6--7------|
-        // |      |  |      |
-        // |------|--|------|
-        // 8      9  10     11
-        var d01x = brx * (b1x - b0x) * 0.5;
-        var d01y = brx * (b1y - b0y) * 0.5;
-        var d03x = bry * (b3x - b0x) * 0.5;
-        var d03y = bry * (b3y - b0y) * 0.5;
-        var iv = (voffset << 1) - 1;
-        vertices[++iv] = b0x;
-        vertices[++iv] = b0y;
-        vertices[++iv] = b0x + d01x;
-        vertices[++iv] = b0y + d01y;
-        vertices[++iv] = b1x - d01x;
-        vertices[++iv] = b1y - d01y;
-        vertices[++iv] = b1x;
-        vertices[++iv] = b1y;
-        vertices[++iv] = b0x + d01x + d03x;
-        vertices[++iv] = b0y + d01y + d03y;
-        vertices[++iv] = b1x - d01x + d03x;
-        vertices[++iv] = b1y - d01y + d03y;
-        vertices[++iv] = b3x + d01x - d03x;
-        vertices[++iv] = b3y + d01y - d03y;
-        vertices[++iv] = b2x - d01x - d03x;
-        vertices[++iv] = b2y - d01y - d03y;
-        vertices[++iv] = b3x;
-        vertices[++iv] = b3y;
-        vertices[++iv] = b3x + d01x;
-        vertices[++iv] = b3y + d01y;
-        vertices[++iv] = b2x - d01x;
-        vertices[++iv] = b2y - d01y;
-        vertices[++iv] = b2x;
-        vertices[++iv] = b2y;
-        // 12               20
-        // |------|--|------|
-        // |      |  |      |
-        // 13----16--18-----21
-        // |      |  |      |
-        // 14----17--19-----22
-        // |      |  |      |
-        // |------|--|------|
-        // 15               23
-        vertices[++iv] = b0x;
-        vertices[++iv] = b0y;
-        vertices[++iv] = b0x + d03x;
-        vertices[++iv] = b0y + d03y;
-        vertices[++iv] = b3x - d03x;
-        vertices[++iv] = b3y - d03y;
-        vertices[++iv] = b3x;
-        vertices[++iv] = b3y;
-        vertices[++iv] = b0x + d03x + d01x;
-        vertices[++iv] = b0y + d03y + d01y;
-        vertices[++iv] = b3x - d03x + d01x;
-        vertices[++iv] = b3y - d03y + d01y;
-        vertices[++iv] = b1x + d03x - d01x;
-        vertices[++iv] = b1y + d03y - d01y;
-        vertices[++iv] = b2x - d03x - d01x;
-        vertices[++iv] = b2y - d03y - d01y;
-        vertices[++iv] = b1x;
-        vertices[++iv] = b1y;
-        vertices[++iv] = b1x + d03x;
-        vertices[++iv] = b1y + d03y;
-        vertices[++iv] = b2x - d03x;
-        vertices[++iv] = b2y - d03y;
-        vertices[++iv] = b2x;
-        vertices[++iv] = b2y;
-    };
-    var buildRectangleStep = function (voffset, steps, strokeWidth, strokeSide, strokeStyle, worldSize) {
-        var scaleInvariant = toScaleInvariant(strokeStyle);
-        var brx = worldSize[0];
-        var bry = worldSize[1];
-        var brxi = Math.max(0, 1 - brx);
-        var bryi = Math.max(0, 1 - bry);
-        var sx = worldSize[2];
-        var sy = worldSize[3];
-        var wt;
-        var bt;
-        if (strokeSide & EShapeStrokeSide.TOP) {
-            wt = +2;
-            bt = +1 + bryi;
-        }
-        else {
-            wt = -2;
-            bt = -1 - bryi;
-        }
-        var wr;
-        var br;
-        if (strokeSide & EShapeStrokeSide.RIGHT) {
-            wr = +2;
-            br = +1 + brxi;
-        }
-        else {
-            wr = -2;
-            br = -1 - brxi;
-        }
-        var wb;
-        var bb;
-        if (strokeSide & EShapeStrokeSide.BOTTOM) {
-            wb = +2;
-            bb = +1 + bryi;
-        }
-        else {
-            wb = -2;
-            bb = -1 - bryi;
-        }
-        var wl;
-        var bl;
-        if (strokeSide & EShapeStrokeSide.LEFT) {
-            wl = +2;
-            bl = +1 + brxi;
-        }
-        else {
-            wl = -2;
-            bl = -1 - brxi;
-        }
-        // 0 1 2 3
-        var is = (voffset - 1) * 6 - 1;
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
-        // 4 5
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
-        // 6 7
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
-        // 8 9 10 11
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, wb);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, wb);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
-        // ------------------------------
-        // 12 13 14 15
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, bb);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wl, wb);
-        // 16 17
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, bl, bb);
-        // 18 19
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, br, bb);
-        // 20 21 22 23
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bt);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, bb);
-        fillRectangleStep(steps, (is += 6), strokeWidth, scaleInvariant, sx, sy, wr, wb);
-    };
-    var fillRectangleStep = function (steps, is, v0, v1, v2, v3, v4, v5) {
-        steps[++is] = v0;
-        steps[++is] = v1;
-        steps[++is] = v2;
-        steps[++is] = v3;
-        steps[++is] = v4;
-        steps[++is] = v5;
-    };
-    var buildRectangleUv = function (uvs, voffset, textureUvs, worldSize) {
-        var x0 = textureUvs.x0;
-        var y0 = textureUvs.y0;
-        var y1 = textureUvs.y1;
-        var x1 = textureUvs.x1;
-        var y2 = textureUvs.y2;
-        var x2 = textureUvs.x2;
-        var y3 = textureUvs.y3;
-        var x3 = textureUvs.x3;
-        var brx = worldSize[0];
-        var bry = worldSize[1];
-        var d01x = brx * (x1 - x0) * 0.5;
-        var d01y = brx * (y1 - y0) * 0.5;
-        var d03x = bry * (x3 - x0) * 0.5;
-        var d03y = bry * (y3 - y0) * 0.5;
-        // UVs
-        var iuv = (voffset << 1) - 1;
-        uvs[++iuv] = x0;
-        uvs[++iuv] = y0;
-        uvs[++iuv] = x0 + d01x;
-        uvs[++iuv] = y0 + d01y;
-        uvs[++iuv] = x1 - d01x;
-        uvs[++iuv] = y1 - d01y;
-        uvs[++iuv] = x1;
-        uvs[++iuv] = y1;
-        uvs[++iuv] = x0 + d01x + d03x;
-        uvs[++iuv] = y0 + d01y + d03y;
-        uvs[++iuv] = x1 - d01x + d03x;
-        uvs[++iuv] = y1 - d01y + d03y;
-        uvs[++iuv] = x3 + d01x - d03x;
-        uvs[++iuv] = y3 + d01y - d03y;
-        uvs[++iuv] = x2 - d01x - d03x;
-        uvs[++iuv] = y2 - d01y - d03y;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x3 + d01x;
-        uvs[++iuv] = y3 + d01y;
-        uvs[++iuv] = x2 - d01x;
-        uvs[++iuv] = y2 - d01y;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
-        // ------------------------------
-        uvs[++iuv] = x0;
-        uvs[++iuv] = y0;
-        uvs[++iuv] = x0 + d03x;
-        uvs[++iuv] = y0 + d03y;
-        uvs[++iuv] = x3 - d03x;
-        uvs[++iuv] = y3 - d03y;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x0 + d03x + d01x;
-        uvs[++iuv] = y0 + d03y + d01y;
-        uvs[++iuv] = x3 - d03x + d01x;
-        uvs[++iuv] = y3 - d03y + d01y;
-        uvs[++iuv] = x1 + d03x - d01x;
-        uvs[++iuv] = y1 + d03y - d01y;
-        uvs[++iuv] = x2 - d03x - d01x;
-        uvs[++iuv] = y2 - d03y - d01y;
-        uvs[++iuv] = x1;
-        uvs[++iuv] = y1;
-        uvs[++iuv] = x1 + d03x;
-        uvs[++iuv] = y1 + d03y;
-        uvs[++iuv] = x2 - d03x;
-        uvs[++iuv] = y2 - d03y;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
     };
 
     /*
@@ -32885,125 +35380,32 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var deserializeRectangleRounded = function (item, manager) {
-        return EShapeDeserializer.deserialize(item, manager, new EShapeRectangleRounded());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeRectangleRounded = function () {
-        EShapeUploadeds[EShapeType.RECTANGLE_ROUNDED] = createRectangleRoundedUploaded;
-        EShapeDeserializers[EShapeType.RECTANGLE_ROUNDED] = deserializeRectangleRounded;
-        EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeTriangleUploaded = /** @class */ (function (_super) {
-        __extends(EShapeTriangleUploaded, _super);
-        function EShapeTriangleUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var createImageSdf = function (dataUrl, convertToSdf) {
+        if (convertToSdf) {
+            return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
+                var generator = DynamicSDFFontGenerator.getInstance().init();
+                generator.updateTexture(imageElement);
+                generator.render();
+                var canvas = document.createElement("canvas");
+                generator.read(canvas);
+                return createImageSdf(canvas.toDataURL(), false);
+            });
         }
-        EShapeTriangleUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            var buffer = this.buffer;
-            buffer.updateClippings();
-            buffer.updateIndices();
-            buildTriangleClipping(buffer.clippings, this.vertexOffset);
-            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
-        };
-        EShapeTriangleUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateText(buffer, shape);
-        };
-        EShapeTriangleUploaded.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            if (isVertexChanged || isTransformChanged || isTextureChanged) {
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                if (isVertexChanged || isTransformChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
-                if (isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
-                }
-                if (isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildTriangleUv(buffer.uvs, this.toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
-                }
-            }
-        };
-        return EShapeTriangleUploaded;
-    }(EShapeTextUploaded));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createTriangleUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount * TEXT_VERTEX_COUNT;
-        var ticount = tcount * TEXT_INDEX_COUNT;
-        var vcount = TRIANGLE_VERTEX_COUNT + tvcount;
-        var icount = TRIANGLE_INDEX_COUNT + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeTriangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+        else {
+            return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
+                return new EShapeImageSdf(imageElement);
+            });
         }
-        return null;
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var deserializeTriangle = function (item, manager) {
-        return EShapeDeserializer.deserialize(item, manager, new EShapeTriangle());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeTriangle = function () {
-        EShapeUploadeds[EShapeType.TRIANGLE] = createTriangleUploaded;
-        EShapeDeserializers[EShapeType.TRIANGLE] = deserializeTriangle;
+    var createImage = function (dataUrl) {
+        return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
+            return new EShapeImage(imageElement);
+        });
     };
 
     /*
@@ -33109,8 +35511,166 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeTriangleUploaded = /** @class */ (function (_super) {
+        __extends(EShapeTriangleUploaded, _super);
+        function EShapeTriangleUploaded() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        EShapeTriangleUploaded.prototype.init = function (shape) {
+            _super.prototype.init.call(this, shape);
+            var buffer = this.buffer;
+            buffer.updateClippings();
+            buffer.updateIndices();
+            buildTriangleClipping(buffer.clippings, this.vertexOffset);
+            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+            // Text
+            this.initText();
+            this.update(shape);
+            return this;
+        };
+        EShapeTriangleUploaded.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColor(buffer, shape);
+            this.updateText(buffer, shape);
+        };
+        EShapeTriangleUploaded.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = this.toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var texture = this.toTexture(shape);
+            var textureTransformId = this.toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            if (isVertexChanged || isTransformChanged || isTextureChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                if (isVertexChanged || isTransformChanged) {
+                    // Invalidate the text layout to update the text layout.
+                    this.textSpacingHorizontal = NaN;
+                }
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
+                if (isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
+                }
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleUv(buffer.uvs, this.toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
+                }
+            }
+        };
+        return EShapeTriangleUploaded;
+    }(EShapeTextUploaded));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createTriangleUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount * TEXT_VERTEX_COUNT;
+        var ticount = tcount * TEXT_INDEX_COUNT;
+        var vcount = TRIANGLE_VERTEX_COUNT + tvcount;
+        var icount = TRIANGLE_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeTriangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectangleRounded = function (item, manager) {
+        return EShapeDeserializer.deserialize(item, manager, new EShapeRectangleRounded());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var deserializeTriangleRounded = function (item, manager) {
         return EShapeDeserializer.deserialize(item, manager, new EShapeTriangleRounded());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeTriangle = function (item, manager) {
+        return EShapeDeserializer.deserialize(item, manager, new EShapeTriangle());
+    };
+
+    var EShapeRectanglePivoted = /** @class */ (function (_super) {
+        __extends(EShapeRectanglePivoted, _super);
+        function EShapeRectanglePivoted(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE_PIVOTED; }
+            return _super.call(this, type) || this;
+        }
+        EShapeRectanglePivoted.prototype.toHitTestData = function (point) {
+            var result = _super.prototype.toHitTestData.call(this, point);
+            result.x -= result.width;
+            result.y -= result.height;
+            return result;
+        };
+        return EShapeRectanglePivoted;
+    }(EShapeRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectanglePivoted = function (item, manager) {
+        return EShapeDeserializer.deserialize(item, manager, new EShapeRectanglePivoted());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectanglePivoted = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_PIVOTED] = createRectanglePivotedUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_PIVOTED] = deserializeRectanglePivoted;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_PIVOTED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectangleRounded = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_ROUNDED] = createRectangleRoundedUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_ROUNDED] = deserializeRectangleRounded;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeTriangle = function () {
+        EShapeUploadeds[EShapeType.TRIANGLE] = createTriangleUploaded;
+        EShapeDeserializers[EShapeType.TRIANGLE] = deserializeTriangle;
     };
 
     /*
@@ -33139,6 +35699,7 @@
         loadShapeLabel();
         loadShapeLine();
         loadShapeNull();
+        loadShapeRectanglePivoted();
         loadShapeRectangleRounded();
         loadShapeRectangle();
         loadShapeTriangleRounded();
@@ -33390,8 +35951,9 @@
      */
     var DLinkMenuItemId;
     (function (DLinkMenuItemId) {
-        DLinkMenuItemId[DLinkMenuItemId["OPEN_LINK_IN_NEW_WINDOW"] = 0] = "OPEN_LINK_IN_NEW_WINDOW";
-        DLinkMenuItemId[DLinkMenuItemId["COPY_LINK_ADDRESS"] = 1] = "COPY_LINK_ADDRESS";
+        DLinkMenuItemId[DLinkMenuItemId["OPEN_LINK"] = 0] = "OPEN_LINK";
+        DLinkMenuItemId[DLinkMenuItemId["OPEN_LINK_IN_NEW_WINDOW"] = 1] = "OPEN_LINK_IN_NEW_WINDOW";
+        DLinkMenuItemId[DLinkMenuItemId["COPY_LINK_ADDRESS"] = 2] = "COPY_LINK_ADDRESS";
     })(DLinkMenuItemId || (DLinkMenuItemId = {}));
 
     /*
@@ -33505,6 +36067,9 @@
         DLinkMenu.prototype.onSelect = function (value, item, menu) {
             var parent = this._parent;
             switch (value) {
+                case DLinkMenuItemId.OPEN_LINK:
+                    parent.open(false);
+                    break;
                 case DLinkMenuItemId.OPEN_LINK_IN_NEW_WINDOW:
                     parent.open(true);
                     break;
@@ -33649,7 +36214,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var InteractionEvent = pixi_js.interaction.InteractionEvent;
+    var InteractionEvent$2 = pixi_js.interaction.InteractionEvent;
     var DLink = /** @class */ (function () {
         function DLink(theme, options) {
             var _a, _b, _c;
@@ -33789,7 +36354,7 @@
                     return false;
                 case DLinkTarget.AUTO:
                     if (e != null) {
-                        var oe = e instanceof InteractionEvent ? e.data.originalEvent : e;
+                        var oe = e instanceof InteractionEvent$2 ? e.data.originalEvent : e;
                         return (oe.ctrlKey ||
                             oe.shiftKey ||
                             oe.altKey ||
@@ -33806,20 +36371,22 @@
                     onSelect(e);
                 }
             };
-            if (this._target === DLinkTarget.NEW_WINDOW) {
+            if (this._target !== DLinkTarget.AUTO) {
                 UtilPointerEvent.onClick(base, onClick);
             }
             else {
-                var menu_1 = this._menu;
-                var onLongClick = function (e) {
-                    if (_this._isEnabled && base.state.isActionable) {
-                        menu_1.open(base);
+                UtilPointerEvent.onClick(base, function (e, isSimulated) {
+                    if (isSimulated) {
+                        var menu = _this._menu;
+                        if (menu.enable) {
+                            if (_this._isEnabled && base.state.isActionable) {
+                                menu.open(base);
+                            }
+                            return;
+                        }
                     }
-                };
-                var isLongClickable = function (e) {
-                    return menu_1.enable;
-                };
-                UtilPointerEvent.onLongClick(base, onClick, onLongClick, isLongClickable);
+                    onClick(e);
+                });
             }
         };
         return DLink;
@@ -34907,1688 +37474,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var VERTEX_SHADER = "\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying mediump vec2 vTextureCoord;\nvoid main(void) {\n\tgl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\tvTextureCoord = aTextureCoord;\n}\n";
-    var FRAGMENT_SHADER = "\nprecision mediump float;\n\nvarying mediump vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform vec2 uSize;\n\nfloat calcDistance( float x, float y, float dx, float dy ) {\n\tfloat xd = x + dx;\n\tfloat yd = y + dy;\n\tfloat u = xd / uSize.x;\n\tfloat v = yd / uSize.y;\n\tfloat ul = (xd - 1.0) / uSize.x;\n\tfloat vt = (yd - 1.0) / uSize.y;\n\n\tfloat m = texture2D(uSampler, vec2(u , v )).a;\n\tfloat l = texture2D(uSampler, vec2(ul, v )).a;\n\tfloat t = texture2D(uSampler, vec2(u , vt)).a;\n\n\tfloat xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );\n\tfloat yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );\n\n\tbool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );\n\tbool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );\n\n\tfloat ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);\n\tfloat lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);\n\n\treturn min( ll, lt );\n}\n\nfloat calcDistancesY( float x, float y, float dx ) {\n\tfloat d = 100.0;\n\tfor( float dy=-6.0; dy<6.5; dy++ ) {\n\t\td = min( d, calcDistance( x, y, dx, dy ) );\n\t}\n\treturn d;\n}\n\nfloat calcDistances( float x, float y ) {\n\tfloat d = 100.0;\n\tfor( float dx=-6.0; dx<6.5; dx++ ) {\n\t\td = min( d, calcDistancesY( x, y, dx ) );\n\t}\n\treturn d;\n}\n\nvoid main(void) {\n\tfloat t = texture2D(uSampler, vTextureCoord).a;\n\tfloat x = vTextureCoord.x * uSize.x;\n\tfloat y = vTextureCoord.y * uSize.y;\n\tfloat d = min( 6.0, calcDistances( x, y ) ) / 12.0;\n\td = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, d);\n}\n";
-    var DynamicSDFFontGenerator = /** @class */ (function () {
-        function DynamicSDFFontGenerator() {
-            var _this = this;
-            this._gl = null;
-            this._texture = null;
-            this._shaderProgram = null;
-            this._vertexPositionAttribute = NaN;
-            this._textureCoordAttribute = NaN;
-            this._samplerUniform = NaN;
-            this._sizeUniform = NaN;
-            this._vb = null;
-            this._uvb = null;
-            var canvas = (this._canvas = document.createElement("canvas"));
-            canvas.width = 64;
-            canvas.height = 64;
-            this._onLostBound = function (e) {
-                e.preventDefault();
-            };
-            this._onRestoreBound = function () {
-                _this.restore();
-            };
-            this._onUnloadBound = function () {
-                _this.destroy();
-            };
-            canvas.addEventListener("webglcontextlost", this._onLostBound, false);
-            canvas.addEventListener("webglcontextrestored", this._onRestoreBound, false);
-            window.addEventListener("unload", this._onUnloadBound, false);
-        }
-        DynamicSDFFontGenerator.prototype.init = function () {
-            var canvas = this._canvas;
-            if (canvas != null && (this._gl == null || this._gl.isContextLost())) {
-                var config = {
-                    alpha: true,
-                    antialias: false,
-                    depth: false,
-                    stencil: false,
-                    premultipliedAlpha: false
-                };
-                var gl = canvas.getContext("webgl", config) ||
-                    canvas.getContext("experimental-webgl", config);
-                this._gl = gl;
-                if (gl != null) {
-                    gl.clearColor(1.0, 1.0, 1.0, 0.0);
-                    this.makeVertexBuffer();
-                    this.makeUvBuffer();
-                    this.makeShaders();
-                    this._texture = null;
-                }
-            }
-            return this;
-        };
-        DynamicSDFFontGenerator.prototype.restore = function () {
-            this.init();
-        };
-        DynamicSDFFontGenerator.prototype.getCanvas = function () {
-            return this._canvas;
-        };
-        DynamicSDFFontGenerator.prototype.getShader = function (gl, code, type) {
-            var shader = type
-                ? gl.createShader(gl.FRAGMENT_SHADER)
-                : gl.createShader(gl.VERTEX_SHADER);
-            if (shader != null) {
-                gl.shaderSource(shader, code);
-                gl.compileShader(shader);
-                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-                    console &&
-                        console.error("Failed to compile the shader: " + gl.getShaderInfoLog(shader));
-                    return null;
-                }
-            }
-            return shader;
-        };
-        DynamicSDFFontGenerator.prototype.makeShaders = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var vertexShader = this.getShader(gl, VERTEX_SHADER, false);
-                if (vertexShader != null) {
-                    var fragmentShader = this.getShader(gl, FRAGMENT_SHADER, true);
-                    if (fragmentShader != null) {
-                        var shaderProgram = (this._shaderProgram = gl.createProgram());
-                        if (shaderProgram != null) {
-                            gl.attachShader(shaderProgram, vertexShader);
-                            gl.attachShader(shaderProgram, fragmentShader);
-                            gl.linkProgram(shaderProgram);
-                            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-                                console &&
-                                    console.error("Failed to link the program: " + gl.getError());
-                                gl.deleteShader(vertexShader);
-                                gl.deleteShader(fragmentShader);
-                                return null;
-                            }
-                            else {
-                                gl.deleteShader(vertexShader);
-                                gl.deleteShader(fragmentShader);
-                                gl.useProgram(shaderProgram);
-                                this._vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-                                this._textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
-                                this._samplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
-                                this._sizeUniform = gl.getUniformLocation(shaderProgram, "uSize");
-                                gl.useProgram(null);
-                                return shaderProgram;
-                            }
-                        }
-                        else {
-                            gl.deleteShader(vertexShader);
-                            gl.deleteShader(fragmentShader);
-                        }
-                    }
-                    else {
-                        gl.deleteShader(vertexShader);
-                    }
-                }
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyShaders = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var shaderProgram = this._shaderProgram;
-                if (shaderProgram != null) {
-                    this._shaderProgram = null;
-                    gl.useProgram(null);
-                    gl.deleteProgram(shaderProgram);
-                }
-            }
-        };
-        DynamicSDFFontGenerator.prototype.updateTexture = function (source) {
-            var gl = this._gl;
-            var canvas = this._canvas;
-            if (gl != null && gl.isContextLost() !== true && canvas != null) {
-                var width = source.width;
-                var height = source.height;
-                if (canvas.width !== width || canvas.height !== height) {
-                    canvas.width = width;
-                    canvas.height = height;
-                    gl.viewport(0, 0, width, height);
-                }
-                var texture = this._texture;
-                if (texture == null) {
-                    texture = this._texture = gl.createTexture();
-                    gl.bindTexture(gl.TEXTURE_2D, texture);
-                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-                    gl.bindTexture(gl.TEXTURE_2D, null);
-                }
-                else {
-                    gl.bindTexture(gl.TEXTURE_2D, texture);
-                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
-                    gl.bindTexture(gl.TEXTURE_2D, null);
-                }
-                return texture;
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyTexture = function () {
-            var gl = this._gl;
-            var texture = this._texture;
-            if (gl != null && gl.isContextLost() !== true && texture != null) {
-                this._texture = null;
-                gl.bindTexture(gl.TEXTURE_2D, null);
-                gl.deleteTexture(texture);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.makeVertexBuffer = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var vb = (this._vb = gl.createBuffer());
-                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
-                var vertices = [-1.0, +1.0, +1.0, +1.0, -1.0, -1.0, +1.0, -1.0];
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-                return vb;
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyVertexBuffer = function () {
-            var gl = this._gl;
-            var vb = this._vb;
-            if (gl != null && gl.isContextLost() !== true && vb != null) {
-                this._vb = null;
-                gl.bindBuffer(gl.ARRAY_BUFFER, null);
-                gl.deleteBuffer(vb);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.makeUvBuffer = function () {
-            var gl = this._gl;
-            if (gl != null && gl.isContextLost() !== true) {
-                var uvb = (this._uvb = gl.createBuffer());
-                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
-                var uvs = [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0];
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
-                return uvb;
-            }
-            return null;
-        };
-        DynamicSDFFontGenerator.prototype.destroyUvBuffer = function () {
-            var gl = this._gl;
-            var uvb = this._uvb;
-            if (gl != null && gl.isContextLost() !== true && uvb != null) {
-                this._uvb = null;
-                gl.bindBuffer(gl.ARRAY_BUFFER, null);
-                gl.deleteBuffer(uvb);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.render = function () {
-            var gl = this._gl;
-            var canvas = this._canvas;
-            var shaderProgram = this._shaderProgram;
-            var vb = this._vb;
-            var uvb = this._uvb;
-            var texture = this._texture;
-            if (gl != null &&
-                gl.isContextLost() !== true &&
-                canvas != null &&
-                shaderProgram != null &&
-                vb != null &&
-                uvb != null &&
-                texture != null) {
-                gl.clear(gl.COLOR_BUFFER_BIT);
-                gl.useProgram(shaderProgram);
-                gl.bindBuffer(gl.ARRAY_BUFFER, vb);
-                var vertexPositionAttribute = this._vertexPositionAttribute;
-                gl.enableVertexAttribArray(vertexPositionAttribute);
-                gl.vertexAttribPointer(vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
-                gl.bindBuffer(gl.ARRAY_BUFFER, uvb);
-                var textureCoordAttribute = this._textureCoordAttribute;
-                gl.enableVertexAttribArray(textureCoordAttribute);
-                gl.vertexAttribPointer(textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, texture);
-                gl.uniform1i(this._samplerUniform, 0);
-                gl.uniform2f(this._sizeUniform, canvas.width, canvas.height);
-                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-                gl.bindTexture(gl.TEXTURE_2D, null);
-                gl.bindBuffer(gl.ARRAY_BUFFER, null);
-                gl.useProgram(null);
-            }
-        };
-        DynamicSDFFontGenerator.prototype.read = function (copyCanvas) {
-            var gl = this._gl;
-            var canvas = this._canvas;
-            if (gl != null && gl.isContextLost() !== true && canvas != null) {
-                var width = canvas.width;
-                var height = canvas.height;
-                copyCanvas.width = width;
-                copyCanvas.height = height;
-                var copyContext = copyCanvas.getContext("2d");
-                if (copyContext != null) {
-                    copyContext.drawImage(canvas, 0, 0);
-                }
-            }
-        };
-        DynamicSDFFontGenerator.prototype.destroy = function () {
-            this.destroyVertexBuffer();
-            this.destroyUvBuffer();
-            this.destroyShaders();
-            var canvas = this._canvas;
-            if (canvas != null) {
-                this._canvas = null;
-                canvas.removeEventListener("webglcontextlost", this._onLostBound, false);
-                canvas.removeEventListener("webglcontextrestored", this._onRestoreBound, false);
-                window.removeEventListener("unload", this._onUnloadBound, false);
-            }
-            var gl = this._gl;
-            if (gl != null) {
-                this._gl = null;
-                var WebGLLoseContext = gl.getExtension("WEBGL_lose_context");
-                if (WebGLLoseContext != null) {
-                    WebGLLoseContext.loseContext();
-                }
-            }
-        };
-        DynamicSDFFontGenerator.getInstance = function () {
-            if (DynamicSDFFontGenerator._INSTANCE == null) {
-                DynamicSDFFontGenerator._INSTANCE = new DynamicSDFFontGenerator();
-            }
-            return DynamicSDFFontGenerator._INSTANCE;
-        };
-        DynamicSDFFontGenerator._INSTANCE = null;
-        return DynamicSDFFontGenerator;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createImageSdf = function (dataUrl, convertToSdf) {
-        if (convertToSdf) {
-            return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
-                var generator = DynamicSDFFontGenerator.getInstance().init();
-                generator.updateTexture(imageElement);
-                generator.render();
-                var canvas = document.createElement("canvas");
-                generator.read(canvas);
-                return createImageSdf(canvas.toDataURL(), false);
-            });
-        }
-        else {
-            return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
-                return new EShapeImageSdf(imageElement);
-            });
-        }
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createImage = function (dataUrl) {
-        return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
-            return new EShapeImage(imageElement);
-        });
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeBufferUnit = /** @class */ (function () {
-        function EShapeBufferUnit(texture, indexOffset) {
-            this.texture = texture;
-            this.indexOffset = indexOffset;
-        }
-        return EShapeBufferUnit;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeBufferUnitBuilder = /** @class */ (function () {
-        function EShapeBufferUnitBuilder() {
-            this.index = 0;
-            this.baseTexture = null;
-            this.units = [];
-        }
-        EShapeBufferUnitBuilder.prototype.begin = function () {
-            this.index = 0;
-            this.baseTexture = null;
-        };
-        EShapeBufferUnitBuilder.prototype.push = function (texture, indexOffset) {
-            if (this.index < this.units.length) {
-                var unit = this.units[this.index];
-                unit.texture = texture;
-                unit.indexOffset = indexOffset;
-            }
-            else {
-                this.units.push(new EShapeBufferUnit(texture, indexOffset));
-            }
-            this.index += 1;
-        };
-        EShapeBufferUnitBuilder.prototype.end = function () {
-            if (this.units.length !== this.index) {
-                this.units.length = this.index;
-            }
-        };
-        EShapeBufferUnitBuilder.prototype.destroy = function () {
-            this.units.length = 0;
-        };
-        return EShapeBufferUnitBuilder;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeBuffer = /** @class */ (function () {
-        function EShapeBuffer(ntriangles, renderer) {
-            var nindices = ntriangles * 3;
-            var nvertices = nindices;
-            this.vertices = new Float32Array(nvertices * 2);
-            this._vertexCapacity = nvertices;
-            this._vertexCount = 0;
-            this._vertexBuffer = null;
-            this.clippings = new Float32Array(nvertices * 3);
-            this._clippingBuffer = null;
-            this.steps = new Float32Array(nvertices * 6);
-            this._stepBuffer = null;
-            this.colorFills = new Float32Array(nvertices * 4);
-            this._colorFillBuffer = null;
-            this.colorStrokes = new Float32Array(nvertices * 4);
-            this._colorStrokeBuffer = null;
-            this.uvs = new Float32Array(nvertices * 2);
-            this._uvBuffer = null;
-            var isIndicesShort = nvertices <= 65535;
-            this.indices = isIndicesShort ? new Uint16Array(nindices) : new Uint32Array(nindices);
-            this._indexCapacity = ntriangles;
-            this._indexCount = 0;
-            this.indexCountRequested = 0;
-            this._indexBuffer = null;
-            this._renderer = renderer;
-            this._builder = new EShapeBufferUnitBuilder();
-            this._geometry = null;
-        }
-        EShapeBuffer.prototype.updateVertices = function () {
-            var vertexBuffer = this._vertexBuffer;
-            if (vertexBuffer) {
-                vertexBuffer.update();
-            }
-        };
-        EShapeBuffer.prototype.updateClippings = function () {
-            var clippingBuffer = this._clippingBuffer;
-            if (clippingBuffer) {
-                clippingBuffer.update();
-            }
-        };
-        EShapeBuffer.prototype.updateSteps = function () {
-            var stepBuffer = this._stepBuffer;
-            if (stepBuffer) {
-                stepBuffer.update();
-            }
-        };
-        EShapeBuffer.prototype.updateColorFills = function () {
-            var colorFillBuffer = this._colorFillBuffer;
-            if (colorFillBuffer) {
-                colorFillBuffer.update();
-            }
-        };
-        EShapeBuffer.prototype.updateColorStrokes = function () {
-            var colorStrokeBuffer = this._colorStrokeBuffer;
-            if (colorStrokeBuffer) {
-                colorStrokeBuffer.update();
-            }
-        };
-        EShapeBuffer.prototype.updateUvs = function () {
-            var uvBuffer = this._uvBuffer;
-            if (uvBuffer) {
-                uvBuffer.update();
-            }
-        };
-        EShapeBuffer.prototype.updateIndices = function () {
-            var indexBuffer = this._indexBuffer;
-            if (indexBuffer) {
-                indexBuffer.update();
-            }
-        };
-        EShapeBuffer.prototype.getGeometry = function () {
-            var result = this._geometry;
-            if (result == null) {
-                this._vertexBuffer = new pixi_js.Buffer(this.vertices, false, false);
-                this._clippingBuffer = new pixi_js.Buffer(this.clippings, false, false);
-                this._stepBuffer = new pixi_js.Buffer(this.steps, false, false);
-                this._colorFillBuffer = new pixi_js.Buffer(this.colorFills, false, false);
-                this._colorStrokeBuffer = new pixi_js.Buffer(this.colorStrokes, false, false);
-                this._uvBuffer = new pixi_js.Buffer(this.uvs, false, false);
-                this._indexBuffer = new pixi_js.Buffer(this.indices, false, true);
-                this._geometry = result = new pixi_js.Geometry()
-                    .addIndex(this._indexBuffer)
-                    .addAttribute("aPosition", this._vertexBuffer, 2)
-                    .addAttribute("aClipping", this._clippingBuffer, 3)
-                    .addAttribute("aStep", this._stepBuffer, 2)
-                    .addAttribute("aAntialias", this._stepBuffer, 4)
-                    .addAttribute("aColorFill", this._colorFillBuffer, 4)
-                    .addAttribute("aColorStroke", this._colorStrokeBuffer, 4)
-                    .addAttribute("aUv", this._uvBuffer, 2);
-            }
-            return result;
-        };
-        EShapeBuffer.prototype.upload = function () {
-            this._renderer.geometry.bind(this.getGeometry());
-        };
-        EShapeBuffer.prototype.render = function (shader) {
-            var renderer = this._renderer;
-            renderer.geometry.bind(this.getGeometry());
-            var units = this._builder.units;
-            var unitCount = units.length;
-            if (0 < unitCount) {
-                var type = pixi_js.DRAW_MODES.TRIANGLES;
-                var unit0 = null;
-                var unit1 = units[0];
-                var ioffset0 = 0;
-                var ioffset1 = unit1.indexOffset * 3;
-                var vcount = 0;
-                var texture = pixi_js.Texture.WHITE;
-                for (var i = 0, imax = unitCount - 1; i < imax; ++i) {
-                    unit0 = unit1;
-                    unit1 = units[i + 1];
-                    ioffset0 = ioffset1;
-                    ioffset1 = unit1.indexOffset * 3;
-                    vcount = ioffset1 - ioffset0;
-                    texture = unit0.texture || pixi_js.Texture.WHITE;
-                    if (0 < vcount && texture.valid) {
-                        shader.uniforms.sampler = renderer.texture.bind(texture);
-                        renderer.geometry.draw(type, vcount, ioffset0);
-                    }
-                }
-                vcount = this._indexCount * 3 - ioffset1;
-                texture = unit1.texture || pixi_js.Texture.WHITE;
-                if (0 < vcount && texture.valid) {
-                    shader.uniforms.sampler = renderer.texture.bind(texture);
-                    renderer.geometry.draw(type, vcount, ioffset1);
-                }
-            }
-        };
-        EShapeBuffer.prototype.isCompatible = function (shape, uploaded, vindex, iindex) {
-            return (uploaded.getBuffer() === this &&
-                uploaded.getVertexOffset() === vindex &&
-                uploaded.getIndexOffset() === iindex &&
-                uploaded.isCompatible(shape));
-        };
-        EShapeBuffer.prototype.update = function (iterator, antialiasWeight, noMoreThanOne) {
-            var builder = this._builder;
-            builder.begin();
-            var vindex = 0;
-            var iindex = 0;
-            var shape = iterator.get();
-            for (; shape != null; shape = iterator.next()) {
-                var uploaded = shape.uploaded;
-                if (uploaded == null || !this.isCompatible(shape, uploaded, vindex, iindex)) {
-                    break;
-                }
-                uploaded.update(shape);
-                uploaded.buildUnit(builder);
-                vindex += uploaded.getVertexCount();
-                iindex += uploaded.getIndexCount();
-                if (noMoreThanOne) {
-                    iterator.next();
-                    builder.end();
-                    this._vertexCount = vindex;
-                    this._indexCount = iindex;
-                    return 0 < builder.units.length;
-                }
-            }
-            for (; shape != null; shape = iterator.next()) {
-                var creater = EShapeUploadeds[shape.type] || EShapeUploadeds[EShapeType.GROUP];
-                if (creater == null) {
-                    break;
-                }
-                var uploaded = creater(this, shape, vindex, iindex, antialiasWeight);
-                if (uploaded == null) {
-                    break;
-                }
-                uploaded.buildUnit(builder);
-                vindex += uploaded.getVertexCount();
-                iindex += uploaded.getIndexCount();
-                if (noMoreThanOne) {
-                    iterator.next();
-                    break;
-                }
-            }
-            builder.end();
-            this._vertexCount = vindex;
-            this._indexCount = iindex;
-            return 0 < builder.units.length;
-        };
-        EShapeBuffer.prototype.check = function (vindex, ioffset, vcount, icount) {
-            this.indexCountRequested = icount;
-            return vindex + vcount <= this._vertexCapacity && ioffset + icount <= this._indexCapacity;
-        };
-        EShapeBuffer.prototype.destroy = function () {
-            var geometry = this._geometry;
-            if (geometry) {
-                geometry.destroy();
-            }
-            this._builder.destroy();
-        };
-        return EShapeBuffer;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicAtlasItem = /** @class */ (function () {
-        function DynamicAtlasItem(id, width, height, strokeWidth, baseTexture) {
-            this.id = id;
-            this.ref = 0;
-            var resolution = baseTexture.resolution;
-            this.frame = new pixi_js.Rectangle(0, 0, width * resolution, height * resolution);
-            this.texture = new pixi_js.Texture(baseTexture, new pixi_js.Rectangle(0, 0, 1, 1));
-            this.width = width;
-            this.height = height;
-            this.strokeWidth = strokeWidth;
-        }
-        DynamicAtlasItem.prototype.applyFrame = function () {
-            var resolutionInverse = 1 / this.texture.baseTexture.resolution;
-            this.texture.frame.x = this.frame.x * resolutionInverse;
-            this.texture.frame.y = this.frame.y * resolutionInverse;
-            this.texture.frame.width = this.width;
-            this.texture.frame.height = this.height;
-            this.texture.updateUvs();
-            this.texture.emit("update", this);
-        };
-        DynamicAtlasItem.prototype.destroy = function () {
-            this.texture.destroy();
-        };
-        return DynamicAtlasItem;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicAtlasItemEmpty = /** @class */ (function (_super) {
-        __extends(DynamicAtlasItemEmpty, _super);
-        function DynamicAtlasItemEmpty() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DynamicAtlasItemEmpty.prototype.render = function (context) {
-            // DO NOTHING
-        };
-        return DynamicAtlasItemEmpty;
-    }(DynamicAtlasItem));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicAtlasItemWhite = /** @class */ (function (_super) {
-        __extends(DynamicAtlasItemWhite, _super);
-        function DynamicAtlasItemWhite() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DynamicAtlasItemWhite.prototype.render = function (context) {
-            var frame = this.frame;
-            context.save();
-            context.fillStyle = "#ffffff";
-            context.fillRect(frame.x - 1, frame.y - 1, frame.width + 2, frame.height + 2);
-            context.restore();
-        };
-        return DynamicAtlasItemWhite;
-    }(DynamicAtlasItem));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var MAXIMUM_TEXTURE_SIZE = 4096;
-    var DynamicAtlas = /** @class */ (function () {
-        function DynamicAtlas(resolution) {
-            var canvas = (this._canvas = document.createElement("canvas"));
-            canvas.width = canvas.height = 256;
-            var baseTexture = (this._baseTexture = pixi_js.BaseTexture.from(canvas, {
-                mipmap: pixi_js.MIPMAP_MODES.OFF,
-                resolution: resolution
-            }));
-            this._idToDatum = {};
-            this._sortedData = [];
-            this._predefined = {
-                empty: new DynamicAtlasItemEmpty("empty", 10, 10, 0, baseTexture),
-                white: new DynamicAtlasItemWhite("white", 10, 10, 0, baseTexture)
-            };
-            this._isDirty = true;
-        }
-        DynamicAtlas.prototype.updateFrames = function (width, data) {
-            var padding = 4;
-            var x = padding;
-            var y = padding;
-            var maxRowHeight = 0;
-            for (var i = 0, imax = data.length; i < imax; ++i) {
-                var datum = data[i];
-                if (width < x + datum.frame.width + padding) {
-                    x = padding;
-                    y += maxRowHeight + padding;
-                    maxRowHeight = 0;
-                }
-                datum.frame.x = x | 0;
-                datum.frame.y = y | 0;
-                x += datum.frame.width + padding;
-                maxRowHeight = Math.max(maxRowHeight, datum.frame.height);
-            }
-            var minHeight = y + maxRowHeight + padding;
-            var result = 256;
-            while (result < minHeight) {
-                result <<= 1;
-            }
-            return Math.min(MAXIMUM_TEXTURE_SIZE, result);
-        };
-        DynamicAtlas.prototype.renderFrames = function (width, height, data) {
-            var canvas = this._canvas;
-            canvas.width = width;
-            canvas.height = height;
-            var context = canvas.getContext("2d");
-            if (context != null) {
-                for (var i = 0, imax = data.length; i < imax; ++i) {
-                    var datum = data[i];
-                    datum.render(context);
-                }
-            }
-        };
-        DynamicAtlas.prototype.applyFrames = function (data) {
-            for (var i = 0, imax = data.length; i < imax; ++i) {
-                var datum = data[i];
-                datum.applyFrame();
-            }
-        };
-        DynamicAtlas.prototype.calcCanvasWidth = function (data) {
-            var result = 128;
-            for (var i = data.length - 1; 0 <= i; --i) {
-                var datum = data[i];
-                var size = Math.max(datum.frame.width, datum.frame.height);
-                while (result < size) {
-                    result <<= 1;
-                }
-            }
-            return Math.min(MAXIMUM_TEXTURE_SIZE, result << 1);
-        };
-        DynamicAtlas.prototype.cleanup = function (data) {
-            data.sort(DynamicAtlas.ITEM_COMPARATOR);
-            for (var i = data.length - 1; 0 <= i; --i) {
-                var datum = data[i];
-                if (0 < datum.ref) {
-                    data.length = i + 1;
-                    return;
-                }
-            }
-            data.length = 0;
-        };
-        DynamicAtlas.prototype.begin = function () {
-            var data = this._sortedData;
-            for (var i = 0, imax = data.length; i < imax; ++i) {
-                var datum = data[i];
-                datum.ref = 0;
-            }
-            this._isDirty = false;
-        };
-        DynamicAtlas.prototype.end = function () {
-            var idToDatum = this._idToDatum;
-            var data = this._sortedData;
-            for (var i = 0, imax = data.length; i < imax; ++i) {
-                var datum = data[i];
-                if (datum.ref <= 0) {
-                    if (!(datum.id in this._predefined)) {
-                        datum.destroy();
-                    }
-                    delete idToDatum[datum.id];
-                    this._isDirty = true;
-                }
-            }
-        };
-        DynamicAtlas.prototype.repack = function (forcibly) {
-            if (forcibly === true || this._isDirty) {
-                this._isDirty = false;
-                var data = this._sortedData;
-                this.cleanup(data);
-                var canvasWidth = this.calcCanvasWidth(data);
-                var canvasHeight = this.updateFrames(canvasWidth, data);
-                this.renderFrames(canvasWidth, canvasHeight, data);
-                this._baseTexture.setRealSize(canvasWidth, canvasHeight);
-                this.applyFrames(data);
-            }
-        };
-        DynamicAtlas.prototype.get = function (id) {
-            var idToDatum = this._idToDatum;
-            var datum = idToDatum[id];
-            if (datum != null) {
-                datum.ref += 1;
-                return datum;
-            }
-            else {
-                var predefined = this._predefined[id];
-                if (predefined != null) {
-                    this.set(id, predefined);
-                    return predefined;
-                }
-            }
-            return null;
-        };
-        DynamicAtlas.prototype.set = function (id, item) {
-            var result = this._idToDatum[id];
-            item.ref += 1;
-            this._idToDatum[id] = item;
-            this._sortedData.push(item);
-            this._isDirty = true;
-            return result;
-        };
-        DynamicAtlas.prototype.toDirty = function () {
-            this._isDirty = true;
-        };
-        DynamicAtlas.prototype.getDefaultTexture = function () {
-            return this.get("white").texture;
-        };
-        DynamicAtlas.prototype.getBaseTexture = function () {
-            return this._baseTexture;
-        };
-        DynamicAtlas.prototype.release = function (id) {
-            var idToDatum = this._idToDatum;
-            var datum = idToDatum[id];
-            if (datum != null) {
-                datum.ref -= 1;
-                if (datum.ref <= 0) {
-                    if (!(datum.id in this._predefined)) {
-                        datum.destroy();
-                    }
-                    delete idToDatum[id];
-                    this._isDirty = true;
-                }
-            }
-        };
-        DynamicAtlas.ITEM_COMPARATOR = function (a, b) {
-            if (a.ref <= 0) {
-                if (b.ref <= 0) {
-                    return 0;
-                }
-                else {
-                    return +1;
-                }
-            }
-            else {
-                if (b.ref <= 0) {
-                    return -1;
-                }
-            }
-            if (a.frame.height < b.frame.height) {
-                return -1;
-            }
-            else if (b.frame.height < a.frame.height) {
-                return +1;
-            }
-            else {
-                return a.frame.width - b.frame.width;
-            }
-        };
-        return DynamicAtlas;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicAtlasItemFontAtlas = /** @class */ (function (_super) {
-        __extends(DynamicAtlasItemFontAtlas, _super);
-        function DynamicAtlasItemFontAtlas(atlas, baseTexture) {
-            var _this = _super.call(this, atlas.id, atlas.width / baseTexture.resolution, atlas.height / baseTexture.resolution, 0, baseTexture) || this;
-            _this.canvas = atlas.canvas;
-            return _this;
-        }
-        DynamicAtlasItemFontAtlas.prototype.render = function (context) {
-            var canvas = this.canvas;
-            if (canvas != null) {
-                var frame = this.frame;
-                context.drawImage(canvas, frame.x, frame.y, frame.width, frame.height);
-            }
-        };
-        return DynamicAtlasItemFontAtlas;
-    }(DynamicAtlasItem));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var ASCII_CHARACTERS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasCharacterOrigin = /** @class */ (function () {
-        function DynamicFontAtlasCharacterOrigin(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-        return DynamicFontAtlasCharacterOrigin;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasCharacter = /** @class */ (function () {
-        function DynamicFontAtlasCharacter(advance, width, height, reserved) {
-            this.ref = 1;
-            this.life = 10;
-            this.x = 0;
-            this.y = 0;
-            this.width = width;
-            this.height = height;
-            this.advance = advance;
-            this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
-            this.reserved = reserved;
-        }
-        return DynamicFontAtlasCharacter;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicSDFFontAtlas = /** @class */ (function () {
-        function DynamicSDFFontAtlas(fontFamily) {
-            this._id = "font-atlas:" + fontFamily;
-            this._generator = DynamicSDFFontGenerator.getInstance().init();
-            this._canvas = document.createElement("canvas");
-            this._font = {
-                family: DynamicSDFFontAtlas.toFontFamily(fontFamily),
-                size: 32,
-                italic: false
-            };
-            this._characters = {};
-            this._length = 0;
-            this._width = 1;
-            this._height = 1;
-            this._isDirty = true;
-        }
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "id", {
-            get: function () {
-                return this._id;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "font", {
-            get: function () {
-                return this._font;
-            },
-            set: function (font) {
-                this._font.family = font.family;
-                this._font.size = font.size;
-                this._font.italic = font.italic;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "height", {
-            get: function () {
-                return this._height;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "canvas", {
-            get: function () {
-                return this._canvas;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "generator", {
-            get: function () {
-                return this._generator;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "characters", {
-            get: function () {
-                return this._characters;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicSDFFontAtlas.prototype.begin = function () {
-            this._length = 0;
-            var characters = this._characters;
-            for (var character in characters) {
-                characters[character].ref = 0;
-            }
-        };
-        DynamicSDFFontAtlas.prototype.end = function () {
-            var characters = this._characters;
-            for (var character in characters) {
-                var data = characters[character];
-                if (data.ref <= 0) {
-                    data.life -= 1;
-                    if (data.life <= 0) {
-                        delete characters[character];
-                        this._isDirty = true;
-                    }
-                }
-            }
-        };
-        DynamicSDFFontAtlas.prototype.addAscii = function () {
-            this.add(ASCII_CHARACTERS);
-            this.addChar("...");
-        };
-        DynamicSDFFontAtlas.prototype.addChar = function (character) {
-            var characters = this._characters;
-            if (character !== "\n") {
-                var data = characters[character];
-                if (data != null) {
-                    if (data.ref <= 0) {
-                        this._length += 1;
-                    }
-                    data.ref += 1;
-                }
-                else {
-                    characters[character] = new DynamicFontAtlasCharacter(0, 1, 1, false);
-                    this._length += 1;
-                    this._isDirty = true;
-                }
-            }
-        };
-        DynamicSDFFontAtlas.prototype.add = function (characters) {
-            var iterator = UtilCharacterIterator.from(characters);
-            while (iterator.hasNext()) {
-                this.addChar(iterator.next());
-            }
-        };
-        DynamicSDFFontAtlas.prototype.get = function (character) {
-            return this._characters[character];
-        };
-        DynamicSDFFontAtlas.prototype.update = function () {
-            if (this._isDirty) {
-                var canvas = this._canvas;
-                var generator = this._generator;
-                if (canvas != null && generator != null) {
-                    var context = canvas.getContext("2d");
-                    if (context != null) {
-                        this._isDirty = false;
-                        var font = this._font;
-                        var characters = this._characters;
-                        var characterSize = font.size + 14;
-                        var width = DynamicSDFFontAtlas.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * characterSize);
-                        this._width = width;
-                        var fontStyle = (font.italic ? "italic " : "") + (font.size + "px ") + font.family;
-                        context.font = fontStyle;
-                        context.textAlign = "left";
-                        context.textBaseline = "middle";
-                        context.lineWidth = 0;
-                        context.lineCap = "round";
-                        context.lineJoin = "miter";
-                        context.miterLimit = 0;
-                        context.fillStyle = "#FFFFFF";
-                        var offsetX = 7;
-                        var offsetY = characterSize >> 1;
-                        var x = 0;
-                        var y = 0;
-                        for (var character in characters) {
-                            var data = characters[character];
-                            var advance = context.measureText(character).width;
-                            var characterWidth = Math.ceil(offsetX + advance + offsetX);
-                            var characterHeight = characterSize;
-                            if (width <= x + characterWidth) {
-                                x = 0;
-                                y += characterSize;
-                            }
-                            data.x = x;
-                            data.y = y;
-                            data.width = characterWidth;
-                            data.height = characterHeight;
-                            data.advance = advance;
-                            data.origin.x = x + offsetX;
-                            data.origin.y = y + offsetY;
-                            x += characterWidth;
-                        }
-                        var height = (this._height = y + characterSize);
-                        // Make a input canvas
-                        // Here, we need to reset the context because
-                        // context settings will be lost when we set the width/height.
-                        canvas.width = width;
-                        canvas.height = height;
-                        context.font = fontStyle;
-                        context.textAlign = "left";
-                        context.textBaseline = "middle";
-                        context.lineWidth = 0;
-                        context.lineCap = "round";
-                        context.lineJoin = "miter";
-                        context.miterLimit = 4;
-                        context.fillStyle = "#FFFFFF";
-                        context.clearRect(0, 0, width, height);
-                        for (var character in characters) {
-                            var data = characters[character];
-                            context.fillText(character, data.origin.x, data.origin.y);
-                        }
-                        // Convert to SDF font texture
-                        generator.updateTexture(canvas);
-                        generator.render();
-                        generator.read(canvas);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
-        Object.defineProperty(DynamicSDFFontAtlas.prototype, "length", {
-            get: function () {
-                return this._length;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicSDFFontAtlas.prototype.toJson = function () {
-            return {
-                width: this._width,
-                height: this._height,
-                font: this._font,
-                characters: this._characters
-            };
-        };
-        DynamicSDFFontAtlas.prototype.toString = function () {
-            return JSON.stringify(this.toJson());
-        };
-        DynamicSDFFontAtlas.prototype.destroy = function () {
-            var generator = this._generator;
-            if (generator != null) {
-                this._generator = null;
-            }
-            var canvas = this._canvas;
-            if (canvas != null) {
-                this._canvas = null;
-            }
-            var characters = this._characters;
-            for (var character in characters) {
-                delete characters[character];
-            }
-        };
-        DynamicSDFFontAtlas.toFontFamily = function (fontFamily) {
-            return fontFamily === "auto" ? DynamicSDFFontAtlas.getAutoFontFamily() : fontFamily;
-        };
-        DynamicSDFFontAtlas.toPowerOf2 = function (size) {
-            var result = 32;
-            while (result < size) {
-                result <<= 1;
-            }
-            return result;
-        };
-        DynamicSDFFontAtlas.getAutoFontFamily = function () {
-            if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
-                DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance().get("DBase").getFontFamilly();
-            }
-            return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
-        };
-        DynamicSDFFontAtlas.FONT_FAMILY_AUTO = null;
-        return DynamicSDFFontAtlas;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicSDFFontAtlases = /** @class */ (function () {
-        function DynamicSDFFontAtlases() {
-            this._atlases = {};
-        }
-        DynamicSDFFontAtlases.prototype.begin = function () {
-            var atlases = this._atlases;
-            for (var family in atlases) {
-                var atlas = atlases[family];
-                atlas.begin();
-            }
-        };
-        DynamicSDFFontAtlases.prototype.end = function () {
-            var atlases = this._atlases;
-            for (var family in atlases) {
-                var atlas = atlases[family];
-                if (0 < atlas.length) {
-                    atlas.addAscii();
-                }
-                atlas.end();
-                if (atlas.length <= 0) {
-                    atlas.destroy();
-                    delete atlases[family];
-                }
-            }
-        };
-        DynamicSDFFontAtlases.prototype.add = function (family, targets) {
-            var atlas = this._atlases[family];
-            if (atlas != null) {
-                atlas.add(targets);
-            }
-            else {
-                var newAtlas = new DynamicSDFFontAtlas(family);
-                newAtlas.add(targets);
-                this._atlases[family] = newAtlas;
-            }
-        };
-        DynamicSDFFontAtlases.prototype.get = function (family) {
-            var atlas = this._atlases[family];
-            if (atlas != null) {
-                return atlas;
-            }
-            return null;
-        };
-        DynamicSDFFontAtlases.prototype.update = function (baseAtlas) {
-            var atlases = this._atlases;
-            var baseTexture = baseAtlas.getBaseTexture();
-            for (var family in atlases) {
-                var atlas = atlases[family];
-                if (atlas.update()) {
-                    var atlasId = atlas.id;
-                    var item = baseAtlas.get(atlasId);
-                    if (item != null) {
-                        var width = atlas.width;
-                        var height = atlas.height;
-                        var resolution = baseTexture.resolution;
-                        item.frame.width = width;
-                        item.frame.height = height;
-                        item.width = width / resolution;
-                        item.height = height / resolution;
-                        baseAtlas.toDirty();
-                    }
-                    else {
-                        baseAtlas.set(atlasId, new DynamicAtlasItemFontAtlas(atlas, baseTexture));
-                    }
-                }
-            }
-        };
-        DynamicSDFFontAtlases.prototype.destroy = function () {
-            var atlases = this._atlases;
-            for (var family in atlases) {
-                var atlas = atlases[family];
-                atlas.destroy();
-            }
-            this._atlases = {};
-        };
-        return DynamicSDFFontAtlases;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicAtlasItemImage = /** @class */ (function (_super) {
-        __extends(DynamicAtlasItemImage, _super);
-        function DynamicAtlasItemImage(image, baseTexture) {
-            var _this = _super.call(this, image.src, image.width / baseTexture.resolution, image.height / baseTexture.resolution, 0, baseTexture) || this;
-            _this.image = image;
-            return _this;
-        }
-        DynamicAtlasItemImage.prototype.render = function (context) {
-            var frame = this.frame;
-            var x = frame.x;
-            var y = frame.y;
-            var w = frame.width;
-            var h = frame.height;
-            var image = this.image;
-            context.drawImage(image, x, y, w, h);
-            context.drawImage(image, 0, 0, 1, h, x - 1, y - 1, 1, h + 2);
-            context.drawImage(image, 0, 0, w, 1, x, y - 1, w, 1);
-            context.drawImage(image, w - 1, 0, 1, h, x + w, y - 1, 1, h + 2);
-            context.drawImage(image, 0, h - 1, w, 1, x, y + h, w, 1);
-        };
-        return DynamicAtlasItemImage;
-    }(DynamicAtlasItem));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DUMMY_SHAPES = [];
-    var EShapeRendererIteratorDatum = /** @class */ (function () {
-        function EShapeRendererIteratorDatum() {
-            this.index = 0;
-            this.shapes = DUMMY_SHAPES;
-        }
-        EShapeRendererIteratorDatum.prototype.reset = function (shapes) {
-            this.index = -1;
-            this.shapes = shapes;
-        };
-        EShapeRendererIteratorDatum.prototype.next = function () {
-            var index = this.index + 1;
-            this.index = index;
-            var shapes = this.shapes;
-            if (index < shapes.length) {
-                return shapes[index];
-            }
-            return null;
-        };
-        return EShapeRendererIteratorDatum;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeRendererIterator = /** @class */ (function () {
-        function EShapeRendererIterator() {
-            this._index = -1;
-            this._datum = new EShapeRendererIteratorDatum();
-            this._data = [this._datum];
-            this._current = null;
-        }
-        EShapeRendererIterator.prototype.reset = function (shapes) {
-            this._index = 0;
-            var current = this._data[0];
-            this._datum = current;
-            current.reset(shapes);
-            this._current = null;
-            return this.next();
-        };
-        EShapeRendererIterator.prototype.get = function () {
-            return this._current;
-        };
-        EShapeRendererIterator.prototype.next = function () {
-            var datum = this._datum;
-            var shape = datum.next();
-            if (shape != null) {
-                this._current = shape;
-                var children = shape.children;
-                if (0 < children.length) {
-                    var datumIndex = (this._index = this._index + 1);
-                    var data = this._data;
-                    if (datumIndex < data.length) {
-                        var newDatum = data[datumIndex];
-                        newDatum.reset(children);
-                        this._datum = newDatum;
-                    }
-                    else {
-                        var newDatum = new EShapeRendererIteratorDatum();
-                        data.push(newDatum);
-                        newDatum.reset(children);
-                        this._datum = newDatum;
-                    }
-                }
-                return shape;
-            }
-            else {
-                var datumIndex = (this._index = this._index - 1);
-                var data = this._data;
-                if (0 <= datumIndex) {
-                    this._datum = data[datumIndex];
-                    this._current = null;
-                    return this.next();
-                }
-                else {
-                    this._current = null;
-                    return null;
-                }
-            }
-        };
-        return EShapeRendererIterator;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var VERTEX_SHADER$1 = "\nattribute vec2 aPosition;\nattribute vec3 aClipping;\nattribute vec2 aStep;\nattribute vec4 aAntialias;\nattribute vec4 aColorFill;\nattribute vec4 aColorStroke;\nattribute vec2 aUv;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\nuniform mediump float shapeScale;\nuniform mediump float pixelScale;\nuniform mediump float antialiasWeight;\n\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nvec2 toInverse( in vec2 v ) {\n\treturn vec2( -v.y, v.x );\n}\n\nvec2 toTransformedPosition( in vec2 v ) {\n\treturn (projectionMatrix * translationMatrix * vec3(v, 1.0)).xy;\n}\n\nvec4 toAntialias01( in vec4 antialias ) {\n\t// Taylor series of 1 / ( 1 - a ) = 1 + a + a^2 + ....\n\treturn 1.0 + min( vec4( 1.0 ), antialias * pixelScale );\n}\n\nvec4 toAntialias2( in vec4 antialias, in float strokeWidth ) {\n\tfloat x = min( 0.4, 0.4 / 12.0 * antialias.x * pixelScale * antialiasWeight );\n\tfloat w = clamp( strokeWidth / antialias.y, 0.0, 1.0 ) * 0.4;\n\tfloat p = w * antialias.z + antialias.w;\n\tfloat y = 0.5 - p;\n\tfloat z = 0.5 - p - w;\n\treturn vec4( y, z, y - max( 0.01, y - x ), z - max( 0.01, z - x ) );\n}\n\nvec2 toPosition3456( in float type, in vec2 p, in vec2 pprev, in vec2 pnext, in float strokeWidth, out float shift ) {\n\tvec2 d0 = p - pprev;\n\tvec2 d1 = pnext - p;\n\tfloat l0 = dot( d0, d0 );\n\tfloat l1 = dot( d1, d1 );\n\tvec2 nd0 = normalize( toInverse( d0 ) );\n\tvec2 nd1 = normalize( toInverse( d1 ) );\n\tvec2 nd2 = 0.00001 < l1 ? nd1 : vec2(0.0, 0.0);\n\tvec2 n0 = 0.00001 < l0 ? nd0 : nd2;\n\tvec2 n1 = 0.00001 < l1 ? nd1 : n0;\n\tvec2 n0i = toInverse( n0 );\n\tvec2 n1i = toInverse( n1 );\n\tfloat direction = sign( 4.5 - type );\n\n\t// Offset\n\tfloat cross = dot( n0i, n1 );\n\tfloat crossInverse = ( 0.00001 < abs( cross ) ? 1.0 / cross : 0.0 );\n\tfloat b = dot(n1 - n0, n0) * crossInverse;\n\tfloat offsetSize = direction * strokeWidth * 0.5;\n\tvec2 offset = n1 + n1i * b;\n\n\t// Miter\n\tvec2 pmiter = p + offsetSize * offset;\n\tfloat miterAngle0 = dot( n0i, pmiter - pprev );\n\tfloat miterAngle1 = dot( n1i, pmiter - pnext );\n\tfloat miterLength = dot( offset, offset );\n\tfloat miterSide = direction * cross;\n\n\t// Bevel\n\tvec2 n = ( type == 4.0 || type == 6.0 ? n1 : n0 );\n\tvec2 pbevel = p + offsetSize * n;\n\n\t//\n\tvec2 presult = (\n\t\t0.0 <= miterSide ?\n\t\t( miterAngle0 < 0.0 && 0.0 <= miterAngle1 ? pmiter : pbevel ) :\n\t\t( miterLength < 6.0 ? pmiter : pbevel )\n\t);\n\tvec2 ni = ( type == 4.0 || type == 6.0 ? n1i : n0i );\n\tshift = dot( ni, p - presult );\n\treturn toTransformedPosition( presult );\n}\n\nvec2 toStep3456( in float type ) {\n\treturn ( type < 4.5 ? vec2( 1.0, 0.0 ) : vec2( 0.0, 1.0 ) );\n}\n\nvec4 toAntialias3456( in float strokeWidth ) {\n\tfloat a = antialiasWeight / max( 0.0001, strokeWidth );\n\treturn toAntialias01( vec4( a, a, a, a ) );\n}\n\nfloat toDotAndDashScale( in float scale, in float strokeWidthScale ) {\n\treturn (\n\t\tscale == 4.0 || scale == 5.0 || scale == 6.0 || scale == 7.0 ?\n\t\tstrokeWidthScale : 1.0\n\t);\n}\n\nvec4 toColorStroke3456( in float shift, in float scale ) {\n\tfloat x = aColorFill.x + shift;\n\tfloat y = scale * aColorFill.y;\n\tfloat z = scale * aColorFill.z;\n\tfloat w = aColorFill.w;\n\treturn vec4( x, y, z, w );\n}\n\nfloat toStrokeWidthScale( in float scale ) {\n\treturn (\n\t\tscale == 3.0 || scale == 7.0 ?\n\t\tshapeScale : (\n\t\t\tscale == 1.0 || scale == 5.0 ?\n\t\t\tmin( 1.0, shapeScale ) : (\n\t\t\t\tscale == 2.0 || scale == 6.0 ?\n\t\t\t\tmax( 1.0, shapeScale ) : 1.0\n\t\t\t)\n\t\t)\n\t);\n}\n\nvec2 toStep01(in vec2 size, in vec2 weight, in vec2 strokeWidth) {\n\treturn weight / max(vec2(0.00001), vec2(1.0) - strokeWidth / size);\n}\n\nvec4 toAntialias01b(in vec2 size, in vec2 strokeWidth) {\n\treturn antialiasWeight / max(vec4(0.00001), vec4(size - strokeWidth, size));\n}\n\nvoid main(void) {\n\tvec2 p012 = toTransformedPosition( aPosition );\n\n\tfloat type = aClipping.z;\n\tfloat strokeWidthScale = toStrokeWidthScale( aStep.y );\n\tfloat strokeWidth = strokeWidthScale * aStep.x;\n\n\t// type === 0 or 1\n\tvec2 size01 = aAntialias.xy;\n\tvec2 weight01 = abs(aAntialias.zw - sign(aAntialias.zw));\n\tvec2 strokeWidth01 = step(vec2(0.0), aAntialias.zw) * strokeWidth;\n\tvec2 step01 = toStep01( size01, weight01, strokeWidth01 );\n\tvec4 a01 = toAntialias01( toAntialias01b( size01, strokeWidth01 ) );\n\n\t// type === 2\n\tvec4 a2 = toAntialias2( aAntialias, strokeWidth );\n\n\t// type === 3, 4, 5 or 6\n\tfloat shift3456 = 0.0;\n\tvec2 p3456 = toPosition3456( type, aPosition, aAntialias.xy, aAntialias.zw, strokeWidth, shift3456 );\n\tvec2 step3456 = toStep3456( type );\n\tvec4 a3456 = toAntialias3456( strokeWidth );\n\tvec4 colorStroke3456 = toColorStroke3456( shift3456, toDotAndDashScale( aStep.y, strokeWidthScale ) );\n\n\t//\n\tgl_Position = vec4( ( 2.5 < type ? p3456 : p012 ), 0.0, 1.0 );\n\tvAntialias = ( 1.5 < type ? ( 2.5 < type ? a3456 : a2 ) : a01 );\n\tvClipping = aClipping;\n\tvStep = ( 2.5 < type ? step3456 : step01 );\n\tvColorFill = ( 2.5 < type ? aColorStroke : aColorFill );\n\tvColorStroke = ( 2.5 < type ? colorStroke3456 : aColorStroke );\n\tvUv = aUv;\n}";
-    var FRAGMENT_SHADER$1 = "\nvarying mediump vec3 vClipping;\nvarying mediump vec2 vStep;\nvarying mediump vec4 vAntialias;\nvarying mediump vec4 vColorFill;\nvarying mediump vec4 vColorStroke;\nvarying mediump vec2 vUv;\n\nuniform sampler2D sampler;\nuniform mediump float pixelScale;\n\nvoid main(void) {\n\tvec4 texture = texture2D(sampler, vUv);\n\tfloat type = vClipping.z;\n\tvec2 v0 = vStep;\n\tvec2 v1 = vClipping.xy;\n\tvec2 v2 = v0 * vAntialias.xy;\n\tvec2 v3 = v1 * vAntialias.zw;\n\tvec2 d01 = ( v0.x < v0.y ? vec2( v0.y, v2.y ) : vec2( v0.x, v2.x ) );\n\tvec2 d02 = ( v1.x < v1.y ? vec2( v1.y, v3.y ) : vec2( v1.x, v3.x ) );\n\tvec4 d0 = vec4( d01.x, d02.x, d01.y, d02.y );\n\tvec4 d1 = vec4( dot( v0, v0 ), dot( v1, v1 ), dot( v2, v2 ), dot( v3, v3 ) );\n\tvec4 d = ( type == 1.0 ? d1 : d0 );\n\tvec2 s = smoothstep( 1.0 - (d.zw - d.xy), vec2( 1.0 ), d.xy );\n\tvec4 color01 = texture * (vColorStroke * (s.x - s.y) + vColorFill * (1.0 - s.x));\n\n\tfloat l = vColorStroke.x;\n\tfloat lp0 = vColorStroke.y;\n\tfloat lp1 = vColorStroke.z;\n\tfloat lt = vColorStroke.w;\n\tfloat ld = 0.5 * pixelScale;\n\tfloat lm = mod( l, lp0 + lp1 );\n\tfloat ls0 = ( 0.0 < lp1 ? smoothstep( 0.0, ld, lm ) - smoothstep( lp0, lp0 + ld, lm ) : 1.0 );\n\tfloat ls1 = ( 0.0 <= lt ? smoothstep( 0.0, ld, l ) - smoothstep( lt - ld, lt, l ) : 1.0 );\n\tvec4 color3456 = color01 * ls0 * ls1;\n\n\tvec2 a0 = vAntialias.xy;\n\tvec2 a1 = vAntialias.zw;\n\tvec2 a2 = vec2( texture.a );\n\tvec2 a = smoothstep( a0 - a1, a0 + a1, a2 );\n\tvec4 color2 = a.x * vColorFill + ( a.y - a.x ) * vColorStroke;\n\tgl_FragColor = ( type == 2.0 ? color2 : (2.5 < type ? color3456 : color01) );\n}";
-    var EShapeRenderer = /** @class */ (function (_super) {
-        __extends(EShapeRenderer, _super);
-        function EShapeRenderer(renderer) {
-            var _this = _super.call(this, renderer) || this;
-            EShapeRenderer.SHADER =
-                EShapeRenderer.SHADER || pixi_js.Shader.from(VERTEX_SHADER$1, FRAGMENT_SHADER$1);
-            _this._shader = EShapeRenderer.SHADER;
-            _this._iterator = new EShapeRendererIterator();
-            _this._bufferSizeMax = _this.getBufferSizeMax(renderer);
-            return _this;
-        }
-        EShapeRenderer.prototype.getBufferSizeMax = function (renderer) {
-            var context = renderer.context;
-            var extensions = context.extensions;
-            if (1 < context.webGLVersion || !!extensions.uint32ElementIndex) {
-                return 1431655765; // 2^32 / 3
-            }
-            return 21845; // 2^16 / 3
-        };
-        EShapeRenderer.prototype.updateAtlas = function (shape, atlas, fontAtlases, defaultTexture, baseTexture) {
-            // Texture
-            // Do not access the shape.image.src here.
-            // It slows down the rendering speed significantly.
-            var imageSrc = shape.imageSrc;
-            if (imageSrc != null) {
-                var textureItem = atlas.get(imageSrc);
-                if (textureItem != null) {
-                    shape.texture = textureItem.texture;
-                }
-                else {
-                    var image = shape.image;
-                    if (image != null) {
-                        var newTextureItem = new DynamicAtlasItemImage(image, baseTexture);
-                        shape.texture = newTextureItem.texture;
-                        atlas.set(newTextureItem.id, newTextureItem);
-                    }
-                    else {
-                        shape.texture = defaultTexture;
-                    }
-                }
-            }
-            else {
-                shape.texture = defaultTexture;
-            }
-            // Font texture atlas
-            var text = shape.text;
-            var textValue = text.value;
-            if (0 < textValue.length) {
-                fontAtlases.add(text.family, textValue);
-            }
-        };
-        EShapeRenderer.prototype.updateAtlases = function (shapes, atlas, fontAtlases, defaultTexture, baseTexture) {
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                var shape = shapes[i];
-                this.updateAtlas(shape, atlas, fontAtlases, defaultTexture, baseTexture);
-                var children = shape.children;
-                for (var j = 0, jmax = children.length; j < jmax; ++j) {
-                    var child = children[j];
-                    this.updateAtlas(child, atlas, fontAtlases, defaultTexture, baseTexture);
-                    this.updateAtlases(child.children, atlas, fontAtlases, defaultTexture, baseTexture);
-                }
-            }
-        };
-        EShapeRenderer.prototype.updateFontAtlas = function (shape, atlas, fontAtlases, defaultTexture) {
-            var text = shape.text;
-            var fontAtlas = fontAtlases.get(text.family);
-            if (fontAtlas != null) {
-                var textureItem = atlas.get(fontAtlas.id);
-                if (textureItem != null) {
-                    text.atlas = fontAtlas;
-                    text.texture = textureItem.texture;
-                }
-                else {
-                    text.atlas = undefined;
-                    text.texture = defaultTexture;
-                }
-            }
-            else {
-                text.atlas = undefined;
-                text.texture = defaultTexture;
-            }
-        };
-        EShapeRenderer.prototype.updateFontAtlases = function (shapes, atlas, fontAtlases, defaultTexture) {
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                var shape = shapes[i];
-                this.updateFontAtlas(shape, atlas, fontAtlases, defaultTexture);
-                var children = shape.children;
-                for (var j = 0, jmax = children.length; j < jmax; ++j) {
-                    var child = children[j];
-                    this.updateFontAtlas(child, atlas, fontAtlases, defaultTexture);
-                    this.updateFontAtlases(child.children, atlas, fontAtlases, defaultTexture);
-                }
-            }
-        };
-        EShapeRenderer.prototype.render_ = function (container, shapes, isDirty) {
-            var renderer = this.renderer;
-            var shader = this._shader;
-            if (shader != null && 0 < shapes.length) {
-                var resolution = renderer.resolution;
-                var buffers = container.getBuffers();
-                var antialiasWeight = container.getAntialiasWeight(resolution);
-                // Update textures
-                if (isDirty) {
-                    // Atlases
-                    var atlas = container.getAtlas(resolution);
-                    var fontAtlases = container.getFontAtlases();
-                    atlas.begin();
-                    fontAtlases.begin();
-                    var defaultTexture = atlas.getDefaultTexture();
-                    var baseTexture = atlas.getBaseTexture();
-                    this.updateAtlases(shapes, atlas, fontAtlases, defaultTexture, baseTexture);
-                    fontAtlases.end();
-                    fontAtlases.update(atlas);
-                    this.updateFontAtlases(shapes, atlas, fontAtlases, defaultTexture);
-                    atlas.end();
-                    atlas.repack();
-                    // Update buffers
-                    this.updateBuffers(shapes, buffers, renderer, antialiasWeight);
-                }
-                // Render buffers
-                shader.uniforms.shapeScale = container.toShapeScale();
-                shader.uniforms.pixelScale = container.toPixelScale(resolution);
-                shader.uniforms.antialiasWeight = antialiasWeight;
-                shader.uniforms.translationMatrix = container.worldTransform.toArray(true);
-                renderer.shader.bind(shader, false);
-                renderer.state.setBlendMode(pixi_js.utils.correctBlendMode(pixi_js.BLEND_MODES.NORMAL, true));
-                var buffersLength = buffers.length;
-                if (1 < buffersLength) {
-                    for (var i = 0; i < buffersLength; ++i) {
-                        buffers[i].upload();
-                    }
-                }
-                for (var i = 0; i < buffersLength; ++i) {
-                    buffers[i].render(shader);
-                }
-            }
-        };
-        EShapeRenderer.prototype.updateBuffers = function (shapes, buffers, renderer, antialiasWeight) {
-            var iterator = this._iterator;
-            iterator.reset(shapes);
-            var ib = 0;
-            var bufferSize = 0;
-            var bufferSizeBase = 5000;
-            var bufferSizeMax = this._bufferSizeMax;
-            while (iterator.get() != null) {
-                var buffer = null;
-                var noMoreThanOne = false;
-                if (0 < bufferSize) {
-                    buffer = new EShapeBuffer(bufferSize, renderer);
-                    buffers.splice(ib, 0, buffer);
-                    noMoreThanOne = true;
-                }
-                else if (ib < buffers.length) {
-                    buffer = buffers[ib];
-                    noMoreThanOne = false;
-                }
-                else {
-                    buffer = new EShapeBuffer(bufferSizeBase, renderer);
-                    buffers.push(buffer);
-                    noMoreThanOne = false;
-                }
-                if (buffer.update(iterator, antialiasWeight, noMoreThanOne)) {
-                    bufferSize = 0;
-                    ib += 1;
-                }
-                else {
-                    bufferSize = buffer.indexCountRequested;
-                    if (bufferSize <= bufferSizeMax) {
-                        bufferSize = Math.ceil(bufferSize / bufferSizeBase) * bufferSizeBase;
-                        bufferSize = Math.min(bufferSize, bufferSizeMax);
-                    }
-                    else {
-                        // No way to render
-                        break;
-                    }
-                }
-            }
-            if (ib < buffers.length) {
-                for (var jb = ib, ibmax = buffers.length; jb < ibmax; ++jb) {
-                    buffers[jb].destroy();
-                }
-                buffers.length = ib;
-            }
-        };
-        EShapeRenderer.SHADER = null;
-        return EShapeRenderer;
-    }(pixi_js.ObjectRenderer));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeContainer = /** @class */ (function (_super) {
-        __extends(EShapeContainer, _super);
-        function EShapeContainer() {
-            var _this = _super.call(this) || this;
-            _this._shapeRenderer = null;
-            _this.children = [];
-            _this._childrenId = 0;
-            _this._childrenIdRendered = -1;
-            _this._atlas = null;
-            _this._fontAtlases = new DynamicSDFFontAtlases();
-            _this._pixelScale = 1;
-            _this._pixelScaleId = NaN;
-            _this._shapeScale = 1;
-            _this._shapeScaleId = NaN;
-            _this._work = new pixi_js.Point();
-            _this._buffers = [];
-            return _this;
-        }
-        EShapeContainer.prototype.calculateBounds = function () {
-            this._bounds.clear();
-        };
-        EShapeContainer.prototype.onChildTransformChange = function () {
-            // DO NOTHING
-        };
-        EShapeContainer.prototype.toDirty = function () {
-            return (this._childrenId += 1);
-        };
-        EShapeContainer.prototype.isDirty = function () {
-            return this._childrenIdRendered < this._childrenId;
-        };
-        EShapeContainer.prototype.render = function (renderer) {
-            if (!this.visible || this.worldAlpha <= 0 || !this.renderable) {
-                return;
-            }
-            var childrenId = this._childrenId;
-            var childrenIdRendered = this._childrenIdRendered;
-            this._childrenIdRendered = childrenId;
-            var isChildrenDirty = childrenIdRendered < childrenId;
-            var children = this.children;
-            var shapeRenderer = this._shapeRenderer;
-            if (shapeRenderer == null) {
-                shapeRenderer = this._shapeRenderer = new EShapeRenderer(renderer);
-            }
-            renderer.batch.setObjectRenderer(shapeRenderer);
-            var mask = this.mask;
-            if (mask) {
-                renderer.mask.push(this, mask);
-                shapeRenderer.render_(this, children, isChildrenDirty);
-                renderer.mask.pop(this);
-            }
-            else {
-                shapeRenderer.render_(this, children, isChildrenDirty);
-            }
-        };
-        EShapeContainer.prototype.containsPoint = function (point) {
-            return false;
-        };
-        EShapeContainer.prototype.getFontAtlases = function () {
-            return this._fontAtlases;
-        };
-        EShapeContainer.prototype.getAtlas = function (resolution) {
-            var atlas = this._atlas;
-            if (atlas == null) {
-                atlas = new DynamicAtlas(resolution);
-                this._atlas = atlas;
-            }
-            return atlas;
-        };
-        EShapeContainer.prototype.getBuffers = function () {
-            return this._buffers;
-        };
-        EShapeContainer.prototype.toShapeScale = function () {
-            this.updateTransform();
-            var transform = this.transform;
-            var worldID = transform._worldID;
-            if (worldID !== this._shapeScaleId) {
-                this._shapeScaleId = worldID;
-                var worldTransform = transform.worldTransform;
-                var a = worldTransform.a;
-                var b = worldTransform.b;
-                this._shapeScale = 1 / Math.sqrt(a * a + b * b);
-            }
-            return this._shapeScale;
-        };
-        EShapeContainer.prototype.getShapeScale = function () {
-            return this._shapeScale;
-        };
-        EShapeContainer.prototype.toPixelScale = function (resolution) {
-            var shapeScale = this.toShapeScale();
-            var shapeScaleId = this._shapeScaleId;
-            if (this._pixelScaleId !== shapeScaleId) {
-                this._pixelScaleId = shapeScaleId;
-                this._pixelScale = (1 / resolution) * shapeScale;
-            }
-            return this._pixelScale;
-        };
-        EShapeContainer.prototype.getPixelScale = function () {
-            return this._pixelScale;
-        };
-        EShapeContainer.prototype.getAntialiasWeight = function (resolution) {
-            return 1.25 / resolution;
-        };
-        EShapeContainer.prototype.hitTest = function (global, handler) {
-            var work = this._work;
-            var children = this.children;
-            for (var i = children.length - 1; 0 <= i; --i) {
-                var child = children[i];
-                if (child.visible) {
-                    var childLocal = child.toLocal(global, undefined, work);
-                    var childResult = child.contains(childLocal);
-                    if (childResult != null) {
-                        if (handler == null || handler(childResult)) {
-                            return childResult;
-                        }
-                    }
-                }
-            }
-            return null;
-        };
-        EShapeContainer.prototype.hitTestBBox = function (global, handler) {
-            var work = this._work;
-            var children = this.children;
-            for (var i = children.length - 1; 0 <= i; --i) {
-                var child = children[i];
-                if (child.visible) {
-                    var childLocal = child.toLocal(global, undefined, work);
-                    if (child.containsBBox(childLocal)) {
-                        if (handler == null || handler(child)) {
-                            return child;
-                        }
-                    }
-                }
-            }
-            return null;
-        };
-        EShapeContainer.prototype.destroy = function () {
-            // Buffer
-            var buffers = this._buffers;
-            if (buffers != null) {
-                for (var i = 0, imax = buffers.length; i < imax; ++i) {
-                    buffers[i].destroy();
-                }
-            }
-            this._buffers.length = 0;
-            // Shapes
-            var children = this.children;
-            for (var i = children.length - 1; 0 <= i; --i) {
-                children[i].destroy();
-            }
-            children.length = 0;
-            //
-            _super.prototype.destroy.call(this);
-        };
-        return EShapeContainer;
-    }(pixi_js.DisplayObject));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     /**
      * {@link EShape} search utility.
      */
@@ -36994,7 +37879,7 @@
         __extends(ESnapperGrid, _super);
         function ESnapperGrid() {
             var _this = _super.call(this) || this;
-            _this._isVisible = false;
+            _this._isVisible = true;
             _this._isEnabled = true;
             _this._size = 10;
             return _this;
@@ -40158,6 +41043,12 @@
             style.height = "100%";
             style.display = "block";
             style.outline = "none";
+            style.webkitTapHighlightColor = "rgba(255,255,255,0)";
+            style.webkitUserSelect = "none";
+            style.setProperty("-khtml-user-select", "none");
+            style.setProperty("-moz-user-select", "none");
+            style.setProperty("-ms-user-select", "none");
+            style.userSelect = "none";
         };
         DApplicationLayer.prototype.initRootElement = function () {
             var _this = this;
@@ -44565,16 +45456,16 @@
             _super.prototype.init.call(this, options);
             this.state.isFocusable = false;
             var position = new pixi_js.Point();
-            this._dragUtil = new UtilDrag({
-                target: this,
-                easing: false,
+            this._gestureUtil = new UtilGesture({
+                bind: this,
+                easing: true,
                 on: {
                     start: function () {
                         position.copyFrom(_this.position);
                     },
-                    move: function (dx, dy) {
+                    move: function (target, dx, dy) {
                         position.set(position.x + dx, position.y + dy);
-                        _this.onDragMove(position.x, position.y);
+                        _this.onGestureMove(position.x, position.y);
                     }
                 }
             });
@@ -44631,7 +45522,7 @@
         function DScrollBarThumbHorizontal() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DScrollBarThumbHorizontal.prototype.onDragMove = function (dx, dy) {
+        DScrollBarThumbHorizontal.prototype.onGestureMove = function (dx, dy) {
             this.emit("regionmove", dx, this);
         };
         DScrollBarThumbHorizontal.prototype.initReflowable = function () {
@@ -44737,7 +45628,7 @@
         function DScrollBarThumbVertocal() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DScrollBarThumbVertocal.prototype.onDragMove = function (dx, dy) {
+        DScrollBarThumbVertocal.prototype.onGestureMove = function (dx, dy) {
             this.emit("regionmove", dy, this);
         };
         DScrollBarThumbVertocal.prototype.initReflowable = function () {
@@ -44841,26 +45732,26 @@
                 _this.onContentChange();
             });
             this.updateScrollBar();
-            // Drag
-            this.initDrag(content, theme, options);
+            // Gesture
+            this.initGesture(content, theme, options);
         };
-        DPane.prototype.initDrag = function (content, theme, options) {
+        DPane.prototype.initGesture = function (content, theme, options) {
             var _this = this;
             var _a, _b;
             // Edge does not fire the wheel event when scrolling using the 2-fingure scroll gesture on a touchpad.
-            // Instead, it fires touch events. This is why the dragging is enabled regardless of the `UtilPointerEvent.touchable`.
+            // Instead, it fires touch events. This is why the gesture is enabled regardless of the `UtilPointerEvent.touchable`.
             // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7134034/
-            var dragMode = toEnum((_b = (_a = options === null || options === void 0 ? void 0 : options.drag) === null || _a === void 0 ? void 0 : _a.mode) !== null && _b !== void 0 ? _b : theme.getDragMode(), DDragMode);
-            if (dragMode === DDragMode.ON || dragMode === DDragMode.TOUCH) {
+            var mode = toEnum((_b = (_a = options === null || options === void 0 ? void 0 : options.gesture) === null || _a === void 0 ? void 0 : _a.mode) !== null && _b !== void 0 ? _b : theme.getGestureMode(), UtilGestureMode);
+            if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
                 var position_1 = new pixi_js.Point();
-                this._dragUtil = new UtilDrag({
-                    target: this,
-                    touch: dragMode === DDragMode.TOUCH,
+                this._gestureUtil = new UtilGesture({
+                    bind: this,
+                    touch: mode === UtilGestureMode.TOUCH,
                     on: {
                         start: function () {
                             position_1.copyFrom(content.position);
                         },
-                        move: function (dx, dy) {
+                        move: function (target, dx, dy) {
                             position_1.set(position_1.x + dx, position_1.y + dy);
                             content.position.set(_this.toContentX(content, position_1.x), _this.toContentY(content, position_1.y));
                         }
@@ -44869,16 +45760,16 @@
             }
         };
         DPane.prototype.onRegionMoveX = function (content, start) {
-            var dragUtil = this._dragUtil;
-            if (dragUtil != null) {
-                dragUtil.stop();
+            var gestureUtil = this._gestureUtil;
+            if (gestureUtil != null) {
+                gestureUtil.stop(this);
             }
             content.x = -content.width * start;
         };
         DPane.prototype.onRegionMoveY = function (content, start) {
-            var dragUtil = this._dragUtil;
-            if (dragUtil != null) {
-                dragUtil.stop();
+            var gestureUtil = this._gestureUtil;
+            if (gestureUtil != null) {
+                gestureUtil.stop(this);
             }
             content.y = -content.height * start;
         };
@@ -44928,9 +45819,9 @@
             var x = this.getWheelContentX(content, deltas.deltaX * deltas.lowest);
             var y = this.getWheelContentY(content, deltas.deltaY * deltas.lowest);
             if (content.x !== x || content.y !== y) {
-                var dragUtil = this._dragUtil;
-                if (dragUtil != null) {
-                    dragUtil.stop();
+                var gestureUtil = this._gestureUtil;
+                if (gestureUtil != null) {
+                    gestureUtil.stop(this);
                 }
                 content.position.set(x, y);
                 return true;
@@ -50777,27 +51668,152 @@
             _this.name = name;
             _this.interactive = false;
             _this.reference = 0;
+            var shape = _this.newShape();
+            shape.parent = _this;
+            _this._shape = shape;
+            _this.interactives = [];
             return _this;
         }
-        DDiagramLayer.prototype.destroy = function () {
-            if (!this._destroyed) {
-                var children = this.children;
-                for (var i = children.length - 1; 0 <= i; --i) {
-                    children[i].destroy();
+        Object.defineProperty(DDiagramLayer.prototype, "width", {
+            get: function () {
+                return this._shape.size.x;
+            },
+            set: function (width) {
+                this._shape.size.x = width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramLayer.prototype, "height", {
+            get: function () {
+                return this._shape.size.y;
+            },
+            set: function (height) {
+                this._shape.size.y = height;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramLayer.prototype, "background", {
+            get: function () {
+                return this._shape.fill;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramLayer.prototype, "state", {
+            get: function () {
+                return this._shape.state;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramLayer.prototype.newShape = function () {
+            var result = new EShapeRectanglePivoted();
+            result.fill.set(false, 0xffffff, 1);
+            result.stroke.set(false);
+            result.state.add(EShapeLayerState.INTERACTIVE);
+            return result;
+        };
+        DDiagramLayer.prototype.initialize = function (tags, ids, actionables) {
+            var interactives = this.interactives;
+            var shape = this._shape;
+            var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
+            var isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE);
+            var isPinchable = shape.state.is(EShapeLayerState.PINCHABLE);
+            if (isDraggable || isPinchable) {
+                var runtime = new EShapeRuntime(shape);
+                shape.runtime = runtime;
+                var gestureType = (isDraggable
+                    ? EShapeActionValueMiscGestureType.DRAG
+                    : EShapeActionValueMiscGestureType.NONE) |
+                    (isPinchable
+                        ? EShapeActionValueMiscGestureType.PINCH
+                        : EShapeActionValueMiscGestureType.NONE);
+                runtime.actions.push(new EShapeActionValueMiscLayerGesture("", gestureType).toRuntime());
+                actionables.push(shape);
+                runtime.initialize(shape);
+            }
+            if (isInteractive || isDraggable || isPinchable) {
+                shape.interactive = true;
+                interactives.push(shape);
+            }
+            this.doInitialize(this.children, tags, interactives, actionables, ids);
+        };
+        DDiagramLayer.prototype.doInitialize = function (shapes, tags, interactives, actionables, ids) {
+            var _loop_1 = function (i, imax) {
+                var shape = shapes[i];
+                // Tag mappings
+                var tag = shape.tag;
+                for (var j = 0, jmax = tag.size(); j < jmax; ++j) {
+                    var value = tag.get(j);
+                    if (value) {
+                        var valueId = value.id;
+                        if (0 < valueId.length) {
+                            var values = tags[valueId];
+                            if (values == null) {
+                                values = [];
+                                tags[valueId] = values;
+                            }
+                            values.push(value);
+                        }
+                    }
                 }
-                children.length = 0;
-                _super.prototype.destroy.call(this);
+                // Id mappings
+                var shapeId = shape.id;
+                if (0 < shapeId.length) {
+                    var mapping = ids[shapeId];
+                    if (mapping == null) {
+                        ids[shapeId] = [shape];
+                    }
+                    else {
+                        mapping.push(shape);
+                    }
+                }
+                var runtime = shape.runtime;
+                if (runtime) {
+                    // Interactives
+                    if (shape.interactive || 0 < shape.cursor.length || runtime.interactive) {
+                        interactives.push(shape);
+                    }
+                    // Actionables
+                    if (runtime.isActionable()) {
+                        actionables.push(shape);
+                    }
+                    // Shortcuts
+                    var shortcut = shape.shortcut;
+                    if (shortcut != null) {
+                        UtilKeyboardEvent.on(shape, shortcut, function (e) {
+                            runtime.onClick(shape, e);
+                        });
+                    }
+                    // Runtime
+                    runtime.initialize(shape);
+                }
+                // Children
+                var children = shape.children;
+                if (0 < children.length) {
+                    this_1.doInitialize(children, tags, interactives, actionables, ids);
+                }
+            };
+            var this_1 = this;
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                _loop_1(i);
             }
         };
-        DDiagramLayer.prototype.serialize = function (layer, manager, items) {
-            var children = this.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var shape = children[i];
-                var item = shape.serialize(manager);
-                item[16] = layer;
-                items.push(item);
+        DDiagramLayer.prototype.hitTestInteractives = function (global) {
+            var local = this._work;
+            var interactives = this.interactives;
+            for (var i = interactives.length - 1; 0 <= i; --i) {
+                var interactive = interactives[i];
+                if (interactive.visible) {
+                    interactive.toLocal(global, undefined, local);
+                    if (interactive.contains(local) != null) {
+                        return interactive;
+                    }
+                }
             }
-            return [this.name || ""];
+            return null;
         };
         DDiagramLayer.prototype.addUuid = function (manager) {
             var children = this.children;
@@ -50811,6 +51827,88 @@
                 children[i].updateUuid(manager);
             }
         };
+        DDiagramLayer.prototype.destroy = function () {
+            if (!this._destroyed) {
+                var children = this.children;
+                for (var i = children.length - 1; 0 <= i; --i) {
+                    children[i].destroy();
+                }
+                children.length = 0;
+                _super.prototype.destroy.call(this);
+            }
+        };
+        DDiagramLayer.prototype.serialize = function (layer, manager, items) {
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var shape_1 = children[i];
+                var item = shape_1.serialize(manager);
+                item[16] = layer;
+                items.push(item);
+            }
+            var shape = this._shape;
+            var nameId = manager.addResource(this.name || "");
+            var visible = (this.visible ? 1 : 0) | (shape.state.is(EShapeLayerState.INVISIBLE) ? 0 : 2);
+            var position = this.position;
+            var size = shape.size;
+            var fill = shape.fill.serialize(manager);
+            var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE) ? 1 : 0;
+            var isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE) ? 2 : 0;
+            var isPinchable = shape.state.is(EShapeLayerState.PINCHABLE) ? 4 : 0;
+            return [
+                nameId,
+                visible,
+                position.x,
+                position.y,
+                size.x,
+                size.y,
+                fill,
+                isInteractive | isDraggable | isPinchable
+            ];
+        };
+        DDiagramLayer.deserialize = function (serialized, manager, width, height) {
+            var _a, _b, _c;
+            var result = new DDiagramLayer(this.deserializeName(serialized[0], manager));
+            var shape = result._shape;
+            var visibility = serialized[1];
+            if (visibility != null) {
+                if (manager.isEditMode && !(visibility & 0x1)) {
+                    result.visible = false;
+                }
+                if (!(visibility & 0x2)) {
+                    shape.state.add(EShapeLayerState.INVISIBLE);
+                    if (!manager.isEditMode) {
+                        result.visible = false;
+                    }
+                }
+            }
+            var positionX = serialized[2];
+            var positionY = serialized[3];
+            result.position.set(positionX, positionY);
+            var sizeX = (_a = serialized[4]) !== null && _a !== void 0 ? _a : width;
+            var sizeY = (_b = serialized[5]) !== null && _b !== void 0 ? _b : height;
+            shape.size.set(sizeX, sizeY);
+            var fillId = serialized[6];
+            if (fillId != null) {
+                shape.fill.deserialize(fillId, manager);
+            }
+            var state = (_c = serialized[7]) !== null && _c !== void 0 ? _c : 1;
+            shape.state.set(EShapeLayerState.INTERACTIVE, !!(state & 0x1));
+            shape.state.set(EShapeLayerState.DRAGGABLE, !!(state & 0x2));
+            shape.state.set(EShapeLayerState.PINCHABLE, !!(state & 0x4));
+            return result;
+        };
+        DDiagramLayer.deserializeName = function (target, manager) {
+            if (isString(target)) {
+                return target;
+            }
+            else {
+                var resources = manager.resources;
+                if (0 <= target && target <= resources.length) {
+                    return resources[target];
+                }
+                return "";
+            }
+        };
         return DDiagramLayer;
     }(EShapeContainer));
 
@@ -50820,9 +51918,11 @@
      */
     var DDiagramLayerContainer = /** @class */ (function (_super) {
         __extends(DDiagramLayerContainer, _super);
-        function DDiagramLayerContainer() {
+        function DDiagramLayerContainer(width, height) {
             var _this = _super.call(this) || this;
             _this._active = null;
+            _this._width = width;
+            _this._height = height;
             _this.interactive = false;
             _this.interactiveChildren = false;
             return _this;
@@ -50830,8 +51930,9 @@
         DDiagramLayerContainer.prototype.init = function () {
             if (this._active == null) {
                 var children = this.children;
-                if (0 < children.length) {
-                    this._active = children[0];
+                var childrenLength = children.length;
+                if (0 < childrenLength) {
+                    this._active = children[childrenLength - 1];
                 }
             }
         };
@@ -50842,7 +51943,7 @@
             set: function (layer) {
                 if (this._active !== layer && (layer == null || 0 <= this.children.indexOf(layer))) {
                     this._active = layer;
-                    this.emit("change", this);
+                    this.onLayerChange();
                 }
             },
             enumerable: false,
@@ -50864,7 +51965,7 @@
             if (activate === true) {
                 this._active = layer;
             }
-            this.emit("change", this);
+            this.onLayerChange();
             DApplications.update(this);
         };
         DDiagramLayerContainer.prototype.attachAt = function (layer, index, activate) {
@@ -50872,7 +51973,7 @@
             if (activate === true) {
                 this._active = layer;
             }
-            this.emit("change", this);
+            this.onLayerChange();
             DApplications.update(this);
         };
         /**
@@ -50888,7 +51989,7 @@
                 this._active = active;
                 children.splice(index, 1);
                 layer.parent = undefined;
-                this.emit("change", this);
+                this.onLayerChange();
                 DApplications.update(this);
             }
         };
@@ -50921,7 +52022,7 @@
                         this._active = null;
                     }
                 }
-                this.emit("change", this);
+                this.onLayerChange();
                 DApplications.update(this);
             }
             return index;
@@ -50942,7 +52043,7 @@
                     child.destroy();
                 }
                 children.length = 0;
-                this.emit("change", this);
+                this.onLayerChange();
                 DApplications.update(this);
             }
         };
@@ -50954,6 +52055,9 @@
         };
         DDiagramLayerContainer.prototype.size = function () {
             return this.children.length;
+        };
+        DDiagramLayerContainer.prototype.onLayerChange = function () {
+            this.emit("change", this);
         };
         DDiagramLayerContainer.prototype.serialize = function (manager, items) {
             var result = [];
@@ -50968,6 +52072,18 @@
                 result.push(children[i].serialize(i, manager, items));
             }
             return result;
+        };
+        DDiagramLayerContainer.prototype.deserialize = function (serializedLayers, manager) {
+            var serializedLayersLength = serializedLayers.length;
+            if (0 < serializedLayersLength) {
+                var width = this._width;
+                var height = this._height;
+                for (var i = 0; i < serializedLayersLength; ++i) {
+                    this.addChild(DDiagramLayer.deserialize(serializedLayers[i], manager, width, height));
+                }
+                this.onLayerChange();
+                DApplications.update(this);
+            }
         };
         return DDiagramLayerContainer;
     }(pixi_js.Container));
@@ -50986,7 +52102,7 @@
                 _this._background = new DDiagramCanvasEditorBackground(_this._background, _this.toBackgroundBase(theme, options));
             }
             // Layer
-            var layer = new DDiagramLayerContainer();
+            var layer = new DDiagramLayerContainer(_this.width, _this.height);
             _this._layer = layer;
             _this.addChild(layer);
             // Tile
@@ -51027,13 +52143,15 @@
                 _super.prototype.destroy.call(this);
             }
         };
-        DDiagramCanvasBase.prototype.hitTest = function (global, handler) {
+        DDiagramCanvasBase.prototype.hitTest = function (global, onHit) {
             var layers = this._layer.children;
             for (var i = layers.length - 1; 0 <= i; --i) {
                 var layer = layers[i];
-                var shape = layer.hitTest(global, handler);
-                if (shape != null) {
-                    return shape;
+                if (layer.visible) {
+                    var shape = layer.hitTest(global, onHit);
+                    if (shape != null) {
+                        return shape;
+                    }
                 }
             }
             return null;
@@ -51147,7 +52265,7 @@
                         var style = ix % interval === 0 ? major : minor;
                         this.update(container, shapes, index, x, hh, TOP, w, h, style);
                     }
-                    for (var y = size, iy = 1; y < w; y += size, iy += 1, index += 1) {
+                    for (var y = size, iy = 1; y < h; y += size, iy += 1, index += 1) {
                         var style = iy % interval === 0 ? major : minor;
                         this.update(container, shapes, index, wh, y, LEFT, w, h, style);
                     }
@@ -51280,287 +52398,218 @@
         function DDiagramCanvas(options) {
             var _this = _super.call(this, options) || this;
             _this.tags = {};
-            _this.interactives = [];
             _this.actionables = [];
             _this.ids = {};
-            _this._workLocal = new pixi_js.Point();
-            _this._workGlobal = new pixi_js.Point();
-            _this._lastOverShape = null;
+            _this._downeds = new Set();
             return _this;
         }
         DDiagramCanvas.prototype.initialize = function () {
             var time = Date.now();
             var tags = this.tags;
-            var interactives = this.interactives;
             var actionables = this.actionables;
             var ids = this.ids;
             var layers = this._layer.children;
             for (var i = 0, imax = layers.length; i < imax; ++i) {
-                this.initializeShapes(layers[i].children, tags, interactives, actionables, ids);
+                layers[i].initialize(tags, ids, actionables);
             }
             for (var i = 0, imax = layers.length; i < imax; ++i) {
-                this.updateShapes(layers[i].children, time);
+                var layerChildren = layers[i].children;
+                for (var j = 0, jmax = layerChildren.length; j < jmax; ++j) {
+                    layerChildren[j].update(time);
+                }
             }
         };
-        DDiagramCanvas.prototype.initializeShapes = function (shapes, tags, interactives, actionables, ids) {
-            var _loop_1 = function (i, imax) {
-                var shape = shapes[i];
-                // Tag mappings
-                var tag = shape.tag;
-                for (var j = 0, jmax = tag.size(); j < jmax; ++j) {
-                    var value = tag.get(j);
-                    if (value) {
-                        var valueId = value.id;
-                        if (0 < valueId.length) {
-                            var values = tags[valueId];
-                            if (values == null) {
-                                values = [];
-                                tags[valueId] = values;
-                            }
-                            values.push(value);
-                        }
+        DDiagramCanvas.prototype.hitTestInteractives = function (global) {
+            var layers = this._layer.children;
+            for (var i = layers.length - 1; 0 <= i; --i) {
+                var layer = layers[i];
+                if (layer.visible) {
+                    var result = layer.hitTestInteractives(global);
+                    if (result != null) {
+                        return result;
                     }
                 }
-                // Id mappings
-                var shapeId = shape.id;
-                if (0 < shapeId.length) {
-                    var mapping = ids[shapeId];
-                    if (mapping == null) {
-                        ids[shapeId] = [shape];
-                    }
-                    else {
-                        mapping.push(shape);
-                    }
-                }
-                // Interactives
-                var runtime = shape.runtime;
-                if (shape.interactive || 0 < shape.cursor.length || (runtime && runtime.interactive)) {
-                    interactives.push(shape);
-                }
-                // Actionables
-                if (runtime && 0 < runtime.actions.length) {
-                    actionables.push(shape);
-                }
-                // Shortcuts
-                var shortcut = shape.shortcut;
-                if (runtime && shortcut != null) {
-                    UtilKeyboardEvent.on(this_1, shortcut, function (e) {
-                        runtime.onClick(shape, e);
-                    });
-                }
-                // Children
-                var children = shape.children;
-                if (0 < children.length) {
-                    this_1.initializeShapes(children, tags, interactives, actionables, ids);
-                }
-            };
-            var this_1 = this;
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                _loop_1(i);
             }
-        };
-        DDiagramCanvas.prototype.updateShapes = function (shapes, time) {
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                shapes[i].update(time);
-            }
+            return null;
         };
         DDiagramCanvas.prototype.onShapeMove = function (e) {
-            var global = e.data.global;
-            var local = this._workLocal;
-            var interactives = this.interactives;
-            var found = null;
-            for (var i = interactives.length - 1; 0 <= i; --i) {
-                var interactive = interactives[i];
-                if (interactive.visible) {
-                    interactive.toLocal(global, undefined, local);
-                    if (interactive.contains(local)) {
-                        found = interactive;
-                        break;
+            var found = this.hitTestInteractives(e.data.global);
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var view = layer.view;
+                // Cursor
+                var cursor = this.toShapeCursor(found);
+                var style = view.style;
+                if (style.cursor !== cursor) {
+                    style.cursor = cursor;
+                }
+                // TItle
+                var title = this.toShapeTitle(found);
+                if (view.title !== title) {
+                    view.title = title;
+                }
+            }
+            var overed = this._overed;
+            this._overed = found;
+            if (found === overed) {
+                if (found != null) {
+                    var runtime = found.runtime;
+                    if (runtime) {
+                        runtime.onMove(found, e);
                     }
                 }
             }
-            var layer = DApplications.getLayer(this);
+            else {
+                this.onShapeOut(e, overed, found);
+                this.onShapeOver(e, found);
+            }
+            return found != null;
+        };
+        DDiagramCanvas.prototype.toShapeCursor = function (target) {
+            if (target != null) {
+                var result = target.cursor;
+                if (0 < result.length) {
+                    return result;
+                }
+            }
+            return "auto";
+        };
+        DDiagramCanvas.prototype.toShapeTitle = function (target) {
+            if (target != null) {
+                return target.title || "";
+            }
+            return "";
+        };
+        DDiagramCanvas.prototype.onShapeOut = function (e, target, except) {
+            while (target != null && target !== except && target instanceof EShapeBase) {
+                var runtime = target.runtime;
+                if (runtime) {
+                    runtime.onOut(target, e);
+                }
+                target = target.parent;
+            }
+        };
+        DDiagramCanvas.prototype.onShapeOver = function (e, target, except) {
+            while (target != null && target !== except && target instanceof EShapeBase) {
+                var runtime = target.runtime;
+                if (runtime) {
+                    runtime.onOver(target, e);
+                }
+                target = target.parent;
+            }
+        };
+        DDiagramCanvas.prototype.onShapeDown = function (e) {
+            var found = this.hitTestInteractives(e.data.global);
+            this._downed = found;
             if (found) {
-                if (layer) {
-                    var cursor = found.cursor;
-                    if (cursor.length <= 0) {
-                        cursor = "auto";
-                    }
-                    var style = layer.view.style;
-                    if (style.cursor !== cursor) {
-                        style.cursor = cursor;
-                    }
-                }
-                var lastOverShape = this._lastOverShape;
-                if (found === lastOverShape) {
-                    var runtime = lastOverShape.runtime;
+                this._downeds.add(found);
+                var target = found;
+                while (true) {
+                    var runtime = target.runtime;
                     if (runtime) {
-                        runtime.onMove(lastOverShape, e);
+                        runtime.onDown(target, e);
                     }
-                }
-                else {
-                    this._lastOverShape = found;
-                    // Previous
-                    if (lastOverShape) {
-                        var previousRuntime = lastOverShape.runtime;
-                        if (previousRuntime) {
-                            previousRuntime.onOut(lastOverShape, e);
-                        }
-                        // Parents
-                        var lastOverParent = lastOverShape.parent;
-                        while (lastOverParent instanceof EShapeBase && lastOverParent !== found) {
-                            var parentRuntime = lastOverShape.runtime;
-                            if (parentRuntime) {
-                                parentRuntime.onOut(lastOverParent, e);
-                            }
-                            lastOverParent = lastOverParent.parent;
-                        }
+                    var parent_1 = target.parent;
+                    if (parent_1 instanceof EShapeBase) {
+                        target = parent_1;
                     }
-                    // Next
-                    var runtime = found.runtime;
-                    if (runtime) {
-                        runtime.onOver(found, e);
-                    }
-                    if (layer) {
-                        layer.view.title = found.title || "";
-                    }
-                    // Parents
-                    var parent_1 = found.parent;
-                    while (parent_1 instanceof EShapeBase) {
-                        var parentRuntime = parent_1.runtime;
-                        if (parentRuntime) {
-                            parentRuntime.onOver(parent_1, e);
-                        }
-                        parent_1 = parent_1.parent;
+                    else {
+                        break;
                     }
                 }
                 return true;
             }
-            else {
-                if (layer) {
-                    var style = layer.view.style;
-                    if (style.cursor !== "auto") {
-                        style.cursor = "auto";
-                    }
-                }
-                // Previous
-                var lastOverShape = this._lastOverShape;
-                this._lastOverShape = null;
-                if (lastOverShape) {
-                    var runtime = lastOverShape.runtime;
-                    if (runtime) {
-                        runtime.onOut(lastOverShape, e);
-                    }
-                    // Parents
-                    var lastOverParent = lastOverShape.parent;
-                    while (lastOverParent instanceof EShapeBase) {
-                        var parentRuntime = lastOverParent.runtime;
-                        if (parentRuntime) {
-                            parentRuntime.onOut(lastOverParent, e);
-                        }
-                        lastOverParent = lastOverParent.parent;
-                    }
-                }
-                //
-                if (layer) {
-                    layer.view.title = "";
-                }
-                return false;
-            }
-        };
-        DDiagramCanvas.prototype.onShapeDown = function (e) {
-            var interactives = this.interactives;
-            var global = e.data.global;
-            var local = this._workLocal;
-            for (var i = interactives.length - 1; 0 <= i; --i) {
-                var interactive = interactives[i];
-                if (interactive.visible) {
-                    interactive.toLocal(global, undefined, local);
-                    if (interactive.contains(local)) {
-                        var runtime = interactive.runtime;
-                        if (runtime) {
-                            runtime.onDown(interactive, e);
-                        }
-                        return true;
-                    }
-                }
-            }
             return false;
         };
         DDiagramCanvas.prototype.onShapeUp = function (e) {
-            var interactives = this.interactives;
-            var global = e.data.global;
-            var local = this._workLocal;
-            for (var i = interactives.length - 1; 0 <= i; --i) {
-                var interactive = interactives[i];
-                if (interactive.visible) {
-                    interactive.toLocal(global, undefined, local);
-                    if (interactive.contains(local)) {
-                        var runtime = interactive.runtime;
-                        if (runtime) {
-                            runtime.onUp(interactive, e);
-                        }
-                        return true;
+            var downeds = this._downeds;
+            var found = this.hitTestInteractives(e.data.global);
+            if (found) {
+                downeds.delete(found);
+                var target = found;
+                while (true) {
+                    var runtime = target.runtime;
+                    if (runtime) {
+                        runtime.onUp(target, e);
+                    }
+                    var parent_2 = target.parent;
+                    if (parent_2 instanceof EShapeBase) {
+                        target = parent_2;
+                    }
+                    else {
+                        break;
                     }
                 }
+            }
+            this.onShapeCancel(e);
+            return found != null;
+        };
+        DDiagramCanvas.prototype.onShapeCancel = function (e) {
+            var downeds = this._downeds;
+            if (0 < downeds.size) {
+                downeds.forEach(function (downed) {
+                    var target = downed;
+                    while (true) {
+                        var runtime = target.runtime;
+                        if (runtime) {
+                            runtime.onUpOutside(target, e);
+                        }
+                        var parent_3 = target.parent;
+                        if (parent_3 instanceof EShapeBase) {
+                            target = parent_3;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                });
+                downeds.clear();
+                return true;
             }
             return false;
         };
         DDiagramCanvas.prototype.onShapeClick = function (e) {
-            var interactives = this.interactives;
-            var global = e.data.global;
-            var local = this._workLocal;
-            for (var i = interactives.length - 1; 0 <= i; --i) {
-                var interactive = interactives[i];
-                if (interactive.visible) {
-                    interactive.toLocal(global, undefined, local);
-                    if (interactive.contains(local)) {
-                        var target = interactive;
-                        while (true) {
-                            var runtime = target.runtime;
-                            if (runtime) {
-                                runtime.onClick(target, e);
-                            }
-                            var parent_2 = target.parent;
-                            if (parent_2 instanceof EShapeBase) {
-                                target = parent_2;
-                            }
-                            else {
-                                break;
-                            }
-                        }
-                        return true;
+            var found = this.hitTestInteractives(e.data.global);
+            if (found && this._downed === found) {
+                var target = found;
+                while (true) {
+                    var runtime = target.runtime;
+                    if (runtime) {
+                        runtime.onClick(target, e);
+                    }
+                    var parent_4 = target.parent;
+                    if (parent_4 instanceof EShapeBase) {
+                        target = parent_4;
+                    }
+                    else {
+                        break;
                     }
                 }
+                return true;
             }
             return false;
         };
         DDiagramCanvas.prototype.onShapeDblClick = function (e, interactionManager) {
-            var interactives = this.interactives;
-            var global = UtilPointerEvent.toGlobal(e, interactionManager, this._workGlobal);
-            var local = this._workLocal;
-            for (var i = interactives.length - 1; 0 <= i; --i) {
-                var interactive = interactives[i];
-                if (interactive.visible) {
-                    interactive.toLocal(global, undefined, local);
-                    if (interactive.contains(local)) {
-                        var target = interactive;
-                        while (true) {
-                            var runtime = target.runtime;
-                            if (runtime) {
-                                runtime.onDblClick(target, e, interactionManager);
-                            }
-                            var parent_3 = target.parent;
-                            if (parent_3 instanceof EShapeBase) {
-                                target = parent_3;
-                            }
-                            else {
-                                break;
-                            }
-                        }
-                        return true;
+            var _a;
+            var global = ((_a = DDiagramCanvas.WORK_DBLCLICK) !== null && _a !== void 0 ? _a : (DDiagramCanvas.WORK_DBLCLICK = new pixi_js.Point()));
+            UtilPointerEvent.toGlobal(e, interactionManager, global);
+            var found = this.hitTestInteractives(global);
+            if (found) {
+                var target = found;
+                while (true) {
+                    var runtime = target.runtime;
+                    if (runtime) {
+                        runtime.onDblClick(target, e, interactionManager);
+                    }
+                    var parent_5 = target.parent;
+                    if (parent_5 instanceof EShapeBase) {
+                        target = parent_5;
+                    }
+                    else {
+                        break;
                     }
                 }
+                return true;
             }
             return false;
         };
@@ -52189,31 +53238,34 @@
         __extends(DDiagram, _super);
         function DDiagram(options) {
             var _this = _super.call(this, options) || this;
-            // Hover handling
             _this.on(UtilPointerEvent.move, function (e) {
-                if (UtilPointerEvent.contains(_this, e.target)) {
-                    var canvas = _this.canvas;
-                    if (canvas) {
-                        canvas.onShapeMove(e);
-                    }
+                var canvas = _this.canvas;
+                if (canvas) {
+                    canvas.onShapeMove(e);
                 }
             });
-            // Pointer down / up handling
             _this.on(UtilPointerEvent.up, function (e) {
-                if (UtilPointerEvent.contains(_this, e.target)) {
-                    var canvas = _this.canvas;
-                    if (canvas) {
-                        canvas.onShapeUp(e);
-                    }
+                var canvas = _this.canvas;
+                if (canvas) {
+                    canvas.onShapeUp(e);
                 }
             });
-            // Click handling
-            _this.on("click", function (e) {
-                if (UtilPointerEvent.contains(_this, e.target)) {
-                    var canvas = _this.canvas;
-                    if (canvas) {
-                        canvas.onShapeClick(e);
-                    }
+            _this.on(UtilPointerEvent.upoutside, function (e) {
+                var canvas = _this.canvas;
+                if (canvas) {
+                    canvas.onShapeCancel(e);
+                }
+            });
+            _this.on(UtilPointerEvent.cancel, function (e) {
+                var canvas = _this.canvas;
+                if (canvas) {
+                    canvas.onShapeCancel(e);
+                }
+            });
+            UtilPointerEvent.onClick(_this, function (e) {
+                var canvas = _this.canvas;
+                if (canvas) {
+                    canvas.onShapeClick(e);
                 }
             });
             //
@@ -52341,18 +53393,12 @@
             return this.toCanvasBaseOptions(serialized);
         };
         DDiagram.prototype.onDown = function (e) {
-            var canvas = this.canvas;
-            if (canvas && canvas.onShapeDown(e)) {
-                return;
-            }
-            _super.prototype.onDown.call(this, e);
+            var _a;
+            _super.prototype.onDown.call(this, e, (_a = this.canvas) === null || _a === void 0 ? void 0 : _a.onShapeDown(e));
         };
         DDiagram.prototype.onDblClick = function (e, interactionManager) {
-            var canvas = this.canvas;
-            if (canvas && canvas.onShapeDblClick(e, interactionManager)) {
-                return true;
-            }
-            return _super.prototype.onDblClick.call(this, e, interactionManager);
+            var _a;
+            return _super.prototype.onDblClick.call(this, e, interactionManager, (_a = this.canvas) === null || _a === void 0 ? void 0 : _a.onShapeDblClick(e, interactionManager));
         };
         DDiagram.prototype.render = function (renderer) {
             this.shape.onRender(renderer);
@@ -52900,15 +53946,16 @@
         DDropdownBase.prototype.onMenuSelect = function (value, item, menu) {
             this.emit("select", value, item, this);
         };
-        DDropdownBase.prototype.onMenuClose = function () {
-            var menu = this.menu;
-            var onMenuSelectBound = this._onMenuSelectBound;
-            if (onMenuSelectBound) {
-                menu.off("select", onMenuSelectBound);
-            }
-            var onMenuCloseBound = this._onMenuCloseBound;
-            if (onMenuCloseBound) {
-                menu.off("close", onMenuCloseBound);
+        DDropdownBase.prototype.onMenuClose = function (menu) {
+            if (menu) {
+                var onMenuSelectBound = this._onMenuSelectBound;
+                if (onMenuSelectBound) {
+                    menu.off("select", onMenuSelectBound);
+                }
+                var onMenuCloseBound = this._onMenuCloseBound;
+                if (onMenuCloseBound) {
+                    menu.off("close", onMenuCloseBound);
+                }
             }
         };
         DDropdownBase.prototype.toMenu = function (theme, options) {
@@ -52938,9 +53985,21 @@
                 }
                 return result;
             },
+            set: function (newMenu) {
+                var oldMenu = this._menu;
+                if (oldMenu != newMenu) {
+                    this._menu = newMenu;
+                    this.onMenuReplaced(newMenu, oldMenu);
+                }
+            },
             enumerable: false,
             configurable: true
         });
+        DDropdownBase.prototype.onMenuReplaced = function (newMenu, oldMenu) {
+            if (oldMenu != null) {
+                this.onMenuClose(oldMenu);
+            }
+        };
         DDropdownBase.prototype.getType = function () {
             return "DDropdownBase";
         };
@@ -52982,7 +54041,7 @@
                 var onMenuCloseBound = this._onMenuCloseBound;
                 if (onMenuCloseBound == null) {
                     onMenuCloseBound = function () {
-                        _this.onMenuClose();
+                        _this.onMenuClose(_this._menu);
                     };
                 }
                 menu.on("select", onMenuSelectBound);
@@ -54759,6 +55818,16 @@
                 this.onValueChange(newValues, oldValues, newItems);
             }
         };
+        DSelectMultiple.prototype.onMenuReplaced = function (newMenu, oldMenu) {
+            _super.prototype.onMenuReplaced.call(this, newMenu, oldMenu);
+            // Update the values
+            var values = this._values;
+            var newValues = [];
+            var newItems = [];
+            this.updateMenuItems(newMenu, values, undefined, undefined, newValues, newItems);
+            this._values = newValues;
+            this.text = newItems;
+        };
         DSelectMultiple.prototype.onValueChange = function (newValues, oldValues, items) {
             this.emit("change", newValues, oldValues, items, this);
         };
@@ -54861,6 +55930,26 @@
                 this.onValueChange(newValue, oldValue, item);
             }
         };
+        DSelect.prototype.onMenuReplaced = function (newMenu, oldMenu) {
+            _super.prototype.onMenuReplaced.call(this, newMenu, oldMenu);
+            // Update the value
+            var value = this._value;
+            if (value != null) {
+                var item = this.findMenuItem(newMenu, value);
+                if (item != null) {
+                    this._value = value;
+                    this.text = item;
+                }
+                else {
+                    this._value = null;
+                    this.text = null;
+                }
+            }
+            else {
+                this._value = null;
+                this.text = null;
+            }
+        };
         DSelect.prototype.onValueChange = function (newValue, oldValue, item) {
             this.emit("change", newValue, oldValue, item, this);
         };
@@ -54895,8 +55984,14 @@
             set: function (value) {
                 if (this._value !== value) {
                     var item = this.findMenuItem(this.menu, value);
-                    this._value = value;
-                    this.text = item;
+                    if (item != null) {
+                        this._value = value;
+                        this.text = item;
+                    }
+                    else {
+                        this._value = null;
+                        this.text = null;
+                    }
                 }
             },
             enumerable: false,
@@ -55160,7 +56255,10 @@
             if (layer) {
                 var interactionManager = layer.renderer.plugins.interaction;
                 this._interactionManager = interactionManager;
-                interactionManager.on(UtilPointerEvent.up, this._onTrackUpBound);
+                var onTrackUpBound = this._onTrackUpBound;
+                interactionManager.on(UtilPointerEvent.up, onTrackUpBound);
+                interactionManager.on(UtilPointerEvent.upoutside, onTrackUpBound);
+                interactionManager.on(UtilPointerEvent.cancel, onTrackUpBound);
             }
             this.onPick(global);
         };
@@ -55172,7 +56270,10 @@
             if (layer) {
                 var interactionManager = layer.renderer.plugins.interaction;
                 this._interactionManager = interactionManager;
-                interactionManager.on(UtilPointerEvent.up, this._onTrackSelectedUpBound);
+                var onTrackSelectedUpBound = this._onTrackSelectedUpBound;
+                interactionManager.on(UtilPointerEvent.up, onTrackSelectedUpBound);
+                interactionManager.on(UtilPointerEvent.upoutside, onTrackSelectedUpBound);
+                interactionManager.on(UtilPointerEvent.cancel, onTrackSelectedUpBound);
             }
             this.onPick(global);
         };
@@ -55180,14 +56281,20 @@
             var interactionManager = this._interactionManager;
             if (interactionManager) {
                 this._interactionManager = undefined;
-                interactionManager.off(UtilPointerEvent.up, this._onTrackUpBound);
+                var onTrackUpBound = this._onTrackUpBound;
+                interactionManager.off(UtilPointerEvent.up, onTrackUpBound);
+                interactionManager.off(UtilPointerEvent.upoutside, onTrackUpBound);
+                interactionManager.off(UtilPointerEvent.cancel, onTrackUpBound);
             }
         };
         DSlider.prototype.onTrackSelectedUpBound = function (e) {
             var interactionManager = this._interactionManager;
             if (interactionManager) {
                 this._interactionManager = undefined;
-                interactionManager.off(UtilPointerEvent.up, this._onTrackSelectedUpBound);
+                var onTrackSelectedUpBound = this._onTrackSelectedUpBound;
+                interactionManager.off(UtilPointerEvent.up, onTrackSelectedUpBound);
+                interactionManager.off(UtilPointerEvent.upoutside, onTrackSelectedUpBound);
+                interactionManager.off(UtilPointerEvent.cancel, onTrackSelectedUpBound);
             }
         };
         DSlider.prototype.onThumbMove = function (e) {
@@ -55201,16 +56308,24 @@
             if (layer) {
                 var interactionManager = layer.renderer.plugins.interaction;
                 this._interactionManager = interactionManager;
-                interactionManager.on(UtilPointerEvent.move, this._onThumbMoveBound);
-                interactionManager.on(UtilPointerEvent.up, this._onThumbUpBound);
+                var onThumbMoveBound = this._onThumbMoveBound;
+                interactionManager.on(UtilPointerEvent.move, onThumbMoveBound);
+                var onThumbUpBound = this._onThumbUpBound;
+                interactionManager.on(UtilPointerEvent.up, onThumbUpBound);
+                interactionManager.on(UtilPointerEvent.upoutside, onThumbUpBound);
+                interactionManager.on(UtilPointerEvent.cancel, onThumbUpBound);
             }
         };
         DSlider.prototype.onThumbUp = function (e) {
             var interactionManager = this._interactionManager;
             if (interactionManager) {
                 this._interactionManager = undefined;
-                interactionManager.off(UtilPointerEvent.move, this._onThumbMoveBound);
-                interactionManager.off(UtilPointerEvent.up, this._onThumbUpBound);
+                var onThumbMoveBound = this._onThumbMoveBound;
+                interactionManager.off(UtilPointerEvent.move, onThumbMoveBound);
+                var onThumbUpBound = this._onThumbUpBound;
+                interactionManager.off(UtilPointerEvent.up, onThumbUpBound);
+                interactionManager.off(UtilPointerEvent.upoutside, onThumbUpBound);
+                interactionManager.off(UtilPointerEvent.cancel, onThumbUpBound);
             }
         };
         DSlider.prototype.updateValue = function () {
@@ -57030,7 +58145,7 @@
             return {
                 url: toUrl(cell, options.url),
                 target: options.target,
-                checker: toChecker$1(cell, options.checker),
+                checker: toChecker(cell, options.checker),
                 menu: options.menu
             };
         }
@@ -57050,7 +58165,7 @@
             };
         }
     };
-    var toChecker$1 = function (cell, checker) {
+    var toChecker = function (cell, checker) {
         if (checker != null) {
             return function () {
                 var row = cell.row;
@@ -62666,12 +63781,14 @@
         EShapeActionRuntimeChangeTextText: EShapeActionRuntimeChangeTextText,
         EShapeActionRuntimeConditional: EShapeActionRuntimeConditional,
         EShapeActionRuntimeEmitEvent: EShapeActionRuntimeEmitEvent,
+        EShapeActionRuntimeMiscGesture: EShapeActionRuntimeMiscGesture,
         EShapeActionRuntimeMiscEmitEvent: EShapeActionRuntimeMiscEmitEvent,
         EShapeActionRuntimeMiscHtmlElement: EShapeActionRuntimeMiscHtmlElement,
         EShapeActionRuntimeMiscInputInteger: EShapeActionRuntimeMiscInputInteger,
         EShapeActionRuntimeMiscInputReal: EShapeActionRuntimeMiscInputReal,
         EShapeActionRuntimeMiscInputText: EShapeActionRuntimeMiscInputText,
         EShapeActionRuntimeMiscInput: EShapeActionRuntimeMiscInput,
+        EShapeActionRuntimeMiscLayerShowHide: EShapeActionRuntimeMiscLayerShowHide,
         EShapeActionRuntimeMiscWriteBoth: EShapeActionRuntimeMiscWriteBoth,
         EShapeActionRuntimeMiscWriteLocal: EShapeActionRuntimeMiscWriteLocal,
         EShapeActionRuntimeMiscWriteRemote: EShapeActionRuntimeMiscWriteRemote,
@@ -62720,9 +63837,11 @@
         EShapeActionValueChangeText: EShapeActionValueChangeText,
         EShapeActionValueDeserializer: EShapeActionValueDeserializer,
         EShapeActionValueEmitEvent: EShapeActionValueEmitEvent,
+        EShapeActionValueMiscGesture: EShapeActionValueMiscGesture,
         EShapeActionValueMiscEmitEvent: EShapeActionValueMiscEmitEvent,
         EShapeActionValueMiscHtmlElement: EShapeActionValueMiscHtmlElement,
         EShapeActionValueMiscInput: EShapeActionValueMiscInput,
+        EShapeActionValueMiscLayerShowHide: EShapeActionValueMiscLayerShowHide,
         get EShapeActionValueMiscType () { return EShapeActionValueMiscType; },
         EShapeActionValueMiscWrite: EShapeActionValueMiscWrite,
         EShapeActionValueMisc: EShapeActionValueMisc,
@@ -62849,6 +63968,7 @@
         createBarUploaded: createBarUploaded,
         createButtonUploaded: createButtonUploaded,
         createCircle: createCircle,
+        createRectanglePivotedUploaded: createRectanglePivotedUploaded,
         createGroupUploaded: createGroupUploaded,
         createImageSdfUploaded: createImageSdfUploaded,
         createImageSdf: createImageSdf,
@@ -62892,8 +64012,8 @@
         EShapeBar: EShapeBar,
         EShapeBaseHitTestData: EShapeBaseHitTestData,
         EShapeBase: EShapeBase,
-        EShapeButtonRuntimeActionAfter: EShapeButtonRuntimeActionAfter,
-        EShapeButtonRuntimeActionBefore: EShapeButtonRuntimeActionBefore,
+        EShapeButtonRuntimeActionToggle: EShapeButtonRuntimeActionToggle,
+        EShapeButtonRuntimeAction: EShapeButtonRuntimeAction,
         EShapeButtonRuntime: EShapeButtonRuntime,
         EShapeButton: EShapeButton,
         EShapeCircleUploaded: EShapeCircleUploaded,
@@ -62957,6 +64077,8 @@
         EShapeNullUploaded: EShapeNullUploaded,
         EShapeNull: EShapeNull,
         EShapePrimitive: EShapePrimitive,
+        EShapeRectanglePivotedUploaded: EShapeRectanglePivotedUploaded,
+        EShapeRectanglePivoted: EShapeRectanglePivoted,
         EShapeRectangleRoundedUploaded: EShapeRectangleRoundedUploaded,
         EShapeRectangleRounded: EShapeRectangleRounded,
         EShapeRectangleUploaded: EShapeRectangleUploaded,
@@ -62994,6 +64116,7 @@
         EShapeDeserializers: EShapeDeserializers,
         EShapeEditor: EShapeEditor,
         EShapeImageElements: EShapeImageElements,
+        EShapeLayerState: EShapeLayerState,
         eShapePointsFormatterCurve: eShapePointsFormatterCurve,
         get EShapePointsStyle () { return EShapePointsStyle; },
         EShapePointsStyles: EShapePointsStyles,
@@ -63069,9 +64192,13 @@
         UtilAttach: UtilAttach,
         UtilClickOutside: UtilClickOutside,
         UtilClipboard: UtilClipboard,
-        UtilDragEasingHistory: UtilDragEasingHistory,
-        UtilDragEasing: UtilDragEasing,
-        UtilDrag: UtilDrag,
+        UtilGestureData: UtilGestureData,
+        UtilGestureEasingHistory: UtilGestureEasingHistory,
+        UtilGestureEasing: UtilGestureEasing,
+        get UtilGestureMode () { return UtilGestureMode; },
+        get UtilGestureModifier () { return UtilGestureModifier; },
+        UtilGestureModifiers: UtilGestureModifiers,
+        UtilGesture: UtilGesture,
         UtilExtract: UtilExtract,
         UtilExtractor: UtilExtractor,
         UtilFileDownloader: UtilFileDownloader,
@@ -63246,6 +64373,7 @@
         DDiagramEditor: DDiagramEditor,
         DDiagramLayerContainer: DDiagramLayerContainer,
         DDiagramLayer: DDiagramLayer,
+        DDiagramLayers: DDiagramLayers,
         DDiagramSerializedVersion: DDiagramSerializedVersion,
         DDiagramShape: DDiagramShape,
         DDiagramSnapshot: DDiagramSnapshot,
@@ -63284,7 +64412,6 @@
         DDialogTime: DDialogTime,
         DDialogTimes: DDialogTimes,
         DDialog: DDialog,
-        get DDragMode () { return DDragMode; },
         DDropdownBase: DDropdownBase,
         DDropdown: DDropdown,
         DDynamicTextGeometry: DDynamicTextGeometry,
@@ -63397,8 +64524,6 @@
         DMenuSideds: DMenuSideds,
         DMenu: DMenu,
         DMenus: DMenus,
-        get DMouseModifier () { return DMouseModifier; },
-        DMouseModifiers: DMouseModifiers,
         DNote: DNote,
         DNotification: DNotification,
         DPaginationDotsButton: DPaginationDotsButton,
@@ -63472,7 +64597,7 @@
         DTableBodyCellInputTree: DTableBodyCellInputTree,
         toLinkOptions: toLinkOptions,
         toUrl: toUrl,
-        toChecker: toChecker$1,
+        toChecker: toChecker,
         DTableBodyCellLink: DTableBodyCellLink,
         DTableBodyCellSelectDialog: DTableBodyCellSelectDialog,
         DTableBodyCellSelectMenu: DTableBodyCellSelectMenu,
@@ -63520,7 +64645,7 @@
         DTreeItemUpdater: DTreeItemUpdater,
         DTreeNodeAccessorImpl: DTreeNodeAccessorImpl,
         DTree: DTree,
-        DViewDragImpl: DViewDragImpl,
+        DViewGestureImpl: DViewGestureImpl,
         DViewImpl: DViewImpl,
         DViewTransformImpl: DViewTransformImpl
     };

@@ -22,18 +22,17 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.98.1/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.100.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
 		var application = new wcardinal.ui.DApplication();
 
-		var diagram = new wcardinal.ui.DDiagram({
+		var diagram = new wcardinal.ui.DDiagramEditor({
 			x: 0, y: 0,
 			width: "padding", weight: 1,
-			ambient: false,
 			snapshot: {
 				on: {
 					// Triggered before taking a snapshot.

@@ -29,8 +29,9 @@
     * [Selection](./chart/selection.html)
 * Diagram
     * [Button](./diagram/button.html)
+    * [Button (Group)](./diagram/button-group.html)
     * [Button (Toggle)](./diagram/button-toggle.html)
-    * [Drag checker](./diagram/drag-checker.html)
+    * [Canvas gesture checker](./diagram/canvas-gesture-checker.html)
     * [Editor mode](./diagram/editor.html)
     * [Editor mode with snap](./diagram/editor-with-snap.html)
     * [Emitting events when a shape is clicked](./diagram/emit-event.html)
@@ -38,6 +39,12 @@
     * [HTML element on top of a shape and suppressing pointer events](./diagram/html-element-without-pointer-events.html)
     * [Inputs and buttons](./diagram/input-and-button.html)
     * [Mouse interaction](./diagram/interactive.html)
+    * [Layer background](./diagram/layer-background.html)
+    * [Layer binding](./diagram/layer-binding.html)
+    * [Layer binding (Bring to front)](./diagram/layer-binding-bring-to-front.html)
+    * [Layer gesture](./diagram/layer-gesture.html)
+    * [Layer gesture (No drag)](./diagram/layer-gesture-no-drag.html)
+    * [Layer gesture (No pinch)](./diagram/layer-gesture-no-pinch.html)
     * [Line](./diagram/line.html)
     * [Overflow mask](./diagram/mask.html)
     * [Opening a date dialog](./diagram/open-date.html)
@@ -46,6 +53,9 @@
     * [Embedding graphic pieces](./diagram/pieces.html)
     * [Embedding nested graphic pieces](./diagram/pieces-nested.html)
     * [Event triggered when a diagram is loaded](./diagram/ready.html)
+    * [Shape gesture](./diagram/shape-gesture.html)
+    * [Shape gesture (No drag)](./diagram/shape-gesture-no-drag.html)
+    * [Shape gesture (No pinch)](./diagram/shape-gesture-no-pinch.html)
     * [Snapshot](./diagram/snapshot.html)
     * [Text](./diagram/text.html)
 * Dialog
@@ -69,6 +79,7 @@
     * [Time dialog](./dialog/time.html)
 * Dropdown
     * [Basics](./dropdown/basics.html)
+    * [Replacing a menu](./dropdown/replacing-a-menu.html)
 * Expandable
     * [Basics](./expandable/basics.html)
 * Html element
@@ -127,7 +138,8 @@
 * Multi select
     * [Basics](./multi-select/basics.html)
     * [Formatter](./multi-select/formatter.html)
-    * [Menu](./multi-select/menu.html)
+    * [Non-checkable menu items](./multi-select/non-checkable-menu-items.html)
+    * [Replacing a menu](./multi-select/replacing-a-menu.html)
 * Other
     * [CDN](./other/cdn.html)
     * [State change event](./other/state.html)
@@ -137,6 +149,7 @@
     * [Basics](./pane/basics.html)
 * Select
     * [Basics](./select/basics.html)
+    * [Replacing a menu](./select/replacing-a-menu.html)
 * Shape
     * [Bulk update](./shape/bulk-update.html)
     * [Corner](./shape/corner.html)
