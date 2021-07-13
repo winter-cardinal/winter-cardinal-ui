@@ -349,8 +349,12 @@ export interface DDiagramSerializedLayer {
 	/**
 	 * A visibility.
 	 *
-	 * * 1st bit: Visibility when edit mode (0: Invisible, 1: Visible)
-	 * * 2nd bit: Visibility when non-edit mode (0: Invisible, 1: Visible)
+	 * * 1st bit
+	 *     * 0: Invisible when edit mode
+	 *     * 1: Visible when edit mode
+	 * * 2nd bit
+	 *     * 0: Invisible when non-edit mode
+	 *     * 1: Visible when non-edit mode
 	 */
 	[1]?: number;
 
@@ -373,7 +377,15 @@ export interface DDiagramSerializedLayer {
 	[6]?: number;
 
 	/**
-	 * 0: Not draggable, 1 : Draggable
+	 * * 1st bit
+	 *     * 0: Not interactive
+	 *     * 1: Interactive
+	 * * 2nd bit
+	 *     * 0: Not draggable
+	 *     * 1: Draggable
+	 * * 3rd bit
+	 *     * 0: Not pinchable
+	 *     * 1: Pinchable
 	 */
 	[7]?: number;
 }

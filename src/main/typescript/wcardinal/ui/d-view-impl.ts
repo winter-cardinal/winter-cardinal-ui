@@ -5,11 +5,11 @@
 
 import { interaction, IPoint, Point, Rectangle } from "pixi.js";
 import { DBase } from "./d-base";
-import { DMouseModifier } from "./d-mouse-modifier";
-import { DMouseModifiers } from "./d-mouse-modifiers";
+import { UtilGestureModifier } from "./util/util-gesture-modifier";
+import { UtilGestureModifiers } from "./util/util-gesture-modifiers";
 import { DThemeView, DView, DViewChecker, DViewOptions } from "./d-view";
-import { DViewDrag } from "./d-view-drag";
-import { DViewDragImpl } from "./d-view-drag-impl";
+import { DViewGesture } from "./d-view-gesture";
+import { DViewGestureImpl } from "./d-view-gesture-impl";
 import { DViewTargetPoint, DViewToTarget } from "./d-view-to-target";
 import { DViewTransformImpl } from "./d-view-transform-impl";
 import { DThemes } from "./theme/d-themes";
@@ -29,22 +29,22 @@ export class DViewImpl implements DView {
 
 	protected _isWheelZoomEnabled: boolean;
 	protected _wheelZoomSpeed: number;
-	protected _wheelZoomModifier: DMouseModifier;
+	protected _wheelZoomModifier: UtilGestureModifier;
 	protected _wheelZoomChecker: DViewChecker;
 
 	protected _isDblClickZoomEnabled: boolean;
 	protected _dblClickZoomSpeed: number;
-	protected _dblClickZoomModifier: DMouseModifier;
+	protected _dblClickZoomModifier: UtilGestureModifier;
 	protected _dblClickZoomChecker: DViewChecker;
 	protected _dblclickZoomDuration: number;
 
 	protected _isWheelTranslationEnabled: boolean;
 	protected _wheelTranslationSpeed: number;
-	protected _wheelTranslationModifier: DMouseModifier;
+	protected _wheelTranslationModifier: UtilGestureModifier;
 	protected _wheelTranslationChecker: DViewChecker;
 
 	protected _transform: DViewTransformImpl;
-	protected _drag: DViewDragImpl;
+	protected _gesture: DViewGestureImpl;
 
 	protected _workRect: Rectangle;
 
@@ -70,9 +70,9 @@ export class DViewImpl implements DView {
 		this._wheelZoomSpeed = wheelZoom?.speed ?? theme.getWheelZoomSpeed();
 		this._wheelZoomModifier = toEnum(
 			wheelZoom?.modifier ?? theme.getWheelZoomModifier(),
-			DMouseModifier
+			UtilGestureModifier
 		);
-		this._wheelZoomChecker = wheelZoom?.checker ?? DMouseModifiers.match;
+		this._wheelZoomChecker = wheelZoom?.checker ?? UtilGestureModifiers.match;
 
 		// Zoom: Dbl click
 		const dblClickZoom = zoom?.dblclick;
@@ -80,9 +80,9 @@ export class DViewImpl implements DView {
 		this._dblClickZoomSpeed = dblClickZoom?.amount ?? theme.getDblClickZoomSpeed();
 		this._dblClickZoomModifier = toEnum(
 			dblClickZoom?.modifier ?? theme.getDblClickZoomModifier(),
-			DMouseModifier
+			UtilGestureModifier
 		);
-		this._dblClickZoomChecker = dblClickZoom?.checker ?? DMouseModifiers.match;
+		this._dblClickZoomChecker = dblClickZoom?.checker ?? UtilGestureModifiers.match;
 		this._dblclickZoomDuration = dblClickZoom?.duration ?? theme.getDblClickZoomDuration();
 
 		// Translation: Wheel
@@ -92,12 +92,12 @@ export class DViewImpl implements DView {
 		this._wheelTranslationSpeed = wheelTranslation?.speed ?? theme.getWheelTranslationSpeed();
 		this._wheelTranslationModifier = toEnum(
 			wheelTranslation?.modifier ?? theme.getWheelTranslationModifier(),
-			DMouseModifier
+			UtilGestureModifier
 		);
-		this._wheelTranslationChecker = wheelTranslation?.checker ?? DMouseModifiers.match;
+		this._wheelTranslationChecker = wheelTranslation?.checker ?? UtilGestureModifiers.match;
 
-		// Drag
-		this._drag = new DViewDragImpl(parent, toTarget, this, theme, options?.drag);
+		// Gesture
+		this._gesture = new DViewGestureImpl(parent, toTarget, this, theme, options?.gesture);
 
 		// Transform
 		this._transform = new DViewTransformImpl(
@@ -108,12 +108,12 @@ export class DViewImpl implements DView {
 		);
 	}
 
-	get drag(): DViewDrag {
-		return this._drag;
+	get gesture(): DViewGesture {
+		return this._gesture;
 	}
 
 	stop(): void {
-		this._drag.stop();
+		this._gesture.stop();
 		this._transform.stop();
 	}
 
@@ -341,7 +341,7 @@ export class DViewImpl implements DView {
 	}
 
 	onDown(e: interaction.InteractionEvent): void {
-		this._drag.onDown(e);
+		this._gesture.onDown(e);
 	}
 
 	onDblClick(

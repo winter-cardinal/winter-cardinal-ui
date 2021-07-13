@@ -30,7 +30,7 @@ export class DThemeDarkScrollBarThumb extends DThemeDarkBase implements DThemeSc
 	}
 
 	getBorderAlpha(state: DBaseStateSet): number {
-		if (!state.inDisabled && (state.isHovered || state.isDragging)) {
+		if (!state.inDisabled && (state.isHovered || state.isGesturing)) {
 			return 1.0;
 		} else {
 			return 0.4;

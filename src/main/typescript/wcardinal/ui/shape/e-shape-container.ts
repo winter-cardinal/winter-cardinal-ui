@@ -14,7 +14,7 @@ export class EShapeContainer extends DisplayObject {
 	protected _shapeRenderer: EShapeRenderer | null = null;
 
 	readonly children: EShape[];
-	protected _shapes: EShape[];
+	protected _shape: EShape | null;
 	protected _childrenId: number;
 	protected _childrenIdRendered: number;
 
@@ -33,7 +33,8 @@ export class EShapeContainer extends DisplayObject {
 	constructor() {
 		super();
 
-		this._shapes = this.children = [];
+		this.children = [];
+		this._shape = null;
 		this._childrenId = 0;
 		this._childrenIdRendered = -1;
 
@@ -83,13 +84,14 @@ export class EShapeContainer extends DisplayObject {
 		renderer.batch.setObjectRenderer(shapeRenderer);
 
 		const mask = this.mask;
-		const shapes = this._shapes;
+		const shape = this._shape;
+		const shapes = this.children;
 		if (mask) {
 			renderer.mask.push(this, mask);
-			shapeRenderer.render_(this, shapes, isChildrenDirty);
+			shapeRenderer.render_(this, shape, shapes, isChildrenDirty);
 			renderer.mask.pop(this);
 		} else {
-			shapeRenderer.render_(this, shapes, isChildrenDirty);
+			shapeRenderer.render_(this, shape, shapes, isChildrenDirty);
 		}
 	}
 

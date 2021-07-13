@@ -12,6 +12,7 @@ import {
 } from "./d-diagram-canvas-base";
 import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
 import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
+import { EShapeContainer } from "./shape";
 import { EShape } from "./shape/e-shape";
 import { EShapeBase } from "./shape/variant/e-shape-base";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -25,20 +26,21 @@ export class DDiagramCanvas<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas,
 	OPTIONS extends DDiagramCanvasOptions<THEME> = DDiagramCanvasOptions<THEME>
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
+	protected static WORK_DBLCLICK?: Point;
 	tags: DDiagramCanvasTagMap;
 	actionables: EShape[];
 	ids: DDiagramCanvasIdMap;
 
-	protected _workGlobal: Point;
-	protected _lastOverShape: EShape | null;
+	protected _overed?: EShape | null;
+	protected _downed?: EShape | null;
+	protected _downeds: Set<EShape>;
 
 	constructor(options: OPTIONS) {
 		super(options);
 		this.tags = {};
 		this.actionables = [];
 		this.ids = {};
-		this._workGlobal = new Point();
-		this._lastOverShape = null;
+		this._downeds = new Set<EShape>();
 	}
 
 	initialize(): void {
@@ -74,110 +76,103 @@ export class DDiagramCanvas<
 
 	onShapeMove(e: interaction.InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
+
 		const layer = DApplications.getLayer(this);
-		if (found) {
-			if (layer) {
-				let cursor = found.cursor;
-				if (cursor.length <= 0) {
-					cursor = "auto";
-				}
-				const style = layer.view.style;
-				if (style.cursor !== cursor) {
-					style.cursor = cursor;
-				}
+		if (layer) {
+			const view = layer.view;
+
+			// Cursor
+			const cursor = this.toShapeCursor(found);
+			const style = view.style;
+			if (style.cursor !== cursor) {
+				style.cursor = cursor;
 			}
 
-			const lastOverShape = this._lastOverShape;
-			if (found === lastOverShape) {
-				const runtime = lastOverShape.runtime;
-				if (runtime) {
-					runtime.onMove(lastOverShape, e);
-				}
-			} else {
-				this._lastOverShape = found;
+			// TItle
+			const title = this.toShapeTitle(found);
+			if (view.title !== title) {
+				view.title = title;
+			}
+		}
 
-				// Previous
-				if (lastOverShape) {
-					const previousRuntime = lastOverShape.runtime;
-					if (previousRuntime) {
-						previousRuntime.onOut(lastOverShape, e);
-					}
-
-					// Parents
-					let lastOverParent = lastOverShape.parent;
-					while (lastOverParent instanceof EShapeBase && lastOverParent !== found) {
-						const parentRuntime = lastOverShape.runtime;
-						if (parentRuntime) {
-							parentRuntime.onOut(lastOverParent, e);
-						}
-						lastOverParent = lastOverParent.parent;
-					}
-				}
-
-				// Next
+		const overed = this._overed;
+		this._overed = found;
+		if (found === overed) {
+			if (found != null) {
 				const runtime = found.runtime;
 				if (runtime) {
-					runtime.onOver(found, e);
-				}
-				if (layer) {
-					layer.view.title = found.title || "";
-				}
-
-				// Parents
-				let parent = found.parent;
-				while (parent instanceof EShapeBase) {
-					const parentRuntime = parent.runtime;
-					if (parentRuntime) {
-						parentRuntime.onOver(parent, e);
-					}
-					parent = parent.parent;
+					runtime.onMove(found, e);
 				}
 			}
-
-			return true;
 		} else {
-			if (layer) {
-				const style = layer.view.style;
-				if (style.cursor !== "auto") {
-					style.cursor = "auto";
-				}
+			this.onShapeOut(e, overed, found);
+			this.onShapeOver(e, found);
+		}
+		return found != null;
+	}
+
+	protected toShapeCursor(target: EShape | null): string {
+		if (target != null) {
+			const result = target.cursor;
+			if (0 < result.length) {
+				return result;
 			}
+		}
+		return "auto";
+	}
 
-			// Previous
-			const lastOverShape = this._lastOverShape;
-			this._lastOverShape = null;
-			if (lastOverShape) {
-				const runtime = lastOverShape.runtime;
-				if (runtime) {
-					runtime.onOut(lastOverShape, e);
-				}
+	protected toShapeTitle(target: EShape | null): string {
+		if (target != null) {
+			return target.title || "";
+		}
+		return "";
+	}
 
-				// Parents
-				let lastOverParent = lastOverShape.parent;
-				while (lastOverParent instanceof EShapeBase) {
-					const parentRuntime = lastOverParent.runtime;
-					if (parentRuntime) {
-						parentRuntime.onOut(lastOverParent, e);
-					}
-					lastOverParent = lastOverParent.parent;
-				}
+	protected onShapeOut(
+		e: interaction.InteractionEvent,
+		target?: EShape | EShapeContainer | null,
+		except?: EShape | null
+	): void {
+		while (target != null && target !== except && target instanceof EShapeBase) {
+			const runtime = target.runtime;
+			if (runtime) {
+				runtime.onOut(target, e);
 			}
+			target = target.parent;
+		}
+	}
 
-			//
-			if (layer) {
-				layer.view.title = "";
+	protected onShapeOver(
+		e: interaction.InteractionEvent,
+		target?: EShape | EShapeContainer | null,
+		except?: EShape | null
+	): void {
+		while (target != null && target !== except && target instanceof EShapeBase) {
+			const runtime = target.runtime;
+			if (runtime) {
+				runtime.onOver(target, e);
 			}
-
-			return false;
+			target = target.parent;
 		}
 	}
 
 	onShapeDown(e: interaction.InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
+		this._downed = found;
 		if (found) {
-			const runtime = found.runtime;
-			if (runtime) {
-				runtime.onDown(found, e);
+			this._downeds.add(found);
+			let target = found;
+			while (true) {
+				const runtime = target.runtime;
+				if (runtime) {
+					runtime.onDown(target, e);
+				}
+				const parent = target.parent;
+				if (parent instanceof EShapeBase) {
+					target = parent;
+				} else {
+					break;
+				}
 			}
 			return true;
 		}
@@ -185,12 +180,47 @@ export class DDiagramCanvas<
 	}
 
 	onShapeUp(e: interaction.InteractionEvent): boolean {
+		const downeds = this._downeds;
 		const found = this.hitTestInteractives(e.data.global);
 		if (found) {
-			const runtime = found.runtime;
-			if (runtime) {
-				runtime.onUp(found, e);
+			downeds.delete(found);
+			let target = found;
+			while (true) {
+				const runtime = target.runtime;
+				if (runtime) {
+					runtime.onUp(target, e);
+				}
+				const parent = target.parent;
+				if (parent instanceof EShapeBase) {
+					target = parent;
+				} else {
+					break;
+				}
 			}
+		}
+		this.onShapeCancel(e);
+		return found != null;
+	}
+
+	onShapeCancel(e: interaction.InteractionEvent): boolean {
+		const downeds = this._downeds;
+		if (0 < downeds.size) {
+			downeds.forEach((downed: EShape): void => {
+				let target = downed;
+				while (true) {
+					const runtime = target.runtime;
+					if (runtime) {
+						runtime.onUpOutside(target, e);
+					}
+					const parent = target.parent;
+					if (parent instanceof EShapeBase) {
+						target = parent;
+					} else {
+						break;
+					}
+				}
+			});
+			downeds.clear();
 			return true;
 		}
 		return false;
@@ -198,7 +228,7 @@ export class DDiagramCanvas<
 
 	onShapeClick(e: interaction.InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
-		if (found) {
+		if (found && this._downed === found) {
 			let target = found;
 			while (true) {
 				const runtime = target.runtime;
@@ -221,7 +251,8 @@ export class DDiagramCanvas<
 		e: MouseEvent | TouchEvent,
 		interactionManager: interaction.InteractionManager
 	): boolean {
-		const global = UtilPointerEvent.toGlobal(e, interactionManager, this._workGlobal);
+		const global = (DDiagramCanvas.WORK_DBLCLICK ??= new Point());
+		UtilPointerEvent.toGlobal(e, interactionManager, global);
 		const found = this.hitTestInteractives(global);
 		if (found) {
 			let target = found;

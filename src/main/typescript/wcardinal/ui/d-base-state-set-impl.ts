@@ -415,24 +415,24 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		return !this.in(DBaseState.DISABLED) && !this.in(DBaseState.READ_ONLY);
 	}
 
-	get isDragging(): boolean {
-		return this.is(DBaseState.DRAGGING);
+	get isGesturing(): boolean {
+		return this.is(DBaseState.GESTURING);
 	}
 
-	set isDragging(isDragging: boolean) {
-		this.set(DBaseState.DRAGGING, isDragging);
+	set isGesturing(isGesturing: boolean) {
+		this.set(DBaseState.GESTURING, isGesturing);
 	}
 
-	get inDragging(): boolean {
-		return this.in(DBaseState.DRAGGING);
+	get inGesturing(): boolean {
+		return this.in(DBaseState.GESTURING);
 	}
 
-	get onDragging(): boolean {
-		return this.on(DBaseState.DRAGGING);
+	get onGesturing(): boolean {
+		return this.on(DBaseState.GESTURING);
 	}
 
-	get underDragging(): boolean {
-		return this.under(DBaseState.DRAGGING);
+	get underGesturing(): boolean {
+		return this.under(DBaseState.GESTURING);
 	}
 
 	get isFocused(): boolean {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DMouseModifier {
+export enum UtilGestureModifier {
 	NONE = 0,
 	CTRL = 1,
 	SHIFT = 2,

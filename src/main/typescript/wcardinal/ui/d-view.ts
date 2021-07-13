@@ -5,13 +5,13 @@
 
 import { IPoint } from "pixi.js";
 import { DBase } from "./d-base";
-import { DMouseModifier } from "./d-mouse-modifier";
-import { DThemeViewDrag, DViewDrag, DViewDragOptions } from "./d-view-drag";
+import { UtilGestureModifier } from "./util/util-gesture-modifier";
+import { DThemeViewGesture, DViewGesture, DViewGestureOptions } from "./d-view-gesture";
 import { DViewTargetPoint } from "./d-view-to-target";
 
 export type DViewChecker = (
 	e: WheelEvent | MouseEvent | TouchEvent,
-	modifier: DMouseModifier,
+	modifier: UtilGestureModifier,
 	target: DBase
 ) => boolean;
 
@@ -26,7 +26,7 @@ export interface DViewZoomWheelOptions {
 	speed?: number;
 
 	/** Mouse modifiers */
-	modifier?: keyof typeof DMouseModifier | DMouseModifier;
+	modifier?: keyof typeof UtilGestureModifier | UtilGestureModifier;
 
 	/**
 	 * Wheel zoom checker.
@@ -46,7 +46,7 @@ export interface DViewZoomDblClickOptions {
 	amount?: number;
 
 	/** Mouse modifiers */
-	modifier?: keyof typeof DMouseModifier | DMouseModifier;
+	modifier?: keyof typeof UtilGestureModifier | UtilGestureModifier;
 
 	/**
 	 * Double click zoom checker.
@@ -89,7 +89,7 @@ export interface DViewTranslationWheelOptions {
 	speed?: number;
 
 	/** Mouse modifiers */
-	modifier?: keyof typeof DMouseModifier | DMouseModifier;
+	modifier?: keyof typeof UtilGestureModifier | UtilGestureModifier;
 
 	/**
 	 * Wheel translation checker.
@@ -110,8 +110,8 @@ export interface DViewTranslationOptions {
  * {@link DView} options.
  */
 export interface DViewOptions {
-	/** Drag options */
-	drag?: DViewDragOptions;
+	/** Gesture options */
+	gesture?: DViewGestureOptions;
 
 	/** Zoom options */
 	zoom?: DViewZoomOptions;
@@ -126,24 +126,24 @@ export interface DViewOptions {
 /**
  * {@link DView} theme.
  */
-export interface DThemeView extends DThemeViewDrag {
+export interface DThemeView extends DThemeViewGesture {
 	isWheelZoomEnabled(): boolean;
 	isDblClickZoomEnabled(): boolean;
 	isWheelTranslationEnabled(): boolean;
 	getWheelZoomSpeed(): number;
-	getWheelZoomModifier(): DMouseModifier;
+	getWheelZoomModifier(): UtilGestureModifier;
 	getDblClickZoomSpeed(): number;
-	getDblClickZoomModifier(): DMouseModifier;
+	getDblClickZoomModifier(): UtilGestureModifier;
 	getDblClickZoomDuration(): number;
 	getWheelTranslationSpeed(): number;
-	getWheelTranslationModifier(): DMouseModifier;
+	getWheelTranslationModifier(): UtilGestureModifier;
 	getZoomMin(): number;
 	getZoomMax(): number;
 	getZoomKeepRatio(): boolean;
 }
 
 export interface DView {
-	readonly drag: DViewDrag;
+	readonly gesture: DViewGesture;
 	scale: DViewTargetPoint;
 	position: DViewTargetPoint;
 

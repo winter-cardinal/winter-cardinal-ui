@@ -4,6 +4,8 @@
  */
 
 import { interaction, Renderer } from "pixi.js";
+import InteractionEvent = interaction.InteractionEvent;
+import InteractionManager = interaction.InteractionManager;
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 
@@ -34,19 +36,15 @@ export class EShapeActionRuntime {
 		// DO NOTHING
 	}
 
-	onDownThisBefore(
-		shape: EShape,
-		runtime: EShapeRuntime,
-		e: interaction.InteractionEvent | KeyboardEvent
-	): void {
+	onDowning(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
 		// DO NOTHING
 	}
 
-	onDownThisAfter(
-		shape: EShape,
-		runtime: EShapeRuntime,
-		e: interaction.InteractionEvent | KeyboardEvent
-	): void {
+	onDown(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+		// DO NOTHING
+	}
+
+	onMove(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent): void {
 		// DO NOTHING
 	}
 
@@ -54,7 +52,7 @@ export class EShapeActionRuntime {
 		shape: EShape,
 		runtime: EShapeRuntime,
 		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
+		interactionManager: InteractionManager
 	): void {
 		// DO NOTHING
 	}

@@ -4,6 +4,8 @@
  */
 
 import { interaction, Matrix, Point, Rectangle, Renderer } from "pixi.js";
+import InteractionEvent = interaction.InteractionEvent;
+import InteractionManager = interaction.InteractionManager;
 import { DThemes } from "../../theme/d-themes";
 import {
 	UtilHtmlElement,
@@ -186,27 +188,19 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 		this.getUtil(shape, runtime).onBlur();
 	}
 
-	onDownThisBefore(
-		shape: EShape,
-		runtime: EShapeRuntime,
-		e: interaction.InteractionEvent | KeyboardEvent
-	): void {
-		this.getUtil(shape, runtime).onDownThisBefore(e);
+	onDowning(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+		this.getUtil(shape, runtime).onDowning(e);
 	}
 
-	onDownThisAfter(
-		shape: EShape,
-		runtime: EShapeRuntime,
-		e: interaction.InteractionEvent | KeyboardEvent
-	): void {
-		this.getUtil(shape, runtime).onDownThisAfter(e);
+	onDown(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
+		this.getUtil(shape, runtime).onDown(e);
 	}
 
 	onDblClick(
 		shape: EShape,
 		runtime: EShapeRuntime,
 		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
+		interactionManager: InteractionManager
 	): void {
 		this.getUtil(shape, runtime).onDblClick(e, interactionManager);
 	}

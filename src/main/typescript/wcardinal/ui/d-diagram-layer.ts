@@ -9,31 +9,32 @@ import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
 import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
 import { DDiagramLayerBackground } from "./d-diagram-layer-background";
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "./d-diagram-serialized";
+import { EShapeActionValueMiscGestureType } from "./shape/action/e-shape-action-value-misc-gesture-type";
+import { EShapeActionValueMiscLayerGesture } from "./shape/action/e-shape-action-value-misc-layer-gesture";
 import { EShape } from "./shape/e-shape";
 import { EShapeContainer } from "./shape/e-shape-container";
 import { EShapeLayerState } from "./shape/e-shape-layer-state";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
-import { EShapeType } from "./shape/e-shape-type";
-import { EShapeRectangle } from "./shape/variant/e-shape-rectangle";
+import { EShapeRuntime } from "./shape/e-shape-runtime";
+import { EShapeRectanglePivoted } from "./shape/variant/e-shape-rectangle-pivoted";
 import { isString } from "./util/is-string";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export class DDiagramLayer extends EShapeContainer {
 	reference: number;
 	interactives: EShape[];
-	protected _shape: EShape;
+	protected declare _shape: EShape;
 
 	constructor(name: string) {
 		super();
 		this.name = name;
 		this.interactive = false;
 		this.reference = 0;
-		this.interactives = [];
-		const shape = this.newShape(name);
-		shape.children = this.children;
+		const shape = this.newShape();
+		shape.parent = this;
 		this._shape = shape;
-		this._shapes = [shape];
+		this.interactives = [];
 	}
 
 	get width(): number {
@@ -60,15 +61,41 @@ export class DDiagramLayer extends EShapeContainer {
 		return this._shape.state;
 	}
 
-	protected newShape(name: string): EShape {
-		const result = new EShapeRectangle(EShapeType.LAYER);
+	protected newShape(): EShape {
+		const result = new EShapeRectanglePivoted();
 		result.fill.set(false, 0xffffff, 1);
 		result.stroke.set(false);
+		result.state.add(EShapeLayerState.INTERACTIVE);
 		return result;
 	}
 
 	initialize(tags: DDiagramCanvasTagMap, ids: DDiagramCanvasIdMap, actionables: EShape[]): void {
-		this.doInitialize(this.children, tags, this.interactives, actionables, ids);
+		const interactives = this.interactives;
+		const shape = this._shape;
+		const isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
+		const isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE);
+		const isPinchable = shape.state.is(EShapeLayerState.PINCHABLE);
+		if (isDraggable || isPinchable) {
+			const runtime = new EShapeRuntime(shape);
+			shape.runtime = runtime;
+			const gestureType =
+				(isDraggable
+					? EShapeActionValueMiscGestureType.DRAG
+					: EShapeActionValueMiscGestureType.NONE) |
+				(isPinchable
+					? EShapeActionValueMiscGestureType.PINCH
+					: EShapeActionValueMiscGestureType.NONE);
+			runtime.actions.push(
+				new EShapeActionValueMiscLayerGesture("", gestureType).toRuntime()
+			);
+			actionables.push(shape);
+			runtime.initialize(shape);
+		}
+		if (isInteractive || isDraggable || isPinchable) {
+			shape.interactive = true;
+			interactives.push(shape);
+		}
+		this.doInitialize(this.children, tags, interactives, actionables, ids);
 	}
 
 	protected doInitialize(
@@ -202,8 +229,19 @@ export class DDiagramLayer extends EShapeContainer {
 		const position = this.position;
 		const size = shape.size;
 		const fill = shape.fill.serialize(manager);
-		const draggable = shape.state.is(EShapeLayerState.DRAGGABLE) ? 1 : 0;
-		return [nameId, visible, position.x, position.y, size.x, size.y, fill, draggable];
+		const isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE) ? 1 : 0;
+		const isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE) ? 2 : 0;
+		const isPinchable = shape.state.is(EShapeLayerState.PINCHABLE) ? 4 : 0;
+		return [
+			nameId,
+			visible,
+			position.x,
+			position.y,
+			size.x,
+			size.y,
+			fill,
+			isInteractive | isDraggable | isPinchable
+		];
 	}
 
 	static deserialize(
@@ -241,9 +279,10 @@ export class DDiagramLayer extends EShapeContainer {
 			shape.fill.deserialize(fillId, manager);
 		}
 
-		if (serialized[7]) {
-			shape.state.add(EShapeLayerState.DRAGGABLE);
-		}
+		const state = serialized[7] ?? 1;
+		shape.state.set(EShapeLayerState.INTERACTIVE, !!(state & 0x1));
+		shape.state.set(EShapeLayerState.DRAGGABLE, !!(state & 0x2));
+		shape.state.set(EShapeLayerState.PINCHABLE, !!(state & 0x4));
 		return result;
 	}
 

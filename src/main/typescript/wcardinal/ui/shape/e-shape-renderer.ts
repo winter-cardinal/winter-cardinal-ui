@@ -352,7 +352,12 @@ export class EShapeRenderer extends ObjectRenderer {
 		}
 	}
 
-	render_(container: EShapeContainer, shapes: EShape[], isDirty: boolean): void {
+	render_(
+		container: EShapeContainer,
+		shape: EShape | null,
+		shapes: EShape[],
+		isDirty: boolean
+	): void {
 		const renderer = this.renderer;
 		const shader = this._shader;
 
@@ -378,7 +383,7 @@ export class EShapeRenderer extends ObjectRenderer {
 				atlas.repack();
 
 				// Update buffers
-				this.updateBuffers(shapes, buffers, renderer, antialiasWeight);
+				this.updateBuffers(shape, shapes, buffers, renderer, antialiasWeight);
 			}
 
 			// Render buffers
@@ -401,13 +406,14 @@ export class EShapeRenderer extends ObjectRenderer {
 	}
 
 	updateBuffers(
+		shape: EShape | null,
 		shapes: EShape[],
 		buffers: EShapeBuffer[],
 		renderer: Renderer,
 		antialiasWeight: number
 	): void {
 		const iterator = this._iterator;
-		iterator.reset(shapes);
+		iterator.reset(shape, shapes);
 
 		let ib = 0;
 		let bufferSize = 0;

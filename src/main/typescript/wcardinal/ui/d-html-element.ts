@@ -106,9 +106,9 @@ export class DHtmlElement<
 
 	protected onDownThis(e: interaction.InteractionEvent): void {
 		const util = this.getUtil();
-		util.onDownThisBefore(e);
+		util.onDowning(e);
 		super.onDownThis(e);
-		util.onDownThisAfter(e);
+		util.onDown(e);
 	}
 
 	onDblClick(

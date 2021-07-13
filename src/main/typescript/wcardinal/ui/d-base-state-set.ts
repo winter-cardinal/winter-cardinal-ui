@@ -36,10 +36,10 @@ export interface DBaseStateSet {
 	readonly onDisabled: boolean;
 	readonly underDisabled: boolean;
 	isActionable: boolean;
-	isDragging: boolean;
-	readonly inDragging: boolean;
-	readonly onDragging: boolean;
-	readonly underDragging: boolean;
+	isGesturing: boolean;
+	readonly inGesturing: boolean;
+	readonly onGesturing: boolean;
+	readonly underGesturing: boolean;
 	isFocused: boolean;
 	readonly inFocused: boolean;
 	readonly onFocused: boolean;

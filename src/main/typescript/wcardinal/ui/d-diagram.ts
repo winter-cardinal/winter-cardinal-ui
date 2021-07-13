@@ -63,33 +63,38 @@ export class DDiagram<
 	constructor(options?: OPTIONS) {
 		super(options);
 
-		// Hover handling
 		this.on(UtilPointerEvent.move, (e: interaction.InteractionEvent): void => {
-			if (UtilPointerEvent.contains(this, e.target)) {
-				const canvas = this.canvas;
-				if (canvas) {
-					canvas.onShapeMove(e);
-				}
+			const canvas = this.canvas;
+			if (canvas) {
+				canvas.onShapeMove(e);
 			}
 		});
 
-		// Pointer down / up handling
 		this.on(UtilPointerEvent.up, (e: interaction.InteractionEvent): void => {
-			if (UtilPointerEvent.contains(this, e.target)) {
-				const canvas = this.canvas;
-				if (canvas) {
-					canvas.onShapeUp(e);
-				}
+			const canvas = this.canvas;
+			if (canvas) {
+				canvas.onShapeUp(e);
 			}
 		});
 
-		// Click handling
+		this.on(UtilPointerEvent.upoutside, (e: interaction.InteractionEvent): void => {
+			const canvas = this.canvas;
+			if (canvas) {
+				canvas.onShapeCancel(e);
+			}
+		});
+
+		this.on(UtilPointerEvent.cancel, (e: interaction.InteractionEvent): void => {
+			const canvas = this.canvas;
+			if (canvas) {
+				canvas.onShapeCancel(e);
+			}
+		});
+
 		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
-			if (UtilPointerEvent.contains(this, e.target)) {
-				const canvas = this.canvas;
-				if (canvas) {
-					canvas.onShapeClick(e);
-				}
+			const canvas = this.canvas;
+			if (canvas) {
+				canvas.onShapeClick(e);
 			}
 		});
 

@@ -138,6 +138,8 @@ export class DButtonBase<
 			this.state.isPressed = false;
 			if (interactionManager != null) {
 				interactionManager.off(UtilPointerEvent.up, onUp);
+				interactionManager.off(UtilPointerEvent.upoutside, onUp);
+				interactionManager.off(UtilPointerEvent.cancel, onUp);
 				interactionManager = null;
 			}
 		};
@@ -148,6 +150,8 @@ export class DButtonBase<
 			if (layer) {
 				interactionManager = layer.renderer.plugins.interaction;
 				interactionManager.on(UtilPointerEvent.up, onUp);
+				interactionManager.on(UtilPointerEvent.upoutside, onUp);
+				interactionManager.on(UtilPointerEvent.cancel, onUp);
 			}
 		});
 	}

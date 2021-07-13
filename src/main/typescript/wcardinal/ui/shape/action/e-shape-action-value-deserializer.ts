@@ -44,9 +44,17 @@ import {
 	EShapeActionValueMiscSerialized
 } from "./e-shape-action-value-misc";
 import {
-	EShapeActionValueMiscLayerBinding,
-	EShapeActionValueMiscLayerBindingSerialized
-} from "./e-shape-action-value-misc-layer-binding";
+	EShapeActionValueMiscGesture,
+	EShapeActionValueMiscGestureSerialized
+} from "./e-shape-action-value-misc-gesture";
+import {
+	EShapeActionValueMiscLayerGesture,
+	EShapeActionValueMiscLayerGestureSerialized
+} from "./e-shape-action-value-misc-layer-gesture";
+import {
+	EShapeActionValueMiscLayerShowHide,
+	EShapeActionValueMiscLayerShowHideSerialized
+} from "./e-shape-action-value-misc-layer-show-hide";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import {
 	EShapeActionValueOpen,
@@ -90,7 +98,9 @@ export type EShapeActionValueSerialized =
 	| EShapeActionValueTransformResizeSerialized
 	| EShapeActionValueTransformRotateSerialized
 	| EShapeActionValueMiscSerialized
-	| EShapeActionValueMiscLayerBindingSerialized;
+	| EShapeActionValueMiscGestureSerialized
+	| EShapeActionValueMiscLayerGestureSerialized
+	| EShapeActionValueMiscLayerShowHideSerialized;
 
 export class EShapeActionValueDeserializer {
 	static toSerialized(resource: string): EShapeActionValueSerialized | null {
@@ -182,8 +192,18 @@ export class EShapeActionValueDeserializer {
 						break;
 					case EShapeActionValueType.MISC:
 						switch (serialized[2]) {
-							case EShapeActionValueMiscType.LAYER_BINDING:
-								return EShapeActionValueMiscLayerBinding.deserialize(
+							case EShapeActionValueMiscType.GESTURE:
+								return EShapeActionValueMiscGesture.deserialize(
+									serialized,
+									manager
+								);
+							case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+								return EShapeActionValueMiscLayerShowHide.deserialize(
+									serialized,
+									manager
+								);
+							case EShapeActionValueMiscType.LAYER_GESTURE:
+								return EShapeActionValueMiscLayerGesture.deserialize(
 									serialized,
 									manager
 								);

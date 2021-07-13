@@ -5,7 +5,7 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DDragMode } from "../../d-drag-mode";
+import { UtilGestureMode } from "../../util/util-gesture-mode";
 import { DThemePane } from "../../d-pane";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
@@ -27,7 +27,7 @@ export class DThemeWhitePane extends DThemeWhiteBase implements DThemePane {
 		return 2.24;
 	}
 
-	getDragMode(): DDragMode {
-		return DDragMode.TOUCH;
+	getGestureMode(): UtilGestureMode {
+		return UtilGestureMode.TOUCH;
 	}
 }

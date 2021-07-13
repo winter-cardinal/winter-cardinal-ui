@@ -29,7 +29,7 @@ export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DTheme
 	}
 
 	getBorderAlpha(state: DBaseStateSet): number {
-		if (!state.inDisabled && (state.isHovered || state.isDragging)) {
+		if (!state.inDisabled && (state.isHovered || state.isGesturing)) {
 			return 1.0;
 		} else {
 			return 0.4;

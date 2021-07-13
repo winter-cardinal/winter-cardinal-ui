@@ -318,7 +318,7 @@ export class UtilHtmlElement<
 		return this._data.when;
 	}
 
-	onDownThisBefore(e: interaction.InteractionEvent | KeyboardEvent): void {
+	onDowning(e: interaction.InteractionEvent | KeyboardEvent): void {
 		this._wasStarted = this._isStarted;
 		switch (this.when) {
 			case UtilHtmlElementWhen.CLICKED:
@@ -332,7 +332,7 @@ export class UtilHtmlElement<
 		}
 	}
 
-	onDownThisAfter(e: interaction.InteractionEvent | KeyboardEvent): void {
+	onDown(e: interaction.InteractionEvent | KeyboardEvent): void {
 		if (!this._wasStarted && this._isStarted) {
 			if ("data" in e) {
 				e.data.originalEvent.preventDefault();

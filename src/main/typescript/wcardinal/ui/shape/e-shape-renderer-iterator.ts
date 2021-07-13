@@ -19,12 +19,15 @@ export class EShapeRendererIterator {
 		this._current = null;
 	}
 
-	reset(shapes: EShape[]): EShape | null {
+	reset(shape: EShape | null, shapes: EShape[]): EShape | null {
 		this._index = 0;
 		const current = this._data[0];
 		this._datum = current;
 		current.reset(shapes);
-		this._current = null;
+		if (shape != null) {
+			this._current = shape;
+			return shape;
+		}
 		return this.next();
 	}
 

@@ -104,7 +104,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueType.MISC:
 				return "Misc.";
 		}
-		return "Unknown";
 	}
 
 	toConditionLabel(condition: string): string {
@@ -131,7 +130,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueBlinkType.COLOR_STROKE:
 				return "Stroke";
 		}
-		return "Unknown";
 	}
 
 	toShowHideTypeLabel(type: EShapeActionValueShowHideType): string {
@@ -141,7 +139,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueShowHideType.HIDE:
 				return "Hide";
 		}
-		return "Unknown";
 	}
 
 	toTransformTypeLabel(type: EShapeActionValueTransformType): string {
@@ -153,7 +150,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueTransformType.ROTATE:
 				return "Rotate";
 		}
-		return "Unknown";
 	}
 
 	toTransformRotateTypeLabel(type: EShapeActionValueTransformRotateType): string {
@@ -163,7 +159,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueTransformRotateType.ABSOLUTE:
 				return "Absolute";
 		}
-		return "Unknown";
 	}
 
 	toTransformMoveTypeLabel(type: EShapeActionValueTransformMoveType): string {
@@ -181,7 +176,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueTransformMoveType.LEFT_OR_RIGHT:
 				return "Left / right";
 		}
-		return "Unknown";
 	}
 
 	toTransformResizeTypeLabel(type: EShapeActionValueTransformResizeType): string {
@@ -199,7 +193,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueTransformResizeType.RELATIVE_WIDTH:
 				return "Width (%)";
 		}
-		return "Unknown";
 	}
 
 	toChangeColorTypeLabel(type: EShapeActionValueChangeColorType): string {
@@ -239,7 +232,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueChangeColorTarget.BRIGHTNESS:
 				return "Brightness";
 		}
-		return "Unknown";
 	}
 
 	toChangeTextTypeLabel(type: EShapeActionValueChangeTextType): string {
@@ -249,7 +241,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueChangeTextType.NUMBER:
 				return "Number";
 		}
-		return "Unknown";
 	}
 
 	toOpenTypeLabel(type: EShapeActionValueOpenType): string {
@@ -275,7 +266,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueOpenType.DIALOG_DATETIME:
 				return "Dialog (Datetime)";
 		}
-		return "Unknown";
 	}
 
 	toMiscTypeLabel(type: EShapeActionValueMiscType): string {
@@ -298,8 +288,13 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 				return "HTML element";
 			case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
 				return "HTML element (No pointer events)";
+			case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+				return "Show / hide layers";
+			case EShapeActionValueMiscType.LAYER_GESTURE:
+				return "Layer gesture";
+			case EShapeActionValueMiscType.GESTURE:
+				return "Gesture";
 		}
-		return "Unknown";
 	}
 
 	toHtmlElementWhenLabel(when: UtilHtmlElementWhen): string {
@@ -313,7 +308,6 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case UtilHtmlElementWhen.ALWAYS:
 				return "Always";
 		}
-		return "Unknown";
 	}
 
 	toOnInputActionLabel(type: EShapeActionValueOnInputAction): string {
@@ -327,6 +321,5 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueOnInputAction.WRITE_REMOTE:
 				return "Write (Remote)";
 		}
-		return "Unknown";
 	}
 }

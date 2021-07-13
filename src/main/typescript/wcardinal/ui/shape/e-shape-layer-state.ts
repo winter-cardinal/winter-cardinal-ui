@@ -5,5 +5,7 @@
 
 export const EShapeLayerState = {
 	INVISIBLE: "INVISIBLE", // Invisible initially when non-edit mode
-	DRAGGABLE: "DRAGGABLE"
+	INTERACTIVE: "INTERACTIVE",
+	DRAGGABLE: "DRAGGABLE",
+	PINCHABLE: "PINCHABLE"
 };

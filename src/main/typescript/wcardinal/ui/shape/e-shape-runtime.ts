@@ -14,7 +14,6 @@ import { EShapeFillLike } from "./e-shape-fill";
 import { EShapeState } from "./e-shape-state";
 import { EShapeStrokeLike } from "./e-shape-stroke";
 import { EShapeTextLike } from "./e-shape-text";
-import { UtilPointerEvent } from "../util/util-pointer-event";
 import { DBaseState } from "../d-base-state";
 import { DBaseStateSet } from "../d-base-state-set";
 
@@ -122,45 +121,28 @@ export class EShapeRuntime {
 	}
 
 	onDown(shape: EShape, e: InteractionEvent | KeyboardEvent): void {
-		if (!shape.state.isDown) {
-			this.onDownThisBefore(shape, e);
+		// Actions
+		const actions = this.actions;
+		for (let i = 0, imax = actions.length; i < imax; ++i) {
+			actions[i].onDowning(shape, this, e);
+		}
 
+		if (!shape.state.isDown) {
+			// Down / Press
+			shape.state.addAll(EShapeState.DOWN, DBaseState.PRESSED);
+
+			// Focus and states
 			const layer = DApplications.getLayer(shape);
 			if (layer) {
 				// Focus
 				const focusController = layer.getFocusController();
 				focusController.focus(focusController.findParent(shape));
-
-				// Down / Press
-				shape.state.addAll(EShapeState.DOWN, DBaseState.PRESSED);
-				if (!(e instanceof KeyboardEvent)) {
-					const interactionManager = layer.renderer.plugins.interaction;
-					const onUp = (): void => {
-						shape.state.isPressed = false;
-						interactionManager.off(UtilPointerEvent.up, onUp);
-					};
-					interactionManager.on(UtilPointerEvent.up, onUp);
-				}
-			} else {
-				// Down
-				shape.state.isDown = true;
 			}
-
-			this.onDownThisAfter(shape, e);
 		}
-	}
 
-	protected onDownThisBefore(shape: EShape, e: InteractionEvent | KeyboardEvent): void {
-		const actions = this.actions;
+		// Actions
 		for (let i = 0, imax = actions.length; i < imax; ++i) {
-			actions[i].onDownThisBefore(shape, this, e);
-		}
-	}
-
-	protected onDownThisAfter(shape: EShape, e: InteractionEvent | KeyboardEvent): void {
-		const actions = this.actions;
-		for (let i = 0, imax = actions.length; i < imax; ++i) {
-			actions[i].onDownThisAfter(shape, this, e);
+			actions[i].onDown(shape, this, e);
 		}
 	}
 
@@ -171,8 +153,15 @@ export class EShapeRuntime {
 		}
 	}
 
-	onMove(shape: EShape, e?: InteractionEvent): void {
-		//
+	onUpOutside(shape: EShape, e: InteractionEvent): void {
+		shape.state.isPressed = false;
+	}
+
+	onMove(shape: EShape, e: InteractionEvent): void {
+		const actions = this.actions;
+		for (let i = 0, imax = actions.length; i < imax; ++i) {
+			actions[i].onMove(shape, this, e);
+		}
 	}
 
 	onKeyDown(shape: EShape, e: KeyboardEvent): boolean {

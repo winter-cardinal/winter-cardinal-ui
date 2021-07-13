@@ -3,48 +3,53 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DApplicationTarget } from "./d-application-like";
-import { DDiagramLayerContainer } from "./d-diagram-layer-container";
+import { DBaseStateSet } from "./d-base-state-set";
 import { EShape } from "./shape/e-shape";
 import { EShapeContainer } from "./shape/e-shape-container";
-import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
+import { EShapeType } from "./shape/e-shape-type";
 
-export interface DDiagramLayersContainer extends DApplicationTarget {
-	children: DDiagramLayersLayer[];
+export interface DDiagramLayersShape {
+	parent: EShapeContainer | EShape | null;
 }
 
-export interface DDiagramLayersLayer {
-	visible: boolean;
+export interface DDiagramLayersShapeContainer extends EShapeContainer {
+	state: DBaseStateSet;
 }
+
+export type DDiagramLayersLayer = DDiagramLayersShapeContainer | EShape;
 
 export class DDiagramLayers {
-	static toContainer(shape: {
-		parent: EShapeContainer | EShape | null;
-	}): DDiagramLayerContainer | EShapeEmbeddedLayerContainer | null | undefined {
+	static toLayers(shape: DDiagramLayersShape, indices: number[]): DDiagramLayersLayer[] {
+		const result: DDiagramLayersLayer[] = [];
+		const layer = this.toLayer(shape);
+		if (layer) {
+			const container = layer.parent;
+			if (container) {
+				const children = container.children as DDiagramLayersLayer[];
+				const childrenLength = children.length;
+				for (let i = 0, imax = indices.length; i < imax; ++i) {
+					const index = indices[i];
+					if (0 <= index && index < childrenLength) {
+						result.push(children[index]);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	static toLayer(shape: DDiagramLayersShape): DDiagramLayersLayer | null | undefined {
 		let parent = shape.parent;
 		while (parent != null) {
-			if (parent instanceof EShapeEmbeddedLayerContainer) {
-				return parent;
-			}
 			if (parent instanceof EShapeContainer) {
-				return parent.parent as DDiagramLayerContainer | null | undefined;
+				return parent as DDiagramLayersShapeContainer;
+			}
+			if (parent.type === EShapeType.EMBEDDED_LAYER) {
+				return parent;
 			}
 			parent = parent.parent;
 		}
 		return null;
-	}
-
-	static toLayers(container: DDiagramLayersContainer, indices: number[]): DDiagramLayersLayer[] {
-		const result: DDiagramLayersLayer[] = [];
-		const children = container.children;
-		const childrenLength = children.length;
-		for (let i = 0, imax = indices.length; i < imax; ++i) {
-			const index = indices[i];
-			if (0 <= index && index < childrenLength) {
-				result.push(children[index]);
-			}
-		}
-		return result;
 	}
 
 	static show(target: DDiagramLayersLayer): boolean {
@@ -87,31 +92,34 @@ export class DDiagramLayers {
 		return isChanged;
 	}
 
-	static bringToFront(container: DDiagramLayersContainer, target: DDiagramLayersLayer): boolean {
-		return this.doBringToFront(target, container.children, 0);
+	static bringToFront(target: DDiagramLayersLayer): boolean {
+		const parent = target.parent;
+		if (parent) {
+			return this.doBringToFront(target, parent.children, 0);
+		}
+		return false;
 	}
 
-	static bringAllToFront(
-		container: DDiagramLayersContainer,
-		targets: DDiagramLayersLayer[]
-	): boolean {
-		let isChanged = false;
-		const layers = container.children;
+	static bringAllToFront(targets: DDiagramLayersLayer[]): boolean {
 		const targetsLength = targets.length;
-		for (let i = 0; i < targetsLength; ++i) {
-			const layer = targets[targetsLength - 1 - i];
-			if (this.doBringToFront(layer, layers, i)) {
-				isChanged = true;
+		if (0 < targetsLength) {
+			const parent = targets[0].parent;
+			if (parent) {
+				let isChanged = false;
+				const layers = parent.children;
+				for (let i = 0; i < targetsLength; ++i) {
+					const layer = targets[targetsLength - 1 - i];
+					if (this.doBringToFront(layer, layers, i)) {
+						isChanged = true;
+					}
+				}
+				return isChanged;
 			}
 		}
-		return isChanged;
+		return false;
 	}
 
-	protected static doBringToFront(
-		target: DDiagramLayersLayer,
-		layers: DDiagramLayersLayer[],
-		offset: number
-	): boolean {
+	protected static doBringToFront(target: unknown, layers: unknown[], offset: number): boolean {
 		const layersLength = layers.length;
 		const ito = layersLength - 1 - offset;
 		for (let i = ito; 0 <= i; --i) {

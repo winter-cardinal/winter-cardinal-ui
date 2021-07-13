@@ -8,19 +8,19 @@ import { DApplications } from "./d-applications";
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DContent, DContentOptions } from "./d-content";
-import { DDragMode } from "./d-drag-mode";
+import { UtilGestureMode } from "./util/util-gesture-mode";
 import { DScrollBar, DScrollBarOptions } from "./d-scroll-bar";
 import { DScrollBarHorizontal } from "./d-scroll-bar-horizontal";
 import { DScrollBarVertical } from "./d-scroll-bar-vertical";
 import { toEnum } from "./util/to-enum";
-import { UtilDrag } from "./util/util-drag";
+import { UtilGesture } from "./util/util-gesture";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 /**
- * {@link DPane} drag options.
+ * {@link DPane} gesture options.
  */
-export interface DPaneDragOptions {
-	mode?: keyof typeof DDragMode | DDragMode;
+export interface DPaneGestureOptions {
+	mode?: keyof typeof UtilGestureMode | UtilGestureMode;
 }
 
 /**
@@ -59,15 +59,15 @@ export interface DPaneOptions<
 	scrollbar?: DPaneScrollBarOptions;
 
 	/**
-	 * Drag options.
+	 * Gesture options.
 	 */
-	drag?: DPaneDragOptions;
+	gesture?: DPaneGestureOptions;
 }
 
 export interface DThemePane extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
 	getWheelSpeed(): number;
-	getDragMode(): DDragMode;
+	getGestureMode(): UtilGestureMode;
 }
 
 // Class
@@ -82,7 +82,7 @@ export class DPane<
 	protected _content!: DBase;
 	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _scrollbar?: DPaneScrollBar;
-	protected _dragUtil?: UtilDrag;
+	protected _gestureUtil?: UtilGesture<DPane>;
 
 	protected init(options?: OPTIONS): void {
 		super.init(options);
@@ -115,25 +115,25 @@ export class DPane<
 		});
 		this.updateScrollBar();
 
-		// Drag
-		this.initDrag(content, theme, options);
+		// Gesture
+		this.initGesture(content, theme, options);
 	}
 
-	protected initDrag(content: DBase, theme: THEME, options?: OPTIONS): void {
+	protected initGesture(content: DBase, theme: THEME, options?: OPTIONS): void {
 		// Edge does not fire the wheel event when scrolling using the 2-fingure scroll gesture on a touchpad.
-		// Instead, it fires touch events. This is why the dragging is enabled regardless of the `UtilPointerEvent.touchable`.
+		// Instead, it fires touch events. This is why the gesture is enabled regardless of the `UtilPointerEvent.touchable`.
 		// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7134034/
-		const dragMode = toEnum(options?.drag?.mode ?? theme.getDragMode(), DDragMode);
-		if (dragMode === DDragMode.ON || dragMode === DDragMode.TOUCH) {
+		const mode = toEnum(options?.gesture?.mode ?? theme.getGestureMode(), UtilGestureMode);
+		if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
 			const position = new Point();
-			this._dragUtil = new UtilDrag({
-				target: this,
-				touch: dragMode === DDragMode.TOUCH,
+			this._gestureUtil = new UtilGesture<DPane>({
+				bind: this,
+				touch: mode === UtilGestureMode.TOUCH,
 				on: {
 					start: (): void => {
 						position.copyFrom(content.position);
 					},
-					move: (dx: number, dy: number): void => {
+					move: (target: DPane, dx: number, dy: number): void => {
 						position.set(position.x + dx, position.y + dy);
 						content.position.set(
 							this.toContentX(content, position.x),
@@ -146,17 +146,17 @@ export class DPane<
 	}
 
 	protected onRegionMoveX(content: DBase, start: number): void {
-		const dragUtil = this._dragUtil;
-		if (dragUtil != null) {
-			dragUtil.stop();
+		const gestureUtil = this._gestureUtil;
+		if (gestureUtil != null) {
+			gestureUtil.stop(this);
 		}
 		content.x = -content.width * start;
 	}
 
 	protected onRegionMoveY(content: DBase, start: number): void {
-		const dragUtil = this._dragUtil;
-		if (dragUtil != null) {
-			dragUtil.stop();
+		const gestureUtil = this._gestureUtil;
+		if (gestureUtil != null) {
+			gestureUtil.stop(this);
 		}
 		content.y = -content.height * start;
 	}
@@ -208,9 +208,9 @@ export class DPane<
 		const x = this.getWheelContentX(content, deltas.deltaX * deltas.lowest);
 		const y = this.getWheelContentY(content, deltas.deltaY * deltas.lowest);
 		if (content.x !== x || content.y !== y) {
-			const dragUtil = this._dragUtil;
-			if (dragUtil != null) {
-				dragUtil.stop();
+			const gestureUtil = this._gestureUtil;
+			if (gestureUtil != null) {
+				gestureUtil.stop(this);
 			}
 			content.position.set(x, y);
 			return true;

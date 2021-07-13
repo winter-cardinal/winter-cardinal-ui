@@ -210,7 +210,10 @@ export abstract class DSlider<
 		if (layer) {
 			const interactionManager = layer.renderer.plugins.interaction;
 			this._interactionManager = interactionManager;
-			interactionManager.on(UtilPointerEvent.up, this._onTrackUpBound);
+			const onTrackUpBound = this._onTrackUpBound;
+			interactionManager.on(UtilPointerEvent.up, onTrackUpBound);
+			interactionManager.on(UtilPointerEvent.upoutside, onTrackUpBound);
+			interactionManager.on(UtilPointerEvent.cancel, onTrackUpBound);
 		}
 		this.onPick(global);
 	}
@@ -223,7 +226,10 @@ export abstract class DSlider<
 		if (layer) {
 			const interactionManager = layer.renderer.plugins.interaction;
 			this._interactionManager = interactionManager;
-			interactionManager.on(UtilPointerEvent.up, this._onTrackSelectedUpBound);
+			const onTrackSelectedUpBound = this._onTrackSelectedUpBound;
+			interactionManager.on(UtilPointerEvent.up, onTrackSelectedUpBound);
+			interactionManager.on(UtilPointerEvent.upoutside, onTrackSelectedUpBound);
+			interactionManager.on(UtilPointerEvent.cancel, onTrackSelectedUpBound);
 		}
 		this.onPick(global);
 	}
@@ -232,7 +238,10 @@ export abstract class DSlider<
 		const interactionManager = this._interactionManager;
 		if (interactionManager) {
 			this._interactionManager = undefined;
-			interactionManager.off(UtilPointerEvent.up, this._onTrackUpBound);
+			const onTrackUpBound = this._onTrackUpBound;
+			interactionManager.off(UtilPointerEvent.up, onTrackUpBound);
+			interactionManager.off(UtilPointerEvent.upoutside, onTrackUpBound);
+			interactionManager.off(UtilPointerEvent.cancel, onTrackUpBound);
 		}
 	}
 
@@ -240,7 +249,10 @@ export abstract class DSlider<
 		const interactionManager = this._interactionManager;
 		if (interactionManager) {
 			this._interactionManager = undefined;
-			interactionManager.off(UtilPointerEvent.up, this._onTrackSelectedUpBound);
+			const onTrackSelectedUpBound = this._onTrackSelectedUpBound;
+			interactionManager.off(UtilPointerEvent.up, onTrackSelectedUpBound);
+			interactionManager.off(UtilPointerEvent.upoutside, onTrackSelectedUpBound);
+			interactionManager.off(UtilPointerEvent.cancel, onTrackSelectedUpBound);
 		}
 	}
 
@@ -256,8 +268,12 @@ export abstract class DSlider<
 		if (layer) {
 			const interactionManager = layer.renderer.plugins.interaction;
 			this._interactionManager = interactionManager;
-			interactionManager.on(UtilPointerEvent.move, this._onThumbMoveBound);
-			interactionManager.on(UtilPointerEvent.up, this._onThumbUpBound);
+			const onThumbMoveBound = this._onThumbMoveBound;
+			interactionManager.on(UtilPointerEvent.move, onThumbMoveBound);
+			const onThumbUpBound = this._onThumbUpBound;
+			interactionManager.on(UtilPointerEvent.up, onThumbUpBound);
+			interactionManager.on(UtilPointerEvent.upoutside, onThumbUpBound);
+			interactionManager.on(UtilPointerEvent.cancel, onThumbUpBound);
 		}
 	}
 
@@ -265,8 +281,12 @@ export abstract class DSlider<
 		const interactionManager = this._interactionManager;
 		if (interactionManager) {
 			this._interactionManager = undefined;
-			interactionManager.off(UtilPointerEvent.move, this._onThumbMoveBound);
-			interactionManager.off(UtilPointerEvent.up, this._onThumbUpBound);
+			const onThumbMoveBound = this._onThumbMoveBound;
+			interactionManager.off(UtilPointerEvent.move, onThumbMoveBound);
+			const onThumbUpBound = this._onThumbUpBound;
+			interactionManager.off(UtilPointerEvent.up, onThumbUpBound);
+			interactionManager.off(UtilPointerEvent.upoutside, onThumbUpBound);
+			interactionManager.off(UtilPointerEvent.cancel, onThumbUpBound);
 		}
 	}
 

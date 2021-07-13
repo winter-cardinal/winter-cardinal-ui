@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export class UtilDragEasingHistory {
+export class UtilGestureEasingHistory {
 	dx: number;
 	dy: number;
 	ds: number;

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DDragMode {
+export enum UtilGestureMode {
 	OFF,
 	ON,
 	TOUCH

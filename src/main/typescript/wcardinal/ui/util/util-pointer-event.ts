@@ -57,6 +57,10 @@ export class UtilPointerEvent {
 		return "pointerup";
 	}
 
+	static get upoutside(): string {
+		return "pointerupoutside";
+	}
+
 	static get cancel(): string {
 		return "pointercancel";
 	}
@@ -94,11 +98,13 @@ export class UtilPointerEvent {
 		let downY = 0;
 		let interactionManagerBound: interaction.InteractionManager | null = null;
 		const up = this.up;
+		const upoutside = this.upoutside;
 		const cancel = this.cancel;
 		const cleanup = (): void => {
 			isDowned = false;
 			if (interactionManagerBound) {
 				interactionManagerBound.off(up, onUp);
+				interactionManagerBound.off(upoutside, onCancel);
 				interactionManagerBound.off(cancel, onCancel);
 				interactionManagerBound = null;
 			}
@@ -136,6 +142,7 @@ export class UtilPointerEvent {
 				downY = global.y;
 				if (interactionManagerBound) {
 					interactionManagerBound.off(up, onUp);
+					interactionManagerBound.off(upoutside, onCancel);
 					interactionManagerBound.off(cancel, onCancel);
 					interactionManagerBound = null;
 				}
@@ -143,6 +150,7 @@ export class UtilPointerEvent {
 				if (layer) {
 					interactionManagerBound = layer.renderer.plugins.interaction;
 					interactionManagerBound.once(up, onUp);
+					interactionManagerBound.once(upoutside, onCancel);
 					interactionManagerBound.once(cancel, onCancel);
 				}
 			}

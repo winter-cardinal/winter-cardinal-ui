@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDragMode } from "../../d-drag-mode";
-import { DMouseModifier } from "../../d-mouse-modifier";
+import { UtilGestureMode } from "../../util/util-gesture-mode";
+import { UtilGestureModifier } from "../../util/util-gesture-modifier";
 import { DThemeView } from "../../d-view";
 
 export class DThemeWhiteView implements DThemeView {
@@ -16,8 +16,8 @@ export class DThemeWhiteView implements DThemeView {
 		return 0.004;
 	}
 
-	getWheelZoomModifier(): DMouseModifier {
-		return DMouseModifier.NOT_NONE;
+	getWheelZoomModifier(): UtilGestureModifier {
+		return UtilGestureModifier.NOT_NONE;
 	}
 
 	isWheelTranslationEnabled(): boolean {
@@ -28,8 +28,8 @@ export class DThemeWhiteView implements DThemeView {
 		return 14 * 0.16;
 	}
 
-	getWheelTranslationModifier(): DMouseModifier {
-		return DMouseModifier.NONE;
+	getWheelTranslationModifier(): UtilGestureModifier {
+		return UtilGestureModifier.NONE;
 	}
 
 	isDblClickZoomEnabled(): boolean {
@@ -40,8 +40,8 @@ export class DThemeWhiteView implements DThemeView {
 		return 2;
 	}
 
-	getDblClickZoomModifier(): DMouseModifier {
-		return DMouseModifier.NONE;
+	getDblClickZoomModifier(): UtilGestureModifier {
+		return UtilGestureModifier.NONE;
 	}
 
 	getDblClickZoomDuration(): number {
@@ -60,19 +60,19 @@ export class DThemeWhiteView implements DThemeView {
 		return true;
 	}
 
-	getDragMode(): DDragMode {
-		return DDragMode.ON;
+	getGestureMode(): UtilGestureMode {
+		return UtilGestureMode.ON;
 	}
 
-	getDragModifier(): DMouseModifier {
-		return DMouseModifier.NONE;
+	getGestureModifier(): UtilGestureModifier {
+		return UtilGestureModifier.NONE;
 	}
 
-	getDragDurationPosition(): number {
+	getGestureDurationPosition(): number {
 		return 1;
 	}
 
-	getDragDurationScale(): number {
+	getGestureDurationScale(): number {
 		return 1;
 	}
 }

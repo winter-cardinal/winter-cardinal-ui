@@ -5,7 +5,6 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapeUploadedBase } from "../e-shape-uploaded";
 import {
 	buildRectangleClipping,
 	buildRectangleIndex,
@@ -14,8 +13,9 @@ import {
 	buildRectangleVertex,
 	RECTANGLE_WORLD_SIZE
 } from "./build-rectangle";
+import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
-export class EShapeEmbeddedLayerUploaded extends EShapeUploadedBase {
+export class EShapeRectanglePivotedUploaded extends EShapeTextUploaded {
 	init(shape: EShape): this {
 		super.init(shape);
 
@@ -23,6 +23,9 @@ export class EShapeEmbeddedLayerUploaded extends EShapeUploadedBase {
 		const buffer = this.buffer;
 		buffer.updateIndices();
 		buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+
+		// Text
+		this.initText();
 
 		this.update(shape);
 		return this;
@@ -32,6 +35,7 @@ export class EShapeEmbeddedLayerUploaded extends EShapeUploadedBase {
 		const buffer = this.buffer;
 		this.updateVertexClippingStepAndUv(buffer, shape);
 		this.updateColor(buffer, shape);
+		this.updateText(buffer, shape);
 	}
 
 	protected updateVertexClippingStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
@@ -71,6 +75,11 @@ export class EShapeEmbeddedLayerUploaded extends EShapeUploadedBase {
 			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
+
+			if (isVertexChanged || isTransformChanged) {
+				// Invalidate the text layout to update the text layout.
+				this.textSpacingHorizontal = NaN;
+			}
 
 			// Vertices
 			const voffset = this.vertexOffset;
@@ -118,9 +127,5 @@ export class EShapeEmbeddedLayerUploaded extends EShapeUploadedBase {
 				);
 			}
 		}
-	}
-
-	protected updateColor(buffer: EShapeBuffer, shape: EShape): void {
-		this.updateColorFillAndStroke(buffer, shape, this.vertexCount);
 	}
 }

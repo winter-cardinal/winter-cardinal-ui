@@ -5,6 +5,8 @@
 
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "../../d-diagram-serialized";
 import { isString } from "../../util/is-string";
+import { EShapeActionValueMiscGestureType } from "../action/e-shape-action-value-misc-gesture-type";
+import { EShapeActionValueMiscLayerGesture } from "../action/e-shape-action-value-misc-layer-gesture";
 import { EShapeFill } from "../e-shape-fill";
 import { EShapeLayer } from "../e-shape-layer";
 import { EShapeLayerState } from "../e-shape-layer-state";
@@ -17,7 +19,7 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLayer {
 	protected _name: string;
 
-	constructor(name: string, isEditMode: boolean, type = EShapeType.LAYER) {
+	constructor(name: string, isEditMode: boolean, type = EShapeType.EMBEDDED_LAYER) {
 		super(isEditMode, type);
 		this._name = name;
 	}
@@ -96,8 +98,24 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 			result.fill.deserialize(fillId, manager);
 		}
 
-		if (serialized[7]) {
-			result.state.add(EShapeLayerState.DRAGGABLE);
+		if (!manager.isEditMode) {
+			const state = serialized[7] ?? 1;
+			const isInteractive = state & 0x1;
+			const isDraggable = state & 0x2;
+			const isPinchable = state & 0x4;
+			if (isDraggable || isPinchable) {
+				const gestureType =
+					(isDraggable
+						? EShapeActionValueMiscGestureType.DRAG
+						: EShapeActionValueMiscGestureType.NONE) |
+					(isPinchable
+						? EShapeActionValueMiscGestureType.PINCH
+						: EShapeActionValueMiscGestureType.NONE);
+				result.action.add(new EShapeActionValueMiscLayerGesture("", gestureType));
+			}
+			if (isInteractive || isDraggable || isPinchable) {
+				result.interactive = true;
+			}
 		}
 		return result;
 	}
