@@ -2710,6 +2710,27 @@ img {
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="ddiagramserializedlayer.html#0" class="tsd-kind-icon">0</a>
 				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ddiagramserializedlayer.html#1" class="tsd-kind-icon">1</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ddiagramserializedlayer.html#2" class="tsd-kind-icon">2</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ddiagramserializedlayer.html#3" class="tsd-kind-icon">3</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ddiagramserializedlayer.html#4" class="tsd-kind-icon">4</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ddiagramserializedlayer.html#5" class="tsd-kind-icon">5</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ddiagramserializedlayer.html#6" class="tsd-kind-icon">6</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="ddiagramserializedlayer.html#7" class="tsd-kind-icon">7</a>
+				</li>
 			</ul>
 		</li>
 	</ul>
@@ -2739,6 +2760,13 @@ img {
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#0" class="tsd-kind-icon">0</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#1" class="tsd-kind-icon">1</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#2" class="tsd-kind-icon">2</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#3" class="tsd-kind-icon">3</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#4" class="tsd-kind-icon">4</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#5" class="tsd-kind-icon">5</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#6" class="tsd-kind-icon">6</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ddiagramserializedlayer.html#7" class="tsd-kind-icon">7</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2749,15 +2777,149 @@ img {
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="0" class="tsd-anchor"></a>
 				<h3>0</h3>
-				<div class="tsd-signature tsd-kind-icon">0<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<div class="tsd-signature tsd-kind-icon">0<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L347">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:347</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L347">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:347</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A name.</p>
+						<p>A name or a resource index number of a name</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="1" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> 1</h3>
+				<div class="tsd-signature tsd-kind-icon">1<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L359">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:359</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A visibility.</p>
+					</div>
+					<ul>
+						<li>1st bit<ul>
+								<li>0: Invisible when edit mode</li>
+								<li>1: Visible when edit mode</li>
+							</ul>
+						</li>
+						<li>2nd bit<ul>
+								<li>0: Invisible when non-edit mode</li>
+								<li>1: Visible when non-edit mode</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="2" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> 2</h3>
+				<div class="tsd-signature tsd-kind-icon">2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L362">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:362</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A X-coordinate position.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="3" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> 3</h3>
+				<div class="tsd-signature tsd-kind-icon">3<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L365">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:365</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A Y-coordinate position.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="4" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> 4</h3>
+				<div class="tsd-signature tsd-kind-icon">4<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L368">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:368</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A width.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="5" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> 5</h3>
+				<div class="tsd-signature tsd-kind-icon">5<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L371">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:371</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A height.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="6" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> 6</h3>
+				<div class="tsd-signature tsd-kind-icon">6<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L377">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:377</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A resource index number of a stringified serialized fill,
+						JSON.stringify(DDiagramSerializedFill).</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="7" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> 7</h3>
+				<div class="tsd-signature tsd-kind-icon">7<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L390">src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:390</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<ul>
+							<li>1st bit<ul>
+									<li>0: Not interactive</li>
+									<li>1: Interactive</li>
+								</ul>
+							</li>
+							<li>2nd bit<ul>
+									<li>0: Not draggable</li>
+									<li>1: Draggable</li>
+								</ul>
+							</li>
+							<li>3rd bit<ul>
+									<li>0: Not pinchable</li>
+									<li>1: Pinchable</li>
+								</ul>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</section>

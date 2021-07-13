@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DViewDrag | Winter Cardinal UI</title>
+	<title>UtilGestureTarget | Winter Cardinal UI</title>
 	<meta name="description" content="Documentation for Winter Cardinal UI">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">:root {
@@ -2705,10 +2705,13 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-interface">
-			<a href="dviewdrag.html" class="tsd-kind-icon">DView<wbr>Drag</a>
+			<a href="utilgesturetarget.html" class="tsd-kind-icon">Util<wbr>Gesture<wbr>Target</a>
 			<ul>
-				<li class=" tsd-kind-method tsd-parent-kind-interface">
-					<a href="dviewdrag.html#stop" class="tsd-kind-icon">stop</a>
+				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a href="utilgesturetarget.html#parent" class="tsd-kind-icon">parent</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="utilgesturetarget.html#state" class="tsd-kind-icon">state</a>
 				</li>
 			</ul>
 		</li>
@@ -2720,14 +2723,13 @@ img {
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DViewDrag</span>
+					<a href="dapplicationtarget.html" class="tsd-signature-type" data-tsd-kind="Interface">DApplicationTarget</a>
+					<ul class="tsd-hierarchy">
+						<li>
+							<span class="target">UtilGestureTarget</span>
+						</li>
+					</ul>
 				</li>
-			</ul>
-		</section>
-		<section class="tsd-panel">
-			<h3>Implemented by</h3>
-			<ul class="tsd-hierarchy">
-				<li><a href="../classes/dviewdragimpl.html" class="tsd-signature-type" data-tsd-kind="Class">DViewDragImpl</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2735,37 +2737,37 @@ img {
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Methods</h3>
+						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="dviewdrag.html#stop" class="tsd-kind-icon">stop</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="utilgesturetarget.html#parent" class="tsd-kind-icon">parent</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="utilgesturetarget.html#state" class="tsd-kind-icon">state</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-				<a name="stop" class="tsd-anchor"></a>
-				<h3>stop</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.98.0/src/main/typescript/wcardinal/ui/d-view-drag.ts#L28">src/main/typescript/wcardinal/ui/d-view-drag.ts:28</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Stops an animation if sxists.</p>
-							</div>
-						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+				<a name="parent" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> parent</h3>
+				<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="dapplicationtarget.html" class="tsd-signature-type" data-tsd-kind="Interface">DApplicationTarget</a></div>
+				<aside class="tsd-sources">
+					<p>Inherited from <a href="dapplicationtarget.html">DApplicationTarget</a>.<a href="dapplicationtarget.html#parent">parent</a></p>
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L5">src/main/typescript/wcardinal/ui/d-application-like.ts:5</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="state" class="tsd-anchor"></a>
+				<h3>state</h3>
+				<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="dbasestateset.html" class="tsd-signature-type" data-tsd-kind="Interface">DBaseStateSet</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L18">src/main/typescript/wcardinal/ui/util/util-gesture.ts:18</a></li>
+					</ul>
+				</aside>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
