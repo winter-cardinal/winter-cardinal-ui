@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.100.0
+ Winter Cardinal UI v0.101.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -19240,9 +19240,13 @@
             _super.prototype.onShortcut.call(this, e);
             this.onClick(e);
         };
-        DButtonBase.prototype.isToggle = function () {
-            return this._isToggle;
-        };
+        Object.defineProperty(DButtonBase.prototype, "isToggle", {
+            get: function () {
+                return this._isToggle;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DButtonBase.prototype.initOnClick = function (when, theme, options) {
             var _this = this;
             UtilPointerEvent.onClick(this, function (e) {
@@ -19279,7 +19283,7 @@
         };
         DButtonBase.prototype.onClick = function (e) {
             if (this.state.isActionable) {
-                if (this.isToggle()) {
+                if (this.isToggle) {
                     this.onToggleStart(e);
                     this.onToggleEnd(e);
                 }
@@ -19302,7 +19306,7 @@
         };
         DButtonBase.prototype.toggle = function () {
             if (this.state.isActionable) {
-                if (this.isToggle()) {
+                if (this.isToggle) {
                     this.onToggleStart();
                     this.onToggleEnd();
                 }
@@ -19321,7 +19325,7 @@
         };
         DButtonBase.prototype.onActivateKeyDown = function (e) {
             if (this.state.isActionable) {
-                if (this.isToggle()) {
+                if (this.isToggle) {
                     this.onToggleStart(e);
                 }
                 else {
@@ -19331,7 +19335,7 @@
         };
         DButtonBase.prototype.onActivateKeyUp = function (e) {
             if (this.state.isActionable) {
-                if (this.isToggle()) {
+                if (this.isToggle) {
                     this.onToggleEnd(e);
                 }
                 else {
@@ -21098,13 +21102,13 @@
                 return this._active;
             },
             set: function (newActive) {
-                if ((newActive == null || newActive.isToggle()) && this._active !== newActive) {
+                if ((newActive == null || newActive.isToggle) && this._active !== newActive) {
                     var oldActive = this._active;
                     this._active = null;
                     var buttons = this._buttons;
                     for (var i = 0, imax = buttons.length; i < imax; ++i) {
                         var button = buttons[i];
-                        if (button !== newActive && button.isToggle() && button.state.isActive) {
+                        if (button !== newActive && button.isToggle && button.state.isActive) {
                             button.toggle();
                         }
                     }
@@ -26011,6 +26015,9 @@
             enumerable: false,
             configurable: true
         });
+        EShapeButton.prototype.clone = function () {
+            return new EShapeButton().copy(this);
+        };
         EShapeButton.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
             var isToggle = this._isToggle ? 1 : 0;
