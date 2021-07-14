@@ -37,6 +37,10 @@ export class EShapeButton extends EShapeRectangleRounded {
 		this._isGrouped = isGrouped;
 	}
 
+	clone(): EShapeRectangleRounded {
+		return new EShapeButton().copy(this);
+	}
+
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
 		const isToggle = this._isToggle ? 1 : 0;
