@@ -87,13 +87,13 @@ export class DButtonGroup<
 	}
 
 	set active(newActive: BUTTON | null) {
-		if ((newActive == null || newActive.isToggle()) && this._active !== newActive) {
+		if ((newActive == null || newActive.isToggle) && this._active !== newActive) {
 			const oldActive = this._active;
 			this._active = null;
 			const buttons = this._buttons;
 			for (let i = 0, imax = buttons.length; i < imax; ++i) {
 				const button = buttons[i];
-				if (button !== newActive && button.isToggle() && button.state.isActive) {
+				if (button !== newActive && button.isToggle && button.state.isActive) {
 					button.toggle();
 				}
 			}

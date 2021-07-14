@@ -119,7 +119,7 @@ export class DButtonBase<
 		this.onClick(e);
 	}
 
-	isToggle(): boolean {
+	get isToggle(): boolean {
 		return this._isToggle;
 	}
 
@@ -162,7 +162,7 @@ export class DButtonBase<
 
 	onClick(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
 		if (this.state.isActionable) {
-			if (this.isToggle()) {
+			if (this.isToggle) {
 				this.onToggleStart(e);
 				this.onToggleEnd(e);
 			} else {
@@ -195,7 +195,7 @@ export class DButtonBase<
 
 	toggle(): void {
 		if (this.state.isActionable) {
-			if (this.isToggle()) {
+			if (this.isToggle) {
 				this.onToggleStart();
 				this.onToggleEnd();
 			}
@@ -220,7 +220,7 @@ export class DButtonBase<
 
 	protected onActivateKeyDown(e: KeyboardEvent): void {
 		if (this.state.isActionable) {
-			if (this.isToggle()) {
+			if (this.isToggle) {
 				this.onToggleStart(e);
 			} else {
 				this.state.isPressed = true;
@@ -230,7 +230,7 @@ export class DButtonBase<
 
 	protected onActivateKeyUp(e: KeyboardEvent): void {
 		if (this.state.isActionable) {
-			if (this.isToggle()) {
+			if (this.isToggle) {
 				this.onToggleEnd(e);
 			} else {
 				if (this.state.isPressed) {
