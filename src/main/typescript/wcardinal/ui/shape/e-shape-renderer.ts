@@ -361,7 +361,7 @@ export class EShapeRenderer extends ObjectRenderer {
 		const renderer = this.renderer;
 		const shader = this._shader;
 
-		if (shader != null && 0 < shapes.length) {
+		if (shader != null && (shape != null || 0 < shapes.length)) {
 			const resolution = renderer.resolution;
 			const buffers = container.getBuffers();
 			const antialiasWeight = container.getAntialiasWeight(resolution);
