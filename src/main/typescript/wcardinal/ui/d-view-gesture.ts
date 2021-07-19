@@ -18,8 +18,7 @@ export interface DViewGestureOptions extends UtilGestureEasingOptions {
 export interface DThemeViewGesture {
 	getGestureMode(): UtilGestureMode;
 	getGestureModifier(): UtilGestureModifier;
-	getGestureDurationPosition(): number;
-	getGestureDurationScale(): number;
+	getGestureDuration(): number;
 }
 
 export interface DViewGesture {
