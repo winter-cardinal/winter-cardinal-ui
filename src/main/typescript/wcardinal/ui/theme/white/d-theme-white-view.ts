@@ -68,11 +68,7 @@ export class DThemeWhiteView implements DThemeView {
 		return UtilGestureModifier.NONE;
 	}
 
-	getGestureDurationPosition(): number {
-		return 1;
-	}
-
-	getGestureDurationScale(): number {
+	getGestureDuration(): number {
 		return 1;
 	}
 }

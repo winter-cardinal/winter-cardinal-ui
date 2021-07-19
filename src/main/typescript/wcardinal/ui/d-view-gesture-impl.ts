@@ -33,17 +33,13 @@ export class DViewGestureImpl implements DViewGesture {
 			options?.modifier ?? theme.getGestureModifier(),
 			UtilGestureModifier
 		);
-		const duration = options?.duration ?? {
-			position: theme.getGestureDurationPosition(),
-			scale: theme.getGestureDurationScale()
-		};
 		if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
 			this._gestureUtil = new UtilGesture<DBase>({
 				touch: mode === UtilGestureMode.TOUCH,
 				modifier,
 				checker: options && options.checker,
 				easing: {
-					duration
+					duration: options?.duration
 				},
 				on: {
 					start: (): void => {

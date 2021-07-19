@@ -6,19 +6,13 @@
 import { DAnimation } from "../d-animation";
 import { DAnimationBase } from "../d-animation-base";
 import { DAnimationTimings } from "../d-animation-timings";
-import { isNumber } from "./is-number";
 import { UtilGestureEasingHistory } from "./util-gesture-easing-history";
 
 export type UtilGestureEasingOnMove = (dx: number, dy: number, ds: number, time: number) => void;
 export type UtilGestureEasingOnEnd = () => void;
 
-export interface UtilGestureEasingDurationOptions {
-	position?: number;
-	scale?: number;
-}
-
 export interface UtilGestureEasingOptions {
-	duration?: number | UtilGestureEasingDurationOptions;
+	duration?: number;
 }
 
 export class UtilGestureEasing {
@@ -31,8 +25,9 @@ export class UtilGestureEasing {
 	protected _dx: number;
 	protected _dy: number;
 	protected _ds: number;
-	protected _durationPosition: number;
-	protected _durationScale: number;
+	protected _dt: number;
+	protected _dtw: number;
+	protected _t: number;
 	protected _onMove: UtilGestureEasingOnMove;
 	protected _onEnd: UtilGestureEasingOnEnd;
 
@@ -48,6 +43,9 @@ export class UtilGestureEasing {
 		this._dx = 0;
 		this._dy = 0;
 		this._ds = 0;
+		this._dt = 0;
+		this._dtw = 0;
+		this._t = 0;
 		this._animation = new DAnimationBase({
 			onTime: (t: number): void => {
 				this.onEase(t);
@@ -56,21 +54,8 @@ export class UtilGestureEasing {
 				this.onEaseEnd();
 			},
 			timing: DAnimationTimings.LINEAR,
-			duration: 1000
+			duration: 333 * (options?.duration ?? 1)
 		});
-		const duration = options && options.duration;
-		if (duration) {
-			if (isNumber(duration)) {
-				this._durationPosition = duration;
-				this._durationScale = duration;
-			} else {
-				this._durationPosition = duration.position != null ? duration.position : 1;
-				this._durationScale = duration.scale != null ? duration.scale : 1;
-			}
-		} else {
-			this._durationPosition = 1;
-			this._durationScale = 1;
-		}
 		this._onMove = onMove;
 		this._onEnd = onEnd;
 	}
@@ -159,38 +144,49 @@ export class UtilGestureEasing {
 		this.updateHistoriesSorted(ldt);
 		const sorted = this._historiesSorted;
 		const sortedLength = sorted.length;
-		if (0 < sortedLength) {
-			let dx = 0;
-			let dy = 0;
-			let ds = 0;
-			for (let i = 0; i < sortedLength; ++i) {
-				const history = sorted[i];
-				dx += history.dx;
-				dy += history.dy;
-				ds += history.ds;
-			}
-			const w = 1 / sortedLength;
-			dx *= w;
-			dy *= w;
-			ds *= w;
-			this._dx = dx;
-			this._dy = dy;
-			this._ds = ds;
-
-			// Start animation
-			const d0 = this._durationPosition * 40 * Math.sqrt(dx * dx + dy * dy);
-			const d1 = this._durationScale * 10000 * Math.abs(ds - 1);
-			const animation = this._animation;
-			animation.duration = Math.max(d0, d1);
-			animation.start();
-		} else {
-			this.onEaseEnd();
+		if (sortedLength <= 0) {
+			return this.onEaseEnd();
 		}
+
+		let dx = 0;
+		let dy = 0;
+		let ds = 0;
+		let dt = 0;
+		for (let i = 0; i < sortedLength; ++i) {
+			const history = sorted[i];
+			dx += history.dx;
+			dy += history.dy;
+			ds += history.ds;
+			dt += history.dt;
+		}
+		if (dt <= 0) {
+			return this.onEaseEnd();
+		}
+
+		const w = 1 / sortedLength;
+		dx *= w;
+		dy *= w;
+		ds *= w;
+		dt *= w;
+		this._dx = dx;
+		this._dy = dy;
+		this._ds = ds;
+		this._dt = dt;
+
+		// Start animation
+		const animation = this._animation;
+		const d = animation.duration;
+		this._t = -ldt / d;
+		this._dtw = d / dt;
+		animation.start();
 	}
 
-	protected onEase(time: number): void {
-		const w = 1 - time;
-		this._onMove(this._dx * w, this._dy * w, 1 + (this._ds - 1) * w, time);
+	protected onEase(t: number): void {
+		const ot = this._t;
+		this._t = t;
+		// Note: Integral of (1-x) is x (1 - 0.5 x) + c.
+		const w = (1 - 0.5 * (t + ot)) * (t - ot) * this._dtw;
+		this._onMove(this._dx * w, this._dy * w, 1 + (this._ds - 1) * w, t);
 	}
 
 	protected onEaseEnd(): void {
