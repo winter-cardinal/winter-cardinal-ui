@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.101.0
+ Winter Cardinal UI v0.102.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -8172,10 +8172,7 @@
         DThemeWhiteView.prototype.getGestureModifier = function () {
             return UtilGestureModifier.NONE;
         };
-        DThemeWhiteView.prototype.getGestureDurationPosition = function () {
-            return 1;
-        };
-        DThemeWhiteView.prototype.getGestureDurationScale = function () {
+        DThemeWhiteView.prototype.getGestureDuration = function () {
             return 1;
         };
         return DThemeWhiteView;

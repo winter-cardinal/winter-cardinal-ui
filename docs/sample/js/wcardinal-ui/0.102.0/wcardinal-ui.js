@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.101.0
+ Winter Cardinal UI v0.102.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -13065,6 +13065,7 @@
     var UtilGestureEasing = /** @class */ (function () {
         function UtilGestureEasing(onMove, onEnd, options) {
             var _this = this;
+            var _a;
             this._histories = [];
             this._historiesSorted = [];
             this._historyBegin = 0;
@@ -13072,6 +13073,9 @@
             this._dx = 0;
             this._dy = 0;
             this._ds = 0;
+            this._dt = 0;
+            this._dtw = 0;
+            this._t = 0;
             this._animation = new DAnimationBase({
                 onTime: function (t) {
                     _this.onEase(t);
@@ -13080,23 +13084,8 @@
                     _this.onEaseEnd();
                 },
                 timing: DAnimationTimings.LINEAR,
-                duration: 1000
+                duration: 333 * ((_a = options === null || options === void 0 ? void 0 : options.duration) !== null && _a !== void 0 ? _a : 1)
             });
-            var duration = options && options.duration;
-            if (duration) {
-                if (isNumber(duration)) {
-                    this._durationPosition = duration;
-                    this._durationScale = duration;
-                }
-                else {
-                    this._durationPosition = duration.position != null ? duration.position : 1;
-                    this._durationScale = duration.scale != null ? duration.scale : 1;
-                }
-            }
-            else {
-                this._durationPosition = 1;
-                this._durationScale = 1;
-            }
             this._onMove = onMove;
             this._onEnd = onEnd;
         }
@@ -13179,37 +13168,45 @@
             this.updateHistoriesSorted(ldt);
             var sorted = this._historiesSorted;
             var sortedLength = sorted.length;
-            if (0 < sortedLength) {
-                var dx = 0;
-                var dy = 0;
-                var ds = 0;
-                for (var i = 0; i < sortedLength; ++i) {
-                    var history_4 = sorted[i];
-                    dx += history_4.dx;
-                    dy += history_4.dy;
-                    ds += history_4.ds;
-                }
-                var w = 1 / sortedLength;
-                dx *= w;
-                dy *= w;
-                ds *= w;
-                this._dx = dx;
-                this._dy = dy;
-                this._ds = ds;
-                // Start animation
-                var d0 = this._durationPosition * 40 * Math.sqrt(dx * dx + dy * dy);
-                var d1 = this._durationScale * 10000 * Math.abs(ds - 1);
-                var animation = this._animation;
-                animation.duration = Math.max(d0, d1);
-                animation.start();
+            if (sortedLength <= 0) {
+                return this.onEaseEnd();
             }
-            else {
-                this.onEaseEnd();
+            var dx = 0;
+            var dy = 0;
+            var ds = 0;
+            var dt = 0;
+            for (var i = 0; i < sortedLength; ++i) {
+                var history_4 = sorted[i];
+                dx += history_4.dx;
+                dy += history_4.dy;
+                ds += history_4.ds;
+                dt += history_4.dt;
             }
+            if (dt <= 0) {
+                return this.onEaseEnd();
+            }
+            var w = 1 / sortedLength;
+            dx *= w;
+            dy *= w;
+            ds *= w;
+            dt *= w;
+            this._dx = dx;
+            this._dy = dy;
+            this._ds = ds;
+            this._dt = dt;
+            // Start animation
+            var animation = this._animation;
+            var d = animation.duration;
+            this._t = -ldt / d;
+            this._dtw = d / dt;
+            animation.start();
         };
-        UtilGestureEasing.prototype.onEase = function (time) {
-            var w = 1 - time;
-            this._onMove(this._dx * w, this._dy * w, 1 + (this._ds - 1) * w, time);
+        UtilGestureEasing.prototype.onEase = function (t) {
+            var ot = this._t;
+            this._t = t;
+            // Note: Integral of (1-x) is x (1 - 0.5 x) + c.
+            var w = (1 - 0.5 * (t + ot)) * (t - ot) * this._dtw;
+            this._onMove(this._dx * w, this._dy * w, 1 + (this._ds - 1) * w, t);
         };
         UtilGestureEasing.prototype.onEaseEnd = function () {
             this._onEnd();
@@ -13479,22 +13476,18 @@
     var DViewGestureImpl = /** @class */ (function () {
         function DViewGestureImpl(parent, toTarget, stopper, theme, options) {
             var _this = this;
-            var _a, _b, _c;
+            var _a, _b;
             this._parent = parent;
             this._stopper = stopper;
             var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getGestureMode(), UtilGestureMode);
             var modifier = toEnum((_b = options === null || options === void 0 ? void 0 : options.modifier) !== null && _b !== void 0 ? _b : theme.getGestureModifier(), UtilGestureModifier);
-            var duration = (_c = options === null || options === void 0 ? void 0 : options.duration) !== null && _c !== void 0 ? _c : {
-                position: theme.getGestureDurationPosition(),
-                scale: theme.getGestureDurationScale()
-            };
             if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
                 this._gestureUtil = new UtilGesture({
                     touch: mode === UtilGestureMode.TOUCH,
                     modifier: modifier,
                     checker: options && options.checker,
                     easing: {
-                        duration: duration
+                        duration: options === null || options === void 0 ? void 0 : options.duration
                     },
                     on: {
                         start: function () {
@@ -16901,7 +16894,7 @@
         EShapeRenderer.prototype.render_ = function (container, shape, shapes, isDirty) {
             var renderer = this.renderer;
             var shader = this._shader;
-            if (shader != null && 0 < shapes.length) {
+            if (shader != null && (shape != null || 0 < shapes.length)) {
                 var resolution = renderer.resolution;
                 var buffers = container.getBuffers();
                 var antialiasWeight = container.getAntialiasWeight(resolution);
@@ -63795,6 +63788,7 @@
         EShapeActionRuntimeMiscInputReal: EShapeActionRuntimeMiscInputReal,
         EShapeActionRuntimeMiscInputText: EShapeActionRuntimeMiscInputText,
         EShapeActionRuntimeMiscInput: EShapeActionRuntimeMiscInput,
+        EShapeActionRuntimeMiscLayerGesture: EShapeActionRuntimeMiscLayerGesture,
         EShapeActionRuntimeMiscLayerShowHide: EShapeActionRuntimeMiscLayerShowHide,
         EShapeActionRuntimeMiscWriteBoth: EShapeActionRuntimeMiscWriteBoth,
         EShapeActionRuntimeMiscWriteLocal: EShapeActionRuntimeMiscWriteLocal,
@@ -63844,10 +63838,12 @@
         EShapeActionValueChangeText: EShapeActionValueChangeText,
         EShapeActionValueDeserializer: EShapeActionValueDeserializer,
         EShapeActionValueEmitEvent: EShapeActionValueEmitEvent,
-        EShapeActionValueMiscGesture: EShapeActionValueMiscGesture,
         EShapeActionValueMiscEmitEvent: EShapeActionValueMiscEmitEvent,
+        get EShapeActionValueMiscGestureType () { return EShapeActionValueMiscGestureType; },
+        EShapeActionValueMiscGesture: EShapeActionValueMiscGesture,
         EShapeActionValueMiscHtmlElement: EShapeActionValueMiscHtmlElement,
         EShapeActionValueMiscInput: EShapeActionValueMiscInput,
+        EShapeActionValueMiscLayerGesture: EShapeActionValueMiscLayerGesture,
         EShapeActionValueMiscLayerShowHide: EShapeActionValueMiscLayerShowHide,
         get EShapeActionValueMiscType () { return EShapeActionValueMiscType; },
         EShapeActionValueMiscWrite: EShapeActionValueMiscWrite,
