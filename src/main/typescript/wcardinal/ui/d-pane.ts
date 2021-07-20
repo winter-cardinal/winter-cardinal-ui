@@ -261,7 +261,7 @@ export class DPane<
 			const vertical = scrollbar.vertical;
 			const horizontal = scrollbar.horizontal;
 			this.updateScrollBarRegions(vertical, horizontal);
-			this.updateScrollBarVisibilities(vertical, horizontal);
+			this.updateOverflowMask(vertical, horizontal);
 			this.updateScrollBarPositions(vertical, horizontal);
 		}
 	}
@@ -313,41 +313,26 @@ export class DPane<
 		vertical.setRegion(y, y + this.height, content.height);
 	}
 
-	protected updateScrollBarVisibilities(
+	protected updateOverflowMask(
 		vertical: DScrollBarVertical,
 		horizontal: DScrollBarHorizontal
 	): void {
-		const isChangedHorizontal = this.updateScrollBarVisibility(horizontal);
-		const isChangedVertical = this.updateScrollBarVisibility(vertical);
-		if (isChangedHorizontal || isChangedVertical) {
-			// Update the overflow mask
-			const overflowMask = this._overflowMask;
-			if (overflowMask != null) {
-				if (horizontal.visible || vertical.visible) {
-					const content = this._content;
-					if (content.mask !== overflowMask) {
-						content.mask = overflowMask;
-					}
-				} else {
-					const content = this._content;
-					if (content.mask) {
-						(content as any).mask = null;
-					}
+		const overflowMask = this._overflowMask;
+		if (overflowMask != null) {
+			if (horizontal.isRegionVisible() || vertical.isRegionVisible()) {
+				const content = this._content;
+				if (content.mask !== overflowMask) {
+					content.mask = overflowMask;
+					DApplications.update(this);
+				}
+			} else {
+				const content = this._content;
+				if (content.mask) {
+					(content as any).mask = null;
+					DApplications.update(this);
 				}
 			}
-
-			// Rerender
-			DApplications.update(this);
 		}
-	}
-
-	protected updateScrollBarVisibility(scrollbar: DScrollBar): boolean {
-		const isRegionVisible = scrollbar.isRegionVisible();
-		if (scrollbar.visible !== isRegionVisible) {
-			scrollbar.visible = isRegionVisible;
-			return true;
-		}
-		return false;
 	}
 
 	protected getFocusedChildClippingRect(

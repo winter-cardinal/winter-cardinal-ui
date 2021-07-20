@@ -29,4 +29,8 @@ export class DThemeDarkScrollBar extends DThemeDarkBase implements DThemeScrollB
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	getFadeOutDelay(): number {
+		return 1500;
+	}
 }

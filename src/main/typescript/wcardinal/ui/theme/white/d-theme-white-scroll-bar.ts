@@ -11,7 +11,7 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteScrollBar extends DThemeWhiteBase implements DThemeScrollBar {
 	getBackgroundColor(state: DBaseStateSet): number | null {
-		return 0x000000;
+		return 0xffffff;
 	}
 
 	getBackgroundAlpha(state: DBaseStateSet): number {
@@ -28,5 +28,9 @@ export class DThemeWhiteScrollBar extends DThemeWhiteBase implements DThemeScrol
 
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
+	}
+
+	getFadeOutDelay(): number {
+		return 1500;
 	}
 }

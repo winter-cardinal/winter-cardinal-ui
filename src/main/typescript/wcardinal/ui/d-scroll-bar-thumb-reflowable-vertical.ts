@@ -25,7 +25,7 @@ export class DScrollBarThumbReflowableVertical extends Graphics implements DBase
 			const borderAlign = border.getAlign(state);
 			this.beginFill(borderColor, borderAlpha);
 			this.lineStyle(0, 0, 0, 0);
-			this.drawRect(width - borderWidth - borderAlign, 0, borderWidth, height);
+			this.drawRect(borderAlign * (width - borderWidth), 0, borderWidth, height);
 			this.endFill();
 			this.visible = true;
 		} else {

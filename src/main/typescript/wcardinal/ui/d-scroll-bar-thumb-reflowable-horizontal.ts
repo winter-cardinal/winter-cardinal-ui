@@ -26,7 +26,7 @@ export class DScrollBarThumbReflowableHorizontal extends Graphics implements DBa
 			const borderAlign = border.getAlign(state);
 			this.beginFill(borderColor, borderAlpha);
 			this.lineStyle(0, 0, 0, 0);
-			this.drawRect(0, height - borderWidth - borderAlign, width, borderWidth);
+			this.drawRect(0, borderAlign * (height - borderWidth), width, borderWidth);
 			this.endFill();
 			this.visible = true;
 		} else {
