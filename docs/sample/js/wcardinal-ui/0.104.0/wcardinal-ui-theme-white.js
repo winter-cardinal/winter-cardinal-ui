@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.102.0
+ Winter Cardinal UI v0.104.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -5943,7 +5943,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteScrollBar.prototype.getBackgroundColor = function (state) {
-            return 0x000000;
+            return 0xffffff;
         };
         DThemeWhiteScrollBar.prototype.getBackgroundAlpha = function (state) {
             return 0;
@@ -5957,6 +5957,9 @@
         DThemeWhiteScrollBar.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeWhiteScrollBar.prototype.getFadeOutDelay = function () {
+            return 1500;
+        };
         return DThemeWhiteScrollBar;
     }(DThemeWhiteBase));
 
@@ -5968,7 +5971,7 @@
         __extends(DThemeWhiteScrollBarThumb, _super);
         function DThemeWhiteScrollBarThumb() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.25);
+            _this.BORDER_COLOR = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.25);
             return _this;
         }
         DThemeWhiteScrollBarThumb.prototype.getBackgroundColor = function (state) {
@@ -5978,24 +5981,24 @@
             return 1;
         };
         DThemeWhiteScrollBarThumb.prototype.getBorderColor = function (state) {
-            if (state.inDisabled) {
-                return this.COLOR;
-            }
-            return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+            return this.BORDER_COLOR;
         };
         DThemeWhiteScrollBarThumb.prototype.getBorderAlpha = function (state) {
-            if (!state.inDisabled && (state.isHovered || state.isGesturing)) {
-                return 1.0;
+            if (state.inDisabled) {
+                return 0.25;
+            }
+            else if (state.isHovered || state.isGesturing) {
+                return 0.75;
             }
             else {
-                return 0.4;
+                return 0.5;
             }
         };
         DThemeWhiteScrollBarThumb.prototype.getBorderWidth = function (state) {
-            return 2;
+            return 3;
         };
         DThemeWhiteScrollBarThumb.prototype.getBorderAlign = function (state) {
-            return 0;
+            return 0.5;
         };
         DThemeWhiteScrollBarThumb.prototype.getWidth = function () {
             return 13;

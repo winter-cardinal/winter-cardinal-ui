@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.102.0
+ Winter Cardinal UI v0.104.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -45387,17 +45387,27 @@
      */
     var DScrollBar = /** @class */ (function (_super) {
         __extends(DScrollBar, _super);
-        function DScrollBar() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function DScrollBar(options) {
+            var _a, _b;
+            var _this = _super.call(this, options) || this;
+            _this._start = 0;
+            _this._end = 1;
+            _this.visible = false;
+            _this._touchedAt = -1;
+            _this._fadeOutTimeoutId = null;
+            _this._fadeOutDelay = (_b = (_a = options === null || options === void 0 ? void 0 : options.fadeOut) === null || _a === void 0 ? void 0 : _a.delay) !== null && _b !== void 0 ? _b : _this.theme.getFadeOutDelay();
+            _this._onFadeOutTimeoutBound = function () {
+                _this.onFadeOutTimeout();
+            };
+            var thumb = _this.newThumb(options === null || options === void 0 ? void 0 : options.thumb);
+            thumb.on("statechange", function (newState, oldState) {
+                _this.onThumbStateChange(newState, oldState);
+            });
+            _this._thumb = thumb;
+            _this.addChild(thumb);
+            _this.state.isFocusable = false;
+            return _this;
         }
-        DScrollBar.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this._start = 0;
-            this._end = 1;
-            var thumb = (this._thumb = this.createThumb(options === null || options === void 0 ? void 0 : options.thumb));
-            this.addChild(thumb);
-            this.state.isFocusable = false;
-        };
         Object.defineProperty(DScrollBar.prototype, "thumb", {
             get: function () {
                 return this._thumb;
@@ -45423,15 +45433,74 @@
                 this.onRegionChange();
             }
         };
+        DScrollBar.prototype.onRegionChange = function () {
+            this.updateThumbPositionAndSize(this.width, this.height);
+            if (this.isRegionVisible()) {
+                var fadeOutDelay = this._fadeOutDelay;
+                if (0 <= fadeOutDelay) {
+                    this._touchedAt = Date.now();
+                    if (this._fadeOutTimeoutId == null) {
+                        this._fadeOutTimeoutId = window.setTimeout(this._onFadeOutTimeoutBound, fadeOutDelay);
+                    }
+                }
+                if (!this.visible) {
+                    this.visible = true;
+                    DApplications.update(this);
+                }
+            }
+            else {
+                if (this._fadeOutDelay < 0 && this.visible) {
+                    this.visible = false;
+                    DApplications.update(this);
+                }
+            }
+        };
         DScrollBar.prototype.isRegionVisible = function () {
             return 0 < this._start || this._end < 1;
         };
         DScrollBar.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
-            this.onRegionChange();
+            this.updateThumbPositionAndSize(newWidth, newHeight);
         };
-        DScrollBar.prototype.onRegionChange = function () {
-            // DO NOTHING
+        DScrollBar.prototype.onFadeOutTimeout = function () {
+            this._fadeOutTimeoutId = null;
+            var fadeOutInterval = this._fadeOutDelay;
+            var onTouchTimeoutBound = this._onFadeOutTimeoutBound;
+            var state = this.state;
+            if (state.isGesturing || state.isHovered || state.isPressed) {
+                this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, fadeOutInterval);
+                return;
+            }
+            var thumbState = this._thumb.state;
+            if (thumbState.isGesturing || thumbState.isHovered || thumbState.isPressed) {
+                this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, fadeOutInterval);
+                return;
+            }
+            var now = Date.now();
+            var remainingTime = fadeOutInterval - (now - this._touchedAt);
+            if (0 < remainingTime) {
+                this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, remainingTime);
+                return;
+            }
+            if (this.visible) {
+                this.visible = false;
+                DApplications.update(this);
+            }
+        };
+        DScrollBar.prototype.onThumbStateChange = function (newState, oldState) {
+            if (!newState.isGesturing && !newState.isHovered && !newState.isPressed) {
+                if (oldState.isGesturing || oldState.isHovered || oldState.isPressed) {
+                    this._touchedAt = Date.now();
+                }
+            }
+        };
+        DScrollBar.prototype.onStateChange = function (newState, oldState) {
+            _super.prototype.onStateChange.call(this, newState, oldState);
+            if (!newState.isGesturing && !newState.isHovered && !newState.isPressed) {
+                if (oldState.isGesturing || oldState.isHovered || oldState.isPressed) {
+                    this._touchedAt = Date.now();
+                }
+            }
         };
         DScrollBar.prototype.getRegionStart = function () {
             return this._start;
@@ -45502,7 +45571,7 @@
                 var borderAlign = border.getAlign(state);
                 this.beginFill(borderColor, borderAlpha);
                 this.lineStyle(0, 0, 0, 0);
-                this.drawRect(0, height - borderWidth - borderAlign, width, borderWidth);
+                this.drawRect(0, borderAlign * (height - borderWidth), width, borderWidth);
                 this.endFill();
                 this.visible = true;
             }
@@ -45537,50 +45606,46 @@
      */
     var DScrollBarHorizontal = /** @class */ (function (_super) {
         __extends(DScrollBarHorizontal, _super);
-        function DScrollBarHorizontal() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function DScrollBarHorizontal(options) {
+            var _this = _super.call(this, options) || this;
+            _this._thumb.on("regionmove", function (x) {
+                _this.onThumbRegionMove(x);
+            });
+            return _this;
         }
-        DScrollBarHorizontal.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            this.on(UtilPointerEvent.down, function (e) {
-                if (e.target === _this) {
-                    var width = _this.width;
-                    if (0 < width) {
-                        var size = _this._end - _this._start;
-                        var position = e.data.getLocalPosition(_this);
-                        var newStart = Math.min(1 - size, Math.max(0, position.x / width - size * 0.5));
-                        if (_this._start !== newStart) {
-                            _this.emit("regionmove", newStart, _this);
-                        }
-                    }
+        DScrollBarHorizontal.prototype.onThumbRegionMove = function (x) {
+            var width = this.width;
+            if (0 < width) {
+                var size = this._end - this._start;
+                var newStart = Math.min(1 - size, Math.max(0, x / width));
+                if (this._start !== newStart) {
+                    this.emit("regionmove", newStart, this);
                 }
-            });
-            this._thumb.on("regionmove", function (x) {
-                var width = _this.width;
-                if (0 < width) {
-                    var size = _this._end - _this._start;
-                    var newStart = Math.min(1 - size, Math.max(0, x / width));
-                    if (_this._start !== newStart) {
-                        _this.emit("regionmove", newStart, _this);
-                    }
-                }
-            });
+            }
         };
-        DScrollBarHorizontal.prototype.createThumb = function (options) {
+        DScrollBarHorizontal.prototype.onDownThis = function (e) {
+            _super.prototype.onDownThis.call(this, e);
+            var width = this.width;
+            if (0 < width) {
+                var size = this._end - this._start;
+                var position = e.data.getLocalPosition(this);
+                var newStart = Math.min(1 - size, Math.max(0, position.x / width - size * 0.5));
+                if (this._start !== newStart) {
+                    this.emit("regionmove", newStart, this);
+                }
+            }
+        };
+        DScrollBarHorizontal.prototype.newThumb = function (options) {
             return new DScrollBarThumbHorizontal(options);
         };
-        DScrollBarHorizontal.prototype.onRegionChange = function () {
+        DScrollBarHorizontal.prototype.updateThumbPositionAndSize = function (width, height) {
             var thumb = this._thumb;
-            var width = this.width;
-            var height = this.height;
             var thumbMinimumLength = Math.min(width * 0.5, thumb.getMinimumLength());
             var space = width - thumbMinimumLength;
             var barStart = space * this._start;
             var barLength = space * this._end + thumbMinimumLength - barStart;
             thumb.position.set(barStart, 0);
             thumb.resize(barLength, height);
-            _super.prototype.onRegionChange.call(this);
         };
         return DScrollBarHorizontal;
     }(DScrollBar));
@@ -45608,7 +45673,7 @@
                 var borderAlign = border.getAlign(state);
                 this.beginFill(borderColor, borderAlpha);
                 this.lineStyle(0, 0, 0, 0);
-                this.drawRect(width - borderWidth - borderAlign, 0, borderWidth, height);
+                this.drawRect(borderAlign * (width - borderWidth), 0, borderWidth, height);
                 this.endFill();
                 this.visible = true;
             }
@@ -45623,18 +45688,18 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DScrollBarThumbVertocal = /** @class */ (function (_super) {
-        __extends(DScrollBarThumbVertocal, _super);
-        function DScrollBarThumbVertocal() {
+    var DScrollBarThumbVertical = /** @class */ (function (_super) {
+        __extends(DScrollBarThumbVertical, _super);
+        function DScrollBarThumbVertical() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DScrollBarThumbVertocal.prototype.onGestureMove = function (dx, dy) {
+        DScrollBarThumbVertical.prototype.onGestureMove = function (dx, dy) {
             this.emit("regionmove", dy, this);
         };
-        DScrollBarThumbVertocal.prototype.initReflowable = function () {
+        DScrollBarThumbVertical.prototype.initReflowable = function () {
             new DScrollBarThumbReflowableVertical(this);
         };
-        return DScrollBarThumbVertocal;
+        return DScrollBarThumbVertical;
     }(DScrollBarThumb));
 
     /*
@@ -45643,51 +45708,46 @@
      */
     var DScrollBarVertical = /** @class */ (function (_super) {
         __extends(DScrollBarVertical, _super);
-        function DScrollBarVertical() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function DScrollBarVertical(options) {
+            var _this = _super.call(this, options) || this;
+            _this._thumb.on("regionmove", function (y) {
+                _this.onThumbRegionMove(y);
+            });
+            return _this;
         }
-        DScrollBarVertical.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            this.on(UtilPointerEvent.down, function (e) {
-                if (e.target === _this) {
-                    var height = _this.height;
-                    if (0 < height) {
-                        var size = _this._end - _this._start;
-                        var position = e.data.getLocalPosition(_this);
-                        var newStart = Math.min(1 - size, Math.max(0, position.y / height - size * 0.5));
-                        if (_this._start !== newStart) {
-                            _this.emit("regionmove", newStart, _this);
-                        }
-                    }
-                    e.stopPropagation();
-                }
-            });
-            this._thumb.on("regionmove", function (y) {
-                var height = _this.height;
-                if (0 < height) {
-                    var size = _this._end - _this._start;
-                    var newStart = Math.min(1 - size, Math.max(0, y / height));
-                    if (_this._start !== newStart) {
-                        _this.emit("regionmove", newStart, _this);
-                    }
-                }
-            });
-        };
-        DScrollBarVertical.prototype.createThumb = function (options) {
-            return new DScrollBarThumbVertocal(options);
-        };
-        DScrollBarVertical.prototype.onRegionChange = function () {
-            var thumb = this._thumb;
-            var width = this.width;
+        DScrollBarVertical.prototype.onThumbRegionMove = function (y) {
             var height = this.height;
+            if (0 < height) {
+                var size = this._end - this._start;
+                var newStart = Math.min(1 - size, Math.max(0, y / height));
+                if (this._start !== newStart) {
+                    this.emit("regionmove", newStart, this);
+                }
+            }
+        };
+        DScrollBarVertical.prototype.onDownThis = function (e) {
+            _super.prototype.onDownThis.call(this, e);
+            var height = this.height;
+            if (0 < height) {
+                var size = this._end - this._start;
+                var position = e.data.getLocalPosition(this);
+                var newStart = Math.min(1 - size, Math.max(0, position.y / height - size * 0.5));
+                if (this._start !== newStart) {
+                    this.emit("regionmove", newStart, this);
+                }
+            }
+        };
+        DScrollBarVertical.prototype.newThumb = function (options) {
+            return new DScrollBarThumbVertical(options);
+        };
+        DScrollBarVertical.prototype.updateThumbPositionAndSize = function (width, height) {
+            var thumb = this._thumb;
             var thumbMinimumLength = Math.min(height * 0.5, thumb.getMinimumLength());
             var space = height - thumbMinimumLength;
             var barStart = space * this._start;
             var barLength = space * this._end + thumbMinimumLength - barStart;
             thumb.position.set(0, barStart);
             thumb.resize(width, barLength);
-            _super.prototype.onRegionChange.call(this);
         };
         return DScrollBarVertical;
     }(DScrollBar));
@@ -45864,7 +45924,7 @@
                 var vertical = scrollbar.vertical;
                 var horizontal = scrollbar.horizontal;
                 this.updateScrollBarRegions(vertical, horizontal);
-                this.updateScrollBarVisibilities(vertical, horizontal);
+                this.updateOverflowMask(vertical, horizontal);
                 this.updateScrollBarPositions(vertical, horizontal);
             }
         };
@@ -45901,37 +45961,24 @@
             horizontal.setRegion(x, x + this.width, content.width);
             vertical.setRegion(y, y + this.height, content.height);
         };
-        DPane.prototype.updateScrollBarVisibilities = function (vertical, horizontal) {
-            var isChangedHorizontal = this.updateScrollBarVisibility(horizontal);
-            var isChangedVertical = this.updateScrollBarVisibility(vertical);
-            if (isChangedHorizontal || isChangedVertical) {
-                // Update the overflow mask
-                var overflowMask = this._overflowMask;
-                if (overflowMask != null) {
-                    if (horizontal.visible || vertical.visible) {
-                        var content = this._content;
-                        if (content.mask !== overflowMask) {
-                            content.mask = overflowMask;
-                        }
-                    }
-                    else {
-                        var content = this._content;
-                        if (content.mask) {
-                            content.mask = null;
-                        }
+        DPane.prototype.updateOverflowMask = function (vertical, horizontal) {
+            var overflowMask = this._overflowMask;
+            if (overflowMask != null) {
+                if (horizontal.isRegionVisible() || vertical.isRegionVisible()) {
+                    var content = this._content;
+                    if (content.mask !== overflowMask) {
+                        content.mask = overflowMask;
+                        DApplications.update(this);
                     }
                 }
-                // Rerender
-                DApplications.update(this);
+                else {
+                    var content = this._content;
+                    if (content.mask) {
+                        content.mask = null;
+                        DApplications.update(this);
+                    }
+                }
             }
-        };
-        DPane.prototype.updateScrollBarVisibility = function (scrollbar) {
-            var isRegionVisible = scrollbar.isRegionVisible();
-            if (scrollbar.visible !== isRegionVisible) {
-                scrollbar.visible = isRegionVisible;
-                return true;
-            }
-            return false;
         };
         DPane.prototype.getFocusedChildClippingRect = function (focused, contentX, contentY, contentWidth, contentHeight, width, height, result) {
             result.x = 0;
@@ -64567,7 +64614,7 @@
         DScrollBarThumbHorizontal: DScrollBarThumbHorizontal,
         DScrollBarThumbReflowableHorizontal: DScrollBarThumbReflowableHorizontal,
         DScrollBarThumbReflowableVertical: DScrollBarThumbReflowableVertical,
-        DScrollBarThumbVertocal: DScrollBarThumbVertocal,
+        DScrollBarThumbVertical: DScrollBarThumbVertical,
         DScrollBarThumb: DScrollBarThumb,
         DScrollBarVertical: DScrollBarVertical,
         DScrollBar: DScrollBar,

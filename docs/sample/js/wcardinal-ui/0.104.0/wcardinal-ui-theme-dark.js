@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.102.0
+ Winter Cardinal UI v0.104.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -5950,6 +5950,9 @@
         DThemeDarkScrollBar.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeDarkScrollBar.prototype.getFadeOutDelay = function () {
+            return 1500;
+        };
         return DThemeDarkScrollBar;
     }(DThemeDarkBase));
 
@@ -5961,7 +5964,7 @@
         __extends(DThemeDarkScrollBarThumb, _super);
         function DThemeDarkScrollBarThumb() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.COLOR = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.5);
+            _this.BORDER_COLOR = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.25);
             return _this;
         }
         DThemeDarkScrollBarThumb.prototype.getBackgroundColor = function (state) {
@@ -5971,26 +5974,24 @@
             return 1;
         };
         DThemeDarkScrollBarThumb.prototype.getBorderColor = function (state) {
-            if (state.inDisabled) {
-                return this.COLOR;
-            }
-            else {
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
-            }
+            return this.BORDER_COLOR;
         };
         DThemeDarkScrollBarThumb.prototype.getBorderAlpha = function (state) {
-            if (!state.inDisabled && (state.isHovered || state.isGesturing)) {
-                return 1.0;
+            if (state.inDisabled) {
+                return 0.25;
+            }
+            else if (state.isHovered || state.isGesturing) {
+                return 0.75;
             }
             else {
-                return 0.4;
+                return 0.5;
             }
         };
         DThemeDarkScrollBarThumb.prototype.getBorderWidth = function (state) {
-            return 2;
+            return 3;
         };
         DThemeDarkScrollBarThumb.prototype.getBorderAlign = function (state) {
-            return 0;
+            return 0.5;
         };
         DThemeDarkScrollBarThumb.prototype.getWidth = function () {
             return 13;
