@@ -6,7 +6,7 @@
 import { DScrollBarThumb } from "./d-scroll-bar-thumb";
 import { DScrollBarThumbReflowableVertical } from "./d-scroll-bar-thumb-reflowable-vertical";
 
-export class DScrollBarThumbVertocal extends DScrollBarThumb {
+export class DScrollBarThumbVertical extends DScrollBarThumb {
 	protected onGestureMove(dx: number, dy: number): void {
 		this.emit("regionmove", dy, this);
 	}

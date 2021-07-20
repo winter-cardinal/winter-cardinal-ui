@@ -7,7 +7,7 @@ import { interaction } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DScrollBar, DScrollBarOptions, DThemeScrollBar } from "./d-scroll-bar";
 import { DScrollBarThumb, DScrollBarThumbOptions } from "./d-scroll-bar-thumb";
-import { DScrollBarThumbVertocal } from "./d-scroll-bar-thumb-vertical";
+import { DScrollBarThumbVertical } from "./d-scroll-bar-thumb-vertical";
 
 export class DScrollBarVertical<
 	THEME extends DThemeScrollBar = DThemeScrollBar,
@@ -46,7 +46,7 @@ export class DScrollBarVertical<
 	}
 
 	protected newThumb(options?: DScrollBarThumbOptions): DScrollBarThumb {
-		return new DScrollBarThumbVertocal(options);
+		return new DScrollBarThumbVertical(options);
 	}
 
 	protected updateThumbPositionAndSize(width: number, height: number): void {
