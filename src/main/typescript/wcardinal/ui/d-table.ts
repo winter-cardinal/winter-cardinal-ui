@@ -43,6 +43,8 @@ import { isString } from "./util/is-string";
 import { toEnum } from "./util/to-enum";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DTableScrollBar } from "./d-table-scrollbar";
+import { DPaneScrollBarOptions } from "./d-pane-scrollbar";
 
 export interface DTableOptions<
 	ROW,
@@ -438,72 +440,90 @@ export class DTable<
 		CONTENT_OPTIONS
 	>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
-	protected _categories!: DTableCategory[];
-	protected _header!: DTableHeader<ROW> | null;
-	protected _body!: DTableBody<ROW, DATA>;
-	protected _bodyOffset!: number;
-	protected _frozen!: number;
+	protected _columns?: Array<DTableColumn<ROW, unknown>>;
+	protected _frozen?: number;
+	protected _categories?: DTableCategory[];
+	protected _headerOffset?: number;
+	protected _header?: DTableHeader<ROW> | null;
+	protected _bodyOffset?: number;
+	protected _body?: DTableBody<ROW, DATA>;
 
-	protected init(options: OPTIONS): void {
-		// Column
-		const columns = toColumns(options.columns);
+	constructor(options?: OPTIONS) {
+		super(options);
 
-		// Frozen
-		const frozen = toFrozen(columns);
-		this._frozen = frozen;
-
-		// Categories
-		const categories = this.newCategories(options, columns, frozen);
-		this._categories = categories;
-
-		// Header
-		let headerOffset = 0;
-		for (let i = 0, imax = categories.length; i < imax; ++i) {
-			headerOffset += categories[i].height;
-		}
-		const header = this.newHeader(options, columns, frozen, headerOffset);
-		this._header = header;
-
-		// Body
-		const bodyOffset = headerOffset + (header?.height || 0);
-		this._bodyOffset = bodyOffset;
-		const body = this.newBody(options, columns, frozen, bodyOffset);
-		this._body = body;
-
-		// Super
-		super.init(options);
-
-		// Content
-		const content = this._content;
+		const content = this.content;
 		content.setWidth(this.toContentWidth(options));
+
+		const body = this.body;
 		content.addChild(body);
-		if (header) {
-			content.addChild(header);
-		}
-		for (let i = categories.length - 1; 0 <= i; --i) {
-			content.addChild(categories[i]);
-		}
-		content.on("move", (): void => {
-			body.update();
-		});
-		content.on("resize", (): void => {
-			body.update();
-		});
 		if (body.data.selection.type !== DTableDataSelectionType.NONE) {
 			UtilPointerEvent.onClick(this, (e: InteractionEvent): void => {
 				body.onRowClick(e);
 			});
 		}
-		content.state.isFocusReverse = true;
+
+		const header = this.header;
+		if (header) {
+			content.addChild(header);
+		}
+
+		const categories = this.categories;
+		for (let i = categories.length - 1; 0 <= i; --i) {
+			content.addChild(categories[i]);
+		}
+
 		body.update();
 	}
 
+	get columns(): Array<DTableColumn<ROW, unknown>> {
+		let result = this._columns;
+		if (result == null) {
+			const options = this._options;
+			result = options ? toColumns(options.columns) : [];
+			this._columns = result;
+		}
+		return result;
+	}
+
+	get frozen(): number {
+		let result = this._frozen;
+		if (result == null) {
+			result = toFrozen(this.columns);
+			this._frozen = result;
+		}
+		return result;
+	}
+
+	get categories(): DTableCategory[] {
+		let result = this._categories;
+		if (result == null) {
+			result = this.newCategories(this._options, this.columns, this.frozen);
+			this._categories = result;
+		}
+		return result;
+	}
+
+	protected initContent(content: DBase): void {
+		super.initContent(content);
+		content.state.isFocusReverse = true;
+	}
+
+	protected onContentChange(): void {
+		super.onContentChange();
+		this.body.update();
+	}
+
 	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
-		const body = this._body;
+		const scrollbar = this.scrollbar;
+		scrollbar.lock();
+
+		const body = this.body;
 		body.lock();
 		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
 		body.update();
 		body.unlock(true);
+
+		scrollbar.unlock(true);
 	}
 
 	protected getCategoryCount(columns: Array<DTableColumn<ROW, unknown>>): number {
@@ -685,7 +705,7 @@ export class DTable<
 	}
 
 	protected newCategories(
-		options: OPTIONS,
+		options: OPTIONS | undefined,
 		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number
 	): DTableCategory[] {
@@ -694,7 +714,7 @@ export class DTable<
 		let offset: number = 0;
 		for (let i = count - 1; 0 <= i; --i) {
 			const category = new DTableCategory(
-				this.toCategoryOptions(i, options.category, columns, frozen, offset)
+				this.toCategoryOptions(i, options?.category, columns, frozen, offset)
 			);
 			result.push(category);
 			offset += category.height;
@@ -703,17 +723,19 @@ export class DTable<
 	}
 
 	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
-		const result = this._body.onDblClick(e, interactionManager);
+		const result = this.body.onDblClick(e, interactionManager);
 		return super.onDblClick(e, interactionManager) || result;
 	}
 
-	protected getScrollBarOffsetVerticalStart(size: number): number {
-		return size * 0.5 + this._body.position.y;
+	protected newScrollBar(options?: DPaneScrollBarOptions): DTableScrollBar {
+		return new DTableScrollBar(this, options, (isRegionVisible: boolean): void => {
+			this.onScrollBarUpdate(isRegionVisible);
+		});
 	}
 
-	protected toContentWidth(options: OPTIONS): DCoordinateSize {
+	protected toContentWidth(options?: OPTIONS): DCoordinateSize {
 		let columnWidthTotal = 0;
-		const columns = options.columns;
+		const columns = options?.columns;
 		if (columns) {
 			for (let i = 0, imax = columns.length; i < imax; ++i) {
 				const column = columns[i];
@@ -731,25 +753,54 @@ export class DTable<
 		return "100%";
 	}
 
-	protected hasHeader(options: OPTIONS): boolean {
-		const columns = options.columns;
-		for (let i = 0, imax = columns.length; i < imax; ++i) {
-			if (columns[i].label != null) {
-				return true;
+	get headerOffset(): number {
+		let result = this._headerOffset;
+		if (result == null) {
+			result = this.newHeaderOffset();
+			this._headerOffset = result;
+		}
+		return result;
+	}
+
+	protected newHeaderOffset(): number {
+		let result = 0;
+		const categories = this.categories;
+		for (let i = 0, imax = categories.length; i < imax; ++i) {
+			result += categories[i].height;
+		}
+		return result;
+	}
+
+	get header(): DTableHeader<ROW> | null {
+		let result = this._header;
+		if (result === undefined) {
+			result = this.newHeader(this._options, this.columns, this.frozen, this.headerOffset);
+			this._header = result;
+		}
+		return result;
+	}
+
+	protected hasHeader(options?: OPTIONS): boolean {
+		if (options) {
+			const columns = options.columns;
+			for (let i = 0, imax = columns.length; i < imax; ++i) {
+				if (columns[i].label != null) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
 	protected newHeader(
-		options: OPTIONS,
+		options: OPTIONS | undefined,
 		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number,
 		offset: number
 	): DTableHeader<ROW> | null {
 		if (this.hasHeader(options)) {
 			return new DTableHeader<ROW>(
-				this.toHeaderOptions(options.header, columns, frozen, offset)
+				this.toHeaderOptions(options?.header, columns, frozen, offset)
 			);
 		}
 		return null;
@@ -784,14 +835,36 @@ export class DTable<
 		};
 	}
 
+	get bodyOffset(): number {
+		let result = this._bodyOffset;
+		if (result == null) {
+			result = this.newBodyOffset();
+			this._bodyOffset = result;
+		}
+		return result;
+	}
+
+	protected newBodyOffset(): number {
+		return this.headerOffset + (this.header?.height ?? 0);
+	}
+
+	get body(): DTableBody<ROW, DATA> {
+		let result = this._body;
+		if (result == null) {
+			result = this.newBody(this._options, this.columns, this.frozen, this.bodyOffset);
+			this._body = result;
+		}
+		return result;
+	}
+
 	protected newBody(
-		options: OPTIONS,
+		options: OPTIONS | undefined,
 		columns: Array<DTableColumn<ROW, unknown>>,
 		frozen: number,
 		offset: number
 	): DTableBody<ROW, DATA> {
 		return new DTableBody<ROW, DATA>(
-			this.toBodyOptions(options.body, columns, frozen, offset, options.data)
+			this.toBodyOptions(options?.body, columns, frozen, offset, options?.data)
 		);
 	}
 
@@ -847,6 +920,10 @@ export class DTable<
 		}
 	}
 
+	get data(): DATA {
+		return this.body.data;
+	}
+
 	protected getFocusedChildClippingRect(
 		focused: DBase,
 		contentX: number,
@@ -878,8 +955,8 @@ export class DTable<
 			}
 
 			// Y
-			if (cell.parent.parent === this._body) {
-				const dy = this._bodyOffset;
+			if (cell.parent.parent === this.body) {
+				const dy = this.bodyOffset;
 				result.y += dy;
 				result.height -= dy;
 			}
@@ -890,7 +967,7 @@ export class DTable<
 	}
 
 	protected toFrozenCellX(cell: DBase): number {
-		const frozen = this._frozen;
+		const frozen = this.frozen;
 		if (0 < frozen) {
 			const cells = cell.parent.children as DBase[];
 			const cellIndex = cells.indexOf(cell);
@@ -989,21 +1066,5 @@ export class DTable<
 
 	protected getType(): string {
 		return "DTable";
-	}
-
-	get categories(): DTableCategory[] {
-		return this._categories;
-	}
-
-	get header(): DTableHeader<ROW> | null {
-		return this._header;
-	}
-
-	get body(): DTableBody<ROW, DATA> {
-		return this._body;
-	}
-
-	get data(): DATA {
-		return this._body.data;
 	}
 }

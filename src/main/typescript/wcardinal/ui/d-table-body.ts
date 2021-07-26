@@ -170,6 +170,10 @@ export class DTableBody<
 		}
 
 		const content = this.parent;
+		if (content == null) {
+			return;
+		}
+
 		const rows = this.children as Array<DTableBodyRow<ROW>>;
 		const height = content.parent.height;
 		const rowHeight = this._rowHeight;

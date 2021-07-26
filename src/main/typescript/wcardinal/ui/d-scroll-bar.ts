@@ -33,6 +33,7 @@ export abstract class DScrollBar<
 	protected _fadeOutTimeoutId: number | null;
 	protected _fadeOutDelay: number;
 	protected _onFadeOutTimeoutBound: () => void;
+	protected _isSilent: boolean;
 
 	constructor(options?: OPTIONS) {
 		super(options);
@@ -43,6 +44,7 @@ export abstract class DScrollBar<
 		this._touchedAt = -1;
 		this._fadeOutTimeoutId = null;
 		this._fadeOutDelay = options?.fadeOut?.delay ?? this.theme.getFadeOutDelay();
+		this._isSilent = true;
 		this._onFadeOutTimeoutBound = (): void => {
 			this.onFadeOutTimeout();
 		};
@@ -59,13 +61,15 @@ export abstract class DScrollBar<
 		return this._thumb;
 	}
 
-	protected abstract newThumb(options?: DScrollBarThumbOptions): DScrollBarThumb;
-
-	protected getType(): string {
-		return "DScrollBar";
+	get start(): number {
+		return this._start;
 	}
 
-	setRegion(start: number, end: number, size: number): void {
+	get end(): number {
+		return this._end;
+	}
+
+	set(start: number, end: number, size: number, silently?: boolean): void {
 		if (size < 1) {
 			start = 0;
 			end = 1;
@@ -76,14 +80,14 @@ export abstract class DScrollBar<
 		if (this._start !== start || this._end !== end) {
 			this._start = start;
 			this._end = end;
-			this.onRegionChange();
+			this.onChange(silently);
 		}
 	}
 
-	protected onRegionChange(): void {
-		this.updateThumbPositionAndSize(this.width, this.height);
+	protected onChange(silently: boolean = this._isSilent): void {
+		this.updateThumb(this.width, this.height);
 
-		if (this.isRegionVisible()) {
+		if (!silently && this.isRegionVisible()) {
 			const fadeOutDelay = this._fadeOutDelay;
 			if (0 <= fadeOutDelay) {
 				this._touchedAt = Date.now();
@@ -110,12 +114,19 @@ export abstract class DScrollBar<
 		return 0 < this._start || this._end < 1;
 	}
 
-	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
-		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
-		this.updateThumbPositionAndSize(newWidth, newHeight);
+	render(renderer: PIXI.Renderer): void {
+		if (this._isSilent) {
+			this._isSilent = false;
+		}
+		super.render(renderer);
 	}
 
-	protected abstract updateThumbPositionAndSize(width: number, height: number): void;
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+		this.updateThumb(newWidth, newHeight);
+	}
+
+	protected abstract updateThumb(width: number, height: number): void;
 
 	protected onFadeOutTimeout(): void {
 		this._fadeOutTimeoutId = null;
@@ -166,11 +177,9 @@ export abstract class DScrollBar<
 		}
 	}
 
-	getRegionStart(): number {
-		return this._start;
-	}
+	protected abstract newThumb(options?: DScrollBarThumbOptions): DScrollBarThumb;
 
-	getRegionEnd(): number {
-		return this._end;
+	protected getType(): string {
+		return "DScrollBar";
 	}
 }

@@ -35,11 +35,11 @@ export class DMenuSided<
 		CONTENT_OPTIONS
 	>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
-	protected _context!: DMenuContext | null;
-	protected _selection!: DMenuSidedSelection<VALUE>;
+	protected _context: DMenuContext | null;
+	protected _selection: DMenuSidedSelection<VALUE>;
 
-	protected init(options?: OPTIONS): void {
-		super.init(options);
+	constructor(options?: OPTIONS) {
+		super(options);
 
 		const context = new DMenuContext(this);
 		this._context = context;
@@ -52,15 +52,12 @@ export class DMenuSided<
 		}
 
 		const selection = options?.selection;
-		if (selection instanceof DMenuSidedSelection) {
-			this._selection = selection;
-		} else {
-			this._selection = this.newSelection(selection);
-		}
+		this._selection =
+			selection instanceof DMenuSidedSelection ? selection : this.newSelection(selection);
 	}
 
 	protected newSelection(options?: DMenuSidedSelectionOptions): DMenuSidedSelection<VALUE> {
-		return new DMenuSidedSelection<VALUE>(this._content, options);
+		return new DMenuSidedSelection<VALUE>(this.content, options);
 	}
 
 	protected onChildrenDirty(): void {
@@ -75,7 +72,7 @@ export class DMenuSided<
 		items: Array<DMenuItemOptionsUnion<VALUE> | DisplayObject>,
 		sticky: boolean
 	): void {
-		DMenuSideds.newItems(this._content, items, sticky);
+		DMenuSideds.newItems(this.content, items, sticky);
 	}
 
 	protected newContent(options?: CONTENT_OPTIONS): DBase {

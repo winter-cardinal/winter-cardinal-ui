@@ -49,7 +49,7 @@ export class DScrollBarVertical<
 		return new DScrollBarThumbVertical(options);
 	}
 
-	protected updateThumbPositionAndSize(width: number, height: number): void {
+	protected updateThumb(width: number, height: number): void {
 		const thumb = this._thumb;
 		const thumbMinimumLength = Math.min(height * 0.5, thumb.getMinimumLength());
 		const space = height - thumbMinimumLength;

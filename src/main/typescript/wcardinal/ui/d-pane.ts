@@ -9,31 +9,17 @@ import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DContent, DContentOptions } from "./d-content";
 import { UtilGestureMode } from "./util/util-gesture-mode";
-import { DScrollBar, DScrollBarOptions } from "./d-scroll-bar";
-import { DScrollBarHorizontal } from "./d-scroll-bar-horizontal";
-import { DScrollBarVertical } from "./d-scroll-bar-vertical";
+import { DScrollBar } from "./d-scroll-bar";
 import { toEnum } from "./util/to-enum";
 import { UtilGesture } from "./util/util-gesture";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
+import { DPaneScrollBar, DPaneScrollBarOptions } from "./d-pane-scrollbar";
 
 /**
  * {@link DPane} gesture options.
  */
 export interface DPaneGestureOptions {
 	mode?: keyof typeof UtilGestureMode | UtilGestureMode;
-}
-
-/**
- * {@link DPane} scroll bar options.
- */
-export interface DPaneScrollBarOptions {
-	vertical?: DScrollBarOptions;
-	horizontal?: DScrollBarOptions;
-}
-
-export interface DPaneScrollBar {
-	vertical: DScrollBarVertical;
-	horizontal: DScrollBarHorizontal;
 }
 
 /**
@@ -79,53 +65,41 @@ export class DPane<
 	protected static WORK_POINT?: Point;
 	protected static WORK_RECTANGLE?: Rectangle;
 
-	protected _content!: DBase;
+	protected _content?: DBase;
 	protected _overflowMask?: DBaseOverflowMask | null;
 	protected _scrollbar?: DPaneScrollBar;
 	protected _gestureUtil?: UtilGesture<DPane>;
 
-	protected init(options?: OPTIONS): void {
-		super.init(options);
+	constructor(options?: OPTIONS) {
+		super(options);
 
-		// Content
+		// Mask
 		const theme = this.theme;
-		const content = this.toContent(options);
-		this._content = content;
 		if (options?.mask ?? theme.isOverflowMaskEnabled()) {
 			this.mask = this.getOverflowMask();
 		}
-		this.addChild(content);
+
+		// Content
+		this.addChild(this.content);
 
 		// Scroll bar
-		const scrollbar = this.newScrollBar(theme, options?.scrollbar);
-		this._scrollbar = scrollbar;
-		scrollbar.vertical.on("regionmove", (start: number): void => {
-			this.onRegionMoveY(content, start);
-		});
-		scrollbar.horizontal.on("regionmove", (start: number): void => {
-			this.onRegionMoveX(content, start);
-		});
+		const scrollbar = this.scrollbar;
 		this.addChild(scrollbar.vertical);
 		this.addChild(scrollbar.horizontal);
-		content.on("move", (): void => {
-			this.onContentChange();
-		});
-		content.on("resize", (): void => {
-			this.onContentChange();
-		});
-		this.updateScrollBar();
+		scrollbar.update();
 
 		// Gesture
-		this.initGesture(content, theme, options);
+		this.initGesture(theme, options);
 	}
 
-	protected initGesture(content: DBase, theme: THEME, options?: OPTIONS): void {
+	protected initGesture(theme: THEME, options?: OPTIONS): void {
 		// Edge does not fire the wheel event when scrolling using the 2-fingure scroll gesture on a touchpad.
 		// Instead, it fires touch events. This is why the gesture is enabled regardless of the `UtilPointerEvent.touchable`.
 		// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7134034/
 		const mode = toEnum(options?.gesture?.mode ?? theme.getGestureMode(), UtilGestureMode);
 		if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
 			const position = new Point();
+			const content = this.content;
 			this._gestureUtil = new UtilGesture<DPane>({
 				bind: this,
 				touch: mode === UtilGestureMode.TOUCH,
@@ -145,27 +119,65 @@ export class DPane<
 		}
 	}
 
-	protected onRegionMoveX(content: DBase, start: number): void {
+	get scrollbar(): DPaneScrollBar {
+		let result = this._scrollbar;
+		if (result == null) {
+			result = this.newScrollBar(this._options?.scrollbar);
+			this.initScrollBar(result);
+			this._scrollbar = result;
+		}
+		return result;
+	}
+
+	protected newScrollBar(options?: DPaneScrollBarOptions): DPaneScrollBar {
+		return new DPaneScrollBar(this, options, (isRegionVisible: boolean): void => {
+			this.onScrollBarUpdate(isRegionVisible);
+		});
+	}
+
+	protected onScrollBarUpdate(isRegionVisible: boolean): void {
+		const overflowMask = this._overflowMask;
+		if (overflowMask != null) {
+			const content = this.content;
+			if (isRegionVisible) {
+				if (content.mask !== overflowMask) {
+					content.mask = overflowMask;
+					DApplications.update(this);
+				}
+			} else {
+				if (content.mask) {
+					(content as any).mask = null;
+					DApplications.update(this);
+				}
+			}
+		}
+	}
+
+	protected initScrollBar(scrollbar: DPaneScrollBar): void {
+		scrollbar.vertical.on("regionmove", (start: number): void => {
+			this.onScrollBarMoveY(start);
+		});
+		scrollbar.horizontal.on("regionmove", (start: number): void => {
+			this.onScrollBarMoveX(start);
+		});
+	}
+
+	protected onScrollBarMoveX(start: number): void {
 		const gestureUtil = this._gestureUtil;
 		if (gestureUtil != null) {
 			gestureUtil.stop(this);
 		}
+		const content = this.content;
 		content.x = -content.width * start;
 	}
 
-	protected onRegionMoveY(content: DBase, start: number): void {
+	protected onScrollBarMoveY(start: number): void {
 		const gestureUtil = this._gestureUtil;
 		if (gestureUtil != null) {
 			gestureUtil.stop(this);
 		}
+		const content = this.content;
 		content.y = -content.height * start;
-	}
-
-	protected newScrollBar(theme: THEME, options?: DPaneScrollBarOptions): DPaneScrollBar {
-		return {
-			vertical: new DScrollBarVertical(options?.vertical),
-			horizontal: new DScrollBarHorizontal(options?.horizontal)
-		};
 	}
 
 	protected getType(): string {
@@ -173,7 +185,13 @@ export class DPane<
 	}
 
 	get content(): DBase {
-		return this._content;
+		let result = this._content;
+		if (result == null) {
+			result = this.toContent(this._options);
+			this.initContent(result);
+			this._content = result;
+		}
+		return result;
 	}
 
 	protected toContent(options?: OPTIONS): DBase {
@@ -192,6 +210,15 @@ export class DPane<
 		return new DContent(options);
 	}
 
+	protected initContent(content: DBase): void {
+		content.on("move", (): void => {
+			this.onContentChange();
+		});
+		content.on("resize", (): void => {
+			this.onContentChange();
+		});
+	}
+
 	protected getOverflowMask(): DBaseOverflowMask {
 		let result = this._overflowMask;
 		if (result == null) {
@@ -204,7 +231,7 @@ export class DPane<
 	}
 
 	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
-		const content = this._content;
+		const content = this.content;
 		const x = this.getWheelContentX(content, deltas.deltaX * deltas.lowest);
 		const y = this.getWheelContentY(content, deltas.deltaY * deltas.lowest);
 		if (content.x !== x || content.y !== y) {
@@ -247,92 +274,15 @@ export class DPane<
 	}
 
 	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+		const scrollbar = this.scrollbar;
+		scrollbar.lock();
 		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
-		this.updateScrollBar();
+		scrollbar.update();
+		scrollbar.unlock(true);
 	}
 
 	protected onContentChange(): void {
-		this.updateScrollBar();
-	}
-
-	protected updateScrollBar(): void {
-		const scrollbar = this._scrollbar;
-		if (scrollbar != null) {
-			const vertical = scrollbar.vertical;
-			const horizontal = scrollbar.horizontal;
-			this.updateScrollBarRegions(vertical, horizontal);
-			this.updateOverflowMask(vertical, horizontal);
-			this.updateScrollBarPositions(vertical, horizontal);
-		}
-	}
-
-	protected getScrollBarOffsetHorizontalStart(size: number): number {
-		return size * 0.5;
-	}
-
-	protected getScrollBarOffsetHorizontalEnd(size: number): number {
-		return size * 0.5;
-	}
-
-	protected getScrollBarOffsetVerticalStart(size: number): number {
-		return size * 0.5;
-	}
-
-	protected getScrollBarOffsetVerticalEnd(size: number): number {
-		return size * 0.5;
-	}
-
-	protected updateScrollBarPositions(
-		vertical: DScrollBarVertical,
-		horizontal: DScrollBarHorizontal
-	): void {
-		const width = this.width;
-		const height = this.height;
-
-		const verticalWidth = vertical.width;
-		const verticalOffsetStart = this.getScrollBarOffsetVerticalStart(verticalWidth);
-		const verticalOffsetEnd = this.getScrollBarOffsetVerticalEnd(verticalWidth);
-		vertical.position.set(width - verticalWidth, verticalOffsetStart);
-		vertical.height = height - verticalOffsetStart - verticalOffsetEnd;
-
-		const horizontalHeight = horizontal.height;
-		const horizontalOffsetStart = this.getScrollBarOffsetHorizontalStart(horizontalHeight);
-		const horizontalOffsetEnd = this.getScrollBarOffsetHorizontalEnd(horizontalHeight);
-		horizontal.position.set(horizontalOffsetStart, height - horizontalHeight);
-		horizontal.width = width - horizontalOffsetStart - horizontalOffsetEnd;
-	}
-
-	protected updateScrollBarRegions(
-		vertical: DScrollBarVertical,
-		horizontal: DScrollBarHorizontal
-	): void {
-		const content = this._content;
-		const x = -content.x;
-		const y = -content.y;
-		horizontal.setRegion(x, x + this.width, content.width);
-		vertical.setRegion(y, y + this.height, content.height);
-	}
-
-	protected updateOverflowMask(
-		vertical: DScrollBarVertical,
-		horizontal: DScrollBarHorizontal
-	): void {
-		const overflowMask = this._overflowMask;
-		if (overflowMask != null) {
-			if (horizontal.isRegionVisible() || vertical.isRegionVisible()) {
-				const content = this._content;
-				if (content.mask !== overflowMask) {
-					content.mask = overflowMask;
-					DApplications.update(this);
-				}
-			} else {
-				const content = this._content;
-				if (content.mask) {
-					(content as any).mask = null;
-					DApplications.update(this);
-				}
-			}
-		}
+		this.scrollbar.update();
 	}
 
 	protected getFocusedChildClippingRect(
@@ -357,7 +307,7 @@ export class DPane<
 		DPane.WORK_POINT = point;
 
 		// Content rectangle
-		const content = this._content;
+		const content = this.content;
 		const contentX = content.x;
 		const contentY = content.y;
 		const contentWidth = content.width;

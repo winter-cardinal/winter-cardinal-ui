@@ -777,7 +777,7 @@ export class DBase<
 		this._reflowable = new DBaseReflowableContainer();
 		this._clearType = toEnum(options?.clear ?? theme.getClearType(), DLayoutClearType);
 		this._padding = new DBasePadding(theme, options, (): void => {
-			this.layout();
+			this.toParentResized();
 			this.toChildrenDirty();
 			DApplications.update(this);
 		});
@@ -916,7 +916,7 @@ export class DBase<
 
 		// Children change detection
 		this.on("added", (): void => {
-			this.layout();
+			this.toParentResized();
 			if (this.isDirty() || this.hasDirty()) {
 				this.toParentHasDirty();
 			}
@@ -1155,7 +1155,7 @@ export class DBase<
 			const scalar = DScalarFunctions.position(x);
 			if (scalarSet.x !== scalar) {
 				scalarSet.x = scalar;
-				this.layout();
+				this.toParentResized();
 			}
 		}
 	}
@@ -1186,7 +1186,7 @@ export class DBase<
 			const scalar = DScalarFunctions.position(y);
 			if (scalarSet.y !== scalar) {
 				scalarSet.y = scalar;
-				this.layout();
+				this.toParentResized();
 			}
 		}
 	}
@@ -1235,7 +1235,7 @@ export class DBase<
 				const scalar = DScalarFunctions.size(width);
 				if (scalarSet.width !== scalar) {
 					scalarSet.width = scalar;
-					this.layout();
+					this.toParentResized();
 				}
 			}
 		}
@@ -1290,7 +1290,7 @@ export class DBase<
 				const scalar = DScalarFunctions.size(height);
 				if (scalarSet.height !== scalar) {
 					scalarSet.height = scalar;
-					this.layout();
+					this.toParentResized();
 				}
 			}
 		}
@@ -1676,7 +1676,7 @@ export class DBase<
 		}
 	}
 
-	layout(): void {
+	protected toParentResized(): void {
 		const parent = this.getParentOfSize();
 		if (parent) {
 			this.onParentResize(parent.width, parent.height, parent.padding);

@@ -38,41 +38,34 @@ export class DList<
 		CONTENT_OPTIONS
 	>
 > extends DPane<THEME, CONTENT_OPTIONS, OPTIONS> {
-	protected _data: DATA;
-	protected _updater: DListItemUpdater<VALUE>;
+	protected _data?: DATA;
+	protected _updater?: DListItemUpdater<VALUE>;
 
 	constructor(options?: OPTIONS) {
 		super(options);
-		const data = this.toData(options);
-		this._data = data;
-
-		const content = this.content;
-		content.on("move", (): void => {
-			this.update();
-		});
-		content.on("resize", (): void => {
-			this.update();
-		});
-
-		const updater = this.newUpdater(data, content, options);
-		this._updater = updater;
-		updater.update();
+		this.update();
 	}
 
-	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
-		const updater = this._updater;
-		if (updater) {
-			updater.lock();
-			super.onResize(newWidth, newHeight, oldWidth, oldHeight);
-			updater.update();
-			updater.unlock(true);
-		} else {
-			super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+	protected get updater(): DListItemUpdater<VALUE> {
+		let result = this._updater;
+		if (result == null) {
+			result = this.newUpdater(this.data, this.content, this._options);
+			this._updater = result;
 		}
+		return result;
 	}
 
 	protected newUpdater(data: DATA, content: DBase, options?: OPTIONS): DListItemUpdater<VALUE> {
 		return new DListItemUpdater<VALUE>(data, content, content, options?.updater);
+	}
+
+	get data(): DATA {
+		let result = this._data;
+		if (result == null) {
+			result = this.toData(this._options);
+			this._data = result;
+		}
+		return result;
 	}
 
 	protected toData(options?: OPTIONS): DATA {
@@ -111,20 +104,29 @@ export class DList<
 		}
 	}
 
-	get selection(): DListDataSelection<VALUE> {
-		return this._data.selection;
+	protected onContentChange(): void {
+		super.onContentChange();
+		this.update();
 	}
 
-	get data(): DListData<VALUE> {
-		return this._data;
+	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
+		const updater = this.updater;
+		updater.lock();
+		super.onResize(newWidth, newHeight, oldWidth, oldHeight);
+		updater.update();
+		updater.unlock(true);
+	}
+
+	get selection(): DListDataSelection<VALUE> {
+		return this.data.selection;
 	}
 
 	lock(): void {
-		this._updater.lock();
+		this.updater.lock();
 	}
 
 	unlock(callIfNeeded: boolean): void {
-		this._updater.unlock(callIfNeeded);
+		this.updater.unlock(callIfNeeded);
 	}
 
 	/**
@@ -134,11 +136,11 @@ export class DList<
 	 * @param forcibly true to update forcibly
 	 */
 	update(forcibly?: boolean): void {
-		this._updater.update(forcibly);
+		this.updater.update(forcibly);
 	}
 
 	onKeyDown(e: KeyboardEvent): boolean {
-		this._updater.moveFocus(e, this, true, true);
+		this.updater.moveFocus(e, this, true, true);
 		return super.onKeyDown(e);
 	}
 
