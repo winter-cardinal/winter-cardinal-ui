@@ -29,7 +29,7 @@ export class DPaneScrollBar<PARENT extends DPaneScrollBarParent = DPaneScrollBar
 
 	protected _isLocked: number;
 	protected _isCalled: boolean;
-	protected _isCalledSilently: boolean;
+	protected _isCalledSilently?: boolean;
 
 	constructor(
 		parent: PARENT,
@@ -40,7 +40,6 @@ export class DPaneScrollBar<PARENT extends DPaneScrollBarParent = DPaneScrollBar
 		this._onUpdate = onUpdate;
 		this._isLocked = 0;
 		this._isCalled = false;
-		this._isCalledSilently = true;
 		this.vertical = new DScrollBarVertical(options?.vertical);
 		this.horizontal = new DScrollBarHorizontal(options?.horizontal);
 	}
@@ -49,7 +48,7 @@ export class DPaneScrollBar<PARENT extends DPaneScrollBarParent = DPaneScrollBar
 		this._isLocked += 1;
 		if (this._isLocked === 1) {
 			this._isCalled = false;
-			this._isCalledSilently = true;
+			this._isCalledSilently = undefined;
 		}
 	}
 
@@ -60,14 +59,16 @@ export class DPaneScrollBar<PARENT extends DPaneScrollBarParent = DPaneScrollBar
 				this.update(this._isCalledSilently);
 			}
 			this._isCalled = false;
-			this._isCalledSilently = true;
+			this._isCalledSilently = undefined;
 		}
 	}
 
 	update(silently?: boolean): void {
 		if (0 < this._isLocked) {
 			this._isCalled = true;
-			this._isCalledSilently &&= silently === true;
+			if (silently != null) {
+				this._isCalledSilently ||= silently;
+			}
 			return;
 		}
 
