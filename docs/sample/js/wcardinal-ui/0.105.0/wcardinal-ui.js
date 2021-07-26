@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.104.0
+ Winter Cardinal UI v0.105.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -11510,7 +11510,7 @@
             _this._reflowable = new DBaseReflowableContainer();
             _this._clearType = toEnum((_b = options === null || options === void 0 ? void 0 : options.clear) !== null && _b !== void 0 ? _b : theme.getClearType(), DLayoutClearType);
             _this._padding = new DBasePadding(theme, options, function () {
-                _this.layout();
+                _this.toParentResized();
                 _this.toChildrenDirty();
                 DApplications.update(_this);
             });
@@ -11636,7 +11636,7 @@
             });
             // Children change detection
             _this.on("added", function () {
-                _this.layout();
+                _this.toParentResized();
                 if (_this.isDirty() || _this.hasDirty()) {
                     _this.toParentHasDirty();
                 }
@@ -11857,7 +11857,7 @@
                 var scalar = DScalarFunctions.position(x);
                 if (scalarSet.x !== scalar) {
                     scalarSet.x = scalar;
-                    this.layout();
+                    this.toParentResized();
                 }
             }
         };
@@ -11890,7 +11890,7 @@
                 var scalar = DScalarFunctions.position(y);
                 if (scalarSet.y !== scalar) {
                     scalarSet.y = scalar;
-                    this.layout();
+                    this.toParentResized();
                 }
             }
         };
@@ -11939,7 +11939,7 @@
                     var scalar = DScalarFunctions.size(width);
                     if (scalarSet.width !== scalar) {
                         scalarSet.width = scalar;
-                        this.layout();
+                        this.toParentResized();
                     }
                 }
             }
@@ -11989,7 +11989,7 @@
                     var scalar = DScalarFunctions.size(height);
                     if (scalarSet.height !== scalar) {
                         scalarSet.height = scalar;
-                        this.layout();
+                        this.toParentResized();
                     }
                 }
             }
@@ -12373,7 +12373,7 @@
             enumerable: false,
             configurable: true
         });
-        DBase.prototype.layout = function () {
+        DBase.prototype.toParentResized = function () {
             var parent = this.getParentOfSize();
             if (parent) {
                 this.onParentResize(parent.width, parent.height, parent.padding);
@@ -45396,6 +45396,7 @@
             _this._touchedAt = -1;
             _this._fadeOutTimeoutId = null;
             _this._fadeOutDelay = (_b = (_a = options === null || options === void 0 ? void 0 : options.fadeOut) === null || _a === void 0 ? void 0 : _a.delay) !== null && _b !== void 0 ? _b : _this.theme.getFadeOutDelay();
+            _this._isSilent = true;
             _this._onFadeOutTimeoutBound = function () {
                 _this.onFadeOutTimeout();
             };
@@ -45415,10 +45416,21 @@
             enumerable: false,
             configurable: true
         });
-        DScrollBar.prototype.getType = function () {
-            return "DScrollBar";
-        };
-        DScrollBar.prototype.setRegion = function (start, end, size) {
+        Object.defineProperty(DScrollBar.prototype, "start", {
+            get: function () {
+                return this._start;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DScrollBar.prototype, "end", {
+            get: function () {
+                return this._end;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DScrollBar.prototype.set = function (start, end, size, silently) {
             if (size < 1) {
                 start = 0;
                 end = 1;
@@ -45430,12 +45442,13 @@
             if (this._start !== start || this._end !== end) {
                 this._start = start;
                 this._end = end;
-                this.onRegionChange();
+                this.onChange(silently);
             }
         };
-        DScrollBar.prototype.onRegionChange = function () {
-            this.updateThumbPositionAndSize(this.width, this.height);
-            if (this.isRegionVisible()) {
+        DScrollBar.prototype.onChange = function (silently) {
+            if (silently === void 0) { silently = this._isSilent; }
+            this.updateThumb(this.width, this.height);
+            if (!silently && this.isRegionVisible()) {
                 var fadeOutDelay = this._fadeOutDelay;
                 if (0 <= fadeOutDelay) {
                     this._touchedAt = Date.now();
@@ -45458,9 +45471,15 @@
         DScrollBar.prototype.isRegionVisible = function () {
             return 0 < this._start || this._end < 1;
         };
+        DScrollBar.prototype.render = function (renderer) {
+            if (this._isSilent) {
+                this._isSilent = false;
+            }
+            _super.prototype.render.call(this, renderer);
+        };
         DScrollBar.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
-            this.updateThumbPositionAndSize(newWidth, newHeight);
+            this.updateThumb(newWidth, newHeight);
         };
         DScrollBar.prototype.onFadeOutTimeout = function () {
             this._fadeOutTimeoutId = null;
@@ -45502,11 +45521,8 @@
                 }
             }
         };
-        DScrollBar.prototype.getRegionStart = function () {
-            return this._start;
-        };
-        DScrollBar.prototype.getRegionEnd = function () {
-            return this._end;
+        DScrollBar.prototype.getType = function () {
+            return "DScrollBar";
         };
         return DScrollBar;
     }(DBase));
@@ -45638,7 +45654,7 @@
         DScrollBarHorizontal.prototype.newThumb = function (options) {
             return new DScrollBarThumbHorizontal(options);
         };
-        DScrollBarHorizontal.prototype.updateThumbPositionAndSize = function (width, height) {
+        DScrollBarHorizontal.prototype.updateThumb = function (width, height) {
             var thumb = this._thumb;
             var thumbMinimumLength = Math.min(width * 0.5, thumb.getMinimumLength());
             var space = width - thumbMinimumLength;
@@ -45740,7 +45756,7 @@
         DScrollBarVertical.prototype.newThumb = function (options) {
             return new DScrollBarThumbVertical(options);
         };
-        DScrollBarVertical.prototype.updateThumbPositionAndSize = function (width, height) {
+        DScrollBarVertical.prototype.updateThumb = function (width, height) {
             var thumb = this._thumb;
             var thumbMinimumLength = Math.min(height * 0.5, thumb.getMinimumLength());
             var space = height - thumbMinimumLength;
@@ -45752,6 +45768,76 @@
         return DScrollBarVertical;
     }(DScrollBar));
 
+    var DPaneScrollBar = /** @class */ (function () {
+        function DPaneScrollBar(parent, options, onUpdate) {
+            this._parent = parent;
+            this._onUpdate = onUpdate;
+            this._isLocked = 0;
+            this._isCalled = false;
+            this._isCalledSilently = true;
+            this.vertical = new DScrollBarVertical(options === null || options === void 0 ? void 0 : options.vertical);
+            this.horizontal = new DScrollBarHorizontal(options === null || options === void 0 ? void 0 : options.horizontal);
+        }
+        DPaneScrollBar.prototype.lock = function () {
+            this._isLocked += 1;
+            if (this._isLocked === 1) {
+                this._isCalled = false;
+                this._isCalledSilently = true;
+            }
+        };
+        DPaneScrollBar.prototype.unlock = function (callIfNeeded) {
+            this._isLocked -= 1;
+            if (this._isLocked === 0) {
+                if (callIfNeeded && this._isCalled) {
+                    this.update(this._isCalledSilently);
+                }
+                this._isCalled = false;
+                this._isCalledSilently = true;
+            }
+        };
+        DPaneScrollBar.prototype.update = function (silently) {
+            if (0 < this._isLocked) {
+                this._isCalled = true;
+                this._isCalledSilently && (this._isCalledSilently = silently === true);
+                return;
+            }
+            var parent = this._parent;
+            var width = parent.width;
+            var height = parent.height;
+            var content = parent.content;
+            var x = -content.x;
+            var y = -content.y;
+            var vertical = this.vertical;
+            var verticalWidth = vertical.width;
+            var verticalOffsetStart = this.getOffsetVerticalStart(verticalWidth);
+            var verticalOffsetEnd = this.getOffsetVerticalEnd(verticalWidth);
+            vertical.set(y, y + height, content.height, silently);
+            vertical.position.set(width - verticalWidth, verticalOffsetStart);
+            vertical.height = height - verticalOffsetStart - verticalOffsetEnd;
+            var horizontal = this.horizontal;
+            var horizontalHeight = horizontal.height;
+            var horizontalOffsetStart = this.getOffsetHorizontalStart(horizontalHeight);
+            var horizontalOffsetEnd = this.getOffsetHorizontalEnd(horizontalHeight);
+            horizontal.set(x, x + width, content.width, silently);
+            horizontal.position.set(horizontalOffsetStart, height - horizontalHeight);
+            horizontal.width = width - horizontalOffsetStart - horizontalOffsetEnd;
+            this._onUpdate(vertical.isRegionVisible() || horizontal.isRegionVisible());
+        };
+        DPaneScrollBar.prototype.getOffsetHorizontalStart = function (size) {
+            return size * 0.5;
+        };
+        DPaneScrollBar.prototype.getOffsetHorizontalEnd = function (size) {
+            return size * 0.5;
+        };
+        DPaneScrollBar.prototype.getOffsetVerticalStart = function (size) {
+            return size * 0.5;
+        };
+        DPaneScrollBar.prototype.getOffsetVerticalEnd = function (size) {
+            return size * 0.5;
+        };
+        return DPaneScrollBar;
+    }());
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -45759,43 +45845,26 @@
     // Class
     var DPane = /** @class */ (function (_super) {
         __extends(DPane, _super);
-        function DPane() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DPane.prototype.init = function (options) {
-            var _this = this;
+        function DPane(options) {
             var _a;
-            _super.prototype.init.call(this, options);
-            // Content
-            var theme = this.theme;
-            var content = this.toContent(options);
-            this._content = content;
+            var _this = _super.call(this, options) || this;
+            // Mask
+            var theme = _this.theme;
             if ((_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : theme.isOverflowMaskEnabled()) {
-                this.mask = this.getOverflowMask();
+                _this.mask = _this.getOverflowMask();
             }
-            this.addChild(content);
+            // Content
+            _this.addChild(_this.content);
             // Scroll bar
-            var scrollbar = this.newScrollBar(theme, options === null || options === void 0 ? void 0 : options.scrollbar);
-            this._scrollbar = scrollbar;
-            scrollbar.vertical.on("regionmove", function (start) {
-                _this.onRegionMoveY(content, start);
-            });
-            scrollbar.horizontal.on("regionmove", function (start) {
-                _this.onRegionMoveX(content, start);
-            });
-            this.addChild(scrollbar.vertical);
-            this.addChild(scrollbar.horizontal);
-            content.on("move", function () {
-                _this.onContentChange();
-            });
-            content.on("resize", function () {
-                _this.onContentChange();
-            });
-            this.updateScrollBar();
+            var scrollbar = _this.scrollbar;
+            _this.addChild(scrollbar.vertical);
+            _this.addChild(scrollbar.horizontal);
+            scrollbar.update();
             // Gesture
-            this.initGesture(content, theme, options);
-        };
-        DPane.prototype.initGesture = function (content, theme, options) {
+            _this.initGesture(theme, options);
+            return _this;
+        }
+        DPane.prototype.initGesture = function (theme, options) {
             var _this = this;
             var _a, _b;
             // Edge does not fire the wheel event when scrolling using the 2-fingure scroll gesture on a touchpad.
@@ -45804,47 +45873,97 @@
             var mode = toEnum((_b = (_a = options === null || options === void 0 ? void 0 : options.gesture) === null || _a === void 0 ? void 0 : _a.mode) !== null && _b !== void 0 ? _b : theme.getGestureMode(), UtilGestureMode);
             if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
                 var position_1 = new pixi_js.Point();
+                var content_1 = this.content;
                 this._gestureUtil = new UtilGesture({
                     bind: this,
                     touch: mode === UtilGestureMode.TOUCH,
                     on: {
                         start: function () {
-                            position_1.copyFrom(content.position);
+                            position_1.copyFrom(content_1.position);
                         },
                         move: function (target, dx, dy) {
                             position_1.set(position_1.x + dx, position_1.y + dy);
-                            content.position.set(_this.toContentX(content, position_1.x), _this.toContentY(content, position_1.y));
+                            content_1.position.set(_this.toContentX(content_1, position_1.x), _this.toContentY(content_1, position_1.y));
                         }
                     }
                 });
             }
         };
-        DPane.prototype.onRegionMoveX = function (content, start) {
+        Object.defineProperty(DPane.prototype, "scrollbar", {
+            get: function () {
+                var _a;
+                var result = this._scrollbar;
+                if (result == null) {
+                    result = this.newScrollBar((_a = this._options) === null || _a === void 0 ? void 0 : _a.scrollbar);
+                    this.initScrollBar(result);
+                    this._scrollbar = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPane.prototype.newScrollBar = function (options) {
+            var _this = this;
+            return new DPaneScrollBar(this, options, function (isRegionVisible) {
+                _this.onScrollBarUpdate(isRegionVisible);
+            });
+        };
+        DPane.prototype.onScrollBarUpdate = function (isRegionVisible) {
+            var overflowMask = this._overflowMask;
+            if (overflowMask != null) {
+                var content = this.content;
+                if (isRegionVisible) {
+                    if (content.mask !== overflowMask) {
+                        content.mask = overflowMask;
+                        DApplications.update(this);
+                    }
+                }
+                else {
+                    if (content.mask) {
+                        content.mask = null;
+                        DApplications.update(this);
+                    }
+                }
+            }
+        };
+        DPane.prototype.initScrollBar = function (scrollbar) {
+            var _this = this;
+            scrollbar.vertical.on("regionmove", function (start) {
+                _this.onScrollBarMoveY(start);
+            });
+            scrollbar.horizontal.on("regionmove", function (start) {
+                _this.onScrollBarMoveX(start);
+            });
+        };
+        DPane.prototype.onScrollBarMoveX = function (start) {
             var gestureUtil = this._gestureUtil;
             if (gestureUtil != null) {
                 gestureUtil.stop(this);
             }
+            var content = this.content;
             content.x = -content.width * start;
         };
-        DPane.prototype.onRegionMoveY = function (content, start) {
+        DPane.prototype.onScrollBarMoveY = function (start) {
             var gestureUtil = this._gestureUtil;
             if (gestureUtil != null) {
                 gestureUtil.stop(this);
             }
+            var content = this.content;
             content.y = -content.height * start;
-        };
-        DPane.prototype.newScrollBar = function (theme, options) {
-            return {
-                vertical: new DScrollBarVertical(options === null || options === void 0 ? void 0 : options.vertical),
-                horizontal: new DScrollBarHorizontal(options === null || options === void 0 ? void 0 : options.horizontal)
-            };
         };
         DPane.prototype.getType = function () {
             return "DPane";
         };
         Object.defineProperty(DPane.prototype, "content", {
             get: function () {
-                return this._content;
+                var result = this._content;
+                if (result == null) {
+                    result = this.toContent(this._options);
+                    this.initContent(result);
+                    this._content = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
@@ -45864,6 +45983,15 @@
         DPane.prototype.newContent = function (options) {
             return new DContent(options);
         };
+        DPane.prototype.initContent = function (content) {
+            var _this = this;
+            content.on("move", function () {
+                _this.onContentChange();
+            });
+            content.on("resize", function () {
+                _this.onContentChange();
+            });
+        };
         DPane.prototype.getOverflowMask = function () {
             var result = this._overflowMask;
             if (result == null) {
@@ -45875,7 +46003,7 @@
             return result;
         };
         DPane.prototype.onWheel = function (e, deltas, global) {
-            var content = this._content;
+            var content = this.content;
             var x = this.getWheelContentX(content, deltas.deltaX * deltas.lowest);
             var y = this.getWheelContentY(content, deltas.deltaY * deltas.lowest);
             if (content.x !== x || content.y !== y) {
@@ -45912,73 +46040,14 @@
             return _super.prototype.isRefitable.call(this, target) && !(target instanceof DScrollBar);
         };
         DPane.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
+            var scrollbar = this.scrollbar;
+            scrollbar.lock();
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
-            this.updateScrollBar();
+            scrollbar.update();
+            scrollbar.unlock(true);
         };
         DPane.prototype.onContentChange = function () {
-            this.updateScrollBar();
-        };
-        DPane.prototype.updateScrollBar = function () {
-            var scrollbar = this._scrollbar;
-            if (scrollbar != null) {
-                var vertical = scrollbar.vertical;
-                var horizontal = scrollbar.horizontal;
-                this.updateScrollBarRegions(vertical, horizontal);
-                this.updateOverflowMask(vertical, horizontal);
-                this.updateScrollBarPositions(vertical, horizontal);
-            }
-        };
-        DPane.prototype.getScrollBarOffsetHorizontalStart = function (size) {
-            return size * 0.5;
-        };
-        DPane.prototype.getScrollBarOffsetHorizontalEnd = function (size) {
-            return size * 0.5;
-        };
-        DPane.prototype.getScrollBarOffsetVerticalStart = function (size) {
-            return size * 0.5;
-        };
-        DPane.prototype.getScrollBarOffsetVerticalEnd = function (size) {
-            return size * 0.5;
-        };
-        DPane.prototype.updateScrollBarPositions = function (vertical, horizontal) {
-            var width = this.width;
-            var height = this.height;
-            var verticalWidth = vertical.width;
-            var verticalOffsetStart = this.getScrollBarOffsetVerticalStart(verticalWidth);
-            var verticalOffsetEnd = this.getScrollBarOffsetVerticalEnd(verticalWidth);
-            vertical.position.set(width - verticalWidth, verticalOffsetStart);
-            vertical.height = height - verticalOffsetStart - verticalOffsetEnd;
-            var horizontalHeight = horizontal.height;
-            var horizontalOffsetStart = this.getScrollBarOffsetHorizontalStart(horizontalHeight);
-            var horizontalOffsetEnd = this.getScrollBarOffsetHorizontalEnd(horizontalHeight);
-            horizontal.position.set(horizontalOffsetStart, height - horizontalHeight);
-            horizontal.width = width - horizontalOffsetStart - horizontalOffsetEnd;
-        };
-        DPane.prototype.updateScrollBarRegions = function (vertical, horizontal) {
-            var content = this._content;
-            var x = -content.x;
-            var y = -content.y;
-            horizontal.setRegion(x, x + this.width, content.width);
-            vertical.setRegion(y, y + this.height, content.height);
-        };
-        DPane.prototype.updateOverflowMask = function (vertical, horizontal) {
-            var overflowMask = this._overflowMask;
-            if (overflowMask != null) {
-                if (horizontal.isRegionVisible() || vertical.isRegionVisible()) {
-                    var content = this._content;
-                    if (content.mask !== overflowMask) {
-                        content.mask = overflowMask;
-                        DApplications.update(this);
-                    }
-                }
-                else {
-                    var content = this._content;
-                    if (content.mask) {
-                        content.mask = null;
-                        DApplications.update(this);
-                    }
-                }
-            }
+            this.scrollbar.update();
         };
         DPane.prototype.getFocusedChildClippingRect = function (focused, contentX, contentY, contentWidth, contentHeight, width, height, result) {
             result.x = 0;
@@ -45991,7 +46060,7 @@
             var point = DPane.WORK_POINT || new pixi_js.Point();
             DPane.WORK_POINT = point;
             // Content rectangle
-            var content = this._content;
+            var content = this.content;
             var contentX = content.x;
             var contentY = content.y;
             var contentWidth = content.width;
@@ -46076,35 +46145,36 @@
         __extends(DList, _super);
         function DList(options) {
             var _this = _super.call(this, options) || this;
-            var data = _this.toData(options);
-            _this._data = data;
-            var content = _this.content;
-            content.on("move", function () {
-                _this.update();
-            });
-            content.on("resize", function () {
-                _this.update();
-            });
-            var updater = _this.newUpdater(data, content, options);
-            _this._updater = updater;
-            updater.update();
+            _this.update();
             return _this;
         }
-        DList.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
-            var updater = this._updater;
-            if (updater) {
-                updater.lock();
-                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
-                updater.update();
-                updater.unlock(true);
-            }
-            else {
-                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
-            }
-        };
+        Object.defineProperty(DList.prototype, "updater", {
+            get: function () {
+                var result = this._updater;
+                if (result == null) {
+                    result = this.newUpdater(this.data, this.content, this._options);
+                    this._updater = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DList.prototype.newUpdater = function (data, content, options) {
             return new DListItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
         };
+        Object.defineProperty(DList.prototype, "data", {
+            get: function () {
+                var result = this._data;
+                if (result == null) {
+                    result = this.toData(this._options);
+                    this._data = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DList.prototype.toData = function (options) {
             var data = options && (options.data || options.items);
             var selection = options === null || options === void 0 ? void 0 : options.selection;
@@ -46146,25 +46216,29 @@
                 }
             }
         };
+        DList.prototype.onContentChange = function () {
+            _super.prototype.onContentChange.call(this);
+            this.update();
+        };
+        DList.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
+            var updater = this.updater;
+            updater.lock();
+            _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
+            updater.update();
+            updater.unlock(true);
+        };
         Object.defineProperty(DList.prototype, "selection", {
             get: function () {
-                return this._data.selection;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DList.prototype, "data", {
-            get: function () {
-                return this._data;
+                return this.data.selection;
             },
             enumerable: false,
             configurable: true
         });
         DList.prototype.lock = function () {
-            this._updater.lock();
+            this.updater.lock();
         };
         DList.prototype.unlock = function (callIfNeeded) {
-            this._updater.unlock(callIfNeeded);
+            this.updater.unlock(callIfNeeded);
         };
         /**
          * Updates items. If the `forcibly` is true, some dirty checkings for
@@ -46173,10 +46247,10 @@
          * @param forcibly true to update forcibly
          */
         DList.prototype.update = function (forcibly) {
-            this._updater.update(forcibly);
+            this.updater.update(forcibly);
         };
         DList.prototype.onKeyDown = function (e) {
-            this._updater.moveFocus(e, this, true, true);
+            this.updater.moveFocus(e, this, true, true);
             return _super.prototype.onKeyDown.call(this, e);
         };
         DList.prototype.getType = function () {
@@ -55350,30 +55424,24 @@
      */
     var DMenuSided = /** @class */ (function (_super) {
         __extends(DMenuSided, _super);
-        function DMenuSided() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DMenuSided.prototype.init = function (options) {
+        function DMenuSided(options) {
             var _a;
-            _super.prototype.init.call(this, options);
-            var context = new DMenuContext(this);
-            this._context = context;
-            context.add(this);
+            var _this = _super.call(this, options) || this;
+            var context = new DMenuContext(_this);
+            _this._context = context;
+            context.add(_this);
             var items = options === null || options === void 0 ? void 0 : options.items;
             if (items != null) {
                 var sticky = (_a = options === null || options === void 0 ? void 0 : options.sticky) !== null && _a !== void 0 ? _a : false;
-                this.newItems(items, sticky);
+                _this.newItems(items, sticky);
             }
             var selection = options === null || options === void 0 ? void 0 : options.selection;
-            if (selection instanceof DMenuSidedSelection) {
-                this._selection = selection;
-            }
-            else {
-                this._selection = this.newSelection(selection);
-            }
-        };
+            _this._selection =
+                selection instanceof DMenuSidedSelection ? selection : _this.newSelection(selection);
+            return _this;
+        }
         DMenuSided.prototype.newSelection = function (options) {
-            return new DMenuSidedSelection(this._content, options);
+            return new DMenuSidedSelection(this.content, options);
         };
         DMenuSided.prototype.onChildrenDirty = function () {
             var selection = this._selection;
@@ -55383,7 +55451,7 @@
             _super.prototype.onChildrenDirty.call(this);
         };
         DMenuSided.prototype.newItems = function (items, sticky) {
-            DMenuSideds.newItems(this._content, items, sticky);
+            DMenuSideds.newItems(this.content, items, sticky);
         };
         DMenuSided.prototype.newContent = function (options) {
             return new DMenuSidedContent(options);
@@ -60042,6 +60110,9 @@
                 return;
             }
             var content = this.parent;
+            if (content == null) {
+                return;
+            }
             var rows = this.children;
             var height = content.parent.height;
             var rowHeight = this._rowHeight;
@@ -61660,6 +61731,17 @@
         return DTableHeader;
     }(DTableRow));
 
+    var DTableScrollBar = /** @class */ (function (_super) {
+        __extends(DTableScrollBar, _super);
+        function DTableScrollBar() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DTableScrollBar.prototype.getOffsetVerticalStart = function (size) {
+            return size * 0.5 + this._parent.body.position.y;
+        };
+        return DTableScrollBar;
+    }(DPaneScrollBar));
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -61985,62 +62067,82 @@
     };
     var DTable = /** @class */ (function (_super) {
         __extends(DTable, _super);
-        function DTable() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DTable.prototype.init = function (options) {
-            // Column
-            var columns = toColumns(options.columns);
-            // Frozen
-            var frozen = toFrozen(columns);
-            this._frozen = frozen;
-            // Categories
-            var categories = this.newCategories(options, columns, frozen);
-            this._categories = categories;
-            // Header
-            var headerOffset = 0;
-            for (var i = 0, imax = categories.length; i < imax; ++i) {
-                headerOffset += categories[i].height;
-            }
-            var header = this.newHeader(options, columns, frozen, headerOffset);
-            this._header = header;
-            // Body
-            var bodyOffset = headerOffset + ((header === null || header === void 0 ? void 0 : header.height) || 0);
-            this._bodyOffset = bodyOffset;
-            var body = this.newBody(options, columns, frozen, bodyOffset);
-            this._body = body;
-            // Super
-            _super.prototype.init.call(this, options);
-            // Content
-            var content = this._content;
-            content.setWidth(this.toContentWidth(options));
+        function DTable(options) {
+            var _this = _super.call(this, options) || this;
+            var content = _this.content;
+            content.setWidth(_this.toContentWidth(options));
+            var body = _this.body;
             content.addChild(body);
-            if (header) {
-                content.addChild(header);
-            }
-            for (var i = categories.length - 1; 0 <= i; --i) {
-                content.addChild(categories[i]);
-            }
-            content.on("move", function () {
-                body.update();
-            });
-            content.on("resize", function () {
-                body.update();
-            });
             if (body.data.selection.type !== DTableDataSelectionType.NONE) {
-                UtilPointerEvent.onClick(this, function (e) {
+                UtilPointerEvent.onClick(_this, function (e) {
                     body.onRowClick(e);
                 });
             }
-            content.state.isFocusReverse = true;
+            var header = _this.header;
+            if (header) {
+                content.addChild(header);
+            }
+            var categories = _this.categories;
+            for (var i = categories.length - 1; 0 <= i; --i) {
+                content.addChild(categories[i]);
+            }
             body.update();
+            return _this;
+        }
+        Object.defineProperty(DTable.prototype, "columns", {
+            get: function () {
+                var result = this._columns;
+                if (result == null) {
+                    var options = this._options;
+                    result = options ? toColumns(options.columns) : [];
+                    this._columns = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTable.prototype, "frozen", {
+            get: function () {
+                var result = this._frozen;
+                if (result == null) {
+                    result = toFrozen(this.columns);
+                    this._frozen = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DTable.prototype, "categories", {
+            get: function () {
+                var result = this._categories;
+                if (result == null) {
+                    result = this.newCategories(this._options, this.columns, this.frozen);
+                    this._categories = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTable.prototype.initContent = function (content) {
+            _super.prototype.initContent.call(this, content);
+            content.state.isFocusReverse = true;
+        };
+        DTable.prototype.onContentChange = function () {
+            _super.prototype.onContentChange.call(this);
+            this.body.update();
         };
         DTable.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
-            var body = this._body;
+            var scrollbar = this.scrollbar;
+            scrollbar.lock();
+            var body = this.body;
             body.lock();
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
             body.update();
             body.unlock(true);
+            scrollbar.unlock(true);
         };
         DTable.prototype.getCategoryCount = function (columns) {
             var result = 0;
@@ -62221,22 +62323,25 @@
             var result = [];
             var offset = 0;
             for (var i = count - 1; 0 <= i; --i) {
-                var category = new DTableCategory(this.toCategoryOptions(i, options.category, columns, frozen, offset));
+                var category = new DTableCategory(this.toCategoryOptions(i, options === null || options === void 0 ? void 0 : options.category, columns, frozen, offset));
                 result.push(category);
                 offset += category.height;
             }
             return result;
         };
         DTable.prototype.onDblClick = function (e, interactionManager) {
-            var result = this._body.onDblClick(e, interactionManager);
+            var result = this.body.onDblClick(e, interactionManager);
             return _super.prototype.onDblClick.call(this, e, interactionManager) || result;
         };
-        DTable.prototype.getScrollBarOffsetVerticalStart = function (size) {
-            return size * 0.5 + this._body.position.y;
+        DTable.prototype.newScrollBar = function (options) {
+            var _this = this;
+            return new DTableScrollBar(this, options, function (isRegionVisible) {
+                _this.onScrollBarUpdate(isRegionVisible);
+            });
         };
         DTable.prototype.toContentWidth = function (options) {
             var columnWidthTotal = 0;
-            var columns = options.columns;
+            var columns = options === null || options === void 0 ? void 0 : options.columns;
             if (columns) {
                 for (var i = 0, imax = columns.length; i < imax; ++i) {
                     var column = columns[i];
@@ -62253,18 +62358,52 @@
             }
             return "100%";
         };
+        Object.defineProperty(DTable.prototype, "headerOffset", {
+            get: function () {
+                var result = this._headerOffset;
+                if (result == null) {
+                    result = this.newHeaderOffset();
+                    this._headerOffset = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTable.prototype.newHeaderOffset = function () {
+            var result = 0;
+            var categories = this.categories;
+            for (var i = 0, imax = categories.length; i < imax; ++i) {
+                result += categories[i].height;
+            }
+            return result;
+        };
+        Object.defineProperty(DTable.prototype, "header", {
+            get: function () {
+                var result = this._header;
+                if (result === undefined) {
+                    result = this.newHeader(this._options, this.columns, this.frozen, this.headerOffset);
+                    this._header = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTable.prototype.hasHeader = function (options) {
-            var columns = options.columns;
-            for (var i = 0, imax = columns.length; i < imax; ++i) {
-                if (columns[i].label != null) {
-                    return true;
+            if (options) {
+                var columns = options.columns;
+                for (var i = 0, imax = columns.length; i < imax; ++i) {
+                    if (columns[i].label != null) {
+                        return true;
+                    }
                 }
             }
             return false;
         };
         DTable.prototype.newHeader = function (options, columns, frozen, offset) {
             if (this.hasHeader(options)) {
-                return new DTableHeader(this.toHeaderOptions(options.header, columns, frozen, offset));
+                return new DTableHeader(this.toHeaderOptions(options === null || options === void 0 ? void 0 : options.header, columns, frozen, offset));
             }
             return null;
         };
@@ -62291,8 +62430,36 @@
                 table: this
             };
         };
+        Object.defineProperty(DTable.prototype, "bodyOffset", {
+            get: function () {
+                var result = this._bodyOffset;
+                if (result == null) {
+                    result = this.newBodyOffset();
+                    this._bodyOffset = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DTable.prototype.newBodyOffset = function () {
+            var _a, _b;
+            return this.headerOffset + ((_b = (_a = this.header) === null || _a === void 0 ? void 0 : _a.height) !== null && _b !== void 0 ? _b : 0);
+        };
+        Object.defineProperty(DTable.prototype, "body", {
+            get: function () {
+                var result = this._body;
+                if (result == null) {
+                    result = this.newBody(this._options, this.columns, this.frozen, this.bodyOffset);
+                    this._body = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTable.prototype.newBody = function (options, columns, frozen, offset) {
-            return new DTableBody(this.toBodyOptions(options.body, columns, frozen, offset, options.data));
+            return new DTableBody(this.toBodyOptions(options === null || options === void 0 ? void 0 : options.body, columns, frozen, offset, options === null || options === void 0 ? void 0 : options.data));
         };
         DTable.prototype.toBodyOptions = function (options, columns, frozen, offset, data) {
             if (options != null) {
@@ -62341,6 +62508,13 @@
                 };
             }
         };
+        Object.defineProperty(DTable.prototype, "data", {
+            get: function () {
+                return this.body.data;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTable.prototype.getFocusedChildClippingRect = function (focused, contentX, contentY, contentWidth, contentHeight, width, height, result) {
             _super.prototype.getFocusedChildClippingRect.call(this, focused, contentX, contentY, contentWidth, contentHeight, width, height, result);
             var cell = this.toCell(focused);
@@ -62352,8 +62526,8 @@
                     result.width -= dx;
                 }
                 // Y
-                if (cell.parent.parent === this._body) {
-                    var dy = this._bodyOffset;
+                if (cell.parent.parent === this.body) {
+                    var dy = this.bodyOffset;
                     result.y += dy;
                     result.height -= dy;
                 }
@@ -62362,7 +62536,7 @@
             return result;
         };
         DTable.prototype.toFrozenCellX = function (cell) {
-            var frozen = this._frozen;
+            var frozen = this.frozen;
             if (0 < frozen) {
                 var cells = cell.parent.children;
                 var cellIndex = cells.indexOf(cell);
@@ -62448,34 +62622,6 @@
         DTable.prototype.getType = function () {
             return "DTable";
         };
-        Object.defineProperty(DTable.prototype, "categories", {
-            get: function () {
-                return this._categories;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTable.prototype, "header", {
-            get: function () {
-                return this._header;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTable.prototype, "body", {
-            get: function () {
-                return this._body;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DTable.prototype, "data", {
-            get: function () {
-                return this._body.data;
-            },
-            enumerable: false,
-            configurable: true
-        });
         return DTable;
     }(DPane));
 
@@ -63664,34 +63810,47 @@
         __extends(DTree, _super);
         function DTree(options) {
             var _this = _super.call(this, options) || this;
-            var content = _this._content;
-            content.on("move", function () {
-                _this.update();
-            });
-            content.on("resize", function () {
-                _this.update();
-            });
-            var data = _this.toData(options);
-            _this._data = data;
-            _this._updater = _this.newUpdater(data, content, options);
             _this.update();
             return _this;
         }
-        DTree.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
-            var updater = this._updater;
-            if (updater) {
-                updater.lock();
-                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
-                updater.update();
-                updater.unlock(true);
-            }
-            else {
-                _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
-            }
+        DTree.prototype.onContentChange = function () {
+            _super.prototype.onContentChange.call(this);
+            this.update();
         };
+        DTree.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
+            var updater = this.updater;
+            updater.lock();
+            _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
+            updater.update();
+            updater.unlock(true);
+        };
+        Object.defineProperty(DTree.prototype, "updater", {
+            get: function () {
+                var result = this._updater;
+                if (result == null) {
+                    result = this.newUpdater(this.data, this.content, this._options);
+                    this._updater = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTree.prototype.newUpdater = function (data, content, options) {
             return new DTreeItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
         };
+        Object.defineProperty(DTree.prototype, "data", {
+            get: function () {
+                var result = this._data;
+                if (result == null) {
+                    result = this.toData(this._options);
+                    this._data = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DTree.prototype.toData = function (options) {
             var data = (options && (options.data || options.nodes || options.value)) || [];
             if (isArray(data)) {
@@ -63707,89 +63866,82 @@
             }
         };
         DTree.prototype.update = function (forcibly) {
-            this._updater.update(forcibly);
+            this.updater.update(forcibly);
         };
         DTree.prototype.lock = function () {
-            this._updater.lock();
+            this.updater.lock();
         };
         DTree.prototype.unlock = function (callIfNeeded) {
-            this._updater.unlock(callIfNeeded);
+            this.updater.unlock(callIfNeeded);
         };
-        Object.defineProperty(DTree.prototype, "data", {
-            get: function () {
-                return this._data;
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(DTree.prototype, "selection", {
             get: function () {
-                return this._data.selection;
+                return this.data.selection;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(DTree.prototype, "value", {
             get: function () {
-                return this._data.nodes;
+                return this.data.nodes;
             },
             set: function (value) {
-                this._data.nodes = value;
+                this.data.nodes = value;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(DTree.prototype, "nodes", {
             get: function () {
-                return this._data.nodes;
+                return this.data.nodes;
             },
             set: function (nodes) {
-                this._data.nodes = nodes;
+                this.data.nodes = nodes;
             },
             enumerable: false,
             configurable: true
         });
         DTree.prototype.toggle = function (target) {
-            return this._data.toggle(target);
+            return this.data.toggle(target);
         };
         DTree.prototype.expand = function (target) {
-            return this._data.expand(target);
+            return this.data.expand(target);
         };
         DTree.prototype.collapse = function (target) {
-            return this._data.collapse(target);
+            return this.data.collapse(target);
         };
         DTree.prototype.expandAll = function () {
-            return this._data.expandAll();
+            return this.data.expandAll();
         };
         DTree.prototype.collapseAll = function () {
-            return this._data.collapseAll();
+            return this.data.collapseAll();
         };
         DTree.prototype.isCollapsed = function (target) {
-            return this._data.isCollapsed(target);
+            return this.data.isCollapsed(target);
         };
         DTree.prototype.isExpanded = function (target) {
-            return this._data.isExpanded(target);
+            return this.data.isExpanded(target);
         };
         DTree.prototype.clear = function () {
-            return this._data.clear();
+            return this.data.clear();
         };
         DTree.prototype.remove = function (target) {
-            return this._data.remove(target);
+            return this.data.remove(target);
         };
         DTree.prototype.add = function (target, parent) {
-            return this._data.add(target, parent);
+            return this.data.add(target, parent);
         };
         DTree.prototype.addBefore = function (target, sibling) {
-            return this._data.addBefore(target, sibling);
+            return this.data.addBefore(target, sibling);
         };
         DTree.prototype.addAfter = function (target, sibling) {
-            return this._data.addAfter(target, sibling);
+            return this.data.addAfter(target, sibling);
         };
         DTree.prototype.each = function (iteratee) {
-            return this._data.each(iteratee);
+            return this.data.each(iteratee);
         };
         DTree.prototype.onKeyDown = function (e) {
-            this._updater.moveFocus(e, this, true, false);
+            this.updater.moveFocus(e, this, true, false);
             return _super.prototype.onKeyDown.call(this, e);
         };
         DTree.prototype.getType = function () {
