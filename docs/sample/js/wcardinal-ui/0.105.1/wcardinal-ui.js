@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.105.0
+ Winter Cardinal UI v0.105.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -45774,7 +45774,6 @@
             this._onUpdate = onUpdate;
             this._isLocked = 0;
             this._isCalled = false;
-            this._isCalledSilently = true;
             this.vertical = new DScrollBarVertical(options === null || options === void 0 ? void 0 : options.vertical);
             this.horizontal = new DScrollBarHorizontal(options === null || options === void 0 ? void 0 : options.horizontal);
         }
@@ -45782,7 +45781,7 @@
             this._isLocked += 1;
             if (this._isLocked === 1) {
                 this._isCalled = false;
-                this._isCalledSilently = true;
+                this._isCalledSilently = undefined;
             }
         };
         DPaneScrollBar.prototype.unlock = function (callIfNeeded) {
@@ -45792,13 +45791,15 @@
                     this.update(this._isCalledSilently);
                 }
                 this._isCalled = false;
-                this._isCalledSilently = true;
+                this._isCalledSilently = undefined;
             }
         };
         DPaneScrollBar.prototype.update = function (silently) {
             if (0 < this._isLocked) {
                 this._isCalled = true;
-                this._isCalledSilently && (this._isCalledSilently = silently === true);
+                if (silently != null) {
+                    this._isCalledSilently || (this._isCalledSilently = silently);
+                }
                 return;
             }
             var parent = this._parent;
