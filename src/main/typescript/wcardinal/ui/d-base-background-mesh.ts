@@ -49,7 +49,7 @@ export class DBaseBackgroundMesh extends Mesh {
 	}
 
 	get borderSize(): number {
-		return this.geometry.cornerMask;
+		return this.geometry.borderSize;
 	}
 
 	set borderSize(borderSize: number) {
