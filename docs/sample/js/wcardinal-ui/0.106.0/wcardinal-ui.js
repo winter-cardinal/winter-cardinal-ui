@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.105.1
+ Winter Cardinal UI v0.106.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -45394,6 +45394,7 @@
             _this._end = 1;
             _this.visible = false;
             _this._touchedAt = -1;
+            _this._isTouched = false;
             _this._fadeOutTimeoutId = null;
             _this._fadeOutDelay = (_b = (_a = options === null || options === void 0 ? void 0 : options.fadeOut) === null || _a === void 0 ? void 0 : _a.delay) !== null && _b !== void 0 ? _b : _this.theme.getFadeOutDelay();
             _this._isSilent = true;
@@ -45446,32 +45447,39 @@
             }
         };
         DScrollBar.prototype.onChange = function (silently) {
-            if (silently === void 0) { silently = this._isSilent; }
             this.updateThumb(this.width, this.height);
-            if (!silently && this.isRegionVisible()) {
-                var fadeOutDelay = this._fadeOutDelay;
-                if (0 <= fadeOutDelay) {
-                    this._touchedAt = Date.now();
-                    if (this._fadeOutTimeoutId == null) {
-                        this._fadeOutTimeoutId = window.setTimeout(this._onFadeOutTimeoutBound, fadeOutDelay);
-                    }
-                }
-                if (!this.visible) {
-                    this.visible = true;
-                    DApplications.update(this);
-                }
+            if (silently) {
+                this._isSilent = true;
             }
-            else {
-                if (this._fadeOutDelay < 0 && this.visible) {
-                    this.visible = false;
-                    DApplications.update(this);
-                }
+            if (!this._isTouched) {
+                this._isTouched = true;
+                DApplications.update(this);
             }
         };
         DScrollBar.prototype.isRegionVisible = function () {
             return 0 < this._start || this._end < 1;
         };
         DScrollBar.prototype.render = function (renderer) {
+            if (this._isTouched) {
+                this._isTouched = false;
+                if (!this._isSilent && this.isRegionVisible()) {
+                    var fadeOutDelay = this._fadeOutDelay;
+                    if (0 <= fadeOutDelay) {
+                        this._touchedAt = Date.now();
+                        if (this._fadeOutTimeoutId == null) {
+                            this._fadeOutTimeoutId = window.setTimeout(this._onFadeOutTimeoutBound, fadeOutDelay);
+                        }
+                    }
+                    if (!this.visible) {
+                        this.visible = true;
+                    }
+                }
+                else {
+                    if (this._fadeOutDelay < 0 && this.visible) {
+                        this.visible = false;
+                    }
+                }
+            }
             if (this._isSilent) {
                 this._isSilent = false;
             }
