@@ -30,6 +30,7 @@ export abstract class DScrollBar<
 	protected _end: number;
 	protected _thumb: DScrollBarThumb;
 	protected _touchedAt: number;
+	protected _isTouched: boolean;
 	protected _fadeOutTimeoutId: number | null;
 	protected _fadeOutDelay: number;
 	protected _onFadeOutTimeoutBound: () => void;
@@ -42,6 +43,7 @@ export abstract class DScrollBar<
 		this._end = 1;
 		this.visible = false;
 		this._touchedAt = -1;
+		this._isTouched = false;
 		this._fadeOutTimeoutId = null;
 		this._fadeOutDelay = options?.fadeOut?.delay ?? this.theme.getFadeOutDelay();
 		this._isSilent = true;
@@ -84,29 +86,15 @@ export abstract class DScrollBar<
 		}
 	}
 
-	protected onChange(silently: boolean = this._isSilent): void {
+	protected onChange(silently?: boolean): void {
 		this.updateThumb(this.width, this.height);
 
-		if (!silently && this.isRegionVisible()) {
-			const fadeOutDelay = this._fadeOutDelay;
-			if (0 <= fadeOutDelay) {
-				this._touchedAt = Date.now();
-				if (this._fadeOutTimeoutId == null) {
-					this._fadeOutTimeoutId = window.setTimeout(
-						this._onFadeOutTimeoutBound,
-						fadeOutDelay
-					);
-				}
-			}
-			if (!this.visible) {
-				this.visible = true;
-				DApplications.update(this);
-			}
-		} else {
-			if (this._fadeOutDelay < 0 && this.visible) {
-				this.visible = false;
-				DApplications.update(this);
-			}
+		if (silently) {
+			this._isSilent = true;
+		}
+		if (!this._isTouched) {
+			this._isTouched = true;
+			DApplications.update(this);
 		}
 	}
 
@@ -115,6 +103,28 @@ export abstract class DScrollBar<
 	}
 
 	render(renderer: PIXI.Renderer): void {
+		if (this._isTouched) {
+			this._isTouched = false;
+			if (!this._isSilent && this.isRegionVisible()) {
+				const fadeOutDelay = this._fadeOutDelay;
+				if (0 <= fadeOutDelay) {
+					this._touchedAt = Date.now();
+					if (this._fadeOutTimeoutId == null) {
+						this._fadeOutTimeoutId = window.setTimeout(
+							this._onFadeOutTimeoutBound,
+							fadeOutDelay
+						);
+					}
+				}
+				if (!this.visible) {
+					this.visible = true;
+				}
+			} else {
+				if (this._fadeOutDelay < 0 && this.visible) {
+					this.visible = false;
+				}
+			}
+		}
 		if (this._isSilent) {
 			this._isSilent = false;
 		}
