@@ -55,7 +55,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 
 	fit(): void {
 		const parent = this.parent;
-		if (parent == null || parent.parent == null) {
+		if (parent == null) {
 			return;
 		}
 
@@ -77,6 +77,9 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		let x1 = x + values[6];
 		let y1 = y + values[7];
 
+		//
+		this.updateTransform();
+
 		// Left
 		const edge = this.edge;
 		const left = edge.left;
@@ -84,9 +87,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		if (leftShape != null) {
 			const size = leftShape.size;
 			work.set(size.x * left.x, size.y * left.y);
-			parent.updateTransform();
-			leftShape.updateTransform();
-			leftShape.toGlobal(work, work, true);
+			leftShape.toGlobal(work, work);
 			parent.toLocal(work, undefined, work, true);
 			x0 = work.x;
 			y0 = work.y;
@@ -98,9 +99,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		if (rightShape != null) {
 			const size = rightShape.size;
 			work.set(size.x * right.x, size.y * right.y);
-			parent.updateTransform();
-			rightShape.updateTransform();
-			rightShape.toGlobal(work, work, true);
+			rightShape.toGlobal(work, work);
 			parent.toLocal(work, undefined, work, true);
 			x1 = work.x;
 			y1 = work.y;
