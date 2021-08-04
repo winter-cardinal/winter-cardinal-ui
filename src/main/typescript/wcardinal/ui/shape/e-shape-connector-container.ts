@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeConnector } from "./variant/e-shape-connector";
+import { EShapeConnector } from "./e-shape-connector";
 
-export interface EShapeAnchorConnectorContainer {
+export interface EShapeConnectorContainer {
 	add(target: EShapeConnector): boolean;
 	get(index: number): EShapeConnector | null;
 	size(): number;
 	remove(index: number): EShapeConnector | null;
 	clear(): boolean;
-	update(): void;
+	fit(): void;
 }

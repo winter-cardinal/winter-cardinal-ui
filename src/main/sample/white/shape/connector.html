@@ -1,0 +1,63 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Connector</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #f2f2f2;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var container = new wcardinal.ui.EShapeContainer();
+		container.position.set( 100, 100 );
+		application.stage.addChild( container );
+
+		var circleA = new wcardinal.ui.EShapeCircle();
+		circleA.transform.position.set(100, 250);
+		circleA.attach( container );
+
+		var circleB = new wcardinal.ui.EShapeCircle();
+		circleB.transform.position.set(400, 250);
+		circleB.attach( container );
+
+		var connector = new wcardinal.ui.EShapeConnectorLine();
+		connector.edge.left.shape = circleA;
+		connector.edge.right.shape = circleB;
+		connector.attach( container );
+
+		circleA.connector.add(connector);
+		circleB.connector.add(connector);
+
+		var update = function () {
+			var t = (Date.now()) / 3000 * Math.PI;
+			circleA.transform.position.y = 250 + 100 * Math.cos(+t);
+			application.update();
+			setTimeout(update, 16);
+		};
+		update();
+	}());
+	</script>
+</body>
+</html>

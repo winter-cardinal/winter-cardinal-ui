@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapePointsStyle } from "../e-shape-points-style";
+import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
 import { EShapeLineBase } from "./e-shape-line-base";
 import { EShapeLinePoints } from "./e-shape-line-points";
@@ -34,6 +36,12 @@ export class EShapeLine extends EShapeLineBase {
 			points.style
 		);
 		result.copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
+		return result;
+	}
+
+	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+		const result = super.serialize(manager);
+		result[15] = this._points.serialize(manager);
 		return result;
 	}
 }

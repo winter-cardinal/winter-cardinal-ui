@@ -19,6 +19,8 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeAction } from "../action/e-shape-action";
 import { EShape } from "../e-shape";
+import { EShapeConnectorContainer } from "../e-shape-connector-container";
+import { EShapeConnectorContainerImpl } from "../e-shape-connector-container-impl";
 import { EShapeContainer } from "../e-shape-container";
 import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapeCorner } from "../e-shape-corner";
@@ -64,6 +66,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	interactive: boolean;
 	shortcut?: string;
 	title?: string;
+
+	protected _connector?: EShapeConnectorContainer;
+
 	protected _visible: boolean;
 	protected _onTransformChangeLock: number;
 	protected _isOnTransformChanged: boolean;
@@ -140,11 +145,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 		this.onTransformChange_();
 		this.updateUploaded();
+		this._connector?.fit();
 	}
 
 	onTransformChange(): void {
 		this.onTransformChange_();
 		this.updateUploadedRecursively();
+		this._connector?.fit();
 	}
 
 	protected onTransformChange_(): void {
@@ -238,7 +245,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return this._points;
 	}
 
-	//
 	get root(): EShape {
 		let root: EShape = this;
 		while (root.parent instanceof EShapeBase) {
@@ -247,7 +253,15 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return root;
 	}
 
-	//
+	get connector(): EShapeConnectorContainer {
+		let result = this._connector;
+		if (result == null) {
+			result = new EShapeConnectorContainerImpl();
+			this._connector = result;
+		}
+		return result;
+	}
+
 	get visible(): boolean {
 		if (this._visible) {
 			const parent = this.parent;
@@ -704,10 +718,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				layer.getFocusController().set(this, isFocused);
 			}
 		}
-	}
-
-	get shadowed(): boolean {
-		return false;
 	}
 
 	onKeyDown(e: KeyboardEvent): boolean {

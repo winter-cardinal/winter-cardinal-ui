@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeAnchorConnectorContainer } from "./e-shape-anchor-connector-container";
-import { EShapeConnector } from "./variant/e-shape-connector";
+import { EShapeConnectorContainer } from "./e-shape-connector-container";
+import { EShapeConnector } from "./e-shape-connector";
 
-export class EShapeAnchorConnectorContainerImpl implements EShapeAnchorConnectorContainer {
+export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 	protected _list: EShapeConnector[];
 
 	constructor() {
@@ -60,11 +60,10 @@ export class EShapeAnchorConnectorContainerImpl implements EShapeAnchorConnector
 		return false;
 	}
 
-	update(): void {
+	fit(): void {
 		const list = this._list;
 		for (let i = 0, imax = list.length; i < imax; ++i) {
-			const connector = list[i];
-			//
+			list[i].fit();
 		}
 	}
 }

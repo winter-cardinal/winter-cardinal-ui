@@ -23,6 +23,7 @@ import { EShapeText } from "./e-shape-text";
 import { EShapeTransform } from "./e-shape-transform";
 import { EShapeType } from "./e-shape-type";
 import { EShapeUploaded } from "./e-shape-uploaded";
+import { EShapeConnectorContainer } from "./e-shape-connector-container";
 
 export interface EShape extends utils.EventEmitter {
 	id: string; // Used to identity a shape by users
@@ -48,6 +49,7 @@ export interface EShape extends utils.EventEmitter {
 	interactive: boolean;
 	shortcut?: string;
 	title?: string;
+	connector: EShapeConnectorContainer;
 
 	// Hierarchy
 	parent: EShapeContainer | EShape | null;

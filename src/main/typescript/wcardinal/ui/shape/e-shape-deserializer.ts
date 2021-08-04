@@ -7,10 +7,12 @@ import { DDiagramSerializedItem } from "../d-diagram-serialized";
 import { isString } from "../util/is-string";
 import { EShapeActionValueDeserializer } from "./action/e-shape-action-value-deserializer";
 import { EShape } from "./e-shape";
-import { EShapeDeserializers } from "./e-shape-deserializers";
+import { EShapeDeserializers, EShapeOnDeserialized } from "./e-shape-deserializers";
 import { EShapeImageElements } from "./e-shape-image-elements";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeSizes } from "./e-shape-sizes";
+import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
+import { EShapeUuidMappingImpl } from "./e-shape-uuid-mapping-impl";
 import { EShapeGradients } from "./variant/e-shape-gradients";
 
 export class EShapeDeserializer {
@@ -149,8 +151,33 @@ export class EShapeDeserializer {
 			shapes.push(shape);
 		}
 		if (0 < shapes.length) {
-			return Promise.all(shapes);
+			return Promise.all(shapes).then((resolved: EShape[]): EShape[] => {
+				this.onDeserialized(
+					serializeds,
+					resolved,
+					new EShapeUuidMappingImpl(resolved),
+					manager
+				);
+				return resolved;
+			});
 		}
 		return null;
+	}
+
+	static onDeserialized(
+		serializeds: DDiagramSerializedItem[],
+		shapes: EShape[],
+		mapping: EShapeUuidMapping,
+		manager: EShapeResourceManagerDeserialization
+	): void {
+		for (let i = 0, imax = serializeds.length; i < imax; ++i) {
+			const serialized = serializeds[i];
+			const shape = shapes[i];
+			const onDeserialized = EShapeOnDeserialized[serialized[0]];
+			if (onDeserialized) {
+				onDeserialized(serialized, shape, mapping, manager);
+			}
+			this.onDeserialized(serialized[20], shape.children, mapping, manager);
+		}
 	}
 }
