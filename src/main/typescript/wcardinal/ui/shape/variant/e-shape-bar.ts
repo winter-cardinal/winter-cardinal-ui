@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeCopyPart } from "../e-shape-copy-part";
 import { EShapePointsStyle } from "../e-shape-points-style";
+import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBarPoints } from "./e-shape-bar-points";
 import { EShapeBarPosition } from "./e-shape-bar-position";
@@ -40,5 +42,11 @@ export class EShapeBar extends EShapeLineBase {
 	containsAbsBBox(x: number, y: number, ax: number, ay: number): boolean {
 		const size = Math.max(0, this._points.size);
 		return super.containsAbsBBox(x, y, ax + size, ay + size);
+	}
+
+	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
+		const result = super.serialize(manager);
+		result[15] = this._points.serialize(manager);
+		return result;
 	}
 }
