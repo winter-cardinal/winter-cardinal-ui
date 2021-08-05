@@ -2729,6 +2729,9 @@ img {
 					<a href="eshapegroup.html#_boundstransformid" class="tsd-kind-icon">_bounds<wbr>Transform<wbr>Id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a href="eshapegroup.html#_connector" class="tsd-kind-icon">_connector</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a href="eshapegroup.html#_image" class="tsd-kind-icon">_image</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
@@ -2833,6 +2836,9 @@ img {
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected tsd-is-static">
 					<a href="eshapegroup.html#work_hit_test_data" class="tsd-kind-icon">WORK_<wbr>HIT_<wbr>TEST_<wbr>DATA</a>
 				</li>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a href="eshapegroup.html#connector" class="tsd-kind-icon">connector</a>
+				</li>
 				<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 					<a href="eshapegroup.html#corner" class="tsd-kind-icon">corner</a>
 				</li>
@@ -2856,9 +2862,6 @@ img {
 				</li>
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a href="eshapegroup.html#root" class="tsd-kind-icon">root</a>
-				</li>
-				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-					<a href="eshapegroup.html#shadowed" class="tsd-kind-icon">shadowed</a>
 				</li>
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a href="eshapegroup.html#state" class="tsd-kind-icon">state</a>
@@ -3125,6 +3128,7 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="eshapegroup.html#_boundslocal" class="tsd-kind-icon">_bounds<wbr>Local</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="eshapegroup.html#_boundslocaltransformid" class="tsd-kind-icon">_bounds<wbr>Local<wbr>Transform<wbr>Id</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="eshapegroup.html#_boundstransformid" class="tsd-kind-icon">_bounds<wbr>Transform<wbr>Id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="eshapegroup.html#_connector" class="tsd-kind-icon">_connector</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="eshapegroup.html#_image" class="tsd-kind-icon">_image</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapegroup.html#_iseditmode" class="tsd-kind-icon">_is<wbr>Edit<wbr>Mode</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="eshapegroup.html#_isontransformchanged" class="tsd-kind-icon">_is<wbr>OnTransform<wbr>Changed</a></li>
@@ -3165,6 +3169,7 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Accessors</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#connector" class="tsd-kind-icon">connector</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#corner" class="tsd-kind-icon">corner</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#cursor" class="tsd-kind-icon">cursor</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#gradient" class="tsd-kind-icon">gradient</a></li>
@@ -3173,7 +3178,6 @@ img {
 							<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#points" class="tsd-kind-icon">points</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#radius" class="tsd-kind-icon">radius</a></li>
 							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#root" class="tsd-kind-icon">root</a></li>
-							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#shadowed" class="tsd-kind-icon">shadowed</a></li>
 							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#state" class="tsd-kind-icon">state</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#visible" class="tsd-kind-icon">visible</a></li>
 							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="eshapegroup.html#worldvisible" class="tsd-kind-icon">world<wbr>Visible</a></li>
@@ -3269,7 +3273,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L35">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L35">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:35</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3295,7 +3299,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_bounds">_bounds</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L74">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:74</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L79">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:79</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3306,7 +3310,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_boundsinternal">_boundsInternal</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L76">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:76</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L81">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:81</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3317,7 +3321,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_boundsinternaltransformid">_boundsInternalTransformId</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L77">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:77</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L82">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:82</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3328,7 +3332,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_boundslocal">_boundsLocal</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L78">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:78</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L83">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:83</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3339,7 +3343,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_boundslocaltransformid">_boundsLocalTransformId</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L79">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:79</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L84">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:84</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3350,7 +3354,18 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_boundstransformid">_boundsTransformId</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L75">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:75</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L80">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:80</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<a name="_connector" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _connector</h3>
+				<div class="tsd-signature tsd-kind-icon">_connector<span class="tsd-signature-symbol">:</span> <a href="../interfaces/eshapeconnectorcontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorContainer</a></div>
+				<aside class="tsd-sources">
+					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_connector">_connector</a></p>
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L70">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:70</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3361,7 +3376,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_image">_image</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L56">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:56</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L58">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:58</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3371,7 +3386,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_is<wbr>Edit<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L34">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:34</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L34">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:34</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3382,7 +3397,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_isontransformchanged">_isOnTransformChanged</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L69">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:69</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L74">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:74</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3393,7 +3408,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_isuploadedupdated">_isUploadedUpdated</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L71">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:71</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L76">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:76</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3404,7 +3419,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_isuploadedupdatedrecursively">_isUploadedUpdatedRecursively</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L72">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:72</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L77">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:77</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3415,7 +3430,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_ontransformchangelock">_onTransformChangeLock</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L68">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:68</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L73">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:73</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3426,7 +3441,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_points">_points</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L35">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:35</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L35">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:35</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3437,7 +3452,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_state">_state</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L81">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:81</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L86">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:86</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3448,7 +3463,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_uploadedupdatelock">_uploadedUpdateLock</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L70">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:70</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L75">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:75</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3459,7 +3474,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#_visible">_visible</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L67">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:67</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L72">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:72</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3470,7 +3485,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#action">action</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L62">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:62</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L64">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:64</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3482,7 +3497,7 @@ img {
 					<p>Implementation of <a href="../interfaces/eshapegrouppropertyparent.html">EShapeGroupPropertyParent</a>.<a href="../interfaces/eshapegrouppropertyparent.html#children">children</a></p>
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#children">children</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L85">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:85</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L90">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:90</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3493,7 +3508,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#editor">editor</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L97">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:97</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L102">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:102</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3504,7 +3519,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#fill">fill</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L29">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:29</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L29">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:29</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3515,7 +3530,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#id">id</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L46">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:46</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L48">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:48</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3526,7 +3541,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#imagesrc">imageSrc</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L57">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:57</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L59">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:59</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3537,7 +3552,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#index">index</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L89">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:89</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L94">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:94</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3548,7 +3563,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#interactive">interactive</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L64">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:64</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L66">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:66</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3559,7 +3574,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#layout">layout</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L86">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:86</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L91">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:91</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3570,7 +3585,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#parent">parent</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L84">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:84</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L89">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:89</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3581,7 +3596,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#reference">reference</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L91">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:91</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L96">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:96</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3592,7 +3607,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#runtime">runtime</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L94">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:94</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L99">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:99</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3603,7 +3618,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#selected">selected</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L90">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:90</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L95">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:95</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3614,7 +3629,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#shortcut">shortcut</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L65">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:65</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L67">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:67</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3625,7 +3640,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#size">size</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L28">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:28</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L28">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:28</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3636,7 +3651,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#stroke">stroke</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L30">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:30</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L30">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:30</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3647,7 +3662,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#tag">tag</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L31">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:31</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L31">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:31</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3658,7 +3673,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#text">text</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L32">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:32</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L32">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:32</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3669,7 +3684,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#texture">texture</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L58">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:58</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L60">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:60</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3680,7 +3695,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#title">title</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L66">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:66</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L68">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:68</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3691,7 +3706,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#transform">transform</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L52">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:52</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L54">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:54</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3702,7 +3717,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#type">type</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L48">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:48</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L50">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:50</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3713,7 +3728,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#uploaded">uploaded</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L100">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:100</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L105">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:105</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3724,7 +3739,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#uuid">uuid</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L47">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:47</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L49">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:49</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3735,13 +3750,30 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#work_hit_test_data">WORK_HIT_TEST_DATA</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L45">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:45</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L47">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:47</a></li>
 					</ul>
 				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Accessors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+				<a name="connector" class="tsd-anchor"></a>
+				<h3>connector</h3>
+				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> connector<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/eshapeconnectorcontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorContainer</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L256">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:256</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapeconnectorcontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorContainer</a></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 				<a name="corner" class="tsd-anchor"></a>
 				<h3>corner</h3>
@@ -3753,7 +3785,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L96">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:96</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L96">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:96</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../enums/eshapecorner.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapeCorner</a></h4>
@@ -3761,7 +3793,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L104">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:104</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L104">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:104</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3785,7 +3817,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L111">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:111</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L111">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:111</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -3793,7 +3825,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L119">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L119">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:119</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3817,7 +3849,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L126">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:126</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L126">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:126</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/eshapegradientlike.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeGradientLike</a></h4>
@@ -3825,7 +3857,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L137">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:137</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L137">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:137</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3849,7 +3881,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L159">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:159</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L159">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:159</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span></h4>
@@ -3857,7 +3889,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L170">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:170</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L170">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:170</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3880,7 +3912,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L48">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:48</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L48">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:48</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -3898,7 +3930,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L177">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:177</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L177">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:177</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/eshapepoints.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePoints</a></h4>
@@ -3906,7 +3938,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L188">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:188</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L188">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:188</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3930,7 +3962,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L144">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:144</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L144">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:144</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -3938,7 +3970,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L152">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:152</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L152">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:152</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3961,27 +3993,10 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L242">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:242</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L248">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:248</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-				<a name="shadowed" class="tsd-anchor"></a>
-				<h3>shadowed</h3>
-				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> shadowed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L709">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:709</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -3995,7 +4010,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L679">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:679</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L693">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:693</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapestateset.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeStateSet</a></h4>
@@ -4013,7 +4028,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L251">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:251</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L265">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:265</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -4021,7 +4036,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L262">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:262</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L276">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:276</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4044,7 +4059,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L269">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:269</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L283">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:283</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -4100,7 +4115,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#adduuid">addUuid</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L398">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:398</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L412">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:412</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4124,7 +4139,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#allowontransformchange">allowOnTransformChange</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L168">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:168</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L175">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:175</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4148,7 +4163,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#allowuploadedupdate">allowUploadedUpdate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L192">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:192</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L199">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:199</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -4166,7 +4181,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#attach">attach</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L289">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:289</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L303">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:303</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4193,7 +4208,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#blur">blur</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L695">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:695</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L709">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:709</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="eshapegroup.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeGroup</a></h4>
@@ -4211,7 +4226,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#clone">clone</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L192">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:192</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L192">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:192</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="eshapegroup.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeGroup</a></h4>
@@ -4229,7 +4244,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#contains">contains</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L471">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:471</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L485">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:485</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4253,7 +4268,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#containsabs">containsAbs</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L210">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:210</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L210">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:210</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4286,7 +4301,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#containsabsbbox">containsAbsBBox</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L534">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:534</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L548">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:548</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4319,7 +4334,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#containsbbox">containsBBox</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L525">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:525</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L539">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:539</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4343,7 +4358,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#containschildren">containsChildren</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L510">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:510</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L524">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:524</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4373,7 +4388,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#containstext">containsText</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L490">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:490</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L504">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:504</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4403,7 +4418,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#copy">copy</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L753">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:753</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L763">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:763</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4430,7 +4445,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#destroy">destroy</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L658">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:658</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L672">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:672</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -4448,7 +4463,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#detach">detach</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L304">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:304</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L318">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:318</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="eshapegroup.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeGroup</a></h4>
@@ -4466,7 +4481,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#disallowontransformchange">disallowOnTransformChange</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L161">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:161</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L168">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:168</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -4484,7 +4499,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#disallowuploadedupdate">disallowUploadedUpdate</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L184">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:184</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L191">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:191</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -4564,7 +4579,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#focus">focus</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L690">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:690</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L704">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:704</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="eshapegroup.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeGroup</a></h4>
@@ -4582,7 +4597,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#getbounds">getBounds</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L564">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:564</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L578">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:578</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4612,7 +4627,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#getboundsinternal">getBoundsInternal</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L579">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:579</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L593">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:593</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4642,7 +4657,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#getboundslocal">getBoundsLocal</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L594">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:594</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L608">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:608</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4672,7 +4687,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#getboundssize">getBoundsSize</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L82">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:82</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L82">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:82</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IPoint</span></h4>
@@ -4690,7 +4705,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#getbounds_">getBounds_</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L613">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:613</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L627">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:627</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4720,7 +4735,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#gethittestsize">getHitTestSize</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L439">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:439</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L453">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:453</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4744,7 +4759,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#getshapescale">getShapeScale</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L415">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:415</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L429">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:429</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -4762,7 +4777,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#getstrokewidthscale">getStrokeWidthScale</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L423">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:423</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L437">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:437</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4785,7 +4800,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L62">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:62</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L62">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:62</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -4866,7 +4881,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L205">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:205</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L205">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:205</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="eshapegroup.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeGroup</a></h4>
@@ -4883,7 +4898,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L66">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:66</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L66">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:66</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapefill.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeFill</a></h4>
@@ -4900,7 +4915,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L78">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:78</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L78">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:78</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/eshapepoints.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePoints</a></h4>
@@ -4917,7 +4932,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L52">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:52</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L52">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:52</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4940,7 +4955,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L70">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L70">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:70</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapestroke.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeStroke</a></h4>
@@ -4957,7 +4972,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L74">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:74</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L74">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:74</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapetext.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeText</a></h4>
@@ -4975,7 +4990,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#newtransform">newTransform</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L132">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:132</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L137">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:137</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapetransform.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeTransform</a></h4>
@@ -5073,7 +5088,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#onchildtransformchange">onChildTransformChange</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L91">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:91</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts#L91">src/main/typescript/wcardinal/ui/shape/variant/e-shape-group.ts:91</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5091,7 +5106,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#onkeydown">onKeyDown</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L713">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:713</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L723">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:723</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5115,7 +5130,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#onkeyup">onKeyUp</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L721">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:721</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L731">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:731</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5139,7 +5154,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#onrender">onRender</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L737">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:737</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L747">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:747</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5166,7 +5181,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#onsizechange">onSizeChange</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L136">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:136</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L141">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:141</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5184,7 +5199,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#onstatechange">onStateChange</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L667">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:667</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L681">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:681</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5211,7 +5226,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#ontransformchange">onTransformChange</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L145">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:145</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L151">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:151</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5229,7 +5244,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#ontransformchange_">onTransformChange_</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L150">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:150</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L157">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:157</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5373,7 +5388,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#select">select</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L538">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:538</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L552">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:552</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5397,7 +5412,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#serialize">serialize</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L358">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:358</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L372">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:372</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5421,7 +5436,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#serializechildren">serializeChildren</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L334">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:334</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L348">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:348</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5445,7 +5460,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#serializegradient">serializeGradient</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L349">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:349</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L363">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:363</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5469,7 +5484,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#serializeimage">serializeImage</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L344">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:344</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L358">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:358</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5493,7 +5508,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#serializestate">serializeState</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L353">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:353</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L367">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:367</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5517,7 +5532,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#setfocused">setFocused</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L700">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:700</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L714">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:714</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5541,7 +5556,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#todirty">toDirty</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L284">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:284</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L298">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:298</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5559,7 +5574,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#toglobal">toGlobal</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L543">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:543</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L557">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:557</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5589,7 +5604,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#tohittestdata">toHitTestData</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L446">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:446</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L460">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:460</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5613,7 +5628,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#tolocal">toLocal</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L552">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:552</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L566">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:566</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5646,7 +5661,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#update">update</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L730">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:730</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L740">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:740</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5670,7 +5685,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#updaterecursively">updateRecursively</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L744">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:744</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L754">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:754</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -5694,7 +5709,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#updatetransform">updateTransform</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L321">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:321</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L335">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:335</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5712,7 +5727,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#updateuploaded">updateUploaded</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L218">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:218</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L225">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:225</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5730,7 +5745,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#updateuploadedrecursively">updateUploadedRecursively</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L206">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:206</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L213">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:213</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -5748,7 +5763,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="eshapebase.html">EShapeBase</a>.<a href="eshapebase.html#updateuuid">updateUuid</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.100.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L406">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:406</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts#L420">src/main/typescript/wcardinal/ui/shape/variant/e-shape-base.ts:420</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
