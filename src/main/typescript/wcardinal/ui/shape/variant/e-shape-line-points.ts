@@ -18,6 +18,7 @@ import {
 } from "../e-shape-points-formatted";
 import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
 import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
+import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 
 export class EShapeLinePoints implements EShapePoints {
 	protected static WORK_RANGE: [number, number] = [0, 0];
@@ -482,6 +483,18 @@ export class EShapeLinePoints implements EShapePoints {
 		return manager.addResource(
 			`[${JSON.stringify(this._values)},${JSON.stringify(this._segments)},${this._style}]`
 		);
+	}
+
+	deserialize(resourceId: number, manager: EShapeResourceManagerDeserialization): void {
+		const resources = manager.resources;
+		if (0 <= resourceId && resourceId < resources.length) {
+			let parsed = manager.getExtension<[number[], number[], number]>(resourceId);
+			if (parsed == null) {
+				parsed = JSON.parse(resources[resourceId]) as [number[], number[], number];
+				manager.setExtension(resourceId, parsed);
+			}
+			this.set(parsed[0], parsed[1], parsed[2]);
+		}
 	}
 
 	calcHitPointAbs<RESULT>(

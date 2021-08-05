@@ -4,8 +4,6 @@
  */
 
 import { IPoint } from "pixi.js";
-import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { EShapeLineBasePoints } from "./e-shape-line-base-points";
 import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
@@ -18,12 +16,6 @@ export abstract class EShapeLineBase extends EShapePrimitive {
 	protected static WORK_RANGE: [number, number] = [0, 0];
 	protected declare _points: EShapeLineBasePoints;
 	abstract clone(): EShapeLineBase;
-
-	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
-		const result = super.serialize(manager);
-		result[15] = this._points.serialize(manager);
-		return result;
-	}
 
 	protected getHitTestSize(result: EShapeBaseHitTestData): EShapeBaseHitTestData {
 		const formatted = this._points.formatted;
