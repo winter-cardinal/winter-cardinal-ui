@@ -8,5 +8,4 @@ import { EShapeConnectorEdgeContainer } from "./e-shape-connector-edge-container
 
 export interface EShapeConnector extends EShape {
 	readonly edge: EShapeConnectorEdgeContainer;
-	fit(): void;
 }

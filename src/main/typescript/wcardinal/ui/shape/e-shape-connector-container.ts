@@ -11,5 +11,5 @@ export interface EShapeConnectorContainer {
 	size(): number;
 	remove(index: number): EShapeConnector | null;
 	clear(): boolean;
-	fit(): void;
+	fit(forcibly?: boolean): void;
 }

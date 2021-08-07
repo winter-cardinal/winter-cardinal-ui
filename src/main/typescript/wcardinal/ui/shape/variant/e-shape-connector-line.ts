@@ -8,7 +8,6 @@ import { EShapeConnector } from "../e-shape-connector";
 import { EShapeConnectorEdgeContainer } from "../e-shape-connector-edge-container";
 import { EShapeConnectorEdgeContainerImpl } from "../e-shape-connector-edge-container-impl";
 import { EShapeLineBase } from "./e-shape-line-base";
-import { Point } from "pixi.js";
 import { EShapeLinePoints } from "./e-shape-line-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeDefaults } from "../e-shape-defaults";
@@ -19,12 +18,15 @@ import { EShape } from "../e-shape";
 import { EShapeContainer } from "../e-shape-container";
 
 export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnector {
-	protected static WORK_EDGE_POINT?: Point;
 	protected _edge: EShapeConnectorEdgeContainer;
 	protected declare _points: EShapeLinePoints;
+	protected _leftLocalId: number;
+	protected _rightLocalId: number;
 
 	constructor(type = EShapeType.CONNECTOR_LINE) {
 		super(type);
+		this._leftLocalId = 0;
+		this._rightLocalId = 0;
 		this.fill.enable = false;
 		const sx = EShapeDefaults.SIZE_X;
 		const sy = EShapeDefaults.SIZE_Y;
@@ -36,7 +38,9 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 			[],
 			EShapePointsStyle.NONE
 		);
-		this._edge = new EShapeConnectorEdgeContainerImpl(this);
+		this._edge = new EShapeConnectorEdgeContainerImpl(this, (): void => {
+			this.onEdgeChange();
+		});
 	}
 
 	get points(): EShapeLinePoints {
@@ -49,79 +53,50 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 
 	attach(parent: EShapeContainer | EShape, at?: number): this {
 		super.attach(parent, at);
-		this.fit();
+		this.edge.fit(true);
 		return this;
 	}
 
-	fit(): void {
-		const parent = this.parent;
-		if (parent == null) {
-			return;
-		}
-
-		const work = (EShapeConnectorLine.WORK_EDGE_POINT ??= new Point());
-		const points = this.points;
-		const values = points.values;
-		const valuesLength = values.length;
-		if (valuesLength < 4) {
-			for (let i = valuesLength; i < 4; ++i) {
-				values[i] = 0;
-			}
-		}
-		const transform = this.transform;
-		const transformPosition = transform.position;
-		const x = transformPosition.x;
-		const y = transformPosition.y;
-		let x0 = x + values[0];
-		let y0 = y + values[1];
-		let x1 = x + values[6];
-		let y1 = y + values[7];
-
-		//
-		this.updateTransform();
-
-		// Left
+	protected onEdgeChange(): void {
 		const edge = this.edge;
 		const left = edge.left;
-		const leftShape = left.shape;
-		if (leftShape != null) {
-			const size = leftShape.size;
-			work.set(size.x * left.x, size.y * left.y);
-			leftShape.toGlobal(work, work);
-			parent.toLocal(work, undefined, work, true);
-			x0 = work.x;
-			y0 = work.y;
-		}
-
-		// Right
+		const leftLocalId = left.localId;
 		const right = edge.right;
-		const rightShape = right.shape;
-		if (rightShape != null) {
-			const size = rightShape.size;
-			work.set(size.x * right.x, size.y * right.y);
-			rightShape.toGlobal(work, work);
-			parent.toLocal(work, undefined, work, true);
-			x1 = work.x;
-			y1 = work.y;
-		}
+		const rightLocalId = right.localId;
+		if (this._leftLocalId !== leftLocalId || this._rightLocalId !== rightLocalId) {
+			this._leftLocalId = leftLocalId;
+			this._rightLocalId = rightLocalId;
 
-		this.disallowUploadedUpdate();
-		const cx = (x0 + x1) * 0.5;
-		const cy = (y0 + y1) * 0.5;
-		const dx0 = x0 - cx;
-		const dy0 = y0 - cy;
-		const dx1 = x1 - cx;
-		const dy1 = y1 - cy;
-		const sx = Math.max(Math.abs(dx0), Math.abs(dx1));
-		const sy = Math.max(Math.abs(dy0), Math.abs(dy1));
-		transformPosition.set(cx, cy);
-		transform.scale.set(1, 1);
-		transform.rotation = 0;
-		transform.skew.set(0, 0);
-		points.size.set(sx, sy);
-		this.size.set(sx, sy);
-		points.set(this.toValues(dx0, dy0, dx1, dy1, sx, sy, values));
-		this.allowUploadedUpdate();
+			// Left
+			const leftLocal = left.local;
+			const llx = leftLocal.x;
+			const lly = leftLocal.y;
+
+			// Right
+			const rightLocal = right.local;
+			const rlx = rightLocal.x;
+			const rly = rightLocal.y;
+
+			this.disallowUploadedUpdate();
+			const cx = (llx + rlx) * 0.5;
+			const cy = (lly + rly) * 0.5;
+			const dx0 = llx - cx;
+			const dy0 = lly - cy;
+			const dx1 = rlx - cx;
+			const dy1 = rly - cy;
+			const sx = Math.max(Math.abs(dx0), Math.abs(dx1));
+			const sy = Math.max(Math.abs(dy0), Math.abs(dy1));
+			const transform = this.transform;
+			transform.position.set(cx, cy);
+			transform.scale.set(1, 1);
+			transform.rotation = 0;
+			transform.skew.set(0, 0);
+			const points = this.points;
+			points.size.set(sx, sy);
+			this.size.set(sx, sy);
+			points.set(this.toValues(dx0, dy0, dx1, dy1, sx, sy, points.values));
+			this.allowUploadedUpdate();
+		}
 	}
 
 	protected toValues(

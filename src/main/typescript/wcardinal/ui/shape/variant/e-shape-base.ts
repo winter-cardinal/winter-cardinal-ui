@@ -145,13 +145,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 		this.onTransformChange_();
 		this.updateUploaded();
-		this._connector?.fit();
+		this._connector?.fit(true);
 	}
 
 	onTransformChange(): void {
 		this.onTransformChange_();
 		this.updateUploadedRecursively();
-		this._connector?.fit();
+		this._connector?.fit(true);
 	}
 
 	protected onTransformChange_(): void {
@@ -256,7 +256,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	get connector(): EShapeConnectorContainer {
 		let result = this._connector;
 		if (result == null) {
-			result = new EShapeConnectorContainerImpl();
+			result = new EShapeConnectorContainerImpl(this);
 			this._connector = result;
 		}
 		return result;

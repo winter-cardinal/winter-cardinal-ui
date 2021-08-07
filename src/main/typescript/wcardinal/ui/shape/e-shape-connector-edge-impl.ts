@@ -3,27 +3,69 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { IPoint, ObservablePoint, Point } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeConnectorEdge } from "./e-shape-connector-edge";
-import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
+import { EShapeContainer } from "./e-shape-container";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
-import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 
-interface EShapeConnectorEdgeImplParent {
-	onChange(): void;
+export interface EShapeConnectorEdgeImplParent {
+	readonly parent: EShapeContainer | EShape | null;
+	updateTransform(): void;
 }
 
 export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
-	protected _parent: EShapeConnectorEdgeImplParent;
-	protected _shape: EShape | null;
-	protected _x: number;
-	protected _y: number;
+	protected static WORK_UPDATE_LOCAL?: Point;
 
-	constructor(parent: EShapeConnectorEdgeImplParent) {
+	protected _parent: EShapeConnectorEdgeImplParent;
+	protected _onChange: () => void;
+	protected _shape: EShape | null;
+	protected _position: IPoint;
+	protected _id: number;
+	protected _localId: number;
+	protected _local: IPoint;
+	protected _lockCount: number;
+	protected _isChanged: boolean;
+	protected _isLocalChanged: boolean;
+
+	constructor(parent: EShapeConnectorEdgeImplParent, onChange: () => void) {
 		this._parent = parent;
+		this._onChange = onChange;
 		this._shape = null;
-		this._x = 0;
-		this._y = 0;
+		this._position = new ObservablePoint((): void => {
+			this.onChange();
+		}, undefined);
+		this._id = 0;
+		this._local = new ObservablePoint((): void => {
+			this.onLocalChange();
+		}, undefined);
+		this._localId = 0;
+		this._lockCount = 0;
+		this._isChanged = false;
+		this._isLocalChanged = false;
+	}
+
+	lock(): void {
+		this._lockCount += 1;
+		if (this._lockCount === 1) {
+			this._isChanged = false;
+			this._isLocalChanged = false;
+		}
+	}
+
+	unlock(): void {
+		this._lockCount -= 1;
+		if (this._lockCount === 0) {
+			if (this._isLocalChanged) {
+				this.onLocalChange();
+			} else if (this._isChanged) {
+				this.onChange();
+			}
+		}
+	}
+
+	get id(): number {
+		return this._id;
 	}
 
 	get shape(): EShape | null {
@@ -34,78 +76,109 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		this.set(shape, undefined, undefined);
 	}
 
-	get x(): number {
-		return this._x;
+	get position(): IPoint {
+		return this._position;
 	}
 
-	set x(x: number) {
-		this.set(undefined, x, undefined);
+	get localId(): number {
+		return this._localId;
 	}
 
-	get y(): number {
-		return this._y;
+	get local(): IPoint {
+		return this._local;
 	}
 
-	set y(y: number) {
-		this.set(undefined, undefined, y);
-	}
-
-	set(shape?: EShape | null, x?: number, y?: number): this {
-		let isChanged = false;
+	set(shape?: EShape | null, position?: IPoint, local?: IPoint): this {
+		this.lock();
 
 		if (shape !== undefined && shape !== this._shape) {
 			this._shape = shape;
-			isChanged = true;
+			this.onChange();
 		}
 
-		if (x != null && x !== this._x) {
-			this._x = x;
-			isChanged = true;
+		if (position != null) {
+			this._position.copyFrom(position);
 		}
 
-		if (y != null && y !== this._y) {
-			this._y = y;
-			isChanged = true;
+		if (local != null) {
+			this._local.copyFrom(local);
 		}
 
-		if (isChanged) {
-			this._parent.onChange();
-		}
+		this.unlock();
 		return this;
 	}
 
 	copy(source: EShapeConnectorEdge): this {
-		return this.set(source.shape, source.x, source.y);
+		return this.set(source.shape, source.position, source.local);
 	}
 
 	isEqual(other: EShapeConnectorEdge): boolean {
-		return this._shape === other.shape && this._x === other.x && this._y === other.y;
+		if (this._shape === other.shape) {
+			const position = this._position;
+			const otherPosition = other.position;
+			if (position.x === otherPosition.x && position.y === otherPosition.y) {
+				const local = this._local;
+				const otherLocal = other.local;
+				return local.x === otherLocal.x && local.y === otherLocal.y;
+			}
+		}
+		return false;
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const shape = this._shape;
-		return manager.addResource(`[${shape ? shape.uuid : null},${this._x},${this._y}]`);
+		const shapeUuid = shape ? shape.uuid : null;
+		const position = this._position;
+		const local = this._local;
+		return manager.addResource(
+			`[${shapeUuid},${position.x},${position.y},${local.x},${local.y}]`
+		);
 	}
 
-	onDeserialized(
-		resourceId: number,
-		mapping: EShapeUuidMapping,
-		manager: EShapeResourceManagerDeserialization
-	): this {
-		const resources = manager.resources;
-		if (0 <= resourceId && resourceId < resources.length) {
-			let parsed = manager.getExtension<[number | null, number, number]>(resourceId);
-			if (parsed == null) {
-				parsed = JSON.parse(resources[resourceId]) as [number, number, number];
-				manager.setExtension(resourceId, parsed);
+	fit(forcibly?: boolean): this {
+		if (forcibly) {
+			this._id += 1;
+		}
+		const id = this._id;
+		if (this._localId !== id) {
+			this._localId = id;
+
+			const shape = this._shape;
+			if (shape != null) {
+				const work = (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL ??= new Point());
+				const size = shape.size;
+				const position = this._position;
+				work.set(size.x * position.x, size.y * position.y);
+				shape.toGlobal(work, work);
+				const parent = this._parent;
+				parent.updateTransform();
+				const parentParent = parent.parent;
+				if (parentParent) {
+					parent.updateTransform();
+					parentParent.toLocal(work, undefined, work, false);
+				}
+				this._local.copyFrom(work);
 			}
-			let shape: EShape | null | undefined = null;
-			const shapeUuid = parsed[0];
-			if (shapeUuid != null) {
-				shape = mapping.find(shapeUuid);
-			}
-			this.set(shape, parsed[1], parsed[2]);
 		}
 		return this;
+	}
+
+	protected onChange(): void {
+		if (0 < this._lockCount) {
+			this._isChanged = true;
+			return;
+		}
+		this._id += 1;
+		this.fit();
+	}
+
+	protected onLocalChange(): void {
+		if (0 < this._lockCount) {
+			this._isLocalChanged = true;
+			return;
+		}
+		this._id += 1;
+		this._localId = this._id;
+		this._onChange();
 	}
 }

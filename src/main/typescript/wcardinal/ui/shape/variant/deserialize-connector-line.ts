@@ -6,7 +6,7 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShape } from "../e-shape";
 import { EShapeConnector } from "../e-shape-connector";
-import { EShapeConnectorEdge } from "../e-shape-connector-edge";
+import { EShapeConnectorEdge, EShapeConnectorEdgeSerialized } from "../e-shape-connector-edge";
 import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeUuidMapping } from "../e-shape-uuid-mapping";
@@ -68,17 +68,21 @@ const onConnectorLineEdgeDeserialized = (
 ): void => {
 	const resources = manager.resources;
 	if (0 <= resourceId && resourceId < resources.length) {
-		let parsed = manager.getExtension<[number | null, number, number]>(resourceId);
+		let parsed = manager.getExtension<EShapeConnectorEdgeSerialized>(resourceId);
 		if (parsed == null) {
-			parsed = JSON.parse(resources[resourceId]) as [number, number, number];
+			parsed = JSON.parse(resources[resourceId]) as EShapeConnectorEdgeSerialized;
 			manager.setExtension(resourceId, parsed);
 		}
-		let shape: EShape | null | undefined = null;
+		let shape: EShape | null = null;
 		const shapeUuid = parsed[0];
 		if (shapeUuid != null) {
-			shape = mapping.find(shapeUuid);
+			shape = mapping.find(shapeUuid) || null;
 		}
-		edge.set(shape, parsed[1], parsed[2]);
+		edge.lock();
+		edge.shape = shape;
+		edge.position.set(parsed[1], parsed[2]);
+		edge.local.set(parsed[3], parsed[4]);
+		edge.unlock();
 		if (shape) {
 			shape.connector.add(connector);
 		}

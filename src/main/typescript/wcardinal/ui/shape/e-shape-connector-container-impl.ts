@@ -7,9 +7,11 @@ import { EShapeConnectorContainer } from "./e-shape-connector-container";
 import { EShapeConnector } from "./e-shape-connector";
 
 export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
+	protected _parent: unknown;
 	protected _list: EShapeConnector[];
 
-	constructor() {
+	constructor(parent: unknown) {
+		this._parent = parent;
 		this._list = [];
 	}
 
@@ -60,10 +62,21 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 		return false;
 	}
 
-	fit(): void {
+	fit(forcibly?: boolean): void {
 		const list = this._list;
+		const parent = this._parent;
 		for (let i = 0, imax = list.length; i < imax; ++i) {
-			list[i].fit();
+			const shape = list[i];
+			const edge = shape.edge;
+			const left = edge.left;
+			if (left.shape === parent) {
+				left.fit(forcibly);
+			} else {
+				const right = edge.right;
+				if (right.shape === parent) {
+					right.fit(forcibly);
+				}
+			}
 		}
 	}
 }

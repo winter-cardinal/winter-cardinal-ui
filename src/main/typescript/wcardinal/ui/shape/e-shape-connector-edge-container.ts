@@ -10,5 +10,6 @@ export interface EShapeConnectorEdgeContainer {
 	left: EShapeConnectorEdge;
 	right: EShapeConnectorEdge;
 	copy(source: EShapeConnectorEdgeContainer): this;
+	fit(forcibly?: boolean): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;
 }
