@@ -29,7 +29,7 @@ export class EShapeButtonRuntime extends EShapeRuntime {
 	}
 
 	initialize(shape: EShape): void {
-		this.actions.push(
+		this.actions.unshift(
 			this._isToggle
 				? new EShapeButtonRuntimeActionToggle(this)
 				: new EShapeButtonRuntimeAction(this)

@@ -47,7 +47,8 @@ export class EShapeButtonRuntimeActionToggle extends EShapeActionRuntime {
 		super(
 			EShapeRuntimeReset.COLOR_FILL_AND_STROKE |
 				EShapeRuntimeReset.COLOR_TEXT |
-				EShapeRuntimeReset.COLOR_TEXT_OUTLINE
+				EShapeRuntimeReset.COLOR_TEXT_OUTLINE |
+				EShapeRuntimeReset.CURSOR
 		);
 
 		const fill = runtime.fill;
@@ -134,7 +135,7 @@ export class EShapeButtonRuntimeActionToggle extends EShapeActionRuntime {
 			this.getTextOutlineAlpha(state)
 		);
 		shape.cursor = this.getCursor(state);
-		runtime.written |= EShapeRuntimeReset.COLOR_FILL_AND_STROKE;
+		runtime.written |= this.reset;
 	}
 
 	protected getFillColor(state: EShapeStateSet): number {
