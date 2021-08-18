@@ -5,9 +5,10 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { EShapeUploaded } from "../e-shape-uploaded";
 import { TRIANGLE_INDEX_COUNT, TRIANGLE_VERTEX_COUNT } from "./build-triangle";
+import { BuilderLineOfTriangles } from "./builder-line-of-triangles";
 import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
-import { EShapeLineOfTrianglesUploaded } from "./e-shape-line-of-triangles-uploaded";
 
 export const createLineOfTrianglesUploaded = (
 	buffer: EShapeBuffer,
@@ -15,7 +16,7 @@ export const createLineOfTrianglesUploaded = (
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number
-): EShapeLineOfTrianglesUploaded | null => {
+): EShapeUploaded | null => {
 	return createLineOfAnyUploaded(
 		buffer,
 		shape,
@@ -24,6 +25,6 @@ export const createLineOfTrianglesUploaded = (
 		ioffset,
 		TRIANGLE_INDEX_COUNT,
 		antialiasWeight,
-		EShapeLineOfTrianglesUploaded
+		BuilderLineOfTriangles
 	);
 };

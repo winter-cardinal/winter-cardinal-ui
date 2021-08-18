@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint, Point } from "pixi.js";
+import { Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesHitResult } from "./d-chart-series";
@@ -18,7 +18,6 @@ import {
 	DChartSeriesStrokeComputed,
 	DChartSeriesStrokeComputedOptions
 } from "./d-chart-series-stroke-computed";
-import { EShapePointsStyle } from "./shape";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 
 /**
@@ -56,7 +55,7 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 		if (!line) {
 			const stroke = container.newStroke(index, this._options?.stroke);
 			this._stroke = stroke;
-			line = new EShapeLine([], [], stroke.width, EShapePointsStyle.NONE);
+			line = new EShapeLine();
 			line.stroke.copy(stroke);
 			this._line = line;
 		}
@@ -249,24 +248,27 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 		super.destroy();
 	}
 
-	hitTest(global: IPoint): boolean {
+	hitTest(x: number, y: number): boolean {
 		const line = this._line;
 		if (line) {
-			const work = DChartSeriesLinear.WORK;
-			const local = line.toLocal(global, undefined, work);
-			return line.contains(local) != null;
+			const local = DChartSeriesLinear.WORK;
+			local.set(x, y);
+			line.toLocal(local, undefined, local);
+			return line.contains(local.x, local.y) != null;
 		}
 		return false;
 	}
 
-	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): boolean {
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): boolean {
 		const line = this._line;
 		if (line) {
-			const work = DChartSeriesLinear.WORK;
-			const local = line.toLocal(global, undefined, work);
+			const local = DChartSeriesLinear.WORK;
+			local.set(x, y);
+			line.toLocal(local, undefined, local);
 			result.shape = line;
 			return line.calcHitPoint(
-				local,
+				local.x,
+				local.y,
 				this.toThreshold,
 				null,
 				this.calcHitPointHitTester,

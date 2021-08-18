@@ -13,29 +13,19 @@ import {
 	buildRectangleVertex,
 	RECTANGLE_WORLD_SIZE
 } from "./build-rectangle";
-import { EShapeTextUploaded } from "./e-shape-text-uploaded";
+import { BuilderBase } from "./builder-base";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export class EShapeRectanglePivotedUploaded extends EShapeTextUploaded {
-	init(shape: EShape): this {
-		super.init(shape);
-
-		// Indices
-		const buffer = this.buffer;
+export class BuilderRectangle extends BuilderBase {
+	init(buffer: EShapeBuffer): void {
 		buffer.updateIndices();
 		buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-
-		// Text
-		this.initText();
-
-		this.update(shape);
-		return this;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
+	update(buffer: EShapeBuffer, shape: EShape): void {
 		this.updateVertexClippingStepAndUv(buffer, shape);
-		this.updateColor(buffer, shape);
-		this.updateText(buffer, shape);
+		this.updateColorFill(buffer, shape);
+		this.updateColorStroke(buffer, shape);
 	}
 
 	protected updateVertexClippingStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
@@ -44,7 +34,7 @@ export class EShapeRectanglePivotedUploaded extends EShapeTextUploaded {
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
-		const transformLocalId = this.toTransformLocalId(shape);
+		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
@@ -58,8 +48,8 @@ export class EShapeRectanglePivotedUploaded extends EShapeTextUploaded {
 			this.strokeSide !== strokeSide ||
 			this.strokeStyle !== strokeStyle;
 
-		const texture = this.toTexture(shape);
-		const textureTransformId = this.toTextureTransformId(texture);
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
 		const isTextureChanged =
 			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
@@ -76,19 +66,14 @@ export class EShapeRectanglePivotedUploaded extends EShapeTextUploaded {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
-			if (isVertexChanged || isTransformChanged) {
-				// Invalidate the text layout to update the text layout.
-				this.textSpacingHorizontal = NaN;
-			}
-
 			// Vertices
 			const voffset = this.vertexOffset;
 			buffer.updateVertices();
 			buildRectangleVertex(
 				buffer.vertices,
 				voffset,
-				0.5 * sizeX,
-				0.5 * sizeY,
+				0,
+				0,
 				sizeX,
 				sizeY,
 				strokeAlign,
@@ -119,12 +104,7 @@ export class EShapeRectanglePivotedUploaded extends EShapeTextUploaded {
 			// UVs
 			if (isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildRectangleUv(
-					buffer.uvs,
-					voffset,
-					this.toTextureUvs(texture),
-					RECTANGLE_WORLD_SIZE
-				);
+				buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
 			}
 		}
 	}

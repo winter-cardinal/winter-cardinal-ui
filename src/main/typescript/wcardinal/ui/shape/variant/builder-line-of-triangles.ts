@@ -5,17 +5,19 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { buildNullClipping, buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
+import { buildNullStep, buildNullUv, buildNullVertex } from "./build-null";
 import {
-	buildTriangleRoundedClipping,
-	buildTriangleRoundedIndex,
-	buildTriangleRoundedStep,
-	buildTriangleRoundedUv,
-	buildTriangleRoundedVertex,
-	TRIANGLE_ROUNDED_INDEX_COUNT,
-	TRIANGLE_ROUNDED_VERTEX_COUNT,
-	TRIANGLE_ROUNDED_WORLD_SIZE
-} from "./build-triangle-rounded";
+	buildTriangleClipping,
+	buildTriangleIndex,
+	buildTriangleStep,
+	buildTriangleUv,
+	buildTriangleVertex,
+	TRIANGLE_INDEX_COUNT,
+	TRIANGLE_VERTEX_COUNT,
+	TRIANGLE_WORLD_SIZE
+} from "./build-triangle";
+import { BuilderLineOfAny } from "./builder-line-of-any";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
 import { copyStep } from "./copy-step";
@@ -23,48 +25,40 @@ import { copyUvs } from "./copy-uv";
 import { copyVertex } from "./copy-vertex";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
-import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
-export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploaded {
-	init(shape: EShape): this {
-		super.init(shape);
-
-		// Indices
-		const buffer = this.buffer;
+export class BuilderLineOfTriangles extends BuilderLineOfAny {
+	init(buffer: EShapeBuffer): void {
+		buffer.updateClippings();
 		buffer.updateIndices();
+		const clippings = buffer.clippings;
+		const indices = buffer.indices;
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		const pointCountReserved = this.pointCountReserved;
 		if (0 < pointCountReserved) {
-			buildTriangleRoundedIndex(buffer.indices, voffset, ioffset);
+			buildTriangleClipping(clippings, voffset);
+			copyClipping(clippings, voffset, TRIANGLE_VERTEX_COUNT, pointCountReserved);
+			buildTriangleIndex(indices, voffset, ioffset);
 			copyIndex(
-				buffer.indices,
-				TRIANGLE_ROUNDED_VERTEX_COUNT,
+				indices,
+				TRIANGLE_VERTEX_COUNT,
 				ioffset,
-				TRIANGLE_ROUNDED_INDEX_COUNT,
+				TRIANGLE_INDEX_COUNT,
 				pointCountReserved
 			);
 		}
-
-		// Text
-		this.initText();
-
-		this.update(shape);
-		return this;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
+	update(buffer: EShapeBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
-			this.updateVertexClippingStepAndUv(buffer, shape, points);
-			this.updateLineOfAnyColorFill(buffer, shape, points, TRIANGLE_ROUNDED_VERTEX_COUNT);
-			this.updateLineOfAnyColorStroke(buffer, shape, points, TRIANGLE_ROUNDED_VERTEX_COUNT);
-			this.updateText(buffer, shape);
+			this.updateVertexStepAndUvs(buffer, shape, points);
+			this.updateLineOfAnyColorFill(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
+			this.updateLineOfAnyColorStroke(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
 		}
 	}
 
-	protected updateVertexClippingStepAndUv(
+	protected updateVertexStepAndUvs(
 		buffer: EShapeBuffer,
 		shape: EShape,
 		points: EShapeLineOfAnyPoints
@@ -83,10 +77,7 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
-		const radius = shape.radius;
-		const isRadiusChanged = radius !== this.radius;
-
-		const transformLocalId = this.toTransformLocalId(shape);
+		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
@@ -98,22 +89,15 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 			this.strokeWidth !== strokeWidth ||
 			this.strokeStyle !== strokeStyle;
 
-		const corner = shape.corner;
-		const isCornerChanged = this.corner !== corner;
-
-		const texture = this.toTexture(shape);
-		const textureTransformId = this.toTextureTransformId(texture);
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
 		const isTextureChanged =
 			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
 		const isVertexChanged =
-			isPointChanged ||
-			isPointSizeChanged ||
-			isSizeChanged ||
-			isRadiusChanged ||
-			isStrokeChanged;
+			isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
 
-		if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
+		if (isVertexChanged || isTransformChanged || isTextureChanged) {
 			this.pointId = pointId;
 			const formatted = points.formatted;
 			this.pointCount = formatted.length;
@@ -121,46 +105,34 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 			this.pointSizeId = pointSizeId;
 			this.sizeX = sizeX;
 			this.sizeY = sizeY;
-			this.radius = radius;
 			this.transformLocalId = transformLocalId;
 			this.strokeAlign = strokeAlign;
 			this.strokeWidth = strokeWidth;
 			this.strokeStyle = strokeStyle;
-			this.corner = corner;
-			this.texture = texture;
-			this.textureTransformId = textureTransformId;
-
-			if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-				// Invalidate the text layout to update the text layout.
-				this.textSpacingHorizontal = NaN;
-			}
 
 			// Buffer
 			buffer.updateVertices();
-			if (isVertexChanged || isCornerChanged) {
-				buffer.updateClippings();
-			}
-			if (isVertexChanged || isTransformChanged || isCornerChanged) {
+			if (isVertexChanged || isTransformChanged) {
 				buffer.updateSteps();
 			}
 			if (isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
 			}
+
 			const pointCount = this.pointCount;
 			const pointsValues = formatted.values;
 			const voffset = this.vertexOffset;
 			const vertices = buffer.vertices;
-			const clippings = buffer.clippings;
 			const steps = buffer.steps;
+			const clippings = buffer.clippings;
 			const uvs = buffer.uvs;
+			const textureUvs = toTextureUvs(texture);
 			const internalTransform = shape.transform.internalTransform;
-			const textureUvs = this.toTextureUvs(texture);
 			if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
 				const pointSizeX = pointSize.getX(0);
 				const pointSizeY = pointSize.getY(0);
 
-				// Vertices
-				buildTriangleRoundedVertex(
+				buildTriangleVertex(
 					vertices,
 					voffset,
 					0,
@@ -169,50 +141,33 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 					pointSizeY,
 					strokeAlign,
 					strokeWidth,
-					radius,
 					internalTransform,
-					TRIANGLE_ROUNDED_WORLD_SIZE
+					TRIANGLE_WORLD_SIZE
 				);
 				copyVertex(
 					vertices,
 					internalTransform,
 					voffset,
-					TRIANGLE_ROUNDED_VERTEX_COUNT,
+					TRIANGLE_VERTEX_COUNT,
 					pointCount,
 					pointsValues,
 					pointOffset
 				);
-
-				// Clippings
-				if (isVertexChanged || isCornerChanged) {
-					buildTriangleRoundedClipping(clippings, voffset, corner, radius);
-					copyClipping(clippings, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
-				}
-
-				// Steps
-				if (isVertexChanged || isTransformChanged || isCornerChanged) {
-					buildTriangleRoundedStep(
+				if (isVertexChanged || isTransformChanged) {
+					buildTriangleStep(
 						steps,
 						clippings,
 						voffset,
+						TRIANGLE_VERTEX_COUNT,
 						strokeWidth,
 						strokeStyle,
-						radius,
-						TRIANGLE_ROUNDED_WORLD_SIZE
+						TRIANGLE_WORLD_SIZE
 					);
-					copyStep(steps, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+					copyStep(steps, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
 				}
-
-				// UVs
 				if (isVertexChanged || isTextureChanged) {
-					buildTriangleRoundedUv(
-						uvs,
-						voffset,
-						textureUvs,
-						radius,
-						TRIANGLE_ROUNDED_WORLD_SIZE
-					);
-					copyUvs(uvs, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, pointCount);
+					buildTriangleUv(uvs, textureUvs, voffset, TRIANGLE_WORLD_SIZE);
+					copyUvs(uvs, voffset, TRIANGLE_VERTEX_COUNT, pointCount);
 				}
 			} else {
 				for (let i = 0; i < pointCount; ++i) {
@@ -221,11 +176,9 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 					const py = pointsValues[ip + 1] + pointOffset.getY(i);
 					const pointSizeX = pointSize.getX(i);
 					const pointSizeY = pointSize.getY(i);
+					const iv = voffset + i * TRIANGLE_VERTEX_COUNT;
 
-					const iv = voffset + i * TRIANGLE_ROUNDED_VERTEX_COUNT;
-
-					// Vertices
-					buildTriangleRoundedVertex(
+					buildTriangleVertex(
 						vertices,
 						iv,
 						px,
@@ -234,50 +187,32 @@ export class EShapeLineOfTriangleRoundedsUploaded extends EShapeLineOfAnyUploade
 						pointSizeY,
 						strokeAlign,
 						strokeWidth,
-						radius,
 						internalTransform,
-						TRIANGLE_ROUNDED_WORLD_SIZE
+						TRIANGLE_WORLD_SIZE
 					);
-
-					// Clippings
-					if (isVertexChanged || isCornerChanged) {
-						buildTriangleRoundedClipping(clippings, iv, corner, radius);
-					}
-
-					// Steps
-					if (isVertexChanged || isTransformChanged || isCornerChanged) {
-						buildTriangleRoundedStep(
+					if (isVertexChanged || isTransformChanged) {
+						buildTriangleStep(
 							steps,
 							clippings,
 							iv,
+							TRIANGLE_VERTEX_COUNT,
 							strokeWidth,
 							strokeStyle,
-							radius,
-							TRIANGLE_ROUNDED_WORLD_SIZE
+							TRIANGLE_WORLD_SIZE
 						);
 					}
-
-					// UVs
 					if (isVertexChanged || isTextureChanged) {
-						buildTriangleRoundedUv(
-							uvs,
-							iv,
-							textureUvs,
-							radius,
-							TRIANGLE_ROUNDED_WORLD_SIZE
-						);
+						buildTriangleUv(uvs, textureUvs, iv, TRIANGLE_WORLD_SIZE);
 					}
 				}
 			}
 
 			// Fill the rest
 			const pointCountReserved = this.pointCountReserved;
-			const voffsetReserved = voffset + pointCount * TRIANGLE_ROUNDED_VERTEX_COUNT;
-			const vcountReserved =
-				TRIANGLE_ROUNDED_VERTEX_COUNT * (pointCountReserved - pointCount);
+			const voffsetReserved = voffset + pointCount * TRIANGLE_VERTEX_COUNT;
+			const vcountReserved = TRIANGLE_VERTEX_COUNT * (pointCountReserved - pointCount);
 			buildNullVertex(vertices, voffsetReserved, vcountReserved);
 			buildNullStep(steps, voffsetReserved, vcountReserved);
-			buildNullClipping(clippings, voffsetReserved, vcountReserved);
 			buildNullUv(uvs, voffsetReserved, vcountReserved);
 		}
 	}

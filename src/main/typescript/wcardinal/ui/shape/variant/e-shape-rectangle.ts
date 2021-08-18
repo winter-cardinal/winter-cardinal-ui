@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeStrokeSide } from "../e-shape-stroke-side";
 import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
+import { hitTestRectangle } from "./hit-test-rectangle";
 
 export class EShapeRectangle extends EShapePrimitive {
 	constructor(type = EShapeType.RECTANGLE) {
@@ -16,50 +16,17 @@ export class EShapeRectangle extends EShapePrimitive {
 		return new EShapeRectangle().copy(this);
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
+	containsAbs(
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
+		sw: number,
+		ss: number,
+		sa: number
+	): boolean {
 		if (super.containsAbsBBox(x, y, ax, ay)) {
-			const fill = this.fill;
-			if (fill.enable) {
-				return true;
-			} else {
-				const strokeSide = this.stroke.side;
-				if (0 < sw && strokeSide !== EShapeStrokeSide.NONE) {
-					const s = sw * ss;
-					const wx = Math.max(0.0, ax - s);
-					const wy = Math.max(0.0, ay - s);
-					if (!this.containsAbsBBox(x, y, wx, wy)) {
-						if (strokeSide === EShapeStrokeSide.ALL) {
-							return true;
-						} else {
-							if (x <= -wx) {
-								if (y <= -wy) {
-									return !!(strokeSide & EShapeStrokeSide.TOP_OR_LEFT);
-								} else if (+wy <= y) {
-									return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_LEFT);
-								} else {
-									return !!(strokeSide & EShapeStrokeSide.LEFT);
-								}
-							} else if (+wx <= x) {
-								if (y <= -wy) {
-									return !!(strokeSide & EShapeStrokeSide.TOP_OR_RIGHT);
-								} else if (+wy <= y) {
-									return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_RIGHT);
-								} else {
-									return !!(strokeSide & EShapeStrokeSide.RIGHT);
-								}
-							} else {
-								if (y <= -wy) {
-									return !!(strokeSide & EShapeStrokeSide.TOP);
-								} else if (+wy <= y) {
-									return !!(strokeSide & EShapeStrokeSide.BOTTOM);
-								} else {
-									return false;
-								}
-							}
-						}
-					}
-				}
-			}
+			return hitTestRectangle(this, x, y, ax, ay, sw, ss);
 		}
 		return false;
 	}

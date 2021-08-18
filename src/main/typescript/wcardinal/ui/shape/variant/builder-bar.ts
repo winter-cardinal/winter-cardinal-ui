@@ -7,59 +7,40 @@ import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import {
+	BAR_INDEX_COUNT,
+	BAR_VERTEX_COUNT,
 	buildBarClipping,
 	buildBarIndex,
 	buildBarUv,
 	buildBarVertexStepAndColorFill
 } from "./build-bar";
+import { BuilderBase } from "./builder-base";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { EShapeBar } from "./e-shape-bar";
-import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
-export class EShapeBarUploaded extends EShapeTextUploaded {
+export class BuilderBar extends BuilderBase {
 	protected pointsId: number;
 	protected pointsStyle: EShapePointsStyle;
 
-	constructor(
-		buffer: EShapeBuffer,
-		voffset: number,
-		ioffset: number,
-		tvcount: number,
-		ticount: number,
-		vcount: number,
-		icount: number,
-		antialiasWeight: number
-	) {
-		super(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight);
+	constructor(vertexOffset: number, indexOffset: number) {
+		super(vertexOffset, indexOffset, BAR_VERTEX_COUNT, BAR_INDEX_COUNT);
 		this.pointsId = NaN;
 		this.pointsStyle = EShapePointsStyle.NONE;
 	}
 
-	init(shape: EShape): this {
-		super.init(shape);
-
-		// Clipping & indices
-		const buffer = this.buffer;
+	init(buffer: EShapeBuffer): void {
 		const voffset = this.vertexOffset;
 		const ioffset = this.indexOffset;
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildBarClipping(buffer.clippings, voffset);
 		buildBarIndex(buffer.indices, voffset, ioffset);
-
-		// Text
-		this.initText();
-
-		//
-		this.update(shape);
-		return this;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
+	update(buffer: EShapeBuffer, shape: EShape): void {
 		this.updateVertexStepAndColorFill(buffer, shape);
-		this.updateColor(buffer, shape);
+		this.updateColorStroke(buffer, shape);
 		this.updateUv(buffer, shape);
-		this.updateText(buffer, shape);
 	}
 
 	protected updateVertexStepAndColorFill(buffer: EShapeBuffer, shape: EShape): void {
@@ -75,7 +56,7 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 			const isStrokeWidthChanged =
 				strokeWidth !== this.strokeWidth || strokeStyle !== this.strokeStyle;
 
-			const transformLocalId = this.toTransformLocalId(shape);
+			const transformLocalId = toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 			const points = shape.points;
@@ -100,10 +81,6 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 				this.pointsId = pointsId;
 				this.pointsStyle = pointsStyle;
 
-				if (isSizeChanged || isTransformChanged) {
-					// Invalidate the text layout to update the text layout.
-					this.textSpacingHorizontal = NaN;
-				}
 				if (isPointsIdChanged) {
 					// Invalidate the texture transform ID to update the UVs
 					this.textureTransformId = NaN;
@@ -127,23 +104,15 @@ export class EShapeBarUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	protected updateColorFillAndStroke(
-		buffer: EShapeBuffer,
-		shape: EShape,
-		vertexCount: number
-	): void {
-		this.updateColorStroke(buffer, shape, vertexCount);
-	}
-
 	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
-		const texture = this.toTexture(shape);
-		const textureTransformId = this.toTextureTransformId(texture);
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
 		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
 			buffer.updateUvs();
-			buildBarUv(buffer.uvs, this.vertexOffset, this.toTextureUvs(texture));
+			buildBarUv(buffer.uvs, this.vertexOffset, toTextureUvs(texture));
 		}
 	}
 }

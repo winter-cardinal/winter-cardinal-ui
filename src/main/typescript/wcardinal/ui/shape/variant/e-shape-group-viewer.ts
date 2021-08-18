@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { IPoint } from "pixi.js";
 import { EShapeCorner } from "../e-shape-corner";
 import { EShapeDefaults } from "../e-shape-defaults";
@@ -134,7 +139,15 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 
 	abstract clone(): EShapeGroupViewer;
 
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+	containsAbs(
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
+		sw: number,
+		ss: number,
+		sa: number
+	): boolean {
 		return false;
 	}
 }

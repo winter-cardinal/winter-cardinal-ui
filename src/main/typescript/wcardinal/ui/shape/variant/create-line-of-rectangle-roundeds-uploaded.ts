@@ -5,12 +5,13 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { EShapeUploaded } from "../e-shape-uploaded";
 import {
 	RECTANGLE_ROUNDED_INDEX_COUNT,
 	RECTANGLE_ROUNDED_VERTEX_COUNT
 } from "./build-rectangle-rounded";
+import { BuilderLineOfRectangleRoundeds } from "./builder-line-of-rectangle-roundeds";
 import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
-import { EShapeLineOfRectangleRoundedsUploaded } from "./e-shape-line-of-rectangle-roundeds-uploaded";
 
 export const createLineOfRectangleRoundedsUploaded = (
 	buffer: EShapeBuffer,
@@ -18,7 +19,7 @@ export const createLineOfRectangleRoundedsUploaded = (
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number
-): EShapeLineOfRectangleRoundedsUploaded | null => {
+): EShapeUploaded | null => {
 	return createLineOfAnyUploaded(
 		buffer,
 		shape,
@@ -27,6 +28,6 @@ export const createLineOfRectangleRoundedsUploaded = (
 		ioffset,
 		RECTANGLE_ROUNDED_INDEX_COUNT,
 		antialiasWeight,
-		EShapeLineOfRectangleRoundedsUploaded
+		BuilderLineOfRectangleRoundeds
 	);
 };

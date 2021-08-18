@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
@@ -84,6 +83,6 @@ export interface DChartSeriesContainer {
 	getDomain(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion;
 	getRange(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion;
 
-	hitTest(global: IPoint): DChartSeries | null;
-	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): DChartSeries | null;
+	hitTest(x: number, y: number): DChartSeries | null;
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): DChartSeries | null;
 }

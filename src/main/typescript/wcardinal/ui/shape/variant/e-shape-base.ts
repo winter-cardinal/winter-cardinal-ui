@@ -42,6 +42,7 @@ import { EShapeType } from "../e-shape-type";
 import { EShapeUploaded } from "../e-shape-uploaded";
 import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { EShapeGradients } from "./e-shape-gradients";
+import { hitTestBBox } from "./hit-test-bbox";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected static WORK_HIT_TEST_DATA?: EShapeBaseHitTestData;
@@ -457,9 +458,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return result;
 	}
 
-	toHitTestData(point: IPoint): EShapeBaseHitTestData {
-		const x = point.x;
-		const y = point.y;
+	toHitTestData(x: number, y: number): EShapeBaseHitTestData {
 		const result = this.getHitTestSize(
 			(EShapeBase.WORK_HIT_TEST_DATA ??= new EShapeBaseHitTestData())
 		);
@@ -471,19 +470,21 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const stroke = this.stroke;
 		const strokeWidth = stroke.enable ? stroke.width : 0;
 		const strokeScale = this.getStrokeWidthScale(stroke.style);
-		const s = strokeWidth * strokeScale * stroke.align;
+		const strokeAlign = stroke.align;
+		const s = strokeWidth * strokeScale * strokeAlign;
 		return result.set(
 			0 <= sx ? +dx : -dx,
 			0 <= sy ? +dy : -dy,
 			Math.abs(sx) + s,
 			Math.abs(sy) + s,
 			strokeWidth,
-			strokeScale
+			strokeScale,
+			strokeAlign
 		);
 	}
 
-	contains(point: Point): EShape | null {
-		const data = this.toHitTestData(point);
+	contains(x: number, y: number): EShape | null {
+		const data = this.toHitTestData(x, y);
 		if (
 			this.containsAbs(
 				data.x,
@@ -491,26 +492,24 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				data.width,
 				data.height,
 				data.strokeWidth,
-				data.strokeScale
+				data.strokeScale,
+				data.strokeAlign
 			)
 		) {
 			return this;
 		}
-		const x = point.x;
-		const y = point.y;
-		return this.containsText(x, y, point) || this.containsChildren(x, y, point);
+		return this.containsText(x, y) || this.containsChildren(x, y);
 	}
 
-	protected containsText(x: number, y: number, work: Point): EShape | null {
+	protected containsText(x: number, y: number): EShape | null {
 		const text = this.text;
 		const textAtlas = text.atlas;
 		if (textAtlas != null) {
 			const textWorld = text.world;
 			if (textWorld != null) {
-				work.set(x, y);
-				this.transform.internalTransform.apply(work, work);
-				const tx = work.x - textWorld[0];
-				const ty = work.y - textWorld[1];
+				const transform = this.transform.internalTransform;
+				const tx = transform.a * x + transform.c * y + transform.tx - textWorld[0];
+				const ty = transform.b * x + transform.d * y + transform.ty - textWorld[1];
 				const th = textWorld[2] * tx + textWorld[3] * ty;
 				const tv = textWorld[4] * tx + textWorld[5] * ty;
 				if (0 <= th && th <= textWorld[6] && 0 <= tv && tv <= textWorld[7]) {
@@ -521,14 +520,22 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return null;
 	}
 
-	protected containsChildren(x: number, y: number, work: Point): EShape | null {
+	protected containsChildren(x: number, y: number): EShape | null {
 		const children = this.children;
 		for (let i = children.length - 1; 0 <= i; --i) {
 			const child = children[i];
-			work.set(x, y);
 			child.updateTransform();
-			child.transform.localTransform.applyInverse(work, work);
-			const childResult = child.contains(work);
+			const localTransform = child.transform.localTransform;
+			const a = localTransform.a;
+			const b = localTransform.b;
+			const c = localTransform.c;
+			const d = localTransform.d;
+			const tx = localTransform.tx;
+			const ty = localTransform.ty;
+			const id = 1 / (a * d - c * b);
+			const lx = (d * x - c * y + ty * c - tx * d) * id;
+			const ly = (a * y - b * x - ty * a + tx * b) * id;
+			const childResult = child.contains(lx, ly);
 			if (childResult != null) {
 				return childResult;
 			}
@@ -536,17 +543,25 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return null;
 	}
 
-	containsBBox(point: IPoint): boolean {
-		const data = this.toHitTestData(point);
+	containsBBox(x: number, y: number): boolean {
+		const data = this.toHitTestData(x, y);
 		return this.containsAbsBBox(data.x, data.y, data.width, data.height);
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
+	containsAbs(
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
+		sw: number,
+		ss: number,
+		sa: number
+	): boolean {
 		return this.containsAbsBBox(x, y, ax, ay);
 	}
 
 	containsAbsBBox(x: number, y: number, ax: number, ay: number): boolean {
-		return -ax <= x && x <= +ax && -ay <= y && y <= +ay;
+		return hitTestBBox(x, y, ax, ay);
 	}
 
 	select(point: Point): boolean {

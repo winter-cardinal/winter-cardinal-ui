@@ -14,11 +14,16 @@ import { EShapePointsFormatter } from "../e-shape-points-formatter";
 import {
 	EShapePointsFormatted,
 	EShapePointsFormattedBoundary,
-	EShapePointsFormattedWithBoundary
+	EShapePointsFormattedWithBoundary,
+	toPointsBoundary
 } from "../e-shape-points-formatted";
 import { EShapeLineBasePointsHitTester } from "./e-shape-line-base-points-hit-tester";
 import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points-hit-tester-to-range";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { EShapePointsMarkerContainer } from "../e-shape-points-marker-container";
+import { EShapePointsMarkerContainerImpl } from "../e-shape-points-marker-container-impl";
+
+export type EShapeLinePointsSerialized = [number[], number[], number, number?];
 
 export class EShapeLinePoints implements EShapePoints {
 	protected static WORK_RANGE: [number, number] = [0, 0];
@@ -28,9 +33,8 @@ export class EShapeLinePoints implements EShapePoints {
 	protected _valuesBaseLength: number;
 	protected _values: number[];
 	protected _segments: number[];
-	readonly position: Point;
-	protected _sizeBase: Point;
-	readonly size: Point;
+	protected _parentSizeBase: Point;
+	protected _parentSizeFitted: Point;
 	protected _id: number;
 	protected _style: EShapePointsStyle;
 	protected _formattedId: number;
@@ -39,29 +43,20 @@ export class EShapeLinePoints implements EShapePoints {
 	protected _formattedValuesBase?: number[];
 	protected _formattedBoundaryBase?: EShapePointsFormattedBoundary;
 
-	constructor(parent: EShape, points: number[], segments: number[], style: EShapePointsStyle) {
-		// Calculate the boundary
-		const boundary = this.toBoundary(points, [0, 0, 0, 0]);
-		const cx = (boundary[2] + boundary[0]) * 0.5;
-		const cy = (boundary[3] + boundary[1]) * 0.5;
-		const sx = boundary[2] - boundary[0];
-		const sy = boundary[3] - boundary[1];
+	protected _marker?: EShapePointsMarkerContainer;
 
-		// Calculate values
-		const values: number[] = [];
-		for (let i = 0, imax = points.length; i < imax; i += 2) {
-			values.push(points[i] - cx, points[i + 1] - cy);
-		}
-
+	constructor(parent: EShape) {
 		this._parent = parent;
-		this._valuesBaseLength = values.length;
-		this._values = values;
-		this._segments = segments.slice(0);
-		this._sizeBase = new Point(sx, sy);
-		this.size = new Point(sx, sy);
-		this.position = new Point(cx, cy);
+		this._valuesBaseLength = 0;
+		this._values = [];
+		this._segments = [];
+		const parentSize = parent.size;
+		const parentSizeX = parentSize.x;
+		const parentSizeY = parentSize.y;
+		this._parentSizeBase = new Point(parentSizeX, parentSizeY);
+		this._parentSizeFitted = new Point(parentSizeX, parentSizeY);
 		this._id = 0;
-		this._style = style;
+		this._style = EShapePointsStyle.NONE;
 		this._formattedId = -1;
 	}
 
@@ -69,21 +64,25 @@ export class EShapeLinePoints implements EShapePoints {
 		return this._values.length >> 1;
 	}
 
-	protected fit(): void {
-		const size = this.size;
-		const parentSize = this._parent.size;
-		const ssx = parentSize.x;
-		const ssy = parentSize.y;
-		const threshold = 0.00001;
-		if (threshold < Math.abs(ssx - size.x) || threshold < Math.abs(ssy - size.y)) {
-			size.set(ssx, ssy);
+	toFitted(): void {
+		this._parentSizeFitted;
+	}
 
-			const sizeBase = this._sizeBase;
-			const hasSizeBaseX = threshold < Math.abs(sizeBase.x);
-			const hasSizeBaseY = threshold < Math.abs(sizeBase.y);
-			if (hasSizeBaseX || hasSizeBaseY) {
-				const scaleX = hasSizeBaseX ? ssx / sizeBase.x : 1;
-				const scaleY = hasSizeBaseY ? ssy / sizeBase.y : 1;
+	protected fit(): void {
+		const psizef = this._parentSizeFitted;
+		const psize = this._parent.size;
+		const psizeX = psize.x;
+		const psizeY = psize.y;
+		const threshold = 0.00001;
+		if (threshold < Math.abs(psizeX - psizef.x) || threshold < Math.abs(psizeY - psizef.y)) {
+			psizef.set(psizeX, psizeY);
+
+			const psizeBase = this._parentSizeBase;
+			const isValidX = threshold < Math.abs(psizeBase.x);
+			const isValidY = threshold < Math.abs(psizeBase.y);
+			if (isValidX || isValidY) {
+				const scaleX = isValidX ? psizeX / psizeBase.x : 1;
+				const scaleY = isValidY ? psizeY / psizeBase.y : 1;
 
 				// Values
 				const values = this._values;
@@ -196,6 +195,33 @@ export class EShapeLinePoints implements EShapePoints {
 		this.set(undefined, undefined, style);
 	}
 
+	get marker(): EShapePointsMarkerContainer {
+		let result = this._marker;
+		if (result == null) {
+			result = this.newMarker();
+			this._marker = result;
+		}
+		return result;
+	}
+
+	getMarker(): EShapePointsMarkerContainer | undefined {
+		return this._marker;
+	}
+
+	protected newMarker(): EShapePointsMarkerContainer {
+		return new EShapePointsMarkerContainerImpl(this);
+	}
+
+	onMarkerTypeChange(): void {
+		const parent = this._parent;
+		parent.uploaded = undefined;
+		parent.toDirty();
+	}
+
+	onMarkerSizeChange(): void {
+		this._parent.updateUploaded();
+	}
+
 	get formatter(): EShapePointsFormatter | null {
 		return this._formatter || null;
 	}
@@ -238,7 +264,7 @@ export class EShapeLinePoints implements EShapePoints {
 				if (valuesBase != null) {
 					const length = valuesBase.length >> 1;
 					formatter(length, valuesBase, segments, style, result);
-					this.toBoundary(result.values, result.boundary);
+					toPointsBoundary(result.values, result.boundary);
 
 					const formattedValues = result.values;
 					const formattedValuesBase = formattedValues.splice(0);
@@ -263,7 +289,7 @@ export class EShapeLinePoints implements EShapePoints {
 					const values = this._values;
 					const length = values.length >> 1;
 					formatter(length, values, segments, style, result);
-					this.toBoundary(result.values, result.boundary);
+					toPointsBoundary(result.values, result.boundary);
 					this._formattedValuesBase = undefined;
 					this._formattedBoundaryBase = undefined;
 				}
@@ -283,8 +309,8 @@ export class EShapeLinePoints implements EShapePoints {
 		boundary: EShapePointsFormattedBoundary,
 		boundaryBase: EShapePointsFormattedBoundary
 	): void {
-		const size = this.size;
-		const sizeBase = this._sizeBase;
+		const size = this._parentSizeFitted;
+		const sizeBase = this._parentSizeBase;
 		const threshold = 0.00001;
 		const hasSizeBaseX = threshold < Math.abs(sizeBase.x);
 		const hasSizeBaseY = threshold < Math.abs(sizeBase.y);
@@ -304,39 +330,13 @@ export class EShapeLinePoints implements EShapePoints {
 		}
 	}
 
-	protected toBoundary(
-		values: number[],
-		result: EShapePointsFormattedBoundary
-	): EShapePointsFormattedBoundary {
-		const valuesLength = values.length;
-		if (2 <= valuesLength) {
-			let xmin = values[0];
-			let ymin = values[1];
-			let xmax = xmin;
-			let ymax = ymin;
-			for (let i = 2, imax = values.length; i < imax; i += 2) {
-				const x = values[i];
-				const y = values[i + 1];
-				xmin = Math.min(xmin, x);
-				ymin = Math.min(ymin, y);
-				xmax = Math.max(xmax, x);
-				ymax = Math.max(ymax, y);
-			}
-			result[0] = xmin;
-			result[1] = ymin;
-			result[2] = xmax;
-			result[3] = ymax;
-		} else {
-			result[0] = 0;
-			result[1] = 0;
-			result[2] = 0;
-			result[3] = 0;
-		}
-		return result;
-	}
-
 	copy(source: EShapePoints): this {
-		return this.set(source.values, source.segments, source.style);
+		this.set(source.values, source.segments, source.style);
+		const marker = source.getMarker();
+		if (marker) {
+			this.marker.copy(marker);
+		}
+		return this;
 	}
 
 	set(newValues?: number[], newSegments?: number[], newStyle?: EShapePointsStyle): this {
@@ -355,6 +355,9 @@ export class EShapeLinePoints implements EShapePoints {
 			const newValuesLength = newValues.length;
 			const iupdate = Math.min(newValuesLength, valuesBaseLength);
 			this._valuesBase = undefined;
+			const parentSize = this._parent.size;
+			this._parentSizeFitted.copyFrom(parentSize);
+			this._parentSizeBase.copyFrom(parentSize);
 			if (values !== newValues) {
 				for (let i = 0; i < iupdate; ++i) {
 					values[i] = newValues[i];
@@ -466,7 +469,7 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	clone(parent: EShape): EShapeLinePoints {
-		return new EShapeLinePoints(parent, this._values, this._segments, this._style);
+		return new EShapeLinePoints(parent).copy(this);
 	}
 
 	toPoints(transform: Matrix): Point[] {
@@ -480,20 +483,30 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
-		return manager.addResource(
-			`[${JSON.stringify(this._values)},${JSON.stringify(this._segments)},${this._style}]`
-		);
+		const values = JSON.stringify(this._values);
+		const segments = JSON.stringify(this._segments);
+		const style = this._style;
+		let markerId = -1;
+		const marker = this._marker;
+		if (marker) {
+			markerId = marker.serialize(manager);
+		}
+		return manager.addResource(`[${values},${segments},${style},${markerId}]`);
 	}
 
 	deserialize(resourceId: number, manager: EShapeResourceManagerDeserialization): void {
 		const resources = manager.resources;
 		if (0 <= resourceId && resourceId < resources.length) {
-			let parsed = manager.getExtension<[number[], number[], number]>(resourceId);
+			let parsed = manager.getExtension<EShapeLinePointsSerialized>(resourceId);
 			if (parsed == null) {
-				parsed = JSON.parse(resources[resourceId]) as [number[], number[], number];
+				parsed = JSON.parse(resources[resourceId]) as EShapeLinePointsSerialized;
 				manager.setExtension(resourceId, parsed);
 			}
 			this.set(parsed[0], parsed[1], parsed[2]);
+			const markerId = parsed[3];
+			if (markerId != null && 0 <= markerId) {
+				this.marker.deserialize(markerId, manager);
+			}
 		}
 	}
 

@@ -3,14 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Texture, TextureUvs } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeBuffer } from "./e-shape-buffer";
 import { EShapeBufferUnitBuilder } from "./e-shape-buffer-unit-builder";
-import { EShapeCorner } from "./e-shape-corner";
-import { EShapeStrokeSide } from "./e-shape-stroke-side";
-import { EShapeStrokeStyle } from "./e-shape-stroke-style";
-import { buildColor } from "./variant/build-color";
+import { Builder } from "./variant/builder";
 
 export interface EShapeUploaded {
 	update(shape: EShape): void;
@@ -23,80 +19,56 @@ export interface EShapeUploaded {
 	buildUnit(builder: EShapeBufferUnitBuilder): void;
 }
 
-export abstract class EShapeUploadedBase implements EShapeUploaded {
+export class EShapeUploadedImpl implements EShapeUploaded {
 	protected buffer: EShapeBuffer;
-
-	protected transformLocalId: number;
-
-	protected vertexOffset: number;
-	protected vertexCount: number;
-	protected indexOffset: number;
-	protected indexCount: number;
-
-	protected colorFill: number;
-	protected alphaFill: number;
-	protected colorStroke: number;
-	protected alphaStroke: number;
-
-	protected sizeX: number;
-	protected sizeY: number;
-	protected strokeAlign: number;
-	protected strokeWidth: number;
-	protected strokeSide: EShapeStrokeSide;
-	protected strokeStyle: EShapeStrokeStyle;
-	protected radius: number;
-	protected corner: EShapeCorner;
-
-	protected texture: Texture | null;
-	protected textureTransformId: number;
-
-	protected antialiasWeight: number;
+	protected _builders: Builder[];
+	protected _vertexOffset: number;
+	protected _indexOffset: number;
+	protected _vertexCount: number;
+	protected _indexCount: number;
 
 	constructor(
 		buffer: EShapeBuffer,
-		voffset: number,
-		ioffset: number,
-		vcount: number,
-		icount: number,
-		antialiasWeight: number
+		vertexOffset: number,
+		indexOffset: number,
+		vertexCount: number,
+		indexCount: number,
+		builders: Builder[]
 	) {
 		this.buffer = buffer;
-
-		this.transformLocalId = -1;
-
-		this.vertexOffset = voffset;
-		this.vertexCount = vcount;
-		this.indexOffset = ioffset;
-		this.indexCount = icount;
-
-		this.colorFill = NaN;
-		this.alphaFill = -1;
-		this.colorStroke = NaN;
-		this.alphaStroke = -1;
-
-		this.sizeX = NaN;
-		this.sizeY = NaN;
-		this.strokeAlign = NaN;
-		this.strokeWidth = NaN;
-		this.strokeSide = NaN;
-		this.strokeStyle = NaN;
-		this.radius = NaN;
-		this.corner = NaN;
-
-		this.texture = null;
-		this.textureTransformId = NaN;
-
-		this.antialiasWeight = antialiasWeight;
+		this._builders = builders;
+		this._vertexOffset = vertexOffset;
+		this._indexOffset = indexOffset;
+		this._vertexCount = vertexCount;
+		this._indexCount = indexCount;
 	}
 
 	init(shape: EShape): this {
 		shape.uploaded = this;
+		const buffer = this.buffer;
+		const builders = this._builders;
+		for (let i = 0, imax = builders.length; i < imax; ++i) {
+			builders[i].init(buffer);
+		}
+		this.update(shape);
 		return this;
 	}
 
-	abstract update(shape: EShape): void;
+	update(shape: EShape): void {
+		const buffer = this.buffer;
+		const builders = this._builders;
+		for (let i = 0, imax = builders.length; i < imax; ++i) {
+			builders[i].update(buffer, shape);
+		}
+	}
 
 	isCompatible(shape: EShape): boolean {
+		const builders = this._builders;
+		for (let i = 0, imax = builders.length; i < imax; ++i) {
+			if (!builders[i].isCompatible(shape)) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -105,86 +77,25 @@ export abstract class EShapeUploadedBase implements EShapeUploaded {
 	}
 
 	getVertexOffset(): number {
-		return this.vertexOffset;
+		return this._vertexOffset;
 	}
 
 	getVertexCount(): number {
-		return this.vertexCount;
+		return this._vertexCount;
 	}
 
 	getIndexOffset(): number {
-		return this.indexOffset;
+		return this._indexOffset;
 	}
 
 	getIndexCount(): number {
-		return this.indexCount;
-	}
-
-	protected toTransformLocalId(shape: EShape): number {
-		shape.updateTransform();
-		return shape.transform.getLocalId();
-	}
-
-	protected toTexture(shape: EShape): Texture {
-		return shape.texture || Texture.WHITE;
-	}
-
-	protected toTextureTransformId(texture: Texture): number {
-		const textureAny = texture as any;
-		if (textureAny._uvs == null) {
-			texture.updateUvs();
-		}
-		return textureAny._updateID;
-	}
-
-	protected toTextureUvs(texture: Texture): TextureUvs {
-		return (texture as any)._uvs;
-	}
-
-	protected updateColorFill(buffer: EShapeBuffer, shape: EShape, vertexCount: number): void {
-		const fill = shape.fill;
-		const isEnabled = shape.visible && fill.enable;
-		const color = fill.color;
-		const alpha = isEnabled ? fill.alpha : 0;
-		if (color !== this.colorFill || alpha !== this.alphaFill) {
-			this.colorFill = color;
-			this.alphaFill = alpha;
-			buffer.updateColorFills();
-
-			buildColor(color, alpha, this.vertexOffset, vertexCount, buffer.colorFills);
-		}
-	}
-
-	protected updateColorStroke(buffer: EShapeBuffer, shape: EShape, vertexCount: number): void {
-		const stroke = shape.stroke;
-		const isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
-		const color = stroke.color;
-		const alpha = isEnabled ? stroke.alpha : 0;
-		if (color !== this.colorStroke || alpha !== this.alphaStroke) {
-			this.colorStroke = color;
-			this.alphaStroke = alpha;
-			buffer.updateColorStrokes();
-
-			buildColor(color, alpha, this.vertexOffset, vertexCount, buffer.colorStrokes);
-		}
-	}
-
-	protected updateColorFillAndStroke(
-		buffer: EShapeBuffer,
-		shape: EShape,
-		vertexCount: number
-	): void {
-		this.updateColorFill(buffer, shape, vertexCount);
-		this.updateColorStroke(buffer, shape, vertexCount);
+		return this._indexCount;
 	}
 
 	buildUnit(builder: EShapeBufferUnitBuilder): void {
-		const texture = this.texture || Texture.WHITE;
-		const baseTexture = texture.baseTexture;
-		if (baseTexture !== builder.baseTexture) {
-			builder.baseTexture = baseTexture;
-			const indexOffset = this.indexOffset;
-			builder.push(texture, indexOffset);
+		const builders = this._builders;
+		for (let i = 0, imax = builders.length; i < imax; ++i) {
+			builders[i].buildUnit(builder);
 		}
 	}
 }

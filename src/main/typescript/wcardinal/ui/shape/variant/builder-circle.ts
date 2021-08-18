@@ -11,44 +11,40 @@ import {
 	buildCircleStep,
 	buildCircleUv,
 	buildCircleVertex,
+	CIRCLE_INDEX_COUNT,
+	CIRCLE_VERTEX_COUNT,
 	CIRCLE_WORLD_SIZE
 } from "./build-circle";
-import { EShapeTextUploaded } from "./e-shape-text-uploaded";
+import { BuilderBase } from "./builder-base";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export class EShapeCircleUploaded extends EShapeTextUploaded {
-	init(shape: EShape): this {
-		super.init(shape);
+export class BuilderCircle extends BuilderBase {
+	constructor(vertexOffset: number, indexOffset: number) {
+		super(vertexOffset, indexOffset, CIRCLE_VERTEX_COUNT, CIRCLE_INDEX_COUNT);
+	}
 
-		// Clippings & indices
-		const buffer = this.buffer;
+	init(buffer: EShapeBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const voffset = this.vertexOffset;
 		buildCircleClipping(buffer.clippings, voffset);
 		buildCircleIndex(buffer.indices, voffset, this.indexOffset);
-
-		// Text
-		this.initText();
-
-		this.update(shape);
-		return this;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
-		this.updateCircleVertexAndStep(buffer, shape);
-		this.updateColor(buffer, shape);
-		this.updateCircleUv(buffer, shape);
-		this.updateText(buffer, shape);
+	update(buffer: EShapeBuffer, shape: EShape): void {
+		this.updateVertexAndStep(buffer, shape);
+		this.updateColorFill(buffer, shape);
+		this.updateColorStroke(buffer, shape);
+		this.updateUv(buffer, shape);
 	}
 
-	protected updateCircleVertexAndStep(buffer: EShapeBuffer, shape: EShape): void {
+	protected updateVertexAndStep(buffer: EShapeBuffer, shape: EShape): void {
 		const size = shape.size;
 		const sizeX = size.x;
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
-		const transformLocalId = this.toTransformLocalId(shape);
+		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
@@ -67,9 +63,6 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 			this.strokeAlign = strokeAlign;
 			this.strokeWidth = strokeWidth;
 			this.strokeStyle = strokeStyle;
-
-			// Invalidate the text layout to update the text layout.
-			this.textSpacingHorizontal = NaN;
 
 			// Buffer
 			buffer.updateVertices();
@@ -97,15 +90,15 @@ export class EShapeCircleUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	protected updateCircleUv(buffer: EShapeBuffer, shape: EShape): void {
-		const texture = this.toTexture(shape);
-		const textureTransformId = this.toTextureTransformId(texture);
+	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
 		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
 
 			buffer.updateUvs();
-			const textureUvs = this.toTextureUvs(texture);
+			const textureUvs = toTextureUvs(texture);
 			buildCircleUv(buffer.uvs, this.vertexOffset, textureUvs);
 		}
 	}

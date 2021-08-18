@@ -5,9 +5,10 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { EShapeUploaded } from "../e-shape-uploaded";
 import { RECTANGLE_INDEX_COUNT, RECTANGLE_VERTEX_COUNT } from "./build-rectangle";
+import { BuilderLineOfRectangles } from "./builder-line-of-rectangles";
 import { createLineOfAnyUploaded } from "./create-line-of-any-uploaded";
-import { EShapeLineOfRectanglesUploaded } from "./e-shape-line-of-rectangles-uploaded";
 
 export const createLineOfRectanglesUploaded = (
 	buffer: EShapeBuffer,
@@ -15,7 +16,7 @@ export const createLineOfRectanglesUploaded = (
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number
-): EShapeLineOfRectanglesUploaded | null => {
+): EShapeUploaded | null => {
 	return createLineOfAnyUploaded(
 		buffer,
 		shape,
@@ -24,6 +25,6 @@ export const createLineOfRectanglesUploaded = (
 		ioffset,
 		RECTANGLE_INDEX_COUNT,
 		antialiasWeight,
-		EShapeLineOfRectanglesUploaded
+		BuilderLineOfRectangles
 	);
 };

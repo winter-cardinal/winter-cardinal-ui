@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint, utils } from "pixi.js";
+import { utils } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBaseOnOptions } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
@@ -120,11 +120,11 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		this._coordinate.destroy();
 	}
 
-	hitTest(global: IPoint): boolean {
+	hitTest(x: number, y: number): boolean {
 		return false;
 	}
 
-	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): boolean {
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): boolean {
 		return false;
 	}
 

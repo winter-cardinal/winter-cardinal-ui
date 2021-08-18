@@ -5,8 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { EShapeUploaded } from "../e-shape-uploaded";
 import { createRectangleRoundedUploaded } from "./create-rectangle-rounded-uploaded";
-import { EShapeRectangleRoundedUploaded } from "./e-shape-rectangle-rounded-uploaded";
 
 export const createButtonUploaded = (
 	buffer: EShapeBuffer,
@@ -14,6 +14,6 @@ export const createButtonUploaded = (
 	voffset: number,
 	ioffset: number,
 	antialiasWeight: number
-): EShapeRectangleRoundedUploaded | null => {
+): EShapeUploaded | null => {
 	return createRectangleRoundedUploaded(buffer, shape, voffset, ioffset, antialiasWeight);
 };

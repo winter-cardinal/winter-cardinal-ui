@@ -20,6 +20,7 @@ export interface EShapeLineOfAnyPoints extends EShapePoints {
 		y: number,
 		sw: number,
 		ss: number,
+		sa: number,
 		threshold: number,
 		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT>,

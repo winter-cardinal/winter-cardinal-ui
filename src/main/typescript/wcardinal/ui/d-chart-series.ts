@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
@@ -67,6 +66,6 @@ export interface DChartSeries {
 	update(): void;
 	destroy(): void;
 
-	hitTest(global: IPoint): boolean;
-	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): boolean;
+	hitTest(x: number, y: number): boolean;
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): boolean;
 }

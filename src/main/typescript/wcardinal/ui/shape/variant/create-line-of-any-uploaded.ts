@@ -5,27 +5,22 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
+import { EShapeUploaded, EShapeUploadedImpl } from "../e-shape-uploaded";
 import { toPointsCount } from "./build-line";
 import { toLineOfAnyPointCount } from "./build-line-of-any";
 import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-text";
+import { Builder } from "./builder";
+import { BuilderText } from "./builder-text";
 
-interface Initializable {
-	init(shape: EShape): this;
-}
-
-export type EShapeLineOfAnyUploadedConstructor<T extends Initializable> = new (
-	buffer: EShapeBuffer,
-	voffset: number,
-	ioffset: number,
-	tvcount: number,
-	ticount: number,
-	vcount: number,
-	icount: number,
-	antialiasWeight: number,
+type BuilderConstructor = new (
+	vertexOffset: number,
+	indexOffset: number,
+	vertexCount: number,
+	indexCount: number,
 	pointCount: number
-) => T;
+) => Builder;
 
-export const createLineOfAnyUploaded = <T extends Initializable>(
+export const createLineOfAnyUploaded = (
 	buffer: EShapeBuffer,
 	shape: EShape,
 	voffset: number,
@@ -33,27 +28,22 @@ export const createLineOfAnyUploaded = <T extends Initializable>(
 	ioffset: number,
 	icountPerPoint: number,
 	antialiasWeight: number,
-	constructor: EShapeLineOfAnyUploadedConstructor<T>
-): T | null => {
+	constructor: BuilderConstructor
+): EShapeUploaded | null => {
 	const tcount = toTextBufferCount(shape);
 	const tvcount = tcount * TEXT_VERTEX_COUNT;
 	const ticount = tcount * TEXT_INDEX_COUNT;
 	const points = shape.points;
 	const pointCount = toLineOfAnyPointCount(toPointsCount(points));
-	const vcount = pointCount * vcountPerPoint + tvcount;
-	const icount = pointCount * icountPerPoint + ticount;
+	const pvcount = pointCount * vcountPerPoint;
+	const picount = pointCount * icountPerPoint;
+	const vcount = pvcount + tvcount;
+	const icount = picount + ticount;
 	if (buffer.check(voffset, ioffset, vcount, icount)) {
-		return new constructor(
-			buffer,
-			voffset,
-			ioffset,
-			tvcount,
-			ticount,
-			vcount,
-			icount,
-			antialiasWeight,
-			pointCount
-		).init(shape);
+		return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+			new constructor(voffset, ioffset, pvcount, picount, pointCount),
+			new BuilderText(voffset + pvcount, ioffset + picount, tvcount, ticount)
+		]).init(shape);
 	}
 	return null;
 };

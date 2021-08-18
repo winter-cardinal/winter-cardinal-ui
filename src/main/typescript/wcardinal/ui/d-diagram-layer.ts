@@ -175,7 +175,7 @@ export class DDiagramLayer extends EShapeContainer {
 			const interactive = interactives[i];
 			if (interactive.visible) {
 				interactive.toLocal(global, undefined, local);
-				if (interactive.contains(local) != null) {
+				if (interactive.contains(local.x, local.y) != null) {
 					return interactive;
 				}
 			}

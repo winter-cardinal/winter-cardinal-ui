@@ -7,6 +7,8 @@ import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
 import { EShapePoints } from "../e-shape-points";
 import { EShapePointsFormatter } from "../e-shape-points-formatter";
+import { EShapePointsMarkerContainer } from "../e-shape-points-marker-container";
+import { EShapePointsMarkerContainerImplNoop } from "../e-shape-points-marker-container-impl-noop";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
@@ -23,25 +25,21 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 	protected _segments: number[];
 	protected _size: number;
 	protected _position: EShapeBarPosition;
+	protected _marker?: EShapePointsMarkerContainer;
 
 	protected _updatedSize: number;
 	protected _updatedParentSizeX: number;
 	protected _updatedParentSizeY: number;
 	protected _updatedPosition: EShapeBarPosition;
 
-	constructor(
-		parent: EShape,
-		position: EShapeBarPosition,
-		size?: number,
-		style?: EShapePointsStyle
-	) {
+	constructor(parent: EShape) {
 		this._parent = parent;
 		this._id = 0;
 		this._values = [0, 0, 0, 0];
 		this._segments = [];
-		this._style = style ?? EShapePointsStyle.NONE;
-		this._size = size ?? -1;
-		this._position = position;
+		this._style = EShapePointsStyle.NONE;
+		this._size = -1;
+		this._position = EShapeBarPosition.TOP;
 
 		this._updatedSize = NaN;
 		this._updatedParentSizeX = NaN;
@@ -170,6 +168,19 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 		this.moveTo(undefined, undefined, style);
 	}
 
+	get marker(): EShapePointsMarkerContainer {
+		let result = this._marker;
+		if (result == null) {
+			result = EShapePointsMarkerContainerImplNoop.getInstance();
+			this._marker = result;
+		}
+		return result;
+	}
+
+	getMarker(): EShapePointsMarkerContainer | undefined {
+		return undefined;
+	}
+
 	get formatter(): EShapePointsFormatter | null {
 		return null;
 	}
@@ -233,7 +244,7 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 	}
 
 	clone(parent: EShape): EShapeBarPoints {
-		return new EShapeBarPoints(parent, this._position, this._size, this._style);
+		return new EShapeBarPoints(parent).copy(this);
 	}
 
 	toPoints(transform: Matrix): Point[] {

@@ -14,6 +14,7 @@ export type EShapeLineOfAnyPointsHitTester<RESULT> = (
 	py: number,
 	sw: number,
 	ss: number,
+	sa: number,
 	index: number,
 	threshold: number,
 	result: RESULT

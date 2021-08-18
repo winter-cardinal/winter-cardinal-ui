@@ -7,10 +7,10 @@ import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
 import { toPointsCount } from "./build-line";
 import { buildLineOfAnyColor, toLineOfAnyPointCount } from "./build-line-of-any";
+import { BuilderBase } from "./builder-base";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
-import { EShapeTextUploaded } from "./e-shape-text-uploaded";
 
-export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
+export abstract class BuilderLineOfAny extends BuilderBase {
 	protected pointId: number;
 	protected pointCount: number;
 	protected pointCountReserved: number;
@@ -20,17 +20,13 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 	protected pointStrokeId: number;
 
 	constructor(
-		buffer: EShapeBuffer,
-		voffset: number,
-		ioffset: number,
-		tvcount: number,
-		ticount: number,
-		vcount: number,
-		icount: number,
-		antialiasWeight: number,
+		vertexOffset: number,
+		indexOffset: number,
+		vertexCount: number,
+		indexCount: number,
 		pointCountReserved: number
 	) {
-		super(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight);
+		super(vertexOffset, indexOffset, vertexCount, indexCount);
 		this.pointId = -1;
 		this.pointCount = 0;
 		this.pointCountReserved = pointCountReserved;
@@ -41,11 +37,8 @@ export abstract class EShapeLineOfAnyUploaded extends EShapeTextUploaded {
 	}
 
 	isCompatible(shape: EShape): boolean {
-		if (super.isCompatible(shape)) {
-			const pointCount = toLineOfAnyPointCount(toPointsCount(shape.points));
-			return pointCount === this.pointCountReserved;
-		}
-		return false;
+		const pointCount = toLineOfAnyPointCount(toPointsCount(shape.points));
+		return pointCount === this.pointCountReserved;
 	}
 
 	protected updateLineOfAnyColorFill(

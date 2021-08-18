@@ -11,7 +11,8 @@ import { DThemeWhiteChartSelectionGridline } from "./d-theme-white-chart-selecti
 
 export class DThemeWhiteChartSelectionGridlineY extends DThemeWhiteChartSelectionGridline {
 	newShape(state: DBaseStateSet): EShape {
-		const result = new EShapeBar(EShapeBarPosition.LEFT);
+		const result = new EShapeBar();
+		result.points.position = EShapeBarPosition.LEFT;
 		result.stroke.alpha = 0.5;
 		return result;
 	}

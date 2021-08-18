@@ -46,7 +46,7 @@
 		application.stage.on( "pointermove", ( e ) => {
 			const global = e.data.global;
 			const local = embedded.toLocal( global );
-			console.log( local.x, local.y, embedded.contains( local ) );
+			console.log( local.x, local.y, embedded.contains( local.x, local.y ) );
 		});
 
 		application.stage.addChild( container );

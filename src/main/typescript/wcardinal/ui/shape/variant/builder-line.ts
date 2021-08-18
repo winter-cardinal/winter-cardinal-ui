@@ -14,68 +14,43 @@ import {
 	toLinePointCount,
 	toLineVertexCount
 } from "./build-line";
-import { EShapeTextUploaded } from "./e-shape-text-uploaded";
+import { BuilderBase } from "./builder-base";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export class EShapeLineUploaded extends EShapeTextUploaded {
+export class BuilderLine extends BuilderBase {
 	protected pointCount: number;
 	protected pointId: number;
 	protected pointsClosed: boolean;
 	protected length: number;
 
 	constructor(
-		buffer: EShapeBuffer,
-		voffset: number,
-		ioffset: number,
-		tvcount: number,
-		ticount: number,
-		vcount: number,
-		icount: number,
-		antialiasWeight: number
+		vertexOffset: number,
+		indexOffset: number,
+		vertexCount: number,
+		indexCount: number
 	) {
-		super(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight);
+		super(vertexOffset, indexOffset, vertexCount, indexCount);
 		this.pointId = -1;
 		this.pointCount = 0;
 		this.pointsClosed = false;
 		this.length = 1;
 	}
 
-	init(shape: EShape): this {
-		super.init(shape);
-
-		// Clipping & indices
-		const buffer = this.buffer;
+	init(buffer: EShapeBuffer): void {
 		buffer.updateIndices();
-		buildLineIndex(
-			buffer.indices,
-			this.vertexOffset,
-			this.indexOffset,
-			this.indexCount - this.textIndexCount
-		);
-
-		// Text
-		this.initText();
-
-		//
-		this.update(shape);
-
-		return this;
+		buildLineIndex(buffer.indices, this.vertexOffset, this.indexOffset, this.indexCount);
 	}
 
 	isCompatible(shape: EShape): boolean {
-		if (super.isCompatible(shape)) {
-			const vcount = toLineVertexCount(toLinePointCount(shape.points), true);
-			return vcount === this.vertexCount - this.textVertexCount;
-		}
-		return false;
+		const vcount = toLineVertexCount(toLinePointCount(shape.points), true);
+		return vcount === this.vertexCount;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
+	update(buffer: EShapeBuffer, shape: EShape): void {
 		this.updateLineClipping(buffer, shape);
 		this.updateLineVertexStepAndColorFill(buffer, shape);
-		this.updateColor(buffer, shape);
+		this.updateColorStroke(buffer, shape);
 		this.updateLineUv(buffer, shape);
-		this.updateText(buffer, shape);
 	}
 
 	protected updateLineClipping(buffer: EShapeBuffer, shape: EShape): void {
@@ -93,7 +68,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				buildLineClipping(
 					buffer.clippings,
 					this.vertexOffset,
-					this.vertexCount - this.textVertexCount,
+					this.vertexCount,
 					pointCount
 				);
 			}
@@ -114,7 +89,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 			const isStrokeWidthChanged =
 				this.strokeWidth !== strokeWidth || this.strokeStyle !== strokeStyle;
 
-			const transformLocalId = this.toTransformLocalId(shape);
+			const transformLocalId = toTransformLocalId(shape);
 			const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 			if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
@@ -124,10 +99,6 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				this.strokeStyle = strokeStyle;
 				this.transformLocalId = transformLocalId;
 
-				if (isPointChanged || isTransformChanged) {
-					// Invalidate the text layout to update the text layout.
-					this.textSpacingHorizontal = NaN;
-				}
 				if (isPointChanged) {
 					// Invalidate the texture transform ID to update the UVs
 					this.textureTransformId = NaN;
@@ -141,7 +112,7 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 					buffer.steps,
 					buffer.colorFills,
 					this.vertexOffset,
-					this.vertexCount - this.textVertexCount,
+					this.vertexCount,
 					this.pointCount,
 					this.pointsClosed,
 					formatted.values,
@@ -154,17 +125,9 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 		}
 	}
 
-	protected updateColorFillAndStroke(
-		buffer: EShapeBuffer,
-		shape: EShape,
-		vertexCount: number
-	): void {
-		this.updateColorStroke(buffer, shape, vertexCount);
-	}
-
-	updateLineUv(buffer: EShapeBuffer, shape: EShape): void {
-		const texture = this.toTexture(shape);
-		const textureTransformId = this.toTextureTransformId(texture);
+	protected updateLineUv(buffer: EShapeBuffer, shape: EShape): void {
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
 		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
@@ -174,8 +137,8 @@ export class EShapeLineUploaded extends EShapeTextUploaded {
 				buffer.uvs,
 				buffer.colorFills,
 				this.vertexOffset,
-				this.vertexCount - this.textVertexCount,
-				this.toTextureUvs(texture),
+				this.vertexCount,
+				toTextureUvs(texture),
 				this.length
 			);
 		}

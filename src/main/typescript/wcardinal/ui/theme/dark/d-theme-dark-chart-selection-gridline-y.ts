@@ -11,7 +11,8 @@ import { DThemeDarkChartSelectionGridline } from "./d-theme-dark-chart-selection
 
 export class DThemeDarkChartSelectionGridlineY extends DThemeDarkChartSelectionGridline {
 	newShape(state: DBaseStateSet): EShape {
-		const result = new EShapeBar(EShapeBarPosition.LEFT);
+		const result = new EShapeBar();
+		result.points.position = EShapeBarPosition.LEFT;
 		result.stroke.alpha = 0.5;
 		return result;
 	}

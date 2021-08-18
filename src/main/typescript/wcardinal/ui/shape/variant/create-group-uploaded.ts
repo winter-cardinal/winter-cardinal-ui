@@ -5,13 +5,16 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapeGroupUploaded } from "./e-shape-group-uploaded";
+import { EShapeUploaded, EShapeUploadedImpl } from "../e-shape-uploaded";
+import { BuilderNull } from "./builder-null";
 
 export const createGroupUploaded = (
 	buffer: EShapeBuffer,
 	shape: EShape,
 	voffset: number,
 	ioffset: number
-): EShapeGroupUploaded | null => {
-	return new EShapeGroupUploaded(buffer, voffset, ioffset).init(shape);
+): EShapeUploaded | null => {
+	return new EShapeUploadedImpl(buffer, voffset, ioffset, 0, 0, [
+		new BuilderNull(voffset, ioffset)
+	]).init(shape);
 };

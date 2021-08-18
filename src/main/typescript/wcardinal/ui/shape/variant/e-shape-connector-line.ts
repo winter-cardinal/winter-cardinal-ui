@@ -9,7 +9,6 @@ import { EShapeConnectorEdgeContainer } from "../e-shape-connector-edge-containe
 import { EShapeConnectorEdgeContainerImpl } from "../e-shape-connector-edge-container-impl";
 import { EShapeLineBase } from "./e-shape-line-base";
 import { EShapeLinePoints } from "./e-shape-line-points";
-import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeCopyPart } from "../e-shape-copy-part";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
@@ -32,11 +31,8 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		const sy = EShapeDefaults.SIZE_Y;
 		const hx = sx * 0.5;
 		const hy = sy * 0.5;
-		this._points = new EShapeLinePoints(
-			this,
-			this.toValues(-hx, -hy, +hx, +hy, sx, sy, []),
-			[],
-			EShapePointsStyle.NONE
+		this._points = new EShapeLinePoints(this).set(
+			this.toValues(-hx, -hy, +hx, +hy, sx, sy, [])
 		);
 		this._edge = new EShapeConnectorEdgeContainerImpl(this, (): void => {
 			this.onEdgeChange();
@@ -69,32 +65,31 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 
 			// Left
 			const leftLocal = left.local;
-			const llx = leftLocal.x;
-			const lly = leftLocal.y;
+			const lx = leftLocal.x;
+			const ly = leftLocal.y;
 
 			// Right
 			const rightLocal = right.local;
-			const rlx = rightLocal.x;
-			const rly = rightLocal.y;
+			const rx = rightLocal.x;
+			const ry = rightLocal.y;
 
 			this.disallowUploadedUpdate();
-			const cx = (llx + rlx) * 0.5;
-			const cy = (lly + rly) * 0.5;
-			const dx0 = llx - cx;
-			const dy0 = lly - cy;
-			const dx1 = rlx - cx;
-			const dy1 = rly - cy;
-			const sx = Math.max(Math.abs(dx0), Math.abs(dx1));
-			const sy = Math.max(Math.abs(dy0), Math.abs(dy1));
+			const cx = (lx + rx) * 0.5;
+			const cy = (ly + ry) * 0.5;
+			const dlx = lx - cx;
+			const dly = ly - cy;
+			const drx = rx - cx;
+			const dry = ry - cy;
+			const sx = Math.max(Math.abs(dlx), Math.abs(drx));
+			const sy = Math.max(Math.abs(dly), Math.abs(dry));
 			const transform = this.transform;
 			transform.position.set(cx, cy);
 			transform.scale.set(1, 1);
 			transform.rotation = 0;
 			transform.skew.set(0, 0);
-			const points = this.points;
-			points.size.set(sx, sy);
 			this.size.set(sx, sy);
-			points.set(this.toValues(dx0, dy0, dx1, dy1, sx, sy, points.values));
+			const points = this.points;
+			points.set(this.toValues(dlx, dly, drx, dry, sx, sy, points.values));
 			this.allowUploadedUpdate();
 		}
 	}
@@ -125,7 +120,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	}
 
 	clone(): EShapeConnectorLine {
-		return new EShapeConnectorLine().copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
+		return new EShapeConnectorLine().copy(this);
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {

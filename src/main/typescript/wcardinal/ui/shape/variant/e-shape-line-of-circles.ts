@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
 import { EShapeType } from "../e-shape-type";
 import { EShapeCircle } from "./e-shape-circle";
 import { EShapeLineOfAny } from "./e-shape-line-of-any";
@@ -17,18 +16,13 @@ import { toThresholdDefault } from "./to-threshold-default";
 export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny {
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
-	protected _testerBBox: EShapeLineOfAnyPointsHitTester<unknown>;
 
 	constructor() {
 		super(EShapeType.LINE_OF_CIRCLES);
 		this._points = new EShapeLineOfAnyPointsImpl(this);
 
-		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss): boolean => {
-			return this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
-		};
-
-		this._testerBBox = (x, y, ax, ay, ox, oy, px, py): boolean => {
-			return this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
+		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss, sa): boolean => {
+			return this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
 		};
 	}
 
@@ -40,10 +34,28 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 		return new EShapeLineOfCircles().copy(this);
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number, sw: number, ss: number): boolean {
+	containsAbs(
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
+		sw: number,
+		ss: number,
+		sa: number
+	): boolean {
 		const threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
 		if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-			return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
+			return this._points.calcHitPointAbs(
+				x,
+				y,
+				sw,
+				ss,
+				sa,
+				threshold,
+				null,
+				this._tester,
+				null
+			);
 		}
 		return false;
 	}
@@ -58,32 +70,21 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 		px: number,
 		py: number,
 		sw: number,
-		ss: number
+		ss: number,
+		sa: number
 	): boolean {
-		return super.containsAbs(x - px - ox, y - py - oy, ax, ay, sw, ss);
-	}
-
-	containsPointAbsBBox(
-		x: number,
-		y: number,
-		ax: number,
-		ay: number,
-		ox: number,
-		oy: number,
-		px: number,
-		py: number
-	): boolean {
-		return super.containsAbsBBox(x - px - ox, y - py - oy, ax, ay);
+		return super.containsAbs(x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
 	}
 
 	calcHitPoint<RESULT>(
-		point: IPoint,
+		x: number,
+		y: number,
 		toThreshold: EShapeLineOfAnyPointsHitTesterToThreshold | null,
 		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT> | null,
 		result: RESULT
 	): boolean {
-		const data = this.toHitTestData(point);
+		const data = this.toHitTestData(x, y);
 		const threshold = (toThreshold || toThresholdDefault)(
 			data.strokeWidth,
 			data.strokeScale,
@@ -95,6 +96,7 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 				data.y,
 				data.strokeWidth,
 				data.strokeScale,
+				data.strokeAlign,
 				threshold,
 				toRange,
 				tester || this._tester,

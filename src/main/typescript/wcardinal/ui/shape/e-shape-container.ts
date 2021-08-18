@@ -159,7 +159,7 @@ export class EShapeContainer extends DisplayObject {
 			const child = children[i];
 			if (child.visible) {
 				child.toLocal(global, undefined, local);
-				const result = child.contains(local);
+				const result = child.contains(local.x, local.y);
 				if (result != null) {
 					if (onHit == null || onHit(result)) {
 						return result;
@@ -178,7 +178,7 @@ export class EShapeContainer extends DisplayObject {
 			const child = children[i];
 			if (child.visible) {
 				child.toLocal(global, undefined, local);
-				if (child.containsBBox(local)) {
+				if (child.containsBBox(local.x, local.y)) {
 					if (onHit == null || onHit(child)) {
 						return child;
 					}

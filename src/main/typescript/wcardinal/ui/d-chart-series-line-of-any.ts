@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint, Point } from "pixi.js";
+import { Point } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartRegion } from "./d-chart-region";
@@ -326,24 +326,27 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		super.destroy();
 	}
 
-	hitTest(global: IPoint): boolean {
+	hitTest(x: number, y: number): boolean {
 		const line = this._line;
 		if (line) {
-			const work = DChartSeriesLineOfAny.WORK;
-			const local = line.toLocal(global, undefined, work);
-			return line.contains(local) != null;
+			const local = DChartSeriesLineOfAny.WORK;
+			local.set(x, y);
+			line.toLocal(local, undefined, local);
+			return line.contains(local.x, local.y) != null;
 		}
 		return false;
 	}
 
-	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): boolean {
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): boolean {
 		const line = this._line;
 		if (line) {
-			const work = DChartSeriesLineOfAny.WORK;
-			const local = line.toLocal(global, undefined, work);
+			const local = DChartSeriesLineOfAny.WORK;
+			local.set(x, y);
+			line.toLocal(local, undefined, local);
 			result.shape = line;
 			return line.calcHitPoint(
-				local,
+				local.x,
+				local.y,
 				null,
 				this.calcHitPointTestRange,
 				this.calcHitPointHitTester,
@@ -390,12 +393,13 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		py: number,
 		sw: number,
 		ss: number,
+		sa: number,
 		index: number,
 		threshold: number,
 		result: DChartSeriesHitResult
 	): boolean {
 		const shape = result.shape as EShapeLineOfCircles;
-		if (shape.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss)) {
+		if (shape.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa)) {
 			const transform = shape.transform;
 			const position = transform.position;
 			const scale = transform.scale;

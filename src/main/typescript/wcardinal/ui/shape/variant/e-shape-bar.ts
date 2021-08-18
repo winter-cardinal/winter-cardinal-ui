@@ -4,27 +4,17 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { EShapeCopyPart } from "../e-shape-copy-part";
-import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBarPoints } from "./e-shape-bar-points";
-import { EShapeBarPosition } from "./e-shape-bar-position";
 import { EShapeLineBase } from "./e-shape-line-base";
 
 export class EShapeBar extends EShapeLineBase {
 	protected declare _points: EShapeBarPoints;
 
-	constructor(
-		position: EShapeBarPosition,
-		size?: number,
-		width?: number,
-		style?: EShapePointsStyle
-	) {
-		super(EShapeType.BAR);
-		this.fill.enable = false;
-		this.stroke.set(true, undefined, undefined, width);
-		this._points = new EShapeBarPoints(this, position, size, style);
+	constructor(type = EShapeType.BAR) {
+		super(type);
+		this._points = new EShapeBarPoints(this);
 	}
 
 	get points(): EShapeBarPoints {
@@ -32,11 +22,7 @@ export class EShapeBar extends EShapeLineBase {
 	}
 
 	clone(): EShapeBar {
-		const points = this._points;
-		return new EShapeBar(points.position, points.size, this.stroke.width, points.style).copy(
-			this,
-			EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS
-		);
+		return new EShapeBar().copy(this);
 	}
 
 	containsAbsBBox(x: number, y: number, ax: number, ay: number): boolean {

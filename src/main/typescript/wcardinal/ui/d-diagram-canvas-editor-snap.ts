@@ -298,15 +298,15 @@ export class DDiagramCanvasEditorSnap {
 			shape.visible = true;
 			shape.allowUploadedUpdate();
 		} else {
-			shape = new EShapeBar(position, -1, style.width);
+			shape = new EShapeBar();
 			shape.disallowUploadedUpdate();
-			shape.fill.enable = false;
+			shape.points.position = position;
 			shape.transform.position.set(x, y);
 			shape.stroke.set(
 				true,
 				style.color,
 				style.alpha,
-				undefined,
+				style.width,
 				undefined,
 				undefined,
 				style.style

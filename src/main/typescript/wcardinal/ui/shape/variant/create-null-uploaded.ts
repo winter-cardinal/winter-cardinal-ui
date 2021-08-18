@@ -5,13 +5,16 @@
 
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapeNullUploaded } from "./e-shape-null-uploaded";
+import { EShapeUploadedImpl } from "../e-shape-uploaded";
+import { BuilderNull } from "./builder-null";
 
 export const createNullUploaded = (
 	buffer: EShapeBuffer,
 	shape: EShape,
 	voffset: number,
 	ioffset: number
-): EShapeNullUploaded | null => {
-	return new EShapeNullUploaded(buffer, voffset, ioffset).init(shape);
+): EShapeUploadedImpl | null => {
+	return new EShapeUploadedImpl(buffer, voffset, ioffset, 0, 0, [
+		new BuilderNull(voffset, ioffset)
+	]).init(shape);
 };

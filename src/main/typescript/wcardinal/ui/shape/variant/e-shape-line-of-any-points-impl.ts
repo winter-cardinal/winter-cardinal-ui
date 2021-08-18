@@ -8,6 +8,8 @@ import { EShape } from "../e-shape";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapePoints } from "../e-shape-points";
 import { EShapePointsFormatter } from "../e-shape-points-formatter";
+import { EShapePointsMarkerContainer } from "../e-shape-points-marker-container";
+import { EShapePointsMarkerContainerImplNoop } from "../e-shape-points-marker-container-impl-noop";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
@@ -32,6 +34,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 	protected _fill: EShapeLineOfAnyPointsFill;
 	protected _stroke: EShapeLineOfAnyPointsStroke;
 	protected _id: number;
+	protected _marker?: EShapePointsMarkerContainer;
 
 	constructor(parent: EShape) {
 		this._parent = parent;
@@ -79,6 +82,19 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 
 	set style(style: EShapePointsStyle) {
 		this.set(undefined, undefined, style);
+	}
+
+	get marker(): EShapePointsMarkerContainer {
+		let result = this._marker;
+		if (result == null) {
+			result = EShapePointsMarkerContainerImplNoop.getInstance();
+			this._marker = result;
+		}
+		return result;
+	}
+
+	getMarker(): EShapePointsMarkerContainer | undefined {
+		return undefined;
 	}
 
 	get size(): EShapeLineOfAnyPointsPoint {
@@ -200,6 +216,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		y: number,
 		sw: number,
 		ss: number,
+		sa: number,
 		threshold: number,
 		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT>,
@@ -228,7 +245,7 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 			const sy = size.getY(i) * 0.5;
 			const ox = offset.getX(i);
 			const oy = offset.getY(i);
-			if (tester(x, y, sx, sy, ox, oy, px, py, sw, ss, i, threshold, result)) {
+			if (tester(x, y, sx, sy, ox, oy, px, py, sw, ss, sa, i, threshold, result)) {
 				return true;
 			}
 		}

@@ -128,7 +128,8 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 			const hovered = this._hovered;
 			if (e.target === container.plotArea) {
 				const result = DChartSelectionSimple.WORK_SELECT;
-				const series = container.calcHitPoint(e.data.global, result);
+				const global = e.data.global;
+				const series = container.calcHitPoint(global.x, global.y, result);
 				if (series) {
 					hovered.set(series, result);
 				} else {

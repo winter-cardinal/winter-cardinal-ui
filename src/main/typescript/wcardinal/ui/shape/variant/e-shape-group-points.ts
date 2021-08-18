@@ -8,6 +8,8 @@ import { EShape } from "../e-shape";
 import { EShapePoints } from "../e-shape-points";
 import { EShapePointsFormatted } from "../e-shape-points-formatted";
 import { EShapePointsFormatter } from "../e-shape-points-formatter";
+import { EShapePointsMarkerContainer } from "../e-shape-points-marker-container";
+import { EShapePointsMarkerContainerImplNoop } from "../e-shape-points-marker-container-impl-noop";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeGroupPropertyParent } from "./e-shape-group-property-parent";
@@ -102,6 +104,28 @@ export class EShapeGroupPoints implements EShapePoints {
 				points.style = style;
 			}
 		}
+	}
+
+	get marker(): EShapePointsMarkerContainer {
+		const children = this._parent.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
+				return points.marker;
+			}
+		}
+		return EShapePointsMarkerContainerImplNoop.getInstance();
+	}
+
+	getMarker(): EShapePointsMarkerContainer | undefined {
+		const children = this._parent.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			const points = children[i].points;
+			if (points != null) {
+				return points.getMarker();
+			}
+		}
+		return undefined;
 	}
 
 	get formatter(): EShapePointsFormatter | null {

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
@@ -229,18 +228,18 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return result;
 	}
 
-	hitTest(global: IPoint): DChartSeries | null {
+	hitTest(x: number, y: number): DChartSeries | null {
 		const list = this._list;
 		for (let i = list.length - 1; 0 <= i; --i) {
 			const series = list[i];
-			if (series.hitTest(global)) {
+			if (series.hitTest(x, y)) {
 				return series;
 			}
 		}
 		return null;
 	}
 
-	calcHitPoint(global: IPoint, result: DChartSeriesHitResult): DChartSeries | null {
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): DChartSeries | null {
 		let tmp1 = result;
 		let tmp2 = DChartSeriesContainerImpl.WORK_CALCHITPOINT;
 		const list = this._list;
@@ -248,7 +247,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		tmp2.distance = +Infinity;
 		for (let i = list.length - 1; 0 <= i; --i) {
 			const series = list[i];
-			if (series.calcHitPoint(global, tmp1)) {
+			if (series.calcHitPoint(x, y, tmp1)) {
 				if (tmp1.distance < tmp2.distance) {
 					closest = series;
 					const tmp = tmp1;

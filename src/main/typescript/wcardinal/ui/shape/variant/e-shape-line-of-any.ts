@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IPoint } from "pixi.js";
 import { EShape } from "../e-shape";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsHitTester } from "./e-shape-line-of-any-points-hit-tester";
@@ -22,20 +21,12 @@ export interface EShapeLineOfAny extends EShape {
 		px: number,
 		py: number,
 		sw: number,
-		ss: number
-	): boolean;
-	containsPointAbsBBox(
-		x: number,
-		y: number,
-		ax: number,
-		ay: number,
-		ox: number,
-		oy: number,
-		px: number,
-		py: number
+		ss: number,
+		sa: number
 	): boolean;
 	calcHitPoint<RESULT>(
-		point: IPoint,
+		x: number,
+		y: number,
 		toThreshold: EShapeLineOfAnyPointsHitTesterToThreshold | null,
 		toRange: EShapeLineOfAnyPointsHitTesterToRange | null,
 		tester: EShapeLineOfAnyPointsHitTester<RESULT> | null,

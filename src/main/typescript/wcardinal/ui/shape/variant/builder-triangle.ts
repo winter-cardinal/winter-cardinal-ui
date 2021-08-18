@@ -14,30 +14,21 @@ import {
 	TRIANGLE_VERTEX_COUNT,
 	TRIANGLE_WORLD_SIZE
 } from "./build-triangle";
-import { EShapeTextUploaded } from "./e-shape-text-uploaded";
+import { BuilderBase } from "./builder-base";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export class EShapeTriangleUploaded extends EShapeTextUploaded {
-	init(shape: EShape): this {
-		super.init(shape);
-
-		const buffer = this.buffer;
+export class BuilderTriangle extends BuilderBase {
+	init(buffer: EShapeBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		buildTriangleClipping(buffer.clippings, this.vertexOffset);
 		buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-
-		// Text
-		this.initText();
-
-		this.update(shape);
-		return this;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
+	update(buffer: EShapeBuffer, shape: EShape): void {
 		this.updateVertexStepAndUv(buffer, shape);
-		this.updateColor(buffer, shape);
-		this.updateText(buffer, shape);
+		this.updateColorFill(buffer, shape);
+		this.updateColorStroke(buffer, shape);
 	}
 
 	protected updateVertexStepAndUv(buffer: EShapeBuffer, shape: EShape): void {
@@ -46,7 +37,7 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
-		const transformLocalId = this.toTransformLocalId(shape);
+		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
@@ -58,8 +49,8 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 			this.strokeWidth !== strokeWidth ||
 			this.strokeStyle !== strokeStyle;
 
-		const texture = this.toTexture(shape);
-		const textureTransformId = this.toTextureTransformId(texture);
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
 		const isTextureChanged =
 			texture !== this.texture || textureTransformId !== this.textureTransformId;
 
@@ -74,11 +65,6 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 			this.strokeStyle = strokeStyle;
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
-
-			if (isVertexChanged || isTransformChanged) {
-				// Invalidate the text layout to update the text layout.
-				this.textSpacingHorizontal = NaN;
-			}
 
 			const voffset = this.vertexOffset;
 
@@ -111,12 +97,7 @@ export class EShapeTriangleUploaded extends EShapeTextUploaded {
 
 			if (isVertexChanged || isTextureChanged) {
 				buffer.updateUvs();
-				buildTriangleUv(
-					buffer.uvs,
-					this.toTextureUvs(texture),
-					voffset,
-					TRIANGLE_WORLD_SIZE
-				);
+				buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
 			}
 		}
 	}

@@ -16,6 +16,8 @@ import {
 	CIRCLE_WORLD_SIZE
 } from "./build-circle";
 import { buildNullStep, buildNullVertex } from "./build-null";
+import { BuilderLineOfAny } from "./builder-line-of-any";
+import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 import { copyClipping } from "./copy-clipping";
 import { copyIndex } from "./copy-index";
 import { copyStep } from "./copy-step";
@@ -23,14 +25,9 @@ import { copyUvs } from "./copy-uv";
 import { copyVertex } from "./copy-vertex";
 import { EShapeLineOfAnyPoints } from "./e-shape-line-of-any-points";
 import { EShapeLineOfAnyPointsImpl } from "./e-shape-line-of-any-points-impl";
-import { EShapeLineOfAnyUploaded } from "./e-shape-line-of-any-uploaded";
 
-export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
-	init(shape: EShape): this {
-		super.init(shape);
-
-		// Clippings & indices
-		const buffer = this.buffer;
+export class BuilderLineOfCircles extends BuilderLineOfAny {
+	init(buffer: EShapeBuffer): void {
 		buffer.updateClippings();
 		buffer.updateIndices();
 		const clippings = buffer.clippings;
@@ -50,23 +47,15 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 				pointCountReserved
 			);
 		}
-
-		// Text
-		this.initText();
-
-		this.update(shape);
-		return this;
 	}
 
-	update(shape: EShape): void {
-		const buffer = this.buffer;
+	update(buffer: EShapeBuffer, shape: EShape): void {
 		const points = shape.points;
 		if (points instanceof EShapeLineOfAnyPointsImpl) {
 			this.updateVertexAndStep(buffer, shape, points);
 			this.updateLineOfAnyColorFill(buffer, shape, points, CIRCLE_VERTEX_COUNT);
 			this.updateLineOfAnyColorStroke(buffer, shape, points, CIRCLE_VERTEX_COUNT);
 			this.updateUv(buffer, shape);
-			this.updateText(buffer, shape);
 		}
 	}
 
@@ -89,7 +78,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 		const sizeY = size.y;
 		const isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
 
-		const transformLocalId = this.toTransformLocalId(shape);
+		const transformLocalId = toTransformLocalId(shape);
 		const isTransformChanged = this.transformLocalId !== transformLocalId;
 
 		const stroke = shape.stroke;
@@ -119,11 +108,6 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			this.strokeWidth = strokeWidth;
 			this.strokeAlign = strokeAlign;
 			this.strokeStyle = strokeStyle;
-
-			if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-				// Invalidate the text layout to update the text layout.
-				this.textSpacingHorizontal = NaN;
-			}
 
 			// Buffer
 			buffer.updateVertices();
@@ -210,8 +194,8 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 	}
 
 	protected updateUv(buffer: EShapeBuffer, shape: EShape): void {
-		const texture = this.toTexture(shape);
-		const textureTransformId = this.toTextureTransformId(texture);
+		const texture = toTexture(shape);
+		const textureTransformId = toTextureTransformId(texture);
 		if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
 			this.texture = texture;
 			this.textureTransformId = textureTransformId;
@@ -219,7 +203,7 @@ export class EShapeLineOfCirclesUploaded extends EShapeLineOfAnyUploaded {
 			buffer.updateUvs();
 			const uvs = buffer.uvs;
 			const voffset = this.vertexOffset;
-			const textureUvs = this.toTextureUvs(texture);
+			const textureUvs = toTextureUvs(texture);
 			const pointCountReserved = this.pointCountReserved;
 			if (0 < pointCountReserved) {
 				buildCircleUv(uvs, voffset, textureUvs);

@@ -15,7 +15,8 @@ export class DThemeDarkChartSelectionGridline implements DThemeChartSelectionSha
 	}
 
 	newShape(state: DBaseStateSet): EShape {
-		const result = new EShapeBar(EShapeBarPosition.TOP);
+		const result = new EShapeBar();
+		result.points.position = EShapeBarPosition.TOP;
 		result.stroke.alpha = 0.5;
 		return result;
 	}

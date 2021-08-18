@@ -14,6 +14,7 @@ import {
 import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartCoordinate } from "./d-chart-coordinate";
+import { EShapePointsStyle } from "./shape";
 import { EShapeTextLike } from "./shape/e-shape-text";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
@@ -367,7 +368,10 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 				position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT
 					? EShapeBarPosition.TOP
 					: EShapeBarPosition.LEFT;
-			barShape = new EShapeBar(barPosition, undefined, undefined, bar.style);
+			const barStyle = bar.style || EShapePointsStyle.NONE;
+			barShape = new EShapeBar();
+			barShape.points.position = barPosition;
+			barShape.points.style = barStyle;
 			barShape.stroke.copy(bar.stroke);
 			barShape.text.copy(this._label);
 			this._bar.shape = barShape;
@@ -388,14 +392,11 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 					? EShapeBarPosition.LEFT
 					: EShapeBarPosition.TOP;
 			const gridlineCount = tickMajor.count;
-			const gridlineStyle = gridline.style;
+			const gridlineStyle = gridline.style || EShapePointsStyle.NONE;
 			for (let i = 0; i < gridlineCount; ++i) {
-				const gridlineShape = new EShapeBar(
-					gridlinePosition,
-					undefined,
-					undefined,
-					gridlineStyle
-				);
+				const gridlineShape = new EShapeBar();
+				gridlineShape.points.position = gridlinePosition;
+				gridlineShape.points.style = gridlineStyle;
 				gridlineShape.stroke.copy(gridline.stroke);
 				gridlineShapes.push(gridlineShape);
 			}
@@ -414,14 +415,12 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 			const tickMajorCount = tickMajor.count;
 			const tickMajorSize = tickMajor.size;
 			const tickMajorPosition = tickMajor.position;
-			const tickMajorStyle = tickMajor.style;
+			const tickMajorStyle = tickMajor.style || EShapePointsStyle.NONE;
 			for (let i = 0; i < tickMajorCount; ++i) {
-				const tickMajorShape = new EShapeBar(
-					tickMajorPosition,
-					tickMajorSize,
-					undefined,
-					tickMajorStyle
-				);
+				const tickMajorShape = new EShapeBar();
+				tickMajorShape.points.position = tickMajorPosition;
+				tickMajorShape.points.size = tickMajorSize;
+				tickMajorShape.points.style = tickMajorStyle;
 				tickMajorShape.stroke.copy(tickMajor.stroke);
 				tickMajorShape.text.copy(tickMajor.text);
 				tickMajorShape.size.set(0, 0);
@@ -443,14 +442,12 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 			const tickMinorCount = tickMinor.count;
 			const tickMinorSize = tickMinor.size;
 			const tickMinorPosition = tickMinor.position;
-			const tickMinorStyle = tickMinor.style;
+			const tickMinorStyle = tickMinor.style || EShapePointsStyle.NONE;
 			for (let i = 0, imax = (tickMajor.count + 1) * tickMinorCount; i < imax; ++i) {
-				const tickMinorShape = new EShapeBar(
-					tickMinorPosition,
-					tickMinorSize,
-					undefined,
-					tickMinorStyle
-				);
+				const tickMinorShape = new EShapeBar();
+				tickMinorShape.points.position = tickMinorPosition;
+				tickMinorShape.points.size = tickMinorSize;
+				tickMinorShape.points.style = tickMinorStyle;
 				tickMinorShape.stroke.copy(tickMinor.stroke);
 				tickMinorShape.size.set(0, 0);
 				tickMinorShapes.push(tickMinorShape);

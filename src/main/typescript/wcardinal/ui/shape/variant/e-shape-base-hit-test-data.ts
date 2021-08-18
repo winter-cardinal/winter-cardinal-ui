@@ -10,6 +10,7 @@ export class EShapeBaseHitTestData {
 	height: number;
 	strokeWidth: number;
 	strokeScale: number;
+	strokeAlign: number;
 
 	constructor() {
 		this.x = 0;
@@ -18,6 +19,7 @@ export class EShapeBaseHitTestData {
 		this.height = 0;
 		this.strokeWidth = 0;
 		this.strokeScale = 1;
+		this.strokeAlign = 0;
 	}
 
 	set(
@@ -26,7 +28,8 @@ export class EShapeBaseHitTestData {
 		width: number,
 		height: number,
 		strokeWidth: number,
-		strokeScale: number
+		strokeScale: number,
+		strokeAlign: number
 	): this {
 		this.x = x;
 		this.y = y;
@@ -34,6 +37,7 @@ export class EShapeBaseHitTestData {
 		this.height = height;
 		this.strokeWidth = strokeWidth;
 		this.strokeScale = strokeScale;
+		this.strokeAlign = strokeAlign;
 		return this;
 	}
 }

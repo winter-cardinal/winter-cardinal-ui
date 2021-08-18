@@ -133,7 +133,7 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 			const local = EShapeActionRuntimeMiscHtmlElementBase.WORK || new Point();
 			EShapeActionRuntimeMiscHtmlElementBase.WORK = local;
 			shape.toLocal(point, undefined, local);
-			return shape.contains(local) != null;
+			return shape.contains(local.x, local.y) != null;
 		}
 		return false;
 	}

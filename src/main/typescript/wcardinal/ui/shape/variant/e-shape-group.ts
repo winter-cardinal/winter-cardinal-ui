@@ -207,7 +207,15 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		return new constructor(this._isEditMode, this.type);
 	}
 
-	containsAbs(x: number, y: number, ax: number, ay: number): boolean {
+	containsAbs(
+		x: number,
+		y: number,
+		ax: number,
+		ay: number,
+		sw: number,
+		ss: number,
+		sa: number
+	): boolean {
 		return false;
 	}
 }
