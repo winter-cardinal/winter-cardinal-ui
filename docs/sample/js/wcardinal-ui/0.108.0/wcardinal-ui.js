@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.107.0
+ Winter Cardinal UI v0.108.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -53,6 +53,69 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var EShapeUploadeds = {};
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeUploadedImpl = /** @class */ (function () {
+        function EShapeUploadedImpl(buffer, vertexOffset, indexOffset, vertexCount, indexCount, builders) {
+            this.buffer = buffer;
+            this._builders = builders;
+            this._vertexOffset = vertexOffset;
+            this._indexOffset = indexOffset;
+            this._vertexCount = vertexCount;
+            this._indexCount = indexCount;
+        }
+        EShapeUploadedImpl.prototype.init = function (shape) {
+            shape.uploaded = this;
+            var buffer = this.buffer;
+            var builders = this._builders;
+            for (var i = 0, imax = builders.length; i < imax; ++i) {
+                builders[i].init(buffer);
+            }
+            this.update(shape);
+            return this;
+        };
+        EShapeUploadedImpl.prototype.update = function (shape) {
+            var buffer = this.buffer;
+            var builders = this._builders;
+            for (var i = 0, imax = builders.length; i < imax; ++i) {
+                builders[i].update(buffer, shape);
+            }
+        };
+        EShapeUploadedImpl.prototype.isCompatible = function (shape) {
+            var builders = this._builders;
+            for (var i = 0, imax = builders.length; i < imax; ++i) {
+                if (!builders[i].isCompatible(shape)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        EShapeUploadedImpl.prototype.getBuffer = function () {
+            return this.buffer;
+        };
+        EShapeUploadedImpl.prototype.getVertexOffset = function () {
+            return this._vertexOffset;
+        };
+        EShapeUploadedImpl.prototype.getVertexCount = function () {
+            return this._vertexCount;
+        };
+        EShapeUploadedImpl.prototype.getIndexOffset = function () {
+            return this._indexOffset;
+        };
+        EShapeUploadedImpl.prototype.getIndexCount = function () {
+            return this._indexCount;
+        };
+        EShapeUploadedImpl.prototype.buildUnit = function (builder) {
+            var builders = this._builders;
+            for (var i = 0, imax = builders.length; i < imax; ++i) {
+                builders[i].buildUnit(builder);
+            }
+        };
+        return EShapeUploadedImpl;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1225,23 +1288,226 @@
         EShapePointsStyle[EShapePointsStyle["FORMATTER_MASK"] = 1024] = "FORMATTER_MASK";
     })(EShapePointsStyle || (EShapePointsStyle = {}));
 
+    var buildColor = function (color, alpha, voffset, vcount, colors) {
+        var r = (((color >> 16) & 0xff) / 255.0) * alpha;
+        var g = (((color >> 8) & 0xff) / 255.0) * alpha;
+        var b = (((color >> 0) & 0xff) / 255.0) * alpha;
+        var a = alpha;
+        var ic = (voffset << 2) - 1;
+        var icmax = ((voffset + vcount) << 2) - 1;
+        for (; ic < icmax;) {
+            colors[++ic] = r;
+            colors[++ic] = g;
+            colors[++ic] = b;
+            colors[++ic] = a;
+        }
+    };
+
     /*
-     * Copyright (C) 2021 Toshiba Corporation
+     * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeCopyPart;
-    (function (EShapeCopyPart) {
-        EShapeCopyPart[EShapeCopyPart["NONE"] = 0] = "NONE";
-        EShapeCopyPart[EShapeCopyPart["TRANSFORM"] = 1] = "TRANSFORM";
-        EShapeCopyPart[EShapeCopyPart["SIZE"] = 2] = "SIZE";
-        EShapeCopyPart[EShapeCopyPart["STYLE"] = 4] = "STYLE";
-        EShapeCopyPart[EShapeCopyPart["ACTION"] = 8] = "ACTION";
-        EShapeCopyPart[EShapeCopyPart["POINTS"] = 16] = "POINTS";
-        EShapeCopyPart[EShapeCopyPart["STATE"] = 32] = "STATE";
-        EShapeCopyPart[EShapeCopyPart["IMAGE"] = 64] = "IMAGE";
-        EShapeCopyPart[EShapeCopyPart["TAG"] = 128] = "TAG";
-        EShapeCopyPart[EShapeCopyPart["ALL"] = 255] = "ALL";
-    })(EShapeCopyPart || (EShapeCopyPart = {}));
+    var BuilderBase = /** @class */ (function () {
+        function BuilderBase(vertexOffset, indexOffset, vertexCount, indexCount) {
+            this.vertexOffset = vertexOffset;
+            this.indexOffset = indexOffset;
+            this.vertexCount = vertexCount;
+            this.indexCount = indexCount;
+            this.sizeX = NaN;
+            this.sizeY = NaN;
+            this.transformLocalId = -1;
+            this.strokeAlign = NaN;
+            this.strokeWidth = NaN;
+            this.strokeSide = NaN;
+            this.strokeStyle = NaN;
+            this.colorFill = NaN;
+            this.alphaFill = -1;
+            this.colorStroke = NaN;
+            this.alphaStroke = -1;
+            this.texture = null;
+            this.textureTransformId = NaN;
+        }
+        BuilderBase.prototype.isCompatible = function (shape) {
+            return true;
+        };
+        BuilderBase.prototype.updateColorFill = function (buffer, shape) {
+            var fill = shape.fill;
+            var isEnabled = shape.visible && fill.enable;
+            var color = fill.color;
+            var alpha = isEnabled ? fill.alpha : 0;
+            if (color !== this.colorFill || alpha !== this.alphaFill) {
+                this.colorFill = color;
+                this.alphaFill = alpha;
+                buffer.updateColorFills();
+                buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorFills);
+            }
+        };
+        BuilderBase.prototype.updateColorStroke = function (buffer, shape) {
+            var stroke = shape.stroke;
+            var isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
+            var color = stroke.color;
+            var alpha = isEnabled ? stroke.alpha : 0;
+            if (color !== this.colorStroke || alpha !== this.alphaStroke) {
+                this.colorStroke = color;
+                this.alphaStroke = alpha;
+                buffer.updateColorStrokes();
+                buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorStrokes);
+            }
+        };
+        BuilderBase.prototype.buildUnit = function (builder) {
+            var texture = this.texture || pixi_js.Texture.WHITE;
+            var baseTexture = texture.baseTexture;
+            if (baseTexture !== builder.baseTexture) {
+                builder.baseTexture = baseTexture;
+                var indexOffset = this.indexOffset;
+                builder.push(texture, indexOffset);
+            }
+        };
+        return BuilderBase;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toTransformLocalId = function (shape) {
+        shape.updateTransform();
+        return shape.transform.getLocalId();
+    };
+    var toTexture = function (shape) {
+        return shape.texture || pixi_js.Texture.WHITE;
+    };
+    var toTextureTransformId = function (texture) {
+        var textureAny = texture;
+        if (textureAny._uvs == null) {
+            texture.updateUvs();
+        }
+        return textureAny._updateID;
+    };
+    var toTextureUvs = function (texture) {
+        return texture._uvs;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapePointsMarkerType = {
+        NONE: 0,
+        CIRCLE: 1,
+        TRIANGLE: 2,
+        RECTANGLE: 3
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapePointsMarkerNoop = /** @class */ (function () {
+        function EShapePointsMarkerNoop() {
+        }
+        EShapePointsMarkerNoop.prototype.lock = function () {
+            return this;
+        };
+        EShapePointsMarkerNoop.prototype.unlock = function () {
+            return this;
+        };
+        Object.defineProperty(EShapePointsMarkerNoop.prototype, "type", {
+            get: function () {
+                return EShapePointsMarkerType.NONE;
+            },
+            set: function (type) {
+                // DO NOTHING
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapePointsMarkerNoop.prototype, "size", {
+            get: function () {
+                var result = this._size;
+                if (result == null) {
+                    result = new pixi_js.Point();
+                    this._size = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapePointsMarkerNoop.prototype, "transform", {
+            get: function () {
+                var result = this._transform;
+                if (result == null) {
+                    result = new pixi_js.Matrix();
+                    this._transform = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerNoop.prototype.copy = function (source) {
+            return this;
+        };
+        EShapePointsMarkerNoop.prototype.set = function (type, sizeX, sizeY) {
+            return this;
+        };
+        EShapePointsMarkerNoop.prototype.serialize = function (manager) {
+            return -1;
+        };
+        EShapePointsMarkerNoop.prototype.deserialize = function (resourceId, manager) {
+            // DO NOTHING
+        };
+        return EShapePointsMarkerNoop;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapePointsMarkerContainerImplNoop = /** @class */ (function () {
+        function EShapePointsMarkerContainerImplNoop() {
+            this._marker = new EShapePointsMarkerNoop();
+        }
+        EShapePointsMarkerContainerImplNoop.prototype.lock = function () {
+            return this;
+        };
+        EShapePointsMarkerContainerImplNoop.prototype.unlock = function () {
+            return this;
+        };
+        Object.defineProperty(EShapePointsMarkerContainerImplNoop.prototype, "head", {
+            get: function () {
+                return this._marker;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapePointsMarkerContainerImplNoop.prototype, "tail", {
+            get: function () {
+                return this._marker;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerContainerImplNoop.prototype.copy = function (source) {
+            return this;
+        };
+        EShapePointsMarkerContainerImplNoop.prototype.serialize = function (manager) {
+            return -1;
+        };
+        EShapePointsMarkerContainerImplNoop.prototype.deserialize = function (resourceId, manager) {
+            // DO NOTHING
+        };
+        EShapePointsMarkerContainerImplNoop.getInstance = function () {
+            var result = this.INSTANCE;
+            if (result == null) {
+                result = new EShapePointsMarkerContainerImplNoop();
+                this.INSTANCE = result;
+            }
+            return result;
+        };
+        return EShapePointsMarkerContainerImplNoop;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1260,14 +1526,14 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var EShapeBarPoints = /** @class */ (function () {
-        function EShapeBarPoints(parent, position, size, style) {
+        function EShapeBarPoints(parent) {
             this._parent = parent;
             this._id = 0;
             this._values = [0, 0, 0, 0];
             this._segments = [];
-            this._style = style !== null && style !== void 0 ? style : EShapePointsStyle.NONE;
-            this._size = size !== null && size !== void 0 ? size : -1;
-            this._position = position;
+            this._style = EShapePointsStyle.NONE;
+            this._size = -1;
+            this._position = EShapeBarPosition.TOP;
             this._updatedSize = NaN;
             this._updatedParentSizeX = NaN;
             this._updatedParentSizeY = NaN;
@@ -1402,6 +1668,21 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeBarPoints.prototype, "marker", {
+            get: function () {
+                var result = this._marker;
+                if (result == null) {
+                    result = EShapePointsMarkerContainerImplNoop.getInstance();
+                    this._marker = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeBarPoints.prototype.getMarker = function () {
+            return undefined;
+        };
         Object.defineProperty(EShapeBarPoints.prototype, "formatter", {
             get: function () {
                 return null;
@@ -1464,7 +1745,7 @@
             return this;
         };
         EShapeBarPoints.prototype.clone = function (parent) {
-            return new EShapeBarPoints(parent, this._position, this._size, this._style);
+            return new EShapeBarPoints(parent).copy(this);
         };
         EShapeBarPoints.prototype.toPoints = function (transform) {
             var result = [];
@@ -1501,6 +1782,19 @@
         };
         return EShapeBarPoints;
     }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLineBaseHitPart = {
+        NONE: 0,
+        LINE: 1,
+        MARKER_TAIL: 2,
+        MARKER_HEAD: 3,
+        TEXT: 4,
+        CHILDREN: 5
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1931,7 +2225,8 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var EShapeConnectorContainerImpl = /** @class */ (function () {
-        function EShapeConnectorContainerImpl() {
+        function EShapeConnectorContainerImpl(parent) {
+            this._parent = parent;
             this._list = [];
         }
         EShapeConnectorContainerImpl.prototype.add = function (target, at) {
@@ -1979,14 +2274,44 @@
             }
             return false;
         };
-        EShapeConnectorContainerImpl.prototype.fit = function () {
+        EShapeConnectorContainerImpl.prototype.fit = function (forcibly) {
             var list = this._list;
+            var parent = this._parent;
             for (var i = 0, imax = list.length; i < imax; ++i) {
-                list[i].fit();
+                var shape = list[i];
+                var edge = shape.edge;
+                var left = edge.left;
+                if (left.shape === parent) {
+                    left.fit(forcibly);
+                }
+                else {
+                    var right = edge.right;
+                    if (right.shape === parent) {
+                        right.fit(forcibly);
+                    }
+                }
             }
         };
         return EShapeConnectorContainerImpl;
     }());
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeCopyPart;
+    (function (EShapeCopyPart) {
+        EShapeCopyPart[EShapeCopyPart["NONE"] = 0] = "NONE";
+        EShapeCopyPart[EShapeCopyPart["TRANSFORM"] = 1] = "TRANSFORM";
+        EShapeCopyPart[EShapeCopyPart["SIZE"] = 2] = "SIZE";
+        EShapeCopyPart[EShapeCopyPart["STYLE"] = 4] = "STYLE";
+        EShapeCopyPart[EShapeCopyPart["ACTION"] = 8] = "ACTION";
+        EShapeCopyPart[EShapeCopyPart["POINTS"] = 16] = "POINTS";
+        EShapeCopyPart[EShapeCopyPart["STATE"] = 32] = "STATE";
+        EShapeCopyPart[EShapeCopyPart["IMAGE"] = 64] = "IMAGE";
+        EShapeCopyPart[EShapeCopyPart["TAG"] = 128] = "TAG";
+        EShapeCopyPart[EShapeCopyPart["ALL"] = 255] = "ALL";
+    })(EShapeCopyPart || (EShapeCopyPart = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -3254,14 +3579,16 @@
             this.height = 0;
             this.strokeWidth = 0;
             this.strokeScale = 1;
+            this.strokeAlign = 0;
         }
-        EShapeBaseHitTestData.prototype.set = function (x, y, width, height, strokeWidth, strokeScale) {
+        EShapeBaseHitTestData.prototype.set = function (x, y, width, height, strokeWidth, strokeScale, strokeAlign) {
             this.x = x;
             this.y = y;
             this.width = width;
             this.height = height;
             this.strokeWidth = strokeWidth;
             this.strokeScale = strokeScale;
+            this.strokeAlign = strokeAlign;
             return this;
         };
         return EShapeBaseHitTestData;
@@ -3461,6 +3788,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var hitTestBBox = function (x, y, ax, ay) {
+        return -ax <= x && x <= +ax && -ay <= y && y <= +ay;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeBase = /** @class */ (function (_super) {
         __extends(EShapeBase, _super);
         function EShapeBase(type) {
@@ -3499,13 +3834,13 @@
             this._boundsLocalTransformId = NaN;
             this.onTransformChange_();
             this.updateUploaded();
-            (_a = this._connector) === null || _a === void 0 ? void 0 : _a.fit();
+            (_a = this._connector) === null || _a === void 0 ? void 0 : _a.fit(true);
         };
         EShapeBase.prototype.onTransformChange = function () {
             var _a;
             this.onTransformChange_();
             this.updateUploadedRecursively();
-            (_a = this._connector) === null || _a === void 0 ? void 0 : _a.fit();
+            (_a = this._connector) === null || _a === void 0 ? void 0 : _a.fit(true);
         };
         EShapeBase.prototype.onTransformChange_ = function () {
             if (this._onTransformChangeLock === 0) {
@@ -3614,7 +3949,7 @@
             get: function () {
                 var result = this._connector;
                 if (result == null) {
-                    result = new EShapeConnectorContainerImpl();
+                    result = new EShapeConnectorContainerImpl(this);
                     this._connector = result;
                 }
                 return result;
@@ -3811,10 +4146,8 @@
             result.height = 0.5 * size.y;
             return result;
         };
-        EShapeBase.prototype.toHitTestData = function (point) {
+        EShapeBase.prototype.toHitTestData = function (x, y) {
             var _a;
-            var x = point.x;
-            var y = point.y;
             var result = this.getHitTestSize(((_a = EShapeBase.WORK_HIT_TEST_DATA) !== null && _a !== void 0 ? _a : (EShapeBase.WORK_HIT_TEST_DATA = new EShapeBaseHitTestData())));
             var sx = result.width;
             var sy = result.height;
@@ -3824,28 +4157,26 @@
             var stroke = this.stroke;
             var strokeWidth = stroke.enable ? stroke.width : 0;
             var strokeScale = this.getStrokeWidthScale(stroke.style);
-            var s = strokeWidth * strokeScale * stroke.align;
-            return result.set(0 <= sx ? +dx : -dx, 0 <= sy ? +dy : -dy, Math.abs(sx) + s, Math.abs(sy) + s, strokeWidth, strokeScale);
+            var strokeAlign = stroke.align;
+            var s = strokeWidth * strokeScale * strokeAlign;
+            return result.set(0 <= sx ? +dx : -dx, 0 <= sy ? +dy : -dy, Math.abs(sx) + s, Math.abs(sy) + s, strokeWidth, strokeScale, strokeAlign);
         };
-        EShapeBase.prototype.contains = function (point) {
-            var data = this.toHitTestData(point);
-            if (this.containsAbs(data.x, data.y, data.width, data.height, data.strokeWidth, data.strokeScale)) {
+        EShapeBase.prototype.contains = function (x, y) {
+            var data = this.toHitTestData(x, y);
+            if (this.containsAbs(data.x, data.y, data.width, data.height, data.strokeWidth, data.strokeScale, data.strokeAlign)) {
                 return this;
             }
-            var x = point.x;
-            var y = point.y;
-            return this.containsText(x, y, point) || this.containsChildren(x, y, point);
+            return this.containsText(x, y) || this.containsChildren(x, y);
         };
-        EShapeBase.prototype.containsText = function (x, y, work) {
+        EShapeBase.prototype.containsText = function (x, y) {
             var text = this.text;
             var textAtlas = text.atlas;
             if (textAtlas != null) {
                 var textWorld = text.world;
                 if (textWorld != null) {
-                    work.set(x, y);
-                    this.transform.internalTransform.apply(work, work);
-                    var tx = work.x - textWorld[0];
-                    var ty = work.y - textWorld[1];
+                    var transform = this.transform.internalTransform;
+                    var tx = transform.a * x + transform.c * y + transform.tx - textWorld[0];
+                    var ty = transform.b * x + transform.d * y + transform.ty - textWorld[1];
                     var th = textWorld[2] * tx + textWorld[3] * ty;
                     var tv = textWorld[4] * tx + textWorld[5] * ty;
                     if (0 <= th && th <= textWorld[6] && 0 <= tv && tv <= textWorld[7]) {
@@ -3855,29 +4186,37 @@
             }
             return null;
         };
-        EShapeBase.prototype.containsChildren = function (x, y, work) {
+        EShapeBase.prototype.containsChildren = function (x, y) {
             var children = this.children;
             for (var i = children.length - 1; 0 <= i; --i) {
                 var child = children[i];
-                work.set(x, y);
                 child.updateTransform();
-                child.transform.localTransform.applyInverse(work, work);
-                var childResult = child.contains(work);
+                var localTransform = child.transform.localTransform;
+                var a = localTransform.a;
+                var b = localTransform.b;
+                var c = localTransform.c;
+                var d = localTransform.d;
+                var tx = localTransform.tx;
+                var ty = localTransform.ty;
+                var id = 1 / (a * d - c * b);
+                var lx = (d * x - c * y + ty * c - tx * d) * id;
+                var ly = (a * y - b * x - ty * a + tx * b) * id;
+                var childResult = child.contains(lx, ly);
                 if (childResult != null) {
                     return childResult;
                 }
             }
             return null;
         };
-        EShapeBase.prototype.containsBBox = function (point) {
-            var data = this.toHitTestData(point);
+        EShapeBase.prototype.containsBBox = function (x, y) {
+            var data = this.toHitTestData(x, y);
             return this.containsAbsBBox(data.x, data.y, data.width, data.height);
         };
-        EShapeBase.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeBase.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             return this.containsAbsBBox(x, y, ax, ay);
         };
         EShapeBase.prototype.containsAbsBBox = function (x, y, ax, ay) {
-            return -ax <= x && x <= +ax && -ay <= y && y <= +ay;
+            return hitTestBBox(x, y, ax, ay);
         };
         EShapeBase.prototype.select = function (point) {
             return false;
@@ -6058,6 +6397,159 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var hitTestCircle = function (shape, x, y, ax, ay, sw, ss) {
+        var fill = shape.fill;
+        if (fill.enable) {
+            var x2 = x * x;
+            var y2 = y * y;
+            var ax2 = ax * ax;
+            var ay2 = ay * ay;
+            if (x2 * ay2 + y2 * ax2 <= ax2 * ay2) {
+                return true;
+            }
+        }
+        else {
+            if (0 < sw) {
+                var s = sw * ss;
+                var x2 = x * x;
+                var y2 = y * y;
+                var wx = Math.max(0.0, ax - s);
+                var wy = Math.max(0.0, ay - s);
+                var wx2 = wx * wx;
+                var wy2 = wy * wy;
+                if (wx2 * wy2 <= x2 * wy2 + y2 * wx2) {
+                    var ax2 = ax * ax;
+                    var ay2 = ay * ay;
+                    if (x2 * ay2 + y2 * ax2 <= ax2 * ay2) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeStrokeSide;
+    (function (EShapeStrokeSide) {
+        EShapeStrokeSide[EShapeStrokeSide["NONE"] = 0] = "NONE";
+        EShapeStrokeSide[EShapeStrokeSide["TOP"] = 1] = "TOP";
+        EShapeStrokeSide[EShapeStrokeSide["RIGHT"] = 2] = "RIGHT";
+        EShapeStrokeSide[EShapeStrokeSide["BOTTOM"] = 4] = "BOTTOM";
+        EShapeStrokeSide[EShapeStrokeSide["LEFT"] = 8] = "LEFT";
+        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_LEFT"] = 9] = "TOP_OR_LEFT";
+        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_RIGHT"] = 3] = "TOP_OR_RIGHT";
+        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_LEFT"] = 12] = "BOTTOM_OR_LEFT";
+        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_RIGHT"] = 6] = "BOTTOM_OR_RIGHT";
+        EShapeStrokeSide[EShapeStrokeSide["ALL"] = 15] = "ALL";
+    })(EShapeStrokeSide || (EShapeStrokeSide = {}));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var hitTestRectangle = function (shape, x, y, ax, ay, sw, ss) {
+        if (hitTestBBox(x, y, ax, ay)) {
+            var fill = shape.fill;
+            if (fill.enable) {
+                return true;
+            }
+            else {
+                var strokeSide = shape.stroke.side;
+                if (0 < sw && strokeSide !== EShapeStrokeSide.NONE) {
+                    var s = sw * ss;
+                    var wx = Math.max(0.0, ax - s);
+                    var wy = Math.max(0.0, ay - s);
+                    if (!hitTestBBox(x, y, wx, wy)) {
+                        if (strokeSide === EShapeStrokeSide.ALL) {
+                            return true;
+                        }
+                        else {
+                            if (x <= -wx) {
+                                if (y <= -wy) {
+                                    return !!(strokeSide & EShapeStrokeSide.TOP_OR_LEFT);
+                                }
+                                else if (+wy <= y) {
+                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_LEFT);
+                                }
+                                else {
+                                    return !!(strokeSide & EShapeStrokeSide.LEFT);
+                                }
+                            }
+                            else if (+wx <= x) {
+                                if (y <= -wy) {
+                                    return !!(strokeSide & EShapeStrokeSide.TOP_OR_RIGHT);
+                                }
+                                else if (+wy <= y) {
+                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_RIGHT);
+                                }
+                                else {
+                                    return !!(strokeSide & EShapeStrokeSide.RIGHT);
+                                }
+                            }
+                            else {
+                                if (y <= -wy) {
+                                    return !!(strokeSide & EShapeStrokeSide.TOP);
+                                }
+                                else if (+wy <= y) {
+                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                                }
+                                else {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var hitTestTriangleFilled = function (x, y, a, ay1, ay2) {
+        // a = 2 * ay / ax
+        // y = + a * x + ay1
+        // y = - a * x + ay1
+        // y = ay2;
+        return +a * x + ay1 - y <= 0 && -a * x + ay1 - y <= 0 && y <= ay2;
+    };
+    var hitTestTriangle = function (shape, x, y, ax, ay, sw, ss) {
+        var a = (2 * ay) / ax;
+        var fill = shape.fill;
+        if (fill.enable) {
+            if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
+                return true;
+            }
+        }
+        else {
+            if (0 < sw) {
+                var s = sw * ss;
+                if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
+                    var az = Math.sqrt(ax * ax + 4 * ay * ay);
+                    var aw = (2 * ax * ay) / (ax + az);
+                    var cy = ay - aw;
+                    var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
+                    var ay2 = ay - s;
+                    if (!hitTestTriangleFilled(x, y, a, ay1, ay2)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toThresholdDefault = function (size, scale, offset) {
         return 0.5 * (offset + size * scale);
     };
@@ -6083,17 +6575,118 @@
             }
             return result;
         };
-        EShapeLineBase.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
-            var points = this._points;
-            var threshold = toThresholdDefault(sw, ss, 0);
-            if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return points.calcHitPointAbs(x, y, ax, ay, threshold, null, this.calcHitPointAbsHitTester, null);
+        EShapeLineBase.prototype.toMarkerSize = function (points) {
+            var result = 0;
+            var marker = points.getMarker();
+            if (marker) {
+                var head = marker.head;
+                if (head.type !== EShapePointsMarkerType.NONE) {
+                    var size = head.size;
+                    result = Math.max(result, Math.max(Math.abs(size.x), Math.abs(size.y)) * 2);
+                }
+                var tail = marker.tail;
+                if (tail.type !== EShapePointsMarkerType.NONE) {
+                    var size = tail.size;
+                    result = Math.max(result, Math.max(Math.abs(size.x), Math.abs(size.y)) * 2);
+                }
+            }
+            return result;
+        };
+        EShapeLineBase.prototype.containsAbsMarker = function (marker, x, y, sw, ss, sa) {
+            var type = marker.type;
+            if (type !== EShapePointsMarkerType.NONE) {
+                var transform = marker.transform;
+                var a = transform.a;
+                var b = transform.b;
+                var c = transform.c;
+                var d = transform.d;
+                var tx = transform.tx;
+                var ty = transform.ty;
+                var id = 1 / (a * d - c * b);
+                var lx = (d * x - c * y + ty * c - tx * d) * id;
+                var ly = (a * y - b * x - ty * a + tx * b) * id;
+                var size = marker.size;
+                var sx = 0.5 * size.x;
+                var sy = 0.5 * size.y;
+                if (sx < 0) {
+                    sx = -sx;
+                    x = -x;
+                }
+                if (sy < 0) {
+                    sy = -sy;
+                    y = -y;
+                }
+                var s = sw * ss * sa;
+                sx += s;
+                sy += s;
+                switch (type) {
+                    case EShapePointsMarkerType.CIRCLE:
+                        return hitTestCircle(this, lx, ly, sx, sy, sw, ss);
+                    case EShapePointsMarkerType.TRIANGLE:
+                        return hitTestTriangle(this, lx, ly, sx, sy, sw, ss);
+                    case EShapePointsMarkerType.RECTANGLE:
+                        return hitTestRectangle(this, lx, ly, sx, sy, sw, ss);
+                }
             }
             return false;
         };
-        EShapeLineBase.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
+        EShapeLineBase.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var points = this._points;
-            var data = this.toHitTestData(point);
+            var threshold = toThresholdDefault(sw, ss, 0);
+            var margin = threshold + this.toMarkerSize(points);
+            if (this.containsAbsBBox(x, y, ax + margin, ay + margin)) {
+                var marker = points.getMarker();
+                if (marker) {
+                    if (this.containsAbsMarker(marker.head, x, y, sw, ss, sa)) {
+                        return true;
+                    }
+                    if (this.containsAbsMarker(marker.tail, x, y, sw, ss, sa)) {
+                        return true;
+                    }
+                }
+                var tester = this.calcHitPointAbsHitTester;
+                return points.calcHitPointAbs(x, y, ax, ay, threshold, null, tester, null);
+            }
+            return false;
+        };
+        EShapeLineBase.prototype.calcHitPart = function (x, y) {
+            var data = this.toHitTestData(x, y);
+            var sw = data.strokeWidth;
+            var ss = data.strokeScale;
+            var threshold = toThresholdDefault(sw, ss, 0);
+            var points = this._points;
+            var margin = threshold + this.toMarkerSize(points);
+            var dx = data.x;
+            var dy = data.y;
+            var ax = data.width;
+            var ay = data.height;
+            if (this.containsAbsBBox(dx, dy, ax + margin, ay + margin)) {
+                var marker = points.getMarker();
+                if (marker) {
+                    var sa = data.strokeAlign;
+                    if (this.containsAbsMarker(marker.head, dx, dy, sw, ss, sa)) {
+                        return EShapeLineBaseHitPart.MARKER_HEAD;
+                    }
+                    if (this.containsAbsMarker(marker.tail, dx, dy, sw, ss, sa)) {
+                        return EShapeLineBaseHitPart.MARKER_TAIL;
+                    }
+                }
+                var tester = this.calcHitPointAbsHitTester;
+                if (points.calcHitPointAbs(dx, dy, ax, ay, threshold, null, tester, null)) {
+                    return EShapeLineBaseHitPart.LINE;
+                }
+            }
+            if (this.containsText(x, y)) {
+                return EShapeLineBaseHitPart.TEXT;
+            }
+            if (this.containsChildren(x, y)) {
+                return EShapeLineBaseHitPart.CHILDREN;
+            }
+            return EShapeLineBaseHitPart.NONE;
+        };
+        EShapeLineBase.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var points = this._points;
+            var data = this.toHitTestData(x, y);
             var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, 0);
             if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
                 return points.calcHitPointAbs(data.x, data.y, data.width, data.height, threshold, toRange, tester, result);
@@ -6128,7 +6721,6 @@
             }
             return false;
         };
-        EShapeLineBase.WORK_RANGE = [0, 0];
         return EShapeLineBase;
     }(EShapePrimitive));
 
@@ -6138,11 +6730,10 @@
      */
     var EShapeBar = /** @class */ (function (_super) {
         __extends(EShapeBar, _super);
-        function EShapeBar(position, size, width, style) {
-            var _this = _super.call(this, EShapeType.BAR) || this;
-            _this.fill.enable = false;
-            _this.stroke.set(true, undefined, undefined, width);
-            _this._points = new EShapeBarPoints(_this, position, size, style);
+        function EShapeBar(type) {
+            if (type === void 0) { type = EShapeType.BAR; }
+            var _this = _super.call(this, type) || this;
+            _this._points = new EShapeBarPoints(_this);
             return _this;
         }
         Object.defineProperty(EShapeBar.prototype, "points", {
@@ -6153,8 +6744,7 @@
             configurable: true
         });
         EShapeBar.prototype.clone = function () {
-            var points = this._points;
-            return new EShapeBar(points.position, points.size, this.stroke.width, points.style).copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
+            return new EShapeBar().copy(this);
         };
         EShapeBar.prototype.containsAbsBBox = function (x, y, ax, ay) {
             var size = Math.max(0, this._points.size);
@@ -6168,358 +6758,32 @@
         return EShapeBar;
     }(EShapeLineBase));
 
-    var buildColor = function (color, alpha, voffset, vcount, colors) {
-        var r = (((color >> 16) & 0xff) / 255.0) * alpha;
-        var g = (((color >> 8) & 0xff) / 255.0) * alpha;
-        var b = (((color >> 0) & 0xff) / 255.0) * alpha;
-        var a = alpha;
-        var ic = (voffset << 2) - 1;
-        var icmax = ((voffset + vcount) << 2) - 1;
-        for (; ic < icmax;) {
-            colors[++ic] = r;
-            colors[++ic] = g;
-            colors[++ic] = b;
-            colors[++ic] = a;
-        }
-    };
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeUploadedBase = /** @class */ (function () {
-        function EShapeUploadedBase(buffer, voffset, ioffset, vcount, icount, antialiasWeight) {
-            this.buffer = buffer;
-            this.transformLocalId = -1;
-            this.vertexOffset = voffset;
-            this.vertexCount = vcount;
-            this.indexOffset = ioffset;
-            this.indexCount = icount;
-            this.colorFill = NaN;
-            this.alphaFill = -1;
-            this.colorStroke = NaN;
-            this.alphaStroke = -1;
-            this.sizeX = NaN;
-            this.sizeY = NaN;
-            this.strokeAlign = NaN;
-            this.strokeWidth = NaN;
-            this.strokeSide = NaN;
-            this.strokeStyle = NaN;
-            this.radius = NaN;
-            this.corner = NaN;
-            this.texture = null;
-            this.textureTransformId = NaN;
-            this.antialiasWeight = antialiasWeight;
-        }
-        EShapeUploadedBase.prototype.init = function (shape) {
-            shape.uploaded = this;
-            return this;
-        };
-        EShapeUploadedBase.prototype.isCompatible = function (shape) {
-            return true;
-        };
-        EShapeUploadedBase.prototype.getBuffer = function () {
-            return this.buffer;
-        };
-        EShapeUploadedBase.prototype.getVertexOffset = function () {
-            return this.vertexOffset;
-        };
-        EShapeUploadedBase.prototype.getVertexCount = function () {
-            return this.vertexCount;
-        };
-        EShapeUploadedBase.prototype.getIndexOffset = function () {
-            return this.indexOffset;
-        };
-        EShapeUploadedBase.prototype.getIndexCount = function () {
-            return this.indexCount;
-        };
-        EShapeUploadedBase.prototype.toTransformLocalId = function (shape) {
-            shape.updateTransform();
-            return shape.transform.getLocalId();
-        };
-        EShapeUploadedBase.prototype.toTexture = function (shape) {
-            return shape.texture || pixi_js.Texture.WHITE;
-        };
-        EShapeUploadedBase.prototype.toTextureTransformId = function (texture) {
-            var textureAny = texture;
-            if (textureAny._uvs == null) {
-                texture.updateUvs();
-            }
-            return textureAny._updateID;
-        };
-        EShapeUploadedBase.prototype.toTextureUvs = function (texture) {
-            return texture._uvs;
-        };
-        EShapeUploadedBase.prototype.updateColorFill = function (buffer, shape, vertexCount) {
-            var fill = shape.fill;
-            var isEnabled = shape.visible && fill.enable;
-            var color = fill.color;
-            var alpha = isEnabled ? fill.alpha : 0;
-            if (color !== this.colorFill || alpha !== this.alphaFill) {
-                this.colorFill = color;
-                this.alphaFill = alpha;
-                buffer.updateColorFills();
-                buildColor(color, alpha, this.vertexOffset, vertexCount, buffer.colorFills);
-            }
-        };
-        EShapeUploadedBase.prototype.updateColorStroke = function (buffer, shape, vertexCount) {
-            var stroke = shape.stroke;
-            var isEnabled = shape.visible && stroke.enable && 0 < stroke.width;
-            var color = stroke.color;
-            var alpha = isEnabled ? stroke.alpha : 0;
-            if (color !== this.colorStroke || alpha !== this.alphaStroke) {
-                this.colorStroke = color;
-                this.alphaStroke = alpha;
-                buffer.updateColorStrokes();
-                buildColor(color, alpha, this.vertexOffset, vertexCount, buffer.colorStrokes);
-            }
-        };
-        EShapeUploadedBase.prototype.updateColorFillAndStroke = function (buffer, shape, vertexCount) {
-            this.updateColorFill(buffer, shape, vertexCount);
-            this.updateColorStroke(buffer, shape, vertexCount);
-        };
-        EShapeUploadedBase.prototype.buildUnit = function (builder) {
-            var texture = this.texture || pixi_js.Texture.WHITE;
-            var baseTexture = texture.baseTexture;
-            if (baseTexture !== builder.baseTexture) {
-                builder.baseTexture = baseTexture;
-                var indexOffset = this.indexOffset;
-                builder.push(texture, indexOffset);
-            }
-        };
-        return EShapeUploadedBase;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeTextUploaded = /** @class */ (function (_super) {
-        __extends(EShapeTextUploaded, _super);
-        function EShapeTextUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) {
-            var _this = _super.call(this, buffer, voffset, ioffset, vcount, icount, antialiasWeight) || this;
-            _this.textSize = NaN;
-            _this.textFamily = "auto";
-            _this.textValue = "";
-            _this.textTexture = null;
-            _this.textTextureTransformId = NaN;
-            _this.textColor = NaN;
-            _this.textAlpha = NaN;
-            _this.textWeight = NaN;
-            _this.textStyle = NaN;
-            _this.textAlignHorizontal = NaN;
-            _this.textAlignVertical = NaN;
-            _this.textOffsetHorizontal = NaN;
-            _this.textOffsetVertical = NaN;
-            _this.textOutlineWidth = NaN;
-            _this.textOutlineColor = NaN;
-            _this.textOutlineAlpha = NaN;
-            _this.textSpacingHorizontal = NaN;
-            _this.textSpacingVertical = NaN;
-            _this.textDirection = NaN;
-            _this.textPaddingHorizontal = NaN;
-            _this.textPaddingVertical = NaN;
-            _this.textClipping = false;
-            _this.textVertexOffset = _this.vertexOffset + _this.vertexCount - tvcount;
-            _this.textIndexOffset = _this.indexOffset + _this.indexCount - ticount;
-            _this.textVertexCount = tvcount;
-            _this.textIndexCount = ticount;
-            return _this;
-        }
-        EShapeTextUploaded.prototype.initText = function () {
-            var vcount = this.textVertexCount;
-            if (0 < vcount) {
-                // Clippings
-                var buffer = this.buffer;
-                var voffset = this.textVertexOffset;
-                buffer.updateClippings();
-                buildTextClipping(buffer.clippings, voffset, vcount);
-                // Indices
-                buffer.updateIndices();
-                buildTextIndex(buffer.indices, voffset, this.textIndexOffset, this.textIndexCount);
-            }
-        };
-        EShapeTextUploaded.prototype.isCompatible = function (shape) {
-            if (_super.prototype.isCompatible.call(this, shape)) {
-                return toTextBufferCount(shape) * TEXT_VERTEX_COUNT === this.textVertexCount;
-            }
-            return false;
-        };
-        EShapeTextUploaded.prototype.updateText = function (buffer, shape) {
-            var vcount = this.textVertexCount;
-            if (0 < vcount) {
-                var textAtlas = shape.text.atlas;
-                if (textAtlas != null) {
-                    this.updateTextVertex(buffer, shape, textAtlas);
-                    this.updateTextColorFill(buffer, shape);
-                    this.updateTextColorStroke(buffer, shape);
-                    this.updateTextStep(buffer, shape);
-                }
-            }
-        };
-        EShapeTextUploaded.prototype.updateColor = function (buffer, shape) {
-            var vertexCount = this.vertexCount - this.textVertexCount;
-            this.updateColorFillAndStroke(buffer, shape, vertexCount);
-        };
-        EShapeTextUploaded.prototype.updateTextVertex = function (buffer, shape, textAtlas) {
-            var text = shape.text;
-            var textSize = text.size;
-            var textFamily = text.family;
-            var textValue = text.value;
-            var textStyle = text.style;
-            var textAlignHorizontal = text.align.horizontal;
-            var textAlignVertical = text.align.vertical;
-            var textOffsetHorizontal = text.offset.horizontal;
-            var textOffsetVertical = text.offset.vertical;
-            var textSpacingHorizontal = text.spacing.horizontal;
-            var textSpacingVertical = text.spacing.vertical;
-            var textDirection = text.direction;
-            var textPaddingHorizontal = text.padding.horizontal;
-            var textPaddingVertical = text.padding.vertical;
-            var textClipping = text.clipping;
-            var textTexture = text.texture || pixi_js.Texture.WHITE;
-            var textTextureTransformId = this.toTextureTransformId(textTexture);
-            var isCharChanged = textValue !== this.textValue || textFamily !== this.textFamily;
-            var isCharSizeChanged = textSize !== this.textSize;
-            var isCharStyleChanged = textStyle !== this.textStyle;
-            var isCharAlignChanged = textAlignHorizontal !== this.textAlignHorizontal ||
-                textAlignVertical !== this.textAlignVertical;
-            var isCharOffsetChanged = textOffsetHorizontal !== this.textOffsetHorizontal ||
-                textOffsetVertical !== this.textOffsetVertical;
-            var isCharSpacingChanged = textSpacingHorizontal !== this.textSpacingHorizontal ||
-                textSpacingVertical !== this.textSpacingVertical ||
-                textPaddingHorizontal !== this.textPaddingHorizontal ||
-                textPaddingVertical !== this.textPaddingVertical;
-            var isCharDirectionChanged = textDirection !== this.textDirection;
-            var isClippingChanged = this.textClipping !== textClipping;
-            var isTextureChanged = textTexture !== this.textTexture ||
-                textTextureTransformId !== this.textTextureTransformId;
-            if (isCharChanged ||
-                isCharSizeChanged ||
-                isCharStyleChanged ||
-                isCharAlignChanged ||
-                isCharOffsetChanged ||
-                isCharSpacingChanged ||
-                isCharDirectionChanged ||
-                isClippingChanged ||
-                isTextureChanged) {
-                this.textSize = textSize;
-                this.textFamily = textFamily;
-                this.textValue = textValue;
-                this.textStyle = textStyle;
-                this.textAlignHorizontal = textAlignHorizontal;
-                this.textAlignVertical = textAlignVertical;
-                this.textOffsetHorizontal = textOffsetHorizontal;
-                this.textOffsetVertical = textOffsetVertical;
-                this.textSpacingHorizontal = textSpacingHorizontal;
-                this.textSpacingVertical = textSpacingVertical;
-                this.textDirection = textDirection;
-                this.textPaddingHorizontal = textPaddingHorizontal;
-                this.textPaddingVertical = textPaddingVertical;
-                this.textClipping = textClipping;
-                this.textTexture = textTexture;
-                this.textTextureTransformId = textTextureTransformId;
-                if (isCharSizeChanged) {
-                    // Invalidate the text weight to update the text steps.
-                    this.textWeight = NaN;
-                }
-                // Vertices & UVs
-                buffer.updateVertices();
-                buffer.updateUvs();
-                var shapeSize = shape.size;
-                var textWorld = text.world;
-                if (textWorld == null) {
-                    textWorld = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-                    text.world = textWorld;
-                }
-                buildTextVertex(buffer.vertices, buffer.uvs, this.textVertexOffset, this.textVertexCount, 0, 0, shapeSize.x, shapeSize.y, textAtlas, textSize, textValue, textStyle, textAlignHorizontal, textAlignVertical, textOffsetHorizontal, textOffsetVertical, textSpacingHorizontal, textSpacingVertical, textDirection, textPaddingHorizontal, textPaddingVertical, textClipping, textWorld, this.toTextureUvs(textTexture), shape.transform.internalTransform);
-            }
-        };
-        EShapeTextUploaded.prototype.updateTextColorFill = function (buffer, shape) {
-            var text = shape.text;
-            var color = text.color;
-            var alpha = shape.visible && text.enable ? text.alpha : 0;
-            if (color !== this.textColor || alpha !== this.textAlpha) {
-                this.textColor = color;
-                this.textAlpha = alpha;
-                buffer.updateColorFills();
-                buildColor(color, alpha, this.textVertexOffset, this.textVertexCount, buffer.colorFills);
-            }
-        };
-        EShapeTextUploaded.prototype.updateTextColorStroke = function (buffer, shape) {
-            var text = shape.text;
-            var outline = text.outline;
-            var color = outline.color;
-            var alpha = shape.visible && text.enable ? outline.alpha : 0;
-            if (color !== this.textOutlineColor || alpha !== this.textOutlineAlpha) {
-                this.textOutlineColor = color;
-                this.textOutlineAlpha = alpha;
-                buffer.updateColorStrokes();
-                buildColor(color, alpha, this.textVertexOffset, this.textVertexCount, buffer.colorStrokes);
-            }
-        };
-        EShapeTextUploaded.prototype.updateTextStep = function (buffer, shape) {
-            var text = shape.text;
-            var textOutline = text.outline;
-            var textOutlineWidth = textOutline.enable ? textOutline.width : 0;
-            var textWeight = text.weight;
-            if (textWeight !== this.textWeight || textOutlineWidth !== this.textOutlineWidth) {
-                this.textWeight = textWeight;
-                this.textOutlineWidth = textOutlineWidth;
-                buffer.updateSteps();
-                buildTextStep(buffer.steps, this.textVertexOffset, this.textVertexCount, text.atlas, text.size, textOutlineWidth, textWeight);
-            }
-        };
-        EShapeTextUploaded.prototype.buildUnit = function (builder) {
-            _super.prototype.buildUnit.call(this, builder);
-            if (0 < this.textVertexCount) {
-                var textTexture = this.textTexture || pixi_js.Texture.WHITE;
-                var textBaseTexture = textTexture.baseTexture;
-                if (textBaseTexture !== builder.baseTexture) {
-                    builder.baseTexture = textBaseTexture;
-                    builder.push(textTexture, this.textIndexOffset);
-                }
-            }
-        };
-        return EShapeTextUploaded;
-    }(EShapeUploadedBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeBarUploaded = /** @class */ (function (_super) {
-        __extends(EShapeBarUploaded, _super);
-        function EShapeBarUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) {
-            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) || this;
+    var BuilderBar = /** @class */ (function (_super) {
+        __extends(BuilderBar, _super);
+        function BuilderBar(vertexOffset, indexOffset) {
+            var _this = _super.call(this, vertexOffset, indexOffset, BAR_VERTEX_COUNT, BAR_INDEX_COUNT) || this;
             _this.pointsId = NaN;
             _this.pointsStyle = EShapePointsStyle.NONE;
             return _this;
         }
-        EShapeBarUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Clipping & indices
-            var buffer = this.buffer;
+        BuilderBar.prototype.init = function (buffer) {
             var voffset = this.vertexOffset;
             var ioffset = this.indexOffset;
             buffer.updateClippings();
             buffer.updateIndices();
             buildBarClipping(buffer.clippings, voffset);
             buildBarIndex(buffer.indices, voffset, ioffset);
-            // Text
-            this.initText();
-            //
-            this.update(shape);
-            return this;
         };
-        EShapeBarUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderBar.prototype.update = function (buffer, shape) {
             this.updateVertexStepAndColorFill(buffer, shape);
-            this.updateColor(buffer, shape);
+            this.updateColorStroke(buffer, shape);
             this.updateUv(buffer, shape);
-            this.updateText(buffer, shape);
         };
-        EShapeBarUploaded.prototype.updateVertexStepAndColorFill = function (buffer, shape) {
+        BuilderBar.prototype.updateVertexStepAndColorFill = function (buffer, shape) {
             if (shape instanceof EShapeBar) {
                 var size = shape.size;
                 var sizeX = size.x;
@@ -6529,7 +6793,7 @@
                 var strokeWidth = stroke.enable ? stroke.width : 0;
                 var strokeStyle = stroke.style;
                 var isStrokeWidthChanged = strokeWidth !== this.strokeWidth || strokeStyle !== this.strokeStyle;
-                var transformLocalId = this.toTransformLocalId(shape);
+                var transformLocalId = toTransformLocalId(shape);
                 var isTransformChanged = this.transformLocalId !== transformLocalId;
                 var points = shape.points;
                 var pointsId = points.id;
@@ -6548,10 +6812,6 @@
                     this.transformLocalId = transformLocalId;
                     this.pointsId = pointsId;
                     this.pointsStyle = pointsStyle;
-                    if (isSizeChanged || isTransformChanged) {
-                        // Invalidate the text layout to update the text layout.
-                        this.textSpacingHorizontal = NaN;
-                    }
                     if (isPointsIdChanged) {
                         // Invalidate the texture transform ID to update the UVs
                         this.textureTransformId = NaN;
@@ -6563,22 +6823,215 @@
                 }
             }
         };
-        EShapeBarUploaded.prototype.updateColorFillAndStroke = function (buffer, shape, vertexCount) {
-            this.updateColorStroke(buffer, shape, vertexCount);
-        };
-        EShapeBarUploaded.prototype.updateUv = function (buffer, shape) {
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+        BuilderBar.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 buffer.updateUvs();
-                buildBarUv(buffer.uvs, this.vertexOffset, this.toTextureUvs(texture));
+                buildBarUv(buffer.uvs, this.vertexOffset, toTextureUvs(texture));
             }
         };
-        return EShapeBarUploaded;
-    }(EShapeTextUploaded));
+        return BuilderBar;
+    }(BuilderBase));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderText = /** @class */ (function () {
+        function BuilderText(vertexOffset, indexOffset, vertexCount, indexCount) {
+            this.vertexOffset = vertexOffset;
+            this.indexOffset = indexOffset;
+            this.vertexCount = vertexCount;
+            this.indexCount = indexCount;
+            this.sizeX = NaN;
+            this.sizeY = NaN;
+            this.transformLocalId = NaN;
+            this.size = NaN;
+            this.family = "auto";
+            this.value = "";
+            this.texture = null;
+            this.textureTransformId = NaN;
+            this.color = NaN;
+            this.alpha = NaN;
+            this.weight = NaN;
+            this.style = NaN;
+            this.alignHorizontal = NaN;
+            this.alignVertical = NaN;
+            this.offsetHorizontal = NaN;
+            this.offsetVertical = NaN;
+            this.outlineWidth = NaN;
+            this.outlineColor = NaN;
+            this.outlineAlpha = NaN;
+            this.spacingHorizontal = NaN;
+            this.spacingVertical = NaN;
+            this.direction = NaN;
+            this.paddingHorizontal = NaN;
+            this.paddingVertical = NaN;
+            this.clipping = false;
+        }
+        BuilderText.prototype.init = function (buffer) {
+            var vcount = this.vertexCount;
+            if (0 < vcount) {
+                // Clippings
+                var voffset = this.vertexOffset;
+                buffer.updateClippings();
+                buildTextClipping(buffer.clippings, voffset, vcount);
+                // Indices
+                buffer.updateIndices();
+                buildTextIndex(buffer.indices, voffset, this.indexOffset, this.indexCount);
+            }
+        };
+        BuilderText.prototype.isCompatible = function (shape) {
+            return toTextBufferCount(shape) * TEXT_VERTEX_COUNT === this.vertexCount;
+        };
+        BuilderText.prototype.update = function (buffer, shape) {
+            var vcount = this.vertexCount;
+            if (0 < vcount) {
+                var textAtlas = shape.text.atlas;
+                if (textAtlas != null) {
+                    this.updateVertex(buffer, shape, textAtlas);
+                    this.updateColorFill(buffer, shape);
+                    this.updateColorStroke(buffer, shape);
+                    this.updateStep(buffer, shape);
+                }
+            }
+        };
+        BuilderText.prototype.updateVertex = function (buffer, shape, textAtlas) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var text = shape.text;
+            var textSize = text.size;
+            var textFamily = text.family;
+            var textValue = text.value;
+            var textStyle = text.style;
+            var textAlignHorizontal = text.align.horizontal;
+            var textAlignVertical = text.align.vertical;
+            var textOffsetHorizontal = text.offset.horizontal;
+            var textOffsetVertical = text.offset.vertical;
+            var textSpacingHorizontal = text.spacing.horizontal;
+            var textSpacingVertical = text.spacing.vertical;
+            var textDirection = text.direction;
+            var textPaddingHorizontal = text.padding.horizontal;
+            var textPaddingVertical = text.padding.vertical;
+            var textClipping = text.clipping;
+            var textTexture = text.texture || pixi_js.Texture.WHITE;
+            var textTextureTransformId = toTextureTransformId(textTexture);
+            var isCharChanged = textValue !== this.value || textFamily !== this.family;
+            var isCharSizeChanged = textSize !== this.size;
+            var isCharStyleChanged = textStyle !== this.style;
+            var isCharAlignChanged = textAlignHorizontal !== this.alignHorizontal ||
+                textAlignVertical !== this.alignVertical;
+            var isCharOffsetChanged = textOffsetHorizontal !== this.offsetHorizontal ||
+                textOffsetVertical !== this.offsetVertical;
+            var isCharSpacingChanged = textSpacingHorizontal !== this.spacingHorizontal ||
+                textSpacingVertical !== this.spacingVertical ||
+                textPaddingHorizontal !== this.paddingHorizontal ||
+                textPaddingVertical !== this.paddingVertical;
+            var isCharDirectionChanged = textDirection !== this.direction;
+            var isClippingChanged = this.clipping !== textClipping;
+            var isTextureChanged = textTexture !== this.texture || textTextureTransformId !== this.textureTransformId;
+            if (isSizeChanged ||
+                isTransformChanged ||
+                isCharChanged ||
+                isCharSizeChanged ||
+                isCharStyleChanged ||
+                isCharAlignChanged ||
+                isCharOffsetChanged ||
+                isCharSpacingChanged ||
+                isCharDirectionChanged ||
+                isClippingChanged ||
+                isTextureChanged) {
+                this.size = textSize;
+                this.family = textFamily;
+                this.value = textValue;
+                this.style = textStyle;
+                this.alignHorizontal = textAlignHorizontal;
+                this.alignVertical = textAlignVertical;
+                this.offsetHorizontal = textOffsetHorizontal;
+                this.offsetVertical = textOffsetVertical;
+                this.spacingHorizontal = textSpacingHorizontal;
+                this.spacingVertical = textSpacingVertical;
+                this.direction = textDirection;
+                this.paddingHorizontal = textPaddingHorizontal;
+                this.paddingVertical = textPaddingVertical;
+                this.clipping = textClipping;
+                this.texture = textTexture;
+                this.textureTransformId = textTextureTransformId;
+                if (isCharSizeChanged) {
+                    // Invalidate the text weight to update the text steps.
+                    this.weight = NaN;
+                }
+                // Vertices & UVs
+                buffer.updateVertices();
+                buffer.updateUvs();
+                var shapeSize = shape.size;
+                var textWorld = text.world;
+                if (textWorld == null) {
+                    textWorld = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+                    text.world = textWorld;
+                }
+                buildTextVertex(buffer.vertices, buffer.uvs, this.vertexOffset, this.vertexCount, 0, 0, shapeSize.x, shapeSize.y, textAtlas, textSize, textValue, textStyle, textAlignHorizontal, textAlignVertical, textOffsetHorizontal, textOffsetVertical, textSpacingHorizontal, textSpacingVertical, textDirection, textPaddingHorizontal, textPaddingVertical, textClipping, textWorld, toTextureUvs(textTexture), shape.transform.internalTransform);
+            }
+        };
+        BuilderText.prototype.updateColorFill = function (buffer, shape) {
+            var text = shape.text;
+            var color = text.color;
+            var alpha = shape.visible && text.enable ? text.alpha : 0;
+            if (color !== this.color || alpha !== this.alpha) {
+                this.color = color;
+                this.alpha = alpha;
+                buffer.updateColorFills();
+                buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorFills);
+            }
+        };
+        BuilderText.prototype.updateColorStroke = function (buffer, shape) {
+            var text = shape.text;
+            var outline = text.outline;
+            var color = outline.color;
+            var alpha = shape.visible && text.enable ? outline.alpha : 0;
+            if (color !== this.outlineColor || alpha !== this.outlineAlpha) {
+                this.outlineColor = color;
+                this.outlineAlpha = alpha;
+                buffer.updateColorStrokes();
+                buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorStrokes);
+            }
+        };
+        BuilderText.prototype.updateStep = function (buffer, shape) {
+            var text = shape.text;
+            var textOutline = text.outline;
+            var textOutlineWidth = textOutline.enable ? textOutline.width : 0;
+            var textWeight = text.weight;
+            if (textWeight !== this.weight || textOutlineWidth !== this.outlineWidth) {
+                this.weight = textWeight;
+                this.outlineWidth = textOutlineWidth;
+                buffer.updateSteps();
+                buildTextStep(buffer.steps, this.vertexOffset, this.vertexCount, text.atlas, text.size, textOutlineWidth, textWeight);
+            }
+        };
+        BuilderText.prototype.buildUnit = function (builder) {
+            if (0 < this.vertexCount) {
+                var textTexture = this.texture || pixi_js.Texture.WHITE;
+                var textBaseTexture = textTexture.baseTexture;
+                if (textBaseTexture !== builder.baseTexture) {
+                    builder.baseTexture = textBaseTexture;
+                    builder.push(textTexture, this.indexOffset);
+                }
+            }
+        };
+        return BuilderText;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var createBarUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount * TEXT_VERTEX_COUNT;
@@ -6586,7 +7039,10 @@
         var vcount = BAR_VERTEX_COUNT + tvcount;
         var icount = BAR_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeBarUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderBar(voffset, ioffset),
+                new BuilderText(voffset + BAR_VERTEX_COUNT, ioffset + BAR_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -14804,7 +15260,7 @@
                 var local = EShapeActionRuntimeMiscHtmlElementBase.WORK || new pixi_js.Point();
                 EShapeActionRuntimeMiscHtmlElementBase.WORK = local;
                 shape.toLocal(point, undefined, local);
-                return shape.contains(local) != null;
+                return shape.contains(local.x, local.y) != null;
             }
             return false;
         };
@@ -17171,7 +17627,7 @@
                 var child = children[i];
                 if (child.visible) {
                     child.toLocal(global, undefined, local);
-                    var result = child.contains(local);
+                    var result = child.contains(local.x, local.y);
                     if (result != null) {
                         if (onHit == null || onHit(result)) {
                             return result;
@@ -17188,7 +17644,7 @@
                 var child = children[i];
                 if (child.visible) {
                     child.toLocal(global, undefined, local);
-                    if (child.containsBBox(local)) {
+                    if (child.containsBBox(local.x, local.y)) {
                         if (onHit == null || onHit(child)) {
                             return child;
                         }
@@ -24713,7 +25169,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var deserializeBar = function (item, manager) {
-        var shape = new EShapeBar(EShapeBarPosition.RIGHT);
+        var shape = new EShapeBar();
         var result = EShapeDeserializer.deserialize(item, manager, shape);
         shape.points.deserialize(item[15], manager);
         var style = shape.points.style;
@@ -24816,24 +25272,6 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var EShapeRuntimes = {};
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeStrokeSide;
-    (function (EShapeStrokeSide) {
-        EShapeStrokeSide[EShapeStrokeSide["NONE"] = 0] = "NONE";
-        EShapeStrokeSide[EShapeStrokeSide["TOP"] = 1] = "TOP";
-        EShapeStrokeSide[EShapeStrokeSide["RIGHT"] = 2] = "RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM"] = 4] = "BOTTOM";
-        EShapeStrokeSide[EShapeStrokeSide["LEFT"] = 8] = "LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_LEFT"] = 9] = "TOP_OR_LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_RIGHT"] = 3] = "TOP_OR_RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_LEFT"] = 12] = "BOTTOM_OR_LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_RIGHT"] = 6] = "BOTTOM_OR_RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["ALL"] = 15] = "ALL";
-    })(EShapeStrokeSide || (EShapeStrokeSide = {}));
 
     var RECTANGLE_ROUNDED_VERTEX_COUNT = 36;
     var RECTANGLE_ROUNDED_INDEX_COUNT = 24;
@@ -25805,35 +26243,30 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRectangleRoundedUploaded = /** @class */ (function (_super) {
-        __extends(EShapeRectangleRoundedUploaded, _super);
-        function EShapeRectangleRoundedUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var BuilderRectangleRounded = /** @class */ (function (_super) {
+        __extends(BuilderRectangleRounded, _super);
+        function BuilderRectangleRounded(vertexOffset, indexOffset, vertexCount, indexCount) {
+            var _this = _super.call(this, vertexOffset, indexOffset, vertexCount, indexCount) || this;
+            _this.radius = NaN;
+            _this.corner = NaN;
+            return _this;
         }
-        EShapeRectangleRoundedUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
+        BuilderRectangleRounded.prototype.init = function (buffer) {
             buffer.updateIndices();
             buildRectangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeRectangleRoundedUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderRectangleRounded.prototype.update = function (buffer, shape) {
             this.updateVertexClippingStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateText(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
         };
-        EShapeRectangleRoundedUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
+        BuilderRectangleRounded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
             var radius = shape.radius;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -25846,8 +26279,8 @@
                 this.strokeStyle !== strokeStyle;
             var corner = shape.corner;
             var isCornerChanged = corner !== this.corner;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
@@ -25862,10 +26295,6 @@
                 this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
-                if (isVertexChanged || isTransformChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Vertices
                 var voffset = this.vertexOffset;
                 buffer.updateVertices();
@@ -25883,12 +26312,12 @@
                 // UVs
                 if (isVertexChanged || isTextureChanged) {
                     buffer.updateUvs();
-                    buildRectangleRoundedUv(buffer.uvs, voffset, this.toTextureUvs(texture), RECTANGLE_ROUNDED_WORLD_SIZE);
+                    buildRectangleRoundedUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_ROUNDED_WORLD_SIZE);
                 }
             }
         };
-        return EShapeRectangleRoundedUploaded;
-    }(EShapeTextUploaded));
+        return BuilderRectangleRounded;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -25901,7 +26330,10 @@
         var vcount = RECTANGLE_ROUNDED_VERTEX_COUNT + tvcount;
         var icount = RECTANGLE_ROUNDED_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeRectangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderRectangleRounded(voffset, ioffset, vcount - tvcount, icount - ticount),
+                new BuilderText(voffset + RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset + RECTANGLE_ROUNDED_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -25911,7 +26343,175 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var createButtonUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createRectangleRoundedUploaded(buffer, shape, voffset, ioffset, antialiasWeight);
+        return createRectangleRoundedUploaded(buffer, shape, voffset, ioffset);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var hitTestRectangleRounded_ = function (x, y, ax, ay, r, corner) {
+        var bx0 = -ax + r;
+        if (x <= bx0) {
+            var by0 = -ay + r;
+            if (y <= by0 && corner & EShapeCorner.TOP_LEFT) {
+                // Top-left corner
+                var dx = x - bx0;
+                var dy = y - by0;
+                return dx * dx + dy * dy <= r * r;
+            }
+            else {
+                var by1 = +ay - r;
+                if (by1 <= y && corner & EShapeCorner.BOTTOM_LEFT) {
+                    // Bottom-left corner
+                    var dx = x - bx0;
+                    var dy = y - by1;
+                    return dx * dx + dy * dy <= r * r;
+                }
+                else {
+                    // Middle-left box
+                    return -ax <= x;
+                }
+            }
+        }
+        else {
+            var bx1 = +ax - r;
+            if (bx1 <= x) {
+                var by0 = -ay + r;
+                if (y <= by0 && corner & EShapeCorner.TOP_RIGHT) {
+                    // Top-right corner
+                    var dx = x - bx1;
+                    var dy = y - by0;
+                    return dx * dx + dy * dy <= r * r;
+                }
+                else {
+                    var by1 = +ay - r;
+                    if (by1 <= y && corner & EShapeCorner.BOTTOM_RIGHT) {
+                        // Bottom-right corner
+                        var dx = x - bx1;
+                        var dy = y - by1;
+                        return dx * dx + dy * dy <= r * r;
+                    }
+                    else {
+                        // Middle-right box
+                        return x <= +ax;
+                    }
+                }
+            }
+            else {
+                return -ay <= y && y <= +ay;
+            }
+        }
+    };
+    var hitTestRectangleRounded = function (shape, x, y, ax, ay, sw, ss) {
+        var fill = shape.fill;
+        if (fill.enable || 0 < sw) {
+            var r = shape.radius * Math.min(ax, ay);
+            var corner = shape.corner;
+            if (hitTestRectangleRounded_(x, y, ax, ay, r, corner)) {
+                if (fill.enable) {
+                    return true;
+                }
+                else {
+                    var s = sw * ss;
+                    var wx = Math.max(0.0, ax - s);
+                    var wy = Math.max(0.0, ay - s);
+                    var wr = Math.max(0.0, r - s);
+                    if (!hitTestRectangleRounded_(x, y, wx, wy, wr, corner)) {
+                        var strokeSide = shape.stroke.side;
+                        if (strokeSide === EShapeStrokeSide.ALL) {
+                            return true;
+                        }
+                        else {
+                            if (x <= -wx + wr) {
+                                var hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
+                                if (y <= -wy + wr) {
+                                    var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+                                    if (hasTopSide && hasLeftSide) {
+                                        return true;
+                                    }
+                                    else if (hasTopSide) {
+                                        return -wx <= y;
+                                    }
+                                    else if (hasLeftSide) {
+                                        return x <= -wx;
+                                    }
+                                    else {
+                                        return false;
+                                    }
+                                }
+                                else if (+wy - wr <= y) {
+                                    var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                                    if (hasBottomSide && hasLeftSide) {
+                                        return true;
+                                    }
+                                    else if (hasBottomSide) {
+                                        return +wx <= y;
+                                    }
+                                    else if (hasLeftSide) {
+                                        return x <= -wx;
+                                    }
+                                    else {
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    return hasLeftSide;
+                                }
+                            }
+                            else if (+wx - wr <= x) {
+                                var hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
+                                if (y <= -wy + wr) {
+                                    var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
+                                    if (hasTopSide && hasRightSide) {
+                                        return true;
+                                    }
+                                    else if (hasTopSide) {
+                                        return -wx <= y;
+                                    }
+                                    else if (hasRightSide) {
+                                        return +wx <= x;
+                                    }
+                                    else {
+                                        return false;
+                                    }
+                                }
+                                else if (+wy - wr <= y) {
+                                    var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                                    if (hasBottomSide && hasRightSide) {
+                                        return true;
+                                    }
+                                    else if (hasBottomSide) {
+                                        return +wx <= y;
+                                    }
+                                    else if (hasRightSide) {
+                                        return +wx <= x;
+                                    }
+                                    else {
+                                        return false;
+                                    }
+                                }
+                                else {
+                                    return hasRightSide;
+                                }
+                            }
+                            else {
+                                if (y <= -wy + wr) {
+                                    return !!(strokeSide & EShapeStrokeSide.TOP);
+                                }
+                                else if (+wy - wr <= y) {
+                                    return !!(strokeSide & EShapeStrokeSide.BOTTOM);
+                                }
+                                else {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     };
 
     /*
@@ -25927,168 +26527,9 @@
         EShapeRectangleRounded.prototype.clone = function () {
             return new EShapeRectangleRounded().copy(this);
         };
-        EShapeRectangleRounded.prototype.containsAbs_ = function (x, y, ax, ay, r, corner) {
-            var bx0 = -ax + r;
-            if (x <= bx0) {
-                var by0 = -ay + r;
-                if (y <= by0 && corner & EShapeCorner.TOP_LEFT) {
-                    // Top-left corner
-                    var dx = x - bx0;
-                    var dy = y - by0;
-                    return dx * dx + dy * dy <= r * r;
-                }
-                else {
-                    var by1 = +ay - r;
-                    if (by1 <= y && corner & EShapeCorner.BOTTOM_LEFT) {
-                        // Bottom-left corner
-                        var dx = x - bx0;
-                        var dy = y - by1;
-                        return dx * dx + dy * dy <= r * r;
-                    }
-                    else {
-                        // Middle-left box
-                        return -ax <= x;
-                    }
-                }
-            }
-            else {
-                var bx1 = +ax - r;
-                if (bx1 <= x) {
-                    var by0 = -ay + r;
-                    if (y <= by0 && corner & EShapeCorner.TOP_RIGHT) {
-                        // Top-right corner
-                        var dx = x - bx1;
-                        var dy = y - by0;
-                        return dx * dx + dy * dy <= r * r;
-                    }
-                    else {
-                        var by1 = +ay - r;
-                        if (by1 <= y && corner & EShapeCorner.BOTTOM_RIGHT) {
-                            // Bottom-right corner
-                            var dx = x - bx1;
-                            var dy = y - by1;
-                            return dx * dx + dy * dy <= r * r;
-                        }
-                        else {
-                            // Middle-right box
-                            return x <= +ax;
-                        }
-                    }
-                }
-                else {
-                    return -ay <= y && y <= +ay;
-                }
-            }
-        };
-        EShapeRectangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeRectangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var fill = this.fill;
-                if (fill.enable || 0 < sw) {
-                    var r = this.radius * Math.min(ax, ay);
-                    var corner = this.corner;
-                    if (this.containsAbs_(x, y, ax, ay, r, corner)) {
-                        if (fill.enable) {
-                            return true;
-                        }
-                        else {
-                            var s = sw * ss;
-                            var wx = Math.max(0.0, ax - s);
-                            var wy = Math.max(0.0, ay - s);
-                            var wr = Math.max(0.0, r - s);
-                            if (!this.containsAbs_(x, y, wx, wy, wr, corner)) {
-                                var strokeSide = this.stroke.side;
-                                if (strokeSide === EShapeStrokeSide.ALL) {
-                                    return true;
-                                }
-                                else {
-                                    if (x <= -wx + wr) {
-                                        var hasLeftSide = !!(strokeSide & EShapeStrokeSide.LEFT);
-                                        if (y <= -wy + wr) {
-                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-                                            if (hasTopSide && hasLeftSide) {
-                                                return true;
-                                            }
-                                            else if (hasTopSide) {
-                                                return -wx <= y;
-                                            }
-                                            else if (hasLeftSide) {
-                                                return x <= -wx;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else if (+wy - wr <= y) {
-                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                            if (hasBottomSide && hasLeftSide) {
-                                                return true;
-                                            }
-                                            else if (hasBottomSide) {
-                                                return +wx <= y;
-                                            }
-                                            else if (hasLeftSide) {
-                                                return x <= -wx;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else {
-                                            return hasLeftSide;
-                                        }
-                                    }
-                                    else if (+wx - wr <= x) {
-                                        var hasRightSide = !!(strokeSide & EShapeStrokeSide.RIGHT);
-                                        if (y <= -wy + wr) {
-                                            var hasTopSide = !!(strokeSide & EShapeStrokeSide.TOP);
-                                            if (hasTopSide && hasRightSide) {
-                                                return true;
-                                            }
-                                            else if (hasTopSide) {
-                                                return -wx <= y;
-                                            }
-                                            else if (hasRightSide) {
-                                                return +wx <= x;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else if (+wy - wr <= y) {
-                                            var hasBottomSide = !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                            if (hasBottomSide && hasRightSide) {
-                                                return true;
-                                            }
-                                            else if (hasBottomSide) {
-                                                return +wx <= y;
-                                            }
-                                            else if (hasRightSide) {
-                                                return +wx <= x;
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        else {
-                                            return hasRightSide;
-                                        }
-                                    }
-                                    else {
-                                        if (y <= -wy + wr) {
-                                            return !!(strokeSide & EShapeStrokeSide.TOP);
-                                        }
-                                        else if (+wy - wr <= y) {
-                                            return !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                        }
-                                        else {
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                return hitTestRectangleRounded(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
@@ -26222,7 +26663,8 @@
         function EShapeButtonRuntimeAction(runtime) {
             var _this = _super.call(this, EShapeRuntimeReset.COLOR_FILL_AND_STROKE |
                 EShapeRuntimeReset.COLOR_TEXT |
-                EShapeRuntimeReset.COLOR_TEXT_OUTLINE) || this;
+                EShapeRuntimeReset.COLOR_TEXT_OUTLINE |
+                EShapeRuntimeReset.CURSOR) || this;
             var fill = runtime.fill;
             var fillColor = fill.color;
             var fillColorOnHovered = _this.toOnHovered(fillColor);
@@ -26279,7 +26721,7 @@
             shape.text.set(undefined, this.getTextColor(state), this.getTextAlpha(state));
             shape.text.outline.set(undefined, this.getTextOutlineColor(state), this.getTextOutlineAlpha(state));
             shape.cursor = this.getCursor(state);
-            runtime.written |= EShapeRuntimeReset.COLOR_FILL_AND_STROKE;
+            runtime.written |= this.reset;
         };
         EShapeButtonRuntimeAction.prototype.getFillColor = function (state) {
             if (state.inDisabled) {
@@ -26375,7 +26817,8 @@
         function EShapeButtonRuntimeActionToggle(runtime) {
             var _this = _super.call(this, EShapeRuntimeReset.COLOR_FILL_AND_STROKE |
                 EShapeRuntimeReset.COLOR_TEXT |
-                EShapeRuntimeReset.COLOR_TEXT_OUTLINE) || this;
+                EShapeRuntimeReset.COLOR_TEXT_OUTLINE |
+                EShapeRuntimeReset.CURSOR) || this;
             var fill = runtime.fill;
             var fillColorActive = fill.color;
             _this._fillColorActive = fillColorActive;
@@ -26443,7 +26886,7 @@
             shape.text.set(undefined, this.getTextColor(state), this.getTextAlpha(state));
             shape.text.outline.set(undefined, this.getTextOutlineColor(state), this.getTextOutlineAlpha(state));
             shape.cursor = this.getCursor(state);
-            runtime.written |= EShapeRuntimeReset.COLOR_FILL_AND_STROKE;
+            runtime.written |= this.reset;
         };
         EShapeButtonRuntimeActionToggle.prototype.getFillColor = function (state) {
             if (state.inDisabled) {
@@ -26577,7 +27020,7 @@
             return true;
         };
         EShapeButtonRuntime.prototype.initialize = function (shape) {
-            this.actions.push(this._isToggle
+            this.actions.unshift(this._isToggle
                 ? new EShapeButtonRuntimeActionToggle(this)
                 : new EShapeButtonRuntimeAction(this));
             _super.prototype.initialize.call(this, shape);
@@ -26799,38 +27242,30 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeCircleUploaded = /** @class */ (function (_super) {
-        __extends(EShapeCircleUploaded, _super);
-        function EShapeCircleUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var BuilderCircle = /** @class */ (function (_super) {
+        __extends(BuilderCircle, _super);
+        function BuilderCircle(vertexOffset, indexOffset) {
+            return _super.call(this, vertexOffset, indexOffset, CIRCLE_VERTEX_COUNT, CIRCLE_INDEX_COUNT) || this;
         }
-        EShapeCircleUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Clippings & indices
-            var buffer = this.buffer;
+        BuilderCircle.prototype.init = function (buffer) {
             buffer.updateClippings();
             buffer.updateIndices();
             var voffset = this.vertexOffset;
             buildCircleClipping(buffer.clippings, voffset);
             buildCircleIndex(buffer.indices, voffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeCircleUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateCircleVertexAndStep(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateCircleUv(buffer, shape);
-            this.updateText(buffer, shape);
+        BuilderCircle.prototype.update = function (buffer, shape) {
+            this.updateVertexAndStep(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
+            this.updateUv(buffer, shape);
         };
-        EShapeCircleUploaded.prototype.updateCircleVertexAndStep = function (buffer, shape) {
+        BuilderCircle.prototype.updateVertexAndStep = function (buffer, shape) {
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -26846,8 +27281,6 @@
                 this.strokeAlign = strokeAlign;
                 this.strokeWidth = strokeWidth;
                 this.strokeStyle = strokeStyle;
-                // Invalidate the text layout to update the text layout.
-                this.textSpacingHorizontal = NaN;
                 // Buffer
                 buffer.updateVertices();
                 buffer.updateSteps();
@@ -26855,19 +27288,19 @@
                 buildCircleStep(buffer.steps, buffer.clippings, this.vertexOffset, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
             }
         };
-        EShapeCircleUploaded.prototype.updateCircleUv = function (buffer, shape) {
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+        BuilderCircle.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 buffer.updateUvs();
-                var textureUvs = this.toTextureUvs(texture);
+                var textureUvs = toTextureUvs(texture);
                 buildCircleUv(buffer.uvs, this.vertexOffset, textureUvs);
             }
         };
-        return EShapeCircleUploaded;
-    }(EShapeTextUploaded));
+        return BuilderCircle;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -26880,7 +27313,10 @@
         var vcount = CIRCLE_VERTEX_COUNT + tvcount;
         var icount = CIRCLE_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeCircleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderCircle(voffset, ioffset),
+                new BuilderText(voffset + CIRCLE_VERTEX_COUNT, ioffset + CIRCLE_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -26898,36 +27334,9 @@
         EShapeCircle.prototype.clone = function () {
             return new EShapeCircle().copy(this);
         };
-        EShapeCircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeCircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var fill = this.fill;
-                if (fill.enable) {
-                    var x2 = x * x;
-                    var y2 = y * y;
-                    var ax2 = ax * ax;
-                    var ay2 = ay * ay;
-                    if (x2 * ay2 + y2 * ax2 <= ax2 * ay2) {
-                        return true;
-                    }
-                }
-                else {
-                    if (0 < sw) {
-                        var s = sw * ss;
-                        var x2 = x * x;
-                        var y2 = y * y;
-                        var wx = Math.max(0.0, ax - s);
-                        var wy = Math.max(0.0, ay - s);
-                        var wx2 = wx * wx;
-                        var wy2 = wy * wy;
-                        if (wx2 * wy2 <= x2 * wy2 + y2 * wx2) {
-                            var ax2 = ax * ax;
-                            var ay2 = ay * ay;
-                            if (x2 * ay2 + y2 * ax2 <= ax2 * ay2) {
-                                return true;
-                            }
-                        }
-                    }
-                }
+                return hitTestCircle(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
@@ -27353,44 +27762,31 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLineUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLineUploaded, _super);
-        function EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) {
-            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) || this;
+    var BuilderLine = /** @class */ (function (_super) {
+        __extends(BuilderLine, _super);
+        function BuilderLine(vertexOffset, indexOffset, vertexCount, indexCount) {
+            var _this = _super.call(this, vertexOffset, indexOffset, vertexCount, indexCount) || this;
             _this.pointId = -1;
             _this.pointCount = 0;
             _this.pointsClosed = false;
             _this.length = 1;
             return _this;
         }
-        EShapeLineUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Clipping & indices
-            var buffer = this.buffer;
+        BuilderLine.prototype.init = function (buffer) {
             buffer.updateIndices();
-            buildLineIndex(buffer.indices, this.vertexOffset, this.indexOffset, this.indexCount - this.textIndexCount);
-            // Text
-            this.initText();
-            //
-            this.update(shape);
-            return this;
+            buildLineIndex(buffer.indices, this.vertexOffset, this.indexOffset, this.indexCount);
         };
-        EShapeLineUploaded.prototype.isCompatible = function (shape) {
-            if (_super.prototype.isCompatible.call(this, shape)) {
-                var vcount = toLineVertexCount(toLinePointCount(shape.points), true);
-                return vcount === this.vertexCount - this.textVertexCount;
-            }
-            return false;
+        BuilderLine.prototype.isCompatible = function (shape) {
+            var vcount = toLineVertexCount(toLinePointCount(shape.points), true);
+            return vcount === this.vertexCount;
         };
-        EShapeLineUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderLine.prototype.update = function (buffer, shape) {
             this.updateLineClipping(buffer, shape);
             this.updateLineVertexStepAndColorFill(buffer, shape);
-            this.updateColor(buffer, shape);
+            this.updateColorStroke(buffer, shape);
             this.updateLineUv(buffer, shape);
-            this.updateText(buffer, shape);
         };
-        EShapeLineUploaded.prototype.updateLineClipping = function (buffer, shape) {
+        BuilderLine.prototype.updateLineClipping = function (buffer, shape) {
             var points = shape.points;
             if (points) {
                 var formatted = points.formatted;
@@ -27400,11 +27796,11 @@
                     // Invalidate the pointId to update the vertices
                     this.pointId = -1;
                     buffer.updateClippings();
-                    buildLineClipping(buffer.clippings, this.vertexOffset, this.vertexCount - this.textVertexCount, pointCount);
+                    buildLineClipping(buffer.clippings, this.vertexOffset, this.vertexCount, pointCount);
                 }
             }
         };
-        EShapeLineUploaded.prototype.updateLineVertexStepAndColorFill = function (buffer, shape) {
+        BuilderLine.prototype.updateLineVertexStepAndColorFill = function (buffer, shape) {
             var points = shape.points;
             if (points) {
                 var pointId = points.id;
@@ -27415,7 +27811,7 @@
                 var strokeWidth = stroke.enable ? stroke.width : 0;
                 var strokeStyle = stroke.style;
                 var isStrokeWidthChanged = this.strokeWidth !== strokeWidth || this.strokeStyle !== strokeStyle;
-                var transformLocalId = this.toTransformLocalId(shape);
+                var transformLocalId = toTransformLocalId(shape);
                 var isTransformChanged = this.transformLocalId !== transformLocalId;
                 if (isPointChanged || isTransformChanged || isStrokeWidthChanged) {
                     this.pointId = pointId;
@@ -27423,10 +27819,6 @@
                     this.strokeWidth = strokeWidth;
                     this.strokeStyle = strokeStyle;
                     this.transformLocalId = transformLocalId;
-                    if (isPointChanged || isTransformChanged) {
-                        // Invalidate the text layout to update the text layout.
-                        this.textSpacingHorizontal = NaN;
-                    }
                     if (isPointChanged) {
                         // Invalidate the texture transform ID to update the UVs
                         this.textureTransformId = NaN;
@@ -27434,174 +27826,412 @@
                     buffer.updateVertices();
                     buffer.updateSteps();
                     buffer.updateColorFills();
-                    this.length = buildLineVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, strokeWidth, strokeStyle, shape.transform.internalTransform);
+                    this.length = buildLineVertexStepAndColorFill(buffer.vertices, buffer.steps, buffer.colorFills, this.vertexOffset, this.vertexCount, this.pointCount, this.pointsClosed, formatted.values, formatted.segments, strokeWidth, strokeStyle, shape.transform.internalTransform);
                 }
             }
         };
-        EShapeLineUploaded.prototype.updateColorFillAndStroke = function (buffer, shape, vertexCount) {
-            this.updateColorStroke(buffer, shape, vertexCount);
-        };
-        EShapeLineUploaded.prototype.updateLineUv = function (buffer, shape) {
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+        BuilderLine.prototype.updateLineUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 buffer.updateUvs();
-                buildLineUv(buffer.uvs, buffer.colorFills, this.vertexOffset, this.vertexCount - this.textVertexCount, this.toTextureUvs(texture), this.length);
+                buildLineUv(buffer.uvs, buffer.colorFills, this.vertexOffset, this.vertexCount, toTextureUvs(texture), this.length);
             }
         };
-        return EShapeLineUploaded;
-    }(EShapeTextUploaded));
+        return BuilderLine;
+    }(BuilderBase));
 
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createLineUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var points = shape.points;
-        var pointCount = toLinePointCount(points);
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount * TEXT_VERTEX_COUNT;
-        var ticount = tcount * TEXT_INDEX_COUNT;
-        var vcount = toLineVertexCount(pointCount, true) + tvcount;
-        var icount = toLineIndexCount(pointCount, true) + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeLineUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+    var TRIANGLE_VERTEX_COUNT = 7;
+    var TRIANGLE_INDEX_COUNT = 3;
+    var TRIANGLE_WORLD_SIZE = [0, 0, 0];
+    var TRIANGLE_WORK_POINT = new pixi_js.Point();
+    var buildTriangleClipping = function (clippings, voffset) {
+        // Clippings
+        var iv = voffset * 3 - 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+        clippings[++iv] = 1;
+        clippings[++iv] = 0;
+        clippings[++iv] = 0;
+    };
+    var buildTriangleIndex = function (indices, voffset, ioffset) {
+        // Indices
+        var ii = ioffset * 3 - 1;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 1;
+        indices[++ii] = voffset + 2;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 3;
+        indices[++ii] = voffset + 4;
+        indices[++ii] = voffset + 0;
+        indices[++ii] = voffset + 5;
+        indices[++ii] = voffset + 6;
+    };
+    var buildTriangleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
+        var s = strokeAlign * strokeWidth;
+        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
+        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
+        var sz = Math.sqrt(sx * sx + 4 * sy * sy);
+        var sw = (2 * sx * sy) / (sx + sz);
+        var work = TRIANGLE_WORK_POINT;
+        work.set(originX, originY - sy);
+        internalTransform.apply(work, work);
+        var x0 = work.x;
+        var y0 = work.y;
+        work.set(originX, originY);
+        internalTransform.apply(work, work);
+        var tx = work.x;
+        var ty = work.y;
+        work.set(originX + sx, originY);
+        internalTransform.apply(work, work);
+        var dx = tx - x0;
+        var dy = ty - y0;
+        var x1 = work.x + dx;
+        var y1 = work.y + dy;
+        var x2 = tx + (tx - work.x) + dx;
+        var y2 = ty + (ty - work.y) + dy;
+        work.set(originX, originY + sy - sw); // Incenter of a triangle
+        internalTransform.apply(work, work);
+        var x3 = work.x;
+        var y3 = work.y;
+        // World size
+        var xb = tx + dx;
+        var yb = ty + dy;
+        worldSize[0] = toLength(xb, yb, x3, y3);
+        worldSize[1] = toLength(x1, y1, xb, yb);
+        worldSize[2] = toLength(x0, y0, tx, ty);
+        // Vertices
+        var iv = (voffset << 1) - 1;
+        vertices[++iv] = x3;
+        vertices[++iv] = y3;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x1;
+        vertices[++iv] = y1;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x2;
+        vertices[++iv] = y2;
+        vertices[++iv] = x0;
+        vertices[++iv] = y0;
+    };
+    var buildTriangleStep = function (steps, clippings, voffset, vcount, strokeWidth, strokeStyle, worldSize) {
+        var scaleInvariant = toScaleInvariant(strokeStyle);
+        var s = worldSize[0];
+        var is = voffset * 6 - 1;
+        var ic = voffset * 3;
+        for (var i = 0; i < vcount; i += 1, ic += 3) {
+            steps[++is] = strokeWidth;
+            steps[++is] = scaleInvariant;
+            steps[++is] = s;
+            steps[++is] = s;
+            steps[++is] = 1 + clippings[ic];
+            steps[++is] = 1 + clippings[ic + 1];
         }
-        return null;
+    };
+    var buildTriangleUv = function (uvs, textureUvs, voffset, worldSize) {
+        var x0 = textureUvs.x0;
+        var x1 = textureUvs.x1;
+        var x2 = textureUvs.x2;
+        var x3 = textureUvs.x3;
+        var y0 = textureUvs.y0;
+        var y1 = textureUvs.y1;
+        var y2 = textureUvs.y2;
+        var y3 = textureUvs.y3;
+        var x4 = 0.5 * (x0 + x1);
+        var y4 = 0.5 * (y0 + y1);
+        var c = 1 - (0.5 * worldSize[0]) / worldSize[2];
+        var x5 = x4 + c * (x3 - x0);
+        var y5 = y4 + c * (y3 - y0);
+        var iuv = (voffset << 1) - 1;
+        uvs[++iuv] = x5;
+        uvs[++iuv] = y5;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x2;
+        uvs[++iuv] = y2;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x3;
+        uvs[++iuv] = y3;
+        uvs[++iuv] = x4;
+        uvs[++iuv] = y4;
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeConnectorEdgeImpl = /** @class */ (function () {
-        function EShapeConnectorEdgeImpl(parent) {
-            this._parent = parent;
-            this._shape = null;
-            this._x = 0;
-            this._y = 0;
+    var BuilderMarkerTriangle = /** @class */ (function (_super) {
+        __extends(BuilderMarkerTriangle, _super);
+        function BuilderMarkerTriangle(vertexOffset, indexOffset) {
+            var _this = _super.call(this, vertexOffset, indexOffset, TRIANGLE_VERTEX_COUNT, TRIANGLE_INDEX_COUNT) || this;
+            _this.pointId = -1;
+            return _this;
         }
-        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "shape", {
-            get: function () {
-                return this._shape;
-            },
-            set: function (shape) {
-                this.set(shape, undefined, undefined);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "x", {
-            get: function () {
-                return this._x;
-            },
-            set: function (x) {
-                this.set(undefined, x, undefined);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "y", {
-            get: function () {
-                return this._y;
-            },
-            set: function (y) {
-                this.set(undefined, undefined, y);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeConnectorEdgeImpl.prototype.set = function (shape, x, y) {
-            var isChanged = false;
-            if (shape !== undefined && shape !== this._shape) {
-                this._shape = shape;
-                isChanged = true;
-            }
-            if (x != null && x !== this._x) {
-                this._x = x;
-                isChanged = true;
-            }
-            if (y != null && y !== this._y) {
-                this._y = y;
-                isChanged = true;
-            }
-            if (isChanged) {
-                this._parent.onChange();
-            }
-            return this;
+        BuilderMarkerTriangle.prototype.init = function (buffer) {
+            buffer.updateClippings();
+            buffer.updateIndices();
+            buildTriangleClipping(buffer.clippings, this.vertexOffset);
+            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
         };
-        EShapeConnectorEdgeImpl.prototype.copy = function (source) {
-            return this.set(source.shape, source.x, source.y);
+        BuilderMarkerTriangle.prototype.update = function (buffer, shape) {
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
         };
-        EShapeConnectorEdgeImpl.prototype.isEqual = function (other) {
-            return this._shape === other.shape && this._x === other.x && this._y === other.y;
-        };
-        EShapeConnectorEdgeImpl.prototype.serialize = function (manager) {
-            var shape = this._shape;
-            return manager.addResource("[" + (shape ? shape.uuid : null) + "," + this._x + "," + this._y + "]");
-        };
-        EShapeConnectorEdgeImpl.prototype.onDeserialized = function (resourceId, mapping, manager) {
-            var resources = manager.resources;
-            if (0 <= resourceId && resourceId < resources.length) {
-                var parsed = manager.getExtension(resourceId);
-                if (parsed == null) {
-                    parsed = JSON.parse(resources[resourceId]);
-                    manager.setExtension(resourceId, parsed);
+        BuilderMarkerTriangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var _a;
+            var points = shape.points;
+            if (points == null) {
+                return;
+            }
+            var container = points.getMarker();
+            if (container == null) {
+                return;
+            }
+            var marker = this.toMarker(container);
+            var size = marker.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var pointId = points.id;
+            var isPointChanged = pointId !== this.pointId;
+            if (isVertexChanged || isTransformChanged || isTextureChanged || isPointChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                this.pointId = pointId;
+                var voffset = this.vertexOffset;
+                var internalTransform = ((_a = BuilderMarkerTriangle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerTriangle.WORK = new pixi_js.Matrix()));
+                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
+                buffer.updateVertices();
+                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, TRIANGLE_WORLD_SIZE);
+                if (isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
                 }
-                var shape = null;
-                var shapeUuid = parsed[0];
-                if (shapeUuid != null) {
-                    shape = mapping.find(shapeUuid);
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
                 }
-                this.set(shape, parsed[1], parsed[2]);
             }
-            return this;
         };
-        return EShapeConnectorEdgeImpl;
-    }());
+        return BuilderMarkerTriangle;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeConnectorEdgeContainerImpl = /** @class */ (function () {
-        function EShapeConnectorEdgeContainerImpl(parent) {
-            this._parent = parent;
-            this._left = new EShapeConnectorEdgeImpl(this);
-            this._right = new EShapeConnectorEdgeImpl(this);
+    var BuilderMarkerTriangleHead = /** @class */ (function (_super) {
+        __extends(BuilderMarkerTriangleHead, _super);
+        function BuilderMarkerTriangleHead() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "left", {
-            get: function () {
-                return this._left;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "right", {
-            get: function () {
-                return this._right;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeConnectorEdgeContainerImpl.prototype.onChange = function () {
-            this._parent.fit();
+        BuilderMarkerTriangleHead.prototype.toMarker = function (container) {
+            return container.head;
         };
-        EShapeConnectorEdgeContainerImpl.prototype.copy = function (source) {
-            this._left.copy(source.left);
-            this._right.copy(source.right);
-            return this;
+        return BuilderMarkerTriangleHead;
+    }(BuilderMarkerTriangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerTriangleTail = /** @class */ (function (_super) {
+        __extends(BuilderMarkerTriangleTail, _super);
+        function BuilderMarkerTriangleTail() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerTriangleTail.prototype.toMarker = function (container) {
+            return container.tail;
         };
-        EShapeConnectorEdgeContainerImpl.prototype.serialize = function (manager) {
-            var left = this._left;
-            var leftId = left == null ? -1 : left.serialize(manager);
-            var right = this._right;
-            var rightId = right == null ? -1 : right.serialize(manager);
-            return manager.addResource("[" + leftId + "," + rightId + "]");
+        return BuilderMarkerTriangleTail;
+    }(BuilderMarkerTriangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerCircle = /** @class */ (function (_super) {
+        __extends(BuilderMarkerCircle, _super);
+        function BuilderMarkerCircle(vertexOffset, indexOffset) {
+            var _this = _super.call(this, vertexOffset, indexOffset, CIRCLE_VERTEX_COUNT, CIRCLE_INDEX_COUNT) || this;
+            _this.pointId = -1;
+            return _this;
+        }
+        BuilderMarkerCircle.prototype.init = function (buffer) {
+            buffer.updateClippings();
+            buffer.updateIndices();
+            var vertexOffset = this.vertexOffset;
+            buildCircleClipping(buffer.clippings, vertexOffset);
+            buildCircleIndex(buffer.indices, vertexOffset, this.indexOffset);
         };
-        return EShapeConnectorEdgeContainerImpl;
+        BuilderMarkerCircle.prototype.update = function (buffer, shape) {
+            this.updateVertexAndStep(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
+            this.updateUv(buffer, shape);
+        };
+        BuilderMarkerCircle.prototype.updateVertexAndStep = function (buffer, shape) {
+            var _a;
+            var points = shape.points;
+            if (points == null) {
+                return;
+            }
+            var container = points.getMarker();
+            if (container == null) {
+                return;
+            }
+            var marker = this.toMarker(container);
+            var size = marker.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var pointId = points.id;
+            var isPointChanged = pointId !== this.pointId;
+            if (isSizeChanged || isTransformChanged || isStrokeChanged || isPointChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.pointId = pointId;
+                // Buffer
+                var internalTransform = ((_a = BuilderMarkerCircle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerCircle.WORK = new pixi_js.Matrix()));
+                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
+                buffer.updateVertices();
+                buffer.updateSteps();
+                buildCircleVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, CIRCLE_WORLD_SIZE);
+                buildCircleStep(buffer.steps, buffer.clippings, this.vertexOffset, strokeWidth, strokeStyle, CIRCLE_WORLD_SIZE);
+            }
+        };
+        BuilderMarkerCircle.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                buffer.updateUvs();
+                var textureUvs = toTextureUvs(texture);
+                buildCircleUv(buffer.uvs, this.vertexOffset, textureUvs);
+            }
+        };
+        return BuilderMarkerCircle;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerCircleHead = /** @class */ (function (_super) {
+        __extends(BuilderMarkerCircleHead, _super);
+        function BuilderMarkerCircleHead() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerCircleHead.prototype.toMarker = function (container) {
+            return container.head;
+        };
+        return BuilderMarkerCircleHead;
+    }(BuilderMarkerCircle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerCircleTail = /** @class */ (function (_super) {
+        __extends(BuilderMarkerCircleTail, _super);
+        function BuilderMarkerCircleTail() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerCircleTail.prototype.toMarker = function (container) {
+            return container.tail;
+        };
+        return BuilderMarkerCircleTail;
+    }(BuilderMarkerCircle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderNull = /** @class */ (function () {
+        function BuilderNull(vertexOffset, indexOffset) {
+            this.vertexOffset = vertexOffset;
+            this.indexOffset = indexOffset;
+            this.vertexCount = 0;
+            this.indexCount = 0;
+            this.texture = null;
+        }
+        BuilderNull.prototype.init = function (buffer) {
+            // DO NOTHING
+        };
+        BuilderNull.prototype.isCompatible = function (shape) {
+            return true;
+        };
+        BuilderNull.prototype.update = function (buffer, shape) {
+            this.texture = toTexture(shape);
+        };
+        BuilderNull.prototype.buildUnit = function (builder) {
+            var texture = this.texture || pixi_js.Texture.WHITE;
+            var baseTexture = texture.baseTexture;
+            if (baseTexture !== builder.baseTexture) {
+                builder.baseTexture = baseTexture;
+                var indexOffset = this.indexOffset;
+                builder.push(texture, indexOffset);
+            }
+        };
+        return BuilderNull;
     }());
 
     /*
@@ -28022,28 +28652,337 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLinePoints = /** @class */ (function () {
-        function EShapeLinePoints(parent, points, segments, style) {
-            // Calculate the boundary
-            var boundary = this.toBoundary(points, [0, 0, 0, 0]);
-            var cx = (boundary[2] + boundary[0]) * 0.5;
-            var cy = (boundary[3] + boundary[1]) * 0.5;
-            var sx = boundary[2] - boundary[0];
-            var sy = boundary[3] - boundary[1];
-            // Calculate values
-            var values = [];
-            for (var i = 0, imax = points.length; i < imax; i += 2) {
-                values.push(points[i] - cx, points[i + 1] - cy);
+    var toPointsBoundary = function (values, result) {
+        var valuesLength = values.length;
+        if (2 <= valuesLength) {
+            var xmin = values[0];
+            var ymin = values[1];
+            var xmax = xmin;
+            var ymax = ymin;
+            for (var i = 2, imax = values.length; i < imax; i += 2) {
+                var x = values[i];
+                var y = values[i + 1];
+                xmin = Math.min(xmin, x);
+                ymin = Math.min(ymin, y);
+                xmax = Math.max(xmax, x);
+                ymax = Math.max(ymax, y);
             }
+            result[0] = xmin;
+            result[1] = ymin;
+            result[2] = xmax;
+            result[3] = ymax;
+        }
+        else {
+            result[0] = 0;
+            result[1] = 0;
+            result[2] = 0;
+            result[3] = 0;
+        }
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapePointsMarkerBase = /** @class */ (function () {
+        function EShapePointsMarkerBase(parent) {
+            var _this = this;
             this._parent = parent;
-            this._valuesBaseLength = values.length;
-            this._values = values;
-            this._segments = segments.slice(0);
-            this._sizeBase = new pixi_js.Point(sx, sy);
-            this.size = new pixi_js.Point(sx, sy);
-            this.position = new pixi_js.Point(cx, cy);
+            this._lockCount = 0;
+            this._isTypeChanged = false;
+            this._isSizeChanged = false;
+            this._type = EShapePointsMarkerType.NONE;
+            this._size = new pixi_js.ObservablePoint(function () {
+                _this.onSizeChange();
+            }, undefined, EShapeDefaults.SIZE_X * 0.15, EShapeDefaults.SIZE_Y * 0.15);
+            this._transformId = 0;
+        }
+        EShapePointsMarkerBase.prototype.lock = function () {
+            this._lockCount += 1;
+            if (this._lockCount === 1) {
+                this._isTypeChanged = false;
+                this._isSizeChanged = false;
+            }
+            return this;
+        };
+        EShapePointsMarkerBase.prototype.unlock = function () {
+            this._lockCount -= 1;
+            if (this._lockCount === 0) {
+                if (this._isTypeChanged) {
+                    this.onTypeChange();
+                }
+                else if (this._isSizeChanged) {
+                    this.onSizeChange();
+                }
+                this._isTypeChanged = false;
+                this._isSizeChanged = false;
+            }
+            return this;
+        };
+        Object.defineProperty(EShapePointsMarkerBase.prototype, "type", {
+            get: function () {
+                return this._type;
+            },
+            set: function (type) {
+                if (this._type !== type) {
+                    this._type = type;
+                    this.onTypeChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerBase.prototype.onTypeChange = function () {
+            if (0 < this._lockCount) {
+                this._isTypeChanged = true;
+                return;
+            }
+            this._parent.onTypeChange();
+        };
+        Object.defineProperty(EShapePointsMarkerBase.prototype, "size", {
+            get: function () {
+                return this._size;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerBase.prototype.onSizeChange = function () {
+            if (0 < this._lockCount) {
+                this._isSizeChanged = true;
+                return;
+            }
+            this._parent.onSizeChange();
+        };
+        Object.defineProperty(EShapePointsMarkerBase.prototype, "transform", {
+            get: function () {
+                return this.updateTransform();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerBase.prototype.updateTransform = function () {
+            var result = this._transform;
+            if (result == null) {
+                result = new pixi_js.Matrix();
+                this._transform = result;
+            }
+            var parentParent = this._parent.parent;
+            var id = parentParent.id;
+            if (this._transformId !== id) {
+                this._transformId = id;
+                var formatted = parentParent.formatted;
+                if (2 <= formatted.length) {
+                    this.toTransform(formatted.values, result);
+                }
+                else {
+                    result.identity();
+                }
+            }
+            return result;
+        };
+        EShapePointsMarkerBase.prototype.toTransformMatrix = function (x0, y0, x1, y1, result) {
+            var dx = x0 - x1;
+            var dy = y0 - y1;
+            var n = dx * dx + dy * dy;
+            if (0.00001 < n) {
+                var f = 1 / Math.sqrt(n);
+                var nx = dx * f;
+                var ny = dy * f;
+                result.set(ny, -nx, -nx, -ny, x0, y0);
+            }
+            else {
+                result.identity();
+            }
+            return result;
+        };
+        EShapePointsMarkerBase.prototype.copy = function (source) {
+            var size = source.size;
+            this.set(source.type, size.x, size.y);
+            return this;
+        };
+        EShapePointsMarkerBase.prototype.set = function (type, sizeX, sizeY) {
+            this.lock();
+            if (type != null) {
+                this.type = type;
+            }
+            this.size.set(sizeX, sizeY);
+            this.unlock();
+            return this;
+        };
+        EShapePointsMarkerBase.prototype.serialize = function (manager) {
+            var size = this._size;
+            return manager.addResource("[" + this._type + "," + size.x + "," + size.y + "]");
+        };
+        EShapePointsMarkerBase.prototype.deserialize = function (resourceId, manager) {
+            var resources = manager.resources;
+            if (0 <= resourceId && resourceId < resources.length) {
+                var parsed = manager.getExtension(resourceId);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[resourceId]);
+                    manager.setExtension(resourceId, parsed);
+                }
+                this.lock();
+                this.type = parsed[0];
+                this._size.set(parsed[1], parsed[2]);
+                this.unlock();
+            }
+        };
+        return EShapePointsMarkerBase;
+    }());
+
+    var EShapePointsMarkerHead = /** @class */ (function (_super) {
+        __extends(EShapePointsMarkerHead, _super);
+        function EShapePointsMarkerHead() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        EShapePointsMarkerHead.prototype.toTransform = function (values, result) {
+            var valuesLength = values.length;
+            if (4 <= valuesLength) {
+                return this.toTransformMatrix(values[valuesLength - 2], values[valuesLength - 1], values[valuesLength - 4], values[valuesLength - 3], result);
+            }
+            else {
+                result.identity();
+            }
+            return result;
+        };
+        return EShapePointsMarkerHead;
+    }(EShapePointsMarkerBase));
+
+    var EShapePointsMarkerTail = /** @class */ (function (_super) {
+        __extends(EShapePointsMarkerTail, _super);
+        function EShapePointsMarkerTail() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        EShapePointsMarkerTail.prototype.toTransform = function (values, result) {
+            var valuesLength = values.length;
+            if (4 <= valuesLength) {
+                return this.toTransformMatrix(values[0], values[1], values[2], values[3], result);
+            }
+            else {
+                result.identity();
+            }
+            return result;
+        };
+        return EShapePointsMarkerTail;
+    }(EShapePointsMarkerBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapePointsMarkerContainerImpl = /** @class */ (function () {
+        function EShapePointsMarkerContainerImpl(parent) {
+            this._parent = parent;
+            this._lockCount = 0;
+            this._isTypeChanged = false;
+            this._isSizeChanged = false;
+            this._head = new EShapePointsMarkerHead(this);
+            this._tail = new EShapePointsMarkerTail(this);
+        }
+        EShapePointsMarkerContainerImpl.prototype.lock = function () {
+            this._lockCount += 1;
+            if (this._lockCount === 1) {
+                this._isTypeChanged = false;
+                this._isSizeChanged = false;
+            }
+            return this;
+        };
+        EShapePointsMarkerContainerImpl.prototype.unlock = function () {
+            this._lockCount -= 1;
+            if (this._lockCount === 0) {
+                if (this._isTypeChanged) {
+                    this.onTypeChange();
+                }
+                else if (this._isSizeChanged) {
+                    this.onSizeChange();
+                }
+                this._isTypeChanged = false;
+                this._isSizeChanged = false;
+            }
+            return this;
+        };
+        Object.defineProperty(EShapePointsMarkerContainerImpl.prototype, "parent", {
+            get: function () {
+                return this._parent;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapePointsMarkerContainerImpl.prototype, "head", {
+            get: function () {
+                return this._head;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapePointsMarkerContainerImpl.prototype, "tail", {
+            get: function () {
+                return this._tail;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerContainerImpl.prototype.onTypeChange = function () {
+            if (0 < this._lockCount) {
+                this._isTypeChanged = true;
+                return;
+            }
+            this._parent.onMarkerTypeChange();
+        };
+        EShapePointsMarkerContainerImpl.prototype.onSizeChange = function () {
+            if (0 < this._lockCount) {
+                this._isSizeChanged = true;
+                return;
+            }
+            this._parent.onMarkerSizeChange();
+        };
+        EShapePointsMarkerContainerImpl.prototype.copy = function (source) {
+            this.lock();
+            this._head.copy(source.head);
+            this._tail.copy(source.tail);
+            this.unlock();
+            return this;
+        };
+        EShapePointsMarkerContainerImpl.prototype.serialize = function (manager) {
+            var headId = this._head.serialize(manager);
+            var tailId = this._tail.serialize(manager);
+            return manager.addResource("[" + headId + "," + tailId + "]");
+        };
+        EShapePointsMarkerContainerImpl.prototype.deserialize = function (resourceId, manager) {
+            var resources = manager.resources;
+            if (0 <= resourceId && resourceId < resources.length) {
+                var parsed = manager.getExtension(resourceId);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[resourceId]);
+                    manager.setExtension(resourceId, parsed);
+                }
+                this.lock();
+                this._head.deserialize(parsed[0], manager);
+                this._tail.deserialize(parsed[1], manager);
+                this.unlock();
+            }
+        };
+        return EShapePointsMarkerContainerImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeLinePoints = /** @class */ (function () {
+        function EShapeLinePoints(parent) {
+            this._parent = parent;
+            this._valuesBaseLength = 0;
+            this._values = [];
+            this._segments = [];
+            var parentSize = parent.size;
+            var parentSizeX = parentSize.x;
+            var parentSizeY = parentSize.y;
+            this._parentSizeBase = new pixi_js.Point(parentSizeX, parentSizeY);
+            this._parentSizeFitted = new pixi_js.Point(parentSizeX, parentSizeY);
             this._id = 0;
-            this._style = style;
+            this._style = EShapePointsStyle.NONE;
             this._formattedId = -1;
         }
         Object.defineProperty(EShapeLinePoints.prototype, "length", {
@@ -28053,20 +28992,23 @@
             enumerable: false,
             configurable: true
         });
+        EShapeLinePoints.prototype.toFitted = function () {
+            this._parentSizeFitted;
+        };
         EShapeLinePoints.prototype.fit = function () {
-            var size = this.size;
-            var parentSize = this._parent.size;
-            var ssx = parentSize.x;
-            var ssy = parentSize.y;
+            var psizef = this._parentSizeFitted;
+            var psize = this._parent.size;
+            var psizeX = psize.x;
+            var psizeY = psize.y;
             var threshold = 0.00001;
-            if (threshold < Math.abs(ssx - size.x) || threshold < Math.abs(ssy - size.y)) {
-                size.set(ssx, ssy);
-                var sizeBase = this._sizeBase;
-                var hasSizeBaseX = threshold < Math.abs(sizeBase.x);
-                var hasSizeBaseY = threshold < Math.abs(sizeBase.y);
-                if (hasSizeBaseX || hasSizeBaseY) {
-                    var scaleX = hasSizeBaseX ? ssx / sizeBase.x : 1;
-                    var scaleY = hasSizeBaseY ? ssy / sizeBase.y : 1;
+            if (threshold < Math.abs(psizeX - psizef.x) || threshold < Math.abs(psizeY - psizef.y)) {
+                psizef.set(psizeX, psizeY);
+                var psizeBase = this._parentSizeBase;
+                var isValidX = threshold < Math.abs(psizeBase.x);
+                var isValidY = threshold < Math.abs(psizeBase.y);
+                if (isValidX || isValidY) {
+                    var scaleX = isValidX ? psizeX / psizeBase.x : 1;
+                    var scaleY = isValidY ? psizeY / psizeBase.y : 1;
                     // Values
                     var values = this._values;
                     var valuesBase = this._valuesBase;
@@ -28182,6 +29124,32 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeLinePoints.prototype, "marker", {
+            get: function () {
+                var result = this._marker;
+                if (result == null) {
+                    result = this.newMarker();
+                    this._marker = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeLinePoints.prototype.getMarker = function () {
+            return this._marker;
+        };
+        EShapeLinePoints.prototype.newMarker = function () {
+            return new EShapePointsMarkerContainerImpl(this);
+        };
+        EShapeLinePoints.prototype.onMarkerTypeChange = function () {
+            var parent = this._parent;
+            parent.uploaded = undefined;
+            parent.toDirty();
+        };
+        EShapeLinePoints.prototype.onMarkerSizeChange = function () {
+            this._parent.updateUploaded();
+        };
         Object.defineProperty(EShapeLinePoints.prototype, "formatter", {
             get: function () {
                 return this._formatter || null;
@@ -28225,7 +29193,7 @@
                         if (valuesBase != null) {
                             var length_1 = valuesBase.length >> 1;
                             formatter(length_1, valuesBase, segments, style, result);
-                            this.toBoundary(result.values, result.boundary);
+                            toPointsBoundary(result.values, result.boundary);
                             var formattedValues = result.values;
                             var formattedValuesBase = formattedValues.splice(0);
                             this._formattedValuesBase = formattedValuesBase;
@@ -28243,7 +29211,7 @@
                             var values = this._values;
                             var length_2 = values.length >> 1;
                             formatter(length_2, values, segments, style, result);
-                            this.toBoundary(result.values, result.boundary);
+                            toPointsBoundary(result.values, result.boundary);
                             this._formattedValuesBase = undefined;
                             this._formattedBoundaryBase = undefined;
                         }
@@ -28261,8 +29229,8 @@
             configurable: true
         });
         EShapeLinePoints.prototype.toScaled = function (values, valuesBase, boundary, boundaryBase) {
-            var size = this.size;
-            var sizeBase = this._sizeBase;
+            var size = this._parentSizeFitted;
+            var sizeBase = this._parentSizeBase;
             var threshold = 0.00001;
             var hasSizeBaseX = threshold < Math.abs(sizeBase.x);
             var hasSizeBaseY = threshold < Math.abs(sizeBase.y);
@@ -28279,36 +29247,13 @@
                 }
             }
         };
-        EShapeLinePoints.prototype.toBoundary = function (values, result) {
-            var valuesLength = values.length;
-            if (2 <= valuesLength) {
-                var xmin = values[0];
-                var ymin = values[1];
-                var xmax = xmin;
-                var ymax = ymin;
-                for (var i = 2, imax = values.length; i < imax; i += 2) {
-                    var x = values[i];
-                    var y = values[i + 1];
-                    xmin = Math.min(xmin, x);
-                    ymin = Math.min(ymin, y);
-                    xmax = Math.max(xmax, x);
-                    ymax = Math.max(ymax, y);
-                }
-                result[0] = xmin;
-                result[1] = ymin;
-                result[2] = xmax;
-                result[3] = ymax;
-            }
-            else {
-                result[0] = 0;
-                result[1] = 0;
-                result[2] = 0;
-                result[3] = 0;
-            }
-            return result;
-        };
         EShapeLinePoints.prototype.copy = function (source) {
-            return this.set(source.values, source.segments, source.style);
+            this.set(source.values, source.segments, source.style);
+            var marker = source.getMarker();
+            if (marker) {
+                this.marker.copy(marker);
+            }
+            return this;
         };
         EShapeLinePoints.prototype.set = function (newValues, newSegments, newStyle) {
             var isDirty = false;
@@ -28324,6 +29269,9 @@
                 var newValuesLength = newValues.length;
                 var iupdate = Math.min(newValuesLength, valuesBaseLength);
                 this._valuesBase = undefined;
+                var parentSize = this._parent.size;
+                this._parentSizeFitted.copyFrom(parentSize);
+                this._parentSizeBase.copyFrom(parentSize);
                 if (values !== newValues) {
                     for (var i = 0; i < iupdate; ++i) {
                         values[i] = newValues[i];
@@ -28438,7 +29386,7 @@
             }
         };
         EShapeLinePoints.prototype.clone = function (parent) {
-            return new EShapeLinePoints(parent, this._values, this._segments, this._style);
+            return new EShapeLinePoints(parent).copy(this);
         };
         EShapeLinePoints.prototype.toPoints = function (transform) {
             var result = [];
@@ -28450,7 +29398,15 @@
             return result;
         };
         EShapeLinePoints.prototype.serialize = function (manager) {
-            return manager.addResource("[" + JSON.stringify(this._values) + "," + JSON.stringify(this._segments) + "," + this._style + "]");
+            var values = JSON.stringify(this._values);
+            var segments = JSON.stringify(this._segments);
+            var style = this._style;
+            var markerId = -1;
+            var marker = this._marker;
+            if (marker) {
+                markerId = marker.serialize(manager);
+            }
+            return manager.addResource("[" + values + "," + segments + "," + style + "," + markerId + "]");
         };
         EShapeLinePoints.prototype.deserialize = function (resourceId, manager) {
             var resources = manager.resources;
@@ -28461,6 +29417,10 @@
                     manager.setExtension(resourceId, parsed);
                 }
                 this.set(parsed[0], parsed[1], parsed[2]);
+                var markerId = parsed[3];
+                if (markerId != null && 0 <= markerId) {
+                    this.marker.deserialize(markerId, manager);
+                }
             }
         };
         EShapeLinePoints.prototype.calcHitPointAbs = function (x, y, ax, ay, threshold, toRange, tester, result) {
@@ -28509,201 +29469,6 @@
         EShapeLinePoints.WORK_RANGE = [0, 0];
         return EShapeLinePoints;
     }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeConnectorLine = /** @class */ (function (_super) {
-        __extends(EShapeConnectorLine, _super);
-        function EShapeConnectorLine(type) {
-            if (type === void 0) { type = EShapeType.CONNECTOR_LINE; }
-            var _this = _super.call(this, type) || this;
-            _this.fill.enable = false;
-            var sx = EShapeDefaults.SIZE_X;
-            var sy = EShapeDefaults.SIZE_Y;
-            var hx = sx * 0.5;
-            var hy = sy * 0.5;
-            _this._points = new EShapeLinePoints(_this, _this.toValues(-hx, -hy, +hx, +hy, sx, sy, []), [], EShapePointsStyle.NONE);
-            _this._edge = new EShapeConnectorEdgeContainerImpl(_this);
-            return _this;
-        }
-        Object.defineProperty(EShapeConnectorLine.prototype, "points", {
-            get: function () {
-                return this._points;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorLine.prototype, "edge", {
-            get: function () {
-                return this._edge;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeConnectorLine.prototype.attach = function (parent, at) {
-            _super.prototype.attach.call(this, parent, at);
-            this.fit();
-            return this;
-        };
-        EShapeConnectorLine.prototype.fit = function () {
-            var _a;
-            var parent = this.parent;
-            if (parent == null) {
-                return;
-            }
-            var work = ((_a = EShapeConnectorLine.WORK_EDGE_POINT) !== null && _a !== void 0 ? _a : (EShapeConnectorLine.WORK_EDGE_POINT = new pixi_js.Point()));
-            var points = this.points;
-            var values = points.values;
-            var valuesLength = values.length;
-            if (valuesLength < 4) {
-                for (var i = valuesLength; i < 4; ++i) {
-                    values[i] = 0;
-                }
-            }
-            var transform = this.transform;
-            var transformPosition = transform.position;
-            var x = transformPosition.x;
-            var y = transformPosition.y;
-            var x0 = x + values[0];
-            var y0 = y + values[1];
-            var x1 = x + values[6];
-            var y1 = y + values[7];
-            //
-            this.updateTransform();
-            // Left
-            var edge = this.edge;
-            var left = edge.left;
-            var leftShape = left.shape;
-            if (leftShape != null) {
-                var size = leftShape.size;
-                work.set(size.x * left.x, size.y * left.y);
-                leftShape.toGlobal(work, work);
-                parent.toLocal(work, undefined, work, true);
-                x0 = work.x;
-                y0 = work.y;
-            }
-            // Right
-            var right = edge.right;
-            var rightShape = right.shape;
-            if (rightShape != null) {
-                var size = rightShape.size;
-                work.set(size.x * right.x, size.y * right.y);
-                rightShape.toGlobal(work, work);
-                parent.toLocal(work, undefined, work, true);
-                x1 = work.x;
-                y1 = work.y;
-            }
-            this.disallowUploadedUpdate();
-            var cx = (x0 + x1) * 0.5;
-            var cy = (y0 + y1) * 0.5;
-            var dx0 = x0 - cx;
-            var dy0 = y0 - cy;
-            var dx1 = x1 - cx;
-            var dy1 = y1 - cy;
-            var sx = Math.max(Math.abs(dx0), Math.abs(dx1));
-            var sy = Math.max(Math.abs(dy0), Math.abs(dy1));
-            transformPosition.set(cx, cy);
-            transform.scale.set(1, 1);
-            transform.rotation = 0;
-            transform.skew.set(0, 0);
-            points.size.set(sx, sy);
-            this.size.set(sx, sy);
-            points.set(this.toValues(dx0, dy0, dx1, dy1, sx, sy, values));
-            this.allowUploadedUpdate();
-        };
-        EShapeConnectorLine.prototype.toValues = function (x0, y0, x1, y1, sx, sy, result) {
-            var iv = -1;
-            result[++iv] = x0;
-            result[++iv] = y0;
-            result[++iv] = x1;
-            result[++iv] = y1;
-            return result;
-        };
-        EShapeConnectorLine.prototype.copy = function (source, part) {
-            if (part === void 0) { part = EShapeCopyPart.ALL; }
-            _super.prototype.copy.call(this, source, part);
-            if (source instanceof EShapeConnectorLine) {
-                this.edge.copy(source.edge);
-            }
-            return this;
-        };
-        EShapeConnectorLine.prototype.clone = function () {
-            return new EShapeConnectorLine().copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
-        };
-        EShapeConnectorLine.prototype.serialize = function (manager) {
-            var result = _super.prototype.serialize.call(this, manager);
-            result[15] = manager.addResource("[" + this._edge.serialize(manager) + "," + this._points.style + "]");
-            return result;
-        };
-        return EShapeConnectorLine;
-    }(EShapeLineBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeConnectorLine = function (item, manager) {
-        return EShapeDeserializer.deserialize(item, manager, new EShapeConnectorLine());
-    };
-    var onConnectorLineDeserialized = function (item, shape, mapping, manager) {
-        if (shape instanceof EShapeConnectorLine) {
-            var resources = manager.resources;
-            var resourceId = item[15];
-            if (0 <= resourceId && resourceId < resources.length) {
-                var parsed = manager.getExtension(resourceId);
-                if (parsed == null) {
-                    parsed = JSON.parse(resources[resourceId]);
-                    manager.setExtension(resourceId, parsed);
-                }
-                shape.points.style = parsed[1];
-                onConnectorLineEdgeContainerDeserialized(shape, parsed[0], mapping, manager);
-            }
-        }
-    };
-    var onConnectorLineEdgeContainerDeserialized = function (shape, resourceId, mapping, manager) {
-        var resources = manager.resources;
-        if (0 <= resourceId && resourceId < resources.length) {
-            var parsed = manager.getExtension(resourceId);
-            if (parsed == null) {
-                parsed = JSON.parse(resources[resourceId]);
-                manager.setExtension(resourceId, parsed);
-            }
-            var edge = shape.edge;
-            onConnectorLineEdgeDeserialized(shape, edge.left, parsed[0], mapping, manager);
-            onConnectorLineEdgeDeserialized(shape, edge.right, parsed[1], mapping, manager);
-        }
-    };
-    var onConnectorLineEdgeDeserialized = function (connector, edge, resourceId, mapping, manager) {
-        var resources = manager.resources;
-        if (0 <= resourceId && resourceId < resources.length) {
-            var parsed = manager.getExtension(resourceId);
-            if (parsed == null) {
-                parsed = JSON.parse(resources[resourceId]);
-                manager.setExtension(resourceId, parsed);
-            }
-            var shape = null;
-            var shapeUuid = parsed[0];
-            if (shapeUuid != null) {
-                shape = mapping.find(shapeUuid);
-            }
-            edge.set(shape, parsed[1], parsed[2]);
-            if (shape) {
-                shape.connector.add(connector);
-            }
-        }
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeConnectorLine = function () {
-        EShapeUploadeds[EShapeType.CONNECTOR_LINE] = createLineUploaded;
-        EShapeDeserializers[EShapeType.CONNECTOR_LINE] = deserializeConnectorLine;
-        EShapeOnDeserialized[EShapeType.CONNECTOR_LINE] = onConnectorLineDeserialized;
-    };
 
     var RECTANGLE_VERTEX_COUNT = 24;
     var RECTANGLE_INDEX_COUNT = 16;
@@ -29118,34 +29883,38 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRectanglePivotedUploaded = /** @class */ (function (_super) {
-        __extends(EShapeRectanglePivotedUploaded, _super);
-        function EShapeRectanglePivotedUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var BuilderMarkerRectangle = /** @class */ (function (_super) {
+        __extends(BuilderMarkerRectangle, _super);
+        function BuilderMarkerRectangle(vertexOffset, indexOffset) {
+            var _this = _super.call(this, vertexOffset, indexOffset, RECTANGLE_VERTEX_COUNT, RECTANGLE_INDEX_COUNT) || this;
+            _this.pointId = -1;
+            return _this;
         }
-        EShapeRectanglePivotedUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
+        BuilderMarkerRectangle.prototype.init = function (buffer) {
             buffer.updateIndices();
             buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeRectanglePivotedUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderMarkerRectangle.prototype.update = function (buffer, shape) {
             this.updateVertexClippingStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateText(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
         };
-        EShapeRectanglePivotedUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
-            var size = shape.size;
+        BuilderMarkerRectangle.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
+            var _a;
+            var points = shape.points;
+            if (points == null) {
+                return;
+            }
+            var container = points.getMarker();
+            if (container == null) {
+                return;
+            }
+            var marker = this.toMarker(container);
+            var size = marker.size;
             var sizeX = size.x;
             var sizeY = size.y;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -29156,8 +29925,594 @@
                 this.strokeWidth !== strokeWidth ||
                 this.strokeSide !== strokeSide ||
                 this.strokeStyle !== strokeStyle;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            var pointId = points.id;
+            var isPointChanged = pointId !== this.pointId;
+            if (isVertexChanged || isTransformChanged || isTextureChanged || isPointChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeSide = strokeSide;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                // Vertices
+                var voffset = this.vertexOffset;
+                var internalTransform = ((_a = BuilderMarkerRectangle.WORK) !== null && _a !== void 0 ? _a : (BuilderMarkerRectangle.WORK = new pixi_js.Matrix()));
+                internalTransform.copyFrom(marker.transform).prepend(shape.transform.internalTransform);
+                buffer.updateVertices();
+                buildRectangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, RECTANGLE_WORLD_SIZE);
+                // Steps
+                if (isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildRectangleStep(voffset, buffer.steps, strokeWidth, strokeSide, strokeStyle, RECTANGLE_WORLD_SIZE);
+                }
+                // Clippings
+                if (isVertexChanged) {
+                    buffer.updateClippings();
+                    buildRectangleClipping(buffer.clippings, voffset, RECTANGLE_WORLD_SIZE);
+                }
+                // UVs
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderMarkerRectangle;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerRectangleTail = /** @class */ (function (_super) {
+        __extends(BuilderMarkerRectangleTail, _super);
+        function BuilderMarkerRectangleTail() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerRectangleTail.prototype.toMarker = function (container) {
+            return container.tail;
+        };
+        return BuilderMarkerRectangleTail;
+    }(BuilderMarkerRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderMarkerRectangleHead = /** @class */ (function (_super) {
+        __extends(BuilderMarkerRectangleHead, _super);
+        function BuilderMarkerRectangleHead() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerRectangleHead.prototype.toMarker = function (container) {
+            return container.head;
+        };
+        return BuilderMarkerRectangleHead;
+    }(BuilderMarkerRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toMarkerVertexCount = function (type) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return 0;
+            case EShapePointsMarkerType.CIRCLE:
+                return CIRCLE_VERTEX_COUNT;
+            case EShapePointsMarkerType.TRIANGLE:
+                return TRIANGLE_VERTEX_COUNT;
+            case EShapePointsMarkerType.RECTANGLE:
+                return RECTANGLE_VERTEX_COUNT;
+        }
+        return 0;
+    };
+    var toMarkerIndexCount = function (type) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return 0;
+            case EShapePointsMarkerType.CIRCLE:
+                return CIRCLE_INDEX_COUNT;
+            case EShapePointsMarkerType.TRIANGLE:
+                return TRIANGLE_INDEX_COUNT;
+            case EShapePointsMarkerType.RECTANGLE:
+                return RECTANGLE_INDEX_COUNT;
+        }
+        return 0;
+    };
+    var toBuilderMarkerHead = function (type, vertexOffset, indexOffset) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return new BuilderNull(vertexOffset, indexOffset);
+            case EShapePointsMarkerType.CIRCLE:
+                return new BuilderMarkerCircleHead(vertexOffset, indexOffset);
+            case EShapePointsMarkerType.TRIANGLE:
+                return new BuilderMarkerTriangleHead(vertexOffset, indexOffset);
+            case EShapePointsMarkerType.RECTANGLE:
+                return new BuilderMarkerRectangleHead(vertexOffset, indexOffset);
+        }
+        return new BuilderNull(vertexOffset, indexOffset);
+    };
+    var toBuilderMarkerTail = function (type, vertexOffset, indexOffset) {
+        switch (type) {
+            case EShapePointsMarkerType.NONE:
+                return new BuilderNull(vertexOffset, indexOffset);
+            case EShapePointsMarkerType.CIRCLE:
+                return new BuilderMarkerCircleTail(vertexOffset, indexOffset);
+            case EShapePointsMarkerType.TRIANGLE:
+                return new BuilderMarkerTriangleTail(vertexOffset, indexOffset);
+            case EShapePointsMarkerType.RECTANGLE:
+                return new BuilderMarkerRectangleTail(vertexOffset, indexOffset);
+        }
+        return new BuilderNull(vertexOffset, indexOffset);
+    };
+    var createLineUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        // Line
+        var points = shape.points;
+        var pointCount = toLinePointCount(points);
+        var lvcount = toLineVertexCount(pointCount, true);
+        var licount = toLineIndexCount(pointCount, true);
+        // Markers
+        var mttype = EShapePointsMarkerType.NONE;
+        var mhtype = EShapePointsMarkerType.NONE;
+        if (points && points instanceof EShapeLinePoints) {
+            var marker = points.getMarker();
+            if (marker) {
+                mttype = marker.tail.type;
+                mhtype = marker.head.type;
+            }
+        }
+        var mtvcount = toMarkerVertexCount(mttype);
+        var mticount = toMarkerIndexCount(mttype);
+        var mtvoffset = voffset + lvcount;
+        var mtioffset = ioffset + licount;
+        var mhvcount = toMarkerVertexCount(mhtype);
+        var mhicount = toMarkerIndexCount(mhtype);
+        var mhvoffset = mtvoffset + mtvcount;
+        var mhioffset = mtioffset + mticount;
+        // Text
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount * TEXT_VERTEX_COUNT;
+        var ticount = tcount * TEXT_INDEX_COUNT;
+        var tvoffset = mhvoffset + mhvcount;
+        var tioffset = mhioffset + mhicount;
+        // Uploaded
+        var vcount = lvcount + mhvcount + mtvcount + tvcount;
+        var icount = licount + mhicount + mticount + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderLine(voffset, ioffset, lvcount, licount),
+                toBuilderMarkerTail(mttype, mtvoffset, mtioffset),
+                toBuilderMarkerHead(mhtype, mhvoffset, mhioffset),
+                new BuilderText(tvoffset, tioffset, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectorEdgeImpl = /** @class */ (function () {
+        function EShapeConnectorEdgeImpl(parent, onChange) {
+            var _this = this;
+            this._parent = parent;
+            this._onChange = onChange;
+            this._shape = null;
+            this._position = new pixi_js.ObservablePoint(function () {
+                _this.onChange();
+            }, undefined);
+            this._id = 0;
+            this._local = new pixi_js.ObservablePoint(function () {
+                _this.onLocalChange();
+            }, undefined);
+            this._localId = 0;
+            this._lockCount = 0;
+            this._isChanged = false;
+            this._isLocalChanged = false;
+        }
+        EShapeConnectorEdgeImpl.prototype.lock = function () {
+            this._lockCount += 1;
+            if (this._lockCount === 1) {
+                this._isChanged = false;
+                this._isLocalChanged = false;
+            }
+        };
+        EShapeConnectorEdgeImpl.prototype.unlock = function () {
+            this._lockCount -= 1;
+            if (this._lockCount === 0) {
+                if (this._isLocalChanged) {
+                    this.onLocalChange();
+                }
+                else if (this._isChanged) {
+                    this.onChange();
+                }
+            }
+        };
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "shape", {
+            get: function () {
+                return this._shape;
+            },
+            set: function (shape) {
+                this.set(shape, undefined, undefined);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "position", {
+            get: function () {
+                return this._position;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "localId", {
+            get: function () {
+                return this._localId;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "local", {
+            get: function () {
+                return this._local;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeConnectorEdgeImpl.prototype.set = function (shape, position, local) {
+            this.lock();
+            if (shape !== undefined && shape !== this._shape) {
+                this._shape = shape;
+                this.onChange();
+            }
+            if (position != null) {
+                this._position.copyFrom(position);
+            }
+            if (local != null) {
+                this._local.copyFrom(local);
+            }
+            this.unlock();
+            return this;
+        };
+        EShapeConnectorEdgeImpl.prototype.copy = function (source) {
+            return this.set(source.shape, source.position, source.local);
+        };
+        EShapeConnectorEdgeImpl.prototype.isEqual = function (other) {
+            if (this._shape === other.shape) {
+                var position = this._position;
+                var otherPosition = other.position;
+                if (position.x === otherPosition.x && position.y === otherPosition.y) {
+                    var local = this._local;
+                    var otherLocal = other.local;
+                    return local.x === otherLocal.x && local.y === otherLocal.y;
+                }
+            }
+            return false;
+        };
+        EShapeConnectorEdgeImpl.prototype.serialize = function (manager) {
+            var shape = this._shape;
+            var shapeUuid = shape ? shape.uuid : null;
+            var position = this._position;
+            var local = this._local;
+            return manager.addResource("[" + shapeUuid + "," + position.x + "," + position.y + "," + local.x + "," + local.y + "]");
+        };
+        EShapeConnectorEdgeImpl.prototype.fit = function (forcibly) {
+            var _a;
+            if (forcibly) {
+                this._id += 1;
+            }
+            var id = this._id;
+            if (this._localId !== id) {
+                this._localId = id;
+                var shape = this._shape;
+                if (shape != null) {
+                    var work = ((_a = EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL) !== null && _a !== void 0 ? _a : (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL = new pixi_js.Point()));
+                    var size = shape.size;
+                    var position = this._position;
+                    work.set(size.x * position.x, size.y * position.y);
+                    shape.toGlobal(work, work);
+                    var parent_1 = this._parent;
+                    parent_1.updateTransform();
+                    var parentParent = parent_1.parent;
+                    if (parentParent) {
+                        parent_1.updateTransform();
+                        parentParent.toLocal(work, undefined, work, false);
+                    }
+                    this._local.copyFrom(work);
+                }
+            }
+            return this;
+        };
+        EShapeConnectorEdgeImpl.prototype.onChange = function () {
+            if (0 < this._lockCount) {
+                this._isChanged = true;
+                return;
+            }
+            this._id += 1;
+            this.fit();
+        };
+        EShapeConnectorEdgeImpl.prototype.onLocalChange = function () {
+            if (0 < this._lockCount) {
+                this._isLocalChanged = true;
+                return;
+            }
+            this._id += 1;
+            this._localId = this._id;
+            this._onChange();
+        };
+        return EShapeConnectorEdgeImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectorEdgeContainerImpl = /** @class */ (function () {
+        function EShapeConnectorEdgeContainerImpl(parent, onChange) {
+            this._parent = parent;
+            this._left = new EShapeConnectorEdgeImpl(parent, onChange);
+            this._right = new EShapeConnectorEdgeImpl(parent, onChange);
+        }
+        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "left", {
+            get: function () {
+                return this._left;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "right", {
+            get: function () {
+                return this._right;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeConnectorEdgeContainerImpl.prototype.copy = function (source) {
+            this._left.copy(source.left);
+            this._right.copy(source.right);
+            return this;
+        };
+        EShapeConnectorEdgeContainerImpl.prototype.fit = function (forcibly) {
+            this._left.fit(forcibly);
+            this._right.fit(forcibly);
+            return this;
+        };
+        EShapeConnectorEdgeContainerImpl.prototype.serialize = function (manager) {
+            var left = this._left;
+            var leftId = left == null ? -1 : left.serialize(manager);
+            var right = this._right;
+            var rightId = right == null ? -1 : right.serialize(manager);
+            return manager.addResource("[" + leftId + "," + rightId + "]");
+        };
+        return EShapeConnectorEdgeContainerImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectorLine = /** @class */ (function (_super) {
+        __extends(EShapeConnectorLine, _super);
+        function EShapeConnectorLine(type) {
+            if (type === void 0) { type = EShapeType.CONNECTOR_LINE; }
+            var _this = _super.call(this, type) || this;
+            _this._leftLocalId = 0;
+            _this._rightLocalId = 0;
+            _this.fill.enable = false;
+            var sx = EShapeDefaults.SIZE_X;
+            var sy = EShapeDefaults.SIZE_Y;
+            var hx = sx * 0.5;
+            var hy = sy * 0.5;
+            _this._points = new EShapeLinePoints(_this).set(_this.toValues(-hx, -hy, +hx, +hy, sx, sy, []));
+            _this._edge = new EShapeConnectorEdgeContainerImpl(_this, function () {
+                _this.onEdgeChange();
+            });
+            return _this;
+        }
+        Object.defineProperty(EShapeConnectorLine.prototype, "points", {
+            get: function () {
+                return this._points;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorLine.prototype, "edge", {
+            get: function () {
+                return this._edge;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeConnectorLine.prototype.attach = function (parent, at) {
+            _super.prototype.attach.call(this, parent, at);
+            this.edge.fit(true);
+            return this;
+        };
+        EShapeConnectorLine.prototype.onEdgeChange = function () {
+            var edge = this.edge;
+            var left = edge.left;
+            var leftLocalId = left.localId;
+            var right = edge.right;
+            var rightLocalId = right.localId;
+            if (this._leftLocalId !== leftLocalId || this._rightLocalId !== rightLocalId) {
+                this._leftLocalId = leftLocalId;
+                this._rightLocalId = rightLocalId;
+                // Left
+                var leftLocal = left.local;
+                var lx = leftLocal.x;
+                var ly = leftLocal.y;
+                // Right
+                var rightLocal = right.local;
+                var rx = rightLocal.x;
+                var ry = rightLocal.y;
+                this.disallowUploadedUpdate();
+                var cx = (lx + rx) * 0.5;
+                var cy = (ly + ry) * 0.5;
+                var dlx = lx - cx;
+                var dly = ly - cy;
+                var drx = rx - cx;
+                var dry = ry - cy;
+                var sx = Math.max(Math.abs(dlx), Math.abs(drx));
+                var sy = Math.max(Math.abs(dly), Math.abs(dry));
+                var transform = this.transform;
+                transform.position.set(cx, cy);
+                transform.scale.set(1, 1);
+                transform.rotation = 0;
+                transform.skew.set(0, 0);
+                this.size.set(sx, sy);
+                var points = this.points;
+                points.set(this.toValues(dlx, dly, drx, dry, sx, sy, points.values));
+                this.allowUploadedUpdate();
+            }
+        };
+        EShapeConnectorLine.prototype.toValues = function (x0, y0, x1, y1, sx, sy, result) {
+            var iv = -1;
+            result[++iv] = x0;
+            result[++iv] = y0;
+            result[++iv] = x1;
+            result[++iv] = y1;
+            return result;
+        };
+        EShapeConnectorLine.prototype.copy = function (source, part) {
+            if (part === void 0) { part = EShapeCopyPart.ALL; }
+            _super.prototype.copy.call(this, source, part);
+            if (source instanceof EShapeConnectorLine) {
+                this.edge.copy(source.edge);
+            }
+            return this;
+        };
+        EShapeConnectorLine.prototype.clone = function () {
+            return new EShapeConnectorLine().copy(this);
+        };
+        EShapeConnectorLine.prototype.serialize = function (manager) {
+            var result = _super.prototype.serialize.call(this, manager);
+            result[15] = manager.addResource("[" + this._edge.serialize(manager) + "," + this._points.style + "]");
+            return result;
+        };
+        return EShapeConnectorLine;
+    }(EShapeLineBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeConnectorLine = function (item, manager) {
+        return EShapeDeserializer.deserialize(item, manager, new EShapeConnectorLine());
+    };
+    var onConnectorLineDeserialized = function (item, shape, mapping, manager) {
+        if (shape instanceof EShapeConnectorLine) {
+            var resources = manager.resources;
+            var resourceId = item[15];
+            if (0 <= resourceId && resourceId < resources.length) {
+                var parsed = manager.getExtension(resourceId);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[resourceId]);
+                    manager.setExtension(resourceId, parsed);
+                }
+                shape.points.style = parsed[1];
+                onConnectorLineEdgeContainerDeserialized(shape, parsed[0], mapping, manager);
+            }
+        }
+    };
+    var onConnectorLineEdgeContainerDeserialized = function (shape, resourceId, mapping, manager) {
+        var resources = manager.resources;
+        if (0 <= resourceId && resourceId < resources.length) {
+            var parsed = manager.getExtension(resourceId);
+            if (parsed == null) {
+                parsed = JSON.parse(resources[resourceId]);
+                manager.setExtension(resourceId, parsed);
+            }
+            var edge = shape.edge;
+            onConnectorLineEdgeDeserialized(shape, edge.left, parsed[0], mapping, manager);
+            onConnectorLineEdgeDeserialized(shape, edge.right, parsed[1], mapping, manager);
+        }
+    };
+    var onConnectorLineEdgeDeserialized = function (connector, edge, resourceId, mapping, manager) {
+        var resources = manager.resources;
+        if (0 <= resourceId && resourceId < resources.length) {
+            var parsed = manager.getExtension(resourceId);
+            if (parsed == null) {
+                parsed = JSON.parse(resources[resourceId]);
+                manager.setExtension(resourceId, parsed);
+            }
+            var shape = null;
+            var shapeUuid = parsed[0];
+            if (shapeUuid != null) {
+                shape = mapping.find(shapeUuid) || null;
+            }
+            edge.lock();
+            edge.shape = shape;
+            edge.position.set(parsed[1], parsed[2]);
+            edge.local.set(parsed[3], parsed[4]);
+            edge.unlock();
+            if (shape) {
+                shape.connector.add(connector);
+            }
+        }
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeConnectorLine = function () {
+        EShapeUploadeds[EShapeType.CONNECTOR_LINE] = createLineUploaded;
+        EShapeDeserializers[EShapeType.CONNECTOR_LINE] = deserializeConnectorLine;
+        EShapeOnDeserialized[EShapeType.CONNECTOR_LINE] = onConnectorLineDeserialized;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderRectanglePivoted = /** @class */ (function (_super) {
+        __extends(BuilderRectanglePivoted, _super);
+        function BuilderRectanglePivoted() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderRectanglePivoted.prototype.init = function (buffer) {
+            buffer.updateIndices();
+            buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+        };
+        BuilderRectanglePivoted.prototype.update = function (buffer, shape) {
+            this.updateVertexClippingStepAndUv(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
+        };
+        BuilderRectanglePivoted.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeSide = stroke.side;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeSide !== strokeSide ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
@@ -29170,10 +30525,6 @@
                 this.strokeStyle = strokeStyle;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
-                if (isVertexChanged || isTransformChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Vertices
                 var voffset = this.vertexOffset;
                 buffer.updateVertices();
@@ -29191,12 +30542,12 @@
                 // UVs
                 if (isVertexChanged || isTextureChanged) {
                     buffer.updateUvs();
-                    buildRectangleUv(buffer.uvs, voffset, this.toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
+                    buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
                 }
             }
         };
-        return EShapeRectanglePivotedUploaded;
-    }(EShapeTextUploaded));
+        return BuilderRectanglePivoted;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -29209,7 +30560,10 @@
         var vcount = RECTANGLE_VERTEX_COUNT + tvcount;
         var icount = RECTANGLE_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeRectanglePivotedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderRectanglePivoted(voffset, ioffset, vcount - tvcount, icount - ticount),
+                new BuilderText(voffset + RECTANGLE_VERTEX_COUNT, ioffset + RECTANGLE_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -29218,28 +30572,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeGroupUploaded = /** @class */ (function (_super) {
-        __extends(EShapeGroupUploaded, _super);
-        function EShapeGroupUploaded(buffer, voffset, ioffset) {
-            return _super.call(this, buffer, voffset, ioffset, 0, 0, 1) || this;
-        }
-        EShapeGroupUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            this.texture = shape.texture || pixi_js.Texture.WHITE;
-            return this;
-        };
-        EShapeGroupUploaded.prototype.update = function (shape) {
-            // DO NOTHING
-        };
-        return EShapeGroupUploaded;
-    }(EShapeUploadedBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var createGroupUploaded = function (buffer, shape, voffset, ioffset) {
-        return new EShapeGroupUploaded(buffer, voffset, ioffset).init(shape);
+        return new EShapeUploadedImpl(buffer, voffset, ioffset, 0, 0, [
+            new BuilderNull(voffset, ioffset)
+        ]).init(shape);
     };
 
     /*
@@ -30409,6 +31745,10 @@
         return EShapeGroupTextViewer;
     }());
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeGroupViewer = /** @class */ (function (_super) {
         __extends(EShapeGroupViewer, _super);
         function EShapeGroupViewer(isEditMode, type) {
@@ -30526,7 +31866,7 @@
             enumerable: false,
             configurable: true
         });
-        EShapeGroupViewer.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeGroupViewer.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             return false;
         };
         return EShapeGroupViewer;
@@ -31764,6 +33104,30 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeGroupPoints.prototype, "marker", {
+            get: function () {
+                var children = this._parent.children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    var points = children[i].points;
+                    if (points != null) {
+                        return points.marker;
+                    }
+                }
+                return EShapePointsMarkerContainerImplNoop.getInstance();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeGroupPoints.prototype.getMarker = function () {
+            var children = this._parent.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var points = children[i].points;
+                if (points != null) {
+                    return points.getMarker();
+                }
+            }
+            return undefined;
+        };
         Object.defineProperty(EShapeGroupPoints.prototype, "formatter", {
             get: function () {
                 var children = this._parent.children;
@@ -32200,7 +33564,7 @@
             var constructor = this.constructor;
             return new constructor(this._isEditMode, this.type);
         };
-        EShapeGroup.prototype.containsAbs = function (x, y, ax, ay) {
+        EShapeGroup.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             return false;
         };
         return EShapeGroup;
@@ -32366,34 +33730,26 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRectangleUploaded = /** @class */ (function (_super) {
-        __extends(EShapeRectangleUploaded, _super);
-        function EShapeRectangleUploaded() {
+    var BuilderRectangle = /** @class */ (function (_super) {
+        __extends(BuilderRectangle, _super);
+        function BuilderRectangle() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeRectangleUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
+        BuilderRectangle.prototype.init = function (buffer) {
             buffer.updateIndices();
             buildRectangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeRectangleUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderRectangle.prototype.update = function (buffer, shape) {
             this.updateVertexClippingStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateText(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
         };
-        EShapeRectangleUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
+        BuilderRectangle.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -32404,8 +33760,8 @@
                 this.strokeWidth !== strokeWidth ||
                 this.strokeSide !== strokeSide ||
                 this.strokeStyle !== strokeStyle;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
@@ -32418,10 +33774,6 @@
                 this.strokeStyle = strokeStyle;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
-                if (isVertexChanged || isTransformChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Vertices
                 var voffset = this.vertexOffset;
                 buffer.updateVertices();
@@ -32439,12 +33791,12 @@
                 // UVs
                 if (isVertexChanged || isTextureChanged) {
                     buffer.updateUvs();
-                    buildRectangleUv(buffer.uvs, voffset, this.toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
+                    buildRectangleUv(buffer.uvs, voffset, toTextureUvs(texture), RECTANGLE_WORLD_SIZE);
                 }
             }
         };
-        return EShapeRectangleUploaded;
-    }(EShapeTextUploaded));
+        return BuilderRectangle;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -32457,7 +33809,10 @@
         var vcount = RECTANGLE_VERTEX_COUNT + tvcount;
         var icount = RECTANGLE_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeRectangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderRectangle(voffset, ioffset, vcount - tvcount, icount - ticount),
+                new BuilderText(voffset + RECTANGLE_VERTEX_COUNT, ioffset + RECTANGLE_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -32475,60 +33830,9 @@
         EShapeRectangle.prototype.clone = function () {
             return new EShapeRectangle().copy(this);
         };
-        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var fill = this.fill;
-                if (fill.enable) {
-                    return true;
-                }
-                else {
-                    var strokeSide = this.stroke.side;
-                    if (0 < sw && strokeSide !== EShapeStrokeSide.NONE) {
-                        var s = sw * ss;
-                        var wx = Math.max(0.0, ax - s);
-                        var wy = Math.max(0.0, ay - s);
-                        if (!this.containsAbsBBox(x, y, wx, wy)) {
-                            if (strokeSide === EShapeStrokeSide.ALL) {
-                                return true;
-                            }
-                            else {
-                                if (x <= -wx) {
-                                    if (y <= -wy) {
-                                        return !!(strokeSide & EShapeStrokeSide.TOP_OR_LEFT);
-                                    }
-                                    else if (+wy <= y) {
-                                        return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_LEFT);
-                                    }
-                                    else {
-                                        return !!(strokeSide & EShapeStrokeSide.LEFT);
-                                    }
-                                }
-                                else if (+wx <= x) {
-                                    if (y <= -wy) {
-                                        return !!(strokeSide & EShapeStrokeSide.TOP_OR_RIGHT);
-                                    }
-                                    else if (+wy <= y) {
-                                        return !!(strokeSide & EShapeStrokeSide.BOTTOM_OR_RIGHT);
-                                    }
-                                    else {
-                                        return !!(strokeSide & EShapeStrokeSide.RIGHT);
-                                    }
-                                }
-                                else {
-                                    if (y <= -wy) {
-                                        return !!(strokeSide & EShapeStrokeSide.TOP);
-                                    }
-                                    else if (+wy <= y) {
-                                        return !!(strokeSide & EShapeStrokeSide.BOTTOM);
-                                    }
-                                    else {
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
@@ -32762,41 +34066,33 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeImageSdfUploaded = /** @class */ (function (_super) {
-        __extends(EShapeImageSdfUploaded, _super);
-        function EShapeImageSdfUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) {
-            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) || this;
+    var BuilderImageSdf = /** @class */ (function (_super) {
+        __extends(BuilderImageSdf, _super);
+        function BuilderImageSdf(vertexOffset, indexOffset) {
+            var _this = _super.call(this, vertexOffset, indexOffset, IMAGE_SDF_VERTEX_COUNT, IMAGE_SDF_INDEX_COUNT) || this;
             _this.textureWidth = -1;
             _this.textureHeight = -1;
             return _this;
         }
-        EShapeImageSdfUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Clippings & indices
-            var buffer = this.buffer;
+        BuilderImageSdf.prototype.init = function (buffer) {
             var voffset = this.vertexOffset;
             buffer.updateClippings();
             buffer.updateIndices();
             buildImageSdfClipping(buffer.clippings, voffset);
             buildImageSdfIndex(buffer.indices, voffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeImageSdfUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderImageSdf.prototype.update = function (buffer, shape) {
             this.updateVertexAndStep(buffer, shape);
-            this.updateColor(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
             this.updateUv(buffer, shape);
-            this.updateText(buffer, shape);
         };
-        EShapeImageSdfUploaded.prototype.updateVertexAndStep = function (buffer, shape) {
+        BuilderImageSdf.prototype.updateVertexAndStep = function (buffer, shape) {
             var size = shape.size;
             var sizeX = size.x;
             var sizeY = size.y;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -32805,7 +34101,7 @@
             var isStrokeChanged = this.strokeAlign !== strokeAlign ||
                 this.strokeWidth !== strokeWidth ||
                 this.strokeStyle !== strokeStyle;
-            var texture = this.toTexture(shape);
+            var texture = toTexture(shape);
             var textureWidth = texture.width * texture.resolution;
             var textureHeight = texture.height * texture.resolution;
             var isTextureSizeChanged = this.textureWidth !== textureWidth || this.textureHeight !== textureHeight;
@@ -32818,8 +34114,6 @@
                 this.strokeStyle = strokeStyle;
                 this.textureWidth = textureWidth;
                 this.textureHeight = textureHeight;
-                // Invalidate the text layout to update the text layout.
-                this.textSpacingHorizontal = NaN;
                 // Vertices
                 buffer.updateVertices();
                 buildImageSdfVertex(buffer.vertices, this.vertexOffset, 0, 0, sizeX, sizeY, shape.transform.internalTransform, IMAGE_SDF_WORLD_SIZE);
@@ -32828,18 +34122,18 @@
                 buildImageSdfStep(buffer.steps, this.vertexOffset, strokeAlign, strokeWidth, strokeStyle, textureWidth, textureHeight, IMAGE_SDF_WORLD_SIZE);
             }
         };
-        EShapeImageSdfUploaded.prototype.updateUv = function (buffer, shape) {
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+        BuilderImageSdf.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 buffer.updateUvs();
-                buildImageSdfUv(buffer.uvs, this.vertexOffset, this.toTextureUvs(texture));
+                buildImageSdfUv(buffer.uvs, this.vertexOffset, toTextureUvs(texture));
             }
         };
-        return EShapeImageSdfUploaded;
-    }(EShapeTextUploaded));
+        return BuilderImageSdf;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -32852,7 +34146,10 @@
         var vcount = IMAGE_SDF_VERTEX_COUNT + tvcount;
         var icount = IMAGE_SDF_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeImageSdfUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderImageSdf(voffset, ioffset),
+                new BuilderText(voffset + IMAGE_SDF_VERTEX_COUNT, ioffset + IMAGE_SDF_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -32894,43 +34191,34 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLabelUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLabelUploaded, _super);
-        function EShapeLabelUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var BuilderLabel = /** @class */ (function () {
+        function BuilderLabel(vertexOffset, indexOffset, vertexCount, indexCount) {
+            this.vertexOffset = vertexOffset;
+            this.indexOffset = indexOffset;
+            this.vertexCount = vertexCount;
+            this.indexCount = indexCount;
+            this.texture = null;
         }
-        EShapeLabelUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            this.initText();
-            this.update(shape);
-            return this;
+        BuilderLabel.prototype.init = function (buffer) {
+            // DO NOTHING
         };
-        EShapeLabelUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateLabelVertex(buffer, shape);
-            this.updateLabelUv(buffer, shape);
-            this.updateText(buffer, shape);
+        BuilderLabel.prototype.isCompatible = function (shape) {
+            return true;
         };
-        EShapeLabelUploaded.prototype.updateLabelVertex = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            if (isSizeChanged || isTransformChanged) {
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                // Invalidate the text layout to update the text layout.
-                this.textSpacingHorizontal = NaN;
+        BuilderLabel.prototype.update = function (buffer, shape) {
+            this.texture = toTexture(shape);
+        };
+        BuilderLabel.prototype.buildUnit = function (builder) {
+            var texture = this.texture || pixi_js.Texture.WHITE;
+            var baseTexture = texture.baseTexture;
+            if (baseTexture !== builder.baseTexture) {
+                builder.baseTexture = baseTexture;
+                var indexOffset = this.indexOffset;
+                builder.push(texture, indexOffset);
             }
         };
-        EShapeLabelUploaded.prototype.updateLabelUv = function (buffer, shape) {
-            this.texture = this.toTexture(shape);
-        };
-        return EShapeLabelUploaded;
-    }(EShapeTextUploaded));
+        return BuilderLabel;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -32943,7 +34231,10 @@
         var vcount = tvcount;
         var icount = ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeLabelUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderLabel(voffset, ioffset, vcount - tvcount, icount - ticount),
+                new BuilderText(voffset, ioffset, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -32987,13 +34278,10 @@
      */
     var EShapeLine = /** @class */ (function (_super) {
         __extends(EShapeLine, _super);
-        function EShapeLine(points, segments, width, style) {
-            var _this = _super.call(this, EShapeType.LINE) || this;
-            _this.fill.enable = false;
-            _this.stroke.set(true, undefined, undefined, width);
-            _this._points = new EShapeLinePoints(_this, points, segments, style);
-            _this.transform.position.copyFrom(_this._points.position);
-            _this.size.copyFrom(_this._points.size);
+        function EShapeLine(type) {
+            if (type === void 0) { type = EShapeType.LINE; }
+            var _this = _super.call(this, type) || this;
+            _this._points = new EShapeLinePoints(_this);
             return _this;
         }
         Object.defineProperty(EShapeLine.prototype, "points", {
@@ -33004,10 +34292,7 @@
             configurable: true
         });
         EShapeLine.prototype.clone = function () {
-            var points = this.points;
-            var result = new EShapeLine(points.values, points.segments, this.stroke.width, points.style);
-            result.copy(this, EShapeCopyPart.ALL & ~EShapeCopyPart.POINTS);
-            return result;
+            return new EShapeLine().copy(this);
         };
         EShapeLine.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
@@ -33022,27 +34307,19 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var deserializeLine = function (item, manager) {
-        var _a;
-        var resources = manager.resources;
-        var resourceId = item[15];
-        if (0 <= resourceId && resourceId < resources.length) {
-            var parsed = manager.getExtension(resourceId);
-            if (parsed == null) {
-                parsed = JSON.parse(resources[resourceId]);
-                manager.setExtension(resourceId, parsed);
-            }
-            var style = (_a = parsed[2]) !== null && _a !== void 0 ? _a : EShapePointsStyle.NONE;
-            var mask = EShapePointsStyle.NON_SCALING_MASK |
-                EShapePointsStyle.DOTTED_MASK |
-                EShapePointsStyle.DASHED_MASK;
-            var shape = new EShapeLine(parsed[0], parsed[1], EShapeDefaults.STROKE_WIDTH, style & ~mask);
-            var deprecated = style & mask;
-            if (deprecated) {
-                shape.stroke.style |= deprecated;
-            }
-            return EShapeDeserializer.deserialize(item, manager, shape);
+        var shape = new EShapeLine();
+        EShapeDeserializer.deserialize(item, manager, shape);
+        shape.points.deserialize(item[15], manager);
+        var style = shape.points.style;
+        var mask = EShapePointsStyle.NON_SCALING_MASK |
+            EShapePointsStyle.DOTTED_MASK |
+            EShapePointsStyle.DASHED_MASK;
+        var deprecated = style & mask;
+        if (deprecated) {
+            shape.points.style &= ~mask;
+            shape.stroke.style |= deprecated;
         }
-        return null;
+        return shape;
     };
 
     /*
@@ -33052,6 +34329,43 @@
     var loadShapeLine = function () {
         EShapeUploadeds[EShapeType.LINE] = createLineUploaded;
         EShapeDeserializers[EShapeType.LINE] = deserializeLine;
+    };
+
+    var buildNullClipping = function (clippings, voffset, vcount) {
+        for (var i = voffset * 3, imax = (voffset + vcount) * 3; i < imax; i += 3) {
+            clippings[i + 0] = 0;
+            clippings[i + 1] = 0;
+            clippings[i + 2] = 0;
+        }
+    };
+    var buildNullIndex = function (indices, voffset, ioffset, icount) {
+        for (var ii = ioffset * 3, iimax = (ioffset + icount) * 3; ii < iimax; ii += 3) {
+            indices[ii + 0] = voffset;
+            indices[ii + 1] = voffset;
+            indices[ii + 2] = voffset;
+        }
+    };
+    var buildNullVertex = function (vertices, voffset, vcount) {
+        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
+            vertices[i + 0] = 0;
+            vertices[i + 1] = 0;
+        }
+    };
+    var buildNullStep = function (steps, voffset, vcount) {
+        for (var i = voffset * 6, imax = (voffset + vcount) * 6; i < imax; i += 6) {
+            steps[i + 0] = 0;
+            steps[i + 1] = 0;
+            steps[i + 2] = 0;
+            steps[i + 3] = 0;
+            steps[i + 4] = 0;
+            steps[i + 5] = 0;
+        }
+    };
+    var buildNullUv = function (uvs, voffset, vcount) {
+        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
+            uvs[i + 0] = 0;
+            uvs[i + 1] = 0;
+        }
     };
 
     var toLineOfAnyPointCount = function (pointCount) {
@@ -33107,56 +34421,59 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createLineOfAnyUploaded = function (buffer, shape, voffset, vcountPerPoint, ioffset, icountPerPoint, antialiasWeight, constructor) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount * TEXT_VERTEX_COUNT;
-        var ticount = tcount * TEXT_INDEX_COUNT;
-        var points = shape.points;
-        var pointCount = toLineOfAnyPointCount(toPointsCount(points));
-        var vcount = pointCount * vcountPerPoint + tvcount;
-        var icount = pointCount * icountPerPoint + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new constructor(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight, pointCount).init(shape);
+    var BuilderLineOfAny = /** @class */ (function (_super) {
+        __extends(BuilderLineOfAny, _super);
+        function BuilderLineOfAny(vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved) {
+            var _this = _super.call(this, vertexOffset, indexOffset, vertexCount, indexCount) || this;
+            _this.pointId = -1;
+            _this.pointCount = 0;
+            _this.pointCountReserved = pointCountReserved;
+            _this.pointSizeId = -1;
+            _this.pointOffsetId = -1;
+            _this.pointFillId = -1;
+            _this.pointStrokeId = -1;
+            return _this;
         }
-        return null;
-    };
-
-    var buildNullClipping = function (clippings, voffset, vcount) {
-        for (var i = voffset * 3, imax = (voffset + vcount) * 3; i < imax; i += 3) {
-            clippings[i + 0] = 0;
-            clippings[i + 1] = 0;
-            clippings[i + 2] = 0;
-        }
-    };
-    var buildNullIndex = function (indices, voffset, ioffset, icount) {
-        for (var ii = ioffset * 3, iimax = (ioffset + icount) * 3; ii < iimax; ii += 3) {
-            indices[ii + 0] = voffset;
-            indices[ii + 1] = voffset;
-            indices[ii + 2] = voffset;
-        }
-    };
-    var buildNullVertex = function (vertices, voffset, vcount) {
-        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
-            vertices[i + 0] = 0;
-            vertices[i + 1] = 0;
-        }
-    };
-    var buildNullStep = function (steps, voffset, vcount) {
-        for (var i = voffset * 6, imax = (voffset + vcount) * 6; i < imax; i += 6) {
-            steps[i + 0] = 0;
-            steps[i + 1] = 0;
-            steps[i + 2] = 0;
-            steps[i + 3] = 0;
-            steps[i + 4] = 0;
-            steps[i + 5] = 0;
-        }
-    };
-    var buildNullUv = function (uvs, voffset, vcount) {
-        for (var i = voffset * 2, imax = (voffset + vcount) * 2; i < imax; i += 2) {
-            uvs[i + 0] = 0;
-            uvs[i + 1] = 0;
-        }
-    };
+        BuilderLineOfAny.prototype.isCompatible = function (shape) {
+            var pointCount = toLineOfAnyPointCount(toPointsCount(shape.points));
+            return pointCount === this.pointCountReserved;
+        };
+        BuilderLineOfAny.prototype.updateLineOfAnyColorFill = function (buffer, shape, points, vcountPerPoint) {
+            var pointFill = points.fill;
+            var pointFillId = pointFill.id;
+            var isPointFillChanged = pointFillId !== this.pointFillId;
+            var fill = shape.fill;
+            var isFillEnabled = shape.visible && fill.enable;
+            var colorFill = fill.color;
+            var alphaFill = isFillEnabled ? fill.alpha : 0;
+            var isFillChanged = colorFill !== this.colorFill || alphaFill !== this.alphaFill;
+            if (isPointFillChanged || isFillChanged) {
+                this.colorFill = colorFill;
+                this.alphaFill = alphaFill;
+                this.pointFillId = pointFillId;
+                buffer.updateColorFills();
+                buildLineOfAnyColor(this.vertexOffset, vcountPerPoint, pointFill, this.pointCountReserved, buffer.colorFills, isFillEnabled, colorFill, alphaFill);
+            }
+        };
+        BuilderLineOfAny.prototype.updateLineOfAnyColorStroke = function (buffer, shape, points, vcountPerPoint) {
+            var pointStroke = points.stroke;
+            var pointStrokeId = pointStroke.id;
+            var isPointStrokeChanged = pointStrokeId !== this.pointStrokeId;
+            var stroke = shape.stroke;
+            var isStrokeEnabled = shape.visible && stroke.enable;
+            var colorStroke = stroke.color;
+            var alphaStroke = isStrokeEnabled ? stroke.alpha : 0;
+            var isStrokeChanged = colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke;
+            if (isPointStrokeChanged || isStrokeChanged) {
+                this.colorStroke = colorStroke;
+                this.alphaStroke = alphaStroke;
+                this.pointStrokeId = pointStrokeId;
+                buffer.updateColorStrokes();
+                buildLineOfAnyColor(this.vertexOffset, vcountPerPoint, pointStroke, this.pointCountReserved, buffer.colorStrokes, isStrokeEnabled, colorStroke, alphaStroke);
+            }
+        };
+        return BuilderLineOfAny;
+    }(BuilderBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -33653,6 +34970,21 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeLineOfAnyPointsImpl.prototype, "marker", {
+            get: function () {
+                var result = this._marker;
+                if (result == null) {
+                    result = EShapePointsMarkerContainerImplNoop.getInstance();
+                    this._marker = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeLineOfAnyPointsImpl.prototype.getMarker = function () {
+            return undefined;
+        };
         Object.defineProperty(EShapeLineOfAnyPointsImpl.prototype, "size", {
             get: function () {
                 return this._size;
@@ -33778,7 +35110,7 @@
         EShapeLineOfAnyPointsImpl.prototype.serialize = function (manager) {
             return manager.addResource("[]");
         };
-        EShapeLineOfAnyPointsImpl.prototype.calcHitPointAbs = function (x, y, sw, ss, threshold, toRange, tester, result) {
+        EShapeLineOfAnyPointsImpl.prototype.calcHitPointAbs = function (x, y, sw, ss, sa, threshold, toRange, tester, result) {
             var formatted = this.formatted;
             var pointCount = formatted.length;
             var pointValues = formatted.values;
@@ -33802,7 +35134,7 @@
                 var sy = size.getY(i) * 0.5;
                 var ox = offset.getX(i);
                 var oy = offset.getY(i);
-                if (tester(x, y, sx, sy, ox, oy, px, py, sw, ss, i, threshold, result)) {
+                if (tester(x, y, sx, sy, ox, oy, px, py, sw, ss, sa, i, threshold, result)) {
                     return true;
                 }
             }
@@ -33816,76 +35148,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLineOfAnyUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLineOfAnyUploaded, _super);
-        function EShapeLineOfAnyUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight, pointCountReserved) {
-            var _this = _super.call(this, buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight) || this;
-            _this.pointId = -1;
-            _this.pointCount = 0;
-            _this.pointCountReserved = pointCountReserved;
-            _this.pointSizeId = -1;
-            _this.pointOffsetId = -1;
-            _this.pointFillId = -1;
-            _this.pointStrokeId = -1;
-            return _this;
-        }
-        EShapeLineOfAnyUploaded.prototype.isCompatible = function (shape) {
-            if (_super.prototype.isCompatible.call(this, shape)) {
-                var pointCount = toLineOfAnyPointCount(toPointsCount(shape.points));
-                return pointCount === this.pointCountReserved;
-            }
-            return false;
-        };
-        EShapeLineOfAnyUploaded.prototype.updateLineOfAnyColorFill = function (buffer, shape, points, vcountPerPoint) {
-            var pointFill = points.fill;
-            var pointFillId = pointFill.id;
-            var isPointFillChanged = pointFillId !== this.pointFillId;
-            var fill = shape.fill;
-            var isFillEnabled = shape.visible && fill.enable;
-            var colorFill = fill.color;
-            var alphaFill = isFillEnabled ? fill.alpha : 0;
-            var isFillChanged = colorFill !== this.colorFill || alphaFill !== this.alphaFill;
-            if (isPointFillChanged || isFillChanged) {
-                this.colorFill = colorFill;
-                this.alphaFill = alphaFill;
-                this.pointFillId = pointFillId;
-                buffer.updateColorFills();
-                buildLineOfAnyColor(this.vertexOffset, vcountPerPoint, pointFill, this.pointCountReserved, buffer.colorFills, isFillEnabled, colorFill, alphaFill);
-            }
-        };
-        EShapeLineOfAnyUploaded.prototype.updateLineOfAnyColorStroke = function (buffer, shape, points, vcountPerPoint) {
-            var pointStroke = points.stroke;
-            var pointStrokeId = pointStroke.id;
-            var isPointStrokeChanged = pointStrokeId !== this.pointStrokeId;
-            var stroke = shape.stroke;
-            var isStrokeEnabled = shape.visible && stroke.enable;
-            var colorStroke = stroke.color;
-            var alphaStroke = isStrokeEnabled ? stroke.alpha : 0;
-            var isStrokeChanged = colorStroke !== this.colorStroke || alphaStroke !== this.alphaStroke;
-            if (isPointStrokeChanged || isStrokeChanged) {
-                this.colorStroke = colorStroke;
-                this.alphaStroke = alphaStroke;
-                this.pointStrokeId = pointStrokeId;
-                buffer.updateColorStrokes();
-                buildLineOfAnyColor(this.vertexOffset, vcountPerPoint, pointStroke, this.pointCountReserved, buffer.colorStrokes, isStrokeEnabled, colorStroke, alphaStroke);
-            }
-        };
-        return EShapeLineOfAnyUploaded;
-    }(EShapeTextUploaded));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLineOfCirclesUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLineOfCirclesUploaded, _super);
-        function EShapeLineOfCirclesUploaded() {
+    var BuilderLineOfCircles = /** @class */ (function (_super) {
+        __extends(BuilderLineOfCircles, _super);
+        function BuilderLineOfCircles() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeLineOfCirclesUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Clippings & indices
-            var buffer = this.buffer;
+        BuilderLineOfCircles.prototype.init = function (buffer) {
             buffer.updateClippings();
             buffer.updateIndices();
             var clippings = buffer.clippings;
@@ -33899,23 +35167,17 @@
                 buildCircleIndex(indices, voffset, ioffset);
                 copyIndex(indices, CIRCLE_VERTEX_COUNT, ioffset, CIRCLE_INDEX_COUNT, pointCountReserved);
             }
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeLineOfCirclesUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderLineOfCircles.prototype.update = function (buffer, shape) {
             var points = shape.points;
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 this.updateVertexAndStep(buffer, shape, points);
                 this.updateLineOfAnyColorFill(buffer, shape, points, CIRCLE_VERTEX_COUNT);
                 this.updateLineOfAnyColorStroke(buffer, shape, points, CIRCLE_VERTEX_COUNT);
                 this.updateUv(buffer, shape);
-                this.updateText(buffer, shape);
             }
         };
-        EShapeLineOfCirclesUploaded.prototype.updateVertexAndStep = function (buffer, shape, points) {
+        BuilderLineOfCircles.prototype.updateVertexAndStep = function (buffer, shape, points) {
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
@@ -33927,7 +35189,7 @@
             var sizeX = size.x;
             var sizeY = size.y;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -33952,10 +35214,6 @@
                 this.strokeWidth = strokeWidth;
                 this.strokeAlign = strokeAlign;
                 this.strokeStyle = strokeStyle;
-                if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Buffer
                 buffer.updateVertices();
                 buffer.updateSteps();
@@ -33994,16 +35252,16 @@
                 buildNullStep(steps, voffsetReserved, vcountReserved);
             }
         };
-        EShapeLineOfCirclesUploaded.prototype.updateUv = function (buffer, shape) {
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+        BuilderLineOfCircles.prototype.updateUv = function (buffer, shape) {
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             if (texture !== this.texture || textureTransformId !== this.textureTransformId) {
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
                 buffer.updateUvs();
                 var uvs = buffer.uvs;
                 var voffset = this.vertexOffset;
-                var textureUvs = this.toTextureUvs(texture);
+                var textureUvs = toTextureUvs(texture);
                 var pointCountReserved = this.pointCountReserved;
                 if (0 < pointCountReserved) {
                     buildCircleUv(uvs, voffset, textureUvs);
@@ -34011,15 +35269,38 @@
                 }
             }
         };
-        return EShapeLineOfCirclesUploaded;
-    }(EShapeLineOfAnyUploaded));
+        return BuilderLineOfCircles;
+    }(BuilderLineOfAny));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createLineOfAnyUploaded = function (buffer, shape, voffset, vcountPerPoint, ioffset, icountPerPoint, antialiasWeight, constructor) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount * TEXT_VERTEX_COUNT;
+        var ticount = tcount * TEXT_INDEX_COUNT;
+        var points = shape.points;
+        var pointCount = toLineOfAnyPointCount(toPointsCount(points));
+        var pvcount = pointCount * vcountPerPoint;
+        var picount = pointCount * icountPerPoint;
+        var vcount = pvcount + tvcount;
+        var icount = picount + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new constructor(voffset, ioffset, pvcount, picount, pointCount),
+                new BuilderText(voffset + pvcount, ioffset + picount, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var createLineOfCirclesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, CIRCLE_VERTEX_COUNT, ioffset, CIRCLE_INDEX_COUNT, antialiasWeight, EShapeLineOfCirclesUploaded);
+        return createLineOfAnyUploaded(buffer, shape, voffset, CIRCLE_VERTEX_COUNT, ioffset, CIRCLE_INDEX_COUNT, antialiasWeight, BuilderLineOfCircles);
     };
 
     /*
@@ -34031,11 +35312,8 @@
         function EShapeLineOfCircles() {
             var _this = _super.call(this, EShapeType.LINE_OF_CIRCLES) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
-            };
-            _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
             };
             return _this;
         }
@@ -34049,24 +35327,21 @@
         EShapeLineOfCircles.prototype.clone = function () {
             return new EShapeLineOfCircles().copy(this);
         };
-        EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfCircles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
+        EShapeLineOfCircles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
         };
-        EShapeLineOfCircles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
-        };
-        EShapeLineOfCircles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(point);
+        EShapeLineOfCircles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
             var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
             if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -34094,15 +35369,15 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLineOfRectangleRoundedsUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLineOfRectangleRoundedsUploaded, _super);
-        function EShapeLineOfRectangleRoundedsUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var BuilderLineOfRectangleRoundeds = /** @class */ (function (_super) {
+        __extends(BuilderLineOfRectangleRoundeds, _super);
+        function BuilderLineOfRectangleRoundeds(vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved) {
+            var _this = _super.call(this, vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved) || this;
+            _this.radius = NaN;
+            _this.corner = NaN;
+            return _this;
         }
-        EShapeLineOfRectangleRoundedsUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
+        BuilderLineOfRectangleRoundeds.prototype.init = function (buffer) {
             buffer.updateIndices();
             var indices = buffer.indices;
             var voffset = this.vertexOffset;
@@ -34112,22 +35387,16 @@
                 buildRectangleRoundedIndex(indices, voffset, ioffset);
                 copyIndex(indices, RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_INDEX_COUNT, pointCountReserved);
             }
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeLineOfRectangleRoundedsUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderLineOfRectangleRoundeds.prototype.update = function (buffer, shape) {
             var points = shape.points;
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 this.updateVertexClippingStepAndUv(buffer, shape, points);
                 this.updateLineOfAnyColorFill(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
                 this.updateLineOfAnyColorStroke(buffer, shape, points, RECTANGLE_ROUNDED_VERTEX_COUNT);
-                this.updateText(buffer, shape);
             }
         };
-        EShapeLineOfRectangleRoundedsUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape, points) {
+        BuilderLineOfRectangleRoundeds.prototype.updateVertexClippingStepAndUv = function (buffer, shape, points) {
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
@@ -34140,7 +35409,7 @@
             var sizeY = size.y;
             var radius = shape.radius;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY || radius !== this.radius;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -34153,8 +35422,8 @@
                 this.strokeStyle !== strokeStyle;
             var corner = shape.corner;
             var isCornerChanged = corner !== this.corner;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
@@ -34174,10 +35443,6 @@
                 this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
-                if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Buffer
                 buffer.updateVertices();
                 if (isVertexChanged || isTransformChanged) {
@@ -34197,7 +35462,7 @@
                 var steps = buffer.steps;
                 var uvs = buffer.uvs;
                 var internalTransform = shape.transform.internalTransform;
-                var textureUvs = this.toTextureUvs(texture);
+                var textureUvs = toTextureUvs(texture);
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
@@ -34254,15 +35519,15 @@
                 buildNullUv(uvs, voffsetReserved, vcountReserved);
             }
         };
-        return EShapeLineOfRectangleRoundedsUploaded;
-    }(EShapeLineOfAnyUploaded));
+        return BuilderLineOfRectangleRoundeds;
+    }(BuilderLineOfAny));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var createLineOfRectangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, EShapeLineOfRectangleRoundedsUploaded);
+        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_ROUNDED_VERTEX_COUNT, ioffset, RECTANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, BuilderLineOfRectangleRoundeds);
     };
 
     /*
@@ -34274,11 +35539,8 @@
         function EShapeLineOfRectangleRoundeds() {
             var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLE_ROUNDEDS) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
-            };
-            _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
             };
             return _this;
         }
@@ -34292,24 +35554,21 @@
         EShapeLineOfRectangleRoundeds.prototype.clone = function () {
             return new EShapeLineOfRectangleRoundeds().copy(this);
         };
-        EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, threshold, sw, ss, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, threshold, sw, ss, sa, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfRectangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
+        EShapeLineOfRectangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
         };
-        EShapeLineOfRectangleRoundeds.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
-        };
-        EShapeLineOfRectangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(point);
+        EShapeLineOfRectangleRoundeds.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
             var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
             if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -34338,15 +35597,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLineOfRectanglesUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLineOfRectanglesUploaded, _super);
-        function EShapeLineOfRectanglesUploaded() {
+    var BuilderLineOfRectangles = /** @class */ (function (_super) {
+        __extends(BuilderLineOfRectangles, _super);
+        function BuilderLineOfRectangles() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeLineOfRectanglesUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
+        BuilderLineOfRectangles.prototype.init = function (buffer) {
             buffer.updateIndices();
             var indices = buffer.indices;
             var voffset = this.vertexOffset;
@@ -34356,22 +35612,16 @@
                 buildRectangleIndex(indices, voffset, ioffset);
                 copyIndex(indices, RECTANGLE_VERTEX_COUNT, ioffset, RECTANGLE_INDEX_COUNT, pointCountReserved);
             }
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeLineOfRectanglesUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderLineOfRectangles.prototype.update = function (buffer, shape) {
             var points = shape.points;
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 this.updateVertexClippingStepAndUv(buffer, shape, points);
                 this.updateLineOfAnyColorFill(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
                 this.updateLineOfAnyColorStroke(buffer, shape, points, RECTANGLE_VERTEX_COUNT);
-                this.updateText(buffer, shape);
             }
         };
-        EShapeLineOfRectanglesUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape, points) {
+        BuilderLineOfRectangles.prototype.updateVertexClippingStepAndUv = function (buffer, shape, points) {
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
@@ -34383,7 +35633,7 @@
             var sizeX = size.x;
             var sizeY = size.y;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -34394,8 +35644,8 @@
                 this.strokeWidth !== strokeWidth ||
                 this.strokeSide !== strokeSide ||
                 this.strokeStyle !== strokeStyle;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
@@ -34411,10 +35661,6 @@
                 this.strokeStyle = strokeStyle;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
-                if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Buffer
                 buffer.updateVertices();
                 if (isVertexChanged || isTransformChanged) {
@@ -34434,7 +35680,7 @@
                 var steps = buffer.steps;
                 var uvs = buffer.uvs;
                 var internalTransform = shape.transform.internalTransform;
-                var textureUvs = this.toTextureUvs(texture);
+                var textureUvs = toTextureUvs(texture);
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
@@ -34491,15 +35737,15 @@
                 buildNullUv(uvs, voffsetReserved, vcountReserved);
             }
         };
-        return EShapeLineOfRectanglesUploaded;
-    }(EShapeLineOfAnyUploaded));
+        return BuilderLineOfRectangles;
+    }(BuilderLineOfAny));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var createLineOfRectanglesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_VERTEX_COUNT, ioffset, RECTANGLE_INDEX_COUNT, antialiasWeight, EShapeLineOfRectanglesUploaded);
+        return createLineOfAnyUploaded(buffer, shape, voffset, RECTANGLE_VERTEX_COUNT, ioffset, RECTANGLE_INDEX_COUNT, antialiasWeight, BuilderLineOfRectangles);
     };
 
     /*
@@ -34511,11 +35757,8 @@
         function EShapeLineOfRectangles() {
             var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLES) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
-            };
-            _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
             };
             return _this;
         }
@@ -34529,24 +35772,21 @@
         EShapeLineOfRectangles.prototype.clone = function () {
             return new EShapeLineOfRectangles().copy(this);
         };
-        EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfRectangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
+        EShapeLineOfRectangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
         };
-        EShapeLineOfRectangles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
-        };
-        EShapeLineOfRectangles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(point);
+        EShapeLineOfRectangles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
             var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
             if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -34985,15 +36225,15 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLineOfTriangleRoundedsUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLineOfTriangleRoundedsUploaded, _super);
-        function EShapeLineOfTriangleRoundedsUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var BuilderLineOfTriangleRoundeds = /** @class */ (function (_super) {
+        __extends(BuilderLineOfTriangleRoundeds, _super);
+        function BuilderLineOfTriangleRoundeds(vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved) {
+            var _this = _super.call(this, vertexOffset, indexOffset, vertexCount, indexCount, pointCountReserved) || this;
+            _this.radius = NaN;
+            _this.corner = NaN;
+            return _this;
         }
-        EShapeLineOfTriangleRoundedsUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
+        BuilderLineOfTriangleRoundeds.prototype.init = function (buffer) {
             buffer.updateIndices();
             var voffset = this.vertexOffset;
             var ioffset = this.indexOffset;
@@ -35002,22 +36242,16 @@
                 buildTriangleRoundedIndex(buffer.indices, voffset, ioffset);
                 copyIndex(buffer.indices, TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_INDEX_COUNT, pointCountReserved);
             }
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeLineOfTriangleRoundedsUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderLineOfTriangleRoundeds.prototype.update = function (buffer, shape) {
             var points = shape.points;
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 this.updateVertexClippingStepAndUv(buffer, shape, points);
                 this.updateLineOfAnyColorFill(buffer, shape, points, TRIANGLE_ROUNDED_VERTEX_COUNT);
                 this.updateLineOfAnyColorStroke(buffer, shape, points, TRIANGLE_ROUNDED_VERTEX_COUNT);
-                this.updateText(buffer, shape);
             }
         };
-        EShapeLineOfTriangleRoundedsUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape, points) {
+        BuilderLineOfTriangleRoundeds.prototype.updateVertexClippingStepAndUv = function (buffer, shape, points) {
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
@@ -35031,7 +36265,7 @@
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
             var radius = shape.radius;
             var isRadiusChanged = radius !== this.radius;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -35042,8 +36276,8 @@
                 this.strokeStyle !== strokeStyle;
             var corner = shape.corner;
             var isCornerChanged = this.corner !== corner;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isPointChanged ||
                 isPointSizeChanged ||
@@ -35066,10 +36300,6 @@
                 this.corner = corner;
                 this.texture = texture;
                 this.textureTransformId = textureTransformId;
-                if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Buffer
                 buffer.updateVertices();
                 if (isVertexChanged || isCornerChanged) {
@@ -35089,7 +36319,7 @@
                 var steps = buffer.steps;
                 var uvs = buffer.uvs;
                 var internalTransform = shape.transform.internalTransform;
-                var textureUvs = this.toTextureUvs(texture);
+                var textureUvs = toTextureUvs(texture);
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
                     var pointSizeY = pointSize.getY(0);
@@ -35146,72 +36376,141 @@
                 buildNullUv(uvs, voffsetReserved, vcountReserved);
             }
         };
-        return EShapeLineOfTriangleRoundedsUploaded;
-    }(EShapeLineOfAnyUploaded));
+        return BuilderLineOfTriangleRoundeds;
+    }(BuilderLineOfAny));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var createLineOfTriangleRoundedsUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, EShapeLineOfTriangleRoundedsUploaded);
+        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset, TRIANGLE_ROUNDED_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangleRoundeds);
     };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTriangle = /** @class */ (function (_super) {
-        __extends(EShapeTriangle, _super);
-        function EShapeTriangle(type) {
-            if (type === void 0) { type = EShapeType.TRIANGLE; }
-            return _super.call(this, type) || this;
+    var containsCorner_ = function (shape, x, y, r, aw, sw, ss) {
+        var fill = shape.fill;
+        if (fill.enable) {
+            if (x * x + y * y <= r * r) {
+                return true;
+            }
         }
-        EShapeTriangle.prototype.clone = function () {
-            return new EShapeTriangle().copy(this);
-        };
-        EShapeTriangle.prototype.containsAbs_ = function (x, y, a, ay1, ay2) {
-            // a = 2 * ay / ax
-            // y = + a * x + ay1
-            // y = - a * x + ay1
-            // y = ay2;
-            return +a * x + ay1 - y <= 0 && -a * x + ay1 - y <= 0 && y <= ay2;
-        };
-        EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
-            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var a = (2 * ay) / ax;
-                var fill = this.fill;
-                if (fill.enable) {
-                    if (this.containsAbs_(x, y, a, -ay, +ay)) {
+        else {
+            if (0 < sw) {
+                var d = x * x + y * y;
+                if (d <= r * r) {
+                    var w = Math.max(0.0, r * (1 - (sw * ss) / aw));
+                    if (w * w <= d) {
                         return true;
                     }
+                }
+            }
+        }
+        return false;
+    };
+    var containsCorner = function (shape, x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius, sw, ss) {
+        var xl = x1 + r12 * (x2 - x1) - x0;
+        var yl = y1 + r12 * (y2 - y1) - y0;
+        var n = Math.sqrt(xl * xl + yl * yl);
+        var threshold = 0.00001;
+        if (threshold < n) {
+            var ni = 1 / n;
+            var nlx = xl * ni;
+            var nly = yl * ni;
+            var xr = x1 + r13 * (x3 - x1) - x0;
+            var yr = y1 + r13 * (y3 - y1) - y0;
+            var nrx = xr * ni;
+            var nry = yr * ni;
+            var det = nlx * nry - nrx * nly;
+            if (threshold < Math.abs(det)) {
+                var deti = 1 / det;
+                var xc = x - x0;
+                var yc = y - y0;
+                var dx = (+nry * xc - nrx * yc) * deti;
+                var dy = (-nly * xc + nlx * yc) * deti;
+                if (containsCorner_(shape, dx, dy, n, aw * radius, sw, ss)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    var hitTestTriangleRounded = function (shape, x, y, ax, ay, sw, ss) {
+        var a = (2 * ay) / ax;
+        if (hitTestTriangleFilled(x, y, a, -ay, +ay)) {
+            var az = Math.sqrt(ax * ax + 4 * ay * ay);
+            var aw = (2 * ax * ay) / (ax + az);
+            var radius = shape.radius;
+            var x0 = 0;
+            var y0 = ay - aw;
+            var x1 = 0;
+            var y1 = -ay;
+            var x4 = +ax;
+            var y4 = +ay;
+            var x7 = -x4;
+            var y7 = +y4;
+            var x10 = x1 + radius * (x0 - x1);
+            var y10 = y1 + radius * (y0 - y1);
+            var x11 = x4 + radius * (x0 - x4);
+            var y11 = y4 + radius * (y0 - y4);
+            var y12 = +y11;
+            var x12 = -x11;
+            var c0 = -a * x + y10 - y <= 0;
+            var c1 = +a * x + y10 - y <= 0;
+            var c2 = y <= y11;
+            var corner = shape.corner;
+            if (!c0 && !c1 && corner & EShapeCorner.TOP) {
+                // Top corner
+                var rz = (0.5 * (az - aw) * radius) / az;
+                if (containsCorner(shape, x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius, sw, ss)) {
+                    return true;
+                }
+            }
+            else if (!c0 && !c2 && corner & EShapeCorner.BOTTOM_LEFT) {
+                // Bottom-left corner
+                var ry = (aw * radius) / (2 * ay);
+                var rx = (ry * az) / (2 * ax);
+                if (containsCorner(shape, x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius, sw, ss)) {
+                    return true;
+                }
+            }
+            else if (!c1 && !c2 && corner & EShapeCorner.BOTTOM_RIGHT) {
+                // Bottom-right corner
+                var ry = (aw * radius) / (2 * ay);
+                var rx = (ry * az) / (2 * ax);
+                if (containsCorner(shape, x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius, sw, ss)) {
+                    return true;
+                }
+            }
+            else {
+                // Others
+                var fill = shape.fill;
+                if (fill.enable) {
+                    return true;
                 }
                 else {
                     if (0 < sw) {
                         var s = sw * ss;
-                        if (this.containsAbs_(x, y, a, -ay, +ay)) {
-                            var az = Math.sqrt(ax * ax + 4 * ay * ay);
-                            var aw = (2 * ax * ay) / (ax + az);
-                            var cy = ay - aw;
-                            var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
-                            var ay2 = ay - s;
-                            if (!this.containsAbs_(x, y, a, ay1, ay2)) {
-                                return true;
-                            }
+                        var cy = ay - aw;
+                        var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
+                        var ay2 = ay - s;
+                        if (!hitTestTriangleFilled(x, y, a, ay1, ay2)) {
+                            return true;
                         }
                     }
                 }
             }
-            return false;
-        };
-        return EShapeTriangle;
-    }(EShapePrimitive));
+        }
+        return false;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var FMIN = 0.00001;
     var EShapeTriangleRounded = /** @class */ (function (_super) {
         __extends(EShapeTriangleRounded, _super);
         function EShapeTriangleRounded(type) {
@@ -35221,124 +36520,14 @@
         EShapeTriangleRounded.prototype.clone = function () {
             return new EShapeTriangleRounded().copy(this);
         };
-        EShapeTriangleRounded.prototype.containsCorner_ = function (x, y, r, aw, sw, ss) {
-            var fill = this.fill;
-            if (fill.enable) {
-                if (x * x + y * y <= r * r) {
-                    return true;
-                }
-            }
-            else {
-                if (0 < sw) {
-                    var d = x * x + y * y;
-                    if (d <= r * r) {
-                        var w = Math.max(0.0, r * (1 - (sw * ss) / aw));
-                        if (w * w <= d) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        };
-        EShapeTriangleRounded.prototype.containsCorner = function (x, y, x0, y0, x1, y1, x2, y2, x3, y3, r12, r13, aw, radius, sw, ss) {
-            var xl = x1 + r12 * (x2 - x1) - x0;
-            var yl = y1 + r12 * (y2 - y1) - y0;
-            var n = Math.sqrt(xl * xl + yl * yl);
-            if (FMIN < n) {
-                var ni = 1 / n;
-                var nlx = xl * ni;
-                var nly = yl * ni;
-                var xr = x1 + r13 * (x3 - x1) - x0;
-                var yr = y1 + r13 * (y3 - y1) - y0;
-                var nrx = xr * ni;
-                var nry = yr * ni;
-                var det = nlx * nry - nrx * nly;
-                if (FMIN < Math.abs(det)) {
-                    var deti = 1 / det;
-                    var xc = x - x0;
-                    var yc = y - y0;
-                    var dx = (+nry * xc - nrx * yc) * deti;
-                    var dy = (-nly * xc + nlx * yc) * deti;
-                    if (this.containsCorner_(dx, dy, n, aw * radius, sw, ss)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
-        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                var a = (2 * ay) / ax;
-                if (this.containsAbs_(x, y, a, -ay, +ay)) {
-                    var az = Math.sqrt(ax * ax + 4 * ay * ay);
-                    var aw = (2 * ax * ay) / (ax + az);
-                    var radius = this.radius;
-                    var x0 = 0;
-                    var y0 = ay - aw;
-                    var x1 = 0;
-                    var y1 = -ay;
-                    var x4 = +ax;
-                    var y4 = +ay;
-                    var x7 = -x4;
-                    var y7 = +y4;
-                    var x10 = x1 + radius * (x0 - x1);
-                    var y10 = y1 + radius * (y0 - y1);
-                    var x11 = x4 + radius * (x0 - x4);
-                    var y11 = y4 + radius * (y0 - y4);
-                    var y12 = +y11;
-                    var x12 = -x11;
-                    var c0 = -a * x + y10 - y <= 0;
-                    var c1 = +a * x + y10 - y <= 0;
-                    var c2 = y <= y11;
-                    var corner = this.corner;
-                    if (!c0 && !c1 && corner & EShapeCorner.TOP) {
-                        // Top corner
-                        var rz = (0.5 * (az - aw) * radius) / az;
-                        if (this.containsCorner(x, y, x10, y10, x1, y1, x7, y7, x4, y4, rz, rz, aw, radius, sw, ss)) {
-                            return true;
-                        }
-                    }
-                    else if (!c0 && !c2 && corner & EShapeCorner.BOTTOM_LEFT) {
-                        // Bottom-left corner
-                        var ry = (aw * radius) / (2 * ay);
-                        var rx = (ry * az) / (2 * ax);
-                        if (this.containsCorner(x, y, x12, y12, x7, y7, x4, y4, x1, y1, rx, ry, aw, radius, sw, ss)) {
-                            return true;
-                        }
-                    }
-                    else if (!c1 && !c2 && corner & EShapeCorner.BOTTOM_RIGHT) {
-                        // Bottom-right corner
-                        var ry = (aw * radius) / (2 * ay);
-                        var rx = (ry * az) / (2 * ax);
-                        if (this.containsCorner(x, y, x11, y11, x4, y4, x1, y1, x7, y7, ry, rx, aw, radius, sw, ss)) {
-                            return true;
-                        }
-                    }
-                    else {
-                        // Others
-                        var fill = this.fill;
-                        if (fill.enable) {
-                            return true;
-                        }
-                        else {
-                            if (0 < sw) {
-                                var s = sw * ss;
-                                var cy = ay - aw;
-                                var ay1 = cy + ((-ay - cy) * Math.max(0.0, aw - s)) / aw;
-                                var ay2 = ay - s;
-                                if (!this.containsAbs_(x, y, a, ay1, ay2)) {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
+                return hitTestTriangleRounded(this, x, y, ax, ay, sw, ss);
             }
             return false;
         };
         return EShapeTriangleRounded;
-    }(EShapeTriangle));
+    }(EShapePrimitive));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -35349,11 +36538,8 @@
         function EShapeLineOfTriangleRoundeds() {
             var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLE_ROUNDEDS) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
-            };
-            _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
             };
             return _this;
         }
@@ -35367,24 +36553,21 @@
         EShapeLineOfTriangleRoundeds.prototype.clone = function () {
             return new EShapeLineOfTriangleRoundeds().copy(this);
         };
-        EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfTriangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
+        EShapeLineOfTriangleRoundeds.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
         };
-        EShapeLineOfTriangleRoundeds.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
-        };
-        EShapeLineOfTriangleRoundeds.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(point);
+        EShapeLineOfTriangleRoundeds.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
             var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
             if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -35409,155 +36592,16 @@
         EShapeCapabilities.set(EShapeType.LINE_OF_TRIANGLE_ROUNDEDS, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
     };
 
-    var TRIANGLE_VERTEX_COUNT = 7;
-    var TRIANGLE_INDEX_COUNT = 3;
-    var TRIANGLE_WORLD_SIZE = [0, 0, 0];
-    var TRIANGLE_WORK_POINT = new pixi_js.Point();
-    var buildTriangleClipping = function (clippings, voffset) {
-        // Clippings
-        var iv = voffset * 3 - 1;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-        clippings[++iv] = 1;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-        clippings[++iv] = 1;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-        clippings[++iv] = 1;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-        clippings[++iv] = 1;
-        clippings[++iv] = 0;
-        clippings[++iv] = 1;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-        clippings[++iv] = 1;
-        clippings[++iv] = 0;
-        clippings[++iv] = 0;
-    };
-    var buildTriangleIndex = function (indices, voffset, ioffset) {
-        // Indices
-        var ii = ioffset * 3 - 1;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 1;
-        indices[++ii] = voffset + 2;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 3;
-        indices[++ii] = voffset + 4;
-        indices[++ii] = voffset + 0;
-        indices[++ii] = voffset + 5;
-        indices[++ii] = voffset + 6;
-    };
-    var buildTriangleVertex = function (vertices, voffset, originX, originY, sizeX, sizeY, strokeAlign, strokeWidth, internalTransform, worldSize) {
-        var s = strokeAlign * strokeWidth;
-        var sx = sizeX * 0.5 + (0 <= sizeX ? +s : -s);
-        var sy = sizeY * 0.5 + (0 <= sizeY ? +s : -s);
-        var sz = Math.sqrt(sx * sx + 4 * sy * sy);
-        var sw = (2 * sx * sy) / (sx + sz);
-        var work = TRIANGLE_WORK_POINT;
-        work.set(originX, originY - sy);
-        internalTransform.apply(work, work);
-        var x0 = work.x;
-        var y0 = work.y;
-        work.set(originX, originY);
-        internalTransform.apply(work, work);
-        var tx = work.x;
-        var ty = work.y;
-        work.set(originX + sx, originY);
-        internalTransform.apply(work, work);
-        var dx = tx - x0;
-        var dy = ty - y0;
-        var x1 = work.x + dx;
-        var y1 = work.y + dy;
-        var x2 = tx + (tx - work.x) + dx;
-        var y2 = ty + (ty - work.y) + dy;
-        work.set(originX, originY + sy - sw); // Incenter of a triangle
-        internalTransform.apply(work, work);
-        var x3 = work.x;
-        var y3 = work.y;
-        // World size
-        var xb = tx + dx;
-        var yb = ty + dy;
-        worldSize[0] = toLength(xb, yb, x3, y3);
-        worldSize[1] = toLength(x1, y1, xb, yb);
-        worldSize[2] = toLength(x0, y0, tx, ty);
-        // Vertices
-        var iv = (voffset << 1) - 1;
-        vertices[++iv] = x3;
-        vertices[++iv] = y3;
-        vertices[++iv] = x0;
-        vertices[++iv] = y0;
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
-        vertices[++iv] = x1;
-        vertices[++iv] = y1;
-        vertices[++iv] = x2;
-        vertices[++iv] = y2;
-        vertices[++iv] = x2;
-        vertices[++iv] = y2;
-        vertices[++iv] = x0;
-        vertices[++iv] = y0;
-    };
-    var buildTriangleStep = function (steps, clippings, voffset, vcount, strokeWidth, strokeStyle, worldSize) {
-        var scaleInvariant = toScaleInvariant(strokeStyle);
-        var s = worldSize[0];
-        var is = voffset * 6 - 1;
-        var ic = voffset * 3;
-        for (var i = 0; i < vcount; i += 1, ic += 3) {
-            steps[++is] = strokeWidth;
-            steps[++is] = scaleInvariant;
-            steps[++is] = s;
-            steps[++is] = s;
-            steps[++is] = 1 + clippings[ic];
-            steps[++is] = 1 + clippings[ic + 1];
-        }
-    };
-    var buildTriangleUv = function (uvs, textureUvs, voffset, worldSize) {
-        var x0 = textureUvs.x0;
-        var x1 = textureUvs.x1;
-        var x2 = textureUvs.x2;
-        var x3 = textureUvs.x3;
-        var y0 = textureUvs.y0;
-        var y1 = textureUvs.y1;
-        var y2 = textureUvs.y2;
-        var y3 = textureUvs.y3;
-        var x4 = 0.5 * (x0 + x1);
-        var y4 = 0.5 * (y0 + y1);
-        var c = 1 - (0.5 * worldSize[0]) / worldSize[2];
-        var x5 = x4 + c * (x3 - x0);
-        var y5 = y4 + c * (y3 - y0);
-        var iuv = (voffset << 1) - 1;
-        uvs[++iuv] = x5;
-        uvs[++iuv] = y5;
-        uvs[++iuv] = x4;
-        uvs[++iuv] = y4;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
-        uvs[++iuv] = x2;
-        uvs[++iuv] = y2;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x3;
-        uvs[++iuv] = y3;
-        uvs[++iuv] = x4;
-        uvs[++iuv] = y4;
-    };
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeLineOfTrianglesUploaded = /** @class */ (function (_super) {
-        __extends(EShapeLineOfTrianglesUploaded, _super);
-        function EShapeLineOfTrianglesUploaded() {
+    var BuilderLineOfTriangles = /** @class */ (function (_super) {
+        __extends(BuilderLineOfTriangles, _super);
+        function BuilderLineOfTriangles() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        EShapeLineOfTrianglesUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            var buffer = this.buffer;
+        BuilderLineOfTriangles.prototype.init = function (buffer) {
             buffer.updateClippings();
             buffer.updateIndices();
             var clippings = buffer.clippings;
@@ -35571,22 +36615,16 @@
                 buildTriangleIndex(indices, voffset, ioffset);
                 copyIndex(indices, TRIANGLE_VERTEX_COUNT, ioffset, TRIANGLE_INDEX_COUNT, pointCountReserved);
             }
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
         };
-        EShapeLineOfTrianglesUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
+        BuilderLineOfTriangles.prototype.update = function (buffer, shape) {
             var points = shape.points;
             if (points instanceof EShapeLineOfAnyPointsImpl) {
                 this.updateVertexStepAndUvs(buffer, shape, points);
                 this.updateLineOfAnyColorFill(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
                 this.updateLineOfAnyColorStroke(buffer, shape, points, TRIANGLE_VERTEX_COUNT);
-                this.updateText(buffer, shape);
             }
         };
-        EShapeLineOfTrianglesUploaded.prototype.updateVertexStepAndUvs = function (buffer, shape, points) {
+        BuilderLineOfTriangles.prototype.updateVertexStepAndUvs = function (buffer, shape, points) {
             var pointId = points.id;
             var pointOffset = points.offset;
             var pointOffsetId = pointOffset.id;
@@ -35598,7 +36636,7 @@
             var sizeX = size.x;
             var sizeY = size.y;
             var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
+            var transformLocalId = toTransformLocalId(shape);
             var isTransformChanged = this.transformLocalId !== transformLocalId;
             var stroke = shape.stroke;
             var strokeAlign = stroke.align;
@@ -35607,8 +36645,8 @@
             var isStrokeChanged = this.strokeAlign !== strokeAlign ||
                 this.strokeWidth !== strokeWidth ||
                 this.strokeStyle !== strokeStyle;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
             var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
             var isVertexChanged = isPointChanged || isPointSizeChanged || isSizeChanged || isStrokeChanged;
             if (isVertexChanged || isTransformChanged || isTextureChanged) {
@@ -35623,10 +36661,6 @@
                 this.strokeAlign = strokeAlign;
                 this.strokeWidth = strokeWidth;
                 this.strokeStyle = strokeStyle;
-                if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
                 // Buffer
                 buffer.updateVertices();
                 if (isVertexChanged || isTransformChanged) {
@@ -35642,7 +36676,7 @@
                 var steps = buffer.steps;
                 var clippings = buffer.clippings;
                 var uvs = buffer.uvs;
-                var textureUvs = this.toTextureUvs(texture);
+                var textureUvs = toTextureUvs(texture);
                 var internalTransform = shape.transform.internalTransform;
                 if (0 < pointCount && pointSize.isStaticX() && pointSize.isStaticY()) {
                     var pointSizeX = pointSize.getX(0);
@@ -35684,16 +36718,38 @@
                 buildNullUv(uvs, voffsetReserved, vcountReserved);
             }
         };
-        return EShapeLineOfTrianglesUploaded;
-    }(EShapeLineOfAnyUploaded));
+        return BuilderLineOfTriangles;
+    }(BuilderLineOfAny));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var createLineOfTrianglesUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_VERTEX_COUNT, ioffset, TRIANGLE_INDEX_COUNT, antialiasWeight, EShapeLineOfTrianglesUploaded);
+        return createLineOfAnyUploaded(buffer, shape, voffset, TRIANGLE_VERTEX_COUNT, ioffset, TRIANGLE_INDEX_COUNT, antialiasWeight, BuilderLineOfTriangles);
     };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeTriangle = /** @class */ (function (_super) {
+        __extends(EShapeTriangle, _super);
+        function EShapeTriangle(type) {
+            if (type === void 0) { type = EShapeType.TRIANGLE; }
+            return _super.call(this, type) || this;
+        }
+        EShapeTriangle.prototype.clone = function () {
+            return new EShapeTriangle().copy(this);
+        };
+        EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestTriangle(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeTriangle;
+    }(EShapePrimitive));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -35704,11 +36760,8 @@
         function EShapeLineOfTriangles() {
             var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLES) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
-            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss);
-            };
-            _this._testerBBox = function (x, y, ax, ay, ox, oy, px, py) {
-                return _this.containsPointAbsBBox(x, y, ax, ay, ox, oy, px, py);
+            _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+                return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
             };
             return _this;
         }
@@ -35722,24 +36775,21 @@
         EShapeLineOfTriangles.prototype.clone = function () {
             return new EShapeLineOfTriangles().copy(this);
         };
-        EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss) {
+        EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
             if (this.containsAbsBBox(x, y, ax + threshold, ay + threshold)) {
-                return this._points.calcHitPointAbs(x, y, sw, ss, threshold, null, this._tester, null);
+                return this._points.calcHitPointAbs(x, y, sw, ss, sa, threshold, null, this._tester, null);
             }
             return false;
         };
-        EShapeLineOfTriangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss) {
-            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss);
+        EShapeLineOfTriangles.prototype.containsPointAbs = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
+            return _super.prototype.containsAbs.call(this, x - px - ox, y - py - oy, ax, ay, sw, ss, sa);
         };
-        EShapeLineOfTriangles.prototype.containsPointAbsBBox = function (x, y, ax, ay, ox, oy, px, py) {
-            return _super.prototype.containsAbsBBox.call(this, x - px - ox, y - py - oy, ax, ay);
-        };
-        EShapeLineOfTriangles.prototype.calcHitPoint = function (point, toThreshold, toRange, tester, result) {
-            var data = this.toHitTestData(point);
+        EShapeLineOfTriangles.prototype.calcHitPoint = function (x, y, toThreshold, toRange, tester, result) {
+            var data = this.toHitTestData(x, y);
             var threshold = (toThreshold || toThresholdDefault)(data.strokeWidth, data.strokeScale, this._points.size.getLimit());
             if (this.containsAbsBBox(data.x, data.y, data.width + threshold, data.height + threshold)) {
-                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, threshold, toRange, tester || this._tester, result);
+                return this._points.calcHitPointAbs(data.x, data.y, data.strokeWidth, data.strokeScale, data.strokeAlign, threshold, toRange, tester || this._tester, result);
             }
             return false;
         };
@@ -35767,28 +36817,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeNullUploaded = /** @class */ (function (_super) {
-        __extends(EShapeNullUploaded, _super);
-        function EShapeNullUploaded(buffer, voffset, ioffset) {
-            return _super.call(this, buffer, voffset, ioffset, 0, 0, 1) || this;
-        }
-        EShapeNullUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            this.texture = shape.texture || pixi_js.Texture.WHITE;
-            return this;
-        };
-        EShapeNullUploaded.prototype.update = function (shape) {
-            // DO NOTHING
-        };
-        return EShapeNullUploaded;
-    }(EShapeUploadedBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var createNullUploaded = function (buffer, shape, voffset, ioffset) {
-        return new EShapeNullUploaded(buffer, voffset, ioffset).init(shape);
+        return new EShapeUploadedImpl(buffer, voffset, ioffset, 0, 0, [
+            new BuilderNull(voffset, ioffset)
+        ]).init(shape);
     };
 
     /*
@@ -35846,6 +36878,143 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var BuilderTriangleRounded = /** @class */ (function (_super) {
+        __extends(BuilderTriangleRounded, _super);
+        function BuilderTriangleRounded(vertexOffset, indexOffset, vertexCount, indexCount) {
+            var _this = _super.call(this, vertexOffset, indexOffset, vertexCount, indexCount) || this;
+            _this.radius = NaN;
+            _this.corner = NaN;
+            return _this;
+        }
+        BuilderTriangleRounded.prototype.init = function (buffer) {
+            buffer.updateIndices();
+            buildTriangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+        };
+        BuilderTriangleRounded.prototype.update = function (buffer, shape) {
+            this.updateVertexClippingStepAndUv(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
+        };
+        BuilderTriangleRounded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var radius = shape.radius;
+            var isRadiusChanged = radius !== this.radius;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var corner = shape.corner;
+            var isCornerChanged = corner !== this.corner;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
+            if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.radius = radius;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.corner = corner;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildTriangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, TRIANGLE_ROUNDED_WORLD_SIZE);
+                if (isRadiusChanged || isCornerChanged) {
+                    buffer.updateClippings();
+                    buildTriangleRoundedClipping(buffer.clippings, voffset, corner, radius);
+                }
+                if (isVertexChanged || isTransformChanged || isCornerChanged) {
+                    buffer.updateSteps();
+                    buildTriangleRoundedStep(buffer.steps, buffer.clippings, voffset, strokeWidth, strokeStyle, shape.radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                }
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleRoundedUv(buffer.uvs, voffset, toTextureUvs(texture), radius, TRIANGLE_ROUNDED_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderTriangleRounded;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderTriangle = /** @class */ (function (_super) {
+        __extends(BuilderTriangle, _super);
+        function BuilderTriangle() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderTriangle.prototype.init = function (buffer) {
+            buffer.updateClippings();
+            buffer.updateIndices();
+            buildTriangleClipping(buffer.clippings, this.vertexOffset);
+            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+        };
+        BuilderTriangle.prototype.update = function (buffer, shape) {
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
+        };
+        BuilderTriangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            if (isVertexChanged || isTransformChanged || isTextureChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
+                if (isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
+                }
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderTriangle;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var createImageSdf = function (dataUrl, convertToSdf) {
         if (convertToSdf) {
             return EShapeImageElements.toImageElement(dataUrl).then(function (imageElement) {
@@ -35874,88 +37043,27 @@
         });
     };
 
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeTriangleRoundedUploaded = /** @class */ (function (_super) {
-        __extends(EShapeTriangleRoundedUploaded, _super);
-        function EShapeTriangleRoundedUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
+    var createLine = function (points, segments, strokeWidth, pointsStyle) {
+        // Calculate the boundary
+        var boundary = toPointsBoundary(points, [0, 0, 0, 0]);
+        var cx = (boundary[2] + boundary[0]) * 0.5;
+        var cy = (boundary[3] + boundary[1]) * 0.5;
+        var sx = boundary[2] - boundary[0];
+        var sy = boundary[3] - boundary[1];
+        // Calculate values
+        var values = [];
+        for (var i = 0, imax = points.length; i < imax; i += 2) {
+            values.push(points[i] - cx, points[i + 1] - cy);
         }
-        EShapeTriangleRoundedUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            // Indices
-            var buffer = this.buffer;
-            buffer.updateIndices();
-            buildTriangleRoundedIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
-        };
-        EShapeTriangleRoundedUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexClippingStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateText(buffer, shape);
-        };
-        EShapeTriangleRoundedUploaded.prototype.updateVertexClippingStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var radius = shape.radius;
-            var isRadiusChanged = radius !== this.radius;
-            var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var corner = shape.corner;
-            var isCornerChanged = corner !== this.corner;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isRadiusChanged || isStrokeChanged;
-            if (isVertexChanged || isTransformChanged || isCornerChanged || isTextureChanged) {
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.radius = radius;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.corner = corner;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                if (isSizeChanged || isTransformChanged || isStrokeChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildTriangleRoundedVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, radius, shape.transform.internalTransform, TRIANGLE_ROUNDED_WORLD_SIZE);
-                if (isRadiusChanged || isCornerChanged) {
-                    buffer.updateClippings();
-                    buildTriangleRoundedClipping(buffer.clippings, voffset, corner, radius);
-                }
-                if (isVertexChanged || isTransformChanged || isCornerChanged) {
-                    buffer.updateSteps();
-                    buildTriangleRoundedStep(buffer.steps, buffer.clippings, voffset, strokeWidth, strokeStyle, shape.radius, TRIANGLE_ROUNDED_WORLD_SIZE);
-                }
-                if (isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildTriangleRoundedUv(buffer.uvs, voffset, this.toTextureUvs(texture), radius, TRIANGLE_ROUNDED_WORLD_SIZE);
-                }
-            }
-        };
-        return EShapeTriangleRoundedUploaded;
-    }(EShapeTextUploaded));
+        // Create a line
+        var result = new EShapeLine();
+        result.fill.alpha = 1;
+        result.stroke.set(true, undefined, undefined, strokeWidth);
+        result.transform.position.set(cx, cy);
+        result.size.set(sx, sy);
+        result.points.set(values, segments, pointsStyle);
+        return result;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -35968,84 +37076,13 @@
         var vcount = TRIANGLE_ROUNDED_VERTEX_COUNT + tvcount;
         var icount = TRIANGLE_ROUNDED_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeTriangleRoundedUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderTriangleRounded(voffset, ioffset, vcount - tvcount, icount - ticount),
+                new BuilderText(voffset + TRIANGLE_ROUNDED_VERTEX_COUNT, ioffset + TRIANGLE_ROUNDED_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeTriangleUploaded = /** @class */ (function (_super) {
-        __extends(EShapeTriangleUploaded, _super);
-        function EShapeTriangleUploaded() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        EShapeTriangleUploaded.prototype.init = function (shape) {
-            _super.prototype.init.call(this, shape);
-            var buffer = this.buffer;
-            buffer.updateClippings();
-            buffer.updateIndices();
-            buildTriangleClipping(buffer.clippings, this.vertexOffset);
-            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-            // Text
-            this.initText();
-            this.update(shape);
-            return this;
-        };
-        EShapeTriangleUploaded.prototype.update = function (shape) {
-            var buffer = this.buffer;
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColor(buffer, shape);
-            this.updateText(buffer, shape);
-        };
-        EShapeTriangleUploaded.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = this.toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var texture = this.toTexture(shape);
-            var textureTransformId = this.toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            if (isVertexChanged || isTransformChanged || isTextureChanged) {
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                if (isVertexChanged || isTransformChanged) {
-                    // Invalidate the text layout to update the text layout.
-                    this.textSpacingHorizontal = NaN;
-                }
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
-                if (isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
-                }
-                if (isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildTriangleUv(buffer.uvs, this.toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
-                }
-            }
-        };
-        return EShapeTriangleUploaded;
-    }(EShapeTextUploaded));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -36058,7 +37095,10 @@
         var vcount = TRIANGLE_VERTEX_COUNT + tvcount;
         var icount = TRIANGLE_INDEX_COUNT + ticount;
         if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeTriangleUploaded(buffer, voffset, ioffset, tvcount, ticount, vcount, icount, antialiasWeight).init(shape);
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderTriangle(voffset, ioffset, vcount - tvcount, icount - ticount),
+                new BuilderText(voffset + TRIANGLE_VERTEX_COUNT, ioffset + TRIANGLE_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
         }
         return null;
     };
@@ -36087,14 +37127,18 @@
         return EShapeDeserializer.deserialize(item, manager, new EShapeTriangle());
     };
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeRectanglePivoted = /** @class */ (function (_super) {
         __extends(EShapeRectanglePivoted, _super);
         function EShapeRectanglePivoted(type) {
             if (type === void 0) { type = EShapeType.RECTANGLE_PIVOTED; }
             return _super.call(this, type) || this;
         }
-        EShapeRectanglePivoted.prototype.toHitTestData = function (point) {
-            var result = _super.prototype.toHitTestData.call(this, point);
+        EShapeRectanglePivoted.prototype.toHitTestData = function (x, y) {
+            var result = _super.prototype.toHitTestData.call(this, x, y);
             result.x -= result.width;
             result.y -= result.height;
             return result;
@@ -47838,7 +48882,10 @@
                 var barPosition = position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT
                     ? EShapeBarPosition.TOP
                     : EShapeBarPosition.LEFT;
-                barShape = new EShapeBar(barPosition, undefined, undefined, bar.style);
+                var barStyle = bar.style || EShapePointsStyle.NONE;
+                barShape = new EShapeBar();
+                barShape.points.position = barPosition;
+                barShape.points.style = barStyle;
                 barShape.stroke.copy(bar.stroke);
                 barShape.text.copy(this._label);
                 this._bar.shape = barShape;
@@ -47857,9 +48904,11 @@
                     ? EShapeBarPosition.LEFT
                     : EShapeBarPosition.TOP;
                 var gridlineCount = tickMajor.count;
-                var gridlineStyle = gridline.style;
+                var gridlineStyle = gridline.style || EShapePointsStyle.NONE;
                 for (var i = 0; i < gridlineCount; ++i) {
-                    var gridlineShape = new EShapeBar(gridlinePosition, undefined, undefined, gridlineStyle);
+                    var gridlineShape = new EShapeBar();
+                    gridlineShape.points.position = gridlinePosition;
+                    gridlineShape.points.style = gridlineStyle;
                     gridlineShape.stroke.copy(gridline.stroke);
                     gridlineShapes.push(gridlineShape);
                 }
@@ -47877,9 +48926,12 @@
                 var tickMajorCount = tickMajor.count;
                 var tickMajorSize = tickMajor.size;
                 var tickMajorPosition = tickMajor.position;
-                var tickMajorStyle = tickMajor.style;
+                var tickMajorStyle = tickMajor.style || EShapePointsStyle.NONE;
                 for (var i = 0; i < tickMajorCount; ++i) {
-                    var tickMajorShape = new EShapeBar(tickMajorPosition, tickMajorSize, undefined, tickMajorStyle);
+                    var tickMajorShape = new EShapeBar();
+                    tickMajorShape.points.position = tickMajorPosition;
+                    tickMajorShape.points.size = tickMajorSize;
+                    tickMajorShape.points.style = tickMajorStyle;
                     tickMajorShape.stroke.copy(tickMajor.stroke);
                     tickMajorShape.text.copy(tickMajor.text);
                     tickMajorShape.size.set(0, 0);
@@ -47900,9 +48952,12 @@
                 var tickMinorCount = tickMinor.count;
                 var tickMinorSize = tickMinor.size;
                 var tickMinorPosition = tickMinor.position;
-                var tickMinorStyle = tickMinor.style;
+                var tickMinorStyle = tickMinor.style || EShapePointsStyle.NONE;
                 for (var i = 0, imax = (tickMajor.count + 1) * tickMinorCount; i < imax; ++i) {
-                    var tickMinorShape = new EShapeBar(tickMinorPosition, tickMinorSize, undefined, tickMinorStyle);
+                    var tickMinorShape = new EShapeBar();
+                    tickMinorShape.points.position = tickMinorPosition;
+                    tickMinorShape.points.size = tickMinorSize;
+                    tickMinorShape.points.style = tickMinorStyle;
                     tickMinorShape.stroke.copy(tickMinor.stroke);
                     tickMinorShape.size.set(0, 0);
                     tickMinorShapes.push(tickMinorShape);
@@ -49457,17 +50512,17 @@
             enumerable: false,
             configurable: true
         });
-        DChartSeriesContainerImpl.prototype.hitTest = function (global) {
+        DChartSeriesContainerImpl.prototype.hitTest = function (x, y) {
             var list = this._list;
             for (var i = list.length - 1; 0 <= i; --i) {
                 var series = list[i];
-                if (series.hitTest(global)) {
+                if (series.hitTest(x, y)) {
                     return series;
                 }
             }
             return null;
         };
-        DChartSeriesContainerImpl.prototype.calcHitPoint = function (global, result) {
+        DChartSeriesContainerImpl.prototype.calcHitPoint = function (x, y, result) {
             var tmp1 = result;
             var tmp2 = DChartSeriesContainerImpl.WORK_CALCHITPOINT;
             var list = this._list;
@@ -49475,7 +50530,7 @@
             tmp2.distance = +Infinity;
             for (var i = list.length - 1; 0 <= i; --i) {
                 var series = list[i];
-                if (series.calcHitPoint(global, tmp1)) {
+                if (series.calcHitPoint(x, y, tmp1)) {
                     if (tmp1.distance < tmp2.distance) {
                         closest = series;
                         var tmp = tmp1;
@@ -50207,7 +51262,8 @@
                 var hovered = this._hovered;
                 if (e.target === container.plotArea) {
                     var result = DChartSelectionSimple.WORK_SELECT;
-                    var series = container.calcHitPoint(e.data.global, result);
+                    var global_1 = e.data.global;
+                    var series = container.calcHitPoint(global_1.x, global_1.y, result);
                     if (series) {
                         hovered.set(series, result);
                     }
@@ -50416,10 +51472,10 @@
             this._container = undefined;
             this._coordinate.destroy();
         };
-        DChartSeriesBase.prototype.hitTest = function (global) {
+        DChartSeriesBase.prototype.hitTest = function (x, y) {
             return false;
         };
-        DChartSeriesBase.prototype.calcHitPoint = function (global, result) {
+        DChartSeriesBase.prototype.calcHitPoint = function (x, y, result) {
             return false;
         };
         DChartSeriesBase.prototype.onStateChange = function (newState, oldState) {
@@ -50651,22 +51707,24 @@
             this._pointIdUpdated = NaN;
             _super.prototype.destroy.call(this);
         };
-        DChartSeriesLineOfAny.prototype.hitTest = function (global) {
+        DChartSeriesLineOfAny.prototype.hitTest = function (x, y) {
             var line = this._line;
             if (line) {
-                var work = DChartSeriesLineOfAny.WORK;
-                var local = line.toLocal(global, undefined, work);
-                return line.contains(local) != null;
+                var local = DChartSeriesLineOfAny.WORK;
+                local.set(x, y);
+                line.toLocal(local, undefined, local);
+                return line.contains(local.x, local.y) != null;
             }
             return false;
         };
-        DChartSeriesLineOfAny.prototype.calcHitPoint = function (global, result) {
+        DChartSeriesLineOfAny.prototype.calcHitPoint = function (x, y, result) {
             var line = this._line;
             if (line) {
-                var work = DChartSeriesLineOfAny.WORK;
-                var local = line.toLocal(global, undefined, work);
+                var local = DChartSeriesLineOfAny.WORK;
+                local.set(x, y);
+                line.toLocal(local, undefined, local);
                 result.shape = line;
-                return line.calcHitPoint(local, null, this.calcHitPointTestRange, this.calcHitPointHitTester, result);
+                return line.calcHitPoint(local.x, local.y, null, this.calcHitPointTestRange, this.calcHitPointHitTester, result);
             }
             return false;
         };
@@ -50683,9 +51741,9 @@
             result[1] = from !== to ? to : Math.min(values.length << 1, to + 1);
             return result;
         };
-        DChartSeriesLineOfAny.prototype.calcHitPointHitTester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, index, threshold, result) {
+        DChartSeriesLineOfAny.prototype.calcHitPointHitTester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa, index, threshold, result) {
             var shape = result.shape;
-            if (shape.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss)) {
+            if (shape.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa)) {
                 var transform = shape.transform;
                 var position = transform.position;
                 var scale = transform.scale;
@@ -51013,7 +52071,7 @@
             if (!line) {
                 var stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
                 this._stroke = stroke;
-                line = new EShapeLine([], [], stroke.width, EShapePointsStyle.NONE);
+                line = new EShapeLine();
                 line.stroke.copy(stroke);
                 this._line = line;
             }
@@ -51188,22 +52246,24 @@
             this._pointIdUpdated = NaN;
             _super.prototype.destroy.call(this);
         };
-        DChartSeriesLine.prototype.hitTest = function (global) {
+        DChartSeriesLine.prototype.hitTest = function (x, y) {
             var line = this._line;
             if (line) {
-                var work = DChartSeriesLine.WORK;
-                var local = line.toLocal(global, undefined, work);
-                return line.contains(local) != null;
+                var local = DChartSeriesLine.WORK;
+                local.set(x, y);
+                line.toLocal(local, undefined, local);
+                return line.contains(local.x, local.y) != null;
             }
             return false;
         };
-        DChartSeriesLine.prototype.calcHitPoint = function (global, result) {
+        DChartSeriesLine.prototype.calcHitPoint = function (x, y, result) {
             var line = this._line;
             if (line) {
-                var work = DChartSeriesLine.WORK;
-                var local = line.toLocal(global, undefined, work);
+                var local = DChartSeriesLine.WORK;
+                local.set(x, y);
+                line.toLocal(local, undefined, local);
                 result.shape = line;
-                return line.calcHitPoint(local, this.toThreshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result);
+                return line.calcHitPoint(local.x, local.y, this.toThreshold, this.calcHitPointTestRange, this.calcHitPointHitTester, result);
             }
             return false;
         };
@@ -51356,7 +52416,7 @@
             if (!line) {
                 var stroke = container.newStroke(index, (_a = this._options) === null || _a === void 0 ? void 0 : _a.stroke);
                 this._stroke = stroke;
-                line = new EShapeLine([], [], stroke.width, EShapePointsStyle.NONE);
+                line = new EShapeLine();
                 line.stroke.copy(stroke);
                 this._line = line;
             }
@@ -51522,22 +52582,24 @@
             }
             _super.prototype.destroy.call(this);
         };
-        DChartSeriesLinear.prototype.hitTest = function (global) {
+        DChartSeriesLinear.prototype.hitTest = function (x, y) {
             var line = this._line;
             if (line) {
-                var work = DChartSeriesLinear.WORK;
-                var local = line.toLocal(global, undefined, work);
-                return line.contains(local) != null;
+                var local = DChartSeriesLinear.WORK;
+                local.set(x, y);
+                line.toLocal(local, undefined, local);
+                return line.contains(local.x, local.y) != null;
             }
             return false;
         };
-        DChartSeriesLinear.prototype.calcHitPoint = function (global, result) {
+        DChartSeriesLinear.prototype.calcHitPoint = function (x, y, result) {
             var line = this._line;
             if (line) {
-                var work = DChartSeriesLinear.WORK;
-                var local = line.toLocal(global, undefined, work);
+                var local = DChartSeriesLinear.WORK;
+                local.set(x, y);
+                line.toLocal(local, undefined, local);
                 result.shape = line;
-                return line.calcHitPoint(local, this.toThreshold, null, this.calcHitPointHitTester, result);
+                return line.calcHitPoint(local.x, local.y, this.toThreshold, null, this.calcHitPointHitTester, result);
             }
             return false;
         };
@@ -52405,7 +53467,7 @@
                 var interactive = interactives[i];
                 if (interactive.visible) {
                     interactive.toLocal(global, undefined, local);
-                    if (interactive.contains(local) != null) {
+                    if (interactive.contains(local.x, local.y) != null) {
                         return interactive;
                     }
                 }
@@ -52904,11 +53966,11 @@
                 shape.allowUploadedUpdate();
             }
             else {
-                shape = new EShapeBar(position, -1, style.width);
+                shape = new EShapeBar();
                 shape.disallowUploadedUpdate();
-                shape.fill.enable = false;
+                shape.points.position = position;
                 shape.transform.position.set(x, y);
-                shape.stroke.set(true, style.color, style.alpha, undefined, undefined, undefined, style.style);
+                shape.stroke.set(true, style.color, style.alpha, style.width, undefined, undefined, style.style);
                 shape.size.set(w, h);
                 shape.visible = true;
                 shape.allowUploadedUpdate();
@@ -64639,6 +65701,38 @@
         buildTriangleVertex: buildTriangleVertex,
         buildTriangleStep: buildTriangleStep,
         buildTriangleUv: buildTriangleUv,
+        BuilderBar: BuilderBar,
+        BuilderBase: BuilderBase,
+        BuilderCircle: BuilderCircle,
+        BuilderImageSdf: BuilderImageSdf,
+        BuilderLabel: BuilderLabel,
+        BuilderLineOfAny: BuilderLineOfAny,
+        BuilderLineOfCircles: BuilderLineOfCircles,
+        BuilderLineOfRectangleRoundeds: BuilderLineOfRectangleRoundeds,
+        BuilderLineOfRectangles: BuilderLineOfRectangles,
+        BuilderLineOfTriangleRoundeds: BuilderLineOfTriangleRoundeds,
+        BuilderLineOfTriangles: BuilderLineOfTriangles,
+        BuilderLine: BuilderLine,
+        BuilderMarkerCircleHead: BuilderMarkerCircleHead,
+        BuilderMarkerCircleTail: BuilderMarkerCircleTail,
+        BuilderMarkerCircle: BuilderMarkerCircle,
+        BuilderMarkerRectangleHead: BuilderMarkerRectangleHead,
+        BuilderMarkerRectangleTail: BuilderMarkerRectangleTail,
+        BuilderMarkerRectangle: BuilderMarkerRectangle,
+        BuilderMarkerTriangleHead: BuilderMarkerTriangleHead,
+        BuilderMarkerTriangleTail: BuilderMarkerTriangleTail,
+        BuilderMarkerTriangle: BuilderMarkerTriangle,
+        BuilderNull: BuilderNull,
+        BuilderRectanglePivoted: BuilderRectanglePivoted,
+        BuilderRectangleRounded: BuilderRectangleRounded,
+        BuilderRectangle: BuilderRectangle,
+        BuilderText: BuilderText,
+        BuilderTriangleRounded: BuilderTriangleRounded,
+        BuilderTriangle: BuilderTriangle,
+        toTransformLocalId: toTransformLocalId,
+        toTexture: toTexture,
+        toTextureTransformId: toTextureTransformId,
+        toTextureUvs: toTextureUvs,
         copyClipping: copyClipping,
         copyIndex: copyIndex,
         copyStep: copyStep,
@@ -64660,6 +65754,7 @@
         createLineOfTriangleRoundedsUploaded: createLineOfTriangleRoundedsUploaded,
         createLineOfTrianglesUploaded: createLineOfTrianglesUploaded,
         createLineUploaded: createLineUploaded,
+        createLine: createLine,
         createNullUploaded: createNullUploaded,
         createRectangleRoundedUploaded: createRectangleRoundedUploaded,
         createRectangleUploaded: createRectangleUploaded,
@@ -64689,7 +65784,6 @@
         deserializeTriangle: deserializeTriangle,
         EShapeBarPoints: EShapeBarPoints,
         get EShapeBarPosition () { return EShapeBarPosition; },
-        EShapeBarUploaded: EShapeBarUploaded,
         EShapeBar: EShapeBar,
         EShapeBaseHitTestData: EShapeBaseHitTestData,
         EShapeBase: EShapeBase,
@@ -64697,7 +65791,6 @@
         EShapeButtonRuntimeAction: EShapeButtonRuntimeAction,
         EShapeButtonRuntime: EShapeButtonRuntime,
         EShapeButton: EShapeButton,
-        EShapeCircleUploaded: EShapeCircleUploaded,
         EShapeCircle: EShapeCircle,
         EShapeConnectorLine: EShapeConnectorLine,
         EShapeEmbeddedDatum: EShapeEmbeddedDatum,
@@ -64729,41 +65822,28 @@
         EShapeGroupTextSpacingEditor: EShapeGroupTextSpacingEditor,
         EShapeGroupTextSpacingViewer: EShapeGroupTextSpacingViewer,
         EShapeGroupTextViewer: EShapeGroupTextViewer,
-        EShapeGroupUploaded: EShapeGroupUploaded,
         EShapeGroupViewer: EShapeGroupViewer,
         EShapeGroup: EShapeGroup,
-        EShapeImageSdfUploaded: EShapeImageSdfUploaded,
         EShapeImageSdf: EShapeImageSdf,
         EShapeImage: EShapeImage,
-        EShapeLabelUploaded: EShapeLabelUploaded,
         EShapeLabel: EShapeLabel,
+        EShapeLineBaseHitPart: EShapeLineBaseHitPart,
         EShapeLineBase: EShapeLineBase,
         EShapeLineOfAnyPointsFillImpl: EShapeLineOfAnyPointsFillImpl,
         EShapeLineOfAnyPointsImpl: EShapeLineOfAnyPointsImpl,
         EShapeLineOfAnyPointsPointImpl: EShapeLineOfAnyPointsPointImpl,
         EShapeLineOfAnyPointsStrokeImpl: EShapeLineOfAnyPointsStrokeImpl,
-        EShapeLineOfAnyUploaded: EShapeLineOfAnyUploaded,
-        EShapeLineOfCirclesUploaded: EShapeLineOfCirclesUploaded,
         EShapeLineOfCircles: EShapeLineOfCircles,
-        EShapeLineOfRectangleRoundedsUploaded: EShapeLineOfRectangleRoundedsUploaded,
         EShapeLineOfRectangleRoundeds: EShapeLineOfRectangleRoundeds,
-        EShapeLineOfRectanglesUploaded: EShapeLineOfRectanglesUploaded,
         EShapeLineOfRectangles: EShapeLineOfRectangles,
-        EShapeLineOfTriangleRoundedsUploaded: EShapeLineOfTriangleRoundedsUploaded,
         EShapeLineOfTriangleRoundeds: EShapeLineOfTriangleRoundeds,
-        EShapeLineOfTrianglesUploaded: EShapeLineOfTrianglesUploaded,
         EShapeLineOfTriangles: EShapeLineOfTriangles,
         EShapeLinePoints: EShapeLinePoints,
-        EShapeLineUploaded: EShapeLineUploaded,
         EShapeLine: EShapeLine,
-        EShapeNullUploaded: EShapeNullUploaded,
         EShapeNull: EShapeNull,
         EShapePrimitive: EShapePrimitive,
-        EShapeRectanglePivotedUploaded: EShapeRectanglePivotedUploaded,
         EShapeRectanglePivoted: EShapeRectanglePivoted,
-        EShapeRectangleRoundedUploaded: EShapeRectangleRoundedUploaded,
         EShapeRectangleRounded: EShapeRectangleRounded,
-        EShapeRectangleUploaded: EShapeRectangleUploaded,
         EShapeRectangle: EShapeRectangle,
         EShapeStrokeImpl: EShapeStrokeImpl,
         EShapeTagImpl: EShapeTagImpl,
@@ -64773,11 +65853,15 @@
         EShapeTextImpl: EShapeTextImpl,
         EShapeTextOffsetImpl: EShapeTextOffsetImpl,
         EShapeTextOutlineImpl: EShapeTextOutlineImpl,
-        EShapeTextUploaded: EShapeTextUploaded,
-        EShapeTriangleRoundedUploaded: EShapeTriangleRoundedUploaded,
         EShapeTriangleRounded: EShapeTriangleRounded,
-        EShapeTriangleUploaded: EShapeTriangleUploaded,
         EShapeTriangle: EShapeTriangle,
+        hitTestBBox: hitTestBBox,
+        hitTestCircle: hitTestCircle,
+        hitTestRectangleRounded: hitTestRectangleRounded,
+        hitTestRectangle: hitTestRectangle,
+        hitTestTriangleRounded: hitTestTriangleRounded,
+        hitTestTriangleFilled: hitTestTriangleFilled,
+        hitTestTriangle: hitTestTriangle,
         isStatic: isStatic,
         toComputed: toComputed,
         toDash: toDash,
@@ -64803,7 +65887,15 @@
         EShapeEditor: EShapeEditor,
         EShapeImageElements: EShapeImageElements,
         EShapeLayerState: EShapeLayerState,
+        toPointsBoundary: toPointsBoundary,
         eShapePointsFormatterCurve: eShapePointsFormatterCurve,
+        EShapePointsMarkerBase: EShapePointsMarkerBase,
+        EShapePointsMarkerContainerImplNoop: EShapePointsMarkerContainerImplNoop,
+        EShapePointsMarkerContainerImpl: EShapePointsMarkerContainerImpl,
+        EShapePointsMarkerHead: EShapePointsMarkerHead,
+        EShapePointsMarkerNoop: EShapePointsMarkerNoop,
+        EShapePointsMarkerTail: EShapePointsMarkerTail,
+        EShapePointsMarkerType: EShapePointsMarkerType,
         get EShapePointsStyle () { return EShapePointsStyle; },
         EShapePointsStyles: EShapePointsStyles,
         EShapeRendererIteratorDatum: EShapeRendererIteratorDatum,
@@ -64830,7 +65922,7 @@
         EShapeTransformImpl: EShapeTransformImpl,
         EShapeTransforms: EShapeTransforms,
         get EShapeType () { return EShapeType; },
-        EShapeUploadedBase: EShapeUploadedBase,
+        EShapeUploadedImpl: EShapeUploadedImpl,
         EShapeUploadeds: EShapeUploadeds,
         EShapeUuidMappingImpl: EShapeUuidMappingImpl,
         ESnapperGrid: ESnapperGrid,

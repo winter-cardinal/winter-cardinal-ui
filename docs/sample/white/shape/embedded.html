@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.107.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.107.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -46,7 +46,7 @@
 		application.stage.on( "pointermove", ( e ) => {
 			const global = e.data.global;
 			const local = embedded.toLocal( global );
-			console.log( local.x, local.y, embedded.contains( local ) );
+			console.log( local.x, local.y, embedded.contains( local.x, local.y ) );
 		});
 
 		application.stage.addChild( container );

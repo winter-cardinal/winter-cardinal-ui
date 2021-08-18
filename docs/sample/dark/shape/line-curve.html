@@ -22,27 +22,27 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.107.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.107.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		var newLine = function(x, y, points, segments, container) {
+		var newLine = function(ix, iy, points, segments, container) {
 			var style = wcardinal.ui.EShapePointsStyle.CLOSED | wcardinal.ui.EShapePointsStyle.CURVE;
-			var result = new wcardinal.ui.EShapeLine(points, segments, 3, style);
-			result.transform.position.set(x, y);
+			var result = wcardinal.ui.createLine(points, segments, 3, style);
+			result.transform.position.set(100 + 90 * ix, 100 + 150 * iy);
 			result.attach( container );
 			return result;
 		};
 
-		var newPoints = function( radius ) {
+		var newPoints = function() {
 			var result = [];
 			for (var i = 0; i <= 4; ++i) {
 				var angle = (2 - i) * Math.PI / 4;
 				result.push(
-					Math.cos(angle) * radius,
-					Math.sin(angle) * radius
+					Math.cos(angle) * 60,
+					Math.sin(angle) * 60
 				);
 			}
 			return result;
@@ -51,43 +51,32 @@
 		var application = new wcardinal.ui.DApplication();
 		var container = new wcardinal.ui.EShapeContainer();
 
-		var radius = 60;
-		var padding = 10;
-		var x = padding;
-		var y = radius * 0.5 + padding;
-		var points = newPoints(radius);
-
 		// Zero segment
-		newLine(x, y, points, [], container);
+		newLine(0, 0, newPoints(), [], container);
 
 		// One segment
-		x = padding;
-		y += radius * 2 + padding;
-		for (var i = 0; i <= 4; i += 1, x += radius + padding) {
-			newLine(x, y, points, [i], container);
+		for (var i = 0; i <= 4; ++i) {
+			newLine(i, 1, newPoints(), [i], container);
 		}
 
 		// Two segments
-		x = padding;
-		y += radius * 2 + padding;
-		for (var i = 0; i <= 3; ++i) {
-			for (var j = i + 1; j <= 4; j += 1, x += radius + padding) {
-				newLine(x, y, points, [i, j], container);
+		var ix = 0;
+		for (var i = 0, ix = 0; i <= 3; ++i) {
+			for (var j = i + 1; j <= 4; ++j) {
+				newLine(ix++, 2, newPoints(), [i, j], container);
 			}
 		}
 
 		// Three segments
-		x = padding;
-		y += radius * 2 + padding;
-		for (var i = 0; i <= 2; i += 1) {
-			for (var j = i + 1; j <= 3; j += 1) {
-				for(var k = j + 1; k <= 4; k += 1, x += radius + padding) {
-					newLine(x, y, points, [i, j, k], container);
+		ix = 0;
+		for (var i = 0; i <= 2; ++i) {
+			for (var j = i + 1; j <= 3; ++j) {
+				for(var k = j + 1; k <= 4; ++k) {
+					newLine(ix++, 3, newPoints(), [i, j, k], container);
 				}
 			}
 		}
 
-		container.position.set( 50, 50 );
 		application.stage.addChild( container );
 		application.update();
 	}());

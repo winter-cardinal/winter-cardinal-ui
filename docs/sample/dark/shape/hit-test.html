@@ -22,29 +22,73 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.107.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.107.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		const application = new wcardinal.ui.DApplication();
+		var application = new wcardinal.ui.DApplication();
 
-		const container = new wcardinal.ui.EShapeContainer();
-		container.position.set( 50, 50 );
+		var container = new wcardinal.ui.EShapeContainer();
+		container.position.set(50, 50);
 
-		const rectangle = new wcardinal.ui.EShapeRectangle();
-		rectangle.transform.position.set( 200, 200 );
-		rectangle.attach( container );
-
-		const bar = new wcardinal.ui.EShapeBar(wcardinal.ui.EShapeBarPosition.TOP, -1, 10, wcardinal.ui.EShapePointsStyle.NONE);
-		bar.transform.position.set( 200, 200 );
+		var bar = new wcardinal.ui.EShapeBar();
+		bar.points.position = wcardinal.ui.EShapeBarPosition.TOP;
+		bar.stroke.width = 10;
+		bar.transform.position.set(100, 100);
 		bar.attach( container );
 
-		application.stage.on( "pointermove", ( e ) => {
-			const global = e.data.global;
-			const local = bar.toLocal( global );
-			console.log( local.x, local.y, bar.contains( local ) );
+		var line1 = wcardinal.ui.createLine([-40, -40, +10, -10, +40, +40], [], 10, wcardinal.ui.EShapePointsStyle.NONE);
+		line1.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
+		line1.points.marker.head.size.set(40, 40);
+		line1.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
+		line1.points.marker.tail.size.set(40, 40);
+		line1.transform.position.set(250, 100);
+		line1.attach( container );
+
+		var line2 = wcardinal.ui.createLine([-40, -40, +10, -10, +40, +40], [], 10, wcardinal.ui.EShapePointsStyle.NONE);
+		line2.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.RECTANGLE;
+		line2.points.marker.head.size.set(40, 40);
+		line2.transform.position.set(400, 100);
+		line2.attach( container );
+
+		var rectangle = new wcardinal.ui.EShapeRectangle();
+		rectangle.transform.position.set(100, 250);
+		rectangle.stroke.width = 10;
+		rectangle.attach( container );
+
+		var rectangleRounded = new wcardinal.ui.EShapeRectangleRounded();
+		rectangleRounded.transform.position.set(250, 250);
+		rectangleRounded.stroke.width = 10;
+		rectangleRounded.attach( container );
+
+		var circle = new wcardinal.ui.EShapeCircle();
+		circle.transform.position.set(400, 250);
+		circle.stroke.width = 10;
+		circle.attach( container );
+
+		var triangle = new wcardinal.ui.EShapeTriangle();
+		triangle.transform.position.set(100, 400);
+		triangle.stroke.width = 10;
+		triangle.attach( container );
+
+		var triangleRounded = new wcardinal.ui.EShapeTriangleRounded();
+		triangleRounded.transform.position.set(250, 400);
+		triangleRounded.stroke.width = 10;
+		triangleRounded.attach( container );
+
+		application.stage.on( "pointermove", function ( e ) {
+			var global = e.data.global;
+			var children = container.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				var child = children[i];
+				var local = child.toLocal(global);
+				if (child.contains(local.x, local.y)) {
+					var part = child.calcHitPart != null ? child.calcHitPart(local.x, local.y) : 0;
+					console.log( i, child.constructor.name, global.x, global.y, part );
+				}
+			}
 		});
 
 		application.stage.addChild( container );

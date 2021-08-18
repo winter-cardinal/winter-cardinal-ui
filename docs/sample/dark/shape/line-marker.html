@@ -1,0 +1,83 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Line (Marker)</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var container = new wcardinal.ui.EShapeContainer();
+
+		var newMarkerType = function() {
+			return [
+				wcardinal.ui.EShapePointsMarkerType.NONE,
+				wcardinal.ui.EShapePointsMarkerType.CIRCLE,
+				wcardinal.ui.EShapePointsMarkerType.TRIANGLE,
+				wcardinal.ui.EShapePointsMarkerType.RECTANGLE
+			][Math.floor(Math.random() * 4)];
+		};
+
+		var newMarkerSize = function() {
+			return 15 + Math.round((Math.random() - 0.5) * 5);
+		};
+
+		var newLine = function(ix, iy) {
+			var points = [-40, -40, +10, -10, +40, +40];
+			var style = wcardinal.ui.EShapePointsStyle.NONE;
+			var result = wcardinal.ui.createLine(points, [], 3, style);
+			var marker = result.points.marker;
+			marker.head.type = newMarkerType();
+			marker.head.size.set(newMarkerSize(), newMarkerSize());
+			marker.tail.type = newMarkerType();
+			marker.tail.size.set(newMarkerSize(), newMarkerSize());
+			result.transform.position.set(100 + 150 * ix, 100 + 150 * iy);
+			result.attach( container );
+			return result;
+		};
+
+		for (let ix = 0; ix < 4; ++ix) {
+			for (let iy = 0; iy < 4; ++iy) {
+				newLine(ix, iy);
+			}
+		}
+
+		application.stage.addChild( container );
+		application.update();
+		setInterval(function () {
+			var children = container.children;
+			for( let i = 0, imax = children.length; i < imax; ++i ) {
+				var child = children[ i ];
+				var marker = child.points.marker;
+				marker.head.type = newMarkerType();
+				marker.tail.type = newMarkerType();
+			}
+			application.update();
+		}, 1000);
+	}());
+	</script>
+</body>
+</html>
