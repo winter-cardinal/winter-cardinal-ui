@@ -26,7 +26,6 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		super(type);
 		this._leftLocalId = 0;
 		this._rightLocalId = 0;
-		this.fill.enable = false;
 		const sx = EShapeDefaults.SIZE_X;
 		const sy = EShapeDefaults.SIZE_Y;
 		const hx = sx * 0.5;
