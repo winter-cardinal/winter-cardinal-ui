@@ -76,20 +76,16 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 			this.disallowUploadedUpdate();
 			const cx = (lx + rx) * 0.5;
 			const cy = (ly + ry) * 0.5;
-			const dlx = lx - cx;
-			const dly = ly - cy;
-			const drx = rx - cx;
-			const dry = ry - cy;
-			const sx = Math.max(Math.abs(dlx), Math.abs(drx));
-			const sy = Math.max(Math.abs(dly), Math.abs(dry));
 			const transform = this.transform;
 			transform.position.set(cx, cy);
 			transform.scale.set(1, 1);
 			transform.rotation = 0;
 			transform.skew.set(0, 0);
+			const sx = Math.abs(lx - rx);
+			const sy = Math.abs(ly - ry);
 			this.size.set(sx, sy);
 			const points = this.points;
-			points.set(this.toValues(dlx, dly, drx, dry, sx, sy, points.values));
+			points.set(this.toValues(lx - cx, ly - cy, rx - cx, ry - cy, sx, sy, points.values));
 			this.allowUploadedUpdate();
 		}
 	}
