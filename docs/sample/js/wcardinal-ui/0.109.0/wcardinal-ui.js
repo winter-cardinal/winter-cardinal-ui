@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.108.0
+ Winter Cardinal UI v0.109.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2227,68 +2227,71 @@
     var EShapeConnectorContainerImpl = /** @class */ (function () {
         function EShapeConnectorContainerImpl(parent) {
             this._parent = parent;
-            this._list = [];
+            this._connectors = new Set();
         }
-        EShapeConnectorContainerImpl.prototype.add = function (target, at) {
-            var list = this._list;
-            if (at != null) {
-                if (0 <= at && at < list.length) {
-                    list.splice(at, 0, target);
-                    return true;
-                }
-                else if (at === list.length) {
-                    list.push(target);
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
-                list.push(target);
+        EShapeConnectorContainerImpl.prototype.add = function (target) {
+            var connectors = this._connectors;
+            if (!connectors.has(target)) {
+                connectors.add(target);
                 return true;
             }
+            return false;
         };
-        EShapeConnectorContainerImpl.prototype.get = function (index) {
-            var list = this._list;
-            if (0 <= index && index < list.length) {
-                return list[index];
-            }
-            return null;
+        EShapeConnectorContainerImpl.prototype.contains = function (target) {
+            return this._connectors.has(target);
         };
         EShapeConnectorContainerImpl.prototype.size = function () {
-            return this._list.length;
+            return this._connectors.size;
         };
-        EShapeConnectorContainerImpl.prototype.remove = function (index) {
-            var list = this._list;
-            if (0 <= index && index < list.length) {
-                return list.splice(index, 1)[0];
-            }
-            return null;
+        EShapeConnectorContainerImpl.prototype.remove = function (target) {
+            return this._connectors.delete(target);
         };
         EShapeConnectorContainerImpl.prototype.clear = function () {
-            var list = this._list;
-            if (0 < list.length) {
-                list.length = 0;
+            var connectors = this._connectors;
+            if (0 < connectors.size) {
+                this._connectors.clear();
                 return true;
             }
             return false;
         };
         EShapeConnectorContainerImpl.prototype.fit = function (forcibly) {
-            var list = this._list;
-            var parent = this._parent;
-            for (var i = 0, imax = list.length; i < imax; ++i) {
-                var shape = list[i];
-                var edge = shape.edge;
-                var left = edge.left;
-                if (left.shape === parent) {
-                    left.fit(forcibly);
+            this._connectors.forEach(this.toOnFitBound(forcibly));
+        };
+        EShapeConnectorContainerImpl.prototype.toOnFitBound = function (forcibly) {
+            if (forcibly) {
+                var result = this._onFitBoundForcibly;
+                if (result == null) {
+                    result = this.newOnFitBound(true);
+                    this._onFitBoundForcibly = result;
                 }
-                else {
-                    var right = edge.right;
-                    if (right.shape === parent) {
-                        right.fit(forcibly);
-                    }
+                return result;
+            }
+            else {
+                var result = this._onFitBound;
+                if (result == null) {
+                    result = this.newOnFitBound(false);
+                    this._onFitBound = result;
+                }
+                return result;
+            }
+        };
+        EShapeConnectorContainerImpl.prototype.newOnFitBound = function (forcibly) {
+            var _this = this;
+            return function (connector) {
+                _this.onFit(connector, forcibly);
+            };
+        };
+        EShapeConnectorContainerImpl.prototype.onFit = function (target, forcibly) {
+            var edge = target.edge;
+            var left = edge.left;
+            var parent = this._parent;
+            if (left.shape === parent) {
+                left.fit(forcibly);
+            }
+            else {
+                var right = edge.right;
+                if (right.shape === parent) {
+                    right.fit(forcibly);
                 }
             }
         };
@@ -30256,6 +30259,20 @@
             this._localId = this._id;
             this._onChange();
         };
+        EShapeConnectorEdgeImpl.prototype.attach = function () {
+            var shape = this._shape;
+            if (shape) {
+                shape.connector.add(this._parent);
+            }
+            return this;
+        };
+        EShapeConnectorEdgeImpl.prototype.detach = function () {
+            var shape = this._shape;
+            if (shape) {
+                shape.connector.remove(this._parent);
+            }
+            return this;
+        };
         return EShapeConnectorEdgeImpl;
     }());
 
@@ -30300,6 +30317,20 @@
             var rightId = right == null ? -1 : right.serialize(manager);
             return manager.addResource("[" + leftId + "," + rightId + "]");
         };
+        EShapeConnectorEdgeContainerImpl.prototype.attach = function () {
+            var left = this._left;
+            var right = this._right;
+            left.attach();
+            right.attach();
+            left.fit(true);
+            right.fit(true);
+            return this;
+        };
+        EShapeConnectorEdgeContainerImpl.prototype.detach = function () {
+            this._left.detach();
+            this._right.detach();
+            return this;
+        };
         return EShapeConnectorEdgeContainerImpl;
     }());
 
@@ -30341,11 +30372,16 @@
         });
         EShapeConnectorLine.prototype.attach = function (parent, at) {
             _super.prototype.attach.call(this, parent, at);
-            this.edge.fit(true);
+            this._edge.attach();
+            return this;
+        };
+        EShapeConnectorLine.prototype.detach = function () {
+            _super.prototype.detach.call(this);
+            this._edge.detach();
             return this;
         };
         EShapeConnectorLine.prototype.onEdgeChange = function () {
-            var edge = this.edge;
+            var edge = this._edge;
             var left = edge.left;
             var leftLocalId = left.localId;
             var right = edge.right;
@@ -30364,20 +30400,16 @@
                 this.disallowUploadedUpdate();
                 var cx = (lx + rx) * 0.5;
                 var cy = (ly + ry) * 0.5;
-                var dlx = lx - cx;
-                var dly = ly - cy;
-                var drx = rx - cx;
-                var dry = ry - cy;
-                var sx = Math.max(Math.abs(dlx), Math.abs(drx));
-                var sy = Math.max(Math.abs(dly), Math.abs(dry));
                 var transform = this.transform;
                 transform.position.set(cx, cy);
                 transform.scale.set(1, 1);
                 transform.rotation = 0;
                 transform.skew.set(0, 0);
+                var sx = Math.abs(lx - rx);
+                var sy = Math.abs(ly - ry);
                 this.size.set(sx, sy);
-                var points = this.points;
-                points.set(this.toValues(dlx, dly, drx, dry, sx, sy, points.values));
+                var points = this._points;
+                points.set(this.toValues(lx - cx, ly - cy, rx - cx, ry - cy, sx, sy, points.values));
                 this.allowUploadedUpdate();
             }
         };
@@ -30393,7 +30425,7 @@
             if (part === void 0) { part = EShapeCopyPart.ALL; }
             _super.prototype.copy.call(this, source, part);
             if (source instanceof EShapeConnectorLine) {
-                this.edge.copy(source.edge);
+                this._edge.copy(source.edge);
             }
             return this;
         };

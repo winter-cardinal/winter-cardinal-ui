@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.108.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.109.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.109.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -48,9 +48,6 @@
 					connector.edge.left.shape = circleA;
 					connector.edge.right.shape = circleB;
 					connector.attach( diagram.layer );
-
-					circleA.connector.add(connector);
-					circleB.connector.add(connector);
 
 					var update = function () {
 						var t = (Date.now()) / 3000 * Math.PI;
