@@ -2714,6 +2714,9 @@ img {
 					<a href="eshapebarpoints.html#_id" class="tsd-kind-icon">_id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="eshapebarpoints.html#_marker" class="tsd-kind-icon">_marker</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="eshapebarpoints.html#_parent" class="tsd-kind-icon">_parent</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
@@ -2755,6 +2758,9 @@ img {
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 					<a href="eshapebarpoints.html#length" class="tsd-kind-icon">length</a>
 				</li>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+					<a href="eshapebarpoints.html#marker" class="tsd-kind-icon">marker</a>
+				</li>
 				<li class=" tsd-kind-accessor tsd-parent-kind-class">
 					<a href="eshapebarpoints.html#position" class="tsd-kind-icon">position</a>
 				</li>
@@ -2784,6 +2790,9 @@ img {
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a href="eshapebarpoints.html#getcomputedsize" class="tsd-kind-icon">get<wbr>Computed<wbr>Size</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="eshapebarpoints.html#getmarker" class="tsd-kind-icon">get<wbr>Marker</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a href="eshapebarpoints.html#moveto" class="tsd-kind-icon">move<wbr>To</a>
@@ -2834,6 +2843,7 @@ img {
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapebarpoints.html#_id" class="tsd-kind-icon">_id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapebarpoints.html#_marker" class="tsd-kind-icon">_marker</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapebarpoints.html#_parent" class="tsd-kind-icon">_parent</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapebarpoints.html#_position" class="tsd-kind-icon">_position</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapebarpoints.html#_segments" class="tsd-kind-icon">_segments</a></li>
@@ -2853,6 +2863,7 @@ img {
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapebarpoints.html#formatter" class="tsd-kind-icon">formatter</a></li>
 							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eshapebarpoints.html#id" class="tsd-kind-icon">id</a></li>
 							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eshapebarpoints.html#length" class="tsd-kind-icon">length</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eshapebarpoints.html#marker" class="tsd-kind-icon">marker</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapebarpoints.html#position" class="tsd-kind-icon">position</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapebarpoints.html#segments" class="tsd-kind-icon">segments</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapebarpoints.html#size" class="tsd-kind-icon">size</a></li>
@@ -2868,6 +2879,7 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapebarpoints.html#copy" class="tsd-kind-icon">copy</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapebarpoints.html#deserialize" class="tsd-kind-icon">deserialize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="eshapebarpoints.html#getcomputedsize" class="tsd-kind-icon">get<wbr>Computed<wbr>Size</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapebarpoints.html#getmarker" class="tsd-kind-icon">get<wbr>Marker</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="eshapebarpoints.html#moveto" class="tsd-kind-icon">move<wbr>To</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapebarpoints.html#serialize" class="tsd-kind-icon">serialize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapebarpoints.html#set" class="tsd-kind-icon">set</a></li>
@@ -2884,28 +2896,19 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new EShape<wbr>Bar<wbr>Points<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a>, position<span class="tsd-signature-symbol">: </span><a href="../enums/eshapebarposition.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapeBarPosition</a>, size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, style<span class="tsd-signature-symbol">?: </span><a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapebarpoints.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeBarPoints</a></li>
+					<li class="tsd-signature tsd-kind-icon">new EShape<wbr>Bar<wbr>Points<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapebarpoints.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeBarPoints</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L30">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L33">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:33</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
 								<h5>parent: <a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a></h5>
-							</li>
-							<li>
-								<h5>position: <a href="../enums/eshapebarposition.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapeBarPosition</a></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> size: <span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> style: <a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="eshapebarpoints.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeBarPoints</a></h4>
@@ -2921,7 +2924,17 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L20">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:20</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L22">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:22</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_marker" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _marker</h3>
+				<div class="tsd-signature tsd-kind-icon">_marker<span class="tsd-signature-symbol">:</span> <a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L28">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:28</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2931,7 +2944,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_parent<span class="tsd-signature-symbol">:</span> <a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L19">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:19</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L21">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:21</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2941,7 +2954,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_position<span class="tsd-signature-symbol">:</span> <a href="../enums/eshapebarposition.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapeBarPosition</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L25">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:25</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L27">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:27</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2951,7 +2964,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_segments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L23">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:23</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L25">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:25</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2961,7 +2974,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L24">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:24</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L26">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:26</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2971,7 +2984,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_style<span class="tsd-signature-symbol">:</span> <a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L21">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:21</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L23">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:23</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2981,7 +2994,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_updated<wbr>Parent<wbr>SizeX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L28">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:28</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L31">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:31</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2991,7 +3004,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_updated<wbr>Parent<wbr>SizeY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L29">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:29</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L32">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:32</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3001,7 +3014,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_updated<wbr>Position<span class="tsd-signature-symbol">:</span> <a href="../enums/eshapebarposition.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapeBarPosition</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L30">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:30</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L33">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:33</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3011,7 +3024,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_updated<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L27">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:27</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L30">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:30</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3021,7 +3034,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L22">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:22</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L24">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:24</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3039,7 +3052,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#formatted">formatted</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L181">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:181</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L192">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:192</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -3058,7 +3071,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#formatter">formatter</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L173">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:173</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L184">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:184</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../index.html#eshapepointsformatter" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormatter</a></h4>
@@ -3067,7 +3080,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#formatter">formatter</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L177">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:177</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L188">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:188</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3091,7 +3104,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#id">id</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L127">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:127</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L125">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:125</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -3109,10 +3122,28 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#length">length</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L123">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:123</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L121">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:121</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<a name="marker" class="tsd-anchor"></a>
+				<h3>marker</h3>
+				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> marker<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#marker">marker</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L171">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:171</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -3127,7 +3158,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L157">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:157</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L155">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:155</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../enums/eshapebarposition.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapeBarPosition</a></h4>
@@ -3135,7 +3166,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L161">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:161</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L159">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:159</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3160,7 +3191,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#segments">segments</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L141">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:141</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L139">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:139</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -3169,7 +3200,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#segments">segments</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L145">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:145</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L143">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:143</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3193,7 +3224,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L149">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:149</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L147">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:147</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -3201,7 +3232,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L153">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:153</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L151">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:151</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3226,7 +3257,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#style">style</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L165">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:165</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L163">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:163</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a></h4>
@@ -3235,7 +3266,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#style">style</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L169">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:169</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L167">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:167</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3260,7 +3291,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#values">values</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L132">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:132</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L130">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:130</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -3269,7 +3300,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#values">values</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L137">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:137</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L135">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:135</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3296,7 +3327,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#calchitpointabs">calcHitPointAbs</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L261">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:261</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L272">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:272</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3347,7 +3378,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#clone">clone</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L235">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:235</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L246">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:246</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3371,7 +3402,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#copy">copy</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L185">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:185</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L196">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:196</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3394,7 +3425,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L253">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:253</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L264">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:264</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3420,7 +3451,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L52">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:52</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L50">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:50</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3442,6 +3473,30 @@ img {
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getmarker" class="tsd-anchor"></a>
+				<h3>get<wbr>Marker</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Marker<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#getmarker">getMarker</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L180">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:180</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>This method is more appropriate than the <code>marker</code> property in some situations
+								where the EShapePointsMarkerContainer instance do not need to be created.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 				<a name="moveto" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> move<wbr>To</h3>
@@ -3452,7 +3507,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L210">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:210</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L221">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:221</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3482,7 +3537,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#serialize">serialize</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L249">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:249</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L260">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:260</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3506,7 +3561,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#set">set</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L193">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:193</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L204">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:204</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3536,7 +3591,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapelinebasepoints.html">EShapeLineBasePoints</a>.<a href="../interfaces/eshapelinebasepoints.html#topoints">toPoints</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L239">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:239</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L250">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:250</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3559,7 +3614,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L73">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:73</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts#L71">src/main/typescript/wcardinal/ui/shape/variant/e-shape-bar-points.ts:71</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>

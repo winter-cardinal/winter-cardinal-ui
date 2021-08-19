@@ -2729,13 +2729,19 @@ img {
 					<a href="eshapelinepoints.html#_id" class="tsd-kind-icon">_id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="eshapelinepoints.html#_marker" class="tsd-kind-icon">_marker</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="eshapelinepoints.html#_parent" class="tsd-kind-icon">_parent</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a href="eshapelinepoints.html#_segments" class="tsd-kind-icon">_segments</a>
+					<a href="eshapelinepoints.html#_parentsizebase" class="tsd-kind-icon">_parent<wbr>Size<wbr>Base</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-					<a href="eshapelinepoints.html#_sizebase" class="tsd-kind-icon">_size<wbr>Base</a>
+					<a href="eshapelinepoints.html#_parentsizefitted" class="tsd-kind-icon">_parent<wbr>Size<wbr>Fitted</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a href="eshapelinepoints.html#_segments" class="tsd-kind-icon">_segments</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="eshapelinepoints.html#_style" class="tsd-kind-icon">_style</a>
@@ -2748,12 +2754,6 @@ img {
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a href="eshapelinepoints.html#_valuesbaselength" class="tsd-kind-icon">_values<wbr>Base<wbr>Length</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="eshapelinepoints.html#position" class="tsd-kind-icon">position</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="eshapelinepoints.html#size" class="tsd-kind-icon">size</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static">
 					<a href="eshapelinepoints.html#work_range" class="tsd-kind-icon">WORK_<wbr>RANGE</a>
@@ -2769,6 +2769,9 @@ img {
 				</li>
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 					<a href="eshapelinepoints.html#length" class="tsd-kind-icon">length</a>
+				</li>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+					<a href="eshapelinepoints.html#marker" class="tsd-kind-icon">marker</a>
 				</li>
 				<li class=" tsd-kind-accessor tsd-parent-kind-class">
 					<a href="eshapelinepoints.html#segments" class="tsd-kind-icon">segments</a>
@@ -2795,16 +2798,28 @@ img {
 					<a href="eshapelinepoints.html#fit" class="tsd-kind-icon">fit</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="eshapelinepoints.html#getmarker" class="tsd-kind-icon">get<wbr>Marker</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a href="eshapelinepoints.html#newmarker" class="tsd-kind-icon">new<wbr>Marker</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="eshapelinepoints.html#onmarkersizechange" class="tsd-kind-icon">on<wbr>Marker<wbr>Size<wbr>Change</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="eshapelinepoints.html#onmarkertypechange" class="tsd-kind-icon">on<wbr>Marker<wbr>Type<wbr>Change</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="eshapelinepoints.html#serialize" class="tsd-kind-icon">serialize</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="eshapelinepoints.html#set" class="tsd-kind-icon">set</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a href="eshapelinepoints.html#toboundary" class="tsd-kind-icon">to<wbr>Boundary</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a href="eshapelinepoints.html#todirty" class="tsd-kind-icon">to<wbr>Dirty</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="eshapelinepoints.html#tofitted" class="tsd-kind-icon">to<wbr>Fitted</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="eshapelinepoints.html#topoints" class="tsd-kind-icon">to<wbr>Points</a>
@@ -2842,7 +2857,7 @@ img {
 							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="eshapelinepoints.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section ">
+					<section class="tsd-index-section tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_formatted" class="tsd-kind-icon">_formatted</a></li>
@@ -2851,15 +2866,15 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_formattedvaluesbase" class="tsd-kind-icon">_formatted<wbr>Values<wbr>Base</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_formatter" class="tsd-kind-icon">_formatter</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_id" class="tsd-kind-icon">_id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_marker" class="tsd-kind-icon">_marker</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_parent" class="tsd-kind-icon">_parent</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_parentsizebase" class="tsd-kind-icon">_parent<wbr>Size<wbr>Base</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_parentsizefitted" class="tsd-kind-icon">_parent<wbr>Size<wbr>Fitted</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_segments" class="tsd-kind-icon">_segments</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_sizebase" class="tsd-kind-icon">_size<wbr>Base</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_style" class="tsd-kind-icon">_style</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_values" class="tsd-kind-icon">_values</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_valuesbase" class="tsd-kind-icon">_values<wbr>Base</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#_valuesbaselength" class="tsd-kind-icon">_values<wbr>Base<wbr>Length</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="eshapelinepoints.html#position" class="tsd-kind-icon">position</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="eshapelinepoints.html#size" class="tsd-kind-icon">size</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-static"><a href="eshapelinepoints.html#work_range" class="tsd-kind-icon">WORK_<wbr>RANGE</a></li>
 						</ul>
 					</section>
@@ -2870,6 +2885,7 @@ img {
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapelinepoints.html#formatter" class="tsd-kind-icon">formatter</a></li>
 							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eshapelinepoints.html#id" class="tsd-kind-icon">id</a></li>
 							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eshapelinepoints.html#length" class="tsd-kind-icon">length</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eshapelinepoints.html#marker" class="tsd-kind-icon">marker</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapelinepoints.html#segments" class="tsd-kind-icon">segments</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapelinepoints.html#style" class="tsd-kind-icon">style</a></li>
 							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="eshapelinepoints.html#values" class="tsd-kind-icon">values</a></li>
@@ -2883,10 +2899,14 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#copy" class="tsd-kind-icon">copy</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#deserialize" class="tsd-kind-icon">deserialize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#fit" class="tsd-kind-icon">fit</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#getmarker" class="tsd-kind-icon">get<wbr>Marker</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#newmarker" class="tsd-kind-icon">new<wbr>Marker</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#onmarkersizechange" class="tsd-kind-icon">on<wbr>Marker<wbr>Size<wbr>Change</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#onmarkertypechange" class="tsd-kind-icon">on<wbr>Marker<wbr>Type<wbr>Change</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#serialize" class="tsd-kind-icon">serialize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#set" class="tsd-kind-icon">set</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#toboundary" class="tsd-kind-icon">to<wbr>Boundary</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#todirty" class="tsd-kind-icon">to<wbr>Dirty</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#tofitted" class="tsd-kind-icon">to<wbr>Fitted</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eshapelinepoints.html#topoints" class="tsd-kind-icon">to<wbr>Points</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="eshapelinepoints.html#toscaled" class="tsd-kind-icon">to<wbr>Scaled</a></li>
 						</ul>
@@ -2900,13 +2920,13 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new EShape<wbr>Line<wbr>Points<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a>, points<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, segments<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, style<span class="tsd-signature-symbol">: </span><a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapelinepoints.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeLinePoints</a></li>
+					<li class="tsd-signature tsd-kind-icon">new EShape<wbr>Line<wbr>Points<span class="tsd-signature-symbol">(</span>parent<span class="tsd-signature-symbol">: </span><a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapelinepoints.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeLinePoints</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L40">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:40</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L46">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:46</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2914,22 +2934,13 @@ img {
 							<li>
 								<h5>parent: <a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a></h5>
 							</li>
-							<li>
-								<h5>points: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-							<li>
-								<h5>segments: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-							<li>
-								<h5>style: <a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a></h5>
-							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="eshapelinepoints.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeLinePoints</a></h4>
 					</li>
 				</ul>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group ">
+		<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 				<a name="_formatted" class="tsd-anchor"></a>
@@ -2937,7 +2948,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_formatted<span class="tsd-signature-symbol">:</span> <a href="../interfaces/eshapepointsformattedwithboundary.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsFormattedWithBoundary</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L38">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:38</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L42">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:42</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2947,7 +2958,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_formatted<wbr>Boundary<wbr>Base<span class="tsd-signature-symbol">:</span> <a href="../index.html#eshapepointsformattedboundary" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormattedBoundary</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L40">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:40</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L44">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:44</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2957,7 +2968,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_formatted<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L36">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:36</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L40">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:40</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2967,7 +2978,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_formatted<wbr>Values<wbr>Base<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L39">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:39</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L43">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:43</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2977,7 +2988,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_formatter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../index.html#eshapepointsformatter" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormatter</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L37">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:37</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L41">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:41</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2987,7 +2998,17 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L34">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:34</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L38">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:38</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_marker" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _marker</h3>
+				<div class="tsd-signature tsd-kind-icon">_marker<span class="tsd-signature-symbol">:</span> <a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L46">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:46</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2997,7 +3018,27 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_parent<span class="tsd-signature-symbol">:</span> <a href="../interfaces/eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L26">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:26</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L31">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:31</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_parentsizebase" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _parent<wbr>Size<wbr>Base</h3>
+				<div class="tsd-signature tsd-kind-icon">_parent<wbr>Size<wbr>Base<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Point</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L36">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:36</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+				<a name="_parentsizefitted" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _parent<wbr>Size<wbr>Fitted</h3>
+				<div class="tsd-signature tsd-kind-icon">_parent<wbr>Size<wbr>Fitted<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Point</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L37">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:37</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3007,17 +3048,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_segments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L30">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:30</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-				<a name="_sizebase" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagProtected">Protected</span> _size<wbr>Base</h3>
-				<div class="tsd-signature tsd-kind-icon">_size<wbr>Base<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Point</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L32">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:32</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L35">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:35</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3027,7 +3058,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_style<span class="tsd-signature-symbol">:</span> <a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L35">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:35</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L39">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:39</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3037,7 +3068,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L29">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:29</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L34">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:34</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3047,7 +3078,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_values<wbr>Base<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L27">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:27</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L32">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:32</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3057,27 +3088,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">_values<wbr>Base<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L28">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:28</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="position" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> position</h3>
-				<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Point</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L31">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:31</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="size" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> size</h3>
-				<div class="tsd-signature tsd-kind-icon">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Point</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L33">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:33</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L33">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:33</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3087,7 +3098,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">WORK_<wbr>RANGE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> = ...</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L24">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:24</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L29">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:29</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3105,7 +3116,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#formatted">formatted</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L211">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:211</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L237">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:237</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../index.html#eshapepointsformatted" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormatted</a></h4>
@@ -3124,7 +3135,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#formatter">formatter</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L199">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:199</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L225">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:225</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../index.html#eshapepointsformatter" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormatter</a></h4>
@@ -3133,7 +3144,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#formatter">formatter</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L203">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:203</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L229">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:229</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3157,7 +3168,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#id">id</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L166">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:166</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L165">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:165</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -3175,10 +3186,28 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#length">length</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L68">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:68</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L63">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:63</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<a name="marker" class="tsd-anchor"></a>
+				<h3>marker</h3>
+				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> marker<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#marker">marker</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L198">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:198</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -3194,7 +3223,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#segments">segments</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L180">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:180</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L179">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:179</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -3203,7 +3232,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#segments">segments</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L187">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:187</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L186">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:186</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3233,7 +3262,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#style">style</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L191">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:191</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L190">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:190</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../enums/eshapepointsstyle.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EShapePointsStyle</a></h4>
@@ -3242,7 +3271,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#style">style</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L195">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:195</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L194">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:194</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3267,7 +3296,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#values">values</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L171">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:171</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L170">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:170</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -3276,7 +3305,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#values">values</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L176">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:176</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L175">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:175</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3302,7 +3331,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L500">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:500</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L513">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:513</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -3353,7 +3382,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#clone">clone</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L468">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:468</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L471">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:471</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3377,7 +3406,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#copy">copy</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L338">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:338</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L333">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:333</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3400,7 +3429,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L488">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:488</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L497">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:497</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3426,7 +3455,82 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L72">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L71">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:71</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="getmarker" class="tsd-anchor"></a>
+				<h3>get<wbr>Marker</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Marker<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#getmarker">getMarker</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L207">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:207</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>This method is more appropriate than the <code>marker</code> property in some situations
+								where the EShapePointsMarkerContainer instance do not need to be created.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+				<a name="newmarker" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagProtected">Protected</span> new<wbr>Marker</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<li class="tsd-signature tsd-kind-icon">new<wbr>Marker<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L211">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:211</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="../interfaces/eshapepointsmarkercontainer.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapePointsMarkerContainer</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="onmarkersizechange" class="tsd-anchor"></a>
+				<h3>on<wbr>Marker<wbr>Size<wbr>Change</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">on<wbr>Marker<wbr>Size<wbr>Change<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L221">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:221</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="onmarkertypechange" class="tsd-anchor"></a>
+				<h3>on<wbr>Marker<wbr>Type<wbr>Change</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">on<wbr>Marker<wbr>Type<wbr>Change<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L215">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:215</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -3444,7 +3548,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#serialize">serialize</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L482">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:482</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L485">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:485</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3468,7 +3572,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#set">set</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L342">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:342</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L342">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:342</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3488,32 +3592,6 @@ img {
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-				<a name="toboundary" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Boundary</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<li class="tsd-signature tsd-kind-icon">to<wbr>Boundary<span class="tsd-signature-symbol">(</span>values<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, result<span class="tsd-signature-symbol">: </span><a href="../index.html#eshapepointsformattedboundary" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormattedBoundary</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../index.html#eshapepointsformattedboundary" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormattedBoundary</a></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L307">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:307</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>values: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-							<li>
-								<h5>result: <a href="../index.html#eshapepointsformattedboundary" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormattedBoundary</a></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="../index.html#eshapepointsformattedboundary" class="tsd-signature-type" data-tsd-kind="Type alias">EShapePointsFormattedBoundary</a></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 				<a name="todirty" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> to<wbr>Dirty</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
@@ -3523,7 +3601,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L447">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:447</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L450">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:450</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3532,6 +3610,23 @@ img {
 								<h5>revalidate: <span class="tsd-signature-type">boolean</span></h5>
 							</li>
 						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="tofitted" class="tsd-anchor"></a>
+				<h3>to<wbr>Fitted</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>Fitted<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L67">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:67</a></li>
+							</ul>
+						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
@@ -3547,7 +3642,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/eshapepoints.html">EShapePoints</a>.<a href="../interfaces/eshapepoints.html#topoints">toPoints</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L472">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:472</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L475">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:475</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3570,7 +3665,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.107.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L280">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:280</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts#L306">src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-points.ts:306</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
