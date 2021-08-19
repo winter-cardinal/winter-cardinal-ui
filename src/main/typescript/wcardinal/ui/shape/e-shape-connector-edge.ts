@@ -23,4 +23,6 @@ export interface EShapeConnectorEdge {
 	isEqual(other: EShapeConnectorEdge): boolean;
 	fit(forcibly?: boolean): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;
+	attach(): this;
+	detach(): this;
 }

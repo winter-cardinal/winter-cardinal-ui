@@ -49,12 +49,18 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 
 	attach(parent: EShapeContainer | EShape, at?: number): this {
 		super.attach(parent, at);
-		this.edge.fit(true);
+		this._edge.attach();
+		return this;
+	}
+
+	detach(): this {
+		super.detach();
+		this._edge.detach();
 		return this;
 	}
 
 	protected onEdgeChange(): void {
-		const edge = this.edge;
+		const edge = this._edge;
 		const left = edge.left;
 		const leftLocalId = left.localId;
 		const right = edge.right;
@@ -84,7 +90,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 			const sx = Math.abs(lx - rx);
 			const sy = Math.abs(ly - ry);
 			this.size.set(sx, sy);
-			const points = this.points;
+			const points = this._points;
 			points.set(this.toValues(lx - cx, ly - cy, rx - cx, ry - cy, sx, sy, points.values));
 			this.allowUploadedUpdate();
 		}
@@ -110,7 +116,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
 		super.copy(source, part);
 		if (source instanceof EShapeConnectorLine) {
-			this.edge.copy(source.edge);
+			this._edge.copy(source.edge);
 		}
 		return this;
 	}

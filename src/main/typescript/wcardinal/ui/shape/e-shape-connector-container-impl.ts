@@ -8,74 +8,83 @@ import { EShapeConnector } from "./e-shape-connector";
 
 export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 	protected _parent: unknown;
-	protected _list: EShapeConnector[];
+	protected _connectors: Set<EShapeConnector>;
+	protected _onFitBound?: (connector: EShapeConnector) => void;
+	protected _onFitBoundForcibly?: (connector: EShapeConnector) => void;
 
 	constructor(parent: unknown) {
 		this._parent = parent;
-		this._list = [];
+		this._connectors = new Set<EShapeConnector>();
 	}
 
-	add(target: EShapeConnector, at?: number): boolean {
-		const list = this._list;
-		if (at != null) {
-			if (0 <= at && at < list.length) {
-				list.splice(at, 0, target);
-				return true;
-			} else if (at === list.length) {
-				list.push(target);
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			list.push(target);
+	add(target: EShapeConnector): boolean {
+		const connectors = this._connectors;
+		if (!connectors.has(target)) {
+			connectors.add(target);
 			return true;
 		}
+		return false;
 	}
 
-	get(index: number): EShapeConnector | null {
-		const list = this._list;
-		if (0 <= index && index < list.length) {
-			return list[index];
-		}
-		return null;
+	contains(target: EShapeConnector): boolean {
+		return this._connectors.has(target);
 	}
 
 	size(): number {
-		return this._list.length;
+		return this._connectors.size;
 	}
 
-	remove(index: number): EShapeConnector | null {
-		const list = this._list;
-		if (0 <= index && index < list.length) {
-			return list.splice(index, 1)[0];
-		}
-		return null;
+	remove(target: EShapeConnector): boolean {
+		return this._connectors.delete(target);
 	}
 
 	clear(): boolean {
-		const list = this._list;
-		if (0 < list.length) {
-			list.length = 0;
+		const connectors = this._connectors;
+		if (0 < connectors.size) {
+			this._connectors.clear();
 			return true;
 		}
 		return false;
 	}
 
 	fit(forcibly?: boolean): void {
-		const list = this._list;
+		this._connectors.forEach(this.toOnFitBound(forcibly));
+	}
+
+	protected toOnFitBound(forcibly?: boolean): (connector: EShapeConnector) => void {
+		if (forcibly) {
+			let result = this._onFitBoundForcibly;
+			if (result == null) {
+				result = this.newOnFitBound(true);
+				this._onFitBoundForcibly = result;
+			}
+			return result;
+		} else {
+			let result = this._onFitBound;
+			if (result == null) {
+				result = this.newOnFitBound(false);
+				this._onFitBound = result;
+			}
+			return result;
+		}
+	}
+
+	protected newOnFitBound(forcibly?: boolean): (connector: EShapeConnector) => void {
+		return (connector: EShapeConnector): void => {
+			this.onFit(connector, forcibly);
+		};
+	}
+
+	protected onFit(target: EShapeConnector, forcibly?: boolean): void {
+		const edge = target.edge;
+		const left = edge.left;
 		const parent = this._parent;
-		for (let i = 0, imax = list.length; i < imax; ++i) {
-			const shape = list[i];
-			const edge = shape.edge;
-			const left = edge.left;
-			if (left.shape === parent) {
-				left.fit(forcibly);
-			} else {
-				const right = edge.right;
-				if (right.shape === parent) {
-					right.fit(forcibly);
-				}
+		if (left.shape === parent) {
+			left.fit(forcibly);
+		} else {
+			const right = edge.right;
+			if (right.shape === parent) {
+				right.fit(forcibly);
 			}
 		}
 	}

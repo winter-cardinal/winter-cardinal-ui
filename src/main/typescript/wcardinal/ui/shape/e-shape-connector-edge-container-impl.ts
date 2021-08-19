@@ -3,15 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeConnector } from "./e-shape-connector";
 import { EShapeConnectorEdge } from "./e-shape-connector-edge";
 import { EShapeConnectorEdgeContainer } from "./e-shape-connector-edge-container";
-import {
-	EShapeConnectorEdgeImpl,
-	EShapeConnectorEdgeImplParent
-} from "./e-shape-connector-edge-impl";
+import { EShapeConnectorEdgeImpl } from "./e-shape-connector-edge-impl";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 
-export interface EShapeConnectorEdgeContainerImplParent extends EShapeConnectorEdgeImplParent {}
+export interface EShapeConnectorEdgeContainerImplParent extends EShapeConnector {}
 
 export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeContainer {
 	protected _parent: EShapeConnectorEdgeContainerImplParent;
@@ -50,5 +48,21 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 		const right = this._right;
 		const rightId = right == null ? -1 : right.serialize(manager);
 		return manager.addResource(`[${leftId},${rightId}]`);
+	}
+
+	attach(): this {
+		const left = this._left;
+		const right = this._right;
+		left.attach();
+		right.attach();
+		left.fit(true);
+		right.fit(true);
+		return this;
+	}
+
+	detach(): this {
+		this._left.detach();
+		this._right.detach();
+		return this;
 	}
 }

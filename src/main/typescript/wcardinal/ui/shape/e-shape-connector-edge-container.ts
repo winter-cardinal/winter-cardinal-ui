@@ -12,4 +12,6 @@ export interface EShapeConnectorEdgeContainer {
 	copy(source: EShapeConnectorEdgeContainer): this;
 	fit(forcibly?: boolean): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;
+	attach(): this;
+	detach(): this;
 }

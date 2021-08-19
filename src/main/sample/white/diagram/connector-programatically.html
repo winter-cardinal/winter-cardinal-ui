@@ -49,9 +49,6 @@
 					connector.edge.right.shape = circleB;
 					connector.attach( diagram.layer );
 
-					circleA.connector.add(connector);
-					circleB.connector.add(connector);
-
 					var update = function () {
 						var t = (Date.now()) / 3000 * Math.PI;
 						circleA.transform.position.y = 250 + 100 * Math.cos(+t);

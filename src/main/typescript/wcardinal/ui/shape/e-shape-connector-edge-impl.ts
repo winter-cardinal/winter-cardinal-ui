@@ -5,19 +5,14 @@
 
 import { IPoint, ObservablePoint, Point } from "pixi.js";
 import { EShape } from "./e-shape";
+import { EShapeConnector } from "./e-shape-connector";
 import { EShapeConnectorEdge } from "./e-shape-connector-edge";
-import { EShapeContainer } from "./e-shape-container";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
-
-export interface EShapeConnectorEdgeImplParent {
-	readonly parent: EShapeContainer | EShape | null;
-	updateTransform(): void;
-}
 
 export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected static WORK_UPDATE_LOCAL?: Point;
 
-	protected _parent: EShapeConnectorEdgeImplParent;
+	protected _parent: EShapeConnector;
 	protected _onChange: () => void;
 	protected _shape: EShape | null;
 	protected _position: IPoint;
@@ -28,7 +23,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected _isChanged: boolean;
 	protected _isLocalChanged: boolean;
 
-	constructor(parent: EShapeConnectorEdgeImplParent, onChange: () => void) {
+	constructor(parent: EShapeConnector, onChange: () => void) {
 		this._parent = parent;
 		this._onChange = onChange;
 		this._shape = null;
@@ -180,5 +175,21 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		this._id += 1;
 		this._localId = this._id;
 		this._onChange();
+	}
+
+	attach(): this {
+		const shape = this._shape;
+		if (shape) {
+			shape.connector.add(this._parent);
+		}
+		return this;
+	}
+
+	detach(): this {
+		const shape = this._shape;
+		if (shape) {
+			shape.connector.remove(this._parent);
+		}
+		return this;
 	}
 }

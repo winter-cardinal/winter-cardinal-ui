@@ -46,9 +46,6 @@
 		connector.edge.right.shape = circleB;
 		connector.attach( container );
 
-		circleA.connector.add(connector);
-		circleB.connector.add(connector);
-
 		application.stage.addChild( container );
 		var update = function () {
 			var t = (Date.now()) / 3000 * Math.PI;
