@@ -124,7 +124,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
 		result[15] = manager.addResource(
-			`[${this._edge.serialize(manager)},${this._points.style}]`
+			`[${this._edge.serialize(manager)},${this._points.serialize(manager)}]`
 		);
 		return result;
 	}

@@ -5,7 +5,9 @@
 
 import { IPoint } from "pixi.js";
 import { EShape } from "./e-shape";
+import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
+import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 
 export type EShapeConnectorEdgeSerialized = [number | null, number?, number?, number?, number?];
 
@@ -23,6 +25,11 @@ export interface EShapeConnectorEdge {
 	isEqual(other: EShapeConnectorEdge): boolean;
 	fit(forcibly?: boolean): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;
+	deserialize(
+		resourceId: number,
+		mapping: EShapeUuidMapping,
+		manager: EShapeResourceManagerDeserialization
+	): void;
 	attach(): this;
 	detach(): this;
 }

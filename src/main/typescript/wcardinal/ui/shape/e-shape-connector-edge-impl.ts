@@ -6,8 +6,10 @@
 import { IPoint, ObservablePoint, Point } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeConnector } from "./e-shape-connector";
-import { EShapeConnectorEdge } from "./e-shape-connector-edge";
+import { EShapeConnectorEdge, EShapeConnectorEdgeSerialized } from "./e-shape-connector-edge";
+import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
+import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 
 export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected static WORK_UPDATE_LOCAL?: Point;
@@ -128,6 +130,34 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		return manager.addResource(
 			`[${shapeUuid},${position.x},${position.y},${local.x},${local.y}]`
 		);
+	}
+
+	deserialize(
+		resourceId: number,
+		mapping: EShapeUuidMapping,
+		manager: EShapeResourceManagerDeserialization
+	): void {
+		const resources = manager.resources;
+		if (0 <= resourceId && resourceId < resources.length) {
+			let parsed = manager.getExtension<EShapeConnectorEdgeSerialized>(resourceId);
+			if (parsed == null) {
+				parsed = JSON.parse(resources[resourceId]) as EShapeConnectorEdgeSerialized;
+				manager.setExtension(resourceId, parsed);
+			}
+			let shape: EShape | null = null;
+			const shapeUuid = parsed[0];
+			if (shapeUuid != null) {
+				shape = mapping.find(shapeUuid) || null;
+			}
+			this.lock();
+			this.shape = shape;
+			this.position.set(parsed[1], parsed[2]);
+			this.local.set(parsed[3], parsed[4]);
+			this.unlock();
+			if (shape) {
+				shape.connector.add(this);
+			}
+		}
 	}
 
 	fit(forcibly?: boolean): this {
