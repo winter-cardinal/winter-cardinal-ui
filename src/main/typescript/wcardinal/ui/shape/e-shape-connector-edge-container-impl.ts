@@ -9,14 +9,12 @@ import { EShapeConnectorEdgeContainer } from "./e-shape-connector-edge-container
 import { EShapeConnectorEdgeImpl } from "./e-shape-connector-edge-impl";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 
-export interface EShapeConnectorEdgeContainerImplParent extends EShapeConnector {}
-
 export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeContainer {
-	protected _parent: EShapeConnectorEdgeContainerImplParent;
+	protected _parent: EShapeConnector;
 	protected _left: EShapeConnectorEdge;
 	protected _right: EShapeConnectorEdge;
 
-	constructor(parent: EShapeConnectorEdgeContainerImplParent, onChange: () => void) {
+	constructor(parent: EShapeConnector, onChange: () => void) {
 		this._parent = parent;
 		this._left = new EShapeConnectorEdgeImpl(parent, onChange);
 		this._right = new EShapeConnectorEdgeImpl(parent, onChange);

@@ -14,7 +14,6 @@ import { EShapeCopyPart } from "../e-shape-copy-part";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShape } from "../e-shape";
-import { EShapeContainer } from "../e-shape-container";
 
 export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnector {
 	protected _edge: EShapeConnectorEdgeContainer;
@@ -46,16 +45,14 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		return this._edge;
 	}
 
-	attach(parent: EShapeContainer | EShape, at?: number): this {
-		super.attach(parent, at);
+	onAttach(): void {
+		super.onAttach();
 		this._edge.attach();
-		return this;
 	}
 
-	detach(): this {
-		super.detach();
+	onDetach(): void {
 		this._edge.detach();
-		return this;
+		super.onDetach();
 	}
 
 	protected onEdgeChange(): void {

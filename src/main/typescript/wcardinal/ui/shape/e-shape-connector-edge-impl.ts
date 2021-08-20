@@ -180,7 +180,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	attach(): this {
 		const shape = this._shape;
 		if (shape) {
-			shape.connector.add(this._parent);
+			shape.connector.add(this);
 		}
 		return this;
 	}
@@ -188,7 +188,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	detach(): this {
 		const shape = this._shape;
 		if (shape) {
-			shape.connector.remove(this._parent);
+			shape.connector.remove(this);
 		}
 		return this;
 	}

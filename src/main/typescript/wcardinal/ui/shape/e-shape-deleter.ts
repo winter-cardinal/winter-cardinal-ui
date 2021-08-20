@@ -38,6 +38,7 @@ export class EShapeDeleter {
 					child.parent = null;
 					child.selected = false;
 					child.uploaded = undefined;
+					child.onDetach();
 				} else {
 					const size = children.length - (i + 1);
 					if (0 < size) {
@@ -77,6 +78,7 @@ export class EShapeDeleter {
 					child.parent = null;
 					child.selected = false;
 					child.uploaded = undefined;
+					child.onDetach();
 				} else {
 					children.length = i + 1;
 					if (shapes != null) {

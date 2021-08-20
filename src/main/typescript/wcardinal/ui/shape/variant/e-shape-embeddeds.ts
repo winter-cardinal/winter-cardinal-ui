@@ -89,6 +89,7 @@ export class EShapeEmbeddeds {
 			const clone = layers[i].clone();
 			clone.parent = shape;
 			children.push(clone);
+			clone.onAttach();
 		}
 		shape.onChildTransformChange();
 		shape.toDirty();

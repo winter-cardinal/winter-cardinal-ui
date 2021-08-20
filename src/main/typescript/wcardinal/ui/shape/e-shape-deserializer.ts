@@ -73,7 +73,9 @@ export class EShapeDeserializer {
 			childrenPromise = Promise.all(childrenOrPromises).then((children: EShape[]) => {
 				result.children = children;
 				for (let i = 0, imax = children.length; i < imax; ++i) {
-					children[i].parent = result;
+					const child = children[i];
+					child.parent = result;
+					child.onAttach();
 				}
 				result.onChildTransformChange();
 				result.toDirty();

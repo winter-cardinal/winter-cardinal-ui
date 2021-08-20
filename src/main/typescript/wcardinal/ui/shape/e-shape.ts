@@ -77,7 +77,9 @@ export interface EShape extends utils.EventEmitter {
 	//
 	toDirty(): void;
 	attach(parent: EShapeContainer | EShape, at?: number): this;
+	onAttach(): void;
 	detach(): this;
+	onDetach(): void;
 	copy(source: EShape): this;
 	copy(source: EShape, part: EShapeCopyPart): this;
 	clone(): EShape;
@@ -99,6 +101,7 @@ export interface EShape extends utils.EventEmitter {
 	disallowOnTransformChange(): void;
 	allowOnTransformChange(invokeOnTransformChange: boolean): void;
 	onTransformChange(): void;
+	onParentTransformChange(): void;
 	onChildTransformChange(): void;
 
 	// Uploaded

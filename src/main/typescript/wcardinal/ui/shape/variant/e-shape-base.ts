@@ -151,8 +151,16 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onTransformChange(): void {
 		this.onTransformChange_();
-		this.updateUploadedRecursively();
+		this.onParentTransformChange();
+	}
+
+	onParentTransformChange(): void {
+		this.updateUploaded();
 		this._connector?.fit(true);
+		const children = this.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].onParentTransformChange();
+		}
 	}
 
 	protected onTransformChange_(): void {
@@ -313,7 +321,19 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this.uploaded = undefined;
 		parent.onChildTransformChange();
 		parent.toDirty();
+		this.onAttach();
 		return this;
+	}
+
+	onAttach(): void {
+		const connector = this._connector;
+		if (connector) {
+			connector.attach();
+		}
+		const children = this.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].onAttach();
+		}
 	}
 
 	detach(): this {
@@ -327,9 +347,21 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				children.splice(index, 1);
 				parent.onChildTransformChange();
 				parent.toDirty();
+				this.onDetach();
 			}
 		}
 		return this;
+	}
+
+	onDetach(): void {
+		const connector = this._connector;
+		if (connector) {
+			connector.detach();
+		}
+		const children = this.children;
+		for (let i = 0, imax = children.length; i < imax; ++i) {
+			children[i].onDetach();
+		}
 	}
 
 	// Transform

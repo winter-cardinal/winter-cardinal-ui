@@ -3,21 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShape } from "./e-shape";
 import { EShapeConnectorContainer } from "./e-shape-connector-container";
-import { EShapeConnector } from "./e-shape-connector";
+import { EShapeConnectorEdge } from "./e-shape-connector-edge";
 
 export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
-	protected _parent: unknown;
-	protected _connectors: Set<EShapeConnector>;
-	protected _onFitBound?: (connector: EShapeConnector) => void;
-	protected _onFitBoundForcibly?: (connector: EShapeConnector) => void;
+	protected _parent: EShape;
+	protected _connectors: Set<EShapeConnectorEdge>;
+	protected _onFitBound?: (connector: EShapeConnectorEdge) => void;
+	protected _onFitBoundForcibly?: (connector: EShapeConnectorEdge) => void;
 
-	constructor(parent: unknown) {
+	constructor(parent: EShape) {
 		this._parent = parent;
-		this._connectors = new Set<EShapeConnector>();
+		this._connectors = new Set<EShapeConnectorEdge>();
 	}
 
-	add(target: EShapeConnector): boolean {
+	add(target: EShapeConnectorEdge): boolean {
 		const connectors = this._connectors;
 		if (!connectors.has(target)) {
 			connectors.add(target);
@@ -26,7 +27,7 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 		return false;
 	}
 
-	contains(target: EShapeConnector): boolean {
+	contains(target: EShapeConnectorEdge): boolean {
 		return this._connectors.has(target);
 	}
 
@@ -34,7 +35,7 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 		return this._connectors.size;
 	}
 
-	remove(target: EShapeConnector): boolean {
+	remove(target: EShapeConnectorEdge): boolean {
 		return this._connectors.delete(target);
 	}
 
@@ -51,7 +52,7 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 		this._connectors.forEach(this.toOnFitBound(forcibly));
 	}
 
-	protected toOnFitBound(forcibly?: boolean): (connector: EShapeConnector) => void {
+	protected toOnFitBound(forcibly?: boolean): (connector: EShapeConnectorEdge) => void {
 		if (forcibly) {
 			let result = this._onFitBoundForcibly;
 			if (result == null) {
@@ -69,23 +70,28 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 		}
 	}
 
-	protected newOnFitBound(forcibly?: boolean): (connector: EShapeConnector) => void {
-		return (connector: EShapeConnector): void => {
-			this.onFit(connector, forcibly);
+	protected newOnFitBound(forcibly?: boolean): (edge: EShapeConnectorEdge) => void {
+		return (edge: EShapeConnectorEdge): void => {
+			this.onFit(edge, forcibly);
 		};
 	}
 
-	protected onFit(target: EShapeConnector, forcibly?: boolean): void {
-		const edge = target.edge;
-		const left = edge.left;
+	protected onFit(target: EShapeConnectorEdge, forcibly?: boolean): void {
+		target.fit(forcibly);
+	}
+
+	attach(): this {
 		const parent = this._parent;
-		if (left.shape === parent) {
-			left.fit(forcibly);
-		} else {
-			const right = edge.right;
-			if (right.shape === parent) {
-				right.fit(forcibly);
-			}
-		}
+		this._connectors.forEach((edge: EShapeConnectorEdge): void => {
+			edge.shape = parent;
+		});
+		return this;
+	}
+
+	detach(): this {
+		this._connectors.forEach((edge: EShapeConnectorEdge): void => {
+			edge.shape = null;
+		});
+		return this;
 	}
 }
