@@ -176,11 +176,10 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 				work.set(size.x * position.x, size.y * position.y);
 				shape.toGlobal(work, work);
 				const parent = this._parent;
-				parent.updateTransform();
 				const parentParent = parent.parent;
 				if (parentParent) {
 					parent.updateTransform();
-					parentParent.toLocal(work, undefined, work, false);
+					parentParent.toLocal(work, undefined, work, true);
 				}
 				this._local.copyFrom(work);
 			}
