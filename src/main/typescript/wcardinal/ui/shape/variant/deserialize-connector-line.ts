@@ -84,7 +84,7 @@ const onConnectorLineEdgeDeserialized = (
 		edge.local.set(parsed[3], parsed[4]);
 		edge.unlock();
 		if (shape) {
-			shape.connector.add(connector);
+			shape.connector.add(edge);
 		}
 	}
 };
