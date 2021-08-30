@@ -173,9 +173,13 @@ export class DTableBody<
 		if (content == null) {
 			return;
 		}
+		const contentParent = content.parent;
+		if (contentParent == null) {
+			return;
+		}
 
 		const rows = this.children as Array<DTableBodyRow<ROW>>;
-		const height = content.parent.height;
+		const height = contentParent.height;
 		const rowHeight = this._rowHeight;
 
 		const data = this._data;

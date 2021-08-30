@@ -115,11 +115,15 @@ export abstract class DItemUpdater<
 			}
 			return;
 		}
-
 		const content = this._content;
+		const contentParent = content.parent;
+		if (contentParent == null) {
+			return;
+		}
+
 		const container = this._container;
 		const items = container.children as ITEM[];
-		const height = content.parent.height;
+		const height = contentParent.height;
 
 		const data = this._data;
 		const mapped = this.toMapped(data);
