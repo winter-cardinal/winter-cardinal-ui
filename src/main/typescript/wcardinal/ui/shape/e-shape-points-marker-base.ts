@@ -5,11 +5,13 @@
 
 import { IPoint, Matrix, ObservablePoint } from "pixi.js";
 import { EShapeDefaults } from "./e-shape-defaults";
+import { EShapeFill } from "./e-shape-fill";
 import { EShapePointsFormatted } from "./e-shape-points-formatted";
 import { EShapePointsMarker, EShapePointsMarkerSerizlized } from "./e-shape-points-marker";
 import { EShapePointsMarkerType } from "./e-shape-points-marker-type";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
+import { EShapeFillImpl } from "./variant/e-shape-fill-impl";
 
 export interface EShapePointsMarkerBaseParentParent {
 	readonly id: number;
@@ -20,6 +22,7 @@ export interface EShapePointsMarkerBaseParent {
 	readonly parent: EShapePointsMarkerBaseParentParent;
 	onTypeChange(): void;
 	onSizeChange(): void;
+	onFillChange(): void;
 }
 
 export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
@@ -27,16 +30,19 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 	protected _lockCount: number;
 	protected _isTypeChanged: boolean;
 	protected _isSizeChanged: boolean;
+	protected _isFillChanged: boolean;
 	protected _type: EShapePointsMarkerType;
 	protected _size: IPoint;
 	protected _transform?: Matrix;
 	protected _transformId: number;
+	protected _fill: EShapeFill;
 
 	constructor(parent: EShapePointsMarkerBaseParent) {
 		this._parent = parent;
 		this._lockCount = 0;
 		this._isTypeChanged = false;
 		this._isSizeChanged = false;
+		this._isFillChanged = false;
 		this._type = EShapePointsMarkerType.NONE;
 		this._size = new ObservablePoint(
 			(): void => {
@@ -46,7 +52,12 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 			EShapeDefaults.SIZE_X * 0.15,
 			EShapeDefaults.SIZE_Y * 0.15
 		);
+		this._fill = this.newFill();
 		this._transformId = 0;
+	}
+
+	protected newFill(): EShapeFill {
+		return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
 	}
 
 	lock(): this {
@@ -54,6 +65,7 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 		if (this._lockCount === 1) {
 			this._isTypeChanged = false;
 			this._isSizeChanged = false;
+			this._isFillChanged = false;
 		}
 		return this;
 	}
@@ -65,9 +77,12 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 				this.onTypeChange();
 			} else if (this._isSizeChanged) {
 				this.onSizeChange();
+			} else if (this._isFillChanged) {
+				this.onFillChange();
 			}
 			this._isTypeChanged = false;
 			this._isSizeChanged = false;
+			this._isFillChanged = false;
 		}
 		return this;
 	}
@@ -150,6 +165,22 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 		return result;
 	}
 
+	get fill(): EShapeFill {
+		return this._fill;
+	}
+
+	protected onFillChange(): void {
+		if (0 < this._lockCount) {
+			this._isFillChanged = true;
+			return;
+		}
+		this._parent.onFillChange();
+	}
+
+	updateUploaded(): void {
+		this.onFillChange();
+	}
+
 	copy(source: EShapePointsMarker): this {
 		const size = source.size;
 		this.set(source.type, size.x, size.y);
@@ -171,7 +202,8 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const size = this._size;
-		return manager.addResource(`[${this._type},${size.x},${size.y}]`);
+		const fillId = this._fill.serialize(manager);
+		return manager.addResource(`[${this._type},${size.x},${size.y},${fillId}]`);
 	}
 
 	deserialize(resourceId: number, manager: EShapeResourceManagerDeserialization): void {
@@ -185,6 +217,7 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 			this.lock();
 			this.type = parsed[0];
 			this._size.set(parsed[1], parsed[2]);
+			this._fill.deserialize(parsed[3], manager);
 			this.unlock();
 		}
 	}

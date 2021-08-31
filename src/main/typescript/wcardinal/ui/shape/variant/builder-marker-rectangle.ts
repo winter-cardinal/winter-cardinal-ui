@@ -6,8 +6,6 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "../e-shape";
 import { EShapeBuffer } from "../e-shape-buffer";
-import { EShapePointsMarker } from "../e-shape-points-marker";
-import { EShapePointsMarkerContainer } from "../e-shape-points-marker-container";
 import {
 	buildRectangleClipping,
 	buildRectangleIndex,
@@ -18,10 +16,10 @@ import {
 	RECTANGLE_VERTEX_COUNT,
 	RECTANGLE_WORLD_SIZE
 } from "./build-rectangle";
-import { BuilderBase } from "./builder-base";
+import { BuilderMarkerBase } from "./builder-marker-base";
 import { toTexture, toTextureTransformId, toTextureUvs, toTransformLocalId } from "./builders";
 
-export abstract class BuilderMarkerRectangle extends BuilderBase {
+export abstract class BuilderMarkerRectangle extends BuilderMarkerBase {
 	protected static WORK?: Matrix;
 	protected pointId: number;
 
@@ -135,6 +133,4 @@ export abstract class BuilderMarkerRectangle extends BuilderBase {
 			}
 		}
 	}
-
-	protected abstract toMarker(container: EShapePointsMarkerContainer): EShapePointsMarker;
 }

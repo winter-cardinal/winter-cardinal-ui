@@ -9,8 +9,8 @@ import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-s
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 
 export interface EShapeConnectorEdgeContainer {
-	left: EShapeConnectorEdge;
-	right: EShapeConnectorEdge;
+	tail: EShapeConnectorEdge;
+	head: EShapeConnectorEdge;
 	copy(source: EShapeConnectorEdgeContainer): this;
 	fit(forcibly?: boolean): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;

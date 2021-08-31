@@ -42,8 +42,12 @@
 		circleB.attach( container );
 
 		var connector = new wcardinal.ui.EShapeConnectorLine();
-		connector.edge.left.shape = circleA;
-		connector.edge.right.shape = circleB;
+		connector.points.values = [100, 0, 250, 200, 400, 0];
+		connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
+		connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
+		connector.points.marker.head.fill.color = 0x909090;
+		connector.edge.tail.set(circleA, "MIDDLE_RIGHT");
+		connector.edge.head.set(circleB, "CENTER", 20);
 		connector.attach( container );
 
 		application.stage.addChild( container );

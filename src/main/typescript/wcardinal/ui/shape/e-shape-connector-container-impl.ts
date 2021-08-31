@@ -83,14 +83,14 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 	attach(): this {
 		const parent = this._parent;
 		this._connectors.forEach((edge: EShapeConnectorEdge): void => {
-			edge.shape = parent;
+			edge.set(parent);
 		});
 		return this;
 	}
 
 	detach(): this {
 		this._connectors.forEach((edge: EShapeConnectorEdge): void => {
-			edge.shape = null;
+			edge.set(null);
 		});
 		return this;
 	}

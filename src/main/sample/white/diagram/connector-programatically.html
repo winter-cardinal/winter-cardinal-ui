@@ -45,13 +45,12 @@
 					circleB.attach( diagram.layer );
 
 					const connector = new wcardinal.ui.EShapeConnectorLine();
-					connector.fill.alpha = 1;
+					connector.points.values = [100, 0, 250, 200, 400, 0];
+					connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
 					connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
-					connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
-					connector.edge.left.shape = circleA;
-					connector.edge.left.position.set(0.5, 0);
-					connector.edge.right.shape = circleB;
-					connector.edge.right.position.set(-0.5, 0);
+					connector.points.marker.head.fill.color = 0x909090;
+					connector.edge.tail.set(circleA, "MIDDLE_RIGHT", 10);
+					connector.edge.head.set(circleB, "MIDDLE_LEFT", 10);
 					connector.attach( diagram.layer );
 
 					var update = function () {

@@ -18,19 +18,23 @@ import { EShape } from "../e-shape";
 export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnector {
 	protected _edge: EShapeConnectorEdgeContainer;
 	protected declare _points: EShapeLinePoints;
-	protected _leftLocalId: number;
-	protected _rightLocalId: number;
+	protected _tailLocalId: number;
+	protected _tailMargin: number;
+	protected _headLocalId: number;
+	protected _headMargin: number;
 
 	constructor(type = EShapeType.CONNECTOR_LINE) {
 		super(type);
-		this._leftLocalId = 0;
-		this._rightLocalId = 0;
+		this._tailLocalId = 0;
+		this._tailMargin = 0;
+		this._headLocalId = 0;
+		this._headMargin = 0;
 		const sx = EShapeDefaults.SIZE_X;
 		const sy = EShapeDefaults.SIZE_Y;
 		const hx = sx * 0.5;
 		const hy = sy * 0.5;
 		this._points = new EShapeLinePoints(this).set(
-			this.toValues(-hx, -hy, +hx, +hy, sx, sy, [])
+			this.toValues(-hx, -hy, +hx, +hy, sx, sy, 0, 0, [])
 		);
 		this._edge = new EShapeConnectorEdgeContainerImpl(this, (): void => {
 			this.onEdgeChange();
@@ -57,37 +61,66 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 
 	protected onEdgeChange(): void {
 		const edge = this._edge;
-		const left = edge.left;
-		const leftLocalId = left.localId;
-		const right = edge.right;
-		const rightLocalId = right.localId;
-		if (this._leftLocalId !== leftLocalId || this._rightLocalId !== rightLocalId) {
-			this._leftLocalId = leftLocalId;
-			this._rightLocalId = rightLocalId;
+		const tail = edge.tail;
+		const tailLocalId = tail.localId;
+		const tailMargin = tail.margin;
+		const head = edge.head;
+		const headLocalId = head.localId;
+		const headMargin = head.margin;
+		if (
+			this._tailLocalId !== tailLocalId ||
+			this._tailMargin !== tailMargin ||
+			this._headLocalId !== headLocalId ||
+			this._headMargin !== headMargin
+		) {
+			this._tailLocalId = tailLocalId;
+			this._tailMargin = tailMargin;
+			this._headLocalId = headLocalId;
+			this._headMargin = headMargin;
 
 			// Left
-			const leftLocal = left.local;
-			const lx = leftLocal.x;
-			const ly = leftLocal.y;
+			const tailLocal = tail.local;
+			const tailLocalX = tailLocal.x;
+			const tailLocalY = tailLocal.y;
 
 			// Right
-			const rightLocal = right.local;
-			const rx = rightLocal.x;
-			const ry = rightLocal.y;
+			const headLocal = head.local;
+			const headLocalX = headLocal.x;
+			const headLocalY = headLocal.y;
 
 			this.disallowUploadedUpdate();
-			const cx = (lx + rx) * 0.5;
-			const cy = (ly + ry) * 0.5;
+			const cx = (tailLocalX + headLocalX) * 0.5;
+			const cy = (tailLocalY + headLocalY) * 0.5;
 			const transform = this.transform;
-			transform.position.set(cx, cy);
+			const transformPosition = transform.position;
+			const dx = cx - transformPosition.x;
+			const dy = cy - transformPosition.y;
+			transformPosition.set(cx, cy);
 			transform.scale.set(1, 1);
 			transform.rotation = 0;
 			transform.skew.set(0, 0);
-			const sx = Math.abs(lx - rx);
-			const sy = Math.abs(ly - ry);
-			this.size.set(sx, sy);
+			const sx = Math.abs(tailLocalX - headLocalX);
+			const sy = Math.abs(tailLocalY - headLocalY);
 			const points = this._points;
-			points.set(this.toValues(lx - cx, ly - cy, rx - cx, ry - cy, sx, sy, points.values));
+			this.size.set(sx, sy);
+			points.toFitted();
+			const values = points.values;
+			for (let i = 2, imax = values.length - 2; i < imax; i += 2) {
+				values[i] -= dx;
+				values[i + 1] -= dy;
+			}
+			this.toValues(
+				tailLocalX - cx,
+				tailLocalY - cy,
+				headLocalX - cx,
+				headLocalY - cy,
+				sx,
+				sy,
+				tailMargin,
+				headMargin,
+				values
+			);
+			points.set(values);
 			this.allowUploadedUpdate();
 		}
 	}
@@ -99,13 +132,72 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		y1: number,
 		sx: number,
 		sy: number,
+		margin0: number,
+		margin1: number,
 		result: number[]
 	): number[] {
-		let iv = -1;
-		result[++iv] = x0;
-		result[++iv] = y0;
-		result[++iv] = x1;
-		result[++iv] = y1;
+		const threshold = 0.000001;
+		const resultLength = result.length;
+		if (resultLength <= 4) {
+			if (margin0 !== 0 || margin1 !== 0) {
+				const dx = x1 - x0;
+				const dy = y1 - y0;
+				const d = dx * dx + dy * dy;
+				if (threshold < d) {
+					const f = 1 / Math.sqrt(dx * dx + dy * dy);
+					const nx = dx * f;
+					const ny = dy * f;
+					result[0] = x0 + margin0 * nx;
+					result[1] = y0 + margin0 * ny;
+					result[2] = x1 - margin1 * nx;
+					result[3] = y1 - margin1 * ny;
+				} else {
+					result[0] = x0;
+					result[1] = y0;
+					result[2] = x1;
+					result[3] = y1;
+				}
+			} else {
+				result[0] = x0;
+				result[1] = y0;
+				result[2] = x1;
+				result[3] = y1;
+			}
+		} else {
+			if (margin0 !== 0) {
+				const dx = result[2] - x0;
+				const dy = result[3] - y0;
+				const d = dx * dx + dy * dy;
+				if (threshold < d) {
+					const f = 1 / Math.sqrt(dx * dx + dy * dy);
+					result[0] = x0 + margin0 * dx * f;
+					result[1] = y0 + margin0 * dy * f;
+				} else {
+					result[0] = x0;
+					result[1] = y0;
+				}
+			} else {
+				result[0] = x0;
+				result[1] = y0;
+			}
+
+			if (margin1 !== 0) {
+				const dx = result[resultLength - 4] - x1;
+				const dy = result[resultLength - 3] - y1;
+				const d = dx * dx + dy * dy;
+				if (threshold < d) {
+					const f = 1 / Math.sqrt(dx * dx + dy * dy);
+					result[resultLength - 2] = x1 + margin1 * dx * f;
+					result[resultLength - 1] = y1 + margin1 * dy * f;
+				} else {
+					result[resultLength - 2] = x1;
+					result[resultLength - 1] = y1;
+				}
+			} else {
+				result[resultLength - 2] = x1;
+				result[resultLength - 1] = y1;
+			}
+		}
 		return result;
 	}
 

@@ -13,7 +13,7 @@ export class EShapeImage extends EShapeRectangle {
 			this.image = image;
 			this.size.set(image.width, image.height);
 		}
-		this.fill.alpha = 1.0;
+		this.fill.alpha = 1;
 	}
 
 	clone(): EShapeImage {

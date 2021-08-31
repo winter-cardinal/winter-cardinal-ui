@@ -5,8 +5,11 @@
 
 import { IPoint, ObservablePoint, Point } from "pixi.js";
 import { EShape } from "./e-shape";
+import { EShapeAcceptors } from "./e-shape-acceptors";
 import { EShapeConnector } from "./e-shape-connector";
 import { EShapeConnectorEdge, EShapeConnectorEdgeSerialized } from "./e-shape-connector-edge";
+import { EShapeConnectorEdgeAcceptor } from "./e-shape-connector-edge-acceptor";
+import { EShapeConnectorEdgeAcceptorImpl } from "./e-shape-connector-edge-acceptor-impl";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
@@ -16,37 +19,38 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 
 	protected _parent: EShapeConnector;
 	protected _onChange: () => void;
-	protected _shape: EShape | null;
-	protected _position: IPoint;
-	protected _id: number;
+	protected _acceptor: EShapeConnectorEdgeAcceptor;
+	protected _localIdRequired: number;
 	protected _localId: number;
 	protected _local: IPoint;
+	protected _margin: number;
 	protected _lockCount: number;
-	protected _isChanged: boolean;
+	protected _isAcceptorChanged: boolean;
 	protected _isLocalChanged: boolean;
+	protected _isOtherChanged: boolean;
 
 	constructor(parent: EShapeConnector, onChange: () => void) {
 		this._parent = parent;
 		this._onChange = onChange;
-		this._shape = null;
-		this._position = new ObservablePoint((): void => {
-			this.onChange();
-		}, undefined);
-		this._id = 0;
+		this._acceptor = new EShapeConnectorEdgeAcceptorImpl(this);
 		this._local = new ObservablePoint((): void => {
 			this.onLocalChange();
 		}, undefined);
+		this._localIdRequired = 0;
 		this._localId = 0;
+		this._margin = 0;
 		this._lockCount = 0;
-		this._isChanged = false;
+		this._isAcceptorChanged = false;
 		this._isLocalChanged = false;
+		this._isOtherChanged = false;
 	}
 
 	lock(): void {
 		this._lockCount += 1;
 		if (this._lockCount === 1) {
-			this._isChanged = false;
+			this._isAcceptorChanged = false;
 			this._isLocalChanged = false;
+			this._isOtherChanged = false;
 		}
 	}
 
@@ -55,80 +59,72 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		if (this._lockCount === 0) {
 			if (this._isLocalChanged) {
 				this.onLocalChange();
-			} else if (this._isChanged) {
-				this.onChange();
+			} else if (this._isAcceptorChanged) {
+				this.onAcceptorChange();
+			} else if (this._isOtherChanged) {
+				this.onOtherChange();
 			}
 		}
 	}
 
-	get id(): number {
-		return this._id;
-	}
-
-	get shape(): EShape | null {
-		return this._shape;
-	}
-
-	set shape(shape: EShape | null) {
-		this.set(shape, undefined, undefined);
-	}
-
-	get position(): IPoint {
-		return this._position;
-	}
-
-	get localId(): number {
-		return this._localId;
+	get acceptor(): EShapeConnectorEdgeAcceptor {
+		return this._acceptor;
 	}
 
 	get local(): IPoint {
 		return this._local;
 	}
 
-	set(shape?: EShape | null, position?: IPoint, local?: IPoint): this {
+	get localId(): number {
+		return this._localId;
+	}
+
+	get margin(): number {
+		return this._margin;
+	}
+
+	set margin(margin: number) {
+		if (this._margin !== margin) {
+			this._margin = margin;
+			this.onOtherChange();
+		}
+	}
+
+	set(
+		shape?: EShape | null,
+		edge?: string | null,
+		margin?: number,
+		localX?: number,
+		localY?: number
+	): this {
 		this.lock();
-
-		if (shape !== undefined && shape !== this._shape) {
-			this._shape = shape;
-			this.onChange();
+		this._acceptor.set(shape, edge);
+		this._local.set(localX, localY);
+		if (margin != null) {
+			this.margin = margin;
 		}
-
-		if (position != null) {
-			this._position.copyFrom(position);
-		}
-
-		if (local != null) {
-			this._local.copyFrom(local);
-		}
-
 		this.unlock();
 		return this;
 	}
 
 	copy(source: EShapeConnectorEdge): this {
-		return this.set(source.shape, source.position, source.local);
-	}
-
-	isEqual(other: EShapeConnectorEdge): boolean {
-		if (this._shape === other.shape) {
-			const position = this._position;
-			const otherPosition = other.position;
-			if (position.x === otherPosition.x && position.y === otherPosition.y) {
-				const local = this._local;
-				const otherLocal = other.local;
-				return local.x === otherLocal.x && local.y === otherLocal.y;
-			}
-		}
-		return false;
+		this.lock();
+		this._acceptor.copy(source.acceptor);
+		this._local.copyFrom(source.local);
+		this.margin = source.margin;
+		this.unlock();
+		return this;
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
-		const shape = this._shape;
+		const acceptor = this._acceptor;
+		const shape = acceptor.shape;
 		const shapeUuid = shape ? shape.uuid : null;
-		const position = this._position;
+		const edge = acceptor.edge;
+		const edgeId = edge != null ? manager.addResource(edge) : -1;
 		const local = this._local;
 		return manager.addResource(
-			`[${shapeUuid},${position.x},${position.y},${local.x},${local.y}]`
+			`[${shapeUuid},${edgeId},${local.x},${local.y},${this._margin}]`
 		);
 	}
 
@@ -150,9 +146,12 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 				shape = mapping.find(shapeUuid) || null;
 			}
 			this.lock();
-			this.shape = shape;
-			this.position.set(parsed[1], parsed[2]);
-			this.local.set(parsed[3], parsed[4]);
+			const acceptor = this._acceptor;
+			acceptor.shape = shape;
+			const edgeId = parsed[1];
+			acceptor.edge = 0 <= edgeId && edgeId < resources.length ? resources[edgeId] : null;
+			this._local.set(parsed[2], parsed[3]);
+			this.margin = parsed[4] || 0;
 			this.unlock();
 			if (shape) {
 				shape.connector.add(this);
@@ -162,37 +161,41 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 
 	fit(forcibly?: boolean): this {
 		if (forcibly) {
-			this._id += 1;
+			this._localIdRequired += 1;
 		}
-		const id = this._id;
-		if (this._localId !== id) {
-			this._localId = id;
+		const localIdRequired = this._localIdRequired;
+		if (this._localId !== localIdRequired) {
+			this._localId = localIdRequired;
 
-			const shape = this._shape;
-			if (shape != null) {
-				const work = (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL ??= new Point());
-				const size = shape.size;
-				const position = this._position;
-				work.set(size.x * position.x, size.y * position.y);
-				shape.toGlobal(work, work);
-				const parent = this._parent;
-				const parentParent = parent.parent;
-				if (parentParent) {
-					parent.updateTransform();
-					parentParent.toLocal(work, undefined, work, true);
+			const acceptor = this._acceptor;
+			const acceptorShape = acceptor.shape;
+			const acceptorEdge = acceptor.edge;
+			if (acceptorShape != null && acceptorEdge != null) {
+				const edge = EShapeAcceptors.get(acceptorShape.type).get(acceptorEdge);
+				if (edge) {
+					const work = (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL ??= new Point());
+					const size = acceptorShape.size;
+					work.set(size.x * edge.x, size.y * edge.y);
+					acceptorShape.toGlobal(work, work);
+					const parent = this._parent;
+					const parentParent = parent.parent;
+					if (parentParent) {
+						parent.updateTransform();
+						parentParent.toLocal(work, undefined, work, true);
+					}
+					this._local.copyFrom(work);
 				}
-				this._local.copyFrom(work);
 			}
 		}
 		return this;
 	}
 
-	protected onChange(): void {
+	onAcceptorChange(): void {
 		if (0 < this._lockCount) {
-			this._isChanged = true;
+			this._isAcceptorChanged = true;
 			return;
 		}
-		this._id += 1;
+		this._localIdRequired += 1;
 		this.fit();
 	}
 
@@ -201,13 +204,21 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			this._isLocalChanged = true;
 			return;
 		}
-		this._id += 1;
-		this._localId = this._id;
+		this._localIdRequired += 1;
+		this._localId = this._localIdRequired;
+		this._onChange();
+	}
+
+	protected onOtherChange(): void {
+		if (0 < this._lockCount) {
+			this._isOtherChanged = true;
+			return;
+		}
 		this._onChange();
 	}
 
 	attach(): this {
-		const shape = this._shape;
+		const shape = this._acceptor.shape;
 		if (shape) {
 			shape.connector.add(this);
 		}
@@ -215,7 +226,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	}
 
 	detach(): this {
-		const shape = this._shape;
+		const shape = this._acceptor.shape;
 		if (shape) {
 			shape.connector.remove(this);
 		}

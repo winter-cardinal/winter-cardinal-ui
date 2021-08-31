@@ -16,8 +16,8 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 	protected _lockCount: number;
 	protected _isChanged: boolean;
 	protected _onChange: () => void;
-	protected _left: EShapeConnectorEdge;
-	protected _right: EShapeConnectorEdge;
+	protected _tail: EShapeConnectorEdge;
+	protected _head: EShapeConnectorEdge;
 
 	constructor(parent: EShapeConnector, onChange: () => void) {
 		this._parent = parent;
@@ -27,8 +27,8 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 		const onChangeBound = (): void => {
 			this.onChange();
 		};
-		this._left = new EShapeConnectorEdgeImpl(parent, onChangeBound);
-		this._right = new EShapeConnectorEdgeImpl(parent, onChangeBound);
+		this._tail = new EShapeConnectorEdgeImpl(parent, onChangeBound);
+		this._head = new EShapeConnectorEdgeImpl(parent, onChangeBound);
 	}
 
 	lock(): this {
@@ -57,36 +57,34 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 		this._onChange();
 	}
 
-	get left(): EShapeConnectorEdge {
-		return this._left;
+	get tail(): EShapeConnectorEdge {
+		return this._tail;
 	}
 
-	get right(): EShapeConnectorEdge {
-		return this._right;
+	get head(): EShapeConnectorEdge {
+		return this._head;
 	}
 
 	copy(source: EShapeConnectorEdgeContainer): this {
 		this.lock();
-		this._left.copy(source.left);
-		this._right.copy(source.right);
+		this._tail.copy(source.tail);
+		this._head.copy(source.head);
 		this.unlock();
 		return this;
 	}
 
 	fit(forcibly?: boolean): this {
 		this.lock();
-		this._left.fit(forcibly);
-		this._right.fit(forcibly);
+		this._tail.fit(forcibly);
+		this._head.fit(forcibly);
 		this.unlock();
 		return this;
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
-		const left = this._left;
-		const leftId = left == null ? -1 : left.serialize(manager);
-		const right = this._right;
-		const rightId = right == null ? -1 : right.serialize(manager);
-		return manager.addResource(`[${leftId},${rightId}]`);
+		const tailId = this._tail.serialize(manager);
+		const headId = this._head.serialize(manager);
+		return manager.addResource(`[${tailId},${headId}]`);
 	}
 
 	deserialize(
@@ -102,28 +100,28 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 				manager.setExtension(resourceId, parsed);
 			}
 			this.lock();
-			this._left.deserialize(parsed[0], mapping, manager);
-			this._right.deserialize(parsed[1], mapping, manager);
+			this._tail.deserialize(parsed[0], mapping, manager);
+			this._head.deserialize(parsed[1], mapping, manager);
 			this.unlock();
 		}
 	}
 
 	attach(): this {
 		this.lock();
-		const left = this._left;
-		const right = this._right;
-		left.attach();
-		right.attach();
-		left.fit(true);
-		right.fit(true);
+		const tail = this._tail;
+		const head = this._head;
+		tail.attach();
+		head.attach();
+		tail.fit(true);
+		head.fit(true);
 		this.unlock();
 		return this;
 	}
 
 	detach(): this {
 		this.lock();
-		this._left.detach();
-		this._right.detach();
+		this._tail.detach();
+		this._head.detach();
 		this.unlock();
 		return this;
 	}

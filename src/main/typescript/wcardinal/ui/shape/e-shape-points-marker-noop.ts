@@ -4,14 +4,18 @@
  */
 
 import { IPoint, Matrix, Point } from "pixi.js";
+import { EShapeDefaults } from "./e-shape-defaults";
+import { EShapeFill } from "./e-shape-fill";
 import { EShapePointsMarker } from "./e-shape-points-marker";
 import { EShapePointsMarkerType } from "./e-shape-points-marker-type";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
+import { EShapeFillImpl } from "./variant/e-shape-fill-impl";
 
 export class EShapePointsMarkerNoop implements EShapePointsMarker {
 	protected _size?: IPoint;
 	protected _transform?: Matrix;
+	protected _fill?: EShapeFill;
 
 	lock(): this {
 		return this;
@@ -45,6 +49,19 @@ export class EShapePointsMarkerNoop implements EShapePointsMarker {
 			this._transform = result;
 		}
 		return result;
+	}
+
+	get fill(): EShapeFill {
+		let result = this._fill;
+		if (result == null) {
+			result = new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
+			this._fill = result;
+		}
+		return result;
+	}
+
+	updateUploaded(): void {
+		// DO NOTHING
 	}
 
 	copy(source: EShapePointsMarker): this {

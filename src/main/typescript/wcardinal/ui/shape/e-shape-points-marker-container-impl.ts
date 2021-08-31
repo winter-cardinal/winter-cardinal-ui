@@ -17,6 +17,7 @@ import { EShapePointsMarkerTail } from "./e-shape-points-marker-tail";
 export interface EShapePointsMarkerContainerImplParent extends EShapePointsMarkerBaseParentParent {
 	onMarkerTypeChange(): void;
 	onMarkerSizeChange(): void;
+	onMarkerFillChange(): void;
 }
 
 export class EShapePointsMarkerContainerImpl implements EShapePointsMarkerContainer {
@@ -24,6 +25,7 @@ export class EShapePointsMarkerContainerImpl implements EShapePointsMarkerContai
 	protected _lockCount: number;
 	protected _isTypeChanged: boolean;
 	protected _isSizeChanged: boolean;
+	protected _isFillChanged: boolean;
 	protected _head: EShapePointsMarker;
 	protected _tail: EShapePointsMarker;
 
@@ -32,6 +34,7 @@ export class EShapePointsMarkerContainerImpl implements EShapePointsMarkerContai
 		this._lockCount = 0;
 		this._isTypeChanged = false;
 		this._isSizeChanged = false;
+		this._isFillChanged = false;
 		this._head = new EShapePointsMarkerHead(this);
 		this._tail = new EShapePointsMarkerTail(this);
 	}
@@ -41,6 +44,7 @@ export class EShapePointsMarkerContainerImpl implements EShapePointsMarkerContai
 		if (this._lockCount === 1) {
 			this._isTypeChanged = false;
 			this._isSizeChanged = false;
+			this._isFillChanged = false;
 		}
 		return this;
 	}
@@ -52,9 +56,12 @@ export class EShapePointsMarkerContainerImpl implements EShapePointsMarkerContai
 				this.onTypeChange();
 			} else if (this._isSizeChanged) {
 				this.onSizeChange();
+			} else if (this._isFillChanged) {
+				this.onFillChange();
 			}
 			this._isTypeChanged = false;
 			this._isSizeChanged = false;
+			this._isFillChanged = false;
 		}
 		return this;
 	}
@@ -85,6 +92,14 @@ export class EShapePointsMarkerContainerImpl implements EShapePointsMarkerContai
 			return;
 		}
 		this._parent.onMarkerSizeChange();
+	}
+
+	onFillChange(): void {
+		if (0 < this._lockCount) {
+			this._isFillChanged = true;
+			return;
+		}
+		this._parent.onMarkerFillChange();
 	}
 
 	copy(source: EShapePointsMarkerContainer): this {

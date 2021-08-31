@@ -5,24 +5,29 @@
 
 import { IPoint } from "pixi.js";
 import { EShape } from "./e-shape";
+import { EShapeConnectorEdgeAcceptor } from "./e-shape-connector-edge-acceptor";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 
-export type EShapeConnectorEdgeSerialized = [number | null, number?, number?, number?, number?];
+export type EShapeConnectorEdgeSerialized = [number | null, number, number, number, number];
 
 export interface EShapeConnectorEdge {
-	shape: EShape | null;
-	position: IPoint;
-	local: IPoint;
-	id: number;
+	readonly acceptor: EShapeConnectorEdgeAcceptor;
+	readonly local: IPoint;
 	localId: number;
+	margin: number;
 
 	lock(): void;
 	unlock(): void;
-	set(shape?: EShape | null, position?: IPoint, local?: IPoint): this;
+	set(
+		shape?: EShape | null,
+		edge?: string | null,
+		margin?: number,
+		localX?: number,
+		localY?: number
+	): this;
 	copy(source: EShapeConnectorEdge): this;
-	isEqual(other: EShapeConnectorEdge): boolean;
 	fit(forcibly?: boolean): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;
 	deserialize(

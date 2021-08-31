@@ -65,7 +65,10 @@ export class EShapeLinePoints implements EShapePoints {
 	}
 
 	toFitted(): void {
-		this._parentSizeFitted;
+		this._valuesBase = undefined;
+		const parentSize = this._parent.size;
+		this._parentSizeFitted.copyFrom(parentSize);
+		this._parentSizeBase.copyFrom(parentSize);
 	}
 
 	protected fit(): void {
@@ -222,6 +225,10 @@ export class EShapeLinePoints implements EShapePoints {
 		this._parent.updateUploaded();
 	}
 
+	onMarkerFillChange(): void {
+		this._parent.updateUploaded();
+	}
+
 	get formatter(): EShapePointsFormatter | null {
 		return this._formatter || null;
 	}
@@ -354,10 +361,7 @@ export class EShapeLinePoints implements EShapePoints {
 			const valuesBaseLength = this._valuesBaseLength;
 			const newValuesLength = newValues.length;
 			const iupdate = Math.min(newValuesLength, valuesBaseLength);
-			this._valuesBase = undefined;
-			const parentSize = this._parent.size;
-			this._parentSizeFitted.copyFrom(parentSize);
-			this._parentSizeBase.copyFrom(parentSize);
+			this.toFitted();
 			if (values !== newValues) {
 				for (let i = 0; i < iupdate; ++i) {
 					values[i] = newValues[i];

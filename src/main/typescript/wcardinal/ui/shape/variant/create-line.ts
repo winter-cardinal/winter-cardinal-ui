@@ -23,7 +23,6 @@ export const createLine = (
 
 	// Create a line
 	const result = new EShapeLine();
-	result.fill.alpha = 1;
 	result.stroke.set(true, undefined, undefined, strokeWidth);
 	result.transform.position.set(cx, cy);
 	result.size.set(sx, sy);
