@@ -56,6 +56,8 @@ export interface DDiagramSnapshotOnOptions<CANVAS, EMITTER>
 export interface DDiagramSnapshotCleanupOptions {
 	snap?: boolean;
 	background?: boolean;
+	refit?: boolean;
+	reflow?: boolean;
 }
 
 export interface DDiagramSnapshotCreateAsUrlOptions {
@@ -219,6 +221,28 @@ export class DDiagramSnapshot<
 		return cleanup === true || cleanup.background === true;
 	}
 
+	protected toCleanupRefit(options?: DDiagramSnapshotCreateOptions<CANVAS, unknown>): boolean {
+		if (options == null) {
+			return true;
+		}
+		const cleanup = options.cleanup;
+		if (cleanup == null || cleanup === true) {
+			return true;
+		}
+		return cleanup !== false && cleanup.refit !== false;
+	}
+
+	protected toCleanupReflow(options?: DDiagramSnapshotCreateOptions<CANVAS, unknown>): boolean {
+		if (options == null) {
+			return true;
+		}
+		const cleanup = options.cleanup;
+		if (cleanup == null || cleanup === true) {
+			return true;
+		}
+		return cleanup !== false && cleanup.reflow !== false;
+	}
+
 	create<DATA>(options: DDiagramSnapshotCreateOptions<CANVAS, DATA>): DATA | undefined {
 		const parent = this._parent;
 		const canvas = parent.canvas;
@@ -257,6 +281,21 @@ export class DDiagramSnapshot<
 					snippet.renderable = false;
 				} else {
 					snippet = undefined;
+				}
+			}
+
+			// Refit & reflow
+			const refit = this.toCleanupRefit(options);
+			const reflow = this.toCleanupReflow(options);
+			if (refit || reflow) {
+				const layer = DApplications.getLayer(canvas);
+				if (layer) {
+					if (refit) {
+						layer.refit();
+					}
+					if (reflow) {
+						layer.reflow();
+					}
 				}
 			}
 
