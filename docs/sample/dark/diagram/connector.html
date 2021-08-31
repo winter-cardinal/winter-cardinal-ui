@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.109.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.109.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.114.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.114.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -39,7 +39,7 @@
 					var circleA = diagram.layer.children[0];
 					var update = function () {
 						var t = (Date.now()) / 3000 * Math.PI;
-						circleA.transform.position.y = 250 + 100 * Math.cos(+t);
+						circleA.transform.position.y = 250 + 100 * Math.cos(t);
 						application.update();
 						setTimeout(update, 16);
 					};

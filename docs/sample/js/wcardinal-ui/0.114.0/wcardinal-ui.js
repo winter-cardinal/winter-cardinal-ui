@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.109.0
+ Winter Cardinal UI v0.114.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1392,12 +1392,305 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemes = /** @class */ (function () {
+        function DThemes() {
+        }
+        DThemes.setDefaultThemeClass = function (theme) {
+            this.DEFAULT_THEME_CLASS = theme;
+        };
+        DThemes.getDefaultThemeClass = function () {
+            return this.DEFAULT_THEME_CLASS;
+        };
+        DThemes.getInstance = function () {
+            if (this.INSTANCE == null) {
+                var defaultThemeClass = this.getDefaultThemeClass();
+                if (defaultThemeClass == null) {
+                    throw new Error("No default theme class found");
+                }
+                this.INSTANCE = new defaultThemeClass();
+            }
+            return this.INSTANCE;
+        };
+        DThemes.setInstance = function (instance) {
+            var result = this.INSTANCE;
+            this.INSTANCE = instance;
+            return result;
+        };
+        DThemes.DEFAULT_THEME_CLASS = null;
+        DThemes.INSTANCE = null;
+        return DThemes;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeDefaults = /** @class */ (function () {
+        function EShapeDefaults() {
+        }
+        Object.defineProperty(EShapeDefaults, "THEME", {
+            get: function () {
+                var theme = this._THEME;
+                if (theme != null) {
+                    return theme;
+                }
+                var newTheme = DThemes.getInstance().get("EShape");
+                this._THEME = newTheme;
+                return newTheme;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "FILL_COLOR", {
+            get: function () {
+                return this.THEME.getFillColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "FILL_ALPHA", {
+            get: function () {
+                return this.THEME.getFillAlpha();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_COLOR", {
+            get: function () {
+                return this.THEME.getStrokeColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_ALPHA", {
+            get: function () {
+                return this.THEME.getStrokeAlpha();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_WIDTH", {
+            get: function () {
+                return this.THEME.getStrokeWidth();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_ALIGN", {
+            get: function () {
+                return this.THEME.getStrokeAlign();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_SIDE", {
+            get: function () {
+                return this.THEME.getStrokeSide();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "STROKE_STYLE", {
+            get: function () {
+                return this.THEME.getStrokeStyle();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_VALUE", {
+            get: function () {
+                return this.THEME.getTextValue();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_COLOR", {
+            get: function () {
+                return this.THEME.getTextColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_ALPHA", {
+            get: function () {
+                return this.THEME.getTextAlpha();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_FAMILY", {
+            get: function () {
+                return this.THEME.getTextFamily();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "TEXT_SIZE", {
+            get: function () {
+                return this.THEME.getTextSize();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "CURSOR", {
+            get: function () {
+                return this.THEME.getCursor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "RADIUS", {
+            get: function () {
+                return this.THEME.getRadius();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "SIZE_X", {
+            get: function () {
+                return this.THEME.getSizeX();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "SIZE_Y", {
+            get: function () {
+                return this.THEME.getSizeY();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "HIGHLIGHT_COLOR", {
+            get: function () {
+                return this.THEME.getHighlightColor();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDefaults, "CURVE_SEGMENT_COUNT", {
+            get: function () {
+                return this.THEME.getCurveSegmentCount();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return EShapeDefaults;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapePointsMarkerType = {
         NONE: 0,
         CIRCLE: 1,
         TRIANGLE: 2,
         RECTANGLE: 3
     };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeFillImpl = /** @class */ (function () {
+        function EShapeFillImpl(parent, enable, color, alpha) {
+            this._parent = parent;
+            this._enable = enable;
+            this._color = color;
+            this._alpha = alpha;
+        }
+        Object.defineProperty(EShapeFillImpl.prototype, "enable", {
+            get: function () {
+                return this._enable;
+            },
+            set: function (enable) {
+                if (this._enable !== enable) {
+                    this._enable = enable;
+                    this._parent.updateUploaded();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFillImpl.prototype, "color", {
+            get: function () {
+                return this._color;
+            },
+            set: function (color) {
+                if (this._color !== color) {
+                    this._color = color;
+                    this._parent.updateUploaded();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeFillImpl.prototype, "alpha", {
+            get: function () {
+                return this._alpha;
+            },
+            set: function (alpha) {
+                if (this._alpha !== alpha) {
+                    this._alpha = alpha;
+                    this._parent.updateUploaded();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeFillImpl.prototype.copy = function (target) {
+            if (target) {
+                this.set(target.enable, target.color, target.alpha);
+            }
+        };
+        EShapeFillImpl.prototype.set = function (enable, color, alpha) {
+            var isChanged = false;
+            if (enable !== undefined && this._enable !== enable) {
+                this._enable = enable;
+                isChanged = true;
+            }
+            if (color !== undefined && this._color !== color) {
+                this._color = color;
+                isChanged = true;
+            }
+            if (alpha !== undefined && this._alpha !== alpha) {
+                this._alpha = alpha;
+                isChanged = true;
+            }
+            if (isChanged) {
+                this._parent.updateUploaded();
+            }
+        };
+        EShapeFillImpl.prototype.clone = function () {
+            return new EShapeFillImpl(this._parent, this._enable, this._color, this._alpha);
+        };
+        EShapeFillImpl.prototype.toObject = function () {
+            return {
+                enable: this._enable,
+                color: this._color,
+                alpha: this._alpha
+            };
+        };
+        EShapeFillImpl.prototype.serialize = function (manager) {
+            var stringified = "[" + (this._enable ? 1 : 0) + "," + this._color + "," + this._alpha + "]";
+            return manager.addResource(stringified);
+        };
+        EShapeFillImpl.prototype.deserialize = function (target, manager) {
+            var resources = manager.resources;
+            if (0 <= target && target < resources.length) {
+                var parsed = manager.getFill(target);
+                if (parsed != null) {
+                    this.set(!!parsed[0], parsed[1], parsed[2]);
+                }
+                else {
+                    var deserialized = JSON.parse(resources[target]);
+                    manager.setFill(target, deserialized);
+                    this.set(!!deserialized[0], deserialized[1], deserialized[2]);
+                }
+            }
+        };
+        return EShapeFillImpl;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1446,6 +1739,21 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapePointsMarkerNoop.prototype, "fill", {
+            get: function () {
+                var result = this._fill;
+                if (result == null) {
+                    result = new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
+                    this._fill = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerNoop.prototype.updateUploaded = function () {
+            // DO NOTHING
+        };
         EShapePointsMarkerNoop.prototype.copy = function (source) {
             return this;
         };
@@ -1818,195 +2126,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemes = /** @class */ (function () {
-        function DThemes() {
-        }
-        DThemes.setDefaultThemeClass = function (theme) {
-            this.DEFAULT_THEME_CLASS = theme;
-        };
-        DThemes.getDefaultThemeClass = function () {
-            return this.DEFAULT_THEME_CLASS;
-        };
-        DThemes.getInstance = function () {
-            if (this.INSTANCE == null) {
-                var defaultThemeClass = this.getDefaultThemeClass();
-                if (defaultThemeClass == null) {
-                    throw new Error("No default theme class found");
-                }
-                this.INSTANCE = new defaultThemeClass();
-            }
-            return this.INSTANCE;
-        };
-        DThemes.setInstance = function (instance) {
-            var result = this.INSTANCE;
-            this.INSTANCE = instance;
-            return result;
-        };
-        DThemes.DEFAULT_THEME_CLASS = null;
-        DThemes.INSTANCE = null;
-        return DThemes;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeDefaults = /** @class */ (function () {
-        function EShapeDefaults() {
-        }
-        Object.defineProperty(EShapeDefaults, "THEME", {
-            get: function () {
-                var theme = this._THEME;
-                if (theme != null) {
-                    return theme;
-                }
-                var newTheme = DThemes.getInstance().get("EShape");
-                this._THEME = newTheme;
-                return newTheme;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "FILL_COLOR", {
-            get: function () {
-                return this.THEME.getFillColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "FILL_ALPHA", {
-            get: function () {
-                return this.THEME.getFillAlpha();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_COLOR", {
-            get: function () {
-                return this.THEME.getStrokeColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_ALPHA", {
-            get: function () {
-                return this.THEME.getStrokeAlpha();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_WIDTH", {
-            get: function () {
-                return this.THEME.getStrokeWidth();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_ALIGN", {
-            get: function () {
-                return this.THEME.getStrokeAlign();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_SIDE", {
-            get: function () {
-                return this.THEME.getStrokeSide();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "STROKE_STYLE", {
-            get: function () {
-                return this.THEME.getStrokeStyle();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_VALUE", {
-            get: function () {
-                return this.THEME.getTextValue();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_COLOR", {
-            get: function () {
-                return this.THEME.getTextColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_ALPHA", {
-            get: function () {
-                return this.THEME.getTextAlpha();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_FAMILY", {
-            get: function () {
-                return this.THEME.getTextFamily();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "TEXT_SIZE", {
-            get: function () {
-                return this.THEME.getTextSize();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "CURSOR", {
-            get: function () {
-                return this.THEME.getCursor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "RADIUS", {
-            get: function () {
-                return this.THEME.getRadius();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "SIZE_X", {
-            get: function () {
-                return this.THEME.getSizeX();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "SIZE_Y", {
-            get: function () {
-                return this.THEME.getSizeY();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "HIGHLIGHT_COLOR", {
-            get: function () {
-                return this.THEME.getHighlightColor();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeDefaults, "CURVE_SEGMENT_COUNT", {
-            get: function () {
-                return this.THEME.getCurveSegmentCount();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        return EShapeDefaults;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DApplications = /** @class */ (function () {
         function DApplications() {
         }
@@ -2277,23 +2396,25 @@
         };
         EShapeConnectorContainerImpl.prototype.newOnFitBound = function (forcibly) {
             var _this = this;
-            return function (connector) {
-                _this.onFit(connector, forcibly);
+            return function (edge) {
+                _this.onFit(edge, forcibly);
             };
         };
         EShapeConnectorContainerImpl.prototype.onFit = function (target, forcibly) {
-            var edge = target.edge;
-            var left = edge.left;
+            target.fit(forcibly);
+        };
+        EShapeConnectorContainerImpl.prototype.attach = function () {
             var parent = this._parent;
-            if (left.shape === parent) {
-                left.fit(forcibly);
-            }
-            else {
-                var right = edge.right;
-                if (right.shape === parent) {
-                    right.fit(forcibly);
-                }
-            }
+            this._connectors.forEach(function (edge) {
+                edge.set(parent);
+            });
+            return this;
+        };
+        EShapeConnectorContainerImpl.prototype.detach = function () {
+            this._connectors.forEach(function (edge) {
+                edge.set(null);
+            });
+            return this;
         };
         return EShapeConnectorContainerImpl;
     }());
@@ -3840,10 +3961,17 @@
             (_a = this._connector) === null || _a === void 0 ? void 0 : _a.fit(true);
         };
         EShapeBase.prototype.onTransformChange = function () {
-            var _a;
             this.onTransformChange_();
-            this.updateUploadedRecursively();
+            this.onParentTransformChange();
+        };
+        EShapeBase.prototype.onParentTransformChange = function () {
+            var _a;
+            this.updateUploaded();
             (_a = this._connector) === null || _a === void 0 ? void 0 : _a.fit(true);
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].onParentTransformChange();
+            }
         };
         EShapeBase.prototype.onTransformChange_ = function () {
             if (this._onTransformChangeLock === 0) {
@@ -4013,7 +4141,18 @@
             this.uploaded = undefined;
             parent.onChildTransformChange();
             parent.toDirty();
+            this.onAttach();
             return this;
+        };
+        EShapeBase.prototype.onAttach = function () {
+            var connector = this._connector;
+            if (connector) {
+                connector.attach();
+            }
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].onAttach();
+            }
         };
         EShapeBase.prototype.detach = function () {
             var parent = this.parent;
@@ -4026,9 +4165,20 @@
                     children.splice(index, 1);
                     parent.onChildTransformChange();
                     parent.toDirty();
+                    this.onDetach();
                 }
             }
             return this;
+        };
+        EShapeBase.prototype.onDetach = function () {
+            var connector = this._connector;
+            if (connector) {
+                connector.detach();
+            }
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].onDetach();
+            }
         };
         // Transform
         EShapeBase.prototype.updateTransform = function () {
@@ -4462,110 +4612,6 @@
         };
         return EShapeBase;
     }(pixi_js.utils.EventEmitter));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeFillImpl = /** @class */ (function () {
-        function EShapeFillImpl(parent, enable, color, alpha) {
-            this._parent = parent;
-            this._enable = enable;
-            this._color = color;
-            this._alpha = alpha;
-        }
-        Object.defineProperty(EShapeFillImpl.prototype, "enable", {
-            get: function () {
-                return this._enable;
-            },
-            set: function (enable) {
-                if (this._enable !== enable) {
-                    this._enable = enable;
-                    this._parent.updateUploaded();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeFillImpl.prototype, "color", {
-            get: function () {
-                return this._color;
-            },
-            set: function (color) {
-                if (this._color !== color) {
-                    this._color = color;
-                    this._parent.updateUploaded();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeFillImpl.prototype, "alpha", {
-            get: function () {
-                return this._alpha;
-            },
-            set: function (alpha) {
-                if (this._alpha !== alpha) {
-                    this._alpha = alpha;
-                    this._parent.updateUploaded();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeFillImpl.prototype.copy = function (target) {
-            if (target) {
-                this.set(target.enable, target.color, target.alpha);
-            }
-        };
-        EShapeFillImpl.prototype.set = function (enable, color, alpha) {
-            var isChanged = false;
-            if (enable !== undefined && this._enable !== enable) {
-                this._enable = enable;
-                isChanged = true;
-            }
-            if (color !== undefined && this._color !== color) {
-                this._color = color;
-                isChanged = true;
-            }
-            if (alpha !== undefined && this._alpha !== alpha) {
-                this._alpha = alpha;
-                isChanged = true;
-            }
-            if (isChanged) {
-                this._parent.updateUploaded();
-            }
-        };
-        EShapeFillImpl.prototype.clone = function () {
-            return new EShapeFillImpl(this._parent, this._enable, this._color, this._alpha);
-        };
-        EShapeFillImpl.prototype.toObject = function () {
-            return {
-                enable: this._enable,
-                color: this._color,
-                alpha: this._alpha
-            };
-        };
-        EShapeFillImpl.prototype.serialize = function (manager) {
-            var stringified = "[" + (this._enable ? 1 : 0) + "," + this._color + "," + this._alpha + "]";
-            return manager.addResource(stringified);
-        };
-        EShapeFillImpl.prototype.deserialize = function (target, manager) {
-            var resources = manager.resources;
-            if (0 <= target && target < resources.length) {
-                var parsed = manager.getFill(target);
-                if (parsed != null) {
-                    this.set(!!parsed[0], parsed[1], parsed[2]);
-                }
-                else {
-                    var deserialized = JSON.parse(resources[target]);
-                    manager.setFill(target, deserialized);
-                    this.set(!!deserialized[0], deserialized[1], deserialized[2]);
-                }
-            }
-        };
-        return EShapeFillImpl;
-    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -25075,7 +25121,9 @@
                 childrenPromise = Promise.all(childrenOrPromises).then(function (children) {
                     result.children = children;
                     for (var i = 0, imax = children.length; i < imax; ++i) {
-                        children[i].parent = result;
+                        var child = children[i];
+                        child.parent = result;
+                        child.onAttach();
                     }
                     result.onChildTransformChange();
                     result.toDirty();
@@ -27987,6 +28035,39 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var BuilderMarkerBase = /** @class */ (function (_super) {
+        __extends(BuilderMarkerBase, _super);
+        function BuilderMarkerBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderMarkerBase.prototype.updateColorFill = function (buffer, shape) {
+            var points = shape.points;
+            if (points == null) {
+                return;
+            }
+            var container = points.getMarker();
+            if (container == null) {
+                return;
+            }
+            var marker = this.toMarker(container);
+            var fill = marker.fill;
+            var isEnabled = shape.visible && fill.enable;
+            var color = fill.color;
+            var alpha = isEnabled ? fill.alpha : 0;
+            if (color !== this.colorFill || alpha !== this.alphaFill) {
+                this.colorFill = color;
+                this.alphaFill = alpha;
+                buffer.updateColorFills();
+                buildColor(color, alpha, this.vertexOffset, this.vertexCount, buffer.colorFills);
+            }
+        };
+        return BuilderMarkerBase;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var BuilderMarkerTriangle = /** @class */ (function (_super) {
         __extends(BuilderMarkerTriangle, _super);
         function BuilderMarkerTriangle(vertexOffset, indexOffset) {
@@ -28061,7 +28142,7 @@
             }
         };
         return BuilderMarkerTriangle;
-    }(BuilderBase));
+    }(BuilderMarkerBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -28172,7 +28253,7 @@
             }
         };
         return BuilderMarkerCircle;
-    }(BuilderBase));
+    }(BuilderMarkerBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -28695,17 +28776,23 @@
             this._lockCount = 0;
             this._isTypeChanged = false;
             this._isSizeChanged = false;
+            this._isFillChanged = false;
             this._type = EShapePointsMarkerType.NONE;
             this._size = new pixi_js.ObservablePoint(function () {
                 _this.onSizeChange();
             }, undefined, EShapeDefaults.SIZE_X * 0.15, EShapeDefaults.SIZE_Y * 0.15);
+            this._fill = this.newFill();
             this._transformId = 0;
         }
+        EShapePointsMarkerBase.prototype.newFill = function () {
+            return new EShapeFillImpl(this, true, EShapeDefaults.FILL_COLOR, 1);
+        };
         EShapePointsMarkerBase.prototype.lock = function () {
             this._lockCount += 1;
             if (this._lockCount === 1) {
                 this._isTypeChanged = false;
                 this._isSizeChanged = false;
+                this._isFillChanged = false;
             }
             return this;
         };
@@ -28718,8 +28805,12 @@
                 else if (this._isSizeChanged) {
                     this.onSizeChange();
                 }
+                else if (this._isFillChanged) {
+                    this.onFillChange();
+                }
                 this._isTypeChanged = false;
                 this._isSizeChanged = false;
+                this._isFillChanged = false;
             }
             return this;
         };
@@ -28799,6 +28890,23 @@
             }
             return result;
         };
+        Object.defineProperty(EShapePointsMarkerBase.prototype, "fill", {
+            get: function () {
+                return this._fill;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapePointsMarkerBase.prototype.onFillChange = function () {
+            if (0 < this._lockCount) {
+                this._isFillChanged = true;
+                return;
+            }
+            this._parent.onFillChange();
+        };
+        EShapePointsMarkerBase.prototype.updateUploaded = function () {
+            this.onFillChange();
+        };
         EShapePointsMarkerBase.prototype.copy = function (source) {
             var size = source.size;
             this.set(source.type, size.x, size.y);
@@ -28815,7 +28923,8 @@
         };
         EShapePointsMarkerBase.prototype.serialize = function (manager) {
             var size = this._size;
-            return manager.addResource("[" + this._type + "," + size.x + "," + size.y + "]");
+            var fillId = this._fill.serialize(manager);
+            return manager.addResource("[" + this._type + "," + size.x + "," + size.y + "," + fillId + "]");
         };
         EShapePointsMarkerBase.prototype.deserialize = function (resourceId, manager) {
             var resources = manager.resources;
@@ -28828,6 +28937,7 @@
                 this.lock();
                 this.type = parsed[0];
                 this._size.set(parsed[1], parsed[2]);
+                this._fill.deserialize(parsed[3], manager);
                 this.unlock();
             }
         };
@@ -28880,6 +28990,7 @@
             this._lockCount = 0;
             this._isTypeChanged = false;
             this._isSizeChanged = false;
+            this._isFillChanged = false;
             this._head = new EShapePointsMarkerHead(this);
             this._tail = new EShapePointsMarkerTail(this);
         }
@@ -28888,6 +28999,7 @@
             if (this._lockCount === 1) {
                 this._isTypeChanged = false;
                 this._isSizeChanged = false;
+                this._isFillChanged = false;
             }
             return this;
         };
@@ -28900,8 +29012,12 @@
                 else if (this._isSizeChanged) {
                     this.onSizeChange();
                 }
+                else if (this._isFillChanged) {
+                    this.onFillChange();
+                }
                 this._isTypeChanged = false;
                 this._isSizeChanged = false;
+                this._isFillChanged = false;
             }
             return this;
         };
@@ -28939,6 +29055,13 @@
                 return;
             }
             this._parent.onMarkerSizeChange();
+        };
+        EShapePointsMarkerContainerImpl.prototype.onFillChange = function () {
+            if (0 < this._lockCount) {
+                this._isFillChanged = true;
+                return;
+            }
+            this._parent.onMarkerFillChange();
         };
         EShapePointsMarkerContainerImpl.prototype.copy = function (source) {
             this.lock();
@@ -28996,7 +29119,10 @@
             configurable: true
         });
         EShapeLinePoints.prototype.toFitted = function () {
-            this._parentSizeFitted;
+            this._valuesBase = undefined;
+            var parentSize = this._parent.size;
+            this._parentSizeFitted.copyFrom(parentSize);
+            this._parentSizeBase.copyFrom(parentSize);
         };
         EShapeLinePoints.prototype.fit = function () {
             var psizef = this._parentSizeFitted;
@@ -29153,6 +29279,9 @@
         EShapeLinePoints.prototype.onMarkerSizeChange = function () {
             this._parent.updateUploaded();
         };
+        EShapeLinePoints.prototype.onMarkerFillChange = function () {
+            this._parent.updateUploaded();
+        };
         Object.defineProperty(EShapeLinePoints.prototype, "formatter", {
             get: function () {
                 return this._formatter || null;
@@ -29271,10 +29400,7 @@
                 var valuesBaseLength = this._valuesBaseLength;
                 var newValuesLength = newValues.length;
                 var iupdate = Math.min(newValuesLength, valuesBaseLength);
-                this._valuesBase = undefined;
-                var parentSize = this._parent.size;
-                this._parentSizeFitted.copyFrom(parentSize);
-                this._parentSizeBase.copyFrom(parentSize);
+                this.toFitted();
                 if (values !== newValues) {
                     for (var i = 0; i < iupdate; ++i) {
                         values[i] = newValues[i];
@@ -29968,7 +30094,7 @@
             }
         };
         return BuilderMarkerRectangle;
-    }(BuilderBase));
+    }(BuilderMarkerBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -30104,29 +30230,172 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeAcceptorImpl = /** @class */ (function () {
+        function EShapeAcceptorImpl() {
+            this._edges = new Map();
+        }
+        EShapeAcceptorImpl.prototype.add = function (id, x, y) {
+            this._edges.set(id, {
+                x: x,
+                y: y
+            });
+            return true;
+        };
+        EShapeAcceptorImpl.prototype.remove = function (id) {
+            var edges = this._edges;
+            var result = edges.get(id);
+            if (result != null) {
+                edges.delete(id);
+                return result;
+            }
+            return null;
+        };
+        EShapeAcceptorImpl.prototype.size = function () {
+            return this._edges.size;
+        };
+        EShapeAcceptorImpl.prototype.get = function (id) {
+            return this._edges.get(id) || null;
+        };
+        EShapeAcceptorImpl.prototype.each = function (iteratee) {
+            this._edges.forEach(iteratee);
+            return this;
+        };
+        EShapeAcceptorImpl.prototype.contains = function (id) {
+            return this._edges.has(id);
+        };
+        EShapeAcceptorImpl.prototype.clear = function () {
+            var edges = this._edges;
+            if (0 < edges.size) {
+                edges.clear();
+                return true;
+            }
+            return false;
+        };
+        return EShapeAcceptorImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeAcceptors = /** @class */ (function () {
+        function EShapeAcceptors() {
+        }
+        EShapeAcceptors.set = function (type, acceptor) {
+            var typeToAcceptor = this._typeToAcceptor;
+            if (typeToAcceptor == null) {
+                typeToAcceptor = new Map();
+                this._typeToAcceptor = typeToAcceptor;
+            }
+            typeToAcceptor.set(type, acceptor);
+        };
+        EShapeAcceptors.get = function (type) {
+            var _a;
+            return ((_a = this._typeToAcceptor) === null || _a === void 0 ? void 0 : _a.get(type)) || this.getDefault();
+        };
+        EShapeAcceptors.getDefault = function () {
+            var result = this._default;
+            if (result == null) {
+                result = this.newDefault();
+                this._default = result;
+            }
+            return result;
+        };
+        EShapeAcceptors.newDefault = function () {
+            var result = new EShapeAcceptorImpl();
+            result.add("TOP_LEFT", -0.5, -0.5);
+            result.add("TOP", 0, -0.5);
+            result.add("TOP_RIGHT", +0.5, -0.5);
+            result.add("MIDDLE_LEFT", -0.5, 0);
+            result.add("MIDDLE", 0, 0);
+            result.add("MIDDLE_RIGHT", +0.5, 0);
+            result.add("BOTTOM_LEFT", -0.5, 0);
+            result.add("BOTTOM", 0, 0);
+            result.add("BOTTOM_RIGHT", +0.5, 0);
+            result.add("CENTER", 0, 0);
+            return result;
+        };
+        return EShapeAcceptors;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectorEdgeAcceptorImpl = /** @class */ (function () {
+        function EShapeConnectorEdgeAcceptorImpl(parent) {
+            this._parent = parent;
+            this._shape = null;
+            this._edge = null;
+        }
+        Object.defineProperty(EShapeConnectorEdgeAcceptorImpl.prototype, "shape", {
+            get: function () {
+                return this._shape;
+            },
+            set: function (shape) {
+                this.set(shape);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorEdgeAcceptorImpl.prototype, "edge", {
+            get: function () {
+                return this._edge;
+            },
+            set: function (edge) {
+                this.set(undefined, edge);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeConnectorEdgeAcceptorImpl.prototype.copy = function (source) {
+            return this.set(source.shape, source.edge);
+        };
+        EShapeConnectorEdgeAcceptorImpl.prototype.set = function (shape, edge) {
+            var isChanged = false;
+            if (shape !== undefined && this._shape !== shape) {
+                this._shape = shape;
+                isChanged = true;
+            }
+            if (edge !== undefined && this._edge !== edge) {
+                this._edge = edge;
+                isChanged = true;
+            }
+            if (isChanged) {
+                this._parent.onAcceptorChange();
+            }
+            return this;
+        };
+        return EShapeConnectorEdgeAcceptorImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeConnectorEdgeImpl = /** @class */ (function () {
         function EShapeConnectorEdgeImpl(parent, onChange) {
             var _this = this;
             this._parent = parent;
             this._onChange = onChange;
-            this._shape = null;
-            this._position = new pixi_js.ObservablePoint(function () {
-                _this.onChange();
-            }, undefined);
-            this._id = 0;
+            this._acceptor = new EShapeConnectorEdgeAcceptorImpl(this);
             this._local = new pixi_js.ObservablePoint(function () {
                 _this.onLocalChange();
             }, undefined);
+            this._localIdRequired = 0;
             this._localId = 0;
+            this._margin = 0;
             this._lockCount = 0;
-            this._isChanged = false;
+            this._isAcceptorChanged = false;
             this._isLocalChanged = false;
+            this._isOtherChanged = false;
         }
         EShapeConnectorEdgeImpl.prototype.lock = function () {
             this._lockCount += 1;
             if (this._lockCount === 1) {
-                this._isChanged = false;
+                this._isAcceptorChanged = false;
                 this._isLocalChanged = false;
+                this._isOtherChanged = false;
             }
         };
         EShapeConnectorEdgeImpl.prototype.unlock = function () {
@@ -30135,38 +30404,17 @@
                 if (this._isLocalChanged) {
                     this.onLocalChange();
                 }
-                else if (this._isChanged) {
-                    this.onChange();
+                else if (this._isAcceptorChanged) {
+                    this.onAcceptorChange();
+                }
+                else if (this._isOtherChanged) {
+                    this.onOtherChange();
                 }
             }
         };
-        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "id", {
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "acceptor", {
             get: function () {
-                return this._id;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "shape", {
-            get: function () {
-                return this._shape;
-            },
-            set: function (shape) {
-                this.set(shape, undefined, undefined);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "position", {
-            get: function () {
-                return this._position;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "localId", {
-            get: function () {
-                return this._localId;
+                return this._acceptor;
             },
             enumerable: false,
             configurable: true
@@ -30178,76 +30426,115 @@
             enumerable: false,
             configurable: true
         });
-        EShapeConnectorEdgeImpl.prototype.set = function (shape, position, local) {
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "localId", {
+            get: function () {
+                return this._localId;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorEdgeImpl.prototype, "margin", {
+            get: function () {
+                return this._margin;
+            },
+            set: function (margin) {
+                if (this._margin !== margin) {
+                    this._margin = margin;
+                    this.onOtherChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeConnectorEdgeImpl.prototype.set = function (shape, edge, margin, localX, localY) {
             this.lock();
-            if (shape !== undefined && shape !== this._shape) {
-                this._shape = shape;
-                this.onChange();
-            }
-            if (position != null) {
-                this._position.copyFrom(position);
-            }
-            if (local != null) {
-                this._local.copyFrom(local);
+            this._acceptor.set(shape, edge);
+            this._local.set(localX, localY);
+            if (margin != null) {
+                this.margin = margin;
             }
             this.unlock();
             return this;
         };
         EShapeConnectorEdgeImpl.prototype.copy = function (source) {
-            return this.set(source.shape, source.position, source.local);
-        };
-        EShapeConnectorEdgeImpl.prototype.isEqual = function (other) {
-            if (this._shape === other.shape) {
-                var position = this._position;
-                var otherPosition = other.position;
-                if (position.x === otherPosition.x && position.y === otherPosition.y) {
-                    var local = this._local;
-                    var otherLocal = other.local;
-                    return local.x === otherLocal.x && local.y === otherLocal.y;
-                }
-            }
-            return false;
+            this.lock();
+            this._acceptor.copy(source.acceptor);
+            this._local.copyFrom(source.local);
+            this.margin = source.margin;
+            this.unlock();
+            return this;
         };
         EShapeConnectorEdgeImpl.prototype.serialize = function (manager) {
-            var shape = this._shape;
+            var acceptor = this._acceptor;
+            var shape = acceptor.shape;
             var shapeUuid = shape ? shape.uuid : null;
-            var position = this._position;
+            var edge = acceptor.edge;
+            var edgeId = edge != null ? manager.addResource(edge) : -1;
             var local = this._local;
-            return manager.addResource("[" + shapeUuid + "," + position.x + "," + position.y + "," + local.x + "," + local.y + "]");
+            return manager.addResource("[" + shapeUuid + "," + edgeId + "," + local.x + "," + local.y + "," + this._margin + "]");
+        };
+        EShapeConnectorEdgeImpl.prototype.deserialize = function (resourceId, mapping, manager) {
+            var resources = manager.resources;
+            if (0 <= resourceId && resourceId < resources.length) {
+                var parsed = manager.getExtension(resourceId);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[resourceId]);
+                    manager.setExtension(resourceId, parsed);
+                }
+                var shape = null;
+                var shapeUuid = parsed[0];
+                if (shapeUuid != null) {
+                    shape = mapping.find(shapeUuid) || null;
+                }
+                this.lock();
+                var acceptor = this._acceptor;
+                acceptor.shape = shape;
+                var edgeId = parsed[1];
+                acceptor.edge = 0 <= edgeId && edgeId < resources.length ? resources[edgeId] : null;
+                this._local.set(parsed[2], parsed[3]);
+                this.margin = parsed[4] || 0;
+                this.unlock();
+                if (shape) {
+                    shape.connector.add(this);
+                }
+            }
         };
         EShapeConnectorEdgeImpl.prototype.fit = function (forcibly) {
             var _a;
             if (forcibly) {
-                this._id += 1;
+                this._localIdRequired += 1;
             }
-            var id = this._id;
-            if (this._localId !== id) {
-                this._localId = id;
-                var shape = this._shape;
-                if (shape != null) {
-                    var work = ((_a = EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL) !== null && _a !== void 0 ? _a : (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL = new pixi_js.Point()));
-                    var size = shape.size;
-                    var position = this._position;
-                    work.set(size.x * position.x, size.y * position.y);
-                    shape.toGlobal(work, work);
-                    var parent_1 = this._parent;
-                    parent_1.updateTransform();
-                    var parentParent = parent_1.parent;
-                    if (parentParent) {
-                        parent_1.updateTransform();
-                        parentParent.toLocal(work, undefined, work, false);
+            var localIdRequired = this._localIdRequired;
+            if (this._localId !== localIdRequired) {
+                this._localId = localIdRequired;
+                var acceptor = this._acceptor;
+                var acceptorShape = acceptor.shape;
+                var acceptorEdge = acceptor.edge;
+                if (acceptorShape != null && acceptorEdge != null) {
+                    var edge = EShapeAcceptors.get(acceptorShape.type).get(acceptorEdge);
+                    if (edge) {
+                        var work = ((_a = EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL) !== null && _a !== void 0 ? _a : (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL = new pixi_js.Point()));
+                        var size = acceptorShape.size;
+                        work.set(size.x * edge.x, size.y * edge.y);
+                        acceptorShape.toGlobal(work, work);
+                        var parent_1 = this._parent;
+                        var parentParent = parent_1.parent;
+                        if (parentParent) {
+                            parent_1.updateTransform();
+                            parentParent.toLocal(work, undefined, work, true);
+                        }
+                        this._local.copyFrom(work);
                     }
-                    this._local.copyFrom(work);
                 }
             }
             return this;
         };
-        EShapeConnectorEdgeImpl.prototype.onChange = function () {
+        EShapeConnectorEdgeImpl.prototype.onAcceptorChange = function () {
             if (0 < this._lockCount) {
-                this._isChanged = true;
+                this._isAcceptorChanged = true;
                 return;
             }
-            this._id += 1;
+            this._localIdRequired += 1;
             this.fit();
         };
         EShapeConnectorEdgeImpl.prototype.onLocalChange = function () {
@@ -30255,21 +30542,28 @@
                 this._isLocalChanged = true;
                 return;
             }
-            this._id += 1;
-            this._localId = this._id;
+            this._localIdRequired += 1;
+            this._localId = this._localIdRequired;
+            this._onChange();
+        };
+        EShapeConnectorEdgeImpl.prototype.onOtherChange = function () {
+            if (0 < this._lockCount) {
+                this._isOtherChanged = true;
+                return;
+            }
             this._onChange();
         };
         EShapeConnectorEdgeImpl.prototype.attach = function () {
-            var shape = this._shape;
+            var shape = this._acceptor.shape;
             if (shape) {
-                shape.connector.add(this._parent);
+                shape.connector.add(this);
             }
             return this;
         };
         EShapeConnectorEdgeImpl.prototype.detach = function () {
-            var shape = this._shape;
+            var shape = this._acceptor.shape;
             if (shape) {
-                shape.connector.remove(this._parent);
+                shape.connector.remove(this);
             }
             return this;
         };
@@ -30282,53 +30576,103 @@
      */
     var EShapeConnectorEdgeContainerImpl = /** @class */ (function () {
         function EShapeConnectorEdgeContainerImpl(parent, onChange) {
+            var _this = this;
             this._parent = parent;
-            this._left = new EShapeConnectorEdgeImpl(parent, onChange);
-            this._right = new EShapeConnectorEdgeImpl(parent, onChange);
+            this._lockCount = 0;
+            this._isChanged = false;
+            this._onChange = onChange;
+            var onChangeBound = function () {
+                _this.onChange();
+            };
+            this._tail = new EShapeConnectorEdgeImpl(parent, onChangeBound);
+            this._head = new EShapeConnectorEdgeImpl(parent, onChangeBound);
         }
-        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "left", {
+        EShapeConnectorEdgeContainerImpl.prototype.lock = function () {
+            this._lockCount += 1;
+            if (this._lockCount === 1) {
+                this._isChanged = false;
+            }
+            return this;
+        };
+        EShapeConnectorEdgeContainerImpl.prototype.unlock = function () {
+            this._lockCount -= 1;
+            if (this._lockCount === 0) {
+                if (this._isChanged) {
+                    this._onChange();
+                }
+            }
+            return this;
+        };
+        EShapeConnectorEdgeContainerImpl.prototype.onChange = function () {
+            if (0 < this._lockCount) {
+                this._isChanged = true;
+                return;
+            }
+            this._onChange();
+        };
+        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "tail", {
             get: function () {
-                return this._left;
+                return this._tail;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "right", {
+        Object.defineProperty(EShapeConnectorEdgeContainerImpl.prototype, "head", {
             get: function () {
-                return this._right;
+                return this._head;
             },
             enumerable: false,
             configurable: true
         });
         EShapeConnectorEdgeContainerImpl.prototype.copy = function (source) {
-            this._left.copy(source.left);
-            this._right.copy(source.right);
+            this.lock();
+            this._tail.copy(source.tail);
+            this._head.copy(source.head);
+            this.unlock();
             return this;
         };
         EShapeConnectorEdgeContainerImpl.prototype.fit = function (forcibly) {
-            this._left.fit(forcibly);
-            this._right.fit(forcibly);
+            this.lock();
+            this._tail.fit(forcibly);
+            this._head.fit(forcibly);
+            this.unlock();
             return this;
         };
         EShapeConnectorEdgeContainerImpl.prototype.serialize = function (manager) {
-            var left = this._left;
-            var leftId = left == null ? -1 : left.serialize(manager);
-            var right = this._right;
-            var rightId = right == null ? -1 : right.serialize(manager);
-            return manager.addResource("[" + leftId + "," + rightId + "]");
+            var tailId = this._tail.serialize(manager);
+            var headId = this._head.serialize(manager);
+            return manager.addResource("[" + tailId + "," + headId + "]");
+        };
+        EShapeConnectorEdgeContainerImpl.prototype.deserialize = function (resourceId, mapping, manager) {
+            var resources = manager.resources;
+            if (0 <= resourceId && resourceId < resources.length) {
+                var parsed = manager.getExtension(resourceId);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[resourceId]);
+                    manager.setExtension(resourceId, parsed);
+                }
+                this.lock();
+                this._tail.deserialize(parsed[0], mapping, manager);
+                this._head.deserialize(parsed[1], mapping, manager);
+                this.unlock();
+            }
         };
         EShapeConnectorEdgeContainerImpl.prototype.attach = function () {
-            var left = this._left;
-            var right = this._right;
-            left.attach();
-            right.attach();
-            left.fit(true);
-            right.fit(true);
+            this.lock();
+            var tail = this._tail;
+            var head = this._head;
+            tail.attach();
+            head.attach();
+            tail.fit(true);
+            head.fit(true);
+            this.unlock();
             return this;
         };
         EShapeConnectorEdgeContainerImpl.prototype.detach = function () {
-            this._left.detach();
-            this._right.detach();
+            this.lock();
+            this._tail.detach();
+            this._head.detach();
+            this.unlock();
             return this;
         };
         return EShapeConnectorEdgeContainerImpl;
@@ -30343,14 +30687,15 @@
         function EShapeConnectorLine(type) {
             if (type === void 0) { type = EShapeType.CONNECTOR_LINE; }
             var _this = _super.call(this, type) || this;
-            _this._leftLocalId = 0;
-            _this._rightLocalId = 0;
-            _this.fill.enable = false;
+            _this._tailLocalId = 0;
+            _this._tailMargin = 0;
+            _this._headLocalId = 0;
+            _this._headMargin = 0;
             var sx = EShapeDefaults.SIZE_X;
             var sy = EShapeDefaults.SIZE_Y;
             var hx = sx * 0.5;
             var hy = sy * 0.5;
-            _this._points = new EShapeLinePoints(_this).set(_this.toValues(-hx, -hy, +hx, +hy, sx, sy, []));
+            _this._points = new EShapeLinePoints(_this).set(_this.toValues(-hx, -hy, +hx, +hy, sx, sy, 0, 0, []));
             _this._edge = new EShapeConnectorEdgeContainerImpl(_this, function () {
                 _this.onEdgeChange();
             });
@@ -30370,55 +30715,133 @@
             enumerable: false,
             configurable: true
         });
-        EShapeConnectorLine.prototype.attach = function (parent, at) {
-            _super.prototype.attach.call(this, parent, at);
+        EShapeConnectorLine.prototype.onAttach = function () {
+            _super.prototype.onAttach.call(this);
             this._edge.attach();
-            return this;
         };
-        EShapeConnectorLine.prototype.detach = function () {
-            _super.prototype.detach.call(this);
+        EShapeConnectorLine.prototype.onDetach = function () {
             this._edge.detach();
-            return this;
+            _super.prototype.onDetach.call(this);
         };
         EShapeConnectorLine.prototype.onEdgeChange = function () {
             var edge = this._edge;
-            var left = edge.left;
-            var leftLocalId = left.localId;
-            var right = edge.right;
-            var rightLocalId = right.localId;
-            if (this._leftLocalId !== leftLocalId || this._rightLocalId !== rightLocalId) {
-                this._leftLocalId = leftLocalId;
-                this._rightLocalId = rightLocalId;
+            var tail = edge.tail;
+            var tailLocalId = tail.localId;
+            var tailMargin = tail.margin;
+            var head = edge.head;
+            var headLocalId = head.localId;
+            var headMargin = head.margin;
+            if (this._tailLocalId !== tailLocalId ||
+                this._tailMargin !== tailMargin ||
+                this._headLocalId !== headLocalId ||
+                this._headMargin !== headMargin) {
+                this._tailLocalId = tailLocalId;
+                this._tailMargin = tailMargin;
+                this._headLocalId = headLocalId;
+                this._headMargin = headMargin;
                 // Left
-                var leftLocal = left.local;
-                var lx = leftLocal.x;
-                var ly = leftLocal.y;
+                var tailLocal = tail.local;
+                var tailLocalX = tailLocal.x;
+                var tailLocalY = tailLocal.y;
                 // Right
-                var rightLocal = right.local;
-                var rx = rightLocal.x;
-                var ry = rightLocal.y;
+                var headLocal = head.local;
+                var headLocalX = headLocal.x;
+                var headLocalY = headLocal.y;
                 this.disallowUploadedUpdate();
-                var cx = (lx + rx) * 0.5;
-                var cy = (ly + ry) * 0.5;
+                var cx = (tailLocalX + headLocalX) * 0.5;
+                var cy = (tailLocalY + headLocalY) * 0.5;
                 var transform = this.transform;
-                transform.position.set(cx, cy);
+                var transformPosition = transform.position;
+                var dx = cx - transformPosition.x;
+                var dy = cy - transformPosition.y;
+                transformPosition.set(cx, cy);
                 transform.scale.set(1, 1);
                 transform.rotation = 0;
                 transform.skew.set(0, 0);
-                var sx = Math.abs(lx - rx);
-                var sy = Math.abs(ly - ry);
-                this.size.set(sx, sy);
+                var sx = Math.abs(tailLocalX - headLocalX);
+                var sy = Math.abs(tailLocalY - headLocalY);
                 var points = this._points;
-                points.set(this.toValues(lx - cx, ly - cy, rx - cx, ry - cy, sx, sy, points.values));
+                this.size.set(sx, sy);
+                points.toFitted();
+                var values = points.values;
+                for (var i = 2, imax = values.length - 2; i < imax; i += 2) {
+                    values[i] -= dx;
+                    values[i + 1] -= dy;
+                }
+                this.toValues(tailLocalX - cx, tailLocalY - cy, headLocalX - cx, headLocalY - cy, sx, sy, tailMargin, headMargin, values);
+                points.set(values);
                 this.allowUploadedUpdate();
             }
         };
-        EShapeConnectorLine.prototype.toValues = function (x0, y0, x1, y1, sx, sy, result) {
-            var iv = -1;
-            result[++iv] = x0;
-            result[++iv] = y0;
-            result[++iv] = x1;
-            result[++iv] = y1;
+        EShapeConnectorLine.prototype.toValues = function (x0, y0, x1, y1, sx, sy, margin0, margin1, result) {
+            var threshold = 0.000001;
+            var resultLength = result.length;
+            if (resultLength <= 4) {
+                if (margin0 !== 0 || margin1 !== 0) {
+                    var dx = x1 - x0;
+                    var dy = y1 - y0;
+                    var d = dx * dx + dy * dy;
+                    if (threshold < d) {
+                        var f = 1 / Math.sqrt(dx * dx + dy * dy);
+                        var nx = dx * f;
+                        var ny = dy * f;
+                        result[0] = x0 + margin0 * nx;
+                        result[1] = y0 + margin0 * ny;
+                        result[2] = x1 - margin1 * nx;
+                        result[3] = y1 - margin1 * ny;
+                    }
+                    else {
+                        result[0] = x0;
+                        result[1] = y0;
+                        result[2] = x1;
+                        result[3] = y1;
+                    }
+                }
+                else {
+                    result[0] = x0;
+                    result[1] = y0;
+                    result[2] = x1;
+                    result[3] = y1;
+                }
+            }
+            else {
+                if (margin0 !== 0) {
+                    var dx = result[2] - x0;
+                    var dy = result[3] - y0;
+                    var d = dx * dx + dy * dy;
+                    if (threshold < d) {
+                        var f = 1 / Math.sqrt(dx * dx + dy * dy);
+                        result[0] = x0 + margin0 * dx * f;
+                        result[1] = y0 + margin0 * dy * f;
+                    }
+                    else {
+                        result[0] = x0;
+                        result[1] = y0;
+                    }
+                }
+                else {
+                    result[0] = x0;
+                    result[1] = y0;
+                }
+                if (margin1 !== 0) {
+                    var dx = result[resultLength - 4] - x1;
+                    var dy = result[resultLength - 3] - y1;
+                    var d = dx * dx + dy * dy;
+                    if (threshold < d) {
+                        var f = 1 / Math.sqrt(dx * dx + dy * dy);
+                        result[resultLength - 2] = x1 + margin1 * dx * f;
+                        result[resultLength - 1] = y1 + margin1 * dy * f;
+                    }
+                    else {
+                        result[resultLength - 2] = x1;
+                        result[resultLength - 1] = y1;
+                    }
+                }
+                else {
+                    result[resultLength - 2] = x1;
+                    result[resultLength - 1] = y1;
+                }
+            }
             return result;
         };
         EShapeConnectorLine.prototype.copy = function (source, part) {
@@ -30434,7 +30857,7 @@
         };
         EShapeConnectorLine.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
-            result[15] = manager.addResource("[" + this._edge.serialize(manager) + "," + this._points.style + "]");
+            result[15] = manager.addResource("[" + this._edge.serialize(manager) + "," + this._points.serialize(manager) + "]");
             return result;
         };
         return EShapeConnectorLine;
@@ -30457,44 +30880,8 @@
                     parsed = JSON.parse(resources[resourceId]);
                     manager.setExtension(resourceId, parsed);
                 }
-                shape.points.style = parsed[1];
-                onConnectorLineEdgeContainerDeserialized(shape, parsed[0], mapping, manager);
-            }
-        }
-    };
-    var onConnectorLineEdgeContainerDeserialized = function (shape, resourceId, mapping, manager) {
-        var resources = manager.resources;
-        if (0 <= resourceId && resourceId < resources.length) {
-            var parsed = manager.getExtension(resourceId);
-            if (parsed == null) {
-                parsed = JSON.parse(resources[resourceId]);
-                manager.setExtension(resourceId, parsed);
-            }
-            var edge = shape.edge;
-            onConnectorLineEdgeDeserialized(shape, edge.left, parsed[0], mapping, manager);
-            onConnectorLineEdgeDeserialized(shape, edge.right, parsed[1], mapping, manager);
-        }
-    };
-    var onConnectorLineEdgeDeserialized = function (connector, edge, resourceId, mapping, manager) {
-        var resources = manager.resources;
-        if (0 <= resourceId && resourceId < resources.length) {
-            var parsed = manager.getExtension(resourceId);
-            if (parsed == null) {
-                parsed = JSON.parse(resources[resourceId]);
-                manager.setExtension(resourceId, parsed);
-            }
-            var shape = null;
-            var shapeUuid = parsed[0];
-            if (shapeUuid != null) {
-                shape = mapping.find(shapeUuid) || null;
-            }
-            edge.lock();
-            edge.shape = shape;
-            edge.position.set(parsed[1], parsed[2]);
-            edge.local.set(parsed[3], parsed[4]);
-            edge.unlock();
-            if (shape) {
-                shape.connector.add(connector);
+                shape.points.deserialize(parsed[1], manager);
+                shape.edge.deserialize(parsed[0], mapping, manager);
             }
         }
     };
@@ -32898,6 +33285,7 @@
                 var clone = layers[i].clone();
                 clone.parent = shape;
                 children.push(clone);
+                clone.onAttach();
             }
             shape.onChildTransformChange();
             shape.toDirty();
@@ -33884,7 +34272,7 @@
                 _this.image = image;
                 _this.size.set(image.width, image.height);
             }
-            _this.fill.alpha = 1.0;
+            _this.fill.alpha = 1;
             return _this;
         }
         EShapeImage.prototype.clone = function () {
@@ -37089,7 +37477,6 @@
         }
         // Create a line
         var result = new EShapeLine();
-        result.fill.alpha = 1;
         result.stroke.set(true, undefined, undefined, strokeWidth);
         result.transform.position.set(cx, cy);
         result.size.set(sx, sy);
@@ -39245,6 +39632,7 @@
                         child.parent = null;
                         child.selected = false;
                         child.uploaded = undefined;
+                        child.onDetach();
                     }
                     else {
                         var size = children.length - (i + 1);
@@ -39288,6 +39676,7 @@
                         child.parent = null;
                         child.selected = false;
                         child.uploaded = undefined;
+                        child.onDetach();
                     }
                     else {
                         children.length = i + 1;
@@ -45857,9 +46246,13 @@
                 return;
             }
             var content = this._content;
+            var contentParent = content.parent;
+            if (contentParent == null) {
+                return;
+            }
             var container = this._container;
             var items = container.children;
-            var height = content.parent.height;
+            var height = contentParent.height;
             var data = this._data;
             var mapped = this.toMapped(data);
             var dataSize = mapped.size();
@@ -52909,6 +53302,26 @@
             }
             return cleanup === true || cleanup.background === true;
         };
+        DDiagramSnapshot.prototype.toCleanupRefit = function (options) {
+            if (options == null) {
+                return true;
+            }
+            var cleanup = options.cleanup;
+            if (cleanup == null || cleanup === true) {
+                return true;
+            }
+            return cleanup !== false && cleanup.refit !== false;
+        };
+        DDiagramSnapshot.prototype.toCleanupReflow = function (options) {
+            if (options == null) {
+                return true;
+            }
+            var cleanup = options.cleanup;
+            if (cleanup == null || cleanup === true) {
+                return true;
+            }
+            return cleanup !== false && cleanup.reflow !== false;
+        };
         DDiagramSnapshot.prototype.create = function (options) {
             var parent = this._parent;
             var canvas = parent.canvas;
@@ -52945,6 +53358,20 @@
                     }
                     else {
                         snippet = undefined;
+                    }
+                }
+                // Refit & reflow
+                var refit = this.toCleanupRefit(options);
+                var reflow = this.toCleanupReflow(options);
+                if (refit || reflow) {
+                    var layer = DApplications.getLayer(canvas);
+                    if (layer) {
+                        if (refit) {
+                            layer.refit();
+                        }
+                        if (reflow) {
+                            layer.reflow();
+                        }
                     }
                 }
                 // Extracts
@@ -61683,8 +62110,12 @@
             if (content == null) {
                 return;
             }
+            var contentParent = content.parent;
+            if (contentParent == null) {
+                return;
+            }
             var rows = this.children;
-            var height = content.parent.height;
+            var height = contentParent.height;
             var rowHeight = this._rowHeight;
             var data = this._data;
             var dataMappedSize = data.mapped.size();
@@ -65900,12 +66331,15 @@
         toThresholdDefault: toThresholdDefault,
         toLength: toLength,
         toScaleInvariant: toScaleInvariant,
+        EShapeAcceptorImpl: EShapeAcceptorImpl,
+        EShapeAcceptors: EShapeAcceptors,
         EShapeBufferUnitBuilder: EShapeBufferUnitBuilder,
         EShapeBufferUnit: EShapeBufferUnit,
         EShapeBuffer: EShapeBuffer,
         EShapeCapabilities: EShapeCapabilities,
         get EShapeCapability () { return EShapeCapability; },
         EShapeConnectorContainerImpl: EShapeConnectorContainerImpl,
+        EShapeConnectorEdgeAcceptorImpl: EShapeConnectorEdgeAcceptorImpl,
         EShapeConnectorEdgeContainerImpl: EShapeConnectorEdgeContainerImpl,
         EShapeConnectorEdgeImpl: EShapeConnectorEdgeImpl,
         EShapeContainer: EShapeContainer,
