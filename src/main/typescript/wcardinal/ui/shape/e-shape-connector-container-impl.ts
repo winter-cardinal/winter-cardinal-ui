@@ -48,6 +48,20 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 		return false;
 	}
 
+	copy(source: EShapeConnectorContainer): this {
+		const connectors = this._connectors;
+		connectors.clear();
+		source.each((edge): void => {
+			connectors.add(edge);
+		});
+		return this;
+	}
+
+	each(iteratee: (edge: EShapeConnectorEdge) => void): this {
+		this._connectors.forEach(iteratee);
+		return this;
+	}
+
 	fit(forcibly?: boolean): void {
 		this._connectors.forEach(this.toOnFitBound(forcibly));
 	}

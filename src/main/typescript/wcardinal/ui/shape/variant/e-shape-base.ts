@@ -853,6 +853,24 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		if (part & EShapeCopyPart.STATE) {
 			this.state.lock(false).copy(source.state).unlock();
 		}
+		if (part & EShapeCopyPart.CONNECTOR) {
+			if (source instanceof EShapeBase) {
+				const sourceConnector = source._connector;
+				if (sourceConnector) {
+					this.connector.copy(sourceConnector);
+				} else {
+					const connector = this._connector;
+					if (connector) {
+						connector.clear();
+					}
+				}
+			} else {
+				const connector = this._connector;
+				if (connector) {
+					connector.clear();
+				}
+			}
+		}
 		return this;
 	}
 }

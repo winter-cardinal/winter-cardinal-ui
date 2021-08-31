@@ -9,6 +9,8 @@ export interface EShapeConnectorContainer {
 	add(target: EShapeConnectorEdge): boolean;
 	remove(target: EShapeConnectorEdge): boolean;
 	clear(): boolean;
+	copy(source: EShapeConnectorContainer): this;
+	each(iteratee: (edge: EShapeConnectorEdge) => void): this;
 	contains(target: EShapeConnectorEdge): boolean;
 	size(): number;
 	fit(forcibly?: boolean): void;
