@@ -35,16 +35,15 @@ export class EShapeAcceptors {
 
 	protected static newDefault(): EShapeAcceptor {
 		const result = new EShapeAcceptorImpl();
-		result.add("TOP_LEFT", -0.5, -0.5);
 		result.add("TOP", 0, -0.5);
-		result.add("TOP_RIGHT", +0.5, -0.5);
-		result.add("MIDDLE_LEFT", -0.5, 0);
-		result.add("MIDDLE", 0, 0);
-		result.add("MIDDLE_RIGHT", +0.5, 0);
-		result.add("BOTTOM_LEFT", -0.5, 0);
-		result.add("BOTTOM", 0, 0);
-		result.add("BOTTOM_RIGHT", +0.5, 0);
+		result.add("LEFT", -0.5, 0);
+		result.add("RIGHT", 0.5, 0);
+		result.add("BOTTOM", 0, 0.5);
 		result.add("CENTER", 0, 0);
+		result.add("TOP_LEFT", -0.5, -0.5);
+		result.add("TOP_RIGHT", 0.5, -0.5);
+		result.add("BOTTOM_LEFT", -0.5, 0.5);
+		result.add("BOTTOM_RIGHT", 0.5, 0.5);
 		return result;
 	}
 }
