@@ -99,7 +99,12 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	): this {
 		this.lock();
 		this._acceptor.set(shape, edge);
-		this._local.set(localX, localY);
+		if (localX != null) {
+			this._local.x = localX;
+		}
+		if (localY != null) {
+			this._local.y = localY;
+		}
 		if (margin != null) {
 			this.margin = margin;
 		}
