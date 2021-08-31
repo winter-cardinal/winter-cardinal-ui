@@ -2708,7 +2708,7 @@ img {
 			<a href="eshapeconnectoredge.html" class="tsd-kind-icon">EShape<wbr>Connector<wbr>Edge</a>
 			<ul>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="eshapeconnectoredge.html#id" class="tsd-kind-icon">id</a>
+					<a href="eshapeconnectoredge.html#acceptor" class="tsd-kind-icon">acceptor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="eshapeconnectoredge.html#local" class="tsd-kind-icon">local</a>
@@ -2717,19 +2717,22 @@ img {
 					<a href="eshapeconnectoredge.html#localid" class="tsd-kind-icon">local<wbr>Id</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="eshapeconnectoredge.html#position" class="tsd-kind-icon">position</a>
+					<a href="eshapeconnectoredge.html#margin" class="tsd-kind-icon">margin</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="eshapeconnectoredge.html#shape" class="tsd-kind-icon">shape</a>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="eshapeconnectoredge.html#attach" class="tsd-kind-icon">attach</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="eshapeconnectoredge.html#copy" class="tsd-kind-icon">copy</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
-					<a href="eshapeconnectoredge.html#fit" class="tsd-kind-icon">fit</a>
+					<a href="eshapeconnectoredge.html#deserialize" class="tsd-kind-icon">deserialize</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
-					<a href="eshapeconnectoredge.html#isequal" class="tsd-kind-icon">is<wbr>Equal</a>
+					<a href="eshapeconnectoredge.html#detach" class="tsd-kind-icon">detach</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-interface">
+					<a href="eshapeconnectoredge.html#fit" class="tsd-kind-icon">fit</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-interface">
 					<a href="eshapeconnectoredge.html#lock" class="tsd-kind-icon">lock</a>
@@ -2770,19 +2773,20 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#id" class="tsd-kind-icon">id</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#acceptor" class="tsd-kind-icon">acceptor</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#local" class="tsd-kind-icon">local</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#localid" class="tsd-kind-icon">local<wbr>Id</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#position" class="tsd-kind-icon">position</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#shape" class="tsd-kind-icon">shape</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#margin" class="tsd-kind-icon">margin</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#attach" class="tsd-kind-icon">attach</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#copy" class="tsd-kind-icon">copy</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#deserialize" class="tsd-kind-icon">deserialize</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#detach" class="tsd-kind-icon">detach</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#fit" class="tsd-kind-icon">fit</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#isequal" class="tsd-kind-icon">is<wbr>Equal</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#lock" class="tsd-kind-icon">lock</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#serialize" class="tsd-kind-icon">serialize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-interface"><a href="eshapeconnectoredge.html#set" class="tsd-kind-icon">set</a></li>
@@ -2795,22 +2799,22 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="id" class="tsd-anchor"></a>
-				<h3>id</h3>
-				<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<a name="acceptor" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> acceptor</h3>
+				<div class="tsd-signature tsd-kind-icon">acceptor<span class="tsd-signature-symbol">:</span> <a href="eshapeconnectoredgeacceptor.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdgeAcceptor</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L16">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L16">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:16</a></li>
 					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="local" class="tsd-anchor"></a>
-				<h3>local</h3>
+				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> local</h3>
 				<div class="tsd-signature tsd-kind-icon">local<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IPoint</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L15">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L17">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:17</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2820,33 +2824,40 @@ img {
 				<div class="tsd-signature tsd-kind-icon">local<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L17">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:17</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L18">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:18</a></li>
 					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="position" class="tsd-anchor"></a>
-				<h3>position</h3>
-				<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IPoint</span></div>
+				<a name="margin" class="tsd-anchor"></a>
+				<h3>margin</h3>
+				<div class="tsd-signature tsd-kind-icon">margin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L14">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:14</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="shape" class="tsd-anchor"></a>
-				<h3>shape</h3>
-				<div class="tsd-signature tsd-kind-icon">shape<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L13">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L19">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:19</a></li>
 					</ul>
 				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="attach" class="tsd-anchor"></a>
+				<h3>attach</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">attach<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L38">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:38</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 				<a name="copy" class="tsd-anchor"></a>
 				<h3>copy</h3>
@@ -2857,7 +2868,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L22">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L30">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:30</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2866,6 +2877,52 @@ img {
 								<h5>source: <a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></h5>
 							</li>
 						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="deserialize" class="tsd-anchor"></a>
+				<h3>deserialize</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">deserialize<span class="tsd-signature-symbol">(</span>resourceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, mapping<span class="tsd-signature-symbol">: </span><a href="eshapeuuidmapping.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeUuidMapping</a>, manager<span class="tsd-signature-symbol">: </span><a href="../classes/eshaperesourcemanagerdeserialization.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeResourceManagerDeserialization</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L33">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:33</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>resourceId: <span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li>
+								<h5>mapping: <a href="eshapeuuidmapping.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeUuidMapping</a></h5>
+							</li>
+							<li>
+								<h5>manager: <a href="../classes/eshaperesourcemanagerdeserialization.html" class="tsd-signature-type" data-tsd-kind="Class">EShapeResourceManagerDeserialization</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+				<a name="detach" class="tsd-anchor"></a>
+				<h3>detach</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">detach<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L39">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:39</a></li>
+							</ul>
+						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></h4>
 					</li>
 				</ul>
@@ -2880,7 +2937,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L24">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:24</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L31">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:31</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2894,29 +2951,6 @@ img {
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-				<a name="isequal" class="tsd-anchor"></a>
-				<h3>is<wbr>Equal</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">is<wbr>Equal<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L23">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:23</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>other: <a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 				<a name="lock" class="tsd-anchor"></a>
 				<h3>lock</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -2926,7 +2960,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L19">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L21">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:21</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2943,7 +2977,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L25">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L32">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:32</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2960,13 +2994,13 @@ img {
 				<a name="set" class="tsd-anchor"></a>
 				<h3>set</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>shape<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a>, position<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IPoint</span>, local<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IPoint</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></li>
+					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>shape<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a>, edge<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, margin<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, localX<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, localY<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L21">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L23">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:23</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2975,10 +3009,16 @@ img {
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> shape: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="eshape.html" class="tsd-signature-type" data-tsd-kind="Interface">EShape</a></h5>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> position: <span class="tsd-signature-type">IPoint</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> edge: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> local: <span class="tsd-signature-type">IPoint</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> margin: <span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> localX: <span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> localY: <span class="tsd-signature-type">number</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="eshapeconnectoredge.html" class="tsd-signature-type" data-tsd-kind="Interface">EShapeConnectorEdge</a></h4>
@@ -2995,7 +3035,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.108.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L20">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.114.0/src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts#L22">src/main/typescript/wcardinal/ui/shape/e-shape-connector-edge.ts:22</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
