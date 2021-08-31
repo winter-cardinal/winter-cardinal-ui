@@ -13,6 +13,7 @@ export interface EShapeAcceptor {
 	add(id: string, x: number, y: number): boolean;
 	remove(id: string): EShapeAcceptorEdge | null;
 	get(id: string): EShapeAcceptorEdge | null;
+	each(iteratee: (edge: EShapeAcceptorEdge, id: string) => void): this;
 	contains(id: string): boolean;
 	clear(): boolean;
 }
