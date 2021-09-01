@@ -4,6 +4,7 @@
  */
 
 import { EShapeAcceptor, EShapeAcceptorEdge } from "./e-shape-acceptor";
+import { EShapeAcceptorType } from "./e-shape-acceptor-type";
 
 export class EShapeAcceptorImpl implements EShapeAcceptor {
 	protected _edges: Map<string, EShapeAcceptorEdge>;
@@ -12,8 +13,9 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 		this._edges = new Map<string, EShapeAcceptorEdge>();
 	}
 
-	add(id: string, x: number, y: number): boolean {
+	add(id: string, type: EShapeAcceptorType, x: number, y: number): boolean {
 		this._edges.set(id, {
+			type,
 			x,
 			y
 		});
