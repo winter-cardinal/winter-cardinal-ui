@@ -33,9 +33,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		const sy = EShapeDefaults.SIZE_Y;
 		const hx = sx * 0.5;
 		const hy = sy * 0.5;
-		this._points = new EShapeLinePoints(this).set(
-			this.toValues(-hx, -hy, +hx, +hy, sx, sy, 0, 0, [])
-		);
+		this._points = new EShapeLinePoints(this).set(this.toValues(-hx, -hy, +hx, +hy, 0, 0, []));
 		this._edge = new EShapeConnectorEdgeContainerImpl(this, (): void => {
 			this.onEdgeChange();
 		});
@@ -88,38 +86,56 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 			const headLocalX = headLocal.x;
 			const headLocalY = headLocal.y;
 
-			this.disallowUploadedUpdate();
-			const cx = (tailLocalX + headLocalX) * 0.5;
-			const cy = (tailLocalY + headLocalY) * 0.5;
+			// Values
 			const transform = this.transform;
 			const transformPosition = transform.position;
-			const dx = cx - transformPosition.x;
-			const dy = cy - transformPosition.y;
-			transformPosition.set(cx, cy);
-			transform.scale.set(1, 1);
-			transform.rotation = 0;
-			transform.skew.set(0, 0);
-			const sx = Math.abs(tailLocalX - headLocalX);
-			const sy = Math.abs(tailLocalY - headLocalY);
+			const px = transformPosition.x;
+			const py = transformPosition.y;
 			const points = this._points;
-			this.size.set(sx, sy);
-			points.toFitted();
 			const values = points.values;
-			for (let i = 2, imax = values.length - 2; i < imax; i += 2) {
-				values[i] -= dx;
-				values[i + 1] -= dy;
-			}
 			this.toValues(
-				tailLocalX - cx,
-				tailLocalY - cy,
-				headLocalX - cx,
-				headLocalY - cy,
-				sx,
-				sy,
+				tailLocalX - px,
+				tailLocalY - py,
+				headLocalX - px,
+				headLocalY - py,
 				tailMargin,
 				headMargin,
 				values
 			);
+
+			// Center & size
+			let xmax = values[0];
+			let xmin = xmax;
+			let ymax = values[1];
+			let ymin = ymax;
+			for (let i = 2, imax = values.length; i < imax; i += 2) {
+				const x = values[i];
+				const y = values[i + 1];
+				xmax = Math.max(x, xmax);
+				xmin = Math.min(x, xmin);
+				ymax = Math.max(y, ymax);
+				ymin = Math.min(y, ymin);
+			}
+			const dx = (xmax + xmin) * 0.5;
+			const dy = (ymax + ymin) * 0.5;
+			const sx = xmax - xmin;
+			const sy = ymax - ymin;
+			const cx = dx + px;
+			const cy = dy + py;
+
+			// Adjust values
+			for (let i = 0, imax = values.length; i < imax; i += 2) {
+				values[i] -= dx;
+				values[i + 1] -= dy;
+			}
+
+			this.disallowUploadedUpdate();
+			transformPosition.set(cx, cy);
+			transform.scale.set(1, 1);
+			transform.rotation = 0;
+			transform.skew.set(0, 0);
+			this.size.set(sx, sy);
+			points.toFitted();
 			points.set(values);
 			this.allowUploadedUpdate();
 		}
@@ -130,8 +146,6 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		y0: number,
 		x1: number,
 		y1: number,
-		sx: number,
-		sy: number,
 		margin0: number,
 		margin1: number,
 		result: number[]
