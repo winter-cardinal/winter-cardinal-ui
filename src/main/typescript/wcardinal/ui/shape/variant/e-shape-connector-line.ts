@@ -14,8 +14,10 @@ import { EShapeCopyPart } from "../e-shape-copy-part";
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShape } from "../e-shape";
+import { toPointsBoundary } from "../e-shape-points-formatted";
 
 export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnector {
+	protected static WORK_BOUNDARY: [number, number, number, number];
 	protected _edge: EShapeConnectorEdgeContainer;
 	protected declare _points: EShapeLinePoints;
 	protected _tailLocalId: number;
@@ -104,33 +106,21 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 			);
 
 			// Center & size
-			let xmax = values[0];
-			let xmin = xmax;
-			let ymax = values[1];
-			let ymin = ymax;
-			for (let i = 2, imax = values.length; i < imax; i += 2) {
-				const x = values[i];
-				const y = values[i + 1];
-				xmax = Math.max(x, xmax);
-				xmin = Math.min(x, xmin);
-				ymax = Math.max(y, ymax);
-				ymin = Math.min(y, ymin);
-			}
-			const dx = (xmax + xmin) * 0.5;
-			const dy = (ymax + ymin) * 0.5;
-			const sx = xmax - xmin;
-			const sy = ymax - ymin;
-			const cx = dx + px;
-			const cy = dy + py;
+			const boundary = (EShapeConnectorLine.WORK_BOUNDARY ??= [0, 0, 0, 0]);
+			toPointsBoundary(values, boundary);
+			const cx = (boundary[2] + boundary[0]) * 0.5;
+			const cy = (boundary[3] + boundary[1]) * 0.5;
+			const sx = boundary[2] - boundary[0];
+			const sy = boundary[3] - boundary[1];
 
 			// Adjust values
 			for (let i = 0, imax = values.length; i < imax; i += 2) {
-				values[i] -= dx;
-				values[i + 1] -= dy;
+				values[i + 0] -= cx;
+				values[i + 1] -= cy;
 			}
 
 			this.disallowUploadedUpdate();
-			transformPosition.set(cx, cy);
+			transformPosition.set(px + cx, py + cy);
 			transform.scale.set(1, 1);
 			transform.rotation = 0;
 			transform.skew.set(0, 0);
