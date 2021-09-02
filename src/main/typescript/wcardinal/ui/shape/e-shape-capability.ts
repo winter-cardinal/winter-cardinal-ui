@@ -5,37 +5,74 @@
 
 /* eslint-disable prettier/prettier */
 
-export enum EShapeCapability {
-	NONE			= 0,
+const NONE			= 0b0;
 
-	ID				= 1 << 0,
-	POSITION		= 1 << 1,
-	WIDTH			= 1 << 2,
-	HEIGHT			= 1 << 3,
-	ROTATION		= 1 << 4,
-	SKEW			= 1 << 5,
-	ALIGN			= 1 << 6,
+const ID			= 0x1;
+const POSITION		= 0x2;
+const WIDTH			= 0x4;
+const HEIGHT		= 0x8;
+const ROTATION		= 0x10;
+const SKEW			= 0x20;
+const ALIGN			= 0x40;
 
-	REPLACING		= 1 << 7,
-	GROUPING		= 1 << 8,
-	FILL			= 1 << 9,
-	STROKE			= 1 << 10,
-	STROKE_SIDE		= 1 << 11,
-	BORDER_RADIUS	= 1 << 12,
+const REPLACING		= 0x80;
+const GROUPING		= 0x100;
+const FILL			= 0x200;
+const STROKE		= 0x400;
+const STROKE_SIDE	= 0x800;
+const BORDER_RADIUS	= 0x1000;
 
-	TEXT			= 1 << 13,
-	TEXTURE			= 1 << 14,
-	TAG				= 1 << 15,
-	ACTION			= 1 << 16,
-	CURSOR			= 1 << 17,
-	ORDER_IN_LAYER	= 1 << 18,
+const TEXT			= 0x2000;
+const TEXTURE		= 0x4000;
+const TAG			= 0x8000;
+const ACTION		= 0x10000;
+const CURSOR		= 0x20000;
+const ORDER_IN_LAYER= 0x40000;
 
-	CHILDREN		= 1 << 19,
+const CHILDREN		= 0x80000;
 
-	COORDINATE		= ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW | ALIGN,
-	SHAPE			= REPLACING | GROUPING | FILL | STROKE,
-	LAYER			= ORDER_IN_LAYER,
-	PRIMITIVE		= COORDINATE | SHAPE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN,
-	EMBEDDED		= COORDINATE | REPLACING | GROUPING | TEXT | TAG | ACTION | LAYER,
-	ALL				= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS
-}
+const COORDINATE	= ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW | ALIGN;
+const SHAPE			= REPLACING | GROUPING | FILL | STROKE;
+const LAYER			= ORDER_IN_LAYER;
+const PRIMITIVE		= COORDINATE | SHAPE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN;
+const EMBEDDED		= COORDINATE | REPLACING | GROUPING | TEXT | TAG | ACTION | LAYER;
+const CONNECTOR		= ID | SHAPE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN;
+const ALL			= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
+
+export const EShapeCapability = {
+	NONE,
+
+	ID,
+	POSITION,
+	WIDTH,
+	HEIGHT,
+	ROTATION,
+	SKEW,
+	ALIGN,
+
+	REPLACING,
+	GROUPING,
+	FILL,
+	STROKE,
+	STROKE_SIDE,
+	BORDER_RADIUS,
+
+	TEXT,
+	TEXTURE,
+	TAG,
+	ACTION,
+	CURSOR,
+	ORDER_IN_LAYER,
+
+	CHILDREN,
+
+	COORDINATE,
+	SHAPE,
+	LAYER,
+	PRIMITIVE,
+	EMBEDDED,
+	CONNECTOR,
+	ALL
+} as const;
+
+export type EShapeCapability = typeof EShapeCapability[keyof typeof EShapeCapability];
