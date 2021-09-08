@@ -8,7 +8,7 @@ import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { EShapeRectangle } from "./e-shape-rectangle";
 
 export class EShapeRectanglePivoted extends EShapeRectangle {
-	constructor(type = EShapeType.RECTANGLE_PIVOTED) {
+	constructor(type: EShapeType = EShapeType.RECTANGLE_PIVOTED) {
 		super(type);
 	}
 

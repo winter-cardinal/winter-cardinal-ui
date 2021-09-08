@@ -12,7 +12,7 @@ export class EShapeButton extends EShapeRectangleRounded {
 	protected _isToggle: boolean;
 	protected _isGrouped: boolean;
 
-	constructor(type = EShapeType.BUTTON) {
+	constructor(type: EShapeType = EShapeType.BUTTON) {
 		super(type);
 		this._isToggle = false;
 		this._isGrouped = false;

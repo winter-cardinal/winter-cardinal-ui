@@ -25,7 +25,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	protected _headLocalId: number;
 	protected _headMargin: number;
 
-	constructor(type = EShapeType.CONNECTOR_LINE) {
+	constructor(type: EShapeType = EShapeType.CONNECTOR_LINE) {
 		super(type);
 		this._tailLocalId = 0;
 		this._tailMargin = 0;

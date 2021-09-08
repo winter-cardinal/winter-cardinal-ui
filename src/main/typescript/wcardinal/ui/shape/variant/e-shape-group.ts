@@ -34,7 +34,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	protected _isEditMode: boolean;
 	protected _points?: EShapePoints;
 
-	constructor(isEditMode: boolean, type = EShapeType.GROUP) {
+	constructor(isEditMode: boolean, type: EShapeType = EShapeType.GROUP) {
 		super(type);
 		this._isEditMode = isEditMode;
 		this.tag = new EShapeTagImpl();

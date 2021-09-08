@@ -7,7 +7,7 @@ import { EShapeType } from "../e-shape-type";
 import { EShapeImage } from "./e-shape-image";
 
 export class EShapeImageSdf extends EShapeImage {
-	constructor(image?: HTMLImageElement, type = EShapeType.IMAGE_SDF) {
+	constructor(image?: HTMLImageElement, type: EShapeType = EShapeType.IMAGE_SDF) {
 		super(image, type);
 	}
 

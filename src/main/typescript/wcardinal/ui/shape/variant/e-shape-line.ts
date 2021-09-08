@@ -12,7 +12,7 @@ import { EShapeLinePoints } from "./e-shape-line-points";
 export class EShapeLine extends EShapeLineBase {
 	protected declare _points: EShapeLinePoints;
 
-	constructor(type = EShapeType.LINE) {
+	constructor(type: EShapeType = EShapeType.LINE) {
 		super(type);
 		this._points = new EShapeLinePoints(this);
 	}

@@ -19,7 +19,7 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLayer {
 	protected _name: string;
 
-	constructor(name: string, isEditMode: boolean, type = EShapeType.EMBEDDED_LAYER) {
+	constructor(name: string, isEditMode: boolean, type: EShapeType = EShapeType.EMBEDDED_LAYER) {
 		super(isEditMode, type);
 		this._name = name;
 	}

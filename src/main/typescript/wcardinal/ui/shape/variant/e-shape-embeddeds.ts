@@ -5,6 +5,7 @@ import {
 	DDiagramSerializedSimple
 } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
+import { EShapeConnectors } from "../e-shape-connectors";
 import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
@@ -82,17 +83,19 @@ export class EShapeEmbeddeds {
 		return shape;
 	}
 
-	static init(shape: EShapeEmbedded, layer: EShapeLayerContainer): void {
-		const layers = layer.children;
+	static init(shape: EShapeEmbedded, layerContainer: EShapeLayerContainer): void {
+		const layers = layerContainer.children;
 		const children = shape.children;
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
-			const clone = layers[i].clone();
+			const layer = layers[i];
+			const clone = layer.clone();
 			clone.parent = shape;
 			children.push(clone);
-			clone.onAttach();
+			EShapeConnectors.move(layer, clone);
 		}
 		shape.onChildTransformChange();
 		shape.toDirty();
 		shape.size.init();
+		shape.onAttach();
 	}
 }

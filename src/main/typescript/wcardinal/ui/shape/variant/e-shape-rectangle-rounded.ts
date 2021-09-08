@@ -8,7 +8,7 @@ import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestRectangleRounded } from "./hit-test-rectangle-rounded";
 
 export class EShapeRectangleRounded extends EShapePrimitive {
-	constructor(type = EShapeType.RECTANGLE_ROUNDED) {
+	constructor(type: EShapeType = EShapeType.RECTANGLE_ROUNDED) {
 		super(type);
 	}
 

@@ -24,6 +24,7 @@ export * from "./e-shape-connector-edge-container";
 export * from "./e-shape-connector-edge-impl";
 export * from "./e-shape-connector-edge";
 export * from "./e-shape-connector";
+export * from "./e-shape-connectors";
 export * from "./e-shape-container";
 export * from "./e-shape-copy-part";
 export * from "./e-shape-corner";

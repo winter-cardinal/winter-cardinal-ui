@@ -8,7 +8,7 @@ import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestCircle } from "./hit-test-circle";
 
 export class EShapeCircle extends EShapePrimitive {
-	constructor(type = EShapeType.CIRCLE) {
+	constructor(type: EShapeType = EShapeType.CIRCLE) {
 		super(type);
 	}
 

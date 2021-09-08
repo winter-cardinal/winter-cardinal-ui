@@ -8,7 +8,7 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbedded extends EShapeGroupViewer {
 	protected _name: string;
 
-	constructor(name: string, isEditMode: boolean, type = EShapeType.EMBEDDED) {
+	constructor(name: string, isEditMode: boolean, type: EShapeType = EShapeType.EMBEDDED) {
 		super(isEditMode, type);
 		this._name = name;
 	}

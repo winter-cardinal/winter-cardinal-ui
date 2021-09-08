@@ -8,7 +8,7 @@ import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestTriangle } from "./hit-test-triangle";
 
 export class EShapeTriangle extends EShapePrimitive {
-	constructor(type = EShapeType.TRIANGLE) {
+	constructor(type: EShapeType = EShapeType.TRIANGLE) {
 		super(type);
 	}
 

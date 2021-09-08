@@ -7,7 +7,7 @@ import { EShapeType } from "../e-shape-type";
 import { EShapeRectangle } from "./e-shape-rectangle";
 
 export class EShapeImage extends EShapeRectangle {
-	constructor(image?: HTMLImageElement, type = EShapeType.IMAGE) {
+	constructor(image?: HTMLImageElement, type: EShapeType = EShapeType.IMAGE) {
 		super(type);
 		if (image != null) {
 			this.image = image;
