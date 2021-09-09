@@ -5,7 +5,6 @@ import {
 	DDiagramSerializedSimple
 } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
-import { EShapeConnectors } from "../e-shape-connectors";
 import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
@@ -55,7 +54,7 @@ export class EShapeEmbeddeds {
 		name: string,
 		width: number,
 		height: number,
-		layer: EShapeLayerContainer,
+		container: EShapeLayerContainer,
 		manager: EShapeResourceManagerDeserialization,
 		item: DDiagramSerializedItem
 	): Promise<EShapeEmbedded> | EShapeEmbedded {
@@ -65,7 +64,8 @@ export class EShapeEmbeddeds {
 		const sizeX = shapeSize.x;
 		const sizeY = shapeSize.y;
 		shape.size.set(width, height);
-		this.init(shape, layer);
+		container.copyTo(shape);
+		shape.size.init();
 		shape.size.set(sizeX, sizeY);
 		return result;
 	}
@@ -74,28 +74,13 @@ export class EShapeEmbeddeds {
 		name: string,
 		width: number,
 		height: number,
-		layer: EShapeLayerContainer,
+		container: EShapeLayerContainer,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeEmbedded {
 		const shape = new EShapeEmbedded(name, manager.isEditMode);
 		shape.size.set(width, height);
-		this.init(shape, layer);
-		return shape;
-	}
-
-	static init(shape: EShapeEmbedded, layerContainer: EShapeLayerContainer): void {
-		const layers = layerContainer.children;
-		const children = shape.children;
-		for (let i = 0, imax = layers.length; i < imax; ++i) {
-			const layer = layers[i];
-			const clone = layer.clone();
-			clone.parent = shape;
-			children.push(clone);
-			EShapeConnectors.move(layer, clone);
-		}
-		shape.onChildTransformChange();
-		shape.toDirty();
+		container.copyTo(shape);
 		shape.size.init();
-		shape.onAttach();
+		return shape;
 	}
 }

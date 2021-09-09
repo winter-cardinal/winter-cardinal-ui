@@ -4,8 +4,11 @@
  */
 
 import { DDiagramSerializedLayer } from "../../d-diagram-serialized";
+import { EShape } from "../e-shape";
+import { EShapeConnectors } from "../e-shape-connectors";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { EShapeType } from "../e-shape-type";
 import { EShapeEmbeddedLayer } from "./e-shape-embedded-layer";
 
 export class EShapeEmbeddedLayerContainer implements EShapeLayerContainer {
@@ -13,12 +16,57 @@ export class EShapeEmbeddedLayerContainer implements EShapeLayerContainer {
 	protected _width: number;
 	protected _height: number;
 	protected _isEditMode: boolean;
+	protected _hasConnectors?: Map<EShapeEmbeddedLayer, boolean>;
 
 	constructor(width: number, height: number, isEditMode: boolean) {
 		this.children = [];
 		this._width = width;
 		this._height = height;
 		this._isEditMode = isEditMode;
+	}
+
+	protected hasConnectors(shapes: EShape[]): boolean {
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			const shape = shapes[i];
+			if (shape.type === EShapeType.CONNECTOR_LINE) {
+				return true;
+			}
+			const children = shape.children;
+			if (0 < children.length) {
+				if (this.hasConnectors(children)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	protected newHasConnectors(): Map<EShapeEmbeddedLayer, boolean> {
+		const result = new Map<EShapeEmbeddedLayer, boolean>();
+		const layers = this.children;
+		for (let i = 0, imax = layers.length; i < imax; ++i) {
+			const layer = layers[i];
+			result.set(layer, this.hasConnectors(layer.children));
+		}
+		return result;
+	}
+
+	copyTo(destination: EShape): void {
+		const hasConnectors = (this._hasConnectors ??= this.newHasConnectors());
+		const layers = this.children;
+		const children = destination.children;
+		for (let i = 0, imax = layers.length; i < imax; ++i) {
+			const layer = layers[i];
+			const clone = layer.clone();
+			clone.parent = destination;
+			children.push(clone);
+			if (hasConnectors.get(layer)) {
+				EShapeConnectors.move(layer, clone);
+			}
+		}
+		destination.onChildTransformChange();
+		destination.toDirty();
+		destination.onAttach();
 	}
 
 	deserialize(
