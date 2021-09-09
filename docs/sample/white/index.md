@@ -33,6 +33,7 @@
     * [Button (Toggle)](./diagram/button-toggle.html)
     * [Canvas gesture checker](./diagram/canvas-gesture-checker.html)
     * [Connector](./diagram/connector.html)
+    * [Connector (Embedded)](./diagram/connector-pieces.html)
     * [Connector (Programatically)](./diagram/connector-programatically.html)
     * [Editor mode](./diagram/editor.html)
     * [Editor mode with snap](./diagram/editor-with-snap.html)

@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.114.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.114.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.122.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.122.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -46,7 +46,7 @@
 		connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
 		connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
 		connector.points.marker.head.fill.color = 0x909090;
-		connector.edge.tail.set(circleA, "MIDDLE_RIGHT");
+		connector.edge.tail.set(circleA, "RIGHT");
 		connector.edge.head.set(circleB, "CENTER", 20);
 		connector.attach( container );
 
