@@ -1,0 +1,55 @@
+{
+	"version": 1,
+	"id": 8,
+	"name": "Line (Textured)",
+	"width": 500,
+	"height": 500,
+	"background": {
+		"color": 16777215,
+		"alpha": 1
+	},
+	"tile": {
+		"mapping": {
+			"enable": false,
+			"from": {
+				"lon": -180,
+				"lat": 85.05112877980659
+			},
+			"to": {
+				"lon": 180,
+				"lat": -85.05112877980659
+			}
+		}
+	},
+	"resources": [
+		"",
+		"[0,16777215,0.5]",
+		"[1,16777215,1,20,0,15]",
+		"[1,1]",
+		"[0,0]",
+		"[0,16777215,1,0.5]",
+		"[10,10]",
+		"auto",
+		"[0,5197647,1,7,14,0,3,4,0,5,4,0,6,0]",
+		"A0001",
+		"[0,0,1]",
+		"[9,0,0,10,0,0]",
+		"[11]",
+		"0 < tag.value",
+		"[1,13,3,1000,16777215,1]",
+		"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im8yZ2xrbTNhZXUyb2lvIiB4MT0iMCIgeDI9IjEiIHkxPSIwLjUiIHkyPSIwLjUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGRkZGRkYiIHN0b3Atb3BhY2l0eT0iMSIgLz48c3RvcCBvZmZzZXQ9IjI5LjcwMDAwMjAzNDUwNTIwNyUiIHN0b3AtY29sb3I9IiNBMDAwMDAiIHN0b3Atb3BhY2l0eT0iMSIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRjAwMDAiIHN0b3Atb3BhY2l0eT0iMSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHN0cm9rZT0ibm9uZSIgZmlsbD0idXJsKCNvMmdsa20zYWV1Mm9pbykiIC8+PC9zdmc+",
+		"[0,16777215,1,0,10485760,1,0.2970000203450521,16711680,1,1]",
+		"[[-120,-80,40,-160,-130,90,130,-60,-10,160,130,70],[],0]"
+	],
+	"layers": [
+		[
+			"Default layer"
+		]
+	],
+	"items": [
+		[5,0,220,250,260,320,0,0,1,2,0,8,12,0.25,15,17,0,[14],15,16,[],0,0,2,-1,-1]
+	],
+	"snap": [
+		1,[1,1,[]],[1,10]
+	]
+}

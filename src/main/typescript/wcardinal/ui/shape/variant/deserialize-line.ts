@@ -14,7 +14,7 @@ export const deserializeLine = (
 	manager: EShapeResourceManagerDeserialization
 ): Promise<EShapeLine> | EShapeLine | null => {
 	const shape = new EShapeLine();
-	EShapeDeserializer.deserialize(item, manager, shape);
+	const result = EShapeDeserializer.deserialize(item, manager, shape);
 	shape.points.deserialize(item[15], manager);
 	const style = shape.points.style;
 	const mask =
@@ -26,5 +26,5 @@ export const deserializeLine = (
 		shape.points.style &= ~mask;
 		shape.stroke.style |= deprecated;
 	}
-	return shape;
+	return result;
 };
