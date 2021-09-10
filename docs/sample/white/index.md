@@ -51,6 +51,8 @@
     * [Line](./diagram/line.html)
     * [Line (Marker)](./diagram/line-marker.html)
     * [Line (Marker, Programatically)](./diagram/line-marker-programatically.html)
+    * [Line (Textured)](./diagram/line-textured.html)
+    * [Line (Textured, Embedded)](./diagram/line-textured-pieces.html)
     * [Overflow mask](./diagram/mask.html)
     * [Opening a date dialog](./diagram/open-date.html)
     * [Opening a datetime dialog](./diagram/open-datetime.html)

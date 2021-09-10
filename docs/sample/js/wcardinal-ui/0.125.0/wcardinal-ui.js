@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.122.0
+ Winter Cardinal UI v0.125.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -10348,7 +10348,7 @@
     var DBaseBackgroundMeshGeometry = /** @class */ (function (_super) {
         __extends(DBaseBackgroundMeshGeometry, _super);
         function DBaseBackgroundMeshGeometry(texture, width, height, borderSize, cornerMask) {
-            var _this = _super.call(this, new Float32Array(56), new Float32Array(56), new Uint16Array(42)) || this;
+            var _this = _super.call(this, new Float32Array(72), new Float32Array(72), new Uint16Array(54)) || this;
             _this._width = width;
             _this._height = height;
             _this._texture = texture;
@@ -10434,22 +10434,22 @@
             return this._texture._updateID;
         };
         DBaseBackgroundMeshGeometry.prototype.fillVertices = function (iv, array, x0, x1, y0, y1) {
-            array[iv + 0] = x0;
-            array[iv + 1] = y0;
-            array[iv + 2] = x1;
-            array[iv + 3] = y0;
-            array[iv + 4] = x0;
-            array[iv + 5] = y1;
-            array[iv + 6] = x1;
-            array[iv + 7] = y1;
+            array[iv] = x0;
+            array[++iv] = y0;
+            array[++iv] = x1;
+            array[++iv] = y0;
+            array[++iv] = x0;
+            array[++iv] = y1;
+            array[++iv] = x1;
+            array[++iv] = y1;
         };
         DBaseBackgroundMeshGeometry.prototype.fillIndices = function (ii, indices, iv) {
-            indices[ii + 0] = iv + 0;
-            indices[ii + 1] = iv + 1;
-            indices[ii + 2] = iv + 2;
-            indices[ii + 3] = iv + 1;
-            indices[ii + 4] = iv + 3;
-            indices[ii + 5] = iv + 2;
+            indices[ii] = iv;
+            indices[++ii] = iv + 1;
+            indices[++ii] = iv + 2;
+            indices[++ii] = iv + 1;
+            indices[++ii] = iv + 3;
+            indices[++ii] = iv + 2;
         };
         DBaseBackgroundMeshGeometry.prototype.fillUvsCorner = function (iv, uvs, c, u0, u1, u2, u3, v0, v1, v2, v3) {
             if (c) {
@@ -10530,9 +10530,23 @@
                 iv += 8;
                 ia += 4;
                 ii += 6;
+                // Middle left
+                this.fillVertices(iv, vertices, x0, x1, y1, y2);
+                this.fillUvs(iv, uvs, u0, u1, v1, v2);
+                this.fillIndices(ii, indices, ia);
+                iv += 8;
+                ia += 4;
+                ii += 6;
                 // Middle
-                this.fillVertices(iv, vertices, x0, x3, y1, y2);
-                this.fillUvs(iv, uvs, u0, u3, v1, v2);
+                this.fillVertices(iv, vertices, x1, x2, y1, y2);
+                this.fillUvs(iv, uvs, u1, u2, v1, v2);
+                this.fillIndices(ii, indices, ia);
+                iv += 8;
+                ia += 4;
+                ii += 6;
+                // Middle right
+                this.fillVertices(iv, vertices, x2, x3, y1, y2);
+                this.fillUvs(iv, uvs, u2, u3, v1, v2);
                 this.fillIndices(ii, indices, ia);
                 iv += 8;
                 ia += 4;
@@ -25307,7 +25321,7 @@
     var LAYER = ORDER_IN_LAYER;
     var PRIMITIVE = COORDINATE | SHAPE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN;
     var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | TAG | ACTION | LAYER;
-    var CONNECTOR = ID | SHAPE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN;
+    var CONNECTOR = ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN;
     var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
     var EShapeCapability = {
         NONE: NONE,
@@ -34917,7 +34931,7 @@
      */
     var deserializeLine = function (item, manager) {
         var shape = new EShapeLine();
-        EShapeDeserializer.deserialize(item, manager, shape);
+        var result = EShapeDeserializer.deserialize(item, manager, shape);
         shape.points.deserialize(item[15], manager);
         var style = shape.points.style;
         var mask = EShapePointsStyle.NON_SCALING_MASK |
@@ -34928,7 +34942,7 @@
             shape.points.style &= ~mask;
             shape.stroke.style |= deprecated;
         }
-        return shape;
+        return result;
     };
 
     /*
