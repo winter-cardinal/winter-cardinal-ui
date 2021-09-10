@@ -28,7 +28,7 @@ export class DBaseBackgroundMeshGeometry extends MeshGeometry {
 		borderSize: number,
 		cornerMask: DCornerMask
 	) {
-		super(new Float32Array(56), new Float32Array(56), new Uint16Array(42));
+		super(new Float32Array(72), new Float32Array(72), new Uint16Array(54));
 
 		this._width = width;
 		this._height = height;
@@ -114,23 +114,23 @@ export class DBaseBackgroundMeshGeometry extends MeshGeometry {
 		y0: number,
 		y1: number
 	): void {
-		array[iv + 0] = x0;
-		array[iv + 1] = y0;
-		array[iv + 2] = x1;
-		array[iv + 3] = y0;
-		array[iv + 4] = x0;
-		array[iv + 5] = y1;
-		array[iv + 6] = x1;
-		array[iv + 7] = y1;
+		array[iv] = x0;
+		array[++iv] = y0;
+		array[++iv] = x1;
+		array[++iv] = y0;
+		array[++iv] = x0;
+		array[++iv] = y1;
+		array[++iv] = x1;
+		array[++iv] = y1;
 	}
 
 	protected fillIndices(ii: number, indices: Uint16Array, iv: number): void {
-		indices[ii + 0] = iv + 0;
-		indices[ii + 1] = iv + 1;
-		indices[ii + 2] = iv + 2;
-		indices[ii + 3] = iv + 1;
-		indices[ii + 4] = iv + 3;
-		indices[ii + 5] = iv + 2;
+		indices[ii] = iv;
+		indices[++ii] = iv + 1;
+		indices[++ii] = iv + 2;
+		indices[++ii] = iv + 1;
+		indices[++ii] = iv + 3;
+		indices[++ii] = iv + 2;
 	}
 
 	protected fillUvsCorner(
@@ -245,9 +245,25 @@ export class DBaseBackgroundMeshGeometry extends MeshGeometry {
 			ia += 4;
 			ii += 6;
 
+			// Middle left
+			this.fillVertices(iv, vertices, x0, x1, y1, y2);
+			this.fillUvs(iv, uvs, u0, u1, v1, v2);
+			this.fillIndices(ii, indices, ia);
+			iv += 8;
+			ia += 4;
+			ii += 6;
+
 			// Middle
-			this.fillVertices(iv, vertices, x0, x3, y1, y2);
-			this.fillUvs(iv, uvs, u0, u3, v1, v2);
+			this.fillVertices(iv, vertices, x1, x2, y1, y2);
+			this.fillUvs(iv, uvs, u1, u2, v1, v2);
+			this.fillIndices(ii, indices, ia);
+			iv += 8;
+			ia += 4;
+			ii += 6;
+
+			// Middle right
+			this.fillVertices(iv, vertices, x2, x3, y1, y2);
+			this.fillUvs(iv, uvs, u2, u3, v1, v2);
 			this.fillIndices(ii, indices, ia);
 			iv += 8;
 			ia += 4;
