@@ -5,32 +5,32 @@
 
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
-import { EShapeTagValue } from "./e-shape-tag-value";
-import { EShapeTagValueRange } from "./e-shape-tag-value-range";
+import { EShapeDataValue } from "./e-shape-data-value";
+import { EShapeDataValueRange } from "./e-shape-data-value-range";
 
-export interface EShapeTag {
-	readonly values: EShapeTagValue[];
+export interface EShapeData {
+	readonly values: EShapeDataValue[];
 	isChanged: boolean;
 
 	// Shortcuts
 	readonly id: string;
 	readonly initial: string;
 	readonly format: string;
-	readonly range: EShapeTagValueRange;
+	readonly range: EShapeDataValueRange;
 	value: unknown;
 	readonly nvalue: number;
 	time: number;
 	capacity: number;
 
-	add(value: EShapeTagValue, index?: number): void;
-	set(index: number, value: EShapeTagValue): EShapeTagValue | null;
-	indexOf(target: EShapeTagValue): number;
-	get(index: number): EShapeTagValue | null;
+	add(value: EShapeDataValue, index?: number): void;
+	set(index: number, value: EShapeDataValue): EShapeDataValue | null;
+	indexOf(target: EShapeDataValue): number;
+	get(index: number): EShapeDataValue | null;
 	remove(index: number): void;
 	size(): number;
 	swap(indexA: number, indexB: number): void;
 
-	copy(target: EShapeTag): this;
+	copy(target: EShapeData): this;
 	serialize(manager: EShapeResourceManagerSerialization): number;
 	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

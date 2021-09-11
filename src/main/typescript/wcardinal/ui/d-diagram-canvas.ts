@@ -11,7 +11,7 @@ import {
 	DThemeDiagramCanvasBase
 } from "./d-diagram-canvas-base";
 import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
-import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
+import { DDiagramCanvasDataMap } from "./d-diagram-canvas-data-map";
 import { EShapeContainer } from "./shape";
 import { EShape } from "./shape/e-shape";
 import { EShapeBase } from "./shape/variant/e-shape-base";
@@ -27,7 +27,10 @@ export class DDiagramCanvas<
 	OPTIONS extends DDiagramCanvasOptions<THEME> = DDiagramCanvasOptions<THEME>
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
 	protected static WORK_DBLCLICK?: Point;
-	tags: DDiagramCanvasTagMap;
+
+	/** @deprecated in favor of {@link data} */
+	tags: DDiagramCanvasDataMap;
+	data: DDiagramCanvasDataMap;
 	actionables: EShape[];
 	ids: DDiagramCanvasIdMap;
 
@@ -37,7 +40,9 @@ export class DDiagramCanvas<
 
 	constructor(options: OPTIONS) {
 		super(options);
-		this.tags = {};
+		const data = {};
+		this.data = data;
+		this.tags = data;
 		this.actionables = [];
 		this.ids = {};
 		this._downeds = new Set<EShape>();
@@ -45,12 +50,12 @@ export class DDiagramCanvas<
 
 	initialize(): void {
 		const time = Date.now();
-		const tags = this.tags;
+		const data = this.data;
 		const actionables = this.actionables;
 		const ids = this.ids;
 		const layers = this._layer.children;
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
-			layers[i].initialize(tags, ids, actionables);
+			layers[i].initialize(data, ids, actionables);
 		}
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
 			const layerChildren = layers[i].children;

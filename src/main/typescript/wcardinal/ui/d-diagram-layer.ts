@@ -6,7 +6,7 @@
 import { IPoint } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
-import { DDiagramCanvasTagMap } from "./d-diagram-canvas-tag-map";
+import { DDiagramCanvasDataMap } from "./d-diagram-canvas-data-map";
 import { DDiagramLayerBackground } from "./d-diagram-layer-background";
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "./d-diagram-serialized";
 import { EShapeActionValueMiscGestureType } from "./shape/action/e-shape-action-value-misc-gesture-type";
@@ -69,7 +69,7 @@ export class DDiagramLayer extends EShapeContainer {
 		return result;
 	}
 
-	initialize(tags: DDiagramCanvasTagMap, ids: DDiagramCanvasIdMap, actionables: EShape[]): void {
+	initialize(data: DDiagramCanvasDataMap, ids: DDiagramCanvasIdMap, actionables: EShape[]): void {
 		const interactives = this.interactives;
 		const shape = this._shape;
 		const isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
@@ -95,12 +95,12 @@ export class DDiagramLayer extends EShapeContainer {
 			shape.interactive = true;
 			interactives.push(shape);
 		}
-		this.doInitialize(this.children, tags, interactives, actionables, ids);
+		this.doInitialize(this.children, data, interactives, actionables, ids);
 	}
 
 	protected doInitialize(
 		shapes: EShape[],
-		tags: DDiagramCanvasTagMap,
+		data: DDiagramCanvasDataMap,
 		interactives: EShape[],
 		actionables: EShape[],
 		ids: DDiagramCanvasIdMap
@@ -108,19 +108,19 @@ export class DDiagramLayer extends EShapeContainer {
 		for (let i = 0, imax = shapes.length; i < imax; ++i) {
 			const shape = shapes[i];
 
-			// Tag mappings
-			const tag = shape.tag;
-			for (let j = 0, jmax = tag.size(); j < jmax; ++j) {
-				const value = tag.get(j);
-				if (value) {
-					const valueId = value.id;
-					if (0 < valueId.length) {
-						let values = tags[valueId];
-						if (values == null) {
-							values = [];
-							tags[valueId] = values;
+			// Data mappings
+			const shapeData = shape.data;
+			for (let j = 0, jmax = shapeData.size(); j < jmax; ++j) {
+				const shapeDatum = shapeData.get(j);
+				if (shapeDatum) {
+					const shapeDatumId = shapeDatum.id;
+					if (0 < shapeDatumId.length) {
+						let shapeDatumList = data[shapeDatumId];
+						if (shapeDatumList == null) {
+							shapeDatumList = [];
+							data[shapeDatumId] = shapeDatumList;
 						}
-						values.push(value);
+						shapeDatumList.push(shapeDatum);
 					}
 				}
 			}
@@ -163,7 +163,7 @@ export class DDiagramLayer extends EShapeContainer {
 			// Children
 			const children = shape.children;
 			if (0 < children.length) {
-				this.doInitialize(children, tags, interactives, actionables, ids);
+				this.doInitialize(children, data, interactives, actionables, ids);
 			}
 		}
 	}

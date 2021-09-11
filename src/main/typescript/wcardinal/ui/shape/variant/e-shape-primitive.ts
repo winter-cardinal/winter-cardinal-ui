@@ -10,13 +10,13 @@ import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeFill } from "../e-shape-fill";
 import { EShapeGradientLike } from "../e-shape-gradient";
 import { EShapeStroke } from "../e-shape-stroke";
-import { EShapeTag } from "../e-shape-tag";
+import { EShapeData } from "../e-shape-data";
 import { EShapeText } from "../e-shape-text";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
 import { EShapeFillImpl } from "./e-shape-fill-impl";
 import { EShapeStrokeImpl } from "./e-shape-stroke-impl";
-import { EShapeTagImpl } from "./e-shape-tag-impl";
+import { EShapeDataImpl } from "./e-shape-data-impl";
 import { EShapeTextImpl } from "./e-shape-text-impl";
 
 export abstract class EShapePrimitive extends EShapeBase {
@@ -28,7 +28,9 @@ export abstract class EShapePrimitive extends EShapeBase {
 	protected _image?: HTMLImageElement;
 	gradient?: EShapeGradientLike;
 	readonly text: EShapeText;
-	readonly tag: EShapeTag;
+	/** @deprecated in favor of {@link data} */
+	readonly tag: EShapeData;
+	readonly data: EShapeData;
 	cursor: string;
 
 	constructor(type: EShapeType) {
@@ -38,7 +40,9 @@ export abstract class EShapePrimitive extends EShapeBase {
 		this.stroke = this.newStroke();
 		this._radius = EShapeDefaults.RADIUS;
 		this._corner = EShapeCorner.ALL;
-		this.tag = new EShapeTagImpl();
+		const data = new EShapeDataImpl();
+		this.data = data;
+		this.tag = data;
 		this.text = this.newText();
 		this.cursor = EShapeDefaults.CURSOR;
 	}

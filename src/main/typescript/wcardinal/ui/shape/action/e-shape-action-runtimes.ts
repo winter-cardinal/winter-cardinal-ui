@@ -6,12 +6,12 @@
 import { DCanvasContainer } from "../../d-canvas-container";
 import { EShape } from "../e-shape";
 
-interface EShapeActionRuntimeContainerTagRemote {
+interface EShapeActionRuntimeContainerDataRemote {
 	set(id: string, value: unknown, time: number): void;
 }
 
-interface EShapeActionRuntimeContainerTag {
-	readonly remote: EShapeActionRuntimeContainerTagRemote;
+interface EShapeActionRuntimeContainerData {
+	readonly remote: EShapeActionRuntimeContainerDataRemote;
 
 	set(id: string, value: unknown, time?: number, from?: number | null, to?: number | null): void;
 }
@@ -22,7 +22,7 @@ interface EShapeActionRuntimeContainerShape {
 
 interface EShapeActionRuntimeContainer extends DCanvasContainer {
 	readonly shape: EShapeActionRuntimeContainerShape;
-	readonly tag: EShapeActionRuntimeContainerTag;
+	readonly data: EShapeActionRuntimeContainerData;
 
 	openByName(target: string): void;
 }
@@ -50,9 +50,9 @@ export class EShapeActionRuntimes {
 		const container = this.toContainer(shape);
 		if (container) {
 			if (remote) {
-				container.tag.remote.set(id, value, time);
+				container.data.remote.set(id, value, time);
 			} else {
-				container.tag.set(id, value, time);
+				container.data.set(id, value, time);
 			}
 		}
 	}

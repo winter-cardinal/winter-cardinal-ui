@@ -3,31 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDiagramSerializedTagValue } from "../../d-diagram-serialized";
+import { DDiagramSerializedDataValue } from "../../d-diagram-serialized";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeTagValue, EShapeTagValueOrder, EShapeTagValueParent } from "../e-shape-tag-value";
-import { EShapeTagValueRange } from "../e-shape-tag-value-range";
-import { EShapeTagValueRangeImpl } from "./e-shape-tag-value-range-impl";
+import {
+	EShapeDataValue,
+	EShapeDataValueOrder,
+	EShapeDataValueParent
+} from "../e-shape-data-value";
+import { EShapeDataValueRange } from "../e-shape-data-value-range";
+import { EShapeDataValueRangeImpl } from "./e-shape-data-value-range-impl";
 
 const INDEX_COMPARATOR = (a: number, b: number): number => {
 	return a - b;
 };
 
-export class EShapeTagValueImpl implements EShapeTagValue {
+export class EShapeDataValueImpl implements EShapeDataValue {
 	id: string;
 	initial: string;
 	format: string;
-	range: EShapeTagValueRange;
+	range: EShapeDataValueRange;
 	protected _value: unknown;
 	protected _time: number;
 
 	protected _values: unknown[] | undefined;
 	protected _times: number[] | undefined;
 	protected _capacity: number;
-	protected _order: EShapeTagValueOrder;
+	protected _order: EShapeDataValueOrder;
 
-	protected _parent?: EShapeTagValueParent;
+	protected _parent?: EShapeDataValueParent;
 
 	formatter?: (value: unknown) => unknown;
 
@@ -35,18 +39,18 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 		this.id = "";
 		this.initial = "";
 		this.format = "";
-		this.range = new EShapeTagValueRangeImpl();
+		this.range = new EShapeDataValueRangeImpl();
 		this._value = 0;
 		this._time = 0;
 		this._capacity = 0;
-		this._order = EShapeTagValueOrder.ASCENDING;
+		this._order = EShapeDataValueOrder.ASCENDING;
 	}
 
-	get parent(): EShapeTagValueParent | undefined {
+	get parent(): EShapeDataValueParent | undefined {
 		return this._parent;
 	}
 
-	set parent(parent: EShapeTagValueParent | undefined) {
+	set parent(parent: EShapeDataValueParent | undefined) {
 		if (this._parent !== parent) {
 			this._parent = parent;
 			this.range.parent = parent;
@@ -84,7 +88,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 
 			// Update the values
 			const order = this._order;
-			if (order === EShapeTagValueOrder.ASCENDING) {
+			if (order === EShapeDataValueOrder.ASCENDING) {
 				values.push(newValue);
 			} else {
 				values.unshift(newValue);
@@ -93,7 +97,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 			// Remove the unnecessary values
 			const count = values.length - capacity;
 			if (0 < count) {
-				if (order === EShapeTagValueOrder.ASCENDING) {
+				if (order === EShapeDataValueOrder.ASCENDING) {
 					for (let i = 0; i < count; ++i) {
 						values.shift();
 					}
@@ -153,7 +157,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 					this._value = formatter(newValues[newValues.length - 1]);
 
 					// Update the values
-					if (order === EShapeTagValueOrder.ASCENDING) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
 						for (let i = 0, imax = newValues.length; i < imax; ++i) {
 							values.push(formatter(newValues[i]));
 						}
@@ -167,7 +171,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 					this._value = newValues[newValues.length - 1];
 
 					// Update the values
-					if (order === EShapeTagValueOrder.ASCENDING) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
 						for (let i = 0, imax = newValues.length; i < imax; ++i) {
 							values.push(newValues[i]);
 						}
@@ -181,7 +185,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 				// Remove the unnecessary values
 				const count = values.length - capacity;
 				if (0 < count) {
-					if (order === EShapeTagValueOrder.ASCENDING) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
 						for (let i = 0; i < count; ++i) {
 							values.shift();
 						}
@@ -226,7 +230,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 
 			// Update the times
 			const order = this._order;
-			if (order === EShapeTagValueOrder.ASCENDING) {
+			if (order === EShapeDataValueOrder.ASCENDING) {
 				times.push(newTime);
 			} else {
 				times.unshift(newTime);
@@ -235,7 +239,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 			// Remove the unnecessary times
 			const count = times.length - capacity;
 			if (0 < count) {
-				if (order === EShapeTagValueOrder.ASCENDING) {
+				if (order === EShapeDataValueOrder.ASCENDING) {
 					for (let i = 0; i < count; ++i) {
 						times.shift();
 					}
@@ -286,7 +290,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 
 				//
 				const order = this._order;
-				if (order === EShapeTagValueOrder.ASCENDING) {
+				if (order === EShapeDataValueOrder.ASCENDING) {
 					for (let i = 0, imax = newTimes.length; i < imax; ++i) {
 						times.push(newTimes[i]);
 					}
@@ -299,7 +303,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 				//
 				const count = times.length - capacity;
 				if (0 < count) {
-					if (order === EShapeTagValueOrder.ASCENDING) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
 						for (let i = 0; i < count; ++i) {
 							times.shift();
 						}
@@ -335,7 +339,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 			if (values != null) {
 				const count = values.length - capacity;
 				if (0 < count) {
-					if (order === EShapeTagValueOrder.ASCENDING) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
 						for (let i = 0; i < count; ++i) {
 							values.shift();
 						}
@@ -351,7 +355,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 			if (times != null) {
 				const count = times.length - capacity;
 				if (0 < count) {
-					if (order === EShapeTagValueOrder.ASCENDING) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
 						for (let i = 0; i < count; ++i) {
 							times.shift();
 						}
@@ -371,11 +375,11 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 		}
 	}
 
-	get order(): EShapeTagValueOrder {
+	get order(): EShapeDataValueOrder {
 		return this._order;
 	}
 
-	set order(order: EShapeTagValueOrder) {
+	set order(order: EShapeDataValueOrder) {
 		this._order = order;
 	}
 
@@ -489,7 +493,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 	 *
 	 * @param target a copy target
 	 */
-	copy(target: EShapeTagValue): this {
+	copy(target: EShapeDataValue): this {
 		this.id = target.id;
 		this.initial = target.initial;
 		this.format = target.format;
@@ -501,7 +505,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 		return this;
 	}
 
-	isEquals(target: EShapeTagValue): boolean {
+	isEquals(target: EShapeDataValue): boolean {
 		return (
 			this.id === target.id &&
 			this.initial === target.initial &&
@@ -511,7 +515,7 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
-		const idSerialized = manager.addTag(this.id);
+		const idSerialized = manager.addData(this.id);
 		const initialSerialized = manager.addResource(this.initial);
 		const formatSerialized = manager.addResource(this.format.trim());
 		const rangeSerialized = this.range.serialize(manager);
@@ -523,12 +527,12 @@ export class EShapeTagValueImpl implements EShapeTagValue {
 	deserialize(target: number, manager: EShapeResourceManagerDeserialization): this {
 		const resources = manager.resources;
 		if (0 <= target && target < resources.length) {
-			let parsed = manager.getTagValue(target);
+			let parsed = manager.getDataValue(target);
 			if (parsed == null) {
-				parsed = JSON.parse(resources[target]) as DDiagramSerializedTagValue;
-				manager.setTagValue(target, parsed);
+				parsed = JSON.parse(resources[target]) as DDiagramSerializedDataValue;
+				manager.setDataValue(target, parsed);
 			}
-			this.id = manager.tags[parsed[0]] || "";
+			this.id = manager.data[parsed[0]] || "";
 			this.initial = resources[parsed[1]] || "";
 			this.format = resources[parsed[2]] || "";
 			this.range.deserialize(parsed[3], manager);

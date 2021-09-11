@@ -35,7 +35,7 @@ import { EShapeStateSet } from "../e-shape-state-set";
 import { EShapeStateSetImplObservable } from "../e-shape-state-set-impl-observable";
 import { EShapeStroke } from "../e-shape-stroke";
 import { EShapeStrokeStyle } from "../e-shape-stroke-style";
-import { EShapeTag } from "../e-shape-tag";
+import { EShapeData } from "../e-shape-data";
 import { EShapeText } from "../e-shape-text";
 import { EShapeTransform, EShapeTransformImpl } from "../e-shape-transform";
 import { EShapeType } from "../e-shape-type";
@@ -61,7 +61,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	texture?: Texture;
 	abstract gradient?: EShapeGradientLike;
 	abstract readonly text: EShapeText;
-	abstract readonly tag: EShapeTag;
+	/** @deprecated in favor of {@link data} */
+	abstract readonly tag: EShapeData;
+	abstract readonly data: EShapeData;
 	readonly action: EShapeAction;
 	abstract cursor: string;
 	interactive: boolean;
@@ -424,7 +426,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this.stroke.serialize(manager),
 			manager.addResource(this.cursor.trim()),
 			this.text.serialize(manager),
-			this.tag.serialize(manager),
+			this.data.serialize(manager),
 			this.radius,
 			this.corner,
 			-1,
@@ -829,8 +831,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this.radius = source.radius;
 			this.corner = source.corner;
 		}
-		if (part & EShapeCopyPart.TAG) {
-			this.tag.copy(source.tag);
+		if (part & EShapeCopyPart.DATA) {
+			this.data.copy(source.data);
 		}
 		if (part & EShapeCopyPart.IMAGE) {
 			this.image = source.image;

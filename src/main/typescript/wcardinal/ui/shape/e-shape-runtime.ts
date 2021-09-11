@@ -211,9 +211,9 @@ export class EShapeRuntime {
 	}
 
 	update(shape: EShape, time: number): void {
-		const tag = shape.tag;
+		const data = shape.data;
 		const isEffectTimeUp = this.effect <= time;
-		if (tag.isChanged || this.isStateChanged || isEffectTimeUp) {
+		if (data.isChanged || this.isStateChanged || isEffectTimeUp) {
 			if (isEffectTimeUp) {
 				this.effect = NaN;
 			}
@@ -228,7 +228,7 @@ export class EShapeRuntime {
 				EShapeState.DEACTIVATED
 			);
 			this.isStateChanged = false;
-			tag.isChanged = false;
+			data.isChanged = false;
 		}
 	}
 

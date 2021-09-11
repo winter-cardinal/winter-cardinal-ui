@@ -18,7 +18,7 @@ import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-s
 import { EShapeRuntime } from "./e-shape-runtime";
 import { EShapeStateSet } from "./e-shape-state-set";
 import { EShapeStroke } from "./e-shape-stroke";
-import { EShapeTag } from "./e-shape-tag";
+import { EShapeData } from "./e-shape-data";
 import { EShapeText } from "./e-shape-text";
 import { EShapeTransform } from "./e-shape-transform";
 import { EShapeType } from "./e-shape-type";
@@ -41,7 +41,9 @@ export interface EShape extends utils.EventEmitter {
 	texture?: Texture;
 	gradient?: EShapeGradientLike;
 	readonly text: EShapeText;
-	readonly tag: EShapeTag;
+	/** @deprecated in favor of {@link data}. */
+	readonly tag: EShapeData;
+	readonly data: EShapeData;
 	readonly action: EShapeAction;
 	cursor: string;
 	visible: boolean;

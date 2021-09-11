@@ -37,7 +37,7 @@
 		});
 
 		diagram.shape.on( "clicked", function() {
-			diagram.tag.set( "B0001", 1 );
+			diagram.data.set( "B0001", 1 );
 		});
 
 		fetch( "../../resource/diagram/emit-event.json" ).then(function( response ) {

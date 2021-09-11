@@ -5,27 +5,27 @@
 
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
-import { EShapeTagValueRange, EShapeTagValueRangeLike } from "./e-shape-tag-value-range";
+import { EShapeDataValueRange, EShapeDataValueRangeLike } from "./e-shape-data-value-range";
 
-export enum EShapeTagValueOrder {
+export enum EShapeDataValueOrder {
 	ASCENDING,
 	DESCENDING
 }
 
-export interface EShapeTagValueLike {
+export interface EShapeDataValueLike {
 	id: string;
 	initial: string;
 	format: string;
-	range: EShapeTagValueRangeLike;
+	range: EShapeDataValueRangeLike;
 	capacity: number;
-	order: EShapeTagValueOrder;
+	order: EShapeDataValueOrder;
 }
 
-export interface EShapeTagValueParent {
+export interface EShapeDataValueParent {
 	isChanged: boolean;
 }
 
-export interface EShapeTagValue extends EShapeTagValueLike {
+export interface EShapeDataValue extends EShapeDataValueLike {
 	value: unknown;
 	readonly nvalue: number;
 	time: number;
@@ -33,16 +33,16 @@ export interface EShapeTagValue extends EShapeTagValueLike {
 	values: unknown[];
 	times: number[];
 
-	range: EShapeTagValueRange;
-	parent?: EShapeTagValueParent;
+	range: EShapeDataValueRange;
+	parent?: EShapeDataValueParent;
 
 	formatter?: (value: unknown) => unknown;
 
 	clear(): void;
 	remove(index: number): void;
 	removeAll(indices: number[]): void;
-	copy(target: EShapeTagValue): void;
-	isEquals(target: EShapeTagValue): boolean;
+	copy(target: EShapeDataValue): void;
+	isEquals(target: EShapeDataValue): boolean;
 	serialize(manager: EShapeResourceManagerSerialization): number;
 	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void;
 }

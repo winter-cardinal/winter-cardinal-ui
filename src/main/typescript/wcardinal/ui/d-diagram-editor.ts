@@ -328,7 +328,7 @@ export class DDiagramEditor<
 			width,
 			height,
 			resources: [],
-			tags: [],
+			data: [],
 			layers: [["Default layer"]],
 			items: [],
 			snap: undefined

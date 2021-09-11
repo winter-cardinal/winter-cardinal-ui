@@ -10,7 +10,7 @@ import { EShapeFill } from "../e-shape-fill";
 import { EShapeGradientLike } from "../e-shape-gradient";
 import { EShapePoints } from "../e-shape-points";
 import { EShapeStroke } from "../e-shape-stroke";
-import { EShapeTag } from "../e-shape-tag";
+import { EShapeData } from "../e-shape-data";
 import { EShapeText } from "../e-shape-text";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
@@ -20,13 +20,15 @@ import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeViewer } from "./e-shape-group-stroke-viewer";
 import { EShapeGroupTextViewer } from "./e-shape-group-text-viewer";
-import { EShapeTagImpl } from "./e-shape-tag-impl";
+import { EShapeDataImpl } from "./e-shape-data-impl";
 
 export abstract class EShapeGroupViewer extends EShapeBase {
 	size: EShapeGroupSize;
 	fill: EShapeFill;
 	stroke: EShapeStroke;
-	tag: EShapeTag;
+	/** @deprecated in favor of {@link data} */
+	tag: EShapeData;
+	data: EShapeData;
 	text: EShapeText;
 
 	protected _isEditMode: boolean;
@@ -34,7 +36,9 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 	constructor(isEditMode: boolean, type: EShapeType) {
 		super(type);
 		this._isEditMode = isEditMode;
-		this.tag = this.newTag();
+		const data = this.newData();
+		this.data = data;
+		this.tag = data;
 		this.size = this.newGroupSize(isEditMode);
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
@@ -59,8 +63,8 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return true;
 	}
 
-	protected newTag(): EShapeTag {
-		return new EShapeTagImpl();
+	protected newData(): EShapeData {
+		return new EShapeDataImpl();
 	}
 
 	protected newGroupFill(): EShapeFill {

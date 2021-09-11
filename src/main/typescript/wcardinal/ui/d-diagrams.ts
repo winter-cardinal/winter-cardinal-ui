@@ -5,7 +5,11 @@
 
 import { DDiagramBaseController } from "./d-diagram-base";
 import { DDiagramLayerContainer } from "./d-diagram-layer-container";
-import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
+import {
+	DDiagramSerialized,
+	DDiagramSerializedSimple,
+	DDiagramSerializedSimpleData
+} from "./d-diagram-serialized";
 import { EShape } from "./shape/e-shape";
 import { EShapeDeserializer } from "./shape/e-shape-deserializer";
 import { EShapeLayerContainer } from "./shape/e-shape-layer-container";
@@ -15,14 +19,10 @@ import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-l
 
 export class DDiagrams {
 	static toSimple(serialized: DDiagramSerialized): DDiagramSerializedSimple {
-		const tags = serialized.tags;
-		const pieces = serialized.pieces;
 		return {
 			version: serialized.version,
 			id: serialized.id,
 			name: serialized.name,
-			tags: tags != null ? JSON.stringify(tags) : undefined,
-			pieces: pieces != null ? JSON.stringify(pieces) : undefined,
 			thumbnail: serialized.thumbnail,
 			data: JSON.stringify({
 				width: serialized.width,
@@ -30,6 +30,8 @@ export class DDiagrams {
 				background: serialized.background,
 				tile: serialized.tile,
 				resources: serialized.resources,
+				data: serialized.data || serialized.tags,
+				pieces: serialized.pieces,
 				layers: serialized.layers,
 				items: serialized.items,
 				snap: serialized.snap
@@ -38,20 +40,36 @@ export class DDiagrams {
 	}
 
 	static toSerialized(target: DDiagramSerializedSimple | DDiagramSerialized): DDiagramSerialized {
-		if ("data" in target) {
-			const result: DDiagramSerialized = JSON.parse(target.data);
-			result.version = target.version;
-			result.id = target.id;
-			result.name = target.name;
-			const tags = target.tags;
-			if (tags != null) {
-				result.tags = JSON.parse(tags);
+		if (!("items" in target)) {
+			const data: DDiagramSerializedSimpleData = JSON.parse(target.data);
+			const result: DDiagramSerialized = {
+				version: target.version,
+				id: target.id,
+				name: target.name,
+				width: data.width,
+				height: data.height,
+				background: data.background,
+				tile: data.tile,
+				resources: data.resources,
+				data: data.data || data.tags,
+				pieces: data.pieces,
+				layers: data.layers,
+				items: data.items,
+				snap: data.snap,
+				thumbnail: target.thumbnail
+			};
+			if (result.data == null) {
+				const tags = target.tags;
+				if (tags != null) {
+					result.data = JSON.parse(tags);
+				}
 			}
-			const pieces = target.pieces;
-			if (pieces != null) {
-				result.pieces = JSON.parse(pieces);
+			if (result.pieces == null) {
+				const pieces = target.pieces;
+				if (pieces != null) {
+					result.pieces = JSON.parse(pieces);
+				}
 			}
-			result.thumbnail = target.thumbnail;
 			return result;
 		}
 		return target;

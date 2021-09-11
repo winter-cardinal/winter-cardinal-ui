@@ -5,16 +5,16 @@
 
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeTag } from "../e-shape-tag";
-import { EShapeTagValue } from "../e-shape-tag-value";
-import { EShapeTagValueRange } from "../e-shape-tag-value-range";
-import { EShapeTagValueImpl } from "./e-shape-tag-value-impl";
-import { EShapeTagValueRangeImpl } from "./e-shape-tag-value-range-impl";
+import { EShapeData } from "../e-shape-data";
+import { EShapeDataValue } from "../e-shape-data-value";
+import { EShapeDataValueRange } from "../e-shape-data-value-range";
+import { EShapeDataValueImpl } from "./e-shape-data-value-impl";
+import { EShapeDataValueRangeImpl } from "./e-shape-data-value-range-impl";
 
-let RANGE_DUMMY: EShapeTagValueRange | undefined;
+let RANGE_DUMMY: EShapeDataValueRange | undefined;
 
-export class EShapeTagImpl implements EShapeTag {
-	protected _values: EShapeTagValue[];
+export class EShapeDataImpl implements EShapeData {
+	protected _values: EShapeDataValue[];
 	protected _isChanged: boolean;
 
 	constructor() {
@@ -22,7 +22,7 @@ export class EShapeTagImpl implements EShapeTag {
 		this._isChanged = true;
 	}
 
-	get values(): EShapeTagValue[] {
+	get values(): EShapeDataValue[] {
 		return this._values;
 	}
 
@@ -58,12 +58,12 @@ export class EShapeTagImpl implements EShapeTag {
 		return "";
 	}
 
-	get range(): EShapeTagValueRange {
+	get range(): EShapeDataValueRange {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].range;
 		}
-		return (RANGE_DUMMY ??= new EShapeTagValueRangeImpl());
+		return (RANGE_DUMMY ??= new EShapeDataValueRangeImpl());
 	}
 
 	get value(): unknown {
@@ -119,7 +119,7 @@ export class EShapeTagImpl implements EShapeTag {
 		}
 	}
 
-	add(value: EShapeTagValue, index?: number): void {
+	add(value: EShapeDataValue, index?: number): void {
 		const values = this._values;
 		value.parent = this;
 		if (index === undefined) {
@@ -129,7 +129,7 @@ export class EShapeTagImpl implements EShapeTag {
 		}
 	}
 
-	set(index: number, value: EShapeTagValue): EShapeTagValue | null {
+	set(index: number, value: EShapeDataValue): EShapeDataValue | null {
 		const values = this._values;
 		if (0 <= index && index < values.length) {
 			const result = values[index];
@@ -148,7 +148,7 @@ export class EShapeTagImpl implements EShapeTag {
 		}
 	}
 
-	indexOf(target: EShapeTagValue): number {
+	indexOf(target: EShapeDataValue): number {
 		const values = this._values;
 		const valuesLength = values.length;
 
@@ -176,7 +176,7 @@ export class EShapeTagImpl implements EShapeTag {
 		return -1;
 	}
 
-	get(index: number): EShapeTagValue | null {
+	get(index: number): EShapeDataValue | null {
 		const values = this._values;
 		if (0 <= index && index < values.length) {
 			return values[index];
@@ -195,14 +195,14 @@ export class EShapeTagImpl implements EShapeTag {
 		values[indexA] = tmp;
 	}
 
-	copy(target: EShapeTag): this {
+	copy(target: EShapeData): this {
 		const values = this._values;
 		values.length = 0;
 
 		for (let i = 0, imax = target.size(); i < imax; ++i) {
 			const value = target.get(i);
 			if (value != null) {
-				const newValue = new EShapeTagValueImpl().copy(value);
+				const newValue = new EShapeDataValueImpl().copy(value);
 				newValue.parent = this;
 				values.push(newValue);
 			}
@@ -227,10 +227,10 @@ export class EShapeTagImpl implements EShapeTag {
 
 	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
 		if (0 <= target && target < manager.resources.length) {
-			let deserialized: number[] | undefined = manager.getTag(target);
+			let deserialized: number[] | undefined = manager.getData(target);
 			if (deserialized == null) {
 				deserialized = JSON.parse(manager.resources[target]) as number[];
-				manager.setTag(target, deserialized);
+				manager.setData(target, deserialized);
 			}
 
 			const values = this._values;
@@ -238,7 +238,7 @@ export class EShapeTagImpl implements EShapeTag {
 			const deserializedLength = deserialized.length;
 			for (let i = 0; i < deserializedLength; ++i) {
 				const index = deserialized[i];
-				const value = new EShapeTagValueImpl();
+				const value = new EShapeDataValueImpl();
 				value.parent = this;
 				value.deserialize(index, manager);
 				values.push(value);

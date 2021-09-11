@@ -14,7 +14,7 @@ import {
 import { DDiagramCanvas, DDiagramCanvasOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
-import { DDiagramTag, DDiagramTagMapper, DDiagramTagOptions } from "./d-diagram-tag";
+import { DDiagramData, DDiagramDataMapper, DDiagramDataOptions } from "./d-diagram-data";
 import { EShapeActionRuntime } from "./shape/action/e-shape-action-runtime";
 import { EShapeActionRuntimeOpen } from "./shape/action/e-shape-action-runtime-open";
 import { EShapeActionValue } from "./shape/action/e-shape-action-value";
@@ -45,7 +45,9 @@ export interface DDiagramOptions<THEME extends DThemeDiagram = DThemeDiagram, EM
 		THEME,
 		EMITTER
 	> {
-	tag?: DDiagramTagOptions;
+	/** @deprecated in favor of {@link data} */
+	tag?: DDiagramDataOptions;
+	data?: DDiagramDataOptions;
 }
 
 /**
@@ -57,7 +59,9 @@ export class DDiagram<
 	THEME extends DThemeDiagram = DThemeDiagram,
 	OPTIONS extends DDiagramOptions<THEME> = DDiagramOptions<THEME>
 > extends DDiagramBase<DDiagramCanvas, DDiagramCanvasOptions, DDiagramController, THEME, OPTIONS> {
-	tag: DDiagramTag;
+	/** @deprecated in favor of {@link data} */
+	tag: DDiagramData;
+	data: DDiagramData;
 	shape: DDiagramShape;
 
 	constructor(options?: OPTIONS) {
@@ -99,18 +103,20 @@ export class DDiagram<
 		});
 
 		//
-		this.tag = new DDiagramTag(this, options && options.tag);
+		const data = new DDiagramData(this, options && (options.data || options.tag));
+		this.data = data;
+		this.tag = data;
 		this.shape = new DDiagramShape(this);
 	}
 
 	protected initialize(shapes: EShape[]): void {
-		this.initializeShapes(shapes, null, this.tag.mapper);
+		this.initializeShapes(shapes, null, this.data.mapper);
 	}
 
 	protected initializeShapes(
 		shapes: EShape[],
-		tagShape: EShape | null,
-		tagMapper: DDiagramTagMapper | null
+		dataShape: EShape | null,
+		dataMapper: DDiagramDataMapper | null
 	): void {
 		const formatterMap: { [format: string]: (value: unknown) => unknown } = {};
 		const initialMap: { [initial: string]: unknown | undefined } = {};
@@ -124,53 +130,53 @@ export class DDiagram<
 			const runtimeConstructor = EShapeRuntimes[shape.type] || EShapeRuntime;
 			const runtime = (shape.runtime = new runtimeConstructor(shape));
 
-			// Tag
-			const tag = shape.tag;
-			for (let j = 0, jmax = tag.size(); j < jmax; ++j) {
-				const value = tag.get(j);
-				if (value) {
+			// Data
+			const shapeData = shape.data;
+			for (let j = 0, jmax = shapeData.size(); j < jmax; ++j) {
+				const shapeDatum = shapeData.get(j);
+				if (shapeDatum) {
 					// Mapping
-					if (tagMapper) {
-						tagMapper(value, tagShape || shape);
+					if (dataMapper) {
+						dataMapper(shapeDatum, dataShape || shape);
 					}
 
 					// Format
-					const tagFormat = value.format;
-					const tagInitial = value.initial;
-					if (tagFormat in formatterMap) {
-						value.formatter = formatterMap[tagFormat];
-					} else if (0 < tagFormat.length) {
+					const datumFormat = shapeDatum.format;
+					const datumInitial = shapeDatum.initial;
+					if (datumFormat in formatterMap) {
+						shapeDatum.formatter = formatterMap[datumFormat];
+					} else if (0 < datumFormat.length) {
 						try {
 							const formatter = Function(
 								"value",
 								/* eslint-disable prettier/prettier */
 								`try {` +
-									`return (${tagFormat});` +
+									`return (${datumFormat});` +
 								`} catch( e1 ) {` +
 									`try {` +
-										`return (${0 < tagInitial.length ? tagInitial : 0});` +
+										`return (${0 < datumInitial.length ? datumInitial : 0});` +
 									`} catch( e2 ) {` +
 										`return 0;` +
 									`}` +
 								`}`
 								/* eslint-enable prettier/prettier */
 							) as any;
-							formatterMap[tagFormat] = formatter;
-							value.formatter = formatter;
+							formatterMap[datumFormat] = formatter;
+							shapeDatum.formatter = formatter;
 						} catch (e) {
 							//
 						}
 					}
 
 					// Initial
-					if (tagInitial in initialMap) {
-						value.value = initialMap[tagInitial];
-					} else if (0 < tagInitial.length) {
+					if (datumInitial in initialMap) {
+						shapeDatum.value = initialMap[datumInitial];
+					} else if (0 < datumInitial.length) {
 						try {
-							value.value = initialMap[tagInitial] = Function(
+							shapeDatum.value = initialMap[datumInitial] = Function(
 								/* eslint-disable prettier/prettier */
 								`try {` +
-									`return (${tagInitial});` +
+									`return (${datumInitial});` +
 								`} catch( e ) {` +
 									`return 0;` +
 								`}`
@@ -211,14 +217,14 @@ export class DDiagram<
 			// Children
 			const children = shape.children;
 			if (0 < children.length) {
-				this.initializeShapes(children, this.toTagShape(tagShape, shape), tagMapper);
+				this.initializeShapes(children, this.toDataShape(dataShape, shape), dataMapper);
 			}
 		}
 	}
 
-	protected toTagShape(tagShape: EShape | null, shape: EShape): EShape | null {
-		if (tagShape != null) {
-			return tagShape;
+	protected toDataShape(dataShape: EShape | null, shape: EShape): EShape | null {
+		if (dataShape != null) {
+			return dataShape;
 		}
 		if (shape.type === EShapeType.EMBEDDED) {
 			return shape;

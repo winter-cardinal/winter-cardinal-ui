@@ -6,8 +6,8 @@
 import {
 	DDiagramSerializedFill,
 	DDiagramSerializedStroke,
-	DDiagramSerializedTagRange,
-	DDiagramSerializedTagValue,
+	DDiagramSerializedDataRange,
+	DDiagramSerializedDataValue,
 	DDiagramSerializedText,
 	DDiagramSerializedTextOutline
 } from "../d-diagram-serialized";
@@ -17,11 +17,12 @@ import { EShapeEmbeddedDatum } from "./variant/e-shape-embedded-datum";
 export interface EShapeResourceManagerDeserializationSerialized {
 	resources: string[];
 	tags?: string[];
+	data?: string[];
 }
 
 export class EShapeResourceManagerDeserialization {
 	resources: string[];
-	tags: string[];
+	data: string[];
 	pieces?: string[];
 	pieceData?: Map<string, EShapeEmbeddedDatum>;
 	isEditMode: boolean;
@@ -29,9 +30,9 @@ export class EShapeResourceManagerDeserialization {
 	protected _actions: Map<number, EShapeActionValue>;
 	protected _fills: Map<number, DDiagramSerializedFill>;
 	protected _strokes: Map<number, DDiagramSerializedStroke>;
-	protected _tagValues: Map<number, DDiagramSerializedTagValue>;
-	protected _tags: Map<number, number[]>;
-	protected _ranges: Map<number, DDiagramSerializedTagRange>;
+	protected _dataValues: Map<number, DDiagramSerializedDataValue>;
+	protected _data: Map<number, number[]>;
+	protected _ranges: Map<number, DDiagramSerializedDataRange>;
 	protected _aligns: Map<number, [number, number]>;
 	protected _margins: Map<number, [number, number]>;
 	protected _texts: Map<number, DDiagramSerializedText>;
@@ -45,7 +46,7 @@ export class EShapeResourceManagerDeserialization {
 		isEditMode: boolean
 	) {
 		this.resources = serialized.resources;
-		this.tags = serialized.tags || serialized.resources;
+		this.data = serialized.data || serialized.tags || serialized.resources;
 		this.pieces = pieces;
 		this.pieceData = pieceData;
 		this.isEditMode = isEditMode;
@@ -53,9 +54,9 @@ export class EShapeResourceManagerDeserialization {
 		this._actions = new Map<number, EShapeActionValue>();
 		this._fills = new Map<number, DDiagramSerializedFill>();
 		this._strokes = new Map<number, DDiagramSerializedStroke>();
-		this._tags = new Map<number, number[]>();
-		this._tagValues = new Map<number, DDiagramSerializedTagValue>();
-		this._ranges = new Map<number, DDiagramSerializedTagRange>();
+		this._data = new Map<number, number[]>();
+		this._dataValues = new Map<number, DDiagramSerializedDataValue>();
+		this._ranges = new Map<number, DDiagramSerializedDataRange>();
 		this._aligns = new Map<number, [number, number]>();
 		this._margins = new Map<number, [number, number]>();
 		this._texts = new Map<number, DDiagramSerializedText>();
@@ -87,27 +88,27 @@ export class EShapeResourceManagerDeserialization {
 		this._strokes.set(id, stroke);
 	}
 
-	getTag(id: number): number[] | undefined {
-		return this._tags.get(id);
+	getData(id: number): number[] | undefined {
+		return this._data.get(id);
 	}
 
-	setTag(id: number, tag: number[]): void {
-		this._tags.set(id, tag);
+	setData(id: number, data: number[]): void {
+		this._data.set(id, data);
 	}
 
-	getTagValue(id: number): DDiagramSerializedTagValue | undefined {
-		return this._tagValues.get(id);
+	getDataValue(id: number): DDiagramSerializedDataValue | undefined {
+		return this._dataValues.get(id);
 	}
 
-	setTagValue(id: number, tagValue: DDiagramSerializedTagValue): void {
-		this._tagValues.set(id, tagValue);
+	setDataValue(id: number, dataValue: DDiagramSerializedDataValue): void {
+		this._dataValues.set(id, dataValue);
 	}
 
-	getRange(id: number): DDiagramSerializedTagRange | undefined {
+	getRange(id: number): DDiagramSerializedDataRange | undefined {
 		return this._ranges.get(id);
 	}
 
-	setRange(id: number, range: DDiagramSerializedTagRange): void {
+	setRange(id: number, range: DDiagramSerializedDataRange): void {
 		this._ranges.set(id, range);
 	}
 

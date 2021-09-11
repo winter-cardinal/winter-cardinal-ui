@@ -43,7 +43,7 @@ export class EShapeDeserializer {
 		result.stroke.deserialize(item[9], manager);
 		result.cursor = manager.resources[item[10]] || "";
 		result.text.deserialize(item[11], manager);
-		result.tag.deserialize(item[12], manager);
+		result.data.deserialize(item[12], manager);
 		result.radius = item[13];
 		result.corner = item[14];
 		const item23 = item[23];

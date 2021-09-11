@@ -7,7 +7,7 @@ import { DDiagramCanvasTileMapping } from "./d-diagram-canvas-mapping";
 import { EShapeCorner } from "./shape/e-shape-corner";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
-import { EShapeTagValueOrder } from "./shape/e-shape-tag-value";
+import { EShapeDataValueOrder } from "./shape/e-shape-data-value";
 import { EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
 import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "./shape/e-shape-text-align-vertical";
@@ -17,9 +17,9 @@ import { EShapeType } from "./shape/e-shape-type";
 export const DDiagramSerializedVersion: number = 1;
 
 /**
- * A serialized tag range.
+ * A serialized data range.
  */
-export interface DDiagramSerializedTagRange {
+export interface DDiagramSerializedDataRange {
 	/** A type. */
 	[0]: number;
 
@@ -31,9 +31,9 @@ export interface DDiagramSerializedTagRange {
 }
 
 /**
- * A serialized tag value.
+ * A serialized data value.
  */
-export interface DDiagramSerializedTagValue {
+export interface DDiagramSerializedDataValue {
 	/**
 	 * A resource index number of an ID.
 	 * Stored at DDiagramSerialized#resources.
@@ -53,7 +53,7 @@ export interface DDiagramSerializedTagValue {
 	[2]: number;
 
 	/**
-	 * A resource index number of a serialized range, JSON.stringify(DDiagramSerializedTagRange).
+	 * A resource index number of a serialized range, JSON.stringify(DDiagramSerializedDataRange).
 	 * Stored at DDiagramSerialized#resources.
 	 */
 	[3]: number;
@@ -66,7 +66,7 @@ export interface DDiagramSerializedTagValue {
 	/**
 	 * A order.
 	 */
-	[5]: EShapeTagValueOrder;
+	[5]: EShapeDataValueOrder;
 }
 
 /**
@@ -282,8 +282,8 @@ export interface DDiagramSerializedItem {
 	[11]: number;
 
 	/**
-	 * A resource index number of stringified serialized tags,
-	 * JSON.stringify(DDiagramSerializedTagValue[]).
+	 * A resource index number of stringified serialized data,
+	 * JSON.stringify(DDiagramSerializedDataValue[]).
 	 */
 	[12]: number;
 
@@ -488,13 +488,20 @@ export interface DDiagramSerialized {
 	background?: DDiagramSerializedBackground;
 	tile?: DDiagramSerializedTile;
 	resources: string[];
+	/** @deprecated in favor of {@link data} */
 	tags?: string[];
+	data?: string[];
 	pieces?: string[];
 	layers: DDiagramSerializedLayer[];
 	items: DDiagramSerializedItem[];
 	snap?: DDiagramSerializedSnap;
 	thumbnail?: string;
 }
+
+export type DDiagramSerializedSimpleData = Omit<
+	DDiagramSerialized,
+	"version" | "id" | "name" | "thumbnail"
+>;
 
 /**
  * A simplified version of a serialized diagram.
@@ -505,12 +512,16 @@ export interface DDiagramSerializedSimple {
 	name: string;
 
 	/**
-	 * Stringified tags, JSON.stringify(DDiagramSerialized#tags).
+	 * A stringified {@link DDiagramSerialized#data}.
+	 *
+	 * @deprecated in favor of {@link DDiagramSerializedSimpleData}.
 	 */
 	tags?: string;
 
 	/**
-	 * Stringified piece names, JSON.stringify(DDiagramSerialized#pieces).
+	 * A stringified {@link DDiagramSerialized#pieces}.
+	 *
+	 * @deprecated in favor of {@link DDiagramSerializedSimpleData}.
 	 */
 	pieces?: string;
 
@@ -520,14 +531,7 @@ export interface DDiagramSerializedSimple {
 	thumbnail?: string;
 
 	/**
-	 * A stringified DDiagramSerialized.
-	 * Please note that the following properties are not included:
-	 *
-	 * * DDiagramSerialized#version
-	 * * DDiagramSerialized#id
-	 * * DDiagramSerialized#name
-	 * * DDiagramSerialized#tags
-	 * * DDiagramSerialized#pieces
+	 * A stringified {@link DDiagramSerializedSimpleData}.
 	 */
 	data: string;
 }

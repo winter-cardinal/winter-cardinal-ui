@@ -6,29 +6,29 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import {
-	EShapeTagValueRange,
-	EShapeTagValueRangeLike,
-	EShapeTagValueRangeParent,
-	EShapeTagValueRangeType
-} from "../e-shape-tag-value-range";
+	EShapeDataValueRange,
+	EShapeDataValueRangeLike,
+	EShapeDataValueRangeParent,
+	EShapeDataValueRangeType
+} from "../e-shape-data-value-range";
 
-export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
-	protected _type: EShapeTagValueRangeType;
+export class EShapeDataValueRangeImpl implements EShapeDataValueRange {
+	protected _type: EShapeDataValueRangeType;
 	protected _from: number;
 	protected _to: number;
-	parent?: EShapeTagValueRangeParent;
+	parent?: EShapeDataValueRangeParent;
 
 	constructor() {
-		this._type = EShapeTagValueRangeType.NONE;
+		this._type = EShapeDataValueRangeType.NONE;
 		this._from = 0;
 		this._to = 1;
 	}
 
-	get type(): EShapeTagValueRangeType {
+	get type(): EShapeDataValueRangeType {
 		return this._type;
 	}
 
-	set type(type: EShapeTagValueRangeType) {
+	set type(type: EShapeDataValueRangeType) {
 		if (this._type !== type) {
 			this._type = type;
 			const parent = this.parent;
@@ -70,7 +70,8 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 		let result = false;
 		if (from !== undefined && to !== undefined) {
 			if (from !== null && to !== null) {
-				const type = this._type | EShapeTagValueRangeType.FROM | EShapeTagValueRangeType.TO;
+				const type =
+					this._type | EShapeDataValueRangeType.FROM | EShapeDataValueRangeType.TO;
 				if (this._type !== type || this._from !== from || this._to !== to) {
 					this._type = type;
 					this._from = from;
@@ -79,7 +80,7 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 				}
 			} else if (from !== null) {
 				const type =
-					(this._type | EShapeTagValueRangeType.FROM) & ~EShapeTagValueRangeType.TO;
+					(this._type | EShapeDataValueRangeType.FROM) & ~EShapeDataValueRangeType.TO;
 				if (this._type !== type || this._from !== from) {
 					this._type = type;
 					this._from = from;
@@ -87,7 +88,7 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 				}
 			} else if (to !== null) {
 				const type =
-					(this._type | EShapeTagValueRangeType.TO) & ~EShapeTagValueRangeType.FROM;
+					(this._type | EShapeDataValueRangeType.TO) & ~EShapeDataValueRangeType.FROM;
 				if (this._type !== type || this._from !== from) {
 					this._type = type;
 					this._to = to;
@@ -95,7 +96,7 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 				}
 			} else {
 				const type =
-					this._type & ~(EShapeTagValueRangeType.TO | EShapeTagValueRangeType.FROM);
+					this._type & ~(EShapeDataValueRangeType.TO | EShapeDataValueRangeType.FROM);
 				if (this._type !== type) {
 					this._type = type;
 					result = true;
@@ -103,14 +104,14 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 			}
 		} else if (from !== undefined) {
 			if (from !== null) {
-				const type = this._type | EShapeTagValueRangeType.FROM;
+				const type = this._type | EShapeDataValueRangeType.FROM;
 				if (this._type !== type || this._from !== from) {
 					this._type = type;
 					this._from = from;
 					result = true;
 				}
 			} else {
-				const type = this._type & ~EShapeTagValueRangeType.FROM;
+				const type = this._type & ~EShapeDataValueRangeType.FROM;
 				if (this._type !== type) {
 					this._type = type;
 					result = true;
@@ -118,14 +119,14 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 			}
 		} else if (to !== undefined) {
 			if (to !== null) {
-				const type = this._type | EShapeTagValueRangeType.TO;
+				const type = this._type | EShapeDataValueRangeType.TO;
 				if (this._type !== type || this._to !== to) {
 					this._type = type;
 					this._to = to;
 					result = true;
 				}
 			} else {
-				const type = this._type & ~EShapeTagValueRangeType.TO;
+				const type = this._type & ~EShapeDataValueRangeType.TO;
 				if (this._type !== type) {
 					this._type = type;
 					result = true;
@@ -148,27 +149,27 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 		const from = this._from;
 		const to = this._to;
 		switch (type) {
-			case EShapeTagValueRangeType.FROM_TO:
+			case EShapeDataValueRangeType.FROM_TO:
 				return (value - from) / (to - from);
-			case EShapeTagValueRangeType.FROM:
+			case EShapeDataValueRangeType.FROM:
 				return value - from;
-			case EShapeTagValueRangeType.TO:
+			case EShapeDataValueRangeType.TO:
 				return to - value;
-			case EShapeTagValueRangeType.NONE:
+			case EShapeDataValueRangeType.NONE:
 			default:
 				return value;
 		}
 	}
 
-	isEquals(target: EShapeTagValueRangeLike): boolean {
+	isEquals(target: EShapeDataValueRangeLike): boolean {
 		return this._type === target.type && this._from === target.from && this._to === target.to;
 	}
 
-	copy(target: EShapeTagValueRangeLike): this {
+	copy(target: EShapeDataValueRangeLike): this {
 		return this.copy_(target.type, target.from, target.to);
 	}
 
-	protected copy_(type: EShapeTagValueRangeType, from: number, to: number): this {
+	protected copy_(type: EShapeDataValueRangeType, from: number, to: number): this {
 		let isChanged = false;
 
 		if (this._type !== type) {
@@ -196,7 +197,7 @@ export class EShapeTagValueRangeImpl implements EShapeTagValueRange {
 		return this;
 	}
 
-	toObject(): EShapeTagValueRangeLike {
+	toObject(): EShapeDataValueRangeLike {
 		return {
 			type: this.type,
 			from: this.from,
