@@ -3,13 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSetData } from "./d-base-state-set-data";
 import { DBaseStateSetLike } from "./d-base-state-set-like";
 
 export interface DBaseStateSet {
 	parent: DBaseStateSet | null;
-
-	readonly data: DBaseStateSetData;
 
 	isHovered: boolean;
 	readonly inHovered: boolean;

@@ -5,8 +5,6 @@
 
 import { DBaseState } from "./d-base-state";
 import { DBaseStateSet } from "./d-base-state-set";
-import { DBaseStateSetData } from "./d-base-state-set-data";
-import { DBaseStateSetDataImpl } from "./d-base-state-set-data-impl";
 import { DBaseStateSetLike } from "./d-base-state-set-like";
 import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
@@ -14,7 +12,6 @@ import { isString } from "./util/is-string";
 export class DBaseStateSetImpl implements DBaseStateSet {
 	protected _local: Set<string>;
 	protected _parent: DBaseStateSet | null;
-	protected _data?: DBaseStateSetData;
 
 	constructor() {
 		this._local = new Set<string>();
@@ -250,10 +247,6 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 				local.add(value);
 			});
 			this._parent = other.parent;
-			const otherData = other._data;
-			if (otherData != null) {
-				this.data.copy(otherData);
-			}
 			this.end();
 		}
 		return this;
@@ -273,15 +266,6 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 			this._parent = parent;
 			this.end();
 		}
-	}
-
-	get data(): DBaseStateSetData {
-		let result = this._data;
-		if (result == null) {
-			result = new DBaseStateSetDataImpl();
-			this._data = result;
-		}
-		return result;
 	}
 
 	onParentChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
@@ -661,8 +645,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 			states.push(value);
 		});
 		return {
-			local: states,
-			data: this._data?.toArray() ?? []
+			local: states
 		};
 	}
 
