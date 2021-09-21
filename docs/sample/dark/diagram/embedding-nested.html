@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Embedding nested graphic pieces</title>
+	<title>Embedding graphics (Nested)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.125.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.125.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.128.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.128.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -37,18 +37,9 @@
 			controller: {
 				piece: {
 					getByName: function( name ) {
-						return new Promise(function( resolve, reject ) {
-							let path = "../../resource/diagram/nested-piece.json";
-							if( name === "piece-id" ) {
-								path = "../../resource/diagram/piece.json";
-							}
-							fetch( path ).then(function( response ) {
-								response.json().then(function( json ) {
-									resolve( json );
-								})
-							})
-							.catch(function() {
-								reject();
+						return fetch( "../../resource/diagram/" + name + ".json" ).then(function( response ) {
+							return response.json().then(function( json ) {
+								return json;
 							})
 						});
 					}
@@ -56,7 +47,7 @@
 			}
 		});
 
-		fetch( "../../resource/diagram/nested-pieces.json" ).then(function( response ) {
+		fetch( "../../resource/diagram/embedding-nested.json" ).then(function( response ) {
 			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();

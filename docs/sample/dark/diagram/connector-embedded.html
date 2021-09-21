@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.1/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.125.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.125.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.128.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.128.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -37,15 +37,9 @@
 			controller: {
 				piece: {
 					getByName: function( name ) {
-						return new Promise(function( resolve, reject ) {
-							fetch( "../../resource/diagram/connector.json" )
-							.then(function( response ) {
-								response.json().then(function( json ) {
-									resolve( json );
-								})
-							})
-							.catch(function() {
-								reject();
+						return fetch( "../../resource/diagram/connector.json" ).then(function( response ) {
+							return response.json().then(function( json ) {
+								return json;
 							})
 						});
 					}
@@ -67,7 +61,7 @@
 			}
 		});
 
-		fetch( "../../resource/diagram/connector-pieces.json" ).then(function( response ) {
+		fetch( "../../resource/diagram/connector-embedded.json" ).then(function( response ) {
 			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();

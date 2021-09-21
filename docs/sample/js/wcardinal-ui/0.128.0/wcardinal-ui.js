@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.125.0
+ Winter Cardinal UI v0.128.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2345,47 +2345,47 @@
     var EShapeConnectorContainerImpl = /** @class */ (function () {
         function EShapeConnectorContainerImpl(parent) {
             this._parent = parent;
-            this._connectors = new Set();
+            this._edges = new Set();
         }
         EShapeConnectorContainerImpl.prototype.add = function (target) {
-            var connectors = this._connectors;
-            if (!connectors.has(target)) {
-                connectors.add(target);
+            var edges = this._edges;
+            if (!edges.has(target)) {
+                edges.add(target);
                 return true;
             }
             return false;
         };
         EShapeConnectorContainerImpl.prototype.contains = function (target) {
-            return this._connectors.has(target);
+            return this._edges.has(target);
         };
         EShapeConnectorContainerImpl.prototype.size = function () {
-            return this._connectors.size;
+            return this._edges.size;
         };
         EShapeConnectorContainerImpl.prototype.remove = function (target) {
-            return this._connectors.delete(target);
+            return this._edges.delete(target);
         };
         EShapeConnectorContainerImpl.prototype.clear = function () {
-            var connectors = this._connectors;
-            if (0 < connectors.size) {
-                this._connectors.clear();
+            var edges = this._edges;
+            if (0 < edges.size) {
+                this._edges.clear();
                 return true;
             }
             return false;
         };
         EShapeConnectorContainerImpl.prototype.copy = function (source) {
-            var connectors = this._connectors;
-            connectors.clear();
+            var edges = this._edges;
+            edges.clear();
             source.each(function (edge) {
-                connectors.add(edge);
+                edges.add(edge);
             });
             return this;
         };
         EShapeConnectorContainerImpl.prototype.each = function (iteratee) {
-            this._connectors.forEach(iteratee);
+            this._edges.forEach(iteratee);
             return this;
         };
         EShapeConnectorContainerImpl.prototype.fit = function (forcibly) {
-            this._connectors.forEach(this.toOnFitBound(forcibly));
+            this._edges.forEach(this.toOnFitBound(forcibly));
         };
         EShapeConnectorContainerImpl.prototype.toOnFitBound = function (forcibly) {
             if (forcibly) {
@@ -2416,13 +2416,13 @@
         };
         EShapeConnectorContainerImpl.prototype.attach = function () {
             var parent = this._parent;
-            this._connectors.forEach(function (edge) {
+            this._edges.forEach(function (edge) {
                 edge.set(parent);
             });
             return this;
         };
         EShapeConnectorContainerImpl.prototype.detach = function () {
-            this._connectors.forEach(function (edge) {
+            this._edges.forEach(function (edge) {
                 edge.set(null);
             });
             return this;
@@ -2434,20 +2434,32 @@
      * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeCopyPart;
-    (function (EShapeCopyPart) {
-        EShapeCopyPart[EShapeCopyPart["NONE"] = 0] = "NONE";
-        EShapeCopyPart[EShapeCopyPart["TRANSFORM"] = 1] = "TRANSFORM";
-        EShapeCopyPart[EShapeCopyPart["SIZE"] = 2] = "SIZE";
-        EShapeCopyPart[EShapeCopyPart["STYLE"] = 4] = "STYLE";
-        EShapeCopyPart[EShapeCopyPart["ACTION"] = 8] = "ACTION";
-        EShapeCopyPart[EShapeCopyPart["POINTS"] = 16] = "POINTS";
-        EShapeCopyPart[EShapeCopyPart["STATE"] = 32] = "STATE";
-        EShapeCopyPart[EShapeCopyPart["IMAGE"] = 64] = "IMAGE";
-        EShapeCopyPart[EShapeCopyPart["TAG"] = 128] = "TAG";
-        EShapeCopyPart[EShapeCopyPart["CONNECTOR"] = 256] = "CONNECTOR";
-        EShapeCopyPart[EShapeCopyPart["ALL"] = 511] = "ALL";
-    })(EShapeCopyPart || (EShapeCopyPart = {}));
+    var NONE = 0;
+    var TRANSFORM = 1;
+    var SIZE = 2;
+    var STYLE = 4;
+    var ACTION = 8;
+    var POINTS = 16;
+    var STATE = 32;
+    var IMAGE = 64;
+    var DATA = 128;
+    var CONNECTOR = 256;
+    var ALL = TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE | IMAGE | DATA | CONNECTOR;
+    var EShapeCopyPart = {
+        NONE: NONE,
+        TRANSFORM: TRANSFORM,
+        SIZE: SIZE,
+        STYLE: STYLE,
+        ACTION: ACTION,
+        POINTS: POINTS,
+        STATE: STATE,
+        IMAGE: IMAGE,
+        DATA: DATA,
+        /** @deprecated in favor of {@link data} */
+        TAG: DATA,
+        CONNECTOR: CONNECTOR,
+        ALL: ALL
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2472,61 +2484,6 @@
         ALTERNATED: "ALTERNATED",
         NEW_WINDOW: "NEW_WINDOW"
     };
-
-    /*
-     * Copyright (C) 2021 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DBaseStateSetDataImpl = /** @class */ (function () {
-        function DBaseStateSetDataImpl() {
-            this._data = new Map();
-        }
-        DBaseStateSetDataImpl.prototype.set = function (key, data) {
-            this._data.set(key, data);
-            return this;
-        };
-        DBaseStateSetDataImpl.prototype.get = function (key) {
-            return this._data.get(key);
-        };
-        DBaseStateSetDataImpl.prototype.delete = function (key) {
-            return this._data.delete(key);
-        };
-        DBaseStateSetDataImpl.prototype.clear = function () {
-            this._data.clear();
-            return this;
-        };
-        DBaseStateSetDataImpl.prototype.each = function (iteratee) {
-            this._data.forEach(function (data, key) {
-                iteratee(data, key);
-            });
-            return this;
-        };
-        DBaseStateSetDataImpl.prototype.size = function () {
-            return this._data.size;
-        };
-        DBaseStateSetDataImpl.prototype.copy = function (other) {
-            if (other instanceof DBaseStateSetDataImpl) {
-                var otherData = other._data;
-                var thisData_1 = this._data;
-                thisData_1.clear();
-                otherData.forEach(function (data, key) {
-                    thisData_1.set(key, data);
-                });
-            }
-            return this;
-        };
-        DBaseStateSetDataImpl.prototype.toArray = function () {
-            var result = [];
-            this._data.forEach(function (data, key) {
-                result.push([data, key]);
-            });
-            return result;
-        };
-        DBaseStateSetDataImpl.prototype.toString = function () {
-            return JSON.stringify(this.toArray());
-        };
-        return DBaseStateSetDataImpl;
-    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2763,10 +2720,6 @@
                     local_1.add(value);
                 });
                 this._parent = other.parent;
-                var otherData = other._data;
-                if (otherData != null) {
-                    this.data.copy(otherData);
-                }
                 this.end();
             }
             return this;
@@ -2788,18 +2741,6 @@
                     this._parent = parent;
                     this.end();
                 }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseStateSetImpl.prototype, "data", {
-            get: function () {
-                var result = this._data;
-                if (result == null) {
-                    result = new DBaseStateSetDataImpl();
-                    this._data = result;
-                }
-                return result;
             },
             enumerable: false,
             configurable: true
@@ -3376,14 +3317,12 @@
             configurable: true
         });
         DBaseStateSetImpl.prototype.toObject = function () {
-            var _a, _b;
             var states = [];
             this._local.forEach(function (value) {
                 states.push(value);
             });
             return {
-                local: states,
-                data: (_b = (_a = this._data) === null || _a === void 0 ? void 0 : _a.toArray()) !== null && _b !== void 0 ? _b : []
+                local: states
             };
         };
         DBaseStateSetImpl.prototype.toString = function () {
@@ -4160,6 +4099,7 @@
             var connector = this._connector;
             if (connector) {
                 connector.attach();
+                connector.fit(true);
             }
             var children = this.children;
             for (var i = 0, imax = children.length; i < imax; ++i) {
@@ -4248,7 +4188,7 @@
                 this.stroke.serialize(manager),
                 manager.addResource(this.cursor.trim()),
                 this.text.serialize(manager),
-                this.tag.serialize(manager),
+                this.data.serialize(manager),
                 this.radius,
                 this.corner,
                 -1,
@@ -4596,8 +4536,8 @@
                 this.radius = source.radius;
                 this.corner = source.corner;
             }
-            if (part & EShapeCopyPart.TAG) {
-                this.tag.copy(source.tag);
+            if (part & EShapeCopyPart.DATA) {
+                this.data.copy(source.data);
             }
             if (part & EShapeCopyPart.IMAGE) {
                 this.image = source.image;
@@ -4830,35 +4770,35 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTagValueOrder;
-    (function (EShapeTagValueOrder) {
-        EShapeTagValueOrder[EShapeTagValueOrder["ASCENDING"] = 0] = "ASCENDING";
-        EShapeTagValueOrder[EShapeTagValueOrder["DESCENDING"] = 1] = "DESCENDING";
-    })(EShapeTagValueOrder || (EShapeTagValueOrder = {}));
+    var EShapeDataValueOrder;
+    (function (EShapeDataValueOrder) {
+        EShapeDataValueOrder[EShapeDataValueOrder["ASCENDING"] = 0] = "ASCENDING";
+        EShapeDataValueOrder[EShapeDataValueOrder["DESCENDING"] = 1] = "DESCENDING";
+    })(EShapeDataValueOrder || (EShapeDataValueOrder = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTagValueRangeType;
-    (function (EShapeTagValueRangeType) {
-        EShapeTagValueRangeType[EShapeTagValueRangeType["NONE"] = 0] = "NONE";
-        EShapeTagValueRangeType[EShapeTagValueRangeType["FROM"] = 1] = "FROM";
-        EShapeTagValueRangeType[EShapeTagValueRangeType["TO"] = 2] = "TO";
-        EShapeTagValueRangeType[EShapeTagValueRangeType["FROM_TO"] = 3] = "FROM_TO";
-    })(EShapeTagValueRangeType || (EShapeTagValueRangeType = {}));
+    var EShapeDataValueRangeType;
+    (function (EShapeDataValueRangeType) {
+        EShapeDataValueRangeType[EShapeDataValueRangeType["NONE"] = 0] = "NONE";
+        EShapeDataValueRangeType[EShapeDataValueRangeType["FROM"] = 1] = "FROM";
+        EShapeDataValueRangeType[EShapeDataValueRangeType["TO"] = 2] = "TO";
+        EShapeDataValueRangeType[EShapeDataValueRangeType["FROM_TO"] = 3] = "FROM_TO";
+    })(EShapeDataValueRangeType || (EShapeDataValueRangeType = {}));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTagValueRangeImpl = /** @class */ (function () {
-        function EShapeTagValueRangeImpl() {
-            this._type = EShapeTagValueRangeType.NONE;
+    var EShapeDataValueRangeImpl = /** @class */ (function () {
+        function EShapeDataValueRangeImpl() {
+            this._type = EShapeDataValueRangeType.NONE;
             this._from = 0;
             this._to = 1;
         }
-        Object.defineProperty(EShapeTagValueRangeImpl.prototype, "type", {
+        Object.defineProperty(EShapeDataValueRangeImpl.prototype, "type", {
             get: function () {
                 return this._type;
             },
@@ -4874,7 +4814,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueRangeImpl.prototype, "from", {
+        Object.defineProperty(EShapeDataValueRangeImpl.prototype, "from", {
             get: function () {
                 return this._from;
             },
@@ -4890,7 +4830,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueRangeImpl.prototype, "to", {
+        Object.defineProperty(EShapeDataValueRangeImpl.prototype, "to", {
             get: function () {
                 return this._to;
             },
@@ -4906,11 +4846,11 @@
             enumerable: false,
             configurable: true
         });
-        EShapeTagValueRangeImpl.prototype.set = function (from, to) {
+        EShapeDataValueRangeImpl.prototype.set = function (from, to) {
             var result = false;
             if (from !== undefined && to !== undefined) {
                 if (from !== null && to !== null) {
-                    var type = this._type | EShapeTagValueRangeType.FROM | EShapeTagValueRangeType.TO;
+                    var type = this._type | EShapeDataValueRangeType.FROM | EShapeDataValueRangeType.TO;
                     if (this._type !== type || this._from !== from || this._to !== to) {
                         this._type = type;
                         this._from = from;
@@ -4919,7 +4859,7 @@
                     }
                 }
                 else if (from !== null) {
-                    var type = (this._type | EShapeTagValueRangeType.FROM) & ~EShapeTagValueRangeType.TO;
+                    var type = (this._type | EShapeDataValueRangeType.FROM) & ~EShapeDataValueRangeType.TO;
                     if (this._type !== type || this._from !== from) {
                         this._type = type;
                         this._from = from;
@@ -4927,7 +4867,7 @@
                     }
                 }
                 else if (to !== null) {
-                    var type = (this._type | EShapeTagValueRangeType.TO) & ~EShapeTagValueRangeType.FROM;
+                    var type = (this._type | EShapeDataValueRangeType.TO) & ~EShapeDataValueRangeType.FROM;
                     if (this._type !== type || this._from !== from) {
                         this._type = type;
                         this._to = to;
@@ -4935,7 +4875,7 @@
                     }
                 }
                 else {
-                    var type = this._type & ~(EShapeTagValueRangeType.TO | EShapeTagValueRangeType.FROM);
+                    var type = this._type & ~(EShapeDataValueRangeType.TO | EShapeDataValueRangeType.FROM);
                     if (this._type !== type) {
                         this._type = type;
                         result = true;
@@ -4944,7 +4884,7 @@
             }
             else if (from !== undefined) {
                 if (from !== null) {
-                    var type = this._type | EShapeTagValueRangeType.FROM;
+                    var type = this._type | EShapeDataValueRangeType.FROM;
                     if (this._type !== type || this._from !== from) {
                         this._type = type;
                         this._from = from;
@@ -4952,7 +4892,7 @@
                     }
                 }
                 else {
-                    var type = this._type & ~EShapeTagValueRangeType.FROM;
+                    var type = this._type & ~EShapeDataValueRangeType.FROM;
                     if (this._type !== type) {
                         this._type = type;
                         result = true;
@@ -4961,7 +4901,7 @@
             }
             else if (to !== undefined) {
                 if (to !== null) {
-                    var type = this._type | EShapeTagValueRangeType.TO;
+                    var type = this._type | EShapeDataValueRangeType.TO;
                     if (this._type !== type || this._to !== to) {
                         this._type = type;
                         this._to = to;
@@ -4969,7 +4909,7 @@
                     }
                 }
                 else {
-                    var type = this._type & ~EShapeTagValueRangeType.TO;
+                    var type = this._type & ~EShapeDataValueRangeType.TO;
                     if (this._type !== type) {
                         this._type = type;
                         result = true;
@@ -4984,29 +4924,29 @@
             }
             return result;
         };
-        EShapeTagValueRangeImpl.prototype.normalize = function (value) {
+        EShapeDataValueRangeImpl.prototype.normalize = function (value) {
             var type = this._type;
             var from = this._from;
             var to = this._to;
             switch (type) {
-                case EShapeTagValueRangeType.FROM_TO:
+                case EShapeDataValueRangeType.FROM_TO:
                     return (value - from) / (to - from);
-                case EShapeTagValueRangeType.FROM:
+                case EShapeDataValueRangeType.FROM:
                     return value - from;
-                case EShapeTagValueRangeType.TO:
+                case EShapeDataValueRangeType.TO:
                     return to - value;
-                case EShapeTagValueRangeType.NONE:
+                case EShapeDataValueRangeType.NONE:
                 default:
                     return value;
             }
         };
-        EShapeTagValueRangeImpl.prototype.isEquals = function (target) {
+        EShapeDataValueRangeImpl.prototype.isEquals = function (target) {
             return this._type === target.type && this._from === target.from && this._to === target.to;
         };
-        EShapeTagValueRangeImpl.prototype.copy = function (target) {
+        EShapeDataValueRangeImpl.prototype.copy = function (target) {
             return this.copy_(target.type, target.from, target.to);
         };
-        EShapeTagValueRangeImpl.prototype.copy_ = function (type, from, to) {
+        EShapeDataValueRangeImpl.prototype.copy_ = function (type, from, to) {
             var isChanged = false;
             if (this._type !== type) {
                 this._type = type;
@@ -5028,18 +4968,18 @@
             }
             return this;
         };
-        EShapeTagValueRangeImpl.prototype.toObject = function () {
+        EShapeDataValueRangeImpl.prototype.toObject = function () {
             return {
                 type: this.type,
                 from: this.from,
                 to: this.to
             };
         };
-        EShapeTagValueRangeImpl.prototype.serialize = function (manager) {
+        EShapeDataValueRangeImpl.prototype.serialize = function (manager) {
             var serialized = "[" + this._type + "," + this._from + "," + this._to + "]";
             return manager.addResource(serialized);
         };
-        EShapeTagValueRangeImpl.prototype.deserialize = function (target, manager) {
+        EShapeDataValueRangeImpl.prototype.deserialize = function (target, manager) {
             var resources = manager.resources;
             if (0 <= target && target < resources.length) {
                 var parsed = manager.getRange(target);
@@ -5053,7 +4993,7 @@
                 }
             }
         };
-        return EShapeTagValueRangeImpl;
+        return EShapeDataValueRangeImpl;
     }());
 
     /*
@@ -5063,18 +5003,18 @@
     var INDEX_COMPARATOR = function (a, b) {
         return a - b;
     };
-    var EShapeTagValueImpl = /** @class */ (function () {
-        function EShapeTagValueImpl() {
+    var EShapeDataValueImpl = /** @class */ (function () {
+        function EShapeDataValueImpl() {
             this.id = "";
             this.initial = "";
             this.format = "";
-            this.range = new EShapeTagValueRangeImpl();
+            this.range = new EShapeDataValueRangeImpl();
             this._value = 0;
             this._time = 0;
             this._capacity = 0;
-            this._order = EShapeTagValueOrder.ASCENDING;
+            this._order = EShapeDataValueOrder.ASCENDING;
         }
-        Object.defineProperty(EShapeTagValueImpl.prototype, "parent", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "parent", {
             get: function () {
                 return this._parent;
             },
@@ -5087,7 +5027,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueImpl.prototype, "value", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "value", {
             get: function () {
                 return this._value;
             },
@@ -5116,7 +5056,7 @@
                     this._value = newValue;
                     // Update the values
                     var order = this._order;
-                    if (order === EShapeTagValueOrder.ASCENDING) {
+                    if (order === EShapeDataValueOrder.ASCENDING) {
                         values.push(newValue);
                     }
                     else {
@@ -5125,7 +5065,7 @@
                     // Remove the unnecessary values
                     var count = values.length - capacity;
                     if (0 < count) {
-                        if (order === EShapeTagValueOrder.ASCENDING) {
+                        if (order === EShapeDataValueOrder.ASCENDING) {
                             for (var i = 0; i < count; ++i) {
                                 values.shift();
                             }
@@ -5144,14 +5084,14 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueImpl.prototype, "nvalue", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "nvalue", {
             get: function () {
                 return this.range.normalize(this._value);
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueImpl.prototype, "values", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "values", {
             get: function () {
                 var result = this._values;
                 if (result == null) {
@@ -5189,7 +5129,7 @@
                             // Update the value
                             this._value = formatter(newValues[newValues.length - 1]);
                             // Update the values
-                            if (order === EShapeTagValueOrder.ASCENDING) {
+                            if (order === EShapeDataValueOrder.ASCENDING) {
                                 for (var i = 0, imax = newValues.length; i < imax; ++i) {
                                     values.push(formatter(newValues[i]));
                                 }
@@ -5204,7 +5144,7 @@
                             // Update the value
                             this._value = newValues[newValues.length - 1];
                             // Update the values
-                            if (order === EShapeTagValueOrder.ASCENDING) {
+                            if (order === EShapeDataValueOrder.ASCENDING) {
                                 for (var i = 0, imax = newValues.length; i < imax; ++i) {
                                     values.push(newValues[i]);
                                 }
@@ -5218,7 +5158,7 @@
                         // Remove the unnecessary values
                         var count = values.length - capacity;
                         if (0 < count) {
-                            if (order === EShapeTagValueOrder.ASCENDING) {
+                            if (order === EShapeDataValueOrder.ASCENDING) {
                                 for (var i = 0; i < count; ++i) {
                                     values.shift();
                                 }
@@ -5238,7 +5178,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueImpl.prototype, "time", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "time", {
             get: function () {
                 return this._time;
             },
@@ -5264,7 +5204,7 @@
                     this._time = newTime;
                     // Update the times
                     var order = this._order;
-                    if (order === EShapeTagValueOrder.ASCENDING) {
+                    if (order === EShapeDataValueOrder.ASCENDING) {
                         times.push(newTime);
                     }
                     else {
@@ -5273,7 +5213,7 @@
                     // Remove the unnecessary times
                     var count = times.length - capacity;
                     if (0 < count) {
-                        if (order === EShapeTagValueOrder.ASCENDING) {
+                        if (order === EShapeDataValueOrder.ASCENDING) {
                             for (var i = 0; i < count; ++i) {
                                 times.shift();
                             }
@@ -5292,7 +5232,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueImpl.prototype, "times", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "times", {
             get: function () {
                 var result = this._times;
                 if (result == null) {
@@ -5325,7 +5265,7 @@
                         this._time = newTimes[newTimes.length - 1];
                         //
                         var order = this._order;
-                        if (order === EShapeTagValueOrder.ASCENDING) {
+                        if (order === EShapeDataValueOrder.ASCENDING) {
                             for (var i = 0, imax = newTimes.length; i < imax; ++i) {
                                 times.push(newTimes[i]);
                             }
@@ -5338,7 +5278,7 @@
                         //
                         var count = times.length - capacity;
                         if (0 < count) {
-                            if (order === EShapeTagValueOrder.ASCENDING) {
+                            if (order === EShapeDataValueOrder.ASCENDING) {
                                 for (var i = 0; i < count; ++i) {
                                     times.shift();
                                 }
@@ -5358,7 +5298,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueImpl.prototype, "capacity", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "capacity", {
             get: function () {
                 return this._capacity;
             },
@@ -5375,7 +5315,7 @@
                     if (values != null) {
                         var count = values.length - capacity;
                         if (0 < count) {
-                            if (order === EShapeTagValueOrder.ASCENDING) {
+                            if (order === EShapeDataValueOrder.ASCENDING) {
                                 for (var i = 0; i < count; ++i) {
                                     values.shift();
                                 }
@@ -5391,7 +5331,7 @@
                     if (times != null) {
                         var count = times.length - capacity;
                         if (0 < count) {
-                            if (order === EShapeTagValueOrder.ASCENDING) {
+                            if (order === EShapeDataValueOrder.ASCENDING) {
                                 for (var i = 0; i < count; ++i) {
                                     times.shift();
                                 }
@@ -5413,7 +5353,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagValueImpl.prototype, "order", {
+        Object.defineProperty(EShapeDataValueImpl.prototype, "order", {
             get: function () {
                 return this._order;
             },
@@ -5423,7 +5363,7 @@
             enumerable: false,
             configurable: true
         });
-        EShapeTagValueImpl.prototype.remove = function (index) {
+        EShapeDataValueImpl.prototype.remove = function (index) {
             var isChanged = false;
             // Values
             var values = this._values;
@@ -5448,7 +5388,7 @@
                 }
             }
         };
-        EShapeTagValueImpl.prototype.removeAll = function (indices) {
+        EShapeDataValueImpl.prototype.removeAll = function (indices) {
             var isChanged = false;
             var values = this._values;
             var times = this._times;
@@ -5497,7 +5437,7 @@
                 }
             }
         };
-        EShapeTagValueImpl.prototype.clear = function () {
+        EShapeDataValueImpl.prototype.clear = function () {
             var isChanged = false;
             // Values
             var values = this._values;
@@ -5524,7 +5464,7 @@
          *
          * @param target a copy target
          */
-        EShapeTagValueImpl.prototype.copy = function (target) {
+        EShapeDataValueImpl.prototype.copy = function (target) {
             this.id = target.id;
             this.initial = target.initial;
             this.format = target.format;
@@ -5535,28 +5475,28 @@
             this._capacity = target.capacity;
             return this;
         };
-        EShapeTagValueImpl.prototype.isEquals = function (target) {
+        EShapeDataValueImpl.prototype.isEquals = function (target) {
             return (this.id === target.id &&
                 this.initial === target.initial &&
                 this.formatter === target.formatter &&
                 this.range.isEquals(target.range));
         };
-        EShapeTagValueImpl.prototype.serialize = function (manager) {
-            var idSerialized = manager.addTag(this.id);
+        EShapeDataValueImpl.prototype.serialize = function (manager) {
+            var idSerialized = manager.addData(this.id);
             var initialSerialized = manager.addResource(this.initial);
             var formatSerialized = manager.addResource(this.format.trim());
             var rangeSerialized = this.range.serialize(manager);
             return manager.addResource("[" + idSerialized + "," + initialSerialized + "," + formatSerialized + "," + rangeSerialized + "," + this._capacity + "," + this._order + "]");
         };
-        EShapeTagValueImpl.prototype.deserialize = function (target, manager) {
+        EShapeDataValueImpl.prototype.deserialize = function (target, manager) {
             var resources = manager.resources;
             if (0 <= target && target < resources.length) {
-                var parsed = manager.getTagValue(target);
+                var parsed = manager.getDataValue(target);
                 if (parsed == null) {
                     parsed = JSON.parse(resources[target]);
-                    manager.setTagValue(target, parsed);
+                    manager.setDataValue(target, parsed);
                 }
-                this.id = manager.tags[parsed[0]] || "";
+                this.id = manager.data[parsed[0]] || "";
                 this.initial = resources[parsed[1]] || "";
                 this.format = resources[parsed[2]] || "";
                 this.range.deserialize(parsed[3], manager);
@@ -5565,7 +5505,7 @@
             }
             return this;
         };
-        return EShapeTagValueImpl;
+        return EShapeDataValueImpl;
     }());
 
     /*
@@ -5573,19 +5513,19 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var RANGE_DUMMY;
-    var EShapeTagImpl = /** @class */ (function () {
-        function EShapeTagImpl() {
+    var EShapeDataImpl = /** @class */ (function () {
+        function EShapeDataImpl() {
             this._values = [];
             this._isChanged = true;
         }
-        Object.defineProperty(EShapeTagImpl.prototype, "values", {
+        Object.defineProperty(EShapeDataImpl.prototype, "values", {
             get: function () {
                 return this._values;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "isChanged", {
+        Object.defineProperty(EShapeDataImpl.prototype, "isChanged", {
             get: function () {
                 return this._isChanged;
             },
@@ -5595,7 +5535,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "id", {
+        Object.defineProperty(EShapeDataImpl.prototype, "id", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
@@ -5606,7 +5546,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "initial", {
+        Object.defineProperty(EShapeDataImpl.prototype, "initial", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
@@ -5617,7 +5557,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "format", {
+        Object.defineProperty(EShapeDataImpl.prototype, "format", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
@@ -5628,18 +5568,18 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "range", {
+        Object.defineProperty(EShapeDataImpl.prototype, "range", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
                     return values[0].range;
                 }
-                return (RANGE_DUMMY !== null && RANGE_DUMMY !== void 0 ? RANGE_DUMMY : (RANGE_DUMMY = new EShapeTagValueRangeImpl()));
+                return (RANGE_DUMMY !== null && RANGE_DUMMY !== void 0 ? RANGE_DUMMY : (RANGE_DUMMY = new EShapeDataValueRangeImpl()));
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "value", {
+        Object.defineProperty(EShapeDataImpl.prototype, "value", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
@@ -5656,7 +5596,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "nvalue", {
+        Object.defineProperty(EShapeDataImpl.prototype, "nvalue", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
@@ -5667,7 +5607,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "time", {
+        Object.defineProperty(EShapeDataImpl.prototype, "time", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
@@ -5684,7 +5624,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(EShapeTagImpl.prototype, "capacity", {
+        Object.defineProperty(EShapeDataImpl.prototype, "capacity", {
             get: function () {
                 var values = this._values;
                 if (0 < values.length) {
@@ -5701,7 +5641,7 @@
             enumerable: false,
             configurable: true
         });
-        EShapeTagImpl.prototype.add = function (value, index) {
+        EShapeDataImpl.prototype.add = function (value, index) {
             var values = this._values;
             value.parent = this;
             if (index === undefined) {
@@ -5711,7 +5651,7 @@
                 values.splice(index, 0, value);
             }
         };
-        EShapeTagImpl.prototype.set = function (index, value) {
+        EShapeDataImpl.prototype.set = function (index, value) {
             var values = this._values;
             if (0 <= index && index < values.length) {
                 var result = values[index];
@@ -5722,13 +5662,13 @@
             }
             return null;
         };
-        EShapeTagImpl.prototype.remove = function (index) {
+        EShapeDataImpl.prototype.remove = function (index) {
             var values = this._values;
             if (0 <= index && index < values.length) {
                 values.splice(index, 1)[0].parent = undefined;
             }
         };
-        EShapeTagImpl.prototype.indexOf = function (target) {
+        EShapeDataImpl.prototype.indexOf = function (target) {
             var values = this._values;
             var valuesLength = values.length;
             // Instance-based matching
@@ -5751,36 +5691,36 @@
             }
             return -1;
         };
-        EShapeTagImpl.prototype.get = function (index) {
+        EShapeDataImpl.prototype.get = function (index) {
             var values = this._values;
             if (0 <= index && index < values.length) {
                 return values[index];
             }
             return null;
         };
-        EShapeTagImpl.prototype.size = function () {
+        EShapeDataImpl.prototype.size = function () {
             return this._values.length;
         };
-        EShapeTagImpl.prototype.swap = function (indexA, indexB) {
+        EShapeDataImpl.prototype.swap = function (indexA, indexB) {
             var values = this._values;
             var tmp = values[indexB];
             values[indexB] = values[indexA];
             values[indexA] = tmp;
         };
-        EShapeTagImpl.prototype.copy = function (target) {
+        EShapeDataImpl.prototype.copy = function (target) {
             var values = this._values;
             values.length = 0;
             for (var i = 0, imax = target.size(); i < imax; ++i) {
                 var value = target.get(i);
                 if (value != null) {
-                    var newValue = new EShapeTagValueImpl().copy(value);
+                    var newValue = new EShapeDataValueImpl().copy(value);
                     newValue.parent = this;
                     values.push(newValue);
                 }
             }
             return this;
         };
-        EShapeTagImpl.prototype.serialize = function (manager) {
+        EShapeDataImpl.prototype.serialize = function (manager) {
             var values = this._values;
             if (values.length <= 0) {
                 return manager.addResource("[]");
@@ -5794,26 +5734,26 @@
                 return manager.addResource(serialized);
             }
         };
-        EShapeTagImpl.prototype.deserialize = function (target, manager) {
+        EShapeDataImpl.prototype.deserialize = function (target, manager) {
             if (0 <= target && target < manager.resources.length) {
-                var deserialized = manager.getTag(target);
+                var deserialized = manager.getData(target);
                 if (deserialized == null) {
                     deserialized = JSON.parse(manager.resources[target]);
-                    manager.setTag(target, deserialized);
+                    manager.setData(target, deserialized);
                 }
                 var values = this._values;
                 values.length = 0;
                 var deserializedLength = deserialized.length;
                 for (var i = 0; i < deserializedLength; ++i) {
                     var index = deserialized[i];
-                    var value = new EShapeTagValueImpl();
+                    var value = new EShapeDataValueImpl();
                     value.parent = this;
                     value.deserialize(index, manager);
                     values.push(value);
                 }
             }
         };
-        return EShapeTagImpl;
+        return EShapeDataImpl;
     }());
 
     /*
@@ -6402,7 +6342,9 @@
             _this.stroke = _this.newStroke();
             _this._radius = EShapeDefaults.RADIUS;
             _this._corner = EShapeCorner.ALL;
-            _this.tag = new EShapeTagImpl();
+            var data = new EShapeDataImpl();
+            _this.data = data;
+            _this.tag = data;
             _this.text = _this.newText();
             _this.cursor = EShapeDefaults.CURSOR;
             return _this;
@@ -7570,9 +7512,9 @@
             }
         };
         EShapeRuntime.prototype.update = function (shape, time) {
-            var tag = shape.tag;
+            var data = shape.data;
             var isEffectTimeUp = this.effect <= time;
-            if (tag.isChanged || this.isStateChanged || isEffectTimeUp) {
+            if (data.isChanged || this.isStateChanged || isEffectTimeUp) {
                 if (isEffectTimeUp) {
                     this.effect = NaN;
                 }
@@ -7581,7 +7523,7 @@
                 shape.allowUploadedUpdate();
                 shape.state.removeAll(EShapeState.CLICKED, EShapeState.DOWN, EShapeState.UP, EShapeState.ACTIVATED, EShapeState.DEACTIVATED);
                 this.isStateChanged = false;
-                tag.isChanged = false;
+                data.isChanged = false;
             }
         };
         EShapeRuntime.prototype.onRender = function (shape, time, renderer) {
@@ -14627,10 +14569,10 @@
             var container = this.toContainer(shape);
             if (container) {
                 if (remote) {
-                    container.tag.remote.set(id, value, time);
+                    container.data.remote.set(id, value, time);
                 }
                 else {
-                    container.tag.set(id, value, time);
+                    container.data.set(id, value, time);
                 }
             }
         };
@@ -25116,15 +25058,34 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeNull = /** @class */ (function (_super) {
+        __extends(EShapeNull, _super);
+        function EShapeNull(type) {
+            if (type === void 0) { type = EShapeType.NULL; }
+            return _super.call(this, type) || this;
+        }
+        EShapeNull.prototype.clone = function () {
+            return new EShapeNull().copy(this);
+        };
+        return EShapeNull;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeDeserializer = /** @class */ (function () {
         function EShapeDeserializer() {
         }
         EShapeDeserializer.toShape = function (item, manager) {
             var shapeDeserializer = EShapeDeserializers[item[0]];
             if (shapeDeserializer != null) {
-                return shapeDeserializer(item, manager);
+                var result = shapeDeserializer(item, manager);
+                if (result != null) {
+                    return result;
+                }
             }
-            return null;
+            return EShapeDeserializer.deserialize(item, manager, new EShapeNull());
         };
         EShapeDeserializer.deserialize = function (item, manager, result) {
             result.id = manager.resources[item[1]] || "";
@@ -25138,7 +25099,7 @@
             result.stroke.deserialize(item[9], manager);
             result.cursor = manager.resources[item[10]] || "";
             result.text.deserialize(item[11], manager);
-            result.tag.deserialize(item[12], manager);
+            result.data.deserialize(item[12], manager);
             result.radius = item[13];
             result.corner = item[14];
             var item23 = item[23];
@@ -25158,18 +25119,12 @@
             if (0 < childrenSerialized.length) {
                 var childrenOrPromises = [];
                 for (var i = 0, imax = childrenSerialized.length; i < imax; ++i) {
-                    var childSerialized = childrenSerialized[i];
-                    var childOrPromise = EShapeDeserializer.toShape(childSerialized, manager);
-                    if (childOrPromise != null) {
-                        childrenOrPromises.push(childOrPromise);
-                    }
+                    childrenOrPromises.push(EShapeDeserializer.toShape(childrenSerialized[i], manager));
                 }
                 childrenPromise = Promise.all(childrenOrPromises).then(function (children) {
                     result.children = children;
                     for (var i = 0, imax = children.length; i < imax; ++i) {
-                        var child = children[i];
-                        child.parent = result;
-                        child.onAttach();
+                        children[i].parent = result;
                     }
                     result.onChildTransformChange();
                     result.toDirty();
@@ -25225,19 +25180,7 @@
             var _this = this;
             var shapes = [];
             for (var i = 0, imax = serializeds.length; i < imax; ++i) {
-                var serialized = serializeds[i];
-                var shape = EShapeDeserializer.toShape(serialized, manager);
-                if (shape == null) {
-                    if (0 < shapes.length) {
-                        Promise.all(shapes).then(function (resolved) {
-                            for (var j = 0, jmax = resolved.length; j < jmax; ++j) {
-                                resolved[j].destroy();
-                            }
-                        });
-                    }
-                    return null;
-                }
-                shapes.push(shape);
+                shapes.push(EShapeDeserializer.toShape(serializeds[i], manager));
             }
             if (0 < shapes.length) {
                 return Promise.all(shapes).then(function (resolved) {
@@ -25295,7 +25238,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /* eslint-disable prettier/prettier */
-    var NONE = 0;
+    var NONE$1 = 0;
     var ID = 0x1;
     var POSITION = 0x2;
     var WIDTH = 0x4;
@@ -25311,20 +25254,20 @@
     var BORDER_RADIUS = 0x1000;
     var TEXT = 0x2000;
     var TEXTURE = 0x4000;
-    var TAG = 0x8000;
-    var ACTION = 0x10000;
+    var DATA$1 = 0x8000;
+    var ACTION$1 = 0x10000;
     var CURSOR = 0x20000;
     var ORDER_IN_LAYER = 0x40000;
     var CHILDREN = 0x80000;
     var COORDINATE = ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW | ALIGN;
     var SHAPE = REPLACING | GROUPING | FILL | STROKE;
     var LAYER = ORDER_IN_LAYER;
-    var PRIMITIVE = COORDINATE | SHAPE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN;
-    var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | TAG | ACTION | LAYER;
-    var CONNECTOR = ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | TAG | ACTION | CURSOR | LAYER | CHILDREN;
-    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
+    var PRIMITIVE = COORDINATE | SHAPE | TEXT | TEXTURE | DATA$1 | ACTION$1 | CURSOR | LAYER | CHILDREN;
+    var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | DATA$1 | ACTION$1 | LAYER;
+    var CONNECTOR$1 = ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA$1 | ACTION$1 | CURSOR | LAYER | CHILDREN;
+    var ALL$1 = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
     var EShapeCapability = {
-        NONE: NONE,
+        NONE: NONE$1,
         ID: ID,
         POSITION: POSITION,
         WIDTH: WIDTH,
@@ -25340,8 +25283,10 @@
         BORDER_RADIUS: BORDER_RADIUS,
         TEXT: TEXT,
         TEXTURE: TEXTURE,
-        TAG: TAG,
-        ACTION: ACTION,
+        /** @deprecated in favor of {@link DATA} */
+        TAG: DATA$1,
+        DATA: DATA$1,
+        ACTION: ACTION$1,
         CURSOR: CURSOR,
         ORDER_IN_LAYER: ORDER_IN_LAYER,
         CHILDREN: CHILDREN,
@@ -25350,8 +25295,8 @@
         LAYER: LAYER,
         PRIMITIVE: PRIMITIVE,
         EMBEDDED: EMBEDDED,
-        CONNECTOR: CONNECTOR,
-        ALL: ALL
+        CONNECTOR: CONNECTOR$1,
+        ALL: ALL$1
     };
 
     /*
@@ -31100,15 +31045,15 @@
     var EShapeResourceManagerDeserialization = /** @class */ (function () {
         function EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode) {
             this.resources = serialized.resources;
-            this.tags = serialized.tags || serialized.resources;
+            this.data = serialized.data || serialized.tags || serialized.resources;
             this.pieces = pieces;
             this.pieceData = pieceData;
             this.isEditMode = isEditMode;
             this._actions = new Map();
             this._fills = new Map();
             this._strokes = new Map();
-            this._tags = new Map();
-            this._tagValues = new Map();
+            this._data = new Map();
+            this._dataValues = new Map();
             this._ranges = new Map();
             this._aligns = new Map();
             this._margins = new Map();
@@ -31134,17 +31079,17 @@
         EShapeResourceManagerDeserialization.prototype.setStroke = function (id, stroke) {
             this._strokes.set(id, stroke);
         };
-        EShapeResourceManagerDeserialization.prototype.getTag = function (id) {
-            return this._tags.get(id);
+        EShapeResourceManagerDeserialization.prototype.getData = function (id) {
+            return this._data.get(id);
         };
-        EShapeResourceManagerDeserialization.prototype.setTag = function (id, tag) {
-            this._tags.set(id, tag);
+        EShapeResourceManagerDeserialization.prototype.setData = function (id, data) {
+            this._data.set(id, data);
         };
-        EShapeResourceManagerDeserialization.prototype.getTagValue = function (id) {
-            return this._tagValues.get(id);
+        EShapeResourceManagerDeserialization.prototype.getDataValue = function (id) {
+            return this._dataValues.get(id);
         };
-        EShapeResourceManagerDeserialization.prototype.setTagValue = function (id, tagValue) {
-            this._tagValues.set(id, tagValue);
+        EShapeResourceManagerDeserialization.prototype.setDataValue = function (id, dataValue) {
+            this._dataValues.set(id, dataValue);
         };
         EShapeResourceManagerDeserialization.prototype.getRange = function (id) {
             return this._ranges.get(id);
@@ -32345,7 +32290,9 @@
         function EShapeGroupViewer(isEditMode, type) {
             var _this = _super.call(this, type) || this;
             _this._isEditMode = isEditMode;
-            _this.tag = _this.newTag();
+            var data = _this.newData();
+            _this.data = data;
+            _this.tag = data;
             _this.size = _this.newGroupSize(isEditMode);
             _this.fill = _this.newGroupFill();
             _this.stroke = _this.newGroupStroke();
@@ -32372,8 +32319,8 @@
         EShapeGroupViewer.prototype.isGroupSizeFittable = function () {
             return true;
         };
-        EShapeGroupViewer.prototype.newTag = function () {
-            return new EShapeTagImpl();
+        EShapeGroupViewer.prototype.newData = function () {
+            return new EShapeDataImpl();
         };
         EShapeGroupViewer.prototype.newGroupFill = function () {
             return new EShapeGroupFillViewer();
@@ -32642,14 +32589,10 @@
         function DDiagrams() {
         }
         DDiagrams.toSimple = function (serialized) {
-            var tags = serialized.tags;
-            var pieces = serialized.pieces;
             return {
                 version: serialized.version,
                 id: serialized.id,
                 name: serialized.name,
-                tags: tags != null ? JSON.stringify(tags) : undefined,
-                pieces: pieces != null ? JSON.stringify(pieces) : undefined,
                 thumbnail: serialized.thumbnail,
                 data: JSON.stringify({
                     width: serialized.width,
@@ -32657,6 +32600,8 @@
                     background: serialized.background,
                     tile: serialized.tile,
                     resources: serialized.resources,
+                    data: serialized.data || serialized.tags,
+                    pieces: serialized.pieces,
                     layers: serialized.layers,
                     items: serialized.items,
                     snap: serialized.snap
@@ -32664,20 +32609,36 @@
             };
         };
         DDiagrams.toSerialized = function (target) {
-            if ("data" in target) {
-                var result = JSON.parse(target.data);
-                result.version = target.version;
-                result.id = target.id;
-                result.name = target.name;
-                var tags = target.tags;
-                if (tags != null) {
-                    result.tags = JSON.parse(tags);
+            if (!("items" in target)) {
+                var data = JSON.parse(target.data);
+                var result = {
+                    version: target.version,
+                    id: target.id,
+                    name: target.name,
+                    width: data.width,
+                    height: data.height,
+                    background: data.background,
+                    tile: data.tile,
+                    resources: data.resources,
+                    data: data.data || data.tags,
+                    pieces: data.pieces,
+                    layers: data.layers,
+                    items: data.items,
+                    snap: data.snap,
+                    thumbnail: target.thumbnail
+                };
+                if (result.data == null) {
+                    var tags = target.tags;
+                    if (tags != null) {
+                        result.data = JSON.parse(tags);
+                    }
                 }
-                var pieces = target.pieces;
-                if (pieces != null) {
-                    result.pieces = JSON.parse(pieces);
+                if (result.pieces == null) {
+                    var pieces = target.pieces;
+                    if (pieces != null) {
+                        result.pieces = JSON.parse(pieces);
+                    }
                 }
-                result.thumbnail = target.thumbnail;
                 return result;
             }
             return target;
@@ -32696,7 +32657,18 @@
                         var shape = shapes[i];
                         var layer = layers[serializedItem[16]];
                         if (layer != null) {
-                            shape.attach(layer);
+                            shape.parent = layer;
+                            shape.uploaded = undefined;
+                            layer.children.push(shape);
+                        }
+                    }
+                    for (var i = 0, imax = layers.length; i < imax; ++i) {
+                        var layer = layers[i];
+                        layer.onChildTransformChange();
+                        layer.toDirty();
+                        var children = layer.children;
+                        for (var j = 0, jmax = children.length; j < jmax; ++j) {
+                            children[j].onAttach();
                         }
                     }
                     return shapes;
@@ -32706,52 +32678,45 @@
                 return Promise.resolve([]);
             }
         };
-        DDiagrams.toPieceData = function (controller, pieces, isEditMode, mappings) {
-            var _this = this;
-            if (pieces && 0 < pieces.length && controller) {
-                var newMappings_1 = mappings || new Map();
-                return new Promise(function (resolve) {
-                    var size = pieces.length;
-                    var finished = size;
-                    var onFinished = function () {
-                        finished -= 1;
-                        if (finished <= 0) {
-                            resolve(newMappings_1);
-                        }
-                    };
-                    var load = function (piece) {
-                        if (newMappings_1.has(piece)) {
-                            onFinished();
-                        }
-                        else {
-                            controller.piece.getByName(piece).then(function (found) {
-                                _this.toPieceDataSub(controller, piece, found, isEditMode, newMappings_1).then(onFinished, onFinished);
-                            }, onFinished);
-                        }
-                    };
-                    for (var i = 0; i < size; ++i) {
-                        load(pieces[i]);
-                    }
-                });
-            }
+        DDiagrams.toPieceData = function (controller, pieces, isEditMode) {
+            var result = new Map();
+            var onFulfilled = function () {
+                return result;
+            };
+            return this.toPieceData_(controller, pieces, result, isEditMode).then(onFulfilled, onFulfilled);
         };
-        DDiagrams.toPieceDataSub = function (controller, name, serializedOrSimple, isEditMode, mappings) {
+        DDiagrams.toPieceData_ = function (controller, pieces, pieceData, isEditMode) {
+            var _this = this;
+            var promises = [];
+            if (pieces && 0 < pieces.length && controller) {
+                var _loop_1 = function (i, imax) {
+                    var piece = pieces[i];
+                    if (!pieceData.has(piece)) {
+                        pieceData.set(piece, null);
+                        promises.push(controller.piece.getByName(piece).then(function (found) {
+                            return _this.toPieceData__(controller, piece, found, isEditMode, pieceData);
+                        }, function () {
+                            return null;
+                        }));
+                    }
+                };
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    _loop_1(i, imax);
+                }
+            }
+            return Promise.all(promises);
+        };
+        DDiagrams.toPieceData__ = function (controller, name, serializedOrSimple, isEditMode, pieceData) {
             var _this = this;
             var serialized = this.toSerialized(serializedOrSimple);
             var width = serialized.width;
             var height = serialized.height;
             var container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
-            mappings.set(name, new EShapeEmbeddedDatum(name, width, height, container));
+            pieceData.set(name, new EShapeEmbeddedDatum(name, width, height, container));
             var pieces = serialized.pieces;
-            var pieceDataOrPromise = this.toPieceData(controller, pieces, isEditMode, mappings);
-            if (pieceDataOrPromise == null) {
-                return this.newLayer(serialized, container, new EShapeResourceManagerDeserialization(serialized, undefined, undefined, isEditMode));
-            }
-            else {
-                return pieceDataOrPromise.then(function (pieceData) {
-                    return _this.newLayer(serialized, container, new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode));
-                });
-            }
+            return this.toPieceData_(controller, pieces, pieceData, isEditMode).then(function () {
+                return _this.newLayer(serialized, container, new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode));
+            });
         };
         return DDiagrams;
     }());
@@ -33455,15 +33420,9 @@
             var _this = this;
             var serialized = DDiagrams.toSerialized(serializedOrSimple);
             var pieces = serialized.pieces;
-            var pieceDataOrPromise = DDiagrams.toPieceData(controller, pieces, isEditMode);
-            if (pieceDataOrPromise == null) {
-                return this.from_(serialized, isEditMode);
-            }
-            else {
-                return pieceDataOrPromise.then(function (pieceData) {
-                    return _this.from_(serialized, isEditMode, pieces, pieceData);
-                });
-            }
+            return DDiagrams.toPieceData(controller, pieces, isEditMode).then(function (pieceData) {
+                return _this.from_(serialized, isEditMode, pieces, pieceData);
+            });
         };
         EShapeEmbeddeds.from_ = function (serialized, isEditMode, pieces, pieceData) {
             var _this = this;
@@ -34010,7 +33969,9 @@
             if (type === void 0) { type = EShapeType.GROUP; }
             var _this = _super.call(this, type) || this;
             _this._isEditMode = isEditMode;
-            _this.tag = new EShapeTagImpl();
+            var data = new EShapeDataImpl();
+            _this.data = data;
+            _this.tag = data;
             _this.size = _this.newGroupSize(isEditMode);
             _this.fill = _this.newGroupFill();
             _this.stroke = _this.newGroupStroke();
@@ -37450,22 +37411,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeNull = /** @class */ (function (_super) {
-        __extends(EShapeNull, _super);
-        function EShapeNull(type) {
-            if (type === void 0) { type = EShapeType.NULL; }
-            return _super.call(this, type) || this;
-        }
-        EShapeNull.prototype.clone = function () {
-            return new EShapeNull().copy(this);
-        };
-        return EShapeNull;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var deserializeNull = function (item, manager) {
         return EShapeDeserializer.deserialize(item, manager, new EShapeNull());
     };
@@ -39942,8 +39887,8 @@
         function EShapeResourceManagerSerialization() {
             this.resources = [];
             this.resourceToIndex = new Map();
-            this.tags = [];
-            this.tagToIndex = new Map();
+            this.data = [];
+            this.dataToIndex = new Map();
             this.pieces = [];
             this.pieceToIndex = new Map();
             this.uuids = new Set();
@@ -39952,8 +39897,8 @@
         EShapeResourceManagerSerialization.prototype.addResource = function (resource) {
             return this.add_(resource, this.resources, this.resourceToIndex);
         };
-        EShapeResourceManagerSerialization.prototype.addTag = function (tag) {
-            return this.add_(tag, this.tags, this.tagToIndex);
+        EShapeResourceManagerSerialization.prototype.addData = function (data) {
+            return this.add_(data, this.data, this.dataToIndex);
         };
         EShapeResourceManagerSerialization.prototype.addPiece = function (piece) {
             return this.add_(piece, this.pieces, this.pieceToIndex);
@@ -53644,15 +53589,9 @@
             var canvas = this.newCanvas(serialized);
             var pieces = serialized.pieces;
             var isEditMode = this.isEditMode();
-            var pieceDataOrPromise = DDiagrams.toPieceData(this._controller, pieces, isEditMode);
-            if (pieceDataOrPromise == null) {
-                this.newLayer(serialized, canvas, isEditMode);
-            }
-            else {
-                pieceDataOrPromise.then(function (pieceData) {
-                    _this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
-                });
-            }
+            DDiagrams.toPieceData(this._controller, pieces, isEditMode).then(function (pieceData) {
+                _this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
+            });
             this.canvas = canvas;
         };
         DDiagramBase.prototype.newLayer = function (serialized, canvas, isEditMode, pieces, pieceData) {
@@ -54036,7 +53975,7 @@
             result.state.add(EShapeLayerState.INTERACTIVE);
             return result;
         };
-        DDiagramLayer.prototype.initialize = function (tags, ids, actionables) {
+        DDiagramLayer.prototype.initialize = function (data, ids, actionables) {
             var interactives = this.interactives;
             var shape = this._shape;
             var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
@@ -54059,24 +53998,24 @@
                 shape.interactive = true;
                 interactives.push(shape);
             }
-            this.doInitialize(this.children, tags, interactives, actionables, ids);
+            this.doInitialize(this.children, data, interactives, actionables, ids);
         };
-        DDiagramLayer.prototype.doInitialize = function (shapes, tags, interactives, actionables, ids) {
+        DDiagramLayer.prototype.doInitialize = function (shapes, data, interactives, actionables, ids) {
             var _loop_1 = function (i, imax) {
                 var shape = shapes[i];
-                // Tag mappings
-                var tag = shape.tag;
-                for (var j = 0, jmax = tag.size(); j < jmax; ++j) {
-                    var value = tag.get(j);
-                    if (value) {
-                        var valueId = value.id;
-                        if (0 < valueId.length) {
-                            var values = tags[valueId];
-                            if (values == null) {
-                                values = [];
-                                tags[valueId] = values;
+                // Data mappings
+                var shapeData = shape.data;
+                for (var j = 0, jmax = shapeData.size(); j < jmax; ++j) {
+                    var shapeDatum = shapeData.get(j);
+                    if (shapeDatum) {
+                        var shapeDatumId = shapeDatum.id;
+                        if (0 < shapeDatumId.length) {
+                            var shapeDatumList = data[shapeDatumId];
+                            if (shapeDatumList == null) {
+                                shapeDatumList = [];
+                                data[shapeDatumId] = shapeDatumList;
                             }
-                            values.push(value);
+                            shapeDatumList.push(shapeDatum);
                         }
                     }
                 }
@@ -54114,7 +54053,7 @@
                 // Children
                 var children = shape.children;
                 if (0 < children.length) {
-                    this_1.doInitialize(children, tags, interactives, actionables, ids);
+                    this_1.doInitialize(children, data, interactives, actionables, ids);
                 }
             };
             var this_1 = this;
@@ -54691,7 +54630,7 @@
                 },
                 tile: this._tile.serialize(),
                 resources: manager.resources,
-                tags: manager.tags,
+                data: manager.data,
                 pieces: manager.pieces,
                 layers: this._layer.serialize(manager, items),
                 items: items,
@@ -54718,7 +54657,9 @@
         __extends(DDiagramCanvas, _super);
         function DDiagramCanvas(options) {
             var _this = _super.call(this, options) || this;
-            _this.tags = {};
+            var data = {};
+            _this.data = data;
+            _this.tags = data;
             _this.actionables = [];
             _this.ids = {};
             _this._downeds = new Set();
@@ -54726,12 +54667,12 @@
         }
         DDiagramCanvas.prototype.initialize = function () {
             var time = Date.now();
-            var tags = this.tags;
+            var data = this.data;
             var actionables = this.actionables;
             var ids = this.ids;
             var layers = this._layer.children;
             for (var i = 0, imax = layers.length; i < imax; ++i) {
-                layers[i].initialize(tags, ids, actionables);
+                layers[i].initialize(data, ids, actionables);
             }
             for (var i = 0, imax = layers.length; i < imax; ++i) {
                 var layerChildren = layers[i].children;
@@ -54939,6 +54880,210 @@
         };
         return DDiagramCanvas;
     }(DDiagramCanvasBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramDataRemote = /** @class */ (function () {
+        function DDiagramDataRemote(options) {
+            this._controller = options && options.controller;
+        }
+        DDiagramDataRemote.prototype.set = function (id, value, time) {
+            var controller = this._controller;
+            if (controller) {
+                controller.write(id, value);
+            }
+        };
+        return DDiagramDataRemote;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * A data helper class for diagrams.
+     */
+    var DDiagramData = /** @class */ (function () {
+        function DDiagramData(diagram, options) {
+            this._diagram = diagram;
+            this._mapper = (options && options.mapper) || null;
+            this._remote = new DDiagramDataRemote(options && options.remote);
+        }
+        DDiagramData.prototype.update = function () {
+            // DO NOTHING
+        };
+        Object.defineProperty(DDiagramData.prototype, "mapper", {
+            get: function () {
+                return this._mapper;
+            },
+            set: function (mapper) {
+                this._mapper = mapper;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramData.prototype, "remote", {
+            get: function () {
+                return this._remote;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramData.prototype.getIds = function () {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                return Object.keys(canvas.data);
+            }
+            return [];
+        };
+        DDiagramData.prototype.each = function (callback) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var data = canvas.data;
+                for (var id in data) {
+                    if (callback(id) === false) {
+                        return id;
+                    }
+                }
+            }
+            return null;
+        };
+        DDiagramData.prototype.set = function (id, value, time, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        var range = datumValue.range;
+                        // Range
+                        range.set(from, to);
+                        // Time
+                        if (time !== undefined) {
+                            datumValue.time = time;
+                        }
+                        // Value
+                        datumValue.value = value;
+                    }
+                }
+            }
+        };
+        DDiagramData.prototype.clear = function (id) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        datum[i].clear();
+                    }
+                }
+            }
+        };
+        DDiagramData.prototype.setAll = function (id, values, times, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        var range = datumValue.range;
+                        // Range
+                        range.set(from, to);
+                        // Time
+                        if (times !== undefined) {
+                            datumValue.times = times;
+                        }
+                        // Value
+                        datumValue.values = values;
+                    }
+                }
+            }
+        };
+        DDiagramData.prototype.setValue = function (id, value, time) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        if (time !== undefined) {
+                            datumValue.time = time;
+                        }
+                        datumValue.value = value;
+                    }
+                }
+            }
+        };
+        DDiagramData.prototype.setValues = function (id, values, times) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        if (times !== undefined) {
+                            datumValue.times = times;
+                        }
+                        datumValue.values = values;
+                    }
+                }
+            }
+        };
+        DDiagramData.prototype.setTime = function (id, time) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        datum[i].time = time;
+                    }
+                }
+            }
+        };
+        DDiagramData.prototype.setTimes = function (id, times) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        datum[i].times = times;
+                    }
+                }
+            }
+        };
+        DDiagramData.prototype.setRange = function (id, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                var datum = canvas.data[id];
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var range = datum[i].range;
+                        if (from !== undefined) {
+                            if (from !== null) {
+                                range.type |= EShapeDataValueRangeType.FROM;
+                                range.from = from;
+                            }
+                            else {
+                                range.type &= ~EShapeDataValueRangeType.FROM;
+                            }
+                        }
+                        if (to !== undefined) {
+                            if (to !== null) {
+                                range.type |= EShapeDataValueRangeType.TO;
+                                range.to = to;
+                            }
+                            else {
+                                range.type &= ~EShapeDataValueRangeType.TO;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        return DDiagramData;
+    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -55179,7 +55324,7 @@
                 width: width,
                 height: height,
                 resources: [],
-                tags: [],
+                data: [],
                 layers: [["Default layer"]],
                 items: [],
                 snap: undefined
@@ -55355,202 +55500,6 @@
         return DDiagramShape;
     }(pixi_js.utils.EventEmitter));
 
-    var DDiagramTagRemote = /** @class */ (function () {
-        function DDiagramTagRemote(options) {
-            this._controller = options && options.controller;
-        }
-        DDiagramTagRemote.prototype.set = function (id, value, time) {
-            var controller = this._controller;
-            if (controller) {
-                controller.write(id, value);
-            }
-        };
-        return DDiagramTagRemote;
-    }());
-
-    /**
-     * A tag helper class for diagrams.
-     */
-    var DDiagramTag = /** @class */ (function () {
-        function DDiagramTag(diagram, options) {
-            this._diagram = diagram;
-            this._mapper = (options && options.mapper) || null;
-            this._remote = new DDiagramTagRemote(options && options.remote);
-        }
-        DDiagramTag.prototype.update = function () {
-            // DO NOTHING
-        };
-        Object.defineProperty(DDiagramTag.prototype, "mapper", {
-            get: function () {
-                return this._mapper;
-            },
-            set: function (mapper) {
-                this._mapper = mapper;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDiagramTag.prototype, "remote", {
-            get: function () {
-                return this._remote;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDiagramTag.prototype.getIds = function () {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                return Object.keys(canvas.tags);
-            }
-            return [];
-        };
-        DDiagramTag.prototype.each = function (callback) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tags = canvas.tags;
-                for (var id in tags) {
-                    if (callback(id) === false) {
-                        return id;
-                    }
-                }
-            }
-            return null;
-        };
-        DDiagramTag.prototype.set = function (id, value, time, from, to) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        var tagValue = tagValues[i];
-                        var range = tagValue.range;
-                        // Range
-                        range.set(from, to);
-                        // Time
-                        if (time !== undefined) {
-                            tagValue.time = time;
-                        }
-                        // Value
-                        tagValue.value = value;
-                    }
-                }
-            }
-        };
-        DDiagramTag.prototype.clear = function (id) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        tagValues[i].clear();
-                    }
-                }
-            }
-        };
-        DDiagramTag.prototype.setAll = function (id, values, times, from, to) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        var tagValue = tagValues[i];
-                        var range = tagValue.range;
-                        // Range
-                        range.set(from, to);
-                        // Time
-                        if (times !== undefined) {
-                            tagValue.times = times;
-                        }
-                        // Value
-                        tagValue.values = values;
-                    }
-                }
-            }
-        };
-        DDiagramTag.prototype.setValue = function (id, value, time) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        var tagValue = tagValues[i];
-                        if (time !== undefined) {
-                            tagValue.time = time;
-                        }
-                        tagValue.value = value;
-                    }
-                }
-            }
-        };
-        DDiagramTag.prototype.setValues = function (id, values, times) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        var tagValue = tagValues[i];
-                        if (times !== undefined) {
-                            tagValue.times = times;
-                        }
-                        tagValue.values = values;
-                    }
-                }
-            }
-        };
-        DDiagramTag.prototype.setTime = function (id, time) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        tagValues[i].time = time;
-                    }
-                }
-            }
-        };
-        DDiagramTag.prototype.setTimes = function (id, times) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        tagValues[i].times = times;
-                    }
-                }
-            }
-        };
-        DDiagramTag.prototype.setRange = function (id, from, to) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var tagValues = canvas.tags[id];
-                if (tagValues != null) {
-                    for (var i = 0, imax = tagValues.length; i < imax; ++i) {
-                        var range = tagValues[i].range;
-                        if (from !== undefined) {
-                            if (from !== null) {
-                                range.type |= EShapeTagValueRangeType.FROM;
-                                range.from = from;
-                            }
-                            else {
-                                range.type &= ~EShapeTagValueRangeType.FROM;
-                            }
-                        }
-                        if (to !== undefined) {
-                            if (to !== null) {
-                                range.type |= EShapeTagValueRangeType.TO;
-                                range.to = to;
-                            }
-                            else {
-                                range.type &= ~EShapeTagValueRangeType.TO;
-                            }
-                        }
-                    }
-                }
-            }
-        };
-        return DDiagramTag;
-    }());
-
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -55590,14 +55539,16 @@
                 }
             });
             //
-            _this.tag = new DDiagramTag(_this, options && options.tag);
+            var data = new DDiagramData(_this, options && (options.data || options.tag));
+            _this.data = data;
+            _this.tag = data;
             _this.shape = new DDiagramShape(_this);
             return _this;
         }
         DDiagram.prototype.initialize = function (shapes) {
-            this.initializeShapes(shapes, null, this.tag.mapper);
+            this.initializeShapes(shapes, null, this.data.mapper);
         };
-        DDiagram.prototype.initializeShapes = function (shapes, tagShape, tagMapper) {
+        DDiagram.prototype.initializeShapes = function (shapes, dataShape, dataMapper) {
             var formatterMap = {};
             var initialMap = {};
             var actionMap = new Map();
@@ -55605,53 +55556,53 @@
                 var shape = shapes[i];
                 var runtimeConstructor = EShapeRuntimes[shape.type] || EShapeRuntime;
                 var runtime = (shape.runtime = new runtimeConstructor(shape));
-                // Tag
-                var tag = shape.tag;
-                for (var j = 0, jmax = tag.size(); j < jmax; ++j) {
-                    var value = tag.get(j);
-                    if (value) {
+                // Data
+                var shapeData = shape.data;
+                for (var j = 0, jmax = shapeData.size(); j < jmax; ++j) {
+                    var shapeDatum = shapeData.get(j);
+                    if (shapeDatum) {
                         // Mapping
-                        if (tagMapper) {
-                            tagMapper(value, tagShape || shape);
+                        if (dataMapper) {
+                            dataMapper(shapeDatum, dataShape || shape);
                         }
                         // Format
-                        var tagFormat = value.format;
-                        var tagInitial = value.initial;
-                        if (tagFormat in formatterMap) {
-                            value.formatter = formatterMap[tagFormat];
+                        var datumFormat = shapeDatum.format;
+                        var datumInitial = shapeDatum.initial;
+                        if (datumFormat in formatterMap) {
+                            shapeDatum.formatter = formatterMap[datumFormat];
                         }
-                        else if (0 < tagFormat.length) {
+                        else if (0 < datumFormat.length) {
                             try {
                                 var formatter = Function("value", 
                                 /* eslint-disable prettier/prettier */
                                 "try {" +
-                                    ("return (" + tagFormat + ");") +
+                                    ("return (" + datumFormat + ");") +
                                     "} catch( e1 ) {" +
                                     "try {" +
-                                    ("return (" + (0 < tagInitial.length ? tagInitial : 0) + ");") +
+                                    ("return (" + (0 < datumInitial.length ? datumInitial : 0) + ");") +
                                     "} catch( e2 ) {" +
                                     "return 0;" +
                                     "}" +
                                     "}"
                                 /* eslint-enable prettier/prettier */
                                 );
-                                formatterMap[tagFormat] = formatter;
-                                value.formatter = formatter;
+                                formatterMap[datumFormat] = formatter;
+                                shapeDatum.formatter = formatter;
                             }
                             catch (e) {
                                 //
                             }
                         }
                         // Initial
-                        if (tagInitial in initialMap) {
-                            value.value = initialMap[tagInitial];
+                        if (datumInitial in initialMap) {
+                            shapeDatum.value = initialMap[datumInitial];
                         }
-                        else if (0 < tagInitial.length) {
+                        else if (0 < datumInitial.length) {
                             try {
-                                value.value = initialMap[tagInitial] = Function(
+                                shapeDatum.value = initialMap[datumInitial] = Function(
                                 /* eslint-disable prettier/prettier */
                                 "try {" +
-                                    ("return (" + tagInitial + ");") +
+                                    ("return (" + datumInitial + ");") +
                                     "} catch( e ) {" +
                                     "return 0;" +
                                     "}"
@@ -55691,13 +55642,13 @@
                 // Children
                 var children = shape.children;
                 if (0 < children.length) {
-                    this.initializeShapes(children, this.toTagShape(tagShape, shape), tagMapper);
+                    this.initializeShapes(children, this.toDataShape(dataShape, shape), dataMapper);
                 }
             }
         };
-        DDiagram.prototype.toTagShape = function (tagShape, shape) {
-            if (tagShape != null) {
-                return tagShape;
+        DDiagram.prototype.toDataShape = function (dataShape, shape) {
+            if (dataShape != null) {
+                return dataShape;
             }
             if (shape.type === EShapeType.EMBEDDED) {
                 return shape;
@@ -66459,6 +66410,9 @@
         EShapeButton: EShapeButton,
         EShapeCircle: EShapeCircle,
         EShapeConnectorLine: EShapeConnectorLine,
+        EShapeDataImpl: EShapeDataImpl,
+        EShapeDataValueImpl: EShapeDataValueImpl,
+        EShapeDataValueRangeImpl: EShapeDataValueRangeImpl,
         EShapeEmbeddedDatum: EShapeEmbeddedDatum,
         EShapeEmbeddedLayerContainer: EShapeEmbeddedLayerContainer,
         EShapeEmbeddedLayer: EShapeEmbeddedLayer,
@@ -66512,9 +66466,6 @@
         EShapeRectangleRounded: EShapeRectangleRounded,
         EShapeRectangle: EShapeRectangle,
         EShapeStrokeImpl: EShapeStrokeImpl,
-        EShapeTagImpl: EShapeTagImpl,
-        EShapeTagValueImpl: EShapeTagValueImpl,
-        EShapeTagValueRangeImpl: EShapeTagValueRangeImpl,
         EShapeTextAlignImpl: EShapeTextAlignImpl,
         EShapeTextImpl: EShapeTextImpl,
         EShapeTextOffsetImpl: EShapeTextOffsetImpl,
@@ -66548,8 +66499,10 @@
         EShapeConnectorEdgeImpl: EShapeConnectorEdgeImpl,
         EShapeConnectors: EShapeConnectors,
         EShapeContainer: EShapeContainer,
-        get EShapeCopyPart () { return EShapeCopyPart; },
+        EShapeCopyPart: EShapeCopyPart,
         get EShapeCorner () { return EShapeCorner; },
+        get EShapeDataValueRangeType () { return EShapeDataValueRangeType; },
+        get EShapeDataValueOrder () { return EShapeDataValueOrder; },
         EShapeDefaults: EShapeDefaults,
         EShapeDeleter: EShapeDeleter,
         EShapeDeserializer: EShapeDeserializer,
@@ -66583,8 +66536,6 @@
         EShapeState: EShapeState,
         get EShapeStrokeSide () { return EShapeStrokeSide; },
         get EShapeStrokeStyle () { return EShapeStrokeStyle; },
-        get EShapeTagValueRangeType () { return EShapeTagValueRangeType; },
-        get EShapeTagValueOrder () { return EShapeTagValueOrder; },
         get EShapeTextAlignHorizontal () { return EShapeTextAlignHorizontal; },
         get EShapeTextAlignVertical () { return EShapeTextAlignVertical; },
         get EShapeTextDirection () { return EShapeTextDirection; },
@@ -66704,7 +66655,6 @@
         DBaseReflowableContainer: DBaseReflowableContainer,
         DBaseReflowableImpl: DBaseReflowableImpl,
         DBaseSnippetContainer: DBaseSnippetContainer,
-        DBaseStateSetDataImpl: DBaseStateSetDataImpl,
         DBaseStateSetImplObservable: DBaseStateSetImplObservable,
         DBaseStateSetImpl: DBaseStateSetImpl,
         DBaseState: DBaseState,
@@ -66819,6 +66769,8 @@
         DDiagramCanvasTileMappingPointImpl: DDiagramCanvasTileMappingPointImpl,
         DDiagramCanvasTile: DDiagramCanvasTile,
         DDiagramCanvas: DDiagramCanvas,
+        DDiagramDataRemote: DDiagramDataRemote,
+        DDiagramData: DDiagramData,
         DDiagramEditorThumbnail: DDiagramEditorThumbnail,
         DDiagramEditor: DDiagramEditor,
         DDiagramLayerContainer: DDiagramLayerContainer,
@@ -66827,8 +66779,6 @@
         DDiagramSerializedVersion: DDiagramSerializedVersion,
         DDiagramShape: DDiagramShape,
         DDiagramSnapshot: DDiagramSnapshot,
-        DDiagramTagRemote: DDiagramTagRemote,
-        DDiagramTag: DDiagramTag,
         DDiagram: DDiagram,
         DDiagrams: DDiagrams,
         get DDialogAlign () { return UtilAttachAlign; },
