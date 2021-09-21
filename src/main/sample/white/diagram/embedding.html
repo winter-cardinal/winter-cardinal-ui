@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Line (Textured, Embedded)</title>
+	<title>Embedding graphics</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,30 +30,24 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var diagram = new wcardinal.ui.DDiagram({
+		var diagram = new wcardinal.ui.DDiagramEditor({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",
 			controller: {
 				piece: {
 					getByName: function( name ) {
-						return new Promise(function( resolve, reject ) {
-							fetch( "../../resource/diagram/line-textured.json" )
-							.then(function( response ) {
-								response.json().then(function( json ) {
-									resolve( json );
-								})
-							})
-							.catch(function() {
-								reject();
+						return fetch( "../../resource/diagram/" + name + ".json" ).then(function( response ) {
+							return response.json().then(function( json ) {
+								return json;
 							})
 						});
 					}
 				}
-			},
+			}
 		});
 
-		fetch( "../../resource/diagram/line-textured-pieces.json" ).then(function( response ) {
+		fetch( "../../resource/diagram/embedding.json" ).then(function( response ) {
 			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();

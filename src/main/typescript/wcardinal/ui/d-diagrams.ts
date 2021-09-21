@@ -94,7 +94,18 @@ export class DDiagrams {
 					const shape = shapes[i];
 					const layer = layers[serializedItem[16]];
 					if (layer != null) {
-						shape.attach(layer);
+						shape.parent = layer;
+						shape.uploaded = undefined;
+						layer.children.push(shape);
+					}
+				}
+				for (let i = 0, imax = layers.length; i < imax; ++i) {
+					const layer = layers[i];
+					layer.onChildTransformChange();
+					layer.toDirty();
+					const children = layer.children;
+					for (let j = 0, jmax = children.length; j < jmax; ++j) {
+						children[j].onAttach();
 					}
 				}
 				return shapes;
@@ -107,84 +118,73 @@ export class DDiagrams {
 	static toPieceData(
 		controller: DDiagramBaseController | null | undefined,
 		pieces: string[] | null | undefined,
-		isEditMode: boolean,
-		mappings?: Map<string, EShapeEmbeddedDatum>
-	): Promise<Map<string, EShapeEmbeddedDatum>> | undefined {
-		if (pieces && 0 < pieces.length && controller) {
-			const newMappings = mappings || new Map<string, EShapeEmbeddedDatum>();
-			return new Promise((resolve): void => {
-				const size = pieces.length;
-				let finished = size;
-				const onFinished = (): void => {
-					finished -= 1;
-					if (finished <= 0) {
-						resolve(newMappings);
-					}
-				};
-				const load = (piece: string): void => {
-					if (newMappings.has(piece)) {
-						onFinished();
-					} else {
-						controller.piece.getByName(piece).then((found): void => {
-							this.toPieceDataSub(
-								controller,
-								piece,
-								found,
-								isEditMode,
-								newMappings
-							).then(onFinished, onFinished);
-						}, onFinished);
-					}
-				};
-				for (let i = 0; i < size; ++i) {
-					load(pieces[i]);
-				}
-			});
-		}
+		isEditMode: boolean
+	): Promise<Map<string, EShapeEmbeddedDatum | null>> {
+		const result = new Map<string, EShapeEmbeddedDatum | null>();
+		const onFulfilled = () => {
+			return result;
+		};
+		return this.toPieceData_(controller, pieces, result, isEditMode).then(
+			onFulfilled,
+			onFulfilled
+		);
 	}
 
-	static toPieceDataSub(
+	private static toPieceData_(
+		controller: DDiagramBaseController | null | undefined,
+		pieces: string[] | null | undefined,
+		pieceData: Map<string, EShapeEmbeddedDatum | null>,
+		isEditMode: boolean
+	): Promise<Array<EShape[] | null>> {
+		const promises: Array<Promise<EShape[] | null>> = [];
+		if (pieces && 0 < pieces.length && controller) {
+			for (let i = 0, imax = pieces.length; i < imax; ++i) {
+				const piece = pieces[i];
+				if (!pieceData.has(piece)) {
+					pieceData.set(piece, null);
+					promises.push(
+						controller.piece.getByName(piece).then(
+							(found) => {
+								return this.toPieceData__(
+									controller,
+									piece,
+									found,
+									isEditMode,
+									pieceData
+								);
+							},
+							() => {
+								return null;
+							}
+						)
+					);
+				}
+			}
+		}
+		return Promise.all(promises);
+	}
+
+	private static toPieceData__(
 		controller: DDiagramBaseController,
 		name: string,
 		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
 		isEditMode: boolean,
-		mappings: Map<string, EShapeEmbeddedDatum>
+		pieceData: Map<string, EShapeEmbeddedDatum | null>
 	): Promise<EShape[]> {
 		const serialized = this.toSerialized(serializedOrSimple);
 		const width = serialized.width;
 		const height = serialized.height;
 		const container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
 
-		mappings.set(name, new EShapeEmbeddedDatum(name, width, height, container));
+		pieceData.set(name, new EShapeEmbeddedDatum(name, width, height, container));
 
 		const pieces = serialized.pieces;
-		const pieceDataOrPromise = this.toPieceData(controller, pieces, isEditMode, mappings);
-		if (pieceDataOrPromise == null) {
+		return this.toPieceData_(controller, pieces, pieceData, isEditMode).then(() => {
 			return this.newLayer(
 				serialized,
 				container,
-				new EShapeResourceManagerDeserialization(
-					serialized,
-					undefined,
-					undefined,
-					isEditMode
-				)
+				new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode)
 			);
-		} else {
-			return pieceDataOrPromise.then(
-				(pieceData): Promise<EShape[]> => {
-					return this.newLayer(
-						serialized,
-						container,
-						new EShapeResourceManagerDeserialization(
-							serialized,
-							pieces,
-							pieceData,
-							isEditMode
-						)
-					);
-				}
-			);
-		}
+		});
 	}
 }

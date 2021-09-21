@@ -43,7 +43,7 @@
 		embedded.size.init();
 		embedded.attach( container );
 
-		application.stage.on( "pointermove", ( e ) => {
+		application.stage.on( "pointermove", function ( e ) {
 			const global = e.data.global;
 			const local = embedded.toLocal( global );
 			console.log( local.x, local.y, embedded.contains( local.x, local.y ) );

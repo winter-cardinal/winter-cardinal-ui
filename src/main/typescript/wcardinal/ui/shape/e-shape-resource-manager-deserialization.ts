@@ -24,7 +24,7 @@ export class EShapeResourceManagerDeserialization {
 	resources: string[];
 	data: string[];
 	pieces?: string[];
-	pieceData?: Map<string, EShapeEmbeddedDatum>;
+	pieceData?: Map<string, EShapeEmbeddedDatum | null>;
 	isEditMode: boolean;
 
 	protected _actions: Map<number, EShapeActionValue>;
@@ -42,7 +42,7 @@ export class EShapeResourceManagerDeserialization {
 	constructor(
 		serialized: EShapeResourceManagerDeserializationSerialized,
 		pieces: string[] | undefined,
-		pieceData: Map<string, EShapeEmbeddedDatum> | undefined,
+		pieceData: Map<string, EShapeEmbeddedDatum | null> | undefined,
 		isEditMode: boolean
 	) {
 		this.resources = serialized.resources;

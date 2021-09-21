@@ -14,17 +14,21 @@ import { EShapeSizes } from "./e-shape-sizes";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 import { EShapeUuidMappingImpl } from "./e-shape-uuid-mapping-impl";
 import { EShapeGradients } from "./variant/e-shape-gradients";
+import { EShapeNull } from "./variant/e-shape-null";
 
 export class EShapeDeserializer {
 	static toShape(
 		item: DDiagramSerializedItem,
 		manager: EShapeResourceManagerDeserialization
-	): Promise<EShape> | EShape | null {
+	): Promise<EShape> | EShape {
 		const shapeDeserializer = EShapeDeserializers[item[0]];
 		if (shapeDeserializer != null) {
-			return shapeDeserializer(item, manager);
+			const result = shapeDeserializer(item, manager);
+			if (result != null) {
+				return result;
+			}
 		}
-		return null;
+		return EShapeDeserializer.deserialize(item, manager, new EShapeNull());
 	}
 
 	static deserialize<SHAPE extends EShape>(
@@ -64,18 +68,12 @@ export class EShapeDeserializer {
 		if (0 < childrenSerialized.length) {
 			const childrenOrPromises = [];
 			for (let i = 0, imax = childrenSerialized.length; i < imax; ++i) {
-				const childSerialized = childrenSerialized[i];
-				const childOrPromise = EShapeDeserializer.toShape(childSerialized, manager);
-				if (childOrPromise != null) {
-					childrenOrPromises.push(childOrPromise);
-				}
+				childrenOrPromises.push(EShapeDeserializer.toShape(childrenSerialized[i], manager));
 			}
 			childrenPromise = Promise.all(childrenOrPromises).then((children: EShape[]) => {
 				result.children = children;
 				for (let i = 0, imax = children.length; i < imax; ++i) {
-					const child = children[i];
-					child.parent = result;
-					child.onAttach();
+					children[i].parent = result;
 				}
 				result.onChildTransformChange();
 				result.toDirty();
@@ -137,20 +135,7 @@ export class EShapeDeserializer {
 	): Promise<EShape[]> | null {
 		const shapes: Array<Promise<EShape> | EShape> = [];
 		for (let i = 0, imax = serializeds.length; i < imax; ++i) {
-			const serialized = serializeds[i];
-			const shape = EShapeDeserializer.toShape(serialized, manager);
-			if (shape == null) {
-				if (0 < shapes.length) {
-					Promise.all(shapes).then((resolved: EShape[]): void => {
-						for (let j = 0, jmax = resolved.length; j < jmax; ++j) {
-							resolved[j].destroy();
-						}
-					});
-				}
-				return null;
-			}
-
-			shapes.push(shape);
+			shapes.push(EShapeDeserializer.toShape(serializeds[i], manager));
 		}
 		if (0 < shapes.length) {
 			return Promise.all(shapes).then((resolved: EShape[]): EShape[] => {

@@ -20,21 +20,16 @@ export class EShapeEmbeddeds {
 	): Promise<EShapeEmbedded> {
 		const serialized = DDiagrams.toSerialized(serializedOrSimple);
 		const pieces = serialized.pieces;
-		const pieceDataOrPromise = DDiagrams.toPieceData(controller, pieces, isEditMode);
-		if (pieceDataOrPromise == null) {
-			return this.from_(serialized, isEditMode);
-		} else {
-			return pieceDataOrPromise.then((pieceData) => {
-				return this.from_(serialized, isEditMode, pieces, pieceData);
-			});
-		}
+		return DDiagrams.toPieceData(controller, pieces, isEditMode).then((pieceData) => {
+			return this.from_(serialized, isEditMode, pieces, pieceData);
+		});
 	}
 
-	protected static from_(
+	private static from_(
 		serialized: DDiagramSerialized,
 		isEditMode: boolean,
 		pieces?: string[],
-		pieceData?: Map<string, EShapeEmbeddedDatum>
+		pieceData?: Map<string, EShapeEmbeddedDatum | null>
 	): Promise<EShapeEmbedded> {
 		const width = serialized.width;
 		const height = serialized.height;

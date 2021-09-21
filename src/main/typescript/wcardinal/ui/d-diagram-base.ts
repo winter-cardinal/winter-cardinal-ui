@@ -152,14 +152,9 @@ export abstract class DDiagramBase<
 		const canvas = this.newCanvas(serialized);
 		const pieces = serialized.pieces;
 		const isEditMode = this.isEditMode();
-		const pieceDataOrPromise = DDiagrams.toPieceData(this._controller, pieces, isEditMode);
-		if (pieceDataOrPromise == null) {
-			this.newLayer(serialized, canvas, isEditMode);
-		} else {
-			pieceDataOrPromise.then((pieceData): void => {
-				this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
-			});
-		}
+		DDiagrams.toPieceData(this._controller, pieces, isEditMode).then((pieceData): void => {
+			this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
+		});
 		this.canvas = canvas;
 	}
 
@@ -170,7 +165,7 @@ export abstract class DDiagramBase<
 		canvas: CANVAS,
 		isEditMode: boolean,
 		pieces?: string[],
-		pieceData?: Map<string, EShapeEmbeddedDatum>
+		pieceData?: Map<string, EShapeEmbeddedDatum | null>
 	): void {
 		const layer = canvas.layer;
 		const manager = new EShapeResourceManagerDeserialization(

@@ -9,61 +9,61 @@ import { EShapeConnectorEdge } from "./e-shape-connector-edge";
 
 export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 	protected _parent: EShape;
-	protected _connectors: Set<EShapeConnectorEdge>;
+	protected _edges: Set<EShapeConnectorEdge>;
 	protected _onFitBound?: (connector: EShapeConnectorEdge) => void;
 	protected _onFitBoundForcibly?: (connector: EShapeConnectorEdge) => void;
 
 	constructor(parent: EShape) {
 		this._parent = parent;
-		this._connectors = new Set<EShapeConnectorEdge>();
+		this._edges = new Set<EShapeConnectorEdge>();
 	}
 
 	add(target: EShapeConnectorEdge): boolean {
-		const connectors = this._connectors;
-		if (!connectors.has(target)) {
-			connectors.add(target);
+		const edges = this._edges;
+		if (!edges.has(target)) {
+			edges.add(target);
 			return true;
 		}
 		return false;
 	}
 
 	contains(target: EShapeConnectorEdge): boolean {
-		return this._connectors.has(target);
+		return this._edges.has(target);
 	}
 
 	size(): number {
-		return this._connectors.size;
+		return this._edges.size;
 	}
 
 	remove(target: EShapeConnectorEdge): boolean {
-		return this._connectors.delete(target);
+		return this._edges.delete(target);
 	}
 
 	clear(): boolean {
-		const connectors = this._connectors;
-		if (0 < connectors.size) {
-			this._connectors.clear();
+		const edges = this._edges;
+		if (0 < edges.size) {
+			this._edges.clear();
 			return true;
 		}
 		return false;
 	}
 
 	copy(source: EShapeConnectorContainer): this {
-		const connectors = this._connectors;
-		connectors.clear();
+		const edges = this._edges;
+		edges.clear();
 		source.each((edge): void => {
-			connectors.add(edge);
+			edges.add(edge);
 		});
 		return this;
 	}
 
 	each(iteratee: (edge: EShapeConnectorEdge) => void): this {
-		this._connectors.forEach(iteratee);
+		this._edges.forEach(iteratee);
 		return this;
 	}
 
 	fit(forcibly?: boolean): void {
-		this._connectors.forEach(this.toOnFitBound(forcibly));
+		this._edges.forEach(this.toOnFitBound(forcibly));
 	}
 
 	protected toOnFitBound(forcibly?: boolean): (connector: EShapeConnectorEdge) => void {
@@ -96,14 +96,14 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 
 	attach(): this {
 		const parent = this._parent;
-		this._connectors.forEach((edge: EShapeConnectorEdge): void => {
+		this._edges.forEach((edge: EShapeConnectorEdge): void => {
 			edge.set(parent);
 		});
 		return this;
 	}
 
 	detach(): this {
-		this._connectors.forEach((edge: EShapeConnectorEdge): void => {
+		this._edges.forEach((edge: EShapeConnectorEdge): void => {
 			edge.set(null);
 		});
 		return this;

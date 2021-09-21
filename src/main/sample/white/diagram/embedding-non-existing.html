@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Embedding graphic pieces</title>
+	<title>Embedding graphics (Non-existing)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -37,23 +37,17 @@
 			controller: {
 				piece: {
 					getByName: function( name ) {
-						return new Promise(function( resolve, reject ) {
-							fetch( "../../resource/diagram/piece.json" )
-							.then(function( response ) {
-								response.json().then(function( json ) {
-									resolve( json );
-								})
-							})
-							.catch(function() {
-								reject();
-							})
+						return fetch( "../../resource/diagram/" + name + ".json" ).then(function( response ) {
+							return response.json().then(function( json ) {
+								return json;
+							});
 						});
 					}
 				}
 			}
 		});
 
-		fetch( "../../resource/diagram/pieces.json" ).then(function( response ) {
+		fetch( "../../resource/diagram/embedding-non-existing.json" ).then(function( response ) {
 			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();

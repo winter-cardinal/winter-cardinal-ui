@@ -331,6 +331,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const connector = this._connector;
 		if (connector) {
 			connector.attach();
+			connector.fit(true);
 		}
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {

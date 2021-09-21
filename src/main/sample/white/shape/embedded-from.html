@@ -36,26 +36,17 @@
 		const controller = {
 			piece: {
 				getByName( name ) {
-					return new Promise(( resolve, reject ) => {
-						let path = "../../resource/diagram/nested-piece.json";
-						if( name === "piece-id" ) {
-							path = "../../resource/diagram/piece.json";
-						}
-						fetch( path ).then(( response ) => {
-							response.json().then(( json ) => {
-								resolve( json );
-							})
-						})
-						.catch(() => {
-							reject();
+					return fetch( "../../resource/diagram/" + name + ".json" ).then(function( response ) {
+						return response.json().then(function ( json ) {
+							return json;
 						})
 					});
 				}
 			}
 		};
-		fetch( "../../resource/diagram/nested-pieces.json" ).then(( response ) => {
-			response.json().then(( json ) => {
-				wcardinal.ui.EShapeEmbeddeds.from( json, controller, false ).then(( shape ) => {
+		fetch( "../../resource/diagram/embedding-nested.json" ).then(function ( response ) {
+			response.json().then(function ( json ) {
+				wcardinal.ui.EShapeEmbeddeds.from( json, controller, false ).then(function ( shape ) {
 					shape.attach( container );
 					application.update();
 				});

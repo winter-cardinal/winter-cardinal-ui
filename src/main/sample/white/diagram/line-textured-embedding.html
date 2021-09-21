@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Shape gesture (No pinch)</title>
+	<title>Line (Textured, Embedding)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -33,10 +33,21 @@
 		var diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
-			width: "100%", height: "100%"
+			width: "100%", height: "100%",
+			controller: {
+				piece: {
+					getByName: function( name ) {
+						return fetch( "../../resource/diagram/" + name + ".json" ).then(function( response ) {
+							return response.json().then(function( json ) {
+								return json;
+							})
+						});
+					}
+				}
+			},
 		});
 
-		fetch( "../../resource/diagram/shape-gesture-no-pinch.json" ).then(function( response ) {
+		fetch( "../../resource/diagram/line-textured-embedding.json" ).then(function( response ) {
 			response.json().then(function( json ) {
 				diagram.set( json );
 				diagram.view.fit();
