@@ -39,8 +39,10 @@ export class UtilFileDownloader {
 		const blob = new Blob(insertBom !== false ? ["\ufeff", contents] : [contents], {
 			type: "text/plain"
 		});
-		if (window.navigator.msSaveBlob) {
-			window.navigator.msSaveBlob(blob, filename);
+		const navigator = window.navigator;
+		if ("msSaveBlob" in navigator) {
+			// IE10 and 11
+			(navigator as any).msSaveBlob(blob, filename);
 		} else {
 			this.downloadUrl(filename, URL.createObjectURL(blob));
 		}

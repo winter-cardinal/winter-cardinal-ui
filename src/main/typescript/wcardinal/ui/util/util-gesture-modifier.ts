@@ -3,14 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum UtilGestureModifier {
-	NONE = 0,
-	CTRL = 1,
-	SHIFT = 2,
-	ALT = 4,
+const CTRL = 1;
+const SHIFT = 2;
+const ALT = 4;
 
-	AND = 8,
-	OR = 16,
+const AND = 8;
+const OR = 16;
 
-	NOT_NONE = CTRL | SHIFT | ALT | OR
-}
+export const UtilGestureModifier = {
+	NONE: 0,
+	CTRL,
+	SHIFT,
+	ALT,
+
+	AND,
+	OR,
+
+	NOT_NONE: CTRL | SHIFT | ALT | OR
+} as const;
+
+export type UtilGestureModifier = number;

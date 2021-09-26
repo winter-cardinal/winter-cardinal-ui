@@ -3,12 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum EShapeActionValueChangeColorType {
-	NONE = 0,
-	FILL = 1,
-	STROKE = 2,
-	TEXT = 4,
-	TEXT_OUTLINE = 8,
-	FILL_AND_STROKE = FILL | STROKE,
-	ALL = FILL | STROKE | TEXT | TEXT_OUTLINE
-}
+const FILL = 1;
+const STROKE = 2;
+const TEXT = 4;
+const TEXT_OUTLINE = 8;
+
+export const EShapeActionValueChangeColorType = {
+	NONE: 0,
+	FILL,
+	STROKE,
+	TEXT,
+	TEXT_OUTLINE,
+	FILL_AND_STROKE: FILL | STROKE,
+	ALL: FILL | STROKE | TEXT | TEXT_OUTLINE
+} as const;
+
+export type EShapeActionValueChangeColorType = number;

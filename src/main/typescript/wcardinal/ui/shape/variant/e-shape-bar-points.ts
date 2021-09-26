@@ -30,7 +30,7 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 	protected _updatedSize: number;
 	protected _updatedParentSizeX: number;
 	protected _updatedParentSizeY: number;
-	protected _updatedPosition: EShapeBarPosition;
+	protected _updatedPosition: number;
 
 	constructor(parent: EShape) {
 		this._parent = parent;
@@ -264,7 +264,7 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 	deserialize(resourceId: number, manager: EShapeResourceManagerDeserialization): void {
 		if (0 <= resourceId && resourceId < manager.resources.length) {
 			const resource = manager.resources[resourceId];
-			const parsed = JSON.parse(resource) as [number, number, number];
+			const parsed = JSON.parse(resource) as [EShapeBarPosition, number, number];
 			this.moveTo(parsed[0], parsed[1], parsed[2]);
 		}
 	}

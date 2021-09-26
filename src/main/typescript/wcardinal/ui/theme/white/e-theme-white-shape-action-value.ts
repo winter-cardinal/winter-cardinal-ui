@@ -43,7 +43,7 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 
 	protected toSubtypedLabel(
 		type: EShapeActionValueType,
-		subtype: number,
+		subtype: EShapeActionValueShowHideType,
 		value: EShapeActionValueSubtyped<any>
 	): string | null {
 		const typeLabel = this.toTypeLabel(type);
@@ -63,8 +63,8 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 
 	protected toOpetypedLabel(
 		type: EShapeActionValueType,
-		subtype: number,
-		opetype: number,
+		subtype: EShapeActionValueTransformType,
+		opetype: EShapeActionValueTransformRotateType,
 		value: EShapeActionValueOpetyped<any, any>
 	): string | null {
 		switch (type) {

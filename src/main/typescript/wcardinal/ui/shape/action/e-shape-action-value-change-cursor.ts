@@ -12,7 +12,7 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueChangeCursorSerialized = [
-	EShapeActionValueType.CHANGE_CURSOR,
+	typeof EShapeActionValueType.CHANGE_CURSOR,
 	number,
 	number
 ];

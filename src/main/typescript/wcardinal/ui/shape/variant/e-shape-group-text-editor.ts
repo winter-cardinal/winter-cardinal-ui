@@ -155,7 +155,7 @@ export class EShapeGroupTextEditor implements EShapeText {
 		}
 	}
 
-	get direction(): number {
+	get direction(): EShapeTextDirection {
 		const children = this._parent.children;
 		if (0 < children.length) {
 			return children[children.length - 1].text.direction;
@@ -163,7 +163,7 @@ export class EShapeGroupTextEditor implements EShapeText {
 		return 0;
 	}
 
-	set direction(direction: number) {
+	set direction(direction: EShapeTextDirection) {
 		const children = this._parent.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
 			children[i].text.direction = direction;

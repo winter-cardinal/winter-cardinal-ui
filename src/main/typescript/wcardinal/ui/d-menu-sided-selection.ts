@@ -11,12 +11,13 @@ import { DMenuItemBase } from "./d-menu-item-base";
 import { DOnOptions } from "./d-on-options";
 import { toEnum } from "./util/to-enum";
 
-export enum DMenuSidedSelectionType {
-	NONE,
-	SINGLE,
-	SINGLE_ONCE,
-	DEFAULT = SINGLE_ONCE
-}
+export const DMenuSidedSelectionType = {
+	NONE: 0,
+	SINGLE: 1,
+	SINGLE_ONCE: 2
+} as const;
+
+export type DMenuSidedSelectionType = typeof DMenuSidedSelectionType[keyof typeof DMenuSidedSelectionType];
 
 /**
  * {@link DMenuSidedSelection} events.
@@ -72,7 +73,7 @@ export class DMenuSidedSelection<VALUE> extends utils.EventEmitter {
 		this._item = null;
 		this._isDirty = true;
 		this._type = toEnum(
-			options?.mode ?? options?.type ?? DMenuSidedSelectionType.DEFAULT,
+			options?.mode ?? options?.type ?? DMenuSidedSelectionType.SINGLE_ONCE,
 			DMenuSidedSelectionType
 		);
 		this._filter = options?.filter ?? this.getFilterDefault();

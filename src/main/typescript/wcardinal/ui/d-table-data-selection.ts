@@ -6,11 +6,13 @@
 import { utils } from "pixi.js";
 import { DTableData } from "./d-table-data";
 
-export enum DTableDataSelectionType {
-	NONE,
-	SINGLE,
-	MULTIPLE
-}
+export const DTableDataSelectionType = {
+	NONE: 0,
+	SINGLE: 1,
+	MULTIPLE: 2
+} as const;
+
+export type DTableDataSelectionType = typeof DTableDataSelectionType[keyof typeof DTableDataSelectionType];
 
 export interface DTableDataSelectionOptions {
 	type?: keyof typeof DTableDataSelectionType | DTableDataSelectionType;

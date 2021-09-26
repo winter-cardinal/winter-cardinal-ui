@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DLinkMenuItemId {
-	OPEN_LINK,
-	OPEN_LINK_IN_NEW_WINDOW,
-	COPY_LINK_ADDRESS
-}
+export const DLinkMenuItemId = {
+	OPEN_LINK: 0,
+	OPEN_LINK_IN_NEW_WINDOW: 1,
+	COPY_LINK_ADDRESS: 2
+} as const;
+
+export type DLinkMenuItemId = typeof DLinkMenuItemId[keyof typeof DLinkMenuItemId];

@@ -3,31 +3,34 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+const SELF = 1;
+const CHILDREN = 2;
+
 /**
  * DBase interactivity.
  * Mouse / touch events are triggered only on interactive objects.
  */
-export enum DBaseInteractive {
+export const DBaseInteractive = {
 	/**
 	 * Not interactive.
 	 */
-	NONE = 0,
+	NONE: 0,
 
 	/**
 	 * Interactive.
-	 * However children are not interactive.
 	 */
-	SELF = 1,
+	SELF,
 
 	/**
-	 * Not interactive.
-	 * However children are interactive.
+	 * Children are interactive.
 	 */
-	CHILDREN = 2,
+	CHILDREN,
 
 	/**
 	 * Interactive.
-	 * Children are also interactive.
+	 * And also children are interactive.
 	 */
-	BOTH = SELF | CHILDREN
-}
+	BOTH: SELF | CHILDREN
+} as const;
+
+export type DBaseInteractive = number;

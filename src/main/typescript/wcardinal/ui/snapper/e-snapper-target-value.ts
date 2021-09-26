@@ -5,10 +5,12 @@
 
 import { DDiagramSerializedSnapTargetValue } from "../d-diagram-serialized";
 
-export enum ESnapperTargetValueType {
-	HORIZONTAL = 0,
-	VERTICAL = 1
-}
+export const ESnapperTargetValueType = {
+	HORIZONTAL: 0,
+	VERTICAL: 1
+} as const;
+
+export type ESnapperTargetValueType = typeof ESnapperTargetValueType[keyof typeof ESnapperTargetValueType];
 
 export class ESnapperTargetValue {
 	type: ESnapperTargetValueType;

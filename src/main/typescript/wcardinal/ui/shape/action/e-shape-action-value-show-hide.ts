@@ -12,7 +12,7 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueShowHideSerialized = [
-	EShapeActionValueType.SHOW_HIDE,
+	typeof EShapeActionValueType.SHOW_HIDE,
 	number,
 	EShapeActionValueShowHideType
 ];

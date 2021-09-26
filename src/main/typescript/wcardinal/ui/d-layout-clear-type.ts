@@ -3,9 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DLayoutClearType {
-	NONE = 0,
-	BEFORE = 1,
-	AFTER = 2,
-	BOTH = BEFORE | AFTER
-}
+const BEFORE = 1;
+const AFTER = 2;
+
+export const DLayoutClearType = {
+	NONE: 0,
+	BEFORE,
+	AFTER,
+	BOTH: BEFORE | AFTER
+} as const;
+
+export type DLayoutClearType = number;

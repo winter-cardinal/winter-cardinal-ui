@@ -3,9 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum EShapeActionValueMiscGestureType {
-	NONE = 0,
-	DRAG = 1,
-	PINCH = 2,
-	ALL = DRAG | PINCH
-}
+const DRAG = 1;
+const PINCH = 2;
+
+export const EShapeActionValueMiscGestureType = {
+	NONE: 0,
+	DRAG,
+	PINCH,
+	ALL: DRAG | PINCH
+} as const;
+
+export type EShapeActionValueMiscGestureType = number;

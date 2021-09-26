@@ -6,13 +6,15 @@
 /**
  * An output format.
  */
-export enum UtilFileAs {
-	TEXT,
-	DATA_URL,
-	BINARY_STRING,
-	ARRAY_BUTTER,
-	FILE
-}
+export const UtilFileAs = {
+	TEXT: 0,
+	DATA_URL: 1,
+	BINARY_STRING: 2,
+	ARRAY_BUTTER: 3,
+	FILE: 4
+} as const;
+
+export type UtilFileAs = typeof UtilFileAs[keyof typeof UtilFileAs];
 
 export interface UtilFileFacade {
 	emit(name: string, ...args: any[]): void;

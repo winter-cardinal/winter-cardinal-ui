@@ -154,15 +154,16 @@ const toColumnAlign = <ROW, CELL>(
 
 const toColumnDataChecker = <ROW>(path: string[] | null): DTableEditable<ROW> => {
 	if (path != null) {
-		if (path.length <= 1) {
+		const pathLength = path.length;
+		if (pathLength <= 1) {
 			const key = path[0];
 			return (row: ROW): boolean => {
 				return key in row;
 			};
 		} else {
 			return (row: any): boolean => {
-				for (let i = 0, imax = path.length; i < imax; ++i) {
-					const part = path[i];
+				for (let i = 0; i < pathLength; ++i) {
+					const part: string = path[i];
 					if (part in row) {
 						row = row[part];
 					} else {

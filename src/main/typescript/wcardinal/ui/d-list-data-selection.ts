@@ -6,11 +6,13 @@
 import { utils } from "pixi.js";
 import { DOnOptions } from "./d-on-options";
 
-export enum DListDataSelectionType {
-	NONE,
-	SINGLE,
-	MULTIPLE
-}
+export const DListDataSelectionType = {
+	NONE: 0,
+	SINGLE: 1,
+	MULTIPLE: 2
+} as const;
+
+export type DListDataSelectionType = typeof DListDataSelectionType[keyof typeof DListDataSelectionType];
 
 /**
  * {@link DListSelection} events.

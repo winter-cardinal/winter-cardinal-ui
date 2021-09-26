@@ -26,23 +26,25 @@ import { DTableBodyCellTreeOptions } from "./d-table-body-cell-tree";
 import { DTableDataComparator } from "./d-table-data-sorter";
 import { DTableHeaderCellOptions } from "./d-table-header-cell";
 
-export enum DTableColumnType {
-	INDEX,
-	TEXT,
-	INTEGER,
-	REAL,
-	CHECK,
-	CHECK_SINGLE,
-	COLOR,
-	BUTTON,
-	SELECT,
-	DATE,
-	DATETIME,
-	TIME,
-	ACTION,
-	LINK,
-	TREE
-}
+export const DTableColumnType = {
+	INDEX: 0,
+	TEXT: 1,
+	INTEGER: 2,
+	REAL: 3,
+	CHECK: 4,
+	CHECK_SINGLE: 5,
+	COLOR: 6,
+	BUTTON: 7,
+	SELECT: 8,
+	DATE: 9,
+	DATETIME: 10,
+	TIME: 11,
+	ACTION: 12,
+	LINK: 13,
+	TREE: 14
+} as const;
+
+export type DTableColumnType = typeof DTableColumnType[keyof typeof DTableColumnType];
 
 export type DTableGetter<ROW_VALUE, CELL_VALUE> = (
 	row: ROW_VALUE,

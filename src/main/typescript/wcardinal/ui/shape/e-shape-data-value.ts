@@ -7,10 +7,12 @@ import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeDataValueRange, EShapeDataValueRangeLike } from "./e-shape-data-value-range";
 
-export enum EShapeDataValueOrder {
-	ASCENDING,
-	DESCENDING
-}
+export const EShapeDataValueOrder = {
+	ASCENDING: 0,
+	DESCENDING: 1
+} as const;
+
+export type EShapeDataValueOrder = typeof EShapeDataValueOrder[keyof typeof EShapeDataValueOrder];
 
 export interface EShapeDataValueLike {
 	id: string;

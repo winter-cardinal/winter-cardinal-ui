@@ -20,9 +20,9 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueTransformMoveSerialized = [
-	EShapeActionValueType.TRANSFORM,
+	typeof EShapeActionValueType.TRANSFORM,
 	number,
-	EShapeActionValueTransformType.MOVE,
+	typeof EShapeActionValueTransformType.MOVE,
 	EShapeActionValueTransformMoveType,
 	number
 ];

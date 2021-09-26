@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum EShapeTextDirection {
-	LEFT_TO_RIGHT,
-	TOP_TO_BOTTOM,
-	BOTTOM_TO_TOP
-}
+export const EShapeTextDirection = {
+	LEFT_TO_RIGHT: 0,
+	TOP_TO_BOTTOM: 1,
+	BOTTOM_TO_TOP: 2
+} as const;
+
+export type EShapeTextDirection = typeof EShapeTextDirection[keyof typeof EShapeTextDirection];

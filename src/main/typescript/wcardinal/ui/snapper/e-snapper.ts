@@ -18,18 +18,20 @@ export interface ESnapperModifier extends DisplayObject {
 	height: number;
 }
 
-export enum ESnapperModifierAnchor {
-	NONE,
-	TOP_LEFT,
-	TOP_CENTER,
-	TOP_RIGHT,
-	MIDDLE_LEFT,
-	MIDDLE_RIGHT,
-	BOTTOM_LEFT,
-	BOTTOM_CENTER,
-	BOTTOM_RIGHT,
-	ROTATION
-}
+export const ESnapperModifierAnchor = {
+	NONE: 0,
+	TOP_LEFT: 1,
+	TOP_CENTER: 2,
+	TOP_RIGHT: 3,
+	MIDDLE_LEFT: 4,
+	MIDDLE_RIGHT: 5,
+	BOTTOM_LEFT: 6,
+	BOTTOM_CENTER: 7,
+	BOTTOM_RIGHT: 8,
+	ROTATION: 9
+} as const;
+
+export type ESnapperModifierAnchor = typeof ESnapperModifierAnchor[keyof typeof ESnapperModifierAnchor];
 
 export interface ESnapperParentCanvas {
 	scale: {

@@ -7,9 +7,13 @@ import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DOnOptions } from "./d-on-options";
 import { toEnum } from "./util/to-enum";
-import { UtilFileAs, UtilFileEvents, UtilFileOpener } from "./util/util-file-opener";
+import {
+	UtilFileAs as DButtonFileAs,
+	UtilFileEvents,
+	UtilFileOpener
+} from "./util/util-file-opener";
 
-export import DButtonFileAs = UtilFileAs;
+export { DButtonFileAs };
 
 /**
  * {@link DButtonFile} events.
@@ -38,7 +42,7 @@ export interface DButtonFileOptions<
 	/**
 	 * An output format.
 	 */
-	as?: keyof typeof UtilFileAs | UtilFileAs;
+	as?: keyof typeof DButtonFileAs | DButtonFileAs;
 
 	/**
 	 * A checker called before opening a file.

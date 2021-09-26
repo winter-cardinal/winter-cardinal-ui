@@ -12,7 +12,7 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueEmitEventSerialized = [
-	EShapeActionValueType.EMIT_EVENT,
+	typeof EShapeActionValueType.EMIT_EVENT,
 	number,
 	number
 ];

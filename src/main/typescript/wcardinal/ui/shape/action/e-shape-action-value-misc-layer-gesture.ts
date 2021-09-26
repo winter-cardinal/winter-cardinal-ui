@@ -14,15 +14,17 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueMiscLayerGestureSerialized = [
-	EShapeActionValueType.MISC,
+	typeof EShapeActionValueType.MISC,
 	number,
-	EShapeActionValueMiscType.LAYER_GESTURE,
+	typeof EShapeActionValueMiscType.LAYER_GESTURE,
 	EShapeActionValueMiscGestureType,
 	number, // Minimum scale
 	number // Maximum scale
 ];
 
-export class EShapeActionValueMiscLayerGesture extends EShapeActionValueSubtyped<EShapeActionValueMiscType.LAYER_GESTURE> {
+export class EShapeActionValueMiscLayerGesture extends EShapeActionValueSubtyped<
+	typeof EShapeActionValueMiscType.LAYER_GESTURE
+> {
 	readonly gestureType: EShapeActionValueMiscGestureType;
 	readonly scaleMin: number;
 	readonly scaleMax: number;

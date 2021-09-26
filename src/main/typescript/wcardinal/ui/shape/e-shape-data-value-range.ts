@@ -6,12 +6,17 @@
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 
-export enum EShapeDataValueRangeType {
-	NONE = 0,
-	FROM = 1,
-	TO = 2,
-	FROM_TO = 3
-}
+const FROM = 1;
+const TO = 2;
+
+export const EShapeDataValueRangeType = {
+	NONE: 0,
+	FROM,
+	TO,
+	FROM_TO: FROM | TO
+} as const;
+
+export type EShapeDataValueRangeType = number;
 
 export interface EShapeDataValueRangeLike {
 	type: EShapeDataValueRangeType;

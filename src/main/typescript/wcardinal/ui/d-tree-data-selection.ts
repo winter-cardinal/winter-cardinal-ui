@@ -7,11 +7,13 @@ import { utils } from "pixi.js";
 import { DOnOptions } from "./d-on-options";
 import { DTreeNode } from "./d-tree-node";
 
-export enum DTreeDataSelectionType {
-	NONE,
-	SINGLE,
-	MULTIPLE
-}
+export const DTreeDataSelectionType = {
+	NONE: 0,
+	SINGLE: 1,
+	MULTIPLE: 2
+} as const;
+
+export type DTreeDataSelectionType = typeof DTreeDataSelectionType[keyof typeof DTreeDataSelectionType];
 
 /**
  * {@link DListSelection} events.

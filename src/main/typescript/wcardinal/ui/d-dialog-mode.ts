@@ -6,8 +6,10 @@
 /**
  * {@link DDialog} mode options.
  */
-export enum DDialogMode {
-	MODAL,
-	MODELESS,
-	MENU
-}
+export const DDialogMode = {
+	MODAL: 0,
+	MODELESS: 1,
+	MENU: 2
+} as const;
+
+export type DDialogMode = typeof DDialogMode[keyof typeof DDialogMode];

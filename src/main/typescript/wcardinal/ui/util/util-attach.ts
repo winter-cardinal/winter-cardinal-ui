@@ -11,29 +11,31 @@ export interface UtilAttachTarget {
 	readonly position: IPoint;
 }
 
-export enum UtilAttachAlign {
-	TOP,
-	TOP_LEFT,
-	TOP_CENTER,
-	TOP_RIGHT,
+export const UtilAttachAlign = {
+	TOP: 0,
+	TOP_LEFT: 1,
+	TOP_CENTER: 2,
+	TOP_RIGHT: 3,
 
-	LEFT,
-	LEFT_TOP,
-	LEFT_MIDDLE,
-	LEFT_BOTTOM,
+	LEFT: 4,
+	LEFT_TOP: 5,
+	LEFT_MIDDLE: 6,
+	LEFT_BOTTOM: 7,
 
-	RIGHT,
-	RIGHT_TOP,
-	RIGHT_MIDDLE,
-	RIGHT_BOTTOM,
+	RIGHT: 8,
+	RIGHT_TOP: 9,
+	RIGHT_MIDDLE: 10,
+	RIGHT_BOTTOM: 11,
 
-	BOTTOM,
-	BOTTOM_LEFT,
-	BOTTOM_CENTER,
-	BOTTOM_RIGHT,
+	BOTTOM: 12,
+	BOTTOM_LEFT: 13,
+	BOTTOM_CENTER: 14,
+	BOTTOM_RIGHT: 15,
 
-	OVER
-}
+	OVER: 16
+} as const;
+
+export type UtilAttachAlign = typeof UtilAttachAlign[keyof typeof UtilAttachAlign];
 
 export class UtilAttach {
 	static attach(

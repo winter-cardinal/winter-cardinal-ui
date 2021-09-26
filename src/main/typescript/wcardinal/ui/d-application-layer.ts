@@ -109,7 +109,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		style.height = "100%";
 		style.display = "block";
 		style.outline = "none";
-		style.webkitTapHighlightColor = "rgba(255,255,255,0)";
+		(style as any).webkitTapHighlightColor = "rgba(255,255,255,0)";
 		style.webkitUserSelect = "none";
 		style.setProperty("-khtml-user-select", "none");
 		style.setProperty("-moz-user-select", "none");

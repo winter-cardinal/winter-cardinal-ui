@@ -16,12 +16,12 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 type Target =
-	| EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA
-	| EShapeActionValueChangeColorTarget.COLOR
-	| EShapeActionValueChangeColorTarget.ALPHA;
+	| typeof EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA
+	| typeof EShapeActionValueChangeColorTarget.COLOR
+	| typeof EShapeActionValueChangeColorTarget.ALPHA;
 
 export type EShapeActionValueChangeColorSerialized = [
-	EShapeActionValueType.CHANGE_COLOR,
+	typeof EShapeActionValueType.CHANGE_COLOR,
 	number,
 	EShapeActionValueChangeColorType,
 	Target,
@@ -31,7 +31,7 @@ export type EShapeActionValueChangeColorSerialized = [
 ];
 
 export type EShapeActionValueChangeColorSerializedLegacy = [
-	EShapeActionValueType.CHANGE_COLOR_LEGACY,
+	typeof EShapeActionValueType.CHANGE_COLOR_LEGACY,
 	number,
 	EShapeActionValueChangeColorTypeLegacy,
 	Target,

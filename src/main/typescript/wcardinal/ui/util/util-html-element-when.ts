@@ -6,25 +6,27 @@
 /**
  * {@link DHtmlElement} option when to show a HTML element
  */
-export enum UtilHtmlElementWhen {
+export const UtilHtmlElementWhen = {
 	/**
 	 * Shows a HTML element when clicked.
 	 */
-	CLICKED,
+	CLICKED: 0,
 
 	/**
 	 * Shows a HTML element when double clicked.
 	 */
-	DOUBLE_CLICKED,
+	DOUBLE_CLICKED: 1,
 
 	/**
 	 * Shows a HTML element when focused.
 	 * And also shows when clicked if focused.
 	 */
-	FOCUSED,
+	FOCUSED: 2,
 
 	/**
 	 * Always shows a HTML element.
 	 */
-	ALWAYS
-}
+	ALWAYS: 3
+} as const;
+
+export type UtilHtmlElementWhen = typeof UtilHtmlElementWhen[keyof typeof UtilHtmlElementWhen];

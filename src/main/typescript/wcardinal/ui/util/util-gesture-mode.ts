@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum UtilGestureMode {
-	OFF,
-	ON,
-	TOUCH
-}
+export const UtilGestureMode = {
+	OFF: 0,
+	ON: 1,
+	TOUCH: 2
+} as const;
+
+export type UtilGestureMode = typeof UtilGestureMode[keyof typeof UtilGestureMode];

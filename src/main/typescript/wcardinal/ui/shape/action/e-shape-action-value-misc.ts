@@ -21,18 +21,18 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueMiscSubtype =
-	| EShapeActionValueMiscType.INPUT_TEXT
-	| EShapeActionValueMiscType.INPUT_INTEGER
-	| EShapeActionValueMiscType.INPUT_REAL
-	| EShapeActionValueMiscType.EMIT_EVENT
-	| EShapeActionValueMiscType.WRITE_BOTH
-	| EShapeActionValueMiscType.WRITE_LOCAL
-	| EShapeActionValueMiscType.WRITE_REMOTE
-	| EShapeActionValueMiscType.HTML_ELEMENT
-	| EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS;
+	| typeof EShapeActionValueMiscType.INPUT_TEXT
+	| typeof EShapeActionValueMiscType.INPUT_INTEGER
+	| typeof EShapeActionValueMiscType.INPUT_REAL
+	| typeof EShapeActionValueMiscType.EMIT_EVENT
+	| typeof EShapeActionValueMiscType.WRITE_BOTH
+	| typeof EShapeActionValueMiscType.WRITE_LOCAL
+	| typeof EShapeActionValueMiscType.WRITE_REMOTE
+	| typeof EShapeActionValueMiscType.HTML_ELEMENT
+	| typeof EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS;
 
 export type EShapeActionValueMiscSerialized = [
-	EShapeActionValueType.MISC,
+	typeof EShapeActionValueType.MISC,
 	number,
 	EShapeActionValueMiscSubtype,
 	number,

@@ -16,9 +16,9 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueTransformRotateSerialized = [
-	EShapeActionValueType.TRANSFORM,
+	typeof EShapeActionValueType.TRANSFORM,
 	number,
-	EShapeActionValueTransformType.ROTATE,
+	typeof EShapeActionValueTransformType.ROTATE,
 	EShapeActionValueTransformRotateType,
 	number,
 	number,

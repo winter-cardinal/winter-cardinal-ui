@@ -12,15 +12,19 @@ import { EShapeTextDirection } from "./e-shape-text-direction";
 import { EShapeTextOffset, EShapeTextOffsetLike } from "./e-shape-text-offset";
 import { EShapeTextOutline, EShapeTextOutlineLike } from "./e-shape-text-outline";
 
-export enum EShapeTextWeight {
-	NORMAL,
-	BOLD
-}
+export const EShapeTextWeight = {
+	NORMAL: 0,
+	BOLD: 1
+} as const;
 
-export enum EShapeTextStyle {
-	NORMAL,
-	ITALIC
-}
+export type EShapeTextWeight = typeof EShapeTextWeight[keyof typeof EShapeTextWeight];
+
+export const EShapeTextStyle = {
+	NORMAL: 0,
+	ITALIC: 1
+} as const;
+
+export type EShapeTextStyle = typeof EShapeTextStyle[keyof typeof EShapeTextStyle];
 
 export interface EShapeTextLike {
 	value: string;

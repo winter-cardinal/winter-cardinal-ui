@@ -14,7 +14,7 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueChangeTextSerialized = [
-	EShapeActionValueType.CHANGE_TEXT,
+	typeof EShapeActionValueType.CHANGE_TEXT,
 	number,
 	EShapeActionValueChangeTextType,
 	number

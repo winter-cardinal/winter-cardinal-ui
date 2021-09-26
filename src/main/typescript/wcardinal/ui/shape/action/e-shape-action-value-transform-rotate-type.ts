@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum EShapeActionValueTransformRotateType {
-	RELATIVE,
-	ABSOLUTE
-}
+export const EShapeActionValueTransformRotateType = {
+	RELATIVE: 0,
+	ABSOLUTE: 1
+} as const;
+
+export type EShapeActionValueTransformRotateType = typeof EShapeActionValueTransformRotateType[keyof typeof EShapeActionValueTransformRotateType];

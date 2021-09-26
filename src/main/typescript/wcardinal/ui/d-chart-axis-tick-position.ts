@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DChartAxisTickPosition {
-	INSIDE,
-	OUTSIDE
-}
+export const DChartAxisTickPosition = {
+	INSIDE: 0,
+	OUTSIDE: 1
+} as const;
+
+export type DChartAxisTickPosition = typeof DChartAxisTickPosition[keyof typeof DChartAxisTickPosition];

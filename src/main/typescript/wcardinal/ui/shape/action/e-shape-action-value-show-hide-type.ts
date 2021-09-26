@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum EShapeActionValueShowHideType {
-	SHOW,
-	HIDE
-}
+export const EShapeActionValueShowHideType = {
+	SHOW: 0,
+	HIDE: 1
+} as const;
+
+export type EShapeActionValueShowHideType = typeof EShapeActionValueShowHideType[keyof typeof EShapeActionValueShowHideType];

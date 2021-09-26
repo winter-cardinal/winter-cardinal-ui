@@ -10,9 +10,9 @@ import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-
 export class EShapeActionValueMiscInput extends EShapeActionValueMisc {
 	constructor(
 		subtype:
-			| EShapeActionValueMiscType.INPUT_TEXT
-			| EShapeActionValueMiscType.INPUT_REAL
-			| EShapeActionValueMiscType.INPUT_INTEGER,
+			| typeof EShapeActionValueMiscType.INPUT_TEXT
+			| typeof EShapeActionValueMiscType.INPUT_REAL
+			| typeof EShapeActionValueMiscType.INPUT_INTEGER,
 		when: string,
 		target: string,
 		onInputAction: EShapeActionValueOnInputAction

@@ -93,11 +93,11 @@ export class EShapeGroupTextViewer implements EShapeText {
 		// DO NOTHING
 	}
 
-	get direction(): number {
+	get direction(): EShapeTextDirection {
 		return EShapeTextDirection.LEFT_TO_RIGHT;
 	}
 
-	set direction(direction: number) {
+	set direction(direction: EShapeTextDirection) {
 		// DO NOTHING
 	}
 

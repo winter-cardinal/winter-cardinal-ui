@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DAlignVertical {
-	TOP,
-	MIDDLE,
-	BOTTOM
-}
+export const DAlignVertical = {
+	TOP: 0,
+	MIDDLE: 1,
+	BOTTOM: 2
+} as const;
+
+export type DAlignVertical = typeof DAlignVertical[keyof typeof DAlignVertical];

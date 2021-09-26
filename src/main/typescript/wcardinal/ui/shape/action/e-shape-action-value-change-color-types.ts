@@ -8,12 +8,12 @@ import { EShapeActionValueChangeColorTypeLegacy } from "./e-shape-action-value-c
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 
 export interface EShapeActionValueChangeColorTypesSerialized {
-	[0]: EShapeActionValueType.CHANGE_COLOR;
+	[0]: typeof EShapeActionValueType.CHANGE_COLOR;
 	[2]: EShapeActionValueChangeColorType;
 }
 
 export interface EShapeActionValueChangeColorTypesSerializedLegacy {
-	[0]: EShapeActionValueType.CHANGE_COLOR_LEGACY;
+	[0]: typeof EShapeActionValueType.CHANGE_COLOR_LEGACY;
 	[2]: EShapeActionValueChangeColorTypeLegacy;
 }
 

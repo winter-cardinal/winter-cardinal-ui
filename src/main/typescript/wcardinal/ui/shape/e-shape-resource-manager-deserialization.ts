@@ -12,6 +12,8 @@ import {
 	DDiagramSerializedTextOutline
 } from "../d-diagram-serialized";
 import { EShapeActionValue } from "./action/e-shape-action-value";
+import { EShapeTextAlignHorizontal } from "./e-shape-text-align-horizontal";
+import { EShapeTextAlignVertical } from "./e-shape-text-align-vertical";
 import { EShapeEmbeddedDatum } from "./variant/e-shape-embedded-datum";
 
 export interface EShapeResourceManagerDeserializationSerialized {
@@ -33,7 +35,7 @@ export class EShapeResourceManagerDeserialization {
 	protected _dataValues: Map<number, DDiagramSerializedDataValue>;
 	protected _data: Map<number, number[]>;
 	protected _ranges: Map<number, DDiagramSerializedDataRange>;
-	protected _aligns: Map<number, [number, number]>;
+	protected _aligns: Map<number, [EShapeTextAlignHorizontal, EShapeTextAlignVertical]>;
 	protected _margins: Map<number, [number, number]>;
 	protected _texts: Map<number, DDiagramSerializedText>;
 	protected _textOutlines: Map<number, DDiagramSerializedTextOutline>;
@@ -57,7 +59,7 @@ export class EShapeResourceManagerDeserialization {
 		this._data = new Map<number, number[]>();
 		this._dataValues = new Map<number, DDiagramSerializedDataValue>();
 		this._ranges = new Map<number, DDiagramSerializedDataRange>();
-		this._aligns = new Map<number, [number, number]>();
+		this._aligns = new Map<number, [EShapeTextAlignHorizontal, EShapeTextAlignVertical]>();
 		this._margins = new Map<number, [number, number]>();
 		this._texts = new Map<number, DDiagramSerializedText>();
 		this._textOutlines = new Map<number, DDiagramSerializedTextOutline>();
@@ -112,11 +114,11 @@ export class EShapeResourceManagerDeserialization {
 		this._ranges.set(id, range);
 	}
 
-	getAlign(id: number): [number, number] | undefined {
+	getAlign(id: number): [EShapeTextAlignHorizontal, EShapeTextAlignVertical] | undefined {
 		return this._aligns.get(id);
 	}
 
-	setAlign(id: number, align: [number, number]): void {
+	setAlign(id: number, align: [EShapeTextAlignHorizontal, EShapeTextAlignVertical]): void {
 		this._aligns.set(id, align);
 	}
 

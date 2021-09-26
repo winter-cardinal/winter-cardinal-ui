@@ -19,9 +19,9 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueBlinkSerialized = [
-	EShapeActionValueType.BLINK,
+	typeof EShapeActionValueType.BLINK,
 	number,
-	EShapeActionValueBlinkType.COLOR_FILL | EShapeActionValueBlinkType.COLOR_STROKE,
+	typeof EShapeActionValueBlinkType.COLOR_FILL | typeof EShapeActionValueBlinkType.COLOR_STROKE,
 	number,
 	number,
 	number

@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DLinkTarget {
-	AUTO,
-	THIS_WINDOW,
-	NEW_WINDOW
-}
+export const DLinkTarget = {
+	AUTO: 0,
+	THIS_WINDOW: 1,
+	NEW_WINDOW: 2
+} as const;
+
+export type DLinkTarget = typeof DLinkTarget[keyof typeof DLinkTarget];

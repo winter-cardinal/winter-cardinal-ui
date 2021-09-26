@@ -6,10 +6,12 @@
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateTransform } from "./d-chart-coordinate-transform";
 
-export enum DChartCoordinateDirection {
-	X,
-	Y
-}
+export const DChartCoordinateDirection = {
+	X: 0,
+	Y: 1
+} as const;
+
+export type DChartCoordinateDirection = typeof DChartCoordinateDirection[keyof typeof DChartCoordinateDirection];
 
 export interface DChartCoordinate {
 	/**

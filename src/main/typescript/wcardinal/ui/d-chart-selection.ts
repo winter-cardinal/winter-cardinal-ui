@@ -8,12 +8,14 @@ import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { EShape } from "./shape/e-shape";
 
-export enum DChartSelectionPoint {
-	PREVIOUS,
-	NEXT,
-	CLOSER,
-	INTERSECTION
-}
+export const DChartSelectionPoint = {
+	PREVIOUS: 0,
+	NEXT: 1,
+	CLOSER: 2,
+	INTERSECTION: 3
+} as const;
+
+export type DChartSelectionPoint = typeof DChartSelectionPoint[keyof typeof DChartSelectionPoint];
 
 export type DChartSelectionStyle = (shape: EShape, series: DChartSeries) => void;
 

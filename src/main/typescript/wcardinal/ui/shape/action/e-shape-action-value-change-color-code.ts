@@ -16,20 +16,20 @@ import { EShapeActionValues } from "./e-shape-action-values";
 import { EShapeActionValueChangeColorTypes } from "./e-shape-action-value-change-color-types";
 
 export type EShapeActionValueChangeColorCodeSerialized = [
-	EShapeActionValueType.CHANGE_COLOR,
+	typeof EShapeActionValueType.CHANGE_COLOR,
 	number,
 	EShapeActionValueChangeColorType,
-	EShapeActionValueChangeColorTarget.CODE,
+	typeof EShapeActionValueChangeColorTarget.CODE,
 	number,
 	number,
 	number
 ];
 
 export type EShapeActionValueChangeColorCodeSerializedLegacy = [
-	EShapeActionValueType.CHANGE_COLOR_LEGACY,
+	typeof EShapeActionValueType.CHANGE_COLOR_LEGACY,
 	number,
 	EShapeActionValueChangeColorTypeLegacy,
-	EShapeActionValueChangeColorTarget.CODE,
+	typeof EShapeActionValueChangeColorTarget.CODE,
 	number,
 	number,
 	number

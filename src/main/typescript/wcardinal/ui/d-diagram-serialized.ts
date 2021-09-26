@@ -13,6 +13,8 @@ import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal
 import { EShapeTextAlignVertical } from "./shape/e-shape-text-align-vertical";
 import { EShapeTextDirection } from "./shape/e-shape-text-direction";
 import { EShapeType } from "./shape/e-shape-type";
+import { ESnapperTargetValueType } from "./snapper/e-snapper-target-value";
+import { EShapeDataValueRangeType } from "./shape/e-shape-data-value-range";
 
 export const DDiagramSerializedVersion: number = 1;
 
@@ -21,7 +23,7 @@ export const DDiagramSerializedVersion: number = 1;
  */
 export interface DDiagramSerializedDataRange {
 	/** A type. */
-	[0]: number;
+	[0]: EShapeDataValueRangeType;
 
 	/** A lower bound. */
 	[1]: number;
@@ -394,8 +396,8 @@ export interface DDiagramSerializedLayer {
  * A serialized snap target.
  */
 export interface DDiagramSerializedSnapTargetValue {
-	/** A type (0: Horizontal, 1: Vertical). */
-	[0]: number;
+	/** A type. */
+	[0]: ESnapperTargetValueType;
 
 	/** A position. */
 	[1]: number;

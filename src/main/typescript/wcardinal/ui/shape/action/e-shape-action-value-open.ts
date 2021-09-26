@@ -24,7 +24,7 @@ import { EShapeActionRuntimeOpenDialogTime } from "./e-shape-action-runtime-open
 import { EShapeActionRuntimeOpenDialogDate } from "./e-shape-action-runtime-open-dialog-date";
 
 export type EShapeActionValueOpenSerialized = [
-	EShapeActionValueType.OPEN,
+	typeof EShapeActionValueType.OPEN,
 	number,
 	EShapeActionValueOpenType,
 	number,

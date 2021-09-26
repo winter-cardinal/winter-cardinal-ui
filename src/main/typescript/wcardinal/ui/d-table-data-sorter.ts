@@ -32,10 +32,12 @@ export type DTableDataComparator<ROW> =
 /**
  * A sort order.
  */
-export enum DTableDataOrder {
-	ASCENDING,
-	DESCENDING
-}
+export const DTableDataOrder = {
+	ASCENDING: 0,
+	DESCENDING: 1
+} as const;
+
+export type DTableDataOrder = typeof DTableDataOrder[keyof typeof DTableDataOrder];
 
 /**
  * Table data sorter.

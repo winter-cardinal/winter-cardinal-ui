@@ -17,25 +17,40 @@ import { EShapeTextLike } from "./e-shape-text";
 import { DBaseState } from "../d-base-state";
 import { DBaseStateSet } from "../d-base-state-set";
 
-export enum EShapeRuntimeReset {
-	NONE = 0,
-	POSITION_X = 1,
-	POSITION_Y = 2,
-	POSITION = POSITION_X | POSITION_Y,
-	ROTATION = 4,
-	COLOR_FILL = 8,
-	COLOR_STROKE = 16,
-	COLOR_FILL_AND_STROKE = COLOR_FILL | COLOR_STROKE,
-	COLOR_TEXT = 32,
-	COLOR_TEXT_OUTLINE = 64,
-	COLOR = COLOR_FILL | COLOR_STROKE | COLOR_TEXT | COLOR_TEXT_OUTLINE,
-	VISIBILITY = 128,
-	HEIGHT = 256,
-	WIDTH = 512,
-	SIZE = HEIGHT | WIDTH,
-	TEXT = 1024,
-	CURSOR = 2048
-}
+const POSITION_X = 1;
+const POSITION_Y = 2;
+const ROTATION = 4;
+const COLOR_FILL = 8;
+const COLOR_STROKE = 16;
+const COLOR_TEXT = 32;
+const COLOR_TEXT_OUTLINE = 64;
+const VISIBILITY = 128;
+const HEIGHT = 256;
+const WIDTH = 512;
+const TEXT = 1024;
+const CURSOR = 2048;
+
+export const EShapeRuntimeReset = {
+	NONE: 0,
+	POSITION_X,
+	POSITION_Y,
+	POSITION: POSITION_X | POSITION_Y,
+	ROTATION,
+	COLOR_FILL,
+	COLOR_STROKE,
+	COLOR_FILL_AND_STROKE: COLOR_FILL | COLOR_STROKE,
+	COLOR_TEXT,
+	COLOR_TEXT_OUTLINE,
+	COLOR: COLOR_FILL | COLOR_STROKE | COLOR_TEXT | COLOR_TEXT_OUTLINE,
+	VISIBILITY,
+	HEIGHT,
+	WIDTH,
+	SIZE: HEIGHT | WIDTH,
+	TEXT,
+	CURSOR
+} as const;
+
+export type EShapeRuntimeReset = typeof EShapeRuntimeReset[keyof typeof EShapeRuntimeReset];
 
 export class EShapeRuntime {
 	x: number;

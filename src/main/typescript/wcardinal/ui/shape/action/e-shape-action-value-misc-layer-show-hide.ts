@@ -13,14 +13,16 @@ import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
 export type EShapeActionValueMiscLayerShowHideSerialized = [
-	EShapeActionValueType.MISC,
+	typeof EShapeActionValueType.MISC,
 	number,
-	EShapeActionValueMiscType.LAYER_SHOW_HIDE,
+	typeof EShapeActionValueMiscType.LAYER_SHOW_HIDE,
 	number,
 	number
 ];
 
-export class EShapeActionValueMiscLayerShowHide extends EShapeActionValueSubtyped<EShapeActionValueMiscType.LAYER_SHOW_HIDE> {
+export class EShapeActionValueMiscLayerShowHide extends EShapeActionValueSubtyped<
+	typeof EShapeActionValueMiscType.LAYER_SHOW_HIDE
+> {
 	readonly layers: number[];
 	readonly bringToFront: boolean;
 

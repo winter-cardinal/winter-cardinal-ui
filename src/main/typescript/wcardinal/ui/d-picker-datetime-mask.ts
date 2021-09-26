@@ -3,12 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export enum DPickerDatetimeMask {
-	NONE = 0,
-	DATE = 1,
-	HOURS = 2,
-	MINUTES = 4,
-	SECONDS = 8,
-	TIME = HOURS | MINUTES | SECONDS,
-	ALL = DATE | TIME
-}
+const DATE = 1;
+const HOURS = 2;
+const MINUTES = 4;
+const SECONDS = 8;
+
+export const DPickerDatetimeMask = {
+	NONE: 0,
+	DATE,
+	HOURS,
+	MINUTES,
+	SECONDS,
+	TIME: HOURS | MINUTES | SECONDS,
+	ALL: DATE | HOURS | MINUTES | SECONDS
+} as const;
+
+export type DPickerDatetimeMask = number;
