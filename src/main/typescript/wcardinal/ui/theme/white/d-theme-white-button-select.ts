@@ -10,7 +10,8 @@ import { DThemeWhiteButton } from "./d-theme-white-button";
 
 export class DThemeWhiteButtonSelect<VALUE = unknown>
 	extends DThemeWhiteButton<VALUE | null>
-	implements DThemeButtonSelect<VALUE> {
+	implements DThemeButtonSelect<VALUE>
+{
 	getTextFormatter(): (value: unknown | null, caller: DButtonSelect) => string {
 		return toLabel;
 	}

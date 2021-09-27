@@ -26,7 +26,8 @@ export class DTableBodyCellCheck<
 		>
 	>
 	extends DButtonCheck<boolean, THEME, OPTIONS>
-	implements DTableBodyCell<ROW, boolean> {
+	implements DTableBodyCell<ROW, boolean>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

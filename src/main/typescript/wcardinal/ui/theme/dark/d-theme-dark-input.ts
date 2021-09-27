@@ -61,7 +61,8 @@ const afterCreator = (container: HTMLElement): HTMLDivElement => {
 
 export class DThemeDarkInput<VALUE = unknown>
 	extends DThemeDarkHtmlElement<VALUE, HTMLInputElement>
-	implements DThemeInput<VALUE> {
+	implements DThemeInput<VALUE>
+{
 	protected readonly BACKGROUND_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.017);
 

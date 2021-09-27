@@ -8,4 +8,5 @@ export const EShapeActionValueTransformRotateType = {
 	ABSOLUTE: 1
 } as const;
 
-export type EShapeActionValueTransformRotateType = typeof EShapeActionValueTransformRotateType[keyof typeof EShapeActionValueTransformRotateType];
+export type EShapeActionValueTransformRotateType =
+	typeof EShapeActionValueTransformRotateType[keyof typeof EShapeActionValueTransformRotateType];

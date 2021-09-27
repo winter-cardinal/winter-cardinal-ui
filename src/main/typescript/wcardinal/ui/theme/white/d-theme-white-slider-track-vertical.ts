@@ -9,7 +9,8 @@ import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
 export class DThemeWhiteSliderTrackVertical<VALUE = unknown>
 	extends DThemeWhiteSliderTrack<VALUE>
-	implements DThemeSliderTrackVertical<VALUE> {
+	implements DThemeSliderTrackVertical<VALUE>
+{
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}

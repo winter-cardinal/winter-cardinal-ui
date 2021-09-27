@@ -10,7 +10,8 @@ import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkPickerDatetimeSpace
 	extends DThemeDarkBase
-	implements DThemePickerDatetimeSpace {
+	implements DThemePickerDatetimeSpace
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}

@@ -28,7 +28,8 @@ const formatter = (colorAndAlpha: DColorAndAlpha): string => {
 
 export class DThemeDarkButtonColor
 	extends DThemeDarkButton<DColorAndAlpha>
-	implements DThemeButtonColor {
+	implements DThemeButtonColor
+{
 	getImageTintColor(state: DBaseStateSet): number | null {
 		return null;
 	}

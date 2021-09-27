@@ -36,7 +36,8 @@ export class DTableBodyCellSelectPromise<
 		> = DTableBodyCellSelectPromiseOptions<ROW, VALUE, THEME>
 	>
 	extends DButton<VALUE | null, THEME, OPTIONS>
-	implements DTableBodyCell<ROW, VALUE | null> {
+	implements DTableBodyCell<ROW, VALUE | null>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

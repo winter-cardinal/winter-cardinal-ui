@@ -14,7 +14,8 @@ import {
 
 export class DTreeDataSelectionNone<NODE extends DTreeNode>
 	extends utils.EventEmitter
-	implements DTreeDataSelection<NODE> {
+	implements DTreeDataSelection<NODE>
+{
 	protected _parent: DTreeDataSelectionParent<NODE>;
 
 	constructor(parent: DTreeDataSelectionParent<NODE>, options?: DTreeDataSelectionOptions<NODE>) {

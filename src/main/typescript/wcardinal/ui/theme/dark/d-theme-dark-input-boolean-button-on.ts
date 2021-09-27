@@ -10,7 +10,8 @@ import { DThemeDarkButton } from "./d-theme-dark-button";
 
 export class DThemeDarkInputBooleanButtonOn
 	extends DThemeDarkButton<string>
-	implements DThemeInputBooleanButtonOn {
+	implements DThemeInputBooleanButtonOn
+{
 	getBorderMask(): DBorderMask {
 		return DBorderMask.LEFT;
 	}

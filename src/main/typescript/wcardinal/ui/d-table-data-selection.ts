@@ -12,7 +12,8 @@ export const DTableDataSelectionType = {
 	MULTIPLE: 2
 } as const;
 
-export type DTableDataSelectionType = typeof DTableDataSelectionType[keyof typeof DTableDataSelectionType];
+export type DTableDataSelectionType =
+	typeof DTableDataSelectionType[keyof typeof DTableDataSelectionType];
 
 export interface DTableDataSelectionOptions {
 	type?: keyof typeof DTableDataSelectionType | DTableDataSelectionType;

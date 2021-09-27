@@ -13,7 +13,8 @@ export const DTreeDataSelectionType = {
 	MULTIPLE: 2
 } as const;
 
-export type DTreeDataSelectionType = typeof DTreeDataSelectionType[keyof typeof DTreeDataSelectionType];
+export type DTreeDataSelectionType =
+	typeof DTreeDataSelectionType[keyof typeof DTreeDataSelectionType];
 
 /**
  * {@link DListSelection} events.

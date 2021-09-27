@@ -10,7 +10,8 @@ import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
 export class DThemeWhitePickerDatetimeButtonDate<VALUE = unknown>
 	extends DThemeWhiteButtonAmbient<VALUE>
-	implements DThemePickerDatetimeButtonDate<VALUE> {
+	implements DThemePickerDatetimeButtonDate<VALUE>
+{
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.CENTER;
 	}

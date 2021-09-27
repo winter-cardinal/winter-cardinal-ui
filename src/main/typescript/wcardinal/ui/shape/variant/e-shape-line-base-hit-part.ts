@@ -12,4 +12,5 @@ export const EShapeLineBaseHitPart = {
 	CHILDREN: 5
 } as const;
 
-export type EShapeLineBaseHitPart = typeof EShapeLineBaseHitPart[keyof typeof EShapeLineBaseHitPart];
+export type EShapeLineBaseHitPart =
+	typeof EShapeLineBaseHitPart[keyof typeof EShapeLineBaseHitPart];

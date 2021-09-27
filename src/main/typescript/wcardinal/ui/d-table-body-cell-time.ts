@@ -32,7 +32,8 @@ export class DTableBodyCellTime<
 		>
 	>
 	extends DButton<Date, THEME, OPTIONS>
-	implements DTableBodyCell<ROW, Date> {
+	implements DTableBodyCell<ROW, Date>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

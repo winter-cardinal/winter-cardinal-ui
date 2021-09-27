@@ -12,4 +12,5 @@ export const EShapeActionValueTransformMoveType = {
 	LEFT_OR_RIGHT: 5
 } as const;
 
-export type EShapeActionValueTransformMoveType = typeof EShapeActionValueTransformMoveType[keyof typeof EShapeActionValueTransformMoveType];
+export type EShapeActionValueTransformMoveType =
+	typeof EShapeActionValueTransformMoveType[keyof typeof EShapeActionValueTransformMoveType];

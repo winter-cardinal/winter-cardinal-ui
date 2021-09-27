@@ -9,7 +9,8 @@ import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
 
 export class DThemeDarkDialogDatetime
 	extends DThemeDarkDialogCommand
-	implements DThemeDialogDatetime {
+	implements DThemeDialogDatetime
+{
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

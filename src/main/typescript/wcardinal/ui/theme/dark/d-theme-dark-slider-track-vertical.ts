@@ -9,7 +9,8 @@ import { DThemeDarkSliderTrack } from "./d-theme-dark-slider-track";
 
 export class DThemeDarkSliderTrackVertical<VALUE = unknown>
 	extends DThemeDarkSliderTrack<VALUE>
-	implements DThemeSliderTrackVertical<VALUE> {
+	implements DThemeSliderTrackVertical<VALUE>
+{
 	getX(): DCoordinatePosition {
 		return "CENTER";
 	}

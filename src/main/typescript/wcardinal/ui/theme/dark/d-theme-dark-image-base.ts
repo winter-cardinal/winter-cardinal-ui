@@ -13,7 +13,8 @@ import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
 export class DThemeDarkImageBase<VALUE = unknown>
 	extends DThemeDarkTextBase<VALUE>
-	implements DThemeImageBase<VALUE> {
+	implements DThemeImageBase<VALUE>
+{
 	getImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.LEFT;
 	}

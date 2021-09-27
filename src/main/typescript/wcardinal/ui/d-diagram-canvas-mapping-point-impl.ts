@@ -8,7 +8,8 @@ import { DMapTileMappingPoint } from "./d-map-tile-mapping";
 
 export class DDiagramCanvasTileMappingPointImpl
 	extends ObservablePoint
-	implements DMapTileMappingPoint {
+	implements DMapTileMappingPoint
+{
 	get lon(): number {
 		return this.x;
 	}

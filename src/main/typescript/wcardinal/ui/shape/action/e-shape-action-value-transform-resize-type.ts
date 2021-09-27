@@ -12,4 +12,5 @@ export const EShapeActionValueTransformResizeType = {
 	ABSOLUTE_WIDTH: 5
 } as const;
 
-export type EShapeActionValueTransformResizeType = typeof EShapeActionValueTransformResizeType[keyof typeof EShapeActionValueTransformResizeType];
+export type EShapeActionValueTransformResizeType =
+	typeof EShapeActionValueTransformResizeType[keyof typeof EShapeActionValueTransformResizeType];

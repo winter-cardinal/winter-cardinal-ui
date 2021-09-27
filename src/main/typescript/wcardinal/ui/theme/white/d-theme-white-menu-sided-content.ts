@@ -9,7 +9,8 @@ import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 
 export class DThemeWhiteMenuSidedContent
 	extends DThemeWhiteLayoutVertical
-	implements DThemeMenuSidedContent {
+	implements DThemeMenuSidedContent
+{
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

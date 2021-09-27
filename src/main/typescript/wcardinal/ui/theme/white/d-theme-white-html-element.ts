@@ -18,7 +18,8 @@ const divCreator = (container: HTMLElement): HTMLDivElement => {
 
 export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement = HTMLElement>
 	extends DThemeWhiteImageBase<VALUE>
-	implements DThemeHtmlElement<VALUE, ELEMENT> {
+	implements DThemeHtmlElement<VALUE, ELEMENT>
+{
 	getElementCreator(): UtilHtmlElementCreator<ELEMENT> {
 		return nullCreator;
 	}

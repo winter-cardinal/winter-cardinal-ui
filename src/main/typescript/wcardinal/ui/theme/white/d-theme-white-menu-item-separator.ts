@@ -12,7 +12,8 @@ import { DThemeWhiteMenuItemBase } from "./d-theme-white-menu-item-base";
 
 export class DThemeWhiteMenuItemSeparator
 	extends DThemeWhiteMenuItemBase
-	implements DThemeMenuItemSeparator {
+	implements DThemeMenuItemSeparator
+{
 	getBorderColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}

@@ -10,7 +10,8 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhitePickerDatetimeSpace
 	extends DThemeWhiteBase
-	implements DThemePickerDatetimeSpace {
+	implements DThemePickerDatetimeSpace
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}

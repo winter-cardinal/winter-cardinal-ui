@@ -14,7 +14,8 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellInputReal
 	extends DThemeDarkInputReal
-	implements DThemeTableBodyCellInputReal {
+	implements DThemeTableBodyCellInputReal
+{
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}

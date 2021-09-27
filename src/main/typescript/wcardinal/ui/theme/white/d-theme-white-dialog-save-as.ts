@@ -8,7 +8,8 @@ import { DThemeWhiteDialogInputText } from "./d-theme-white-dialog-input-text";
 
 export class DThemeWhiteDialogSaveAs
 	extends DThemeWhiteDialogInputText
-	implements DThemeDialogSaveAs {
+	implements DThemeDialogSaveAs
+{
 	getOk(): string {
 		return "Save";
 	}

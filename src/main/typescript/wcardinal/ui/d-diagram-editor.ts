@@ -158,7 +158,8 @@ export class DDiagramEditor<
 		THEME,
 		OPTIONS
 	>
-	implements DControllerDocument<DDiagramSerialized> {
+	implements DControllerDocument<DDiagramSerialized>
+{
 	protected _isChanged: boolean = false;
 	protected _snapper: ESnapper;
 	protected _thumbnail: DDiagramEditorThumbnail;

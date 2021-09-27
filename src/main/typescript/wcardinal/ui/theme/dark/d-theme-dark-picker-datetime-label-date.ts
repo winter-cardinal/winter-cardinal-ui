@@ -12,7 +12,8 @@ import { DThemeDarkText } from "./d-theme-dark-text";
 
 export class DThemeDarkPickerDatetimeLabelDate<VALUE = unknown>
 	extends DThemeDarkText<VALUE>
-	implements DThemePickerDatetimeLabelDate<VALUE> {
+	implements DThemePickerDatetimeLabelDate<VALUE>
+{
 	getWidth(): DCoordinateSize {
 		return 30;
 	}

@@ -14,7 +14,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellSelectPromise<VALUE = unknown>
 	extends DThemeWhiteButton<VALUE | null>
-	implements DThemeTableBodyCellSelectPromise<VALUE> {
+	implements DThemeTableBodyCellSelectPromise<VALUE>
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}

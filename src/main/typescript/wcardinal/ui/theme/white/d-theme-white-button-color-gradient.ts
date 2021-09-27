@@ -26,7 +26,8 @@ const formatter = (): string => {
 
 export class DThemeWhiteButtonColorGradient
 	extends DThemeWhiteButton<DColorGradientObservable>
-	implements DThemeButtonColorGradient {
+	implements DThemeButtonColorGradient
+{
 	getViewBaseTexture(): Texture | null {
 		return DThemeWhiteAtlas.mappings.button_color_gradient_sample;
 	}

@@ -10,7 +10,8 @@ import { DThemeWhiteButton } from "./d-theme-white-button";
 
 export class DThemeWhiteInputBooleanButtonOn
 	extends DThemeWhiteButton<string>
-	implements DThemeInputBooleanButtonOn {
+	implements DThemeInputBooleanButtonOn
+{
 	getBorderMask(): DBorderMask {
 		return DBorderMask.LEFT;
 	}

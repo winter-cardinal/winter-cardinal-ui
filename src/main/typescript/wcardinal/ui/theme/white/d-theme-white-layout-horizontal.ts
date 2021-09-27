@@ -10,7 +10,8 @@ import { DThemeWhiteLayout } from "./d-theme-white-layout";
 
 export class DThemeWhiteLayoutHorizontal
 	extends DThemeWhiteLayout
-	implements DThemeLayoutHorizontal {
+	implements DThemeLayoutHorizontal
+{
 	getDirection(): DLayoutDirection {
 		return DLayoutDirection.HORIZONTAL;
 	}

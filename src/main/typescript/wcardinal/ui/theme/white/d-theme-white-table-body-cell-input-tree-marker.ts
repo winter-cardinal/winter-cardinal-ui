@@ -17,7 +17,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellInputTreeMarker<VALUE = unknown>
 	extends DThemeWhiteButtonBase<VALUE>
-	implements DThemeTableBodyCellInputTreeMarker<VALUE> {
+	implements DThemeTableBodyCellInputTreeMarker<VALUE>
+{
 	getX(): DCoordinatePosition {
 		return "padding";
 	}

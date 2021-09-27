@@ -13,7 +13,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellInputText
 	extends DThemeWhiteInputText
-	implements DThemeTableBodyCellInputText {
+	implements DThemeTableBodyCellInputText
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}

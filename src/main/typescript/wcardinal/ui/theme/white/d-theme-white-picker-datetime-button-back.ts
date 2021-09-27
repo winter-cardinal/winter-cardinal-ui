@@ -22,7 +22,8 @@ DThemeWhiteAtlas.add("picker_date_back", 24, 24,
 
 export class DThemeWhitePickerDatetimeButtonBack<VALUE = unknown>
 	extends DThemeWhiteButtonAmbient<VALUE>
-	implements DThemePickerDatetimeButtonBack<VALUE> {
+	implements DThemePickerDatetimeButtonBack<VALUE>
+{
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

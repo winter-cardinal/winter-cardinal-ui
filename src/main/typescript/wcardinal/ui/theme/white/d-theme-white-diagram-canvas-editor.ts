@@ -25,7 +25,8 @@ const toGridSize = (grid: number, width: number, height: number): number => {
 
 export class DThemeWhiteDiagramCanvasEditor
 	extends DThemeWhiteDiagramCanvasBase
-	implements DThemeDiagramCanvasEditor {
+	implements DThemeDiagramCanvasEditor
+{
 	isAmbient(): boolean {
 		return false;
 	}

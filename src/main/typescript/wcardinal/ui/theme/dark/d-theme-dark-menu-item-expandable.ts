@@ -11,7 +11,8 @@ import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
 
 export class DThemeDarkMenuItemExpandable
 	extends DThemeDarkLayoutVertical
-	implements DThemeMenuItemExpandable {
+	implements DThemeMenuItemExpandable
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.isActive) {
 			return 0x0f0700;

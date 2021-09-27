@@ -8,4 +8,5 @@ export const DChartAxisTickPosition = {
 	OUTSIDE: 1
 } as const;
 
-export type DChartAxisTickPosition = typeof DChartAxisTickPosition[keyof typeof DChartAxisTickPosition];
+export type DChartAxisTickPosition =
+	typeof DChartAxisTickPosition[keyof typeof DChartAxisTickPosition];

@@ -16,4 +16,5 @@ export const EShapeActionValueOpenType = {
 	DIALOG_DATETIME: 9
 } as const;
 
-export type EShapeActionValueOpenType = typeof EShapeActionValueOpenType[keyof typeof EShapeActionValueOpenType];
+export type EShapeActionValueOpenType =
+	typeof EShapeActionValueOpenType[keyof typeof EShapeActionValueOpenType];

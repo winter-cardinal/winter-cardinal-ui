@@ -26,7 +26,8 @@ const formatter = <VALUE>(value: DMenuItem<VALUE> | null): string => {
 
 export class DThemeDarkSelect<VALUE = unknown>
 	extends DThemeDarkDropdownBase<DMenuItem<VALUE> | null>
-	implements DThemeSelect<VALUE> {
+	implements DThemeSelect<VALUE>
+{
 	getTextFormatter(): (value: DMenuItem<VALUE> | null, caller: any) => string {
 		return formatter;
 	}

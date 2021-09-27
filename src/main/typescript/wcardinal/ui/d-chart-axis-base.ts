@@ -23,7 +23,8 @@ import { DeepPartial } from "./util/deep-partial";
 import { isNaN } from "./util/is-nan";
 
 export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBaseOptions>
-	implements DChartAxis {
+	implements DChartAxis
+{
 	protected _coordinateIndex: number;
 	protected _padding: number;
 	protected _position: DChartAxisPosition;

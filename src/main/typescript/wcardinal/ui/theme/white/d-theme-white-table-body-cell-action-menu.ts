@@ -17,7 +17,8 @@ DThemeWhiteTableBodyCellActions.init();
 
 export class DThemeWhiteTableBodyCellActionMenu
 	extends DThemeWhiteDropdown
-	implements DThemeTableBodyCellActionMenu {
+	implements DThemeTableBodyCellActionMenu
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}

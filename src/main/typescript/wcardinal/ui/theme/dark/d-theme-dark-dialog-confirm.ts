@@ -9,7 +9,8 @@ import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
 
 export class DThemeDarkDialogConfirm
 	extends DThemeDarkDialogCommand
-	implements DThemeDialogConfirm {
+	implements DThemeDialogConfirm
+{
 	getOk(): string | null {
 		return "Yes";
 	}

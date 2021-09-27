@@ -10,7 +10,8 @@ import { DThemeDarkListItems } from "./d-theme-dark-list-items";
 
 export class DThemeDarkDialogSelectListItem
 	extends DThemeDarkListItem
-	implements DThemeDialogSelecListItem {
+	implements DThemeDialogSelecListItem
+{
 	protected newStyle(): DThemeDarkListItems {
 		return new DThemeDarkListItems(null, false, true);
 	}

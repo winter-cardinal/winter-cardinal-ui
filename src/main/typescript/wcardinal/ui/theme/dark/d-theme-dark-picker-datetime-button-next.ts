@@ -22,7 +22,8 @@ DThemeDarkAtlas.add("picker_date_next", 24, 24,
 
 export class DThemeDarkPickerDatetimeButtonNext<VALUE = unknown>
 	extends DThemeDarkButtonAmbient<VALUE>
-	implements DThemePickerDatetimeButtonNext<VALUE> {
+	implements DThemePickerDatetimeButtonNext<VALUE>
+{
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

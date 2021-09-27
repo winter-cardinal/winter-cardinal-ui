@@ -10,7 +10,8 @@ import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
 
 export class DThemeDarkMenuItemExpandableBody
 	extends DThemeDarkLayoutVertical
-	implements DThemeMenuItemExpandableBody {
+	implements DThemeMenuItemExpandableBody
+{
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}

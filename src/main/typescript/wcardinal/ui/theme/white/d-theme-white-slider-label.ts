@@ -11,7 +11,8 @@ import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
 export class DThemeWhiteSliderLabel<VALUE = unknown>
 	extends DThemeWhiteTextBase<VALUE>
-	implements DThemeSliderLabel<VALUE> {
+	implements DThemeSliderLabel<VALUE>
+{
 	getHeight(): DCoordinateSize {
 		return 15;
 	}

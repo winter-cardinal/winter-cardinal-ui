@@ -8,7 +8,8 @@ import { DThemeWhiteDiagramBase } from "./d-theme-white-diagram-base";
 
 export class DThemeWhiteDiagramEditor
 	extends DThemeWhiteDiagramBase
-	implements DThemeDiagramEditor {
+	implements DThemeDiagramEditor
+{
 	isAmbient(): boolean {
 		return false;
 	}

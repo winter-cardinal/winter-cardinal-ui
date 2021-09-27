@@ -11,4 +11,5 @@ export const EShapeTextAlignHorizontal = {
 	OUTSIDE_RIGHT: 4
 } as const;
 
-export type EShapeTextAlignHorizontal = typeof EShapeTextAlignHorizontal[keyof typeof EShapeTextAlignHorizontal];
+export type EShapeTextAlignHorizontal =
+	typeof EShapeTextAlignHorizontal[keyof typeof EShapeTextAlignHorizontal];

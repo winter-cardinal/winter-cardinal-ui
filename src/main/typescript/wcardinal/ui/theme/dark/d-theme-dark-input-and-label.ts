@@ -9,7 +9,8 @@ import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 export class DThemeDarkInputAndLabel
 	extends DThemeDarkLayoutHorizontal
-	implements DThemeInputAndLabel {
+	implements DThemeInputAndLabel
+{
 	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}

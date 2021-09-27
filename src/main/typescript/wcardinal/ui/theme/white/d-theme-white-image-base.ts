@@ -13,7 +13,8 @@ import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
 export class DThemeWhiteImageBase<VALUE = unknown>
 	extends DThemeWhiteTextBase<VALUE>
-	implements DThemeImageBase<VALUE> {
+	implements DThemeImageBase<VALUE>
+{
 	getImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.LEFT;
 	}

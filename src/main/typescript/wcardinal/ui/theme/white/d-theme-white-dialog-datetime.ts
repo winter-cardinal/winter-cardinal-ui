@@ -9,7 +9,8 @@ import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogDatetime
 	extends DThemeWhiteDialogCommand
-	implements DThemeDialogDatetime {
+	implements DThemeDialogDatetime
+{
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

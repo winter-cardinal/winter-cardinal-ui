@@ -9,7 +9,8 @@ import { DThemeDarkTableBodyCellText } from "./d-theme-dark-table-body-cell-text
 
 export class DThemeDarkTableBodyCellButton
 	extends DThemeDarkTableBodyCellText
-	implements DThemeTableBodyCellButton {
+	implements DThemeTableBodyCellButton
+{
 	getCursor(state: DBaseStateSet): string {
 		if (!state.isActionable) {
 			return "";

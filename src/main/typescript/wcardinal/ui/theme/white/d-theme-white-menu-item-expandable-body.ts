@@ -10,7 +10,8 @@ import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 
 export class DThemeWhiteMenuItemExpandableBody
 	extends DThemeWhiteLayoutVertical
-	implements DThemeMenuItemExpandableBody {
+	implements DThemeMenuItemExpandableBody
+{
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}

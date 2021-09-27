@@ -9,7 +9,8 @@ import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
 
 export class DThemeDarkMenuSidedContent
 	extends DThemeDarkLayoutVertical
-	implements DThemeMenuSidedContent {
+	implements DThemeMenuSidedContent
+{
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

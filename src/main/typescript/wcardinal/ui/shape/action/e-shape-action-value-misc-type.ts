@@ -18,4 +18,5 @@ export const EShapeActionValueMiscType = {
 	GESTURE: 11
 } as const;
 
-export type EShapeActionValueMiscType = typeof EShapeActionValueMiscType[keyof typeof EShapeActionValueMiscType];
+export type EShapeActionValueMiscType =
+	typeof EShapeActionValueMiscType[keyof typeof EShapeActionValueMiscType];

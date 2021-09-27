@@ -14,7 +14,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellSelectMultiple<VALUE = unknown>
 	extends DThemeWhiteSelectMultiple<VALUE>
-	implements DThemeTableBodyCellSelectMultiple<VALUE> {
+	implements DThemeTableBodyCellSelectMultiple<VALUE>
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}

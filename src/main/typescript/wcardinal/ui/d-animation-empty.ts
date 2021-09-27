@@ -8,7 +8,8 @@ import { DAnimation, DAnimationOnEnd, DAnimationOnTime, DAnimationOptions } from
 
 export class DAnimationEmpty<TARGET = unknown>
 	extends utils.EventEmitter
-	implements DAnimation<TARGET> {
+	implements DAnimation<TARGET>
+{
 	protected _reverse: boolean;
 	protected _onTime: DAnimationOnTime<TARGET> | undefined;
 	protected _onStart: DAnimationOnEnd<TARGET> | undefined;

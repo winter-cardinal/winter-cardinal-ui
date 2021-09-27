@@ -10,7 +10,8 @@ import { DThemeWhiteListItems } from "./d-theme-white-list-items";
 
 export class DThemeWhiteDialogSelectListItem
 	extends DThemeWhiteListItem
-	implements DThemeDialogSelecListItem {
+	implements DThemeDialogSelecListItem
+{
 	protected newStyle(): DThemeWhiteListItems {
 		return new DThemeWhiteListItems(null, false, true);
 	}

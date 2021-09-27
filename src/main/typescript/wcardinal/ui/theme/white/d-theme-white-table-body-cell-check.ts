@@ -13,7 +13,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellCheck
 	extends DThemeWhiteButtonCheck<boolean>
-	implements DThemeTableBodyCellCheck {
+	implements DThemeTableBodyCellCheck
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}

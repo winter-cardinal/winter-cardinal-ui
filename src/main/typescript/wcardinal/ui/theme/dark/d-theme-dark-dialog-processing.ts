@@ -20,7 +20,8 @@ const message = (state: DBaseStateSet): string => {
 
 export class DThemeDarkDialogProcessing
 	extends DThemeDarkDialogConfirm
-	implements DThemeDialogProcessing {
+	implements DThemeDialogProcessing
+{
 	getOk(): string | null {
 		return "OK";
 	}

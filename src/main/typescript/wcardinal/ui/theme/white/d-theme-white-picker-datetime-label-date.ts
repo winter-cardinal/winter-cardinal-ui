@@ -12,7 +12,8 @@ import { DThemeWhiteText } from "./d-theme-white-text";
 
 export class DThemeWhitePickerDatetimeLabelDate<VALUE = unknown>
 	extends DThemeWhiteText<VALUE>
-	implements DThemePickerDatetimeLabelDate<VALUE> {
+	implements DThemePickerDatetimeLabelDate<VALUE>
+{
 	getWidth(): DCoordinateSize {
 		return 30;
 	}

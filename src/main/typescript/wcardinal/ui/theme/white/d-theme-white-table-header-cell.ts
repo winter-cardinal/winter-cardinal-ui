@@ -38,7 +38,8 @@ DThemeWhiteAtlas.add("sorted_ascending", 16, 16,
 
 export class DThemeWhiteTableHeaderCell
 	extends DThemeWhiteImage<string | null>
-	implements DThemeTableHeaderCell {
+	implements DThemeTableHeaderCell
+{
 	protected readonly BACKGROUND_COLOR = UtilRgb.darken(
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
 		0.02

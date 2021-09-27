@@ -9,4 +9,5 @@ export const EShapeActionValueTransformType = {
 	ROTATE: 2
 } as const;
 
-export type EShapeActionValueTransformType = typeof EShapeActionValueTransformType[keyof typeof EShapeActionValueTransformType];
+export type EShapeActionValueTransformType =
+	typeof EShapeActionValueTransformType[keyof typeof EShapeActionValueTransformType];

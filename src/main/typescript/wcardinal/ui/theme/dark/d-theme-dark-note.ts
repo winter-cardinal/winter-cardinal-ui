@@ -11,7 +11,8 @@ import { DThemeDarkText } from "./d-theme-dark-text";
 
 export class DThemeDarkNote<VALUE = unknown>
 	extends DThemeDarkText<VALUE>
-	implements DThemeNote<VALUE> {
+	implements DThemeNote<VALUE>
+{
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

@@ -10,7 +10,8 @@ import { DThemeWhiteButtonCheck } from "./d-theme-white-button-check";
 
 export class DThemeWhiteButtonCheckRight<VALUE = unknown>
 	extends DThemeWhiteButtonCheck<VALUE>
-	implements DThemeButtonCheckRight<VALUE> {
+	implements DThemeButtonCheckRight<VALUE>
+{
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

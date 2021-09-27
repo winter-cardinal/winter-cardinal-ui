@@ -10,7 +10,8 @@ import { EShapeStateSet } from "./e-shape-state-set";
 
 export class EShapeStateSetImplObservable
 	extends DBaseStateSetImplObservable
-	implements EShapeStateSet {
+	implements EShapeStateSet
+{
 	protected onChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
 		if (newState.isActive) {
 			if (!oldState.isActive) {

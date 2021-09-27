@@ -274,9 +274,9 @@ export class DynamicSDFFontAtlas {
 
 	static getAutoFontFamily(): string {
 		if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
-			DynamicSDFFontAtlas.FONT_FAMILY_AUTO = (DThemes.getInstance().get(
-				"DBase"
-			) as any).getFontFamilly() as string;
+			DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance()
+				.get<any>("DBase")
+				.getFontFamilly() as string;
 		}
 		return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
 	}

@@ -27,7 +27,8 @@ export class DTableBodyCellColor<
 		>
 	>
 	extends DButtonColor<THEME, OPTIONS>
-	implements DTableBodyCell<ROW, DColorAndAlpha> {
+	implements DTableBodyCell<ROW, DColorAndAlpha>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

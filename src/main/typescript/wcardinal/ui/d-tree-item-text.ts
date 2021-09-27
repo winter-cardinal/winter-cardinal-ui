@@ -66,7 +66,8 @@ export class DTreeItemText<
 		OPTIONS extends DTreeItemTextOptions<NODE, THEME> = DTreeItemTextOptions<NODE, THEME>
 	>
 	extends DImageBase<string, THEME, OPTIONS>
-	implements DTreeItem<NODE> {
+	implements DTreeItem<NODE>
+{
 	protected _padding!: DBasePaddingAdjustable;
 	protected _data: DTreeData<NODE>;
 	protected _node?: NODE;

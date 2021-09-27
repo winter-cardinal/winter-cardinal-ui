@@ -12,7 +12,8 @@ export const DListDataSelectionType = {
 	MULTIPLE: 2
 } as const;
 
-export type DListDataSelectionType = typeof DListDataSelectionType[keyof typeof DListDataSelectionType];
+export type DListDataSelectionType =
+	typeof DListDataSelectionType[keyof typeof DListDataSelectionType];
 
 /**
  * {@link DListSelection} events.

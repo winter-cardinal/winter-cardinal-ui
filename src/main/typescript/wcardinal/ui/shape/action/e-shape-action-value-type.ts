@@ -18,4 +18,5 @@ export const EShapeActionValueType = {
 	CHANGE_COLOR: 9
 } as const;
 
-export type EShapeActionValueType = typeof EShapeActionValueType[keyof typeof EShapeActionValueType];
+export type EShapeActionValueType =
+	typeof EShapeActionValueType[keyof typeof EShapeActionValueType];

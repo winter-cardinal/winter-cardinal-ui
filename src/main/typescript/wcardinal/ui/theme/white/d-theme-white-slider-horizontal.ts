@@ -9,7 +9,8 @@ import { DThemeWhiteSlider } from "./d-theme-white-slider";
 
 export class DThemeWhiteSliderHorizontal
 	extends DThemeWhiteSlider
-	implements DThemeSliderHorizontal {
+	implements DThemeSliderHorizontal
+{
 	getHeight(): DCoordinateSize {
 		return 33;
 	}

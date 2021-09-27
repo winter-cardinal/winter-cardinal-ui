@@ -9,7 +9,8 @@ import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkDiagramCanvasBase
 	extends DThemeDarkCanvas
-	implements DThemeDiagramCanvasBase {
+	implements DThemeDiagramCanvasBase
+{
 	isAmbient(): boolean {
 		return true;
 	}

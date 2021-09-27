@@ -9,7 +9,8 @@ import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
 export class DThemeWhitePaginationDynamicButtons
 	extends DThemeWhiteLayoutHorizontal
-	implements DThemePaginationDynamicButtons {
+	implements DThemePaginationDynamicButtons
+{
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

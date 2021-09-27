@@ -13,7 +13,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellInputTreeInput
 	extends DThemeWhiteInputText
-	implements DThemeTableBodyCellInputTreeInput {
+	implements DThemeTableBodyCellInputTreeInput
+{
 	getX(): DCoordinatePosition {
 		return "padding";
 	}

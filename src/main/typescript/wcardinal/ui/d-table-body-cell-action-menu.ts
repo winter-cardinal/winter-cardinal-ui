@@ -29,7 +29,8 @@ export class DTableBodyCellActionMenu<
 		> = DTableBodyCellActionMenuOptions<ROW, VALUE, THEME>
 	>
 	extends DDropdown<VALUE, THEME, OPTIONS>
-	implements DTableBodyCell<ROW, VALUE | null> {
+	implements DTableBodyCell<ROW, VALUE | null>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

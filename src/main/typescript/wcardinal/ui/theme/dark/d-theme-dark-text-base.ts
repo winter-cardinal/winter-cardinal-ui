@@ -13,7 +13,8 @@ import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkTextBase<VALUE = unknown>
 	extends DThemeDarkBase
-	implements DThemeTextBase<VALUE> {
+	implements DThemeTextBase<VALUE>
+{
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
 	}

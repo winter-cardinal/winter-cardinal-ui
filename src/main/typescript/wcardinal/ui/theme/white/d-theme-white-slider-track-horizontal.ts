@@ -9,7 +9,8 @@ import { DThemeWhiteSliderTrack } from "./d-theme-white-slider-track";
 
 export class DThemeWhiteSliderTrackHorizontal<VALUE = unknown>
 	extends DThemeWhiteSliderTrack<VALUE>
-	implements DThemeSliderTrackHorizontal<VALUE> {
+	implements DThemeSliderTrackHorizontal<VALUE>
+{
 	getX(): DCoordinatePosition {
 		return 0;
 	}

@@ -12,7 +12,8 @@ import { DThemeDarkMenuItemBase } from "./d-theme-dark-menu-item-base";
 
 export class DThemeDarkMenuItemSeparator
 	extends DThemeDarkMenuItemBase
-	implements DThemeMenuItemSeparator {
+	implements DThemeMenuItemSeparator
+{
 	getBorderColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 	}

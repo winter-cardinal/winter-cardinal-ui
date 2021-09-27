@@ -22,7 +22,8 @@ DThemeWhiteAtlas.add("dropdown_mark", 20, 14,
 
 export class DThemeWhiteDropdownBase<TEXT_VALUE = unknown>
 	extends DThemeWhiteButtonBase<TEXT_VALUE>
-	implements DThemeDropdownBase<TEXT_VALUE> {
+	implements DThemeDropdownBase<TEXT_VALUE>
+{
 	constructor() {
 		super(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD);
 	}

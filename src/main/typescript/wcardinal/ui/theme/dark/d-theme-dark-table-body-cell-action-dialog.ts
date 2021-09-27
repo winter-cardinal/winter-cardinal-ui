@@ -13,7 +13,8 @@ DThemeDarkTableBodyCellActions.init();
 
 export class DThemeDarkTableBodyCellActionDialog<VALUE = unknown>
 	extends DThemeDarkTableBodyCellSelectDialog<VALUE>
-	implements DThemeTableBodyCellActionDialog<VALUE> {
+	implements DThemeTableBodyCellActionDialog<VALUE>
+{
 	getImageTintColor(state: DBaseStateSet): number | null {
 		return DThemeDarkTableBodyCellActions.getImageTintColor(state);
 	}

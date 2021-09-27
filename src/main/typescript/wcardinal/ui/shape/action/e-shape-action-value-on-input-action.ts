@@ -10,4 +10,5 @@ export const EShapeActionValueOnInputAction = {
 	WRITE_REMOTE: 3
 } as const;
 
-export type EShapeActionValueOnInputAction = typeof EShapeActionValueOnInputAction[keyof typeof EShapeActionValueOnInputAction];
+export type EShapeActionValueOnInputAction =
+	typeof EShapeActionValueOnInputAction[keyof typeof EShapeActionValueOnInputAction];

@@ -13,7 +13,8 @@ import { DThemeWhiteText } from "./d-theme-white-text";
 
 export class DThemeWhitePickerDatetimeLabel
 	extends DThemeWhiteText<Date>
-	implements DThemePickerDatetimeLabel {
+	implements DThemePickerDatetimeLabel
+{
 	getWidth(): DCoordinateSize {
 		return 30;
 	}

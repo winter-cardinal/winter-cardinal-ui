@@ -11,7 +11,8 @@ export const DChartCoordinateDirection = {
 	Y: 1
 } as const;
 
-export type DChartCoordinateDirection = typeof DChartCoordinateDirection[keyof typeof DChartCoordinateDirection];
+export type DChartCoordinateDirection =
+	typeof DChartCoordinateDirection[keyof typeof DChartCoordinateDirection];
 
 export interface DChartCoordinate {
 	/**

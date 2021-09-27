@@ -57,7 +57,8 @@ export class DTree<
 		>
 	>
 	extends DPane<THEME, CONTENT_OPTIONS, OPTIONS>
-	implements DTreeDataLike<NODE> {
+	implements DTreeDataLike<NODE>
+{
 	protected static WORK_ON_CLICK?: Point;
 
 	protected _data?: DATA;

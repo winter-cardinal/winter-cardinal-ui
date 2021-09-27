@@ -9,7 +9,8 @@ import { DThemeWhiteCanvasContainer } from "./d-theme-white-canvas-container";
 
 export class DThemeWhiteDiagramBase
 	extends DThemeWhiteCanvasContainer
-	implements DThemeDiagramBase {
+	implements DThemeDiagramBase
+{
 	getCanvasBackgroundColor(): number {
 		return 0xffffff;
 	}

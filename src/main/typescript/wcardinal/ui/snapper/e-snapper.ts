@@ -31,7 +31,8 @@ export const ESnapperModifierAnchor = {
 	ROTATION: 9
 } as const;
 
-export type ESnapperModifierAnchor = typeof ESnapperModifierAnchor[keyof typeof ESnapperModifierAnchor];
+export type ESnapperModifierAnchor =
+	typeof ESnapperModifierAnchor[keyof typeof ESnapperModifierAnchor];
 
 export interface ESnapperParentCanvas {
 	scale: {

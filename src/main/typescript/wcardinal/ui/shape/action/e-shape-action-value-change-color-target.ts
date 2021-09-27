@@ -11,4 +11,5 @@ export const EShapeActionValueChangeColorTarget = {
 	BRIGHTNESS: 4
 } as const;
 
-export type EShapeActionValueChangeColorTarget = typeof EShapeActionValueChangeColorTarget[keyof typeof EShapeActionValueChangeColorTarget];
+export type EShapeActionValueChangeColorTarget =
+	typeof EShapeActionValueChangeColorTarget[keyof typeof EShapeActionValueChangeColorTarget];

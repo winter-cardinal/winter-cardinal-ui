@@ -34,7 +34,8 @@ const formatter = <VALUE>(values: Array<DMenuItem<VALUE>>): string => {
 
 export class DThemeDarkSelectMultiple<VALUE = unknown>
 	extends DThemeDarkDropdownBase<Array<DMenuItem<VALUE>>>
-	implements DThemeSelectMultiple<VALUE> {
+	implements DThemeSelectMultiple<VALUE>
+{
 	getTextFormatter(): (value: Array<DMenuItem<VALUE>>, caller: any) => string {
 		return formatter;
 	}

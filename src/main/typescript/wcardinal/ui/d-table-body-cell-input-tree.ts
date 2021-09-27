@@ -37,7 +37,8 @@ export class DTableBodyCellInputTree<
 		OPTIONS extends DTableBodyCellInputTreeInputOptions = DTableBodyCellInputTreeInputOptions
 	>
 	extends DBase<THEME>
-	implements DTableBodyCell<ROW, string> {
+	implements DTableBodyCell<ROW, string>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

@@ -13,7 +13,8 @@ DThemeDarkLinks.init();
 
 export class DThemeDarkButtonLink<VALUE = unknown>
 	extends DThemeDarkButtonAmbient<VALUE>
-	implements DThemeButtonLink<VALUE> {
+	implements DThemeButtonLink<VALUE>
+{
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return DThemeDarkLinks.getLinkMenuOptions();
 	}

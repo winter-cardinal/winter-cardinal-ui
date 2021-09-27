@@ -9,7 +9,8 @@ import { DThemeDarkTreeItemText } from "./d-theme-dark-tree-item-text";
 
 export class DThemeDarkTreeItemButton
 	extends DThemeDarkTreeItemText
-	implements DThemeTreeItemButton {
+	implements DThemeTreeItemButton
+{
 	getCursor(state: DBaseStateSet): string {
 		if (!state.isActionable) {
 			return "";

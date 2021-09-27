@@ -10,7 +10,8 @@ import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 
 export class DThemeWhitePaginationDotsButton
 	extends DThemeWhiteButtonAmbient<string>
-	implements DThemePaginationDotsButton {
+	implements DThemePaginationDotsButton
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}

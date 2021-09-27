@@ -10,7 +10,8 @@ export const ESnapperTargetValueType = {
 	VERTICAL: 1
 } as const;
 
-export type ESnapperTargetValueType = typeof ESnapperTargetValueType[keyof typeof ESnapperTargetValueType];
+export type ESnapperTargetValueType =
+	typeof ESnapperTargetValueType[keyof typeof ESnapperTargetValueType];
 
 export class ESnapperTargetValue {
 	type: ESnapperTargetValueType;

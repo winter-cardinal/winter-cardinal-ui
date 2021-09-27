@@ -12,4 +12,5 @@ export const EShapeActionValueBlinkType = {
 	COLOR_STROKE: 5
 } as const;
 
-export type EShapeActionValueBlinkType = typeof EShapeActionValueBlinkType[keyof typeof EShapeActionValueBlinkType];
+export type EShapeActionValueBlinkType =
+	typeof EShapeActionValueBlinkType[keyof typeof EShapeActionValueBlinkType];

@@ -8,7 +8,8 @@ import { DTableDataComparator, DTableDataOrder, DTableDataSorter } from "./d-tab
 
 export class DTableDataTreeSorter<NODE>
 	extends utils.EventEmitter
-	implements DTableDataSorter<NODE> {
+	implements DTableDataSorter<NODE>
+{
 	constructor() {
 		super();
 	}

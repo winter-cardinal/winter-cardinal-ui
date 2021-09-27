@@ -13,7 +13,8 @@ import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteMenuBarItem<VALUE = unknown>
 	extends DThemeWhiteButton<VALUE>
-	implements DThemeMenuBarItem<VALUE> {
+	implements DThemeMenuBarItem<VALUE>
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
 			return null;

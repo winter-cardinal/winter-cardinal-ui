@@ -28,7 +28,8 @@ export class DTableBodyCellSelectMenu<
 		> = DTableBodyCellSelectMenuOptions<ROW, VALUE, THEME>
 	>
 	extends DSelect<VALUE, THEME, OPTIONS>
-	implements DTableBodyCell<ROW, VALUE | null> {
+	implements DTableBodyCell<ROW, VALUE | null>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

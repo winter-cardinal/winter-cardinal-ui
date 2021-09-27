@@ -9,7 +9,8 @@ import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
 
 export class DThemeDarkDialogColorGradient
 	extends DThemeDarkDialogCommand
-	implements DThemeDialogColorGradient {
+	implements DThemeDialogColorGradient
+{
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

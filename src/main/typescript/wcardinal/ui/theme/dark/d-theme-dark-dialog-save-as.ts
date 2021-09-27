@@ -8,7 +8,8 @@ import { DThemeDarkDialogInputText } from "./d-theme-dark-dialog-input-text";
 
 export class DThemeDarkDialogSaveAs
 	extends DThemeDarkDialogInputText
-	implements DThemeDialogSaveAs {
+	implements DThemeDialogSaveAs
+{
 	getOk(): string {
 		return "Save";
 	}

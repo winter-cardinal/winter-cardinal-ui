@@ -16,7 +16,8 @@ DThemeDarkLinks.init();
 
 export class DThemeDarkTableBodyCellLink
 	extends DThemeDarkTableBodyCellButton
-	implements DThemeTableBodyCellLink {
+	implements DThemeTableBodyCellLink
+{
 	getImageTintColor(state: DBaseStateSet): number | null {
 		return DThemeDarkTableBodyCells.getImageTintColor(state, true);
 	}

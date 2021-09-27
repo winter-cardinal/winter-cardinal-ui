@@ -173,7 +173,7 @@ export class DButtonSelect<
 				dialog = options;
 			} else {
 				// Assumes DIALOG === DDialogSelect<DIALOG_VALUE>.
-				dialog = (new DDialogSelect<DIALOG_VALUE>(options) as any) as DIALOG;
+				dialog = new DDialogSelect<DIALOG_VALUE>(options) as any as DIALOG;
 			}
 			this._dialog = dialog;
 		}

@@ -10,7 +10,8 @@ import { DThemeDarkButtonRadio } from "./d-theme-dark-button-radio";
 
 export class DThemeDarkButtonRadioRight<VALUE = unknown>
 	extends DThemeDarkButtonRadio<VALUE>
-	implements DThemeButtonRadioRight<VALUE> {
+	implements DThemeButtonRadioRight<VALUE>
+{
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

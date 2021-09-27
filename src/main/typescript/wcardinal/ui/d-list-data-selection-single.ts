@@ -14,7 +14,8 @@ import { DListItemAccessor, DListItemToId } from "./d-list-item-accessor";
 
 export class DListDataSelectionSingle<ITEM>
 	extends utils.EventEmitter
-	implements DListDataSelection<ITEM> {
+	implements DListDataSelection<ITEM>
+{
 	protected _parent: DListDataSelectionParent<ITEM>;
 	protected _accessor: DListItemAccessor<ITEM>;
 	protected _item: ITEM | null;

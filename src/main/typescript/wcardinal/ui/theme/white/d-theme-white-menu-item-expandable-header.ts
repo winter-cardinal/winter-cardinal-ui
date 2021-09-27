@@ -14,7 +14,8 @@ DThemeWhiteExpandables.init();
 
 export class DThemeWhiteMenuItemExpandableHeader
 	extends DThemeWhiteMenuItemBase
-	implements DThemeMenuItemExpandableHeader {
+	implements DThemeMenuItemExpandableHeader
+{
 	getPaddingLeft(): number {
 		return this.getPaddingRight();
 	}

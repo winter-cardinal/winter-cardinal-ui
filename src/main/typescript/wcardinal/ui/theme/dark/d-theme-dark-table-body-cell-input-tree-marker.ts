@@ -17,7 +17,8 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown>
 	extends DThemeDarkButtonBase<VALUE>
-	implements DThemeTableBodyCellInputTreeMarker<VALUE> {
+	implements DThemeTableBodyCellInputTreeMarker<VALUE>
+{
 	getX(): DCoordinatePosition {
 		return "padding";
 	}

@@ -9,7 +9,8 @@ import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
 export class DThemeWhiteInputAndLabel
 	extends DThemeWhiteLayoutHorizontal
-	implements DThemeInputAndLabel {
+	implements DThemeInputAndLabel
+{
 	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}

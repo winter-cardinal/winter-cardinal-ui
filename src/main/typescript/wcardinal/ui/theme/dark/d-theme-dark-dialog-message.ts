@@ -8,7 +8,8 @@ import { DThemeDarkDialogConfirm } from "./d-theme-dark-dialog-confirm";
 
 export class DThemeDarkDialogMessage
 	extends DThemeDarkDialogConfirm
-	implements DThemeDialogMessage {
+	implements DThemeDialogMessage
+{
 	getOk(): string | null {
 		return "OK";
 	}

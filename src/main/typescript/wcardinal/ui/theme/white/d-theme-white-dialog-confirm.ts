@@ -9,7 +9,8 @@ import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogConfirm
 	extends DThemeWhiteDialogCommand
-	implements DThemeDialogConfirm {
+	implements DThemeDialogConfirm
+{
 	getOk(): string | null {
 		return "Yes";
 	}

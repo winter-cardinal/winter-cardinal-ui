@@ -14,7 +14,8 @@ DThemeWhiteTableBodyCellTrees.init();
 
 export class DThemeWhiteTreeItemNonEditable
 	extends DThemeWhiteTreeItemButton
-	implements DThemeTreeItemNonEditable {
+	implements DThemeTreeItemNonEditable
+{
 	getSecondaryImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		return this._style.getSecondaryImageSource(state);
 	}

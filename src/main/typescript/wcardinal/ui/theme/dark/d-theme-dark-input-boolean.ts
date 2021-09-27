@@ -8,7 +8,8 @@ import { DThemeDarkLayoutHorizontal } from "./d-theme-dark-layout-horizontal";
 
 export class DThemeDarkInputBoolean
 	extends DThemeDarkLayoutHorizontal
-	implements DThemeInputBoolean {
+	implements DThemeInputBoolean
+{
 	getCornerAdjust(): boolean {
 		return true;
 	}

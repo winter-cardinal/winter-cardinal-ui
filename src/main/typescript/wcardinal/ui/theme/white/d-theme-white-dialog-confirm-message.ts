@@ -10,7 +10,8 @@ import { DThemeWhiteImage } from "./d-theme-white-image";
 
 export class DThemeWhiteDialogConfirmMessage
 	extends DThemeWhiteImage<string>
-	implements DThemeDialogConfirmMessage {
+	implements DThemeDialogConfirmMessage
+{
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}

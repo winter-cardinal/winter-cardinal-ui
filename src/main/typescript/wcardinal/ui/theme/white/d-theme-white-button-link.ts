@@ -13,7 +13,8 @@ DThemeWhiteLinks.init();
 
 export class DThemeWhiteButtonLink<VALUE = unknown>
 	extends DThemeWhiteButtonAmbient<VALUE>
-	implements DThemeButtonLink<VALUE> {
+	implements DThemeButtonLink<VALUE>
+{
 	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
 		return DThemeWhiteLinks.getLinkMenuOptions();
 	}

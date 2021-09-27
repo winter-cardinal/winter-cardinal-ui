@@ -18,7 +18,8 @@ interface DTableDataTreeFilterParent<NODE> {
 
 export class DTableDataTreeFilter<NODE extends DTableDataTreeNode<NODE, NODE>>
 	extends utils.EventEmitter
-	implements DTableDataFilter<NODE> {
+	implements DTableDataFilter<NODE>
+{
 	protected _id: number;
 	protected _idUpdated: number;
 	protected _isApplied: boolean;

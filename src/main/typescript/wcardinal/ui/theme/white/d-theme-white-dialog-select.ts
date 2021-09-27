@@ -8,7 +8,8 @@ import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogSelect<VALUE>
 	extends DThemeWhiteDialogCommand
-	implements DThemeDialogSelect<VALUE> {
+	implements DThemeDialogSelect<VALUE>
+{
 	getOk(): string | null {
 		return null;
 	}

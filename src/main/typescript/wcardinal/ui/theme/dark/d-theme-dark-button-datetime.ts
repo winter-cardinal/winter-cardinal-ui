@@ -14,7 +14,8 @@ const formatter = (value: Date, caller: DButtonDatetime): string => {
 
 export class DThemeDarkButtonDatetime
 	extends DThemeDarkButton<Date>
-	implements DThemeButtonDatetime {
+	implements DThemeButtonDatetime
+{
 	getTextFormatter(): (value: Date, caller: DButtonDatetime) => string {
 		return formatter;
 	}

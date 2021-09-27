@@ -7,11 +7,7 @@ import { toScaleInvariant } from "./to-scale-invariant";
 export const TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
 export const TRIANGLE_ROUNDED_INDEX_COUNT = 15;
 export const TRIANGLE_ROUNDED_WORLD_SIZE: [number, number, number, number, number] = [
-	0,
-	0,
-	0,
-	0,
-	0
+	0, 0, 0, 0, 0
 ];
 const TRIANGLE_ROUNDED_WORK_POINT: Point = new Point();
 

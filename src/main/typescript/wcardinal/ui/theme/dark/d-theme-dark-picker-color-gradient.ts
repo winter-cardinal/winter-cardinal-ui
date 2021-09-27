@@ -13,7 +13,8 @@ import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkPickerColorGradient
 	extends DThemeDarkBase
-	implements DThemePickerColorGradient {
+	implements DThemePickerColorGradient
+{
 	getGradientPointsWidth(): number {
 		return 30;
 	}

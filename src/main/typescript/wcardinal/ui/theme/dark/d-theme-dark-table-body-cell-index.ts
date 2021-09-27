@@ -18,7 +18,8 @@ const formatter = (index: unknown): string => {
 
 export class DThemeDarkTableBodyCellIndex
 	extends DThemeDarkImageBase<number>
-	implements DThemeTableBodyCellIndex {
+	implements DThemeTableBodyCellIndex
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}

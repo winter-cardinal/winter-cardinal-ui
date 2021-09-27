@@ -11,7 +11,8 @@ import { DThemeWhiteText } from "./d-theme-white-text";
 
 export class DThemeWhiteNote<VALUE = unknown>
 	extends DThemeWhiteText<VALUE>
-	implements DThemeNote<VALUE> {
+	implements DThemeNote<VALUE>
+{
 	getWidth(): DCoordinateSize {
 		return "100%";
 	}

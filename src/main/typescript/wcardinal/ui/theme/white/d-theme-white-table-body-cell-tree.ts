@@ -18,7 +18,8 @@ DThemeWhiteTableBodyCellTrees.init();
 
 export class DThemeWhiteTableBodyCellTree
 	extends DThemeWhiteTableBodyCellButton
-	implements DThemeTableBodyCellTree {
+	implements DThemeTableBodyCellTree
+{
 	getLevelPadding(level: number): number {
 		return 24 + level * 20 - this.getPaddingLeft();
 	}

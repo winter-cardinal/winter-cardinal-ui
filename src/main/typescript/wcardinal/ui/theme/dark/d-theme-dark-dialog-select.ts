@@ -8,7 +8,8 @@ import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
 
 export class DThemeDarkDialogSelect<VALUE>
 	extends DThemeDarkDialogCommand
-	implements DThemeDialogSelect<VALUE> {
+	implements DThemeDialogSelect<VALUE>
+{
 	getOk(): string | null {
 		return null;
 	}

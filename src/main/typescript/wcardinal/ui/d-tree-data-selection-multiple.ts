@@ -14,7 +14,8 @@ import {
 
 export class DTreeDataSelectionMultiple<NODE extends DTreeNode>
 	extends utils.EventEmitter
-	implements DTreeDataSelection<NODE> {
+	implements DTreeDataSelection<NODE>
+{
 	protected _parent: DTreeDataSelectionParent<NODE>;
 	protected _nodes: Set<NODE>;
 

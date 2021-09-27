@@ -8,7 +8,8 @@ import { DThemeWhiteCanvas } from "./d-theme-white-canvas";
 
 export class DThemeWhiteDiagramCanvasBase
 	extends DThemeWhiteCanvas
-	implements DThemeDiagramCanvasBase {
+	implements DThemeDiagramCanvasBase
+{
 	isAmbient(): boolean {
 		return true;
 	}

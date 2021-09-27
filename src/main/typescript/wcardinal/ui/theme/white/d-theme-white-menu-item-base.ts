@@ -13,7 +13,8 @@ import { DThemeWhiteImage } from "./d-theme-white-image";
 
 export class DThemeWhiteMenuItemBase
 	extends DThemeWhiteImage<string>
-	implements DThemeMenuItemBase {
+	implements DThemeMenuItemBase
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
 			return null;

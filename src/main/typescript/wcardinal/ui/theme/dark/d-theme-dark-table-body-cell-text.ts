@@ -14,7 +14,8 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellText
 	extends DThemeDarkImageBase<unknown>
-	implements DThemeTableBodyCellText {
+	implements DThemeTableBodyCellText
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}

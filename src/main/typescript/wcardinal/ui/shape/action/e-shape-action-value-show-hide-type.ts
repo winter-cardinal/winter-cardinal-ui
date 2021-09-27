@@ -8,4 +8,5 @@ export const EShapeActionValueShowHideType = {
 	HIDE: 1
 } as const;
 
-export type EShapeActionValueShowHideType = typeof EShapeActionValueShowHideType[keyof typeof EShapeActionValueShowHideType];
+export type EShapeActionValueShowHideType =
+	typeof EShapeActionValueShowHideType[keyof typeof EShapeActionValueShowHideType];

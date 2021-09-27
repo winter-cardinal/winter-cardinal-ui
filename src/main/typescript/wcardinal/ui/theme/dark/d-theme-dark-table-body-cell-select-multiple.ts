@@ -14,7 +14,8 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellSelectMultiple<VALUE = unknown>
 	extends DThemeDarkSelectMultiple<VALUE>
-	implements DThemeTableBodyCellSelectMultiple<VALUE> {
+	implements DThemeTableBodyCellSelectMultiple<VALUE>
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}

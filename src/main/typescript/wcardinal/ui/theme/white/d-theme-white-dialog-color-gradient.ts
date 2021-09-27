@@ -9,7 +9,8 @@ import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
 
 export class DThemeWhiteDialogColorGradient
 	extends DThemeWhiteDialogCommand
-	implements DThemeDialogColorGradient {
+	implements DThemeDialogColorGradient
+{
 	getWidth(): DCoordinateSize {
 		return "auto";
 	}

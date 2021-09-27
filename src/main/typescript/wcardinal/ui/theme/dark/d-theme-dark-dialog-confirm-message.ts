@@ -10,7 +10,8 @@ import { DThemeDarkImage } from "./d-theme-dark-image";
 
 export class DThemeDarkDialogConfirmMessage
 	extends DThemeDarkImage<string>
-	implements DThemeDialogConfirmMessage {
+	implements DThemeDialogConfirmMessage
+{
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}

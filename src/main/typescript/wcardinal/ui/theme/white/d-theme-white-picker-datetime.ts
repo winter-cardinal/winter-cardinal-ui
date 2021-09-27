@@ -41,7 +41,8 @@ const defaultDateDecorator = (): void => {
 
 export class DThemeWhitePickerDatetime
 	extends DThemeWhitePickerTime
-	implements DThemePickerDatetime {
+	implements DThemePickerDatetime
+{
 	getDayLabels(): DPickerDatetimeDayLabels {
 		return DAY_LABELS;
 	}

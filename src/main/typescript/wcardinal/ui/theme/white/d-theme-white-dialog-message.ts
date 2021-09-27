@@ -8,7 +8,8 @@ import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
 
 export class DThemeWhiteDialogMessage
 	extends DThemeWhiteDialogConfirm
-	implements DThemeDialogMessage {
+	implements DThemeDialogMessage
+{
 	getOk(): string | null {
 		return "OK";
 	}

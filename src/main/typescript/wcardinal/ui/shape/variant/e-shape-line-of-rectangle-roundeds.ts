@@ -15,7 +15,8 @@ import { toThresholdDefault } from "./to-threshold-default";
 
 export class EShapeLineOfRectangleRoundeds
 	extends EShapeRectangleRounded
-	implements EShapeLineOfAny {
+	implements EShapeLineOfAny
+{
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 

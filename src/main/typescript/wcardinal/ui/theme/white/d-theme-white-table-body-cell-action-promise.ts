@@ -13,7 +13,8 @@ DThemeWhiteTableBodyCellActions.init();
 
 export class DThemeWhiteTableBodyCellActionPromise<VALUE = unknown>
 	extends DThemeWhiteTableBodyCellSelectPromise<VALUE>
-	implements DThemeTableBodyCellActionPromise<VALUE> {
+	implements DThemeTableBodyCellActionPromise<VALUE>
+{
 	getImageTintColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCellActions.getImageTintColor(state);
 	}

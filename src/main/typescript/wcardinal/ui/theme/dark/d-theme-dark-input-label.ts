@@ -10,7 +10,8 @@ import { DThemeDarkText } from "./d-theme-dark-text";
 
 export class DThemeDarkInputLabel<VALUE = unknown>
 	extends DThemeDarkText<VALUE>
-	implements DThemeInputLabel<VALUE> {
+	implements DThemeInputLabel<VALUE>
+{
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}

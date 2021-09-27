@@ -13,7 +13,8 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhitePickerColorGradient
 	extends DThemeWhiteBase
-	implements DThemePickerColorGradient {
+	implements DThemePickerColorGradient
+{
 	getGradientPointsWidth(): number {
 		return 30;
 	}

@@ -38,7 +38,8 @@ DThemeDarkAtlas.add("sorted_ascending", 16, 16,
 
 export class DThemeDarkTableHeaderCell
 	extends DThemeDarkImage<string | null>
-	implements DThemeTableHeaderCell {
+	implements DThemeTableHeaderCell
+{
 	protected readonly BACKGROUND_COLOR = UtilRgb.brighten(
 		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
 		0.02

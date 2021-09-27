@@ -10,7 +10,8 @@ import { DThemeWhiteButtonRadio } from "./d-theme-white-button-radio";
 
 export class DThemeWhiteButtonRadioRight<VALUE = unknown>
 	extends DThemeWhiteButtonRadio<VALUE>
-	implements DThemeButtonRadioRight<VALUE> {
+	implements DThemeButtonRadioRight<VALUE>
+{
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

@@ -63,7 +63,8 @@ export interface DTableDataTreeOptions<NODE, EMITTER = any>
  */
 export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 	extends utils.EventEmitter
-	implements DTableData<NODE> {
+	implements DTableData<NODE>
+{
 	protected _parent: DTableDataParent | null;
 	protected _nodes?: NODE[];
 	protected _rows: NODE[];

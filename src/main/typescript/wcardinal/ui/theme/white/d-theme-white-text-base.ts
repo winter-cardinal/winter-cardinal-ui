@@ -13,7 +13,8 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteTextBase<VALUE = unknown>
 	extends DThemeWhiteBase
-	implements DThemeTextBase<VALUE> {
+	implements DThemeTextBase<VALUE>
+{
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
 	}

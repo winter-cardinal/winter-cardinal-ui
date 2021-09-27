@@ -14,7 +14,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellText
 	extends DThemeWhiteImageBase<unknown>
-	implements DThemeTableBodyCellText {
+	implements DThemeTableBodyCellText
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}

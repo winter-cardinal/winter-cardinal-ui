@@ -15,7 +15,8 @@ import { DAnimationTimings } from "./d-animation-timings";
 
 export class DAnimationBase<TARGET = unknown>
 	extends utils.EventEmitter
-	implements DAnimation<TARGET> {
+	implements DAnimation<TARGET>
+{
 	protected _id: number | null;
 	protected _startTime: number;
 	protected _duration: number;

@@ -14,7 +14,8 @@ import { DThemeDarkTableBodyCells } from "./d-theme-dark-table-body-cells";
 
 export class DThemeDarkTableBodyCellSelectPromise<VALUE = unknown>
 	extends DThemeDarkButton<VALUE | null>
-	implements DThemeTableBodyCellSelectPromise<VALUE> {
+	implements DThemeTableBodyCellSelectPromise<VALUE>
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkTableBodyCells.getBackgroundColor(state);
 	}

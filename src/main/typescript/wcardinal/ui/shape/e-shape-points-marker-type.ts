@@ -10,4 +10,5 @@ export const EShapePointsMarkerType = {
 	RECTANGLE: 3
 } as const;
 
-export type EShapePointsMarkerType = typeof EShapePointsMarkerType[keyof typeof EShapePointsMarkerType];
+export type EShapePointsMarkerType =
+	typeof EShapePointsMarkerType[keyof typeof EShapePointsMarkerType];

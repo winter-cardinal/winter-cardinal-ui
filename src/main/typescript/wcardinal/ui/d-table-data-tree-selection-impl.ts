@@ -17,7 +17,8 @@ const COMPARATOR = (a: [number, unknown], b: [number, unknown]): number => {
 
 export class DTableDataTreeSelectionImpl<NODE>
 	extends utils.EventEmitter
-	implements DTableDataTreeSelection<NODE> {
+	implements DTableDataTreeSelection<NODE>
+{
 	protected _parent: DTableDataTreeSelectionParent<NODE>;
 	protected _type: DTableDataSelectionType;
 	protected _rows: Set<NODE>;

@@ -77,7 +77,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 	addAll(...states: string[]): this;
 	addAll(stateOrStates: string | string[]): this {
 		const states = isString(stateOrStates)
-			? ((arguments as any) as string[]) // eslint-disable-line prefer-rest-params
+			? (arguments as any as string[]) // eslint-disable-line prefer-rest-params
 			: stateOrStates;
 		if (this.checkAddeds(states)) {
 			this.begin();
@@ -136,7 +136,7 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 			}
 		} else {
 			const states = isString(stateOrStatesOrMatcher)
-				? ((arguments as any) as string[]) // eslint-disable-line prefer-rest-params
+				? (arguments as any as string[]) // eslint-disable-line prefer-rest-params
 				: stateOrStatesOrMatcher;
 			if (this.checkRemoveds(states)) {
 				this.begin();

@@ -12,4 +12,5 @@ export const EShapeActionValueChangeColorTypeLegacy = {
 	ALL: 5
 } as const;
 
-export type EShapeActionValueChangeColorTypeLegacy = typeof EShapeActionValueChangeColorTypeLegacy[keyof typeof EShapeActionValueChangeColorTypeLegacy];
+export type EShapeActionValueChangeColorTypeLegacy =
+	typeof EShapeActionValueChangeColorTypeLegacy[keyof typeof EShapeActionValueChangeColorTypeLegacy];

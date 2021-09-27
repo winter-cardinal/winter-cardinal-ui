@@ -9,7 +9,8 @@ import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
 
 export class DThemeWhiteText<VALUE = unknown>
 	extends DThemeWhiteTextBase<VALUE>
-	implements DThemeText<VALUE> {
+	implements DThemeText<VALUE>
+{
 	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}

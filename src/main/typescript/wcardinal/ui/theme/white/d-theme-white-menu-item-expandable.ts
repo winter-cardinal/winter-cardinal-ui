@@ -11,7 +11,8 @@ import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 
 export class DThemeWhiteMenuItemExpandable
 	extends DThemeWhiteLayoutVertical
-	implements DThemeMenuItemExpandable {
+	implements DThemeMenuItemExpandable
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.isActive) {
 			return 0xf0f8ff;

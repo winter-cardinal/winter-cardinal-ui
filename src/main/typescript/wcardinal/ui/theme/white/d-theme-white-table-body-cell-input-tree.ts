@@ -15,7 +15,8 @@ DThemeWhiteTableBodyCellTrees.init();
 
 export class DThemeWhiteTableBodyCellInputTree
 	extends DThemeWhiteBase
-	implements DThemeTableBodyCellInputTree {
+	implements DThemeTableBodyCellInputTree
+{
 	getHeight(): DCoordinateSize {
 		return DThemeWhiteTableBodyCells.getHeight();
 	}

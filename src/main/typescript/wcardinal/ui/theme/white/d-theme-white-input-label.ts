@@ -10,7 +10,8 @@ import { DThemeWhiteText } from "./d-theme-white-text";
 
 export class DThemeWhiteInputLabel<VALUE = unknown>
 	extends DThemeWhiteText<VALUE>
-	implements DThemeInputLabel<VALUE> {
+	implements DThemeInputLabel<VALUE>
+{
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}

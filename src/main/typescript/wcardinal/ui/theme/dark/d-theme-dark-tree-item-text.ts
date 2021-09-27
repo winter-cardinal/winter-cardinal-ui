@@ -14,7 +14,8 @@ import { DThemeDarkTreeItems } from "./d-theme-dark-tree-items";
 
 export class DThemeDarkTreeItemText
 	extends DThemeDarkImageBase<string>
-	implements DThemeTreeItemText {
+	implements DThemeTreeItemText
+{
 	protected _style: DThemeDarkTreeItems;
 
 	constructor() {

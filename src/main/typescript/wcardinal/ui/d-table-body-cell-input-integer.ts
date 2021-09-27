@@ -24,7 +24,8 @@ export class DTableBodyCellInputInteger<
 		> = DTableBodyCellInputIntegerOptions<ROW, THEME>
 	>
 	extends DInputInteger<THEME, OPTIONS>
-	implements DTableBodyCell<ROW, number> {
+	implements DTableBodyCell<ROW, number>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

@@ -10,7 +10,8 @@ import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 
 export class DThemeDarkPaginationDotsButton
 	extends DThemeDarkButtonAmbient<string>
-	implements DThemePaginationDotsButton {
+	implements DThemePaginationDotsButton
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}

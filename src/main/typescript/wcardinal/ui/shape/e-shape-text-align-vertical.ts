@@ -11,4 +11,5 @@ export const EShapeTextAlignVertical = {
 	OUTSIDE_BOTTOM: 4
 } as const;
 
-export type EShapeTextAlignVertical = typeof EShapeTextAlignVertical[keyof typeof EShapeTextAlignVertical];
+export type EShapeTextAlignVertical =
+	typeof EShapeTextAlignVertical[keyof typeof EShapeTextAlignVertical];

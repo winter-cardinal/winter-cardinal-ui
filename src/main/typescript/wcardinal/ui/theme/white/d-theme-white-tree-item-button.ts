@@ -9,7 +9,8 @@ import { DThemeWhiteTreeItemText } from "./d-theme-white-tree-item-text";
 
 export class DThemeWhiteTreeItemButton
 	extends DThemeWhiteTreeItemText
-	implements DThemeTreeItemButton {
+	implements DThemeTreeItemButton
+{
 	getCursor(state: DBaseStateSet): string {
 		if (!state.isActionable) {
 			return "";

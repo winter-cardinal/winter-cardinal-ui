@@ -14,7 +14,8 @@ import { DListItemAccessor } from "./d-list-item-accessor";
 
 export class DListDataSelectionNone<ITEM>
 	extends utils.EventEmitter
-	implements DListDataSelection<ITEM> {
+	implements DListDataSelection<ITEM>
+{
 	protected _parent: DListDataSelectionParent<ITEM>;
 
 	constructor(

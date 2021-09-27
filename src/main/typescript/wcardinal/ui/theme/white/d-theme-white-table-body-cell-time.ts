@@ -19,7 +19,8 @@ const formatter = (value: Date, caller: DTableBodyCellTime): string => {
 
 export class DThemeWhiteTableBodyCellTime
 	extends DThemeWhiteButton<Date>
-	implements DThemeTableBodyCellTime {
+	implements DThemeTableBodyCellTime
+{
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteTableBodyCells.getBackgroundColor(state);
 	}

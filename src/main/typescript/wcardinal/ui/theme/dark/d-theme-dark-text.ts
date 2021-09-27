@@ -9,7 +9,8 @@ import { DThemeDarkTextBase } from "./d-theme-dark-text-base";
 
 export class DThemeDarkText<VALUE = unknown>
 	extends DThemeDarkTextBase<VALUE>
-	implements DThemeText<VALUE> {
+	implements DThemeText<VALUE>
+{
 	getHeight(): DCoordinateSize {
 		return this.getLineHeight();
 	}

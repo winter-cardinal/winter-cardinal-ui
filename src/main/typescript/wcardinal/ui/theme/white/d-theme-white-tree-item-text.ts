@@ -14,7 +14,8 @@ import { DThemeWhiteTreeItems } from "./d-theme-white-tree-items";
 
 export class DThemeWhiteTreeItemText
 	extends DThemeWhiteImageBase<string>
-	implements DThemeTreeItemText {
+	implements DThemeTreeItemText
+{
 	protected _style: DThemeWhiteTreeItems;
 
 	constructor() {

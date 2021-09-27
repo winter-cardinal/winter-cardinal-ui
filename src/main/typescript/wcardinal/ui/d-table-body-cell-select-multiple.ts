@@ -29,7 +29,8 @@ export class DTableBodyCellSelectMultiple<
 		> = DTableBodyCellSelectMultipleOptions<ROW, VALUE, THEME>
 	>
 	extends DSelectMultiple<VALUE, THEME, OPTIONS>
-	implements DTableBodyCell<ROW, VALUE[]> {
+	implements DTableBodyCell<ROW, VALUE[]>
+{
 	protected _row?: ROW;
 	protected _rowIndex: number;
 	protected _columnIndex: number;

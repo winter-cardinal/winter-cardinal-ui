@@ -10,7 +10,8 @@ import { DThemeDarkButtonCheck } from "./d-theme-dark-button-check";
 
 export class DThemeDarkButtonCheckRight<VALUE = unknown>
 	extends DThemeDarkButtonCheck<VALUE>
-	implements DThemeButtonCheckRight<VALUE> {
+	implements DThemeButtonCheckRight<VALUE>
+{
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.PADDING;
 	}

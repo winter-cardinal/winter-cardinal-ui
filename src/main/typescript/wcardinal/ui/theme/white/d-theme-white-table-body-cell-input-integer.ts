@@ -14,7 +14,8 @@ import { DThemeWhiteTableBodyCells } from "./d-theme-white-table-body-cells";
 
 export class DThemeWhiteTableBodyCellInputInteger
 	extends DThemeWhiteInputInteger
-	implements DThemeTableBodyCellInputInteger {
+	implements DThemeTableBodyCellInputInteger
+{
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
 	}

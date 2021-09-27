@@ -8,7 +8,8 @@ import { DThemeWhiteLayoutHorizontal } from "./d-theme-white-layout-horizontal";
 
 export class DThemeWhiteInputBoolean
 	extends DThemeWhiteLayoutHorizontal
-	implements DThemeInputBoolean {
+	implements DThemeInputBoolean
+{
 	getCornerAdjust(): boolean {
 		return true;
 	}
