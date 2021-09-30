@@ -11,34 +11,13 @@ import { DCornerMask } from "./d-corner-mask";
 
 export class DBaseBackgroundSnippet implements DBaseSnippet {
 	protected _mesh?: DBaseBackgroundMesh;
-	protected _cornerRadius: number;
 
-	constructor() {
-		this._cornerRadius = 0;
-	}
-
-	protected get(
-		base: DBase,
-		theme: DThemeBase,
-		cornerRadius: number,
-		cornerHeight: number,
-		cornerMask: DCornerMask
-	): DBaseBackgroundMesh {
+	protected get(base: DBase, theme: DThemeBase): DBaseBackgroundMesh {
 		let result = this._mesh;
 		if (result == null) {
-			result = new DBaseBackgroundMesh(
-				theme.getBackgroundTexture(cornerRadius),
-				cornerHeight,
-				cornerMask
-			);
+			result = new DBaseBackgroundMesh(theme.getBackgroundTexture());
 			(result as any).parent = base;
 			this._mesh = result;
-			this._cornerRadius = cornerRadius;
-		}
-		if (this._cornerRadius !== cornerRadius) {
-			this._cornerRadius = cornerRadius;
-			result.texture = theme.getBackgroundTexture(cornerRadius);
-			result.borderSize = cornerHeight;
 		}
 		return result;
 	}
@@ -57,7 +36,6 @@ export class DBaseBackgroundSnippet implements DBaseSnippet {
 		theme: DThemeBase,
 		state: DBaseStateSet,
 		cornerRadius: number,
-		cornerHeight: number,
 		cornerMask: DCornerMask
 	): void {
 		const background = base.background;
@@ -65,17 +43,12 @@ export class DBaseBackgroundSnippet implements DBaseSnippet {
 		if (backgroundColor != null) {
 			const backgroundAlpha = background.getAlpha(state);
 			if (0 < backgroundAlpha) {
-				const backgroundMesh = this.get(
-					base,
-					theme,
-					cornerRadius,
-					cornerHeight,
-					cornerMask
-				);
+				const backgroundMesh = this.get(base, theme);
 				backgroundMesh.tint = backgroundColor;
 				backgroundMesh.alpha = backgroundAlpha;
 				backgroundMesh.width = width;
 				backgroundMesh.height = height;
+				backgroundMesh.cornerRadius = cornerRadius;
 				backgroundMesh.cornerMask = cornerMask;
 				backgroundMesh.visible = true;
 			} else {

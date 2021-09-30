@@ -13,7 +13,6 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DShadow } from "../../d-shadow";
 import { DShadowImpl } from "../../d-shadow-impl";
-import { UtilTexturePlane } from "../../util/util-texture-plane";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteFont } from "./d-theme-white-font";
@@ -36,6 +35,20 @@ const newShadow = (id: string, radius: number, opacity: number): void => {
 };
 newShadow("shadow_weak", 8, 0.15);
 newShadow("shadow", 12, 0.15);
+
+/* eslint-disable prettier/prettier */
+DThemeWhiteAtlas.add("background", 16, 16,
+	`<g>` +
+		`<defs>` +
+			`<radialGradient id="234sfdhjfpijsrnsedsd435jseflkm">` +
+				`<stop offset="25%" stop-color="white" stop-opacity="1" />` +
+				`<stop offset="75%" stop-color="white" stop-opacity="0.25" />` +
+			`</radialGradient>` +
+		`</defs>` +
+		`<rect x="0" y="0" width="16" height="16" fill="url(#234sfdhjfpijsrnsedsd435jseflkm)"/>` +
+	`</g>`
+);
+/* eslint-enable prettier/prettier */
 
 export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 	getX(): DCoordinatePosition {
@@ -62,8 +75,8 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return 1;
 	}
 
-	getBackgroundTexture(radius: number): Texture {
-		return UtilTexturePlane.getInstance().getBackground(radius);
+	getBackgroundTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.background;
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
@@ -90,8 +103,8 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 		return DBorderMask.NONE;
 	}
 
-	getBorderTexture(radius: number, width: number): Texture {
-		return UtilTexturePlane.getInstance().getBorder(radius, width);
+	getBorderTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.background;
 	}
 
 	getPaddingLeft(): number {

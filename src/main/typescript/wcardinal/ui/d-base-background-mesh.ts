@@ -4,6 +4,7 @@
  */
 
 import { Mesh, MeshMaterial, Renderer, Texture } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBaseBackgroundMeshGeometry } from "./d-base-background-mesh-geometry";
 import { DCornerMask } from "./d-corner-mask";
 
@@ -11,23 +12,11 @@ export class DBaseBackgroundMesh extends Mesh {
 	geometry!: DBaseBackgroundMeshGeometry;
 	shader!: MeshMaterial;
 
-	constructor(texture: Texture, borderSize: number, cornerMask: DCornerMask) {
-		super(
-			new DBaseBackgroundMeshGeometry(texture, 100, 100, borderSize, cornerMask),
-			new MeshMaterial(texture)
-		);
-	}
-
-	// @ts-ignore
-	get texture(): Texture {
-		return this.shader.texture;
-	}
-
-	set texture(texture: Texture) {
-		if (this.shader.texture !== texture) {
-			this.shader.texture = texture;
-			this.geometry.texture = texture;
-		}
+	constructor(texture: Texture) {
+		super(new DBaseBackgroundMeshGeometry(), new MeshMaterial(texture));
+		texture.on("update", (): void => {
+			DApplications.update(this);
+		});
 	}
 
 	// @ts-ignore
@@ -48,12 +37,12 @@ export class DBaseBackgroundMesh extends Mesh {
 		this.geometry.height = height;
 	}
 
-	get borderSize(): number {
-		return this.geometry.borderSize;
+	get cornerRadius(): number {
+		return this.geometry.cornerRadius;
 	}
 
-	set borderSize(borderSize: number) {
-		this.geometry.borderSize = borderSize;
+	set cornerRadius(cornerRadius: number) {
+		this.geometry.cornerRadius = cornerRadius;
 	}
 
 	get cornerMask(): DCornerMask {
@@ -65,11 +54,7 @@ export class DBaseBackgroundMesh extends Mesh {
 	}
 
 	protected _render(renderer: Renderer): void {
-		this.geometry.update();
+		this.geometry.update(renderer);
 		super._render(renderer);
-	}
-
-	update(): void {
-		this.geometry.update();
 	}
 }

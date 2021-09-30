@@ -3,51 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Buffer, MeshGeometry, Texture, TextureUvs } from "pixi.js";
+import { Renderer } from "pixi.js";
+import { DBaseMeshGeometry, DBaseMeshGeometryTable } from "./d-base-mesh-geometry";
 import { DBorderMask } from "./d-border-mask";
 import { DCornerMask } from "./d-corner-mask";
 
-export class DBaseBorderMeshGeometry extends MeshGeometry {
-	protected _texture: Texture;
-	protected _width: number;
-	protected _height: number;
-	protected _borderSize: number;
+export class DBaseBorderMeshGeometry extends DBaseMeshGeometry {
+	protected _borderWidth: number;
 	protected _borderMask: DBorderMask;
-	protected _cornerMask: DCornerMask;
-	protected _isDirty: boolean;
-	protected _textureId: number;
-	protected _vertices: Float32Array;
-	protected _uvs: Float32Array;
-	protected _indices: Uint16Array;
-	protected _vertexBuffer: Buffer;
-	protected _uvBuffer: Buffer;
-	protected _indexBuffer: Buffer;
 
-	constructor(
-		texture: Texture,
-		width: number,
-		height: number,
-		borderSize: number,
-		borderMask: DBorderMask,
-		cornerMask: DCornerMask
-	) {
-		super(new Float32Array(64), new Float32Array(64), new Uint16Array(48));
+	constructor() {
+		super(
+			new Float32Array(32 * DBaseMeshGeometry.N),
+			new Float32Array(32 * DBaseMeshGeometry.N),
+			new Uint16Array(4 * 18 * DBaseMeshGeometry.N)
+		);
 
-		this._width = width;
-		this._height = height;
-		this._texture = texture;
-		this._borderSize = borderSize;
-		this._borderMask = borderMask;
-		this._cornerMask = cornerMask;
-		this._isDirty = true;
-		this._textureId = NaN;
+		this._borderWidth = 0;
+		this._borderMask = DBorderMask.NONE;
+	}
 
-		this._vertexBuffer = this.getBuffer("aVertexPosition");
-		this._vertices = this._vertexBuffer.data as Float32Array;
-		this._uvBuffer = this.getBuffer("aTextureCoord");
-		this._uvs = this._uvBuffer.data as Float32Array;
-		this._indexBuffer = this.getIndex();
-		this._indices = this._indexBuffer.data as Uint16Array;
+	get borderWidth(): number {
+		return this._borderWidth;
+	}
+
+	set borderWidth(borderWidth: number) {
+		if (this._borderWidth !== borderWidth) {
+			this._borderWidth = borderWidth;
+			this._isDirty = true;
+		}
 	}
 
 	get borderMask(): DBorderMask {
@@ -61,182 +45,224 @@ export class DBaseBorderMeshGeometry extends MeshGeometry {
 		}
 	}
 
-	get cornerMask(): DCornerMask {
-		return this._cornerMask;
-	}
-
-	set cornerMask(cornerMask: DCornerMask) {
-		if (this._cornerMask !== cornerMask) {
-			this._cornerMask = cornerMask;
-			this._isDirty = true;
-		}
-	}
-
-	get borderSize(): number {
-		return this._borderSize;
-	}
-
-	set borderSize(borderSize: number) {
-		if (this._borderSize !== borderSize) {
-			this._borderSize = borderSize;
-			this._isDirty = true;
-		}
-	}
-
-	get width(): number {
-		return this._width;
-	}
-
-	set width(width: number) {
-		if (this._width !== width) {
-			this._width = width;
-			this._isDirty = true;
-		}
-	}
-
-	get height(): number {
-		return this._height;
-	}
-
-	set height(height: number) {
-		if (this._height !== height) {
-			this._height = height;
-			this._isDirty = true;
-		}
-	}
-
-	get texture(): Texture {
-		return this._texture;
-	}
-
-	set texture(texture: Texture) {
-		if (this._texture !== texture) {
-			this._texture = texture;
-			this._isDirty = true;
-			this._textureId = NaN;
-		}
-	}
-
 	protected fillVertices(
-		iv: number,
-		array: Float32Array,
-		x0: number,
-		x1: number,
-		y0: number,
-		y1: number
-	): void {
-		array[iv + 0] = x0;
-		array[iv + 1] = y0;
-		array[iv + 2] = x1;
-		array[iv + 3] = y0;
-		array[iv + 4] = x0;
-		array[iv + 5] = y1;
-		array[iv + 6] = x1;
-		array[iv + 7] = y1;
-	}
-
-	protected fillIndices(ii: number, indices: Uint16Array, iv: number): void {
-		indices[ii + 0] = iv + 0;
-		indices[ii + 1] = iv + 1;
-		indices[ii + 2] = iv + 2;
-		indices[ii + 3] = iv + 1;
-		indices[ii + 4] = iv + 3;
-		indices[ii + 5] = iv + 2;
-	}
-
-	protected fillUvsCorner(
-		iv: number,
+		vertices: Float32Array,
 		uvs: Float32Array,
-		b1: boolean,
-		b2: boolean,
-		c: boolean,
-		u0: number,
-		u1: number,
-		u2: number,
-		u3: number,
-		v0: number,
-		v1: number,
-		v2: number,
-		v3: number
+		iv: number,
+		iuv: number,
+		n: number,
+		x: number,
+		y: number,
+		r: number,
+		dr: number,
+		borderWidth: number,
+		table: DBaseMeshGeometryTable
 	): void {
-		if (b1 || b2) {
-			if (c) {
-				this.fillVertices(iv, uvs, u0, u1, v0, v1);
-			} else if (b1 && b2) {
-				this.fillVertices(iv, uvs, u3, u2, v0, v1);
-			} else if (b1) {
-				this.fillVertices(iv, uvs, u1, u2, v0, v1);
+		const borderWidthHalf = 0.5 * borderWidth;
+		const r0 = r - borderWidthHalf;
+		const r2 = r + borderWidthHalf;
+		const cos = table.cos;
+		const sin = table.sin;
+		const cos0 = cos[0];
+		const sin0 = sin[0];
+		const cos1 = cos[n - 1];
+		const sin1 = sin[n - 1];
+		const x1 = x + (cos0 + cos1) * r0;
+		const y1 = y + (sin0 + sin1) * r0;
+		for (let i = 0; i < n; ++i) {
+			const c = cos[i];
+			const s = sin[i];
+
+			let dr1 = dr;
+			let dr2 = dr;
+			const d0 = c * cos0 + s * sin0;
+			if (0.0001 < d0) {
+				const d0i = 1 / d0 - 1;
+				dr1 = Math.min(dr1, d0i * r0);
+				dr2 = Math.min(dr2, d0i * r2);
+			}
+			const d1 = c * cos1 + s * sin1;
+			if (0.0001 < d1) {
+				const d1i = 1 / d1 - 1;
+				dr1 = Math.min(dr1, d1i * r0);
+				dr2 = Math.min(dr2, d1i * r2);
+			}
+			const r1 = r0 + dr1;
+			const r3 = r2 + dr2;
+
+			if (0 < r0) {
+				vertices[++iv] = x + c * r0;
+				vertices[++iv] = y + s * r0;
+				vertices[++iv] = x + c * r1;
+				vertices[++iv] = y + s * r1;
 			} else {
-				this.fillVertices(iv, uvs, u0, u1, v1, v2);
+				vertices[++iv] = x1;
+				vertices[++iv] = y1;
+				vertices[++iv] = x1;
+				vertices[++iv] = y1;
+			}
+			vertices[++iv] = x + c * r2;
+			vertices[++iv] = y + s * r2;
+			vertices[++iv] = x + c * r3;
+			vertices[++iv] = y + s * r3;
+			uvs[++iuv] = 0.5 * (1 + c);
+			uvs[++iuv] = 0.5 * (1 + s);
+			uvs[++iuv] = 0.5;
+			uvs[++iuv] = 0.5;
+			uvs[++iuv] = 0.5;
+			uvs[++iuv] = 0.5;
+			uvs[++iuv] = 0.5 * (1 + c);
+			uvs[++iuv] = 0.5 * (1 + s);
+		}
+	}
+
+	protected fillIndices(
+		indices: Uint16Array,
+		ia: number,
+		ii: number,
+		n: number,
+		end: boolean,
+		loop: boolean
+	): void {
+		for (let i = 0, imax = n - 1; i < imax; ++i) {
+			indices[++ii] = ia + 0;
+			indices[++ii] = ia + 1;
+			indices[++ii] = ia + 4;
+
+			indices[++ii] = ia + 4;
+			indices[++ii] = ia + 1;
+			indices[++ii] = ia + 5;
+			ia += 1;
+
+			indices[++ii] = ia + 0;
+			indices[++ii] = ia + 1;
+			indices[++ii] = ia + 4;
+
+			indices[++ii] = ia + 4;
+			indices[++ii] = ia + 1;
+			indices[++ii] = ia + 5;
+			ia += 1;
+
+			indices[++ii] = ia + 0;
+			indices[++ii] = ia + 1;
+			indices[++ii] = ia + 4;
+
+			indices[++ii] = ia + 4;
+			indices[++ii] = ia + 1;
+			indices[++ii] = ia + 5;
+			ia += 2;
+		}
+		if (end) {
+			if (loop) {
+				indices[++ii] = ia + 0;
+				indices[++ii] = ia + 1;
+				indices[++ii] = 0;
+
+				indices[++ii] = 0;
+				indices[++ii] = ia + 1;
+				indices[++ii] = 1;
+				ia += 1;
+
+				indices[++ii] = ia + 0;
+				indices[++ii] = ia + 1;
+				indices[++ii] = 1;
+
+				indices[++ii] = 1;
+				indices[++ii] = ia + 1;
+				indices[++ii] = 2;
+				ia += 1;
+
+				indices[++ii] = ia + 0;
+				indices[++ii] = ia + 1;
+				indices[++ii] = 2;
+
+				indices[++ii] = 2;
+				indices[++ii] = ia + 1;
+				indices[++ii] = 3;
+				ia += 2;
+			} else {
+				indices[++ii] = ia + 0;
+				indices[++ii] = ia + 1;
+				indices[++ii] = ia + 4;
+
+				indices[++ii] = ia + 4;
+				indices[++ii] = ia + 1;
+				indices[++ii] = ia + 5;
+				ia += 1;
+
+				indices[++ii] = ia + 0;
+				indices[++ii] = ia + 1;
+				indices[++ii] = ia + 4;
+
+				indices[++ii] = ia + 4;
+				indices[++ii] = ia + 1;
+				indices[++ii] = ia + 5;
+				ia += 1;
+
+				indices[++ii] = ia + 0;
+				indices[++ii] = ia + 1;
+				indices[++ii] = ia + 4;
+
+				indices[++ii] = ia + 4;
+				indices[++ii] = ia + 1;
+				indices[++ii] = ia + 5;
+				ia += 2;
 			}
 		} else {
-			this.fillVertices(iv, uvs, u1, u1, v1, v1);
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			ia += 1;
+
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			ia += 1;
+
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			indices[++ii] = ia;
+			ia += 2;
 		}
 	}
 
-	protected fillUvs(
-		iv: number,
-		uvs: Float32Array,
-		b: boolean,
-		u0: number,
-		u1: number,
-		v0: number,
-		v1: number,
-		uz: number,
-		vz: number
-	): void {
-		if (b) {
-			this.fillVertices(iv, uvs, u0, u1, v0, v1);
-		} else {
-			this.fillVertices(iv, uvs, uz, uz, vz, vz);
-		}
-	}
-
-	update(): void {
-		const texture = this._texture;
-		if (!texture.valid) {
-			return;
-		}
-		const textureId: number = (texture as any)._updateID;
-		if (this._isDirty || this._textureId !== textureId) {
+	update(renderer: Renderer): void {
+		const resolution = renderer.resolution;
+		if (this._isDirty || this._resolution !== resolution) {
 			this._isDirty = false;
-			this._textureId = textureId;
-			const vertices = this._vertices;
+			this._resolution = resolution;
+
+			const vrtcs = this._vertices;
 			const uvs = this._uvs;
 			const indices = this._indices;
 
-			const width = this._width;
-			const height = this._height;
-			const borderSize = this._borderSize;
+			const w = this._width;
+			const h = this._height;
+			const bw = this._borderWidth;
+			const r = Math.min(0.5 * w, 0.5 * h, this._cornerRadius);
+			const a = 1 / resolution;
 
 			const x0 = 0;
-			const x1 = Math.min(width * 0.5, borderSize);
-			const x2 = Math.max(width * 0.5, width - borderSize);
-			const x3 = width;
+			const x1 = r;
+			const x2 = w - r;
+			const x3 = w;
 
 			const y0 = 0;
-			const y1 = Math.min(height * 0.5, borderSize);
-			const y2 = Math.max(height * 0.5, height - borderSize);
-			const y3 = height;
-
-			const textureUvs: TextureUvs = (texture as any)._uvs;
-
-			const l = textureUvs.x0;
-			const r = textureUvs.x1;
-			const t = textureUvs.y0;
-			const b = textureUvs.y3;
-			const w = (r - l) * (borderSize / texture.width);
-			const h = (b - t) * (borderSize / texture.height);
-
-			const u0 = l;
-			const u1 = l + w;
-			const u2 = r - w;
-			const u3 = r;
-
-			const v0 = t;
-			const v1 = t + h;
-			const v2 = b - h;
-			const v3 = b;
+			const y1 = r;
+			const y2 = h - r;
+			const y3 = h;
 
 			const borderMask = this._borderMask;
 			const bt = !(borderMask & DBorderMask.TOP);
@@ -251,70 +277,101 @@ export class DBaseBorderMeshGeometry extends MeshGeometry {
 			const cbr = !(cornerMask & DCornerMask.BOTTOM_RIGHT);
 
 			// Vertices & UVs
-			let iv = 0;
+			let iv = -1;
+			let iuv = -1;
 			let ia = 0;
-			let ii = 0;
+			let ii = -1;
 
-			// Top left
-			this.fillVertices(iv, vertices, x0, x1, y0, y1);
-			this.fillUvsCorner(iv, uvs, bt, bl, ctl, u0, u1, u2, u3, v0, v1, v2, v3);
-			this.fillIndices(ii, indices, ia);
-			iv += 8;
-			ia += 4;
-			ii += 6;
+			const n = DBaseMeshGeometry.N;
+			const n4 = n << 2;
+			const n8 = n << 3;
+			const n18 = 18 * n;
 
-			// Top middle
-			this.fillVertices(iv, vertices, x1, x2, y0, y1);
-			this.fillUvs(iv, uvs, bt, u1, u2, v0, v1, u1, v1);
-			this.fillIndices(ii, indices, ia);
-			iv += 8;
-			ia += 4;
-			ii += 6;
+			const tables = this.getTables();
+			const tlt = tables[0];
+			const ttr = tables[1];
+			const trb = tables[2];
+			const tbl = tables[3];
 
-			// Top right
-			this.fillVertices(iv, vertices, x3, x2, y0, y1);
-			this.fillUvsCorner(iv, uvs, bt, br, ctr, u0, u1, u2, u3, v0, v1, v2, v3);
-			this.fillIndices(ii, indices, ia);
-			iv += 8;
-			ia += 4;
-			ii += 6;
+			// left -> top
+			if (ctl) {
+				if (bl || bt) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y1, r, a, bw, tlt);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y1, r, 0, 0, tlt);
+				}
+			} else {
+				if (bl || bt) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, 0, bw, tlt);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, 0, 0, tlt);
+				}
+			}
+			this.fillIndices(indices, ia, ii, n, bt, false);
+			iv += n8;
+			iuv += n8;
+			ia += n4;
+			ii += n18;
 
-			// Middle left
-			this.fillVertices(iv, vertices, x0, x1, y1, y2);
-			this.fillUvs(iv, uvs, bl, u0, u1, v1, v2, u1, v1);
-			this.fillIndices(ii, indices, ia);
-			iv += 8;
-			ia += 4;
-			ii += 6;
+			// top -> right
+			if (ctr) {
+				if (bt || br) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y1, r, a, bw, ttr);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y1, r, 0, 0, ttr);
+				}
+			} else {
+				if (bt || br) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, 0, bw, ttr);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, 0, 0, ttr);
+				}
+			}
+			this.fillIndices(indices, ia, ii, n, br, false);
+			iv += n8;
+			iuv += n8;
+			ia += n4;
+			ii += n18;
 
-			// Middle right
-			this.fillVertices(iv, vertices, x2, x3, y1, y2);
-			this.fillUvs(iv, uvs, br, u2, u3, v1, v2, u2, v2);
-			this.fillIndices(ii, indices, ia);
-			iv += 8;
-			ia += 4;
-			ii += 6;
+			// right -> bottom
+			if (cbr) {
+				if (br || bb) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y2, r, a, bw, trb);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y2, r, 0, 0, trb);
+				}
+			} else {
+				if (br || bb) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, 0, bw, trb);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, 0, 0, trb);
+				}
+			}
+			this.fillIndices(indices, ia, ii, n, bb, false);
+			iv += n8;
+			iuv += n8;
+			ia += n4;
+			ii += n18;
 
-			// Bottom left
-			this.fillVertices(iv, vertices, x0, x1, y3, y2);
-			this.fillUvsCorner(iv, uvs, bb, bl, cbl, u0, u1, u2, u3, v0, v1, v2, v3);
-			this.fillIndices(ii, indices, ia);
-			iv += 8;
-			ia += 4;
-			ii += 6;
-
-			// Bottom middle
-			this.fillVertices(iv, vertices, x1, x2, y2, y3);
-			this.fillUvs(iv, uvs, bb, u1, u2, v2, v3, u2, v2);
-			this.fillIndices(ii, indices, ia);
-			iv += 8;
-			ia += 4;
-			ii += 6;
-
-			// Bottom right
-			this.fillVertices(iv, vertices, x3, x2, y3, y2);
-			this.fillUvsCorner(iv, uvs, bb, br, cbr, u3, u2, u1, u0, v3, v2, v1, v0);
-			this.fillIndices(ii, indices, ia);
+			// bottom -> left
+			if (cbl) {
+				if (bb || bl) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y2, r, a, bw, tbl);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y2, r, 0, 0, tbl);
+				}
+			} else {
+				if (bb || bl) {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, 0, bw, tbl);
+				} else {
+					this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, 0, 0, tbl);
+				}
+			}
+			this.fillIndices(indices, ia, ii, n, bl, true);
+			iv += n8;
+			iuv += n8;
+			ia += n4;
+			ii += n18;
 
 			this._vertexBuffer.update();
 			this._uvBuffer.update();

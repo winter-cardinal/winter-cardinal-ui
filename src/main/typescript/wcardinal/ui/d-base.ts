@@ -503,11 +503,9 @@ export interface DThemeBase extends DThemeFont {
 	getBackgroundAlpha(state: DBaseStateSet): number;
 
 	/**
-	 * Returns a background texture of the given radius.
-	 *
-	 * @param radius a corner radius
+	 * Returns a background texture.
 	 */
-	getBackgroundTexture(radius: number): Texture;
+	getBackgroundTexture(): Texture;
 
 	/**
 	 * Returns a border color.
@@ -546,12 +544,9 @@ export interface DThemeBase extends DThemeFont {
 	getBorderMask(state: DBaseStateSet): DBorderMask;
 
 	/**
-	 * Returns a border texture of the given radius and width.
-	 *
-	 * @param radius a corner radius
-	 * @param width a border width
+	 * Returns a border texture.
 	 */
-	getBorderTexture(radius: number, width: number): Texture;
+	getBorderTexture(): Texture;
 
 	/**
 	 * Returns a left padding.

@@ -35,37 +35,9 @@ export class DBaseReflowableImpl implements DBaseReflowable {
 		const state = base.state;
 		const corner = base.corner;
 		const cornerRadius = corner.getRadius();
-		const cornerHeight = cornerRadius + 1;
 		const cornerMask = corner.getMask();
-		this._background.onReflow(
-			base,
-			width,
-			height,
-			theme,
-			state,
-			cornerRadius,
-			cornerHeight,
-			cornerMask
-		);
-		this._border.onReflow(
-			base,
-			width,
-			height,
-			theme,
-			state,
-			cornerRadius,
-			cornerHeight,
-			cornerMask
-		);
-		this._outline.onReflow(
-			base,
-			width,
-			height,
-			theme,
-			state,
-			cornerRadius,
-			cornerHeight,
-			cornerMask
-		);
+		this._background.onReflow(base, width, height, theme, state, cornerRadius, cornerMask);
+		this._border.onReflow(base, width, height, theme, state, cornerRadius, cornerMask);
+		this._outline.onReflow(base, width, height, theme, state, cornerRadius, cornerMask);
 	}
 }

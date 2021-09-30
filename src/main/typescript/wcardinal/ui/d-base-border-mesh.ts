@@ -4,6 +4,7 @@
  */
 
 import { Mesh, MeshMaterial, Renderer, Texture } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBaseBorderMeshGeometry } from "./d-base-border-mesh-geometry";
 import { DBorderMask } from "./d-border-mask";
 import { DCornerMask } from "./d-corner-mask";
@@ -12,28 +13,11 @@ export class DBaseBorderMesh extends Mesh {
 	geometry!: DBaseBorderMeshGeometry;
 	shader!: MeshMaterial;
 
-	constructor(
-		texture: Texture,
-		borderSize: number,
-		borderMask: DBorderMask,
-		cornerMask: DCornerMask
-	) {
-		super(
-			new DBaseBorderMeshGeometry(texture, 100, 100, borderSize, borderMask, cornerMask),
-			new MeshMaterial(texture)
-		);
-	}
-
-	// @ts-ignore
-	get texture(): Texture {
-		return this.shader.texture;
-	}
-
-	set texture(texture: Texture) {
-		if (this.shader.texture !== texture) {
-			this.shader.texture = texture;
-			this.geometry.texture = texture;
-		}
+	constructor(texture: Texture) {
+		super(new DBaseBorderMeshGeometry(), new MeshMaterial(texture));
+		texture.on("update", (): void => {
+			DApplications.update(this);
+		});
 	}
 
 	// @ts-ignore
@@ -54,20 +38,12 @@ export class DBaseBorderMesh extends Mesh {
 		this.geometry.height = height;
 	}
 
-	get borderSize(): number {
-		return this.geometry.borderSize;
+	get cornerRadius(): number {
+		return this.geometry.cornerRadius;
 	}
 
-	set borderSize(borderSize: number) {
-		this.geometry.borderSize = borderSize;
-	}
-
-	get borderMask(): DBorderMask {
-		return this.geometry.borderMask;
-	}
-
-	set borderMask(borderMask: DBorderMask) {
-		this.geometry.borderMask = borderMask;
+	set cornerRadius(cornerRadius: number) {
+		this.geometry.cornerRadius = cornerRadius;
 	}
 
 	get cornerMask(): DCornerMask {
@@ -78,12 +54,24 @@ export class DBaseBorderMesh extends Mesh {
 		this.geometry.cornerMask = cornerMask;
 	}
 
-	protected _render(renderer: Renderer): void {
-		this.geometry.update();
-		super._render(renderer);
+	get borderWidth(): number {
+		return this.geometry.borderWidth;
 	}
 
-	update(): void {
-		this.geometry.update();
+	set borderWidth(borderWidth: number) {
+		this.geometry.borderWidth = borderWidth;
+	}
+
+	get borderMask(): DBorderMask {
+		return this.geometry.borderMask;
+	}
+
+	set borderMask(borderMask: DBorderMask) {
+		this.geometry.borderMask = borderMask;
+	}
+
+	protected _render(renderer: Renderer): void {
+		this.geometry.update(renderer);
+		super._render(renderer);
 	}
 }

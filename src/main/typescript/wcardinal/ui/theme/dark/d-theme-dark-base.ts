@@ -13,7 +13,6 @@ import { DCornerMask } from "../../d-corner-mask";
 import { DLayoutClearType } from "../../d-layout-clear-type";
 import { DShadow } from "../../d-shadow";
 import { DShadowImpl } from "../../d-shadow-impl";
-import { UtilTexturePlane } from "../../util/util-texture-plane";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 import { DThemeDarkFont } from "./d-theme-dark-font";
@@ -36,6 +35,20 @@ const newShadow = (id: string, radius: number, opacity: number): void => {
 };
 newShadow("shadow_weak", 8, 0.5);
 newShadow("shadow", 12, 0.5);
+
+/* eslint-disable prettier/prettier */
+DThemeDarkAtlas.add("background", 16, 16,
+	`<g>` +
+		`<defs>` +
+			`<radialGradient id="background_filter">` +
+				`<stop offset="25%" stop-color="white" stop-opacity="1" />` +
+				`<stop offset="75%" stop-color="white" stop-opacity="0.25" />` +
+			`</radialGradient>` +
+		`</defs>` +
+		`<rect x="0" y="0" width="16" height="16" fill="url(#background_filter)"/>` +
+	`</g>`
+);
+/* eslint-enable prettier/prettier */
 
 export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	getX(): DCoordinatePosition {
@@ -62,8 +75,8 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 		return 1;
 	}
 
-	getBackgroundTexture(radius: number): Texture {
-		return UtilTexturePlane.getInstance().getBackground(radius);
+	getBackgroundTexture(): Texture {
+		return DThemeDarkAtlas.mappings.background;
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
@@ -89,8 +102,8 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 		return DBorderMask.NONE;
 	}
 
-	getBorderTexture(radius: number, width: number): Texture {
-		return UtilTexturePlane.getInstance().getBorder(radius, width);
+	getBorderTexture(): Texture {
+		return DThemeDarkAtlas.mappings.background;
 	}
 
 	getPaddingLeft(): number {

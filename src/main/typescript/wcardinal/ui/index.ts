@@ -37,6 +37,7 @@ export * from "./d-base-border-snippet";
 export * from "./d-base-border";
 export * from "./d-base-corner";
 export * from "./d-base-interactive";
+export * from "./d-base-mesh-geometry";
 export * from "./d-base-outline-snippet";
 export * from "./d-base-outline";
 export * from "./d-base-overflow-mask-simple";

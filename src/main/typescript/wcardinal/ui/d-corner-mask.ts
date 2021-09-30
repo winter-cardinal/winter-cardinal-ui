@@ -8,6 +8,10 @@ const TOP_RIGHT = 2;
 const BOTTOM_LEFT = 4;
 const BOTTOM_RIGHT = 8;
 
+/**
+ * A corner mask.
+ * Masked corners are rendered as if the corner radius is zero.
+ */
 export const DCornerMask = {
 	NONE: 0,
 	TOP_LEFT,

@@ -66,6 +66,5 @@ export * from "./util-pointer-event";
 export * from "./util-rgb";
 export * from "./util-rgba";
 export * from "./util-state-blinker";
-export * from "./util-texture-plane";
 export * from "./util-transition";
 export * from "./util-wheel-event";

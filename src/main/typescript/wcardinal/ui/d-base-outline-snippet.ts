@@ -7,46 +7,17 @@ import { DBase, DThemeBase } from "./d-base";
 import { DBaseBorderMesh } from "./d-base-border-mesh";
 import { DBaseSnippet } from "./d-base-snippet";
 import { DBaseStateSet } from "./d-base-state-set";
-import { DBorderMask } from "./d-border-mask";
 import { DCornerMask } from "./d-corner-mask";
 
 export class DBaseOutlineSnippet implements DBaseSnippet {
 	protected _mesh?: DBaseBorderMesh;
-	protected _cornerRadius: number;
-	protected _outlineWidth: number;
 
-	constructor() {
-		this._cornerRadius = 0;
-		this._outlineWidth = 0;
-	}
-
-	protected get(
-		base: DBase,
-		theme: DThemeBase,
-		cornerRadius: number,
-		cornerHeight: number,
-		cornerMask: DCornerMask,
-		outlineWidth: number,
-		outlineMask: DBorderMask
-	): DBaseBorderMesh {
+	protected get(base: DBase, theme: DThemeBase): DBaseBorderMesh {
 		let result = this._mesh;
 		if (result == null) {
-			result = new DBaseBorderMesh(
-				theme.getBorderTexture(cornerRadius, outlineWidth),
-				cornerHeight,
-				outlineMask,
-				cornerMask
-			);
+			result = new DBaseBorderMesh(theme.getBorderTexture());
 			(result as any).parent = base;
 			this._mesh = result;
-			this._cornerRadius = cornerRadius;
-			this._outlineWidth = outlineWidth;
-		}
-		if (this._cornerRadius !== cornerRadius || this._outlineWidth !== outlineWidth) {
-			this._cornerRadius = cornerRadius;
-			this._outlineWidth = outlineWidth;
-			result.texture = theme.getBorderTexture(cornerRadius, outlineWidth);
-			result.borderSize = cornerHeight;
 		}
 		return result;
 	}
@@ -65,7 +36,6 @@ export class DBaseOutlineSnippet implements DBaseSnippet {
 		theme: DThemeBase,
 		state: DBaseStateSet,
 		cornerRadius: number,
-		cornerHeight: number,
 		cornerMask: DCornerMask
 	): void {
 		const outline = base.outline;
@@ -75,26 +45,19 @@ export class DBaseOutlineSnippet implements DBaseSnippet {
 			if (0 < outlineAlpha) {
 				const outlineWidth = outline.getWidth(state);
 				const outlineMask = outline.getMask(state);
-				const outlineMesh = this.get(
-					base,
-					theme,
-					cornerRadius,
-					cornerHeight,
-					cornerMask,
-					outlineWidth,
-					outlineMask
-				);
-				const outlineOffset = outline.getOffset(state);
-				const outlineAlign = outline.getAlign(state);
-				const outlineOffsetAccumulative = outlineOffset + outlineAlign * outlineWidth;
+				const outlineMesh = this.get(base, theme);
+				const outlineOffset =
+					outline.getOffset(state) + (outline.getAlign(state) - 0.5) * outlineWidth;
 				outlineMesh.tint = outlineColor;
 				outlineMesh.alpha = outlineAlpha;
-				outlineMesh.x = -outlineOffsetAccumulative;
-				outlineMesh.y = -outlineOffsetAccumulative;
-				outlineMesh.width = width + outlineOffsetAccumulative * 2;
-				outlineMesh.height = height + outlineOffsetAccumulative * 2;
-				outlineMesh.borderMask = outlineMask;
+				outlineMesh.x = -outlineOffset;
+				outlineMesh.y = -outlineOffset;
+				outlineMesh.width = width + outlineOffset * 2;
+				outlineMesh.height = height + outlineOffset * 2;
+				outlineMesh.cornerRadius = cornerRadius;
 				outlineMesh.cornerMask = cornerMask;
+				outlineMesh.borderWidth = outlineWidth;
+				outlineMesh.borderMask = outlineMask;
 				outlineMesh.visible = true;
 			} else {
 				this.hide();
