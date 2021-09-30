@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.128.0
+ Winter Cardinal UI v0.129.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -85,6 +85,8 @@
     };
 
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -99,8 +101,6 @@
     const DLayoutClearType = wcardinal.ui.DLayoutClearType;
 
     const DShadowImpl = wcardinal.ui.DShadowImpl;
-
-    const UtilTexturePlane = wcardinal.ui.UtilTexturePlane;
 
     const UtilRgb = wcardinal.ui.UtilRgb;
 
@@ -188,6 +188,17 @@
     };
     newShadow("shadow_weak", 8, 0.15);
     newShadow("shadow", 12, 0.15);
+    /* eslint-disable prettier/prettier */
+    DThemeWhiteAtlas.add("background", 16, 16, "<g>" +
+        "<defs>" +
+        "<radialGradient id=\"234sfdhjfpijsrnsedsd435jseflkm\">" +
+        "<stop offset=\"25%\" stop-color=\"white\" stop-opacity=\"1\" />" +
+        "<stop offset=\"75%\" stop-color=\"white\" stop-opacity=\"0.25\" />" +
+        "</radialGradient>" +
+        "</defs>" +
+        "<rect x=\"0\" y=\"0\" width=\"16\" height=\"16\" fill=\"url(#234sfdhjfpijsrnsedsd435jseflkm)\"/>" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
     var DThemeWhiteBase = /** @class */ (function (_super) {
         __extends(DThemeWhiteBase, _super);
         function DThemeWhiteBase() {
@@ -211,8 +222,8 @@
         DThemeWhiteBase.prototype.getBackgroundAlpha = function (state) {
             return 1;
         };
-        DThemeWhiteBase.prototype.getBackgroundTexture = function (radius) {
-            return UtilTexturePlane.getInstance().getBackground(radius);
+        DThemeWhiteBase.prototype.getBackgroundTexture = function () {
+            return DThemeWhiteAtlas.mappings.background;
         };
         DThemeWhiteBase.prototype.getBorderColor = function (state) {
             if (state.isFocused) {
@@ -234,8 +245,8 @@
         DThemeWhiteBase.prototype.getBorderMask = function (state) {
             return DBorderMask.NONE;
         };
-        DThemeWhiteBase.prototype.getBorderTexture = function (radius, width) {
-            return UtilTexturePlane.getInstance().getBorder(radius, width);
+        DThemeWhiteBase.prototype.getBorderTexture = function () {
+            return DThemeWhiteAtlas.mappings.background;
         };
         DThemeWhiteBase.prototype.getPaddingLeft = function () {
             return 0;
@@ -758,7 +769,7 @@
         "<path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" fill=\"#fff\"/>" +
         "</g>");
     /* eslint-enable prettier/prettier */
-    var formatter = function (colorAndAlpha) {
+    var formatter$a = function (colorAndAlpha) {
         return "#" + UtilRgb.toCode(colorAndAlpha.color) + " A" + colorAndAlpha.alpha.toFixed(2);
     };
     var DThemeWhiteButtonColor = /** @class */ (function (_super) {
@@ -773,7 +784,7 @@
             return DThemeWhiteAtlas.mappings.button_color_sample;
         };
         DThemeWhiteButtonColor.prototype.getTextFormatter = function () {
-            return formatter;
+            return formatter$a;
         };
         DThemeWhiteButtonColor.prototype.newTextValue = function () {
             return {
@@ -1130,7 +1141,7 @@
         "<path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\" fill=\"#fff\"/>" +
         "</g>");
     /* eslint-enable prettier/prettier */
-    var formatter$1 = function () {
+    var formatter$9 = function () {
         return "";
     };
     var DThemeWhiteButtonColorGradient = /** @class */ (function (_super) {
@@ -1142,7 +1153,7 @@
             return DThemeWhiteAtlas.mappings.button_color_gradient_sample;
         };
         DThemeWhiteButtonColorGradient.prototype.getTextFormatter = function () {
-            return formatter$1;
+            return formatter$9;
         };
         DThemeWhiteButtonColorGradient.prototype.newTextValue = function () {
             return new DColorGradientObservable();
@@ -1320,7 +1331,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$2 = function (value) {
+    var formatter$8 = function (value) {
         return DPickerDates.format(value);
     };
     var DThemeWhiteButtonDate = /** @class */ (function (_super) {
@@ -1329,7 +1340,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteButtonDate.prototype.getTextFormatter = function () {
-            return formatter$2;
+            return formatter$8;
         };
         DThemeWhiteButtonDate.prototype.newTextValue = function () {
             return new Date();
@@ -1751,7 +1762,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$3 = function (value, caller) {
+    var formatter$7 = function (value, caller) {
         return DPickerDatetimes.format(value, caller.getDatetimeMask());
     };
     var DThemeWhiteButtonDatetime = /** @class */ (function (_super) {
@@ -1760,7 +1771,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteButtonDatetime.prototype.getTextFormatter = function () {
-            return formatter$3;
+            return formatter$7;
         };
         DThemeWhiteButtonDatetime.prototype.newTextValue = function () {
             return new Date();
@@ -2497,7 +2508,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$4 = function (value, caller) {
+    var formatter$6 = function (value, caller) {
         return DPickerTimes.format(value, caller.getDatetimeMask());
     };
     var DThemeWhiteButtonTime = /** @class */ (function (_super) {
@@ -2506,7 +2517,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteButtonTime.prototype.getTextFormatter = function () {
-            return formatter$4;
+            return formatter$6;
         };
         DThemeWhiteButtonTime.prototype.newTextValue = function () {
             return new Date();
@@ -4294,7 +4305,7 @@
     var nullCreator = function () {
         return null;
     };
-    var divCreator = function (container) {
+    var divCreator$1 = function (container) {
         var result = document.createElement("div");
         container.appendChild(result);
         return result;
@@ -4399,7 +4410,7 @@
             return "margin: 0;";
         };
         DThemeWhiteHtmlElement.prototype.getClipperCreator = function () {
-            return divCreator;
+            return divCreator$1;
         };
         DThemeWhiteHtmlElement.prototype.setClipperStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect) {
             var style = "outline: none; padding: 0; margin: 0; border: none;" +
@@ -4433,7 +4444,7 @@
                 this.getClipperStylePositionSize(rect));
         };
         DThemeWhiteHtmlElement.prototype.getBeforeCreator = function () {
-            return divCreator;
+            return divCreator$1;
         };
         DThemeWhiteHtmlElement.prototype.setBeforeStyle = function (target) {
             var style = "overflow: hidden; outline: none;" +
@@ -4443,7 +4454,7 @@
             target.setAttribute("tabindex", "0");
         };
         DThemeWhiteHtmlElement.prototype.getAfterCreator = function () {
-            return divCreator;
+            return divCreator$1;
         };
         DThemeWhiteHtmlElement.prototype.setAfterStyle = function (target) {
             this.setBeforeStyle(target);
@@ -4591,7 +4602,7 @@
     var editingValidator = function () {
         return null;
     };
-    var editingUnformatter = function (text) {
+    var editingUnformatter$2 = function (text) {
         return text;
     };
     var CREATOR_CLASSNAME = "d-theme-white-input";
@@ -4607,7 +4618,7 @@
         container.appendChild(element);
         return element;
     };
-    var divCreator$1 = function (container, classname) {
+    var divCreator = function (container, classname) {
         var found = container.getElementsByClassName(classname);
         if (0 < found.length) {
             return found[0];
@@ -4619,15 +4630,15 @@
     };
     var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
     var clipperCreator = function (container) {
-        return divCreator$1(container, CREATOR_CLASSNAME_CLIPPER);
+        return divCreator(container, CREATOR_CLASSNAME_CLIPPER);
     };
     var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
     var beforeCreator = function (container) {
-        return divCreator$1(container, CREATOR_CLASSNAME_BEFORE);
+        return divCreator(container, CREATOR_CLASSNAME_BEFORE);
     };
     var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
     var afterCreator = function (container) {
-        return divCreator$1(container, CREATOR_CLASSNAME_AFTER);
+        return divCreator(container, CREATOR_CLASSNAME_AFTER);
     };
     var DThemeWhiteInput = /** @class */ (function (_super) {
         __extends(DThemeWhiteInput, _super);
@@ -4682,7 +4693,7 @@
             return this.getTextFormatter();
         };
         DThemeWhiteInput.prototype.getEditingUnformatter = function () {
-            return editingUnformatter;
+            return editingUnformatter$2;
         };
         DThemeWhiteInput.prototype.getEditingValidator = function () {
             return editingValidator;
@@ -4798,7 +4809,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var editingUnformatter$2 = function (text) {
+    var editingUnformatter = function (text) {
         var result = parseFloat(text);
         if (result === result) {
             return result;
@@ -4811,7 +4822,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteInputReal.prototype.getEditingUnformatter = function () {
-            return editingUnformatter$2;
+            return editingUnformatter;
         };
         return DThemeWhiteInputReal;
     }(DThemeWhiteInputNumber));
@@ -6107,7 +6118,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$6 = function (values) {
+    var formatter$4 = function (values) {
         if (values) {
             var result = "";
             var delimiter = "";
@@ -6136,7 +6147,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteSelectMultiple.prototype.getTextFormatter = function () {
-            return formatter$6;
+            return formatter$4;
         };
         DThemeWhiteSelectMultiple.prototype.newTextValue = function () {
             return [];
@@ -6982,7 +6993,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$7 = function (value) {
+    var formatter$3 = function (value) {
         return DPickerDates.format(value);
     };
     var DThemeWhiteTableBodyCellDate = /** @class */ (function (_super) {
@@ -7018,7 +7029,7 @@
             return DThemeWhiteTableBodyCells.getCornerMask();
         };
         DThemeWhiteTableBodyCellDate.prototype.getTextFormatter = function () {
-            return formatter$7;
+            return formatter$3;
         };
         DThemeWhiteTableBodyCellDate.prototype.newTextValue = function () {
             return new Date();
@@ -7030,7 +7041,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$8 = function (value, caller) {
+    var formatter$2 = function (value, caller) {
         return DPickerDatetimes.format(value, caller.getDatetimeMask());
     };
     var DThemeWhiteTableBodyCellDatetime = /** @class */ (function (_super) {
@@ -7066,7 +7077,7 @@
             return DThemeWhiteTableBodyCells.getCornerMask();
         };
         DThemeWhiteTableBodyCellDatetime.prototype.getTextFormatter = function () {
-            return formatter$8;
+            return formatter$2;
         };
         DThemeWhiteTableBodyCellDatetime.prototype.newTextValue = function () {
             return new Date();
@@ -7078,7 +7089,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$9 = function (index) {
+    var formatter$1 = function (index) {
         return String(Number(index) + 1);
     };
     var DThemeWhiteTableBodyCellIndex = /** @class */ (function (_super) {
@@ -7120,7 +7131,7 @@
             return 10;
         };
         DThemeWhiteTableBodyCellIndex.prototype.getTextFormatter = function () {
-            return formatter$9;
+            return formatter$1;
         };
         DThemeWhiteTableBodyCellIndex.prototype.newTextValue = function () {
             return 0;
@@ -7575,7 +7586,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var formatter$a = function (value, caller) {
+    var formatter = function (value, caller) {
         return DPickerTimes.format(value, caller.getDatetimeMask());
     };
     var DThemeWhiteTableBodyCellTime = /** @class */ (function (_super) {
@@ -7611,7 +7622,7 @@
             return DThemeWhiteTableBodyCells.getCornerMask();
         };
         DThemeWhiteTableBodyCellTime.prototype.getTextFormatter = function () {
-            return formatter$a;
+            return formatter;
         };
         DThemeWhiteTableBodyCellTime.prototype.newTextValue = function () {
             return new Date();
@@ -8514,4 +8525,4 @@
         dest[name_1] = src[name_1];
     }
 
-}());
+})();

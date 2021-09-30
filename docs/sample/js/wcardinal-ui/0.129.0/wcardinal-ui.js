@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.128.0
+ Winter Cardinal UI v0.129.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -120,23 +120,31 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeStrokeStyle;
-    (function (EShapeStrokeStyle) {
-        EShapeStrokeStyle[EShapeStrokeStyle["NONE"] = 0] = "NONE";
-        EShapeStrokeStyle[EShapeStrokeStyle["NON_EXPANDING_WIDTH"] = 2] = "NON_EXPANDING_WIDTH";
-        EShapeStrokeStyle[EShapeStrokeStyle["NON_SHRINKING_WIDTH"] = 4] = "NON_SHRINKING_WIDTH";
-        EShapeStrokeStyle[EShapeStrokeStyle["NON_SCALING_DOT_AND_DASH"] = 8] = "NON_SCALING_DOT_AND_DASH";
-        EShapeStrokeStyle[EShapeStrokeStyle["NON_SCALING"] = 14] = "NON_SCALING";
-        EShapeStrokeStyle[EShapeStrokeStyle["NON_SCALING_MASK"] = 14] = "NON_SCALING_MASK";
-        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED"] = 16] = "DOTTED";
-        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED_DENSELY"] = 32] = "DOTTED_DENSELY";
-        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED_LOOSELY"] = 64] = "DOTTED_LOOSELY";
-        EShapeStrokeStyle[EShapeStrokeStyle["DOTTED_MASK"] = 112] = "DOTTED_MASK";
-        EShapeStrokeStyle[EShapeStrokeStyle["DASHED"] = 128] = "DASHED";
-        EShapeStrokeStyle[EShapeStrokeStyle["DASHED_DENSELY"] = 256] = "DASHED_DENSELY";
-        EShapeStrokeStyle[EShapeStrokeStyle["DASHED_LOOSELY"] = 512] = "DASHED_LOOSELY";
-        EShapeStrokeStyle[EShapeStrokeStyle["DASHED_MASK"] = 896] = "DASHED_MASK";
-    })(EShapeStrokeStyle || (EShapeStrokeStyle = {}));
+    var NON_EXPANDING_WIDTH$1 = 2;
+    var NON_SHRINKING_WIDTH$1 = 4;
+    var NON_SCALING_DOT_AND_DASH$1 = 8;
+    var DOTTED$1 = 16;
+    var DOTTED_DENSELY$1 = 32;
+    var DOTTED_LOOSELY$1 = 64;
+    var DASHED$1 = 128;
+    var DASHED_DENSELY$1 = 256;
+    var DASHED_LOOSELY$1 = 512;
+    var EShapeStrokeStyle = {
+        NONE: 0,
+        NON_EXPANDING_WIDTH: NON_EXPANDING_WIDTH$1,
+        NON_SHRINKING_WIDTH: NON_SHRINKING_WIDTH$1,
+        NON_SCALING_DOT_AND_DASH: NON_SCALING_DOT_AND_DASH$1,
+        NON_SCALING: NON_EXPANDING_WIDTH$1 | NON_SHRINKING_WIDTH$1 | NON_SCALING_DOT_AND_DASH$1,
+        NON_SCALING_MASK: NON_EXPANDING_WIDTH$1 | NON_SHRINKING_WIDTH$1 | NON_SCALING_DOT_AND_DASH$1,
+        DOTTED: DOTTED$1,
+        DOTTED_DENSELY: DOTTED_DENSELY$1,
+        DOTTED_LOOSELY: DOTTED_LOOSELY$1,
+        DOTTED_MASK: DOTTED$1 | DOTTED_DENSELY$1 | DOTTED_LOOSELY$1,
+        DASHED: DASHED$1,
+        DASHED_DENSELY: DASHED_DENSELY$1,
+        DASHED_LOOSELY: DASHED_LOOSELY$1,
+        DASHED_MASK: DASHED$1 | DASHED_DENSELY$1 | DASHED_LOOSELY$1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -405,53 +413,48 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTextWeight;
-    (function (EShapeTextWeight) {
-        EShapeTextWeight[EShapeTextWeight["NORMAL"] = 0] = "NORMAL";
-        EShapeTextWeight[EShapeTextWeight["BOLD"] = 1] = "BOLD";
-    })(EShapeTextWeight || (EShapeTextWeight = {}));
-    var EShapeTextStyle;
-    (function (EShapeTextStyle) {
-        EShapeTextStyle[EShapeTextStyle["NORMAL"] = 0] = "NORMAL";
-        EShapeTextStyle[EShapeTextStyle["ITALIC"] = 1] = "ITALIC";
-    })(EShapeTextStyle || (EShapeTextStyle = {}));
+    var EShapeTextWeight = {
+        NORMAL: 0,
+        BOLD: 1
+    };
+    var EShapeTextStyle = {
+        NORMAL: 0,
+        ITALIC: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTextAlignHorizontal;
-    (function (EShapeTextAlignHorizontal) {
-        EShapeTextAlignHorizontal[EShapeTextAlignHorizontal["LEFT"] = 0] = "LEFT";
-        EShapeTextAlignHorizontal[EShapeTextAlignHorizontal["CENTER"] = 1] = "CENTER";
-        EShapeTextAlignHorizontal[EShapeTextAlignHorizontal["RIGHT"] = 2] = "RIGHT";
-        EShapeTextAlignHorizontal[EShapeTextAlignHorizontal["OUTSIDE_LEFT"] = 3] = "OUTSIDE_LEFT";
-        EShapeTextAlignHorizontal[EShapeTextAlignHorizontal["OUTSIDE_RIGHT"] = 4] = "OUTSIDE_RIGHT";
-    })(EShapeTextAlignHorizontal || (EShapeTextAlignHorizontal = {}));
+    var EShapeTextAlignHorizontal = {
+        LEFT: 0,
+        CENTER: 1,
+        RIGHT: 2,
+        OUTSIDE_LEFT: 3,
+        OUTSIDE_RIGHT: 4
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTextAlignVertical;
-    (function (EShapeTextAlignVertical) {
-        EShapeTextAlignVertical[EShapeTextAlignVertical["TOP"] = 0] = "TOP";
-        EShapeTextAlignVertical[EShapeTextAlignVertical["MIDDLE"] = 1] = "MIDDLE";
-        EShapeTextAlignVertical[EShapeTextAlignVertical["BOTTOM"] = 2] = "BOTTOM";
-        EShapeTextAlignVertical[EShapeTextAlignVertical["OUTSIDE_TOP"] = 3] = "OUTSIDE_TOP";
-        EShapeTextAlignVertical[EShapeTextAlignVertical["OUTSIDE_BOTTOM"] = 4] = "OUTSIDE_BOTTOM";
-    })(EShapeTextAlignVertical || (EShapeTextAlignVertical = {}));
+    var EShapeTextAlignVertical = {
+        TOP: 0,
+        MIDDLE: 1,
+        BOTTOM: 2,
+        OUTSIDE_TOP: 3,
+        OUTSIDE_BOTTOM: 4
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeTextDirection;
-    (function (EShapeTextDirection) {
-        EShapeTextDirection[EShapeTextDirection["LEFT_TO_RIGHT"] = 0] = "LEFT_TO_RIGHT";
-        EShapeTextDirection[EShapeTextDirection["TOP_TO_BOTTOM"] = 1] = "TOP_TO_BOTTOM";
-        EShapeTextDirection[EShapeTextDirection["BOTTOM_TO_TOP"] = 2] = "BOTTOM_TO_TOP";
-    })(EShapeTextDirection || (EShapeTextDirection = {}));
+    var EShapeTextDirection = {
+        LEFT_TO_RIGHT: 0,
+        TOP_TO_BOTTOM: 1,
+        BOTTOM_TO_TOP: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1246,6 +1249,8 @@
     };
 
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -1255,37 +1260,47 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapePointsStyle;
-    (function (EShapePointsStyle) {
-        EShapePointsStyle[EShapePointsStyle["NONE"] = 0] = "NONE";
-        EShapePointsStyle[EShapePointsStyle["CLOSED"] = 1] = "CLOSED";
+    var CLOSED = 1;
+    var NON_EXPANDING_WIDTH = 2;
+    var NON_SHRINKING_WIDTH = 4;
+    var NON_SCALING_DOT_AND_DASH = 8;
+    var DOTTED = 16;
+    var DOTTED_DENSELY = 32;
+    var DOTTED_LOOSELY = 64;
+    var DASHED = 128;
+    var DASHED_DENSELY = 256;
+    var DASHED_LOOSELY = 512;
+    var CURVE = 1024;
+    var EShapePointsStyle = {
+        NONE: 0,
+        CLOSED: CLOSED,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["NON_EXPANDING_WIDTH"] = 2] = "NON_EXPANDING_WIDTH";
+        NON_EXPANDING_WIDTH: NON_EXPANDING_WIDTH,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["NON_SHRINKING_WIDTH"] = 4] = "NON_SHRINKING_WIDTH";
+        NON_SHRINKING_WIDTH: NON_SHRINKING_WIDTH,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["NON_SCALING_DOT_AND_DASH"] = 8] = "NON_SCALING_DOT_AND_DASH";
+        NON_SCALING_DOT_AND_DASH: NON_SCALING_DOT_AND_DASH,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["NON_SCALING_MASK"] = 14] = "NON_SCALING_MASK";
+        NON_SCALING_MASK: NON_EXPANDING_WIDTH | NON_SHRINKING_WIDTH | NON_SCALING_DOT_AND_DASH,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DOTTED"] = 16] = "DOTTED";
+        DOTTED: DOTTED,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DOTTED_DENSELY"] = 32] = "DOTTED_DENSELY";
+        DOTTED_DENSELY: DOTTED_DENSELY,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DOTTED_LOOSELY"] = 64] = "DOTTED_LOOSELY";
+        DOTTED_LOOSELY: DOTTED_LOOSELY,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DOTTED_MASK"] = 112] = "DOTTED_MASK";
+        DOTTED_MASK: DOTTED | DOTTED_DENSELY | DOTTED_LOOSELY,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DASHED"] = 128] = "DASHED";
+        DASHED: DASHED,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DASHED_DENSELY"] = 256] = "DASHED_DENSELY";
+        DASHED_DENSELY: DASHED_DENSELY,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DASHED_LOOSELY"] = 512] = "DASHED_LOOSELY";
+        DASHED_LOOSELY: DASHED_LOOSELY,
         /** @deprecated in favor of EShapeStrokeStyle. */
-        EShapePointsStyle[EShapePointsStyle["DASHED_MASK"] = 896] = "DASHED_MASK";
-        EShapePointsStyle[EShapePointsStyle["CURVE"] = 1024] = "CURVE";
-        EShapePointsStyle[EShapePointsStyle["FORMATTER_MASK"] = 1024] = "FORMATTER_MASK";
-    })(EShapePointsStyle || (EShapePointsStyle = {}));
+        DASHED_MASK: DASHED | DASHED_DENSELY | DASHED_LOOSELY,
+        CURVE: CURVE,
+        FORMATTER_MASK: CURVE
+    };
 
     var buildColor = function (color, alpha, voffset, vcount, colors) {
         var r = (((color >> 16) & 0xff) / 255.0) * alpha;
@@ -1820,13 +1835,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeBarPosition;
-    (function (EShapeBarPosition) {
-        EShapeBarPosition[EShapeBarPosition["TOP"] = 0] = "TOP";
-        EShapeBarPosition[EShapeBarPosition["LEFT"] = 1] = "LEFT";
-        EShapeBarPosition[EShapeBarPosition["RIGHT"] = 2] = "RIGHT";
-        EShapeBarPosition[EShapeBarPosition["BOTTOM"] = 3] = "BOTTOM";
-    })(EShapeBarPosition || (EShapeBarPosition = {}));
+    var EShapeBarPosition = {
+        TOP: 0,
+        LEFT: 1,
+        RIGHT: 2,
+        BOTTOM: 3
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2107,19 +2121,22 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeCorner;
-    (function (EShapeCorner) {
-        EShapeCorner[EShapeCorner["NONE"] = 0] = "NONE";
-        EShapeCorner[EShapeCorner["TOP_LEFT"] = 1] = "TOP_LEFT";
-        EShapeCorner[EShapeCorner["TOP_RIGHT"] = 2] = "TOP_RIGHT";
-        EShapeCorner[EShapeCorner["BOTTOM_LEFT"] = 4] = "BOTTOM_LEFT";
-        EShapeCorner[EShapeCorner["BOTTOM_RIGHT"] = 8] = "BOTTOM_RIGHT";
-        EShapeCorner[EShapeCorner["TOP"] = 3] = "TOP";
-        EShapeCorner[EShapeCorner["BOTTOM"] = 12] = "BOTTOM";
-        EShapeCorner[EShapeCorner["LEFT"] = 5] = "LEFT";
-        EShapeCorner[EShapeCorner["RIGHT"] = 10] = "RIGHT";
-        EShapeCorner[EShapeCorner["ALL"] = 15] = "ALL";
-    })(EShapeCorner || (EShapeCorner = {}));
+    var TOP_LEFT$1 = 1;
+    var TOP_RIGHT$1 = 2;
+    var BOTTOM_LEFT$1 = 4;
+    var BOTTOM_RIGHT$1 = 8;
+    var EShapeCorner = {
+        NONE: 0,
+        TOP_LEFT: TOP_LEFT$1,
+        TOP_RIGHT: TOP_RIGHT$1,
+        BOTTOM_LEFT: BOTTOM_LEFT$1,
+        BOTTOM_RIGHT: BOTTOM_RIGHT$1,
+        TOP: TOP_LEFT$1 | TOP_RIGHT$1,
+        BOTTOM: BOTTOM_LEFT$1 | BOTTOM_RIGHT$1,
+        LEFT: TOP_LEFT$1 | BOTTOM_LEFT$1,
+        RIGHT: TOP_RIGHT$1 | BOTTOM_RIGHT$1,
+        ALL: TOP_LEFT$1 | TOP_RIGHT$1 | BOTTOM_LEFT$1 | BOTTOM_RIGHT$1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2434,31 +2451,29 @@
      * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var NONE = 0;
     var TRANSFORM = 1;
     var SIZE = 2;
     var STYLE = 4;
-    var ACTION = 8;
+    var ACTION$1 = 8;
     var POINTS = 16;
     var STATE = 32;
     var IMAGE = 64;
-    var DATA = 128;
-    var CONNECTOR = 256;
-    var ALL = TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE | IMAGE | DATA | CONNECTOR;
+    var DATA$1 = 128;
+    var CONNECTOR$1 = 256;
     var EShapeCopyPart = {
-        NONE: NONE,
+        NONE: 0,
         TRANSFORM: TRANSFORM,
         SIZE: SIZE,
         STYLE: STYLE,
-        ACTION: ACTION,
+        ACTION: ACTION$1,
         POINTS: POINTS,
         STATE: STATE,
         IMAGE: IMAGE,
-        DATA: DATA,
+        DATA: DATA$1,
         /** @deprecated in favor of {@link data} */
-        TAG: DATA,
-        CONNECTOR: CONNECTOR,
-        ALL: ALL
+        TAG: DATA$1,
+        CONNECTOR: CONNECTOR$1,
+        ALL: TRANSFORM | SIZE | STYLE | ACTION$1 | POINTS | STATE | IMAGE | DATA$1 | CONNECTOR$1
     };
 
     /*
@@ -4770,23 +4785,23 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeDataValueOrder;
-    (function (EShapeDataValueOrder) {
-        EShapeDataValueOrder[EShapeDataValueOrder["ASCENDING"] = 0] = "ASCENDING";
-        EShapeDataValueOrder[EShapeDataValueOrder["DESCENDING"] = 1] = "DESCENDING";
-    })(EShapeDataValueOrder || (EShapeDataValueOrder = {}));
+    var EShapeDataValueOrder = {
+        ASCENDING: 0,
+        DESCENDING: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeDataValueRangeType;
-    (function (EShapeDataValueRangeType) {
-        EShapeDataValueRangeType[EShapeDataValueRangeType["NONE"] = 0] = "NONE";
-        EShapeDataValueRangeType[EShapeDataValueRangeType["FROM"] = 1] = "FROM";
-        EShapeDataValueRangeType[EShapeDataValueRangeType["TO"] = 2] = "TO";
-        EShapeDataValueRangeType[EShapeDataValueRangeType["FROM_TO"] = 3] = "FROM_TO";
-    })(EShapeDataValueRangeType || (EShapeDataValueRangeType = {}));
+    var FROM = 1;
+    var TO = 2;
+    var EShapeDataValueRangeType = {
+        NONE: 0,
+        FROM: FROM,
+        TO: TO,
+        FROM_TO: FROM | TO
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -6456,19 +6471,22 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeStrokeSide;
-    (function (EShapeStrokeSide) {
-        EShapeStrokeSide[EShapeStrokeSide["NONE"] = 0] = "NONE";
-        EShapeStrokeSide[EShapeStrokeSide["TOP"] = 1] = "TOP";
-        EShapeStrokeSide[EShapeStrokeSide["RIGHT"] = 2] = "RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM"] = 4] = "BOTTOM";
-        EShapeStrokeSide[EShapeStrokeSide["LEFT"] = 8] = "LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_LEFT"] = 9] = "TOP_OR_LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["TOP_OR_RIGHT"] = 3] = "TOP_OR_RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_LEFT"] = 12] = "BOTTOM_OR_LEFT";
-        EShapeStrokeSide[EShapeStrokeSide["BOTTOM_OR_RIGHT"] = 6] = "BOTTOM_OR_RIGHT";
-        EShapeStrokeSide[EShapeStrokeSide["ALL"] = 15] = "ALL";
-    })(EShapeStrokeSide || (EShapeStrokeSide = {}));
+    var TOP$1 = 1;
+    var RIGHT$1 = 2;
+    var BOTTOM$1 = 4;
+    var LEFT$1 = 8;
+    var EShapeStrokeSide = {
+        NONE: 0,
+        TOP: TOP$1,
+        RIGHT: RIGHT$1,
+        BOTTOM: BOTTOM$1,
+        LEFT: LEFT$1,
+        TOP_OR_LEFT: TOP$1 | LEFT$1,
+        TOP_OR_RIGHT: TOP$1 | RIGHT$1,
+        BOTTOM_OR_LEFT: BOTTOM$1 | LEFT$1,
+        BOTTOM_OR_RIGHT: BOTTOM$1 | RIGHT$1,
+        ALL: TOP$1 | RIGHT$1 | BOTTOM$1 | LEFT$1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -7360,26 +7378,37 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRuntimeReset;
-    (function (EShapeRuntimeReset) {
-        EShapeRuntimeReset[EShapeRuntimeReset["NONE"] = 0] = "NONE";
-        EShapeRuntimeReset[EShapeRuntimeReset["POSITION_X"] = 1] = "POSITION_X";
-        EShapeRuntimeReset[EShapeRuntimeReset["POSITION_Y"] = 2] = "POSITION_Y";
-        EShapeRuntimeReset[EShapeRuntimeReset["POSITION"] = 3] = "POSITION";
-        EShapeRuntimeReset[EShapeRuntimeReset["ROTATION"] = 4] = "ROTATION";
-        EShapeRuntimeReset[EShapeRuntimeReset["COLOR_FILL"] = 8] = "COLOR_FILL";
-        EShapeRuntimeReset[EShapeRuntimeReset["COLOR_STROKE"] = 16] = "COLOR_STROKE";
-        EShapeRuntimeReset[EShapeRuntimeReset["COLOR_FILL_AND_STROKE"] = 24] = "COLOR_FILL_AND_STROKE";
-        EShapeRuntimeReset[EShapeRuntimeReset["COLOR_TEXT"] = 32] = "COLOR_TEXT";
-        EShapeRuntimeReset[EShapeRuntimeReset["COLOR_TEXT_OUTLINE"] = 64] = "COLOR_TEXT_OUTLINE";
-        EShapeRuntimeReset[EShapeRuntimeReset["COLOR"] = 120] = "COLOR";
-        EShapeRuntimeReset[EShapeRuntimeReset["VISIBILITY"] = 128] = "VISIBILITY";
-        EShapeRuntimeReset[EShapeRuntimeReset["HEIGHT"] = 256] = "HEIGHT";
-        EShapeRuntimeReset[EShapeRuntimeReset["WIDTH"] = 512] = "WIDTH";
-        EShapeRuntimeReset[EShapeRuntimeReset["SIZE"] = 768] = "SIZE";
-        EShapeRuntimeReset[EShapeRuntimeReset["TEXT"] = 1024] = "TEXT";
-        EShapeRuntimeReset[EShapeRuntimeReset["CURSOR"] = 2048] = "CURSOR";
-    })(EShapeRuntimeReset || (EShapeRuntimeReset = {}));
+    var POSITION_X = 1;
+    var POSITION_Y = 2;
+    var ROTATION$1 = 4;
+    var COLOR_FILL = 8;
+    var COLOR_STROKE = 16;
+    var COLOR_TEXT = 32;
+    var COLOR_TEXT_OUTLINE = 64;
+    var VISIBILITY = 128;
+    var HEIGHT$1 = 256;
+    var WIDTH$1 = 512;
+    var TEXT$2 = 1024;
+    var CURSOR$1 = 2048;
+    var EShapeRuntimeReset = {
+        NONE: 0,
+        POSITION_X: POSITION_X,
+        POSITION_Y: POSITION_Y,
+        POSITION: POSITION_X | POSITION_Y,
+        ROTATION: ROTATION$1,
+        COLOR_FILL: COLOR_FILL,
+        COLOR_STROKE: COLOR_STROKE,
+        COLOR_FILL_AND_STROKE: COLOR_FILL | COLOR_STROKE,
+        COLOR_TEXT: COLOR_TEXT,
+        COLOR_TEXT_OUTLINE: COLOR_TEXT_OUTLINE,
+        COLOR: COLOR_FILL | COLOR_STROKE | COLOR_TEXT | COLOR_TEXT_OUTLINE,
+        VISIBILITY: VISIBILITY,
+        HEIGHT: HEIGHT$1,
+        WIDTH: WIDTH$1,
+        SIZE: HEIGHT$1 | WIDTH$1,
+        TEXT: TEXT$2,
+        CURSOR: CURSOR$1
+    };
     var EShapeRuntime = /** @class */ (function () {
         function EShapeRuntime(shape) {
             var transform = shape.transform;
@@ -7913,15 +7942,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueBlinkType;
-    (function (EShapeActionValueBlinkType) {
-        EShapeActionValueBlinkType[EShapeActionValueBlinkType["VISIBILITY"] = 0] = "VISIBILITY";
-        EShapeActionValueBlinkType[EShapeActionValueBlinkType["BRIGHTEN"] = 1] = "BRIGHTEN";
-        EShapeActionValueBlinkType[EShapeActionValueBlinkType["DARKEN"] = 2] = "DARKEN";
-        EShapeActionValueBlinkType[EShapeActionValueBlinkType["OPACITY"] = 3] = "OPACITY";
-        EShapeActionValueBlinkType[EShapeActionValueBlinkType["COLOR_FILL"] = 4] = "COLOR_FILL";
-        EShapeActionValueBlinkType[EShapeActionValueBlinkType["COLOR_STROKE"] = 5] = "COLOR_STROKE";
-    })(EShapeActionValueBlinkType || (EShapeActionValueBlinkType = {}));
+    var EShapeActionValueBlinkType = {
+        VISIBILITY: 0,
+        BRIGHTEN: 1,
+        DARKEN: 2,
+        OPACITY: 3,
+        COLOR_FILL: 4,
+        COLOR_STROKE: 5
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -7964,19 +7992,20 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueType;
-    (function (EShapeActionValueType) {
-        EShapeActionValueType[EShapeActionValueType["SHOW_HIDE"] = 0] = "SHOW_HIDE";
-        EShapeActionValueType[EShapeActionValueType["BLINK"] = 1] = "BLINK";
-        EShapeActionValueType[EShapeActionValueType["TRANSFORM"] = 2] = "TRANSFORM";
-        EShapeActionValueType[EShapeActionValueType["OPEN"] = 3] = "OPEN";
-        EShapeActionValueType[EShapeActionValueType["EMIT_EVENT"] = 4] = "EMIT_EVENT";
-        EShapeActionValueType[EShapeActionValueType["CHANGE_COLOR_LEGACY"] = 5] = "CHANGE_COLOR_LEGACY";
-        EShapeActionValueType[EShapeActionValueType["CHANGE_TEXT"] = 6] = "CHANGE_TEXT";
-        EShapeActionValueType[EShapeActionValueType["CHANGE_CURSOR"] = 7] = "CHANGE_CURSOR";
-        EShapeActionValueType[EShapeActionValueType["MISC"] = 8] = "MISC";
-        EShapeActionValueType[EShapeActionValueType["CHANGE_COLOR"] = 9] = "CHANGE_COLOR";
-    })(EShapeActionValueType || (EShapeActionValueType = {}));
+    var EShapeActionValueType = {
+        SHOW_HIDE: 0,
+        BLINK: 1,
+        TRANSFORM: 2,
+        OPEN: 3,
+        /** @deprecated in favor of {@link EShapeActionValueMiscType.MISC} */
+        EMIT_EVENT: 4,
+        /** @deprecated in favor of {@link EShapeActionValueType.CHANGE_COLOR} */
+        CHANGE_COLOR_LEGACY: 5,
+        CHANGE_TEXT: 6,
+        CHANGE_CURSOR: 7,
+        MISC: 8,
+        CHANGE_COLOR: 9
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -8194,14 +8223,13 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueChangeColorTarget;
-    (function (EShapeActionValueChangeColorTarget) {
-        EShapeActionValueChangeColorTarget[EShapeActionValueChangeColorTarget["COLOR_AND_ALPHA"] = 0] = "COLOR_AND_ALPHA";
-        EShapeActionValueChangeColorTarget[EShapeActionValueChangeColorTarget["COLOR"] = 1] = "COLOR";
-        EShapeActionValueChangeColorTarget[EShapeActionValueChangeColorTarget["ALPHA"] = 2] = "ALPHA";
-        EShapeActionValueChangeColorTarget[EShapeActionValueChangeColorTarget["CODE"] = 3] = "CODE";
-        EShapeActionValueChangeColorTarget[EShapeActionValueChangeColorTarget["BRIGHTNESS"] = 4] = "BRIGHTNESS";
-    })(EShapeActionValueChangeColorTarget || (EShapeActionValueChangeColorTarget = {}));
+    var EShapeActionValueChangeColorTarget = {
+        COLOR_AND_ALPHA: 0,
+        COLOR: 1,
+        ALPHA: 2,
+        CODE: 3,
+        BRIGHTNESS: 4
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -8243,30 +8271,32 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueChangeColorType;
-    (function (EShapeActionValueChangeColorType) {
-        EShapeActionValueChangeColorType[EShapeActionValueChangeColorType["NONE"] = 0] = "NONE";
-        EShapeActionValueChangeColorType[EShapeActionValueChangeColorType["FILL"] = 1] = "FILL";
-        EShapeActionValueChangeColorType[EShapeActionValueChangeColorType["STROKE"] = 2] = "STROKE";
-        EShapeActionValueChangeColorType[EShapeActionValueChangeColorType["TEXT"] = 4] = "TEXT";
-        EShapeActionValueChangeColorType[EShapeActionValueChangeColorType["TEXT_OUTLINE"] = 8] = "TEXT_OUTLINE";
-        EShapeActionValueChangeColorType[EShapeActionValueChangeColorType["FILL_AND_STROKE"] = 3] = "FILL_AND_STROKE";
-        EShapeActionValueChangeColorType[EShapeActionValueChangeColorType["ALL"] = 15] = "ALL";
-    })(EShapeActionValueChangeColorType || (EShapeActionValueChangeColorType = {}));
+    var FILL$1 = 1;
+    var STROKE$1 = 2;
+    var TEXT$1 = 4;
+    var TEXT_OUTLINE = 8;
+    var EShapeActionValueChangeColorType = {
+        NONE: 0,
+        FILL: FILL$1,
+        STROKE: STROKE$1,
+        TEXT: TEXT$1,
+        TEXT_OUTLINE: TEXT_OUTLINE,
+        FILL_AND_STROKE: FILL$1 | STROKE$1,
+        ALL: FILL$1 | STROKE$1 | TEXT$1 | TEXT_OUTLINE
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueChangeColorTypeLegacy;
-    (function (EShapeActionValueChangeColorTypeLegacy) {
-        EShapeActionValueChangeColorTypeLegacy[EShapeActionValueChangeColorTypeLegacy["FILL"] = 0] = "FILL";
-        EShapeActionValueChangeColorTypeLegacy[EShapeActionValueChangeColorTypeLegacy["STROKE"] = 1] = "STROKE";
-        EShapeActionValueChangeColorTypeLegacy[EShapeActionValueChangeColorTypeLegacy["FILL_AND_STROKE"] = 2] = "FILL_AND_STROKE";
-        EShapeActionValueChangeColorTypeLegacy[EShapeActionValueChangeColorTypeLegacy["TEXT"] = 3] = "TEXT";
-        EShapeActionValueChangeColorTypeLegacy[EShapeActionValueChangeColorTypeLegacy["TEXT_OUTLINE"] = 4] = "TEXT_OUTLINE";
-        EShapeActionValueChangeColorTypeLegacy[EShapeActionValueChangeColorTypeLegacy["ALL"] = 5] = "ALL";
-    })(EShapeActionValueChangeColorTypeLegacy || (EShapeActionValueChangeColorTypeLegacy = {}));
+    var EShapeActionValueChangeColorTypeLegacy = {
+        FILL: 0,
+        STROKE: 1,
+        FILL_AND_STROKE: 2,
+        TEXT: 3,
+        TEXT_OUTLINE: 4,
+        ALL: 5
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -9082,208 +9112,220 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var REGEXP = /%(0|_|-|\+|\()?(\.\d+)?(Y(?:MD?)?|y(?:MD?)?|MD?|D|H(?:ms?)?|h(?:ms?)?|m(?:i|s)?|a|A|s(?:s?i|dt)?|z|%|f(?:si)?|e|g|d|r(?:d|p)|p|P|RP)/g;
+    var REGEXP = undefined;
+    var getRegExp = function () {
+        var result = REGEXP;
+        if (result) {
+            result.lastIndex = 0;
+        }
+        else {
+            result =
+                /%(0|_|-|\+|\()?(\.\d+)?(Y(?:MD?)?|y(?:MD?)?|MD?|D|H(?:ms?)?|h(?:ms?)?|m(?:i|s)?|a|A|s(?:s?i|dt)?|z|%|f(?:si)?|e|g|d|r(?:d|p)|p|P|RP)/g;
+            REGEXP = result;
+        }
+        return result;
+    };
+    var toModifiedDatetime = function (modifier, length, node) {
+        switch (modifier) {
+            case "_":
+                return new FormatNodePadding(length, " ", node);
+            case "-":
+                return node;
+            default:
+                return new FormatNodePadding(length, "0", node);
+        }
+    };
+    var toModifiedNumber = function (modifier, node) {
+        switch (modifier) {
+            case "_": // space for non-negative numbers
+                return new FormatNodeSpace(node);
+            case "+": // plus sign for non-negative numbers
+                return new FormatNodePlus(node);
+            case "(": // parenthesis for the negative numbers
+                return new FormatNodeParenthesis(node);
+            default:
+                return node;
+        }
+    };
+    var toParsed = function (format) {
+        var previousIndex = 0;
+        var isDateRequired = false;
+        var result = [];
+        var regExp = getRegExp();
+        while (true) {
+            var matched = regExp.exec(format);
+            if (matched != null) {
+                var index = matched.index;
+                if (previousIndex < index) {
+                    result.push(new FormatNodeString(format.substring(previousIndex, index)));
+                }
+                previousIndex = index + matched[0].length;
+                var all = matched[0];
+                var modifier = matched[1];
+                var precision = matched[2];
+                var specifier = matched[3];
+                switch (specifier) {
+                    case "Y": // full year
+                        isDateRequired = true;
+                        result.push(new FormatNodeY());
+                        break;
+                    case "YM":
+                        isDateRequired = true;
+                        result.push(new FormatNodeY(), new FormatNodeString("/"), toModifiedDatetime(modifier, 2, new FormatNodeM()));
+                        break;
+                    case "YMD":
+                        isDateRequired = true;
+                        result.push(new FormatNodeY(), new FormatNodeString("/"), toModifiedDatetime(modifier, 2, new FormatNodeM()), new FormatNodeString("/"), toModifiedDatetime(modifier, 2, new FormatNodeD()));
+                        break;
+                    case "y": // short year: [0, 99]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodey()));
+                        break;
+                    case "yM":
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodey()), new FormatNodeString("/"), toModifiedDatetime(modifier, 2, new FormatNodeM()));
+                        break;
+                    case "yMD":
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodey()), new FormatNodeString("/"), toModifiedDatetime(modifier, 2, new FormatNodeM()), new FormatNodeString("/"), toModifiedDatetime(modifier, 2, new FormatNodeD()));
+                        break;
+                    case "M": // month: [1, 12]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeM()));
+                        break;
+                    case "MD":
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeM()), new FormatNodeString("/"), toModifiedDatetime(modifier, 2, new FormatNodeD()));
+                        break;
+                    case "D": // day of the month: [1, 31]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeD()));
+                        break;
+                    case "H": // 24-hour clock: [0, 23]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeH()));
+                        break;
+                    case "Hm":
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeH()), new FormatNodeString(":"), toModifiedDatetime(modifier, 2, new FormatNodem()));
+                        break;
+                    case "Hms":
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeH()), new FormatNodeString(":"), toModifiedDatetime(modifier, 2, new FormatNodem()), new FormatNodeString(":"), toModifiedDatetime(modifier, 2, new FormatNodes()));
+                        break;
+                    case "h": // 12-hour clock: [1, 12]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeh()));
+                        break;
+                    case "hm":
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeh()), new FormatNodeString(":"), toModifiedDatetime(modifier, 2, new FormatNodem()));
+                        break;
+                    case "hms":
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodeh()), new FormatNodeString(":"), toModifiedDatetime(modifier, 2, new FormatNodem()), new FormatNodeString(":"), toModifiedDatetime(modifier, 2, new FormatNodes()));
+                        break;
+                    case "m": // minute [0, 59]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodem()));
+                        break;
+                    case "ms":
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodem()), new FormatNodeString(":"), toModifiedDatetime(modifier, 2, new FormatNodes()));
+                        break;
+                    case "mi": // milliseconds [0, 999]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 3, new FormatNodemi()));
+                        break;
+                    case "a": // am or pm
+                        isDateRequired = true;
+                        result.push(new FormatNodea());
+                        break;
+                    case "A": // AM or PM
+                        isDateRequired = true;
+                        result.push(new FormatNodeA());
+                        break;
+                    case "s": // seconds: [0, 61]
+                        isDateRequired = true;
+                        result.push(toModifiedDatetime(modifier, 2, new FormatNodes()));
+                        break;
+                    case "sdt":
+                        isDateRequired = true;
+                        result.push(new FormatNodesdt(new FormatNodeY(), toModifiedDatetime(modifier, 2, new FormatNodeM()), toModifiedDatetime(modifier, 2, new FormatNodeD()), toModifiedDatetime(modifier, 2, new FormatNodeH()), toModifiedDatetime(modifier, 2, new FormatNodem()), toModifiedDatetime(modifier, 2, new FormatNodes()), toModifiedDatetime(modifier, 3, new FormatNodemi())));
+                        break;
+                    case "z": // time zone
+                        isDateRequired = true;
+                        result.push(new FormatNodez());
+                        break;
+                    case "%": // a % literal
+                        result.push(new FormatNodeString("%"));
+                        break;
+                    case "f": // fixed point notation
+                        result.push(toModifiedNumber(modifier, new FormatNodef(precision)));
+                        break;
+                    case "e": // exponent notation
+                        result.push(toModifiedNumber(modifier, new FormatNodee(precision)));
+                        break;
+                    case "g": // %f or %e
+                        result.push(toModifiedNumber(modifier, new FormatNodeg(precision)));
+                        break;
+                    case "rd": // rounded decimal notation
+                        result.push(toModifiedNumber(modifier, new FormatNoderd()));
+                        break;
+                    case "d": // decimal notation
+                        result.push(toModifiedNumber(modifier, new FormatNoded()));
+                        break;
+                    case "P": // percent notation (Multiplied by 100)
+                        result.push(toModifiedNumber(modifier, new FormatNodeP()));
+                        break;
+                    case "p": // percent notation (Not multiplied by 100)
+                        result.push(toModifiedNumber(modifier, new FormatNodep()));
+                        break;
+                    case "RP": // percent notation (Multiplied by 100)
+                        result.push(toModifiedNumber(modifier, new FormatNodeRP()));
+                        break;
+                    case "rp": // percent notation (Not multiplied by 100)
+                        result.push(toModifiedNumber(modifier, new FormatNoderp()));
+                        break;
+                    case "fsi": // fixed point notation with a SI prefix
+                        result.push(toModifiedNumber(modifier, new FormatNodefsi(precision)));
+                        break;
+                    case "ssi": // Step-based fixed point notation with a SI prefix
+                        result.push(toModifiedNumber(modifier, new FormatNodessi(precision)));
+                        break;
+                    default:
+                        result.push(new FormatNodeString(all));
+                        break;
+                }
+            }
+            else {
+                if (previousIndex < format.length) {
+                    result.push(new FormatNodeString(format.substring(previousIndex, format.length)));
+                }
+                break;
+            }
+        }
+        return {
+            nodes: result,
+            date: isDateRequired
+        };
+    };
     /**
      * A NumberFormatter implementation class.
      */
     var NumberFormatterImpl = /** @class */ (function () {
         function NumberFormatterImpl(format) {
-            var previousIndex = 0;
-            var isDateRequired = false;
-            var nodes = [];
-            REGEXP.lastIndex = 0;
-            while (true) {
-                var matched = REGEXP.exec(format);
-                if (matched != null) {
-                    var index = matched.index;
-                    if (previousIndex < index) {
-                        nodes.push(new FormatNodeString(format.substring(previousIndex, index)));
-                    }
-                    previousIndex = index + matched[0].length;
-                    var all = matched[0];
-                    var modifier = matched[1];
-                    var precision = matched[2];
-                    var specifier = matched[3];
-                    switch (specifier) {
-                        case "Y": // full year
-                            isDateRequired = true;
-                            nodes.push(new FormatNodeY());
-                            break;
-                        case "YM":
-                            isDateRequired = true;
-                            nodes.push(new FormatNodeY(), new FormatNodeString("/"), this.toModifiedNodeDatetime2(modifier, new FormatNodeM()));
-                            break;
-                        case "YMD":
-                            isDateRequired = true;
-                            nodes.push(new FormatNodeY(), new FormatNodeString("/"), this.toModifiedNodeDatetime2(modifier, new FormatNodeM()), new FormatNodeString("/"), this.toModifiedNodeDatetime2(modifier, new FormatNodeD()));
-                            break;
-                        case "y": // short year: [0, 99]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodey()));
-                            break;
-                        case "yM":
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodey()), new FormatNodeString("/"), this.toModifiedNodeDatetime2(modifier, new FormatNodeM()));
-                            break;
-                        case "yMD":
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodey()), new FormatNodeString("/"), this.toModifiedNodeDatetime2(modifier, new FormatNodeM()), new FormatNodeString("/"), this.toModifiedNodeDatetime2(modifier, new FormatNodeD()));
-                            break;
-                        case "M": // month: [1, 12]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeM()));
-                            break;
-                        case "MD":
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeM()), new FormatNodeString("/"), this.toModifiedNodeDatetime2(modifier, new FormatNodeD()));
-                            break;
-                        case "D": // day of the month: [1, 31]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeD()));
-                            break;
-                        case "H": // 24-hour clock: [0, 23]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeH()));
-                            break;
-                        case "Hm":
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeH()), new FormatNodeString(":"), this.toModifiedNodeDatetime2(modifier, new FormatNodem()));
-                            break;
-                        case "Hms":
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeH()), new FormatNodeString(":"), this.toModifiedNodeDatetime2(modifier, new FormatNodem()), new FormatNodeString(":"), this.toModifiedNodeDatetime2(modifier, new FormatNodes()));
-                            break;
-                        case "h": // 12-hour clock: [1, 12]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeh()));
-                            break;
-                        case "hm":
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeh()), new FormatNodeString(":"), this.toModifiedNodeDatetime2(modifier, new FormatNodem()));
-                            break;
-                        case "hms":
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodeh()), new FormatNodeString(":"), this.toModifiedNodeDatetime2(modifier, new FormatNodem()), new FormatNodeString(":"), this.toModifiedNodeDatetime2(modifier, new FormatNodes()));
-                            break;
-                        case "m": // minute [0, 59]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodem()));
-                            break;
-                        case "ms":
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodem()), new FormatNodeString(":"), this.toModifiedNodeDatetime2(modifier, new FormatNodes()));
-                            break;
-                        case "mi": // milliseconds [0, 999]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime3(modifier, new FormatNodemi()));
-                            break;
-                        case "a": // am or pm
-                            isDateRequired = true;
-                            nodes.push(new FormatNodea());
-                            break;
-                        case "A": // AM or PM
-                            isDateRequired = true;
-                            nodes.push(new FormatNodeA());
-                            break;
-                        case "s": // seconds: [0, 61]
-                            isDateRequired = true;
-                            nodes.push(this.toModifiedNodeDatetime2(modifier, new FormatNodes()));
-                            break;
-                        case "sdt":
-                            isDateRequired = true;
-                            nodes.push(new FormatNodesdt(new FormatNodeY(), this.toModifiedNodeDatetime2(modifier, new FormatNodeM()), this.toModifiedNodeDatetime2(modifier, new FormatNodeD()), this.toModifiedNodeDatetime2(modifier, new FormatNodeH()), this.toModifiedNodeDatetime2(modifier, new FormatNodem()), this.toModifiedNodeDatetime2(modifier, new FormatNodes()), this.toModifiedNodeDatetime3(modifier, new FormatNodemi())));
-                            break;
-                        case "z": // time zone
-                            isDateRequired = true;
-                            nodes.push(new FormatNodez());
-                            break;
-                        case "%": // a % literal
-                            nodes.push(new FormatNodeString("%"));
-                            break;
-                        case "f": // fixed point notation
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodef(precision)));
-                            break;
-                        case "e": // exponent notation
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodee(precision)));
-                            break;
-                        case "g": // %f or %e
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodeg(precision)));
-                            break;
-                        case "rd": // rounded decimal notation
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNoderd()));
-                            break;
-                        case "d": // decimal notation
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNoded()));
-                            break;
-                        case "P": // percent notation (Multiplied by 100)
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodeP()));
-                            break;
-                        case "p": // percent notation (Not multiplied by 100)
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodep()));
-                            break;
-                        case "RP": // percent notation (Multiplied by 100)
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodeRP()));
-                            break;
-                        case "rp": // percent notation (Not multiplied by 100)
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNoderp()));
-                            break;
-                        case "fsi": // fixed point notation with a SI prefix
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodefsi(precision)));
-                            break;
-                        case "ssi": // Step-based fixed point notation with a SI prefix
-                            nodes.push(this.toModifiedNodeNumber(modifier, new FormatNodessi(precision)));
-                            break;
-                        default:
-                            nodes.push(new FormatNodeString(all));
-                            break;
-                    }
-                }
-                else {
-                    if (previousIndex < format.length) {
-                        nodes.push(new FormatNodeString(format.substring(previousIndex, format.length)));
-                    }
-                    break;
-                }
-            }
-            this.isDateRequired = isDateRequired;
-            this.nodes = nodes;
-            this.date = new Date();
+            var parsed = toParsed(format);
+            this.date = parsed.date;
+            this.nodes = parsed.nodes;
         }
-        NumberFormatterImpl.prototype.toModifiedNodeDatetime2 = function (modifier, node) {
-            switch (modifier) {
-                case "_":
-                    return new FormatNodePadding(2, " ", node);
-                case "-":
-                    return node;
-                default:
-                    return new FormatNodePadding(2, "0", node);
-            }
-        };
-        NumberFormatterImpl.prototype.toModifiedNodeDatetime3 = function (modifier, node) {
-            switch (modifier) {
-                case "_":
-                    return new FormatNodePadding(3, " ", node);
-                case "-":
-                    return node;
-                default:
-                    return new FormatNodePadding(3, "0", node);
-            }
-        };
-        NumberFormatterImpl.prototype.toModifiedNodeNumber = function (modifier, node) {
-            switch (modifier) {
-                case "_": // space for non-negative numbers
-                    return new FormatNodeSpace(node);
-                case "+": // plus sign for non-negative numbers
-                    return new FormatNodePlus(node);
-                case "(": // parenthesis for the negative numbers
-                    return new FormatNodeParenthesis(node);
-                default:
-                    return node;
-            }
-        };
         NumberFormatterImpl.prototype.format = function (target, step) {
             var nodes = this.nodes;
-            var date = this.date;
-            if (this.isDateRequired) {
+            var date = NumberFormatterImpl.DATE;
+            if (date == null) {
+                date = new Date();
+                NumberFormatterImpl.DATE = date;
+            }
+            if (this.date) {
                 date.setTime(target);
             }
             var result = "";
@@ -9381,11 +9423,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueChangeTextType;
-    (function (EShapeActionValueChangeTextType) {
-        EShapeActionValueChangeTextType[EShapeActionValueChangeTextType["TEXT"] = 0] = "TEXT";
-        EShapeActionValueChangeTextType[EShapeActionValueChangeTextType["NUMBER"] = 1] = "NUMBER";
-    })(EShapeActionValueChangeTextType || (EShapeActionValueChangeTextType = {}));
+    var EShapeActionValueChangeTextType = {
+        TEXT: 0,
+        NUMBER: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -9513,29 +9554,32 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var TOP = 1;
+    var RIGHT = 2;
+    var BOTTOM = 4;
+    var LEFT = 8;
     /**
      * A border mask.
      * Borders on masked parts are not rendered.
      */
-    var DBorderMask;
-    (function (DBorderMask) {
-        DBorderMask[DBorderMask["NONE"] = 0] = "NONE";
-        DBorderMask[DBorderMask["TOP"] = 1] = "TOP";
-        DBorderMask[DBorderMask["RIGHT"] = 2] = "RIGHT";
-        DBorderMask[DBorderMask["BOTTOM"] = 4] = "BOTTOM";
-        DBorderMask[DBorderMask["LEFT"] = 8] = "LEFT";
-        DBorderMask[DBorderMask["TOP_RIGHT"] = 3] = "TOP_RIGHT";
-        DBorderMask[DBorderMask["TOP_BOTTOM"] = 5] = "TOP_BOTTOM";
-        DBorderMask[DBorderMask["TOP_LEFT"] = 9] = "TOP_LEFT";
-        DBorderMask[DBorderMask["RIGHT_BOTTOM"] = 6] = "RIGHT_BOTTOM";
-        DBorderMask[DBorderMask["RIGHT_LEFT"] = 10] = "RIGHT_LEFT";
-        DBorderMask[DBorderMask["BOTTOM_LEFT"] = 12] = "BOTTOM_LEFT";
-        DBorderMask[DBorderMask["NOT_TOP"] = 14] = "NOT_TOP";
-        DBorderMask[DBorderMask["NOT_RIGHT"] = 13] = "NOT_RIGHT";
-        DBorderMask[DBorderMask["NOT_BOTTOM"] = 11] = "NOT_BOTTOM";
-        DBorderMask[DBorderMask["NOT_LEFT"] = 7] = "NOT_LEFT";
-        DBorderMask[DBorderMask["ALL"] = 15] = "ALL";
-    })(DBorderMask || (DBorderMask = {}));
+    var DBorderMask = {
+        NONE: 0,
+        TOP: TOP,
+        RIGHT: RIGHT,
+        BOTTOM: BOTTOM,
+        LEFT: LEFT,
+        TOP_RIGHT: TOP | RIGHT,
+        TOP_BOTTOM: TOP | BOTTOM,
+        TOP_LEFT: TOP | LEFT,
+        RIGHT_BOTTOM: RIGHT | BOTTOM,
+        RIGHT_LEFT: RIGHT | LEFT,
+        BOTTOM_LEFT: BOTTOM | LEFT,
+        NOT_TOP: RIGHT | BOTTOM | LEFT,
+        NOT_RIGHT: TOP | BOTTOM | LEFT,
+        NOT_BOTTOM: TOP | RIGHT | LEFT,
+        NOT_LEFT: TOP | RIGHT | BOTTOM,
+        ALL: TOP | RIGHT | BOTTOM | LEFT
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -9721,19 +9765,26 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DCornerMask;
-    (function (DCornerMask) {
-        DCornerMask[DCornerMask["NONE"] = 0] = "NONE";
-        DCornerMask[DCornerMask["TOP_LEFT"] = 1] = "TOP_LEFT";
-        DCornerMask[DCornerMask["TOP_RIGHT"] = 2] = "TOP_RIGHT";
-        DCornerMask[DCornerMask["BOTTOM_LEFT"] = 4] = "BOTTOM_LEFT";
-        DCornerMask[DCornerMask["BOTTOM_RIGHT"] = 8] = "BOTTOM_RIGHT";
-        DCornerMask[DCornerMask["TOP"] = 3] = "TOP";
-        DCornerMask[DCornerMask["BOTTOM"] = 12] = "BOTTOM";
-        DCornerMask[DCornerMask["LEFT"] = 5] = "LEFT";
-        DCornerMask[DCornerMask["RIGHT"] = 10] = "RIGHT";
-        DCornerMask[DCornerMask["ALL"] = 15] = "ALL";
-    })(DCornerMask || (DCornerMask = {}));
+    var TOP_LEFT = 1;
+    var TOP_RIGHT = 2;
+    var BOTTOM_LEFT = 4;
+    var BOTTOM_RIGHT = 8;
+    /**
+     * A corner mask.
+     * Masked corners are rendered as if the corner radius is zero.
+     */
+    var DCornerMask = {
+        NONE: 0,
+        TOP_LEFT: TOP_LEFT,
+        TOP_RIGHT: TOP_RIGHT,
+        BOTTOM_LEFT: BOTTOM_LEFT,
+        BOTTOM_RIGHT: BOTTOM_RIGHT,
+        TOP: TOP_LEFT | TOP_RIGHT,
+        BOTTOM: BOTTOM_LEFT | BOTTOM_RIGHT,
+        LEFT: TOP_LEFT | BOTTOM_LEFT,
+        RIGHT: TOP_RIGHT | BOTTOM_RIGHT,
+        ALL: TOP_LEFT | TOP_RIGHT | BOTTOM_LEFT | BOTTOM_RIGHT
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -9823,32 +9874,31 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var SELF = 1;
+    var CHILDREN$1 = 2;
     /**
      * DBase interactivity.
      * Mouse / touch events are triggered only on interactive objects.
      */
-    var DBaseInteractive;
-    (function (DBaseInteractive) {
+    var DBaseInteractive = {
         /**
          * Not interactive.
          */
-        DBaseInteractive[DBaseInteractive["NONE"] = 0] = "NONE";
+        NONE: 0,
         /**
          * Interactive.
-         * However children are not interactive.
          */
-        DBaseInteractive[DBaseInteractive["SELF"] = 1] = "SELF";
+        SELF: SELF,
         /**
-         * Not interactive.
-         * However children are interactive.
+         * Children are interactive.
          */
-        DBaseInteractive[DBaseInteractive["CHILDREN"] = 2] = "CHILDREN";
+        CHILDREN: CHILDREN$1,
         /**
          * Interactive.
-         * Children are also interactive.
+         * And also children are interactive.
          */
-        DBaseInteractive[DBaseInteractive["BOTH"] = 3] = "BOTH";
-    })(DBaseInteractive || (DBaseInteractive = {}));
+        BOTH: SELF | CHILDREN$1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -10287,17 +10337,16 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DBaseBackgroundMeshGeometry = /** @class */ (function (_super) {
-        __extends(DBaseBackgroundMeshGeometry, _super);
-        function DBaseBackgroundMeshGeometry(texture, width, height, borderSize, cornerMask) {
-            var _this = _super.call(this, new Float32Array(72), new Float32Array(72), new Uint16Array(54)) || this;
-            _this._width = width;
-            _this._height = height;
-            _this._texture = texture;
-            _this._borderSize = borderSize;
-            _this._cornerMask = cornerMask;
+    var DBaseMeshGeometry = /** @class */ (function (_super) {
+        __extends(DBaseMeshGeometry, _super);
+        function DBaseMeshGeometry(vertices, uvs, indices) {
+            var _this = _super.call(this, vertices, uvs, indices) || this;
+            _this._width = 100;
+            _this._height = 100;
+            _this._cornerRadius = 0;
+            _this._cornerMask = DCornerMask.NONE;
             _this._isDirty = true;
-            _this._textureId = NaN;
+            _this._resolution = 1;
             _this._vertexBuffer = _this.getBuffer("aVertexPosition");
             _this._vertices = _this._vertexBuffer.data;
             _this._uvBuffer = _this.getBuffer("aTextureCoord");
@@ -10306,33 +10355,7 @@
             _this._indices = _this._indexBuffer.data;
             return _this;
         }
-        Object.defineProperty(DBaseBackgroundMeshGeometry.prototype, "borderSize", {
-            get: function () {
-                return this._borderSize;
-            },
-            set: function (borderSize) {
-                if (this._borderSize !== borderSize) {
-                    this._borderSize = borderSize;
-                    this._isDirty = true;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseBackgroundMeshGeometry.prototype, "cornerMask", {
-            get: function () {
-                return this._cornerMask;
-            },
-            set: function (cornerMask) {
-                if (this._cornerMask !== cornerMask) {
-                    this._cornerMask = cornerMask;
-                    this._isDirty = true;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseBackgroundMeshGeometry.prototype, "width", {
+        Object.defineProperty(DBaseMeshGeometry.prototype, "width", {
             get: function () {
                 return this._width;
             },
@@ -10345,7 +10368,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseBackgroundMeshGeometry.prototype, "height", {
+        Object.defineProperty(DBaseMeshGeometry.prototype, "height", {
             get: function () {
                 return this._height;
             },
@@ -10358,166 +10381,239 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseBackgroundMeshGeometry.prototype, "texture", {
+        Object.defineProperty(DBaseMeshGeometry.prototype, "cornerRadius", {
             get: function () {
-                return this._texture;
+                return this._cornerRadius;
             },
-            set: function (texture) {
-                if (this._texture !== texture) {
-                    this._texture = texture;
+            set: function (borderSize) {
+                if (this._cornerRadius !== borderSize) {
+                    this._cornerRadius = borderSize;
                     this._isDirty = true;
-                    this._textureId = NaN;
                 }
             },
             enumerable: false,
             configurable: true
         });
-        DBaseBackgroundMeshGeometry.prototype.getTextureId = function () {
-            return this._texture._updateID;
-        };
-        DBaseBackgroundMeshGeometry.prototype.fillVertices = function (iv, array, x0, x1, y0, y1) {
-            array[iv] = x0;
-            array[++iv] = y0;
-            array[++iv] = x1;
-            array[++iv] = y0;
-            array[++iv] = x0;
-            array[++iv] = y1;
-            array[++iv] = x1;
-            array[++iv] = y1;
-        };
-        DBaseBackgroundMeshGeometry.prototype.fillIndices = function (ii, indices, iv) {
-            indices[ii] = iv;
-            indices[++ii] = iv + 1;
-            indices[++ii] = iv + 2;
-            indices[++ii] = iv + 1;
-            indices[++ii] = iv + 3;
-            indices[++ii] = iv + 2;
-        };
-        DBaseBackgroundMeshGeometry.prototype.fillUvsCorner = function (iv, uvs, c, u0, u1, u2, u3, v0, v1, v2, v3) {
-            if (c) {
-                this.fillVertices(iv, uvs, u0, u1, v0, v1);
+        Object.defineProperty(DBaseMeshGeometry.prototype, "cornerMask", {
+            get: function () {
+                return this._cornerMask;
+            },
+            set: function (cornerMask) {
+                if (this._cornerMask !== cornerMask) {
+                    this._cornerMask = cornerMask;
+                    this._isDirty = true;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DBaseMeshGeometry.prototype.getTables = function () {
+            var result = DBaseMeshGeometry.TABLES;
+            if (result == null) {
+                result = this.newTables(DBaseMeshGeometry.N);
+                DBaseMeshGeometry.TABLES = result;
             }
-            else {
-                this.fillVertices(iv, uvs, u3, u2, v0, v1);
+            return result;
+        };
+        DBaseMeshGeometry.prototype.newTables = function (n) {
+            var dp = 1.0 / (n - 1);
+            var da = 0.5 * dp;
+            return [
+                this.newTable(n, 1.0, da),
+                this.newTable(n, 0.5, da),
+                this.newTable(n, 0.0, da),
+                this.newTable(n, 1.5, da)
+            ];
+        };
+        DBaseMeshGeometry.prototype.newTable = function (n, a0, da) {
+            var cos = [];
+            var sin = [];
+            var pi = Math.PI;
+            for (var i = 0, a = a0; i < n; i += 1, a -= da) {
+                var t = a * pi;
+                var c = +Math.cos(t);
+                var s = -Math.sin(t);
+                cos.push(c);
+                sin.push(s);
+            }
+            return {
+                cos: cos,
+                sin: sin
+            };
+        };
+        DBaseMeshGeometry.N = 4;
+        return DBaseMeshGeometry;
+    }(pixi_js.MeshGeometry));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DBaseBackgroundMeshGeometry = /** @class */ (function (_super) {
+        __extends(DBaseBackgroundMeshGeometry, _super);
+        function DBaseBackgroundMeshGeometry() {
+            return _super.call(this, new Float32Array(16 * DBaseMeshGeometry.N), new Float32Array(16 * DBaseMeshGeometry.N), new Uint16Array(3 * (12 * DBaseMeshGeometry.N - 2))) || this;
+        }
+        DBaseBackgroundMeshGeometry.prototype.fillVertices = function (vertices, uvs, iv, iuv, n, x, y, r, dr, table) {
+            var cos = table.cos;
+            var sin = table.sin;
+            var cos0 = cos[0];
+            var sin0 = sin[0];
+            var cos1 = cos[n - 1];
+            var sin1 = sin[n - 1];
+            for (var i = 0; i < n; ++i) {
+                var c = cos[i];
+                var s = sin[i];
+                var dro = dr;
+                var d0 = c * cos0 + s * sin0;
+                if (0.0001 < d0) {
+                    dro = Math.min(dro, (1 / d0 - 1) * r);
+                }
+                var d1 = c * cos1 + s * sin1;
+                if (0.0001 < d1) {
+                    dro = Math.min(dro, (1 / d1 - 1) * r);
+                }
+                var ro = r + dro;
+                vertices[++iv] = x + c * r;
+                vertices[++iv] = y + s * r;
+                vertices[++iv] = x + c * ro;
+                vertices[++iv] = y + s * ro;
+                uvs[++iuv] = 0.5;
+                uvs[++iuv] = 0.5;
+                uvs[++iuv] = 0.5 * (1 + c);
+                uvs[++iuv] = 0.5 * (1 + s);
             }
         };
-        DBaseBackgroundMeshGeometry.prototype.fillUvs = function (iv, uvs, u0, u1, v0, v1) {
-            this.fillVertices(iv, uvs, u0, u1, v0, v1);
-        };
-        DBaseBackgroundMeshGeometry.prototype.update = function () {
-            var texture = this.texture;
-            if (!texture.valid) {
-                return;
+        DBaseBackgroundMeshGeometry.prototype.fillIndices = function (indices, ia, ii, n) {
+            for (var i = 0; i < n; ++i) {
+                indices[++ii] = ia + 0;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 2;
+                indices[++ii] = ia + 2;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 3;
+                ia += 2;
             }
-            var textureId = this.getTextureId();
-            if (this._isDirty || this._textureId !== textureId) {
+        };
+        DBaseBackgroundMeshGeometry.prototype.fillIndicesEnd = function (indices, ia, ii, n) {
+            for (var i = 0, imax = n - 1; i < imax; ++i) {
+                indices[++ii] = ia + 0;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 2;
+                indices[++ii] = ia + 2;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 3;
+                ia += 2;
+            }
+            indices[++ii] = ia + 0;
+            indices[++ii] = ia + 1;
+            indices[++ii] = 0;
+            indices[++ii] = 0;
+            indices[++ii] = ia + 1;
+            indices[++ii] = 1;
+            ia += 2;
+        };
+        DBaseBackgroundMeshGeometry.prototype.update = function (renderer) {
+            var resolution = renderer.resolution;
+            if (this._isDirty || this._resolution !== resolution) {
                 this._isDirty = false;
-                this._textureId = textureId;
+                this._resolution = resolution;
                 var vertices = this._vertices;
                 var uvs = this._uvs;
                 var indices = this._indices;
-                var width = this._width;
-                var height = this._height;
-                var borderSize = this._borderSize;
+                var w = this._width;
+                var h = this._height;
+                var r = Math.min(0.5 * w, 0.5 * h, this._cornerRadius);
+                var a = 1 / resolution;
                 var x0 = 0;
-                var x1 = Math.min(width * 0.5, borderSize);
-                var x2 = Math.max(width * 0.5, width - borderSize);
-                var x3 = width;
+                var x1 = r;
+                var x2 = w - r;
+                var x3 = w;
                 var y0 = 0;
-                var y1 = Math.min(height * 0.5, borderSize);
-                var y2 = Math.max(height * 0.5, height - borderSize);
-                var y3 = height;
-                var textureUvs = texture._uvs;
-                var l = textureUvs.x0;
-                var r = textureUvs.x1;
-                var t = textureUvs.y0;
-                var b = textureUvs.y3;
-                var w = (r - l) * (borderSize / texture.width);
-                var h = (b - t) * (borderSize / texture.height);
-                var u0 = l;
-                var u1 = l + w;
-                var u2 = r - w;
-                var u3 = r;
-                var v0 = t;
-                var v1 = t + h;
-                var v2 = b - h;
-                var v3 = b;
+                var y1 = r;
+                var y2 = h - r;
+                var y3 = h;
                 var cornerMask = this._cornerMask;
                 var ctl = !(cornerMask & DCornerMask.TOP_LEFT);
                 var ctr = !(cornerMask & DCornerMask.TOP_RIGHT);
                 var cbl = !(cornerMask & DCornerMask.BOTTOM_LEFT);
                 var cbr = !(cornerMask & DCornerMask.BOTTOM_RIGHT);
                 // Vertices & UVs
-                var iv = 0;
+                var iv = -1;
+                var iuv = -1;
                 var ia = 0;
-                var ii = 0;
-                // Top left
-                this.fillVertices(iv, vertices, x0, x1, y0, y1);
-                this.fillUvsCorner(iv, uvs, ctl, u0, u1, u2, u3, v0, v1, v2, v3);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Top middle
-                this.fillVertices(iv, vertices, x1, x2, y0, y1);
-                this.fillUvs(iv, uvs, u1, u2, v0, v1);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Top right
-                this.fillVertices(iv, vertices, x3, x2, y0, y1);
-                this.fillUvsCorner(iv, uvs, ctr, u0, u1, u2, u3, v0, v1, v2, v3);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Middle left
-                this.fillVertices(iv, vertices, x0, x1, y1, y2);
-                this.fillUvs(iv, uvs, u0, u1, v1, v2);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Middle
-                this.fillVertices(iv, vertices, x1, x2, y1, y2);
-                this.fillUvs(iv, uvs, u1, u2, v1, v2);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Middle right
-                this.fillVertices(iv, vertices, x2, x3, y1, y2);
-                this.fillUvs(iv, uvs, u2, u3, v1, v2);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Bottom left
-                this.fillVertices(iv, vertices, x0, x1, y3, y2);
-                this.fillUvsCorner(iv, uvs, cbl, u0, u1, u2, u3, v0, v1, v2, v3);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Bottom middle
-                this.fillVertices(iv, vertices, x1, x2, y2, y3);
-                this.fillUvs(iv, uvs, u1, u2, v2, v3);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Bottom right
-                this.fillVertices(iv, vertices, x3, x2, y3, y2);
-                this.fillUvsCorner(iv, uvs, cbr, u3, u2, u1, u0, v3, v2, v1, v0);
-                this.fillIndices(ii, indices, ia);
+                var ii = -1;
+                var n = DBaseMeshGeometry.N;
+                var n4 = n << 2;
+                var n2 = n << 1;
+                var n6 = 6 * n;
+                var tables = this.getTables();
+                var tlt = tables[0];
+                var ttr = tables[1];
+                var trb = tables[2];
+                var tbl = tables[3];
+                // left -> top
+                if (ctl) {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x1, y1, r, a, tlt);
+                }
+                else {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x0, y0, 0, 0, tlt);
+                }
+                this.fillIndices(indices, ia, ii, n);
+                iv += n4;
+                iuv += n4;
+                ia += n2;
+                ii += n6;
+                // top -> right
+                if (ctr) {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x2, y1, r, a, ttr);
+                }
+                else {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x3, y0, 0, 0, ttr);
+                }
+                this.fillIndices(indices, ia, ii, n);
+                iv += n4;
+                iuv += n4;
+                ia += n2;
+                ii += n6;
+                // right -> bottom
+                if (cbr) {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x2, y2, r, a, trb);
+                }
+                else {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x3, y3, 0, 0, trb);
+                }
+                this.fillIndices(indices, ia, ii, n);
+                iv += n4;
+                iuv += n4;
+                ia += n2;
+                ii += n6;
+                // bottom -> left
+                if (cbl) {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x1, y2, r, a, tbl);
+                }
+                else {
+                    this.fillVertices(vertices, uvs, iv, iuv, n, x0, y3, 0, 0, tbl);
+                }
+                this.fillIndicesEnd(indices, ia, ii, n);
+                iv += n4;
+                iuv += n4;
+                ia += n2;
+                ii += n6;
+                // Center
+                ia = 2;
+                for (var i = 1, imax = 4 * n - 1; i < imax; i += 1, ia += 2) {
+                    indices[++ii] = 0;
+                    indices[++ii] = ia;
+                    indices[++ii] = ia + 2;
+                }
                 this._vertexBuffer.update();
                 this._uvBuffer.update();
                 this._indexBuffer.update();
             }
         };
         return DBaseBackgroundMeshGeometry;
-    }(pixi_js.MeshGeometry));
+    }(DBaseMeshGeometry));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -10525,23 +10621,13 @@
      */
     var DBaseBackgroundMesh = /** @class */ (function (_super) {
         __extends(DBaseBackgroundMesh, _super);
-        function DBaseBackgroundMesh(texture, borderSize, cornerMask) {
-            return _super.call(this, new DBaseBackgroundMeshGeometry(texture, 100, 100, borderSize, cornerMask), new pixi_js.MeshMaterial(texture)) || this;
+        function DBaseBackgroundMesh(texture) {
+            var _this = _super.call(this, new DBaseBackgroundMeshGeometry(), new pixi_js.MeshMaterial(texture)) || this;
+            texture.on("update", function () {
+                DApplications.update(_this);
+            });
+            return _this;
         }
-        Object.defineProperty(DBaseBackgroundMesh.prototype, "texture", {
-            // @ts-ignore
-            get: function () {
-                return this.shader.texture;
-            },
-            set: function (texture) {
-                if (this.shader.texture !== texture) {
-                    this.shader.texture = texture;
-                    this.geometry.texture = texture;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(DBaseBackgroundMesh.prototype, "width", {
             // @ts-ignore
             get: function () {
@@ -10564,12 +10650,12 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseBackgroundMesh.prototype, "borderSize", {
+        Object.defineProperty(DBaseBackgroundMesh.prototype, "cornerRadius", {
             get: function () {
-                return this.geometry.borderSize;
+                return this.geometry.cornerRadius;
             },
-            set: function (borderSize) {
-                this.geometry.borderSize = borderSize;
+            set: function (cornerRadius) {
+                this.geometry.cornerRadius = cornerRadius;
             },
             enumerable: false,
             configurable: true
@@ -10585,11 +10671,8 @@
             configurable: true
         });
         DBaseBackgroundMesh.prototype._render = function (renderer) {
-            this.geometry.update();
+            this.geometry.update(renderer);
             _super.prototype._render.call(this, renderer);
-        };
-        DBaseBackgroundMesh.prototype.update = function () {
-            this.geometry.update();
         };
         return DBaseBackgroundMesh;
     }(pixi_js.Mesh));
@@ -10600,20 +10683,13 @@
      */
     var DBaseBackgroundSnippet = /** @class */ (function () {
         function DBaseBackgroundSnippet() {
-            this._cornerRadius = 0;
         }
-        DBaseBackgroundSnippet.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask) {
+        DBaseBackgroundSnippet.prototype.get = function (base, theme) {
             var result = this._mesh;
             if (result == null) {
-                result = new DBaseBackgroundMesh(theme.getBackgroundTexture(cornerRadius), cornerHeight, cornerMask);
+                result = new DBaseBackgroundMesh(theme.getBackgroundTexture());
                 result.parent = base;
                 this._mesh = result;
-                this._cornerRadius = cornerRadius;
-            }
-            if (this._cornerRadius !== cornerRadius) {
-                this._cornerRadius = cornerRadius;
-                result.texture = theme.getBackgroundTexture(cornerRadius);
-                result.borderSize = cornerHeight;
             }
             return result;
         };
@@ -10623,17 +10699,18 @@
                 mesh.visible = false;
             }
         };
-        DBaseBackgroundSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
+        DBaseBackgroundSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerMask) {
             var background = base.background;
             var backgroundColor = background.getColor(state);
             if (backgroundColor != null) {
                 var backgroundAlpha = background.getAlpha(state);
                 if (0 < backgroundAlpha) {
-                    var backgroundMesh = this.get(base, theme, cornerRadius, cornerHeight, cornerMask);
+                    var backgroundMesh = this.get(base, theme);
                     backgroundMesh.tint = backgroundColor;
                     backgroundMesh.alpha = backgroundAlpha;
                     backgroundMesh.width = width;
                     backgroundMesh.height = height;
+                    backgroundMesh.cornerRadius = cornerRadius;
                     backgroundMesh.cornerMask = cornerMask;
                     backgroundMesh.visible = true;
                 }
@@ -10662,24 +10739,25 @@
      */
     var DBaseBorderMeshGeometry = /** @class */ (function (_super) {
         __extends(DBaseBorderMeshGeometry, _super);
-        function DBaseBorderMeshGeometry(texture, width, height, borderSize, borderMask, cornerMask) {
-            var _this = _super.call(this, new Float32Array(64), new Float32Array(64), new Uint16Array(48)) || this;
-            _this._width = width;
-            _this._height = height;
-            _this._texture = texture;
-            _this._borderSize = borderSize;
-            _this._borderMask = borderMask;
-            _this._cornerMask = cornerMask;
-            _this._isDirty = true;
-            _this._textureId = NaN;
-            _this._vertexBuffer = _this.getBuffer("aVertexPosition");
-            _this._vertices = _this._vertexBuffer.data;
-            _this._uvBuffer = _this.getBuffer("aTextureCoord");
-            _this._uvs = _this._uvBuffer.data;
-            _this._indexBuffer = _this.getIndex();
-            _this._indices = _this._indexBuffer.data;
+        function DBaseBorderMeshGeometry() {
+            var _this = _super.call(this, new Float32Array(32 * DBaseMeshGeometry.N), new Float32Array(32 * DBaseMeshGeometry.N), new Uint16Array(4 * 18 * DBaseMeshGeometry.N)) || this;
+            _this._borderWidth = 0;
+            _this._borderMask = DBorderMask.NONE;
             return _this;
         }
+        Object.defineProperty(DBaseBorderMeshGeometry.prototype, "borderWidth", {
+            get: function () {
+                return this._borderWidth;
+            },
+            set: function (borderWidth) {
+                if (this._borderWidth !== borderWidth) {
+                    this._borderWidth = borderWidth;
+                    this._isDirty = true;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DBaseBorderMeshGeometry.prototype, "borderMask", {
             get: function () {
                 return this._borderMask;
@@ -10693,155 +10771,180 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseBorderMeshGeometry.prototype, "cornerMask", {
-            get: function () {
-                return this._cornerMask;
-            },
-            set: function (cornerMask) {
-                if (this._cornerMask !== cornerMask) {
-                    this._cornerMask = cornerMask;
-                    this._isDirty = true;
+        DBaseBorderMeshGeometry.prototype.fillVertices = function (vertices, uvs, iv, iuv, n, x, y, r, dr, borderWidth, table) {
+            var borderWidthHalf = 0.5 * borderWidth;
+            var r0 = r - borderWidthHalf;
+            var r2 = r + borderWidthHalf;
+            var cos = table.cos;
+            var sin = table.sin;
+            var cos0 = cos[0];
+            var sin0 = sin[0];
+            var cos1 = cos[n - 1];
+            var sin1 = sin[n - 1];
+            var x1 = x + (cos0 + cos1) * r0;
+            var y1 = y + (sin0 + sin1) * r0;
+            for (var i = 0; i < n; ++i) {
+                var c = cos[i];
+                var s = sin[i];
+                var dr1 = dr;
+                var dr2 = dr;
+                var d0 = c * cos0 + s * sin0;
+                if (0.0001 < d0) {
+                    var d0i = 1 / d0 - 1;
+                    dr1 = Math.min(dr1, d0i * r0);
+                    dr2 = Math.min(dr2, d0i * r2);
                 }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseBorderMeshGeometry.prototype, "borderSize", {
-            get: function () {
-                return this._borderSize;
-            },
-            set: function (borderSize) {
-                if (this._borderSize !== borderSize) {
-                    this._borderSize = borderSize;
-                    this._isDirty = true;
+                var d1 = c * cos1 + s * sin1;
+                if (0.0001 < d1) {
+                    var d1i = 1 / d1 - 1;
+                    dr1 = Math.min(dr1, d1i * r0);
+                    dr2 = Math.min(dr2, d1i * r2);
                 }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseBorderMeshGeometry.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            set: function (width) {
-                if (this._width !== width) {
-                    this._width = width;
-                    this._isDirty = true;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseBorderMeshGeometry.prototype, "height", {
-            get: function () {
-                return this._height;
-            },
-            set: function (height) {
-                if (this._height !== height) {
-                    this._height = height;
-                    this._isDirty = true;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseBorderMeshGeometry.prototype, "texture", {
-            get: function () {
-                return this._texture;
-            },
-            set: function (texture) {
-                if (this._texture !== texture) {
-                    this._texture = texture;
-                    this._isDirty = true;
-                    this._textureId = NaN;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DBaseBorderMeshGeometry.prototype.fillVertices = function (iv, array, x0, x1, y0, y1) {
-            array[iv + 0] = x0;
-            array[iv + 1] = y0;
-            array[iv + 2] = x1;
-            array[iv + 3] = y0;
-            array[iv + 4] = x0;
-            array[iv + 5] = y1;
-            array[iv + 6] = x1;
-            array[iv + 7] = y1;
-        };
-        DBaseBorderMeshGeometry.prototype.fillIndices = function (ii, indices, iv) {
-            indices[ii + 0] = iv + 0;
-            indices[ii + 1] = iv + 1;
-            indices[ii + 2] = iv + 2;
-            indices[ii + 3] = iv + 1;
-            indices[ii + 4] = iv + 3;
-            indices[ii + 5] = iv + 2;
-        };
-        DBaseBorderMeshGeometry.prototype.fillUvsCorner = function (iv, uvs, b1, b2, c, u0, u1, u2, u3, v0, v1, v2, v3) {
-            if (b1 || b2) {
-                if (c) {
-                    this.fillVertices(iv, uvs, u0, u1, v0, v1);
-                }
-                else if (b1 && b2) {
-                    this.fillVertices(iv, uvs, u3, u2, v0, v1);
-                }
-                else if (b1) {
-                    this.fillVertices(iv, uvs, u1, u2, v0, v1);
+                var r1 = r0 + dr1;
+                var r3 = r2 + dr2;
+                if (0 < r0) {
+                    vertices[++iv] = x + c * r0;
+                    vertices[++iv] = y + s * r0;
+                    vertices[++iv] = x + c * r1;
+                    vertices[++iv] = y + s * r1;
                 }
                 else {
-                    this.fillVertices(iv, uvs, u0, u1, v1, v2);
+                    vertices[++iv] = x1;
+                    vertices[++iv] = y1;
+                    vertices[++iv] = x1;
+                    vertices[++iv] = y1;
+                }
+                vertices[++iv] = x + c * r2;
+                vertices[++iv] = y + s * r2;
+                vertices[++iv] = x + c * r3;
+                vertices[++iv] = y + s * r3;
+                uvs[++iuv] = 0.5 * (1 + c);
+                uvs[++iuv] = 0.5 * (1 + s);
+                uvs[++iuv] = 0.5;
+                uvs[++iuv] = 0.5;
+                uvs[++iuv] = 0.5;
+                uvs[++iuv] = 0.5;
+                uvs[++iuv] = 0.5 * (1 + c);
+                uvs[++iuv] = 0.5 * (1 + s);
+            }
+        };
+        DBaseBorderMeshGeometry.prototype.fillIndices = function (indices, ia, ii, n, end, loop) {
+            for (var i = 0, imax = n - 1; i < imax; ++i) {
+                indices[++ii] = ia + 0;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 4;
+                indices[++ii] = ia + 4;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 5;
+                ia += 1;
+                indices[++ii] = ia + 0;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 4;
+                indices[++ii] = ia + 4;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 5;
+                ia += 1;
+                indices[++ii] = ia + 0;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 4;
+                indices[++ii] = ia + 4;
+                indices[++ii] = ia + 1;
+                indices[++ii] = ia + 5;
+                ia += 2;
+            }
+            if (end) {
+                if (loop) {
+                    indices[++ii] = ia + 0;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = 0;
+                    indices[++ii] = 0;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = 1;
+                    ia += 1;
+                    indices[++ii] = ia + 0;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = 1;
+                    indices[++ii] = 1;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = 2;
+                    ia += 1;
+                    indices[++ii] = ia + 0;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = 2;
+                    indices[++ii] = 2;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = 3;
+                    ia += 2;
+                }
+                else {
+                    indices[++ii] = ia + 0;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = ia + 4;
+                    indices[++ii] = ia + 4;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = ia + 5;
+                    ia += 1;
+                    indices[++ii] = ia + 0;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = ia + 4;
+                    indices[++ii] = ia + 4;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = ia + 5;
+                    ia += 1;
+                    indices[++ii] = ia + 0;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = ia + 4;
+                    indices[++ii] = ia + 4;
+                    indices[++ii] = ia + 1;
+                    indices[++ii] = ia + 5;
+                    ia += 2;
                 }
             }
             else {
-                this.fillVertices(iv, uvs, u1, u1, v1, v1);
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                ia += 1;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                ia += 1;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                indices[++ii] = ia;
+                ia += 2;
             }
         };
-        DBaseBorderMeshGeometry.prototype.fillUvs = function (iv, uvs, b, u0, u1, v0, v1, uz, vz) {
-            if (b) {
-                this.fillVertices(iv, uvs, u0, u1, v0, v1);
-            }
-            else {
-                this.fillVertices(iv, uvs, uz, uz, vz, vz);
-            }
-        };
-        DBaseBorderMeshGeometry.prototype.update = function () {
-            var texture = this._texture;
-            if (!texture.valid) {
-                return;
-            }
-            var textureId = texture._updateID;
-            if (this._isDirty || this._textureId !== textureId) {
+        DBaseBorderMeshGeometry.prototype.update = function (renderer) {
+            var resolution = renderer.resolution;
+            if (this._isDirty || this._resolution !== resolution) {
                 this._isDirty = false;
-                this._textureId = textureId;
-                var vertices = this._vertices;
+                this._resolution = resolution;
+                var vrtcs = this._vertices;
                 var uvs = this._uvs;
                 var indices = this._indices;
-                var width = this._width;
-                var height = this._height;
-                var borderSize = this._borderSize;
+                var w = this._width;
+                var h = this._height;
+                var bw = this._borderWidth;
+                var r = Math.min(0.5 * w, 0.5 * h, this._cornerRadius);
+                var a = 1 / resolution;
                 var x0 = 0;
-                var x1 = Math.min(width * 0.5, borderSize);
-                var x2 = Math.max(width * 0.5, width - borderSize);
-                var x3 = width;
+                var x1 = r;
+                var x2 = w - r;
+                var x3 = w;
                 var y0 = 0;
-                var y1 = Math.min(height * 0.5, borderSize);
-                var y2 = Math.max(height * 0.5, height - borderSize);
-                var y3 = height;
-                var textureUvs = texture._uvs;
-                var l = textureUvs.x0;
-                var r = textureUvs.x1;
-                var t = textureUvs.y0;
-                var b = textureUvs.y3;
-                var w = (r - l) * (borderSize / texture.width);
-                var h = (b - t) * (borderSize / texture.height);
-                var u0 = l;
-                var u1 = l + w;
-                var u2 = r - w;
-                var u3 = r;
-                var v0 = t;
-                var v1 = t + h;
-                var v2 = b - h;
-                var v3 = b;
+                var y1 = r;
+                var y2 = h - r;
+                var y3 = h;
                 var borderMask = this._borderMask;
                 var bt = !(borderMask & DBorderMask.TOP);
                 var bb = !(borderMask & DBorderMask.BOTTOM);
@@ -10853,69 +10956,114 @@
                 var cbl = !(cornerMask & DCornerMask.BOTTOM_LEFT);
                 var cbr = !(cornerMask & DCornerMask.BOTTOM_RIGHT);
                 // Vertices & UVs
-                var iv = 0;
+                var iv = -1;
+                var iuv = -1;
                 var ia = 0;
-                var ii = 0;
-                // Top left
-                this.fillVertices(iv, vertices, x0, x1, y0, y1);
-                this.fillUvsCorner(iv, uvs, bt, bl, ctl, u0, u1, u2, u3, v0, v1, v2, v3);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Top middle
-                this.fillVertices(iv, vertices, x1, x2, y0, y1);
-                this.fillUvs(iv, uvs, bt, u1, u2, v0, v1, u1, v1);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Top right
-                this.fillVertices(iv, vertices, x3, x2, y0, y1);
-                this.fillUvsCorner(iv, uvs, bt, br, ctr, u0, u1, u2, u3, v0, v1, v2, v3);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Middle left
-                this.fillVertices(iv, vertices, x0, x1, y1, y2);
-                this.fillUvs(iv, uvs, bl, u0, u1, v1, v2, u1, v1);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Middle right
-                this.fillVertices(iv, vertices, x2, x3, y1, y2);
-                this.fillUvs(iv, uvs, br, u2, u3, v1, v2, u2, v2);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Bottom left
-                this.fillVertices(iv, vertices, x0, x1, y3, y2);
-                this.fillUvsCorner(iv, uvs, bb, bl, cbl, u0, u1, u2, u3, v0, v1, v2, v3);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Bottom middle
-                this.fillVertices(iv, vertices, x1, x2, y2, y3);
-                this.fillUvs(iv, uvs, bb, u1, u2, v2, v3, u2, v2);
-                this.fillIndices(ii, indices, ia);
-                iv += 8;
-                ia += 4;
-                ii += 6;
-                // Bottom right
-                this.fillVertices(iv, vertices, x3, x2, y3, y2);
-                this.fillUvsCorner(iv, uvs, bb, br, cbr, u3, u2, u1, u0, v3, v2, v1, v0);
-                this.fillIndices(ii, indices, ia);
+                var ii = -1;
+                var n = DBaseMeshGeometry.N;
+                var n4 = n << 2;
+                var n8 = n << 3;
+                var n18 = 18 * n;
+                var tables = this.getTables();
+                var tlt = tables[0];
+                var ttr = tables[1];
+                var trb = tables[2];
+                var tbl = tables[3];
+                // left -> top
+                if (ctl) {
+                    if (bl || bt) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y1, r, a, bw, tlt);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y1, r, 0, 0, tlt);
+                    }
+                }
+                else {
+                    if (bl || bt) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, 0, bw, tlt);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y0, 0, 0, 0, tlt);
+                    }
+                }
+                this.fillIndices(indices, ia, ii, n, bt, false);
+                iv += n8;
+                iuv += n8;
+                ia += n4;
+                ii += n18;
+                // top -> right
+                if (ctr) {
+                    if (bt || br) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y1, r, a, bw, ttr);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y1, r, 0, 0, ttr);
+                    }
+                }
+                else {
+                    if (bt || br) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, 0, bw, ttr);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y0, 0, 0, 0, ttr);
+                    }
+                }
+                this.fillIndices(indices, ia, ii, n, br, false);
+                iv += n8;
+                iuv += n8;
+                ia += n4;
+                ii += n18;
+                // right -> bottom
+                if (cbr) {
+                    if (br || bb) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y2, r, a, bw, trb);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x2, y2, r, 0, 0, trb);
+                    }
+                }
+                else {
+                    if (br || bb) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, 0, bw, trb);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x3, y3, 0, 0, 0, trb);
+                    }
+                }
+                this.fillIndices(indices, ia, ii, n, bb, false);
+                iv += n8;
+                iuv += n8;
+                ia += n4;
+                ii += n18;
+                // bottom -> left
+                if (cbl) {
+                    if (bb || bl) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y2, r, a, bw, tbl);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x1, y2, r, 0, 0, tbl);
+                    }
+                }
+                else {
+                    if (bb || bl) {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, 0, bw, tbl);
+                    }
+                    else {
+                        this.fillVertices(vrtcs, uvs, iv, iuv, n, x0, y3, 0, 0, 0, tbl);
+                    }
+                }
+                this.fillIndices(indices, ia, ii, n, bl, true);
+                iv += n8;
+                iuv += n8;
+                ia += n4;
+                ii += n18;
                 this._vertexBuffer.update();
                 this._uvBuffer.update();
                 this._indexBuffer.update();
             }
         };
         return DBaseBorderMeshGeometry;
-    }(pixi_js.MeshGeometry));
+    }(DBaseMeshGeometry));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -10923,23 +11071,13 @@
      */
     var DBaseBorderMesh = /** @class */ (function (_super) {
         __extends(DBaseBorderMesh, _super);
-        function DBaseBorderMesh(texture, borderSize, borderMask, cornerMask) {
-            return _super.call(this, new DBaseBorderMeshGeometry(texture, 100, 100, borderSize, borderMask, cornerMask), new pixi_js.MeshMaterial(texture)) || this;
+        function DBaseBorderMesh(texture) {
+            var _this = _super.call(this, new DBaseBorderMeshGeometry(), new pixi_js.MeshMaterial(texture)) || this;
+            texture.on("update", function () {
+                DApplications.update(_this);
+            });
+            return _this;
         }
-        Object.defineProperty(DBaseBorderMesh.prototype, "texture", {
-            // @ts-ignore
-            get: function () {
-                return this.shader.texture;
-            },
-            set: function (texture) {
-                if (this.shader.texture !== texture) {
-                    this.shader.texture = texture;
-                    this.geometry.texture = texture;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(DBaseBorderMesh.prototype, "width", {
             // @ts-ignore
             get: function () {
@@ -10962,22 +11100,12 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DBaseBorderMesh.prototype, "borderSize", {
+        Object.defineProperty(DBaseBorderMesh.prototype, "cornerRadius", {
             get: function () {
-                return this.geometry.borderSize;
+                return this.geometry.cornerRadius;
             },
-            set: function (borderSize) {
-                this.geometry.borderSize = borderSize;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DBaseBorderMesh.prototype, "borderMask", {
-            get: function () {
-                return this.geometry.borderMask;
-            },
-            set: function (borderMask) {
-                this.geometry.borderMask = borderMask;
+            set: function (cornerRadius) {
+                this.geometry.cornerRadius = cornerRadius;
             },
             enumerable: false,
             configurable: true
@@ -10992,12 +11120,29 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DBaseBorderMesh.prototype, "borderWidth", {
+            get: function () {
+                return this.geometry.borderWidth;
+            },
+            set: function (borderWidth) {
+                this.geometry.borderWidth = borderWidth;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DBaseBorderMesh.prototype, "borderMask", {
+            get: function () {
+                return this.geometry.borderMask;
+            },
+            set: function (borderMask) {
+                this.geometry.borderMask = borderMask;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DBaseBorderMesh.prototype._render = function (renderer) {
-            this.geometry.update();
+            this.geometry.update(renderer);
             _super.prototype._render.call(this, renderer);
-        };
-        DBaseBorderMesh.prototype.update = function () {
-            this.geometry.update();
         };
         return DBaseBorderMesh;
     }(pixi_js.Mesh));
@@ -11008,22 +11153,13 @@
      */
     var DBaseBorderSnippet = /** @class */ (function () {
         function DBaseBorderSnippet() {
-            this._cornerRadius = 0;
-            this._borderWidth = 0;
         }
-        DBaseBorderSnippet.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask, borderWidth, borderMask) {
+        DBaseBorderSnippet.prototype.get = function (base, theme) {
             var result = this._mesh;
             if (result == null) {
-                result = new DBaseBorderMesh(theme.getBorderTexture(cornerRadius, borderWidth), cornerHeight, borderMask, cornerMask);
+                result = new DBaseBorderMesh(theme.getBorderTexture());
                 result.parent = base;
                 this._mesh = result;
-                this._cornerRadius = cornerRadius;
-            }
-            if (this._cornerRadius !== cornerRadius || this._borderWidth !== borderWidth) {
-                this._cornerRadius = cornerRadius;
-                this._borderWidth = borderWidth;
-                result.texture = theme.getBorderTexture(cornerRadius, borderWidth);
-                result.borderSize = cornerHeight;
             }
             return result;
         };
@@ -11033,7 +11169,7 @@
                 mesh.visible = false;
             }
         };
-        DBaseBorderSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
+        DBaseBorderSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerMask) {
             var border = base.border;
             var borderColor = border.getColor(state);
             if (borderColor != null) {
@@ -11041,17 +11177,18 @@
                 if (0 < borderAlpha) {
                     var borderWidth = border.getWidth(state);
                     var borderMask = border.getMask(state);
-                    var borderMesh = this.get(base, theme, cornerRadius, cornerHeight, cornerMask, borderWidth, borderMask);
-                    var borderAlign = border.getAlign(state);
-                    var borderOffset = borderAlign * borderWidth;
+                    var borderMesh = this.get(base, theme);
+                    var borderOffset = (border.getAlign(state) - 0.5) * borderWidth;
                     borderMesh.tint = borderColor;
                     borderMesh.alpha = borderAlpha;
                     borderMesh.x = -borderOffset;
                     borderMesh.y = -borderOffset;
                     borderMesh.width = width + borderOffset * 2;
                     borderMesh.height = height + borderOffset * 2;
-                    borderMesh.borderMask = borderMask;
+                    borderMesh.cornerRadius = cornerRadius;
                     borderMesh.cornerMask = cornerMask;
+                    borderMesh.borderWidth = borderWidth;
+                    borderMesh.borderMask = borderMask;
                     borderMesh.visible = true;
                 }
                 else {
@@ -11079,23 +11216,13 @@
      */
     var DBaseOutlineSnippet = /** @class */ (function () {
         function DBaseOutlineSnippet() {
-            this._cornerRadius = 0;
-            this._outlineWidth = 0;
         }
-        DBaseOutlineSnippet.prototype.get = function (base, theme, cornerRadius, cornerHeight, cornerMask, outlineWidth, outlineMask) {
+        DBaseOutlineSnippet.prototype.get = function (base, theme) {
             var result = this._mesh;
             if (result == null) {
-                result = new DBaseBorderMesh(theme.getBorderTexture(cornerRadius, outlineWidth), cornerHeight, outlineMask, cornerMask);
+                result = new DBaseBorderMesh(theme.getBorderTexture());
                 result.parent = base;
                 this._mesh = result;
-                this._cornerRadius = cornerRadius;
-                this._outlineWidth = outlineWidth;
-            }
-            if (this._cornerRadius !== cornerRadius || this._outlineWidth !== outlineWidth) {
-                this._cornerRadius = cornerRadius;
-                this._outlineWidth = outlineWidth;
-                result.texture = theme.getBorderTexture(cornerRadius, outlineWidth);
-                result.borderSize = cornerHeight;
             }
             return result;
         };
@@ -11105,7 +11232,7 @@
                 mesh.visible = false;
             }
         };
-        DBaseOutlineSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask) {
+        DBaseOutlineSnippet.prototype.onReflow = function (base, width, height, theme, state, cornerRadius, cornerMask) {
             var outline = base.outline;
             var outlineColor = outline.getColor(state);
             if (outlineColor != null) {
@@ -11113,18 +11240,18 @@
                 if (0 < outlineAlpha) {
                     var outlineWidth = outline.getWidth(state);
                     var outlineMask = outline.getMask(state);
-                    var outlineMesh = this.get(base, theme, cornerRadius, cornerHeight, cornerMask, outlineWidth, outlineMask);
-                    var outlineOffset = outline.getOffset(state);
-                    var outlineAlign = outline.getAlign(state);
-                    var outlineOffsetAccumulative = outlineOffset + outlineAlign * outlineWidth;
+                    var outlineMesh = this.get(base, theme);
+                    var outlineOffset = outline.getOffset(state) + (outline.getAlign(state) - 0.5) * outlineWidth;
                     outlineMesh.tint = outlineColor;
                     outlineMesh.alpha = outlineAlpha;
-                    outlineMesh.x = -outlineOffsetAccumulative;
-                    outlineMesh.y = -outlineOffsetAccumulative;
-                    outlineMesh.width = width + outlineOffsetAccumulative * 2;
-                    outlineMesh.height = height + outlineOffsetAccumulative * 2;
-                    outlineMesh.borderMask = outlineMask;
+                    outlineMesh.x = -outlineOffset;
+                    outlineMesh.y = -outlineOffset;
+                    outlineMesh.width = width + outlineOffset * 2;
+                    outlineMesh.height = height + outlineOffset * 2;
+                    outlineMesh.cornerRadius = cornerRadius;
                     outlineMesh.cornerMask = cornerMask;
+                    outlineMesh.borderWidth = outlineWidth;
+                    outlineMesh.borderMask = outlineMask;
                     outlineMesh.visible = true;
                 }
                 else {
@@ -11168,11 +11295,10 @@
             var state = base.state;
             var corner = base.corner;
             var cornerRadius = corner.getRadius();
-            var cornerHeight = cornerRadius + 1;
             var cornerMask = corner.getMask();
-            this._background.onReflow(base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask);
-            this._border.onReflow(base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask);
-            this._outline.onReflow(base, width, height, theme, state, cornerRadius, cornerHeight, cornerMask);
+            this._background.onReflow(base, width, height, theme, state, cornerRadius, cornerMask);
+            this._border.onReflow(base, width, height, theme, state, cornerRadius, cornerMask);
+            this._outline.onReflow(base, width, height, theme, state, cornerRadius, cornerMask);
         };
         return DBaseReflowableImpl;
     }());
@@ -11181,13 +11307,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DLayoutClearType;
-    (function (DLayoutClearType) {
-        DLayoutClearType[DLayoutClearType["NONE"] = 0] = "NONE";
-        DLayoutClearType[DLayoutClearType["BEFORE"] = 1] = "BEFORE";
-        DLayoutClearType[DLayoutClearType["AFTER"] = 2] = "AFTER";
-        DLayoutClearType[DLayoutClearType["BOTH"] = 3] = "BOTH";
-    })(DLayoutClearType || (DLayoutClearType = {}));
+    var BEFORE = 1;
+    var AFTER = 2;
+    var DLayoutClearType = {
+        NONE: 0,
+        BEFORE: BEFORE,
+        AFTER: AFTER,
+        BOTH: BEFORE | AFTER
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -13239,16 +13366,20 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilGestureModifier;
-    (function (UtilGestureModifier) {
-        UtilGestureModifier[UtilGestureModifier["NONE"] = 0] = "NONE";
-        UtilGestureModifier[UtilGestureModifier["CTRL"] = 1] = "CTRL";
-        UtilGestureModifier[UtilGestureModifier["SHIFT"] = 2] = "SHIFT";
-        UtilGestureModifier[UtilGestureModifier["ALT"] = 4] = "ALT";
-        UtilGestureModifier[UtilGestureModifier["AND"] = 8] = "AND";
-        UtilGestureModifier[UtilGestureModifier["OR"] = 16] = "OR";
-        UtilGestureModifier[UtilGestureModifier["NOT_NONE"] = 23] = "NOT_NONE";
-    })(UtilGestureModifier || (UtilGestureModifier = {}));
+    var CTRL = 1;
+    var SHIFT = 2;
+    var ALT = 4;
+    var AND = 8;
+    var OR = 16;
+    var UtilGestureModifier = {
+        NONE: 0,
+        CTRL: CTRL,
+        SHIFT: SHIFT,
+        ALT: ALT,
+        AND: AND,
+        OR: OR,
+        NOT_NONE: CTRL | SHIFT | ALT | OR
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -13278,12 +13409,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilGestureMode;
-    (function (UtilGestureMode) {
-        UtilGestureMode[UtilGestureMode["OFF"] = 0] = "OFF";
-        UtilGestureMode[UtilGestureMode["ON"] = 1] = "ON";
-        UtilGestureMode[UtilGestureMode["TOUCH"] = 2] = "TOUCH";
-    })(UtilGestureMode || (UtilGestureMode = {}));
+    var UtilGestureMode = {
+        OFF: 0,
+        ON: 1,
+        TOUCH: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -14685,26 +14815,25 @@
     /**
      * {@link DHtmlElement} option when to show a HTML element
      */
-    var UtilHtmlElementWhen;
-    (function (UtilHtmlElementWhen) {
+    var UtilHtmlElementWhen = {
         /**
          * Shows a HTML element when clicked.
          */
-        UtilHtmlElementWhen[UtilHtmlElementWhen["CLICKED"] = 0] = "CLICKED";
+        CLICKED: 0,
         /**
          * Shows a HTML element when double clicked.
          */
-        UtilHtmlElementWhen[UtilHtmlElementWhen["DOUBLE_CLICKED"] = 1] = "DOUBLE_CLICKED";
+        DOUBLE_CLICKED: 1,
         /**
          * Shows a HTML element when focused.
          * And also shows when clicked if focused.
          */
-        UtilHtmlElementWhen[UtilHtmlElementWhen["FOCUSED"] = 2] = "FOCUSED";
+        FOCUSED: 2,
         /**
          * Always shows a HTML element.
          */
-        UtilHtmlElementWhen[UtilHtmlElementWhen["ALWAYS"] = 3] = "ALWAYS";
-    })(UtilHtmlElementWhen || (UtilHtmlElementWhen = {}));
+        ALWAYS: 3
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -15348,21 +15477,20 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueMiscType;
-    (function (EShapeActionValueMiscType) {
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_TEXT"] = 0] = "INPUT_TEXT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_INTEGER"] = 1] = "INPUT_INTEGER";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["INPUT_REAL"] = 2] = "INPUT_REAL";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["EMIT_EVENT"] = 3] = "EMIT_EVENT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_BOTH"] = 4] = "WRITE_BOTH";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_LOCAL"] = 5] = "WRITE_LOCAL";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["WRITE_REMOTE"] = 6] = "WRITE_REMOTE";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT"] = 7] = "HTML_ELEMENT";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["HTML_ELEMENT_WITHOUT_POINTER_EVENTS"] = 8] = "HTML_ELEMENT_WITHOUT_POINTER_EVENTS";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["LAYER_SHOW_HIDE"] = 9] = "LAYER_SHOW_HIDE";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["LAYER_GESTURE"] = 10] = "LAYER_GESTURE";
-        EShapeActionValueMiscType[EShapeActionValueMiscType["GESTURE"] = 11] = "GESTURE";
-    })(EShapeActionValueMiscType || (EShapeActionValueMiscType = {}));
+    var EShapeActionValueMiscType = {
+        INPUT_TEXT: 0,
+        INPUT_INTEGER: 1,
+        INPUT_REAL: 2,
+        EMIT_EVENT: 3,
+        WRITE_BOTH: 4,
+        WRITE_LOCAL: 5,
+        WRITE_REMOTE: 6,
+        HTML_ELEMENT: 7,
+        HTML_ELEMENT_WITHOUT_POINTER_EVENTS: 8,
+        LAYER_SHOW_HIDE: 9,
+        LAYER_GESTURE: 10,
+        GESTURE: 11
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -15648,13 +15776,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueOnInputAction;
-    (function (EShapeActionValueOnInputAction) {
-        EShapeActionValueOnInputAction[EShapeActionValueOnInputAction["EMIT_EVENT"] = 0] = "EMIT_EVENT";
-        EShapeActionValueOnInputAction[EShapeActionValueOnInputAction["WRITE_BOTH"] = 1] = "WRITE_BOTH";
-        EShapeActionValueOnInputAction[EShapeActionValueOnInputAction["WRITE_LOCAL"] = 2] = "WRITE_LOCAL";
-        EShapeActionValueOnInputAction[EShapeActionValueOnInputAction["WRITE_REMOTE"] = 3] = "WRITE_REMOTE";
-    })(EShapeActionValueOnInputAction || (EShapeActionValueOnInputAction = {}));
+    var EShapeActionValueOnInputAction = {
+        EMIT_EVENT: 0,
+        WRITE_BOTH: 1,
+        WRITE_LOCAL: 2,
+        WRITE_REMOTE: 3
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -15940,19 +16067,20 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueMiscGestureType;
-    (function (EShapeActionValueMiscGestureType) {
-        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["NONE"] = 0] = "NONE";
-        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["DRAG"] = 1] = "DRAG";
-        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["PINCH"] = 2] = "PINCH";
-        EShapeActionValueMiscGestureType[EShapeActionValueMiscGestureType["ALL"] = 3] = "ALL";
-    })(EShapeActionValueMiscGestureType || (EShapeActionValueMiscGestureType = {}));
+    var DRAG = 1;
+    var PINCH = 2;
+    var EShapeActionValueMiscGestureType = {
+        NONE: 0,
+        DRAG: DRAG,
+        PINCH: PINCH,
+        ALL: DRAG | PINCH
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var InteractionEvent = pixi_js.interaction.InteractionEvent;
+    var InteractionEvent$2 = pixi_js.interaction.InteractionEvent;
     var EShapeActionRuntimeMiscGesture = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeMiscGesture, _super);
         function EShapeActionRuntimeMiscGesture(value) {
@@ -15964,7 +16092,7 @@
         }
         EShapeActionRuntimeMiscGesture.prototype.onDown = function (shape, runtime, e) {
             _super.prototype.onDown.call(this, shape, runtime, e);
-            if (e instanceof InteractionEvent) {
+            if (e instanceof InteractionEvent$2) {
                 if (this.condition(shape, e.data.originalEvent.timeStamp)) {
                     this.getGestureUtil().onDown(shape, e);
                 }
@@ -16375,8 +16503,8 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var VERTEX_SHADER = "\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying mediump vec2 vTextureCoord;\nvoid main(void) {\n\tgl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\tvTextureCoord = aTextureCoord;\n}\n";
-    var FRAGMENT_SHADER = "\nprecision mediump float;\n\nvarying mediump vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform vec2 uSize;\n\nfloat calcDistance( float x, float y, float dx, float dy ) {\n\tfloat xd = x + dx;\n\tfloat yd = y + dy;\n\tfloat u = xd / uSize.x;\n\tfloat v = yd / uSize.y;\n\tfloat ul = (xd - 1.0) / uSize.x;\n\tfloat vt = (yd - 1.0) / uSize.y;\n\n\tfloat m = texture2D(uSampler, vec2(u , v )).a;\n\tfloat l = texture2D(uSampler, vec2(ul, v )).a;\n\tfloat t = texture2D(uSampler, vec2(u , vt)).a;\n\n\tfloat xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );\n\tfloat yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );\n\n\tbool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );\n\tbool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );\n\n\tfloat ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);\n\tfloat lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);\n\n\treturn min( ll, lt );\n}\n\nfloat calcDistancesY( float x, float y, float dx ) {\n\tfloat d = 100.0;\n\tfor( float dy=-6.0; dy<6.5; dy++ ) {\n\t\td = min( d, calcDistance( x, y, dx, dy ) );\n\t}\n\treturn d;\n}\n\nfloat calcDistances( float x, float y ) {\n\tfloat d = 100.0;\n\tfor( float dx=-6.0; dx<6.5; dx++ ) {\n\t\td = min( d, calcDistancesY( x, y, dx ) );\n\t}\n\treturn d;\n}\n\nvoid main(void) {\n\tfloat t = texture2D(uSampler, vTextureCoord).a;\n\tfloat x = vTextureCoord.x * uSize.x;\n\tfloat y = vTextureCoord.y * uSize.y;\n\tfloat d = min( 6.0, calcDistances( x, y ) ) / 12.0;\n\td = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, d);\n}\n";
+    var VERTEX_SHADER$2 = "\nattribute vec2 aVertexPosition;\nattribute vec2 aTextureCoord;\nvarying mediump vec2 vTextureCoord;\nvoid main(void) {\n\tgl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\tvTextureCoord = aTextureCoord;\n}\n";
+    var FRAGMENT_SHADER$2 = "\nprecision mediump float;\n\nvarying mediump vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform vec2 uSize;\n\nfloat calcDistance( float x, float y, float dx, float dy ) {\n\tfloat xd = x + dx;\n\tfloat yd = y + dy;\n\tfloat u = xd / uSize.x;\n\tfloat v = yd / uSize.y;\n\tfloat ul = (xd - 1.0) / uSize.x;\n\tfloat vt = (yd - 1.0) / uSize.y;\n\n\tfloat m = texture2D(uSampler, vec2(u , v )).a;\n\tfloat l = texture2D(uSampler, vec2(ul, v )).a;\n\tfloat t = texture2D(uSampler, vec2(u , vt)).a;\n\n\tfloat xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );\n\tfloat yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );\n\n\tbool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );\n\tbool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );\n\n\tfloat ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);\n\tfloat lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);\n\n\treturn min( ll, lt );\n}\n\nfloat calcDistancesY( float x, float y, float dx ) {\n\tfloat d = 100.0;\n\tfor( float dy=-6.0; dy<6.5; dy++ ) {\n\t\td = min( d, calcDistance( x, y, dx, dy ) );\n\t}\n\treturn d;\n}\n\nfloat calcDistances( float x, float y ) {\n\tfloat d = 100.0;\n\tfor( float dx=-6.0; dx<6.5; dx++ ) {\n\t\td = min( d, calcDistancesY( x, y, dx ) );\n\t}\n\treturn d;\n}\n\nvoid main(void) {\n\tfloat t = texture2D(uSampler, vTextureCoord).a;\n\tfloat x = vTextureCoord.x * uSize.x;\n\tfloat y = vTextureCoord.y * uSize.y;\n\tfloat d = min( 6.0, calcDistances( x, y ) ) / 12.0;\n\td = clamp( mix( 0.5 - d, 0.5 + d, step( 0.5, t ) ), 0.0, 1.0 );\n\tgl_FragColor = vec4(1.0, 1.0, 1.0, d);\n}\n";
     var DynamicSDFFontGenerator = /** @class */ (function () {
         function DynamicSDFFontGenerator() {
             var _this = this;
@@ -16452,9 +16580,9 @@
         DynamicSDFFontGenerator.prototype.makeShaders = function () {
             var gl = this._gl;
             if (gl != null && gl.isContextLost() !== true) {
-                var vertexShader = this.getShader(gl, VERTEX_SHADER, false);
+                var vertexShader = this.getShader(gl, VERTEX_SHADER$2, false);
                 if (vertexShader != null) {
-                    var fragmentShader = this.getShader(gl, FRAGMENT_SHADER, true);
+                    var fragmentShader = this.getShader(gl, FRAGMENT_SHADER$2, true);
                     if (fragmentShader != null) {
                         var shaderProgram = (this._shaderProgram = gl.createProgram());
                         if (shaderProgram != null) {
@@ -16902,7 +17030,9 @@
         };
         DynamicSDFFontAtlas.getAutoFontFamily = function () {
             if (DynamicSDFFontAtlas.FONT_FAMILY_AUTO == null) {
-                DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance().get("DBase").getFontFamilly();
+                DynamicSDFFontAtlas.FONT_FAMILY_AUTO = DThemes.getInstance()
+                    .get("DBase")
+                    .getFontFamilly();
             }
             return DynamicSDFFontAtlas.FONT_FAMILY_AUTO;
         };
@@ -18079,46 +18209,42 @@
     /**
      * {@link DButtonBase} option when to activate a button.
      */
-    var DButtonBaseWhen;
-    (function (DButtonBaseWhen) {
+    var DButtonBaseWhen = {
         /** Activates when clicked */
-        DButtonBaseWhen[DButtonBaseWhen["CLICKED"] = 0] = "CLICKED";
+        CLICKED: 0,
         /** Activates when double clicked */
-        DButtonBaseWhen[DButtonBaseWhen["DOUBLE_CLICKED"] = 1] = "DOUBLE_CLICKED";
-    })(DButtonBaseWhen || (DButtonBaseWhen = {}));
+        DOUBLE_CLICKED: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DAlignHorizontal;
-    (function (DAlignHorizontal) {
-        DAlignHorizontal[DAlignHorizontal["LEFT"] = 0] = "LEFT";
-        DAlignHorizontal[DAlignHorizontal["CENTER"] = 1] = "CENTER";
-        DAlignHorizontal[DAlignHorizontal["RIGHT"] = 2] = "RIGHT";
-    })(DAlignHorizontal || (DAlignHorizontal = {}));
+    var DAlignHorizontal = {
+        LEFT: 0,
+        CENTER: 1,
+        RIGHT: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DAlignVertical;
-    (function (DAlignVertical) {
-        DAlignVertical[DAlignVertical["TOP"] = 0] = "TOP";
-        DAlignVertical[DAlignVertical["MIDDLE"] = 1] = "MIDDLE";
-        DAlignVertical[DAlignVertical["BOTTOM"] = 2] = "BOTTOM";
-    })(DAlignVertical || (DAlignVertical = {}));
+    var DAlignVertical = {
+        TOP: 0,
+        MIDDLE: 1,
+        BOTTOM: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DAlignWith;
-    (function (DAlignWith) {
-        DAlignWith[DAlignWith["TEXT"] = 0] = "TEXT";
-        DAlignWith[DAlignWith["PADDING"] = 1] = "PADDING";
-        DAlignWith[DAlignWith["BORDER"] = 2] = "BORDER";
-    })(DAlignWith || (DAlignWith = {}));
+    var DAlignWith = {
+        TEXT: 0,
+        PADDING: 1,
+        BORDER: 2
+    };
 
     var DDynamicTextMeasureResultCharacter = /** @class */ (function () {
         function DDynamicTextMeasureResultCharacter(x, y, character) {
@@ -20074,26 +20200,25 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilAttachAlign;
-    (function (UtilAttachAlign) {
-        UtilAttachAlign[UtilAttachAlign["TOP"] = 0] = "TOP";
-        UtilAttachAlign[UtilAttachAlign["TOP_LEFT"] = 1] = "TOP_LEFT";
-        UtilAttachAlign[UtilAttachAlign["TOP_CENTER"] = 2] = "TOP_CENTER";
-        UtilAttachAlign[UtilAttachAlign["TOP_RIGHT"] = 3] = "TOP_RIGHT";
-        UtilAttachAlign[UtilAttachAlign["LEFT"] = 4] = "LEFT";
-        UtilAttachAlign[UtilAttachAlign["LEFT_TOP"] = 5] = "LEFT_TOP";
-        UtilAttachAlign[UtilAttachAlign["LEFT_MIDDLE"] = 6] = "LEFT_MIDDLE";
-        UtilAttachAlign[UtilAttachAlign["LEFT_BOTTOM"] = 7] = "LEFT_BOTTOM";
-        UtilAttachAlign[UtilAttachAlign["RIGHT"] = 8] = "RIGHT";
-        UtilAttachAlign[UtilAttachAlign["RIGHT_TOP"] = 9] = "RIGHT_TOP";
-        UtilAttachAlign[UtilAttachAlign["RIGHT_MIDDLE"] = 10] = "RIGHT_MIDDLE";
-        UtilAttachAlign[UtilAttachAlign["RIGHT_BOTTOM"] = 11] = "RIGHT_BOTTOM";
-        UtilAttachAlign[UtilAttachAlign["BOTTOM"] = 12] = "BOTTOM";
-        UtilAttachAlign[UtilAttachAlign["BOTTOM_LEFT"] = 13] = "BOTTOM_LEFT";
-        UtilAttachAlign[UtilAttachAlign["BOTTOM_CENTER"] = 14] = "BOTTOM_CENTER";
-        UtilAttachAlign[UtilAttachAlign["BOTTOM_RIGHT"] = 15] = "BOTTOM_RIGHT";
-        UtilAttachAlign[UtilAttachAlign["OVER"] = 16] = "OVER";
-    })(UtilAttachAlign || (UtilAttachAlign = {}));
+    var UtilAttachAlign = {
+        TOP: 0,
+        TOP_LEFT: 1,
+        TOP_CENTER: 2,
+        TOP_RIGHT: 3,
+        LEFT: 4,
+        LEFT_TOP: 5,
+        LEFT_MIDDLE: 6,
+        LEFT_BOTTOM: 7,
+        RIGHT: 8,
+        RIGHT_TOP: 9,
+        RIGHT_MIDDLE: 10,
+        RIGHT_BOTTOM: 11,
+        BOTTOM: 12,
+        BOTTOM_LEFT: 13,
+        BOTTOM_CENTER: 14,
+        BOTTOM_RIGHT: 15,
+        OVER: 16
+    };
     var UtilAttach = /** @class */ (function () {
         function UtilAttach() {
         }
@@ -20212,12 +20337,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDialogCloseOn;
-    (function (DDialogCloseOn) {
-        DDialogCloseOn[DDialogCloseOn["NONE"] = 0] = "NONE";
-        DDialogCloseOn[DDialogCloseOn["ESC"] = 1] = "ESC";
-        DDialogCloseOn[DDialogCloseOn["CLICK_OUTSIDE"] = 2] = "CLICK_OUTSIDE";
-    })(DDialogCloseOn || (DDialogCloseOn = {}));
+    var DDialogCloseOn = {
+        NONE: 0,
+        ESC: 1,
+        CLICK_OUTSIDE: 2
+    };
 
     /*
      * Copyright (C) 2021 Toshiba Corporation
@@ -20226,12 +20350,11 @@
     /**
      * {@link DDialog} mode options.
      */
-    var DDialogMode;
-    (function (DDialogMode) {
-        DDialogMode[DDialogMode["MODAL"] = 0] = "MODAL";
-        DDialogMode[DDialogMode["MODELESS"] = 1] = "MODELESS";
-        DDialogMode[DDialogMode["MENU"] = 2] = "MENU";
-    })(DDialogMode || (DDialogMode = {}));
+    var DDialogMode = {
+        MODAL: 0,
+        MODELESS: 1,
+        MENU: 2
+    };
 
     /*
      * Copyright (C) 2021 Toshiba Corporation
@@ -20570,11 +20693,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DLayoutDirection;
-    (function (DLayoutDirection) {
-        DLayoutDirection[DLayoutDirection["VERTICAL"] = 0] = "VERTICAL";
-        DLayoutDirection[DLayoutDirection["HORIZONTAL"] = 1] = "HORIZONTAL";
-    })(DLayoutDirection || (DLayoutDirection = {}));
+    var DLayoutDirection = {
+        VERTICAL: 0,
+        HORIZONTAL: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -22536,19 +22658,18 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueOpenType;
-    (function (EShapeActionValueOpenType) {
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIAGRAM"] = 0] = "DIAGRAM";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["PAGE"] = 1] = "PAGE";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["PAGE_INPLACE"] = 2] = "PAGE_INPLACE";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIALOG_TEXT"] = 3] = "DIALOG_TEXT";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIALOG_INTEGER"] = 4] = "DIALOG_INTEGER";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIALOG_REAL"] = 5] = "DIALOG_REAL";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIALOG_BOOLEAN"] = 6] = "DIALOG_BOOLEAN";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIALOG_DATE"] = 7] = "DIALOG_DATE";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIALOG_TIME"] = 8] = "DIALOG_TIME";
-        EShapeActionValueOpenType[EShapeActionValueOpenType["DIALOG_DATETIME"] = 9] = "DIALOG_DATETIME";
-    })(EShapeActionValueOpenType || (EShapeActionValueOpenType = {}));
+    var EShapeActionValueOpenType = {
+        DIAGRAM: 0,
+        PAGE: 1,
+        PAGE_INPLACE: 2,
+        DIALOG_TEXT: 3,
+        DIALOG_INTEGER: 4,
+        DIALOG_REAL: 5,
+        DIALOG_BOOLEAN: 6,
+        DIALOG_DATE: 7,
+        DIALOG_TIME: 8,
+        DIALOG_DATETIME: 9
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -22662,16 +22783,19 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DPickerDatetimeMask;
-    (function (DPickerDatetimeMask) {
-        DPickerDatetimeMask[DPickerDatetimeMask["NONE"] = 0] = "NONE";
-        DPickerDatetimeMask[DPickerDatetimeMask["DATE"] = 1] = "DATE";
-        DPickerDatetimeMask[DPickerDatetimeMask["HOURS"] = 2] = "HOURS";
-        DPickerDatetimeMask[DPickerDatetimeMask["MINUTES"] = 4] = "MINUTES";
-        DPickerDatetimeMask[DPickerDatetimeMask["SECONDS"] = 8] = "SECONDS";
-        DPickerDatetimeMask[DPickerDatetimeMask["TIME"] = 14] = "TIME";
-        DPickerDatetimeMask[DPickerDatetimeMask["ALL"] = 15] = "ALL";
-    })(DPickerDatetimeMask || (DPickerDatetimeMask = {}));
+    var DATE = 1;
+    var HOURS = 2;
+    var MINUTES = 4;
+    var SECONDS = 8;
+    var DPickerDatetimeMask = {
+        NONE: 0,
+        DATE: DATE,
+        HOURS: HOURS,
+        MINUTES: MINUTES,
+        SECONDS: SECONDS,
+        TIME: HOURS | MINUTES | SECONDS,
+        ALL: DATE | HOURS | MINUTES | SECONDS
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -24133,11 +24257,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueShowHideType;
-    (function (EShapeActionValueShowHideType) {
-        EShapeActionValueShowHideType[EShapeActionValueShowHideType["SHOW"] = 0] = "SHOW";
-        EShapeActionValueShowHideType[EShapeActionValueShowHideType["HIDE"] = 1] = "HIDE";
-    })(EShapeActionValueShowHideType || (EShapeActionValueShowHideType = {}));
+    var EShapeActionValueShowHideType = {
+        SHOW: 0,
+        HIDE: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -24355,26 +24478,24 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueTransformMoveType;
-    (function (EShapeActionValueTransformMoveType) {
-        EShapeActionValueTransformMoveType[EShapeActionValueTransformMoveType["RELATIVE_X"] = 0] = "RELATIVE_X";
-        EShapeActionValueTransformMoveType[EShapeActionValueTransformMoveType["RELATIVE_Y"] = 1] = "RELATIVE_Y";
-        EShapeActionValueTransformMoveType[EShapeActionValueTransformMoveType["ABSOLUTE_X"] = 2] = "ABSOLUTE_X";
-        EShapeActionValueTransformMoveType[EShapeActionValueTransformMoveType["ABSOLUTE_Y"] = 3] = "ABSOLUTE_Y";
-        EShapeActionValueTransformMoveType[EShapeActionValueTransformMoveType["FORWARD_OR_BACKWARD"] = 4] = "FORWARD_OR_BACKWARD";
-        EShapeActionValueTransformMoveType[EShapeActionValueTransformMoveType["LEFT_OR_RIGHT"] = 5] = "LEFT_OR_RIGHT";
-    })(EShapeActionValueTransformMoveType || (EShapeActionValueTransformMoveType = {}));
+    var EShapeActionValueTransformMoveType = {
+        RELATIVE_X: 0,
+        RELATIVE_Y: 1,
+        ABSOLUTE_X: 2,
+        ABSOLUTE_Y: 3,
+        FORWARD_OR_BACKWARD: 4,
+        LEFT_OR_RIGHT: 5
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueTransformType;
-    (function (EShapeActionValueTransformType) {
-        EShapeActionValueTransformType[EShapeActionValueTransformType["RESIZE"] = 0] = "RESIZE";
-        EShapeActionValueTransformType[EShapeActionValueTransformType["MOVE"] = 1] = "MOVE";
-        EShapeActionValueTransformType[EShapeActionValueTransformType["ROTATE"] = 2] = "ROTATE";
-    })(EShapeActionValueTransformType || (EShapeActionValueTransformType = {}));
+    var EShapeActionValueTransformType = {
+        RESIZE: 0,
+        MOVE: 1,
+        ROTATE: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -24490,15 +24611,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueTransformResizeType;
-    (function (EShapeActionValueTransformResizeType) {
-        EShapeActionValueTransformResizeType[EShapeActionValueTransformResizeType["RELATIVE_SIZE"] = 0] = "RELATIVE_SIZE";
-        EShapeActionValueTransformResizeType[EShapeActionValueTransformResizeType["RELATIVE_HEIGHT"] = 1] = "RELATIVE_HEIGHT";
-        EShapeActionValueTransformResizeType[EShapeActionValueTransformResizeType["RELATIVE_WIDTH"] = 2] = "RELATIVE_WIDTH";
-        EShapeActionValueTransformResizeType[EShapeActionValueTransformResizeType["ABSOLUTE_SIZE"] = 3] = "ABSOLUTE_SIZE";
-        EShapeActionValueTransformResizeType[EShapeActionValueTransformResizeType["ABSOLUTE_HEIGHT"] = 4] = "ABSOLUTE_HEIGHT";
-        EShapeActionValueTransformResizeType[EShapeActionValueTransformResizeType["ABSOLUTE_WIDTH"] = 5] = "ABSOLUTE_WIDTH";
-    })(EShapeActionValueTransformResizeType || (EShapeActionValueTransformResizeType = {}));
+    var EShapeActionValueTransformResizeType = {
+        RELATIVE_SIZE: 0,
+        RELATIVE_HEIGHT: 1,
+        RELATIVE_WIDTH: 2,
+        ABSOLUTE_SIZE: 3,
+        ABSOLUTE_HEIGHT: 4,
+        ABSOLUTE_WIDTH: 5
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -24845,11 +24965,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeActionValueTransformRotateType;
-    (function (EShapeActionValueTransformRotateType) {
-        EShapeActionValueTransformRotateType[EShapeActionValueTransformRotateType["RELATIVE"] = 0] = "RELATIVE";
-        EShapeActionValueTransformRotateType[EShapeActionValueTransformRotateType["ABSOLUTE"] = 1] = "ABSOLUTE";
-    })(EShapeActionValueTransformRotateType || (EShapeActionValueTransformRotateType = {}));
+    var EShapeActionValueTransformRotateType = {
+        RELATIVE: 0,
+        ABSOLUTE: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -25238,7 +25357,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /* eslint-disable prettier/prettier */
-    var NONE$1 = 0;
+    var NONE = 0;
     var ID = 0x1;
     var POSITION = 0x2;
     var WIDTH = 0x4;
@@ -25254,20 +25373,20 @@
     var BORDER_RADIUS = 0x1000;
     var TEXT = 0x2000;
     var TEXTURE = 0x4000;
-    var DATA$1 = 0x8000;
-    var ACTION$1 = 0x10000;
+    var DATA = 0x8000;
+    var ACTION = 0x10000;
     var CURSOR = 0x20000;
     var ORDER_IN_LAYER = 0x40000;
     var CHILDREN = 0x80000;
     var COORDINATE = ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW | ALIGN;
     var SHAPE = REPLACING | GROUPING | FILL | STROKE;
     var LAYER = ORDER_IN_LAYER;
-    var PRIMITIVE = COORDINATE | SHAPE | TEXT | TEXTURE | DATA$1 | ACTION$1 | CURSOR | LAYER | CHILDREN;
-    var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | DATA$1 | ACTION$1 | LAYER;
-    var CONNECTOR$1 = ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA$1 | ACTION$1 | CURSOR | LAYER | CHILDREN;
-    var ALL$1 = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
+    var PRIMITIVE = COORDINATE | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
+    var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER;
+    var CONNECTOR = ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
+    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
     var EShapeCapability = {
-        NONE: NONE$1,
+        NONE: NONE,
         ID: ID,
         POSITION: POSITION,
         WIDTH: WIDTH,
@@ -25284,9 +25403,9 @@
         TEXT: TEXT,
         TEXTURE: TEXTURE,
         /** @deprecated in favor of {@link DATA} */
-        TAG: DATA$1,
-        DATA: DATA$1,
-        ACTION: ACTION$1,
+        TAG: DATA,
+        DATA: DATA,
+        ACTION: ACTION,
         CURSOR: CURSOR,
         ORDER_IN_LAYER: ORDER_IN_LAYER,
         CHILDREN: CHILDREN,
@@ -25295,8 +25414,8 @@
         LAYER: LAYER,
         PRIMITIVE: PRIMITIVE,
         EMBEDDED: EMBEDDED,
-        CONNECTOR: CONNECTOR$1,
-        ALL: ALL$1
+        CONNECTOR: CONNECTOR,
+        ALL: ALL
     };
 
     /*
@@ -26413,7 +26532,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var createButtonUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        return createRectangleRoundedUploaded(buffer, shape, voffset, ioffset);
+        return createRectangleRoundedUploaded(buffer, shape, voffset, ioffset, antialiasWeight);
     };
 
     /*
@@ -36398,11 +36517,7 @@
     var TRIANGLE_ROUNDED_VERTEX_COUNT = 22;
     var TRIANGLE_ROUNDED_INDEX_COUNT = 15;
     var TRIANGLE_ROUNDED_WORLD_SIZE = [
-        0,
-        0,
-        0,
-        0,
-        0
+        0, 0, 0, 0, 0
     ];
     var TRIANGLE_ROUNDED_WORK_POINT = new pixi_js.Point();
     var buildTriangleRoundedIndex = function (indices, voffset, ioffset) {
@@ -38027,12 +38142,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DLinkMenuItemId;
-    (function (DLinkMenuItemId) {
-        DLinkMenuItemId[DLinkMenuItemId["OPEN_LINK"] = 0] = "OPEN_LINK";
-        DLinkMenuItemId[DLinkMenuItemId["OPEN_LINK_IN_NEW_WINDOW"] = 1] = "OPEN_LINK_IN_NEW_WINDOW";
-        DLinkMenuItemId[DLinkMenuItemId["COPY_LINK_ADDRESS"] = 2] = "COPY_LINK_ADDRESS";
-    })(DLinkMenuItemId || (DLinkMenuItemId = {}));
+    var DLinkMenuItemId = {
+        OPEN_LINK: 0,
+        OPEN_LINK_IN_NEW_WINDOW: 1,
+        COPY_LINK_ADDRESS: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -38163,12 +38277,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DLinkTarget;
-    (function (DLinkTarget) {
-        DLinkTarget[DLinkTarget["AUTO"] = 0] = "AUTO";
-        DLinkTarget[DLinkTarget["THIS_WINDOW"] = 1] = "THIS_WINDOW";
-        DLinkTarget[DLinkTarget["NEW_WINDOW"] = 2] = "NEW_WINDOW";
-    })(DLinkTarget || (DLinkTarget = {}));
+    var DLinkTarget = {
+        AUTO: 0,
+        THIS_WINDOW: 1,
+        NEW_WINDOW: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -38292,7 +38405,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var InteractionEvent$2 = pixi_js.interaction.InteractionEvent;
+    var InteractionEvent = pixi_js.interaction.InteractionEvent;
     var DLink = /** @class */ (function () {
         function DLink(theme, options) {
             var _a, _b, _c;
@@ -38432,7 +38545,7 @@
                     return false;
                 case DLinkTarget.AUTO:
                     if (e != null) {
-                        var oe = e instanceof InteractionEvent$2 ? e.data.originalEvent : e;
+                        var oe = e instanceof InteractionEvent ? e.data.originalEvent : e;
                         return (oe.ctrlKey ||
                             oe.shiftKey ||
                             oe.altKey ||
@@ -40075,11 +40188,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var ESnapperTargetValueType;
-    (function (ESnapperTargetValueType) {
-        ESnapperTargetValueType[ESnapperTargetValueType["HORIZONTAL"] = 0] = "HORIZONTAL";
-        ESnapperTargetValueType[ESnapperTargetValueType["VERTICAL"] = 1] = "VERTICAL";
-    })(ESnapperTargetValueType || (ESnapperTargetValueType = {}));
+    var ESnapperTargetValueType = {
+        HORIZONTAL: 0,
+        VERTICAL: 1
+    };
     var ESnapperTargetValue = /** @class */ (function () {
         function ESnapperTargetValue(type, position) {
             this.type = type;
@@ -40223,19 +40335,18 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var EPSILON = 0.00001;
-    var ESnapperModifierAnchor;
-    (function (ESnapperModifierAnchor) {
-        ESnapperModifierAnchor[ESnapperModifierAnchor["NONE"] = 0] = "NONE";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["TOP_LEFT"] = 1] = "TOP_LEFT";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["TOP_CENTER"] = 2] = "TOP_CENTER";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["TOP_RIGHT"] = 3] = "TOP_RIGHT";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["MIDDLE_LEFT"] = 4] = "MIDDLE_LEFT";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["MIDDLE_RIGHT"] = 5] = "MIDDLE_RIGHT";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["BOTTOM_LEFT"] = 6] = "BOTTOM_LEFT";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["BOTTOM_CENTER"] = 7] = "BOTTOM_CENTER";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["BOTTOM_RIGHT"] = 8] = "BOTTOM_RIGHT";
-        ESnapperModifierAnchor[ESnapperModifierAnchor["ROTATION"] = 9] = "ROTATION";
-    })(ESnapperModifierAnchor || (ESnapperModifierAnchor = {}));
+    var ESnapperModifierAnchor = {
+        NONE: 0,
+        TOP_LEFT: 1,
+        TOP_CENTER: 2,
+        TOP_RIGHT: 3,
+        MIDDLE_LEFT: 4,
+        MIDDLE_RIGHT: 5,
+        BOTTOM_LEFT: 6,
+        BOTTOM_CENTER: 7,
+        BOTTOM_RIGHT: 8,
+        ROTATION: 9
+    };
     var ESnapper = /** @class */ (function (_super) {
         __extends(ESnapper, _super);
         function ESnapper(parent) {
@@ -41090,7 +41201,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toLabel = function (target) {
+    var toLabel$1 = function (target) {
         if (target != null) {
             if (isString(target)) {
                 return target;
@@ -41339,8 +41450,10 @@
             var blob = new Blob(insertBom !== false ? ["\ufeff", contents] : [contents], {
                 type: "text/plain"
             });
-            if (window.navigator.msSaveBlob) {
-                window.navigator.msSaveBlob(blob, filename);
+            var navigator = window.navigator;
+            if ("msSaveBlob" in navigator) {
+                // IE10 and 11
+                navigator.msSaveBlob(blob, filename);
             }
             else {
                 this.downloadUrl(filename, URL.createObjectURL(blob));
@@ -41451,14 +41564,13 @@
     /**
      * An output format.
      */
-    var UtilFileAs;
-    (function (UtilFileAs) {
-        UtilFileAs[UtilFileAs["TEXT"] = 0] = "TEXT";
-        UtilFileAs[UtilFileAs["DATA_URL"] = 1] = "DATA_URL";
-        UtilFileAs[UtilFileAs["BINARY_STRING"] = 2] = "BINARY_STRING";
-        UtilFileAs[UtilFileAs["ARRAY_BUTTER"] = 3] = "ARRAY_BUTTER";
-        UtilFileAs[UtilFileAs["FILE"] = 4] = "FILE";
-    })(UtilFileAs || (UtilFileAs = {}));
+    var UtilFileAs = {
+        TEXT: 0,
+        DATA_URL: 1,
+        BINARY_STRING: 2,
+        ARRAY_BUTTER: 3,
+        FILE: 4
+    };
     /**
      * An utility class for opening files.
      */
@@ -41745,98 +41857,6 @@
             return this;
         };
         return UtilStateBlinker;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilTexturePlane = /** @class */ (function () {
-        function UtilTexturePlane() {
-            this._backgroundCache = new Map();
-            this._backgroundAttribute = "fill=\"#fff\" stroke=\"none\"";
-            this._borderCache = new Map();
-            this._borderAttribute = function (width) {
-                return "fill=\"none\" stroke=\"#fff\" stroke-width=\"" + width + "\"";
-            };
-            this._onUpdate = function () {
-                DApplications.update();
-            };
-        }
-        UtilTexturePlane.prototype.toCornerTl = function (offset, size, tl) {
-            return 0 < tl ? "A" + tl + " " + tl + " 0 0 1 " + (offset + tl) + " " + offset : "";
-        };
-        UtilTexturePlane.prototype.toCornerBr = function (offset, size, br) {
-            return 0 < br ? "A" + br + " " + br + " 0 0 1 " + (offset + size - br) + " " + (offset + size) : "";
-        };
-        UtilTexturePlane.prototype.make = function (radius, offset, attr) {
-            var realRadius = Math.max(0, radius - offset);
-            var size = realRadius * 2 + 4;
-            var realSize = size + offset * 2;
-            var d = "M" + (offset + realRadius) + " " + offset +
-                ("L" + (offset + size) + " " + offset) +
-                ("L" + (offset + size) + " " + (offset + size - realRadius)) +
-                this.toCornerBr(offset, size, realRadius) +
-                ("L" + offset + " " + (offset + size)) +
-                ("L" + offset + " " + (offset + realRadius)) +
-                this.toCornerTl(offset, size, realRadius) +
-                "Z";
-            return this.toSvg(realSize, attr, d);
-        };
-        UtilTexturePlane.prototype.toSvg = function (realSize, attr, d) {
-            var _a;
-            var resolution = (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
-            var widthAttr = "width=\"" + realSize * resolution + "\"";
-            var heightAttr = "height=\"" + realSize * resolution + "\"";
-            var viewBoxAttr = "viewBox=\"0 0 " + realSize + " " + realSize + "\"";
-            var svg = "<svg " + widthAttr + " " + heightAttr + " " + viewBoxAttr + " xmlns=\"http://www.w3.org/2000/svg\">" +
-                ("<path " + attr + " d=\"" + d + "\"></path>") +
-                "</svg>";
-            return pixi_js.Texture.from(toSvgUrl(svg), {
-                resolution: resolution
-            });
-        };
-        UtilTexturePlane.prototype.newBackground = function (radius) {
-            var result = this.make(radius, 0, this._backgroundAttribute);
-            result.on("update", this._onUpdate);
-            return result;
-        };
-        UtilTexturePlane.prototype.newBorder = function (radius, width) {
-            var result = this.make(radius, 0.5 * width, this._borderAttribute(width));
-            result.on("update", this._onUpdate);
-            return result;
-        };
-        UtilTexturePlane.prototype.getBackground = function (radius) {
-            var cache = this._backgroundCache;
-            var texture = cache.get(radius);
-            if (texture == null) {
-                texture = this.newBackground(radius);
-                cache.set(radius, texture);
-            }
-            return texture;
-        };
-        UtilTexturePlane.prototype.getBorder = function (radius, width) {
-            var cache = this._borderCache;
-            var maskToTexture = cache.get(radius);
-            if (maskToTexture == null) {
-                maskToTexture = new Map();
-                cache.set(radius, maskToTexture);
-            }
-            var texture = maskToTexture.get(width);
-            if (texture == null) {
-                texture = this.newBorder(radius, width);
-                maskToTexture.set(width, texture);
-            }
-            return texture;
-        };
-        UtilTexturePlane.getInstance = function () {
-            if (UtilTexturePlane.INSTANCE == null) {
-                UtilTexturePlane.INSTANCE = new UtilTexturePlane();
-            }
-            return UtilTexturePlane.INSTANCE;
-        };
-        UtilTexturePlane.INSTANCE = null;
-        return UtilTexturePlane;
     }());
 
     /*
@@ -42669,18 +42689,17 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DCommandFlag;
-    (function (DCommandFlag) {
-        DCommandFlag[DCommandFlag["NONE"] = 0] = "NONE";
+    var DCommandFlag = {
+        NONE: 0,
         /**
          * Commands with a `UNSTORABLE` flag will not be queued to the `done` queue.
          */
-        DCommandFlag[DCommandFlag["UNSTORABLE"] = 1] = "UNSTORABLE";
+        UNSTORABLE: 1,
         /**
          * Commands with a `CLEAR` flag clears the command queue.
          */
-        DCommandFlag[DCommandFlag["CLEAR"] = 2] = "CLEAR";
-    })(DCommandFlag || (DCommandFlag = {}));
+        CLEAR: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -44859,8 +44878,8 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var VERTEX_SHADER$2 = "\nattribute vec2 aPosition;\nattribute vec2 aUv;\nattribute vec4 aColor;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\n\nvarying vec2 vUv;\nvarying vec4 vColor;\n\nvoid main(void) {\n\tvec3 position = vec3(aPosition.x, aPosition.y, 1.0);\n\tgl_Position = vec4((projectionMatrix * translationMatrix * position).xy, 0.0, 1.0);\n\tvUv = aUv;\n\tvColor = aColor;\n}\n";
-    var FRAGMENT_SHADER$2 = "\nvarying vec2 vUv;\nvarying vec4 vColor;\n\nuniform sampler2D uSampler;\nuniform vec2 uCheckerColors;\n\nvoid main(void) {\n\tvec4 texture = texture2D(uSampler, vUv);\n\tfloat cy = step( 1.0, mod( gl_FragCoord.y / 10.0, 2.0 ) );\n\tfloat cx = step( 1.0, mod( gl_FragCoord.x / 10.0 + cy, 2.0 ) );\n\tfloat c = mix( uCheckerColors.x, uCheckerColors.y, cx );\n\tgl_FragColor = texture * vec4( mix( vec3( c ), vColor.xyz, vColor.a ), 1.0 );\n}";
+    var VERTEX_SHADER = "\nattribute vec2 aPosition;\nattribute vec2 aUv;\nattribute vec4 aColor;\n\nuniform mat3 projectionMatrix;\nuniform mat3 translationMatrix;\n\nvarying vec2 vUv;\nvarying vec4 vColor;\n\nvoid main(void) {\n\tvec3 position = vec3(aPosition.x, aPosition.y, 1.0);\n\tgl_Position = vec4((projectionMatrix * translationMatrix * position).xy, 0.0, 1.0);\n\tvUv = aUv;\n\tvColor = aColor;\n}\n";
+    var FRAGMENT_SHADER = "\nvarying vec2 vUv;\nvarying vec4 vColor;\n\nuniform sampler2D uSampler;\nuniform vec2 uCheckerColors;\n\nvoid main(void) {\n\tvec4 texture = texture2D(uSampler, vUv);\n\tfloat cy = step( 1.0, mod( gl_FragCoord.y / 10.0, 2.0 ) );\n\tfloat cx = step( 1.0, mod( gl_FragCoord.x / 10.0 + cy, 2.0 ) );\n\tfloat c = mix( uCheckerColors.x, uCheckerColors.y, cx );\n\tgl_FragColor = texture * vec4( mix( vec3( c ), vColor.xyz, vColor.a ), 1.0 );\n}";
     var DPickerColorGradientView = /** @class */ (function (_super) {
         __extends(DPickerColorGradientView, _super);
         function DPickerColorGradientView(nPointsPerData, vertices, uvs, colors, indices, parts, geometry, shader) {
@@ -45079,7 +45098,7 @@
                 .addAttribute("aPosition", new pixi_js.Buffer(vertices, false, false), 2)
                 .addAttribute("aUv", new pixi_js.Buffer(uvs, false, false), 2)
                 .addAttribute("aColor", new pixi_js.Buffer(colors, false, false), 4);
-            var shader = pixi_js.Shader.from(VERTEX_SHADER$2, FRAGMENT_SHADER$2, {
+            var shader = pixi_js.Shader.from(VERTEX_SHADER, FRAGMENT_SHADER, {
                 uSampler: texture,
                 uCheckerColors: checkerColors
             });
@@ -45980,7 +45999,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DButtonFileAs = UtilFileAs;
     /**
      * A file selector.
      */
@@ -46008,7 +46026,7 @@
         };
         DButtonFile.prototype.newOpener = function () {
             var _a, _b;
-            return new UtilFileOpener(toEnum((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.as) !== null && _b !== void 0 ? _b : DButtonFileAs.TEXT, DButtonFileAs), this);
+            return new UtilFileOpener(toEnum((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.as) !== null && _b !== void 0 ? _b : UtilFileAs.TEXT, UtilFileAs), this);
         };
         DButtonFile.prototype.onActivate = function (e) {
             var _this = this;
@@ -46155,12 +46173,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DListDataSelectionType;
-    (function (DListDataSelectionType) {
-        DListDataSelectionType[DListDataSelectionType["NONE"] = 0] = "NONE";
-        DListDataSelectionType[DListDataSelectionType["SINGLE"] = 1] = "SINGLE";
-        DListDataSelectionType[DListDataSelectionType["MULTIPLE"] = 2] = "MULTIPLE";
-    })(DListDataSelectionType || (DListDataSelectionType = {}));
+    var DListDataSelectionType = {
+        NONE: 0,
+        SINGLE: 1,
+        MULTIPLE: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -47203,17 +47220,17 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toImage = function (value) {
+    var toImage$1 = function (value) {
         return value.image;
     };
-    var toTitle = function (value) {
+    var toTitle$1 = function (value) {
         return value.title;
     };
     var DListItemAccessorImpl = /** @class */ (function () {
         function DListItemAccessorImpl(options) {
-            this.toLabel = (options === null || options === void 0 ? void 0 : options.toLabel) || toLabel;
-            this.toTitle = (options === null || options === void 0 ? void 0 : options.toTitle) || toTitle;
-            this.toImage = (options === null || options === void 0 ? void 0 : options.toImage) || toImage;
+            this.toLabel = (options === null || options === void 0 ? void 0 : options.toLabel) || toLabel$1;
+            this.toTitle = (options === null || options === void 0 ? void 0 : options.toTitle) || toTitle$1;
+            this.toImage = (options === null || options === void 0 ? void 0 : options.toImage) || toImage$1;
             this.toId = options === null || options === void 0 ? void 0 : options.toId;
         }
         return DListItemAccessorImpl;
@@ -48593,11 +48610,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var defaultGetter = function (dialog) {
+    var defaultGetter$1 = function (dialog) {
         // Assumes the dialog.value is VALUE.
         return dialog.value;
     };
-    var defaultSetter = function () {
+    var defaultSetter$1 = function () {
         // DO NOTHING
     };
     var toOptions = function (options) {
@@ -48640,8 +48657,8 @@
         function DButtonSelect(options) {
             var _a, _b;
             var _this = _super.call(this, toOptions(options)) || this;
-            _this._dialogGetter = (_a = options === null || options === void 0 ? void 0 : options.getter) !== null && _a !== void 0 ? _a : defaultGetter;
-            _this._dialogSetter = (_b = options === null || options === void 0 ? void 0 : options.setter) !== null && _b !== void 0 ? _b : defaultSetter;
+            _this._dialogGetter = (_a = options === null || options === void 0 ? void 0 : options.getter) !== null && _a !== void 0 ? _a : defaultGetter$1;
+            _this._dialogSetter = (_b = options === null || options === void 0 ? void 0 : options.setter) !== null && _b !== void 0 ? _b : defaultSetter$1;
             return _this;
         }
         DButtonSelect.prototype.onActivate = function (e) {
@@ -48826,23 +48843,21 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DChartAxisPosition;
-    (function (DChartAxisPosition) {
-        DChartAxisPosition[DChartAxisPosition["TOP"] = 0] = "TOP";
-        DChartAxisPosition[DChartAxisPosition["BOTTOM"] = 1] = "BOTTOM";
-        DChartAxisPosition[DChartAxisPosition["LEFT"] = 2] = "LEFT";
-        DChartAxisPosition[DChartAxisPosition["RIGHT"] = 3] = "RIGHT";
-    })(DChartAxisPosition || (DChartAxisPosition = {}));
+    var DChartAxisPosition = {
+        TOP: 0,
+        BOTTOM: 1,
+        LEFT: 2,
+        RIGHT: 3
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DChartAxisTickPosition;
-    (function (DChartAxisTickPosition) {
-        DChartAxisTickPosition[DChartAxisTickPosition["INSIDE"] = 0] = "INSIDE";
-        DChartAxisTickPosition[DChartAxisTickPosition["OUTSIDE"] = 1] = "OUTSIDE";
-    })(DChartAxisTickPosition || (DChartAxisTickPosition = {}));
+    var DChartAxisTickPosition = {
+        INSIDE: 0,
+        OUTSIDE: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -49798,11 +49813,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DChartCoordinateDirection;
-    (function (DChartCoordinateDirection) {
-        DChartCoordinateDirection[DChartCoordinateDirection["X"] = 0] = "X";
-        DChartCoordinateDirection[DChartCoordinateDirection["Y"] = 1] = "Y";
-    })(DChartCoordinateDirection || (DChartCoordinateDirection = {}));
+    var DChartCoordinateDirection = {
+        X: 0,
+        Y: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -51584,13 +51598,12 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DChartSelectionPoint;
-    (function (DChartSelectionPoint) {
-        DChartSelectionPoint[DChartSelectionPoint["PREVIOUS"] = 0] = "PREVIOUS";
-        DChartSelectionPoint[DChartSelectionPoint["NEXT"] = 1] = "NEXT";
-        DChartSelectionPoint[DChartSelectionPoint["CLOSER"] = 2] = "CLOSER";
-        DChartSelectionPoint[DChartSelectionPoint["INTERSECTION"] = 3] = "INTERSECTION";
-    })(DChartSelectionPoint || (DChartSelectionPoint = {}));
+    var DChartSelectionPoint = {
+        PREVIOUS: 0,
+        NEXT: 1,
+        CLOSER: 2,
+        INTERSECTION: 3
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -57443,13 +57456,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DMenuSidedSelectionType;
-    (function (DMenuSidedSelectionType) {
-        DMenuSidedSelectionType[DMenuSidedSelectionType["NONE"] = 0] = "NONE";
-        DMenuSidedSelectionType[DMenuSidedSelectionType["SINGLE"] = 1] = "SINGLE";
-        DMenuSidedSelectionType[DMenuSidedSelectionType["SINGLE_ONCE"] = 2] = "SINGLE_ONCE";
-        DMenuSidedSelectionType[DMenuSidedSelectionType["DEFAULT"] = 2] = "DEFAULT";
-    })(DMenuSidedSelectionType || (DMenuSidedSelectionType = {}));
+    var DMenuSidedSelectionType = {
+        NONE: 0,
+        SINGLE: 1,
+        SINGLE_ONCE: 2
+    };
     var defaultFilter = function () { return true; };
     var DMenuSidedSelection = /** @class */ (function (_super) {
         __extends(DMenuSidedSelection, _super);
@@ -57459,7 +57470,7 @@
             _this._content = content;
             _this._item = null;
             _this._isDirty = true;
-            _this._type = toEnum((_b = (_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : options === null || options === void 0 ? void 0 : options.type) !== null && _b !== void 0 ? _b : DMenuSidedSelectionType.DEFAULT, DMenuSidedSelectionType);
+            _this._type = toEnum((_b = (_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : options === null || options === void 0 ? void 0 : options.type) !== null && _b !== void 0 ? _b : DMenuSidedSelectionType.SINGLE_ONCE, DMenuSidedSelectionType);
             _this._filter = (_c = options === null || options === void 0 ? void 0 : options.filter) !== null && _c !== void 0 ? _c : _this.getFilterDefault();
             // Events
             var on = options === null || options === void 0 ? void 0 : options.on;
@@ -59399,24 +59410,23 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableColumnType;
-    (function (DTableColumnType) {
-        DTableColumnType[DTableColumnType["INDEX"] = 0] = "INDEX";
-        DTableColumnType[DTableColumnType["TEXT"] = 1] = "TEXT";
-        DTableColumnType[DTableColumnType["INTEGER"] = 2] = "INTEGER";
-        DTableColumnType[DTableColumnType["REAL"] = 3] = "REAL";
-        DTableColumnType[DTableColumnType["CHECK"] = 4] = "CHECK";
-        DTableColumnType[DTableColumnType["CHECK_SINGLE"] = 5] = "CHECK_SINGLE";
-        DTableColumnType[DTableColumnType["COLOR"] = 6] = "COLOR";
-        DTableColumnType[DTableColumnType["BUTTON"] = 7] = "BUTTON";
-        DTableColumnType[DTableColumnType["SELECT"] = 8] = "SELECT";
-        DTableColumnType[DTableColumnType["DATE"] = 9] = "DATE";
-        DTableColumnType[DTableColumnType["DATETIME"] = 10] = "DATETIME";
-        DTableColumnType[DTableColumnType["TIME"] = 11] = "TIME";
-        DTableColumnType[DTableColumnType["ACTION"] = 12] = "ACTION";
-        DTableColumnType[DTableColumnType["LINK"] = 13] = "LINK";
-        DTableColumnType[DTableColumnType["TREE"] = 14] = "TREE";
-    })(DTableColumnType || (DTableColumnType = {}));
+    var DTableColumnType = {
+        INDEX: 0,
+        TEXT: 1,
+        INTEGER: 2,
+        REAL: 3,
+        CHECK: 4,
+        CHECK_SINGLE: 5,
+        COLOR: 6,
+        BUTTON: 7,
+        SELECT: 8,
+        DATE: 9,
+        DATETIME: 10,
+        TIME: 11,
+        ACTION: 12,
+        LINK: 13,
+        TREE: 14
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -60881,12 +60891,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTableDataSelectionType;
-    (function (DTableDataSelectionType) {
-        DTableDataSelectionType[DTableDataSelectionType["NONE"] = 0] = "NONE";
-        DTableDataSelectionType[DTableDataSelectionType["SINGLE"] = 1] = "SINGLE";
-        DTableDataSelectionType[DTableDataSelectionType["MULTIPLE"] = 2] = "MULTIPLE";
-    })(DTableDataSelectionType || (DTableDataSelectionType = {}));
+    var DTableDataSelectionType = {
+        NONE: 0,
+        SINGLE: 1,
+        MULTIPLE: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -61498,7 +61507,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var COMPARATOR = function (a, b) {
+    var COMPARATOR$1 = function (a, b) {
         return a[0] - b[0];
     };
     var DTableDataListSelection = /** @class */ (function (_super) {
@@ -61717,7 +61726,7 @@
          * Returns an sorted array of the (index, row value) pairs of selected rows.
          */
         DTableDataListSelection.prototype.toSortedArray = function () {
-            return this.toArray().sort(COMPARATOR);
+            return this.toArray().sort(COMPARATOR$1);
         };
         DTableDataListSelection.prototype.toObject = function () {
             var result = {};
@@ -61745,11 +61754,10 @@
     /**
      * A sort order.
      */
-    var DTableDataOrder;
-    (function (DTableDataOrder) {
-        DTableDataOrder[DTableDataOrder["ASCENDING"] = 0] = "ASCENDING";
-        DTableDataOrder[DTableDataOrder["DESCENDING"] = 1] = "DESCENDING";
-    })(DTableDataOrder || (DTableDataOrder = {}));
+    var DTableDataOrder = {
+        ASCENDING: 0,
+        DESCENDING: 1
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -62811,14 +62819,14 @@
     var toParent = function (node) {
         return node.parent;
     };
-    var toChildren = function (node) {
+    var toChildren$1 = function (node) {
         return node.children;
     };
     var DTableDataTreeItemAccessor = /** @class */ (function () {
         function DTableDataTreeItemAccessor(options) {
             var _a, _b;
             this.toParent = (_a = options === null || options === void 0 ? void 0 : options.toParent) !== null && _a !== void 0 ? _a : toParent;
-            this.toChildren = (_b = options === null || options === void 0 ? void 0 : options.toChildren) !== null && _b !== void 0 ? _b : toChildren;
+            this.toChildren = (_b = options === null || options === void 0 ? void 0 : options.toChildren) !== null && _b !== void 0 ? _b : toChildren$1;
         }
         return DTableDataTreeItemAccessor;
     }());
@@ -62827,7 +62835,7 @@
      * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var COMPARATOR$1 = function (a, b) {
+    var COMPARATOR = function (a, b) {
         return a[0] - b[0];
     };
     var DTableDataTreeSelectionImpl = /** @class */ (function (_super) {
@@ -63101,7 +63109,7 @@
             return result;
         };
         DTableDataTreeSelectionImpl.prototype.toSortedArray = function () {
-            return this.toArray().sort(COMPARATOR$1);
+            return this.toArray().sort(COMPARATOR);
         };
         DTableDataTreeSelectionImpl.prototype.toObject = function () {
             var rows = this._rows;
@@ -63901,10 +63909,10 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var defaultGetter$1 = function (row, columnIndex) {
+    var defaultGetter = function (row, columnIndex) {
         return row[columnIndex];
     };
-    var defaultSetter$1 = function (row, columnIndex, cell) {
+    var defaultSetter = function (row, columnIndex, cell) {
         row[columnIndex] = cell;
     };
     var defaultGetterEmpty = function () { return ""; };
@@ -63989,7 +63997,8 @@
     };
     var toColumnDataChecker = function (path) {
         if (path != null) {
-            if (path.length <= 1) {
+            var pathLength_1 = path.length;
+            if (pathLength_1 <= 1) {
                 var key_3 = path[0];
                 return function (row) {
                     return key_3 in row;
@@ -63997,7 +64006,7 @@
             }
             else {
                 return function (row) {
-                    for (var i = 0, imax = path.length; i < imax; ++i) {
+                    for (var i = 0; i < pathLength_1; ++i) {
                         var part = path[i];
                         if (part in row) {
                             row = row[part];
@@ -64127,7 +64136,7 @@
                 return defaultGetterEmpty;
             default:
                 if (parts == null) {
-                    return defaultGetter$1;
+                    return defaultGetter;
                 }
                 else {
                     return toPathGetter(parts, options.default);
@@ -64146,7 +64155,7 @@
                 return defaultSetterEmpty;
             default:
                 if (path == null) {
-                    return defaultSetter$1;
+                    return defaultSetter;
                 }
                 else {
                     return toPathSetter(path);
@@ -64784,7 +64793,7 @@
      * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toLabel$1 = function (item) {
+    var toLabel = function (item) {
         var text = item.text;
         if (isString(text)) {
             return text;
@@ -64799,17 +64808,17 @@
         }
         return undefined;
     };
-    var toTitle$1 = function (item) {
+    var toTitle = function (item) {
         var title = item.title;
         if (isString(title)) {
             return title;
         }
         return undefined;
     };
-    var toImage$1 = function (item) {
+    var toImage = function (item) {
         return item.image;
     };
-    var toChildren$1 = function (item) {
+    var toChildren = function (item) {
         return item.children;
     };
     var newChildren = function (item) {
@@ -64818,10 +64827,10 @@
     var DTreeNodeAccessorImpl = /** @class */ (function () {
         function DTreeNodeAccessorImpl(options) {
             var _a, _b, _c, _d, _e;
-            this.toLabel = (_a = options === null || options === void 0 ? void 0 : options.toLabel) !== null && _a !== void 0 ? _a : toLabel$1;
-            this.toTitle = (_b = options === null || options === void 0 ? void 0 : options.toTitle) !== null && _b !== void 0 ? _b : toTitle$1;
-            this.toImage = (_c = options === null || options === void 0 ? void 0 : options.toImage) !== null && _c !== void 0 ? _c : toImage$1;
-            this.toChildren = (_d = options === null || options === void 0 ? void 0 : options.toChildren) !== null && _d !== void 0 ? _d : toChildren$1;
+            this.toLabel = (_a = options === null || options === void 0 ? void 0 : options.toLabel) !== null && _a !== void 0 ? _a : toLabel;
+            this.toTitle = (_b = options === null || options === void 0 ? void 0 : options.toTitle) !== null && _b !== void 0 ? _b : toTitle;
+            this.toImage = (_c = options === null || options === void 0 ? void 0 : options.toImage) !== null && _c !== void 0 ? _c : toImage;
+            this.toChildren = (_d = options === null || options === void 0 ? void 0 : options.toChildren) !== null && _d !== void 0 ? _d : toChildren;
             this.newChildren = (_e = options === null || options === void 0 ? void 0 : options.newChildren) !== null && _e !== void 0 ? _e : newChildren;
         }
         return DTreeNodeAccessorImpl;
@@ -64831,12 +64840,11 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DTreeDataSelectionType;
-    (function (DTreeDataSelectionType) {
-        DTreeDataSelectionType[DTreeDataSelectionType["NONE"] = 0] = "NONE";
-        DTreeDataSelectionType[DTreeDataSelectionType["SINGLE"] = 1] = "SINGLE";
-        DTreeDataSelectionType[DTreeDataSelectionType["MULTIPLE"] = 2] = "MULTIPLE";
-    })(DTreeDataSelectionType || (DTreeDataSelectionType = {}));
+    var DTreeDataSelectionType = {
+        NONE: 0,
+        SINGLE: 1,
+        MULTIPLE: 2
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -66178,46 +66186,46 @@
         EShapeActionRuntime: EShapeActionRuntime,
         EShapeActionRuntimes: EShapeActionRuntimes,
         EShapeActionValueBase: EShapeActionValueBase,
-        get EShapeActionValueBlinkType () { return EShapeActionValueBlinkType; },
+        EShapeActionValueBlinkType: EShapeActionValueBlinkType,
         EShapeActionValueBlink: EShapeActionValueBlink,
         EShapeActionValueChangeColorBrightness: EShapeActionValueChangeColorBrightness,
         EShapeActionValueChangeColorCode: EShapeActionValueChangeColorCode,
-        get EShapeActionValueChangeColorTarget () { return EShapeActionValueChangeColorTarget; },
-        get EShapeActionValueChangeColorTypeLegacy () { return EShapeActionValueChangeColorTypeLegacy; },
-        get EShapeActionValueChangeColorType () { return EShapeActionValueChangeColorType; },
+        EShapeActionValueChangeColorTarget: EShapeActionValueChangeColorTarget,
+        EShapeActionValueChangeColorTypeLegacy: EShapeActionValueChangeColorTypeLegacy,
+        EShapeActionValueChangeColorType: EShapeActionValueChangeColorType,
         EShapeActionValueChangeColorTypes: EShapeActionValueChangeColorTypes,
         EShapeActionValueChangeColor: EShapeActionValueChangeColor,
         EShapeActionValueChangeCursor: EShapeActionValueChangeCursor,
-        get EShapeActionValueChangeTextType () { return EShapeActionValueChangeTextType; },
+        EShapeActionValueChangeTextType: EShapeActionValueChangeTextType,
         EShapeActionValueChangeText: EShapeActionValueChangeText,
         EShapeActionValueDeserializer: EShapeActionValueDeserializer,
         EShapeActionValueEmitEvent: EShapeActionValueEmitEvent,
         EShapeActionValueMiscEmitEvent: EShapeActionValueMiscEmitEvent,
-        get EShapeActionValueMiscGestureType () { return EShapeActionValueMiscGestureType; },
+        EShapeActionValueMiscGestureType: EShapeActionValueMiscGestureType,
         EShapeActionValueMiscGesture: EShapeActionValueMiscGesture,
         EShapeActionValueMiscHtmlElement: EShapeActionValueMiscHtmlElement,
         EShapeActionValueMiscInput: EShapeActionValueMiscInput,
         EShapeActionValueMiscLayerGesture: EShapeActionValueMiscLayerGesture,
         EShapeActionValueMiscLayerShowHide: EShapeActionValueMiscLayerShowHide,
-        get EShapeActionValueMiscType () { return EShapeActionValueMiscType; },
+        EShapeActionValueMiscType: EShapeActionValueMiscType,
         EShapeActionValueMiscWrite: EShapeActionValueMiscWrite,
         EShapeActionValueMisc: EShapeActionValueMisc,
-        get EShapeActionValueOnInputAction () { return EShapeActionValueOnInputAction; },
+        EShapeActionValueOnInputAction: EShapeActionValueOnInputAction,
         EShapeActionValueOnInputActions: EShapeActionValueOnInputActions,
-        get EShapeActionValueOpenType () { return EShapeActionValueOpenType; },
+        EShapeActionValueOpenType: EShapeActionValueOpenType,
         EShapeActionValueOpen: EShapeActionValueOpen,
         EShapeActionValueOpetyped: EShapeActionValueOpetyped,
-        get EShapeActionValueShowHideType () { return EShapeActionValueShowHideType; },
+        EShapeActionValueShowHideType: EShapeActionValueShowHideType,
         EShapeActionValueShowHide: EShapeActionValueShowHide,
         EShapeActionValueSubtyped: EShapeActionValueSubtyped,
-        get EShapeActionValueTransformMoveType () { return EShapeActionValueTransformMoveType; },
+        EShapeActionValueTransformMoveType: EShapeActionValueTransformMoveType,
         EShapeActionValueTransformMove: EShapeActionValueTransformMove,
-        get EShapeActionValueTransformResizeType () { return EShapeActionValueTransformResizeType; },
+        EShapeActionValueTransformResizeType: EShapeActionValueTransformResizeType,
         EShapeActionValueTransformResize: EShapeActionValueTransformResize,
-        get EShapeActionValueTransformRotateType () { return EShapeActionValueTransformRotateType; },
+        EShapeActionValueTransformRotateType: EShapeActionValueTransformRotateType,
         EShapeActionValueTransformRotate: EShapeActionValueTransformRotate,
-        get EShapeActionValueTransformType () { return EShapeActionValueTransformType; },
-        get EShapeActionValueType () { return EShapeActionValueType; },
+        EShapeActionValueTransformType: EShapeActionValueTransformType,
+        EShapeActionValueType: EShapeActionValueType,
         EShapeActionValues: EShapeActionValues,
         EShapeAction: EShapeAction,
         loadShapeAll: loadShapeAll,
@@ -66400,7 +66408,7 @@
         deserializeTriangleRounded: deserializeTriangleRounded,
         deserializeTriangle: deserializeTriangle,
         EShapeBarPoints: EShapeBarPoints,
-        get EShapeBarPosition () { return EShapeBarPosition; },
+        EShapeBarPosition: EShapeBarPosition,
         EShapeBar: EShapeBar,
         EShapeBaseHitTestData: EShapeBaseHitTestData,
         EShapeBase: EShapeBase,
@@ -66500,9 +66508,9 @@
         EShapeConnectors: EShapeConnectors,
         EShapeContainer: EShapeContainer,
         EShapeCopyPart: EShapeCopyPart,
-        get EShapeCorner () { return EShapeCorner; },
-        get EShapeDataValueRangeType () { return EShapeDataValueRangeType; },
-        get EShapeDataValueOrder () { return EShapeDataValueOrder; },
+        EShapeCorner: EShapeCorner,
+        EShapeDataValueRangeType: EShapeDataValueRangeType,
+        EShapeDataValueOrder: EShapeDataValueOrder,
         EShapeDefaults: EShapeDefaults,
         EShapeDeleter: EShapeDeleter,
         EShapeDeserializer: EShapeDeserializer,
@@ -66520,27 +66528,27 @@
         EShapePointsMarkerNoop: EShapePointsMarkerNoop,
         EShapePointsMarkerTail: EShapePointsMarkerTail,
         EShapePointsMarkerType: EShapePointsMarkerType,
-        get EShapePointsStyle () { return EShapePointsStyle; },
+        EShapePointsStyle: EShapePointsStyle,
         EShapePointsStyles: EShapePointsStyles,
         EShapeRendererIteratorDatum: EShapeRendererIteratorDatum,
         EShapeRendererIterator: EShapeRendererIterator,
         EShapeRenderer: EShapeRenderer,
         EShapeResourceManagerDeserialization: EShapeResourceManagerDeserialization,
         EShapeResourceManagerSerialization: EShapeResourceManagerSerialization,
-        get EShapeRuntimeReset () { return EShapeRuntimeReset; },
+        EShapeRuntimeReset: EShapeRuntimeReset,
         EShapeRuntime: EShapeRuntime,
         EShapeRuntimes: EShapeRuntimes,
         EShapeSearch: EShapeSearch,
         EShapeSizes: EShapeSizes,
         EShapeStateSetImplObservable: EShapeStateSetImplObservable,
         EShapeState: EShapeState,
-        get EShapeStrokeSide () { return EShapeStrokeSide; },
-        get EShapeStrokeStyle () { return EShapeStrokeStyle; },
-        get EShapeTextAlignHorizontal () { return EShapeTextAlignHorizontal; },
-        get EShapeTextAlignVertical () { return EShapeTextAlignVertical; },
-        get EShapeTextDirection () { return EShapeTextDirection; },
-        get EShapeTextWeight () { return EShapeTextWeight; },
-        get EShapeTextStyle () { return EShapeTextStyle; },
+        EShapeStrokeSide: EShapeStrokeSide,
+        EShapeStrokeStyle: EShapeStrokeStyle,
+        EShapeTextAlignHorizontal: EShapeTextAlignHorizontal,
+        EShapeTextAlignVertical: EShapeTextAlignVertical,
+        EShapeTextDirection: EShapeTextDirection,
+        EShapeTextWeight: EShapeTextWeight,
+        EShapeTextStyle: EShapeTextStyle,
         EShapeTransformImpl: EShapeTransformImpl,
         EShapeTransforms: EShapeTransforms,
         EShapeType: EShapeType,
@@ -66550,10 +66558,10 @@
         ESnapperGrid: ESnapperGrid,
         ESnapperResultScale: ESnapperResultScale,
         ESnapperResult: ESnapperResult,
-        get ESnapperTargetValueType () { return ESnapperTargetValueType; },
+        ESnapperTargetValueType: ESnapperTargetValueType,
         ESnapperTargetValue: ESnapperTargetValue,
         ESnapperTarget: ESnapperTarget,
-        get ESnapperModifierAnchor () { return ESnapperModifierAnchor; },
+        ESnapperModifierAnchor: ESnapperModifierAnchor,
         ESnapper: ESnapper,
         DThemes: DThemes,
         DynamicAtlasItemEmpty: DynamicAtlasItemEmpty,
@@ -66582,31 +66590,31 @@
         toCeilingIndex: toCeilingIndex,
         toEnum: toEnum,
         toIndexOf: toIndexOf,
-        toLabel: toLabel,
+        toLabel: toLabel$1,
         toPadded: toPadded,
         toString: toString,
         toSvgTexture: toSvgTexture,
         toSvgUrl: toSvgUrl,
         UtilAlpha: UtilAlpha,
         UtilSvgAtlasBuilder: UtilSvgAtlasBuilder,
-        get UtilAttachAlign () { return UtilAttachAlign; },
+        UtilAttachAlign: UtilAttachAlign,
         UtilAttach: UtilAttach,
         UtilClickOutside: UtilClickOutside,
         UtilClipboard: UtilClipboard,
         UtilGestureData: UtilGestureData,
         UtilGestureEasingHistory: UtilGestureEasingHistory,
         UtilGestureEasing: UtilGestureEasing,
-        get UtilGestureMode () { return UtilGestureMode; },
-        get UtilGestureModifier () { return UtilGestureModifier; },
+        UtilGestureMode: UtilGestureMode,
+        UtilGestureModifier: UtilGestureModifier,
         UtilGestureModifiers: UtilGestureModifiers,
         UtilGesture: UtilGesture,
         UtilExtract: UtilExtract,
         UtilExtractor: UtilExtractor,
         UtilFileDownloader: UtilFileDownloader,
-        get UtilFileAs () { return UtilFileAs; },
+        UtilFileAs: UtilFileAs,
         UtilFileOpener: UtilFileOpener,
         UtilHsv: UtilHsv,
-        get UtilHtmlElementWhen () { return UtilHtmlElementWhen; },
+        UtilHtmlElementWhen: UtilHtmlElementWhen,
         UtilHtmlElement: UtilHtmlElement,
         UtilInputNumber: UtilInputNumber,
         UtilInputText: UtilInputText,
@@ -66618,12 +66626,11 @@
         UtilRgb: UtilRgb,
         UtilRgba: UtilRgba,
         UtilStateBlinker: UtilStateBlinker,
-        UtilTexturePlane: UtilTexturePlane,
         UtilTransition: UtilTransition,
         UtilWheelEvent: UtilWheelEvent,
-        get DAlignHorizontal () { return DAlignHorizontal; },
-        get DAlignVertical () { return DAlignVertical; },
-        get DAlignWith () { return DAlignWith; },
+        DAlignHorizontal: DAlignHorizontal,
+        DAlignVertical: DAlignVertical,
+        DAlignWith: DAlignWith,
         DAnimationBase: DAnimationBase,
         DAnimationEmpty: DAnimationEmpty,
         DAnimationFadeIn: DAnimationFadeIn,
@@ -66644,7 +66651,8 @@
         DBaseBorderSnippet: DBaseBorderSnippet,
         DBaseBorder: DBaseBorder,
         DBaseCorner: DBaseCorner,
-        get DBaseInteractive () { return DBaseInteractive; },
+        DBaseInteractive: DBaseInteractive,
+        DBaseMeshGeometry: DBaseMeshGeometry,
         DBaseOutlineSnippet: DBaseOutlineSnippet,
         DBaseOutline: DBaseOutline,
         DBaseOverflowMaskSimple: DBaseOverflowMaskSimple,
@@ -66660,9 +66668,9 @@
         DBaseState: DBaseState,
         DBase: DBase,
         DBoard: DBoard,
-        get DBorderMask () { return DBorderMask; },
+        DBorderMask: DBorderMask,
         DButtonAmbient: DButtonAmbient,
-        get DButtonBaseWhen () { return DButtonBaseWhen; },
+        DButtonBaseWhen: DButtonBaseWhen,
         DButtonBase: DButtonBase,
         DButtonCheckRight: DButtonCheckRight,
         DButtonCheck: DButtonCheck,
@@ -66671,7 +66679,7 @@
         DButtonDanger: DButtonDanger,
         DButtonDate: DButtonDate,
         DButtonDatetime: DButtonDatetime,
-        DButtonFileAs: DButtonFileAs,
+        DButtonFileAs: UtilFileAs,
         DButtonFile: DButtonFile,
         DButtonGroup: DButtonGroup,
         DButtonLink: DButtonLink,
@@ -66689,8 +66697,8 @@
         DChartAxisBaseOptionParser: DChartAxisBaseOptionParser,
         DChartAxisBase: DChartAxisBase,
         DChartAxisContainerImpl: DChartAxisContainerImpl,
-        get DChartAxisPosition () { return DChartAxisPosition; },
-        get DChartAxisTickPosition () { return DChartAxisTickPosition; },
+        DChartAxisPosition: DChartAxisPosition,
+        DChartAxisTickPosition: DChartAxisTickPosition,
         DChartAxisXDatetime: DChartAxisXDatetime,
         DChartAxisX: DChartAxisX,
         DChartAxisY: DChartAxisY,
@@ -66704,7 +66712,7 @@
         DChartCoordinateLog: DChartCoordinateLog,
         DChartCoordinateTransformImpl: DChartCoordinateTransformImpl,
         DChartCoordinateTransformMarkImpl: DChartCoordinateTransformMarkImpl,
-        get DChartCoordinateDirection () { return DChartCoordinateDirection; },
+        DChartCoordinateDirection: DChartCoordinateDirection,
         DChartLegendItem: DChartLegendItem,
         DChartLegend: DChartLegend,
         DChartOverview: DChartOverview,
@@ -66719,7 +66727,7 @@
         DChartSelectionShapeBase: DChartSelectionShapeBase,
         DChartSelectionSimple: DChartSelectionSimple,
         DChartSelectionSubImpl: DChartSelectionSubImpl,
-        get DChartSelectionPoint () { return DChartSelectionPoint; },
+        DChartSelectionPoint: DChartSelectionPoint,
         DChartSeriesBar: DChartSeriesBar,
         DChartSeriesBaseCoordinateContainer: DChartSeriesBaseCoordinateContainer,
         DChartSeriesBase: DChartSeriesBase,
@@ -66749,7 +66757,7 @@
         DCommandClear: DCommandClear,
         DCommandCreate: DCommandCreate,
         DCommandDelete: DCommandDelete,
-        get DCommandFlag () { return DCommandFlag; },
+        DCommandFlag: DCommandFlag,
         DCommandRedo: DCommandRedo,
         DCommandSaveAs: DCommandSaveAs,
         DCommandSave: DCommandSave,
@@ -66759,7 +66767,7 @@
         DControllerDefaultFocus: DControllerDefaultFocus,
         DControllerKeyboard: DControllerKeyboard,
         DControllers: DControllers,
-        get DCornerMask () { return DCornerMask; },
+        DCornerMask: DCornerMask,
         DDiagramBase: DDiagramBase,
         DDiagramCanvasBase: DDiagramCanvasBase,
         DDiagramCanvasEditorBackground: DDiagramCanvasEditorBackground,
@@ -66781,8 +66789,8 @@
         DDiagramSnapshot: DDiagramSnapshot,
         DDiagram: DDiagram,
         DDiagrams: DDiagrams,
-        get DDialogAlign () { return UtilAttachAlign; },
-        get DDialogCloseOn () { return DDialogCloseOn; },
+        DDialogAlign: UtilAttachAlign,
+        DDialogCloseOn: DDialogCloseOn,
         DDialogColorGradient: DDialogColorGradient,
         DDialogColor: DDialogColor,
         DDialogCommand: DDialogCommand,
@@ -66800,7 +66808,7 @@
         DDialogInputText: DDialogInputText,
         DDialogInput: DDialogInput,
         DDialogMessage: DDialogMessage,
-        get DDialogMode () { return DDialogMode; },
+        DDialogMode: DDialogMode,
         DDialogProcessingMessage: DDialogProcessingMessage,
         DDialogProcessing: DDialogProcessing,
         DDialogSaveAs: DDialogSaveAs,
@@ -66843,15 +66851,15 @@
         DInputText: DInputText,
         DInput: DInput,
         DItemUpdater: DItemUpdater,
-        get DLayoutClearType () { return DLayoutClearType; },
-        get DLayoutDirection () { return DLayoutDirection; },
+        DLayoutClearType: DLayoutClearType,
+        DLayoutDirection: DLayoutDirection,
         DLayoutHorizontal: DLayoutHorizontal,
         DLayoutSpace: DLayoutSpace,
         DLayoutVertical: DLayoutVertical,
         DLayout: DLayout,
-        get DLinkMenuItemId () { return DLinkMenuItemId; },
+        DLinkMenuItemId: DLinkMenuItemId,
         DLinkMenu: DLinkMenu,
-        get DLinkTarget () { return DLinkTarget; },
+        DLinkTarget: DLinkTarget,
         DLink: DLink,
         DLinks: DLinks,
         DListDataImpl: DListDataImpl,
@@ -66859,7 +66867,7 @@
         DListDataSelectionMultiple: DListDataSelectionMultiple,
         DListDataSelectionNone: DListDataSelectionNone,
         DListDataSelectionSingle: DListDataSelectionSingle,
-        get DListDataSelectionType () { return DListDataSelectionType; },
+        DListDataSelectionType: DListDataSelectionType,
         DListItemAccessorImpl: DListItemAccessorImpl,
         DListItemUpdater: DListItemUpdater,
         DListItem: DListItem,
@@ -66873,7 +66881,7 @@
         DMapTileUrlBuilderOsmfj: DMapTileUrlBuilderOsmfj,
         DMapTilePyramids: DMapTilePyramids,
         DMapTile: DMapTile,
-        get DMenuAlign () { return UtilAttachAlign; },
+        DMenuAlign: UtilAttachAlign,
         DMenuBarItem: DMenuBarItem,
         DMenuBar: DMenuBar,
         DMenuContext: DMenuContext,
@@ -66918,7 +66926,7 @@
         DMenuSidedItemSeparator: DMenuSidedItemSeparator,
         DMenuSidedItemSpace: DMenuSidedItemSpace,
         DMenuSidedItemText: DMenuSidedItemText,
-        get DMenuSidedSelectionType () { return DMenuSidedSelectionType; },
+        DMenuSidedSelectionType: DMenuSidedSelectionType,
         DMenuSidedSelection: DMenuSidedSelection,
         DMenuSided: DMenuSided,
         DMenuSideds: DMenuSideds,
@@ -66944,7 +66952,7 @@
         DPickerDatetimeButtonNext: DPickerDatetimeButtonNext,
         DPickerDatetimeLabelDate: DPickerDatetimeLabelDate,
         DPickerDatetimeLabel: DPickerDatetimeLabel,
-        get DPickerDatetimeMask () { return DPickerDatetimeMask; },
+        DPickerDatetimeMask: DPickerDatetimeMask,
         DPickerDatetimeMasks: DPickerDatetimeMasks,
         DPickerDatetimeRange: DPickerDatetimeRange,
         DPickerDatetimeSpace: DPickerDatetimeSpace,
@@ -67011,14 +67019,14 @@
         DTableBody: DTableBody,
         DTableCategoryCell: DTableCategoryCell,
         DTableCategory: DTableCategory,
-        get DTableColumnType () { return DTableColumnType; },
+        DTableColumnType: DTableColumnType,
         DTableDataListFilter: DTableDataListFilter,
         DTableDataListMapped: DTableDataListMapped,
         DTableDataListSelection: DTableDataListSelection,
         DTableDataListSorter: DTableDataListSorter,
         DTableDataList: DTableDataList,
-        get DTableDataSelectionType () { return DTableDataSelectionType; },
-        get DTableDataOrder () { return DTableDataOrder; },
+        DTableDataSelectionType: DTableDataSelectionType,
+        DTableDataOrder: DTableDataOrder,
         DTableDataTreeFilter: DTableDataTreeFilter,
         DTableDataTreeItemAccessor: DTableDataTreeItemAccessor,
         DTableDataTreeSelectionImpl: DTableDataTreeSelectionImpl,
@@ -67037,7 +67045,7 @@
         DTreeDataSelectionMultiple: DTreeDataSelectionMultiple,
         DTreeDataSelectionNone: DTreeDataSelectionNone,
         DTreeDataSelectionSingle: DTreeDataSelectionSingle,
-        get DTreeDataSelectionType () { return DTreeDataSelectionType; },
+        DTreeDataSelectionType: DTreeDataSelectionType,
         DTreeItemButton: DTreeItemButton,
         DTreeItemNonEditable: DTreeItemNonEditable,
         DTreeItemState: DTreeItemState,
@@ -67059,4 +67067,4 @@
     global.wcardinal = global.wcardinal || {};
     global.wcardinal.ui = ui;
 
-}(PIXI));
+})(PIXI);
