@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.129.0
+ Winter Cardinal UI v0.130.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -371,6 +371,8 @@
 
     const DAlignWith = wcardinal.ui.DAlignWith;
 
+    const DDynamicTextStyleWordWrap = wcardinal.ui.DDynamicTextStyleWordWrap;
+
     const toString = wcardinal.ui.toString;
 
     /*
@@ -391,11 +393,11 @@
         DThemeDarkTextBase.prototype.isOverflowMaskEnabled = function () {
             return false;
         };
-        DThemeDarkTextBase.prototype.isTextDynamic = function () {
-            return true;
-        };
         DThemeDarkTextBase.prototype.getTextStyleClipping = function () {
             return true;
+        };
+        DThemeDarkTextBase.prototype.getTextStyleWordWrap = function () {
+            return DDynamicTextStyleWordWrap.NONE;
         };
         DThemeDarkTextBase.prototype.getTextFormatter = function () {
             return toString;
@@ -4300,7 +4302,7 @@
     var nullCreator = function () {
         return null;
     };
-    var divCreator$1 = function (container) {
+    var divCreator$2 = function (container) {
         var result = document.createElement("div");
         container.appendChild(result);
         return result;
@@ -4379,8 +4381,7 @@
         };
         DThemeDarkHtmlElement.prototype.getElementStylePositionSize = function (rect) {
             if (rect) {
-                return ("width: " + rect.width + "px; height: " + rect.height + "px;" +
-                    ("line-height: " + rect.height + "px;"));
+                return "width: " + rect.width + "px; height: " + rect.height + "px;";
             }
             return "width: 0px; height: 0px;";
         };
@@ -4399,13 +4400,15 @@
         DThemeDarkHtmlElement.prototype.getElementStyleText = function (state) {
             return ("font-family: " + this.getFontFamilly() + ";" +
                 ("font-size: " + this.getFontSize() + "px;") +
-                ("color: #" + this.getColor(state).toString(16) + ";"));
+                ("color: #" + this.getColor(state).toString(16) + ";") +
+                ("line-height: " + this.getLineHeight() + "px;") +
+                "-moz-tab-size: 4; -o-tab-size: 4; tab-size: 4;");
         };
         DThemeDarkHtmlElement.prototype.getElementStyleMargin = function (state) {
             return "margin: 0;";
         };
         DThemeDarkHtmlElement.prototype.getClipperCreator = function () {
-            return divCreator$1;
+            return divCreator$2;
         };
         DThemeDarkHtmlElement.prototype.setClipperStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect) {
             var style = "outline: none; padding: 0; margin: 0; border: none;" +
@@ -4439,7 +4442,7 @@
                 this.getClipperStylePositionSize(rect));
         };
         DThemeDarkHtmlElement.prototype.getBeforeCreator = function () {
-            return divCreator$1;
+            return divCreator$2;
         };
         DThemeDarkHtmlElement.prototype.setBeforeStyle = function (target) {
             var style = "overflow: hidden; outline: none;" +
@@ -4449,7 +4452,7 @@
             target.setAttribute("tabindex", "0");
         };
         DThemeDarkHtmlElement.prototype.getAfterCreator = function () {
-            return divCreator$1;
+            return divCreator$2;
         };
         DThemeDarkHtmlElement.prototype.setAfterStyle = function (target) {
             this.setBeforeStyle(target);
@@ -4600,41 +4603,6 @@
     var editingUnformatter$2 = function (text) {
         return text;
     };
-    var CREATOR_CLASSNAME = "d-theme-dark-input";
-    var CREATOR_CLASSNAME_ELEMENT = CREATOR_CLASSNAME + "-element";
-    var elementCreator = function (container) {
-        var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
-        if (0 < found.length) {
-            return found[0];
-        }
-        var element = document.createElement("input");
-        element.setAttribute("spellcheck", "false");
-        element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT);
-        container.appendChild(element);
-        return element;
-    };
-    var divCreator = function (container, classname) {
-        var found = container.getElementsByClassName(classname);
-        if (0 < found.length) {
-            return found[0];
-        }
-        var result = document.createElement("div");
-        result.setAttribute("class", classname);
-        container.appendChild(result);
-        return result;
-    };
-    var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
-    var clipperCreator = function (container) {
-        return divCreator(container, CREATOR_CLASSNAME_CLIPPER);
-    };
-    var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
-    var beforeCreator = function (container) {
-        return divCreator(container, CREATOR_CLASSNAME_BEFORE);
-    };
-    var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
-    var afterCreator = function (container) {
-        return divCreator(container, CREATOR_CLASSNAME_AFTER);
-    };
     var DThemeDarkInput = /** @class */ (function (_super) {
         __extends(DThemeDarkInput, _super);
         function DThemeDarkInput() {
@@ -4693,18 +4661,6 @@
         DThemeDarkInput.prototype.getEditingValidator = function () {
             return editingValidator;
         };
-        DThemeDarkInput.prototype.getElementCreator = function () {
-            return elementCreator;
-        };
-        DThemeDarkInput.prototype.getClipperCreator = function () {
-            return clipperCreator;
-        };
-        DThemeDarkInput.prototype.getBeforeCreator = function () {
-            return beforeCreator;
-        };
-        DThemeDarkInput.prototype.getAfterCreator = function () {
-            return afterCreator;
-        };
         DThemeDarkInput.prototype.getSelect = function () {
             return true;
         };
@@ -4713,6 +4669,65 @@
         };
         return DThemeDarkInput;
     }(DThemeDarkHtmlElement));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var CREATOR_CLASSNAME$1 = "d-theme-dark-input";
+    var CREATOR_CLASSNAME_ELEMENT$1 = CREATOR_CLASSNAME$1 + "-element";
+    var elementCreator$1 = function (container) {
+        var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT$1);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var element = document.createElement("input");
+        element.setAttribute("spellcheck", "false");
+        element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT$1);
+        container.appendChild(element);
+        return element;
+    };
+    var divCreator$1 = function (container, classname) {
+        var found = container.getElementsByClassName(classname);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var result = document.createElement("div");
+        result.setAttribute("class", classname);
+        container.appendChild(result);
+        return result;
+    };
+    var CREATOR_CLASSNAME_CLIPPER$1 = CREATOR_CLASSNAME$1 + "-clipper";
+    var clipperCreator$1 = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_CLIPPER$1);
+    };
+    var CREATOR_CLASSNAME_BEFORE$1 = CREATOR_CLASSNAME$1 + "-before";
+    var beforeCreator$1 = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_BEFORE$1);
+    };
+    var CREATOR_CLASSNAME_AFTER$1 = CREATOR_CLASSNAME$1 + "-after";
+    var afterCreator$1 = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_AFTER$1);
+    };
+    var DThemeDarkInputInput = /** @class */ (function (_super) {
+        __extends(DThemeDarkInputInput, _super);
+        function DThemeDarkInputInput() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkInputInput.prototype.getElementCreator = function () {
+            return elementCreator$1;
+        };
+        DThemeDarkInputInput.prototype.getClipperCreator = function () {
+            return clipperCreator$1;
+        };
+        DThemeDarkInputInput.prototype.getBeforeCreator = function () {
+            return beforeCreator$1;
+        };
+        DThemeDarkInputInput.prototype.getAfterCreator = function () {
+            return afterCreator$1;
+        };
+        return DThemeDarkInputInput;
+    }(DThemeDarkInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4739,7 +4754,7 @@
             return 0;
         };
         return DThemeDarkInputNumber;
-    }(DThemeDarkInput));
+    }(DThemeDarkInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4843,7 +4858,7 @@
             return "";
         };
         return DThemeDarkInputText;
-    }(DThemeDarkInput));
+    }(DThemeDarkInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4857,12 +4872,109 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var CREATOR_CLASSNAME = "d-theme-dark-input-text-area";
+    var CREATOR_CLASSNAME_ELEMENT = CREATOR_CLASSNAME + "-element";
+    var elementCreator = function (container) {
+        var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var element = document.createElement("textarea");
+        element.setAttribute("spellcheck", "false");
+        element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT);
+        container.appendChild(element);
+        return element;
+    };
+    var divCreator = function (container, classname) {
+        var found = container.getElementsByClassName(classname);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var result = document.createElement("div");
+        result.setAttribute("class", classname);
+        container.appendChild(result);
+        return result;
+    };
+    var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
+    var clipperCreator = function (container) {
+        return divCreator(container, CREATOR_CLASSNAME_CLIPPER);
+    };
+    var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
+    var beforeCreator = function (container) {
+        return divCreator(container, CREATOR_CLASSNAME_BEFORE);
+    };
+    var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
+    var afterCreator = function (container) {
+        return divCreator(container, CREATOR_CLASSNAME_AFTER);
+    };
+    var DThemeDarkInputTextArea = /** @class */ (function (_super) {
+        __extends(DThemeDarkInputTextArea, _super);
+        function DThemeDarkInputTextArea() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkInputTextArea.prototype.getTextAlignVertical = function () {
+            return DAlignVertical.TOP;
+        };
+        DThemeDarkInputTextArea.prototype.getTextStyleWordWrap = function () {
+            return DDynamicTextStyleWordWrap.NORMAL;
+        };
+        DThemeDarkInputTextArea.prototype.getElementCreator = function () {
+            return elementCreator;
+        };
+        DThemeDarkInputTextArea.prototype.getClipperCreator = function () {
+            return clipperCreator;
+        };
+        DThemeDarkInputTextArea.prototype.getBeforeCreator = function () {
+            return beforeCreator;
+        };
+        DThemeDarkInputTextArea.prototype.getAfterCreator = function () {
+            return afterCreator;
+        };
+        DThemeDarkInputTextArea.prototype.newTextValue = function () {
+            return "";
+        };
+        DThemeDarkInputTextArea.prototype.getElementStyleText = function (state) {
+            return (_super.prototype.getElementStyleText.call(this, state) +
+                this.getElementStyleTextResize(state) +
+                this.getElementStyleTextWordWrap(state));
+        };
+        DThemeDarkInputTextArea.prototype.getElementStyleTextResize = function (state) {
+            return "resize: none;";
+        };
+        DThemeDarkInputTextArea.prototype.getElementStyleTextWordWrap = function (state) {
+            var result = "overflow-wrap: break-word; word-wrap: break-word;";
+            switch (this.getTextStyleWordWrap()) {
+                case DDynamicTextStyleWordWrap.NORMAL:
+                    result += "word-break: normal;";
+                    break;
+                default:
+                    result += "word-break: break-all;";
+                    break;
+            }
+            return result;
+        };
+        return DThemeDarkInputTextArea;
+    }(DThemeDarkInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkInputTextArea = function () {
+        DThemeDark.set("DInputTextArea", DThemeDarkInputTextArea);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var loadThemeDarkInputAll = function () {
         loadThemeDarkInputAndLabel();
         loadThemeDarkInputBoolean();
         loadThemeDarkInputInteger();
         loadThemeDarkInputLabel();
         loadThemeDarkInputReal();
+        loadThemeDarkInputTextArea();
         loadThemeDarkInputText();
     };
 
@@ -8298,6 +8410,7 @@
         loadThemeDarkInputInteger: loadThemeDarkInputInteger,
         loadThemeDarkInputLabel: loadThemeDarkInputLabel,
         loadThemeDarkInputReal: loadThemeDarkInputReal,
+        loadThemeDarkInputTextArea: loadThemeDarkInputTextArea,
         loadThemeDarkInputText: loadThemeDarkInputText,
         loadThemeDarkLayout: loadThemeDarkLayout,
         loadThemeDarkList: loadThemeDarkList,
@@ -8394,10 +8507,12 @@
         DThemeDarkInputBooleanButtonOff: DThemeDarkInputBooleanButtonOff,
         DThemeDarkInputBooleanButtonOn: DThemeDarkInputBooleanButtonOn,
         DThemeDarkInputBoolean: DThemeDarkInputBoolean,
+        DThemeDarkInputInput: DThemeDarkInputInput,
         DThemeDarkInputInteger: DThemeDarkInputInteger,
         DThemeDarkInputLabel: DThemeDarkInputLabel,
         DThemeDarkInputNumber: DThemeDarkInputNumber,
         DThemeDarkInputReal: DThemeDarkInputReal,
+        DThemeDarkInputTextArea: DThemeDarkInputTextArea,
         DThemeDarkInputText: DThemeDarkInputText,
         DThemeDarkInput: DThemeDarkInput,
         DThemeDarkLayoutHorizontal: DThemeDarkLayoutHorizontal,

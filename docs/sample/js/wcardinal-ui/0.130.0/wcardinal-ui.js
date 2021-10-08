@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.129.0
+ Winter Cardinal UI v0.130.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -333,25 +333,15 @@
      */
     var UtilCharacterIterator = /** @class */ (function () {
         function UtilCharacterIterator() {
-            this._target = "";
-            this._position = 0;
+            this.target = "";
+            this.position = 0;
         }
-        Object.defineProperty(UtilCharacterIterator.prototype, "position", {
-            get: function () {
-                return this._position;
-            },
-            set: function (position) {
-                this._position = position;
-            },
-            enumerable: false,
-            configurable: true
-        });
         UtilCharacterIterator.prototype.init = function (target) {
-            this._target = target;
-            this._position = 0;
+            this.target = target;
+            this.position = 0;
         };
         UtilCharacterIterator.prototype.hasNext = function () {
-            return this._position < this._target.length;
+            return this.position < this.target.length;
         };
         UtilCharacterIterator.prototype.findNextBreak = function (target, istart) {
             var iend = target.length;
@@ -373,11 +363,11 @@
             return 0xfe00 <= code && code <= 0xfe0f;
         };
         UtilCharacterIterator.prototype.next = function () {
-            var target = this._target;
-            var position = this._position;
+            var target = this.target;
+            var position = this.position;
             var nextBreak = this.findNextBreak(target, position + 1);
             var result = target.substring(position, nextBreak);
-            this._position = nextBreak;
+            this.position = nextBreak;
             return result;
         };
         /**
@@ -388,11 +378,24 @@
          * @return true if the position is advanced
          */
         UtilCharacterIterator.prototype.advance = function (except) {
-            var target = this._target;
-            var position = this._position;
+            var target = this.target;
+            var position = this.position;
             var nextBreak = this.findNextBreak(target, position + 1);
             if (target.substring(position, nextBreak) !== except) {
-                this._position = nextBreak;
+                this.position = nextBreak;
+                return true;
+            }
+            return false;
+        };
+        /**
+         * Closes this iterator.
+         *
+         * @returns true if closed.
+         */
+        UtilCharacterIterator.prototype.close = function () {
+            var length = this.target.length;
+            if (this.position < length) {
+                this.position = length;
                 return true;
             }
             return false;
@@ -15090,17 +15093,21 @@
                         // Show HTML elements
                         clipper.style.display = "";
                         if (state.isFocused) {
-                            element.focus();
+                            this.toElementFocused(element);
                         }
                         clipper.scrollTop = 0;
                         clipper.scrollLeft = 0;
                         // Select the element if required.
+                        // Note that a selecting without the setTimeout causes a key stroke drop on Microsoft Edge.
                         if (this._data.select) {
                             setTimeout(this._doSelectBound, 0);
                         }
                     }
                 }
             }
+        };
+        UtilHtmlElement.prototype.toElementFocused = function (element) {
+            element.focus();
         };
         UtilHtmlElement.prototype.onStart = function () {
             this._operation.onStart();
@@ -15555,16 +15562,13 @@
             this.onInputChange();
         };
         UtilInput.prototype.onElementAttached = function (element, before, after) {
-            element.type = this.getInputType();
             element.value = this.fromValue(this._operation.getValue());
-            element.addEventListener("keydown", this._onInputKeyDownBound);
             element.addEventListener("change", this._onInputChangeBound);
             element.addEventListener("input", this._onInputInputBound);
             _super.prototype.onElementAttached.call(this, element, before, after);
         };
         UtilInput.prototype.onElementDetached = function (element, before, after) {
             _super.prototype.onElementDetached.call(this, element, before, after);
-            element.removeEventListener("keydown", this._onInputKeyDownBound);
             element.removeEventListener("change", this._onInputChangeBound);
             element.removeEventListener("input", this._onInputInputBound);
         };
@@ -15576,6 +15580,11 @@
             else if (UtilKeyboardEvent.isCancelKey(e)) {
                 this.cancel();
             }
+        };
+        UtilInput.prototype.toElementFocused = function (element) {
+            _super.prototype.toElementFocused.call(this, element);
+            element.scrollTop = 0;
+            element.scrollLeft = 0;
         };
         UtilInput.prototype.onInputChange = function () {
             if (this.isShown()) {
@@ -15634,6 +15643,26 @@
         };
         return UtilInput;
     }(UtilHtmlElement));
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilInputInput = /** @class */ (function (_super) {
+        __extends(UtilInputInput, _super);
+        function UtilInputInput() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        UtilInputInput.prototype.onElementAttached = function (element, before, after) {
+            element.addEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementAttached.call(this, element, before, after);
+        };
+        UtilInputInput.prototype.onElementDetached = function (element, before, after) {
+            element.removeEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementDetached.call(this, element, before, after);
+        };
+        return UtilInputInput;
+    }(UtilInput));
 
     /*
      * Copyright (C) 2021 Toshiba Corporation
@@ -15761,16 +15790,14 @@
             }
         };
         UtilInputNumber.prototype.onElementAttached = function (element, before, after) {
+            element.type = "number";
             _super.prototype.onElementAttached.call(this, element, before, after);
             this.updateStep(element);
             this.updateMin(element);
             this.updateMax(element);
         };
-        UtilInputNumber.prototype.getInputType = function () {
-            return "number";
-        };
         return UtilInputNumber;
-    }(UtilInput));
+    }(UtilInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -15888,6 +15915,30 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeActionRuntimeMiscInputInput = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscInputInput, _super);
+        function EShapeActionRuntimeMiscInputInput() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return EShapeActionRuntimeMiscInputInput;
+    }(EShapeActionRuntimeMiscInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionRuntimeMiscInputNumber = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscInputNumber, _super);
+        function EShapeActionRuntimeMiscInputNumber() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return EShapeActionRuntimeMiscInputNumber;
+    }(EShapeActionRuntimeMiscInputInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionRuntimeMiscInputInteger = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeMiscInputInteger, _super);
         function EShapeActionRuntimeMiscInputInteger() {
@@ -15897,7 +15948,7 @@
             return new UtilInputNumber(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DInputInteger"), this.newUtilOptions(shape, runtime));
         };
         return EShapeActionRuntimeMiscInputInteger;
-    }(EShapeActionRuntimeMiscInput));
+    }(EShapeActionRuntimeMiscInputNumber));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -15912,7 +15963,7 @@
             return new UtilInputNumber(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DInputReal"), this.newUtilOptions(shape, runtime));
         };
         return EShapeActionRuntimeMiscInputReal;
-    }(EShapeActionRuntimeMiscInput));
+    }(EShapeActionRuntimeMiscInputNumber));
 
     /*
      * Copyright (C) 2021 Toshiba Corporation
@@ -15923,11 +15974,12 @@
         function UtilInputText() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        UtilInputText.prototype.getInputType = function () {
-            return "text";
+        UtilInputText.prototype.onElementAttached = function (element, before, after) {
+            element.type = "text";
+            _super.prototype.onElementAttached.call(this, element, before, after);
         };
         return UtilInputText;
-    }(UtilInput));
+    }(UtilInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -15942,7 +15994,7 @@
             return new UtilInputText(shape, this.newOperation(shape, runtime), DThemes.getInstance().get("DInputText"), this.newUtilOptions(shape, runtime));
         };
         return EShapeActionRuntimeMiscInputText;
-    }(EShapeActionRuntimeMiscInput));
+    }(EShapeActionRuntimeMiscInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -16466,7 +16518,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var ASCII_CHARACTERS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+    var ASCII_CHARACTERS = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -16485,19 +16537,47 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var DynamicFontAtlasCharacter = /** @class */ (function () {
-        function DynamicFontAtlasCharacter(advance, width, height, reserved) {
+        function DynamicFontAtlasCharacter(character, advance, width, height, type) {
             this.ref = 1;
             this.life = 10;
+            this.character = character;
             this.x = 0;
             this.y = 0;
             this.width = width;
             this.height = height;
             this.advance = advance;
             this.origin = new DynamicFontAtlasCharacterOrigin(0, 0);
-            this.reserved = reserved;
+            this.type = type;
         }
         return DynamicFontAtlasCharacter;
     }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var RESERVED = 1;
+    var NON_BREAKING = 2;
+    var SPACE = 4;
+    var SPACE_R = SPACE | RESERVED;
+    var SPACE_NB = SPACE | NON_BREAKING;
+    var SPACE_RNB = SPACE | RESERVED | NON_BREAKING;
+    var LETTER = 8;
+    var LETTER_R = LETTER | RESERVED;
+    var LETTER_NB = LETTER | NON_BREAKING;
+    var LETTER_RNB = LETTER | RESERVED | NON_BREAKING;
+    var DynamicFontAtlasCharacterType = {
+        RESERVED: RESERVED,
+        NON_BREAKING: NON_BREAKING,
+        SPACE: SPACE,
+        SPACE_R: SPACE_R,
+        SPACE_NB: SPACE_NB,
+        SPACE_RNB: SPACE_RNB,
+        LETTER: LETTER,
+        LETTER_R: LETTER_R,
+        LETTER_NB: LETTER_NB,
+        LETTER_RNB: LETTER_RNB
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -16866,31 +16946,36 @@
         DynamicSDFFontAtlas.prototype.begin = function () {
             this._length = 0;
             var characters = this._characters;
-            for (var character in characters) {
-                characters[character].ref = 0;
+            for (var id in characters) {
+                characters[id].ref = 0;
             }
         };
         DynamicSDFFontAtlas.prototype.end = function () {
             var characters = this._characters;
-            for (var character in characters) {
-                var data = characters[character];
+            for (var id in characters) {
+                var data = characters[id];
                 if (data.ref <= 0) {
                     data.life -= 1;
                     if (data.life <= 0) {
-                        delete characters[character];
+                        delete characters[id];
                         this._isDirty = true;
                     }
                 }
             }
         };
         DynamicSDFFontAtlas.prototype.addAscii = function () {
-            this.add(ASCII_CHARACTERS);
-            this.addChar("...");
+            this.addChar(" ", " ", DynamicFontAtlasCharacterType.SPACE_R);
+            this.addChar("\t", "    ", DynamicFontAtlasCharacterType.SPACE_R);
+            this.addChar("...", "...", DynamicFontAtlasCharacterType.LETTER_RNB);
+            for (var i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
+                var char = ASCII_CHARACTERS[i];
+                this.addChar(char, char, DynamicFontAtlasCharacterType.LETTER_RNB);
+            }
         };
-        DynamicSDFFontAtlas.prototype.addChar = function (character) {
+        DynamicSDFFontAtlas.prototype.addChar = function (id, character, type) {
             var characters = this._characters;
-            if (character !== "\n") {
-                var data = characters[character];
+            if (!this.isIgnored(character)) {
+                var data = characters[id];
                 if (data != null) {
                     if (data.ref <= 0) {
                         this._length += 1;
@@ -16898,20 +16983,37 @@
                     data.ref += 1;
                 }
                 else {
-                    characters[character] = new DynamicFontAtlasCharacter(0, 1, 1, false);
+                    characters[id] = new DynamicFontAtlasCharacter(character, 0, 1, 1, type);
                     this._length += 1;
                     this._isDirty = true;
                 }
             }
         };
-        DynamicSDFFontAtlas.prototype.add = function (characters) {
+        DynamicSDFFontAtlas.prototype.isIgnored = function (character) {
+            switch (character) {
+                case "\n": // Line feed
+                    return true;
+                case "\r": // Carriage return
+                    return true;
+                case "\v": // Vertical tab
+                    return true;
+                case "\f": // Form feed
+                    return true;
+                case "\u0085": // Next line
+                    return true;
+            }
+            return false;
+        };
+        DynamicSDFFontAtlas.prototype.add = function (characters, type) {
+            if (type === void 0) { type = DynamicFontAtlasCharacterType.LETTER; }
             var iterator = UtilCharacterIterator.from(characters);
             while (iterator.hasNext()) {
-                this.addChar(iterator.next());
+                var character = iterator.next();
+                this.addChar(character, character, type);
             }
         };
-        DynamicSDFFontAtlas.prototype.get = function (character) {
-            return this._characters[character];
+        DynamicSDFFontAtlas.prototype.get = function (id) {
+            return this._characters[id];
         };
         DynamicSDFFontAtlas.prototype.update = function () {
             if (this._isDirty) {
@@ -16939,9 +17041,9 @@
                         var offsetY = characterSize >> 1;
                         var x = 0;
                         var y = 0;
-                        for (var character in characters) {
-                            var data = characters[character];
-                            var advance = context.measureText(character).width;
+                        for (var id in characters) {
+                            var data = characters[id];
+                            var advance = context.measureText(data.character).width;
                             var characterWidth = Math.ceil(offsetX + advance + offsetX);
                             var characterHeight = characterSize;
                             if (width <= x + characterWidth) {
@@ -16972,9 +17074,9 @@
                         context.miterLimit = 4;
                         context.fillStyle = "#FFFFFF";
                         context.clearRect(0, 0, width, height);
-                        for (var character in characters) {
-                            var data = characters[character];
-                            context.fillText(character, data.origin.x, data.origin.y);
+                        for (var id in characters) {
+                            var data = characters[id];
+                            context.fillText(data.character, data.origin.x, data.origin.y);
                         }
                         // Convert to SDF font texture
                         generator.updateTexture(canvas);
@@ -17014,8 +17116,8 @@
                 this._canvas = null;
             }
             var characters = this._characters;
-            for (var character in characters) {
-                delete characters[character];
+            for (var id in characters) {
+                delete characters[id];
             }
         };
         DynamicSDFFontAtlas.toFontFamily = function (fontFamily) {
@@ -18246,637 +18348,6 @@
         BORDER: 2
     };
 
-    var DDynamicTextMeasureResultCharacter = /** @class */ (function () {
-        function DDynamicTextMeasureResultCharacter(x, y, character) {
-            this.x = x;
-            this.y = y;
-            this.character = character;
-        }
-        DDynamicTextMeasureResultCharacter.prototype.set = function (x, y, character) {
-            this.x = x;
-            this.y = y;
-            this.character = character;
-        };
-        return DDynamicTextMeasureResultCharacter;
-    }());
-
-    var DDynamicTextMeasureResult = /** @class */ (function () {
-        function DDynamicTextMeasureResult() {
-            this.count = 0;
-            this.width = 0;
-            this.height = 0;
-            this.characters = [];
-            this.clipped = false;
-            this.x = 0;
-            this.y = 0;
-        }
-        DDynamicTextMeasureResult.prototype.start = function () {
-            this.count = 0;
-            this.width = 0;
-            this.height = 0;
-            this.clipped = false;
-            this.x = 0;
-            this.y = 0;
-        };
-        DDynamicTextMeasureResult.prototype.push = function (character) {
-            var x = this.x;
-            this.x += character.advance;
-            var y = this.y;
-            var count = this.count;
-            var characters = this.characters;
-            if (count < characters.length) {
-                characters[count].set(x, y, character);
-            }
-            else {
-                characters.push(new DDynamicTextMeasureResultCharacter(x, y, character));
-            }
-            this.count += 1;
-        };
-        DDynamicTextMeasureResult.prototype.newLine = function (lineHeight) {
-            this.width = Math.max(this.width, this.x);
-            this.x = 0;
-            this.y += lineHeight;
-        };
-        DDynamicTextMeasureResult.prototype.pop = function () {
-            if (0 < this.x) {
-                var count = this.count;
-                var characters = this.characters;
-                if (0 < count) {
-                    var character = characters[count - 1];
-                    this.x -= character.character.advance;
-                    this.count -= 1;
-                    return true;
-                }
-            }
-            return false;
-        };
-        DDynamicTextMeasureResult.prototype.end = function (lineHeight) {
-            this.newLine(lineHeight);
-            this.height = this.y;
-        };
-        return DDynamicTextMeasureResult;
-    }());
-
-    var DDynamicTextMeasure = /** @class */ (function () {
-        function DDynamicTextMeasure() {
-        }
-        DDynamicTextMeasure.measure = function (text, atlas, clippingWidth) {
-            var result = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
-            DDynamicTextMeasure.RESULT = result;
-            result.start();
-            if (atlas != null) {
-                var iterator = UtilCharacterIterator.from(text);
-                var lineHeight = atlas.font.height;
-                var newLine = "\n";
-                while (iterator.hasNext()) {
-                    var character = iterator.next();
-                    if (character === newLine) {
-                        result.newLine(lineHeight);
-                    }
-                    else {
-                        var a = atlas.get(character);
-                        if (a != null) {
-                            if (clippingWidth != null && clippingWidth < result.x + a.advance) {
-                                result.clipped = true;
-                                var dots = atlas.get("...");
-                                if (dots != null) {
-                                    while (clippingWidth - dots.advance < result.x) {
-                                        if (!result.pop()) {
-                                            break;
-                                        }
-                                    }
-                                    if (result.x <= clippingWidth - dots.advance) {
-                                        result.push(dots);
-                                    }
-                                }
-                                while (iterator.hasNext()) {
-                                    if (iterator.next() === newLine) {
-                                        result.newLine(lineHeight);
-                                        break;
-                                    }
-                                }
-                            }
-                            else {
-                                result.push(a);
-                            }
-                        }
-                    }
-                }
-                result.end(lineHeight);
-            }
-            return result;
-        };
-        DDynamicTextMeasure.RESULT = null;
-        return DDynamicTextMeasure;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDynamicTextGeometry = /** @class */ (function (_super) {
-        __extends(DDynamicTextGeometry, _super);
-        function DDynamicTextGeometry() {
-            var _this = _super.call(this, new Float32Array(64), new Float32Array(64), new Uint16Array(48)) || this;
-            _this.width = 0;
-            _this.height = 0;
-            _this.clipped = false;
-            return _this;
-        }
-        DDynamicTextGeometry.prototype.update = function (text, atlas, clippingWidth) {
-            var vertexBuffer = this.getBuffer("aVertexPosition");
-            var uvBuffer = this.getBuffer("aTextureCoord");
-            var indexBuffer = this.getIndex();
-            var result = DDynamicTextMeasure.measure(text, atlas, clippingWidth);
-            var requiredTextSize = Math.ceil(result.count / 8) << 3;
-            var requiredVertexSize = requiredTextSize << 3;
-            if (vertexBuffer.data.length < requiredVertexSize) {
-                vertexBuffer.data = new Float32Array(requiredVertexSize);
-                uvBuffer.data = new Float32Array(requiredVertexSize);
-            }
-            var requiredIndexSize = requiredTextSize * 6;
-            if (indexBuffer.data.length < requiredIndexSize) {
-                indexBuffer.data = new Uint16Array(requiredIndexSize);
-            }
-            var vertices = vertexBuffer.data;
-            var uvs = uvBuffer.data;
-            var indices = indexBuffer.data;
-            if (atlas != null) {
-                var count = result.count;
-                var characters = result.characters;
-                for (var i = 0; i < count; ++i) {
-                    var character = characters[i];
-                    var cx = character.x;
-                    var cy = character.y;
-                    var cc = character.character;
-                    var w = atlas.width;
-                    var h = atlas.height;
-                    this.writeCharacter(vertices, uvs, indices, i, cx, cy, cc, w, h);
-                }
-                for (var i = count, imax = vertices.length >> 3; i < imax; ++i) {
-                    this.writeCharacterEmpty(vertices, uvs, indices, i);
-                }
-                this.width = result.width;
-                this.height = result.height;
-                this.clipped = result.clipped;
-            }
-            else {
-                for (var i = 0, imax = vertices.length >> 3; i < imax; ++i) {
-                    this.writeCharacterEmpty(vertices, uvs, indices, i);
-                }
-                this.width = 0;
-                this.height = 0;
-                this.clipped = false;
-            }
-            vertexBuffer.update();
-            uvBuffer.update();
-            indexBuffer.update();
-        };
-        DDynamicTextGeometry.prototype.writeCharacter = function (vertices, uvs, indices, index, x, y, character, width, height) {
-            var cx = character.x;
-            var cy = character.y;
-            var cw = character.width;
-            var ch = character.height;
-            var cox = character.origin.x;
-            var x0 = x + (cx - cox);
-            var y0 = y;
-            var x1 = x0 + cw;
-            var y1 = y0 + ch;
-            var iv = index << 3;
-            vertices[iv + 0] = x0;
-            vertices[iv + 1] = y0;
-            vertices[iv + 2] = x1;
-            vertices[iv + 3] = y0;
-            vertices[iv + 4] = x1;
-            vertices[iv + 5] = y1;
-            vertices[iv + 6] = x0;
-            vertices[iv + 7] = y1;
-            var u0 = cx / width;
-            var v0 = cy / height;
-            var u1 = (cx + cw) / width;
-            var v1 = (cy + ch) / height;
-            uvs[iv + 0] = u0;
-            uvs[iv + 1] = v0;
-            uvs[iv + 2] = u1;
-            uvs[iv + 3] = v0;
-            uvs[iv + 4] = u1;
-            uvs[iv + 5] = v1;
-            uvs[iv + 6] = u0;
-            uvs[iv + 7] = v1;
-            var ii = index * 6;
-            var vo = index << 2;
-            indices[ii + 0] = vo + 0;
-            indices[ii + 1] = vo + 1;
-            indices[ii + 2] = vo + 3;
-            indices[ii + 3] = vo + 1;
-            indices[ii + 4] = vo + 2;
-            indices[ii + 5] = vo + 3;
-        };
-        DDynamicTextGeometry.prototype.writeCharacterEmpty = function (vertices, uvs, indices, index) {
-            var iv = index << 3;
-            vertices[iv + 0] = 0;
-            vertices[iv + 1] = 0;
-            vertices[iv + 2] = 0;
-            vertices[iv + 3] = 0;
-            vertices[iv + 4] = 0;
-            vertices[iv + 5] = 0;
-            vertices[iv + 6] = 0;
-            vertices[iv + 7] = 0;
-            uvs[iv + 0] = 0;
-            uvs[iv + 1] = 0;
-            uvs[iv + 2] = 0;
-            uvs[iv + 3] = 0;
-            uvs[iv + 4] = 0;
-            uvs[iv + 5] = 0;
-            uvs[iv + 6] = 0;
-            uvs[iv + 7] = 0;
-            var ii = index * 6;
-            var vo = index << 2;
-            indices[ii + 0] = vo + 0;
-            indices[ii + 1] = vo + 1;
-            indices[ii + 2] = vo + 3;
-            indices[ii + 3] = vo + 1;
-            indices[ii + 4] = vo + 2;
-            indices[ii + 5] = vo + 3;
-        };
-        return DDynamicTextGeometry;
-    }(pixi_js.MeshGeometry));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDynamicTextStyle = /** @class */ (function () {
-        function DDynamicTextStyle(options, onChange) {
-            var _a, _b, _c, _d, _e, _f, _g, _h;
-            this._id = 0;
-            this._idApproved = -1;
-            var defaultOptions = this.getDefaultOptions();
-            if (options) {
-                this._align = (_a = options.align) !== null && _a !== void 0 ? _a : defaultOptions.align;
-                this._fontFamily = (_b = options.fontFamily) !== null && _b !== void 0 ? _b : defaultOptions.fontFamily;
-                this._fontSize = (_c = options.fontSize) !== null && _c !== void 0 ? _c : defaultOptions.fontSize;
-                this._fontStyle = (_d = options.fontStyle) !== null && _d !== void 0 ? _d : defaultOptions.fontStyle;
-                this._fontVariant = (_e = options.fontVariant) !== null && _e !== void 0 ? _e : defaultOptions.fontVariant;
-                this._fontWeight = (_f = options.fontWeight) !== null && _f !== void 0 ? _f : defaultOptions.fontWeight;
-                this._fill = (_g = options.fill) !== null && _g !== void 0 ? _g : defaultOptions.fill;
-                this._clipping = (_h = options.clipping) !== null && _h !== void 0 ? _h : defaultOptions.clipping;
-            }
-            else {
-                this._align = defaultOptions.align;
-                this._fontFamily = defaultOptions.fontFamily;
-                this._fontSize = defaultOptions.fontSize;
-                this._fontStyle = defaultOptions.fontStyle;
-                this._fontVariant = defaultOptions.fontVariant;
-                this._fontWeight = defaultOptions.fontWeight;
-                this._fill = defaultOptions.fill;
-                this._clipping = defaultOptions.clipping;
-            }
-            this._fontIdId = -1;
-            this._fontId = "";
-            this._fontIdApproved = "";
-            this._fillApproved = 0x000000;
-            this._onChange = onChange;
-        }
-        DDynamicTextStyle.prototype.getDefaultOptions = function () {
-            var result = DDynamicTextStyle.DEFAULT_OPTIONS;
-            if (result == null) {
-                var theme = DThemes.getInstance().get("DBase");
-                result = {
-                    align: "left",
-                    fontFamily: theme.getFontFamilly(),
-                    fontSize: theme.getFontSize(),
-                    fontStyle: "normal",
-                    fontVariant: "normal",
-                    fontWeight: "normal",
-                    fill: theme.getColor(new DBaseStateSetImpl()),
-                    clipping: true
-                };
-                DDynamicTextStyle.DEFAULT_OPTIONS = result;
-            }
-            return result;
-        };
-        Object.defineProperty(DDynamicTextStyle.prototype, "id", {
-            get: function () {
-                return this._id;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "idApproved", {
-            get: function () {
-                return this._idApproved;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "fontId", {
-            get: function () {
-                this.update();
-                return this._fontId;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "fontIdApproved", {
-            get: function () {
-                return this._fontIdApproved;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "fill", {
-            get: function () {
-                return this._fill;
-            },
-            set: function (fill) {
-                if (this._fill !== fill) {
-                    this._fill = fill;
-                    this.onChange();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDynamicTextStyle.prototype.onChange = function () {
-            this._id += 1;
-            this._onChange();
-        };
-        Object.defineProperty(DDynamicTextStyle.prototype, "fillApproved", {
-            get: function () {
-                return this._fillApproved;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDynamicTextStyle.prototype.approve = function () {
-            this.update();
-            this._idApproved = this._id;
-            this._fontIdApproved = this._fontId;
-            this._fillApproved = this._fill;
-        };
-        Object.defineProperty(DDynamicTextStyle.prototype, "fontFamily", {
-            get: function () {
-                return this._fontFamily;
-            },
-            set: function (fontFamily) {
-                if (this._fontFamily !== fontFamily) {
-                    this._fontFamily = fontFamily;
-                    this.onChange();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "fontSize", {
-            get: function () {
-                return this._fontSize;
-            },
-            set: function (fontSize) {
-                if (this._fontSize !== fontSize) {
-                    this._fontSize = fontSize;
-                    this.onChange();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "fontStyle", {
-            get: function () {
-                return this._fontStyle;
-            },
-            set: function (fontStyle) {
-                if (this._fontStyle !== fontStyle) {
-                    this._fontStyle = fontStyle;
-                    this.onChange();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "fontVariant", {
-            get: function () {
-                return this._fontVariant;
-            },
-            set: function (fontVariant) {
-                if (this._fontVariant !== fontVariant) {
-                    this._fontVariant = fontVariant;
-                    this.onChange();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicTextStyle.prototype, "fontWeight", {
-            get: function () {
-                return this._fontWeight;
-            },
-            set: function (fontWeight) {
-                if (this._fontWeight !== fontWeight) {
-                    this._fontWeight = fontWeight;
-                    this.onChange();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDynamicTextStyle.prototype.update = function () {
-            if (this._fontIdId !== this._id) {
-                this._fontIdId = this._id;
-                this._fontId = this.newFontId();
-            }
-        };
-        DDynamicTextStyle.prototype.newFontId = function () {
-            return this._fontStyle + " " + this._fontVariant + " " + this._fontWeight + " " + this._fontSize + "px " + this._fontFamily;
-        };
-        Object.defineProperty(DDynamicTextStyle.prototype, "clipping", {
-            get: function () {
-                return this._clipping;
-            },
-            set: function (clipping) {
-                if (this._clipping !== clipping) {
-                    this._clipping = clipping;
-                    this.onChange();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        return DDynamicTextStyle;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDynamicText = /** @class */ (function (_super) {
-        __extends(DDynamicText, _super);
-        function DDynamicText(text, options) {
-            var _this = _super.call(this, new DDynamicTextGeometry(), new pixi_js.MeshMaterial(pixi_js.Texture.EMPTY)) || this;
-            _this._style = new DDynamicTextStyle(options, function () {
-                _this._isDirty = true;
-                _this._isGeometryDirty = true;
-                _this._atlas = null;
-                _this.update_();
-            });
-            _this._text = text;
-            _this._textApproved = "";
-            _this._isDirty = true;
-            _this._isGeometryDirty = true;
-            _this._atlas = null;
-            _this._atlasRevisionUpdated = 0;
-            _this._width = 0;
-            _this._height = 0;
-            _this._clippingWidthDelta = 0;
-            _this.update_();
-            return _this;
-        }
-        DDynamicText.prototype.update_ = function () {
-            var layer = DApplications.getLayer(this);
-            if (layer) {
-                var style = this._style;
-                if (this._isDirty) {
-                    this._isDirty = false;
-                    var text = this._text;
-                    var textApproved = this._textApproved;
-                    this._textApproved = text;
-                    var fontId = style.fontId;
-                    var fontIdApproved = style.fontIdApproved;
-                    var fontSize = style.fontSize;
-                    var fill = style.fill;
-                    var fillApproved = style.fillApproved;
-                    style.approve();
-                    var atlases = layer.getDynamicFontAtlases();
-                    if (text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved) {
-                        atlases.add(fontId, fontSize, fill, text);
-                        atlases.remove(fontIdApproved, fillApproved, textApproved);
-                    }
-                }
-            }
-        };
-        Object.defineProperty(DDynamicText.prototype, "text", {
-            get: function () {
-                return this._text;
-            },
-            set: function (text) {
-                if (this._text !== text) {
-                    this._text = text;
-                    this._isDirty = true;
-                    this._isGeometryDirty = true;
-                    this.update_();
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicText.prototype, "width", {
-            // @ts-ignore
-            get: function () {
-                this.update();
-                return Math.abs(this.scale.x) * this.geometry.width;
-            },
-            set: function (width) {
-                this.update();
-                var geometryWidth = this.geometry.width;
-                if (+1e-4 < geometryWidth) {
-                    var newScale = width / geometryWidth;
-                    this.scale.x = 0 <= this.scale.x ? +newScale : -newScale;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicText.prototype, "height", {
-            // @ts-ignore
-            get: function () {
-                this.update();
-                return Math.abs(this.scale.y) * this.geometry.height;
-            },
-            set: function (height) {
-                this.update();
-                var geometryHeight = this.geometry.height;
-                if (+1e-4 < geometryHeight) {
-                    var newScale = height / geometryHeight;
-                    this.scale.y = 0 <= this.scale.y ? +newScale : -newScale;
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicText.prototype, "clipped", {
-            get: function () {
-                return this.geometry.clipped;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDynamicText.prototype, "style", {
-            get: function () {
-                return this._style;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDynamicText.prototype.update = function () {
-            this.update_();
-            var atlas = this._atlas;
-            if (atlas == null) {
-                var layer = DApplications.getLayer(this);
-                if (layer) {
-                    var style = this._style;
-                    atlas = layer.getDynamicFontAtlases().get(style.fontId, style.fill);
-                    if (atlas != null) {
-                        this._atlasRevisionUpdated = atlas.getRevisionUpdate();
-                        this._atlas = atlas;
-                        this.texture = atlas.texture;
-                        this._isGeometryDirty = true;
-                    }
-                }
-            }
-            else {
-                var revisionUpdate = atlas.getRevisionUpdate();
-                if (revisionUpdate !== this._atlasRevisionUpdated) {
-                    this._atlasRevisionUpdated = revisionUpdate;
-                    this._isGeometryDirty = true;
-                }
-            }
-            var clippingWidth = this._clippingWidth;
-            var newClippingWidth = this.getClippingWidth();
-            if (clippingWidth !== newClippingWidth) {
-                this._clippingWidth = newClippingWidth;
-                this._isGeometryDirty = true;
-            }
-            if (this._isGeometryDirty) {
-                this._isGeometryDirty = false;
-                this.geometry.update(this._text, atlas, newClippingWidth);
-            }
-        };
-        DDynamicText.prototype.getClippingWidth = function () {
-            if (this._style.clipping) {
-                var parent_1 = this.parent;
-                if (parent_1 instanceof DBase) {
-                    return (parent_1.width -
-                        parent_1.padding.getLeft() -
-                        parent_1.padding.getRight() -
-                        this._clippingWidthDelta);
-                }
-            }
-            return undefined;
-        };
-        DDynamicText.prototype.setClippingWidthDelta = function (width) {
-            this._clippingWidthDelta = width;
-        };
-        DDynamicText.prototype._calculateBounds = function () {
-            this.update();
-            _super.prototype._calculateBounds.call(this);
-        };
-        DDynamicText.prototype._render = function (renderer) {
-            this.update();
-            _super.prototype._render.call(this, renderer);
-        };
-        return DDynamicText;
-    }(pixi_js.Mesh));
-
     var DImageBaseThemeWrapperSecondary = /** @class */ (function () {
         function DImageBaseThemeWrapperSecondary(theme) {
             this._theme = theme;
@@ -19243,12 +18714,1059 @@
         return DBaseOverflowMaskSimple;
     }(pixi_js.Graphics));
 
+    var DDynamicTextMeasureResultCharacter = /** @class */ (function () {
+        function DDynamicTextMeasureResultCharacter(x, y, character, wrappable) {
+            this.x = x;
+            this.y = y;
+            this.character = character;
+            this.wrappable = wrappable;
+        }
+        DDynamicTextMeasureResultCharacter.prototype.set = function (x, y, character, isWrappable) {
+            this.x = x;
+            this.y = y;
+            this.character = character;
+            this.wrappable = isWrappable;
+        };
+        return DDynamicTextMeasureResultCharacter;
+    }());
+
+    var DDynamicTextMeasureResult = /** @class */ (function () {
+        function DDynamicTextMeasureResult() {
+            this.count = 0;
+            this.countPerLine = 0;
+            this.width = 0;
+            this.height = 0;
+            this.characters = [];
+            this.clipped = false;
+            this.x = 0;
+            this.y = 0;
+        }
+        DDynamicTextMeasureResult.prototype.start = function () {
+            this.count = 0;
+            this.countPerLine = 0;
+            this.width = 0;
+            this.height = 0;
+            this.clipped = false;
+            this.x = 0;
+            this.y = 0;
+        };
+        DDynamicTextMeasureResult.prototype.isPushable = function (width, character) {
+            var x = this.x + character.advance;
+            if (width < x) {
+                if (character.type & DynamicFontAtlasCharacterType.SPACE) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            return true;
+        };
+        DDynamicTextMeasureResult.prototype.isPushableAtNewLine = function (height, lineHeight, fontHeight) {
+            return this.y + 1.5 * lineHeight + 0.5 * fontHeight <= height;
+        };
+        DDynamicTextMeasureResult.prototype.push = function (character, isWrappable) {
+            var x = this.x;
+            this.x += character.advance;
+            var y = this.y;
+            var count = this.count;
+            var characters = this.characters;
+            if (count < characters.length) {
+                characters[count].set(x, y, character, isWrappable);
+            }
+            else {
+                characters.push(new DDynamicTextMeasureResultCharacter(x, y, character, isWrappable));
+            }
+            this.count += 1;
+            this.countPerLine += 1;
+        };
+        DDynamicTextMeasureResult.prototype.newLine = function (lineHeight) {
+            this.width = Math.max(this.width, this.x);
+            this.x = 0;
+            this.y += lineHeight;
+            this.countPerLine = 0;
+        };
+        DDynamicTextMeasureResult.prototype.wordWrap = function (lineHeight) {
+            var countPerLine = this.countPerLine;
+            var characters = this.characters;
+            if (0 < countPerLine) {
+                var count = this.count;
+                for (var i = count - 1, imin = count - countPerLine; imin < i; --i) {
+                    var character = characters[i];
+                    if (character.wrappable) {
+                        var x = character.character.advance;
+                        var y = character.y + lineHeight;
+                        character.x = 0;
+                        character.y = y;
+                        for (var j = i + 1; j < count; ++j) {
+                            character = characters[j];
+                            character.x = x;
+                            character.y = y;
+                            x += character.character.advance;
+                        }
+                        this.x = x;
+                        this.y = y;
+                        this.countPerLine = count - i;
+                        return true;
+                    }
+                }
+                var last = characters[count - 1];
+                last.x = 0;
+                last.y = last.y + lineHeight;
+                this.x = last.character.advance;
+                this.y = last.y;
+                this.countPerLine = 1;
+                return false;
+            }
+            return false;
+        };
+        DDynamicTextMeasureResult.prototype.pop = function () {
+            var countPerLine = this.countPerLine;
+            var characters = this.characters;
+            if (0 < countPerLine) {
+                var character = characters[this.count - 1];
+                this.x -= character.character.advance;
+                this.count -= 1;
+                this.countPerLine -= 1;
+                return true;
+            }
+            return false;
+        };
+        DDynamicTextMeasureResult.prototype.end = function (lineHeight) {
+            this.newLine(lineHeight);
+            this.height = this.y;
+        };
+        return DDynamicTextMeasureResult;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDynamicTextStyleWordWrap = {
+        NONE: 0,
+        NORMAL: 1,
+        BREAK_ALL: 2
+    };
+
+    var NEW_LINE = "\n";
+    var DDynamicTextMeasure = /** @class */ (function () {
+        function DDynamicTextMeasure() {
+        }
+        DDynamicTextMeasure.measure = function (text, atlas, clipping) {
+            var result = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
+            DDynamicTextMeasure.RESULT = result;
+            result.start();
+            if (atlas != null) {
+                var itr = UtilCharacterIterator.from(text);
+                var lh = clipping.lineHeight;
+                var fh = atlas.font.height;
+                var ce = clipping.enable;
+                var cw = clipping.width;
+                var ch = clipping.height;
+                var cp = clipping.wordWrap;
+                result.y = 0.5 * (lh - fh);
+                switch (cp) {
+                    case DDynamicTextStyleWordWrap.BREAK_ALL:
+                        if (ce) {
+                            this.measure1(itr, cw, ch, fh, lh, atlas, result);
+                        }
+                        else {
+                            this.measure2(itr, cw, lh, atlas, result);
+                        }
+                        break;
+                    case DDynamicTextStyleWordWrap.NORMAL:
+                        var lb = this.newLineBreaker(text);
+                        if (lb) {
+                            if (ce) {
+                                this.measure1a(lb, itr, cw, ch, fh, lh, atlas, result);
+                            }
+                            else {
+                                this.measure2a(lb, itr, cw, lh, atlas, result);
+                            }
+                        }
+                        else {
+                            if (ce) {
+                                this.measure1b(itr, cw, ch, fh, lh, atlas, result);
+                            }
+                            else {
+                                this.measure2b(itr, cw, lh, atlas, result);
+                            }
+                        }
+                        break;
+                    default:
+                        if (ce) {
+                            this.measure3(itr, cw, lh, atlas, result);
+                        }
+                        else {
+                            this.measure4(itr, lh, atlas, result);
+                        }
+                        break;
+                }
+                result.end(lh);
+            }
+            return result;
+        };
+        DDynamicTextMeasure.measure1a = function (lineBreaker, iterator, clippingWidth, clippingHeight, fontHeight, lineHeight, atlas, result) {
+            var lineBreak = lineBreaker.next();
+            while (iterator.hasNext()) {
+                var characterPosition = iterator.position;
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    lineBreak = this.advance(characterPosition, lineBreak, lineBreaker);
+                    var isWrappable = this.isWrappable1(characterPosition, lineBreak);
+                    if (result.isPushable(clippingWidth, a)) {
+                        result.push(a, isWrappable);
+                    }
+                    else {
+                        if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
+                            result.push(a, isWrappable);
+                            result.wordWrap(lineHeight);
+                        }
+                        else {
+                            this.measure5(iterator, clippingWidth, lineHeight, atlas, result, true);
+                        }
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.measure1b = function (iterator, clippingWidth, clippingHeight, fontHeight, lineHeight, atlas, result) {
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    var isWrappable = this.isWrappable2(result, a);
+                    if (result.isPushable(clippingWidth, a)) {
+                        result.push(a, isWrappable);
+                    }
+                    else {
+                        if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
+                            result.push(a, isWrappable);
+                            result.wordWrap(lineHeight);
+                        }
+                        else {
+                            this.measure5(iterator, clippingWidth, lineHeight, atlas, result, true);
+                        }
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.measure1 = function (iterator, clippingWidth, clippingHeight, fontHeight, lineHeight, atlas, result) {
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    if (result.isPushable(clippingWidth, a)) {
+                        result.push(a, true);
+                    }
+                    else {
+                        if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
+                            result.newLine(lineHeight);
+                            result.push(a, true);
+                        }
+                        else {
+                            this.measure5(iterator, clippingWidth, lineHeight, atlas, result, true);
+                        }
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.measure2a = function (lineBreaker, iterator, clippingWidth, lineHeight, atlas, result) {
+            var lineBreak = lineBreaker.next();
+            while (iterator.hasNext()) {
+                var characterPosition = iterator.position;
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    lineBreak = this.advance(characterPosition, lineBreak, lineBreaker);
+                    var isWrappable = this.isWrappable1(characterPosition, lineBreak);
+                    if (result.isPushable(clippingWidth, a)) {
+                        result.push(a, isWrappable);
+                    }
+                    else {
+                        result.push(a, isWrappable);
+                        result.wordWrap(lineHeight);
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.measure2b = function (iterator, clippingWidth, lineHeight, atlas, result) {
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    var isWrappable = this.isWrappable2(result, a);
+                    if (result.isPushable(clippingWidth, a)) {
+                        result.push(a, isWrappable);
+                    }
+                    else {
+                        result.push(a, isWrappable);
+                        result.wordWrap(lineHeight);
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.measure2 = function (iterator, clippingWidth, lineHeight, atlas, result) {
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    if (result.isPushable(clippingWidth, a)) {
+                        result.push(a, false);
+                    }
+                    else {
+                        result.newLine(lineHeight);
+                        result.push(a, false);
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.measure3 = function (iterator, clippingWidth, lineHeight, atlas, result) {
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    if (result.isPushable(clippingWidth, a)) {
+                        result.push(a, false);
+                    }
+                    else {
+                        this.measure5(iterator, clippingWidth, lineHeight, atlas, result, false);
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.measure4 = function (iterator, lineHeight, atlas, result) {
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                if (character === NEW_LINE) {
+                    result.newLine(lineHeight);
+                }
+                else {
+                    var a = atlas.get(character);
+                    if (a == null)
+                        continue;
+                    result.push(a, false);
+                }
+            }
+        };
+        DDynamicTextMeasure.measure5 = function (iterator, clippingWidth, lineHeight, atlas, result, close) {
+            result.clipped = true;
+            var dots = atlas.get("...");
+            if (dots != null) {
+                while (!result.isPushable(clippingWidth, dots)) {
+                    if (!result.pop()) {
+                        break;
+                    }
+                }
+                if (result.isPushable(clippingWidth, dots)) {
+                    result.push(dots, false);
+                }
+            }
+            if (close) {
+                iterator.close();
+            }
+            else {
+                while (iterator.hasNext()) {
+                    if (iterator.next() === NEW_LINE) {
+                        result.newLine(lineHeight);
+                        break;
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.isWrappable2 = function (result, character) {
+            if (result.countPerLine <= 0) {
+                return false;
+            }
+            var last = result.characters[result.count - 1];
+            var lastType = last.character.type;
+            var type = character.type;
+            if (lastType & DynamicFontAtlasCharacterType.SPACE) {
+                if (type & DynamicFontAtlasCharacterType.SPACE) {
+                    return false;
+                }
+                else {
+                    if (lastType & DynamicFontAtlasCharacterType.NON_BREAKING) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+            else {
+                if (type & DynamicFontAtlasCharacterType.SPACE) {
+                    return false;
+                }
+                else {
+                    if (lastType & DynamicFontAtlasCharacterType.NON_BREAKING) {
+                        if (type & DynamicFontAtlasCharacterType.NON_BREAKING) {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+        };
+        DDynamicTextMeasure.advance = function (position, lineBreak, lineBreaker) {
+            if (lineBreak.done) {
+                return lineBreak;
+            }
+            if (position <= lineBreak.value.end) {
+                return lineBreak;
+            }
+            lineBreak = lineBreaker.next();
+            return lineBreak;
+        };
+        DDynamicTextMeasure.isWrappable1 = function (position, lineBreak) {
+            if (lineBreak.done) {
+                return false;
+            }
+            var value = lineBreak.value;
+            return value.start === position || value.end === position;
+        };
+        DDynamicTextMeasure.newLineBreaker = function (target) {
+            if ("css-line-break" in window) {
+                var cssLineBreak = window["css-line-break"];
+                return cssLineBreak.LineBreaker(target, {
+                    lineBreak: "strict",
+                    wordBreak: "normal"
+                });
+            }
+            return null;
+        };
+        DDynamicTextMeasure.RESULT = null;
+        return DDynamicTextMeasure;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDynamicTextGeometry = /** @class */ (function (_super) {
+        __extends(DDynamicTextGeometry, _super);
+        function DDynamicTextGeometry() {
+            var _this = _super.call(this, new Float32Array(64), new Float32Array(64), new Uint16Array(48)) || this;
+            _this.width = 0;
+            _this.height = 0;
+            _this.clipped = false;
+            return _this;
+        }
+        DDynamicTextGeometry.prototype.update = function (text, atlas, clipping) {
+            var vertexBuffer = this.getBuffer("aVertexPosition");
+            var uvBuffer = this.getBuffer("aTextureCoord");
+            var indexBuffer = this.getIndex();
+            var result = DDynamicTextMeasure.measure(text, atlas, clipping);
+            var requiredTextSize = Math.ceil(result.count / 8) << 3;
+            var requiredVertexSize = requiredTextSize << 3;
+            if (vertexBuffer.data.length < requiredVertexSize) {
+                vertexBuffer.data = new Float32Array(requiredVertexSize);
+                uvBuffer.data = new Float32Array(requiredVertexSize);
+            }
+            var requiredIndexSize = requiredTextSize * 6;
+            if (indexBuffer.data.length < requiredIndexSize) {
+                indexBuffer.data = new Uint16Array(requiredIndexSize);
+            }
+            var vertices = vertexBuffer.data;
+            var uvs = uvBuffer.data;
+            var indices = indexBuffer.data;
+            if (atlas != null) {
+                var count = result.count;
+                var characters = result.characters;
+                for (var i = 0; i < count; ++i) {
+                    var character = characters[i];
+                    var cx = character.x;
+                    var cy = character.y;
+                    var cc = character.character;
+                    var w = atlas.width;
+                    var h = atlas.height;
+                    this.writeCharacter(vertices, uvs, indices, i, cx, cy, cc, w, h);
+                }
+                for (var i = count, imax = vertices.length >> 3; i < imax; ++i) {
+                    this.writeCharacterEmpty(vertices, uvs, indices, i);
+                }
+                this.width = result.width;
+                this.height = result.height;
+                this.clipped = result.clipped;
+            }
+            else {
+                for (var i = 0, imax = vertices.length >> 3; i < imax; ++i) {
+                    this.writeCharacterEmpty(vertices, uvs, indices, i);
+                }
+                this.width = 0;
+                this.height = 0;
+                this.clipped = false;
+            }
+            vertexBuffer.update();
+            uvBuffer.update();
+            indexBuffer.update();
+        };
+        DDynamicTextGeometry.prototype.writeCharacter = function (vertices, uvs, indices, index, x, y, character, width, height) {
+            var cx = character.x;
+            var cy = character.y;
+            var cw = character.width;
+            var ch = character.height;
+            var cox = character.origin.x;
+            var x0 = x + (cx - cox);
+            var y0 = y;
+            var x1 = x0 + cw;
+            var y1 = y0 + ch;
+            var iv = index << 3;
+            vertices[iv + 0] = x0;
+            vertices[iv + 1] = y0;
+            vertices[iv + 2] = x1;
+            vertices[iv + 3] = y0;
+            vertices[iv + 4] = x1;
+            vertices[iv + 5] = y1;
+            vertices[iv + 6] = x0;
+            vertices[iv + 7] = y1;
+            var u0 = cx / width;
+            var v0 = cy / height;
+            var u1 = (cx + cw) / width;
+            var v1 = (cy + ch) / height;
+            uvs[iv + 0] = u0;
+            uvs[iv + 1] = v0;
+            uvs[iv + 2] = u1;
+            uvs[iv + 3] = v0;
+            uvs[iv + 4] = u1;
+            uvs[iv + 5] = v1;
+            uvs[iv + 6] = u0;
+            uvs[iv + 7] = v1;
+            var ii = index * 6;
+            var vo = index << 2;
+            indices[ii + 0] = vo + 0;
+            indices[ii + 1] = vo + 1;
+            indices[ii + 2] = vo + 3;
+            indices[ii + 3] = vo + 1;
+            indices[ii + 4] = vo + 2;
+            indices[ii + 5] = vo + 3;
+        };
+        DDynamicTextGeometry.prototype.writeCharacterEmpty = function (vertices, uvs, indices, index) {
+            var iv = index << 3;
+            vertices[iv + 0] = 0;
+            vertices[iv + 1] = 0;
+            vertices[iv + 2] = 0;
+            vertices[iv + 3] = 0;
+            vertices[iv + 4] = 0;
+            vertices[iv + 5] = 0;
+            vertices[iv + 6] = 0;
+            vertices[iv + 7] = 0;
+            uvs[iv + 0] = 0;
+            uvs[iv + 1] = 0;
+            uvs[iv + 2] = 0;
+            uvs[iv + 3] = 0;
+            uvs[iv + 4] = 0;
+            uvs[iv + 5] = 0;
+            uvs[iv + 6] = 0;
+            uvs[iv + 7] = 0;
+            var ii = index * 6;
+            var vo = index << 2;
+            indices[ii + 0] = vo + 0;
+            indices[ii + 1] = vo + 1;
+            indices[ii + 2] = vo + 3;
+            indices[ii + 3] = vo + 1;
+            indices[ii + 4] = vo + 2;
+            indices[ii + 5] = vo + 3;
+        };
+        return DDynamicTextGeometry;
+    }(pixi_js.MeshGeometry));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDynamicTextStyle = /** @class */ (function () {
+        function DDynamicTextStyle(options, onChange) {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+            this._id = 0;
+            this._idApproved = -1;
+            var defaultOptions = this.getDefaultOptions();
+            if (options) {
+                this._align = (_a = options.align) !== null && _a !== void 0 ? _a : defaultOptions.align;
+                this._fontFamily = (_b = options.fontFamily) !== null && _b !== void 0 ? _b : defaultOptions.fontFamily;
+                this._fontSize = (_c = options.fontSize) !== null && _c !== void 0 ? _c : defaultOptions.fontSize;
+                this._fontStyle = (_d = options.fontStyle) !== null && _d !== void 0 ? _d : defaultOptions.fontStyle;
+                this._fontVariant = (_e = options.fontVariant) !== null && _e !== void 0 ? _e : defaultOptions.fontVariant;
+                this._fontWeight = (_f = options.fontWeight) !== null && _f !== void 0 ? _f : defaultOptions.fontWeight;
+                this._fill = (_g = options.fill) !== null && _g !== void 0 ? _g : defaultOptions.fill;
+                this._clipping = (_h = options.clipping) !== null && _h !== void 0 ? _h : defaultOptions.clipping;
+                this._wordWrap = toEnum((_j = options.wordWrap) !== null && _j !== void 0 ? _j : defaultOptions.wordWrap, DDynamicTextStyleWordWrap);
+                this._lineHeight = (_k = options.lineHeight) !== null && _k !== void 0 ? _k : defaultOptions.lineHeight;
+            }
+            else {
+                this._align = defaultOptions.align;
+                this._fontFamily = defaultOptions.fontFamily;
+                this._fontSize = defaultOptions.fontSize;
+                this._fontStyle = defaultOptions.fontStyle;
+                this._fontVariant = defaultOptions.fontVariant;
+                this._fontWeight = defaultOptions.fontWeight;
+                this._fill = defaultOptions.fill;
+                this._clipping = defaultOptions.clipping;
+                this._wordWrap = toEnum(defaultOptions.wordWrap, DDynamicTextStyleWordWrap);
+                this._lineHeight = defaultOptions.lineHeight;
+            }
+            this._fontIdId = -1;
+            this._fontId = "";
+            this._fontIdApproved = "";
+            this._fillApproved = 0x000000;
+            this._onChange = onChange;
+        }
+        DDynamicTextStyle.prototype.getDefaultOptions = function () {
+            var result = DDynamicTextStyle.DEFAULT_OPTIONS;
+            if (result == null) {
+                result = this.newDefaultOptions();
+                DDynamicTextStyle.DEFAULT_OPTIONS = result;
+            }
+            return result;
+        };
+        DDynamicTextStyle.prototype.newDefaultOptions = function () {
+            var theme = DThemes.getInstance().get("DBase");
+            return {
+                align: "left",
+                fontFamily: theme.getFontFamilly(),
+                fontSize: theme.getFontSize(),
+                fontStyle: "normal",
+                fontVariant: "normal",
+                fontWeight: "normal",
+                fill: theme.getColor(new DBaseStateSetImpl()),
+                clipping: true,
+                wordWrap: DDynamicTextStyleWordWrap.NONE,
+                lineHeight: theme.getLineHeight()
+            };
+        };
+        Object.defineProperty(DDynamicTextStyle.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "idApproved", {
+            get: function () {
+                return this._idApproved;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "fontId", {
+            get: function () {
+                this.update();
+                return this._fontId;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "fontIdApproved", {
+            get: function () {
+                return this._fontIdApproved;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "fill", {
+            get: function () {
+                return this._fill;
+            },
+            set: function (fill) {
+                if (this._fill !== fill) {
+                    this._fill = fill;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDynamicTextStyle.prototype.onChange = function () {
+            this._id += 1;
+            this._onChange();
+        };
+        Object.defineProperty(DDynamicTextStyle.prototype, "fillApproved", {
+            get: function () {
+                return this._fillApproved;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDynamicTextStyle.prototype.approve = function () {
+            this.update();
+            this._idApproved = this._id;
+            this._fontIdApproved = this._fontId;
+            this._fillApproved = this._fill;
+        };
+        Object.defineProperty(DDynamicTextStyle.prototype, "fontFamily", {
+            get: function () {
+                return this._fontFamily;
+            },
+            set: function (fontFamily) {
+                if (this._fontFamily !== fontFamily) {
+                    this._fontFamily = fontFamily;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "fontSize", {
+            get: function () {
+                return this._fontSize;
+            },
+            set: function (fontSize) {
+                if (this._fontSize !== fontSize) {
+                    this._fontSize = fontSize;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "fontStyle", {
+            get: function () {
+                return this._fontStyle;
+            },
+            set: function (fontStyle) {
+                if (this._fontStyle !== fontStyle) {
+                    this._fontStyle = fontStyle;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "fontVariant", {
+            get: function () {
+                return this._fontVariant;
+            },
+            set: function (fontVariant) {
+                if (this._fontVariant !== fontVariant) {
+                    this._fontVariant = fontVariant;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "fontWeight", {
+            get: function () {
+                return this._fontWeight;
+            },
+            set: function (fontWeight) {
+                if (this._fontWeight !== fontWeight) {
+                    this._fontWeight = fontWeight;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDynamicTextStyle.prototype.update = function () {
+            if (this._fontIdId !== this._id) {
+                this._fontIdId = this._id;
+                this._fontId = this.newFontId();
+            }
+        };
+        DDynamicTextStyle.prototype.newFontId = function () {
+            return this._fontStyle + " " + this._fontVariant + " " + this._fontWeight + " " + this._fontSize + "px " + this._fontFamily;
+        };
+        Object.defineProperty(DDynamicTextStyle.prototype, "clipping", {
+            get: function () {
+                return this._clipping;
+            },
+            set: function (clipping) {
+                if (this._clipping !== clipping) {
+                    this._clipping = clipping;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "wordWrap", {
+            get: function () {
+                return this._wordWrap;
+            },
+            set: function (wordWrap) {
+                if (this._wordWrap !== wordWrap) {
+                    this._wordWrap = wordWrap;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicTextStyle.prototype, "lineHeight", {
+            get: function () {
+                return this._lineHeight;
+            },
+            set: function (lineHeight) {
+                if (this._lineHeight !== lineHeight) {
+                    this._lineHeight = lineHeight;
+                    this.onChange();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return DDynamicTextStyle;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDynamicText = /** @class */ (function (_super) {
+        __extends(DDynamicText, _super);
+        function DDynamicText(text, options) {
+            var _this = _super.call(this, new DDynamicTextGeometry(), new pixi_js.MeshMaterial(pixi_js.Texture.EMPTY)) || this;
+            _this._style = new DDynamicTextStyle(options, function () {
+                _this._isDirty = true;
+                _this._isGeometryDirty = true;
+                _this._atlas = null;
+                _this.update_();
+            });
+            _this._text = text;
+            _this._textApproved = "";
+            _this._isDirty = true;
+            _this._isGeometryDirty = true;
+            _this._atlas = null;
+            _this._atlasRevisionUpdated = 0;
+            _this._width = 0;
+            _this._height = 0;
+            _this._clipping = {
+                enable: false,
+                wordWrap: DDynamicTextStyleWordWrap.NONE,
+                width: 0,
+                height: 0,
+                lineHeight: 0,
+                delta: {
+                    width: 0,
+                    height: 0
+                }
+            };
+            _this.update_();
+            return _this;
+        }
+        DDynamicText.prototype.update_ = function () {
+            var layer = DApplications.getLayer(this);
+            if (layer) {
+                var style = this._style;
+                if (this._isDirty) {
+                    this._isDirty = false;
+                    var text = this._text;
+                    var textApproved = this._textApproved;
+                    this._textApproved = text;
+                    var fontId = style.fontId;
+                    var fontIdApproved = style.fontIdApproved;
+                    var fontSize = style.fontSize;
+                    var fill = style.fill;
+                    var fillApproved = style.fillApproved;
+                    style.approve();
+                    var atlases = layer.getDynamicFontAtlases();
+                    if (text !== textApproved || fontId !== fontIdApproved || fill !== fillApproved) {
+                        atlases.add(fontId, fontSize, fill, text);
+                        atlases.remove(fontIdApproved, fillApproved, textApproved);
+                    }
+                }
+            }
+        };
+        Object.defineProperty(DDynamicText.prototype, "text", {
+            get: function () {
+                return this._text;
+            },
+            set: function (text) {
+                if (this._text !== text) {
+                    this._text = text;
+                    this._isDirty = true;
+                    this._isGeometryDirty = true;
+                    this.update_();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicText.prototype, "width", {
+            // @ts-ignore
+            get: function () {
+                this.update();
+                return Math.abs(this.scale.x) * this.geometry.width;
+            },
+            set: function (width) {
+                this.update();
+                var geometryWidth = this.geometry.width;
+                if (+1e-4 < geometryWidth) {
+                    var newScale = width / geometryWidth;
+                    this.scale.x = 0 <= this.scale.x ? +newScale : -newScale;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicText.prototype, "height", {
+            // @ts-ignore
+            get: function () {
+                this.update();
+                return Math.abs(this.scale.y) * this.geometry.height;
+            },
+            set: function (height) {
+                this.update();
+                var geometryHeight = this.geometry.height;
+                if (+1e-4 < geometryHeight) {
+                    var newScale = height / geometryHeight;
+                    this.scale.y = 0 <= this.scale.y ? +newScale : -newScale;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicText.prototype, "clipped", {
+            get: function () {
+                return this.geometry.clipped;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDynamicText.prototype, "style", {
+            get: function () {
+                return this._style;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDynamicText.prototype.update = function () {
+            this.update_();
+            var atlas = this._atlas;
+            if (atlas == null) {
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    var style_1 = this._style;
+                    atlas = layer.getDynamicFontAtlases().get(style_1.fontId, style_1.fill);
+                    if (atlas != null) {
+                        this._atlasRevisionUpdated = atlas.getRevisionUpdate();
+                        this._atlas = atlas;
+                        this.texture = atlas.texture;
+                        this._isGeometryDirty = true;
+                    }
+                }
+            }
+            else {
+                var revisionUpdate = atlas.getRevisionUpdate();
+                if (revisionUpdate !== this._atlasRevisionUpdated) {
+                    this._atlasRevisionUpdated = revisionUpdate;
+                    this._isGeometryDirty = true;
+                }
+            }
+            var style = this._style;
+            var clipping = this._clipping;
+            if (this.updateClipping(style, clipping)) {
+                this._isGeometryDirty = true;
+            }
+            if (this._isGeometryDirty) {
+                this._isGeometryDirty = false;
+                this.geometry.update(this._text, atlas, clipping);
+            }
+        };
+        DDynamicText.prototype.updateClipping = function (style, clipping) {
+            var isChanged = false;
+            var styleClipping = style.clipping;
+            if (clipping.enable !== styleClipping) {
+                clipping.enable = styleClipping;
+                isChanged = true;
+            }
+            var styleWordWrap = style.wordWrap;
+            if (clipping.wordWrap !== styleWordWrap) {
+                clipping.wordWrap = styleWordWrap;
+                isChanged = true;
+            }
+            var styleLineHeight = style.lineHeight;
+            if (clipping.lineHeight !== styleLineHeight) {
+                clipping.lineHeight = styleLineHeight;
+                isChanged = true;
+            }
+            if (styleClipping || styleWordWrap) {
+                var parent_1 = this.parent;
+                if (parent_1 instanceof DBase) {
+                    var width = parent_1.width -
+                        parent_1.padding.getLeft() -
+                        parent_1.padding.getRight() -
+                        clipping.delta.width;
+                    if (clipping.width !== width) {
+                        clipping.width = width;
+                        isChanged = true;
+                    }
+                    var height = parent_1.height -
+                        parent_1.padding.getTop() -
+                        parent_1.padding.getBottom() -
+                        clipping.delta.height;
+                    if (clipping.height !== height) {
+                        clipping.height = height;
+                        isChanged = true;
+                    }
+                }
+            }
+            return isChanged;
+        };
+        DDynamicText.prototype.setClippingDelta = function (width, height) {
+            var delta = this._clipping.delta;
+            delta.width = width;
+            delta.height = height;
+        };
+        DDynamicText.prototype._calculateBounds = function () {
+            this.update();
+            _super.prototype._calculateBounds.call(this);
+        };
+        DDynamicText.prototype._render = function (renderer) {
+            this.update();
+            _super.prototype._render.call(this, renderer);
+        };
+        return DDynamicText;
+    }(pixi_js.Mesh));
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     var toTextStyle = function (theme, options, state) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         var style = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.style;
         if (style != null) {
             var fill = (_b = style.fill) !== null && _b !== void 0 ? _b : theme.getColor(state);
@@ -19258,6 +19776,8 @@
             var fontStyle = (_f = style.fontStyle) !== null && _f !== void 0 ? _f : theme.getFontStyle();
             var fontVariant = (_g = style.fontVariant) !== null && _g !== void 0 ? _g : theme.getFontVariant();
             var clipping = (_h = style.clipping) !== null && _h !== void 0 ? _h : theme.getTextStyleClipping();
+            var wordWrap = (_j = style.wordWrap) !== null && _j !== void 0 ? _j : theme.getTextStyleWordWrap();
+            var lineHeight = (_k = style.lineHeight) !== null && _k !== void 0 ? _k : theme.getLineHeight();
             return {
                 fill: fill,
                 fontSize: fontSize,
@@ -19265,7 +19785,9 @@
                 fontWeight: fontWeight,
                 fontStyle: fontStyle,
                 fontVariant: fontVariant,
-                clipping: clipping
+                clipping: clipping,
+                wordWrap: wordWrap,
+                lineHeight: lineHeight
             };
         }
         return {
@@ -19275,7 +19797,9 @@
             fontWeight: theme.getFontWeight(),
             fontStyle: theme.getFontStyle(),
             fontVariant: theme.getFontVariant(),
-            clipping: theme.getTextStyleClipping()
+            clipping: theme.getTextStyleClipping(),
+            wordWrap: theme.getTextStyleWordWrap(),
+            lineHeight: theme.getLineHeight()
         };
     };
     var toTextAlign = function (theme, options) {
@@ -19296,7 +19820,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DTextBase.prototype.init = function (options) {
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d;
             _super.prototype.init.call(this, options);
             var theme = this.theme;
             this._textValue = (_b = (_a = options === null || options === void 0 ? void 0 : options.text) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : theme.newTextValue();
@@ -19307,9 +19831,8 @@
             this._textStyle = toTextStyle(theme, options, this.state);
             this._textAlign = toTextAlign(theme, options);
             this._textFormatter = (_c = text === null || text === void 0 ? void 0 : text.formatter) !== null && _c !== void 0 ? _c : theme.getTextFormatter();
-            this._isTextDynamic = (_d = text === null || text === void 0 ? void 0 : text.dynamic) !== null && _d !== void 0 ? _d : theme.isTextDynamic();
             this._isTextVisible = true;
-            this._isOverflowMaskEnabled = (_e = options === null || options === void 0 ? void 0 : options.mask) !== null && _e !== void 0 ? _e : theme.isOverflowMaskEnabled();
+            this._isOverflowMaskEnabled = (_d = options === null || options === void 0 ? void 0 : options.mask) !== null && _d !== void 0 ? _d : theme.isOverflowMaskEnabled();
             this.onTextChange();
             this.createOrUpdateText();
         };
@@ -19372,15 +19895,7 @@
             }
         };
         DTextBase.prototype.createText = function (formatted) {
-            if (this._isTextDynamic) {
-                return new DDynamicText(formatted, this._textStyle);
-            }
-            else {
-                var result = new pixi_js.Text(formatted, this._textStyle);
-                result.texture.baseTexture.scaleMode = pixi_js.SCALE_MODES.NEAREST;
-                result.resolution = DApplications.getResolution(this);
-                return result;
-            }
+            return new DDynamicText(formatted, this._textStyle);
         };
         DTextBase.prototype.getOverflowMask = function () {
             if (this._isOverflowMaskEnabled) {
@@ -19753,9 +20268,7 @@
             var textBottomAdjust = 0;
             if (text != null) {
                 this.updateTextColor(text);
-                if (text instanceof DDynamicText) {
-                    text.setClippingWidthDelta(textLeft - textRight);
-                }
+                text.setClippingDelta(textLeft - textRight, textTop - textBottom);
                 var textAlign = this._textAlign;
                 var textWidth = text.width;
                 var textHeight = text.height;
@@ -22310,6 +22823,21 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DInputInput = /** @class */ (function (_super) {
+        __extends(DInputInput, _super);
+        function DInputInput() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DInputInput.prototype.getType = function () {
+            return "DInputInput";
+        };
+        return DInputInput;
+    }(DInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DInputNumber = /** @class */ (function (_super) {
         __extends(DInputNumber, _super);
         function DInputNumber() {
@@ -22349,7 +22877,7 @@
             configurable: true
         });
         return DInputNumber;
-    }(DInput));
+    }(DInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -22527,7 +23055,7 @@
             return "DInputText";
         };
         return DInputText;
-    }(DInput));
+    }(DInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -40825,8 +41353,14 @@
                 resolution: resolution,
                 scaleMode: pixi_js.SCALE_MODES.NEAREST
             });
-            this.add(ASCII_CHARACTERS, true);
-            this.add_("...", this._characters, true);
+            var characters = this._characters;
+            this.add_(" ", " ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+            this.add_("\t", "    ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+            this.add_("...", "...", characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+            for (var i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
+                var char = ASCII_CHARACTERS[i];
+                this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+            }
         }
         Object.defineProperty(DynamicFontAtlas.prototype, "id", {
             get: function () {
@@ -40877,11 +41411,11 @@
             enumerable: false,
             configurable: true
         });
-        DynamicFontAtlas.prototype.add_ = function (character, characters, reserved) {
-            if (character !== "\n") {
-                var data = characters[character];
+        DynamicFontAtlas.prototype.add_ = function (id, character, characters, type) {
+            if (!this.isIgnored(character)) {
+                var data = characters[id];
                 if (data != null) {
-                    if (!data.reserved) {
+                    if (!(data.type & DynamicFontAtlasCharacterType.RESERVED)) {
                         if (data.ref === 0) {
                             this._unrefCount -= 1;
                         }
@@ -40892,21 +41426,34 @@
                     var advance = this.getAdvance(character);
                     var width = Math.ceil(PADDING + advance + PADDING);
                     var height = this.font.height;
-                    characters[character] = new DynamicFontAtlasCharacter(advance, width, height, !!reserved);
+                    characters[id] = new DynamicFontAtlasCharacter(character, advance, width, height, type);
                     this._length += 1;
                     this._revision += 1;
                 }
             }
         };
-        DynamicFontAtlas.prototype.remove_ = function (character, characters) {
-            if (character !== "\n") {
-                var data = characters[character];
-                if (data != null) {
-                    if (!data.reserved && 0 < data.ref) {
-                        data.ref -= 1;
-                        if (data.ref === 0) {
-                            this._unrefCount += 1;
-                        }
+        DynamicFontAtlas.prototype.isIgnored = function (character) {
+            switch (character) {
+                case "\n": // Line feed
+                    return true;
+                case "\r": // Carriage return
+                    return true;
+                case "\v": // Vertical tab
+                    return true;
+                case "\f": // Form feed
+                    return true;
+                case "\u0085": // Next line
+                    return true;
+            }
+            return false;
+        };
+        DynamicFontAtlas.prototype.remove_ = function (id, characters) {
+            var data = characters[id];
+            if (data != null) {
+                if (!(data.type & DynamicFontAtlasCharacterType.RESERVED) && 0 < data.ref) {
+                    data.ref -= 1;
+                    if (data.ref === 0) {
+                        this._unrefCount += 1;
                     }
                 }
             }
@@ -40924,11 +41471,13 @@
                 this._unrefCount = 0;
             }
         };
-        DynamicFontAtlas.prototype.add = function (targets, reserved) {
+        DynamicFontAtlas.prototype.add = function (targets, type) {
+            if (type === void 0) { type = DynamicFontAtlasCharacterType.LETTER; }
             var characters = this._characters;
             var iterator = UtilCharacterIterator.from(targets);
             while (iterator.hasNext()) {
-                this.add_(iterator.next(), characters, reserved);
+                var character = iterator.next();
+                this.add_(character, character, characters, type);
             }
         };
         DynamicFontAtlas.prototype.remove = function (targets) {
@@ -40938,8 +41487,8 @@
                 this.remove_(iterator.next(), characters);
             }
         };
-        DynamicFontAtlas.prototype.get = function (character) {
-            return this._characters[character];
+        DynamicFontAtlas.prototype.get = function (id) {
+            return this._characters[id];
         };
         DynamicFontAtlas.prototype.getAdvance = function (target) {
             var context = this.getContext();
@@ -41751,6 +42300,31 @@
         };
         return UtilHsv;
     }());
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilInputTextArea = /** @class */ (function (_super) {
+        __extends(UtilInputTextArea, _super);
+        function UtilInputTextArea() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        UtilInputTextArea.prototype.onElementAttached = function (element, before, after) {
+            element.addEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementAttached.call(this, element, before, after);
+        };
+        UtilInputTextArea.prototype.onElementDetached = function (element, before, after) {
+            element.removeEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementDetached.call(this, element, before, after);
+        };
+        UtilInputTextArea.prototype.onInputKeyDown = function (e) {
+            if (UtilKeyboardEvent.isOkKey(e)) {
+                this._operation.onEnter();
+            }
+        };
+        return UtilInputTextArea;
+    }(UtilInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -56506,6 +57080,24 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DInputTextArea = /** @class */ (function (_super) {
+        __extends(DInputTextArea, _super);
+        function DInputTextArea() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DInputTextArea.prototype.newUtil = function () {
+            return new UtilInputTextArea(this, this.newOperation(), this.theme, this._options);
+        };
+        DInputTextArea.prototype.getType = function () {
+            return "DInputTextArea";
+        };
+        return DInputTextArea;
+    }(DInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DMapCoordinateEPSG3857 = /** @class */ (function () {
         function DMapCoordinateEPSG3857(tileSize) {
             if (tileSize === void 0) { tileSize = 256; }
@@ -66146,7 +66738,9 @@
         EShapeActionRuntimeMiscGesture: EShapeActionRuntimeMiscGesture,
         EShapeActionRuntimeMiscEmitEvent: EShapeActionRuntimeMiscEmitEvent,
         EShapeActionRuntimeMiscHtmlElement: EShapeActionRuntimeMiscHtmlElement,
+        EShapeActionRuntimeMiscInputInput: EShapeActionRuntimeMiscInputInput,
         EShapeActionRuntimeMiscInputInteger: EShapeActionRuntimeMiscInputInteger,
+        EShapeActionRuntimeMiscInputNumber: EShapeActionRuntimeMiscInputNumber,
         EShapeActionRuntimeMiscInputReal: EShapeActionRuntimeMiscInputReal,
         EShapeActionRuntimeMiscInputText: EShapeActionRuntimeMiscInputText,
         EShapeActionRuntimeMiscInput: EShapeActionRuntimeMiscInput,
@@ -66616,7 +67210,9 @@
         UtilHsv: UtilHsv,
         UtilHtmlElementWhen: UtilHtmlElementWhen,
         UtilHtmlElement: UtilHtmlElement,
+        UtilInputInput: UtilInputInput,
         UtilInputNumber: UtilInputNumber,
+        UtilInputTextArea: UtilInputTextArea,
         UtilInputText: UtilInputText,
         UtilInput: UtilInput,
         UtilKeyboardEvent: UtilKeyboardEvent,
@@ -66826,6 +67422,7 @@
         DDynamicTextMeasureResultCharacter: DDynamicTextMeasureResultCharacter,
         DDynamicTextMeasureResult: DDynamicTextMeasureResult,
         DDynamicTextMeasure: DDynamicTextMeasure,
+        DDynamicTextStyleWordWrap: DDynamicTextStyleWordWrap,
         DDynamicTextStyle: DDynamicTextStyle,
         DDynamicText: DDynamicText,
         DExpandableHeader: DExpandableHeader,
@@ -66841,6 +67438,7 @@
         DInputBooleanButtonOff: DInputBooleanButtonOff,
         DInputBooleanButtonOn: DInputBooleanButtonOn,
         DInputBoolean: DInputBoolean,
+        DInputInput: DInputInput,
         DInputIntegerAndLabel: DInputIntegerAndLabel,
         DInputInteger: DInputInteger,
         DInputLabel: DInputLabel,
@@ -66848,6 +67446,7 @@
         DInputRealAndLabel: DInputRealAndLabel,
         DInputReal: DInputReal,
         DInputTextAndLabel: DInputTextAndLabel,
+        DInputTextArea: DInputTextArea,
         DInputText: DInputText,
         DInput: DInput,
         DItemUpdater: DItemUpdater,

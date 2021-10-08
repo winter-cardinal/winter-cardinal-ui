@@ -21,8 +21,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.129.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.129.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.130.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.130.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -32,30 +32,16 @@
 		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
 			x: "center", y: "center",
-			width: 300, height: "auto",
+			width: 200, height: "auto",
 			margin: 16,
 			children: [
-				// Non-dynamic text (Rendered by the PixiJS Text.)
 				new wcardinal.ui.DText({
 					width: "100%",
 					text: {
-						value: "😴❤️😄❤️😃❤️⛔❤️🎠❤️🚓❤️🚇❤️",
-						align: {
-							horizontal: "CENTER"
-						},
-						dynamic: false
-					}
-				}),
-
-				// Dynamic text (Rendered by the dynamically-generated font atlas.)
-				new wcardinal.ui.DText({
-					width: "100%",
-					text: {
-						value: "😴❤️😄❤️😃❤️⛔❤️🎠❤️🚓❤️🚇❤️",
-						align: {
-							horizontal: "CENTER"
-						},
-						dynamic: true
+						value: "😴❤️😄❤️😃❤️⛔❤️🎠❤️🚓❤️🚇❤️"
+					},
+					border: {
+						color: 0xcccccc
 					}
 				})
 			]

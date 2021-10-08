@@ -221,9 +221,17 @@
         * [No selection](./table\selection/none.html)
         * [Single selection](./table\selection/single.html)
 * Text
+    * [Align](./text/align.html)
     * [Basics](./text/basics.html)
+    * [Clipping](./text/clipping.html)
+    * [Fit to text](./text/fit.html)
     * [New line](./text/new-line.html)
+    * [Padding](./text/padding.html)
     * [Surrogate pair](./text/surrogate-pair.html)
+    * [Tab](./text/tab.html)
+    * [Word wrap (Break All)](./text/word-wrap-break-all.html)
+    * [Word wrap (Normal)](./text/word-wrap-normal.html)
+    * [Word wrap (Normal, CSS Line Break)](./text/word-wrap-normal-css-line-break.html)
 * Tree
     * [Adding nodes programatically](./tree/add.html)
     * [Basics](./tree/basics.html)

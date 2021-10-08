@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.129.0
+ Winter Cardinal UI v0.130.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -371,6 +371,8 @@
 
     const DAlignWith = wcardinal.ui.DAlignWith;
 
+    const DDynamicTextStyleWordWrap = wcardinal.ui.DDynamicTextStyleWordWrap;
+
     const toString = wcardinal.ui.toString;
 
     /*
@@ -391,11 +393,11 @@
         DThemeWhiteTextBase.prototype.isOverflowMaskEnabled = function () {
             return false;
         };
-        DThemeWhiteTextBase.prototype.isTextDynamic = function () {
-            return true;
-        };
         DThemeWhiteTextBase.prototype.getTextStyleClipping = function () {
             return true;
+        };
+        DThemeWhiteTextBase.prototype.getTextStyleWordWrap = function () {
+            return DDynamicTextStyleWordWrap.NONE;
         };
         DThemeWhiteTextBase.prototype.getTextFormatter = function () {
             return toString;
@@ -4305,7 +4307,7 @@
     var nullCreator = function () {
         return null;
     };
-    var divCreator$1 = function (container) {
+    var divCreator$2 = function (container) {
         var result = document.createElement("div");
         container.appendChild(result);
         return result;
@@ -4384,8 +4386,7 @@
         };
         DThemeWhiteHtmlElement.prototype.getElementStylePositionSize = function (rect) {
             if (rect) {
-                return ("width: " + rect.width + "px; height: " + rect.height + "px;" +
-                    ("line-height: " + rect.height + "px;"));
+                return "width: " + rect.width + "px; height: " + rect.height + "px;";
             }
             return "width: 0px; height: 0px;";
         };
@@ -4404,13 +4405,15 @@
         DThemeWhiteHtmlElement.prototype.getElementStyleText = function (state) {
             return ("font-family: " + this.getFontFamilly() + ";" +
                 ("font-size: " + this.getFontSize() + "px;") +
-                ("color: #" + this.getColor(state).toString(16) + ";"));
+                ("color: #" + this.getColor(state).toString(16) + ";") +
+                ("line-height: " + this.getLineHeight() + "px;") +
+                "-moz-tab-size: 4; -o-tab-size: 4; tab-size: 4;");
         };
         DThemeWhiteHtmlElement.prototype.getElementStyleMargin = function (state) {
             return "margin: 0;";
         };
         DThemeWhiteHtmlElement.prototype.getClipperCreator = function () {
-            return divCreator$1;
+            return divCreator$2;
         };
         DThemeWhiteHtmlElement.prototype.setClipperStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect) {
             var style = "outline: none; padding: 0; margin: 0; border: none;" +
@@ -4444,7 +4447,7 @@
                 this.getClipperStylePositionSize(rect));
         };
         DThemeWhiteHtmlElement.prototype.getBeforeCreator = function () {
-            return divCreator$1;
+            return divCreator$2;
         };
         DThemeWhiteHtmlElement.prototype.setBeforeStyle = function (target) {
             var style = "overflow: hidden; outline: none;" +
@@ -4454,7 +4457,7 @@
             target.setAttribute("tabindex", "0");
         };
         DThemeWhiteHtmlElement.prototype.getAfterCreator = function () {
-            return divCreator$1;
+            return divCreator$2;
         };
         DThemeWhiteHtmlElement.prototype.setAfterStyle = function (target) {
             this.setBeforeStyle(target);
@@ -4605,41 +4608,6 @@
     var editingUnformatter$2 = function (text) {
         return text;
     };
-    var CREATOR_CLASSNAME = "d-theme-white-input";
-    var CREATOR_CLASSNAME_ELEMENT = CREATOR_CLASSNAME + "-element";
-    var elementCreator = function (container) {
-        var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
-        if (0 < found.length) {
-            return found[0];
-        }
-        var element = document.createElement("input");
-        element.setAttribute("spellcheck", "false");
-        element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT);
-        container.appendChild(element);
-        return element;
-    };
-    var divCreator = function (container, classname) {
-        var found = container.getElementsByClassName(classname);
-        if (0 < found.length) {
-            return found[0];
-        }
-        var result = document.createElement("div");
-        result.setAttribute("class", classname);
-        container.appendChild(result);
-        return result;
-    };
-    var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
-    var clipperCreator = function (container) {
-        return divCreator(container, CREATOR_CLASSNAME_CLIPPER);
-    };
-    var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
-    var beforeCreator = function (container) {
-        return divCreator(container, CREATOR_CLASSNAME_BEFORE);
-    };
-    var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
-    var afterCreator = function (container) {
-        return divCreator(container, CREATOR_CLASSNAME_AFTER);
-    };
     var DThemeWhiteInput = /** @class */ (function (_super) {
         __extends(DThemeWhiteInput, _super);
         function DThemeWhiteInput() {
@@ -4698,18 +4666,6 @@
         DThemeWhiteInput.prototype.getEditingValidator = function () {
             return editingValidator;
         };
-        DThemeWhiteInput.prototype.getElementCreator = function () {
-            return elementCreator;
-        };
-        DThemeWhiteInput.prototype.getClipperCreator = function () {
-            return clipperCreator;
-        };
-        DThemeWhiteInput.prototype.getBeforeCreator = function () {
-            return beforeCreator;
-        };
-        DThemeWhiteInput.prototype.getAfterCreator = function () {
-            return afterCreator;
-        };
         DThemeWhiteInput.prototype.getSelect = function () {
             return true;
         };
@@ -4718,6 +4674,65 @@
         };
         return DThemeWhiteInput;
     }(DThemeWhiteHtmlElement));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var CREATOR_CLASSNAME$1 = "d-theme-white-input-input";
+    var CREATOR_CLASSNAME_ELEMENT$1 = CREATOR_CLASSNAME$1 + "-element";
+    var elementCreator$1 = function (container) {
+        var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT$1);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var element = document.createElement("input");
+        element.setAttribute("spellcheck", "false");
+        element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT$1);
+        container.appendChild(element);
+        return element;
+    };
+    var divCreator$1 = function (container, classname) {
+        var found = container.getElementsByClassName(classname);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var result = document.createElement("div");
+        result.setAttribute("class", classname);
+        container.appendChild(result);
+        return result;
+    };
+    var CREATOR_CLASSNAME_CLIPPER$1 = CREATOR_CLASSNAME$1 + "-clipper";
+    var clipperCreator$1 = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_CLIPPER$1);
+    };
+    var CREATOR_CLASSNAME_BEFORE$1 = CREATOR_CLASSNAME$1 + "-before";
+    var beforeCreator$1 = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_BEFORE$1);
+    };
+    var CREATOR_CLASSNAME_AFTER$1 = CREATOR_CLASSNAME$1 + "-after";
+    var afterCreator$1 = function (container) {
+        return divCreator$1(container, CREATOR_CLASSNAME_AFTER$1);
+    };
+    var DThemeWhiteInputInput = /** @class */ (function (_super) {
+        __extends(DThemeWhiteInputInput, _super);
+        function DThemeWhiteInputInput() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteInputInput.prototype.getElementCreator = function () {
+            return elementCreator$1;
+        };
+        DThemeWhiteInputInput.prototype.getClipperCreator = function () {
+            return clipperCreator$1;
+        };
+        DThemeWhiteInputInput.prototype.getBeforeCreator = function () {
+            return beforeCreator$1;
+        };
+        DThemeWhiteInputInput.prototype.getAfterCreator = function () {
+            return afterCreator$1;
+        };
+        return DThemeWhiteInputInput;
+    }(DThemeWhiteInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4744,7 +4759,7 @@
             return 0;
         };
         return DThemeWhiteInputNumber;
-    }(DThemeWhiteInput));
+    }(DThemeWhiteInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4848,7 +4863,7 @@
             return "";
         };
         return DThemeWhiteInputText;
-    }(DThemeWhiteInput));
+    }(DThemeWhiteInputInput));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4862,12 +4877,109 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var CREATOR_CLASSNAME = "d-theme-white-input-text-area";
+    var CREATOR_CLASSNAME_ELEMENT = CREATOR_CLASSNAME + "-element";
+    var elementCreator = function (container) {
+        var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var element = document.createElement("textarea");
+        element.setAttribute("spellcheck", "false");
+        element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT);
+        container.appendChild(element);
+        return element;
+    };
+    var divCreator = function (container, classname) {
+        var found = container.getElementsByClassName(classname);
+        if (0 < found.length) {
+            return found[0];
+        }
+        var result = document.createElement("div");
+        result.setAttribute("class", classname);
+        container.appendChild(result);
+        return result;
+    };
+    var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
+    var clipperCreator = function (container) {
+        return divCreator(container, CREATOR_CLASSNAME_CLIPPER);
+    };
+    var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
+    var beforeCreator = function (container) {
+        return divCreator(container, CREATOR_CLASSNAME_BEFORE);
+    };
+    var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
+    var afterCreator = function (container) {
+        return divCreator(container, CREATOR_CLASSNAME_AFTER);
+    };
+    var DThemeWhiteInputTextArea = /** @class */ (function (_super) {
+        __extends(DThemeWhiteInputTextArea, _super);
+        function DThemeWhiteInputTextArea() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteInputTextArea.prototype.getTextAlignVertical = function () {
+            return DAlignVertical.TOP;
+        };
+        DThemeWhiteInputTextArea.prototype.getTextStyleWordWrap = function () {
+            return DDynamicTextStyleWordWrap.NORMAL;
+        };
+        DThemeWhiteInputTextArea.prototype.getElementCreator = function () {
+            return elementCreator;
+        };
+        DThemeWhiteInputTextArea.prototype.getClipperCreator = function () {
+            return clipperCreator;
+        };
+        DThemeWhiteInputTextArea.prototype.getBeforeCreator = function () {
+            return beforeCreator;
+        };
+        DThemeWhiteInputTextArea.prototype.getAfterCreator = function () {
+            return afterCreator;
+        };
+        DThemeWhiteInputTextArea.prototype.newTextValue = function () {
+            return "";
+        };
+        DThemeWhiteInputTextArea.prototype.getElementStyleText = function (state) {
+            return (_super.prototype.getElementStyleText.call(this, state) +
+                this.getElementStyleTextResize(state) +
+                this.getElementStyleTextWordWrap(state));
+        };
+        DThemeWhiteInputTextArea.prototype.getElementStyleTextResize = function (state) {
+            return "resize: none;";
+        };
+        DThemeWhiteInputTextArea.prototype.getElementStyleTextWordWrap = function (state) {
+            var result = "overflow-wrap: break-word; word-wrap: break-word;";
+            switch (this.getTextStyleWordWrap()) {
+                case DDynamicTextStyleWordWrap.NORMAL:
+                    result += "word-break: normal;";
+                    break;
+                default:
+                    result += "word-break: break-all;";
+                    break;
+            }
+            return result;
+        };
+        return DThemeWhiteInputTextArea;
+    }(DThemeWhiteInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeWhiteInputTextArea = function () {
+        DThemeWhite.set("DInputTextArea", DThemeWhiteInputTextArea);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var loadThemeWhiteInputAll = function () {
         loadThemeWhiteInputAndLabel();
         loadThemeWhiteInputBoolean();
         loadThemeWhiteInputInteger();
         loadThemeWhiteInputLabel();
         loadThemeWhiteInputReal();
+        loadThemeWhiteInputTextArea();
         loadThemeWhiteInputText();
     };
 
@@ -8299,6 +8411,7 @@
         loadThemeWhiteInputInteger: loadThemeWhiteInputInteger,
         loadThemeWhiteInputLabel: loadThemeWhiteInputLabel,
         loadThemeWhiteInputReal: loadThemeWhiteInputReal,
+        loadThemeWhiteInputTextArea: loadThemeWhiteInputTextArea,
         loadThemeWhiteInputText: loadThemeWhiteInputText,
         loadThemeWhiteLayout: loadThemeWhiteLayout,
         loadThemeWhiteList: loadThemeWhiteList,
@@ -8397,10 +8510,12 @@
         DThemeWhiteInputBooleanButtonOff: DThemeWhiteInputBooleanButtonOff,
         DThemeWhiteInputBooleanButtonOn: DThemeWhiteInputBooleanButtonOn,
         DThemeWhiteInputBoolean: DThemeWhiteInputBoolean,
+        DThemeWhiteInputInput: DThemeWhiteInputInput,
         DThemeWhiteInputInteger: DThemeWhiteInputInteger,
         DThemeWhiteInputLabel: DThemeWhiteInputLabel,
         DThemeWhiteInputNumber: DThemeWhiteInputNumber,
         DThemeWhiteInputReal: DThemeWhiteInputReal,
+        DThemeWhiteInputTextArea: DThemeWhiteInputTextArea,
         DThemeWhiteInputText: DThemeWhiteInputText,
         DThemeWhiteInput: DThemeWhiteInput,
         DThemeWhiteLayoutHorizontal: DThemeWhiteLayoutHorizontal,
