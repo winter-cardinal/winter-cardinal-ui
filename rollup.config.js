@@ -13,6 +13,7 @@ const SOURCE_DIR = 'dist';
 const OUTPUT_FILE = `${SOURCE_DIR}/${name}`;
 const SAMPLE_DIR = `src/main/sample`;
 const SAMPLE_JS_PIXI_DIR = `${SAMPLE_DIR}/js/pixi/latest`;
+const SAMPLE_JS_CSS_LINE_BREAK_DIR = `${SAMPLE_DIR}/js/css-line-break/latest`;
 const SAMPLE_JS_WCUI_DIR = `${SAMPLE_DIR}/js/wcardinal-ui/latest`;
 
 // License header
@@ -145,6 +146,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			commonjs()
 		],
 		external: [
+			"css-line-break",
 			"pixi.js"
 		]
 	},{
@@ -199,6 +201,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			commonjs()
 		],
 		external: [
+			"css-line-break",
 			"pixi.js"
 		]
 	},{
@@ -224,6 +227,7 @@ export default ( !process.env.ROLLUP_WATCH ?
 			terser( TERSER_OPTIONS )
 		],
 		external: [
+			"css-line-break",
 			"pixi.js"
 		]
 	},{
@@ -276,7 +280,9 @@ export default ( !process.env.ROLLUP_WATCH ?
 				targets: [
 					{ src: `dist/${name}*.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
 					{ src: `dist/${name}*.map`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
-					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` }
+					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` },
+					{ src: 'node_modules/css-line-break/dist/*.js', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` },
+					{ src: 'node_modules/css-line-break/dist/*.js.map', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` }
 				],
 				hook: 'writeBundle'
 			})
@@ -305,12 +311,15 @@ export default ( !process.env.ROLLUP_WATCH ?
 				targets: [
 					{ src: `dist/${name}.js`, dest: `${SAMPLE_JS_WCUI_DIR}/` },
 					{ src: `dist/${name}.js`, dest: `${SAMPLE_JS_WCUI_DIR}/`, rename: `${name}.min.js` },
-					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` }
+					{ src: 'node_modules/pixi.js/dist/*', dest: `${SAMPLE_JS_PIXI_DIR}/` },
+					{ src: 'node_modules/css-line-break/dist/*.js', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` },
+					{ src: 'node_modules/css-line-break/dist/*.js.map', dest: `${SAMPLE_JS_CSS_LINE_BREAK_DIR}/` }
 				],
 				hook: 'writeBundle'
 			})
 		],
 		external: [
+			"css-line-break",
 			"pixi.js"
 		]
 	},{

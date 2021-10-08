@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Graphics, SCALE_MODES, Text } from "pixi.js";
+import { Graphics } from "pixi.js";
 import { DAlignHorizontal } from "./d-align-horizontal";
 import { DAlignVertical } from "./d-align-vertical";
 import { DApplications } from "./d-applications";
@@ -12,6 +12,7 @@ import { DBaseOverflowMaskSimple } from "./d-base-overflow-mask-simple";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
 import { DDynamicTextStyleOptions } from "./d-dynamic-text-style";
+import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DOnOptions } from "./d-on-options";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
@@ -35,7 +36,6 @@ export interface DTextBaseTextOptions<VALUE = unknown> {
 	style?: DDynamicTextStyleOptions;
 	align?: DTextBaseTextAlignOptions;
 	formatter?: (value: VALUE, caller: any) => string;
-	dynamic?: boolean;
 }
 
 /**
@@ -86,12 +86,8 @@ export interface DThemeTextBase<VALUE = unknown> extends DThemeBase {
 	getTextAlignVertical(): DAlignVertical;
 	getTextAlignHorizontal(): DAlignHorizontal;
 	getTextStyleClipping(): boolean;
+	getTextStyleWordWrap(): DDynamicTextStyleWordWrap;
 	isOverflowMaskEnabled(): boolean;
-
-	/**
-	 * Returns true if a dynamic text should be enabled.
-	 */
-	isTextDynamic(): boolean;
 }
 
 const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
@@ -108,6 +104,8 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 		const fontStyle = style.fontStyle ?? theme.getFontStyle();
 		const fontVariant = style.fontVariant ?? theme.getFontVariant();
 		const clipping = style.clipping ?? theme.getTextStyleClipping();
+		const wordWrap = style.wordWrap ?? theme.getTextStyleWordWrap();
+		const lineHeight = style.lineHeight ?? theme.getLineHeight();
 		return {
 			fill,
 			fontSize,
@@ -115,7 +113,9 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 			fontWeight,
 			fontStyle,
 			fontVariant,
-			clipping
+			clipping,
+			wordWrap,
+			lineHeight
 		};
 	}
 
@@ -126,7 +126,9 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 		fontWeight: theme.getFontWeight(),
 		fontStyle: theme.getFontStyle(),
 		fontVariant: theme.getFontVariant(),
-		clipping: theme.getTextStyleClipping()
+		clipping: theme.getTextStyleClipping(),
+		wordWrap: theme.getTextStyleWordWrap(),
+		lineHeight: theme.getLineHeight()
 	};
 };
 
@@ -150,7 +152,7 @@ export class DTextBase<
 	THEME extends DThemeTextBase<VALUE> = DThemeTextBase<VALUE>,
 	OPTIONS extends DTextBaseOptions<VALUE, THEME> = DTextBaseOptions<VALUE, THEME>
 > extends DBase<THEME, OPTIONS> {
-	protected _text?: DDynamicText | Text | null;
+	protected _text?: DDynamicText | null;
 	protected _textValue?: DStateAwareOrValueMightBe<VALUE>;
 	protected _textValueComputed?: VALUE;
 	protected _textColor!: DStateAwareOrValueMightBe<number>;
@@ -163,7 +165,6 @@ export class DTextBase<
 	protected _textFormatter!: (value: VALUE, caller: any) => string;
 	protected _isOverflowMaskEnabled!: boolean;
 	protected _overflowMask?: DBaseOverflowMaskSimple | null;
-	protected _isTextDynamic!: boolean;
 	protected _isTextVisible!: boolean;
 
 	protected init(options?: OPTIONS): void {
@@ -178,7 +179,6 @@ export class DTextBase<
 		this._textStyle = toTextStyle(theme, options, this.state);
 		this._textAlign = toTextAlign(theme, options);
 		this._textFormatter = text?.formatter ?? theme.getTextFormatter();
-		this._isTextDynamic = text?.dynamic ?? theme.isTextDynamic();
 		this._isTextVisible = true;
 		this._isOverflowMaskEnabled = options?.mask ?? theme.isOverflowMaskEnabled();
 		this.onTextChange();
@@ -242,15 +242,8 @@ export class DTextBase<
 		}
 	}
 
-	protected createText(formatted: string): Text | DDynamicText {
-		if (this._isTextDynamic) {
-			return new DDynamicText(formatted, this._textStyle);
-		} else {
-			const result = new Text(formatted, this._textStyle);
-			result.texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-			result.resolution = DApplications.getResolution(this);
-			return result;
-		}
+	protected createText(formatted: string): DDynamicText {
+		return new DDynamicText(formatted, this._textStyle);
 	}
 
 	getOverflowMask(): Graphics | null {
@@ -265,7 +258,7 @@ export class DTextBase<
 		return null;
 	}
 
-	protected updateTextPosition(text: DDynamicText | Text): void {
+	protected updateTextPosition(text: DDynamicText): void {
 		const align = this._textAlign;
 		const padding = this._padding;
 		const toRounded = this.toRounded;
@@ -329,7 +322,7 @@ export class DTextBase<
 		return theme.getAlpha(state);
 	}
 
-	protected updateTextColor(text: DDynamicText | Text): void {
+	protected updateTextColor(text: DDynamicText): void {
 		const theme = this.theme;
 		const state = this.state;
 		text.style.fill = this.getTextColor(theme, state);

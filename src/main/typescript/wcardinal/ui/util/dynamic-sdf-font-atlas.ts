@@ -6,6 +6,7 @@
 import { DThemes } from "../theme/d-themes";
 import { ASCII_CHARACTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
+import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicSDFFontGenerator } from "./dynamic-sdf-font-generator";
 import { UtilCharacterIterator } from "./util-character-iterator";
@@ -89,19 +90,19 @@ export class DynamicSDFFontAtlas {
 	begin(): void {
 		this._length = 0;
 		const characters = this._characters;
-		for (const character in characters) {
-			characters[character].ref = 0;
+		for (const id in characters) {
+			characters[id].ref = 0;
 		}
 	}
 
 	end(): void {
 		const characters = this._characters;
-		for (const character in characters) {
-			const data = characters[character];
+		for (const id in characters) {
+			const data = characters[id];
 			if (data.ref <= 0) {
 				data.life -= 1;
 				if (data.life <= 0) {
-					delete characters[character];
+					delete characters[id];
 					this._isDirty = true;
 				}
 			}
@@ -109,36 +110,61 @@ export class DynamicSDFFontAtlas {
 	}
 
 	addAscii(): void {
-		this.add(ASCII_CHARACTERS);
-		this.addChar("...");
+		this.addChar(" ", " ", DynamicFontAtlasCharacterType.SPACE_R);
+		this.addChar("\t", "    ", DynamicFontAtlasCharacterType.SPACE_R);
+		this.addChar("...", "...", DynamicFontAtlasCharacterType.LETTER_RNB);
+		for (let i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
+			const char = ASCII_CHARACTERS[i];
+			this.addChar(char, char, DynamicFontAtlasCharacterType.LETTER_RNB);
+		}
 	}
 
-	addChar(character: string): void {
+	addChar(id: string, character: string, type: DynamicFontAtlasCharacterType): void {
 		const characters = this._characters;
-		if (character !== "\n") {
-			const data = characters[character];
+		if (!this.isIgnored(character)) {
+			const data = characters[id];
 			if (data != null) {
 				if (data.ref <= 0) {
 					this._length += 1;
 				}
 				data.ref += 1;
 			} else {
-				characters[character] = new DynamicFontAtlasCharacter(0, 1, 1, false);
+				characters[id] = new DynamicFontAtlasCharacter(character, 0, 1, 1, type);
 				this._length += 1;
 				this._isDirty = true;
 			}
 		}
 	}
 
-	add(characters: string): void {
+	protected isIgnored(character: string): boolean {
+		switch (character) {
+			case "\n": // Line feed
+				return true;
+			case "\r": // Carriage return
+				return true;
+			case "\v": // Vertical tab
+				return true;
+			case "\f": // Form feed
+				return true;
+			case "\u0085": // Next line
+				return true;
+		}
+		return false;
+	}
+
+	add(
+		characters: string,
+		type: DynamicFontAtlasCharacterType = DynamicFontAtlasCharacterType.LETTER
+	): void {
 		const iterator = UtilCharacterIterator.from(characters);
 		while (iterator.hasNext()) {
-			this.addChar(iterator.next());
+			const character = iterator.next();
+			this.addChar(character, character, type);
 		}
 	}
 
-	get(character: string): DynamicFontAtlasCharacter | undefined {
-		return this._characters[character];
+	get(id: string): DynamicFontAtlasCharacter | undefined {
+		return this._characters[id];
 	}
 
 	update(): boolean {
@@ -173,9 +199,9 @@ export class DynamicSDFFontAtlas {
 					const offsetY = characterSize >> 1;
 					let x = 0;
 					let y = 0;
-					for (const character in characters) {
-						const data = characters[character];
-						const advance = context.measureText(character).width;
+					for (const id in characters) {
+						const data = characters[id];
+						const advance = context.measureText(data.character).width;
 						const characterWidth = Math.ceil(offsetX + advance + offsetX);
 						const characterHeight = characterSize;
 						if (width <= x + characterWidth) {
@@ -209,9 +235,9 @@ export class DynamicSDFFontAtlas {
 					context.miterLimit = 4;
 					context.fillStyle = "#FFFFFF";
 					context.clearRect(0, 0, width, height);
-					for (const character in characters) {
-						const data = characters[character];
-						context.fillText(character, data.origin.x, data.origin.y);
+					for (const id in characters) {
+						const data = characters[id];
+						context.fillText(data.character, data.origin.x, data.origin.y);
 					}
 
 					// Convert to SDF font texture
@@ -255,8 +281,8 @@ export class DynamicSDFFontAtlas {
 		}
 
 		const characters = this._characters;
-		for (const character in characters) {
-			delete characters[character];
+		for (const id in characters) {
+			delete characters[id];
 		}
 	}
 

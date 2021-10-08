@@ -48,8 +48,12 @@
 	"peerDependencies": {
 		"pixi.js": "~5.2.1"
 	},
+	"optionalDependencies": {
+		"css-line-break": "2.0.1"
+	},
 	"devDependencies": {
 		"pixi.js": "~5.2.1",
+		"css-line-break": "2.0.1",
 		"@typescript-eslint/eslint-plugin": "^4.31.2",
 		"@typescript-eslint/parser": "^4.31.2",
 		"@wcardinal/typedoc-plugin-named-event": "^1.0.0",

@@ -5,8 +5,17 @@
 
 import { MeshGeometry } from "pixi.js";
 import { DDynamicTextMeasure } from "./d-dynamic-text-measure";
+import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
 import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
+
+interface Clipping {
+	enable: boolean;
+	wordWrap: DDynamicTextStyleWordWrap;
+	width: number;
+	height: number;
+	lineHeight: number;
+}
 
 export class DDynamicTextGeometry extends MeshGeometry {
 	width: number;
@@ -20,12 +29,12 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		this.clipped = false;
 	}
 
-	update(text: string, atlas: DynamicFontAtlas | null, clippingWidth: number | undefined): void {
+	update(text: string, atlas: DynamicFontAtlas | null, clipping: Clipping): void {
 		const vertexBuffer = this.getBuffer("aVertexPosition");
 		const uvBuffer = this.getBuffer("aTextureCoord");
 		const indexBuffer = this.getIndex();
 
-		const result = DDynamicTextMeasure.measure(text, atlas, clippingWidth);
+		const result = DDynamicTextMeasure.measure(text, atlas, clipping);
 		const requiredTextSize = Math.ceil(result.count / 8) << 3;
 		const requiredVertexSize = requiredTextSize << 3;
 		if ((vertexBuffer.data as Float32Array).length < requiredVertexSize) {

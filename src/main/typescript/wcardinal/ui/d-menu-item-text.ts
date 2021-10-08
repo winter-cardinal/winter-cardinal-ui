@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, Text } from "pixi.js";
+import { interaction } from "pixi.js";
 import { DBase } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDynamicText } from "./d-dynamic-text";
@@ -27,7 +27,7 @@ export class DMenuItemText<
 	THEME extends DThemeMenuItemText = DThemeMenuItemText,
 	OPTIONS extends DMenuItemTextOptions<VALUE, THEME> = DMenuItemTextOptions<VALUE, THEME>
 > extends DMenuItem<VALUE, THEME, OPTIONS> {
-	protected _shortcutText?: Text | DDynamicText | null;
+	protected _shortcutText?: DDynamicText | null;
 	protected _shortcutMargin?: number;
 
 	protected init(options?: OPTIONS): void {
@@ -74,7 +74,7 @@ export class DMenuItemText<
 		}
 	}
 
-	protected updateTextColor(text: DDynamicText | Text): void {
+	protected updateTextColor(text: DDynamicText): void {
 		super.updateTextColor(text);
 
 		const shortcutText = this._shortcutText;

@@ -112,10 +112,7 @@ export class DThemeDarkHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement 
 
 	protected getElementStylePositionSize(rect: Rectangle | null): string {
 		if (rect) {
-			return (
-				`width: ${rect.width}px; height: ${rect.height}px;` +
-				`line-height: ${rect.height}px;`
-			);
+			return `width: ${rect.width}px; height: ${rect.height}px;`;
 		}
 		return "width: 0px; height: 0px;";
 	}
@@ -145,7 +142,9 @@ export class DThemeDarkHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement 
 		return (
 			`font-family: ${this.getFontFamilly()};` +
 			`font-size: ${this.getFontSize()}px;` +
-			`color: #${this.getColor(state).toString(16)};`
+			`color: #${this.getColor(state).toString(16)};` +
+			`line-height: ${this.getLineHeight()}px;` +
+			`-moz-tab-size: 4; -o-tab-size: 4; tab-size: 4;`
 		);
 	}
 

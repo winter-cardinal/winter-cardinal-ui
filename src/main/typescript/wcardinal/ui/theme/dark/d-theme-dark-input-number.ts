@@ -6,9 +6,12 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DThemeInputNumber } from "../../d-input-number";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
-import { DThemeDarkInput } from "./d-theme-dark-input";
+import { DThemeDarkInputInput } from "./d-theme-dark-input-input";
 
-export class DThemeDarkInputNumber extends DThemeDarkInput<number> implements DThemeInputNumber {
+export class DThemeDarkInputNumber
+	extends DThemeDarkInputInput<number>
+	implements DThemeInputNumber
+{
 	getTextAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.CENTER;
 	}

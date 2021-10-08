@@ -84,6 +84,19 @@
 							console.log( newValue, oldValue, input );
 						}
 					}
+				}),
+
+				// Text area input
+				new wcardinal.ui.DInputTextArea({
+					width: "100%", height: 90,
+					text: {
+						value: "Apple Orange Pineapple Melon Strawberry"
+					},
+					on: {
+						change: function ( newValue, oldValue, input ) {
+							console.log( newValue, oldValue, input );
+						}
+					}
 				})
 			]
 		})

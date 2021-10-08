@@ -8,9 +8,9 @@ import { DThemes } from "../../theme/d-themes";
 import { UtilInputText } from "../../util/util-input-text";
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
-import { EShapeActionRuntimeMiscInput } from "./e-shape-action-runtime-misc-input";
+import { EShapeActionRuntimeMiscInputInput } from "./e-shape-action-runtime-misc-input-input";
 
-export class EShapeActionRuntimeMiscInputText extends EShapeActionRuntimeMiscInput<
+export class EShapeActionRuntimeMiscInputText extends EShapeActionRuntimeMiscInputInput<
 	string,
 	UtilInputText
 > {

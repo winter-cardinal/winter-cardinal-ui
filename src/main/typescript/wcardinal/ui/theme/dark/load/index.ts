@@ -56,6 +56,7 @@ export * from "./load-theme-dark-input-boolean";
 export * from "./load-theme-dark-input-integer";
 export * from "./load-theme-dark-input-label";
 export * from "./load-theme-dark-input-real";
+export * from "./load-theme-dark-input-text-area";
 export * from "./load-theme-dark-input-text";
 export * from "./load-theme-dark-layout";
 export * from "./load-theme-dark-list";

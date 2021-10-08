@@ -4,8 +4,10 @@
  */
 
 import { DBaseStateSetImpl } from "./d-base-state-set-impl";
+import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DFontStyle, DFontVariant, DFontWeight, DThemeFont } from "./d-font";
 import { DThemes } from "./theme/d-themes";
+import { toEnum } from "./util/to-enum";
 
 export type DDynamicTextAlign = "left" | "center" | "right";
 
@@ -18,6 +20,8 @@ export interface DDynamicTextStyleOptions {
 	fontWeight?: DFontWeight;
 	fill?: number;
 	clipping?: boolean;
+	wordWrap?: DDynamicTextStyleWordWrap | keyof typeof DDynamicTextStyleWordWrap;
+	lineHeight?: number;
 }
 
 export class DDynamicTextStyle {
@@ -37,6 +41,8 @@ export class DDynamicTextStyle {
 	protected _fill: number;
 	protected _fillApproved: number;
 	protected _clipping: boolean;
+	protected _wordWrap: DDynamicTextStyleWordWrap;
+	protected _lineHeight: number;
 	protected _onChange: () => void;
 
 	constructor(options: DDynamicTextStyleOptions | undefined, onChange: () => void) {
@@ -53,6 +59,11 @@ export class DDynamicTextStyle {
 			this._fontWeight = options.fontWeight ?? defaultOptions.fontWeight;
 			this._fill = options.fill ?? defaultOptions.fill;
 			this._clipping = options.clipping ?? defaultOptions.clipping;
+			this._wordWrap = toEnum(
+				options.wordWrap ?? defaultOptions.wordWrap,
+				DDynamicTextStyleWordWrap
+			);
+			this._lineHeight = options.lineHeight ?? defaultOptions.lineHeight;
 		} else {
 			this._align = defaultOptions.align;
 			this._fontFamily = defaultOptions.fontFamily;
@@ -62,6 +73,8 @@ export class DDynamicTextStyle {
 			this._fontWeight = defaultOptions.fontWeight;
 			this._fill = defaultOptions.fill;
 			this._clipping = defaultOptions.clipping;
+			this._wordWrap = toEnum(defaultOptions.wordWrap, DDynamicTextStyleWordWrap);
+			this._lineHeight = defaultOptions.lineHeight;
 		}
 
 		this._fontIdId = -1;
@@ -75,20 +88,26 @@ export class DDynamicTextStyle {
 	protected getDefaultOptions(): Required<DDynamicTextStyleOptions> {
 		let result = DDynamicTextStyle.DEFAULT_OPTIONS;
 		if (result == null) {
-			const theme = DThemes.getInstance().get("DBase") as DThemeFont;
-			result = {
-				align: "left",
-				fontFamily: theme.getFontFamilly(),
-				fontSize: theme.getFontSize(),
-				fontStyle: "normal",
-				fontVariant: "normal",
-				fontWeight: "normal",
-				fill: theme.getColor(new DBaseStateSetImpl()),
-				clipping: true
-			};
+			result = this.newDefaultOptions();
 			DDynamicTextStyle.DEFAULT_OPTIONS = result;
 		}
 		return result;
+	}
+
+	protected newDefaultOptions(): Required<DDynamicTextStyleOptions> {
+		const theme = DThemes.getInstance().get("DBase") as DThemeFont;
+		return {
+			align: "left",
+			fontFamily: theme.getFontFamilly(),
+			fontSize: theme.getFontSize(),
+			fontStyle: "normal",
+			fontVariant: "normal",
+			fontWeight: "normal",
+			fill: theme.getColor(new DBaseStateSetImpl()),
+			clipping: true,
+			wordWrap: DDynamicTextStyleWordWrap.NONE,
+			lineHeight: theme.getLineHeight()
+		};
 	}
 
 	get id(): number {
@@ -208,6 +227,28 @@ export class DDynamicTextStyle {
 	set clipping(clipping: boolean) {
 		if (this._clipping !== clipping) {
 			this._clipping = clipping;
+			this.onChange();
+		}
+	}
+
+	get wordWrap(): DDynamicTextStyleWordWrap {
+		return this._wordWrap;
+	}
+
+	set wordWrap(wordWrap: DDynamicTextStyleWordWrap) {
+		if (this._wordWrap !== wordWrap) {
+			this._wordWrap = wordWrap;
+			this.onChange();
+		}
+	}
+
+	get lineHeight(): number {
+		return this._lineHeight;
+	}
+
+	set lineHeight(lineHeight: number) {
+		if (this._lineHeight !== lineHeight) {
+			this._lineHeight = lineHeight;
 			this.onChange();
 		}
 	}

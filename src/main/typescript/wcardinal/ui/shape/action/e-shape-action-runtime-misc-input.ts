@@ -17,8 +17,9 @@ import { EShapeActionValueOnInputActions } from "./e-shape-action-value-on-input
 
 export abstract class EShapeActionRuntimeMiscInput<
 	VALUE = unknown,
-	UTIL extends UtilInput<VALUE> = UtilInput<VALUE>
-> extends EShapeActionRuntimeMiscHtmlElementBase<HTMLInputElement, UTIL> {
+	ELEMENT extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement | HTMLTextAreaElement,
+	UTIL extends UtilInput<VALUE, ELEMENT> = UtilInput<VALUE, ELEMENT>
+> extends EShapeActionRuntimeMiscHtmlElementBase<ELEMENT, UTIL> {
 	protected readonly target: EShapeActionExpression<string | null>;
 	protected onInputAction: EShapeActionValueOnInputAction;
 
@@ -28,7 +29,10 @@ export abstract class EShapeActionRuntimeMiscInput<
 		this.onInputAction = value.onInputAction;
 	}
 
-	protected newOperation(shape: EShape, runtime: EShapeRuntime): UtilInputOperation<VALUE> {
+	protected newOperation(
+		shape: EShape,
+		runtime: EShapeRuntime
+	): UtilInputOperation<VALUE, ELEMENT> {
 		return {
 			getElementRect: (
 				resolution: number,
@@ -95,7 +99,7 @@ export abstract class EShapeActionRuntimeMiscInput<
 	protected newElementCreator(
 		shape: EShape,
 		runtime: EShapeRuntime
-	): UtilHtmlElementCreator<HTMLInputElement> | undefined {
+	): UtilHtmlElementCreator<ELEMENT> | undefined {
 		return undefined;
 	}
 

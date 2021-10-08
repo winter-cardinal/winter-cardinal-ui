@@ -5,9 +5,9 @@
 
 import { DThemeInputText } from "../../d-input-text";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
-import { DThemeWhiteInput } from "./d-theme-white-input";
+import { DThemeWhiteInputInput } from "./d-theme-white-input-input";
 
-export class DThemeWhiteInputText extends DThemeWhiteInput<string> implements DThemeInputText {
+export class DThemeWhiteInputText extends DThemeWhiteInputInput<string> implements DThemeInputText {
 	newTextValue(): DStateAwareOrValueMightBe<string> {
 		return "";
 	}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DInput, DInputOptions, DThemeInput } from "./d-input";
+import { DInputInput, DInputInputOptions, DThemeInputInput } from "./d-input-input";
 import {
 	UtilInputNumber,
 	UtilInputNumberOptions,
@@ -11,15 +11,15 @@ import {
 } from "./util/util-input-number";
 
 export interface DInputNumberOptions<THEME extends DThemeInputNumber = DThemeInputNumber>
-	extends DInputOptions<number, THEME>,
+	extends DInputInputOptions<number, THEME>,
 		UtilInputNumberOptions {}
 
-export interface DThemeInputNumber extends DThemeInput<number>, UtilThemeInputNumber {}
+export interface DThemeInputNumber extends DThemeInputInput<number>, UtilThemeInputNumber {}
 
 export abstract class DInputNumber<
 	THEME extends DThemeInputNumber = DThemeInputNumber,
 	OPTIONS extends DInputNumberOptions<THEME> = DInputNumberOptions<THEME>
-> extends DInput<number, THEME, OPTIONS, UtilInputNumber> {
+> extends DInputInput<number, THEME, OPTIONS, UtilInputNumber> {
 	protected newUtil(): UtilInputNumber {
 		return new UtilInputNumber(this, this.newOperation(), this.theme, this._options);
 	}

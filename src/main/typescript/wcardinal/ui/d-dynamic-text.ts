@@ -8,7 +8,20 @@ import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DDynamicTextGeometry } from "./d-dynamic-text-geometry";
 import { DDynamicTextStyle, DDynamicTextStyleOptions } from "./d-dynamic-text-style";
+import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
+
+interface Clipping {
+	enable: boolean;
+	wordWrap: DDynamicTextStyleWordWrap;
+	width: number;
+	height: number;
+	lineHeight: number;
+	delta: {
+		width: number;
+		height: number;
+	};
+}
 
 export class DDynamicText extends Mesh {
 	protected _style: DDynamicTextStyle;
@@ -20,8 +33,7 @@ export class DDynamicText extends Mesh {
 	protected _atlasRevisionUpdated: number;
 	protected _width: number;
 	protected _height: number;
-	protected _clippingWidth: number | undefined;
-	protected _clippingWidthDelta: number;
+	protected _clipping: Clipping;
 
 	readonly geometry!: DDynamicTextGeometry;
 
@@ -42,7 +54,17 @@ export class DDynamicText extends Mesh {
 		this._atlasRevisionUpdated = 0;
 		this._width = 0;
 		this._height = 0;
-		this._clippingWidthDelta = 0;
+		this._clipping = {
+			enable: false,
+			wordWrap: DDynamicTextStyleWordWrap.NONE,
+			width: 0,
+			height: 0,
+			lineHeight: 0,
+			delta: {
+				width: 0,
+				height: 0
+			}
+		};
 		this.update_();
 	}
 
@@ -147,36 +169,71 @@ export class DDynamicText extends Mesh {
 			}
 		}
 
-		const clippingWidth = this._clippingWidth;
-		const newClippingWidth = this.getClippingWidth();
-		if (clippingWidth !== newClippingWidth) {
-			this._clippingWidth = newClippingWidth;
+		const style = this._style;
+		const clipping = this._clipping;
+		if (this.updateClipping(style, clipping)) {
 			this._isGeometryDirty = true;
 		}
 
 		if (this._isGeometryDirty) {
 			this._isGeometryDirty = false;
-			this.geometry.update(this._text, atlas, newClippingWidth);
+			this.geometry.update(this._text, atlas, clipping);
 		}
 	}
 
-	protected getClippingWidth(): number | undefined {
-		if (this._style.clipping) {
+	protected updateClipping(style: DDynamicTextStyle, clipping: Clipping): boolean {
+		let isChanged = false;
+
+		const styleClipping = style.clipping;
+		if (clipping.enable !== styleClipping) {
+			clipping.enable = styleClipping;
+			isChanged = true;
+		}
+
+		const styleWordWrap = style.wordWrap;
+		if (clipping.wordWrap !== styleWordWrap) {
+			clipping.wordWrap = styleWordWrap;
+			isChanged = true;
+		}
+
+		const styleLineHeight = style.lineHeight;
+		if (clipping.lineHeight !== styleLineHeight) {
+			clipping.lineHeight = styleLineHeight;
+			isChanged = true;
+		}
+
+		if (styleClipping || styleWordWrap) {
 			const parent = this.parent;
 			if (parent instanceof DBase) {
-				return (
+				const width =
 					parent.width -
 					parent.padding.getLeft() -
 					parent.padding.getRight() -
-					this._clippingWidthDelta
-				);
+					clipping.delta.width;
+				if (clipping.width !== width) {
+					clipping.width = width;
+					isChanged = true;
+				}
+
+				const height =
+					parent.height -
+					parent.padding.getTop() -
+					parent.padding.getBottom() -
+					clipping.delta.height;
+				if (clipping.height !== height) {
+					clipping.height = height;
+					isChanged = true;
+				}
 			}
 		}
-		return undefined;
+
+		return isChanged;
 	}
 
-	setClippingWidthDelta(width: number): void {
-		this._clippingWidthDelta = width;
+	setClippingDelta(width: number, height: number): void {
+		const delta = this._clipping.delta;
+		delta.width = width;
+		delta.height = height;
 	}
 
 	_calculateBounds(): void {

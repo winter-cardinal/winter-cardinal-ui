@@ -16,7 +16,8 @@ import { UtilKeyboardEvent } from "./util-keyboard-event";
 
 export interface UtilInputTarget extends UtilHtmlElementTarget {}
 
-export interface UtilInputOperation<VALUE> extends UtilHtmlElementOperation<HTMLInputElement> {
+export interface UtilInputOperation<VALUE, ELEMENT extends HTMLInputElement | HTMLTextAreaElement>
+	extends UtilHtmlElementOperation<ELEMENT> {
 	getValue(): VALUE | undefined;
 	applyTitle(): void;
 
@@ -31,12 +32,14 @@ export interface UtilInputEditingOptions<VALUE = unknown> {
 	validator?: (value: VALUE) => string | null;
 }
 
-export interface UtilInputOptions<VALUE> extends UtilHtmlElementOptions<HTMLInputElement> {
+export interface UtilInputOptions<VALUE, ELEMENT extends HTMLInputElement | HTMLTextAreaElement>
+	extends UtilHtmlElementOptions<ELEMENT> {
 	description?: string;
 	editing?: UtilInputEditingOptions<VALUE>;
 }
 
-export interface UtilThemeInput<VALUE> extends UtilThemeHtmlElement<HTMLInputElement> {
+export interface UtilThemeInput<VALUE, ELEMENT extends HTMLInputElement | HTMLTextAreaElement>
+	extends UtilThemeHtmlElement<ELEMENT> {
 	getEditingFormatter(): (value: VALUE, caller: any) => string;
 	getEditingUnformatter(): (text: string, caller: any) => VALUE;
 	getEditingValidator(): (value: VALUE, caller: any) => string | null;
@@ -44,11 +47,12 @@ export interface UtilThemeInput<VALUE> extends UtilThemeHtmlElement<HTMLInputEle
 
 export abstract class UtilInput<
 	VALUE = unknown,
+	ELEMENT extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement | HTMLTextAreaElement,
 	TARGET extends UtilInputTarget = UtilInputTarget,
-	OPERATION extends UtilInputOperation<VALUE> = UtilInputOperation<VALUE>,
-	THEME extends UtilThemeInput<VALUE> = UtilThemeInput<VALUE>,
-	OPTIONS extends UtilInputOptions<VALUE> = UtilInputOptions<VALUE>
-> extends UtilHtmlElement<HTMLInputElement, TARGET, OPERATION, THEME, OPTIONS> {
+	OPERATION extends UtilInputOperation<VALUE, ELEMENT> = UtilInputOperation<VALUE, ELEMENT>,
+	THEME extends UtilThemeInput<VALUE, ELEMENT> = UtilThemeInput<VALUE, ELEMENT>,
+	OPTIONS extends UtilInputOptions<VALUE, ELEMENT> = UtilInputOptions<VALUE, ELEMENT>
+> extends UtilHtmlElement<ELEMENT, TARGET, OPERATION, THEME, OPTIONS> {
 	protected _onInputKeyDownBound: (e: KeyboardEvent) => void;
 	protected _onInputChangeBound: (e: Event) => void;
 	protected _onInputInputBound: (e: Event) => void;
@@ -90,25 +94,22 @@ export abstract class UtilInput<
 	}
 
 	protected onElementAttached(
-		element: HTMLInputElement,
+		element: ELEMENT,
 		before?: HTMLDivElement | null,
 		after?: HTMLDivElement | null
 	): void {
-		element.type = this.getInputType();
 		element.value = this.fromValue(this._operation.getValue());
-		element.addEventListener("keydown", this._onInputKeyDownBound);
 		element.addEventListener("change", this._onInputChangeBound);
 		element.addEventListener("input", this._onInputInputBound);
 		super.onElementAttached(element, before, after);
 	}
 
 	protected onElementDetached(
-		element: HTMLInputElement,
+		element: ELEMENT,
 		before?: HTMLDivElement | null,
 		after?: HTMLDivElement | null
 	): void {
 		super.onElementDetached(element, before, after);
-		element.removeEventListener("keydown", this._onInputKeyDownBound);
 		element.removeEventListener("change", this._onInputChangeBound);
 		element.removeEventListener("input", this._onInputInputBound);
 	}
@@ -120,6 +121,12 @@ export abstract class UtilInput<
 		} else if (UtilKeyboardEvent.isCancelKey(e)) {
 			this.cancel();
 		}
+	}
+
+	protected toElementFocused(element: ELEMENT): void {
+		super.toElementFocused(element);
+		element.scrollTop = 0;
+		element.scrollLeft = 0;
 	}
 
 	protected onInputChange(): void {
@@ -182,6 +189,4 @@ export abstract class UtilInput<
 		}
 		return false;
 	}
-
-	protected abstract getInputType(): string;
 }

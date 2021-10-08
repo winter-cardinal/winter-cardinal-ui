@@ -19,49 +19,14 @@ const editingUnformatter = <VALUE>(text: string): VALUE => {
 	return text as any;
 };
 
-const CREATOR_CLASSNAME = "d-theme-dark-input";
-const CREATOR_CLASSNAME_ELEMENT = `${CREATOR_CLASSNAME}-element`;
-const elementCreator = (container: HTMLElement): HTMLInputElement => {
-	const found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
-	if (0 < found.length) {
-		return found[0] as HTMLInputElement;
-	}
-	const element = document.createElement("input");
-	element.setAttribute("spellcheck", "false");
-	element.setAttribute("class", CREATOR_CLASSNAME_ELEMENT);
-	container.appendChild(element);
-	return element;
-};
-
-const divCreator = (container: HTMLElement, classname: string): HTMLDivElement => {
-	const found = container.getElementsByClassName(classname);
-	if (0 < found.length) {
-		return found[0] as HTMLDivElement;
-	}
-	const result = document.createElement("div");
-	result.setAttribute("class", classname);
-	container.appendChild(result);
-	return result;
-};
-
-const CREATOR_CLASSNAME_CLIPPER = `${CREATOR_CLASSNAME}-clipper`;
-const clipperCreator = (container: HTMLElement): HTMLDivElement => {
-	return divCreator(container, CREATOR_CLASSNAME_CLIPPER);
-};
-
-const CREATOR_CLASSNAME_BEFORE = `${CREATOR_CLASSNAME}-before`;
-const beforeCreator = (container: HTMLElement): HTMLDivElement => {
-	return divCreator(container, CREATOR_CLASSNAME_BEFORE);
-};
-
-const CREATOR_CLASSNAME_AFTER = `${CREATOR_CLASSNAME}-after`;
-const afterCreator = (container: HTMLElement): HTMLDivElement => {
-	return divCreator(container, CREATOR_CLASSNAME_AFTER);
-};
-
-export class DThemeDarkInput<VALUE = unknown>
-	extends DThemeDarkHtmlElement<VALUE, HTMLInputElement>
-	implements DThemeInput<VALUE>
+export abstract class DThemeDarkInput<
+		VALUE = unknown,
+		ELEMENT extends HTMLInputElement | HTMLTextAreaElement =
+			| HTMLInputElement
+			| HTMLTextAreaElement
+	>
+	extends DThemeDarkHtmlElement<VALUE, ELEMENT>
+	implements DThemeInput<VALUE, ELEMENT>
 {
 	protected readonly BACKGROUND_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.017);
@@ -126,21 +91,13 @@ export class DThemeDarkInput<VALUE = unknown>
 		return editingValidator;
 	}
 
-	getElementCreator(): UtilHtmlElementCreator<HTMLInputElement> {
-		return elementCreator;
-	}
+	abstract getElementCreator(): UtilHtmlElementCreator<ELEMENT>;
 
-	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement> {
-		return clipperCreator;
-	}
+	abstract getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 
-	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement> {
-		return beforeCreator;
-	}
+	abstract getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 
-	getAfterCreator(): UtilHtmlElementCreator<HTMLDivElement> {
-		return afterCreator;
-	}
+	abstract getAfterCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 
 	getSelect(): boolean {
 		return true;

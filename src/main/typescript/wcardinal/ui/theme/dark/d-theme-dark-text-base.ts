@@ -6,6 +6,7 @@
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
 import { DBaseStateSet } from "../../d-base-state-set";
+import { DDynamicTextStyleWordWrap } from "../../d-dynamic-text-style-word-wrap";
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
 import { DThemeTextBase } from "../../d-text-base";
 import { toString } from "../../util/to-string";
@@ -27,12 +28,12 @@ export class DThemeDarkTextBase<VALUE = unknown>
 		return false;
 	}
 
-	isTextDynamic(): boolean {
+	getTextStyleClipping(): boolean {
 		return true;
 	}
 
-	getTextStyleClipping(): boolean {
-		return true;
+	getTextStyleWordWrap(): DDynamicTextStyleWordWrap {
+		return DDynamicTextStyleWordWrap.NONE;
 	}
 
 	getTextFormatter(): (value: VALUE, caller: any) => string {

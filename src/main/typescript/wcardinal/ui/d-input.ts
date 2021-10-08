@@ -10,21 +10,25 @@ import { UtilInput, UtilInputOperation, UtilInputOptions, UtilThemeInput } from 
 
 export interface DInputOptions<
 	VALUE = unknown,
-	THEME extends DThemeInput<VALUE> = DThemeInput<VALUE>
-> extends DHtmlElementOptions<VALUE, HTMLInputElement, THEME>,
-		UtilInputOptions<VALUE> {}
+	ELEMENT extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement | HTMLTextAreaElement,
+	THEME extends DThemeInput<VALUE, ELEMENT> = DThemeInput<VALUE, ELEMENT>
+> extends DHtmlElementOptions<VALUE, ELEMENT, THEME>,
+		UtilInputOptions<VALUE, ELEMENT> {}
 
-export interface DThemeInput<VALUE = unknown>
-	extends DThemeHtmlElement<VALUE, HTMLInputElement>,
-		UtilThemeInput<VALUE> {}
+export interface DThemeInput<
+	VALUE = unknown,
+	ELEMENT extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement | HTMLTextAreaElement
+> extends DThemeHtmlElement<VALUE, ELEMENT>,
+		UtilThemeInput<VALUE, ELEMENT> {}
 
 export abstract class DInput<
 	VALUE = unknown,
-	THEME extends DThemeInput<VALUE> = DThemeInput<VALUE>,
-	OPTIONS extends DInputOptions<VALUE, THEME> = DInputOptions<VALUE, THEME>,
-	UTIL extends UtilInput<VALUE> = UtilInput<VALUE>
-> extends DHtmlElement<VALUE, HTMLInputElement, THEME, OPTIONS, UTIL> {
-	protected newOperation(): UtilInputOperation<VALUE> {
+	ELEMENT extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement | HTMLTextAreaElement,
+	THEME extends DThemeInput<VALUE, ELEMENT> = DThemeInput<VALUE, ELEMENT>,
+	OPTIONS extends DInputOptions<VALUE, ELEMENT, THEME> = DInputOptions<VALUE, ELEMENT, THEME>,
+	UTIL extends UtilInput<VALUE, ELEMENT> = UtilInput<VALUE, ELEMENT>
+> extends DHtmlElement<VALUE, ELEMENT, THEME, OPTIONS, UTIL> {
+	protected newOperation(): UtilInputOperation<VALUE, ELEMENT> {
 		return {
 			getElementRect: (
 				resolution: number,

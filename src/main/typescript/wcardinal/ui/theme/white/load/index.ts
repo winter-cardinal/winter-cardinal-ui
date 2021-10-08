@@ -54,6 +54,7 @@ export * from "./load-theme-white-input-boolean";
 export * from "./load-theme-white-input-integer";
 export * from "./load-theme-white-input-label";
 export * from "./load-theme-white-input-real";
+export * from "./load-theme-white-input-text-area";
 export * from "./load-theme-white-input-text";
 export * from "./load-theme-white-layout";
 export * from "./load-theme-white-list";

@@ -4,24 +4,24 @@
  */
 
 import {
-	UtilInput,
-	UtilInputOperation,
-	UtilInputOptions,
-	UtilInputTarget,
-	UtilThemeInput
-} from "./util-input";
+	UtilInputInput,
+	UtilInputInputOperation,
+	UtilInputInputOptions,
+	UtilInputInputTarget,
+	UtilThemeInputInput
+} from "./util-input-input";
 
-export interface UtilInputNumberTarget extends UtilInputTarget {}
+export interface UtilInputNumberTarget extends UtilInputInputTarget {}
 
-export interface UtilInputNumberOperation extends UtilInputOperation<number> {}
+export interface UtilInputNumberOperation extends UtilInputInputOperation<number> {}
 
-export interface UtilInputNumberOptions extends UtilInputOptions<number> {
+export interface UtilInputNumberOptions extends UtilInputInputOptions<number> {
 	step?: number | null;
 	min?: number | null;
 	max?: number | null;
 }
 
-export interface UtilThemeInputNumber extends UtilThemeInput<number> {
+export interface UtilThemeInputNumber extends UtilThemeInputInput<number> {
 	getStep(): number | null;
 	getMin(): number | null;
 	getMax(): number | null;
@@ -32,7 +32,7 @@ export class UtilInputNumber<
 	OPERATION extends UtilInputNumberOperation = UtilInputNumberOperation,
 	THEME extends UtilThemeInputNumber = UtilThemeInputNumber,
 	OPTIONS extends UtilInputNumberOptions = UtilInputNumberOptions
-> extends UtilInput<number, TARGET, OPERATION, THEME, OPTIONS> {
+> extends UtilInputInput<number, TARGET, OPERATION, THEME, OPTIONS> {
 	protected _step: number | null;
 	protected _min: number | null;
 	protected _max: number | null;
@@ -160,13 +160,10 @@ export class UtilInputNumber<
 		before?: HTMLDivElement | null,
 		after?: HTMLDivElement | null
 	): void {
+		element.type = "number";
 		super.onElementAttached(element, before, after);
 		this.updateStep(element);
 		this.updateMin(element);
 		this.updateMax(element);
-	}
-
-	protected getInputType(): string {
-		return "number";
 	}
 }

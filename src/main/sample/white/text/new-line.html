@@ -32,28 +32,26 @@
 		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
 			x: "center", y: "center",
-			width: "auto", height: "auto",
+			width: 200, height: "auto",
 			margin: 16,
 			children: [
-				// Non-dynamic text (Rendered by the PixiJS Text.)
 				new wcardinal.ui.DText({
+					width: "100%", height: 60,
 					text: {
-						value: "Apple\nOrange",
-						align: {
-							horizontal: "CENTER"
-						},
-						dynamic: false
+						value: "Apple\nOrange"
+					},
+					border: {
+						color: 0xcccccc
 					}
 				}),
 
-				// Dynamic text (Rendered by the dynamically-generated font atlas.)
 				new wcardinal.ui.DText({
+					width: "100%", height: 60,
 					text: {
-						value: "Apple\nOrange",
-						align: {
-							horizontal: "CENTER"
-						},
-						dynamic: true
+						value: "Apple\r\nOrange"
+					},
+					border: {
+						color: 0xcccccc
 					}
 				})
 			]

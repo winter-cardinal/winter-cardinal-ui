@@ -5,29 +5,21 @@
 
 export class UtilCharacterIterator {
 	protected static _instance: UtilCharacterIterator | null = null;
-	protected _target: string;
-	protected _position: number;
+	target: string;
+	position: number;
 
 	constructor() {
-		this._target = "";
-		this._position = 0;
-	}
-
-	get position(): number {
-		return this._position;
-	}
-
-	set position(position: number) {
-		this._position = position;
+		this.target = "";
+		this.position = 0;
 	}
 
 	init(target: string): void {
-		this._target = target;
-		this._position = 0;
+		this.target = target;
+		this.position = 0;
 	}
 
 	hasNext(): boolean {
-		return this._position < this._target.length;
+		return this.position < this.target.length;
 	}
 
 	protected findNextBreak(target: string, istart: number): number {
@@ -54,11 +46,11 @@ export class UtilCharacterIterator {
 	}
 
 	next(): string {
-		const target = this._target;
-		const position = this._position;
+		const target = this.target;
+		const position = this.position;
 		const nextBreak = this.findNextBreak(target, position + 1);
 		const result = target.substring(position, nextBreak);
-		this._position = nextBreak;
+		this.position = nextBreak;
 		return result;
 	}
 
@@ -70,11 +62,25 @@ export class UtilCharacterIterator {
 	 * @return true if the position is advanced
 	 */
 	advance(except?: string): boolean {
-		const target = this._target;
-		const position = this._position;
+		const target = this.target;
+		const position = this.position;
 		const nextBreak = this.findNextBreak(target, position + 1);
 		if (target.substring(position, nextBreak) !== except) {
-			this._position = nextBreak;
+			this.position = nextBreak;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Closes this iterator.
+	 *
+	 * @returns true if closed.
+	 */
+	close(): boolean {
+		const length = this.target.length;
+		if (this.position < length) {
+			this.position = length;
 			return true;
 		}
 		return false;

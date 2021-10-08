@@ -6,6 +6,7 @@
 import { MIPMAP_MODES, SCALE_MODES, Texture } from "pixi.js";
 import { ASCII_CHARACTERS } from "./ascii";
 import { DynamicFontAtlasCharacter } from "./dynamic-font-atlas-character";
+import { DynamicFontAtlasCharacterType } from "./dynamic-font-atlas-character-type";
 import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicFontAtlasFont } from "./dynamic-font-atlas-font";
 import { UtilCharacterIterator } from "./util-character-iterator";
@@ -44,8 +45,14 @@ export class DynamicFontAtlas {
 			scaleMode: SCALE_MODES.NEAREST
 		});
 
-		this.add(ASCII_CHARACTERS, true);
-		this.add_("...", this._characters, true);
+		const characters = this._characters;
+		this.add_(" ", " ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+		this.add_("\t", "    ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+		this.add_("...", "...", characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+		for (let i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
+			const char = ASCII_CHARACTERS[i];
+			this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+		}
 	}
 
 	get id(): string {
@@ -77,14 +84,15 @@ export class DynamicFontAtlas {
 	}
 
 	protected add_(
+		id: string,
 		character: string,
 		characters: DynamicFontAtlasCharacters,
-		reserved?: boolean
+		type: DynamicFontAtlasCharacterType
 	): void {
-		if (character !== "\n") {
-			const data = characters[character];
+		if (!this.isIgnored(character)) {
+			const data = characters[id];
 			if (data != null) {
-				if (!data.reserved) {
+				if (!(data.type & DynamicFontAtlasCharacterType.RESERVED)) {
 					if (data.ref === 0) {
 						this._unrefCount -= 1;
 					}
@@ -94,11 +102,12 @@ export class DynamicFontAtlas {
 				const advance = this.getAdvance(character);
 				const width = Math.ceil(PADDING + advance + PADDING);
 				const height = this.font.height;
-				characters[character] = new DynamicFontAtlasCharacter(
+				characters[id] = new DynamicFontAtlasCharacter(
+					character,
 					advance,
 					width,
 					height,
-					!!reserved
+					type
 				);
 				this._length += 1;
 				this._revision += 1;
@@ -106,15 +115,29 @@ export class DynamicFontAtlas {
 		}
 	}
 
-	protected remove_(character: string, characters: DynamicFontAtlasCharacters): void {
-		if (character !== "\n") {
-			const data = characters[character];
-			if (data != null) {
-				if (!data.reserved && 0 < data.ref) {
-					data.ref -= 1;
-					if (data.ref === 0) {
-						this._unrefCount += 1;
-					}
+	protected isIgnored(character: string): boolean {
+		switch (character) {
+			case "\n": // Line feed
+				return true;
+			case "\r": // Carriage return
+				return true;
+			case "\v": // Vertical tab
+				return true;
+			case "\f": // Form feed
+				return true;
+			case "\u0085": // Next line
+				return true;
+		}
+		return false;
+	}
+
+	protected remove_(id: string, characters: DynamicFontAtlasCharacters): void {
+		const data = characters[id];
+		if (data != null) {
+			if (!(data.type & DynamicFontAtlasCharacterType.RESERVED) && 0 < data.ref) {
+				data.ref -= 1;
+				if (data.ref === 0) {
+					this._unrefCount += 1;
 				}
 			}
 		}
@@ -134,11 +157,15 @@ export class DynamicFontAtlas {
 		}
 	}
 
-	add(targets: string, reserved?: boolean): void {
+	add(
+		targets: string,
+		type: DynamicFontAtlasCharacterType = DynamicFontAtlasCharacterType.LETTER
+	): void {
 		const characters = this._characters;
 		const iterator = UtilCharacterIterator.from(targets);
 		while (iterator.hasNext()) {
-			this.add_(iterator.next(), characters, reserved);
+			const character = iterator.next();
+			this.add_(character, character, characters, type);
 		}
 	}
 
@@ -150,8 +177,8 @@ export class DynamicFontAtlas {
 		}
 	}
 
-	get(character: string): DynamicFontAtlasCharacter | undefined {
-		return this._characters[character];
+	get(id: string): DynamicFontAtlasCharacter | undefined {
+		return this._characters[id];
 	}
 
 	getAdvance(target: string): number {

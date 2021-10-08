@@ -9,7 +9,6 @@ import { DAlignVertical } from "./d-align-vertical";
 import { DAlignWith } from "./d-align-with";
 import { DRefitable } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
-import { DDynamicText } from "./d-dynamic-text";
 import {
 	DImageBaseThemeWrapperSecondary,
 	DThemeImageBaseSecondary
@@ -320,9 +319,7 @@ export class DImageBase<
 
 		if (text != null) {
 			this.updateTextColor(text);
-			if (text instanceof DDynamicText) {
-				text.setClippingWidthDelta(textLeft - textRight);
-			}
+			text.setClippingDelta(textLeft - textRight, textTop - textBottom);
 
 			const textAlign = this._textAlign;
 			const textWidth = text.width;

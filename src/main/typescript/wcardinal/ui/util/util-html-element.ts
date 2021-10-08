@@ -503,18 +503,23 @@ export class UtilHtmlElement<
 					// Show HTML elements
 					clipper.style.display = "";
 					if (state.isFocused) {
-						element.focus();
+						this.toElementFocused(element);
 					}
 					clipper.scrollTop = 0;
 					clipper.scrollLeft = 0;
 
 					// Select the element if required.
+					// Note that a selecting without the setTimeout causes a key stroke drop on Microsoft Edge.
 					if (this._data.select) {
 						setTimeout(this._doSelectBound, 0);
 					}
 				}
 			}
 		}
+	}
+
+	protected toElementFocused(element: ELEMENT): void {
+		element.focus();
 	}
 
 	protected onStart(): void {
