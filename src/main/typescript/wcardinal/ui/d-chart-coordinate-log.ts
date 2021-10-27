@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import {
@@ -32,14 +33,14 @@ export interface DChartCoordinateLogOptions {
 	theme?: DThemeChartCoordinateLog;
 }
 
-export class DChartCoordinateLog implements DChartCoordinate {
+export class DChartCoordinateLog<CHART extends DBase = DBase> implements DChartCoordinate<CHART> {
 	protected _id: number;
-	protected _transform: DChartCoordinateTransform;
-	protected _container?: DChartCoordinateContainerSub;
+	protected _transform: DChartCoordinateTransform<CHART>;
+	protected _container?: DChartCoordinateContainerSub<CHART>;
 	protected _direction: DChartCoordinateDirection;
 	protected _theme: DThemeChartCoordinateLog;
 	protected _work: DChartRegionImpl;
-	protected _tick: DChartCoordinateLogTick;
+	protected _tick: DChartCoordinateLogTick<CHART>;
 	protected _mark: DChartCoordinateTransformMarkImpl;
 
 	constructor(options?: DChartCoordinateLogOptions) {
@@ -53,7 +54,10 @@ export class DChartCoordinateLog implements DChartCoordinate {
 		this._mark = new DChartCoordinateTransformMarkImpl();
 	}
 
-	bind(container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection): void {
+	bind(
+		container: DChartCoordinateContainerSub<CHART>,
+		direction: DChartCoordinateDirection
+	): void {
 		this._container = container;
 		this._direction = direction;
 	}
@@ -81,7 +85,7 @@ export class DChartCoordinateLog implements DChartCoordinate {
 	protected doFit(
 		from: number | undefined,
 		to: number | undefined,
-		result: DChartCoordinateTransformMark | DChartCoordinateTransform
+		result: DChartCoordinateTransformMark | DChartCoordinateTransform<CHART>
 	): void {
 		const container = this._container;
 		if (container) {
@@ -112,7 +116,7 @@ export class DChartCoordinateLog implements DChartCoordinate {
 	protected toFitDomain(
 		from: number | undefined,
 		to: number | undefined,
-		plotArea: DChartPlotArea,
+		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
 		if (from != null && to != null) {
@@ -127,7 +131,7 @@ export class DChartCoordinateLog implements DChartCoordinate {
 	protected toFitRange(
 		from: number | undefined,
 		to: number | undefined,
-		plotArea: DChartPlotArea,
+		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
 		if (from != null && to != null) {
@@ -143,7 +147,7 @@ export class DChartCoordinateLog implements DChartCoordinate {
 		pixelFrom: number,
 		pixelTo: number,
 		region: DChartRegion,
-		result: DChartCoordinateTransformMark | DChartCoordinateTransform
+		result: DChartCoordinateTransformMark | DChartCoordinateTransform<CHART>
 	): void {
 		const regionFrom = region.from;
 		const regionTo = region.to;
@@ -172,7 +176,7 @@ export class DChartCoordinateLog implements DChartCoordinate {
 		return this._id;
 	}
 
-	get transform(): DChartCoordinateTransform {
+	get transform(): DChartCoordinateTransform<CHART> {
 		return this._transform;
 	}
 

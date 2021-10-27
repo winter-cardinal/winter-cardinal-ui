@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
@@ -35,14 +36,16 @@ import {
 import { DChartSeriesStrokeComputedImpl } from "./d-chart-series-stroke-computed-impl";
 import { DChartSeriesStrokeImpl } from "./d-chart-series-stroke-impl";
 
-export class DChartSeriesContainerImpl implements DChartSeriesContainer {
+export class DChartSeriesContainerImpl<CHART extends DBase = DBase>
+	implements DChartSeriesContainer<CHART>
+{
 	protected static WORK_CALCHITPOINT: DChartSeriesHitResult = new DChartSeriesHitResult();
 
-	protected _plotArea: DChartPlotArea;
-	protected _list: DChartSeries[];
+	protected _plotArea: DChartPlotArea<CHART>;
+	protected _list: DChartSeries<CHART>[];
 	protected _domain: DChartRegionImpl;
 	protected _range: DChartRegionImpl;
-	protected _selection: DChartSelection | null;
+	protected _selection: DChartSelection<CHART> | null;
 
 	protected _fill: DChartSeriesFillImpl;
 	protected _stroke: DChartSeriesStrokeImpl;
@@ -50,7 +53,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 	protected _offset: DChartSeriesPointImpl;
 	protected _padding: DChartSeriesPaddingImpl;
 
-	constructor(plotArea: DChartPlotArea, options?: DChartSeriesContainerOptions) {
+	constructor(plotArea: DChartPlotArea<CHART>, options?: DChartSeriesContainerOptions<CHART>) {
 		this._plotArea = plotArea;
 		this._domain = new DChartRegionImpl(NaN, NaN);
 		this._range = new DChartRegionImpl(NaN, NaN);
@@ -114,11 +117,11 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return DChartSeriesPaddingComputedImpl.from(this._padding, index, options);
 	}
 
-	get plotArea(): DChartPlotArea {
+	get plotArea(): DChartPlotArea<CHART> {
 		return this._plotArea;
 	}
 
-	get selection(): DChartSelection | null {
+	get selection(): DChartSelection<CHART> | null {
 		return this._selection;
 	}
 
@@ -133,13 +136,13 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		}
 	}
 
-	add(series: DChartSeries): void {
+	add(series: DChartSeries<CHART>): void {
 		const list = this._list;
 		series.bind(this, list.length);
 		list.push(series);
 	}
 
-	get(index: number): DChartSeries | null {
+	get(index: number): DChartSeries<CHART> | null {
 		const list = this._list;
 		if (0 <= index && index < list.length) {
 			return list[index];
@@ -147,7 +150,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return null;
 	}
 
-	indexOf(series: DChartSeries): number {
+	indexOf(series: DChartSeries<CHART>): number {
 		return this._list.indexOf(series);
 	}
 
@@ -172,7 +175,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		}
 	}
 
-	getDomain(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion {
+	getDomain(coordinate: DChartCoordinate<CHART>, result: DChartRegion): DChartRegion {
 		result.clear();
 
 		const list = this._list;
@@ -187,7 +190,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return result;
 	}
 
-	getRange(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion {
+	getRange(coordinate: DChartCoordinate<CHART>, result: DChartRegion): DChartRegion {
 		result.clear();
 
 		const list = this._list;
@@ -228,7 +231,7 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return result;
 	}
 
-	hitTest(x: number, y: number): DChartSeries | null {
+	hitTest(x: number, y: number): DChartSeries<CHART> | null {
 		const list = this._list;
 		for (let i = list.length - 1; 0 <= i; --i) {
 			const series = list[i];
@@ -239,11 +242,11 @@ export class DChartSeriesContainerImpl implements DChartSeriesContainer {
 		return null;
 	}
 
-	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): DChartSeries | null {
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): DChartSeries<CHART> | null {
 		let tmp1 = result;
 		let tmp2 = DChartSeriesContainerImpl.WORK_CALCHITPOINT;
 		const list = this._list;
-		let closest: DChartSeries | null = null;
+		let closest: DChartSeries<CHART> | null = null;
 		tmp2.distance = +Infinity;
 		for (let i = list.length - 1; 0 <= i; --i) {
 			const series = list[i];

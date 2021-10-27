@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
@@ -29,9 +30,9 @@ import {
 	DChartSeriesStrokeComputedOptions
 } from "./d-chart-series-stroke-computed";
 
-export interface DChartSeriesContainerOptions {
-	list: DChartSeries[];
-	selection?: DChartSelection;
+export interface DChartSeriesContainerOptions<CHART extends DBase = DBase> {
+	list: DChartSeries<CHART>[];
+	selection?: DChartSelection<CHART>;
 
 	fill?: DChartSeriesFillOptions;
 	stroke?: DChartSeriesStrokeOptions;
@@ -40,12 +41,12 @@ export interface DChartSeriesContainerOptions {
 	padding?: DChartSeriesPaddingOptions;
 }
 
-export interface DChartSeriesContainer {
+export interface DChartSeriesContainer<CHART extends DBase = DBase> {
 	domain: DChartRegion;
 	range: DChartRegion;
 
-	readonly plotArea: DChartPlotArea;
-	readonly selection: DChartSelection | null;
+	readonly plotArea: DChartPlotArea<CHART>;
+	readonly selection: DChartSelection<CHART> | null;
 
 	newFill(
 		index: number,
@@ -73,16 +74,16 @@ export interface DChartSeriesContainer {
 	): DChartSeriesPaddingComputed;
 
 	update(): void;
-	add(series: DChartSeries): void;
-	get(index: number): DChartSeries | null;
+	add(series: DChartSeries<CHART>): void;
+	get(index: number): DChartSeries<CHART> | null;
 	clear(): this;
 	size(): number;
 	destroy(): void;
-	indexOf(series: DChartSeries): number;
+	indexOf(series: DChartSeries<CHART>): number;
 
-	getDomain(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion;
-	getRange(coordinate: DChartCoordinate, result: DChartRegion): DChartRegion;
+	getDomain(coordinate: DChartCoordinate<CHART>, result: DChartRegion): DChartRegion;
+	getRange(coordinate: DChartCoordinate<CHART>, result: DChartRegion): DChartRegion;
 
-	hitTest(x: number, y: number): DChartSeries | null;
-	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): DChartSeries | null;
+	hitTest(x: number, y: number): DChartSeries<CHART> | null;
+	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): DChartSeries<CHART> | null;
 }

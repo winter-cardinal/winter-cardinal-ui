@@ -3,27 +3,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { isNumber } from "./util/is-number";
 
-export class DChartCoordinateContainerSubImpl implements DChartCoordinateContainerSub {
-	protected _list: DChartCoordinate[];
+export class DChartCoordinateContainerSubImpl<CHART extends DBase = DBase>
+	implements DChartCoordinateContainerSub<CHART>
+{
+	protected _list: DChartCoordinate<CHART>[];
 	protected _direction: DChartCoordinateDirection;
-	protected _container: DChartCoordinateContainer;
+	protected _container: DChartCoordinateContainer<CHART>;
 
-	constructor(container: DChartCoordinateContainer, direction: DChartCoordinateDirection) {
+	constructor(container: DChartCoordinateContainer<CHART>, direction: DChartCoordinateDirection) {
 		this._container = container;
 		this._direction = direction;
 		this._list = [];
 	}
 
-	get container(): DChartCoordinateContainer {
+	get container(): DChartCoordinateContainer<CHART> {
 		return this._container;
 	}
 
-	add(coordinate: DChartCoordinate, index?: number): this {
+	add(coordinate: DChartCoordinate<CHART>, index?: number): this {
 		const list = this._list;
 		if (index == null) {
 			list.push(coordinate);
@@ -36,7 +39,7 @@ export class DChartCoordinateContainerSubImpl implements DChartCoordinateContain
 		return this;
 	}
 
-	get(index: number): DChartCoordinate | null {
+	get(index: number): DChartCoordinate<CHART> | null {
 		const list = this._list;
 		if (0 <= index && index < list.length) {
 			return list[index];
@@ -44,13 +47,13 @@ export class DChartCoordinateContainerSubImpl implements DChartCoordinateContain
 		return null;
 	}
 
-	indexOf(coordinate: DChartCoordinate): number {
+	indexOf(coordinate: DChartCoordinate<CHART>): number {
 		return this._list.indexOf(coordinate);
 	}
 
-	remove(coordinate: DChartCoordinate): DChartCoordinate | null;
-	remove(index: number): DChartCoordinate | null;
-	remove(coordinateOrIndex: DChartCoordinate | number): DChartCoordinate | null {
+	remove(coordinate: DChartCoordinate<CHART>): DChartCoordinate<CHART> | null;
+	remove(index: number): DChartCoordinate<CHART> | null;
+	remove(coordinateOrIndex: DChartCoordinate<CHART> | number): DChartCoordinate<CHART> | null {
 		const list = this._list;
 		if (isNumber(coordinateOrIndex)) {
 			const index = coordinateOrIndex;

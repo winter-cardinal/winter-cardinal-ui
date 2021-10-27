@@ -5,7 +5,7 @@
 
 import { utils } from "pixi.js";
 import { DApplications } from "./d-applications";
-import { DBaseOnOptions } from "./d-base";
+import { DBase, DBaseOnOptions } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DBaseStateSetImplObservable } from "./d-base-state-set-impl-observable";
 import { DChartRegionImmutable } from "./d-chart-region";
@@ -30,10 +30,13 @@ export interface DChartSeriesBaseOptions<EMITTER = any> {
 /**
  * A series represents a polyline.
  */
-export abstract class DChartSeriesBase extends utils.EventEmitter implements DChartSeries {
-	protected _coordinate: DChartSeriesBaseCoordinateContainer;
+export abstract class DChartSeriesBase<CHART extends DBase = DBase>
+	extends utils.EventEmitter
+	implements DChartSeries<CHART>
+{
+	protected _coordinate: DChartSeriesBaseCoordinateContainer<CHART>;
 
-	protected _container?: DChartSeriesContainer;
+	protected _container?: DChartSeriesContainer<CHART>;
 	protected _index: number;
 
 	protected _domain: DChartRegionImpl;
@@ -69,7 +72,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		}
 	}
 
-	bind(container: DChartSeriesContainer, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): void {
 		this._container = container;
 		this._coordinate.reset();
 		this._index = index;
@@ -97,7 +100,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		return this._range;
 	}
 
-	get container(): DChartSeriesContainer | null {
+	get container(): DChartSeriesContainer<CHART> | null {
 		return this._container || null;
 	}
 
@@ -105,7 +108,7 @@ export abstract class DChartSeriesBase extends utils.EventEmitter implements DCh
 		return this._index;
 	}
 
-	get coordinate(): DChartSeriesCoordinateContainer {
+	get coordinate(): DChartSeriesCoordinateContainer<CHART> {
 		return this._coordinate;
 	}
 

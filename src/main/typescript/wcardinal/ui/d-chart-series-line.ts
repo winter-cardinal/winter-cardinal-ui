@@ -5,6 +5,7 @@
 
 import { Point } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
@@ -28,7 +29,7 @@ export interface DChartSeriesLineOptions extends DChartSeriesBaseOptions {
  * A series represents a polyline.
  * Data points must be sorted in ascending order on the X axis.
  */
-export class DChartSeriesLine extends DChartSeriesBase {
+export class DChartSeriesLine<CHART extends DBase = DBase> extends DChartSeriesBase<CHART> {
 	protected static WORK: Point = new Point();
 	protected _line: EShapeLine | null;
 	protected _options?: DChartSeriesLineOptions;
@@ -50,7 +51,7 @@ export class DChartSeriesLine extends DChartSeriesBase {
 		this._centerY = 0;
 	}
 
-	bind(container: DChartSeriesContainer, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): void {
 		let line = this._line;
 		if (!line) {
 			const stroke = container.newStroke(index, this._options?.stroke);
@@ -118,8 +119,8 @@ export class DChartSeriesLine extends DChartSeriesBase {
 
 	protected updateLine(
 		line: EShapeLine,
-		xcoordinate: DChartCoordinate,
-		ycoordinate: DChartCoordinate,
+		xcoordinate: DChartCoordinate<CHART>,
+		ycoordinate: DChartCoordinate<CHART>,
 		isPointsDirty: boolean
 	): void {
 		line.disallowUploadedUpdate();

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import {
@@ -10,12 +11,14 @@ import {
 	DChartSeriesCoordinateOptions
 } from "./d-chart-series-coordinate";
 
-interface DChartSeriesBaseCoordinateContainerParent {
-	container: DChartSeriesContainer | null;
+interface DChartSeriesBaseCoordinateContainerParent<CHART extends DBase = DBase> {
+	container: DChartSeriesContainer<CHART> | null;
 }
 
-export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordinateContainer {
-	protected _parent: DChartSeriesBaseCoordinateContainerParent;
+export class DChartSeriesBaseCoordinateContainer<CHART extends DBase = DBase>
+	implements DChartSeriesCoordinateContainer<CHART>
+{
+	protected _parent: DChartSeriesBaseCoordinateContainerParent<CHART>;
 	protected _coordinateIndexX: number;
 	protected _coordinateIndexY: number;
 	protected _coordinateIdUpdatedX: number;
@@ -24,7 +27,7 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 	protected _coordinateTransformIdUpdatedY: number;
 
 	constructor(
-		parent: DChartSeriesBaseCoordinateContainerParent,
+		parent: DChartSeriesBaseCoordinateContainerParent<CHART>,
 		options?: DChartSeriesCoordinateOptions
 	) {
 		this._parent = parent;
@@ -36,7 +39,7 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 		this._coordinateTransformIdUpdatedY = NaN;
 	}
 
-	get x(): DChartCoordinate | null {
+	get x(): DChartCoordinate<CHART> | null {
 		const container = this._parent.container;
 		if (container) {
 			return container.plotArea.coordinate.x.get(this._coordinateIndexX);
@@ -44,7 +47,7 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 		return null;
 	}
 
-	get y(): DChartCoordinate | null {
+	get y(): DChartCoordinate<CHART> | null {
 		const container = this._parent.container;
 		if (container) {
 			return container.plotArea.coordinate.y.get(this._coordinateIndexY);
@@ -52,7 +55,7 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 		return null;
 	}
 
-	isDirty(coordinateX: DChartCoordinate, coordinateY: DChartCoordinate): boolean {
+	isDirty(coordinateX: DChartCoordinate<CHART>, coordinateY: DChartCoordinate<CHART>): boolean {
 		const coordinateIdX = coordinateX.id;
 		const coordinateIdY = coordinateY.id;
 		const isCoordinateXChanged = coordinateIdX !== this._coordinateIdUpdatedX;
@@ -62,7 +65,10 @@ export class DChartSeriesBaseCoordinateContainer implements DChartSeriesCoordina
 		return isCoordinateXChanged || isCoordinateYChanged;
 	}
 
-	isTransformDirty(coordinateX: DChartCoordinate, coordinateY: DChartCoordinate): boolean {
+	isTransformDirty(
+		coordinateX: DChartCoordinate<CHART>,
+		coordinateY: DChartCoordinate<CHART>
+	): boolean {
 		const coordinateTransformIdX = coordinateX.transform.id;
 		const coordinateTransformIdY = coordinateY.transform.id;
 		const isCoordinateTransformXChanged =

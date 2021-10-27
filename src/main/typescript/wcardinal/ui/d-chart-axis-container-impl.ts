@@ -3,22 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartAxis } from "./d-chart-axis";
 import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
 
-export class DChartAxisContainerImpl implements DChartAxisContainer {
-	protected _plotArea: DChartPlotArea;
+export class DChartAxisContainerImpl<CHART extends DBase = DBase>
+	implements DChartAxisContainer<CHART>
+{
+	protected _plotArea: DChartPlotArea<CHART>;
 	protected _container: EShapeContainer;
-	protected _list: Map<DChartAxisPosition, DChartAxis[]>;
+	protected _list: Map<DChartAxisPosition, DChartAxis<CHART>[]>;
 
-	constructor(plotArea: DChartPlotArea, options?: DChartAxisContainerOptions) {
+	constructor(plotArea: DChartPlotArea<CHART>, options?: DChartAxisContainerOptions<CHART>) {
 		this._plotArea = plotArea;
 		this._container = new EShapeContainer();
 
-		this._list = new Map<DChartAxisPosition, DChartAxis[]>();
+		this._list = new Map<DChartAxisPosition, DChartAxis<CHART>[]>();
 		const list = options && options.list;
 		if (list) {
 			for (let i = 0, imax = list.length; i < imax; ++i) {
@@ -31,11 +34,11 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 		return this._container;
 	}
 
-	get plotArea(): DChartPlotArea {
+	get plotArea(): DChartPlotArea<CHART> {
 		return this._plotArea;
 	}
 
-	add(axis: DChartAxis): void {
+	add(axis: DChartAxis<CHART>): void {
 		const list = this._list;
 		let axes = list.get(axis.position);
 		if (axes == null) {
@@ -46,7 +49,7 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 		axis.bind(this, axes.length - 1);
 	}
 
-	get(position: DChartAxisPosition, index: number): DChartAxis | null {
+	get(position: DChartAxisPosition, index: number): DChartAxis<CHART> | null {
 		const list = this._list;
 		const axes = list.get(position);
 		if (axes) {
@@ -57,7 +60,7 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 		return null;
 	}
 
-	indexOf(axis: DChartAxis): number {
+	indexOf(axis: DChartAxis<CHART>): number {
 		const list = this._list;
 		const axes = list.get(axis.position);
 		if (axes) {
@@ -88,7 +91,7 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 	}
 
 	update(): void {
-		this._list.forEach((axes: DChartAxis[]): void => {
+		this._list.forEach((axes: DChartAxis<CHART>[]): void => {
 			for (let i = 0, imax = axes.length; i < imax; ++i) {
 				axes[i].update();
 			}
@@ -96,7 +99,7 @@ export class DChartAxisContainerImpl implements DChartAxisContainer {
 	}
 
 	destroy(): void {
-		this._list.forEach((axes: DChartAxis[]): void => {
+		this._list.forEach((axes: DChartAxis<CHART>[]): void => {
 			for (let i = 0, imax = axes.length; i < imax; ++i) {
 				axes[i].destroy();
 			}

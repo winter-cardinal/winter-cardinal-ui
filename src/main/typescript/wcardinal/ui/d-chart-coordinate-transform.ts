@@ -1,3 +1,4 @@
+import { DBase } from "./d-base";
 import { DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateTransformMark } from "./d-chart-coordinate-transform-mark";
@@ -11,7 +12,7 @@ export interface DThemeChartCoordinateTransform {
 	isZero(value: number): boolean;
 }
 
-export interface DChartCoordinateTransform {
+export interface DChartCoordinateTransform<CHART extends DBase = DBase> {
 	/**
 	 * Monotonic increasing ID for change detection.
 	 */
@@ -31,7 +32,10 @@ export interface DChartCoordinateTransform {
 
 	blend(ratio: number, target: DChartCoordinateTransformMark): void;
 
-	bind(container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection): void;
+	bind(
+		container: DChartCoordinateContainerSub<CHART>,
+		direction: DChartCoordinateDirection
+	): void;
 	unbind(): void;
 
 	/**

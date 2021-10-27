@@ -10,12 +10,14 @@ import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-
 import { Rectangle } from "pixi.js";
 import { DViewOptions } from "./d-view";
 
-export interface DChartPlotAreaOptions<THEME extends DThemeChartPlotArea = DThemeChartPlotArea>
-	extends DBaseOptions<THEME> {
+export interface DChartPlotAreaOptions<
+	CHART extends DBase = DBase,
+	THEME extends DThemeChartPlotArea = DThemeChartPlotArea
+> extends DBaseOptions<THEME> {
 	mask?: boolean;
-	coordinate?: DChartCoordinateContainerOptions;
-	series?: DChartSeriesContainerOptions;
-	axis?: DChartAxisContainerOptions;
+	coordinate?: DChartCoordinateContainerOptions<CHART>;
+	series?: DChartSeriesContainerOptions<CHART>;
+	axis?: DChartAxisContainerOptions<CHART>;
 	view?: DViewOptions;
 }
 
@@ -24,12 +26,12 @@ export interface DThemeChartPlotArea extends DThemeBase {
 }
 
 export interface DChartPlotArea<CHART extends DBase = DBase> extends DBase {
-	readonly series: DChartSeriesContainer;
+	readonly series: DChartSeriesContainer<CHART>;
 	readonly container: DChartPlotAreaContainer;
-	readonly axis: DChartAxisContainer;
+	readonly axis: DChartAxisContainer<CHART>;
 
-	chart: CHART;
-	coordinate: DChartCoordinateContainer;
+	readonly chart: CHART;
+	readonly coordinate: DChartCoordinateContainer<CHART>;
 
 	getBoundsInContainer(): Rectangle;
 }

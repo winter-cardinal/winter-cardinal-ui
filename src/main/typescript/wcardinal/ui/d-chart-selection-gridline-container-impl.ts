@@ -4,6 +4,7 @@
  */
 
 import { IPoint } from "pixi.js";
+import { DBase } from "./d-base";
 import {
 	DChartSelectionGridlineContainer,
 	DChartSelectionGridlineContainerOptions
@@ -14,24 +15,26 @@ import { DChartSelectionShape } from "./d-chart-selection-shape";
 import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 
-export class DChartSelectionGridlineContainerImpl implements DChartSelectionGridlineContainer {
-	protected _x: DChartSelectionShape;
-	protected _y: DChartSelectionShape;
+export class DChartSelectionGridlineContainerImpl<CHART extends DBase = DBase>
+	implements DChartSelectionGridlineContainer<CHART>
+{
+	protected _x: DChartSelectionShape<CHART>;
+	protected _y: DChartSelectionShape<CHART>;
 
-	constructor(options?: DChartSelectionGridlineContainerOptions) {
-		this._x = new DChartSelectionGridlineX(options?.x);
-		this._y = new DChartSelectionGridlineY(options?.y);
+	constructor(options?: DChartSelectionGridlineContainerOptions<CHART>) {
+		this._x = new DChartSelectionGridlineX<CHART>(options?.x);
+		this._y = new DChartSelectionGridlineY<CHART>(options?.y);
 	}
 
-	get x(): DChartSelectionShape {
+	get x(): DChartSelectionShape<CHART> {
 		return this._x;
 	}
 
-	get y(): DChartSelectionShape {
+	get y(): DChartSelectionShape<CHART> {
 		return this._y;
 	}
 
-	bind(container: DChartSeriesContainer): void {
+	bind(container: DChartSeriesContainer<CHART>): void {
 		this._x.bind(container);
 		this._y.bind(container);
 	}
@@ -41,7 +44,11 @@ export class DChartSelectionGridlineContainerImpl implements DChartSelectionGrid
 		this._y.unbind();
 	}
 
-	set(container: DChartSeriesContainer, mappedPosition: IPoint, series: DChartSeries): void {
+	set(
+		container: DChartSeriesContainer<CHART>,
+		mappedPosition: IPoint,
+		series: DChartSeries<CHART>
+	): void {
 		this._x.set(container, mappedPosition, series);
 		this._y.set(container, mappedPosition, series);
 	}
@@ -51,7 +58,7 @@ export class DChartSelectionGridlineContainerImpl implements DChartSelectionGrid
 		this._y.unset();
 	}
 
-	update(container: DChartSeriesContainer, mappedPosition: IPoint): void {
+	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): void {
 		this._x.update(container, mappedPosition);
 		this._y.update(container, mappedPosition);
 	}

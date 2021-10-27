@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinateDirection } from "./d-chart-coordinate";
 import {
 	DChartCoordinateContainer,
@@ -13,12 +14,17 @@ import { DChartCoordinateContainerSubImpl } from "./d-chart-coordinate-container
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { isArray } from "./util/is-array";
 
-export class DChartCoordinateContainerImpl implements DChartCoordinateContainer {
-	protected _x: DChartCoordinateContainerSub;
-	protected _y: DChartCoordinateContainerSub;
-	protected _plotArea: DChartPlotArea;
+export class DChartCoordinateContainerImpl<CHART extends DBase = DBase>
+	implements DChartCoordinateContainer<CHART>
+{
+	protected _x: DChartCoordinateContainerSub<CHART>;
+	protected _y: DChartCoordinateContainerSub<CHART>;
+	protected _plotArea: DChartPlotArea<CHART>;
 
-	constructor(plotArea: DChartPlotArea, options?: DChartCoordinateContainerOptions) {
+	constructor(
+		plotArea: DChartPlotArea<CHART>,
+		options?: DChartCoordinateContainerOptions<CHART>
+	) {
 		this._plotArea = plotArea;
 		const x = new DChartCoordinateContainerSubImpl(this, DChartCoordinateDirection.X);
 		this._x = x;
@@ -48,15 +54,15 @@ export class DChartCoordinateContainerImpl implements DChartCoordinateContainer 
 		}
 	}
 
-	get x(): DChartCoordinateContainerSub {
+	get x(): DChartCoordinateContainerSub<CHART> {
 		return this._x;
 	}
 
-	get y(): DChartCoordinateContainerSub {
+	get y(): DChartCoordinateContainerSub<CHART> {
 		return this._y;
 	}
 
-	get plotArea(): DChartPlotArea {
+	get plotArea(): DChartPlotArea<CHART> {
 		return this._plotArea;
 	}
 

@@ -4,7 +4,7 @@
  */
 
 import { interaction, utils } from "pixi.js";
-import { DBaseOnOptions } from "./d-base";
+import { DBase, DBaseOnOptions } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DChartSelection, DChartSelectionPoint } from "./d-chart-selection";
 import { DChartSelectionSub, DChartSelectionSubOptions } from "./d-chart-selection-sub";
@@ -14,24 +14,27 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 import { toEnum } from "./util/to-enum";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 
-export interface DChartSelectionSimpleOptions<EMITTER = any> {
-	selected?: DChartSelectionSubOptions;
-	hovered?: DChartSelectionSubOptions;
+export interface DChartSelectionSimpleOptions<CHART extends DBase = DBase, EMITTER = any> {
+	selected?: DChartSelectionSubOptions<CHART>;
+	hovered?: DChartSelectionSubOptions<CHART>;
 	point?: DChartSelectionPoint | keyof typeof DChartSelectionPoint;
 	on?: DBaseOnOptions<EMITTER>;
 }
 
-export class DChartSelectionSimple extends utils.EventEmitter implements DChartSelection {
+export class DChartSelectionSimple<CHART extends DBase = DBase>
+	extends utils.EventEmitter
+	implements DChartSelection<CHART>
+{
 	protected static WORK_SELECT: DChartSeriesHitResult = new DChartSeriesHitResult();
 
-	protected _container: DChartSeriesContainer | null;
-	protected _selected: DChartSelectionSub;
-	protected _hovered: DChartSelectionSub;
+	protected _container: DChartSeriesContainer<CHART> | null;
+	protected _selected: DChartSelectionSub<CHART>;
+	protected _hovered: DChartSelectionSub<CHART>;
 
 	protected _onClickBound!: (e: interaction.InteractionEvent) => void;
 	protected _onMoveBound!: (e: interaction.InteractionEvent) => void;
 
-	constructor(options?: DChartSelectionSimpleOptions) {
+	constructor(options?: DChartSelectionSimpleOptions<CHART>) {
 		super();
 
 		this._container = null;
@@ -62,23 +65,23 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 
 	protected newSelected(
 		point: DChartSelectionPoint,
-		options?: DChartSelectionSubOptions
-	): DChartSelectionSub {
+		options?: DChartSelectionSubOptions<CHART>
+	): DChartSelectionSub<CHART> {
 		return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.ACTIVE));
 	}
 
 	protected newHovered(
 		point: DChartSelectionPoint,
-		options?: DChartSelectionSubOptions
-	): DChartSelectionSub {
+		options?: DChartSelectionSubOptions<CHART>
+	): DChartSelectionSub<CHART> {
 		return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.HOVERED));
 	}
 
 	protected toSubOptions(
 		point: DChartSelectionPoint,
-		options: DChartSelectionSubOptions | undefined,
+		options: DChartSelectionSubOptions<CHART> | undefined,
 		state: string
-	): DChartSelectionSubOptions {
+	): DChartSelectionSubOptions<CHART> {
 		options = options || {};
 
 		if (options.point == null) {
@@ -141,7 +144,7 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 		}
 	}
 
-	bind(container: DChartSeriesContainer): void {
+	bind(container: DChartSeriesContainer<CHART>): void {
 		this._container = container;
 		this._selected.bind(container);
 		this._hovered.bind(container);
@@ -162,11 +165,11 @@ export class DChartSelectionSimple extends utils.EventEmitter implements DChartS
 		this._hovered.unbind();
 	}
 
-	get selected(): DChartSelectionSub {
+	get selected(): DChartSelectionSub<CHART> {
 		return this._selected;
 	}
 
-	get hovered(): DChartSelectionSub {
+	get hovered(): DChartSelectionSub<CHART> {
 		return this._hovered;
 	}
 

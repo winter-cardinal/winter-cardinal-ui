@@ -5,6 +5,7 @@
 
 import { Point } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesBase, DChartSeriesBaseOptions } from "./d-chart-series-base";
@@ -32,7 +33,7 @@ export interface DChartSeriesLinearOptions
 /**
  * A series represents a linear equation `a (x - x0) === b (y - y0)`.
  */
-export class DChartSeriesLinear extends DChartSeriesBase {
+export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSeriesBase<CHART> {
 	protected static WORK: Point = new Point();
 	protected _line: EShapeLine | null;
 	protected _options?: DChartSeriesLinearOptions;
@@ -50,7 +51,7 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 		this._parameters = DChartSeriesExpressionParametersImpl.from(options);
 	}
 
-	bind(container: DChartSeriesContainer, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): void {
 		let line = this._line;
 		if (!line) {
 			const stroke = container.newStroke(index, this._options?.stroke);
@@ -125,8 +126,8 @@ export class DChartSeriesLinear extends DChartSeriesBase {
 
 	protected updateLine(
 		line: EShapeLine,
-		xcoordinate: DChartCoordinate,
-		ycoordinate: DChartCoordinate,
+		xcoordinate: DChartCoordinate<CHART>,
+		ycoordinate: DChartCoordinate<CHART>,
 		plotAreaSizeX: number,
 		plotAreaSizeY: number
 	): void {

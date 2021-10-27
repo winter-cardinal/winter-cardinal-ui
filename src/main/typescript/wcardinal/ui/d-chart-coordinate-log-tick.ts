@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 
 export interface DThemeChartCoordinateLogTick {
 	toStepScale(scale: number): number;
 }
 
-export class DChartCoordinateLogTick {
+export class DChartCoordinateLogTick<CHART extends DBase = DBase> {
 	protected _theme: DThemeChartCoordinateLogTick;
 
 	constructor(theme: DThemeChartCoordinateLogTick) {
@@ -59,7 +60,7 @@ export class DChartCoordinateLogTick {
 		minorCount: number,
 		majorResult: Float64Array,
 		minorResult: Float64Array,
-		coordinate: DChartCoordinate
+		coordinate: DChartCoordinate<CHART>
 	): void {
 		if (majorCount <= 0) {
 			return;
