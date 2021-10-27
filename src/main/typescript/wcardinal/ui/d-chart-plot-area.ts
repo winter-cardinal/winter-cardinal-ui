@@ -23,12 +23,12 @@ export interface DThemeChartPlotArea extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
 }
 
-export interface DChartPlotArea extends DBase {
+export interface DChartPlotArea<CHART extends DBase = DBase> extends DBase {
 	readonly series: DChartSeriesContainer;
 	readonly container: DChartPlotAreaContainer;
 	readonly axis: DChartAxisContainer;
 
-	chart: DBase;
+	chart: CHART;
 	coordinate: DChartCoordinateContainer;
 
 	getBoundsInContainer(): Rectangle;
