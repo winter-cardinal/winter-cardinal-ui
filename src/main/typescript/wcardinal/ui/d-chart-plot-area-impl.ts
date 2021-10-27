@@ -6,35 +6,19 @@
 import { interaction, Point, Rectangle, Renderer } from "pixi.js";
 import { DAnimationTimings } from "./d-animation-timings";
 import { DApplications } from "./d-applications";
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
-import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
+import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisContainerImpl } from "./d-chart-axis-container-impl";
-import {
-	DChartCoordinateContainer,
-	DChartCoordinateContainerOptions
-} from "./d-chart-coordinate-container";
+import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerImpl } from "./d-chart-coordinate-container-impl";
-import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartPlotArea, DThemeChartPlotArea, DChartPlotAreaOptions } from "./d-chart-plot-area";
 import { DChartPlotAreaContainer } from "./d-chart-plot-area-container";
-import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
+import { DChartSeriesContainer } from "./d-chart-series-container";
 import { DChartSeriesContainerImpl } from "./d-chart-series-container-impl";
-import { DView, DViewOptions } from "./d-view";
+import { DView } from "./d-view";
 import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
-
-export interface DChartPlotAreaOptions<THEME extends DThemeChartPlotArea = DThemeChartPlotArea>
-	extends DBaseOptions<THEME> {
-	mask?: boolean;
-	coordinate?: DChartCoordinateContainerOptions;
-	series?: DChartSeriesContainerOptions;
-	axis?: DChartAxisContainerOptions;
-	view?: DViewOptions;
-}
-
-export interface DThemeChartPlotArea extends DThemeBase {
-	isOverflowMaskEnabled(): boolean;
-}
 
 export class DChartPlotAreaImpl<
 		THEME extends DThemeChartPlotArea = DThemeChartPlotArea,

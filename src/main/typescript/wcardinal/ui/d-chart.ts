@@ -5,7 +5,8 @@
 
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
-import { DChartPlotAreaImpl, DChartPlotAreaOptions } from "./d-chart-plot-area-impl";
+import { DChartPlotAreaOptions } from "./d-chart-plot-area";
+import { DChartPlotAreaImpl } from "./d-chart-plot-area-impl";
 
 export interface DChartOptions<THEME extends DThemeChart> extends DBaseOptions<THEME> {
 	plotArea: DChartPlotAreaOptions;
