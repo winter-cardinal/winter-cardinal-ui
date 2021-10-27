@@ -6,6 +6,7 @@
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseOverflowMask } from "./d-base-overflow-mask";
 import { DChartPlotArea, DChartPlotAreaOptions } from "./d-chart-plot-area";
+import { DChartPlotAreaImpl } from "./d-chart-plot-area-impl";
 
 export interface DChartOptions<THEME extends DThemeChart> extends DBaseOptions<THEME> {
 	plotArea: DChartPlotAreaOptions;
@@ -26,7 +27,7 @@ export class DChart<
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
-		const plotArea = new DChartPlotArea(this, options?.plotArea);
+		const plotArea = new DChartPlotAreaImpl(this, options?.plotArea);
 		this._plotArea = plotArea;
 		this.addChild(plotArea);
 

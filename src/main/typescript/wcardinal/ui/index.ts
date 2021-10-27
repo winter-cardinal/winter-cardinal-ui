@@ -112,6 +112,7 @@ export * from "./d-chart-legend";
 export * from "./d-chart-overview";
 export * from "./d-chart-plot-area-container";
 export * from "./d-chart-plot-area";
+export * from "./d-chart-plot-area-impl";
 export * from "./d-chart-region-impl-observable";
 export * from "./d-chart-region-impl";
 export * from "./d-chart-region";
