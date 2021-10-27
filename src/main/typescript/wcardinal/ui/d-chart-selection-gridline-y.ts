@@ -4,11 +4,14 @@
  */
 
 import { IPoint } from "pixi.js";
+import { DBase } from "./d-base";
 import { DChartSelectionShapeBase } from "./d-chart-selection-shape-base";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 
-export class DChartSelectionGridlineY extends DChartSelectionShapeBase {
-	update(container: DChartSeriesContainer, mappedPosition: IPoint): void {
+export class DChartSelectionGridlineY<
+	CHART extends DBase = DBase
+> extends DChartSelectionShapeBase<CHART> {
+	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): void {
 		const shape = this._shape;
 		if (shape) {
 			const mappedY = mappedPosition.y;
@@ -19,7 +22,7 @@ export class DChartSelectionGridlineY extends DChartSelectionShapeBase {
 		}
 	}
 
-	protected isVisible(container: DChartSeriesContainer, mappedY: number): boolean {
+	protected isVisible(container: DChartSeriesContainer<CHART>, mappedY: number): boolean {
 		return 0 <= mappedY && mappedY <= container.plotArea.height;
 	}
 

@@ -1,3 +1,4 @@
+import { DBase } from "./d-base";
 import { DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import {
@@ -6,7 +7,9 @@ import {
 } from "./d-chart-coordinate-transform";
 import { DChartCoordinateTransformMark } from "./d-chart-coordinate-transform-mark";
 
-export class DChartCoordinateTransformImpl implements DChartCoordinateTransform {
+export class DChartCoordinateTransformImpl<CHART extends DBase = DBase>
+	implements DChartCoordinateTransform<CHART>
+{
 	protected _theme: DThemeChartCoordinateTransform;
 	protected _id: number;
 	protected _translate: number;
@@ -43,7 +46,10 @@ export class DChartCoordinateTransformImpl implements DChartCoordinateTransform 
 		this.set(undefined, scale);
 	}
 
-	bind(container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection): void {
+	bind(
+		container: DChartCoordinateContainerSub<CHART>,
+		direction: DChartCoordinateDirection
+	): void {
 		this.set(0, direction === DChartCoordinateDirection.X ? +1 : -1);
 	}
 

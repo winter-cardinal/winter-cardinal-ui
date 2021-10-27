@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartRegion } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
@@ -29,7 +30,7 @@ export interface DChartSeriesBarOptions extends DChartSeriesLineOfAnyOptions {
  * A series represents bars.
  * Data points must be sorted in ascending order on the X axis.
  */
-export class DChartSeriesBar extends DChartSeriesLineOfAny {
+export class DChartSeriesBar<CHART extends DBase = DBase> extends DChartSeriesLineOfAny<CHART> {
 	protected _barCount: number;
 	protected _barIndex: number;
 	protected _xcoordinateId: number;
@@ -46,7 +47,7 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 		this._isSizeAutomatic = (options && options.size && options.size.auto) !== false;
 	}
 
-	bind(container: DChartSeriesContainer, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): void {
 		this._barCount = -1;
 		this._barIndex = -1;
 		this._xcoordinateId = -1;
@@ -57,7 +58,7 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 	protected initLine(
 		line: EShapeLineOfAny,
 		options: DChartSeriesLineOfAnyOptions | undefined,
-		container: DChartSeriesContainer,
+		container: DChartSeriesContainer<CHART>,
 		index: number
 	): void {
 		super.initLine(line, options, container, index);
@@ -108,8 +109,8 @@ export class DChartSeriesBar extends DChartSeriesLineOfAny {
 
 	protected applyLine(
 		line: EShapeLineOfAny,
-		xcoordinate: DChartCoordinate,
-		ycoordinate: DChartCoordinate,
+		xcoordinate: DChartCoordinate<CHART>,
+		ycoordinate: DChartCoordinate<CHART>,
 		sx: number,
 		sy: number,
 		cx: number,

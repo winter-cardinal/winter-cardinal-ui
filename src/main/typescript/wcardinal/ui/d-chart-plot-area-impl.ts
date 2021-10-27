@@ -21,17 +21,18 @@ import { DViewImpl } from "./d-view-impl";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 
 export class DChartPlotAreaImpl<
+		CHART extends DBase = DBase,
 		THEME extends DThemeChartPlotArea = DThemeChartPlotArea,
-		OPTIONS extends DChartPlotAreaOptions<THEME> = DChartPlotAreaOptions<THEME>
+		OPTIONS extends DChartPlotAreaOptions<CHART, THEME> = DChartPlotAreaOptions<CHART, THEME>
 	>
 	extends DBase<THEME, OPTIONS>
-	implements DChartPlotArea
+	implements DChartPlotArea<CHART>
 {
-	protected _chart: DBase;
+	protected _chart: CHART;
 	protected _container!: DChartPlotAreaContainer;
-	protected _series!: DChartSeriesContainerImpl;
-	protected _coordinate!: DChartCoordinateContainer;
-	protected _axis!: DChartAxisContainerImpl;
+	protected _series!: DChartSeriesContainerImpl<CHART>;
+	protected _coordinate!: DChartCoordinateContainer<CHART>;
+	protected _axis!: DChartAxisContainerImpl<CHART>;
 	protected _view!: DViewImpl;
 	protected _isViewDirty!: boolean;
 	protected _isBoundsInContainerDirty!: boolean;
@@ -43,7 +44,7 @@ export class DChartPlotAreaImpl<
 	protected _blendTimeout: number | null;
 	protected _onBlendBound: () => void;
 
-	constructor(chart: DBase, options?: OPTIONS) {
+	constructor(chart: CHART, options?: OPTIONS) {
 		super(options);
 		this._chart = chart;
 		this._blendStartTime = 0;
@@ -105,15 +106,15 @@ export class DChartPlotAreaImpl<
 		return this._overflowMask;
 	}
 
-	get coordinate(): DChartCoordinateContainer {
+	get coordinate(): DChartCoordinateContainer<CHART> {
 		return this._coordinate;
 	}
 
-	get chart(): DBase {
+	get chart(): CHART {
 		return this._chart;
 	}
 
-	get series(): DChartSeriesContainer {
+	get series(): DChartSeriesContainer<CHART> {
 		return this._series;
 	}
 
@@ -121,7 +122,7 @@ export class DChartPlotAreaImpl<
 		return this._container;
 	}
 
-	get axis(): DChartAxisContainer {
+	get axis(): DChartAxisContainer<CHART> {
 		return this._axis;
 	}
 

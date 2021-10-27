@@ -4,6 +4,7 @@
  */
 
 import { utils } from "pixi.js";
+import { DBase } from "./d-base";
 import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { EShape } from "./shape/e-shape";
@@ -17,10 +18,13 @@ export const DChartSelectionPoint = {
 
 export type DChartSelectionPoint = typeof DChartSelectionPoint[keyof typeof DChartSelectionPoint];
 
-export type DChartSelectionStyle = (shape: EShape, series: DChartSeries) => void;
+export type DChartSelectionStyle<CHART extends DBase = DBase> = (
+	shape: EShape,
+	series: DChartSeries<CHART>
+) => void;
 
-export interface DChartSelection extends utils.EventEmitter {
-	bind(container: DChartSeriesContainer): void;
+export interface DChartSelection<CHART extends DBase = DBase> extends utils.EventEmitter {
+	bind(container: DChartSeriesContainer<CHART>): void;
 	unbind(): void;
 	update(): void;
 }

@@ -4,6 +4,7 @@
  */
 
 import { Matrix } from "pixi.js";
+import { DBase } from "./d-base";
 import { DChartAxis } from "./d-chart-axis";
 import { DChartAxisBaseOptions, DThemeChartAxisBase } from "./d-chart-axis-base-options";
 import {
@@ -22,13 +23,15 @@ import { DThemes } from "./theme/d-themes";
 import { DeepPartial } from "./util/deep-partial";
 import { isNaN } from "./util/is-nan";
 
-export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBaseOptions>
-	implements DChartAxis
+export class DChartAxisBase<
+	CHART extends DBase = DBase,
+	OPTIONS extends DChartAxisBaseOptions = DChartAxisBaseOptions
+> implements DChartAxis<CHART>
 {
 	protected _coordinateIndex: number;
 	protected _padding: number;
 	protected _position: DChartAxisPosition;
-	protected _container?: DChartAxisContainer;
+	protected _container?: DChartAxisContainer<CHART>;
 	protected _bar: DChartAxisBaseBar;
 	protected _index: number;
 	protected _tick: DChartAxisBaseTickContainer;
@@ -60,7 +63,7 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 		return this._position;
 	}
 
-	protected updateBar(container: DChartAxisContainer): void {
+	protected updateBar(container: DChartAxisContainer<CHART>): void {
 		const bar = this._bar;
 		const shape = bar.shape;
 		if (shape) {
@@ -96,7 +99,7 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 	updateTicksX(
 		domainMin: number,
 		domainMax: number,
-		coordinate: DChartCoordinate,
+		coordinate: DChartCoordinate<CHART>,
 		majorShapes: EShapeBar[],
 		minorShapes: EShapeBar[],
 		gridlineShapes: EShapeBar[] | undefined,
@@ -176,7 +179,7 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 	updateTicksY(
 		domainMin: number,
 		domainMax: number,
-		coordinate: DChartCoordinate,
+		coordinate: DChartCoordinate<CHART>,
 		majorShapes: EShapeBar[],
 		minorShapes: EShapeBar[],
 		gridlineShapes: EShapeBar[] | undefined,
@@ -253,7 +256,7 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 		}
 	}
 
-	protected updateTicks(container: DChartAxisContainer): void {
+	protected updateTicks(container: DChartAxisContainer<CHART>): void {
 		const tick = this._tick;
 		const majorShapes = tick.major.shapes;
 		const minorShapes = tick.minor.shapes;
@@ -265,7 +268,7 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 
 			const coordinateIndex = this._coordinateIndex;
 			const padding = this._padding * this._index;
-			let coordinate: DChartCoordinate | null;
+			let coordinate: DChartCoordinate<CHART> | null;
 			switch (this._position) {
 				case DChartAxisPosition.TOP:
 					coordinate = plotArea.coordinate.x.get(coordinateIndex);
@@ -355,7 +358,7 @@ export class DChartAxisBase<OPTIONS extends DChartAxisBaseOptions = DChartAxisBa
 		}
 	}
 
-	bind(container: DChartAxisContainer, index: number): void {
+	bind(container: DChartAxisContainer<CHART>, index: number): void {
 		this._container = container;
 		this._index = index;
 		const tickShapeContainer = container.container;

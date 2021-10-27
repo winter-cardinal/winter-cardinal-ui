@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateTransform } from "./d-chart-coordinate-transform";
 
@@ -14,14 +15,17 @@ export const DChartCoordinateDirection = {
 export type DChartCoordinateDirection =
 	typeof DChartCoordinateDirection[keyof typeof DChartCoordinateDirection];
 
-export interface DChartCoordinate {
+export interface DChartCoordinate<CHART extends DBase = DBase> {
 	/**
 	 * Monotonic increasing ID for change detection.
 	 */
 	readonly id: number;
-	readonly transform: DChartCoordinateTransform;
+	readonly transform: DChartCoordinateTransform<CHART>;
 
-	bind(container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection): void;
+	bind(
+		container: DChartCoordinateContainerSub<CHART>,
+		direction: DChartCoordinateDirection
+	): void;
 	unbind(): void;
 
 	/**

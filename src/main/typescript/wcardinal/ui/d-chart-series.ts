@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
@@ -49,16 +50,16 @@ export class DChartSeriesHitResult {
 	}
 }
 
-export interface DChartSeries {
+export interface DChartSeries<CHART extends DBase = DBase> {
 	readonly domain: DChartRegionImmutable;
 	readonly range: DChartRegionImmutable;
 	readonly shape: EShape | null;
-	readonly container: DChartSeriesContainer | null;
-	readonly coordinate: DChartSeriesCoordinateContainer;
+	readonly container: DChartSeriesContainer<CHART> | null;
+	readonly coordinate: DChartSeriesCoordinateContainer<CHART>;
 	readonly index: number;
 	readonly state: DBaseStateSet;
 
-	bind(container: DChartSeriesContainer, index: number): void;
+	bind(container: DChartSeriesContainer<CHART>, index: number): void;
 	unbind(): void;
 
 	toDirty(): void;

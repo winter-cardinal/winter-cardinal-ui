@@ -5,6 +5,7 @@
 
 import { Point, utils } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSelectionPoint } from "./d-chart-selection";
@@ -16,20 +17,23 @@ import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { EShape } from "./shape/e-shape";
 
-export class DChartSelectionSubImpl extends utils.EventEmitter implements DChartSelectionSub {
-	protected _container: DChartSeriesContainer | null;
+export class DChartSelectionSubImpl<CHART extends DBase = DBase>
+	extends utils.EventEmitter
+	implements DChartSelectionSub<CHART>
+{
+	protected _container: DChartSeriesContainer<CHART> | null;
 	protected _isEnabled: boolean;
-	protected _series: DChartSeries | null;
-	protected _coordinateX: DChartCoordinate | null;
-	protected _coordinateY: DChartCoordinate | null;
+	protected _series: DChartSeries<CHART> | null;
+	protected _coordinateX: DChartCoordinate<CHART> | null;
+	protected _coordinateY: DChartCoordinate<CHART> | null;
 	protected _position: Point;
 	protected _point: DChartSelectionPoint;
 	protected _work: Point;
-	protected _gridline: DChartSelectionGridlineContainer;
-	protected _marker: DChartSelectionMarker;
+	protected _gridline: DChartSelectionGridlineContainer<CHART>;
+	protected _marker: DChartSelectionMarker<CHART>;
 	protected _state: string;
 
-	constructor(options: DChartSelectionSubOptions) {
+	constructor(options: DChartSelectionSubOptions<CHART>) {
 		super();
 
 		this._container = null;
@@ -56,7 +60,7 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 		}
 	}
 
-	bind(container: DChartSeriesContainer): void {
+	bind(container: DChartSeriesContainer<CHART>): void {
 		if (this._isEnabled) {
 			this._container = container;
 			this._gridline.bind(container);
@@ -72,7 +76,7 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 		this._coordinateY = null;
 	}
 
-	get series(): DChartSeries | null {
+	get series(): DChartSeries<CHART> | null {
 		return this._series;
 	}
 
@@ -80,15 +84,18 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 		return this._position;
 	}
 
-	get gridline(): DChartSelectionGridlineContainer {
+	get gridline(): DChartSelectionGridlineContainer<CHART> {
 		return this._gridline;
 	}
 
-	get marker(): DChartSelectionMarker {
+	get marker(): DChartSelectionMarker<CHART> {
 		return this._marker;
 	}
 
-	set(series: DChartSeries, result: DChartSeriesHitResult | DChartSelectionSub): void {
+	set(
+		series: DChartSeries<CHART>,
+		result: DChartSeriesHitResult | DChartSelectionSub<CHART>
+	): void {
 		const container = this._container;
 		const coordinateX = (this._coordinateX = series.coordinate.x);
 		const coordinateY = (this._coordinateY = series.coordinate.y);
@@ -153,7 +160,7 @@ export class DChartSelectionSubImpl extends utils.EventEmitter implements DChart
 		this.emit("change", this);
 	}
 
-	protected setStyle(this: unknown, shape: EShape, series: DChartSeries): void {
+	protected setStyle(this: unknown, shape: EShape, series: DChartSeries<CHART>): void {
 		const seriesShape = series.shape;
 		if (seriesShape) {
 			shape.stroke.color = seriesShape.stroke.color;

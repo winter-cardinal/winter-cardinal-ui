@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 
 export interface DChartSeriesCoordinateOptions {
@@ -17,7 +18,7 @@ export interface DChartSeriesCoordinateOptions {
 	y?: number;
 }
 
-export interface DChartSeriesCoordinateContainer {
-	x: DChartCoordinate | null;
-	y: DChartCoordinate | null;
+export interface DChartSeriesCoordinateContainer<CHART extends DBase = DBase> {
+	x: DChartCoordinate<CHART> | null;
+	y: DChartCoordinate<CHART> | null;
 }

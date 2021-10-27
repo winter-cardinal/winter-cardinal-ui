@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBase } from "./d-base";
 import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import {
@@ -32,14 +33,16 @@ export interface DChartCoordinateLinearOptions {
 	theme?: DThemeChartCoordinateLinear;
 }
 
-export class DChartCoordinateLinear implements DChartCoordinate {
+export class DChartCoordinateLinear<CHART extends DBase = DBase>
+	implements DChartCoordinate<CHART>
+{
 	protected _id: number;
-	protected _transform: DChartCoordinateTransform;
-	protected _container?: DChartCoordinateContainerSub;
+	protected _transform: DChartCoordinateTransform<CHART>;
+	protected _container?: DChartCoordinateContainerSub<CHART>;
 	protected _direction: DChartCoordinateDirection;
 	protected _theme: DThemeChartCoordinateLinear;
 	protected _work: DChartRegionImpl;
-	protected _tick: DChartCoordinateLinearTick;
+	protected _tick: DChartCoordinateLinearTick<CHART>;
 	protected _mark: DChartCoordinateTransformMarkImpl;
 
 	constructor(options?: DChartCoordinateLinearOptions) {
@@ -53,7 +56,10 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 		this._mark = new DChartCoordinateTransformMarkImpl();
 	}
 
-	bind(container: DChartCoordinateContainerSub, direction: DChartCoordinateDirection): void {
+	bind(
+		container: DChartCoordinateContainerSub<CHART>,
+		direction: DChartCoordinateDirection
+	): void {
 		this._container = container;
 		this._direction = direction;
 		this._transform.bind(container, direction);
@@ -83,7 +89,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	protected doFit(
 		from: number | undefined,
 		to: number | undefined,
-		result: DChartCoordinateTransformMark | DChartCoordinateTransform
+		result: DChartCoordinateTransformMark | DChartCoordinateTransform<CHART>
 	): void {
 		const container = this._container;
 		if (container) {
@@ -114,7 +120,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	protected toFitDomain(
 		from: number | undefined,
 		to: number | undefined,
-		plotArea: DChartPlotArea,
+		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
 		if (from != null && to != null) {
@@ -129,7 +135,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 	protected toFitRange(
 		from: number | undefined,
 		to: number | undefined,
-		plotArea: DChartPlotArea,
+		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
 		if (from != null && to != null) {
@@ -145,7 +151,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 		pixelFrom: number,
 		pixelTo: number,
 		region: DChartRegion,
-		result: DChartCoordinateTransformMark | DChartCoordinateTransform
+		result: DChartCoordinateTransformMark | DChartCoordinateTransform<CHART>
 	): void {
 		const regionFrom = region.from;
 		const regionTo = region.to;
@@ -172,7 +178,7 @@ export class DChartCoordinateLinear implements DChartCoordinate {
 		return this._id;
 	}
 
-	get transform(): DChartCoordinateTransform {
+	get transform(): DChartCoordinateTransform<CHART> {
 		return this._transform;
 	}
 

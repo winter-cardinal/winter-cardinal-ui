@@ -5,6 +5,7 @@
 
 import { Point } from "pixi.js";
 import { DApplications } from "./d-applications";
+import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartRegion } from "./d-chart-region";
 import { DChartSeriesHitResult } from "./d-chart-series";
@@ -50,7 +51,9 @@ export interface DChartSeriesLineOfAnyRegion {
  * A series represents a line of anything.
  * Data points must be sorted in ascending order on the X axis.
  */
-export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
+export abstract class DChartSeriesLineOfAny<
+	CHART extends DBase = DBase
+> extends DChartSeriesBase<CHART> {
 	protected static WORK: Point = new Point();
 	protected static WORK_REGION?: DChartSeriesLineOfAnyRegion;
 
@@ -82,7 +85,7 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 		return 0;
 	}
 
-	bind(container: DChartSeriesContainer, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): void {
 		let line = this._line;
 		if (!line) {
 			line = this._line = this.newLineOfAny();
@@ -97,7 +100,7 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 	protected initLine(
 		line: EShapeLineOfAny,
 		options: DChartSeriesLineOfAnyOptions | undefined,
-		container: DChartSeriesContainer,
+		container: DChartSeriesContainer<CHART>,
 		index: number
 	): void {
 		const fill = container.newFill(index, options?.fill);
@@ -175,8 +178,8 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 
 	protected updateLine(
 		line: EShapeLineOfAny,
-		xcoordinate: DChartCoordinate,
-		ycoordinate: DChartCoordinate
+		xcoordinate: DChartCoordinate<CHART>,
+		ycoordinate: DChartCoordinate<CHART>
 	): void {
 		const values = line.points.values;
 		const valuesLength = values.length;
@@ -269,8 +272,8 @@ export abstract class DChartSeriesLineOfAny extends DChartSeriesBase {
 
 	protected applyLine(
 		line: EShapeLineOfAny,
-		xcoordinate: DChartCoordinate,
-		ycoordinate: DChartCoordinate,
+		xcoordinate: DChartCoordinate<CHART>,
+		ycoordinate: DChartCoordinate<CHART>,
 		sx: number,
 		sy: number,
 		cx: number,
