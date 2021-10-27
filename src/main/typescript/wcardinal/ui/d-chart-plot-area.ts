@@ -1,6 +1,5 @@
 import { DBase, DBaseOptions, DThemeBase } from "./d-base";
 import { DChartSeriesContainer, DChartSeriesContainerOptions } from "./d-chart-series-container";
-import { DPadding } from "./d-padding";
 import {
 	DChartCoordinateContainer,
 	DChartCoordinateContainerOptions
@@ -25,15 +24,12 @@ export interface DThemeChartPlotArea extends DThemeBase {
 }
 
 export interface DChartPlotArea extends DBase {
-	series: DChartSeriesContainer;
-	padding: DPadding;
-	width: number;
-	height: number;
+	readonly series: DChartSeriesContainer;
+	readonly container: DChartPlotAreaContainer;
+	readonly axis: DChartAxisContainer;
 
-	container: DChartPlotAreaContainer;
 	chart: DBase;
 	coordinate: DChartCoordinateContainer;
-	axis: DChartAxisContainer;
 
 	getBoundsInContainer(): Rectangle;
 }
