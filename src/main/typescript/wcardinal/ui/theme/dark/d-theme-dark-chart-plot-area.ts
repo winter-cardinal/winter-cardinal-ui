@@ -4,7 +4,7 @@
  */
 
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DThemeChartPlotArea } from "../../d-chart-plot-area";
+import { DThemeChartPlotArea } from "../../d-chart-plot-area-impl";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 
