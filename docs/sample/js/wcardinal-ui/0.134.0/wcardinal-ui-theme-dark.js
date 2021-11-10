@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.133.0
+ Winter Cardinal UI v0.134.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -543,19 +543,25 @@
             if (state.isActive) {
                 return this.getOutlineColorActive(state);
             }
-            return _super.prototype.getOutlineColor.call(this, state);
+            return this.getOutlineColorNonActive(state);
         };
         DThemeDarkButtonBase.prototype.getOutlineColorActive = function (state) {
             return this.OUTLINE_COLOR;
+        };
+        DThemeDarkButtonBase.prototype.getOutlineColorNonActive = function (state) {
+            return _super.prototype.getOutlineColor.call(this, state);
         };
         DThemeDarkButtonBase.prototype.getOutlineOffset = function (state) {
             if (state.isActive) {
                 return this.getOutlineOffsetActive(state);
             }
-            return _super.prototype.getOutlineOffset.call(this, state);
+            return this.getOutlineOffsetNonActive(state);
         };
         DThemeDarkButtonBase.prototype.getOutlineOffsetActive = function (state) {
             return -1.5;
+        };
+        DThemeDarkButtonBase.prototype.getOutlineOffsetNonActive = function (state) {
+            return _super.prototype.getOutlineOffset.call(this, state);
         };
         DThemeDarkButtonBase.prototype.getHeight = function () {
             return 30;
@@ -708,6 +714,12 @@
                 }
             }
             return 0;
+        };
+        DThemeDarkButtonCheck.prototype.getOutlineColor = function (state) {
+            return this.getOutlineColorNonActive(state);
+        };
+        DThemeDarkButtonCheck.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetNonActive(state);
         };
         DThemeDarkButtonCheck.prototype.getImageTintColor = function (state) {
             return DThemeDarkButtonChecks.getImageTintColor(state);
@@ -2003,6 +2015,12 @@
                 }
             }
             return 0;
+        };
+        DThemeDarkButtonRadio.prototype.getOutlineColor = function (state) {
+            return this.getOutlineColorNonActive(state);
+        };
+        DThemeDarkButtonRadio.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetNonActive(state);
         };
         DThemeDarkButtonRadio.prototype.getImageTintColor = function (state) {
             if (state.inDisabled || !state.isActive) {
