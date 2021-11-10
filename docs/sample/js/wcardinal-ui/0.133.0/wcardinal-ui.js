@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.131.0
+ Winter Cardinal UI v0.133.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -11287,7 +11287,7 @@
             base.snippet.add(background, true);
             var border = new DBaseBorderSnippet();
             this._border = border;
-            base.snippet.add(border, false);
+            base.snippet.add(border, true);
             var outline = new DBaseOutlineSnippet();
             this._outline = outline;
             base.snippet.add(outline, false);
@@ -51713,9 +51713,9 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DChartPlotArea = /** @class */ (function (_super) {
-        __extends(DChartPlotArea, _super);
-        function DChartPlotArea(chart, options) {
+    var DChartPlotAreaImpl = /** @class */ (function (_super) {
+        __extends(DChartPlotAreaImpl, _super);
+        function DChartPlotAreaImpl(chart, options) {
             var _this = _super.call(this, options) || this;
             _this._chart = chart;
             _this._blendStartTime = 0;
@@ -51726,7 +51726,7 @@
             };
             return _this;
         }
-        DChartPlotArea.prototype.init = function (options) {
+        DChartPlotAreaImpl.prototype.init = function (options) {
             var _this = this;
             var _a;
             _super.prototype.init.call(this, options);
@@ -51758,12 +51758,12 @@
                 container.mask = this.getOverflowMask();
             }
         };
-        DChartPlotArea.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
+        DChartPlotAreaImpl.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
             this._isViewDirty = true;
             this._isBoundsInContainerDirty = true;
             _super.prototype.onResize.call(this, newWidth, newHeight, oldWidth, oldHeight);
         };
-        DChartPlotArea.prototype.getOverflowMask = function () {
+        DChartPlotAreaImpl.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
                 this._overflowMask = new DBaseOverflowMask(this);
                 this.reflowable.add(this._overflowMask);
@@ -51771,63 +51771,63 @@
             }
             return this._overflowMask;
         };
-        Object.defineProperty(DChartPlotArea.prototype, "coordinate", {
+        Object.defineProperty(DChartPlotAreaImpl.prototype, "coordinate", {
             get: function () {
                 return this._coordinate;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DChartPlotArea.prototype, "chart", {
+        Object.defineProperty(DChartPlotAreaImpl.prototype, "chart", {
             get: function () {
                 return this._chart;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DChartPlotArea.prototype, "series", {
+        Object.defineProperty(DChartPlotAreaImpl.prototype, "series", {
             get: function () {
                 return this._series;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DChartPlotArea.prototype, "container", {
+        Object.defineProperty(DChartPlotAreaImpl.prototype, "container", {
             get: function () {
                 return this._container;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DChartPlotArea.prototype, "axis", {
+        Object.defineProperty(DChartPlotAreaImpl.prototype, "axis", {
             get: function () {
                 return this._axis;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DChartPlotArea.prototype, "view", {
+        Object.defineProperty(DChartPlotAreaImpl.prototype, "view", {
             get: function () {
                 return this._view;
             },
             enumerable: false,
             configurable: true
         });
-        DChartPlotArea.prototype.onWheel = function (e, deltas, global) {
+        DChartPlotAreaImpl.prototype.onWheel = function (e, deltas, global) {
             var vresult = this._view.onWheel(e, deltas, global);
             var sresult = _super.prototype.onWheel.call(this, e, deltas, global);
             return vresult || sresult;
         };
-        DChartPlotArea.prototype.onDblClick = function (e, interactionManager) {
+        DChartPlotAreaImpl.prototype.onDblClick = function (e, interactionManager) {
             var vresult = this._view.onDblClick(e, interactionManager);
             var sresult = _super.prototype.onDblClick.call(this, e, interactionManager);
             return vresult || sresult;
         };
-        DChartPlotArea.prototype.onDown = function (e) {
+        DChartPlotAreaImpl.prototype.onDown = function (e) {
             this._view.onDown(e);
             _super.prototype.onDown.call(this, e);
         };
-        DChartPlotArea.prototype.render = function (renderer) {
+        DChartPlotAreaImpl.prototype.render = function (renderer) {
             if (this._isViewDirty) {
                 this._isViewDirty = false;
                 this._axis.update();
@@ -51838,15 +51838,15 @@
             }
             _super.prototype.render.call(this, renderer);
         };
-        DChartPlotArea.prototype.destroy = function () {
+        DChartPlotAreaImpl.prototype.destroy = function () {
             this._container.destroy();
             this._series.destroy();
             this._axis.destroy();
         };
-        DChartPlotArea.prototype.getType = function () {
+        DChartPlotAreaImpl.prototype.getType = function () {
             return "DChartPlotArea";
         };
-        DChartPlotArea.prototype.getBoundsInContainer = function () {
+        DChartPlotAreaImpl.prototype.getBoundsInContainer = function () {
             var result = this._boundsInContainer;
             if (this._isBoundsInContainerDirty) {
                 this._isBoundsInContainerDirty = false;
@@ -51865,7 +51865,7 @@
             }
             return result;
         };
-        DChartPlotArea.prototype.fit = function (duration, domainFrom, domainTo, rangeFrom, rangeTo) {
+        DChartPlotAreaImpl.prototype.fit = function (duration, domainFrom, domainTo, rangeFrom, rangeTo) {
             var coordinate = this._coordinate;
             var axis = this._axis;
             var series = this._series;
@@ -51886,7 +51886,7 @@
             }
             return this;
         };
-        DChartPlotArea.prototype.onBlend = function () {
+        DChartPlotAreaImpl.prototype.onBlend = function () {
             var now = Date.now();
             var ratio = (now - this._blendStartTime) / this._blendDuration;
             if (ratio < 1) {
@@ -51900,7 +51900,7 @@
             this._axis.update();
             this._series.update();
         };
-        return DChartPlotArea;
+        return DChartPlotAreaImpl;
     }(DBase));
 
     /*
@@ -53809,14 +53809,16 @@
         DChart.prototype.init = function (options) {
             var _a;
             _super.prototype.init.call(this, options);
-            var plotArea = new DChartPlotArea(this, options === null || options === void 0 ? void 0 : options.plotArea);
-            this._plotArea = plotArea;
+            // Plot area
+            var plotArea = this.plotArea;
             this.addChild(plotArea);
             // Overflow mask
             var mask = (_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : this.theme.isOverflowMaskEnabled();
             if (mask) {
                 plotArea.axis.container.mask = this.getOverflowMask();
             }
+            // State
+            this.state.isFocusable = false;
         };
         DChart.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
@@ -53828,17 +53830,27 @@
         };
         Object.defineProperty(DChart.prototype, "plotArea", {
             get: function () {
-                return this._plotArea;
+                var result = this._plotArea;
+                if (result == null) {
+                    result = this.newPlotArea();
+                    this._plotArea = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
         });
+        DChart.prototype.newPlotArea = function () {
+            var _a;
+            return new DChartPlotAreaImpl(this, (_a = this._options) === null || _a === void 0 ? void 0 : _a.plotArea);
+        };
         DChart.prototype.getType = function () {
             return "DChart";
         };
         DChart.prototype.destroy = function () {
+            var _a;
             if (!this._destroyed) {
-                this._plotArea.destroy();
+                (_a = this._plotArea) === null || _a === void 0 ? void 0 : _a.destroy();
                 _super.prototype.destroy.call(this);
             }
         };
@@ -67313,7 +67325,7 @@
         DChartLegend: DChartLegend,
         DChartOverview: DChartOverview,
         DChartPlotAreaContainer: DChartPlotAreaContainer,
-        DChartPlotArea: DChartPlotArea,
+        DChartPlotAreaImpl: DChartPlotAreaImpl,
         DChartRegionImplObservable: DChartRegionImplObservable,
         DChartRegionImpl: DChartRegionImpl,
         DChartSelectionGridlineContainerImpl: DChartSelectionGridlineContainerImpl,

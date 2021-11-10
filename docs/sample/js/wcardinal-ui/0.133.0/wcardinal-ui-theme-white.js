@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.131.0
+ Winter Cardinal UI v0.133.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -226,12 +226,7 @@
             return DThemeWhiteAtlas.mappings.background;
         };
         DThemeWhiteBase.prototype.getBorderColor = function (state) {
-            if (state.isFocused) {
-                return DThemeWhiteConstants.HIGHLIGHT_COLOR;
-            }
-            else {
-                return null;
-            }
+            return null;
         };
         DThemeWhiteBase.prototype.getBorderAlpha = function (state) {
             return 1;
@@ -240,7 +235,7 @@
             return 1;
         };
         DThemeWhiteBase.prototype.getBorderAlign = function (state) {
-            return 0.5;
+            return 0;
         };
         DThemeWhiteBase.prototype.getBorderMask = function (state) {
             return DBorderMask.NONE;
@@ -267,19 +262,22 @@
             return DCornerMask.NONE;
         };
         DThemeWhiteBase.prototype.getOutlineColor = function (state) {
-            return null;
+            return DThemeWhiteConstants.HIGHLIGHT_COLOR;
         };
         DThemeWhiteBase.prototype.getOutlineAlpha = function (state) {
-            return 1;
+            if (state.isFocused) {
+                return 1;
+            }
+            return 0;
         };
         DThemeWhiteBase.prototype.getOutlineWidth = function (state) {
             return 1;
         };
         DThemeWhiteBase.prototype.getOutlineOffset = function (state) {
-            return 1;
+            return 0;
         };
         DThemeWhiteBase.prototype.getOutlineAlign = function (state) {
-            return 1;
+            return 0;
         };
         DThemeWhiteBase.prototype.getOutlineMask = function (state) {
             return DBorderMask.NONE;
@@ -501,8 +499,9 @@
             if (pressed === void 0) { pressed = 0.034; }
             var _this = _super.call(this) || this;
             _this.BACKGROUND_COLOR = backgroundColor;
-            _this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken(_this.BACKGROUND_COLOR, hover);
-            _this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken(_this.BACKGROUND_COLOR, pressed);
+            _this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken(backgroundColor, hover);
+            _this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken(backgroundColor, pressed);
+            _this.OUTLINE_COLOR = UtilRgb.brighten(backgroundColor, 0.75);
             return _this;
         }
         DThemeWhiteButtonBase.prototype.getBackgroundColor = function (state) {
@@ -515,7 +514,7 @@
             else if (state.isPressed) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -537,6 +536,24 @@
             else {
                 return null;
             }
+        };
+        DThemeWhiteButtonBase.prototype.getOutlineColor = function (state) {
+            if (state.isActive) {
+                return this.getOutlineColorActive(state);
+            }
+            return _super.prototype.getOutlineColor.call(this, state);
+        };
+        DThemeWhiteButtonBase.prototype.getOutlineColorActive = function (state) {
+            return this.OUTLINE_COLOR;
+        };
+        DThemeWhiteButtonBase.prototype.getOutlineOffset = function (state) {
+            if (state.isActive) {
+                return this.getOutlineOffsetActive(state);
+            }
+            return _super.prototype.getOutlineOffset.call(this, state);
+        };
+        DThemeWhiteButtonBase.prototype.getOutlineOffsetActive = function (state) {
+            return -1.5;
         };
         DThemeWhiteButtonBase.prototype.getHeight = function () {
             return 30;
@@ -613,7 +630,7 @@
                 else if (state.isPressed) {
                     return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA * 2;
                 }
-                else if (state.isFocused || state.isHovered) {
+                else if (state.isHovered) {
                     return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
@@ -650,12 +667,7 @@
         }
         DThemeWhiteButtonChecks.getImageTintColor = function (state) {
             if (state.inDisabled || state.inReadOnly || !state.isActive) {
-                if (state.isFocused) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
-                else {
-                    return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-                }
+                return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
                 return DThemeWhiteConstants.HIGHLIGHT_COLOR;
@@ -669,7 +681,6 @@
                 return DThemeWhiteAtlas.mappings.button_check_mark_off;
             }
         };
-        DThemeWhiteButtonChecks.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
         return DThemeWhiteButtonChecks;
     }());
 
@@ -702,7 +713,7 @@
         };
         DThemeWhiteButtonCheck.prototype.getBackgroundAlpha = function (state) {
             if (state.inEnabled) {
-                if (state.isFocused || state.isHovered) {
+                if (state.isHovered) {
                     return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
@@ -1293,7 +1304,7 @@
             else if (state.isPressed || state.isActive) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -1307,6 +1318,12 @@
             else {
                 return null;
             }
+        };
+        DThemeWhiteButtonDanger.prototype.getOutlineColor = function (state) {
+            return this.getOutlineColorActive(state);
+        };
+        DThemeWhiteButtonDanger.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetActive(state);
         };
         DThemeWhiteButtonDanger.prototype.getColor = function (state) {
             if (state.inDisabled) {
@@ -1937,7 +1954,7 @@
             else if (state.isPressed || state.isActive) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -1951,6 +1968,12 @@
             else {
                 return null;
             }
+        };
+        DThemeWhiteButtonPrimary.prototype.getOutlineColor = function (state) {
+            return this.getOutlineColorActive(state);
+        };
+        DThemeWhiteButtonPrimary.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetActive(state);
         };
         DThemeWhiteButtonPrimary.prototype.getColor = function (state) {
             if (state.inDisabled) {
@@ -1991,9 +2014,7 @@
     var DThemeWhiteButtonRadio = /** @class */ (function (_super) {
         __extends(DThemeWhiteButtonRadio, _super);
         function DThemeWhiteButtonRadio() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteButtonRadio.prototype.getBackgroundColor = function (state) {
             return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
@@ -2003,7 +2024,7 @@
         };
         DThemeWhiteButtonRadio.prototype.getBackgroundAlpha = function (state) {
             if (state.inEnabled) {
-                if (state.isFocused || state.isHovered) {
+                if (state.isHovered) {
                     return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
@@ -2011,12 +2032,7 @@
         };
         DThemeWhiteButtonRadio.prototype.getImageTintColor = function (state) {
             if (state.inDisabled || !state.isActive) {
-                if (state.isFocused) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
-                else {
-                    return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-                }
+                return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
                 return DThemeWhiteConstants.HIGHLIGHT_COLOR;
@@ -2157,6 +2173,12 @@
         DThemeWhitePane.prototype.getBackgroundColor = function (state) {
             return DThemeWhiteConstants.BACKGROUND_COLOR;
         };
+        DThemeWhitePane.prototype.getBorderAlign = function (state) {
+            return 1;
+        };
+        DThemeWhitePane.prototype.getOutlineAlign = function (state) {
+            return 1;
+        };
         DThemeWhitePane.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
@@ -2181,9 +2203,6 @@
         DThemeWhiteList.prototype.getBackgroundColor = function (state) {
             return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
         };
-        DThemeWhiteList.prototype.getBorderAlign = function (state) {
-            return 1;
-        };
         return DThemeWhiteList;
     }(DThemeWhitePane));
 
@@ -2196,10 +2215,10 @@
         function DThemeWhiteDialogSelectList() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogSelectList.prototype.getBackgroundColor = function () {
+        DThemeWhiteDialogSelectList.prototype.getBackgroundColor = function (state) {
             return null;
         };
-        DThemeWhiteDialogSelectList.prototype.getBorderColor = function () {
+        DThemeWhiteDialogSelectList.prototype.getBorderColor = function (state) {
             return null;
         };
         DThemeWhiteDialogSelectList.prototype.getHeight = function () {
@@ -2234,8 +2253,6 @@
                 this._highlightAlpha = 1;
                 this._weakHighlightColor = UtilRgb.blend(baseColor, DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA);
                 this._weakHighlightAlpha = 1;
-                this._mediumHighlightColor = UtilRgb.darken(this._weakHighlightColor, 0.025);
-                this._mediumHighlightAlpha = 1;
             }
             else {
                 this._backgroundColorEven = 0x000000;
@@ -2253,11 +2270,8 @@
                 }
                 this._weakHighlightColor = DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
                 this._weakHighlightAlpha = DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
-                this._mediumHighlightColor = UtilRgb.darken(this._weakHighlightColor, 0.025);
-                this._mediumHighlightAlpha = this._weakHighlightAlpha;
             }
             this._imageTintColorWeak = DThemeWhiteConstants.COLOR;
-            this._imageTintColorFocused = UtilRgb.brighten(this._imageTintColorWeak, 0.1);
             if (isVivid) {
                 this._imageTintColorHighlight = DThemeWhiteConstants.ACTIVE_COLOR;
             }
@@ -2293,10 +2307,7 @@
             else if (state.isActive) {
                 return this._highlightColor;
             }
-            else if (state.isFocused && state.isHovered) {
-                return this._mediumHighlightColor;
-            }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this._weakHighlightColor;
             }
             else {
@@ -2333,10 +2344,7 @@
             else if (state.isActive) {
                 return this._highlightAlpha;
             }
-            else if (state.isFocused && state.isHovered) {
-                return this._mediumHighlightAlpha;
-            }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this._weakHighlightAlpha;
             }
             else {
@@ -2356,9 +2364,6 @@
         DThemeWhiteListItems.prototype.getBorderColor = function (state) {
             return null;
         };
-        DThemeWhiteListItems.prototype.getBorderAlign = function (state) {
-            return 0;
-        };
         DThemeWhiteListItems.prototype.getBorderMask = function (state) {
             return DBorderMask.NONE;
         };
@@ -2376,19 +2381,11 @@
         };
         DThemeWhiteListItems.prototype.getImageTintColor = function (state, isActive) {
             if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
-                if (state.isFocused) {
-                    return this._imageTintColorFocused;
-                }
-                else {
-                    return this._imageTintColorWeak;
-                }
+                return this._imageTintColorWeak;
             }
             else {
                 return this._imageTintColorHighlight;
             }
-        };
-        DThemeWhiteListItems.prototype.getOutlineAlign = function (state) {
-            return -2;
         };
         DThemeWhiteListItems.prototype.getHeight = function () {
             return 30;
@@ -2427,9 +2424,6 @@
         };
         DThemeWhiteListItem.prototype.getBorderColor = function (state) {
             return this._style.getBorderColor(state);
-        };
-        DThemeWhiteListItem.prototype.getBorderAlign = function (state) {
-            return this._style.getBorderAlign(state);
         };
         DThemeWhiteListItem.prototype.getBorderMask = function (state) {
             return this._style.getBorderMask(state);
@@ -2606,6 +2600,9 @@
             return 0xffffff;
         };
         DThemeWhiteCanvas.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeWhiteCanvas.prototype.getOutlineColor = function (state) {
             return null;
         };
         DThemeWhiteCanvas.prototype.getCornerMask = function () {
@@ -4262,7 +4259,7 @@
             if (state.inDisabled) {
                 return null;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return 0xf8f8f8;
             }
             else if (state.inActive) {
@@ -4620,7 +4617,7 @@
             if (state.inDisabled || state.inReadOnly) {
                 return null;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -4628,13 +4625,10 @@
             }
         };
         DThemeWhiteInput.prototype.getBorderColor = function (state) {
-            return DThemeWhiteConstants.BORDER_COLOR;
-        };
-        DThemeWhiteInput.prototype.getOutlineColor = function (state) {
             if (state.isInvalid) {
                 return DThemeWhiteConstants.INVALID_COLOR;
             }
-            return _super.prototype.getOutlineColor.call(this, state);
+            return DThemeWhiteConstants.BORDER_COLOR;
         };
         DThemeWhiteInput.prototype.getHeight = function () {
             return this.getLineHeight();
@@ -5091,7 +5085,7 @@
             else if (state.isActive) {
                 return this.getBackgroundColorActive(state);
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
@@ -5223,7 +5217,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteMenuItemCheck.prototype.getBackgroundColorActive = function (state) {
-            if (state.isFocused || state.isHovered) {
+            if (state.isHovered) {
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
@@ -5639,7 +5633,7 @@
             else if (state.isActive) {
                 return DThemeWhiteConstants.HIGHLIGHT_COLOR;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
@@ -6668,10 +6662,7 @@
             else if (state.underActive) {
                 return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
             }
-            else if (state.isFocused && (state.onHovered || state.isHovered)) {
-                return this.WEAK_STRONG_HIGHLIGHT_COLOR;
-            }
-            else if (state.isFocused || state.onHovered || state.isHovered) {
+            else if (state.onHovered || state.isHovered) {
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
@@ -6688,9 +6679,6 @@
         };
         DThemeWhiteTableBodyCells.getBorderColor = function (state) {
             return this.BORDER_COLOR;
-        };
-        DThemeWhiteTableBodyCells.getBorderAlign = function (state) {
-            return 0;
         };
         DThemeWhiteTableBodyCells.getBorderMask = function (state) {
             if (state.is(DTableState.END)) {
@@ -6711,19 +6699,11 @@
         };
         DThemeWhiteTableBodyCells.getImageTintColor = function (state, isActive) {
             if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
-                if (state.isFocused) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
-                else {
-                    return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-                }
+                return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
                 return DThemeWhiteConstants.HIGHLIGHT_COLOR;
             }
-        };
-        DThemeWhiteTableBodyCells.getOutlineAlign = function (state) {
-            return -2;
         };
         DThemeWhiteTableBodyCells.getHeight = function () {
             return "padding";
@@ -6731,10 +6711,8 @@
         DThemeWhiteTableBodyCells.getCornerMask = function () {
             return DCornerMask.ALL;
         };
-        DThemeWhiteTableBodyCells.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
         DThemeWhiteTableBodyCells.BACKGROUND_COLOR_EVEN = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
         DThemeWhiteTableBodyCells.BACKGROUND_COLOR_ODD = UtilRgb.darken(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.01);
-        DThemeWhiteTableBodyCells.WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken(DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.025);
         DThemeWhiteTableBodyCells.BORDER_COLOR = UtilRgb.darken(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.035);
         return DThemeWhiteTableBodyCells;
     }());
@@ -6779,9 +6757,6 @@
         };
         DThemeWhiteTableBodyCellSelectDialog.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellSelectDialog.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
         };
         DThemeWhiteTableBodyCellSelectDialog.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
@@ -6848,9 +6823,6 @@
         DThemeWhiteTableBodyCellActionMenu.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellActionMenu.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellActionMenu.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -6901,9 +6873,6 @@
         };
         DThemeWhiteTableBodyCellSelectPromise.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellSelectPromise.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
         };
         DThemeWhiteTableBodyCellSelectPromise.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
@@ -6968,9 +6937,6 @@
         };
         DThemeWhiteTableBodyCellText.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellText.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
         };
         DThemeWhiteTableBodyCellText.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
@@ -7038,9 +7004,6 @@
         DThemeWhiteTableBodyCellCheck.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellCheck.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellCheck.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7080,9 +7043,6 @@
         DThemeWhiteTableBodyCellColor.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellColor.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellColor.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7121,9 +7081,6 @@
         };
         DThemeWhiteTableBodyCellDate.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellDate.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
         };
         DThemeWhiteTableBodyCellDate.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
@@ -7170,9 +7127,6 @@
         DThemeWhiteTableBodyCellDatetime.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellDatetime.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellDatetime.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7217,9 +7171,6 @@
         };
         DThemeWhiteTableBodyCellIndex.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellIndex.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
         };
         DThemeWhiteTableBodyCellIndex.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
@@ -7272,9 +7223,6 @@
         DThemeWhiteTableBodyCellInputInteger.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellInputInteger.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellInputInteger.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7289,15 +7237,6 @@
         };
         DThemeWhiteTableBodyCellInputInteger.prototype.getCornerMask = function () {
             return DThemeWhiteTableBodyCells.getCornerMask();
-        };
-        DThemeWhiteTableBodyCellInputInteger.prototype.getOutlineColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            return _super.prototype.getOutlineColor.call(this, state);
-        };
-        DThemeWhiteTableBodyCellInputInteger.prototype.getOutlineAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
         };
         return DThemeWhiteTableBodyCellInputInteger;
     }(DThemeWhiteInputInteger));
@@ -7323,9 +7262,6 @@
         DThemeWhiteTableBodyCellInputReal.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellInputReal.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellInputReal.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7340,15 +7276,6 @@
         };
         DThemeWhiteTableBodyCellInputReal.prototype.getCornerMask = function () {
             return DThemeWhiteTableBodyCells.getCornerMask();
-        };
-        DThemeWhiteTableBodyCellInputReal.prototype.getOutlineColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            return _super.prototype.getOutlineColor.call(this, state);
-        };
-        DThemeWhiteTableBodyCellInputReal.prototype.getOutlineAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
         };
         return DThemeWhiteTableBodyCellInputReal;
     }(DThemeWhiteInputReal));
@@ -7371,9 +7298,6 @@
         DThemeWhiteTableBodyCellInputText.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellInputText.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellInputText.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7388,15 +7312,6 @@
         };
         DThemeWhiteTableBodyCellInputText.prototype.getCornerMask = function () {
             return DThemeWhiteTableBodyCells.getCornerMask();
-        };
-        DThemeWhiteTableBodyCellInputText.prototype.getOutlineColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            return _super.prototype.getOutlineColor.call(this, state);
-        };
-        DThemeWhiteTableBodyCellInputText.prototype.getOutlineAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
         };
         return DThemeWhiteTableBodyCellInputText;
     }(DThemeWhiteInputText));
@@ -7483,9 +7398,6 @@
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellInputTreeInput.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7497,12 +7409,6 @@
         };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getCornerMask = function () {
             return DThemeWhiteTableBodyCells.getCornerMask();
-        };
-        DThemeWhiteTableBodyCellInputTreeInput.prototype.getOutlineColor = function (state) {
-            return null;
-        };
-        DThemeWhiteTableBodyCellInputTreeInput.prototype.getOutlineAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
         };
         DThemeWhiteTableBodyCellInputTreeInput.prototype.getPaddingLeft = function () {
             return 0;
@@ -7537,9 +7443,6 @@
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBorderColor = function (state) {
             return null;
         };
-        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7551,12 +7454,6 @@
         };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getCornerMask = function () {
             return DThemeWhiteTableBodyCells.getCornerMask();
-        };
-        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getOutlineColor = function (state) {
-            return null;
-        };
-        DThemeWhiteTableBodyCellInputTreeMarker.prototype.getOutlineAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getOutlineAlign(state);
         };
         DThemeWhiteTableBodyCellInputTreeMarker.prototype.getImageAlignWith = function () {
             return DAlignWith.BORDER;
@@ -7616,9 +7513,6 @@
         DThemeWhiteTableBodyCellSelectMenu.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
         };
-        DThemeWhiteTableBodyCellSelectMenu.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
-        };
         DThemeWhiteTableBodyCellSelectMenu.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
         };
@@ -7663,9 +7557,6 @@
         };
         DThemeWhiteTableBodyCellSelectMultiple.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellSelectMultiple.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
         };
         DThemeWhiteTableBodyCellSelectMultiple.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
@@ -7714,9 +7605,6 @@
         };
         DThemeWhiteTableBodyCellTime.prototype.getBorderColor = function (state) {
             return DThemeWhiteTableBodyCells.getBorderColor(state);
-        };
-        DThemeWhiteTableBodyCellTime.prototype.getBorderAlign = function (state) {
-            return DThemeWhiteTableBodyCells.getBorderAlign(state);
         };
         DThemeWhiteTableBodyCellTime.prototype.getBorderMask = function (state) {
             return DThemeWhiteTableBodyCells.getBorderMask(state);
@@ -7820,7 +7708,7 @@
             else if (state.isActive) {
                 return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
@@ -7855,9 +7743,6 @@
         };
         DThemeWhiteTableHeader.prototype.getBorderColor = function (state) {
             return this.BORDER_COLOR;
-        };
-        DThemeWhiteTableHeader.prototype.getBorderAlign = function (state) {
-            return 0;
         };
         DThemeWhiteTableHeader.prototype.getBorderMask = function (state) {
             return DBorderMask.NOT_BOTTOM;
@@ -7914,7 +7799,7 @@
             else if (state.isPressed) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -7926,9 +7811,6 @@
         };
         DThemeWhiteTableHeaderCell.prototype.getBorderColor = function (state) {
             return this.BORDER_COLOR;
-        };
-        DThemeWhiteTableHeaderCell.prototype.getBorderAlign = function (state) {
-            return 0;
         };
         DThemeWhiteTableHeaderCell.prototype.getBorderMask = function (state) {
             if (state.is(DTableState.END)) {
@@ -8118,9 +8000,6 @@
         DThemeWhiteTree.prototype.getBackgroundColor = function (state) {
             return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
         };
-        DThemeWhiteTree.prototype.getBorderAlign = function (state) {
-            return 1;
-        };
         return DThemeWhiteTree;
     }(DThemeWhitePane));
 
@@ -8146,9 +8025,6 @@
         };
         DThemeWhiteTreeItemText.prototype.getBorderColor = function (state) {
             return this._style.getBorderColor(state);
-        };
-        DThemeWhiteTreeItemText.prototype.getBorderAlign = function (state) {
-            return this._style.getBorderAlign(state);
         };
         DThemeWhiteTreeItemText.prototype.getBorderMask = function (state) {
             return this._style.getBorderMask(state);

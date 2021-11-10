@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.131.0
+ Winter Cardinal UI v0.133.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -226,9 +226,6 @@
             return DThemeDarkAtlas.mappings.background;
         };
         DThemeDarkBase.prototype.getBorderColor = function (state) {
-            if (state.isFocused) {
-                return DThemeDarkConstants.HIGHLIGHT_COLOR;
-            }
             return null;
         };
         DThemeDarkBase.prototype.getBorderAlpha = function (state) {
@@ -238,7 +235,7 @@
             return 1;
         };
         DThemeDarkBase.prototype.getBorderAlign = function (state) {
-            return 0.5;
+            return 0;
         };
         DThemeDarkBase.prototype.getBorderMask = function (state) {
             return DBorderMask.NONE;
@@ -265,19 +262,22 @@
             return DCornerMask.NONE;
         };
         DThemeDarkBase.prototype.getOutlineColor = function (state) {
-            return null;
+            return DThemeDarkConstants.HIGHLIGHT_COLOR;
         };
         DThemeDarkBase.prototype.getOutlineAlpha = function (state) {
-            return 1;
+            if (state.isFocused) {
+                return 1;
+            }
+            return 0;
         };
         DThemeDarkBase.prototype.getOutlineWidth = function (state) {
             return 1;
         };
         DThemeDarkBase.prototype.getOutlineOffset = function (state) {
-            return 1;
+            return 0;
         };
         DThemeDarkBase.prototype.getOutlineAlign = function (state) {
-            return 1;
+            return 0;
         };
         DThemeDarkBase.prototype.getOutlineMask = function (state) {
             return DBorderMask.NONE;
@@ -495,14 +495,15 @@
      */
     var DThemeDarkButtonBase = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonBase, _super);
-        function DThemeDarkButtonBase(backgrouncColor, hover, pressed) {
-            if (backgrouncColor === void 0) { backgrouncColor = 0x484848; }
+        function DThemeDarkButtonBase(backgroundColor, hover, pressed) {
+            if (backgroundColor === void 0) { backgroundColor = 0x484848; }
             if (hover === void 0) { hover = 0.017; }
             if (pressed === void 0) { pressed = 0.034; }
             var _this = _super.call(this) || this;
-            _this.BACKGROUND_COLOR = backgrouncColor;
-            _this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(_this.BACKGROUND_COLOR, hover);
-            _this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(_this.BACKGROUND_COLOR, pressed);
+            _this.BACKGROUND_COLOR = backgroundColor;
+            _this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(backgroundColor, hover);
+            _this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(backgroundColor, pressed);
+            _this.OUTLINE_COLOR = UtilRgb.darken(backgroundColor, 0.75);
             return _this;
         }
         DThemeDarkButtonBase.prototype.getBackgroundColor = function (state) {
@@ -515,7 +516,7 @@
             else if (state.isPressed) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -537,6 +538,24 @@
             else {
                 return null;
             }
+        };
+        DThemeDarkButtonBase.prototype.getOutlineColor = function (state) {
+            if (state.isActive) {
+                return this.getOutlineColorActive(state);
+            }
+            return _super.prototype.getOutlineColor.call(this, state);
+        };
+        DThemeDarkButtonBase.prototype.getOutlineColorActive = function (state) {
+            return this.OUTLINE_COLOR;
+        };
+        DThemeDarkButtonBase.prototype.getOutlineOffset = function (state) {
+            if (state.isActive) {
+                return this.getOutlineOffsetActive(state);
+            }
+            return _super.prototype.getOutlineOffset.call(this, state);
+        };
+        DThemeDarkButtonBase.prototype.getOutlineOffsetActive = function (state) {
+            return -1.5;
         };
         DThemeDarkButtonBase.prototype.getHeight = function () {
             return 30;
@@ -613,7 +632,7 @@
                 else if (state.isPressed) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA * 2;
                 }
-                else if (state.isFocused || state.isHovered) {
+                else if (state.isHovered) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
@@ -650,12 +669,7 @@
         }
         DThemeDarkButtonChecks.getImageTintColor = function (state) {
             if (state.inDisabled || state.inReadOnly || !state.isActive) {
-                if (state.isFocused) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
-                else {
-                    return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
-                }
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
@@ -669,7 +683,6 @@
                 return DThemeDarkAtlas.mappings.button_check_mark_off;
             }
         };
-        DThemeDarkButtonChecks.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
         return DThemeDarkButtonChecks;
     }());
 
@@ -690,7 +703,7 @@
         };
         DThemeDarkButtonCheck.prototype.getBackgroundAlpha = function (state) {
             if (state.inEnabled) {
-                if (state.isFocused || state.isHovered) {
+                if (state.isHovered) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
@@ -1281,12 +1294,18 @@
             else if (state.isPressed || state.isActive) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
                 return this.BACKGROUND_COLOR;
             }
+        };
+        DThemeDarkButtonDanger.prototype.getOutlineColor = function (state) {
+            return this.getOutlineColorActive(state);
+        };
+        DThemeDarkButtonDanger.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetActive(state);
         };
         DThemeDarkButtonDanger.prototype.getColor = function (state) {
             if (state.inDisabled) {
@@ -1917,12 +1936,18 @@
             else if (state.isPressed || state.isActive) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
                 return this.BACKGROUND_COLOR;
             }
+        };
+        DThemeDarkButtonPrimary.prototype.getOutlineColor = function (state) {
+            return this.getOutlineColorActive(state);
+        };
+        DThemeDarkButtonPrimary.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetActive(state);
         };
         DThemeDarkButtonPrimary.prototype.getColor = function (state) {
             if (state.inDisabled) {
@@ -1963,9 +1988,7 @@
     var DThemeDarkButtonRadio = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonRadio, _super);
         function DThemeDarkButtonRadio() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkButtonRadio.prototype.getBackgroundColor = function (state) {
             return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
@@ -1975,7 +1998,7 @@
         };
         DThemeDarkButtonRadio.prototype.getBackgroundAlpha = function (state) {
             if (state.inEnabled) {
-                if (state.isFocused || state.isHovered) {
+                if (state.isHovered) {
                     return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
                 }
             }
@@ -1983,12 +2006,7 @@
         };
         DThemeDarkButtonRadio.prototype.getImageTintColor = function (state) {
             if (state.inDisabled || !state.isActive) {
-                if (state.isFocused) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
-                else {
-                    return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
-                }
+                return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
@@ -2064,12 +2082,18 @@
             else if (state.isPressed || state.isActive) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
                 return this.BACKGROUND_COLOR;
             }
+        };
+        DThemeDarkButtonSecondary.prototype.getOutlineColor = function (state) {
+            return this.getOutlineColorActive(state);
+        };
+        DThemeDarkButtonSecondary.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetActive(state);
         };
         DThemeDarkButtonSecondary.prototype.getColor = function (state) {
             if (state.inDisabled) {
@@ -2151,6 +2175,12 @@
         DThemeDarkPane.prototype.getBackgroundColor = function (state) {
             return DThemeDarkConstants.BACKGROUND_COLOR;
         };
+        DThemeDarkPane.prototype.getBorderAlign = function (state) {
+            return 1;
+        };
+        DThemeDarkPane.prototype.getOutlineAlign = function (state) {
+            return 1;
+        };
         DThemeDarkPane.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
@@ -2174,9 +2204,6 @@
         }
         DThemeDarkList.prototype.getBackgroundColor = function (state) {
             return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
-        };
-        DThemeDarkList.prototype.getBorderAlign = function (state) {
-            return 1;
         };
         return DThemeDarkList;
     }(DThemeDarkPane));
@@ -2228,8 +2255,6 @@
                 this._highlightAlpha = 1;
                 this._weakHighlightColor = UtilRgb.blend(baseColor, DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA);
                 this._weakHighlightAlpha = 1;
-                this._mediumHighlightColor = UtilRgb.brighten(this._weakHighlightColor, 0.05);
-                this._mediumHighlightAlpha = 1;
             }
             else {
                 this._backgroundColorEven = 0x000000;
@@ -2247,11 +2272,8 @@
                 }
                 this._weakHighlightColor = DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
                 this._weakHighlightAlpha = DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
-                this._mediumHighlightColor = UtilRgb.brighten(this._weakHighlightColor, 0.05);
-                this._mediumHighlightAlpha = this._weakHighlightAlpha;
             }
             this._imageTintColorWeak = DThemeDarkConstants.COLOR;
-            this._imageTintColorFocused = UtilRgb.darken(this._imageTintColorWeak, 0.1);
             if (isVivid) {
                 this._imageTintColorHighlight = DThemeDarkConstants.ACTIVE_COLOR;
             }
@@ -2287,10 +2309,7 @@
             else if (state.isActive) {
                 return this._highlightColor;
             }
-            else if (state.isFocused && state.isHovered) {
-                return this._mediumHighlightColor;
-            }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this._weakHighlightColor;
             }
             else {
@@ -2327,10 +2346,7 @@
             else if (state.isActive) {
                 return this._highlightAlpha;
             }
-            else if (state.isFocused && state.isHovered) {
-                return this._mediumHighlightAlpha;
-            }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this._weakHighlightAlpha;
             }
             else {
@@ -2350,9 +2366,6 @@
         DThemeDarkListItems.prototype.getBorderColor = function (state) {
             return null;
         };
-        DThemeDarkListItems.prototype.getBorderAlign = function (state) {
-            return 0;
-        };
         DThemeDarkListItems.prototype.getBorderMask = function (state) {
             return DBorderMask.NONE;
         };
@@ -2370,19 +2383,11 @@
         };
         DThemeDarkListItems.prototype.getImageTintColor = function (state, isActive) {
             if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
-                if (state.isFocused) {
-                    return this._imageTintColorFocused;
-                }
-                else {
-                    return this._imageTintColorWeak;
-                }
+                return this._imageTintColorWeak;
             }
             else {
                 return this._imageTintColorHighlight;
             }
-        };
-        DThemeDarkListItems.prototype.getOutlineAlign = function (state) {
-            return -2;
         };
         DThemeDarkListItems.prototype.getHeight = function () {
             return 30;
@@ -2421,9 +2426,6 @@
         };
         DThemeDarkListItem.prototype.getBorderColor = function (state) {
             return this._style.getBorderColor(state);
-        };
-        DThemeDarkListItem.prototype.getBorderAlign = function (state) {
-            return this._style.getBorderAlign(state);
         };
         DThemeDarkListItem.prototype.getBorderMask = function (state) {
             return this._style.getBorderMask(state);
@@ -2600,6 +2602,9 @@
             return 0x484848;
         };
         DThemeDarkCanvas.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeDarkCanvas.prototype.getOutlineColor = function (state) {
             return null;
         };
         DThemeDarkCanvas.prototype.getCornerMask = function () {
@@ -4257,7 +4262,7 @@
             if (state.inDisabled) {
                 return null;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return 0x2e2e2e;
             }
             else if (state.inActive) {
@@ -4615,7 +4620,7 @@
             if (state.inDisabled || state.inReadOnly) {
                 return null;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -4623,13 +4628,10 @@
             }
         };
         DThemeDarkInput.prototype.getBorderColor = function (state) {
-            return null;
-        };
-        DThemeDarkInput.prototype.getOutlineColor = function (state) {
             if (state.isInvalid) {
                 return DThemeDarkConstants.INVALID_COLOR;
             }
-            return _super.prototype.getOutlineColor.call(this, state);
+            return null;
         };
         DThemeDarkInput.prototype.getHeight = function () {
             return this.getLineHeight();
@@ -5086,7 +5088,7 @@
             else if (state.isActive) {
                 return this.getBackgroundColorActive(state);
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
@@ -5218,7 +5220,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkMenuItemCheck.prototype.getBackgroundColorActive = function (state) {
-            if (state.isFocused || state.isHovered) {
+            if (state.isHovered) {
                 return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
@@ -5632,7 +5634,7 @@
             else if (state.isActive) {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
             }
             else {
@@ -6667,10 +6669,7 @@
             else if (state.underActive) {
                 return DThemeDarkConstants.HIGHLIGHT_BLENDED_ON_BOARD;
             }
-            else if (state.isFocused && (state.onHovered || state.isHovered)) {
-                return this.WEAK_STRONG_HIGHLIGHT_COLOR;
-            }
-            else if (state.isFocused || state.onHovered || state.isHovered) {
+            else if (state.onHovered || state.isHovered) {
                 return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
@@ -6687,9 +6686,6 @@
         };
         DThemeDarkTableBodyCells.getBorderColor = function (state) {
             return this.BORDER_COLOR;
-        };
-        DThemeDarkTableBodyCells.getBorderAlign = function (state) {
-            return 0;
         };
         DThemeDarkTableBodyCells.getBorderMask = function (state) {
             if (state.is(DTableState.END)) {
@@ -6710,17 +6706,11 @@
         };
         DThemeDarkTableBodyCells.getImageTintColor = function (state, isActive) {
             if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
-                if (state.isFocused) {
-                    return this.IMAGE_TINT_COLOR_FOCUSED;
-                }
                 return 0x646464;
             }
             else {
                 return DThemeDarkConstants.HIGHLIGHT_COLOR;
             }
-        };
-        DThemeDarkTableBodyCells.getOutlineAlign = function (state) {
-            return -2;
         };
         DThemeDarkTableBodyCells.getHeight = function () {
             return "padding";
@@ -6728,10 +6718,8 @@
         DThemeDarkTableBodyCells.getCornerMask = function () {
             return DCornerMask.ALL;
         };
-        DThemeDarkTableBodyCells.IMAGE_TINT_COLOR_FOCUSED = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR, 0.1);
         DThemeDarkTableBodyCells.BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD = UtilRgb.brighten(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
-        DThemeDarkTableBodyCells.WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.brighten(DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD, 0.05);
         DThemeDarkTableBodyCells.BORDER_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         return DThemeDarkTableBodyCells;
     }());
@@ -6776,9 +6764,6 @@
         };
         DThemeDarkTableBodyCellSelectDialog.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
-        };
-        DThemeDarkTableBodyCellSelectDialog.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
         };
         DThemeDarkTableBodyCellSelectDialog.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
@@ -6845,9 +6830,6 @@
         DThemeDarkTableBodyCellActionMenu.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellActionMenu.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellActionMenu.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -6898,9 +6880,6 @@
         };
         DThemeDarkTableBodyCellSelectPromise.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
-        };
-        DThemeDarkTableBodyCellSelectPromise.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
         };
         DThemeDarkTableBodyCellSelectPromise.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
@@ -6965,9 +6944,6 @@
         };
         DThemeDarkTableBodyCellText.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
-        };
-        DThemeDarkTableBodyCellText.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
         };
         DThemeDarkTableBodyCellText.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
@@ -7035,9 +7011,6 @@
         DThemeDarkTableBodyCellCheck.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellCheck.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellCheck.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7077,9 +7050,6 @@
         DThemeDarkTableBodyCellColor.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellColor.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellColor.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7118,9 +7088,6 @@
         };
         DThemeDarkTableBodyCellDate.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
-        };
-        DThemeDarkTableBodyCellDate.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
         };
         DThemeDarkTableBodyCellDate.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
@@ -7167,9 +7134,6 @@
         DThemeDarkTableBodyCellDatetime.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellDatetime.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellDatetime.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7214,9 +7178,6 @@
         };
         DThemeDarkTableBodyCellIndex.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
-        };
-        DThemeDarkTableBodyCellIndex.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
         };
         DThemeDarkTableBodyCellIndex.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
@@ -7269,9 +7230,6 @@
         DThemeDarkTableBodyCellInputInteger.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellInputInteger.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellInputInteger.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7286,15 +7244,6 @@
         };
         DThemeDarkTableBodyCellInputInteger.prototype.getCornerMask = function () {
             return DThemeDarkTableBodyCells.getCornerMask();
-        };
-        DThemeDarkTableBodyCellInputInteger.prototype.getOutlineColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            return _super.prototype.getOutlineColor.call(this, state);
-        };
-        DThemeDarkTableBodyCellInputInteger.prototype.getOutlineAlign = function (state) {
-            return DThemeDarkTableBodyCells.getOutlineAlign(state);
         };
         return DThemeDarkTableBodyCellInputInteger;
     }(DThemeDarkInputInteger));
@@ -7320,9 +7269,6 @@
         DThemeDarkTableBodyCellInputReal.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellInputReal.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellInputReal.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7337,15 +7283,6 @@
         };
         DThemeDarkTableBodyCellInputReal.prototype.getCornerMask = function () {
             return DThemeDarkTableBodyCells.getCornerMask();
-        };
-        DThemeDarkTableBodyCellInputReal.prototype.getOutlineColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            return _super.prototype.getOutlineColor.call(this, state);
-        };
-        DThemeDarkTableBodyCellInputReal.prototype.getOutlineAlign = function (state) {
-            return DThemeDarkTableBodyCells.getOutlineAlign(state);
         };
         return DThemeDarkTableBodyCellInputReal;
     }(DThemeDarkInputReal));
@@ -7368,9 +7305,6 @@
         DThemeDarkTableBodyCellInputText.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellInputText.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellInputText.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7385,15 +7319,6 @@
         };
         DThemeDarkTableBodyCellInputText.prototype.getCornerMask = function () {
             return DThemeDarkTableBodyCells.getCornerMask();
-        };
-        DThemeDarkTableBodyCellInputText.prototype.getOutlineColor = function (state) {
-            if (state.inDisabled) {
-                return null;
-            }
-            return _super.prototype.getOutlineColor.call(this, state);
-        };
-        DThemeDarkTableBodyCellInputText.prototype.getOutlineAlign = function (state) {
-            return DThemeDarkTableBodyCells.getOutlineAlign(state);
         };
         return DThemeDarkTableBodyCellInputText;
     }(DThemeDarkInputText));
@@ -7480,9 +7405,6 @@
         DThemeDarkTableBodyCellInputTreeInput.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellInputTreeInput.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellInputTreeInput.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7494,12 +7416,6 @@
         };
         DThemeDarkTableBodyCellInputTreeInput.prototype.getCornerMask = function () {
             return DThemeDarkTableBodyCells.getCornerMask();
-        };
-        DThemeDarkTableBodyCellInputTreeInput.prototype.getOutlineColor = function (state) {
-            return null;
-        };
-        DThemeDarkTableBodyCellInputTreeInput.prototype.getOutlineAlign = function (state) {
-            return DThemeDarkTableBodyCells.getOutlineAlign(state);
         };
         DThemeDarkTableBodyCellInputTreeInput.prototype.getPaddingLeft = function () {
             return 0;
@@ -7534,9 +7450,6 @@
         DThemeDarkTableBodyCellInputTreeMarker.prototype.getBorderColor = function (state) {
             return null;
         };
-        DThemeDarkTableBodyCellInputTreeMarker.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellInputTreeMarker.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7548,12 +7461,6 @@
         };
         DThemeDarkTableBodyCellInputTreeMarker.prototype.getCornerMask = function () {
             return DThemeDarkTableBodyCells.getCornerMask();
-        };
-        DThemeDarkTableBodyCellInputTreeMarker.prototype.getOutlineColor = function (state) {
-            return null;
-        };
-        DThemeDarkTableBodyCellInputTreeMarker.prototype.getOutlineAlign = function (state) {
-            return DThemeDarkTableBodyCells.getOutlineAlign(state);
         };
         DThemeDarkTableBodyCellInputTreeMarker.prototype.getImageAlignWith = function () {
             return DAlignWith.BORDER;
@@ -7613,9 +7520,6 @@
         DThemeDarkTableBodyCellSelectMenu.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
         };
-        DThemeDarkTableBodyCellSelectMenu.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
-        };
         DThemeDarkTableBodyCellSelectMenu.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
         };
@@ -7660,9 +7564,6 @@
         };
         DThemeDarkTableBodyCellSelectMultiple.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
-        };
-        DThemeDarkTableBodyCellSelectMultiple.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
         };
         DThemeDarkTableBodyCellSelectMultiple.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
@@ -7711,9 +7612,6 @@
         };
         DThemeDarkTableBodyCellTime.prototype.getBorderColor = function (state) {
             return DThemeDarkTableBodyCells.getBorderColor(state);
-        };
-        DThemeDarkTableBodyCellTime.prototype.getBorderAlign = function (state) {
-            return DThemeDarkTableBodyCells.getBorderAlign(state);
         };
         DThemeDarkTableBodyCellTime.prototype.getBorderMask = function (state) {
             return DThemeDarkTableBodyCells.getBorderMask(state);
@@ -7817,7 +7715,7 @@
             else if (state.isActive) {
                 return DThemeDarkConstants.HIGHLIGHT_BLENDED_ON_BOARD;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
@@ -7852,9 +7750,6 @@
         };
         DThemeDarkTableHeader.prototype.getBorderColor = function (state) {
             return this.BORDER_COLOR;
-        };
-        DThemeDarkTableHeader.prototype.getBorderAlign = function (state) {
-            return 0;
         };
         DThemeDarkTableHeader.prototype.getBorderMask = function (state) {
             return DBorderMask.NOT_BOTTOM;
@@ -7911,7 +7806,7 @@
             else if (state.isPressed) {
                 return this.BACKGROUND_COLOR_PRESSED;
             }
-            else if (state.isFocused || state.isHovered) {
+            else if (state.isHovered) {
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
@@ -7923,9 +7818,6 @@
         };
         DThemeDarkTableHeaderCell.prototype.getBorderColor = function (state) {
             return this.BORDER_COLOR;
-        };
-        DThemeDarkTableHeaderCell.prototype.getBorderAlign = function (state) {
-            return 0;
         };
         DThemeDarkTableHeaderCell.prototype.getBorderMask = function (state) {
             if (state.is(DTableState.END)) {
@@ -8114,9 +8006,6 @@
         DThemeDarkTree.prototype.getBackgroundColor = function (state) {
             return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
         };
-        DThemeDarkTree.prototype.getBorderAlign = function (state) {
-            return 1;
-        };
         return DThemeDarkTree;
     }(DThemeDarkPane));
 
@@ -8142,9 +8031,6 @@
         };
         DThemeDarkTreeItemText.prototype.getBorderColor = function (state) {
             return this._style.getBorderColor(state);
-        };
-        DThemeDarkTreeItemText.prototype.getBorderAlign = function (state) {
-            return this._style.getBorderAlign(state);
         };
         DThemeDarkTreeItemText.prototype.getBorderMask = function (state) {
             return this._style.getBorderMask(state);
