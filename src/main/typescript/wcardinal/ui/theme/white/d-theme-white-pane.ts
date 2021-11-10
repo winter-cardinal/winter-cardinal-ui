@@ -19,6 +19,14 @@ export class DThemeWhitePane extends DThemeWhiteBase implements DThemePane {
 		return DThemeWhiteConstants.BACKGROUND_COLOR;
 	}
 
+	getBorderAlign(state: DBaseStateSet): number {
+		return 1;
+	}
+
+	getOutlineAlign(state: DBaseStateSet): number {
+		return 1;
+	}
+
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}

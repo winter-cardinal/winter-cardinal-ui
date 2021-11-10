@@ -42,7 +42,7 @@ export class DThemeWhiteButtonCheck<VALUE = unknown>
 
 	getBackgroundAlpha(state: DBaseStateSet): number {
 		if (state.inEnabled) {
-			if (state.isFocused || state.isHovered) {
+			if (state.isHovered) {
 				return DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
 			}
 		}

@@ -1,6 +1,5 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
@@ -23,18 +22,9 @@ DThemeWhiteAtlas.add("button_check_mark_off", 21, 21,
 /* eslint-enable prettier/prettier */
 
 export class DThemeWhiteButtonChecks {
-	static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(
-		DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR,
-		0.1
-	);
-
 	static getImageTintColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled || state.inReadOnly || !state.isActive) {
-			if (state.isFocused) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
-			} else {
-				return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-			}
+			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		}

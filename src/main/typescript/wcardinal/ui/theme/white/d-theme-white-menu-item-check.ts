@@ -26,7 +26,7 @@ export class DThemeWhiteMenuItemCheck
 	implements DThemeMenuItemCheck
 {
 	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
-		if (state.isFocused || state.isHovered) {
+		if (state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;

@@ -33,10 +33,6 @@ export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeT
 		return this.BORDER_COLOR;
 	}
 
-	getBorderAlign(state: DBaseStateSet): number {
-		return 0;
-	}
-
 	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return DBorderMask.NOT_BOTTOM;
 	}

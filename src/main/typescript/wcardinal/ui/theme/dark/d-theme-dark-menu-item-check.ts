@@ -23,7 +23,7 @@ DThemeDarkAtlas.add("menu_item_mark_check_inactive", 14, 14, `<g></g>`);
 
 export class DThemeDarkMenuItemCheck extends DThemeDarkMenuItemText implements DThemeMenuItemCheck {
 	protected getBackgroundColorActive(state: DBaseStateSet): number | null {
-		if (state.isFocused || state.isHovered) {
+		if (state.isHovered) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;

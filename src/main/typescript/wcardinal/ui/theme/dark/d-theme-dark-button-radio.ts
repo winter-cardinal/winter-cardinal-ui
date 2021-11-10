@@ -6,7 +6,6 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeButtonRadio } from "../../d-button-radio";
-import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkButtonAmbient } from "./d-theme-dark-button-ambient";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
@@ -34,11 +33,6 @@ export class DThemeDarkButtonRadio<VALUE = unknown>
 	extends DThemeDarkButtonAmbient<VALUE>
 	implements DThemeButtonRadio<VALUE>
 {
-	protected readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(
-		DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR,
-		0.1
-	);
-
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 	}
@@ -49,7 +43,7 @@ export class DThemeDarkButtonRadio<VALUE = unknown>
 
 	getBackgroundAlpha(state: DBaseStateSet): number {
 		if (state.inEnabled) {
-			if (state.isFocused || state.isHovered) {
+			if (state.isHovered) {
 				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 			}
 		}
@@ -58,11 +52,7 @@ export class DThemeDarkButtonRadio<VALUE = unknown>
 
 	getImageTintColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled || !state.isActive) {
-			if (state.isFocused) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
-			} else {
-				return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
-			}
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		}

@@ -34,7 +34,7 @@ export abstract class DThemeDarkInput<
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled || state.inReadOnly) {
 			return null;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
@@ -42,14 +42,10 @@ export abstract class DThemeDarkInput<
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
-		return null;
-	}
-
-	getOutlineColor(state: DBaseStateSet): number | null {
 		if (state.isInvalid) {
 			return DThemeDarkConstants.INVALID_COLOR;
 		}
-		return super.getOutlineColor(state);
+		return null;
 	}
 
 	getHeight(): DCoordinateSize {

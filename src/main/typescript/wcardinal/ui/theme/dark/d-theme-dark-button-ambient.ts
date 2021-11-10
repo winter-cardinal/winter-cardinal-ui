@@ -26,7 +26,7 @@ export class DThemeDarkButtonAmbient<VALUE = unknown>
 				return 1.0;
 			} else if (state.isPressed) {
 				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA * 2;
-			} else if (state.isFocused || state.isHovered) {
+			} else if (state.isHovered) {
 				return DThemeDarkConstants.WEAK_HIGHLIGHT_ALPHA;
 			}
 		}

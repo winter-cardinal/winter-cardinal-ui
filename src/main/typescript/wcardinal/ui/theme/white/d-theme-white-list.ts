@@ -12,8 +12,4 @@ export class DThemeWhiteList extends DThemeWhitePane implements DThemeList {
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
-
-	getBorderAlign(state: DBaseStateSet): number {
-		return 1;
-	}
 }

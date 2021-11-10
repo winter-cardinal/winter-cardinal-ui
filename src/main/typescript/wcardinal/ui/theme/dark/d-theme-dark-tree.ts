@@ -24,8 +24,4 @@ export class DThemeDarkTree extends DThemeDarkPane implements DThemeTree {
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
-
-	getBorderAlign(state: DBaseStateSet): number {
-		return 1;
-	}
 }

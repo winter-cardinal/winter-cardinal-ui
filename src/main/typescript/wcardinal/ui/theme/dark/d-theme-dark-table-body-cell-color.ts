@@ -27,10 +27,6 @@ export class DThemeDarkTableBodyCellColor
 		return DThemeDarkTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign(state: DBaseStateSet): number {
-		return DThemeDarkTableBodyCells.getBorderAlign(state);
-	}
-
 	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return DThemeDarkTableBodyCells.getBorderMask(state);
 	}

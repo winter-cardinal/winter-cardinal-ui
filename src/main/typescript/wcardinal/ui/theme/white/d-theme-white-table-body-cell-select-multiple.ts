@@ -28,10 +28,6 @@ export class DThemeWhiteTableBodyCellSelectMultiple<VALUE = unknown>
 		return DThemeWhiteTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign(state: DBaseStateSet): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign(state);
-	}
-
 	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return DThemeWhiteTableBodyCells.getBorderMask(state);
 	}

@@ -56,7 +56,7 @@ export class DThemeWhiteTableHeaderCell
 			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
 		} else if (state.isPressed) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
@@ -69,10 +69,6 @@ export class DThemeWhiteTableHeaderCell
 
 	getBorderColor(state: DBaseStateSet): number | null {
 		return this.BORDER_COLOR;
-	}
-
-	getBorderAlign(state: DBaseStateSet): number {
-		return 0;
 	}
 
 	getBorderMask(state: DBaseStateSet): DBorderMask {

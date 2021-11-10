@@ -18,6 +18,10 @@ export class DThemeDarkCanvas extends DThemeDarkBase implements DThemeCanvas {
 		return null;
 	}
 
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return null;
+	}
+
 	getCornerMask(): number {
 		return DCornerMask.ALL;
 	}

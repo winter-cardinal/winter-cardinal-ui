@@ -17,7 +17,7 @@ export class DThemeWhiteButtonDanger<VALUE = unknown> extends DThemeWhiteButtonB
 			return null;
 		} else if (state.isPressed || state.isActive) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
@@ -30,6 +30,14 @@ export class DThemeWhiteButtonDanger<VALUE = unknown> extends DThemeWhiteButtonB
 		} else {
 			return null;
 		}
+	}
+
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return this.getOutlineColorActive(state);
+	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		return this.getOutlineOffsetActive(state);
 	}
 
 	getColor(state: DBaseStateSet): number {

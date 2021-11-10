@@ -12,19 +12,11 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeWhiteConstants } from "./d-theme-white-constants";
 
 export class DThemeWhiteTableBodyCells {
-	protected static readonly IMAGE_TINT_COLOR_FOCUSED = UtilRgb.darken(
-		DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR,
-		0.1
-	);
 	protected static readonly BACKGROUND_COLOR_EVEN =
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected static readonly BACKGROUND_COLOR_ODD = UtilRgb.darken(
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
 		0.01
-	);
-	protected static readonly WEAK_STRONG_HIGHLIGHT_COLOR = UtilRgb.darken(
-		DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD,
-		0.025
 	);
 	protected static readonly BORDER_COLOR = UtilRgb.darken(
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
@@ -42,9 +34,7 @@ export class DThemeWhiteTableBodyCells {
 			return DThemeWhiteConstants.INVALID_BLENDED_ON_BOARD;
 		} else if (state.underActive) {
 			return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
-		} else if (state.isFocused && (state.onHovered || state.isHovered)) {
-			return this.WEAK_STRONG_HIGHLIGHT_COLOR;
-		} else if (state.isFocused || state.onHovered || state.isHovered) {
+		} else if (state.onHovered || state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
 			if (state.is(DTableState.FROZEN)) {
@@ -61,10 +51,6 @@ export class DThemeWhiteTableBodyCells {
 
 	static getBorderColor(state: DBaseStateSet): number | null {
 		return this.BORDER_COLOR;
-	}
-
-	static getBorderAlign(state: DBaseStateSet): number {
-		return 0;
 	}
 
 	static getBorderMask(state: DBaseStateSet): DBorderMask {
@@ -88,18 +74,10 @@ export class DThemeWhiteTableBodyCells {
 
 	static getImageTintColor(state: DBaseStateSet, isActive?: boolean): number | null {
 		if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
-			if (state.isFocused) {
-				return this.IMAGE_TINT_COLOR_FOCUSED;
-			} else {
-				return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
-			}
+			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		}
-	}
-
-	static getOutlineAlign(state: DBaseStateSet): number {
-		return -2;
 	}
 
 	static getHeight(): DCoordinateSize {

@@ -39,10 +39,6 @@ export class DThemeWhiteTreeItemText
 		return this._style.getBorderColor(state);
 	}
 
-	getBorderAlign(state: DBaseStateSet): number {
-		return this._style.getBorderAlign(state);
-	}
-
 	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return this._style.getBorderMask(state);
 	}

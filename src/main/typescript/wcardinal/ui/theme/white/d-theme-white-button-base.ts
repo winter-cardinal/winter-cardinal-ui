@@ -20,6 +20,8 @@ export class DThemeWhiteButtonBase<VALUE = unknown>
 	protected readonly BACKGROUND_COLOR_HOVERED: number;
 	protected readonly BACKGROUND_COLOR_PRESSED: number;
 
+	protected readonly OUTLINE_COLOR: number;
+
 	constructor(
 		backgroundColor: number = 0xffffff,
 		hover: number = 0.017,
@@ -27,8 +29,10 @@ export class DThemeWhiteButtonBase<VALUE = unknown>
 	) {
 		super();
 		this.BACKGROUND_COLOR = backgroundColor;
-		this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken(this.BACKGROUND_COLOR, hover);
-		this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken(this.BACKGROUND_COLOR, pressed);
+		this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken(backgroundColor, hover);
+		this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken(backgroundColor, pressed);
+
+		this.OUTLINE_COLOR = UtilRgb.brighten(backgroundColor, 0.75);
 	}
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
@@ -38,7 +42,7 @@ export class DThemeWhiteButtonBase<VALUE = unknown>
 			return DThemeWhiteConstants.HIGHLIGHT_COLOR;
 		} else if (state.isPressed) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
@@ -59,6 +63,28 @@ export class DThemeWhiteButtonBase<VALUE = unknown>
 		} else {
 			return null;
 		}
+	}
+
+	getOutlineColor(state: DBaseStateSet): number | null {
+		if (state.isActive) {
+			return this.getOutlineColorActive(state);
+		}
+		return super.getOutlineColor(state);
+	}
+
+	protected getOutlineColorActive(state: DBaseStateSet): number | null {
+		return this.OUTLINE_COLOR;
+	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		if (state.isActive) {
+			return this.getOutlineOffsetActive(state);
+		}
+		return super.getOutlineOffset(state);
+	}
+
+	protected getOutlineOffsetActive(state: DBaseStateSet): number {
+		return -1.5;
 	}
 
 	getHeight(): DCoordinateSize {

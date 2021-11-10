@@ -31,7 +31,7 @@ export class DThemeWhiteExpandableHeader<VALUE = unknown>
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
 			return null;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return 0xf8f8f8;
 		} else if (state.inActive) {
 			return 0xf8f8f8;

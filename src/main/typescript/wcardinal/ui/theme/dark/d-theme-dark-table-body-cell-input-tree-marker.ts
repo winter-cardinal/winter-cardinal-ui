@@ -43,10 +43,6 @@ export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown>
 		return null;
 	}
 
-	getBorderAlign(state: DBaseStateSet): number {
-		return DThemeDarkTableBodyCells.getBorderAlign(state);
-	}
-
 	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return DThemeDarkTableBodyCells.getBorderMask(state);
 	}
@@ -61,14 +57,6 @@ export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown>
 
 	getCornerMask(): DCornerMask {
 		return DThemeDarkTableBodyCells.getCornerMask();
-	}
-
-	getOutlineColor(state: DBaseStateSet): number | null {
-		return null;
-	}
-
-	getOutlineAlign(state: DBaseStateSet): number {
-		return DThemeDarkTableBodyCells.getOutlineAlign(state);
 	}
 
 	getImageAlignWith(): DAlignWith {

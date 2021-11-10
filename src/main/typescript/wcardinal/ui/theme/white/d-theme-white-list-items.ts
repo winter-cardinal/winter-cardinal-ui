@@ -27,10 +27,6 @@ export class DThemeWhiteListItems {
 	protected readonly _weakHighlightColor: number;
 	protected readonly _weakHighlightAlpha: number;
 
-	protected readonly _mediumHighlightColor: number;
-	protected readonly _mediumHighlightAlpha: number;
-
-	protected readonly _imageTintColorFocused: number;
 	protected readonly _imageTintColorWeak: number;
 	protected readonly _imageTintColorHighlight: number;
 
@@ -70,9 +66,6 @@ export class DThemeWhiteListItems {
 				DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA
 			);
 			this._weakHighlightAlpha = 1;
-
-			this._mediumHighlightColor = UtilRgb.darken(this._weakHighlightColor, 0.025);
-			this._mediumHighlightAlpha = 1;
 		} else {
 			this._backgroundColorEven = 0x000000;
 			this._backgroundAlphaEven = 0;
@@ -92,13 +85,9 @@ export class DThemeWhiteListItems {
 
 			this._weakHighlightColor = DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 			this._weakHighlightAlpha = DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA;
-
-			this._mediumHighlightColor = UtilRgb.darken(this._weakHighlightColor, 0.025);
-			this._mediumHighlightAlpha = this._weakHighlightAlpha;
 		}
 
 		this._imageTintColorWeak = DThemeWhiteConstants.COLOR;
-		this._imageTintColorFocused = UtilRgb.brighten(this._imageTintColorWeak, 0.1);
 		if (isVivid) {
 			this._imageTintColorHighlight = DThemeWhiteConstants.ACTIVE_COLOR;
 		} else {
@@ -129,9 +118,7 @@ export class DThemeWhiteListItems {
 			return this._invalidColor;
 		} else if (state.isActive) {
 			return this._highlightColor;
-		} else if (state.isFocused && state.isHovered) {
-			return this._mediumHighlightColor;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this._weakHighlightColor;
 		} else {
 			if (this._isStripeEnabled) {
@@ -161,9 +148,7 @@ export class DThemeWhiteListItems {
 			return this._invalidAlpha;
 		} else if (state.isActive) {
 			return this._highlightAlpha;
-		} else if (state.isFocused && state.isHovered) {
-			return this._mediumHighlightAlpha;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this._weakHighlightAlpha;
 		} else {
 			if (this._isStripeEnabled) {
@@ -180,10 +165,6 @@ export class DThemeWhiteListItems {
 
 	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
-	}
-
-	getBorderAlign(state: DBaseStateSet): number {
-		return 0;
 	}
 
 	getBorderMask(state: DBaseStateSet): DBorderMask {
@@ -206,18 +187,10 @@ export class DThemeWhiteListItems {
 
 	getImageTintColor(state: DBaseStateSet, isActive?: boolean): number | null {
 		if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
-			if (state.isFocused) {
-				return this._imageTintColorFocused;
-			} else {
-				return this._imageTintColorWeak;
-			}
+			return this._imageTintColorWeak;
 		} else {
 			return this._imageTintColorHighlight;
 		}
-	}
-
-	getOutlineAlign(state: DBaseStateSet): number {
-		return -2;
 	}
 
 	getHeight(): number {

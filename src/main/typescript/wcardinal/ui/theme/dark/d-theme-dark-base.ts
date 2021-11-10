@@ -80,9 +80,6 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
-		if (state.isFocused) {
-			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		}
 		return null;
 	}
 
@@ -95,7 +92,7 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	getBorderAlign(state: DBaseStateSet): number {
-		return 0.5;
+		return 0;
 	}
 
 	getBorderMask(state: DBaseStateSet): number {
@@ -131,11 +128,14 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	getOutlineColor(state: DBaseStateSet): number | null {
-		return null;
+		return DThemeDarkConstants.HIGHLIGHT_COLOR;
 	}
 
 	getOutlineAlpha(state: DBaseStateSet): number {
-		return 1;
+		if (state.isFocused) {
+			return 1;
+		}
+		return 0;
 	}
 
 	getOutlineWidth(state: DBaseStateSet): number {
@@ -143,11 +143,11 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 	}
 
 	getOutlineOffset(state: DBaseStateSet): number {
-		return 1;
+		return 0;
 	}
 
 	getOutlineAlign(state: DBaseStateSet): number {
-		return 1;
+		return 0;
 	}
 
 	getOutlineMask(state: DBaseStateSet): DBorderMask {

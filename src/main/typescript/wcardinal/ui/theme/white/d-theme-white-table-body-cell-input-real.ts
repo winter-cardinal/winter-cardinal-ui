@@ -32,10 +32,6 @@ export class DThemeWhiteTableBodyCellInputReal
 		return DThemeWhiteTableBodyCells.getBorderColor(state);
 	}
 
-	getBorderAlign(state: DBaseStateSet): number {
-		return DThemeWhiteTableBodyCells.getBorderAlign(state);
-	}
-
 	getBorderMask(state: DBaseStateSet): DBorderMask {
 		return DThemeWhiteTableBodyCells.getBorderMask(state);
 	}
@@ -54,16 +50,5 @@ export class DThemeWhiteTableBodyCellInputReal
 
 	getCornerMask(): DCornerMask {
 		return DThemeWhiteTableBodyCells.getCornerMask();
-	}
-
-	getOutlineColor(state: DBaseStateSet): number | null {
-		if (state.inDisabled) {
-			return null;
-		}
-		return super.getOutlineColor(state);
-	}
-
-	getOutlineAlign(state: DBaseStateSet): number {
-		return DThemeWhiteTableBodyCells.getOutlineAlign(state);
 	}
 }

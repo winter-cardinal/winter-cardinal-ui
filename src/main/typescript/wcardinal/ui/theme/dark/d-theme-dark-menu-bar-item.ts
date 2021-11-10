@@ -20,7 +20,7 @@ export class DThemeDarkMenuBarItem<VALUE = unknown>
 			return null;
 		} else if (state.isActive) {
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;

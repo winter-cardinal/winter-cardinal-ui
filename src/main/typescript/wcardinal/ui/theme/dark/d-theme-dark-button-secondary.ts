@@ -16,11 +16,19 @@ export class DThemeDarkButtonSecondary<VALUE = unknown> extends DThemeDarkButton
 			return null;
 		} else if (state.isPressed || state.isActive) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
 		}
+	}
+
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return this.getOutlineColorActive(state);
+	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		return this.getOutlineOffsetActive(state);
 	}
 
 	getColor(state: DBaseStateSet): number {

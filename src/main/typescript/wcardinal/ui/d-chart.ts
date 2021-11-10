@@ -36,6 +36,9 @@ export class DChart<
 		if (mask) {
 			plotArea.axis.container.mask = this.getOverflowMask();
 		}
+
+		// State
+		this.state.isFocusable = false;
 	}
 
 	protected getOverflowMask(): DBaseOverflowMask {

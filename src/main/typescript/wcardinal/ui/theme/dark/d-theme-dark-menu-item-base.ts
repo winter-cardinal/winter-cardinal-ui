@@ -17,7 +17,7 @@ export class DThemeDarkMenuItemBase extends DThemeDarkImage<string> implements D
 			return null;
 		} else if (state.isActive) {
 			return this.getBackgroundColorActive(state);
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
 		} else {
 			return null;

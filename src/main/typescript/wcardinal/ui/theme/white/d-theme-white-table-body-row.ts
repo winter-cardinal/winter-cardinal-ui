@@ -22,7 +22,7 @@ export class DThemeWhiteTableBodyRow extends DThemeWhiteTableRow implements DThe
 			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
 		} else if (state.isActive) {
 			return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
 			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;

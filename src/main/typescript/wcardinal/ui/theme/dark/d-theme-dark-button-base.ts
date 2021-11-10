@@ -20,15 +20,19 @@ export class DThemeDarkButtonBase<VALUE = unknown>
 	protected readonly BACKGROUND_COLOR_HOVERED: number;
 	protected readonly BACKGROUND_COLOR_PRESSED: number;
 
+	protected readonly OUTLINE_COLOR: number;
+
 	constructor(
-		backgrouncColor: number = 0x484848,
+		backgroundColor: number = 0x484848,
 		hover: number = 0.017,
 		pressed: number = 0.034
 	) {
 		super();
-		this.BACKGROUND_COLOR = backgrouncColor;
-		this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(this.BACKGROUND_COLOR, hover);
-		this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(this.BACKGROUND_COLOR, pressed);
+		this.BACKGROUND_COLOR = backgroundColor;
+		this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(backgroundColor, hover);
+		this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(backgroundColor, pressed);
+
+		this.OUTLINE_COLOR = UtilRgb.darken(backgroundColor, 0.75);
 	}
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
@@ -38,7 +42,7 @@ export class DThemeDarkButtonBase<VALUE = unknown>
 			return DThemeDarkConstants.HIGHLIGHT_COLOR;
 		} else if (state.isPressed) {
 			return this.BACKGROUND_COLOR_PRESSED;
-		} else if (state.isFocused || state.isHovered) {
+		} else if (state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
 			return this.BACKGROUND_COLOR;
@@ -59,6 +63,28 @@ export class DThemeDarkButtonBase<VALUE = unknown>
 		} else {
 			return null;
 		}
+	}
+
+	getOutlineColor(state: DBaseStateSet): number | null {
+		if (state.isActive) {
+			return this.getOutlineColorActive(state);
+		}
+		return super.getOutlineColor(state);
+	}
+
+	protected getOutlineColorActive(state: DBaseStateSet): number | null {
+		return this.OUTLINE_COLOR;
+	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		if (state.isActive) {
+			return this.getOutlineOffsetActive(state);
+		}
+		return super.getOutlineOffset(state);
+	}
+
+	protected getOutlineOffsetActive(state: DBaseStateSet): number {
+		return -1.5;
 	}
 
 	getHeight(): DCoordinateSize {

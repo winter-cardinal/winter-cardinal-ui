@@ -21,7 +21,7 @@ export class DBaseReflowableImpl implements DBaseReflowable {
 
 		const border = new DBaseBorderSnippet();
 		this._border = border;
-		base.snippet.add(border, false);
+		base.snippet.add(border, true);
 
 		const outline = new DBaseOutlineSnippet();
 		this._outline = outline;
