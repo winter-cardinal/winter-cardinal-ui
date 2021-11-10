@@ -46,10 +46,13 @@
 		"prepublishOnly": "npm run build"
 	},
 	"peerDependencies": {
-		"pixi.js": "~5.2.1"
-	},
-	"optionalDependencies": {
+		"pixi.js": "~5.2.1",
 		"css-line-break": "2.0.1"
+	},
+	"peerDependenciesMeta": {
+		"css-line-break": {
+			"optional": true
+		}
 	},
 	"devDependencies": {
 		"pixi.js": "~5.2.1",
