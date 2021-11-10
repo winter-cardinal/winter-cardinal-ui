@@ -50,6 +50,14 @@ export class DThemeWhiteButtonRadio<VALUE = unknown>
 		return 0;
 	}
 
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return this.getOutlineColorNonActive(state);
+	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		return this.getOutlineOffsetNonActive(state);
+	}
+
 	getImageTintColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled || !state.isActive) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;

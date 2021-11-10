@@ -31,6 +31,14 @@ export class DThemeDarkButtonCheck<VALUE = unknown>
 		return 0;
 	}
 
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return this.getOutlineColorNonActive(state);
+	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		return this.getOutlineOffsetNonActive(state);
+	}
+
 	getImageTintColor(state: DBaseStateSet): number | null {
 		return DThemeDarkButtonChecks.getImageTintColor(state);
 	}

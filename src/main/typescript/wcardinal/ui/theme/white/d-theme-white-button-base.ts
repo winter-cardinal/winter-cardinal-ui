@@ -69,22 +69,30 @@ export class DThemeWhiteButtonBase<VALUE = unknown>
 		if (state.isActive) {
 			return this.getOutlineColorActive(state);
 		}
-		return super.getOutlineColor(state);
+		return this.getOutlineColorNonActive(state);
 	}
 
 	protected getOutlineColorActive(state: DBaseStateSet): number | null {
 		return this.OUTLINE_COLOR;
 	}
 
+	protected getOutlineColorNonActive(state: DBaseStateSet): number | null {
+		return super.getOutlineColor(state);
+	}
+
 	getOutlineOffset(state: DBaseStateSet): number {
 		if (state.isActive) {
 			return this.getOutlineOffsetActive(state);
 		}
-		return super.getOutlineOffset(state);
+		return this.getOutlineOffsetNonActive(state);
 	}
 
 	protected getOutlineOffsetActive(state: DBaseStateSet): number {
 		return -1.5;
+	}
+
+	protected getOutlineOffsetNonActive(state: DBaseStateSet): number {
+		return super.getOutlineOffset(state);
 	}
 
 	getHeight(): DCoordinateSize {
