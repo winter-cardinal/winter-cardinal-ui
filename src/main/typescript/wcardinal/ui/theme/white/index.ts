@@ -84,6 +84,7 @@ export * from "./d-theme-white-input-integer";
 export * from "./d-theme-white-input-label";
 export * from "./d-theme-white-input-number";
 export * from "./d-theme-white-input-real";
+export * from "./d-theme-white-input-search";
 export * from "./d-theme-white-input-text-area";
 export * from "./d-theme-white-input-text";
 export * from "./d-theme-white-input";

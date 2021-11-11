@@ -272,6 +272,7 @@ export * from "./d-input-label";
 export * from "./d-input-number";
 export * from "./d-input-real-and-label";
 export * from "./d-input-real";
+export * from "./d-input-search";
 export * from "./d-input-text-and-label";
 export * from "./d-input-text-area";
 export * from "./d-input-text";

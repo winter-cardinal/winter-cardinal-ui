@@ -8,6 +8,7 @@ import { loadThemeDarkInputBoolean } from "./load-theme-dark-input-boolean";
 import { loadThemeDarkInputInteger } from "./load-theme-dark-input-integer";
 import { loadThemeDarkInputLabel } from "./load-theme-dark-input-label";
 import { loadThemeDarkInputReal } from "./load-theme-dark-input-real";
+import { loadThemeDarkInputSearch } from "./load-theme-dark-input-search";
 import { loadThemeDarkInputText } from "./load-theme-dark-input-text";
 import { loadThemeDarkInputTextArea } from "./load-theme-dark-input-text-area";
 
@@ -17,6 +18,7 @@ export const loadThemeDarkInputAll = (): void => {
 	loadThemeDarkInputInteger();
 	loadThemeDarkInputLabel();
 	loadThemeDarkInputReal();
+	loadThemeDarkInputSearch();
 	loadThemeDarkInputTextArea();
 	loadThemeDarkInputText();
 };

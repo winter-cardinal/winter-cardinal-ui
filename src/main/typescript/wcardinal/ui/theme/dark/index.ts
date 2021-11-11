@@ -82,6 +82,7 @@ export * from "./d-theme-dark-input-integer";
 export * from "./d-theme-dark-input-label";
 export * from "./d-theme-dark-input-number";
 export * from "./d-theme-dark-input-real";
+export * from "./d-theme-dark-input-search";
 export * from "./d-theme-dark-input-text-area";
 export * from "./d-theme-dark-input-text";
 export * from "./d-theme-dark-input";

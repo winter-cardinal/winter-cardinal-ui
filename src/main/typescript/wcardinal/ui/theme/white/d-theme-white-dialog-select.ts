@@ -25,4 +25,12 @@ export class DThemeWhiteDialogSelect<VALUE>
 	getNoteSearchingText(): string {
 		return "Searching...";
 	}
+
+	getInputMarginVertical(): number {
+		return 0;
+	}
+
+	getInputMarginHorizontal(): number {
+		return 32;
+	}
 }

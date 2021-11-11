@@ -97,6 +97,19 @@
 							console.log( newValue, oldValue, input );
 						}
 					}
+				}),
+
+				// Search input
+				new wcardinal.ui.DInputSearch({
+					width: "100%",
+					text: {
+						value: "Apple"
+					},
+					on: {
+						change: function ( newValue, oldValue, input ) {
+							console.log( newValue, oldValue, input );
+						}
+					}
 				})
 			]
 		})
