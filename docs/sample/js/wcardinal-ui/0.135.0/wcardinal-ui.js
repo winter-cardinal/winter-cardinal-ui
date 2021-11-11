@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.134.0
+ Winter Cardinal UI v0.135.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -49010,6 +49010,21 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DInputSearch = /** @class */ (function (_super) {
+        __extends(DInputSearch, _super);
+        function DInputSearch() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DInputSearch.prototype.getType = function () {
+            return "DInputSearch";
+        };
+        return DInputSearch;
+    }(DInputText));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DNote = /** @class */ (function (_super) {
         __extends(DNote, _super);
         function DNote() {
@@ -49029,43 +49044,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    // Helper
-    var toNoteOptions = function (parent, text, options) {
-        if (options != null) {
-            if (options.parent == null) {
-                options.parent = parent;
-            }
-            if (options.text == null) {
-                options.text = {
-                    value: text
-                };
-            }
-            else if (options.text.value == null) {
-                options.text.value = text;
-            }
-            return options;
-        }
-        return {
-            parent: parent,
-            text: {
-                value: text
-            }
-        };
-    };
-    var toSearch = function (controller) {
-        if (controller) {
-            var search = controller.search;
-            if ("create" in search) {
-                return search;
-            }
-            else {
-                return new DDialogSelectSearh(search);
-            }
-        }
-        else {
-            return new DDialogSelectSearh();
-        }
-    };
     var DDialogSelect = /** @class */ (function (_super) {
         __extends(DDialogSelect, _super);
         function DDialogSelect() {
@@ -49073,42 +49051,26 @@
         }
         DDialogSelect.prototype.onInit = function (layout, options) {
             var _this = this;
-            var _a, _b;
             this._value = null;
             var theme = this.theme;
             // Search box
-            var inputOptions = (options === null || options === void 0 ? void 0 : options.input) || {};
-            if (inputOptions.width === undefined) {
-                inputOptions.width = "padding";
-            }
-            var input = new DInputText(inputOptions);
+            var input = this.newInput(theme, options);
             this._input = input;
-            layout.addChild(input);
+            layout.addChild(this.newInputLayout(layout, input, theme, options));
             // List
-            var listOptions = (options === null || options === void 0 ? void 0 : options.list) || {};
-            if (listOptions.width === undefined) {
-                listOptions.width = "padding";
-            }
-            var list = new DDialogSelectList(listOptions);
-            list.selection.on("change", function (selection) {
-                var first = selection.first;
-                if (first != null) {
-                    _this._value = first;
-                    _this.onOk(first);
-                }
-            });
+            var list = this.newList(theme, options);
             this._list = list;
             layout.addChild(list);
             // Text No Items
-            var noteNoItems = new DNote(toNoteOptions(list, theme.getNoteNoItemsText(), (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.noItems));
+            var noteNoItems = this.newNoteNoItems(list, theme, options);
             this._noteNoItems = noteNoItems;
             // Text Searching
-            var noteSearching = new DNote(toNoteOptions(list, theme.getNoteSearchingText(), (_b = options === null || options === void 0 ? void 0 : options.note) === null || _b === void 0 ? void 0 : _b.searching));
+            var noteSearching = this.newNoteSearching(list, theme, options);
             this._noteSearching = noteSearching;
             // Controller binding
-            var search = toSearch(options === null || options === void 0 ? void 0 : options.controller);
+            var search = this.toSearch(options === null || options === void 0 ? void 0 : options.controller);
             this._search = search;
-            this._input.on("input", function (value) {
+            input.on("input", function (value) {
                 search.create([value]);
             });
             search.on("success", function (e, results) {
@@ -49130,6 +49092,129 @@
                     transition.show(noteSearching);
                 }
             });
+        };
+        DDialogSelect.prototype.newInput = function (theme, options) {
+            return new DInputSearch(this.toInputOptions(theme, options));
+        };
+        DDialogSelect.prototype.toInputOptions = function (theme, options) {
+            var result = (options === null || options === void 0 ? void 0 : options.input) || {};
+            if (result.width === undefined && result.weight === undefined) {
+                result.weight = 1;
+            }
+            return result;
+        };
+        DDialogSelect.prototype.newInputLayout = function (layout, input, theme, options) {
+            return new DLayoutHorizontal(this.toInputLayoutOptions(layout, input, theme, options));
+        };
+        DDialogSelect.prototype.toInputLayoutOptions = function (layout, input, theme, options) {
+            var margin = this.toInputMargin(theme, options);
+            var marginHorizontal = margin.horizontal;
+            var marginVertical = margin.vertical + this.padding.getTop() - layout.margin.vertical;
+            return {
+                width: "padding",
+                height: "auto",
+                padding: {
+                    bottom: Math.max(0, marginVertical)
+                },
+                children: [
+                    new DLayoutSpace({ width: marginHorizontal }),
+                    input,
+                    new DLayoutSpace({ width: marginHorizontal })
+                ]
+            };
+        };
+        DDialogSelect.prototype.toInputMargin = function (theme, options) {
+            var _a;
+            var margin = (_a = options === null || options === void 0 ? void 0 : options.input) === null || _a === void 0 ? void 0 : _a.margin;
+            if (margin != null) {
+                if (isNumber(margin)) {
+                    return {
+                        horizontal: margin,
+                        vertical: margin
+                    };
+                }
+                else {
+                    var horizontal = margin.horizontal;
+                    var vertical = margin.vertical;
+                    return {
+                        horizontal: horizontal !== null && horizontal !== void 0 ? horizontal : theme.getInputMarginHorizontal(),
+                        vertical: vertical !== null && vertical !== void 0 ? vertical : theme.getInputMarginVertical()
+                    };
+                }
+            }
+            return {
+                horizontal: theme.getInputMarginHorizontal(),
+                vertical: theme.getInputMarginVertical()
+            };
+        };
+        DDialogSelect.prototype.toListOptions = function (theme, options) {
+            var result = (options === null || options === void 0 ? void 0 : options.list) || {};
+            if (result.width === undefined) {
+                result.width = "padding";
+            }
+            return result;
+        };
+        DDialogSelect.prototype.newList = function (theme, options) {
+            var _this = this;
+            var result = new DDialogSelectList(this.toListOptions(theme, options));
+            result.selection.on("change", function (selection) {
+                var first = selection.first;
+                if (first != null) {
+                    _this._value = first;
+                    _this.onOk(first);
+                }
+            });
+            return result;
+        };
+        DDialogSelect.prototype.toNoteOptions = function (parent, text, options) {
+            if (options != null) {
+                if (options.parent == null) {
+                    options.parent = parent;
+                }
+                if (options.text == null) {
+                    options.text = {
+                        value: text
+                    };
+                }
+                else if (options.text.value == null) {
+                    options.text.value = text;
+                }
+                return options;
+            }
+            return {
+                parent: parent,
+                text: {
+                    value: text
+                }
+            };
+        };
+        DDialogSelect.prototype.toNoteNoItemsOptions = function (list, theme, options) {
+            var _a;
+            return this.toNoteOptions(list, theme.getNoteNoItemsText(), (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.noItems);
+        };
+        DDialogSelect.prototype.newNoteNoItems = function (list, theme, options) {
+            return new DNote(this.toNoteNoItemsOptions(list, theme, options));
+        };
+        DDialogSelect.prototype.toNoteSearchingOptions = function (list, theme, options) {
+            var _a;
+            return this.toNoteOptions(list, theme.getNoteSearchingText(), (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.searching);
+        };
+        DDialogSelect.prototype.newNoteSearching = function (list, theme, options) {
+            return new DNote(this.toNoteSearchingOptions(list, theme, options));
+        };
+        DDialogSelect.prototype.toSearch = function (controller) {
+            if (controller) {
+                var search = controller.search;
+                if ("create" in search) {
+                    return search;
+                }
+                else {
+                    return new DDialogSelectSearh(search);
+                }
+            }
+            else {
+                return new DDialogSelectSearh();
+            }
         };
         Object.defineProperty(DDialogSelect.prototype, "input", {
             get: function () {
@@ -67457,6 +67542,7 @@
         DInputNumber: DInputNumber,
         DInputRealAndLabel: DInputRealAndLabel,
         DInputReal: DInputReal,
+        DInputSearch: DInputSearch,
         DInputTextAndLabel: DInputTextAndLabel,
         DInputTextArea: DInputTextArea,
         DInputText: DInputText,

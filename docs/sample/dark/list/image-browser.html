@@ -17,8 +17,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.134.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.134.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.135.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.135.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -27,13 +27,11 @@
 
 		var resolution = window.devicePixelRatio || 1;
 		var size = 256 * resolution;
-		var face = wcardinal.ui.toSvgTexture(
+		var imageCloud = wcardinal.ui.toSvgTexture(
 			'<svg xmlns="http://www.w3.org/2000/svg" height="' + size + 'px" width="' + size + 'px" viewBox="0 0 24 24" fill="#ffffff">' +
-				'<path d="M10.25 13c0 .69-.56 1.25-1.25 1.25S7.75 13.69 7.75 13s.56-1.25 1.25-1.25 1.25.56 1.25 1.25zM15 11.75c-.69 0-1.25' +
-				'.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm7 .25c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12' +
-				' 2s10 4.48 10 10zM10.66 4.12C12.06 6.44 14.6 8 17.5 8c.46 0 .91-.05 1.34-.12C17.44 5.56 14.9 4 12 4c-.46 0-.91.05-1.34.12' +
-				'zM4.42 9.47c1.71-.97 3.03-2.55 3.66-4.44C6.37 6 5.05 7.58 4.42 9.47zM20 12c0-.78-.12-1.53-.33-2.24-.7.15-1.42.24-2.17.24-' +
-				'3.13 0-5.92-1.44-7.76-3.69C8.69 8.87 6.6 10.88 4 11.86c.01.04 0 .09 0 .14 0 4.41 3.59 8 8 8s8-3.59 8-8z"/>' +
+				'<path d="M12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3H6c-2.21 0-4-1.79-4-' +
+				'4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6m0-2C9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 ' +
+				'3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96C18.67 6.59 15.64 4 12 4z"/>' +
 			'</svg>',
 			resolution
 		);
@@ -52,51 +50,51 @@
 				},
 				items: [
 					{
-						name: "Face 0",
-						image: face
+						name: "Cloud A",
+						image: imageCloud
 					},
 					{
-						name: "Face 1",
-						image: face
+						name: "Cloud B",
+						image: imageCloud
 					},
 					{
-						name: "Face 2",
-						image: face
+						name: "Cloud C",
+						image: imageCloud
 					},
 					{
-						name: "Face 3",
-						image: face
+						name: "Cloud D",
+						image: imageCloud
 					},
 					{
-						name: "Face 4",
-						image: face
+						name: "Cloud E",
+						image: imageCloud
 					},
 					{
-						name: "Face 5",
-						image: face
+						name: "Cloud F",
+						image: imageCloud
 					},
 					{
-						name: "Face 6",
-						image: face
+						name: "Cloud G",
+						image: imageCloud
 					},
 					{
-						name: "Face 7",
-						image: face
+						name: "Cloud H",
+						image: imageCloud
 					},
 					{
-						name: "Face 8",
-						image: face
+						name: "Cloud I",
+						image: imageCloud
 					},
 					{
-						name: "Face 9",
-						image: face
+						name: "Cloud J",
+						image: imageCloud
 					}
 				],
 				toLabel: function(item) {
 					return item.name;
 				},
 				toTitle: function(item) {
-					return item.name;
+					return item.image;
 				}
 			},
 			updater: {
