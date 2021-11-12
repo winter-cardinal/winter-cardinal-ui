@@ -25,7 +25,7 @@ export class DDynamicTextMeasureResult {
 		this.y = 0;
 	}
 
-	start(): void {
+	start(lineHeight: number, fontHeight: number): void {
 		this.count = 0;
 		this.countPerLine = 0;
 		this.width = 0;
@@ -33,7 +33,7 @@ export class DDynamicTextMeasureResult {
 		this.clipped = false;
 
 		this.x = 0;
-		this.y = 0;
+		this.y = 0.5 * (lineHeight - fontHeight);
 	}
 
 	isPushable(width: number, character: DynamicFontAtlasCharacter): boolean {
@@ -122,8 +122,9 @@ export class DDynamicTextMeasureResult {
 		return false;
 	}
 
-	end(lineHeight: number): void {
+	end(lineHeight: number, fontHeight: number): void {
 		this.newLine(lineHeight);
+		this.y -= 0.5 * (lineHeight - fontHeight);
 		this.height = this.y;
 	}
 }

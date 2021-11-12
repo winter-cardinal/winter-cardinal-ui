@@ -27,16 +27,15 @@ export class DDynamicTextMeasure {
 	): DDynamicTextMeasureResult {
 		const result = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
 		DDynamicTextMeasure.RESULT = result;
-		result.start();
 		if (atlas != null) {
 			const itr = UtilCharacterIterator.from(text);
-			const lh = clipping.lineHeight;
 			const fh = atlas.font.height;
+			const lh = clipping.lineHeight;
 			const ce = clipping.enable;
 			const cw = clipping.width;
 			const ch = clipping.height;
 			const cp = clipping.wordWrap;
-			result.y = 0.5 * (lh - fh);
+			result.start(lh, fh);
 			switch (cp) {
 				case DDynamicTextStyleWordWrap.BREAK_ALL:
 					if (ce) {
@@ -69,7 +68,10 @@ export class DDynamicTextMeasure {
 					}
 					break;
 			}
-			result.end(lh);
+			result.end(lh, fh);
+		} else {
+			result.start(0, 0);
+			result.end(0, 0);
 		}
 		return result;
 	}
