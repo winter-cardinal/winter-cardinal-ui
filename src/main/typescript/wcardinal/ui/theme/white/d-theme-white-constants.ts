@@ -6,7 +6,7 @@
 import { UtilRgb } from "../../util/util-rgb";
 
 export class DThemeWhiteConstants {
-	static COLOR = 0x555555;
+	static COLOR = 0x444444;
 	static ACTIVE_COLOR = 0xffffff;
 
 	static BORDER_COLOR = 0xe5e5e5;
@@ -27,7 +27,7 @@ export class DThemeWhiteConstants {
 		DThemeWhiteConstants.HIGHLIGHT_ALPHA
 	);
 
-	static WEAK_HIGHLIGHT_COLOR = 0xdddddd;
+	static WEAK_HIGHLIGHT_COLOR = 0xcccccc;
 	static WEAK_HIGHLIGHT_ALPHA = 0.2;
 	static WEAK_HIGHLIGHT_BLENDED = UtilRgb.blend(
 		DThemeWhiteConstants.BACKGROUND_COLOR,
