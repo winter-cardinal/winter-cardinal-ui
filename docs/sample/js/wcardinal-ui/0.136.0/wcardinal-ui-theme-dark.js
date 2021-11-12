@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.135.0
+ Winter Cardinal UI v0.136.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2653,6 +2653,9 @@
             return null;
         };
         DThemeDarkCanvasContainer.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeDarkCanvasContainer.prototype.getOutlineColor = function (state) {
             return null;
         };
         DThemeDarkCanvasContainer.prototype.getPaddingLeft = function () {

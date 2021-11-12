@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.135.0
+ Winter Cardinal UI v0.136.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -18741,14 +18741,14 @@
             this.x = 0;
             this.y = 0;
         }
-        DDynamicTextMeasureResult.prototype.start = function () {
+        DDynamicTextMeasureResult.prototype.start = function (lineHeight, fontHeight) {
             this.count = 0;
             this.countPerLine = 0;
             this.width = 0;
             this.height = 0;
             this.clipped = false;
             this.x = 0;
-            this.y = 0;
+            this.y = 0.5 * (lineHeight - fontHeight);
         };
         DDynamicTextMeasureResult.prototype.isPushable = function (width, character) {
             var x = this.x + character.advance;
@@ -18832,8 +18832,9 @@
             }
             return false;
         };
-        DDynamicTextMeasureResult.prototype.end = function (lineHeight) {
+        DDynamicTextMeasureResult.prototype.end = function (lineHeight, fontHeight) {
             this.newLine(lineHeight);
+            this.y -= 0.5 * (lineHeight - fontHeight);
             this.height = this.y;
         };
         return DDynamicTextMeasureResult;
@@ -18856,16 +18857,15 @@
         DDynamicTextMeasure.measure = function (text, atlas, clipping) {
             var result = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
             DDynamicTextMeasure.RESULT = result;
-            result.start();
             if (atlas != null) {
                 var itr = UtilCharacterIterator.from(text);
-                var lh = clipping.lineHeight;
                 var fh = atlas.font.height;
+                var lh = clipping.lineHeight;
                 var ce = clipping.enable;
                 var cw = clipping.width;
                 var ch = clipping.height;
                 var cp = clipping.wordWrap;
-                result.y = 0.5 * (lh - fh);
+                result.start(lh, fh);
                 switch (cp) {
                     case DDynamicTextStyleWordWrap.BREAK_ALL:
                         if (ce) {
@@ -18903,7 +18903,11 @@
                         }
                         break;
                 }
-                result.end(lh);
+                result.end(lh, fh);
+            }
+            else {
+                result.start(0, 0);
+                result.end(0, 0);
             }
             return result;
         };

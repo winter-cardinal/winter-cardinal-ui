@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.135.0
+ Winter Cardinal UI v0.136.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -111,7 +111,7 @@
     var DThemeWhiteConstants = /** @class */ (function () {
         function DThemeWhiteConstants() {
         }
-        DThemeWhiteConstants.COLOR = 0x555555;
+        DThemeWhiteConstants.COLOR = 0x444444;
         DThemeWhiteConstants.ACTIVE_COLOR = 0xffffff;
         DThemeWhiteConstants.BORDER_COLOR = 0xe5e5e5;
         DThemeWhiteConstants.BACKGROUND_COLOR = 0xf2f2f2;
@@ -120,7 +120,7 @@
         DThemeWhiteConstants.HIGHLIGHT_ALPHA = 0.2;
         DThemeWhiteConstants.HIGHLIGHT_BLENDED = UtilRgb.blend(DThemeWhiteConstants.BACKGROUND_COLOR, DThemeWhiteConstants.HIGHLIGHT_COLOR, DThemeWhiteConstants.HIGHLIGHT_ALPHA);
         DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD = UtilRgb.blend(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, DThemeWhiteConstants.HIGHLIGHT_COLOR, DThemeWhiteConstants.HIGHLIGHT_ALPHA);
-        DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR = 0xdddddd;
+        DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR = 0xcccccc;
         DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA = 0.2;
         DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED = UtilRgb.blend(DThemeWhiteConstants.BACKGROUND_COLOR, DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA);
         DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD = UtilRgb.blend(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR, DThemeWhiteConstants.WEAK_HIGHLIGHT_ALPHA);
@@ -2651,6 +2651,9 @@
             return null;
         };
         DThemeWhiteCanvasContainer.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeWhiteCanvasContainer.prototype.getOutlineColor = function (state) {
             return null;
         };
         DThemeWhiteCanvasContainer.prototype.getPaddingLeft = function () {

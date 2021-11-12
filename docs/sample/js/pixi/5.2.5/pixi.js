@@ -138,7 +138,7 @@ var PIXI = (function (exports) {
 	function invokeCallback(subscriber){
 	  var owner = subscriber.owner;
 	  var settled = owner.state_;
-	  var value = owner.data_;  
+	  var value = owner.data_;
 	  var callback = subscriber[settled];
 	  var promise = subscriber.then;
 
