@@ -17,6 +17,10 @@ export class DThemeDarkCanvasContainer extends DThemeDarkBase implements DThemeC
 		return null;
 	}
 
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return null;
+	}
+
 	getPaddingLeft(): number {
 		return 50;
 	}
