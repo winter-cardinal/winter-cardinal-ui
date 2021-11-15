@@ -8,7 +8,6 @@ import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
 import { DBase } from "./d-base";
-import { DControllerDefaultFocus } from "./d-controller-default-focus";
 import { DControllerFocus, DFocusable, DFocusableContainer } from "./d-controller-focus";
 import { DControllers } from "./d-controllers";
 import { DPadding } from "./d-padding";
@@ -43,7 +42,6 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	protected _isOverlay: boolean;
 	protected _refitLimit: number;
 	protected _reflowLimit: number;
-	protected _focus?: DControllerFocus;
 	protected _rootElement: HTMLElement;
 	protected _elementContainer: HTMLElement;
 	protected _padding: DPadding;
@@ -160,24 +158,8 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	protected initFocusHandling(): void {
 		const view = this.view;
 		const stage = this.stage;
-		const rootElement = this._rootElement;
 		const focusController = this.getFocusController();
 
-		let hasFocus = false;
-		const onFocus = (): void => {
-			hasFocus = true;
-		};
-		const onBlured = (): void => {
-			if (!hasFocus) {
-				focusController.clear();
-			}
-		};
-		const onBlur = (): void => {
-			hasFocus = false;
-			setTimeout(onBlured, 0);
-		};
-		rootElement.addEventListener("focus", onFocus, true);
-		rootElement.addEventListener("blur", onBlur, true);
 		view.setAttribute("tabindex", "0");
 
 		DControllers.getKeyboardController().init(view, stage, focusController);
@@ -363,10 +345,7 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	getFocusController(): DControllerFocus {
-		if (this._focus == null) {
-			this._focus = new DControllerDefaultFocus();
-		}
-		return this._focus;
+		return this.application.getFocusController();
 	}
 
 	getRootElement(): HTMLElement {

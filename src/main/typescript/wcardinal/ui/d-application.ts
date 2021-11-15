@@ -1,8 +1,15 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Container, Renderer } from "pixi.js";
 import { DApplicationLayer } from "./d-application-layer";
 import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
 import { DApplications } from "./d-applications";
+import { DControllerDefaultFocus } from "./d-controller-default-focus";
+import { DControllerFocus } from "./d-controller-focus";
 import { DPaddingLike } from "./d-padding";
 import { isString } from "./util/is-string";
 
@@ -68,12 +75,15 @@ export class DApplication implements DApplicationLike {
 	protected _overlay?: DApplicationLayer;
 	protected _resolution: number;
 	protected _isOverlayEnabled: boolean;
+	protected _focus?: DControllerFocus;
 
 	constructor(options?: DApplicationOptions) {
 		DApplications.add(this);
 
 		// Root
-		this._root = this.toRootElement(options);
+		const root = this.toRootElement(options);
+		this._root = root;
+		this.initFocusHandling(root);
 
 		// Resolution
 		const resolution = options?.resolution ?? window.devicePixelRatio ?? 1;
@@ -143,6 +153,31 @@ export class DApplication implements DApplicationLike {
 			resolution,
 			overlay: false
 		});
+	}
+
+	getFocusController(): DControllerFocus {
+		if (this._focus == null) {
+			this._focus = new DControllerDefaultFocus();
+		}
+		return this._focus;
+	}
+
+	protected initFocusHandling(root: HTMLElement): void {
+		let hasFocus = false;
+		const onFocus = (): void => {
+			hasFocus = true;
+		};
+		const onBlured = (): void => {
+			if (!hasFocus) {
+				this.getFocusController().clear();
+			}
+		};
+		const onBlur = (): void => {
+			hasFocus = false;
+			setTimeout(onBlured, 0);
+		};
+		root.addEventListener("focus", onFocus, true);
+		root.addEventListener("blur", onBlur, true);
 	}
 
 	protected newLayerBase(options?: DApplicationOptions): DApplicationLayer {

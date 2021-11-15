@@ -1,4 +1,10 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Container } from "pixi.js";
+import { DControllerFocus } from ".";
 import { DApplicationLayerLike } from "./d-application-layer-like";
 
 export interface DApplicationTarget {
@@ -15,6 +21,11 @@ export interface DApplicationLike {
 	 * Returns a root element.
 	 */
 	getRootElement(): HTMLElement;
+
+	/**
+	 * Returns a focus controller.
+	 */
+	getFocusController(): DControllerFocus;
 
 	/**
 	 * Returns a resolution.

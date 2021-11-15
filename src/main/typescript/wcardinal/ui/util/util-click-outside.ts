@@ -22,7 +22,12 @@ export class UtilClickOutside {
 				const x = point.x;
 				const y = point.y;
 				if (x < 0 || y < 0 || target.width < x || target.height < y) {
-					onClick(e);
+					// If dialogs / menus are being rendered on the overlay layer, closing them before
+					// the default pointerdown event handler causes the base layer to lose its focus.
+					// Therefore, onClick needed to be delayed.
+					setTimeout((): void => {
+						onClick(e);
+					}, 0);
 				}
 			}
 		});

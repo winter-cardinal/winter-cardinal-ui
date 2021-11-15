@@ -4,6 +4,7 @@
  */
 
 import { DisplayObject, Point } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
@@ -210,6 +211,10 @@ export class DMenu<
 			if (focused != null) {
 				this._focused = null;
 				if (layer) {
+					const focusedLayer = DApplications.getLayer(focused);
+					if (focusedLayer != null && layer !== focusedLayer) {
+						focusedLayer.view.focus();
+					}
 					layer.getFocusController().focus(focused);
 				} else {
 					this.blur(true);

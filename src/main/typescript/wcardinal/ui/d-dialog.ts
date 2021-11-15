@@ -97,7 +97,7 @@ export class DDialog<
 
 	protected _animation?: DAnimation<DBase> | null;
 	protected _closeOn!: DDialogCloseOn;
-	protected _focusable?: DFocusable | null;
+	protected _focused?: DFocusable | null;
 	protected _overlay!: UtilOverlay;
 	protected _mode!: DDialogMode;
 	protected _sticky!: boolean;
@@ -187,7 +187,7 @@ export class DDialog<
 			const layer = DApplications.getLayer(this);
 			if (layer) {
 				const focusController = layer.getFocusController();
-				this._focusable = focusController.get();
+				this._focused = focusController.get();
 				const firstFocusable = focusController.find(this, false, true, true);
 				focusController.focus(firstFocusable || this);
 			}
@@ -307,11 +307,15 @@ export class DDialog<
 	protected onClose(): void {
 		// Focus
 		const layer = this._overlay.picked;
-		const focusable = this._focusable;
-		if (focusable != null) {
-			this._focusable = null;
+		const focused = this._focused;
+		if (focused != null) {
+			this._focused = null;
 			if (layer) {
-				layer.getFocusController().focus(focusable);
+				const focusedLayer = DApplications.getLayer(focused);
+				if (focusedLayer != null && layer !== focusedLayer) {
+					focusedLayer.view.focus();
+				}
+				layer.getFocusController().focus(focused);
 			} else {
 				this.blur(true);
 			}
