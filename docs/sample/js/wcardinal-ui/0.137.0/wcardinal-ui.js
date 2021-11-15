@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.136.0
+ Winter Cardinal UI v0.137.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -20900,7 +20900,12 @@
                     var x = point.x;
                     var y = point.y;
                     if (x < 0 || y < 0 || target.width < x || target.height < y) {
-                        onClick(e);
+                        // If dialogs / menus are being rendered on the overlay layer, closing them before
+                        // the default pointerdown event handler causes the base layer to lose its focus.
+                        // Therefore, onClick needed to be delayed.
+                        setTimeout(function () {
+                            onClick(e);
+                        }, 0);
                     }
                 }
             });
@@ -21036,7 +21041,7 @@
                 var layer = DApplications.getLayer(this);
                 if (layer) {
                     var focusController = layer.getFocusController();
-                    this._focusable = focusController.get();
+                    this._focused = focusController.get();
                     var firstFocusable = focusController.find(this, false, true, true);
                     focusController.focus(firstFocusable || this);
                 }
@@ -21135,11 +21140,15 @@
         DDialog.prototype.onClose = function () {
             // Focus
             var layer = this._overlay.picked;
-            var focusable = this._focusable;
-            if (focusable != null) {
-                this._focusable = null;
+            var focused = this._focused;
+            if (focused != null) {
+                this._focused = null;
                 if (layer) {
-                    layer.getFocusController().focus(focusable);
+                    var focusedLayer = DApplications.getLayer(focused);
+                    if (focusedLayer != null && layer !== focusedLayer) {
+                        focusedLayer.view.focus();
+                    }
+                    layer.getFocusController().focus(focused);
                 }
                 else {
                     this.blur(true);
@@ -43016,257 +43025,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DControllerDefaultFocus = /** @class */ (function () {
-        function DControllerDefaultFocus() {
-            this._focused = null;
-        }
-        DControllerDefaultFocus.prototype.focus = function (focusable) {
-            var previous = this._focused;
-            if (previous !== focusable) {
-                if (previous != null) {
-                    previous.state.isFocused = false;
-                }
-                this._focused = focusable;
-                if (this.isFocusable(focusable)) {
-                    focusable.state.isFocused = true;
-                }
-                return previous;
-            }
-            return null;
-        };
-        DControllerDefaultFocus.prototype.blur = function (focusable) {
-            if (focusable != null && this._focused === focusable) {
-                this._focused = null;
-                focusable.state.isFocused = false;
-                return focusable;
-            }
-            return null;
-        };
-        DControllerDefaultFocus.prototype.clear = function () {
-            return this.focus(null);
-        };
-        DControllerDefaultFocus.prototype.set = function (focusable, isFocused) {
-            if (isFocused) {
-                return this.focus(focusable);
-            }
-            else {
-                return this.blur(focusable);
-            }
-        };
-        DControllerDefaultFocus.prototype.get = function () {
-            return this._focused;
-        };
-        DControllerDefaultFocus.prototype.findParent = function (mightBeFocusable) {
-            var current = mightBeFocusable;
-            while (current != null) {
-                if (this.isFocusable(current)) {
-                    return current;
-                }
-                else {
-                    current = current.parent;
-                }
-            }
-            return null;
-        };
-        DControllerDefaultFocus.prototype.find = function (target, includesTarget, includesTargetChildren, direction, root) {
-            if (direction) {
-                var result = this.findNext(target, includesTarget, includesTargetChildren);
-                if (result != null) {
-                    return result;
-                }
-                var parent_1 = target.parent;
-                if (parent_1 != null) {
-                    var children = parent_1.children;
-                    var index = children.indexOf(target);
-                    if (0 <= index) {
-                        var childrenLength = children.length;
-                        if (this.isFocusReverse(parent_1)) {
-                            for (var i = index - 1; 0 <= i; --i) {
-                                var found = this.findNext(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            if (!this.isFocusRoot(parent_1, root)) {
-                                var found = this.find(parent_1, false, false, true, root);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            for (var i = childrenLength - 1; index <= i; --i) {
-                                var found = this.findNext(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                        }
-                        else {
-                            for (var i = index + 1; i < childrenLength; ++i) {
-                                var found = this.findNext(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            if (!this.isFocusRoot(parent_1, root)) {
-                                var found = this.find(parent_1, false, false, true, root);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            for (var i = 0; i <= index; ++i) {
-                                var found = this.findNext(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                var result = this.findPrevious(target, includesTarget, includesTargetChildren);
-                if (result != null) {
-                    return result;
-                }
-                var parent_2 = target.parent;
-                if (parent_2 != null) {
-                    var children = parent_2.children;
-                    var index = children.indexOf(target);
-                    if (0 <= index) {
-                        var childrenLength = children.length;
-                        if (this.isFocusReverse(parent_2)) {
-                            for (var i = index + 1; i < childrenLength; ++i) {
-                                var found = this.findPrevious(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            if (!this.isFocusRoot(parent_2, root)) {
-                                var found = this.find(parent_2, true, false, false, root);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            for (var i = 0; i <= index; ++i) {
-                                var found = this.findPrevious(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                        }
-                        else {
-                            for (var i = index - 1; 0 <= i; --i) {
-                                var found = this.findPrevious(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            if (!this.isFocusRoot(parent_2, root)) {
-                                var found = this.find(parent_2, true, false, false, root);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                            for (var i = childrenLength - 1; index <= i; --i) {
-                                var found = this.findPrevious(children[i], true, true);
-                                if (found != null) {
-                                    return found;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
-        };
-        DControllerDefaultFocus.prototype.findNext = function (target, includesTarget, includesTargetChildren) {
-            // Target itself
-            if (includesTarget) {
-                if (this.isFocusable(target)) {
-                    return target;
-                }
-            }
-            // Target children
-            if (includesTargetChildren && this.isFocusableContainer(target) && target.visible) {
-                var children = target.children;
-                var childrenLength = children.length;
-                if (this.isFocusReverse(target)) {
-                    for (var i = childrenLength - 1; 0 <= i; --i) {
-                        var found = this.findNext(children[i], true, true);
-                        if (found != null) {
-                            return found;
-                        }
-                    }
-                }
-                else {
-                    for (var i = 0; i < childrenLength; ++i) {
-                        var found = this.findNext(children[i], true, true);
-                        if (found != null) {
-                            return found;
-                        }
-                    }
-                }
-            }
-            // Found nothing
-            return null;
-        };
-        DControllerDefaultFocus.prototype.findPrevious = function (target, includesTarget, includesTargetChildren) {
-            // Target children
-            if (includesTargetChildren && this.isFocusableContainer(target) && target.visible) {
-                var children = target.children;
-                var childrenLength = children.length;
-                if (this.isFocusReverse(target)) {
-                    for (var i = 0; i < childrenLength; ++i) {
-                        var found = this.findPrevious(children[i], true, true);
-                        if (found != null) {
-                            return found;
-                        }
-                    }
-                }
-                else {
-                    for (var i = childrenLength - 1; 0 <= i; --i) {
-                        var found = this.findPrevious(children[i], true, true);
-                        if (found != null) {
-                            return found;
-                        }
-                    }
-                }
-            }
-            // Target itself
-            if (includesTarget) {
-                if (this.isFocusable(target)) {
-                    return target;
-                }
-            }
-            // Found nothing
-            return null;
-        };
-        DControllerDefaultFocus.prototype.isFocusable = function (target) {
-            return (target != null &&
-                "state" in target &&
-                target.state.inEnabled &&
-                target.state.isFocusable &&
-                target.visible);
-        };
-        DControllerDefaultFocus.prototype.isFocusableContainer = function (target) {
-            return target != null && "children" in target;
-        };
-        DControllerDefaultFocus.prototype.isFocusRoot = function (target, root) {
-            if (target === root) {
-                return true;
-            }
-            return target != null && "state" in target && target.state.isFocusRoot && target.visible;
-        };
-        DControllerDefaultFocus.prototype.isFocusReverse = function (target) {
-            return target != null && "state" in target && target.state.isFocusReverse;
-        };
-        return DControllerDefaultFocus;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DCommandFlag = {
         NONE: 0,
         /**
@@ -43768,23 +43526,7 @@
         DApplicationLayer.prototype.initFocusHandling = function () {
             var view = this.view;
             var stage = this.stage;
-            var rootElement = this._rootElement;
             var focusController = this.getFocusController();
-            var hasFocus = false;
-            var onFocus = function () {
-                hasFocus = true;
-            };
-            var onBlured = function () {
-                if (!hasFocus) {
-                    focusController.clear();
-                }
-            };
-            var onBlur = function () {
-                hasFocus = false;
-                setTimeout(onBlured, 0);
-            };
-            rootElement.addEventListener("focus", onFocus, true);
-            rootElement.addEventListener("blur", onBlur, true);
             view.setAttribute("tabindex", "0");
             DControllers.getKeyboardController().init(view, stage, focusController);
             var interactionManager = this.renderer.plugins.interaction;
@@ -43961,10 +43703,7 @@
             }
         };
         DApplicationLayer.prototype.getFocusController = function () {
-            if (this._focus == null) {
-                this._focus = new DControllerDefaultFocus();
-            }
-            return this._focus;
+            return this.application.getFocusController();
         };
         DApplicationLayer.prototype.getRootElement = function () {
             return this._rootElement;
@@ -43981,12 +43720,269 @@
         return DApplicationLayer;
     }(pixi_js.Application));
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DControllerDefaultFocus = /** @class */ (function () {
+        function DControllerDefaultFocus() {
+            this._focused = null;
+        }
+        DControllerDefaultFocus.prototype.focus = function (focusable) {
+            var previous = this._focused;
+            if (previous !== focusable) {
+                if (previous != null) {
+                    previous.state.isFocused = false;
+                }
+                this._focused = focusable;
+                if (this.isFocusable(focusable)) {
+                    focusable.state.isFocused = true;
+                }
+                return previous;
+            }
+            return null;
+        };
+        DControllerDefaultFocus.prototype.blur = function (focusable) {
+            if (focusable != null && this._focused === focusable) {
+                this._focused = null;
+                focusable.state.isFocused = false;
+                return focusable;
+            }
+            return null;
+        };
+        DControllerDefaultFocus.prototype.clear = function () {
+            return this.focus(null);
+        };
+        DControllerDefaultFocus.prototype.set = function (focusable, isFocused) {
+            if (isFocused) {
+                return this.focus(focusable);
+            }
+            else {
+                return this.blur(focusable);
+            }
+        };
+        DControllerDefaultFocus.prototype.get = function () {
+            return this._focused;
+        };
+        DControllerDefaultFocus.prototype.findParent = function (mightBeFocusable) {
+            var current = mightBeFocusable;
+            while (current != null) {
+                if (this.isFocusable(current)) {
+                    return current;
+                }
+                else {
+                    current = current.parent;
+                }
+            }
+            return null;
+        };
+        DControllerDefaultFocus.prototype.find = function (target, includesTarget, includesTargetChildren, direction, root) {
+            if (direction) {
+                var result = this.findNext(target, includesTarget, includesTargetChildren);
+                if (result != null) {
+                    return result;
+                }
+                var parent_1 = target.parent;
+                if (parent_1 != null) {
+                    var children = parent_1.children;
+                    var index = children.indexOf(target);
+                    if (0 <= index) {
+                        var childrenLength = children.length;
+                        if (this.isFocusReverse(parent_1)) {
+                            for (var i = index - 1; 0 <= i; --i) {
+                                var found = this.findNext(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            if (!this.isFocusRoot(parent_1, root)) {
+                                var found = this.find(parent_1, false, false, true, root);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            for (var i = childrenLength - 1; index <= i; --i) {
+                                var found = this.findNext(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                        }
+                        else {
+                            for (var i = index + 1; i < childrenLength; ++i) {
+                                var found = this.findNext(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            if (!this.isFocusRoot(parent_1, root)) {
+                                var found = this.find(parent_1, false, false, true, root);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            for (var i = 0; i <= index; ++i) {
+                                var found = this.findNext(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                var result = this.findPrevious(target, includesTarget, includesTargetChildren);
+                if (result != null) {
+                    return result;
+                }
+                var parent_2 = target.parent;
+                if (parent_2 != null) {
+                    var children = parent_2.children;
+                    var index = children.indexOf(target);
+                    if (0 <= index) {
+                        var childrenLength = children.length;
+                        if (this.isFocusReverse(parent_2)) {
+                            for (var i = index + 1; i < childrenLength; ++i) {
+                                var found = this.findPrevious(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            if (!this.isFocusRoot(parent_2, root)) {
+                                var found = this.find(parent_2, true, false, false, root);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            for (var i = 0; i <= index; ++i) {
+                                var found = this.findPrevious(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                        }
+                        else {
+                            for (var i = index - 1; 0 <= i; --i) {
+                                var found = this.findPrevious(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            if (!this.isFocusRoot(parent_2, root)) {
+                                var found = this.find(parent_2, true, false, false, root);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                            for (var i = childrenLength - 1; index <= i; --i) {
+                                var found = this.findPrevious(children[i], true, true);
+                                if (found != null) {
+                                    return found;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        };
+        DControllerDefaultFocus.prototype.findNext = function (target, includesTarget, includesTargetChildren) {
+            // Target itself
+            if (includesTarget) {
+                if (this.isFocusable(target)) {
+                    return target;
+                }
+            }
+            // Target children
+            if (includesTargetChildren && this.isFocusableContainer(target) && target.visible) {
+                var children = target.children;
+                var childrenLength = children.length;
+                if (this.isFocusReverse(target)) {
+                    for (var i = childrenLength - 1; 0 <= i; --i) {
+                        var found = this.findNext(children[i], true, true);
+                        if (found != null) {
+                            return found;
+                        }
+                    }
+                }
+                else {
+                    for (var i = 0; i < childrenLength; ++i) {
+                        var found = this.findNext(children[i], true, true);
+                        if (found != null) {
+                            return found;
+                        }
+                    }
+                }
+            }
+            // Found nothing
+            return null;
+        };
+        DControllerDefaultFocus.prototype.findPrevious = function (target, includesTarget, includesTargetChildren) {
+            // Target children
+            if (includesTargetChildren && this.isFocusableContainer(target) && target.visible) {
+                var children = target.children;
+                var childrenLength = children.length;
+                if (this.isFocusReverse(target)) {
+                    for (var i = 0; i < childrenLength; ++i) {
+                        var found = this.findPrevious(children[i], true, true);
+                        if (found != null) {
+                            return found;
+                        }
+                    }
+                }
+                else {
+                    for (var i = childrenLength - 1; 0 <= i; --i) {
+                        var found = this.findPrevious(children[i], true, true);
+                        if (found != null) {
+                            return found;
+                        }
+                    }
+                }
+            }
+            // Target itself
+            if (includesTarget) {
+                if (this.isFocusable(target)) {
+                    return target;
+                }
+            }
+            // Found nothing
+            return null;
+        };
+        DControllerDefaultFocus.prototype.isFocusable = function (target) {
+            return (target != null &&
+                "state" in target &&
+                target.state.inEnabled &&
+                target.state.isFocusable &&
+                target.visible);
+        };
+        DControllerDefaultFocus.prototype.isFocusableContainer = function (target) {
+            return target != null && "children" in target;
+        };
+        DControllerDefaultFocus.prototype.isFocusRoot = function (target, root) {
+            if (target === root) {
+                return true;
+            }
+            return target != null && "state" in target && target.state.isFocusRoot && target.visible;
+        };
+        DControllerDefaultFocus.prototype.isFocusReverse = function (target) {
+            return target != null && "state" in target && target.state.isFocusReverse;
+        };
+        return DControllerDefaultFocus;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DApplication = /** @class */ (function () {
         function DApplication(options) {
             var _a, _b;
             DApplications.add(this);
             // Root
-            this._root = this.toRootElement(options);
+            var root = this.toRootElement(options);
+            this._root = root;
+            this.initFocusHandling(root);
             // Resolution
             var resolution = (_b = (_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1;
             this._resolution = resolution;
@@ -44051,6 +44047,30 @@
                 resolution: resolution,
                 overlay: false
             });
+        };
+        DApplication.prototype.getFocusController = function () {
+            if (this._focus == null) {
+                this._focus = new DControllerDefaultFocus();
+            }
+            return this._focus;
+        };
+        DApplication.prototype.initFocusHandling = function (root) {
+            var _this = this;
+            var hasFocus = false;
+            var onFocus = function () {
+                hasFocus = true;
+            };
+            var onBlured = function () {
+                if (!hasFocus) {
+                    _this.getFocusController().clear();
+                }
+            };
+            var onBlur = function () {
+                hasFocus = false;
+                setTimeout(onBlured, 0);
+            };
+            root.addEventListener("focus", onFocus, true);
+            root.addEventListener("blur", onBlur, true);
         };
         DApplication.prototype.newLayerBase = function (options) {
             return new DApplicationLayer(this, this.toLayerBaseOptions(options));
@@ -56855,6 +56875,10 @@
                 if (focused != null) {
                     this._focused = null;
                     if (layer) {
+                        var focusedLayer = DApplications.getLayer(focused);
+                        if (focusedLayer != null && layer !== focusedLayer) {
+                            focusedLayer.view.focus();
+                        }
                         layer.getFocusController().focus(focused);
                     }
                     else {
