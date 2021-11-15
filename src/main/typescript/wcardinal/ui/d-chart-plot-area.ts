@@ -33,5 +33,12 @@ export interface DChartPlotArea<CHART extends DBase = DBase> extends DBase {
 	readonly chart: CHART;
 	readonly coordinate: DChartCoordinateContainer<CHART>;
 
+	fit(
+		duration?: number,
+		domainFrom?: number,
+		domainTo?: number,
+		rangeFrom?: number,
+		rangeTo?: number
+	): this;
 	getBoundsInContainer(): Rectangle;
 }
