@@ -845,7 +845,6 @@ export class DBase<
 		this._state = new DBaseStateSetImplObservable((newState, oldState): void => {
 			this.onStateChange(newState, oldState);
 		});
-		theme.newState(this._state);
 
 		// Interactive
 		const interactive = toEnum(
@@ -953,6 +952,7 @@ export class DBase<
 		this.init(options);
 
 		// State Override
+		theme.newState(this._state);
 		const state = options?.state;
 		if (state != null) {
 			if (isString(state)) {
