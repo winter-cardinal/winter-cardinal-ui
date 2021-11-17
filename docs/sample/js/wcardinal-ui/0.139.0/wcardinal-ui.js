@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.137.0
+ Winter Cardinal UI v0.138.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -12272,6 +12272,7 @@
             _this._state = new DBaseStateSetImplObservable(function (newState, oldState) {
                 _this.onStateChange(newState, oldState);
             });
+            theme.newState(_this._state);
             // Interactive
             var interactive = toEnum((_g = options === null || options === void 0 ? void 0 : options.interactive) !== null && _g !== void 0 ? _g : theme.getInteractive(), DBaseInteractive);
             _this.interactive = !!(interactive & DBaseInteractive.SELF);
@@ -21233,7 +21234,6 @@
         function DLayoutSpace(options) {
             var _this = _super.call(this, options) || this;
             _this.visible = false;
-            _this.state.isFocusable = false;
             return _this;
         }
         DLayoutSpace.prototype.getType = function () {
@@ -21316,12 +21316,11 @@
     };
     var DLayout = /** @class */ (function (_super) {
         __extends(DLayout, _super);
-        function DLayout(options) {
-            return _super.call(this, options) || this;
+        function DLayout() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DLayout.prototype.init = function (options) {
             _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
             var theme = this.theme;
             this._margin = toMargin(theme, options);
             this._direction = toDirection(theme, options);
@@ -22122,10 +22121,6 @@
         function DText() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DText.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
-        };
         DText.prototype.getType = function () {
             return "DText";
         };
@@ -23310,7 +23305,6 @@
         __extends(DPickerDatetimeSpace, _super);
         function DPickerDatetimeSpace(options) {
             var _this = _super.call(this, options) || this;
-            _this.state.isFocusable = false;
             _this.renderable = false;
             return _this;
         }
@@ -23865,7 +23859,6 @@
             var _this = this;
             var _a;
             _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
             var theme = this.theme;
             this._dateCurrent = new Date();
             var dateCurrentTime = this._dateCurrent.getTime();
@@ -39408,10 +39401,6 @@
         function DMenuItemSeparator() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DMenuItemSeparator.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
-        };
         DMenuItemSeparator.prototype.initReflowable = function () {
             new DMenuItemSeparatorReflowable(this);
         };
@@ -44861,7 +44850,6 @@
         DPickerColor.prototype.init = function (options) {
             var _this = this;
             _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
             this._base = 0xff0000;
             this._new = { color: 0xffffff, alpha: 1 };
             this._newPicker = new DPickerColorAndAlpha(this._new, function (color) {
@@ -45717,7 +45705,6 @@
         DPickerColorGradient.prototype.init = function (options) {
             var _this = this;
             _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
             var theme = this.theme;
             var padding = this._padding;
             var paddingTop = padding.getTop();
@@ -46786,7 +46773,6 @@
         function DListItem(data, options) {
             var _this = _super.call(this, options) || this;
             _this._data = data;
-            _this.state.isDisabled = true;
             return _this;
         }
         DListItem.prototype.init = function (options) {
@@ -48067,10 +48053,6 @@
         function DContent() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DContent.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
-        };
         DContent.prototype.initReflowable = function () {
             // DO NOTHING
         };
@@ -48106,7 +48088,6 @@
             });
             _this._thumb = thumb;
             _this.addChild(thumb);
-            _this.state.isFocusable = false;
             return _this;
         }
         Object.defineProperty(DScrollBar.prototype, "thumb", {
@@ -48246,7 +48227,6 @@
         DScrollBarThumb.prototype.init = function (options) {
             var _this = this;
             _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
             var position = new pixi_js.Point();
             this._gestureUtil = new UtilGesture({
                 bind: this,
@@ -48973,10 +48953,8 @@
      */
     var DDialogSelectList = /** @class */ (function (_super) {
         __extends(DDialogSelectList, _super);
-        function DDialogSelectList(options) {
-            var _this = _super.call(this, options) || this;
-            _this.state.isFocusable = false;
-            return _this;
+        function DDialogSelectList() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DDialogSelectList.prototype.newUpdater = function (data, content, options) {
             return new DDialogSelectListItemUpdater(data, content, content, options === null || options === void 0 ? void 0 : options.updater);
@@ -53926,8 +53904,6 @@
             if (mask) {
                 plotArea.axis.container.mask = this.getOverflowMask();
             }
-            // State
-            this.state.isFocusable = false;
         };
         DChart.prototype.getOverflowMask = function () {
             if (this._overflowMask == null) {
@@ -56396,10 +56372,8 @@
      */
     var DDialogConfirmMessage = /** @class */ (function (_super) {
         __extends(DDialogConfirmMessage, _super);
-        function DDialogConfirmMessage(options) {
-            var _this = _super.call(this, options) || this;
-            _this.state.isFocusable = false;
-            return _this;
+        function DDialogConfirmMessage() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         DDialogConfirmMessage.prototype.getType = function () {
             return "DDialogConfirmMessage";
@@ -56758,7 +56732,6 @@
             this._owner = null;
             this._context = null;
             this.visible = false;
-            this.state.isFocusRoot = true;
             // Event handlers
             UtilClickOutside.apply(this, function () {
                 _this.close();
@@ -58114,7 +58087,6 @@
         }
         DMenuBar.prototype.init = function (options) {
             _super.prototype.init.call(this, options);
-            this.state.isFocusRoot = true;
             var items = options === null || options === void 0 ? void 0 : options.items;
             if (items) {
                 for (var i = 0, imax = items.length; i < imax; ++i) {
@@ -58156,10 +58128,6 @@
         function DMenuSidedContent() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DMenuSidedContent.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
-        };
         DMenuSidedContent.prototype.initReflowable = function () {
             // DO NOTHING
         };
@@ -59042,7 +59010,6 @@
         DSliderLabel.prototype.init = function (options) {
             var _a;
             _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
             this._value = (_a = options === null || options === void 0 ? void 0 : options.value) !== null && _a !== void 0 ? _a : 0;
         };
         Object.defineProperty(DSliderLabel.prototype, "value", {
@@ -59088,7 +59055,6 @@
         DSliderValue.prototype.init = function (options) {
             var _a;
             _super.prototype.init.call(this, options);
-            this.state.isFocusable = false;
             this._value = (_a = options === null || options === void 0 ? void 0 : options.value) !== null && _a !== void 0 ? _a : 0;
             this._rounder = this.toRounder(options);
         };
@@ -60989,8 +60955,6 @@
             var marker = _this.newMarker(options);
             _this._marker = marker;
             _this.addChild(marker);
-            _this.state.isFocusable = false;
-            _this.state.isFocusReverse = true;
             return _this;
         }
         DTableBodyCellInputTree.prototype.newInput = function (options) {
@@ -61623,7 +61587,6 @@
         function DTableRow(options) {
             var _a, _b;
             var _this = _super.call(this, options) || this;
-            _this.state.isFocusReverse = true;
             _this._reverse = true;
             _this._frozen = (_a = options.frozen) !== null && _a !== void 0 ? _a : 0;
             _this._columns = (_b = options.columns) !== null && _b !== void 0 ? _b : [];
@@ -62912,7 +62875,6 @@
         function DTableBody(options) {
             var _a;
             var _this = _super.call(this, options) || this;
-            _this.state.isFocusable = false;
             _this.transform.position.y = (_a = options.offset) !== null && _a !== void 0 ? _a : 0;
             var data = _this.toData(options.data);
             _this._data = data;
@@ -66388,7 +66350,6 @@
             var _this = _super.call(this, options) || this;
             _this._padding = new DBasePaddingAdjustable(_this._padding);
             _this._data = data;
-            _this.state.isDisabled = true;
             return _this;
         }
         Object.defineProperty(DTreeItemText.prototype, "node", {

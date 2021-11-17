@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.137.0
+ Winter Cardinal UI v0.138.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -290,6 +290,9 @@
         };
         DThemeWhiteBase.prototype.getInteractive = function () {
             return DBaseInteractive.SELF;
+        };
+        DThemeWhiteBase.prototype.newState = function (state) {
+            // DO NOTHING
         };
         DThemeWhiteBase.prototype.getTitle = function () {
             return "";
@@ -1124,6 +1127,10 @@
         DThemeWhitePickerColor.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeWhitePickerColor.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhitePickerColor;
     }(DThemeWhiteBase));
 
@@ -1269,6 +1276,10 @@
         };
         DThemeWhitePickerColorGradient.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeWhitePickerColorGradient.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeWhitePickerColorGradient;
     }(DThemeWhiteBase));
@@ -1416,6 +1427,10 @@
         }
         DThemeWhitePickerTime.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeWhitePickerTime.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         DThemeWhitePickerTime.prototype.getMargin = function () {
             return 8;
@@ -1644,6 +1659,10 @@
         DThemeWhiteText.prototype.getHeight = function () {
             return this.getLineHeight();
         };
+        DThemeWhiteText.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteText;
     }(DThemeWhiteTextBase));
 
@@ -1733,6 +1752,10 @@
         };
         DThemeWhitePickerDatetimeSpace.prototype.getHeight = function () {
             return 30;
+        };
+        DThemeWhitePickerDatetimeSpace.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeWhitePickerDatetimeSpace;
     }(DThemeWhiteBase));
@@ -2251,6 +2274,10 @@
         DThemeWhiteDialogSelectList.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
         };
+        DThemeWhiteDialogSelectList.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteDialogSelectList;
     }(DThemeWhiteList));
 
@@ -2482,6 +2509,10 @@
         DThemeWhiteListItem.prototype.getWidth = function () {
             return "padding";
         };
+        DThemeWhiteListItem.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isDisabled = true;
+        };
         return DThemeWhiteListItem;
     }(DThemeWhiteImageBase));
 
@@ -2626,9 +2657,6 @@
         DThemeWhiteCanvas.prototype.getBorderColor = function (state) {
             return null;
         };
-        DThemeWhiteCanvas.prototype.getOutlineColor = function (state) {
-            return null;
-        };
         DThemeWhiteCanvas.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
         };
@@ -2651,9 +2679,6 @@
             return null;
         };
         DThemeWhiteCanvasContainer.prototype.getBorderColor = function (state) {
-            return null;
-        };
-        DThemeWhiteCanvasContainer.prototype.getOutlineColor = function (state) {
             return null;
         };
         DThemeWhiteCanvasContainer.prototype.getPaddingLeft = function () {
@@ -2715,6 +2740,10 @@
         };
         DThemeWhiteChart.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeWhiteChart.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         DThemeWhiteChart.prototype.isOverflowMaskEnabled = function () {
             return true;
@@ -3277,6 +3306,10 @@
         function DThemeWhiteDiagramCanvas() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeWhiteDiagramCanvas.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteDiagramCanvas;
     }(DThemeWhiteDiagramCanvasBase));
 
@@ -3859,6 +3892,10 @@
         DThemeWhiteDialogConfirmMessage.prototype.getTextAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
         };
+        DThemeWhiteDialogConfirmMessage.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteDialogConfirmMessage;
     }(DThemeWhiteImage));
 
@@ -4201,6 +4238,10 @@
         };
         DThemeWhiteLayout.prototype.getInteractive = function () {
             return DBaseInteractive.CHILDREN;
+        };
+        DThemeWhiteLayout.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         DThemeWhiteLayout.prototype.getDirection = function () {
             return DLayoutDirection.VERTICAL;
@@ -5079,6 +5120,10 @@
         DThemeWhiteLayoutSpace.prototype.getInteractive = function () {
             return DBaseInteractive.CHILDREN;
         };
+        DThemeWhiteLayoutSpace.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteLayoutSpace;
     }(DThemeWhiteBase));
 
@@ -5140,6 +5185,10 @@
         };
         DThemeWhiteMenu.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeWhiteMenu.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusRoot = true;
         };
         return DThemeWhiteMenu;
     }(DThemeWhiteLayoutVertical));
@@ -5575,6 +5624,10 @@
         DThemeWhiteMenuItemSeparator.prototype.getInteractive = function () {
             return DBaseInteractive.NONE;
         };
+        DThemeWhiteMenuItemSeparator.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteMenuItemSeparator;
     }(DThemeWhiteMenuItemBase));
 
@@ -5689,6 +5742,10 @@
         DThemeWhiteMenuBar.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeWhiteMenuBar.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusRoot = true;
+        };
         return DThemeWhiteMenuBar;
     }(DThemeWhiteLayoutHorizontal));
 
@@ -5799,6 +5856,10 @@
         };
         DThemeWhiteMenuSidedContent.prototype.getMargin = function () {
             return 0;
+        };
+        DThemeWhiteMenuSidedContent.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeWhiteMenuSidedContent;
     }(DThemeWhiteLayoutVertical));
@@ -6124,6 +6185,10 @@
         DThemeWhiteContent.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeWhiteContent.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteContent;
     }(DThemeWhiteBase));
 
@@ -6150,6 +6215,10 @@
         };
         DThemeWhiteScrollBar.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeWhiteScrollBar.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         DThemeWhiteScrollBar.prototype.getFadeOutDelay = function () {
             return 1500;
@@ -6202,6 +6271,10 @@
         };
         DThemeWhiteScrollBarThumb.prototype.getThumbMinimumLength = function () {
             return 16;
+        };
+        DThemeWhiteScrollBarThumb.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeWhiteScrollBarThumb;
     }(DThemeWhiteBase));
@@ -6426,6 +6499,10 @@
         DThemeWhiteSliderLabel.prototype.getTextAlignVertical = function () {
             return DAlignVertical.MIDDLE;
         };
+        DThemeWhiteSliderLabel.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteSliderLabel;
     }(DThemeWhiteTextBase));
 
@@ -6625,6 +6702,10 @@
         DThemeWhiteSliderValue.prototype.getPrecision = function () {
             return 0;
         };
+        DThemeWhiteSliderValue.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeWhiteSliderValue;
     }(DThemeWhiteTextBase));
 
@@ -6709,6 +6790,10 @@
         };
         DThemeWhiteTableBody.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeWhiteTableBody.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeWhiteTableBody;
     }(DThemeWhiteBase));
@@ -7440,6 +7525,11 @@
         DThemeWhiteTableBodyCellInputTree.prototype.getInteractive = function () {
             return DBaseInteractive.CHILDREN;
         };
+        DThemeWhiteTableBodyCellInputTree.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+            state.isFocusReverse = true;
+        };
         return DThemeWhiteTableBodyCellInputTree;
     }(DThemeWhiteBase));
 
@@ -7760,6 +7850,10 @@
         };
         DThemeWhiteTableRow.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeWhiteTableRow.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusReverse = true;
         };
         return DThemeWhiteTableRow;
     }(DThemeWhiteLayoutHorizontal));
@@ -8136,6 +8230,10 @@
         };
         DThemeWhiteTreeItemText.prototype.getLevelPadding = function (level) {
             return 24 + level * 20 - this.getPaddingLeft();
+        };
+        DThemeWhiteTreeItemText.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isDisabled = true;
         };
         return DThemeWhiteTreeItemText;
     }(DThemeWhiteImageBase));

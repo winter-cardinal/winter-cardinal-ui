@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.137.0
+ Winter Cardinal UI v0.138.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -290,6 +290,9 @@
         };
         DThemeDarkBase.prototype.getInteractive = function () {
             return DBaseInteractive.SELF;
+        };
+        DThemeDarkBase.prototype.newState = function (state) {
+            // DO NOTHING
         };
         DThemeDarkBase.prototype.getTitle = function () {
             return "";
@@ -1114,6 +1117,10 @@
         DThemeDarkPickerColor.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeDarkPickerColor.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkPickerColor;
     }(DThemeDarkBase));
 
@@ -1260,6 +1267,10 @@
         DThemeDarkPickerColorGradient.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeDarkPickerColorGradient.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkPickerColorGradient;
     }(DThemeDarkBase));
 
@@ -1398,6 +1409,10 @@
         }
         DThemeDarkPickerTime.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeDarkPickerTime.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         DThemeDarkPickerTime.prototype.getMargin = function () {
             return 8;
@@ -1626,6 +1641,10 @@
         DThemeDarkText.prototype.getHeight = function () {
             return this.getLineHeight();
         };
+        DThemeDarkText.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkText;
     }(DThemeDarkTextBase));
 
@@ -1715,6 +1734,10 @@
         };
         DThemeDarkPickerDatetimeSpace.prototype.getHeight = function () {
             return 30;
+        };
+        DThemeDarkPickerDatetimeSpace.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeDarkPickerDatetimeSpace;
     }(DThemeDarkBase));
@@ -2241,10 +2264,10 @@
         function DThemeDarkDialogSelectList() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogSelectList.prototype.getBackgroundColor = function () {
+        DThemeDarkDialogSelectList.prototype.getBackgroundColor = function (state) {
             return null;
         };
-        DThemeDarkDialogSelectList.prototype.getBorderColor = function () {
+        DThemeDarkDialogSelectList.prototype.getBorderColor = function (state) {
             return null;
         };
         DThemeDarkDialogSelectList.prototype.getHeight = function () {
@@ -2252,6 +2275,10 @@
         };
         DThemeDarkDialogSelectList.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
+        };
+        DThemeDarkDialogSelectList.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeDarkDialogSelectList;
     }(DThemeDarkList));
@@ -2484,6 +2511,10 @@
         DThemeDarkListItem.prototype.getWidth = function () {
             return "padding";
         };
+        DThemeDarkListItem.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isDisabled = true;
+        };
         return DThemeDarkListItem;
     }(DThemeDarkImageBase));
 
@@ -2628,9 +2659,6 @@
         DThemeDarkCanvas.prototype.getBorderColor = function (state) {
             return null;
         };
-        DThemeDarkCanvas.prototype.getOutlineColor = function (state) {
-            return null;
-        };
         DThemeDarkCanvas.prototype.getCornerMask = function () {
             return DCornerMask.ALL;
         };
@@ -2653,9 +2681,6 @@
             return null;
         };
         DThemeDarkCanvasContainer.prototype.getBorderColor = function (state) {
-            return null;
-        };
-        DThemeDarkCanvasContainer.prototype.getOutlineColor = function (state) {
             return null;
         };
         DThemeDarkCanvasContainer.prototype.getPaddingLeft = function () {
@@ -2717,6 +2742,10 @@
         };
         DThemeDarkChart.prototype.isOverflowMaskEnabled = function () {
             return true;
+        };
+        DThemeDarkChart.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeDarkChart;
     }(DThemeDarkBase));
@@ -3276,6 +3305,10 @@
         function DThemeDarkDiagramCanvas() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkDiagramCanvas.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkDiagramCanvas;
     }(DThemeDarkDiagramCanvasBase));
 
@@ -3864,6 +3897,10 @@
         DThemeDarkDialogConfirmMessage.prototype.getTextAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
         };
+        DThemeDarkDialogConfirmMessage.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkDialogConfirmMessage;
     }(DThemeDarkImage));
 
@@ -4204,6 +4241,10 @@
         };
         DThemeDarkLayout.prototype.getInteractive = function () {
             return DBaseInteractive.CHILDREN;
+        };
+        DThemeDarkLayout.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         DThemeDarkLayout.prototype.getDirection = function () {
             return DLayoutDirection.VERTICAL;
@@ -5082,6 +5123,10 @@
         DThemeDarkLayoutSpace.prototype.getInteractive = function () {
             return DBaseInteractive.CHILDREN;
         };
+        DThemeDarkLayoutSpace.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkLayoutSpace;
     }(DThemeDarkBase));
 
@@ -5143,6 +5188,10 @@
         };
         DThemeDarkMenu.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeDarkMenu.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusRoot = true;
         };
         return DThemeDarkMenu;
     }(DThemeDarkLayoutVertical));
@@ -5576,6 +5625,10 @@
         DThemeDarkMenuItemSeparator.prototype.getInteractive = function () {
             return DBaseInteractive.NONE;
         };
+        DThemeDarkMenuItemSeparator.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkMenuItemSeparator;
     }(DThemeDarkMenuItemBase));
 
@@ -5690,6 +5743,10 @@
         DThemeDarkMenuBar.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeDarkMenuBar.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusRoot = true;
+        };
         return DThemeDarkMenuBar;
     }(DThemeDarkLayoutHorizontal));
 
@@ -5800,6 +5857,10 @@
         };
         DThemeDarkMenuSidedContent.prototype.getMargin = function () {
             return 0;
+        };
+        DThemeDarkMenuSidedContent.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeDarkMenuSidedContent;
     }(DThemeDarkLayoutVertical));
@@ -6125,6 +6186,10 @@
         DThemeDarkContent.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
         };
+        DThemeDarkContent.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkContent;
     }(DThemeDarkBase));
 
@@ -6151,6 +6216,10 @@
         };
         DThemeDarkScrollBar.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeDarkScrollBar.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         DThemeDarkScrollBar.prototype.getFadeOutDelay = function () {
             return 1500;
@@ -6203,6 +6272,10 @@
         };
         DThemeDarkScrollBarThumb.prototype.getThumbMinimumLength = function () {
             return 16;
+        };
+        DThemeDarkScrollBarThumb.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeDarkScrollBarThumb;
     }(DThemeDarkBase));
@@ -6427,6 +6500,10 @@
         DThemeDarkSliderLabel.prototype.getTextAlignVertical = function () {
             return DAlignVertical.MIDDLE;
         };
+        DThemeDarkSliderLabel.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkSliderLabel;
     }(DThemeDarkTextBase));
 
@@ -6632,6 +6709,10 @@
         DThemeDarkSliderValue.prototype.getPrecision = function () {
             return 0;
         };
+        DThemeDarkSliderValue.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
         return DThemeDarkSliderValue;
     }(DThemeDarkTextBase));
 
@@ -6716,6 +6797,10 @@
         };
         DThemeDarkTableBody.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeDarkTableBody.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeDarkTableBody;
     }(DThemeDarkBase));
@@ -7447,6 +7532,11 @@
         DThemeDarkTableBodyCellInputTree.prototype.getInteractive = function () {
             return DBaseInteractive.CHILDREN;
         };
+        DThemeDarkTableBodyCellInputTree.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+            state.isFocusReverse = true;
+        };
         return DThemeDarkTableBodyCellInputTree;
     }(DThemeDarkBase));
 
@@ -7767,6 +7857,10 @@
         };
         DThemeDarkTableRow.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
+        };
+        DThemeDarkTableRow.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusReverse = true;
         };
         return DThemeDarkTableRow;
     }(DThemeDarkLayoutHorizontal));
@@ -8142,6 +8236,10 @@
         };
         DThemeDarkTreeItemText.prototype.getLevelPadding = function (level) {
             return 24 + level * 20 - this.getPaddingLeft();
+        };
+        DThemeDarkTreeItemText.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isDisabled = true;
         };
         return DThemeDarkTreeItemText;
     }(DThemeDarkImageBase));
