@@ -25,4 +25,9 @@ export class DThemeWhiteTableRow extends DThemeWhiteLayoutHorizontal implements 
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusReverse = true;
+	}
 }

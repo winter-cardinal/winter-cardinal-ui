@@ -112,8 +112,6 @@ export class DPickerColor<
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
-		this.state.isFocusable = false;
-
 		this._base = 0xff0000;
 		this._new = { color: 0xffffff, alpha: 1 };
 		this._newPicker = new DPickerColorAndAlpha(

@@ -108,8 +108,6 @@ export class DPickerTime<
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
-		this.state.isFocusable = false;
-
 		const theme = this.theme;
 		this._dateCurrent = new Date();
 		const dateCurrentTime = this._dateCurrent.getTime();

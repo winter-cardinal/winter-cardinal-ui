@@ -18,10 +18,6 @@ export class DThemeWhiteCanvasContainer extends DThemeWhiteBase implements DThem
 		return null;
 	}
 
-	getOutlineColor(state: DBaseStateSet): number | null {
-		return null;
-	}
-
 	getPaddingLeft(): number {
 		return 32;
 	}

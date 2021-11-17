@@ -17,7 +17,6 @@ export class DPickerDatetimeSpace<
 > extends DBase<THEME, OPTIONS> {
 	constructor(options?: OPTIONS) {
 		super(options);
-		this.state.isFocusable = false;
 		this.renderable = false;
 	}
 

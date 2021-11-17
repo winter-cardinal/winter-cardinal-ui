@@ -91,7 +91,6 @@ export class DTableBody<
 	constructor(options: OPTIONS) {
 		super(options);
 
-		this.state.isFocusable = false;
 		this.transform.position.y = options.offset ?? 0;
 		const data = this.toData(options.data);
 		this._data = data;

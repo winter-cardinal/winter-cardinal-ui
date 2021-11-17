@@ -62,7 +62,6 @@ export class DMenu<
 		this._owner = null;
 		this._context = null;
 		this.visible = false;
-		this.state.isFocusRoot = true;
 
 		// Event handlers
 		UtilClickOutside.apply(this, (): void => {

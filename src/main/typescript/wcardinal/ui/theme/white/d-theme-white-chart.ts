@@ -33,6 +33,11 @@ export class DThemeWhiteChart extends DThemeWhiteBase implements DThemeChart {
 		return DBaseInteractive.BOTH;
 	}
 
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
+
 	isOverflowMaskEnabled(): boolean {
 		return true;
 	}

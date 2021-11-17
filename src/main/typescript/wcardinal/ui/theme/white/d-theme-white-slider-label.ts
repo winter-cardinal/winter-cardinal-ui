@@ -5,6 +5,7 @@
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignVertical } from "../../d-align-vertical";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeSliderLabel } from "../../d-slider-label";
 import { DThemeWhiteTextBase } from "./d-theme-white-text-base";
@@ -27,5 +28,10 @@ export class DThemeWhiteSliderLabel<VALUE = unknown>
 
 	getTextAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
 	}
 }

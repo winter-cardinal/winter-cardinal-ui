@@ -34,4 +34,9 @@ export class DThemeWhiteLayoutSpace extends DThemeWhiteBase implements DThemeLay
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.CHILDREN;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

@@ -50,4 +50,9 @@ export class DThemeWhiteMenu extends DThemeWhiteLayoutVertical implements DTheme
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusRoot = true;
+	}
 }

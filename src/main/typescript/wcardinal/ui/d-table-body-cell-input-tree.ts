@@ -70,9 +70,6 @@ export class DTableBodyCellInputTree<
 		const marker = this.newMarker(options);
 		this._marker = marker;
 		this.addChild(marker);
-
-		this.state.isFocusable = false;
-		this.state.isFocusReverse = true;
 	}
 
 	protected newInput(options?: OPTIONS): DTableBodyCellInputTreeInput {

@@ -23,8 +23,6 @@ export class DSliderLabel<
 
 	protected init(options?: OPTIONS): void {
 		super.init(options);
-		this.state.isFocusable = false;
-
 		this._value = options?.value ?? 0;
 	}
 

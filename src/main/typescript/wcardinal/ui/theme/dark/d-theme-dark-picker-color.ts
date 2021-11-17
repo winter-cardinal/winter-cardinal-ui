@@ -250,4 +250,9 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

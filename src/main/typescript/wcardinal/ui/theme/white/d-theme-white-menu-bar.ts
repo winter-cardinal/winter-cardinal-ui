@@ -37,4 +37,9 @@ export class DThemeWhiteMenuBar extends DThemeWhiteLayoutHorizontal implements D
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusRoot = true;
+	}
 }

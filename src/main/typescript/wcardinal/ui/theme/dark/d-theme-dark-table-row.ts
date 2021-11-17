@@ -25,4 +25,9 @@ export class DThemeDarkTableRow extends DThemeDarkLayoutHorizontal implements DT
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusReverse = true;
+	}
 }

@@ -16,11 +16,6 @@ export class DMenuSidedContent<
 	THEME extends DThemeMenuSidedContent = DThemeMenuSidedContent,
 	OPTIONS extends DMenuSidedContentOptions<THEME> = DMenuSidedContentOptions<THEME>
 > extends DLayoutHorizontal<THEME, OPTIONS> {
-	protected init(options?: OPTIONS): void {
-		super.init(options);
-		this.state.isFocusable = false;
-	}
-
 	protected initReflowable(): void {
 		// DO NOTHING
 	}

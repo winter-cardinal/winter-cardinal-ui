@@ -56,7 +56,6 @@ export abstract class DScrollBar<
 		});
 		this._thumb = thumb;
 		this.addChild(thumb);
-		this.state.isFocusable = false;
 	}
 
 	get thumb(): DScrollBarThumb {

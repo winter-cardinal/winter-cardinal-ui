@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBaseStateSet } from "../..";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDialogSelecList } from "../../d-dialog-select-list";
@@ -24,5 +24,10 @@ export class DThemeWhiteDialogSelectList extends DThemeWhiteList implements DThe
 
 	getCornerMask(): DCornerMask {
 		return DCornerMask.ALL;
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
 	}
 }

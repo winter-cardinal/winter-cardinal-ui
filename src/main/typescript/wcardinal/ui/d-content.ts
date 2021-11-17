@@ -10,11 +10,6 @@ export interface DContentOptions extends DBaseOptions<DThemeContent> {}
 export interface DThemeContent extends DThemeBase {}
 
 export class DContent extends DBase<DThemeContent, DContentOptions> {
-	protected init(options?: DContentOptions): void {
-		super.init(options);
-		this.state.isFocusable = false;
-	}
-
 	protected initReflowable(): void {
 		// DO NOTHING
 	}

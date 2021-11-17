@@ -30,11 +30,6 @@ export class DMenuItemSeparator<
 		THEME
 	>
 > extends DMenuItemBase<VALUE, THEME, OPTIONS> {
-	protected init(options?: OPTIONS): void {
-		super.init(options);
-		this.state.isFocusable = false;
-	}
-
 	protected initReflowable(): void {
 		new DMenuItemSeparatorReflowable(this);
 	}

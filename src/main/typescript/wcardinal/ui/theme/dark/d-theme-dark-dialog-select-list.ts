@@ -3,17 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDialogSelecList } from "../../d-dialog-select-list";
 import { DThemeDarkList } from "./d-theme-dark-list";
 
 export class DThemeDarkDialogSelectList extends DThemeDarkList implements DThemeDialogSelecList {
-	getBackgroundColor(): number | null {
+	getBackgroundColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
-	getBorderColor(): number | null {
+	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
 
@@ -23,5 +24,10 @@ export class DThemeDarkDialogSelectList extends DThemeDarkList implements DTheme
 
 	getCornerMask(): DCornerMask {
 		return DCornerMask.ALL;
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
 	}
 }

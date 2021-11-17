@@ -62,8 +62,6 @@ export class DPickerColorGradient<
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
-		this.state.isFocusable = false;
-
 		const theme = this.theme;
 		const padding = this._padding;
 		const paddingTop = padding.getTop();

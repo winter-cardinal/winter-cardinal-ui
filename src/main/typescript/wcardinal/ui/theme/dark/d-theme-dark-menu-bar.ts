@@ -38,4 +38,9 @@ export class DThemeDarkMenuBar extends DThemeDarkLayoutHorizontal implements DTh
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusRoot = true;
+	}
 }

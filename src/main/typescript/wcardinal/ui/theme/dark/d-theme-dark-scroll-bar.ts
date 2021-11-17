@@ -30,6 +30,11 @@ export class DThemeDarkScrollBar extends DThemeDarkBase implements DThemeScrollB
 		return DBaseInteractive.BOTH;
 	}
 
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
+
 	getFadeOutDelay(): number {
 		return 1500;
 	}

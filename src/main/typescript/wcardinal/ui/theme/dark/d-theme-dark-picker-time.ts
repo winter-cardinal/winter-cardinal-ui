@@ -4,6 +4,7 @@
  */
 
 import { DBaseInteractive } from "../../d-base-interactive";
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DInputIntegerOptions } from "../../d-input-integer";
 import { DPickerDatetimeMask } from "../../d-picker-datetime-mask";
@@ -13,6 +14,11 @@ import { DThemeDarkBase } from "./d-theme-dark-base";
 export class DThemeDarkPickerTime extends DThemeDarkBase implements DThemePickerTime {
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
 	}
 
 	getMargin(): number {

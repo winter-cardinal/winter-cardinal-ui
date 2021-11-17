@@ -633,6 +633,11 @@ export interface DThemeBase extends DThemeFont {
 	getInteractive(): DBaseInteractive;
 
 	/**
+	 * Returns true if focusable.
+	 */
+	newState(state: DBaseStateSet): void;
+
+	/**
 	 * Returns a tooltip text.
 	 */
 	getTitle(): string;
@@ -840,6 +845,7 @@ export class DBase<
 		this._state = new DBaseStateSetImplObservable((newState, oldState): void => {
 			this.onStateChange(newState, oldState);
 		});
+		theme.newState(this._state);
 
 		// Interactive
 		const interactive = toEnum(

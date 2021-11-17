@@ -77,7 +77,6 @@ export class DTreeItemText<
 		super(options);
 		this._padding = new DBasePaddingAdjustable(this._padding);
 		this._data = data;
-		this.state.isDisabled = true;
 	}
 
 	get node(): NODE | undefined {

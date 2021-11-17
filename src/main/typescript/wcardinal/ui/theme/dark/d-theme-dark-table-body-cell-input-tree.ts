@@ -36,4 +36,10 @@ export class DThemeDarkTableBodyCellInputTree
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.CHILDREN;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+		state.isFocusReverse = true;
+	}
 }

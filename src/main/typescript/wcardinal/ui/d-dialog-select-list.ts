@@ -30,11 +30,6 @@ export class DDialogSelectList<
 		CONTENT_OPTIONS
 	> = DDialogSelectListOptions<VALUE, DATA, THEME, CONTENT_OPTIONS>
 > extends DList<VALUE, DATA, THEME, CONTENT_OPTIONS, OPTIONS> {
-	constructor(options?: OPTIONS) {
-		super(options);
-		this.state.isFocusable = false;
-	}
-
 	protected newUpdater(
 		data: DATA,
 		content: DBase,

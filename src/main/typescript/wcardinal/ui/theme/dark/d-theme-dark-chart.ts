@@ -36,4 +36,9 @@ export class DThemeDarkChart extends DThemeDarkBase implements DThemeChart {
 	isOverflowMaskEnabled(): boolean {
 		return true;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

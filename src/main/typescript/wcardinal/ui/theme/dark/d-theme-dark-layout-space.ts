@@ -34,4 +34,9 @@ export class DThemeDarkLayoutSpace extends DThemeDarkBase implements DThemeLayou
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.CHILDREN;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

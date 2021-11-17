@@ -250,4 +250,9 @@ export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePic
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

@@ -128,14 +128,9 @@ export abstract class DLayout<
 	protected _direction!: DLayoutDirection;
 	protected _reverse!: boolean;
 
-	constructor(options?: OPTIONS) {
-		super(options);
-	}
-
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
-		this.state.isFocusable = false;
 		const theme = this.theme;
 		this._margin = toMargin(theme, options);
 		this._direction = toDirection(theme, options);

@@ -30,4 +30,9 @@ export class DThemeDarkTableBody extends DThemeDarkBase implements DThemeTableBo
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.BOTH;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

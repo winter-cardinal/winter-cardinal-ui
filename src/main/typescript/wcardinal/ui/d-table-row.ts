@@ -38,7 +38,6 @@ export abstract class DTableRow<
 	constructor(options: OPTIONS) {
 		super(options);
 
-		this.state.isFocusReverse = true;
 		this._reverse = true;
 		this._frozen = options.frozen ?? 0;
 		this._columns = options.columns ?? [];

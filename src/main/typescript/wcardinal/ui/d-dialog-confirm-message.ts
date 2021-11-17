@@ -15,11 +15,6 @@ export class DDialogConfirmMessage<
 	THEME extends DThemeDialogConfirmMessage = DThemeDialogConfirmMessage,
 	OPTIONS extends DDialogConfirmMessageOptions<THEME> = DDialogConfirmMessageOptions<THEME>
 > extends DImage<string, THEME, OPTIONS> {
-	constructor(options?: OPTIONS) {
-		super(options);
-		this.state.isFocusable = false;
-	}
-
 	protected getType(): string {
 		return "DDialogConfirmMessage";
 	}

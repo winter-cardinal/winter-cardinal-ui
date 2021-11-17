@@ -17,7 +17,6 @@ export class DLayoutSpace<
 	constructor(options?: OPTIONS) {
 		super(options);
 		this.visible = false;
-		this.state.isFocusable = false;
 	}
 
 	protected getType(): string {

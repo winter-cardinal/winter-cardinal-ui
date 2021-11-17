@@ -166,6 +166,10 @@ export class DThemeDarkBase extends DThemeDarkFont implements DThemeBase {
 		return DBaseInteractive.SELF;
 	}
 
+	newState(state: DBaseStateSet): void {
+		// DO NOTHING
+	}
+
 	getTitle(): string {
 		return "";
 	}

@@ -26,6 +26,11 @@ export class DThemeDarkLayout extends DThemeDarkBase implements DThemeLayout {
 		return DBaseInteractive.CHILDREN;
 	}
 
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
+
 	getDirection(): DLayoutDirection {
 		return DLayoutDirection.VERTICAL;
 	}

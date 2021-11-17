@@ -57,4 +57,9 @@ export class DThemeWhiteSliderValue<VALUE = unknown>
 	getPrecision(): number {
 		return 0;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

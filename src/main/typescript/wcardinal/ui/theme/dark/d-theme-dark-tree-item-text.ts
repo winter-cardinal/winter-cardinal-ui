@@ -86,4 +86,9 @@ export class DThemeDarkTreeItemText
 	getLevelPadding(level: number): number {
 		return 24 + level * 20 - this.getPaddingLeft();
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isDisabled = true;
+	}
 }

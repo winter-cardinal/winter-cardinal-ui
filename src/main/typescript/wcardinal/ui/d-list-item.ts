@@ -67,7 +67,6 @@ export class DListItem<
 	constructor(data: DListData<VALUE>, options?: OPTIONS) {
 		super(options);
 		this._data = data;
-		this.state.isDisabled = true;
 	}
 
 	protected init(options?: OPTIONS): void {

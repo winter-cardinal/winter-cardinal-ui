@@ -27,4 +27,9 @@ export class DThemeDarkPickerDatetimeSpace
 	getHeight(): DCoordinateSize {
 		return 30;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

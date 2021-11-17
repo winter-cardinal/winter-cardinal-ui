@@ -54,4 +54,9 @@ export class DThemeWhiteScrollBarThumb extends DThemeWhiteBase implements DTheme
 	getThumbMinimumLength(): number {
 		return 16;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

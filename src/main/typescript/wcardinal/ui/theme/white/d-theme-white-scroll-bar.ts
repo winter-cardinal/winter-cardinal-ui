@@ -30,6 +30,11 @@ export class DThemeWhiteScrollBar extends DThemeWhiteBase implements DThemeScrol
 		return DBaseInteractive.BOTH;
 	}
 
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
+
 	getFadeOutDelay(): number {
 		return 1500;
 	}

@@ -41,4 +41,9 @@ export class DThemeWhiteMenuItemSeparator
 	getInteractive(): DBaseInteractive {
 		return DBaseInteractive.NONE;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

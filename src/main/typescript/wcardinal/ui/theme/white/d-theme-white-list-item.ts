@@ -79,4 +79,9 @@ export class DThemeWhiteListItem extends DThemeWhiteImageBase<string> implements
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isDisabled = true;
+	}
 }

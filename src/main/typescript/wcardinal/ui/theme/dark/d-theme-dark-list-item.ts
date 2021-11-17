@@ -79,4 +79,9 @@ export class DThemeDarkListItem extends DThemeDarkImageBase<string> implements D
 	getWidth(): DCoordinateSize {
 		return "padding";
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isDisabled = true;
+	}
 }

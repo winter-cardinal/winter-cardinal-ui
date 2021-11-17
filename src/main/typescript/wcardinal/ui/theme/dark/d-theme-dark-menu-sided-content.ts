@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenuSidedContent } from "../../d-menu-sided-content";
 import { DThemeDarkLayoutVertical } from "./d-theme-dark-layout-vertical";
@@ -29,5 +30,10 @@ export class DThemeDarkMenuSidedContent
 
 	getMargin(): number {
 		return 0;
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
 	}
 }

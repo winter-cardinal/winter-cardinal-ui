@@ -54,4 +54,9 @@ export class DThemeDarkScrollBarThumb extends DThemeDarkBase implements DThemeSc
 	getThumbMinimumLength(): number {
 		return 16;
 	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

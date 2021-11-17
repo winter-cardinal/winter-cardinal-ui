@@ -36,8 +36,6 @@ export class DMenuBar<
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
-		this.state.isFocusRoot = true;
-
 		const items = options?.items;
 		if (items) {
 			for (let i = 0, imax = items.length; i < imax; ++i) {

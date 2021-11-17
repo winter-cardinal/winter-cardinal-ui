@@ -18,7 +18,6 @@ export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrol
 
 	protected init(options?: DScrollBarThumbOptions): void {
 		super.init(options);
-		this.state.isFocusable = false;
 
 		const position = new Point();
 		this._gestureUtil = new UtilGesture<DScrollBarThumb>({
