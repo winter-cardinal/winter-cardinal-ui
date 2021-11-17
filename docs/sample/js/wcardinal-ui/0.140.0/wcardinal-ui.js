@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.139.0
+ Winter Cardinal UI v0.140.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -12272,7 +12272,6 @@
             _this._state = new DBaseStateSetImplObservable(function (newState, oldState) {
                 _this.onStateChange(newState, oldState);
             });
-            theme.newState(_this._state);
             // Interactive
             var interactive = toEnum((_g = options === null || options === void 0 ? void 0 : options.interactive) !== null && _g !== void 0 ? _g : theme.getInteractive(), DBaseInteractive);
             _this.interactive = !!(interactive & DBaseInteractive.SELF);
@@ -12363,6 +12362,7 @@
             // Other initialization
             _this.init(options);
             // State Override
+            theme.newState(_this._state);
             var state = options === null || options === void 0 ? void 0 : options.state;
             if (state != null) {
                 if (isString(state)) {
