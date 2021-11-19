@@ -197,6 +197,7 @@ export abstract class DDiagramBase<
 			height: serialized.height,
 			background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
 			border: isAmbient ? { color: null } : undefined,
+			outline: isAmbient ? { color: null } : undefined,
 			shadow: isAmbient ? null : theme.getCanvasShadow(),
 			tile: {
 				factory: this._tileFactory,

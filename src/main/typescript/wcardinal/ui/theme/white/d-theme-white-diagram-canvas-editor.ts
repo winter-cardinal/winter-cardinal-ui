@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeDiagramCanvasEditor } from "../../d-diagram-canvas-editor";
 import { DDiagramCanvasEditorSnapGridSize } from "../../d-diagram-canvas-editor-snap";
 import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
@@ -29,6 +30,10 @@ export class DThemeWhiteDiagramCanvasEditor
 {
 	isAmbient(): boolean {
 		return false;
+	}
+
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return null;
 	}
 
 	getSnapGridMajorInterval(): number {

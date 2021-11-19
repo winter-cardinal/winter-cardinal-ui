@@ -338,6 +338,8 @@ export class DDiagramEditor<
 
 	protected onSet(serialized: DDiagramSerialized): void {
 		super.onSet(serialized);
+
+		// Snap settings
 		const snap = serialized.snap;
 		const snapper = this._snapper;
 		if (snap != null) {
@@ -345,7 +347,15 @@ export class DDiagramEditor<
 		} else {
 			snapper.reset();
 		}
+		if (this._isAmbient) {
+			snapper.target.visible = false;
+			snapper.grid.visible = false;
+		}
+
+		// Reset the isChanged flag
 		this._isChanged = false;
+
+		// Done
 		this.emit("change", this);
 	}
 
