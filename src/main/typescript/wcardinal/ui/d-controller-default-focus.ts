@@ -78,7 +78,9 @@ export class DControllerDefaultFocus implements DControllerFocus {
 			if (result != null) {
 				return result;
 			}
-
+			if (this.isFocusRoot(target, root)) {
+				return null;
+			}
 			const parent = target.parent;
 			if (parent != null) {
 				const children = parent.children;
