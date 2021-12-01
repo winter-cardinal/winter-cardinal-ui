@@ -107,9 +107,9 @@ export class DThemeWhiteListItems {
 		if (state.inDisabled) {
 			if (this._isStripeEnabled) {
 				if (state.isAlternated) {
-					return this._backgroundColorEven;
-				} else {
 					return this._backgroundColorOdd;
+				} else {
+					return this._backgroundColorEven;
 				}
 			} else {
 				return null;
@@ -123,9 +123,9 @@ export class DThemeWhiteListItems {
 		} else {
 			if (this._isStripeEnabled) {
 				if (state.isAlternated) {
-					return this._backgroundColorEven;
-				} else {
 					return this._backgroundColorOdd;
+				} else {
+					return this._backgroundColorEven;
 				}
 			} else {
 				return null;
@@ -137,9 +137,9 @@ export class DThemeWhiteListItems {
 		if (state.inDisabled) {
 			if (this._isStripeEnabled) {
 				if (state.isAlternated) {
-					return this._backgroundAlphaEven;
-				} else {
 					return this._backgroundAlphaOdd;
+				} else {
+					return this._backgroundAlphaEven;
 				}
 			} else {
 				return 0;
@@ -153,9 +153,9 @@ export class DThemeWhiteListItems {
 		} else {
 			if (this._isStripeEnabled) {
 				if (state.isAlternated) {
-					return this._backgroundAlphaEven;
-				} else {
 					return this._backgroundAlphaOdd;
+				} else {
+					return this._backgroundAlphaEven;
 				}
 			} else {
 				return 0;

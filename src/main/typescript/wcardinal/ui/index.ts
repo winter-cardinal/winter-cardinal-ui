@@ -300,6 +300,7 @@ export * from "./d-list-data-selection";
 export * from "./d-list-data";
 export * from "./d-list-item-accessor-impl";
 export * from "./d-list-item-accessor";
+export * from "./d-list-item-ambient";
 export * from "./d-list-item-updater";
 export * from "./d-list-item";
 export * from "./d-list";

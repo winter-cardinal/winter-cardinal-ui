@@ -71,7 +71,7 @@ export class DTableBodyRow<
 			this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, this);
 			onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
 		};
-		this.state.isAlternated = isEven;
+		this.state.isAlternated = !isEven;
 		this.initCells(options, this._columns, this._frozen);
 	}
 

@@ -92,6 +92,7 @@ export * from "./d-theme-dark-layout-vertical";
 export * from "./d-theme-dark-layout";
 export * from "./d-theme-dark-expandable";
 export * from "./d-theme-dark-expandable-header";
+export * from "./d-theme-dark-list-item-ambient";
 export * from "./d-theme-dark-list-item";
 export * from "./d-theme-dark-list-items";
 export * from "./d-theme-dark-list";

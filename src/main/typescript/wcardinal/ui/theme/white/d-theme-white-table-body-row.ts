@@ -19,13 +19,13 @@ export class DThemeWhiteTableBodyRow extends DThemeWhiteTableRow implements DThe
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
-			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+			return state.isAlternated ? this.BACKGROUND_COLOR_ODD : this.BACKGROUND_COLOR_EVEN;
 		} else if (state.isActive) {
 			return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
 		} else if (state.isHovered) {
 			return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
-			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+			return state.isAlternated ? this.BACKGROUND_COLOR_ODD : this.BACKGROUND_COLOR_EVEN;
 		}
 	}
 

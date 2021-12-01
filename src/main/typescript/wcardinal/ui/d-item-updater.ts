@@ -17,8 +17,26 @@ export interface DItemUpdaterItem<VALUE> extends DBase {
 
 export type DItemUpdaterNewItem<DATA, ITEM> = (data: DATA) => ITEM;
 
+export type DItemUpdaterInitItem<DATA, ITEM> = (item: ITEM, index: number, data: DATA) => ITEM;
+
+/**
+ * Item updater options.
+ */
 export interface DItemUpdaterOptions<VALUE, DATA, ITEM> {
+	/**
+	 * Called to create items.
+	 */
 	newItem?: DItemUpdaterNewItem<DATA, ITEM>;
+
+	/**
+	 * Called to initialize items.
+	 */
+	initItem?: DItemUpdaterInitItem<DATA, ITEM>;
+
+	/**
+	 * True to make stripe-colored items. Defaults to true.
+	 */
+	stripe?: boolean;
 }
 
 export interface DItemUpdaterDataSelection<VALUE> {
@@ -59,6 +77,7 @@ export abstract class DItemUpdater<
 	protected _content: DBase;
 	protected _container: DBase;
 	protected _newItem: DItemUpdaterNewItem<DATA, ITEM>;
+	protected _initItem: DItemUpdaterInitItem<DATA, ITEM>;
 
 	constructor(data: DATA, content: DBase, container: DBase, options?: OPTIONS) {
 		this._updateItemsCount = 0;
@@ -74,6 +93,7 @@ export abstract class DItemUpdater<
 		this._content = content;
 		this._container = container;
 		this._newItem = this.toNewItem(options);
+		this._initItem = this.toInitItem(options);
 	}
 
 	protected toNewItem(
@@ -83,6 +103,31 @@ export abstract class DItemUpdater<
 	}
 
 	protected abstract newItem(this: undefined, data: DATA): ITEM;
+
+	protected toInitItem(
+		options?: DItemUpdaterOptions<VALUE, DATA, ITEM>
+	): DItemUpdaterInitItem<DATA, ITEM> {
+		if (options) {
+			const initItem = options.initItem;
+			if (initItem) {
+				return initItem;
+			}
+			if (options.stripe !== false) {
+				return this.initItem;
+			}
+			return this.initItemNoStriping;
+		}
+		return this.initItem;
+	}
+
+	protected initItem(this: undefined, item: ITEM, index: number, data: DATA): ITEM {
+		item.state.isAlternated = index % 2 === 1;
+		return item;
+	}
+
+	protected initItemNoStriping(this: undefined, item: ITEM, index: number, data: DATA): ITEM {
+		return item;
+	}
 
 	get multiplicity(): number {
 		return this._multiplicity;
@@ -134,6 +179,7 @@ export abstract class DItemUpdater<
 		let oldItemCount = oldItemIndexEnd - oldItemIndexStart;
 
 		const newItem = this._newItem;
+		const initItem = this._initItem;
 		let itemHeight = this._itemHeight;
 		let itemWidth = this._itemWidth;
 		if (this._itemHeight < 0) {
@@ -141,8 +187,7 @@ export abstract class DItemUpdater<
 			if (0 < items.length) {
 				item = items[0];
 			} else {
-				item = newItem(data);
-				item.state.isAlternated = oldItemIndexStart % 2 === 0;
+				item = initItem(newItem(data), oldItemIndexStart, data);
 				container.addChild(item);
 				oldItemIndexEnd += 1;
 				oldItemCount += 1;
@@ -154,12 +199,25 @@ export abstract class DItemUpdater<
 			this._itemHeight = itemHeight;
 			this._itemWidth = itemWidth;
 		}
-		const multiplicity = 0 < itemWidth ? Math.max(1, Math.floor(content.width / itemWidth)) : 1;
+		const contentPadding = content.padding;
+		const contentPaddingTop = contentPadding.getTop();
+		const contentPaddingBottom = contentPadding.getBottom();
+		const contentPaddingLeft = contentPadding.getLeft();
+		const contentPaddingRight = contentPadding.getRight();
+		const contentWidthAvailable = Math.max(
+			0,
+			content.width - contentPaddingLeft - contentPaddingRight
+		);
+		const multiplicity =
+			0 < itemWidth ? Math.max(1, Math.floor(contentWidthAvailable / itemWidth)) : 1;
 		this._multiplicity = multiplicity;
 
-		const y = content !== container ? container.transform.position.y : 0;
+		const y = content !== container ? container.transform.position.y : contentPaddingTop;
 		const newHeight = Math.ceil(dataSize / multiplicity) * itemHeight;
-		const newContentHeight = Math.max(height, newHeight);
+		const newContentHeight = Math.max(
+			height,
+			contentPaddingTop + newHeight + contentPaddingBottom
+		);
 		const newContentY = Math.max(height - newContentHeight, content.position.y);
 
 		const newItemIndexLowerBound = Math.floor(
@@ -185,8 +243,7 @@ export abstract class DItemUpdater<
 		if (oldItemCount < newItemCount) {
 			for (let i = oldItemCount; i < newItemCount; ++i) {
 				const oldItemIndex = oldItemIndexStart + i;
-				const item = newItem(data);
-				item.state.isAlternated = oldItemIndex % 2 === 0;
+				const item = initItem(newItem(data), oldItemIndex, data);
 				container.addChild(item);
 			}
 			oldItemCount = newItemCount;
@@ -235,12 +292,18 @@ export abstract class DItemUpdater<
 			work.length = 0;
 		}
 
+		let itemOffsetX = 0;
+		let itemOffsetY = 0;
+		if (content === container) {
+			itemOffsetX = contentPaddingLeft;
+			itemOffsetY = contentPaddingTop;
+		}
 		mapped.each(
 			(datum: VALUE, index: number): void | boolean => {
 				const item = items[index - newItemIndexStart];
 				const ix = index % multiplicity;
 				const iy = Math.floor(index / multiplicity);
-				item.position.set(ix * itemWidth, iy * itemHeight);
+				item.position.set(itemOffsetX + ix * itemWidth, itemOffsetY + iy * itemHeight);
 				this.set(item, datum, index, forcibly);
 			},
 			newItemIndexStart,
@@ -252,7 +315,7 @@ export abstract class DItemUpdater<
 			const index = newItemIndexStart + i;
 			const ix = index % multiplicity;
 			const iy = Math.floor(index / multiplicity);
-			item.position.set(ix * itemWidth, iy * itemHeight);
+			item.position.set(itemOffsetX + ix * itemWidth, itemOffsetY + iy * itemHeight);
 			this.unset(item);
 		}
 
@@ -261,7 +324,7 @@ export abstract class DItemUpdater<
 			const index = newItemIndexStart + i;
 			const ix = index % multiplicity;
 			const iy = Math.floor(index / multiplicity);
-			item.position.set(ix * itemWidth, iy * itemHeight);
+			item.position.set(itemOffsetX + ix * itemWidth, itemOffsetY + iy * itemHeight);
 			this.unset(item);
 		}
 
@@ -290,9 +353,14 @@ export abstract class DItemUpdater<
 		for (let i = 0, imax = cells.length; i < imax; ++i) {
 			const cell = cells[i];
 			if (cell instanceof DBase) {
-				cell.state.isPressed = false;
+				const state = cell.state;
+				state.lock();
+				state.isPressed = false;
+				state.isHovered = false;
+				state.unlock();
 			}
 		}
+		item.state.isHovered = false;
 		return item;
 	}
 

@@ -19,13 +19,13 @@ export class DThemeDarkTableBodyRow extends DThemeDarkTableRow implements DTheme
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
-			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+			return state.isAlternated ? this.BACKGROUND_COLOR_ODD : this.BACKGROUND_COLOR_EVEN;
 		} else if (state.isActive) {
 			return DThemeDarkConstants.HIGHLIGHT_BLENDED_ON_BOARD;
 		} else if (state.isHovered) {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
-			return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+			return state.isAlternated ? this.BACKGROUND_COLOR_ODD : this.BACKGROUND_COLOR_EVEN;
 		}
 	}
 
