@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.140.0
+ Winter Cardinal UI v0.142.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2342,10 +2342,10 @@
             if (state.inDisabled) {
                 if (this._isStripeEnabled) {
                     if (state.isAlternated) {
-                        return this._backgroundColorEven;
+                        return this._backgroundColorOdd;
                     }
                     else {
-                        return this._backgroundColorOdd;
+                        return this._backgroundColorEven;
                     }
                 }
                 else {
@@ -2364,10 +2364,10 @@
             else {
                 if (this._isStripeEnabled) {
                     if (state.isAlternated) {
-                        return this._backgroundColorEven;
+                        return this._backgroundColorOdd;
                     }
                     else {
-                        return this._backgroundColorOdd;
+                        return this._backgroundColorEven;
                     }
                 }
                 else {
@@ -2379,10 +2379,10 @@
             if (state.inDisabled) {
                 if (this._isStripeEnabled) {
                     if (state.isAlternated) {
-                        return this._backgroundAlphaEven;
+                        return this._backgroundAlphaOdd;
                     }
                     else {
-                        return this._backgroundAlphaOdd;
+                        return this._backgroundAlphaEven;
                     }
                 }
                 else {
@@ -2401,10 +2401,10 @@
             else {
                 if (this._isStripeEnabled) {
                     if (state.isAlternated) {
-                        return this._backgroundAlphaEven;
+                        return this._backgroundAlphaOdd;
                     }
                     else {
-                        return this._backgroundAlphaOdd;
+                        return this._backgroundAlphaEven;
                     }
                 }
                 else {
@@ -3422,6 +3422,9 @@
         }
         DThemeWhiteDiagramCanvasEditor.prototype.isAmbient = function () {
             return false;
+        };
+        DThemeWhiteDiagramCanvasEditor.prototype.getOutlineColor = function (state) {
+            return null;
         };
         DThemeWhiteDiagramCanvasEditor.prototype.getSnapGridMajorInterval = function () {
             return 10;
@@ -5142,7 +5145,23 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemeWhiteListItemAmbient = /** @class */ (function (_super) {
+        __extends(DThemeWhiteListItemAmbient, _super);
+        function DThemeWhiteListItemAmbient() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteListItemAmbient.prototype.newStyle = function () {
+            return new DThemeWhiteListItems(null, false, true);
+        };
+        return DThemeWhiteListItemAmbient;
+    }(DThemeWhiteListItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var loadThemeWhiteList = function () {
+        DThemeWhite.set("DListItemAmbient", DThemeWhiteListItemAmbient);
         DThemeWhite.set("DListItem", DThemeWhiteListItem);
         DThemeWhite.set("DList", DThemeWhiteList);
     };
@@ -7872,7 +7891,7 @@
         }
         DThemeWhiteTableBodyRow.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                return state.isAlternated ? this.BACKGROUND_COLOR_ODD : this.BACKGROUND_COLOR_EVEN;
             }
             else if (state.isActive) {
                 return DThemeWhiteConstants.HIGHLIGHT_BLENDED_ON_BOARD;
@@ -7881,7 +7900,7 @@
                 return DThemeWhiteConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
             }
             else {
-                return state.isAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                return state.isAlternated ? this.BACKGROUND_COLOR_ODD : this.BACKGROUND_COLOR_EVEN;
             }
         };
         DThemeWhiteTableBodyRow.prototype.getWidth = function () {
@@ -8573,6 +8592,7 @@
         DThemeWhiteLayoutSpace: DThemeWhiteLayoutSpace,
         DThemeWhiteLayoutVertical: DThemeWhiteLayoutVertical,
         DThemeWhiteLayout: DThemeWhiteLayout,
+        DThemeWhiteListItemAmbient: DThemeWhiteListItemAmbient,
         DThemeWhiteListItem: DThemeWhiteListItem,
         DThemeWhiteListItems: DThemeWhiteListItems,
         DThemeWhiteList: DThemeWhiteList,

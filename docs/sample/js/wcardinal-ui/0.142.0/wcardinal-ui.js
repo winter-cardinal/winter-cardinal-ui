@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.140.0
+ Winter Cardinal UI v0.142.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -43771,6 +43771,9 @@
                 if (result != null) {
                     return result;
                 }
+                if (this.isFocusRoot(target, root)) {
+                    return null;
+                }
                 var parent_1 = target.parent;
                 if (parent_1 != null) {
                     var children = parent_1.children;
@@ -46957,9 +46960,30 @@
             this._content = content;
             this._container = container;
             this._newItem = this.toNewItem(options);
+            this._initItem = this.toInitItem(options);
         }
         DItemUpdater.prototype.toNewItem = function (options) {
             return (options === null || options === void 0 ? void 0 : options.newItem) || this.newItem;
+        };
+        DItemUpdater.prototype.toInitItem = function (options) {
+            if (options) {
+                var initItem = options.initItem;
+                if (initItem) {
+                    return initItem;
+                }
+                if (options.stripe !== false) {
+                    return this.initItem;
+                }
+                return this.initItemNoStriping;
+            }
+            return this.initItem;
+        };
+        DItemUpdater.prototype.initItem = function (item, index, data) {
+            item.state.isAlternated = index % 2 === 1;
+            return item;
+        };
+        DItemUpdater.prototype.initItemNoStriping = function (item, index, data) {
+            return item;
         };
         Object.defineProperty(DItemUpdater.prototype, "multiplicity", {
             get: function () {
@@ -47009,6 +47033,7 @@
             var oldItemIndexEnd = this._itemIndexEnd;
             var oldItemCount = oldItemIndexEnd - oldItemIndexStart;
             var newItem = this._newItem;
+            var initItem = this._initItem;
             var itemHeight = this._itemHeight;
             var itemWidth = this._itemWidth;
             if (this._itemHeight < 0) {
@@ -47017,8 +47042,7 @@
                     item = items[0];
                 }
                 else {
-                    item = newItem(data);
-                    item.state.isAlternated = oldItemIndexStart % 2 === 0;
+                    item = initItem(newItem(data), oldItemIndexStart, data);
                     container.addChild(item);
                     oldItemIndexEnd += 1;
                     oldItemCount += 1;
@@ -47030,11 +47054,17 @@
                 this._itemHeight = itemHeight;
                 this._itemWidth = itemWidth;
             }
-            var multiplicity = 0 < itemWidth ? Math.max(1, Math.floor(content.width / itemWidth)) : 1;
+            var contentPadding = content.padding;
+            var contentPaddingTop = contentPadding.getTop();
+            var contentPaddingBottom = contentPadding.getBottom();
+            var contentPaddingLeft = contentPadding.getLeft();
+            var contentPaddingRight = contentPadding.getRight();
+            var contentWidthAvailable = Math.max(0, content.width - contentPaddingLeft - contentPaddingRight);
+            var multiplicity = 0 < itemWidth ? Math.max(1, Math.floor(contentWidthAvailable / itemWidth)) : 1;
             this._multiplicity = multiplicity;
-            var y = content !== container ? container.transform.position.y : 0;
+            var y = content !== container ? container.transform.position.y : contentPaddingTop;
             var newHeight = Math.ceil(dataSize / multiplicity) * itemHeight;
-            var newContentHeight = Math.max(height, newHeight);
+            var newContentHeight = Math.max(height, contentPaddingTop + newHeight + contentPaddingBottom);
             var newContentY = Math.max(height - newContentHeight, content.position.y);
             var newItemIndexLowerBound = Math.floor(((0 - (newContentY + y)) * multiplicity) / itemHeight);
             var newItemIndexUpperBound = Math.floor(((height - (newContentY + y)) * multiplicity) / itemHeight);
@@ -47054,8 +47084,7 @@
             if (oldItemCount < newItemCount) {
                 for (var i = oldItemCount; i < newItemCount; ++i) {
                     var oldItemIndex = oldItemIndexStart + i;
-                    var item = newItem(data);
-                    item.state.isAlternated = oldItemIndex % 2 === 0;
+                    var item = initItem(newItem(data), oldItemIndex, data);
                     container.addChild(item);
                 }
                 oldItemCount = newItemCount;
@@ -47103,11 +47132,17 @@
                 }
                 work.length = 0;
             }
+            var itemOffsetX = 0;
+            var itemOffsetY = 0;
+            if (content === container) {
+                itemOffsetX = contentPaddingLeft;
+                itemOffsetY = contentPaddingTop;
+            }
             mapped.each(function (datum, index) {
                 var item = items[index - newItemIndexStart];
                 var ix = index % multiplicity;
                 var iy = Math.floor(index / multiplicity);
-                item.position.set(ix * itemWidth, iy * itemHeight);
+                item.position.set(itemOffsetX + ix * itemWidth, itemOffsetY + iy * itemHeight);
                 _this.set(item, datum, index, forcibly);
             }, newItemIndexStart, newItemIndexStart + itemsLength);
             for (var i = 0; newItemIndexStart + i < 0 && i < itemsLength; ++i) {
@@ -47115,7 +47150,7 @@
                 var index = newItemIndexStart + i;
                 var ix = index % multiplicity;
                 var iy = Math.floor(index / multiplicity);
-                item.position.set(ix * itemWidth, iy * itemHeight);
+                item.position.set(itemOffsetX + ix * itemWidth, itemOffsetY + iy * itemHeight);
                 this.unset(item);
             }
             for (var i = itemsLength - 1; dataSize <= newItemIndexStart + i && 0 <= i; --i) {
@@ -47123,7 +47158,7 @@
                 var index = newItemIndexStart + i;
                 var ix = index % multiplicity;
                 var iy = Math.floor(index / multiplicity);
-                item.position.set(ix * itemWidth, iy * itemHeight);
+                item.position.set(itemOffsetX + ix * itemWidth, itemOffsetY + iy * itemHeight);
                 this.unset(item);
             }
             this.lock();
@@ -47146,9 +47181,14 @@
             for (var i = 0, imax = cells.length; i < imax; ++i) {
                 var cell = cells[i];
                 if (cell instanceof DBase) {
-                    cell.state.isPressed = false;
+                    var state = cell.state;
+                    state.lock();
+                    state.isPressed = false;
+                    state.isHovered = false;
+                    state.unlock();
                 }
             }
+            item.state.isHovered = false;
             return item;
         };
         DItemUpdater.prototype.moveFocus = function (e, target, moveVertically, moveHorizontally) {
@@ -54305,6 +54345,7 @@
                 height: serialized.height,
                 background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
                 border: isAmbient ? { color: null } : undefined,
+                outline: isAmbient ? { color: null } : undefined,
                 shadow: isAmbient ? null : theme.getCanvasShadow(),
                 tile: {
                     factory: this._tileFactory,
@@ -56016,6 +56057,7 @@
         };
         DDiagramEditor.prototype.onSet = function (serialized) {
             _super.prototype.onSet.call(this, serialized);
+            // Snap settings
             var snap = serialized.snap;
             var snapper = this._snapper;
             if (snap != null) {
@@ -56024,7 +56066,13 @@
             else {
                 snapper.reset();
             }
+            if (this._isAmbient) {
+                snapper.target.visible = false;
+                snapper.grid.visible = false;
+            }
+            // Reset the isChanged flag
             this._isChanged = false;
+            // Done
             this.emit("change", this);
         };
         DDiagramEditor.prototype.onUnset = function () {
@@ -57191,6 +57239,21 @@
         };
         return DInputTextArea;
     }(DInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DListItemAmbient = /** @class */ (function (_super) {
+        __extends(DListItemAmbient, _super);
+        function DListItemAmbient() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DListItemAmbient.prototype.getType = function () {
+            return "DListItemAmbient";
+        };
+        return DListItemAmbient;
+    }(DListItem));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -61691,7 +61754,7 @@
                 _this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, _this);
                 onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
             };
-            _this.state.isAlternated = isEven;
+            _this.state.isAlternated = !isEven;
             _this.initCells(options, _this._columns, _this._frozen);
             return _this;
         }
@@ -67555,6 +67618,7 @@
         DListDataSelectionSingle: DListDataSelectionSingle,
         DListDataSelectionType: DListDataSelectionType,
         DListItemAccessorImpl: DListItemAccessorImpl,
+        DListItemAmbient: DListItemAmbient,
         DListItemUpdater: DListItemUpdater,
         DListItem: DListItem,
         DList: DList,
