@@ -4,8 +4,8 @@
  */
 
 import { Container } from "pixi.js";
-import { DControllerFocus } from ".";
 import { DApplicationLayerLike } from "./d-application-layer-like";
+import { DControllerFocus } from "./d-controller-focus";
 
 export interface DApplicationTarget {
 	parent?: DApplicationTarget | null;

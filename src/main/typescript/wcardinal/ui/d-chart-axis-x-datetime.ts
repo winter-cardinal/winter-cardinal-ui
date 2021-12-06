@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase } from ".";
+import { DBase } from "./d-base";
 import { DChartAxisX, DChartAxisXOptions } from "./d-chart-axis-x";
 
 export interface DChartAxisXDatetimeOptions extends DChartAxisXOptions {}

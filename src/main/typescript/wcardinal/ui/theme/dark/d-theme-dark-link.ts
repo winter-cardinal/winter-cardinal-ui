@@ -1,6 +1,6 @@
 import { DisplayObject, Texture } from "pixi.js";
-import { DThemeLink } from "../..";
 import { DBaseStateSet } from "../../d-base-state-set";
+import { DThemeLink } from "../../d-link";
 import { DLinkMenuItemId } from "../../d-link-menu-item-id";
 import { DMenuOptions } from "../../d-menu";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";

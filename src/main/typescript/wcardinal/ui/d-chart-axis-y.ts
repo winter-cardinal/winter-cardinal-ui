@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DBase } from ".";
+import { DBase } from "./d-base";
 import { DChartAxisBase } from "./d-chart-axis-base";
 import { DChartAxisBaseOptions } from "./d-chart-axis-base-options";
 
