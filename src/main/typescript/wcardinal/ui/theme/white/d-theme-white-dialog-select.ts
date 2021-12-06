@@ -18,14 +18,6 @@ export class DThemeWhiteDialogSelect<VALUE>
 		return null;
 	}
 
-	getNoteNoItemsText(): string {
-		return "No Items";
-	}
-
-	getNoteSearchingText(): string {
-		return "Searching...";
-	}
-
 	getInputMarginVertical(): number {
 		return 0;
 	}

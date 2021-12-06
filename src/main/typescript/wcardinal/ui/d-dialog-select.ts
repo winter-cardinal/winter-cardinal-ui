@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDialogSelectListOptions, DLayoutHorizontalOptions } from ".";
 import { DBase } from "./d-base";
 import {
 	DDialogCommand,
@@ -11,15 +10,17 @@ import {
 	DDialogCommandOptions,
 	DThemeDialogCommand
 } from "./d-dialog-command";
-import { DDialogSelectList } from "./d-dialog-select-list";
+import { DDialogSelectList, DDialogSelectListOptions } from "./d-dialog-select-list";
 import { DDialogSelectSearh } from "./d-dialog-select-search";
 import { DInputSearch, DInputSearchOptions } from "./d-input-search";
-import { DLayoutHorizontal } from "./d-layout-horizontal";
+import { DLayoutHorizontal, DLayoutHorizontalOptions } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical } from "./d-layout-vertical";
 import { DListOptions } from "./d-list";
 import { DListDataSelection } from "./d-list-data-selection";
 import { DNote, DNoteOptions } from "./d-note";
+import { DNoteNoItemsFound } from "./d-note-no-items-found";
+import { DNoteSearching } from "./d-note-searching";
 import { DOnOptions } from "./d-on-options";
 import { isNumber } from "./util/is-number";
 import { UtilTransition } from "./util/util-transition";
@@ -62,7 +63,7 @@ export interface DDialogSelectController<VALUE> {
  * {@link DDialogSelect} note options.
  */
 export interface DDialogSelectNoteOptions {
-	noItems?: DNoteOptions;
+	noItemsFound?: DNoteOptions;
 	searching?: DNoteOptions;
 }
 
@@ -103,8 +104,6 @@ export interface DDialogSelectOptions<
  * {@link DDialogSelect} theme.
  */
 export interface DThemeDialogSelect<VALUE = unknown> extends DThemeDialogCommand {
-	getNoteNoItemsText(): string;
-	getNoteSearchingText(): string;
 	getInputMarginVertical(): number;
 	getInputMarginHorizontal(): number;
 }
@@ -118,7 +117,7 @@ export class DDialogSelect<
 	protected _input!: DInputSearch;
 	protected _list!: DDialogSelectList<VALUE>;
 	protected _search!: DDialogSelectSearch<VALUE>;
-	protected _noteNoItems!: DNote;
+	protected _noteNoItemsFound!: DNote;
 	protected _noteSearching!: DNote;
 
 	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
@@ -136,11 +135,11 @@ export class DDialogSelect<
 		layout.addChild(list);
 
 		// Text No Items
-		const noteNoItems = this.newNoteNoItems(list, theme, options);
-		this._noteNoItems = noteNoItems;
+		const noteNoItemsFound = this.newNoteNoItemsFound(list, options);
+		this._noteNoItemsFound = noteNoItemsFound;
 
 		// Text Searching
-		const noteSearching = this.newNoteSearching(list, theme, options);
+		const noteSearching = this.newNoteSearching(list, options);
 		this._noteSearching = noteSearching;
 
 		// Controller binding
@@ -162,7 +161,7 @@ export class DDialogSelect<
 				if (result != null && 0 < result.length) {
 					transition.hide();
 				} else {
-					transition.show(noteNoItems);
+					transition.show(noteNoItemsFound);
 				}
 			} else {
 				transition.show(noteSearching);
@@ -257,58 +256,42 @@ export class DDialogSelect<
 		return result;
 	}
 
-	protected toNoteOptions(parent: DBase, text: string, options?: DNoteOptions): DNoteOptions {
+	protected toNoteOptions(parent: DBase, options?: DNoteOptions): DNoteOptions {
 		if (options != null) {
 			if (options.parent == null) {
 				options.parent = parent;
 			}
-			if (options.text == null) {
-				options.text = {
-					value: text
-				};
-			} else if (options.text.value == null) {
-				options.text.value = text;
+			if (options.visible == null) {
+				options.visible = false;
 			}
 			return options;
 		}
 		return {
 			parent,
-			text: {
-				value: text
-			}
+			visible: false
 		};
 	}
 
 	protected toNoteNoItemsOptions(
 		list: DDialogSelectList<VALUE>,
-		theme: THEME,
 		options?: OPTIONS
 	): DNoteOptions {
-		return this.toNoteOptions(list, theme.getNoteNoItemsText(), options?.note?.noItems);
+		return this.toNoteOptions(list, options?.note?.noItemsFound);
 	}
 
-	protected newNoteNoItems(
-		list: DDialogSelectList<VALUE>,
-		theme: THEME,
-		options?: OPTIONS
-	): DNote {
-		return new DNote(this.toNoteNoItemsOptions(list, theme, options));
+	protected newNoteNoItemsFound(list: DDialogSelectList<VALUE>, options?: OPTIONS): DNote {
+		return new DNoteNoItemsFound(this.toNoteNoItemsOptions(list, options));
 	}
 
 	protected toNoteSearchingOptions(
 		list: DDialogSelectList<VALUE>,
-		theme: THEME,
 		options?: OPTIONS
 	): DNoteOptions {
-		return this.toNoteOptions(list, theme.getNoteSearchingText(), options?.note?.searching);
+		return this.toNoteOptions(list, options?.note?.searching);
 	}
 
-	protected newNoteSearching(
-		list: DDialogSelectList<VALUE>,
-		theme: THEME,
-		options?: OPTIONS
-	): DNote {
-		return new DNote(this.toNoteSearchingOptions(list, theme, options));
+	protected newNoteSearching(list: DDialogSelectList<VALUE>, options?: OPTIONS): DNote {
+		return new DNoteSearching(this.toNoteSearchingOptions(list, options));
 	}
 
 	protected toSearch(controller?: DDialogSelectController<VALUE>): DDialogSelectSearch<VALUE> {
@@ -361,7 +344,7 @@ export class DDialogSelect<
 
 	destroy(): void {
 		this._input.destroy();
-		this._noteNoItems.destroy();
+		this._noteNoItemsFound.destroy();
 		this._noteSearching.destroy();
 		this._list.destroy();
 		super.destroy();

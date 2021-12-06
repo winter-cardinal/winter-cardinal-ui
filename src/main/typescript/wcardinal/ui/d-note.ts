@@ -3,23 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DText, DTextOptions, DThemeText } from "./d-text";
+import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 
-export interface DNoteOptions<VALUE = unknown, THEME extends DThemeNote<VALUE> = DThemeNote<VALUE>>
-	extends DTextOptions<VALUE, THEME> {}
+export interface DNoteOptions<THEME extends DThemeNote = DThemeNote>
+	extends DImageBaseOptions<string, THEME> {}
 
-export interface DThemeNote<VALUE = unknown> extends DThemeText<VALUE> {}
+export interface DThemeNote extends DThemeImageBase<string> {}
 
 export class DNote<
-	VALUE = unknown,
-	THEME extends DThemeNote<VALUE> = DThemeNote<VALUE>,
-	OPTIONS extends DNoteOptions<VALUE, THEME> = DNoteOptions<VALUE, THEME>
-> extends DText<VALUE, THEME, OPTIONS> {
-	protected init(options?: OPTIONS): void {
-		super.init(options);
-		this.visible = false;
-	}
-
+	THEME extends DThemeNote = DThemeNote,
+	OPTIONS extends DNoteOptions<THEME> = DNoteOptions<THEME>
+> extends DImageBase<string, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DNote";
 	}

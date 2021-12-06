@@ -132,6 +132,8 @@ export * from "./d-theme-dark-menu-sided-item-menu";
 export * from "./d-theme-dark-menu-sided-item-separator";
 export * from "./d-theme-dark-menu-sided-item-space";
 export * from "./d-theme-dark-menu-sided-item-text";
+export * from "./d-theme-dark-note-no-items-found";
+export * from "./d-theme-dark-note-searching";
 export * from "./d-theme-dark-note";
 export * from "./d-theme-dark-pagination";
 export * from "./d-theme-dark-pagination-navigation-button";

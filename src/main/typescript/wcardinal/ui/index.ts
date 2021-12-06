@@ -366,6 +366,8 @@ export * from "./d-menu-sided";
 export * from "./d-menu-sideds";
 export * from "./d-menu";
 export * from "./d-menus";
+export * from "./d-note-no-items-found";
+export * from "./d-note-searching";
 export * from "./d-note";
 export * from "./d-notification";
 export * from "./d-outline";
