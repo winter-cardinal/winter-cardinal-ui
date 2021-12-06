@@ -9,7 +9,6 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeInputSearch } from "../../d-input-search";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
-import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteInputText } from "./d-theme-white-input-text";
 
 // Material Design icons by Google.
@@ -27,10 +26,6 @@ DThemeWhiteAtlas.add("input_search", 21, 21,
 export class DThemeWhiteInputSearch extends DThemeWhiteInputText implements DThemeInputSearch {
 	getPaddingRight(): number {
 		return 31;
-	}
-
-	getImageTintColor(state: DBaseStateSet): number {
-		return DThemeWhiteConstants.WEAK_HIGHLIGHT_COLOR;
 	}
 
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
