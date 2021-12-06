@@ -11,8 +11,6 @@ import { DynamicFontAtlasCharacters } from "./dynamic-font-atlas-characters";
 import { DynamicFontAtlasFont } from "./dynamic-font-atlas-font";
 import { UtilCharacterIterator } from "./util-character-iterator";
 
-const PADDING = 3;
-
 export class DynamicFontAtlas {
 	protected _id: string;
 	protected _canvas: HTMLCanvasElement | null;
@@ -26,12 +24,15 @@ export class DynamicFontAtlas {
 	protected _revision: number;
 	protected _revisionUpdated: number;
 	protected _texture: Texture;
+	protected _padding: number;
 
 	constructor(fontId: string, fontSize: number, fontColor: number, resolution: number) {
 		this._id = fontId;
 		this._canvas = document.createElement("canvas");
 		this._context = null;
-		this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, PADDING);
+		const padding = this.toPadding(fontSize);
+		this._padding = padding;
+		this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, padding);
 		this._characters = {};
 		this._length = 0;
 		this._unrefCount = 0;
@@ -53,6 +54,10 @@ export class DynamicFontAtlas {
 			const char = ASCII_CHARACTERS[i];
 			this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
 		}
+	}
+
+	protected toPadding(fontSize: number): number {
+		return Math.max(3, Math.ceil(fontSize * 0.2));
 	}
 
 	get id(): string {
@@ -100,7 +105,8 @@ export class DynamicFontAtlas {
 				}
 			} else {
 				const advance = this.getAdvance(character);
-				const width = Math.ceil(PADDING + advance + PADDING);
+				const padding = this._padding;
+				const width = Math.ceil(padding + advance + padding);
 				const height = this.font.height;
 				characters[id] = new DynamicFontAtlasCharacter(
 					character,
@@ -234,7 +240,7 @@ export class DynamicFontAtlas {
 					Math.ceil(Math.sqrt(this._length)) * fontHeight
 				));
 
-				const offsetX = PADDING;
+				const offsetX = this._padding;
 				const offsetY = Math.round(
 					(fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent
 				);
