@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.142.0
+ Winter Cardinal UI v0.143.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -38941,14 +38941,12 @@
      */
     var InteractionEvent = pixi_js.interaction.InteractionEvent;
     var DLink = /** @class */ (function () {
-        function DLink(theme, options) {
-            var _a, _b, _c;
-            this._url = (_a = options === null || options === void 0 ? void 0 : options.url) !== null && _a !== void 0 ? _a : null;
-            this._target = toEnum((_b = options === null || options === void 0 ? void 0 : options.target) !== null && _b !== void 0 ? _b : DLinkTarget.AUTO, DLinkTarget);
+        function DLink(options) {
+            this._options = options;
+            this._url = options === null || options === void 0 ? void 0 : options.url;
+            this._target = this.toNormalizedTarget(options === null || options === void 0 ? void 0 : options.target);
             this._checker = options === null || options === void 0 ? void 0 : options.checker;
-            this._theme = theme;
             this._isEnabled = true;
-            this._menu = new DLinkMenu(this, (_c = options === null || options === void 0 ? void 0 : options.menu) !== null && _c !== void 0 ? _c : theme.getLinkMenuOptions());
         }
         Object.defineProperty(DLink.prototype, "enable", {
             get: function () {
@@ -38974,16 +38972,49 @@
             get: function () {
                 return this._target;
             },
+            set: function (target) {
+                this._target = this.toNormalizedTarget(target);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DLink.prototype, "checker", {
+            get: function () {
+                return this._checker;
+            },
+            set: function (checker) {
+                this._checker = checker;
+            },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(DLink.prototype, "menu", {
             get: function () {
-                return this._menu;
+                var result = this._menu;
+                if (result == null) {
+                    result = this.newMenu();
+                    this._menu = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
         });
+        DLink.prototype.newMenu = function () {
+            var options = this._options;
+            if (options) {
+                var menu = options.menu;
+                if (menu) {
+                    return new DLinkMenu(this, menu);
+                }
+            }
+            var result = DLink.MENU;
+            if (result == null) {
+                result = new DLinkMenu(this, DThemes.getInstance().get("DLink").getMenuOptions());
+                DLink.MENU = result;
+            }
+            return result;
+        };
         DLink.prototype.toStringifiedUrl = function (target, onResolved) {
             var url = isFunction(target) ? target() : target;
             if (url != null) {
@@ -39004,6 +39035,9 @@
             DLink.ANCHOR_ELEMENT = a;
             a.href = url;
             return a.href;
+        };
+        DLink.prototype.toNormalizedTarget = function (target) {
+            return toEnum(target !== null && target !== void 0 ? target : DLinkTarget.AUTO, DLinkTarget);
         };
         /**
          * Copys the URL to the clipboard.
@@ -39091,28 +39125,26 @@
         };
         DLink.prototype.add = function (base, onSelect) {
             var _this = this;
-            var onClick = function (e) {
-                if (_this._isEnabled && base.state.isActionable) {
+            UtilPointerEvent.onClick(base, function (e, isSimulated) {
+                if (!_this.onClick(base, isSimulated)) {
                     onSelect(e);
                 }
-            };
-            if (this._target !== DLinkTarget.AUTO) {
-                UtilPointerEvent.onClick(base, onClick);
-            }
-            else {
-                UtilPointerEvent.onClick(base, function (e, isSimulated) {
-                    if (isSimulated) {
-                        var menu = _this._menu;
-                        if (menu.enable) {
-                            if (_this._isEnabled && base.state.isActionable) {
-                                menu.open(base);
-                            }
-                            return;
-                        }
+            });
+        };
+        DLink.prototype.onClick = function (base, isSimulated) {
+            if (this._target === DLinkTarget.AUTO && isSimulated) {
+                var menu = this.menu;
+                if (menu.enable) {
+                    if (this._isEnabled && base.state.isActionable) {
+                        menu.open(base);
                     }
-                    onClick(e);
-                });
+                    return true;
+                }
             }
+            if (this._isEnabled && base.state.isActionable) {
+                return false;
+            }
+            return true;
         };
         return DLink;
     }());
@@ -39189,7 +39221,7 @@
             return undefined;
         };
         DMenuItemLink.prototype.init = function (options) {
-            this._link = new DLink(this.theme, this.toLinkOptions(options));
+            this._link = new DLink(this.toLinkOptions(options));
             _super.prototype.init.call(this, DLinks.toStateOptions(options === null || options === void 0 ? void 0 : options.target, options));
         };
         Object.defineProperty(DMenuItemLink.prototype, "link", {
@@ -46661,7 +46693,7 @@
         }
         DButtonLink.prototype.initOnClick = function (when, theme, options) {
             var _this = this;
-            var link = new DLink(theme, options);
+            var link = new DLink(options);
             this._link = link;
             link.add(this, function (e) {
                 if (when === DButtonBaseWhen.CLICKED) {
@@ -46776,22 +46808,61 @@
         function DListItem(data, options) {
             var _this = _super.call(this, options) || this;
             _this._data = data;
+            _this.initOnClick(data, options);
             return _this;
         }
-        DListItem.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this.initOnClick(options);
-        };
-        DListItem.prototype.initOnClick = function (options) {
+        DListItem.prototype.initOnClick = function (data, options) {
             var _this = this;
-            UtilPointerEvent.onClick(this, function (e) {
-                if (_this.state.isActionable) {
+            var accessor = data.accessor.link;
+            if (accessor) {
+                var link = new DLink(this.toLinkOptions(accessor));
+                link.add(this, function (e) {
                     var value = _this._value;
                     if (value !== undefined) {
                         _this.onSelect(e, value);
                     }
+                });
+                this._link = link;
+            }
+            else {
+                UtilPointerEvent.onClick(this, function (e) {
+                    if (_this.state.isActionable) {
+                        var value = _this._value;
+                        if (value !== undefined) {
+                            _this.onSelect(e, value);
+                        }
+                    }
+                });
+            }
+        };
+        DListItem.prototype.toLinkOptions = function (accessor) {
+            return {
+                url: this.toLinkUrl(accessor.toUrl),
+                target: accessor.target,
+                checker: this.toLinkChecker(accessor.checker)
+            };
+        };
+        DListItem.prototype.toLinkUrl = function (toUrl) {
+            var _this = this;
+            return function () {
+                var value = _this._value;
+                if (value !== undefined) {
+                    return toUrl(value);
                 }
-            });
+            };
+        };
+        DListItem.prototype.toLinkChecker = function (checker) {
+            var _this = this;
+            if (checker) {
+                return function () {
+                    var value = _this._value;
+                    if (value != null) {
+                        return checker(value);
+                    }
+                    return false;
+                };
+            }
+            return undefined;
         };
         Object.defineProperty(DListItem.prototype, "value", {
             get: function () {
@@ -46808,6 +46879,7 @@
             configurable: true
         });
         DListItem.prototype.onSelect = function (e, value) {
+            var _a;
             var data = this._data;
             var selection = data.selection;
             if (selection.type !== DListDataSelectionType.MULTIPLE) {
@@ -46863,6 +46935,7 @@
                     selection.clearAndAdd(value);
                 }
             }
+            (_a = this._link) === null || _a === void 0 ? void 0 : _a.open(e);
         };
         DListItem.prototype.set = function (value, index, forcibly) {
             var data = this._data;
@@ -47850,13 +47923,35 @@
     var toTitle$1 = function (value) {
         return value.title;
     };
+    var toLinkUrl = function (value) {
+        return value.url;
+    };
     var DListItemAccessorImpl = /** @class */ (function () {
         function DListItemAccessorImpl(options) {
             this.toLabel = (options === null || options === void 0 ? void 0 : options.toLabel) || toLabel$1;
             this.toTitle = (options === null || options === void 0 ? void 0 : options.toTitle) || toTitle$1;
             this.toImage = (options === null || options === void 0 ? void 0 : options.toImage) || toImage$1;
             this.toId = options === null || options === void 0 ? void 0 : options.toId;
+            this.link = this.toLink(options);
         }
+        DListItemAccessorImpl.prototype.toLink = function (options) {
+            if (options) {
+                var link = options.link;
+                if (link) {
+                    var toUrl = link.toUrl;
+                    var target = link.target;
+                    var checker = link.checker;
+                    if (toUrl !== undefined || target !== undefined || checker !== undefined) {
+                        return {
+                            toUrl: toUrl || toLinkUrl,
+                            target: target,
+                            checker: checker
+                        };
+                    }
+                }
+            }
+            return undefined;
+        };
         return DListItemAccessorImpl;
     }());
 
@@ -61216,7 +61311,7 @@
                 var _a;
                 var result = this._link;
                 if (result == null) {
-                    result = new DLink(this.theme, toLinkOptions(this, (_a = this._options) === null || _a === void 0 ? void 0 : _a.link));
+                    result = new DLink(toLinkOptions(this, (_a = this._options) === null || _a === void 0 ? void 0 : _a.link));
                     this._link = result;
                 }
                 return result;
@@ -61556,7 +61651,7 @@
             var _a;
             var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.link;
             if (options) {
-                return new DLink(this.theme, toLinkOptions(this, options));
+                return new DLink(toLinkOptions(this, options));
             }
             return null;
         };
