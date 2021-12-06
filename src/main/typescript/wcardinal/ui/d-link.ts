@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
+import { DisplayObject, interaction, Texture } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DBase } from "./d-base";
 import { DLinkMenu } from "./d-link-menu";
@@ -15,38 +15,48 @@ import { isString } from "./util/is-string";
 import { toEnum } from "./util/to-enum";
 import { UtilClipboard } from "./util/util-clipboard";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DThemes } from "./theme/d-themes";
+import { DBaseStateSet } from "./d-base-state-set";
 
-export type DLinkUrlMaker = () => string | null | Promise<string | null>;
+export type DLinkUrlValue = string | null | undefined;
+
+export type DLinkUrlMaker = () => DLinkUrlValue | Promise<DLinkUrlValue>;
+
+export type DLinkTargetValue = DLinkTarget | null | undefined | keyof typeof DLinkTarget;
+
 export type DLinkChecker = () => boolean | Promise<boolean>;
 
 export interface DLinkOptions {
-	url?: string | null | DLinkUrlMaker;
-	target?: DLinkTarget | keyof typeof DLinkTarget;
+	url?: DLinkUrlValue | DLinkUrlMaker;
+	target?: DLinkTargetValue;
 	checker?: DLinkChecker;
 	menu?: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 }
 
 export interface DThemeLink {
-	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId>;
+	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null;
+	getMenuOptions(): DMenuOptions<DLinkMenuItemId>;
 }
 
 export class DLink {
 	protected static ANCHOR_ELEMENT?: HTMLAnchorElement;
+	protected static MENU?: DLinkMenu;
 
-	protected _url: string | null | DLinkUrlMaker;
+	protected _options?: DLinkOptions;
+
+	protected _url: DLinkUrlValue | DLinkUrlMaker;
 	protected _target: DLinkTarget;
 	protected _checker?: DLinkChecker;
-	protected _menu: DLinkMenu;
-	protected _theme: DThemeLink;
+	protected _menu?: DLinkMenu;
 	protected _isEnabled: boolean;
 
-	constructor(theme: DThemeLink, options?: DLinkOptions) {
-		this._url = options?.url ?? null;
-		this._target = toEnum(options?.target ?? DLinkTarget.AUTO, DLinkTarget);
+	constructor(options?: DLinkOptions) {
+		this._options = options;
+
+		this._url = options?.url;
+		this._target = this.toNormalizedTarget(options?.target);
 		this._checker = options?.checker;
-		this._theme = theme;
 		this._isEnabled = true;
-		this._menu = new DLinkMenu(this, options?.menu ?? theme.getLinkMenuOptions());
 	}
 
 	get enable(): boolean {
@@ -57,11 +67,11 @@ export class DLink {
 		this._isEnabled = enable;
 	}
 
-	get url(): string | null | DLinkUrlMaker {
+	get url(): DLinkUrlValue | DLinkUrlMaker {
 		return this._url;
 	}
 
-	set url(url: string | null | DLinkUrlMaker) {
+	set url(url: DLinkUrlValue | DLinkUrlMaker) {
 		this._url = url;
 	}
 
@@ -69,12 +79,48 @@ export class DLink {
 		return this._target;
 	}
 
+	set target(target: DLinkTargetValue) {
+		this._target = this.toNormalizedTarget(target);
+	}
+
+	get checker(): DLinkChecker | undefined {
+		return this._checker;
+	}
+
+	set checker(checker: DLinkChecker | undefined) {
+		this._checker = checker;
+	}
+
 	get menu(): DLinkMenu {
-		return this._menu;
+		let result = this._menu;
+		if (result == null) {
+			result = this.newMenu();
+			this._menu = result;
+		}
+		return result;
+	}
+
+	protected newMenu(): DLinkMenu {
+		const options = this._options;
+		if (options) {
+			const menu = options.menu;
+			if (menu) {
+				return new DLinkMenu(this, menu);
+			}
+		}
+		let result = DLink.MENU;
+		if (result == null) {
+			result = new DLinkMenu(
+				this,
+				DThemes.getInstance().get<DThemeLink>("DLink").getMenuOptions()
+			);
+			DLink.MENU = result;
+		}
+		return result;
 	}
 
 	protected toStringifiedUrl(
-		target: string | null | DLinkUrlMaker,
+		target: DLinkUrlValue | DLinkUrlMaker,
 		onResolved: (url: string) => void
 	): void {
 		const url = isFunction(target) ? target() : target;
@@ -82,7 +128,7 @@ export class DLink {
 			if (isString(url)) {
 				onResolved(url);
 			} else {
-				url.then((resolved: string | null): void => {
+				url.then((resolved: DLinkUrlValue): void => {
 					if (resolved != null) {
 						onResolved(resolved);
 					}
@@ -96,6 +142,10 @@ export class DLink {
 		DLink.ANCHOR_ELEMENT = a;
 		a.href = url;
 		return a.href;
+	}
+
+	protected toNormalizedTarget(target: DLinkTargetValue): DLinkTarget {
+		return toEnum(target ?? DLinkTarget.AUTO, DLinkTarget);
 	}
 
 	/**
@@ -201,26 +251,26 @@ export class DLink {
 	}
 
 	add(base: DBase, onSelect: (e: InteractionEvent) => void): void {
-		const onClick = (e: InteractionEvent): void => {
-			if (this._isEnabled && base.state.isActionable) {
+		UtilPointerEvent.onClick(base, (e: InteractionEvent, isSimulated: boolean): void => {
+			if (!this.onClick(base, isSimulated)) {
 				onSelect(e);
 			}
-		};
-		if (this._target !== DLinkTarget.AUTO) {
-			UtilPointerEvent.onClick(base, onClick);
-		} else {
-			UtilPointerEvent.onClick(base, (e: InteractionEvent, isSimulated: boolean): void => {
-				if (isSimulated) {
-					const menu = this._menu;
-					if (menu.enable) {
-						if (this._isEnabled && base.state.isActionable) {
-							menu.open(base);
-						}
-						return;
-					}
+		});
+	}
+
+	onClick(base: DBase, isSimulated: boolean): boolean {
+		if (this._target === DLinkTarget.AUTO && isSimulated) {
+			const menu = this.menu;
+			if (menu.enable) {
+				if (this._isEnabled && base.state.isActionable) {
+					menu.open(base);
 				}
-				onClick(e);
-			});
+				return true;
+			}
 		}
+		if (this._isEnabled && base.state.isActionable) {
+			return false;
+		}
+		return true;
 	}
 }

@@ -60,6 +60,7 @@ export * from "./load-theme-dark-input-search";
 export * from "./load-theme-dark-input-text-area";
 export * from "./load-theme-dark-input-text";
 export * from "./load-theme-dark-layout";
+export * from "./load-theme-dark-link";
 export * from "./load-theme-dark-list";
 export * from "./load-theme-dark-tree";
 export * from "./load-theme-dark-menu";

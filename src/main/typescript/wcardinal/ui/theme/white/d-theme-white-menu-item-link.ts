@@ -8,18 +8,22 @@ import { DAlignHorizontal } from "../../d-align-horizontal";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseState } from "../../d-base-state";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DLinkMenuItemId } from "../../d-link-menu-item-id";
-import { DMenuOptions } from "../../d-menu";
+import { DThemeLink } from "../../d-link";
 import { DThemeMenuItemLink } from "../../d-menu-item-link";
-import { DThemeWhiteLinks } from "./d-theme-white-links";
+import { DThemes } from "../d-themes";
 import { DThemeWhiteMenuItemText } from "./d-theme-white-menu-item-text";
 
-DThemeWhiteLinks.init();
-
 export class DThemeWhiteMenuItemLink extends DThemeWhiteMenuItemText implements DThemeMenuItemLink {
+	protected _link: DThemeLink;
+
+	constructor() {
+		super();
+		this._link = DThemes.getInstance().get("DLink");
+	}
+
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
 		if (state.is(DBaseState.NEW_WINDOW)) {
-			return DThemeWhiteLinks.getImageSource(state);
+			return this._link.getImageSource(state);
 		}
 		return null;
 	}
@@ -37,9 +41,5 @@ export class DThemeWhiteMenuItemLink extends DThemeWhiteMenuItemText implements 
 
 	getImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.RIGHT;
-	}
-
-	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
-		return DThemeWhiteLinks.getLinkMenuOptions();
 	}
 }

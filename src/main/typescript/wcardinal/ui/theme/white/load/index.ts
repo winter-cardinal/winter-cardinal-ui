@@ -58,6 +58,7 @@ export * from "./load-theme-white-input-search";
 export * from "./load-theme-white-input-text-area";
 export * from "./load-theme-white-input-text";
 export * from "./load-theme-white-layout";
+export * from "./load-theme-white-link";
 export * from "./load-theme-white-list";
 export * from "./load-theme-white-tree";
 export * from "./load-theme-white-menu-bar";

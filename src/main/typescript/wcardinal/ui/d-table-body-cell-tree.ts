@@ -6,7 +6,7 @@
 import { interaction, Point } from "pixi.js";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
 import { DButtonBaseWhen } from "./d-button-base-when";
-import { DLink, DThemeLink } from "./d-link";
+import { DLink } from "./d-link";
 import { DLinks } from "./d-links";
 import {
 	DTableBodyCellButton,
@@ -29,9 +29,7 @@ export interface DTableBodyCellTreeOptions<
 	link?: DTableBodyCellLinkLinkOptions<ROW, VALUE>;
 }
 
-export interface DThemeTableBodyCellTree<VALUE = unknown>
-	extends DThemeTableBodyCellButton<VALUE>,
-		DThemeLink {
+export interface DThemeTableBodyCellTree<VALUE = unknown> extends DThemeTableBodyCellButton<VALUE> {
 	getLevelPadding(level: number): number;
 }
 
@@ -83,7 +81,7 @@ export class DTableBodyCellTree<
 	protected newLink(): DLink | null {
 		const options = this._options?.link;
 		if (options) {
-			return new DLink(this.theme, toLinkOptions(this, options));
+			return new DLink(toLinkOptions(this, options));
 		}
 		return null;
 	}

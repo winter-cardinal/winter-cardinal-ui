@@ -6,8 +6,14 @@
 import { interaction } from "pixi.js";
 import { DBaseState } from "./d-base-state";
 import { DImageBase, DImageBaseEvents, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
+import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DLinkUrlValue } from "./d-link";
 import { DListData } from "./d-list-data";
 import { DListDataSelectionType } from "./d-list-data-selection";
+import {
+	DListItemAccessorLink,
+	DListItemLinkChecker,
+	DListItemToLinkUrl
+} from "./d-list-item-accessor";
 import { DOnOptions } from "./d-on-options";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
@@ -63,26 +69,65 @@ export class DListItem<
 	protected _data: DListData<VALUE>;
 	protected _value?: VALUE;
 	protected _index?: number;
+	protected _link?: DLink;
 
 	constructor(data: DListData<VALUE>, options?: OPTIONS) {
 		super(options);
 		this._data = data;
+		this.initOnClick(data, options);
 	}
 
-	protected init(options?: OPTIONS): void {
-		super.init(options);
-		this.initOnClick(options);
-	}
-
-	protected initOnClick(options?: OPTIONS): void {
-		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
-			if (this.state.isActionable) {
+	protected initOnClick(data: DListData<VALUE>, options?: OPTIONS): void {
+		const accessor = data.accessor.link;
+		if (accessor) {
+			const link = new DLink(this.toLinkOptions(accessor));
+			link.add(this, (e): void => {
 				const value = this._value;
 				if (value !== undefined) {
 					this.onSelect(e, value);
 				}
+			});
+			this._link = link;
+		} else {
+			UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
+				if (this.state.isActionable) {
+					const value = this._value;
+					if (value !== undefined) {
+						this.onSelect(e, value);
+					}
+				}
+			});
+		}
+	}
+
+	protected toLinkOptions(accessor: DListItemAccessorLink<VALUE>): DLinkOptions {
+		return {
+			url: this.toLinkUrl(accessor.toUrl),
+			target: accessor.target,
+			checker: this.toLinkChecker(accessor.checker)
+		};
+	}
+
+	protected toLinkUrl(toUrl: DListItemToLinkUrl<VALUE>): DLinkUrlMaker {
+		return (): DLinkUrlValue | Promise<DLinkUrlValue> => {
+			const value = this._value;
+			if (value !== undefined) {
+				return toUrl(value);
 			}
-		});
+		};
+	}
+
+	protected toLinkChecker(checker?: DListItemLinkChecker<VALUE>): DLinkChecker | undefined {
+		if (checker) {
+			return (): boolean | Promise<boolean> => {
+				const value = this._value;
+				if (value != null) {
+					return checker(value);
+				}
+				return false;
+			};
+		}
+		return undefined;
 	}
 
 	get value(): VALUE | undefined {
@@ -145,6 +190,8 @@ export class DListItem<
 				selection.clearAndAdd(value);
 			}
 		}
+
+		this._link?.open(e);
 	}
 
 	set(value: VALUE, index: number, forcibly?: boolean): void {

@@ -17,6 +17,7 @@ import { loadThemeWhiteHtmlElement } from "./load-theme-white-html-element";
 import { loadThemeWhiteImage } from "./load-theme-white-image";
 import { loadThemeWhiteInputAll } from "./load-theme-white-input-all";
 import { loadThemeWhiteLayout } from "./load-theme-white-layout";
+import { loadThemeWhiteLink } from "./load-theme-white-link";
 import { loadThemeWhiteList } from "./load-theme-white-list";
 import { loadThemeWhiteMenu } from "./load-theme-white-menu";
 import { loadThemeWhiteMenuBar } from "./load-theme-white-menu-bar";
@@ -52,6 +53,7 @@ export const loadThemeWhiteAll = (): void => {
 	loadThemeWhiteImage();
 	loadThemeWhiteInputAll();
 	loadThemeWhiteLayout();
+	loadThemeWhiteLink();
 	loadThemeWhiteList();
 	loadThemeWhiteTree();
 	loadThemeWhiteMenuBar();

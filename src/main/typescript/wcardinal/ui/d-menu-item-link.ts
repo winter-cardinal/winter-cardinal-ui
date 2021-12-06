@@ -4,7 +4,7 @@
  */
 
 import { interaction } from "pixi.js";
-import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DThemeLink } from "./d-link";
+import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
 import { DLinks } from "./d-links";
@@ -25,7 +25,7 @@ export interface DMenuItemLinkOptions<
 	menu?: DMenuOptions<DLinkMenuItemId> | DMenu<DLinkMenuItemId>;
 }
 
-export interface DThemeMenuItemLink extends DThemeMenuItemText, DThemeLink {}
+export interface DThemeMenuItemLink extends DThemeMenuItemText {}
 
 export class DMenuItemLink<
 	VALUE = unknown,
@@ -66,7 +66,7 @@ export class DMenuItemLink<
 	}
 
 	protected init(options?: OPTIONS): void {
-		this._link = new DLink(this.theme, this.toLinkOptions(options));
+		this._link = new DLink(this.toLinkOptions(options));
 		super.init(DLinks.toStateOptions(options?.target, options));
 	}
 

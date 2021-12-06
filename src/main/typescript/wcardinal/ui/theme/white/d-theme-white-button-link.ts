@@ -4,18 +4,8 @@
  */
 
 import { DThemeButtonLink } from "../../d-button-link";
-import { DLinkMenuItemId } from "../../d-link-menu-item-id";
-import { DMenuOptions } from "../../d-menu";
 import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
-import { DThemeWhiteLinks } from "./d-theme-white-links";
-
-DThemeWhiteLinks.init();
 
 export class DThemeWhiteButtonLink<VALUE = unknown>
 	extends DThemeWhiteButtonAmbient<VALUE>
-	implements DThemeButtonLink<VALUE>
-{
-	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
-		return DThemeWhiteLinks.getLinkMenuOptions();
-	}
-}
+	implements DThemeButtonLink<VALUE> {}

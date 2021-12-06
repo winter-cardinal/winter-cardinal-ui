@@ -92,6 +92,7 @@ export * from "./d-theme-white-layout-horizontal";
 export * from "./d-theme-white-layout-space";
 export * from "./d-theme-white-layout-vertical";
 export * from "./d-theme-white-layout";
+export * from "./d-theme-white-link";
 export * from "./d-theme-white-list-item-ambient";
 export * from "./d-theme-white-list-item";
 export * from "./d-theme-white-list-items";

@@ -16,6 +16,7 @@ import { loadThemeDarkHtmlElement } from "./load-theme-dark-html-element";
 import { loadThemeDarkImage } from "./load-theme-dark-image";
 import { loadThemeDarkInputAll } from "./load-theme-dark-input-all";
 import { loadThemeDarkLayout } from "./load-theme-dark-layout";
+import { loadThemeDarkLink } from "./load-theme-dark-link";
 import { loadThemeDarkList } from "./load-theme-dark-list";
 import { loadThemeDarkMenu } from "./load-theme-dark-menu";
 import { loadThemeDarkMenuBar } from "./load-theme-dark-menu-bar";
@@ -51,6 +52,7 @@ export const loadThemeDarkAll = (): void => {
 	loadThemeDarkImage();
 	loadThemeDarkInputAll();
 	loadThemeDarkLayout();
+	loadThemeDarkLink();
 	loadThemeDarkList();
 	loadThemeDarkTree();
 	loadThemeDarkMenu();

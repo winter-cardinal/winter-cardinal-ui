@@ -6,14 +6,10 @@
 import { DisplayObject, Texture } from "pixi.js";
 import { DAlignWith } from "../../d-align-with";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DLinkMenuItemId } from "../../d-link-menu-item-id";
-import { DMenuOptions } from "../../d-menu";
 import { DThemeTableBodyCellTree } from "../../d-table-body-cell-tree";
-import { DThemeWhiteLinks } from "./d-theme-white-links";
 import { DThemeWhiteTableBodyCellButton } from "./d-theme-white-table-body-cell-button";
 import { DThemeWhiteTableBodyCellTrees } from "./d-theme-white-table-body-cell-trees";
 
-DThemeWhiteLinks.init();
 DThemeWhiteTableBodyCellTrees.init();
 
 export class DThemeWhiteTableBodyCellTree
@@ -42,9 +38,5 @@ export class DThemeWhiteTableBodyCellTree
 
 	getImageTintAlpha(state: DBaseStateSet): number {
 		return this.getAlpha(state) * 0.5;
-	}
-
-	getLinkMenuOptions(): DMenuOptions<DLinkMenuItemId> {
-		return DThemeWhiteLinks.getLinkMenuOptions();
 	}
 }

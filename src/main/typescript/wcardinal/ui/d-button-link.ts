@@ -6,7 +6,7 @@
 import { interaction } from "pixi.js";
 import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
 import { DButtonBaseWhen } from "./d-button-base-when";
-import { DLink, DLinkOptions, DThemeLink } from "./d-link";
+import { DLink, DLinkOptions } from "./d-link";
 
 export interface DButtonLinkOptions<
 	VALUE = unknown,
@@ -14,7 +14,7 @@ export interface DButtonLinkOptions<
 > extends DButtonBaseOptions<VALUE, THEME>,
 		DLinkOptions {}
 
-export interface DThemeButtonLink<VALUE = unknown> extends DThemeButtonBase<VALUE>, DThemeLink {}
+export interface DThemeButtonLink<VALUE = unknown> extends DThemeButtonBase<VALUE> {}
 
 export class DButtonLink<
 	VALUE = unknown,
@@ -24,7 +24,7 @@ export class DButtonLink<
 	protected _link!: DLink;
 
 	protected initOnClick(when: DButtonBaseWhen, theme: THEME, options?: OPTIONS): void {
-		const link = new DLink(theme, options);
+		const link = new DLink(options);
 		this._link = link;
 		link.add(this, (e: interaction.InteractionEvent): void => {
 			if (when === DButtonBaseWhen.CLICKED) {

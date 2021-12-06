@@ -97,7 +97,7 @@ export interface DListDataSelection<ITEM> extends utils.EventEmitter {
 	clear(): void;
 
 	/**
-	 * Clears all the exisint items and adds the given item.
+	 * Clears all the existing items and adds the given item.
 	 *
 	 * @param target an item to be added
 	 * @returns true if the selection is changed
@@ -105,7 +105,7 @@ export interface DListDataSelection<ITEM> extends utils.EventEmitter {
 	clearAndAdd(target: ITEM): boolean;
 
 	/**
-	 * Clears the exising items and add all the given items.
+	 * Clears the existing items and add all the given items.
 	 *
 	 * @param targets items to be added
 	 * @returns true if the selection is changed

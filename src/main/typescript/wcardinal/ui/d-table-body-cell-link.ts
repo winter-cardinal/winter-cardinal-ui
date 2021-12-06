@@ -5,7 +5,7 @@
 
 import { interaction } from "pixi.js";
 import { DButtonBaseWhen } from "./d-button-base-when";
-import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker, DThemeLink } from "./d-link";
+import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
 import { DLinks } from "./d-links";
@@ -49,8 +49,7 @@ export interface DTableBodyCellLinkOptions<
 }
 
 export interface DThemeTableBodyCellLink<VALUE = unknown>
-	extends DThemeTableBodyCellButton<VALUE>,
-		DThemeLink {}
+	extends DThemeTableBodyCellButton<VALUE> {}
 
 export const toLinkOptions = <ROW, VALUE>(
 	cell: DTableBodyCell<ROW, VALUE | null>,
@@ -132,7 +131,7 @@ export class DTableBodyCellLink<
 	get link(): DLink {
 		let result = this._link;
 		if (result == null) {
-			result = new DLink(this.theme, toLinkOptions(this, this._options?.link));
+			result = new DLink(toLinkOptions(this, this._options?.link));
 			this._link = result;
 		}
 		return result;
