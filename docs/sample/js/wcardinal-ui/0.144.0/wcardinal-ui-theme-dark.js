@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.143.0
+ Winter Cardinal UI v0.144.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2131,12 +2131,6 @@
         };
         DThemeDarkDialogSelect.prototype.getCancel = function () {
             return null;
-        };
-        DThemeDarkDialogSelect.prototype.getNoteNoItemsText = function () {
-            return "No Items";
-        };
-        DThemeDarkDialogSelect.prototype.getNoteSearchingText = function () {
-            return "Searching...";
         };
         DThemeDarkDialogSelect.prototype.getInputMarginVertical = function () {
             return 0;
@@ -4896,9 +4890,6 @@
         DThemeDarkInputSearch.prototype.getPaddingRight = function () {
             return 31;
         };
-        DThemeDarkInputSearch.prototype.getImageTintColor = function (state) {
-            return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
-        };
         DThemeDarkInputSearch.prototype.getImageSource = function (state) {
             return DThemeDarkAtlas.mappings.input_search;
         };
@@ -6083,8 +6074,78 @@
         DThemeDarkNote.prototype.getInteractive = function () {
             return DBaseInteractive.NONE;
         };
+        DThemeDarkNote.prototype.getAlpha = function () {
+            return 0.25;
+        };
+        DThemeDarkNote.prototype.getFontSize = function () {
+            return 26;
+        };
+        DThemeDarkNote.prototype.getImageTintAlpha = function (state) {
+            return 0.1;
+        };
+        DThemeDarkNote.prototype.getImageAlignWith = function () {
+            return DAlignWith.TEXT;
+        };
+        DThemeDarkNote.prototype.getImageMarginHorizontal = function () {
+            return _super.prototype.getImageMarginHorizontal.call(this) - 5;
+        };
+        DThemeDarkNote.prototype.getImageAlignHorizontal = function () {
+            return DAlignHorizontal.LEFT;
+        };
+        DThemeDarkNote.prototype.getImageAlignVertical = function () {
+            return DAlignVertical.MIDDLE;
+        };
         return DThemeDarkNote;
-    }(DThemeDarkText));
+    }(DThemeDarkImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    DThemeDarkAtlas.add("note_no_items_found", 72, 72, "<g transform=\"translate(-5,0) scale(3,3)\">" +
+        '<path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c' +
+        '-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="#fff"/>' +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var DThemeDarkNoteNoItemsFound = /** @class */ (function (_super) {
+        __extends(DThemeDarkNoteNoItemsFound, _super);
+        function DThemeDarkNoteNoItemsFound() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkNoteNoItemsFound.prototype.newTextValue = function () {
+            return "No items found";
+        };
+        DThemeDarkNoteNoItemsFound.prototype.getImageSource = function (state) {
+            return DThemeDarkAtlas.mappings.note_no_items_found;
+        };
+        return DThemeDarkNoteNoItemsFound;
+    }(DThemeDarkNote));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    DThemeDarkAtlas.add("note_searching", 72, 72, "<g transform=\"translate(-5,0) scale(3,3)\">" +
+        "<path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 " +
+        "9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 " +
+        "14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\" fill=\"#fff\"/>" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var DThemeDarkNoteSearching = /** @class */ (function (_super) {
+        __extends(DThemeDarkNoteSearching, _super);
+        function DThemeDarkNoteSearching() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkNoteSearching.prototype.newTextValue = function () {
+            return "Searching";
+        };
+        DThemeDarkNoteSearching.prototype.getImageSource = function (state) {
+            return DThemeDarkAtlas.mappings.note_searching;
+        };
+        return DThemeDarkNoteSearching;
+    }(DThemeDarkNote));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -6092,6 +6153,8 @@
      */
     var loadThemeDarkNote = function () {
         DThemeDark.set("DNote", DThemeDarkNote);
+        DThemeDark.set("DNoteNoItemsFound", DThemeDarkNoteNoItemsFound);
+        DThemeDark.set("DNoteSearching", DThemeDarkNoteSearching);
     };
 
     /*
@@ -8637,6 +8700,8 @@
         DThemeDarkMenuSidedItemSeparator: DThemeDarkMenuSidedItemSeparator,
         DThemeDarkMenuSidedItemSpace: DThemeDarkMenuSidedItemSpace,
         DThemeDarkMenuSidedItemText: DThemeDarkMenuSidedItemText,
+        DThemeDarkNoteNoItemsFound: DThemeDarkNoteNoItemsFound,
+        DThemeDarkNoteSearching: DThemeDarkNoteSearching,
         DThemeDarkNote: DThemeDarkNote,
         DThemeDarkPagination: DThemeDarkPagination,
         DThemeDarkPaginationNavigationButton: DThemeDarkPaginationNavigationButton,

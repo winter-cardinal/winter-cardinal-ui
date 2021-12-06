@@ -156,6 +156,9 @@
     * [Formatter](./multi-select/formatter.html)
     * [Non-checkable menu items](./multi-select/non-checkable-menu-items.html)
     * [Replacing a menu](./multi-select/replacing-a-menu.html)
+* Note
+    * [No items found](./note/no-items-found.html)
+    * [Searching](./note/searching.html)
 * Other
     * [CDN](./other/cdn.html)
     * [State change event](./other/state.html)

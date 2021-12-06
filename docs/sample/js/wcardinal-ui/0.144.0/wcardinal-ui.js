@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.143.0
+ Winter Cardinal UI v0.144.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -41368,13 +41368,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var PADDING = 3;
     var DynamicFontAtlas = /** @class */ (function () {
         function DynamicFontAtlas(fontId, fontSize, fontColor, resolution) {
             this._id = fontId;
             this._canvas = document.createElement("canvas");
             this._context = null;
-            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, PADDING);
+            var padding = this.toPadding(fontSize);
+            this._padding = padding;
+            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, padding);
             this._characters = {};
             this._length = 0;
             this._unrefCount = 0;
@@ -41396,6 +41397,9 @@
                 this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
             }
         }
+        DynamicFontAtlas.prototype.toPadding = function (fontSize) {
+            return Math.max(3, Math.ceil(fontSize * 0.2));
+        };
         Object.defineProperty(DynamicFontAtlas.prototype, "id", {
             get: function () {
                 return this._id;
@@ -41458,7 +41462,8 @@
                 }
                 else {
                     var advance = this.getAdvance(character);
-                    var width = Math.ceil(PADDING + advance + PADDING);
+                    var padding = this._padding;
+                    var width = Math.ceil(padding + advance + padding);
                     var height = this.font.height;
                     characters[id] = new DynamicFontAtlasCharacter(character, advance, width, height, type);
                     this._length += 1;
@@ -41570,7 +41575,7 @@
                     var fontHeight = font.height;
                     var characters = this._characters;
                     var width = (this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight));
-                    var offsetX = PADDING;
+                    var offsetX = this._padding;
                     var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
                     var x = 0;
                     var y = 0;
@@ -49167,15 +49172,41 @@
         function DNote() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DNote.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this.visible = false;
-        };
         DNote.prototype.getType = function () {
             return "DNote";
         };
         return DNote;
-    }(DText));
+    }(DImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DNoteNoItemsFound = /** @class */ (function (_super) {
+        __extends(DNoteNoItemsFound, _super);
+        function DNoteNoItemsFound() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DNoteNoItemsFound.prototype.getType = function () {
+            return "DNoteNoItemsFound";
+        };
+        return DNoteNoItemsFound;
+    }(DNote));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DNoteSearching = /** @class */ (function (_super) {
+        __extends(DNoteSearching, _super);
+        function DNoteSearching() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DNoteSearching.prototype.getType = function () {
+            return "DNoteSearching";
+        };
+        return DNoteSearching;
+    }(DNote));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -49199,10 +49230,10 @@
             this._list = list;
             layout.addChild(list);
             // Text No Items
-            var noteNoItems = this.newNoteNoItems(list, theme, options);
-            this._noteNoItems = noteNoItems;
+            var noteNoItemsFound = this.newNoteNoItemsFound(list, options);
+            this._noteNoItemsFound = noteNoItemsFound;
             // Text Searching
-            var noteSearching = this.newNoteSearching(list, theme, options);
+            var noteSearching = this.newNoteSearching(list, options);
             this._noteSearching = noteSearching;
             // Controller binding
             var search = this.toSearch(options === null || options === void 0 ? void 0 : options.controller);
@@ -49222,7 +49253,7 @@
                         transition.hide();
                     }
                     else {
-                        transition.show(noteNoItems);
+                        transition.show(noteNoItemsFound);
                     }
                 }
                 else {
@@ -49303,41 +49334,34 @@
             });
             return result;
         };
-        DDialogSelect.prototype.toNoteOptions = function (parent, text, options) {
+        DDialogSelect.prototype.toNoteOptions = function (parent, options) {
             if (options != null) {
                 if (options.parent == null) {
                     options.parent = parent;
                 }
-                if (options.text == null) {
-                    options.text = {
-                        value: text
-                    };
-                }
-                else if (options.text.value == null) {
-                    options.text.value = text;
+                if (options.visible == null) {
+                    options.visible = false;
                 }
                 return options;
             }
             return {
                 parent: parent,
-                text: {
-                    value: text
-                }
+                visible: false
             };
         };
-        DDialogSelect.prototype.toNoteNoItemsOptions = function (list, theme, options) {
+        DDialogSelect.prototype.toNoteNoItemsOptions = function (list, options) {
             var _a;
-            return this.toNoteOptions(list, theme.getNoteNoItemsText(), (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.noItems);
+            return this.toNoteOptions(list, (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.noItemsFound);
         };
-        DDialogSelect.prototype.newNoteNoItems = function (list, theme, options) {
-            return new DNote(this.toNoteNoItemsOptions(list, theme, options));
+        DDialogSelect.prototype.newNoteNoItemsFound = function (list, options) {
+            return new DNoteNoItemsFound(this.toNoteNoItemsOptions(list, options));
         };
-        DDialogSelect.prototype.toNoteSearchingOptions = function (list, theme, options) {
+        DDialogSelect.prototype.toNoteSearchingOptions = function (list, options) {
             var _a;
-            return this.toNoteOptions(list, theme.getNoteSearchingText(), (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.searching);
+            return this.toNoteOptions(list, (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.searching);
         };
-        DDialogSelect.prototype.newNoteSearching = function (list, theme, options) {
-            return new DNote(this.toNoteSearchingOptions(list, theme, options));
+        DDialogSelect.prototype.newNoteSearching = function (list, options) {
+            return new DNoteSearching(this.toNoteSearchingOptions(list, options));
         };
         DDialogSelect.prototype.toSearch = function (controller) {
             if (controller) {
@@ -49394,7 +49418,7 @@
         };
         DDialogSelect.prototype.destroy = function () {
             this._input.destroy();
-            this._noteNoItems.destroy();
+            this._noteNoItemsFound.destroy();
             this._noteSearching.destroy();
             this._list.destroy();
             _super.prototype.destroy.call(this);
@@ -67777,6 +67801,8 @@
         DMenuSideds: DMenuSideds,
         DMenu: DMenu,
         DMenus: DMenus,
+        DNoteNoItemsFound: DNoteNoItemsFound,
+        DNoteSearching: DNoteSearching,
         DNote: DNote,
         DNotification: DNotification,
         DPaginationDotsButton: DPaginationDotsButton,
