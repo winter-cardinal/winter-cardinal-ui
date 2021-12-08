@@ -82,6 +82,7 @@
     * [Processing dialog](./dialog/processing.html)
     * [Select dialog](./dialog/select.html)
     * [Select dialog with predefined items](./dialog/select-before.html)
+    * [Select dialog with errors](./dialog/select-error.html)
     * [Select dialog with images](./dialog/select-image.html)
     * [Select dialog with a selection preservation](./dialog/select-to-id.html)
     * [Select dialog with custom item labels](./dialog/select-to-label.html)
@@ -157,6 +158,7 @@
     * [Non-checkable menu items](./multi-select/non-checkable-menu-items.html)
     * [Replacing a menu](./multi-select/replacing-a-menu.html)
 * Note
+    * [Error](./note/error.html)
     * [No items found](./note/no-items-found.html)
     * [Searching](./note/searching.html)
 * Other

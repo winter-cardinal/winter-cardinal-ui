@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.144.0
+ Winter Cardinal UI v0.145.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -42510,7 +42510,7 @@
             var current = this._current;
             if (current !== next) {
                 this._lastUpdate = now;
-                if (current !== null) {
+                if (current != null) {
                     current.hide();
                 }
                 this._current = next;
@@ -49182,6 +49182,21 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DNoteError = /** @class */ (function (_super) {
+        __extends(DNoteError, _super);
+        function DNoteError() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DNoteError.prototype.getType = function () {
+            return "DNoteError";
+        };
+        return DNoteError;
+    }(DNote));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DNoteNoItemsFound = /** @class */ (function (_super) {
         __extends(DNoteNoItemsFound, _super);
         function DNoteNoItemsFound() {
@@ -49229,11 +49244,15 @@
             var list = this.newList(theme, options);
             this._list = list;
             layout.addChild(list);
-            // Text No Items
-            var noteNoItemsFound = this.newNoteNoItemsFound(list, options);
+            // Error note
+            var noteOptions = options === null || options === void 0 ? void 0 : options.note;
+            var noteError = this.newNoteError(list, noteOptions);
+            this._noteError = noteError;
+            // No items found note
+            var noteNoItemsFound = this.newNoteNoItemsFound(list, noteOptions);
             this._noteNoItemsFound = noteNoItemsFound;
-            // Text Searching
-            var noteSearching = this.newNoteSearching(list, options);
+            // Searching note
+            var noteSearching = this.newNoteSearching(list, noteOptions);
             this._noteSearching = noteSearching;
             // Controller binding
             var search = this.toSearch(options === null || options === void 0 ? void 0 : options.controller);
@@ -49244,20 +49263,30 @@
             search.on("success", function (e, results) {
                 _this.onSearched(results);
             });
+            search.on("fail", function () {
+                _this.onSearched([]);
+            });
             // Visibility
             var transition = new UtilTransition();
             search.on("change", function () {
                 if (search.isDone()) {
                     var result = search.getResult();
-                    if (result != null && 0 < result.length) {
-                        transition.hide();
+                    if (result != null) {
+                        if (0 < result.length) {
+                            transition.hide();
+                        }
+                        else {
+                            transition.show(noteNoItemsFound);
+                        }
                     }
                     else {
-                        transition.show(noteNoItemsFound);
+                        transition.show(noteError);
                     }
                 }
                 else {
-                    transition.show(noteSearching);
+                    if (noteSearching) {
+                        transition.show(noteSearching);
+                    }
                 }
             });
         };
@@ -49349,19 +49378,29 @@
                 visible: false
             };
         };
-        DDialogSelect.prototype.toNoteNoItemsOptions = function (list, options) {
-            var _a;
-            return this.toNoteOptions(list, (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.noItemsFound);
+        DDialogSelect.prototype.newNoteError = function (list, options) {
+            var error = options === null || options === void 0 ? void 0 : options.error;
+            if (error !== null) {
+                return new DNoteError(this.toNoteOptions(list, error));
+            }
+            return null;
         };
         DDialogSelect.prototype.newNoteNoItemsFound = function (list, options) {
-            return new DNoteNoItemsFound(this.toNoteNoItemsOptions(list, options));
-        };
-        DDialogSelect.prototype.toNoteSearchingOptions = function (list, options) {
-            var _a;
-            return this.toNoteOptions(list, (_a = options === null || options === void 0 ? void 0 : options.note) === null || _a === void 0 ? void 0 : _a.searching);
+            var noItemsFound = options === null || options === void 0 ? void 0 : options.noItemsFound;
+            if (noItemsFound !== null) {
+                return new DNoteNoItemsFound(this.toNoteOptions(list, noItemsFound));
+            }
+            return null;
         };
         DDialogSelect.prototype.newNoteSearching = function (list, options) {
-            return new DNoteSearching(this.toNoteSearchingOptions(list, options));
+            var searching = options === null || options === void 0 ? void 0 : options.searching;
+            // Because the `searcing` note is disabled by default,
+            // if options.searching is missing, i.e., if its value is undefined,
+            // this method returns null. This is why `!=` is used here instead of `!==`.
+            if (searching != null) {
+                return new DNoteSearching(this.toNoteOptions(list, searching));
+            }
+            return null;
         };
         DDialogSelect.prototype.toSearch = function (controller) {
             if (controller) {
@@ -49417,9 +49456,11 @@
             _super.prototype.onOk.call(this, value);
         };
         DDialogSelect.prototype.destroy = function () {
+            var _a, _b, _c;
             this._input.destroy();
-            this._noteNoItemsFound.destroy();
-            this._noteSearching.destroy();
+            (_a = this._noteError) === null || _a === void 0 ? void 0 : _a.destroy();
+            (_b = this._noteNoItemsFound) === null || _b === void 0 ? void 0 : _b.destroy();
+            (_c = this._noteSearching) === null || _c === void 0 ? void 0 : _c.destroy();
             this._list.destroy();
             _super.prototype.destroy.call(this);
         };
@@ -67801,6 +67842,7 @@
         DMenuSideds: DMenuSideds,
         DMenu: DMenu,
         DMenus: DMenus,
+        DNoteError: DNoteError,
         DNoteNoItemsFound: DNoteNoItemsFound,
         DNoteSearching: DNoteSearching,
         DNote: DNote,
