@@ -10,20 +10,19 @@ import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkNote } from "./d-theme-dark-note";
 
 /* eslint-disable prettier/prettier */
-DThemeDarkAtlas.add("note_no_items_found", 48, 48,
+DThemeDarkAtlas.add("note_erorr", 48, 48,
 	`<g transform="translate(-3,3) scale(3,3)">` +
-		'<path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c' +
-		'-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="#fff"/>' +
+		'<path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z" fill="#fff"/>' +
 	`</g>`
 );
 /* eslint-enable prettier/prettier */
 
-export class DThemeDarkNoteNoItemsFound extends DThemeDarkNote {
+export class DThemeDarkNoteError extends DThemeDarkNote {
 	newTextValue(): DStateAwareOrValueMightBe<string> {
-		return "No items found";
+		return "Error";
 	}
 
 	getImageSource(state: DBaseStateSet): Texture | DisplayObject | null {
-		return DThemeDarkAtlas.mappings.note_no_items_found;
+		return DThemeDarkAtlas.mappings.note_erorr;
 	}
 }

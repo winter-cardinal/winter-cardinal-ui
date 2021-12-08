@@ -19,6 +19,7 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DListOptions } from "./d-list";
 import { DListDataSelection } from "./d-list-data-selection";
 import { DNote, DNoteOptions } from "./d-note";
+import { DNoteError } from "./d-note-error";
 import { DNoteNoItemsFound } from "./d-note-no-items-found";
 import { DNoteSearching } from "./d-note-searching";
 import { DOnOptions } from "./d-on-options";
@@ -42,6 +43,7 @@ export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 export interface DDialogSelectSearch<VALUE> {
 	create(args: [string]): void;
 	on(event: "success", handler: (e: unknown, searchResults: VALUE[]) => void): void;
+	on(event: "fail", handler: () => void): void;
 	on(event: "change", handler: () => void): void;
 	isDone(): boolean;
 	getResult(): VALUE[] | null;
@@ -63,8 +65,9 @@ export interface DDialogSelectController<VALUE> {
  * {@link DDialogSelect} note options.
  */
 export interface DDialogSelectNoteOptions {
-	noItemsFound?: DNoteOptions;
-	searching?: DNoteOptions;
+	error?: DNoteOptions | null;
+	noItemsFound?: DNoteOptions | null;
+	searching?: DNoteOptions | null;
 }
 
 export type DDialogSelectItemToLabel<VALUE> = (result: VALUE, caller: any) => string;
@@ -117,8 +120,9 @@ export class DDialogSelect<
 	protected _input!: DInputSearch;
 	protected _list!: DDialogSelectList<VALUE>;
 	protected _search!: DDialogSelectSearch<VALUE>;
-	protected _noteNoItemsFound!: DNote;
-	protected _noteSearching!: DNote;
+	protected _noteError?: DNote | null;
+	protected _noteNoItemsFound?: DNote | null;
+	protected _noteSearching?: DNote | null;
 
 	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
 		this._value = null;
@@ -134,12 +138,17 @@ export class DDialogSelect<
 		this._list = list;
 		layout.addChild(list);
 
-		// Text No Items
-		const noteNoItemsFound = this.newNoteNoItemsFound(list, options);
+		// Error note
+		const noteOptions = options?.note;
+		const noteError = this.newNoteError(list, noteOptions);
+		this._noteError = noteError;
+
+		// No items found note
+		const noteNoItemsFound = this.newNoteNoItemsFound(list, noteOptions);
 		this._noteNoItemsFound = noteNoItemsFound;
 
-		// Text Searching
-		const noteSearching = this.newNoteSearching(list, options);
+		// Searching note
+		const noteSearching = this.newNoteSearching(list, noteOptions);
 		this._noteSearching = noteSearching;
 
 		// Controller binding
@@ -152,19 +161,28 @@ export class DDialogSelect<
 		search.on("success", (e: unknown, results: VALUE[]): void => {
 			this.onSearched(results);
 		});
+		search.on("fail", (): void => {
+			this.onSearched([]);
+		});
 
 		// Visibility
 		const transition = new UtilTransition();
 		search.on("change", (): void => {
 			if (search.isDone()) {
 				const result = search.getResult();
-				if (result != null && 0 < result.length) {
-					transition.hide();
+				if (result != null) {
+					if (0 < result.length) {
+						transition.hide();
+					} else {
+						transition.show(noteNoItemsFound);
+					}
 				} else {
-					transition.show(noteNoItemsFound);
+					transition.show(noteError);
 				}
 			} else {
-				transition.show(noteSearching);
+				if (noteSearching) {
+					transition.show(noteSearching);
+				}
 			}
 		});
 	}
@@ -272,26 +290,40 @@ export class DDialogSelect<
 		};
 	}
 
-	protected toNoteNoItemsOptions(
+	protected newNoteError(
 		list: DDialogSelectList<VALUE>,
-		options?: OPTIONS
-	): DNoteOptions {
-		return this.toNoteOptions(list, options?.note?.noItemsFound);
+		options?: DDialogSelectNoteOptions
+	): DNote | null | undefined {
+		const error = options?.error;
+		if (error !== null) {
+			return new DNoteError(this.toNoteOptions(list, error));
+		}
+		return null;
 	}
 
-	protected newNoteNoItemsFound(list: DDialogSelectList<VALUE>, options?: OPTIONS): DNote {
-		return new DNoteNoItemsFound(this.toNoteNoItemsOptions(list, options));
-	}
-
-	protected toNoteSearchingOptions(
+	protected newNoteNoItemsFound(
 		list: DDialogSelectList<VALUE>,
-		options?: OPTIONS
-	): DNoteOptions {
-		return this.toNoteOptions(list, options?.note?.searching);
+		options?: DDialogSelectNoteOptions
+	): DNote | null | undefined {
+		const noItemsFound = options?.noItemsFound;
+		if (noItemsFound !== null) {
+			return new DNoteNoItemsFound(this.toNoteOptions(list, noItemsFound));
+		}
+		return null;
 	}
 
-	protected newNoteSearching(list: DDialogSelectList<VALUE>, options?: OPTIONS): DNote {
-		return new DNoteSearching(this.toNoteSearchingOptions(list, options));
+	protected newNoteSearching(
+		list: DDialogSelectList<VALUE>,
+		options?: DDialogSelectNoteOptions
+	): DNote | null | undefined {
+		const searching = options?.searching;
+		// Because the `searcing` note is disabled by default,
+		// if options.searching is missing, i.e., if its value is undefined,
+		// this method returns null. This is why `!=` is used here instead of `!==`.
+		if (searching != null) {
+			return new DNoteSearching(this.toNoteOptions(list, searching));
+		}
+		return null;
 	}
 
 	protected toSearch(controller?: DDialogSelectController<VALUE>): DDialogSelectSearch<VALUE> {
@@ -344,8 +376,9 @@ export class DDialogSelect<
 
 	destroy(): void {
 		this._input.destroy();
-		this._noteNoItemsFound.destroy();
-		this._noteSearching.destroy();
+		this._noteError?.destroy();
+		this._noteNoItemsFound?.destroy();
+		this._noteSearching?.destroy();
 		this._list.destroy();
 		super.destroy();
 	}

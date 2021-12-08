@@ -132,6 +132,7 @@ export * from "./d-theme-white-menu-sided-item-space";
 export * from "./d-theme-white-menu-sided-item-text";
 export * from "./d-theme-white-menu-sided";
 export * from "./d-theme-white-menu";
+export * from "./d-theme-white-note-error";
 export * from "./d-theme-white-note-no-items-found";
 export * from "./d-theme-white-note-searching";
 export * from "./d-theme-white-note";

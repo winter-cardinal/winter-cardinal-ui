@@ -38,15 +38,11 @@ export class DThemeWhiteNote extends DThemeWhiteImageBase<string> implements DTh
 	}
 
 	getImageTintAlpha(state: DBaseStateSet): number {
-		return 0.1;
+		return 0.15;
 	}
 
 	getImageAlignWith(): DAlignWith {
 		return DAlignWith.TEXT;
-	}
-
-	getImageMarginHorizontal(): number {
-		return super.getImageMarginHorizontal() - 5;
 	}
 
 	getImageAlignHorizontal(): DAlignHorizontal {
