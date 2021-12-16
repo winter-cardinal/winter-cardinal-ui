@@ -61,4 +61,8 @@ export class DThemeDarkSliderThumb<VALUE = unknown>
 	getImageAlignHorizontal(): DAlignHorizontal {
 		return DAlignHorizontal.CENTER;
 	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		return this.getOutlineOffsetNonActive(state) + 2;
+	}
 }

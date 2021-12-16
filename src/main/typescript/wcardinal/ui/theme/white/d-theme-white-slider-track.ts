@@ -19,4 +19,17 @@ export class DThemeWhiteSliderTrack<VALUE = unknown>
 	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
 	}
+
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return super.getOutlineColorNonActive(state);
+	}
+
+	getOutlineOffset(state: DBaseStateSet): number {
+		return super.getOutlineOffsetNonActive(state);
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
+	}
 }

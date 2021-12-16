@@ -28,7 +28,7 @@ export class DThemeDarkSliderValue<VALUE = unknown>
 	}
 
 	getHeight(): DCoordinateSize {
-		return 20;
+		return this.getLineHeight();
 	}
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
