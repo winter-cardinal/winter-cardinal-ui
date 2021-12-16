@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.145.0
+ Winter Cardinal UI v0.146.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -14201,9 +14201,17 @@
         DViewGestureImpl.prototype.onGestureMove = function (target, dx, dy, x, y, ds) {
             if (target) {
                 // Scale
-                var oldScale = target.scale.y;
-                var newScale = this._stopper.toNormalizedScale(oldScale * ds);
-                var scaleRatio = newScale / oldScale;
+                var stopper = this._stopper;
+                var oldScale = target.scale;
+                var oldScaleX = oldScale.x;
+                var oldScaleY = oldScale.y;
+                var newScaleX = stopper.toNormalizedScale(oldScaleX * ds);
+                var newScaleY = stopper.toNormalizedScale(oldScaleY * ds);
+                var scaleRatioX = newScaleX / oldScaleX;
+                var scaleRatioY = newScaleY / oldScaleY;
+                var scaleRatio = ds < 1 ? Math.max(scaleRatioX, scaleRatioY) : Math.min(scaleRatioX, scaleRatioY);
+                newScaleX = scaleRatio * oldScaleX;
+                newScaleY = scaleRatio * oldScaleY;
                 // Position
                 var cx = x - dx;
                 var cy = y - dy;
@@ -14211,7 +14219,7 @@
                 var newX = (position.x - cx) * scaleRatio + x;
                 var newY = (position.y - cy) * scaleRatio + y;
                 // Update
-                target.scale.set(newScale, newScale);
+                target.scale.set(newScaleX, newScaleY);
                 target.position.set(newX, newY);
             }
         };

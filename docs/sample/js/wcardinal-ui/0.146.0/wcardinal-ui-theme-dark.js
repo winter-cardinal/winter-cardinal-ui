@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.145.0
+ Winter Cardinal UI v0.146.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -6103,7 +6103,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /* eslint-disable prettier/prettier */
-    DThemeDarkAtlas.add("note_erorr", 48, 48, "<g transform=\"translate(-3,3) scale(3,3)\">" +
+    DThemeDarkAtlas.add("note_erorr", 48, 48, "<g transform=\"translate(-3,3) scale(2,2)\">" +
         '<path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z" fill="#fff"/>' +
         "</g>");
     /* eslint-enable prettier/prettier */
@@ -6126,7 +6126,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /* eslint-disable prettier/prettier */
-    DThemeDarkAtlas.add("note_no_items_found", 48, 48, "<g transform=\"translate(-3,3) scale(3,3)\">" +
+    DThemeDarkAtlas.add("note_no_items_found", 48, 48, "<g transform=\"translate(-3,3) scale(2,2)\">" +
         '<path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c' +
         '-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" fill="#fff"/>' +
         "</g>");
@@ -6150,7 +6150,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /* eslint-disable prettier/prettier */
-    DThemeDarkAtlas.add("note_searching", 48, 48, "<g transform=\"translate(-3,3) scale(3,3)\">" +
+    DThemeDarkAtlas.add("note_searching", 48, 48, "<g transform=\"translate(-3,3) scale(2,2)\">" +
         "<path d=\"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 " +
         "9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 " +
         "14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\" fill=\"#fff\"/>" +
@@ -6698,6 +6698,9 @@
         DThemeDarkSliderThumb.prototype.getImageAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
         };
+        DThemeDarkSliderThumb.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetNonActive(state) + 2;
+        };
         return DThemeDarkSliderThumb;
     }(DThemeDarkButton));
 
@@ -6715,6 +6718,16 @@
         };
         DThemeDarkSliderTrack.prototype.getBorderColor = function (state) {
             return null;
+        };
+        DThemeDarkSliderTrack.prototype.getOutlineColor = function (state) {
+            return _super.prototype.getOutlineColorNonActive.call(this, state);
+        };
+        DThemeDarkSliderTrack.prototype.getOutlineOffset = function (state) {
+            return _super.prototype.getOutlineOffsetNonActive.call(this, state);
+        };
+        DThemeDarkSliderTrack.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeDarkSliderTrack;
     }(DThemeDarkButton));
@@ -6786,7 +6799,7 @@
             return "AUTO";
         };
         DThemeDarkSliderValue.prototype.getHeight = function () {
-            return 20;
+            return this.getLineHeight();
         };
         DThemeDarkSliderValue.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
@@ -6923,7 +6936,9 @@
         DThemeDarkTableBodyCells.getBackgroundColor = function (state) {
             if (state.inDisabled) {
                 if (state.is(DTableState.FROZEN)) {
-                    return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                    return state.onAlternated
+                        ? this.BACKGROUND_COLOR_FROZEN_ODD
+                        : this.BACKGROUND_COLOR_FROZEN_EVEN;
                 }
                 else {
                     return null;
@@ -6940,7 +6955,9 @@
             }
             else {
                 if (state.is(DTableState.FROZEN)) {
-                    return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                    return state.onAlternated
+                        ? this.BACKGROUND_COLOR_FROZEN_ODD
+                        : this.BACKGROUND_COLOR_FROZEN_EVEN;
                 }
                 else {
                     return null;
@@ -6984,9 +7001,13 @@
         DThemeDarkTableBodyCells.getCornerMask = function () {
             return DCornerMask.ALL;
         };
-        DThemeDarkTableBodyCells.BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
-        DThemeDarkTableBodyCells.BACKGROUND_COLOR_ODD = UtilRgb.brighten(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
-        DThemeDarkTableBodyCells.BORDER_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+        var _a;
+        _a = DThemeDarkTableBodyCells;
+        DThemeDarkTableBodyCells.BACKGROUND_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+        DThemeDarkTableBodyCells.BACKGROUND_COLOR_FROZEN_EVEN = UtilRgb.brighten(_a.BACKGROUND_COLOR, 0.02);
+        DThemeDarkTableBodyCells.BACKGROUND_COLOR_FROZEN_ODD = UtilRgb.brighten(_a.BACKGROUND_COLOR_FROZEN_EVEN, 0.02);
+        DThemeDarkTableBodyCells.BORDER_COLOR = UtilRgb.darken(_a.BACKGROUND_COLOR, 0.035);
+        DThemeDarkTableBodyCells.BORDER_COLOR_FROZEN = UtilRgb.darken(_a.BORDER_COLOR, 0.035);
         return DThemeDarkTableBodyCells;
     }());
 
@@ -8065,12 +8086,14 @@
             _this.BACKGROUND_COLOR = UtilRgb.brighten(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
             _this.BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(_this.BACKGROUND_COLOR, 0.08);
             _this.BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(_this.BACKGROUND_COLOR, 0.32);
+            _this.BACKGROUND_COLOR_FROZEN = UtilRgb.brighten(_this.BACKGROUND_COLOR, 0.02);
             _this.BORDER_COLOR = UtilRgb.darken(DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD, 0.05);
+            _this.BORDER_COLOR_FROZEN = UtilRgb.darken(_this.BORDER_COLOR, 0.05);
             return _this;
         }
         DThemeDarkTableHeaderCell.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
+                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR_FROZEN : null;
             }
             else if (state.isPressed) {
                 return this.BACKGROUND_COLOR_PRESSED;
@@ -8079,13 +8102,16 @@
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
-                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
+                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR_FROZEN : null;
             }
         };
         DThemeDarkTableHeaderCell.prototype.getBackgroundAlpha = function (state) {
             return 1;
         };
         DThemeDarkTableHeaderCell.prototype.getBorderColor = function (state) {
+            if (state.is(DTableState.FROZEN_END)) {
+                return this.BORDER_COLOR_FROZEN;
+            }
             return this.BORDER_COLOR;
         };
         DThemeDarkTableHeaderCell.prototype.getBorderMask = function (state) {

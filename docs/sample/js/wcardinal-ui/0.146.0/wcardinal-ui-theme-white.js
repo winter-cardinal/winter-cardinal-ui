@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.145.0
+ Winter Cardinal UI v0.146.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -6697,6 +6697,9 @@
         DThemeWhiteSliderThumb.prototype.getImageAlignHorizontal = function () {
             return DAlignHorizontal.CENTER;
         };
+        DThemeWhiteSliderThumb.prototype.getOutlineOffset = function (state) {
+            return this.getOutlineOffsetNonActive(state) + 2;
+        };
         return DThemeWhiteSliderThumb;
     }(DThemeWhiteButton));
 
@@ -6714,6 +6717,16 @@
         };
         DThemeWhiteSliderTrack.prototype.getBorderColor = function (state) {
             return null;
+        };
+        DThemeWhiteSliderTrack.prototype.getOutlineColor = function (state) {
+            return _super.prototype.getOutlineColorNonActive.call(this, state);
+        };
+        DThemeWhiteSliderTrack.prototype.getOutlineOffset = function (state) {
+            return _super.prototype.getOutlineOffsetNonActive.call(this, state);
+        };
+        DThemeWhiteSliderTrack.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
         return DThemeWhiteSliderTrack;
     }(DThemeWhiteButton));
@@ -6785,7 +6798,7 @@
             return "AUTO";
         };
         DThemeWhiteSliderValue.prototype.getHeight = function () {
-            return 20;
+            return this.getLineHeight();
         };
         DThemeWhiteSliderValue.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
@@ -6916,7 +6929,9 @@
         DThemeWhiteTableBodyCells.getBackgroundColor = function (state) {
             if (state.inDisabled) {
                 if (state.is(DTableState.FROZEN)) {
-                    return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                    return state.onAlternated
+                        ? this.BACKGROUND_COLOR_FROZEN_ODD
+                        : this.BACKGROUND_COLOR_FROZEN_EVEN;
                 }
                 else {
                     return null;
@@ -6933,7 +6948,9 @@
             }
             else {
                 if (state.is(DTableState.FROZEN)) {
-                    return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+                    return state.onAlternated
+                        ? this.BACKGROUND_COLOR_FROZEN_ODD
+                        : this.BACKGROUND_COLOR_FROZEN_EVEN;
                 }
                 else {
                     return null;
@@ -6944,6 +6961,9 @@
             return 1;
         };
         DThemeWhiteTableBodyCells.getBorderColor = function (state) {
+            if (state.is(DTableState.FROZEN_END)) {
+                return this.BORDER_COLOR_FROZEN;
+            }
             return this.BORDER_COLOR;
         };
         DThemeWhiteTableBodyCells.getBorderMask = function (state) {
@@ -6977,9 +6997,13 @@
         DThemeWhiteTableBodyCells.getCornerMask = function () {
             return DCornerMask.ALL;
         };
-        DThemeWhiteTableBodyCells.BACKGROUND_COLOR_EVEN = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
-        DThemeWhiteTableBodyCells.BACKGROUND_COLOR_ODD = UtilRgb.darken(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.01);
-        DThemeWhiteTableBodyCells.BORDER_COLOR = UtilRgb.darken(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.035);
+        var _a;
+        _a = DThemeWhiteTableBodyCells;
+        DThemeWhiteTableBodyCells.BACKGROUND_COLOR = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
+        DThemeWhiteTableBodyCells.BACKGROUND_COLOR_FROZEN_EVEN = UtilRgb.darken(_a.BACKGROUND_COLOR, 0.01);
+        DThemeWhiteTableBodyCells.BACKGROUND_COLOR_FROZEN_ODD = UtilRgb.darken(_a.BACKGROUND_COLOR_FROZEN_EVEN, 0.01);
+        DThemeWhiteTableBodyCells.BORDER_COLOR = UtilRgb.darken(_a.BACKGROUND_COLOR, 0.035);
+        DThemeWhiteTableBodyCells.BORDER_COLOR_FROZEN = UtilRgb.darken(_a.BORDER_COLOR, 0.035);
         return DThemeWhiteTableBodyCells;
     }());
 
@@ -8058,12 +8082,14 @@
             _this.BACKGROUND_COLOR = UtilRgb.darken(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.02);
             _this.BACKGROUND_COLOR_HOVERED = UtilRgb.darken(_this.BACKGROUND_COLOR, 0.017);
             _this.BACKGROUND_COLOR_PRESSED = UtilRgb.darken(_this.BACKGROUND_COLOR, 0.034);
+            _this.BACKGROUND_COLOR_FROZEN = UtilRgb.darken(_this.BACKGROUND_COLOR, 0.02);
             _this.BORDER_COLOR = UtilRgb.darken(DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD, 0.055);
+            _this.BORDER_COLOR_FROZEN = UtilRgb.darken(_this.BORDER_COLOR, 0.055);
             return _this;
         }
         DThemeWhiteTableHeaderCell.prototype.getBackgroundColor = function (state) {
             if (state.inDisabled) {
-                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
+                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR_FROZEN : null;
             }
             else if (state.isPressed) {
                 return this.BACKGROUND_COLOR_PRESSED;
@@ -8072,13 +8098,16 @@
                 return this.BACKGROUND_COLOR_HOVERED;
             }
             else {
-                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
+                return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR_FROZEN : null;
             }
         };
         DThemeWhiteTableHeaderCell.prototype.getBackgroundAlpha = function (state) {
             return 1;
         };
         DThemeWhiteTableHeaderCell.prototype.getBorderColor = function (state) {
+            if (state.is(DTableState.FROZEN_END)) {
+                return this.BORDER_COLOR_FROZEN;
+            }
             return this.BORDER_COLOR;
         };
         DThemeWhiteTableHeaderCell.prototype.getBorderMask = function (state) {
