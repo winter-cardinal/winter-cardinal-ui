@@ -12,17 +12,24 @@ import { UtilRgb } from "../../util/util-rgb";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
 
 export class DThemeDarkTableBodyCells {
-	protected static readonly BACKGROUND_COLOR_EVEN = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
-	protected static readonly BACKGROUND_COLOR_ODD = UtilRgb.brighten(
-		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
+	protected static readonly BACKGROUND_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected static readonly BACKGROUND_COLOR_FROZEN_EVEN = UtilRgb.brighten(
+		this.BACKGROUND_COLOR,
 		0.02
 	);
-	protected static readonly BORDER_COLOR = DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+	protected static readonly BACKGROUND_COLOR_FROZEN_ODD = UtilRgb.brighten(
+		this.BACKGROUND_COLOR_FROZEN_EVEN,
+		0.02
+	);
+	protected static readonly BORDER_COLOR = UtilRgb.darken(this.BACKGROUND_COLOR, 0.035);
+	protected static readonly BORDER_COLOR_FROZEN = UtilRgb.darken(this.BORDER_COLOR, 0.035);
 
 	static getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
 			if (state.is(DTableState.FROZEN)) {
-				return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+				return state.onAlternated
+					? this.BACKGROUND_COLOR_FROZEN_ODD
+					: this.BACKGROUND_COLOR_FROZEN_EVEN;
 			} else {
 				return null;
 			}
@@ -34,7 +41,9 @@ export class DThemeDarkTableBodyCells {
 			return DThemeDarkConstants.WEAK_HIGHLIGHT_BLENDED_ON_BOARD;
 		} else {
 			if (state.is(DTableState.FROZEN)) {
-				return state.onAlternated ? this.BACKGROUND_COLOR_EVEN : this.BACKGROUND_COLOR_ODD;
+				return state.onAlternated
+					? this.BACKGROUND_COLOR_FROZEN_ODD
+					: this.BACKGROUND_COLOR_FROZEN_EVEN;
 			} else {
 				return null;
 			}

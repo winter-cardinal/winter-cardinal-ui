@@ -46,20 +46,22 @@ export class DThemeDarkTableHeaderCell
 	);
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.08);
 	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.32);
+	protected readonly BACKGROUND_COLOR_FROZEN = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.02);
 	protected readonly BORDER_COLOR = UtilRgb.darken(
 		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
 		0.05
 	);
+	protected readonly BORDER_COLOR_FROZEN = UtilRgb.darken(this.BORDER_COLOR, 0.05);
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
 		if (state.inDisabled) {
-			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
+			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR_FROZEN : null;
 		} else if (state.isPressed) {
 			return this.BACKGROUND_COLOR_PRESSED;
 		} else if (state.isHovered) {
 			return this.BACKGROUND_COLOR_HOVERED;
 		} else {
-			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR : null;
+			return state.is(DTableState.FROZEN) ? this.BACKGROUND_COLOR_FROZEN : null;
 		}
 	}
 
@@ -68,6 +70,9 @@ export class DThemeDarkTableHeaderCell
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
+		if (state.is(DTableState.FROZEN_END)) {
+			return this.BORDER_COLOR_FROZEN;
+		}
 		return this.BORDER_COLOR;
 	}
 
