@@ -70,26 +70,29 @@ export class DViewGestureImpl implements DViewGesture {
 	): void {
 		if (target) {
 			// Scale
+			const stopper = this._stopper;
 			const oldScale = target.scale;
-			const newScale = {
-				x: this._stopper.toNormalizedScale(oldScale.x * ds),
-				y: this._stopper.toNormalizedScale(oldScale.y * ds)
-			};
+			const oldScaleX = oldScale.x;
+			const oldScaleY = oldScale.y;
+			let newScaleX = stopper.toNormalizedScale(oldScaleX * ds);
+			let newScaleY = stopper.toNormalizedScale(oldScaleY * ds);
 
-			const scaleRatio = {
-				x: newScale.x / oldScale.x,
-				y: newScale.y / oldScale.y
-			};
+			const scaleRatioX = newScaleX / oldScaleX;
+			const scaleRatioY = newScaleY / oldScaleY;
+			const scaleRatio =
+				ds < 1 ? Math.max(scaleRatioX, scaleRatioY) : Math.min(scaleRatioX, scaleRatioY);
+			newScaleX = scaleRatio * oldScaleX;
+			newScaleY = scaleRatio * oldScaleY;
 
 			// Position
 			const cx = x - dx;
 			const cy = y - dy;
 			const position = target.position;
-			const newX = (position.x - cx) * scaleRatio.x + x;
-			const newY = (position.y - cy) * scaleRatio.y + y;
+			const newX = (position.x - cx) * scaleRatio + x;
+			const newY = (position.y - cy) * scaleRatio + y;
 
 			// Update
-			target.scale.set(newScale.x, newScale.y);
+			target.scale.set(newScaleX, newScaleY);
 			target.position.set(newX, newY);
 		}
 	}
