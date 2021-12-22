@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.146.0
+ Winter Cardinal UI v0.147.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -41898,6 +41898,9 @@
             }
             return false;
         };
+        UtilSvgAtlasBuilder.prototype.has = function (name) {
+            return name in this._frames;
+        };
         Object.defineProperty(UtilSvgAtlasBuilder.prototype, "mappings", {
             get: function () {
                 return this.build();
@@ -49190,46 +49193,61 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DNoteError = /** @class */ (function (_super) {
-        __extends(DNoteError, _super);
-        function DNoteError() {
+    var DNoteSmall = /** @class */ (function (_super) {
+        __extends(DNoteSmall, _super);
+        function DNoteSmall() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DNoteError.prototype.getType = function () {
-            return "DNoteError";
+        DNoteSmall.prototype.getType = function () {
+            return "DNoteSmall";
         };
-        return DNoteError;
+        return DNoteSmall;
     }(DNote));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DNoteNoItemsFound = /** @class */ (function (_super) {
-        __extends(DNoteNoItemsFound, _super);
-        function DNoteNoItemsFound() {
+    var DNoteSmallError = /** @class */ (function (_super) {
+        __extends(DNoteSmallError, _super);
+        function DNoteSmallError() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DNoteNoItemsFound.prototype.getType = function () {
-            return "DNoteNoItemsFound";
+        DNoteSmallError.prototype.getType = function () {
+            return "DNoteSmallError";
         };
-        return DNoteNoItemsFound;
-    }(DNote));
+        return DNoteSmallError;
+    }(DNoteSmall));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DNoteSearching = /** @class */ (function (_super) {
-        __extends(DNoteSearching, _super);
-        function DNoteSearching() {
+    var DNoteSmallNoItemsFound = /** @class */ (function (_super) {
+        __extends(DNoteSmallNoItemsFound, _super);
+        function DNoteSmallNoItemsFound() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DNoteSearching.prototype.getType = function () {
-            return "DNoteSearching";
+        DNoteSmallNoItemsFound.prototype.getType = function () {
+            return "DNoteSmallNoItemsFound";
         };
-        return DNoteSearching;
-    }(DNote));
+        return DNoteSmallNoItemsFound;
+    }(DNoteSmall));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DNoteSmallSearching = /** @class */ (function (_super) {
+        __extends(DNoteSmallSearching, _super);
+        function DNoteSmallSearching() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DNoteSmallSearching.prototype.getType = function () {
+            return "DNoteSmallSearching";
+        };
+        return DNoteSmallSearching;
+    }(DNoteSmall));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -49389,14 +49407,14 @@
         DDialogSelect.prototype.newNoteError = function (list, options) {
             var error = options === null || options === void 0 ? void 0 : options.error;
             if (error !== null) {
-                return new DNoteError(this.toNoteOptions(list, error));
+                return new DNoteSmallError(this.toNoteOptions(list, error));
             }
             return null;
         };
         DDialogSelect.prototype.newNoteNoItemsFound = function (list, options) {
             var noItemsFound = options === null || options === void 0 ? void 0 : options.noItemsFound;
             if (noItemsFound !== null) {
-                return new DNoteNoItemsFound(this.toNoteOptions(list, noItemsFound));
+                return new DNoteSmallNoItemsFound(this.toNoteOptions(list, noItemsFound));
             }
             return null;
         };
@@ -49406,7 +49424,7 @@
             // if options.searching is missing, i.e., if its value is undefined,
             // this method returns null. This is why `!=` is used here instead of `!==`.
             if (searching != null) {
-                return new DNoteSearching(this.toNoteOptions(list, searching));
+                return new DNoteSmallSearching(this.toNoteOptions(list, searching));
             }
             return null;
         };
@@ -58562,6 +58580,51 @@
         };
         return DMenuSided;
     }(DPane));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DNoteError = /** @class */ (function (_super) {
+        __extends(DNoteError, _super);
+        function DNoteError() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DNoteError.prototype.getType = function () {
+            return "DNoteError";
+        };
+        return DNoteError;
+    }(DNote));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DNoteNoItemsFound = /** @class */ (function (_super) {
+        __extends(DNoteNoItemsFound, _super);
+        function DNoteNoItemsFound() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DNoteNoItemsFound.prototype.getType = function () {
+            return "DNoteNoItemsFound";
+        };
+        return DNoteNoItemsFound;
+    }(DNote));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DNoteSearching = /** @class */ (function (_super) {
+        __extends(DNoteSearching, _super);
+        function DNoteSearching() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DNoteSearching.prototype.getType = function () {
+            return "DNoteSearching";
+        };
+        return DNoteSearching;
+    }(DNote));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -67853,6 +67916,10 @@
         DNoteError: DNoteError,
         DNoteNoItemsFound: DNoteNoItemsFound,
         DNoteSearching: DNoteSearching,
+        DNoteSmallError: DNoteSmallError,
+        DNoteSmallNoItemsFound: DNoteSmallNoItemsFound,
+        DNoteSmallSearching: DNoteSmallSearching,
+        DNoteSmall: DNoteSmall,
         DNote: DNote,
         DNotification: DNotification,
         DPaginationDotsButton: DPaginationDotsButton,
