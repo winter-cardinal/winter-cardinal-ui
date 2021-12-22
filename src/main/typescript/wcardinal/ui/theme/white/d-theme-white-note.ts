@@ -9,6 +9,7 @@ import { DAlignWith } from "../../d-align-with";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
+import { DFontWeight } from "../../d-font";
 import { DThemeNote } from "../../d-note";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
@@ -30,15 +31,19 @@ export class DThemeWhiteNote extends DThemeWhiteImageBase<string> implements DTh
 	}
 
 	getAlpha(): number {
-		return 0.25;
+		return 0.2;
 	}
 
 	getFontSize(): number {
 		return 26;
 	}
 
+	getFontWeight(): DFontWeight {
+		return "bold";
+	}
+
 	getImageTintAlpha(state: DBaseStateSet): number {
-		return 0.15;
+		return 0.2;
 	}
 
 	getImageAlignWith(): DAlignWith {
@@ -51,5 +56,10 @@ export class DThemeWhiteNote extends DThemeWhiteImageBase<string> implements DTh
 
 	getImageAlignVertical(): DAlignVertical {
 		return DAlignVertical.MIDDLE;
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
 	}
 }

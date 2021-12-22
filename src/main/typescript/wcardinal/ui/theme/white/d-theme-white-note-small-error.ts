@@ -4,10 +4,10 @@
  */
 
 import { DStateAwareOrValueMightBe } from "../../d-state-aware";
-import { DThemeDarkNote } from "./d-theme-dark-note";
+import { DThemeWhiteNoteSmall } from "./d-theme-white-note-small";
 
-export class DThemeDarkNoteNoItemsFound extends DThemeDarkNote {
+export class DThemeWhiteNoteSmallError extends DThemeWhiteNoteSmall {
 	newTextValue(): DStateAwareOrValueMightBe<string> {
-		return "No items found";
+		return "Something went wrong";
 	}
 }

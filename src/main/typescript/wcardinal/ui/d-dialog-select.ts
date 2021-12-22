@@ -19,9 +19,9 @@ import { DLayoutVertical } from "./d-layout-vertical";
 import { DListOptions } from "./d-list";
 import { DListDataSelection } from "./d-list-data-selection";
 import { DNote, DNoteOptions } from "./d-note";
-import { DNoteError } from "./d-note-error";
-import { DNoteNoItemsFound } from "./d-note-no-items-found";
-import { DNoteSearching } from "./d-note-searching";
+import { DNoteSmallError } from "./d-note-small-error";
+import { DNoteSmallNoItemsFound } from "./d-note-small-no-items-found";
+import { DNoteSmallSearching } from "./d-note-small-searching";
 import { DOnOptions } from "./d-on-options";
 import { isNumber } from "./util/is-number";
 import { UtilTransition } from "./util/util-transition";
@@ -296,7 +296,7 @@ export class DDialogSelect<
 	): DNote | null | undefined {
 		const error = options?.error;
 		if (error !== null) {
-			return new DNoteError(this.toNoteOptions(list, error));
+			return new DNoteSmallError(this.toNoteOptions(list, error));
 		}
 		return null;
 	}
@@ -307,7 +307,7 @@ export class DDialogSelect<
 	): DNote | null | undefined {
 		const noItemsFound = options?.noItemsFound;
 		if (noItemsFound !== null) {
-			return new DNoteNoItemsFound(this.toNoteOptions(list, noItemsFound));
+			return new DNoteSmallNoItemsFound(this.toNoteOptions(list, noItemsFound));
 		}
 		return null;
 	}
@@ -321,7 +321,7 @@ export class DDialogSelect<
 		// if options.searching is missing, i.e., if its value is undefined,
 		// this method returns null. This is why `!=` is used here instead of `!==`.
 		if (searching != null) {
-			return new DNoteSearching(this.toNoteOptions(list, searching));
+			return new DNoteSmallSearching(this.toNoteOptions(list, searching));
 		}
 		return null;
 	}

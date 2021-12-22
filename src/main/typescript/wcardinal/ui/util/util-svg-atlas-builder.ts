@@ -77,6 +77,10 @@ export class UtilSvgAtlasBuilder {
 		return false;
 	}
 
+	has(name: string): boolean {
+		return name in this._frames;
+	}
+
 	get mappings(): { [name: string]: Texture } {
 		return this.build();
 	}
