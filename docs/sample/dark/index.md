@@ -60,6 +60,7 @@
     * [Overflow mask](./diagram/mask.html)
     * [Opening a date dialog](./diagram/open-date.html)
     * [Opening a datetime dialog](./diagram/open-datetime.html)
+    * [Opening an integer input dialog](./diagram/open-integer.html)
     * [Opening a time dialog](./diagram/open-time.html)
     * [Event triggered when a diagram is loaded](./diagram/ready.html)
     * [Shape gesture](./diagram/shape-gesture.html)

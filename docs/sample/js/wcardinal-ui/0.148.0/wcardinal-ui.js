@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.147.0
+ Winter Cardinal UI v0.148.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -7511,10 +7511,12 @@
         EShapeRuntime.prototype.onKeyUp = function (shape, e) {
             if (UtilKeyboardEvent.isActivateKey(e)) {
                 var state = shape.state;
-                var wasUp = state.isUp;
-                this.onUp(shape, e);
-                if (!wasUp && state.isUp) {
-                    this.onClick(shape, e);
+                if (state.isPressed) {
+                    var wasUp = state.isUp;
+                    this.onUp(shape, e);
+                    if (!wasUp && state.isUp) {
+                        this.onClick(shape, e);
+                    }
                 }
             }
             return false;
