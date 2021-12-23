@@ -189,10 +189,12 @@ export class EShapeRuntime {
 	onKeyUp(shape: EShape, e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			const state = shape.state;
-			const wasUp = state.isUp;
-			this.onUp(shape, e);
-			if (!wasUp && state.isUp) {
-				this.onClick(shape, e);
+			if (state.isPressed) {
+				const wasUp = state.isUp;
+				this.onUp(shape, e);
+				if (!wasUp && state.isUp) {
+					this.onClick(shape, e);
+				}
 			}
 		}
 		return false;
