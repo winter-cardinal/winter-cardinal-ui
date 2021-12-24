@@ -185,7 +185,7 @@ export interface DView {
 	zoomOut(duration?: number, stop?: boolean): void;
 
 	/**
-	 * Zooms into the specific position.
+	 * Zooms into the given position.
 	 *
 	 * @param x a local X coordinate position
 	 * @param y a local Y coordinate position
@@ -233,7 +233,7 @@ export interface DView {
 	zoom(scaleX: number, scaleY: number, duration?: number, stop?: boolean): void;
 
 	/**
-	 * Moves to the specific position.
+	 * Moves to the given position.
 	 *
 	 * @param x a local X coordinate position
 	 * @param y a local Y coordinate position
