@@ -102,7 +102,7 @@ export interface DViewTranslationWheelOptions {
  * {@link DView} translation options.
  */
 export interface DViewTranslationOptions {
-	/** Wheel transtion options */
+	/** Wheel translation options */
 	wheel?: DViewTranslationWheelOptions;
 }
 
@@ -185,7 +185,7 @@ export interface DView {
 	zoomOut(duration?: number, stop?: boolean): void;
 
 	/**
-	 * Zooms into the spcecified position.
+	 * Zooms into the given position.
 	 *
 	 * @param x a local X coordinate position
 	 * @param y a local Y coordinate position
@@ -233,7 +233,7 @@ export interface DView {
 	zoom(scaleX: number, scaleY: number, duration?: number, stop?: boolean): void;
 
 	/**
-	 * Moves to the spacified position.
+	 * Moves to the given position.
 	 *
 	 * @param x a local X coordinate position
 	 * @param y a local Y coordinate position
@@ -245,7 +245,7 @@ export interface DView {
 	/**
 	 * Sets to the specified position and scale.
 	 *
-	 * @param x a local X coordinate positoon
+	 * @param x a local X coordinate position
 	 * @param y a local Y coordinate position
 	 * @param scaleX a X coordinate scale
 	 * @param scaleY a Y coordinate scale
