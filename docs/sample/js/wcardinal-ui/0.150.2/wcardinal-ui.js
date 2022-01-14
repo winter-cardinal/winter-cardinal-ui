@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.150.1
+ Winter Cardinal UI v0.150.2
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -30915,14 +30915,35 @@
     var EShapeConnectorBodies = /** @class */ (function () {
         function EShapeConnectorBodies() {
         }
-        EShapeConnectorBodies.from = function (values) {
+        EShapeConnectorBodies.from = function (values, tailMargin, headMargin) {
             var result = [];
             var length = values.length;
             if (4 < length) {
+                var threshold = 0.000001;
                 var x0 = values[0];
                 var y0 = values[1];
+                if (tailMargin !== 0) {
+                    var ex = x0 - values[2];
+                    var ey = y0 - values[3];
+                    var n = ex * ex + ey * ey;
+                    if (threshold < n) {
+                        var f = tailMargin / Math.sqrt(n);
+                        x0 += ex * f;
+                        y0 += ey * f;
+                    }
+                }
                 var x1 = values[length - 2];
                 var y1 = values[length - 1];
+                if (headMargin !== 0) {
+                    var ex = x1 - values[length - 4];
+                    var ey = y1 - values[length - 3];
+                    var n = ex * ex + ey * ey;
+                    if (threshold < n) {
+                        var f = headMargin / Math.sqrt(n);
+                        x1 += ex * f;
+                        y1 += ey * f;
+                    }
+                }
                 var cx = (x1 + x0) * 0.5;
                 var cy = (y1 + y0) * 0.5;
                 var dx = x1 - x0;
@@ -30931,11 +30952,11 @@
                 var c = Math.cos(a);
                 var s = Math.sin(a);
                 var l = dx * dx + dy * dy;
-                var m = 0.000001 < l ? 1 / Math.sqrt(l) : 1;
+                var m = threshold < l ? 1 / Math.sqrt(l) : 1;
                 for (var i = 2, imax = length - 2; i < imax; i += 2) {
                     var x = values[i + 0] - cx;
                     var y = values[i + 1] - cy;
-                    result.push((c * x - s * y) * m, (c * y + s * x) * m);
+                    result.push((c * x + s * y) * m, (c * y - s * x) * m);
                 }
             }
             return result;
@@ -31735,7 +31756,8 @@
                 var points = shape.points;
                 points.deserialize(parsed[1], manager);
                 // Edge
-                shape.edge.deserialize(parsed[0], mapping, manager);
+                var edge = shape.edge;
+                edge.deserialize(parsed[0], mapping, manager);
                 // Body
                 var body = shape.body;
                 var bodyId = parsed[2];
@@ -31744,7 +31766,7 @@
                 }
                 else {
                     // The following is for backward compatibility.
-                    body.set(EShapeConnectorBodies.from(points.values));
+                    body.set(EShapeConnectorBodies.from(points.values, edge.tail.margin, edge.head.margin));
                 }
                 // Unlock
                 shape.unlock();
