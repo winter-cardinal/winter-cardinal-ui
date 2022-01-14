@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.148.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.148.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.149.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.149.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -45,12 +45,12 @@
 					circleB.attach( diagram.layer );
 
 					const connector = new wcardinal.ui.EShapeConnectorLine();
-					connector.points.values = [100, 0, 250, 200, 400, 0];
 					connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
 					connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
 					connector.points.marker.head.fill.color = 0x909090;
 					connector.edge.tail.set(circleA, "RIGHT", 10);
 					connector.edge.head.set(circleB, "LEFT", 10);
+					connector.body.set([0, -0.3]);
 					connector.attach( diagram.layer );
 
 					var update = function () {

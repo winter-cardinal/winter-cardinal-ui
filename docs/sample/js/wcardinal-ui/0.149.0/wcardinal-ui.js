@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.148.0
+ Winter Cardinal UI v0.149.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -30912,6 +30912,41 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeConnectorBodies = /** @class */ (function () {
+        function EShapeConnectorBodies() {
+        }
+        EShapeConnectorBodies.from = function (values) {
+            var result = [];
+            var length = values.length;
+            if (4 < length) {
+                var x0 = values[0];
+                var y0 = values[1];
+                var x1 = values[length - 2];
+                var y1 = values[length - 1];
+                var cx = (x1 + x0) * 0.5;
+                var cy = (y1 + y0) * 0.5;
+                var dx = x1 - x0;
+                var dy = y1 - y0;
+                var a = Math.atan2(dy, dx);
+                var c = Math.cos(a);
+                var s = Math.sin(a);
+                var l = dx * dx + dy * dy;
+                var m = 0.000001 < l ? 1 / Math.sqrt(l) : 1;
+                for (var i = 2, imax = length - 2; i < imax; i += 2) {
+                    var x = values[i + 0] - cx;
+                    var y = values[i + 1] - cy;
+                    result.push((c * x - s * y) * m, (c * y + s * x) * m);
+                }
+            }
+            return result;
+        };
+        return EShapeConnectorBodies;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeAcceptorImpl = /** @class */ (function () {
         function EShapeAcceptorImpl() {
             this._edges = new Map();
@@ -31379,6 +31414,93 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeConnectorBodyImpl = /** @class */ (function () {
+        function EShapeConnectorBodyImpl(parent, onChange) {
+            this._parent = parent;
+            this._id = 0;
+            this._values = [];
+            this._lockCount = 0;
+            this._isChanged = false;
+            this._onChange = onChange;
+        }
+        EShapeConnectorBodyImpl.prototype.lock = function () {
+            this._lockCount += 1;
+            if (this._lockCount === 1) {
+                this._isChanged = false;
+            }
+        };
+        EShapeConnectorBodyImpl.prototype.unlock = function () {
+            this._lockCount -= 1;
+            if (this._lockCount === 0) {
+                if (this._isChanged) {
+                    this.onChange();
+                }
+                this._isChanged = false;
+            }
+        };
+        Object.defineProperty(EShapeConnectorBodyImpl.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeConnectorBodyImpl.prototype, "values", {
+            get: function () {
+                return this._values;
+            },
+            set: function (newValues) {
+                this.set(newValues);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeConnectorBodyImpl.prototype.set = function (newValues) {
+            if (newValues != null) {
+                this._id += 1;
+                if (this._values !== newValues) {
+                    var length_1 = newValues.length;
+                    var values = this._values;
+                    for (var i = 0; i < length_1; ++i) {
+                        values[i] = newValues[i];
+                    }
+                    values.length = length_1;
+                }
+                this.onChange();
+            }
+            return this;
+        };
+        EShapeConnectorBodyImpl.prototype.copy = function (source) {
+            return this.set(source.values);
+        };
+        EShapeConnectorBodyImpl.prototype.serialize = function (manager) {
+            return manager.addResource(JSON.stringify(this._values));
+        };
+        EShapeConnectorBodyImpl.prototype.deserialize = function (resourceId, mapping, manager) {
+            var resources = manager.resources;
+            if (0 <= resourceId && resourceId < resources.length) {
+                var parsed = manager.getExtension(resourceId);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[resourceId]);
+                    manager.setExtension(resourceId, parsed);
+                }
+                this.set(parsed);
+            }
+        };
+        EShapeConnectorBodyImpl.prototype.onChange = function () {
+            if (0 < this._lockCount) {
+                this._isChanged = true;
+                return;
+            }
+            this._onChange();
+        };
+        return EShapeConnectorBodyImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeConnectorLine = /** @class */ (function (_super) {
         __extends(EShapeConnectorLine, _super);
         function EShapeConnectorLine(type) {
@@ -31388,16 +31510,36 @@
             _this._tailMargin = 0;
             _this._headLocalId = 0;
             _this._headMargin = 0;
+            _this._bodyId = 0;
+            _this._lockCount = 0;
+            _this._isChanged = false;
             var sx = EShapeDefaults.SIZE_X;
             var sy = EShapeDefaults.SIZE_Y;
             var hx = sx * 0.5;
             var hy = sy * 0.5;
-            _this._points = new EShapeLinePoints(_this).set(_this.toValues(-hx, -hy, +hx, +hy, 0, 0, []));
-            _this._edge = new EShapeConnectorEdgeContainerImpl(_this, function () {
-                _this.onEdgeChange();
-            });
+            _this._points = new EShapeLinePoints(_this).set([-hx, -hy, +hx, +hy]);
+            var onChangeBound = function () {
+                _this.onChange();
+            };
+            _this._edge = new EShapeConnectorEdgeContainerImpl(_this, onChangeBound);
+            _this._body = new EShapeConnectorBodyImpl(_this, onChangeBound);
             return _this;
         }
+        EShapeConnectorLine.prototype.lock = function () {
+            this._lockCount += 1;
+            if (this._lockCount === 1) {
+                this._isChanged = false;
+            }
+        };
+        EShapeConnectorLine.prototype.unlock = function () {
+            this._lockCount -= 1;
+            if (this._lockCount === 0) {
+                if (this._isChanged) {
+                    this.onChange();
+                }
+                this._isChanged = false;
+            }
+        };
         Object.defineProperty(EShapeConnectorLine.prototype, "points", {
             get: function () {
                 return this._points;
@@ -31412,6 +31554,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeConnectorLine.prototype, "body", {
+            get: function () {
+                return this._body;
+            },
+            enumerable: false,
+            configurable: true
+        });
         EShapeConnectorLine.prototype.onAttach = function () {
             _super.prototype.onAttach.call(this);
             this._edge.attach();
@@ -31420,8 +31569,12 @@
             this._edge.detach();
             _super.prototype.onDetach.call(this);
         };
-        EShapeConnectorLine.prototype.onEdgeChange = function () {
+        EShapeConnectorLine.prototype.onChange = function () {
             var _a;
+            if (0 < this._lockCount) {
+                this._isChanged = true;
+                return;
+            }
             var edge = this._edge;
             var tail = edge.tail;
             var tailLocalId = tail.localId;
@@ -31429,22 +31582,29 @@
             var head = edge.head;
             var headLocalId = head.localId;
             var headMargin = head.margin;
+            var body = this._body;
+            var bodyId = body.id;
             if (this._tailLocalId !== tailLocalId ||
                 this._tailMargin !== tailMargin ||
                 this._headLocalId !== headLocalId ||
-                this._headMargin !== headMargin) {
+                this._headMargin !== headMargin ||
+                this._bodyId !== bodyId) {
                 this._tailLocalId = tailLocalId;
                 this._tailMargin = tailMargin;
                 this._headLocalId = headLocalId;
                 this._headMargin = headMargin;
-                // Left
+                this._bodyId !== bodyId;
+                // Tail
                 var tailLocal = tail.local;
                 var tailLocalX = tailLocal.x;
                 var tailLocalY = tailLocal.y;
-                // Right
+                // Head
                 var headLocal = head.local;
                 var headLocalX = headLocal.x;
                 var headLocalY = headLocal.y;
+                // Body
+                var bodyValues = body.values;
+                var bodyValuesLength = bodyValues.length;
                 // Values
                 var transform = this.transform;
                 var transformPosition = transform.position;
@@ -31452,7 +31612,58 @@
                 var py = transformPosition.y;
                 var points = this._points;
                 var values = points.values;
-                this.toValues(tailLocalX - px, tailLocalY - py, headLocalX - px, headLocalY - py, tailMargin, headMargin, values);
+                if (values.length < 4) {
+                    values[0] = 0;
+                    values[1] = 0;
+                }
+                var threshold = 0.000001;
+                var x0 = tailLocalX - px;
+                var y0 = tailLocalY - py;
+                var x1 = headLocalX - px;
+                var y1 = headLocalY - py;
+                // Body
+                if (0 < bodyValuesLength) {
+                    var cx_1 = (x1 + x0) * 0.5;
+                    var cy_1 = (y1 + y0) * 0.5;
+                    var dx = x1 - x0;
+                    var dy = y1 - y0;
+                    var a = Math.atan2(dy, dx);
+                    var c = Math.cos(a);
+                    var s = Math.sin(a);
+                    var l = Math.sqrt(dx * dx + dy * dy);
+                    for (var i = 0; i < bodyValuesLength; i += 2) {
+                        var x = bodyValues[i + 0];
+                        var y = bodyValues[i + 1];
+                        values[i + 2] = cx_1 + (c * x - s * y) * l;
+                        values[i + 3] = cy_1 + (c * y + s * x) * l;
+                    }
+                }
+                // Tail
+                values[0] = x0;
+                values[1] = y0;
+                if (tailMargin !== 0) {
+                    var dx = values[2] - x0;
+                    var dy = values[3] - y0;
+                    var d = dx * dx + dy * dy;
+                    if (threshold < d) {
+                        var f = tailMargin / Math.sqrt(dx * dx + dy * dy);
+                        values[0] = x0 + dx * f;
+                        values[1] = y0 + dy * f;
+                    }
+                }
+                // Head
+                values[2 + bodyValuesLength] = x1;
+                values[3 + bodyValuesLength] = y1;
+                if (headMargin !== 0) {
+                    var dx = values[0 + bodyValuesLength] - x1;
+                    var dy = values[1 + bodyValuesLength] - y1;
+                    var d = dx * dx + dy * dy;
+                    if (threshold < d) {
+                        var f = headMargin / Math.sqrt(dx * dx + dy * dy);
+                        values[2 + bodyValuesLength] = x1 + dx * f;
+                        values[3 + bodyValuesLength] = y1 + dy * f;
+                    }
+                }
                 // Center & size
                 var boundary = ((_a = EShapeConnectorLine.WORK_BOUNDARY) !== null && _a !== void 0 ? _a : (EShapeConnectorLine.WORK_BOUNDARY = [0, 0, 0, 0]));
                 toPointsBoundary(values, boundary);
@@ -31476,82 +31687,12 @@
                 this.allowUploadedUpdate();
             }
         };
-        EShapeConnectorLine.prototype.toValues = function (x0, y0, x1, y1, margin0, margin1, result) {
-            var threshold = 0.000001;
-            var resultLength = result.length;
-            if (resultLength <= 4) {
-                if (margin0 !== 0 || margin1 !== 0) {
-                    var dx = x1 - x0;
-                    var dy = y1 - y0;
-                    var d = dx * dx + dy * dy;
-                    if (threshold < d) {
-                        var f = 1 / Math.sqrt(dx * dx + dy * dy);
-                        var nx = dx * f;
-                        var ny = dy * f;
-                        result[0] = x0 + margin0 * nx;
-                        result[1] = y0 + margin0 * ny;
-                        result[2] = x1 - margin1 * nx;
-                        result[3] = y1 - margin1 * ny;
-                    }
-                    else {
-                        result[0] = x0;
-                        result[1] = y0;
-                        result[2] = x1;
-                        result[3] = y1;
-                    }
-                }
-                else {
-                    result[0] = x0;
-                    result[1] = y0;
-                    result[2] = x1;
-                    result[3] = y1;
-                }
-            }
-            else {
-                if (margin0 !== 0) {
-                    var dx = result[2] - x0;
-                    var dy = result[3] - y0;
-                    var d = dx * dx + dy * dy;
-                    if (threshold < d) {
-                        var f = 1 / Math.sqrt(dx * dx + dy * dy);
-                        result[0] = x0 + margin0 * dx * f;
-                        result[1] = y0 + margin0 * dy * f;
-                    }
-                    else {
-                        result[0] = x0;
-                        result[1] = y0;
-                    }
-                }
-                else {
-                    result[0] = x0;
-                    result[1] = y0;
-                }
-                if (margin1 !== 0) {
-                    var dx = result[resultLength - 4] - x1;
-                    var dy = result[resultLength - 3] - y1;
-                    var d = dx * dx + dy * dy;
-                    if (threshold < d) {
-                        var f = 1 / Math.sqrt(dx * dx + dy * dy);
-                        result[resultLength - 2] = x1 + margin1 * dx * f;
-                        result[resultLength - 1] = y1 + margin1 * dy * f;
-                    }
-                    else {
-                        result[resultLength - 2] = x1;
-                        result[resultLength - 1] = y1;
-                    }
-                }
-                else {
-                    result[resultLength - 2] = x1;
-                    result[resultLength - 1] = y1;
-                }
-            }
-            return result;
-        };
         EShapeConnectorLine.prototype.copy = function (source, part) {
             if (part === void 0) { part = EShapeCopyPart.ALL; }
             _super.prototype.copy.call(this, source, part);
             if (source instanceof EShapeConnectorLine) {
                 this._edge.copy(source.edge);
+                this._body.copy(source.body);
             }
             return this;
         };
@@ -31560,7 +31701,10 @@
         };
         EShapeConnectorLine.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
-            result[15] = manager.addResource("[" + this._edge.serialize(manager) + "," + this._points.serialize(manager) + "]");
+            var edgeId = this._edge.serialize(manager);
+            var bodyId = this._body.serialize(manager);
+            var pointsId = this._points.serialize(manager);
+            result[15] = manager.addResource("[" + edgeId + "," + pointsId + "," + bodyId + "]");
             return result;
         };
         return EShapeConnectorLine;
@@ -31583,8 +31727,25 @@
                     parsed = JSON.parse(resources[resourceId]);
                     manager.setExtension(resourceId, parsed);
                 }
-                shape.points.deserialize(parsed[1], manager);
+                // Lock
+                shape.lock();
+                // Points
+                var points = shape.points;
+                points.deserialize(parsed[1], manager);
+                // Edge
                 shape.edge.deserialize(parsed[0], mapping, manager);
+                // Body
+                var body = shape.body;
+                var bodyId = parsed[2];
+                if (bodyId != null) {
+                    body.deserialize(bodyId, mapping, manager);
+                }
+                else {
+                    // The following is for backward compatibility.
+                    body.set(EShapeConnectorBodies.from(points.values));
+                }
+                // Unlock
+                shape.unlock();
             }
         }
     };
@@ -67477,6 +67638,8 @@
         EShapeBuffer: EShapeBuffer,
         EShapeCapabilities: EShapeCapabilities,
         EShapeCapability: EShapeCapability,
+        EShapeConnectorBodies: EShapeConnectorBodies,
+        EShapeConnectorBodyImpl: EShapeConnectorBodyImpl,
         EShapeConnectorContainerImpl: EShapeConnectorContainerImpl,
         EShapeConnectorEdgeAcceptorImpl: EShapeConnectorEdgeAcceptorImpl,
         EShapeConnectorEdgeContainerImpl: EShapeConnectorEdgeContainerImpl,
