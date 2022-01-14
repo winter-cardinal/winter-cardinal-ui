@@ -32,7 +32,6 @@ export const onConnectorLineDeserialized = (
 			if (parsed == null) {
 				parsed = JSON.parse(resources[resourceId]) as [number, number, number?];
 				manager.setExtension(resourceId, parsed);
-
 			}
 
 			// Lock
@@ -43,7 +42,8 @@ export const onConnectorLineDeserialized = (
 			points.deserialize(parsed[1], manager);
 
 			// Edge
-			shape.edge.deserialize(parsed[0], mapping, manager);
+			const edge = shape.edge;
+			edge.deserialize(parsed[0], mapping, manager);
 
 			// Body
 			const body = shape.body;
@@ -52,7 +52,9 @@ export const onConnectorLineDeserialized = (
 				body.deserialize(bodyId, mapping, manager);
 			} else {
 				// The following is for backward compatibility.
-				body.set(EShapeConnectorBodies.from(points.values));
+				body.set(
+					EShapeConnectorBodies.from(points.values, edge.tail.margin, edge.head.margin)
+				);
 			}
 
 			// Unlock
