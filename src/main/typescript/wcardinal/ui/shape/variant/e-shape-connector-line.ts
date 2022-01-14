@@ -197,6 +197,9 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 				}
 			}
 
+			// Remove the rest
+			values.length = bodyValuesLength + 4;
+
 			// Center & size
 			const boundary = (EShapeConnectorLine.WORK_BOUNDARY ??= [0, 0, 0, 0]);
 			toPointsBoundary(values, boundary);
