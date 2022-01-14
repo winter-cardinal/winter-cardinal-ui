@@ -5,7 +5,10 @@
 
 import { EShapeConnector } from "./e-shape-connector";
 import { EShapeConnectorEdge } from "./e-shape-connector-edge";
-import { EShapeConnectorEdgeContainer } from "./e-shape-connector-edge-container";
+import {
+	EShapeConnectorEdgeContainer,
+	EShapeConnectorEdgeContainerSerialized
+} from "./e-shape-connector-edge-container";
 import { EShapeConnectorEdgeImpl } from "./e-shape-connector-edge-impl";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
@@ -94,9 +97,11 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 	): void {
 		const resources = manager.resources;
 		if (0 <= resourceId && resourceId < resources.length) {
-			let parsed = manager.getExtension<[number, number]>(resourceId);
+			let parsed = manager.getExtension<EShapeConnectorEdgeContainerSerialized>(resourceId);
 			if (parsed == null) {
-				parsed = JSON.parse(resources[resourceId]) as [number, number];
+				parsed = JSON.parse(
+					resources[resourceId]
+				) as EShapeConnectorEdgeContainerSerialized;
 				manager.setExtension(resourceId, parsed);
 			}
 			this.lock();
