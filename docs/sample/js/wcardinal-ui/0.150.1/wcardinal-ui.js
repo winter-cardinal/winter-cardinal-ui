@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.150.0
+ Winter Cardinal UI v0.150.1
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -31664,6 +31664,8 @@
                         values[3 + bodyValuesLength] = y1 + dy * f;
                     }
                 }
+                // Remove the rest
+                values.length = bodyValuesLength + 4;
                 // Center & size
                 var boundary = ((_a = EShapeConnectorLine.WORK_BOUNDARY) !== null && _a !== void 0 ? _a : (EShapeConnectorLine.WORK_BOUNDARY = [0, 0, 0, 0]));
                 toPointsBoundary(values, boundary);
