@@ -18,7 +18,7 @@ export const deserializeConnectorLine = (
 	return EShapeDeserializer.deserialize(item, manager, new EShapeConnectorLine());
 };
 
-export const onConnectorLineDeserialized = (
+export const onDeserializedConnectorLine = (
 	item: DDiagramSerializedItem,
 	shape: EShape,
 	mapping: EShapeUuidMapping,

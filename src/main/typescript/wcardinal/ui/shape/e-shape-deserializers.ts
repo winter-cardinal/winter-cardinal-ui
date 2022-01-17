@@ -8,18 +8,30 @@ import { EShape } from "./e-shape";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 
+/**
+ * A shape deserializer
+ */
 type EShapeDeserializer = (
 	item: DDiagramSerializedItem,
 	manager: EShapeResourceManagerDeserialization
 ) => Promise<EShape> | EShape | null;
 
+/**
+ * Mappings of shape types and deserializers.
+ */
 export const EShapeDeserializers: { [type: number]: EShapeDeserializer | undefined } = {};
 
-type EShapeOnDeserialized = (
+/**
+ * A handler which is called after the deserializations of all the shapes are completed.
+ */
+export type EShapeOnDeserialized = (
 	item: DDiagramSerializedItem,
 	shape: EShape,
 	mapping: EShapeUuidMapping,
 	manager: EShapeResourceManagerDeserialization
 ) => void;
 
-export const EShapeOnDeserialized: { [type: number]: EShapeOnDeserialized | undefined } = {};
+/**
+ * Mappings of shape types and `onDeserialized` handlers.
+ */
+export const EShapeOnDeserializeds: { [type: number]: EShapeOnDeserialized | undefined } = {};

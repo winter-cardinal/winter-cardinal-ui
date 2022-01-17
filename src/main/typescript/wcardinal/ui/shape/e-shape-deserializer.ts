@@ -7,7 +7,7 @@ import { DDiagramSerializedItem } from "../d-diagram-serialized";
 import { isString } from "../util/is-string";
 import { EShapeActionValueDeserializer } from "./action/e-shape-action-value-deserializer";
 import { EShape } from "./e-shape";
-import { EShapeDeserializers, EShapeOnDeserialized } from "./e-shape-deserializers";
+import { EShapeDeserializers, EShapeOnDeserializeds } from "./e-shape-deserializers";
 import { EShapeImageElements } from "./e-shape-image-elements";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeSizes } from "./e-shape-sizes";
@@ -160,7 +160,7 @@ export class EShapeDeserializer {
 		for (let i = 0, imax = serializeds.length; i < imax; ++i) {
 			const serialized = serializeds[i];
 			const shape = shapes[i];
-			const onDeserialized = EShapeOnDeserialized[serialized[0]];
+			const onDeserialized = EShapeOnDeserializeds[serialized[0]];
 			if (onDeserialized) {
 				onDeserialized(serialized, shape, mapping, manager);
 			}
