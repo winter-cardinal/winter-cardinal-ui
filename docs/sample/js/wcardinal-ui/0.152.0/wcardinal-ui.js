@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.151.0
+ Winter Cardinal UI v0.152.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -6626,7 +6626,7 @@
             configurable: true
         });
         EShapeBar.prototype.clone = function () {
-            return new EShapeBar().copy(this);
+            return new EShapeBar(this.type).copy(this);
         };
         EShapeBar.prototype.containsAbsBBox = function (x, y, ax, ay) {
             var size = Math.max(0, this._points.size);
@@ -27088,7 +27088,7 @@
             return _super.call(this, type) || this;
         }
         EShapeRectangleRounded.prototype.clone = function () {
-            return new EShapeRectangleRounded().copy(this);
+            return new EShapeRectangleRounded(this.type).copy(this);
         };
         EShapeRectangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
@@ -27136,7 +27136,7 @@
             configurable: true
         });
         EShapeButton.prototype.clone = function () {
-            return new EShapeButton().copy(this);
+            return new EShapeButton(this.type).copy(this);
         };
         EShapeButton.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
@@ -27894,7 +27894,7 @@
             return _super.call(this, type) || this;
         }
         EShapeCircle.prototype.clone = function () {
-            return new EShapeCircle().copy(this);
+            return new EShapeCircle(this.type).copy(this);
         };
         EShapeCircle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
@@ -31549,7 +31549,7 @@
             return this;
         };
         EShapeConnectorLine.prototype.clone = function () {
-            return new EShapeConnectorLine().copy(this);
+            return new EShapeConnectorLine(this.type).copy(this);
         };
         EShapeConnectorLine.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
@@ -34558,7 +34558,7 @@
             return _super.call(this, type) || this;
         }
         EShapeRectangle.prototype.clone = function () {
-            return new EShapeRectangle().copy(this);
+            return new EShapeRectangle(this.type).copy(this);
         };
         EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
@@ -34586,7 +34586,7 @@
             return _this;
         }
         EShapeImage.prototype.clone = function () {
-            return new EShapeImage(this.image).copy(this);
+            return new EShapeImage(this.image, this.type).copy(this);
         };
         return EShapeImage;
     }(EShapeRectangle));
@@ -34895,7 +34895,7 @@
             return _super.call(this, image, type) || this;
         }
         EShapeImageSdf.prototype.clone = function () {
-            return new EShapeImageSdf(this.image).copy(this);
+            return new EShapeImageSdf(this.image, this.type).copy(this);
         };
         return EShapeImageSdf;
     }(EShapeImage));
@@ -34980,7 +34980,7 @@
             return _super.call(this, type) || this;
         }
         EShapeLabel.prototype.clone = function () {
-            return new EShapeLabel().copy(this);
+            return new EShapeLabel(this.type).copy(this);
         };
         return EShapeLabel;
     }(EShapePrimitive));
@@ -35022,7 +35022,7 @@
             configurable: true
         });
         EShapeLine.prototype.clone = function () {
-            return new EShapeLine().copy(this);
+            return new EShapeLine(this.type).copy(this);
         };
         EShapeLine.prototype.serialize = function (manager) {
             var result = _super.prototype.serialize.call(this, manager);
@@ -36039,8 +36039,9 @@
      */
     var EShapeLineOfCircles = /** @class */ (function (_super) {
         __extends(EShapeLineOfCircles, _super);
-        function EShapeLineOfCircles() {
-            var _this = _super.call(this, EShapeType.LINE_OF_CIRCLES) || this;
+        function EShapeLineOfCircles(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_CIRCLES; }
+            var _this = _super.call(this, type) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
@@ -36055,7 +36056,7 @@
             configurable: true
         });
         EShapeLineOfCircles.prototype.clone = function () {
-            return new EShapeLineOfCircles().copy(this);
+            return new EShapeLineOfCircles(this.type).copy(this);
         };
         EShapeLineOfCircles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
@@ -36266,8 +36267,9 @@
      */
     var EShapeLineOfRectangleRoundeds = /** @class */ (function (_super) {
         __extends(EShapeLineOfRectangleRoundeds, _super);
-        function EShapeLineOfRectangleRoundeds() {
-            var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLE_ROUNDEDS) || this;
+        function EShapeLineOfRectangleRoundeds(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_RECTANGLE_ROUNDEDS; }
+            var _this = _super.call(this, type) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
@@ -36282,7 +36284,7 @@
             configurable: true
         });
         EShapeLineOfRectangleRoundeds.prototype.clone = function () {
-            return new EShapeLineOfRectangleRoundeds().copy(this);
+            return new EShapeLineOfRectangleRoundeds(this.type).copy(this);
         };
         EShapeLineOfRectangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
@@ -36484,8 +36486,9 @@
      */
     var EShapeLineOfRectangles = /** @class */ (function (_super) {
         __extends(EShapeLineOfRectangles, _super);
-        function EShapeLineOfRectangles() {
-            var _this = _super.call(this, EShapeType.LINE_OF_RECTANGLES) || this;
+        function EShapeLineOfRectangles(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_RECTANGLES; }
+            var _this = _super.call(this, type) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
@@ -36500,7 +36503,7 @@
             configurable: true
         });
         EShapeLineOfRectangles.prototype.clone = function () {
-            return new EShapeLineOfRectangles().copy(this);
+            return new EShapeLineOfRectangles(this.type).copy(this);
         };
         EShapeLineOfRectangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
@@ -37244,7 +37247,7 @@
             return _super.call(this, type) || this;
         }
         EShapeTriangleRounded.prototype.clone = function () {
-            return new EShapeTriangleRounded().copy(this);
+            return new EShapeTriangleRounded(this.type).copy(this);
         };
         EShapeTriangleRounded.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
@@ -37261,8 +37264,9 @@
      */
     var EShapeLineOfTriangleRoundeds = /** @class */ (function (_super) {
         __extends(EShapeLineOfTriangleRoundeds, _super);
-        function EShapeLineOfTriangleRoundeds() {
-            var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLE_ROUNDEDS) || this;
+        function EShapeLineOfTriangleRoundeds(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_TRIANGLE_ROUNDEDS; }
+            var _this = _super.call(this, type) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
@@ -37277,7 +37281,7 @@
             configurable: true
         });
         EShapeLineOfTriangleRoundeds.prototype.clone = function () {
-            return new EShapeLineOfTriangleRoundeds().copy(this);
+            return new EShapeLineOfTriangleRoundeds(this.type).copy(this);
         };
         EShapeLineOfTriangleRoundeds.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
@@ -37466,7 +37470,7 @@
             return _super.call(this, type) || this;
         }
         EShapeTriangle.prototype.clone = function () {
-            return new EShapeTriangle().copy(this);
+            return new EShapeTriangle(this.type).copy(this);
         };
         EShapeTriangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
@@ -37483,8 +37487,9 @@
      */
     var EShapeLineOfTriangles = /** @class */ (function (_super) {
         __extends(EShapeLineOfTriangles, _super);
-        function EShapeLineOfTriangles() {
-            var _this = _super.call(this, EShapeType.LINE_OF_TRIANGLES) || this;
+        function EShapeLineOfTriangles(type) {
+            if (type === void 0) { type = EShapeType.LINE_OF_TRIANGLES; }
+            var _this = _super.call(this, type) || this;
             _this._points = new EShapeLineOfAnyPointsImpl(_this);
             _this._tester = function (x, y, ax, ay, ox, oy, px, py, sw, ss, sa) {
                 return _this.containsPointAbs(x, y, ax, ay, ox, oy, px, py, sw, ss, sa);
@@ -37499,7 +37504,7 @@
             configurable: true
         });
         EShapeLineOfTriangles.prototype.clone = function () {
-            return new EShapeLineOfTriangles().copy(this);
+            return new EShapeLineOfTriangles(this.type).copy(this);
         };
         EShapeLineOfTriangles.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
             var threshold = toThresholdDefault(sw, ss, this._points.size.getLimit());
@@ -37560,7 +37565,7 @@
             return _super.call(this, type) || this;
         }
         EShapeNull.prototype.clone = function () {
-            return new EShapeNull().copy(this);
+            return new EShapeNull(this.type).copy(this);
         };
         return EShapeNull;
     }(EShapePrimitive));
@@ -38521,7 +38526,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toResize = function (shape, from, to, centerMode, isPerfect) {
+    var toResized = function (shape, from, to, centerMode, isPerfect) {
         shape.disallowUploadedUpdate();
         var position = shape.transform.position;
         if (centerMode) {
@@ -67668,7 +67673,7 @@
         toGradientSerialized: toGradientSerialized,
         toImageElement: toImageElement,
         toLength: toLength,
-        toResize: toResize,
+        toResized: toResized,
         toScaleInvariant: toScaleInvariant,
         toSizeNormalized: toSizeNormalized,
         toSizeRounded: toSizeRounded,
