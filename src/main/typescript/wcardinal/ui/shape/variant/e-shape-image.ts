@@ -17,6 +17,6 @@ export class EShapeImage extends EShapeRectangle {
 	}
 
 	clone(): EShapeImage {
-		return new EShapeImage(this.image).copy(this);
+		return new EShapeImage(this.image, this.type).copy(this);
 	}
 }

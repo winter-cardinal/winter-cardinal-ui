@@ -13,7 +13,7 @@ export class EShapeTriangle extends EShapePrimitive {
 	}
 
 	clone(): EShapeTriangle {
-		return new EShapeTriangle().copy(this);
+		return new EShapeTriangle(this.type).copy(this);
 	}
 
 	containsAbs(

@@ -17,8 +17,8 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor() {
-		super(EShapeType.LINE_OF_CIRCLES);
+	constructor(type: EShapeType = EShapeType.LINE_OF_CIRCLES) {
+		super(type);
 		this._points = new EShapeLineOfAnyPointsImpl(this);
 
 		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss, sa): boolean => {
@@ -31,7 +31,7 @@ export class EShapeLineOfCircles extends EShapeCircle implements EShapeLineOfAny
 	}
 
 	clone(): EShapeLineOfCircles {
-		return new EShapeLineOfCircles().copy(this);
+		return new EShapeLineOfCircles(this.type).copy(this);
 	}
 
 	containsAbs(

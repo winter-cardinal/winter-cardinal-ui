@@ -8,7 +8,7 @@ import { EShape } from "../e-shape";
 import { toSizeNormalized } from "./to-size-normalized";
 import { toSizeRounded } from "./to-size-rounded";
 
-export const toResize = (
+export const toResized = (
 	shape: EShape,
 	from: IPoint,
 	to: IPoint,

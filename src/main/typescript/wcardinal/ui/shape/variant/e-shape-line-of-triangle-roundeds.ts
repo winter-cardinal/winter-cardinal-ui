@@ -17,8 +17,8 @@ export class EShapeLineOfTriangleRoundeds extends EShapeTriangleRounded implemen
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor() {
-		super(EShapeType.LINE_OF_TRIANGLE_ROUNDEDS);
+	constructor(type: EShapeType = EShapeType.LINE_OF_TRIANGLE_ROUNDEDS) {
+		super(type);
 		this._points = new EShapeLineOfAnyPointsImpl(this);
 
 		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss, sa): boolean => {
@@ -31,7 +31,7 @@ export class EShapeLineOfTriangleRoundeds extends EShapeTriangleRounded implemen
 	}
 
 	clone(): EShapeLineOfTriangleRoundeds {
-		return new EShapeLineOfTriangleRoundeds().copy(this);
+		return new EShapeLineOfTriangleRoundeds(this.type).copy(this);
 	}
 
 	containsAbs(

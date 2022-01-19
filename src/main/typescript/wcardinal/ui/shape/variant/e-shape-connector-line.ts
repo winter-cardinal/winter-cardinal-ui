@@ -236,7 +236,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	}
 
 	clone(): EShapeConnectorLine {
-		return new EShapeConnectorLine().copy(this);
+		return new EShapeConnectorLine(this.type).copy(this);
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {

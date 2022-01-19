@@ -22,7 +22,7 @@ export class EShapeBar extends EShapeLineBase {
 	}
 
 	clone(): EShapeBar {
-		return new EShapeBar().copy(this);
+		return new EShapeBar(this.type).copy(this);
 	}
 
 	containsAbsBBox(x: number, y: number, ax: number, ay: number): boolean {

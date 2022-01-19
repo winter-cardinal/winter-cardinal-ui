@@ -20,8 +20,8 @@ export class EShapeLineOfRectangleRoundeds
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor() {
-		super(EShapeType.LINE_OF_RECTANGLE_ROUNDEDS);
+	constructor(type: EShapeType = EShapeType.LINE_OF_RECTANGLE_ROUNDEDS) {
+		super(type);
 		this._points = new EShapeLineOfAnyPointsImpl(this);
 
 		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss, sa): boolean => {
@@ -34,7 +34,7 @@ export class EShapeLineOfRectangleRoundeds
 	}
 
 	clone(): EShapeLineOfRectangleRoundeds {
-		return new EShapeLineOfRectangleRoundeds().copy(this);
+		return new EShapeLineOfRectangleRoundeds(this.type).copy(this);
 	}
 
 	containsAbs(

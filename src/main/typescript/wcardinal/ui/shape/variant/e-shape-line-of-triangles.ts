@@ -17,8 +17,8 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor() {
-		super(EShapeType.LINE_OF_TRIANGLES);
+	constructor(type: EShapeType = EShapeType.LINE_OF_TRIANGLES) {
+		super(type);
 		this._points = new EShapeLineOfAnyPointsImpl(this);
 
 		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss, sa): boolean => {
@@ -31,7 +31,7 @@ export class EShapeLineOfTriangles extends EShapeTriangle implements EShapeLineO
 	}
 
 	clone(): EShapeLineOfTriangles {
-		return new EShapeLineOfTriangles().copy(this);
+		return new EShapeLineOfTriangles(this.type).copy(this);
 	}
 
 	containsAbs(

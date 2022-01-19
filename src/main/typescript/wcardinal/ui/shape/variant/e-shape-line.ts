@@ -22,7 +22,7 @@ export class EShapeLine extends EShapeLineBase {
 	}
 
 	clone(): EShapeLine {
-		return new EShapeLine().copy(this);
+		return new EShapeLine(this.type).copy(this);
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {

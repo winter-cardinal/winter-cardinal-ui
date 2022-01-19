@@ -12,6 +12,6 @@ export class EShapeImageSdf extends EShapeImage {
 	}
 
 	clone(): EShapeImageSdf {
-		return new EShapeImageSdf(this.image).copy(this);
+		return new EShapeImageSdf(this.image, this.type).copy(this);
 	}
 }

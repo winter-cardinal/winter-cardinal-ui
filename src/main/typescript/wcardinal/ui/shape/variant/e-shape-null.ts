@@ -12,6 +12,6 @@ export class EShapeNull extends EShapePrimitive {
 	}
 
 	clone(): EShapeNull {
-		return new EShapeNull().copy(this);
+		return new EShapeNull(this.type).copy(this);
 	}
 }

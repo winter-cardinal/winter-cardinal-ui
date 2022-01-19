@@ -13,7 +13,7 @@ export class EShapeCircle extends EShapePrimitive {
 	}
 
 	clone(): EShapeCircle {
-		return new EShapeCircle().copy(this);
+		return new EShapeCircle(this.type).copy(this);
 	}
 
 	containsAbs(

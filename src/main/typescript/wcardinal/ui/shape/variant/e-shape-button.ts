@@ -38,7 +38,7 @@ export class EShapeButton extends EShapeRectangleRounded {
 	}
 
 	clone(): EShapeRectangleRounded {
-		return new EShapeButton().copy(this);
+		return new EShapeButton(this.type).copy(this);
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {

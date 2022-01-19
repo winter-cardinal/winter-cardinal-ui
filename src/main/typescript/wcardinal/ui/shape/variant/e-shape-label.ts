@@ -12,6 +12,6 @@ export class EShapeLabel extends EShapePrimitive {
 	}
 
 	clone(): EShapeLabel {
-		return new EShapeLabel().copy(this);
+		return new EShapeLabel(this.type).copy(this);
 	}
 }

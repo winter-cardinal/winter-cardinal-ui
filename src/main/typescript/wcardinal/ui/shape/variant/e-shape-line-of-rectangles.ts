@@ -17,8 +17,8 @@ export class EShapeLineOfRectangles extends EShapeRectangle implements EShapeLin
 	protected declare _points: EShapeLineOfAnyPoints;
 	protected _tester: EShapeLineOfAnyPointsHitTester<unknown>;
 
-	constructor() {
-		super(EShapeType.LINE_OF_RECTANGLES);
+	constructor(type: EShapeType = EShapeType.LINE_OF_RECTANGLES) {
+		super(type);
 		this._points = new EShapeLineOfAnyPointsImpl(this);
 
 		this._tester = (x, y, ax, ay, ox, oy, px, py, sw, ss, sa): boolean => {
@@ -31,7 +31,7 @@ export class EShapeLineOfRectangles extends EShapeRectangle implements EShapeLin
 	}
 
 	clone(): EShapeLineOfRectangles {
-		return new EShapeLineOfRectangles().copy(this);
+		return new EShapeLineOfRectangles(this.type).copy(this);
 	}
 
 	containsAbs(
