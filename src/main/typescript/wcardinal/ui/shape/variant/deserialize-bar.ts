@@ -4,17 +4,18 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { deserializeBase } from "./deserialize-base";
 import { EShapeBar } from "./e-shape-bar";
 
 export const deserializeBar = (
 	item: DDiagramSerializedItem,
-	manager: EShapeResourceManagerDeserialization
+	manager: EShapeResourceManagerDeserialization,
+	shape?: EShapeBar
 ): Promise<EShapeBar> | EShapeBar => {
-	const shape = new EShapeBar();
-	const result = EShapeDeserializer.deserialize(item, manager, shape);
+	shape = shape || new EShapeBar();
+	const result = deserializeBase(item, manager, shape);
 	shape.points.deserialize(item[15], manager);
 	const style = shape.points.style;
 	const mask =

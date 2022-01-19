@@ -4,12 +4,12 @@
  */
 
 import { DynamicSDFFontGenerator } from "../../util/dynamic-sdf-font-generator";
-import { EShapeImageElements } from "../e-shape-image-elements";
 import { EShapeImageSdf } from "./e-shape-image-sdf";
+import { toImageElement } from "./to-image-element";
 
 export const createImageSdf = (dataUrl: string, convertToSdf: boolean): Promise<EShapeImageSdf> => {
 	if (convertToSdf) {
-		return EShapeImageElements.toImageElement(dataUrl).then(
+		return toImageElement(dataUrl).then(
 			(imageElement: HTMLImageElement): Promise<EShapeImageSdf> => {
 				const generator = DynamicSDFFontGenerator.getInstance().init();
 				generator.updateTexture(imageElement);
@@ -22,10 +22,8 @@ export const createImageSdf = (dataUrl: string, convertToSdf: boolean): Promise<
 			}
 		);
 	} else {
-		return EShapeImageElements.toImageElement(dataUrl).then(
-			(imageElement: HTMLImageElement): EShapeImageSdf => {
-				return new EShapeImageSdf(imageElement);
-			}
-		);
+		return toImageElement(dataUrl).then((imageElement: HTMLImageElement): EShapeImageSdf => {
+			return new EShapeImageSdf(imageElement);
+		});
 	}
 };

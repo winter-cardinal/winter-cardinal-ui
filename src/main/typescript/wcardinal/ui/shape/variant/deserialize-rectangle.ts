@@ -4,13 +4,14 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { deserializeBase } from "./deserialize-base";
 import { EShapeRectangle } from "./e-shape-rectangle";
 
 export const deserializeRectangle = (
 	item: DDiagramSerializedItem,
-	manager: EShapeResourceManagerDeserialization
+	manager: EShapeResourceManagerDeserialization,
+	shape?: EShapeRectangle
 ): Promise<EShapeRectangle> | EShapeRectangle => {
-	return EShapeDeserializer.deserialize(item, manager, new EShapeRectangle());
+	return deserializeBase(item, manager, shape || new EShapeRectangle());
 };

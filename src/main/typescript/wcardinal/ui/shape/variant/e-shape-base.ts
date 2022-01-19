@@ -41,8 +41,8 @@ import { EShapeTransform, EShapeTransformImpl } from "../e-shape-transform";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploaded } from "../e-shape-uploaded";
 import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
-import { EShapeGradients } from "./e-shape-gradients";
 import { hitTestBBox } from "./hit-test-bbox";
+import { toGradientSerialized } from "./to-gradient-serialized";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected static WORK_HIT_TEST_DATA?: EShapeBaseHitTestData;
@@ -397,7 +397,14 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	serializeGradient(manager: EShapeResourceManagerSerialization): number {
-		return EShapeGradients.toGradientId(this.gradient, manager);
+		const gradient = this.gradient;
+		if (gradient != null) {
+			if (gradient.serialized == null) {
+				gradient.serialized = toGradientSerialized(gradient);
+			}
+			return manager.addResource(gradient.serialized);
+		}
+		return -1;
 	}
 
 	serializeState(manager: EShapeResourceManagerSerialization): number {

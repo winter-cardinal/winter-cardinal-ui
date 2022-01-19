@@ -11,7 +11,7 @@ import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
 /**
  * A shape deserializer
  */
-type EShapeDeserializer = (
+export type EShapeDeserializer = (
 	item: DDiagramSerializedItem,
 	manager: EShapeResourceManagerDeserialization
 ) => Promise<EShape> | EShape | null;

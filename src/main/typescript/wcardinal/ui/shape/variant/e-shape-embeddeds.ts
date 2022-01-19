@@ -1,11 +1,6 @@
 import { DDiagramBaseController } from "../../d-diagram-base";
-import {
-	DDiagramSerialized,
-	DDiagramSerializedItem,
-	DDiagramSerializedSimple
-} from "../../d-diagram-serialized";
+import { DDiagramSerialized, DDiagramSerializedSimple } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
-import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeEmbedded } from "./e-shape-embedded";
@@ -43,26 +38,6 @@ export class EShapeEmbeddeds {
 		return DDiagrams.newLayer(serialized, container, manager).then(() => {
 			return this.create(serialized.name, width, height, container, manager);
 		});
-	}
-
-	static deserialize(
-		name: string,
-		width: number,
-		height: number,
-		container: EShapeLayerContainer,
-		manager: EShapeResourceManagerDeserialization,
-		item: DDiagramSerializedItem
-	): Promise<EShapeEmbedded> | EShapeEmbedded {
-		const shape = new EShapeEmbedded(name, manager.isEditMode);
-		const result = EShapeDeserializer.deserialize(item, manager, shape);
-		const shapeSize = shape.size;
-		const sizeX = shapeSize.x;
-		const sizeY = shapeSize.y;
-		shape.size.set(width, height);
-		container.copyTo(shape);
-		shape.size.init();
-		shape.size.set(sizeX, sizeY);
-		return result;
 	}
 
 	static create(

@@ -4,14 +4,16 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { deserializeBase } from "./deserialize-base";
 import { EShapeButton } from "./e-shape-button";
 
 export const deserializeButton = (
 	item: DDiagramSerializedItem,
-	manager: EShapeResourceManagerDeserialization
+	manager: EShapeResourceManagerDeserialization,
+	shape?: EShapeButton
 ): Promise<EShapeButton> | EShapeButton => {
+	shape = shape || new EShapeButton();
 	const resources = manager.resources;
 	const resourceId = item[15];
 	if (0 <= resourceId && resourceId < resources.length) {
@@ -20,10 +22,8 @@ export const deserializeButton = (
 			parsed = JSON.parse(resources[resourceId]) as [number];
 			manager.setExtension(resourceId, parsed);
 		}
-		const shape = new EShapeButton();
 		shape.isToggle = !!(parsed[0] & 1);
 		shape.isGrouped = !!(parsed[0] & 2);
-		return EShapeDeserializer.deserialize(item, manager, shape);
 	}
-	return EShapeDeserializer.deserialize(item, manager, new EShapeButton());
+	return deserializeBase(item, manager, shape);
 };

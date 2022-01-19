@@ -5,7 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
-import { EShapeSizes } from "../e-shape-sizes";
+import { toSizeNormalized } from "../variant/to-size-normalized";
 import { EShapeActionRuntimeTransformResize } from "./e-shape-action-runtime-transform-resize";
 import { EShapeActionValueTransformResize } from "./e-shape-action-value-transform-resize";
 
@@ -24,7 +24,7 @@ export class EShapeActionRuntimeTransformResizeHeightRelative extends EShapeActi
 			const size = shape.size;
 			const writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
 			const oldSizeY = writtenHeight ? size.y : runtime.size.y;
-			size.y = EShapeSizes.toNormalized(oldSizeY * sizeRelative);
+			size.y = toSizeNormalized(oldSizeY * sizeRelative);
 			runtime.written |= EShapeRuntimeReset.HEIGHT;
 			this.adjustPosition(shape, runtime, 0, oldSizeY - size.y, 0.5, this.origin);
 		}

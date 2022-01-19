@@ -11,9 +11,9 @@ import {
 	DDiagramSerializedSimpleData
 } from "./d-diagram-serialized";
 import { EShape } from "./shape/e-shape";
-import { EShapeDeserializer } from "./shape/e-shape-deserializer";
 import { EShapeLayerContainer } from "./shape/e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
+import { deserializeAll } from "./shape/variant/deserialize-all";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
 import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
 
@@ -85,7 +85,7 @@ export class DDiagrams {
 
 		// Items
 		const serializedItems = serialized.items;
-		const shapePromises = EShapeDeserializer.deserializeAll(serializedItems, manager);
+		const shapePromises = deserializeAll(serializedItems, manager);
 		if (shapePromises != null) {
 			return shapePromises.then((shapes: EShape[]): EShape[] => {
 				const layers = container.children;

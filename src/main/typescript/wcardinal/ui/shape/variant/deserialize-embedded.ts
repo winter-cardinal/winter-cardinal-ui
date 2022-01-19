@@ -4,9 +4,30 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { deserializeBase } from "./deserialize-base";
 import { EShapeEmbedded } from "./e-shape-embedded";
-import { EShapeEmbeddeds } from "./e-shape-embeddeds";
+
+const create = (
+	name: string,
+	width: number,
+	height: number,
+	container: EShapeLayerContainer,
+	manager: EShapeResourceManagerDeserialization,
+	item: DDiagramSerializedItem
+): Promise<EShapeEmbedded> | EShapeEmbedded => {
+	const shape = new EShapeEmbedded(name, manager.isEditMode);
+	const result = deserializeBase(item, manager, shape);
+	const shapeSize = shape.size;
+	const sizeX = shapeSize.x;
+	const sizeY = shapeSize.y;
+	shape.size.set(width, height);
+	container.copyTo(shape);
+	shape.size.init();
+	shape.size.set(sizeX, sizeY);
+	return result;
+};
 
 export const deserializeEmbedded = (
 	item: DDiagramSerializedItem,
@@ -20,7 +41,7 @@ export const deserializeEmbedded = (
 			const piece = pieces[pieceId];
 			const pieceDatum = pieceData.get(piece);
 			if (pieceDatum) {
-				return EShapeEmbeddeds.deserialize(
+				return create(
 					piece,
 					pieceDatum.width,
 					pieceDatum.height,

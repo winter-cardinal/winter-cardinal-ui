@@ -6,15 +6,15 @@
 import { Matrix } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeEditor } from "./e-shape-editor";
-import { EShapeSizes } from "./e-shape-sizes";
 import { EShapeBase } from "./variant/e-shape-base";
+import { toSizeNormalized } from "./variant/to-size-normalized";
 
 export class EShapeTransforms {
 	static prepare(shape: EShape): void {
 		const editor = shape.editor || new EShapeEditor();
 		shape.editor = editor;
 
-		// Ttransform
+		// Transform
 		shape.updateTransform();
 		const parent = shape.parent;
 		if (parent instanceof EShapeBase) {
@@ -94,7 +94,7 @@ export class EShapeTransforms {
 		if (bx != null && by != null) {
 			const sx = Math.sqrt(a * a + b * b);
 			const sy = Math.sqrt(c * c + d * d);
-			shape.size.set(EShapeSizes.toNormalized(bx * sx), EShapeSizes.toNormalized(by * sy));
+			shape.size.set(toSizeNormalized(bx * sx), toSizeNormalized(by * sy));
 		}
 
 		//

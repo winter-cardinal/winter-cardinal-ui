@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeImageElements } from "../e-shape-image-elements";
 import { EShapeImage } from "./e-shape-image";
+import { toImageElement } from "./to-image-element";
 
 export const createImage = (dataUrl: string): Promise<EShapeImage> => {
-	return EShapeImageElements.toImageElement(dataUrl).then(
-		(imageElement: HTMLImageElement): EShapeImage => {
-			return new EShapeImage(imageElement);
-		}
-	);
+	return toImageElement(dataUrl).then((imageElement: HTMLImageElement): EShapeImage => {
+		return new EShapeImage(imageElement);
+	});
 };

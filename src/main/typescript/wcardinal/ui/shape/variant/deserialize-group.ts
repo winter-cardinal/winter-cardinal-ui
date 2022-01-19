@@ -4,16 +4,17 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
-import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { deserializeBase } from "./deserialize-base";
 import { EShapeGroup } from "./e-shape-group";
 
 export const deserializeGroup = (
 	item: DDiagramSerializedItem,
-	manager: EShapeResourceManagerDeserialization
+	manager: EShapeResourceManagerDeserialization,
+	shape?: EShapeGroup
 ): Promise<EShapeGroup> | EShapeGroup => {
-	const shape = new EShapeGroup(manager.isEditMode);
-	const result = EShapeDeserializer.deserialize(item, manager, shape);
+	shape = shape || new EShapeGroup(manager.isEditMode);
+	const result = deserializeBase(item, manager, shape);
 	shape.size.init();
 	return result;
 };

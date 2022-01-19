@@ -102,117 +102,106 @@ export type EShapeActionValueSerialized =
 	| EShapeActionValueMiscLayerGestureSerialized
 	| EShapeActionValueMiscLayerShowHideSerialized;
 
-export class EShapeActionValueDeserializer {
-	static toSerialized(resource: string): EShapeActionValueSerialized | null {
-		try {
-			const parsed = JSON.parse(resource);
-			if (isArray(parsed)) {
-				for (let i = 0, imax = parsed.length; i < imax; ++i) {
-					if (!isNumber(parsed[i])) {
-						return null;
+const toSerialized = (resource: string): EShapeActionValueSerialized | null => {
+	try {
+		const parsed = JSON.parse(resource);
+		if (isArray(parsed)) {
+			for (let i = 0, imax = parsed.length; i < imax; ++i) {
+				if (!isNumber(parsed[i])) {
+					return null;
+				}
+			}
+			if (2 <= parsed.length) {
+				return parsed as EShapeActionValueSerialized;
+			}
+		}
+		return null;
+	} catch (e) {
+		return null;
+	}
+};
+
+export const deserializeActionValue = (
+	id: number,
+	manager: EShapeResourceManagerDeserialization
+): EShapeActionValue => {
+	const action = manager.getAction(id);
+	if (action != null) {
+		return action;
+	}
+
+	const resources = manager.resources;
+	const resource = resources[id];
+	if (resource != null) {
+		const serialized = toSerialized(resource);
+		if (serialized != null) {
+			switch (serialized[0]) {
+				case EShapeActionValueType.SHOW_HIDE:
+					return EShapeActionValueShowHide.deserialize(serialized, manager);
+				case EShapeActionValueType.BLINK:
+					return EShapeActionValueBlink.deserialize(serialized, manager);
+				case EShapeActionValueType.CHANGE_COLOR:
+				case EShapeActionValueType.CHANGE_COLOR_LEGACY:
+					switch (serialized[3]) {
+						case EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA:
+						case EShapeActionValueChangeColorTarget.COLOR:
+						case EShapeActionValueChangeColorTarget.ALPHA:
+							return EShapeActionValueChangeColor.deserialize(serialized, manager);
+						case EShapeActionValueChangeColorTarget.CODE:
+							return EShapeActionValueChangeColorCode.deserialize(
+								serialized,
+								manager
+							);
+						case EShapeActionValueChangeColorTarget.BRIGHTNESS:
+							return EShapeActionValueChangeColorBrightness.deserialize(
+								serialized,
+								manager
+							);
 					}
-				}
-				if (2 <= parsed.length) {
-					return parsed as EShapeActionValueSerialized;
-				}
-			}
-			return null;
-		} catch (e) {
-			return null;
-		}
-	}
-
-	static deserialize(
-		id: number,
-		manager: EShapeResourceManagerDeserialization
-	): EShapeActionValue {
-		const action = manager.getAction(id);
-		if (action != null) {
-			return action;
-		}
-
-		const resources = manager.resources;
-		const resource = resources[id];
-		if (resource != null) {
-			const serialized = this.toSerialized(resource);
-			if (serialized != null) {
-				switch (serialized[0]) {
-					case EShapeActionValueType.SHOW_HIDE:
-						return EShapeActionValueShowHide.deserialize(serialized, manager);
-					case EShapeActionValueType.BLINK:
-						return EShapeActionValueBlink.deserialize(serialized, manager);
-					case EShapeActionValueType.CHANGE_COLOR:
-					case EShapeActionValueType.CHANGE_COLOR_LEGACY:
-						switch (serialized[3]) {
-							case EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA:
-							case EShapeActionValueChangeColorTarget.COLOR:
-							case EShapeActionValueChangeColorTarget.ALPHA:
-								return EShapeActionValueChangeColor.deserialize(
-									serialized,
-									manager
-								);
-							case EShapeActionValueChangeColorTarget.CODE:
-								return EShapeActionValueChangeColorCode.deserialize(
-									serialized,
-									manager
-								);
-							case EShapeActionValueChangeColorTarget.BRIGHTNESS:
-								return EShapeActionValueChangeColorBrightness.deserialize(
-									serialized,
-									manager
-								);
-						}
-						break;
-					case EShapeActionValueType.CHANGE_TEXT:
-						return EShapeActionValueChangeText.deserialize(serialized, manager);
-					case EShapeActionValueType.CHANGE_CURSOR:
-						return EShapeActionValueChangeCursor.deserialize(serialized, manager);
-					case EShapeActionValueType.EMIT_EVENT:
-						return EShapeActionValueEmitEvent.deserialize(serialized, manager);
-					case EShapeActionValueType.OPEN:
-						return EShapeActionValueOpen.deserialize(serialized, manager);
-					case EShapeActionValueType.TRANSFORM:
-						switch (serialized[2]) {
-							case EShapeActionValueTransformType.MOVE:
-								return EShapeActionValueTransformMove.deserialize(
-									serialized,
-									manager
-								);
-							case EShapeActionValueTransformType.RESIZE:
-								return EShapeActionValueTransformResize.deserialize(
-									serialized,
-									manager
-								);
-							case EShapeActionValueTransformType.ROTATE:
-								return EShapeActionValueTransformRotate.deserialize(
-									serialized,
-									manager
-								);
-						}
-						break;
-					case EShapeActionValueType.MISC:
-						switch (serialized[2]) {
-							case EShapeActionValueMiscType.GESTURE:
-								return EShapeActionValueMiscGesture.deserialize(
-									serialized,
-									manager
-								);
-							case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
-								return EShapeActionValueMiscLayerShowHide.deserialize(
-									serialized,
-									manager
-								);
-							case EShapeActionValueMiscType.LAYER_GESTURE:
-								return EShapeActionValueMiscLayerGesture.deserialize(
-									serialized,
-									manager
-								);
-							default:
-								return EShapeActionValueMisc.deserialize(serialized, manager);
-						}
-				}
+					break;
+				case EShapeActionValueType.CHANGE_TEXT:
+					return EShapeActionValueChangeText.deserialize(serialized, manager);
+				case EShapeActionValueType.CHANGE_CURSOR:
+					return EShapeActionValueChangeCursor.deserialize(serialized, manager);
+				case EShapeActionValueType.EMIT_EVENT:
+					return EShapeActionValueEmitEvent.deserialize(serialized, manager);
+				case EShapeActionValueType.OPEN:
+					return EShapeActionValueOpen.deserialize(serialized, manager);
+				case EShapeActionValueType.TRANSFORM:
+					switch (serialized[2]) {
+						case EShapeActionValueTransformType.MOVE:
+							return EShapeActionValueTransformMove.deserialize(serialized, manager);
+						case EShapeActionValueTransformType.RESIZE:
+							return EShapeActionValueTransformResize.deserialize(
+								serialized,
+								manager
+							);
+						case EShapeActionValueTransformType.ROTATE:
+							return EShapeActionValueTransformRotate.deserialize(
+								serialized,
+								manager
+							);
+					}
+					break;
+				case EShapeActionValueType.MISC:
+					switch (serialized[2]) {
+						case EShapeActionValueMiscType.GESTURE:
+							return EShapeActionValueMiscGesture.deserialize(serialized, manager);
+						case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+							return EShapeActionValueMiscLayerShowHide.deserialize(
+								serialized,
+								manager
+							);
+						case EShapeActionValueMiscType.LAYER_GESTURE:
+							return EShapeActionValueMiscLayerGesture.deserialize(
+								serialized,
+								manager
+							);
+						default:
+							return EShapeActionValueMisc.deserialize(serialized, manager);
+					}
 			}
 		}
-		return new EShapeActionValueShowHide(EShapeActionValueShowHideType.SHOW, "");
 	}
-}
+	return new EShapeActionValueShowHide(EShapeActionValueShowHideType.SHOW, "");
+};

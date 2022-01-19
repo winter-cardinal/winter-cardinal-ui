@@ -6,16 +6,17 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShape } from "../e-shape";
 import { EShapeConnectorBodies } from "../e-shape-connector-bodies";
-import { EShapeDeserializer } from "../e-shape-deserializer";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeUuidMapping } from "../e-shape-uuid-mapping";
+import { deserializeBase } from "./deserialize-base";
 import { EShapeConnectorLine } from "./e-shape-connector-line";
 
 export const deserializeConnectorLine = (
 	item: DDiagramSerializedItem,
-	manager: EShapeResourceManagerDeserialization
+	manager: EShapeResourceManagerDeserialization,
+	shape?: EShapeConnectorLine
 ): Promise<EShapeConnectorLine> | EShapeConnectorLine | null => {
-	return EShapeDeserializer.deserialize(item, manager, new EShapeConnectorLine());
+	return deserializeBase(item, manager, shape || new EShapeConnectorLine());
 };
 
 export const onDeserializedConnectorLine = (

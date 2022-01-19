@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export * from "./deserialize-action-value";
 export * from "./e-shape-action-bases";
 export * from "./e-shape-action-expression";
 export * from "./e-shape-action-expressions";
@@ -78,7 +79,6 @@ export * from "./e-shape-action-value-change-color";
 export * from "./e-shape-action-value-change-cursor";
 export * from "./e-shape-action-value-change-text-type";
 export * from "./e-shape-action-value-change-text";
-export * from "./e-shape-action-value-deserializer";
 export * from "./e-shape-action-value-emit-event";
 export * from "./e-shape-action-value-misc-emit-event";
 export * from "./e-shape-action-value-misc-gesture-type";
