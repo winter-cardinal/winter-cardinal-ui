@@ -87,7 +87,13 @@ export class DDiagramData {
 		return null;
 	}
 
-	set(id: string, value: unknown, time?: number, from?: number | null, to?: number | null): void {
+	set(
+		id: string,
+		value: unknown,
+		time?: number,
+		from?: number | null,
+		to?: number | null
+	): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -107,11 +113,13 @@ export class DDiagramData {
 					// Value
 					datumValue.value = value;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
-	clear(id: string): void {
+	clear(id: string): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -119,8 +127,10 @@ export class DDiagramData {
 				for (let i = 0, imax = datum.length; i < imax; ++i) {
 					datum[i].clear();
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
 	setAll(
@@ -129,7 +139,7 @@ export class DDiagramData {
 		times?: number[],
 		from?: number | null,
 		to?: number | null
-	): void {
+	): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -149,11 +159,13 @@ export class DDiagramData {
 					// Value
 					datumValue.values = values;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
-	setValue(id: string, value: unknown, time?: number): void {
+	setValue(id: string, value: unknown, time?: number): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -167,11 +179,13 @@ export class DDiagramData {
 
 					datumValue.value = value;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
-	setValues(id: string, values: unknown[], times?: number[]): void {
+	setValues(id: string, values: unknown[], times?: number[]): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -185,11 +199,13 @@ export class DDiagramData {
 
 					datumValue.values = values;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
-	setTime(id: string, time: number): void {
+	setTime(id: string, time: number): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -197,11 +213,13 @@ export class DDiagramData {
 				for (let i = 0, imax = datum.length; i < imax; ++i) {
 					datum[i].time = time;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
-	setTimes(id: string, times: number[]): void {
+	setTimes(id: string, times: number[]): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -209,11 +227,13 @@ export class DDiagramData {
 				for (let i = 0, imax = datum.length; i < imax; ++i) {
 					datum[i].times = times;
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
-	setRange(id: string, from?: number | null, to?: number | null): void {
+	setRange(id: string, from?: number | null, to?: number | null): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const datum = canvas.data[id];
@@ -237,7 +257,9 @@ export class DDiagramData {
 						}
 					}
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 }

@@ -18,10 +18,12 @@ export class DDiagramDataRemote {
 		this._controller = options && options.controller;
 	}
 
-	set(id: string, value: unknown, time: number): void {
+	set(id: string, value: unknown, time: number): boolean {
 		const controller = this._controller;
 		if (controller) {
 			controller.write(id, value);
+			return true;
 		}
+		return false;
 	}
 }

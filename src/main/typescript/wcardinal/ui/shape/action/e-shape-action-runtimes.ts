@@ -3,17 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DApplications } from "../../d-applications";
 import { DCanvasContainer } from "../../d-canvas-container";
 import { EShape } from "../e-shape";
 
 interface EShapeActionRuntimeContainerDataRemote {
-	set(id: string, value: unknown, time: number): void;
+	set(id: string, value: unknown, time: number): boolean;
 }
 
 interface EShapeActionRuntimeContainerData {
 	readonly remote: EShapeActionRuntimeContainerDataRemote;
 
-	set(id: string, value: unknown, time?: number, from?: number | null, to?: number | null): void;
+	set(
+		id: string,
+		value: unknown,
+		time?: number,
+		from?: number | null,
+		to?: number | null
+	): boolean;
 }
 
 interface EShapeActionRuntimeContainerShape {
@@ -46,15 +53,25 @@ export class EShapeActionRuntimes {
 		}
 	}
 
-	static write(shape: EShape, id: string, value: unknown, time: number, remote: boolean): void {
+	static write(
+		shape: EShape,
+		id: string,
+		value: unknown,
+		time: number,
+		remote: boolean
+	): boolean {
 		const container = this.toContainer(shape);
 		if (container) {
 			if (remote) {
-				container.data.remote.set(id, value, time);
+				return container.data.remote.set(id, value, time);
 			} else {
-				container.data.set(id, value, time);
+				if (container.data.set(id, value, time)) {
+					DApplications.update(container);
+					return true;
+				}
 			}
 		}
+		return false;
 	}
 
 	static emit(shape: EShape, name: string): void;
