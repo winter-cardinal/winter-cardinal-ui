@@ -48,7 +48,7 @@
 		application.stage.addChild( container );
 
 		application.update();
-		setInterval(() => {
+		setInterval(function () {
 			const circles = container.children;
 			for( let i = (Math.random() * 7) | 0, imax = circles.length; i < imax; i += 7 ) {
 				circles[ i ].fill.color = wcardinal.ui.UtilRgb.fromRgb( 0, 0.5 + 0.5 * Math.random(), 0 );

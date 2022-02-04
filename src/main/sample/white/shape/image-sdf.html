@@ -67,7 +67,7 @@
 		});
 
 		application.stage.on( "pointermove", function ( e ) {
-			container.hitTest( e.data.global, ( shape ) => {
+			container.hitTest( e.data.global, function ( shape ) {
 				console.log( shape );
 			});
 		});

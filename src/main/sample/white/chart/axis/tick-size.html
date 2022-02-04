@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Scatter chart with triangle markers</title>
+	<title>Tick size</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -21,10 +21,10 @@
 	</style>
 </head>
 <body>
-	<script src="../../js/pixi/latest/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
-	<script src="../../resource/chart/updater.js"></script>
+	<script src="../../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../resource/chart/updater.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -41,15 +41,11 @@
 					y: new wcardinal.ui.DChartCoordinateLinear()
 				},
 				series: {
-					fill: {
-						color: 0xffffff
-					},
 					list: [
-						new wcardinal.ui.DChartSeriesLineOfTriangles(),
-						new wcardinal.ui.DChartSeriesLineOfTriangles(),
-						new wcardinal.ui.DChartSeriesLineOfTriangles()
-					],
-					selection: new wcardinal.ui.DChartSelectionSimple()
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine()
+					]
 				},
 				axis: {
 					list: [
@@ -61,6 +57,14 @@
 						new wcardinal.ui.DChartAxisY({
 							label: {
 								value: "Y Axis"
+							},
+							tick: {
+								major: {
+									size: 10
+								},
+								minor: {
+									size: 10
+								}
 							}
 						})
 					]

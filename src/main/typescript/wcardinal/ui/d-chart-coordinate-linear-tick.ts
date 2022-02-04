@@ -4,7 +4,12 @@
  */
 
 import { DBase } from "./d-base";
-import { DChartCoordinate } from "./d-chart-coordinate";
+import {
+	DChartCoordinate,
+	DChartCoordinateTickMajorStepFunction,
+	DChartCoordinateTickMinorStepFunction
+} from "./d-chart-coordinate";
+import { isNumber } from "./util/is-number";
 
 export interface DThemeChartCoordinateLinearTick {
 	toStepScale(scale: number): number;
@@ -17,22 +22,50 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 		this._theme = theme;
 	}
 
-	protected calcStepMajor(domainMin: number, domainMax: number, count: number): number {
-		if (0 < count) {
-			const span = Math.abs(domainMax - domainMin) / count;
-			const power = Math.floor(Math.log(span) / Math.LN10);
-			const base = Math.pow(10, power);
-			return this._theme.toStepScale(span / base) * base;
+	protected toMajorStep(
+		domainMin: number,
+		domainMax: number,
+		majorCount: number,
+		majorStep?: number | DChartCoordinateTickMajorStepFunction
+	): number {
+		if (majorStep == null) {
+			if (0 < majorCount) {
+				return this.calcStepMajor(domainMin, domainMax, majorCount);
+			}
+			return -1;
+		} else if (isNumber(majorStep)) {
+			return majorStep;
+		} else {
+			return majorStep(domainMin, domainMax, majorCount);
 		}
-		return -1;
 	}
 
-	protected calcStepMinor(step: number, minorCount: number): number {
-		if (0 <= step) {
-			return step / (minorCount + 1);
-		} else {
+	protected calcStepMajor(domainMin: number, domainMax: number, majorCount: number): number {
+		const span = Math.abs(domainMax - domainMin) / majorCount;
+		const power = Math.floor(Math.log(span) / Math.LN10);
+		const base = Math.pow(10, power);
+		return this._theme.toStepScale(span / base) * base;
+	}
+
+	protected toMinorStep(
+		majorStep: number,
+		minorCount: number,
+		minorStep?: number | DChartCoordinateTickMinorStepFunction
+	): number {
+		if (minorStep == null) {
+			if (0 <= majorStep) {
+				return this.calcStepMinor(majorStep, minorCount);
+			}
 			return -1;
+		} else if (isNumber(minorStep)) {
+			return minorStep;
+		} else {
+			return minorStep(majorStep, minorCount);
 		}
+	}
+
+	protected calcStepMinor(majorStep: number, minorCount: number): number {
+		return majorStep / (minorCount + 1);
 	}
 
 	protected calcTickMinorPositions(
@@ -56,8 +89,10 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 		domainFrom: number,
 		domainTo: number,
 		majorCount: number,
+		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
+		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
 		majorResult: Float64Array,
 		minorResult: Float64Array,
 		coordinate: DChartCoordinate<CHART>
@@ -71,8 +106,8 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 		const domainMin = Math.min(domainFrom, domainTo);
 		const domainMax = Math.max(domainFrom, domainTo);
 
-		const majorStep = this.calcStepMajor(domainMin, domainMax, majorCount);
-		if (majorStep <= 0) {
+		const majorStepMapped = this.toMajorStep(domainMin, domainMax, majorCount, majorStep);
+		if (majorStepMapped <= 0) {
 			majorResult[0] = domainMin;
 			majorResult[1] = transform.map(coordinate.map(domainMin));
 			majorResult[2] = 0;
@@ -92,35 +127,35 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 		}
 
 		// Major tick start position
-		const idomainStart = Math.floor(domainMin / majorStep) - 1;
-		const idomainEnd = Math.ceil(domainMax / majorStep) + 1;
+		const idomainStart = Math.floor(domainMin / majorStepMapped) - 1;
+		const idomainEnd = Math.ceil(domainMax / majorStepMapped) + 1;
 
 		// Major / minor tick positions
-		const minorStep = this.calcStepMinor(majorStep, minorCountPerMajor);
+		const minorStepMapped = this.toMinorStep(majorStepMapped, minorCountPerMajor, minorStep);
 		let imajor = 0;
 		let iminor = 0;
 		for (let i = idomainStart; i <= idomainEnd; ++i) {
-			const majorPosition = i * majorStep;
+			const majorPosition = i * majorStepMapped;
 			if (imajor < majorCount) {
 				if (domainMin <= majorPosition && majorPosition <= domainMax) {
 					const majorProjectedPosition = transform.map(coordinate.map(majorPosition));
 					const imajorResult = imajor * 3;
 					majorResult[imajorResult + 0] = majorPosition;
 					majorResult[imajorResult + 1] = majorProjectedPosition;
-					majorResult[imajorResult + 2] = majorStep;
+					majorResult[imajorResult + 2] = majorStepMapped;
 					imajor += 1;
 				}
 			}
 
 			for (let j = 0; j < minorCountPerMajor; j += 1) {
 				if (iminor < minorCount) {
-					const minorPosition = majorPosition + (j + 1) * minorStep;
+					const minorPosition = majorPosition + (j + 1) * minorStepMapped;
 					if (domainMin <= minorPosition && minorPosition <= domainMax) {
 						const minorProjectedPosition = transform.map(coordinate.map(minorPosition));
 						const iminorResult = iminor * 3;
 						minorResult[iminorResult + 0] = minorPosition;
 						minorResult[iminorResult + 1] = minorProjectedPosition;
-						minorResult[iminorResult + 2] = minorStep;
+						minorResult[iminorResult + 2] = minorStepMapped;
 						iminor += 1;
 					}
 				}

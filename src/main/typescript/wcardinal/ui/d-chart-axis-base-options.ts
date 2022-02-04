@@ -6,6 +6,10 @@
 import { DChartAxisOptions } from "./d-chart-axis";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
+import {
+	DChartCoordinateTickMajorStepFunction,
+	DChartCoordinateTickMinorStepFunction
+} from "./d-chart-coordinate";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";
@@ -22,7 +26,7 @@ import { DeepPartial } from "./util/deep-partial";
 import { NumberFormatterFunction } from "./util/number-formatter-function";
 
 export interface DChartAxisBaseTickMajorTextOptions {
-	/** A format. Please refer to {@link ui/util.NumberFormatter} for format details. */
+	/** A format. Please refer to {@link NumberFormatter} for format details. */
 	format?: string;
 
 	/** A formatter function. */
@@ -55,6 +59,7 @@ export type DChartAxisTickPositionOption =
 
 export interface DChartAxisBaseTickMajorOptions {
 	count?: number;
+	step?: number | DChartCoordinateTickMajorStepFunction;
 	size?: number;
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;
@@ -65,6 +70,7 @@ export interface DChartAxisBaseTickMajorOptions {
 
 export interface DChartAxisBaseTickMinorOptions {
 	count?: number;
+	step?: number | DChartCoordinateTickMinorStepFunction;
 	size?: number;
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;
@@ -114,6 +120,7 @@ export interface DThemeChartAxisBase {
 	getTickEnable(): boolean;
 
 	getMajorTickCount(): number;
+	getMajorTickStep(): number | DChartCoordinateTickMajorStepFunction | undefined;
 	getMajorTickSize(): number;
 	getMajorTickPosition(): DChartAxisTickPosition;
 	getMajorTickStyle(): EShapePointsStyle | undefined;
@@ -143,6 +150,7 @@ export interface DThemeChartAxisBase {
 	getMajorTickGridlineStrokeStyle(): EShapeStrokeStyle | undefined;
 
 	getMinorTickCount(): number;
+	getMinorTickStep(): number | DChartCoordinateTickMinorStepFunction | undefined;
 	getMinorTickSize(): number;
 	getMinorTickPosition(): DChartAxisTickPosition;
 	getMinorTickStyle(): EShapePointsStyle | undefined;

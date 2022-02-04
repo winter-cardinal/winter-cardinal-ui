@@ -15,6 +15,17 @@ export const DChartCoordinateDirection = {
 export type DChartCoordinateDirection =
 	typeof DChartCoordinateDirection[keyof typeof DChartCoordinateDirection];
 
+export type DChartCoordinateTickMajorStepFunction = (
+	domainMin: number,
+	domainMax: number,
+	majorCount: number
+) => number;
+
+export type DChartCoordinateTickMinorStepFunction = (
+	majorStep: number,
+	minorCount: number
+) => number;
+
 export interface DChartCoordinate<CHART extends DBase = DBase> {
 	/**
 	 * Monotonic increasing ID for change detection.
@@ -96,8 +107,10 @@ export interface DChartCoordinate<CHART extends DBase = DBase> {
 		domainMin: number,
 		domainMax: number,
 		majorCount: number,
+		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
+		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
 		majorResult: Float64Array,
 		minorResult: Float64Array
 	): void;

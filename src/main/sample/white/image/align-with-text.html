@@ -27,7 +27,7 @@
 	(function(){
 		"use strict";
 
-		const makeImage = ( parent, textAlign, imageAlign, secondaryImageAlign, superClass ) => {
+		const makeImage = function ( parent, textAlign, imageAlign, secondaryImageAlign, superClass ) {
 			class DThemeImageNew extends superClass {
 				getTextAlignHorizontal() {
 					return textAlign;

@@ -149,55 +149,57 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 
 		const threshold = 0.00001;
 		if (babs <= aabs) {
-			const xfrom0 = xcoordinate.unmap(xcoordinate.transform.unmap(0));
-			const xto0 = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
-			p0x = Math.min(xfrom0, xto0);
-			p1x = Math.max(xfrom0, xto0);
+			const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
+			const xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
+			p0x = Math.min(xfrom, xto);
+			p1x = Math.max(xfrom, xto);
 
-			if (threshold < aabs) {
-				const yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
-				const yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
-				const xfrom1 = (b * (yfrom - y0)) / a + x0;
-				const xto1 = (b * (yto - y0)) / a + x0;
-				const p2x = Math.min(xfrom1, xto1);
-				const p3x = Math.max(xfrom1, xto1);
-
-				if (p0x < p2x) {
-					p0x = p2x;
-				}
-
-				if (p3x < p1x) {
-					p1x = p3x;
-				}
-			}
-
-			p0y = a * (p0x - x0) + b * y0;
-			p1y = a * (p1x - x0) + b * y0;
-		} else {
-			const yfrom0 = ycoordinate.unmap(ycoordinate.transform.unmap(0));
-			const yto0 = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
-			p0y = Math.min(yfrom0, yto0);
-			p1y = Math.max(yfrom0, yto0);
+			const yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
+			const yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
+			p0y = Math.min(yfrom, yto);
+			p1y = Math.max(yfrom, yto);
 
 			if (threshold < babs) {
-				const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
-				const xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
-				const yfrom1 = (a * (xfrom - x0)) / b + y0;
-				const yto1 = (a * (xto - x0)) / b + y0;
+				const f = b / a;
+				const xfrom1 = f * (yfrom - y0) + x0;
+				const xto1 = f * (yto - y0) + x0;
+				const p2x = Math.min(xfrom1, xto1);
+				const p3x = Math.max(xfrom1, xto1);
+				p0x = Math.max(p0x, p2x);
+				p1x = Math.min(p1x, p3x);
+				const g = 1 / f;
+				p0y = g * (p0x - x0) + b * y0;
+				p1y = g * (p1x - x0) + b * y0;
+			} else {
+				p0x = x0;
+				p1x = x0;
+			}
+		} else {
+			const yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
+			const yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
+			p0y = Math.min(yfrom, yto);
+			p1y = Math.max(yfrom, yto);
+
+			const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
+			const xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
+			p0x = Math.min(xfrom, xto);
+			p1x = Math.max(xfrom, xto);
+
+			if (threshold < aabs) {
+				const f = a / b;
+				const yfrom1 = f * (xfrom - x0) + y0;
+				const yto1 = f * (xto - x0) + y0;
 				const p2y = Math.min(yfrom1, yto1);
 				const p3y = Math.max(yfrom1, yto1);
-
-				if (p0y < p2y) {
-					p0y = p2y;
-				}
-
-				if (p3y < p1y) {
-					p1y = p3y;
-				}
+				p0y = Math.max(p0y, p2y);
+				p1y = Math.min(p1y, p3y);
+				const g = 1 / f;
+				p0x = g * (p0y - y0) + a * x0;
+				p1x = g * (p1y - y0) + a * x0;
+			} else {
+				p0y = y0;
+				p1y = y0;
 			}
-
-			p0x = b * (p0y - y0) + a * x0;
-			p1x = b * (p1y - y0) + a * x0;
 		}
 
 		p0x = xcoordinate.transform.map(xcoordinate.map(p0x));
@@ -230,6 +232,7 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		line.disallowUploadedUpdate();
 		line.points.set(values, segments);
 		line.size.set(sx, sy);
+		line.points.toFitted();
 		line.transform.position.set(cx, cy);
 		line.allowUploadedUpdate();
 		DApplications.update(line);

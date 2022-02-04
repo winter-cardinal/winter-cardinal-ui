@@ -13,6 +13,10 @@ import {
 } from "./d-chart-axis-base-options";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
+import {
+	DChartCoordinateTickMajorStepFunction,
+	DChartCoordinateTickMinorStepFunction
+} from "./d-chart-coordinate";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption, EShapePointsStyles } from "./shape/e-shape-points-styles";
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";
@@ -39,6 +43,7 @@ export interface DChartAxisBaseGridline {
 
 export interface DChartAxisBaseTickMajor {
 	count: number;
+	step: number | DChartCoordinateTickMajorStepFunction | undefined;
 	size: number;
 	position: EShapeBarPosition;
 	style?: EShapePointsStyle;
@@ -52,6 +57,7 @@ export interface DChartAxisBaseTickMajor {
 
 export interface DChartAxisBaseTickMinor {
 	count: number;
+	step: number | DChartCoordinateTickMinorStepFunction | undefined;
 	size: number;
 	position: EShapeBarPosition;
 	style?: EShapePointsStyle;
@@ -162,6 +168,7 @@ export class DChartAxisBaseOptionParser {
 		const stroke = this.toTickMajorStroke(theme, major?.stroke, optionsStroke);
 		return {
 			count: major?.count ?? theme.getMajorTickCount(),
+			step: major?.step ?? theme.getMajorTickStep(),
 			size: major?.size ?? theme.getMajorTickSize(),
 			position: this.toTickPosition(position),
 			style,
@@ -227,13 +234,14 @@ export class DChartAxisBaseOptionParser {
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickContainerOptions
 	): DChartAxisBaseTickMinor {
-		const minor = options?.major;
+		const minor = options?.minor;
 		const position = minor?.position ?? options?.position ?? theme.getMinorTickPosition();
 		const style = EShapePointsStyles.from(
 			minor?.style ?? options?.style ?? theme.getMinorTickStyle()
 		);
 		return {
 			count: minor?.count ?? theme.getMinorTickCount(),
+			step: minor?.step ?? theme.getMinorTickStep(),
 			size: minor?.size ?? theme.getMinorTickSize(),
 			position: this.toTickPosition(position),
 			style,

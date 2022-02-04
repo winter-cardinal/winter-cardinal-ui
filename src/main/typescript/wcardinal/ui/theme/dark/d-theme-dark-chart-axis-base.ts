@@ -6,6 +6,10 @@
 import { DThemeChartAxisBase } from "../../d-chart-axis-base-options";
 import { DChartAxisPosition } from "../../d-chart-axis-position";
 import { DChartAxisTickPosition } from "../../d-chart-axis-tick-position";
+import {
+	DChartCoordinateTickMajorStepFunction,
+	DChartCoordinateTickMinorStepFunction
+} from "../../d-chart-coordinate";
 import { EShapePointsStyle } from "../../shape/e-shape-points-style";
 import { EShapeStrokeSide } from "../../shape/e-shape-stroke-side";
 import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
@@ -49,7 +53,7 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getLabelPaddingHorizontal(): number {
-		return 50;
+		return 60;
 	}
 
 	getLabelPaddingVertical(): number {
@@ -102,6 +106,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 
 	getMajorTickCount(): number {
 		return 3;
+	}
+
+	getMajorTickStep(): number | DChartCoordinateTickMajorStepFunction | undefined {
+		return undefined;
 	}
 
 	getMajorTickSize(): number {
@@ -228,6 +236,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 
 	getMinorTickCount(): number {
 		return 3;
+	}
+
+	getMinorTickStep(): number | DChartCoordinateTickMinorStepFunction | undefined {
+		return undefined;
 	}
 
 	getMinorTickSize(): number {

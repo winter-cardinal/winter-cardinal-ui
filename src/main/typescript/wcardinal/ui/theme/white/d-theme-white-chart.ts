@@ -10,7 +10,7 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteChart extends DThemeWhiteBase implements DThemeChart {
 	getPaddingLeft(): number {
-		return 70;
+		return 80;
 	}
 
 	getPaddingRight(): number {

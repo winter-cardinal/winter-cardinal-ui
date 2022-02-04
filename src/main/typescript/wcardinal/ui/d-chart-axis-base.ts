@@ -108,18 +108,24 @@ export class DChartAxisBase<
 		plotAreaHeight: number
 	): void {
 		const tick = this._tick;
-		const majorCount = tick.major.count;
-		const majorFormatter = tick.major.formatter;
-		const minorCountPerMajor = tick.minor.count;
+		const majorTick = tick.major;
+		const majorCount = majorTick.count;
+		const majorStep = majorTick.step;
+		const majorFormatter = majorTick.formatter;
+		const minorTick = tick.minor;
+		const minorCountPerMajor = minorTick.count;
 		const minorCount = (majorCount + 1) * minorCountPerMajor;
+		const minorStep = minorTick.step;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
 		coordinate.ticks(
 			domainMin,
 			domainMax,
 			majorCount,
+			majorStep,
 			minorCountPerMajor,
 			minorCount,
+			minorStep,
 			majorTicks,
 			minorTicks
 		);
@@ -188,18 +194,24 @@ export class DChartAxisBase<
 		plotAreaWidth: number
 	): void {
 		const tick = this._tick;
-		const majorCount = tick.major.count;
-		const majorFormatter = tick.major.formatter;
-		const minorCountPerMajor = tick.minor.count;
+		const majorTick = tick.major;
+		const majorCount = majorTick.count;
+		const majorStep = majorTick.step;
+		const majorFormatter = majorTick.formatter;
+		const minorTick = tick.minor;
+		const minorCountPerMajor = minorTick.count;
 		const minorCount = (majorCount + 1) * minorCountPerMajor;
+		const minorStep = minorTick.step;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
 		coordinate.ticks(
 			domainMin,
 			domainMax,
 			majorCount,
+			majorStep,
 			minorCountPerMajor,
 			minorCount,
+			minorStep,
 			majorTicks,
 			minorTicks
 		);

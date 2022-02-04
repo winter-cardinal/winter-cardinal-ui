@@ -10,7 +10,7 @@ import { DThemeDarkBase } from "./d-theme-dark-base";
 
 export class DThemeDarkChart extends DThemeDarkBase implements DThemeChart {
 	getPaddingLeft(): number {
-		return 70;
+		return 80;
 	}
 
 	getPaddingRight(): number {

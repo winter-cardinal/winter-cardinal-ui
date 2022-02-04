@@ -4,7 +4,12 @@
  */
 
 import { DBase } from "./d-base";
-import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
+import {
+	DChartCoordinate,
+	DChartCoordinateDirection,
+	DChartCoordinateTickMajorStepFunction,
+	DChartCoordinateTickMinorStepFunction
+} from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import {
 	DChartCoordinateLinearTick,
@@ -202,8 +207,10 @@ export class DChartCoordinateLinear<CHART extends DBase = DBase>
 		domainFrom: number,
 		domainTo: number,
 		majorCount: number,
+		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
+		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
 		majorResult: Float64Array,
 		minorResult: Float64Array
 	): void {
@@ -211,8 +218,10 @@ export class DChartCoordinateLinear<CHART extends DBase = DBase>
 			domainFrom,
 			domainTo,
 			majorCount,
+			majorStep,
 			minorCountPerMajor,
 			minorCount,
+			minorStep,
 			majorResult,
 			minorResult,
 			this

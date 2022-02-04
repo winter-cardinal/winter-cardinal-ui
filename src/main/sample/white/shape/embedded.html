@@ -51,7 +51,7 @@
 
 		application.stage.addChild( container );
 		application.update();
-		setInterval(() => {
+		setInterval(function () {
 			embedded.transform.rotation += 0.01;
 			embedded.transform.scale.x = 1 + (Date.now() % 10000) / 10000;
 			application.render();

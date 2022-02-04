@@ -57,7 +57,9 @@
 			});
 
 			// Formatter
-			const formatter = ( value ) => `H: ${ value[ 0 ].toFixed(2) }, V: ${ value[ 1 ].toFixed(2) }`;
+			const formatter = function ( value ) {
+				return `H: ${ value[ 0 ].toFixed(2) }, V: ${ value[ 1 ].toFixed(2) }`;
+			}
 
 			// Current value
 			const labelValue = new wcardinal.ui.DText({
@@ -72,7 +74,7 @@
 					value: "Get Value"
 				},
 				on: {
-					active: ( btn ) => {
+					active: function ( btn ) {
 						labelValue.text = [ horizontalSlider.value, verticalSlider.value ];
 					}
 				}
@@ -80,7 +82,7 @@
 			const inputValue = new wcardinal.ui.DInputReal({
 				width: 200,
 				on: {
-					change: ( value ) => {
+					change: function ( value ) {
 						horizontalSlider.value = value;
 						verticalSlider.value = value;
 					}
@@ -100,7 +102,7 @@
 					value: "Get Min"
 				},
 				on: {
-					active: ( btn ) => {
+					active: function ( btn ) {
 						labelMin.text = [ horizontalSlider.min, verticalSlider.min ];
 					}
 				}
@@ -108,7 +110,7 @@
 			const inputMin = new wcardinal.ui.DInputReal({
 				width: 200,
 				on: {
-					change: ( value ) => {
+					change: function ( value ) {
 						horizontalSlider.min = value;
 						verticalSlider.min = value;
 					}
@@ -128,7 +130,7 @@
 					value: "Get Max"
 				},
 				on: {
-					active: ( btn ) => {
+					active: function ( btn ) {
 						labelMax.text = [ horizontalSlider.max, verticalSlider.max ];
 					}
 				}
@@ -136,7 +138,7 @@
 			const inputMax = new wcardinal.ui.DInputReal({
 				width: 200,
 				on: {
-					change: ( value ) => {
+					change: function ( value ) {
 						horizontalSlider.max = value;
 						verticalSlider.max = value;
 					}
@@ -168,12 +170,12 @@
 									value: "Disable sliders"
 								},
 								on: {
-									active: ( btn ) => {
+									active: function ( btn ) {
 										horizontalSlider.state.isDisabled = true;
 										verticalSlider.state.isDisabled = true;
 									},
 
-									inactive: ( btn ) => {
+									inactive: function ( btn ) {
 										horizontalSlider.state.isDisabled = false;
 										verticalSlider.state.isDisabled = false;
 									}
