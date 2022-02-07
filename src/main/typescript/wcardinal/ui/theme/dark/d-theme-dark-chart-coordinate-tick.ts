@@ -3,13 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeChartCoordinateLinear } from "../../d-chart-coordinate-linear";
+import { DThemeChartCoordinateTick } from "../../d-chart-coordinate-tick";
 
-export class DThemeDarkChartCoordinateLinear implements DThemeChartCoordinateLinear {
-	isZero(value: number): boolean {
-		return Math.abs(value) < 0.00001;
-	}
-
+export class DThemeDarkChartCoordinateTick implements DThemeChartCoordinateTick {
 	toStepScale(scale: number): number {
 		if (5.5 <= scale) {
 			return 10;

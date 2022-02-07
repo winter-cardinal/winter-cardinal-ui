@@ -6,19 +6,16 @@
 import { DBase } from "./d-base";
 import {
 	DChartCoordinate,
-	DChartCoordinateDirection,
-	DChartCoordinateTickMajorStepFunction,
-	DChartCoordinateTickMinorStepFunction
+	DChartCoordinateOptions,
+	DThemeChartCoordinate
 } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
-import {
-	DChartCoordinateLogTick,
-	DThemeChartCoordinateLogTick
-} from "./d-chart-coordinate-log-tick";
-import {
-	DChartCoordinateTransform,
-	DThemeChartCoordinateTransform
-} from "./d-chart-coordinate-transform";
+import { DChartCoordinateDirection } from "./d-chart-coordinate-direction";
+import { DChartCoordinateLogTick } from "./d-chart-coordinate-log-tick";
+import { DChartCoordinateTick } from "./d-chart-coordinate-tick";
+import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
+import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
+import { DChartCoordinateTransform } from "./d-chart-coordinate-transform";
 import { DChartCoordinateTransformImpl } from "./d-chart-coordinate-transform-impl";
 import {
 	DChartCoordinateTransformMark,
@@ -30,33 +27,44 @@ import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DThemes } from "./theme/d-themes";
 import { isNaN } from "./util/is-nan";
 
-export interface DThemeChartCoordinateLog
-	extends DThemeChartCoordinateTransform,
-		DThemeChartCoordinateLogTick {}
-
-export interface DChartCoordinateLogOptions {
-	theme?: DThemeChartCoordinateLog;
-}
-
 export class DChartCoordinateLog<CHART extends DBase = DBase> implements DChartCoordinate<CHART> {
 	protected _id: number;
 	protected _transform: DChartCoordinateTransform<CHART>;
 	protected _container?: DChartCoordinateContainerSub<CHART>;
 	protected _direction: DChartCoordinateDirection;
-	protected _theme: DThemeChartCoordinateLog;
+	protected _theme: DThemeChartCoordinate;
 	protected _work: DChartRegionImpl;
-	protected _tick: DChartCoordinateLogTick<CHART>;
+	protected _tick: DChartCoordinateTick<CHART>;
 	protected _mark: DChartCoordinateTransformMarkImpl;
+	protected _from?: number;
+	protected _to?: number;
 
-	constructor(options?: DChartCoordinateLogOptions) {
+	constructor(options?: DChartCoordinateOptions) {
 		this._id = 0;
 		this._direction = DChartCoordinateDirection.X;
-		const theme = this.toTheme(options);
-		this._theme = theme;
-		this._transform = new DChartCoordinateTransformImpl(theme);
-		this._tick = new DChartCoordinateLogTick(theme);
+		this._theme = this.toTheme(options);
+		this._transform = new DChartCoordinateTransformImpl(options?.transform);
+		this._tick = new DChartCoordinateLogTick<CHART>(options?.tick);
 		this._work = new DChartRegionImpl(NaN, NaN);
 		this._mark = new DChartCoordinateTransformMarkImpl();
+		this._from = options?.from;
+		this._to = options?.to;
+	}
+
+	get from(): number | undefined {
+		return this._from;
+	}
+
+	set from(from: number | undefined) {
+		this._from = from;
+	}
+
+	get to(): number | undefined {
+		return this._to;
+	}
+
+	set to(to: number | undefined) {
+		this._to = to;
 	}
 
 	bind(
@@ -124,6 +132,12 @@ export class DChartCoordinateLog<CHART extends DBase = DBase> implements DChartC
 		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
+		if (from == null) {
+			from = this._from;
+		}
+		if (to == null) {
+			to = this._to;
+		}
 		if (from != null && to != null) {
 			result.set(from, to);
 		} else {
@@ -139,6 +153,12 @@ export class DChartCoordinateLog<CHART extends DBase = DBase> implements DChartC
 		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
+		if (from == null) {
+			from = this._from;
+		}
+		if (to == null) {
+			to = this._to;
+		}
 		if (from != null && to != null) {
 			result.set(from, to);
 		} else {
@@ -232,15 +252,15 @@ export class DChartCoordinateLog<CHART extends DBase = DBase> implements DChartC
 		);
 	}
 
-	protected toTheme(options?: DChartCoordinateLogOptions): DThemeChartCoordinateLog {
+	protected toTheme(options?: DChartCoordinateOptions): DThemeChartCoordinate {
 		return (options && options.theme) || this.getThemeDefault();
 	}
 
-	protected getThemeDefault(): DThemeChartCoordinateLog {
+	protected getThemeDefault(): DThemeChartCoordinate {
 		return DThemes.getInstance().get(this.getType());
 	}
 
 	protected getType(): string {
-		return "DChartCoordinateLog";
+		return "DChartCoordinate";
 	}
 }

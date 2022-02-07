@@ -1,5 +1,5 @@
 import { DBase } from "./d-base";
-import { DChartCoordinateDirection } from "./d-chart-coordinate";
+import { DChartCoordinateDirection } from "./d-chart-coordinate-direction";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
 import { DChartCoordinateTransformMark } from "./d-chart-coordinate-transform-mark";
 
@@ -10,6 +10,12 @@ export interface DThemeChartCoordinateTransform {
 	 * @param value a value to be checked
 	 */
 	isZero(value: number): boolean;
+}
+
+export interface DChartCoordinateTransformOptions {
+	translation?: boolean;
+	scaling?: boolean;
+	theme?: DThemeChartCoordinateTransform;
 }
 
 export interface DChartCoordinateTransform<CHART extends DBase = DBase> {

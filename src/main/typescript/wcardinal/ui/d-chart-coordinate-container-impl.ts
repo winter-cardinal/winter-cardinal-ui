@@ -4,7 +4,7 @@
  */
 
 import { DBase } from "./d-base";
-import { DChartCoordinateDirection } from "./d-chart-coordinate";
+import { DChartCoordinateDirection } from "./d-chart-coordinate-direction";
 import {
 	DChartCoordinateContainer,
 	DChartCoordinateContainerOptions

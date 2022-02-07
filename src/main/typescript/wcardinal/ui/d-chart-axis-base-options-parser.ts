@@ -13,10 +13,8 @@ import {
 } from "./d-chart-axis-base-options";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
-import {
-	DChartCoordinateTickMajorStepFunction,
-	DChartCoordinateTickMinorStepFunction
-} from "./d-chart-coordinate";
+import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
+import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption, EShapePointsStyles } from "./shape/e-shape-points-styles";
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";

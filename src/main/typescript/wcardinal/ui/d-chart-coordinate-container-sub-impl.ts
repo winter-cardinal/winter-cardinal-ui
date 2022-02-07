@@ -4,9 +4,10 @@
  */
 
 import { DBase } from "./d-base";
-import { DChartCoordinate, DChartCoordinateDirection } from "./d-chart-coordinate";
+import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartCoordinateContainer } from "./d-chart-coordinate-container";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
+import { DChartCoordinateDirection } from "./d-chart-coordinate-direction";
 import { isNumber } from "./util/is-number";
 
 export class DChartCoordinateContainerSubImpl<CHART extends DBase = DBase>

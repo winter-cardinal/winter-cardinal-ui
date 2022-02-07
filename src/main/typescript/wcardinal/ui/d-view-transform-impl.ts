@@ -6,6 +6,7 @@
 import { DAnimation } from "./d-animation";
 import { DAnimationBase } from "./d-animation-base";
 import { DBase } from "./d-base";
+import { DViewConstraint } from "./d-view-constraint";
 import { DViewStopper } from "./d-view-stopper";
 import { DViewTarget, DViewToTarget } from "./d-view-to-target";
 import { DViewTransform } from "./d-view-transform";
@@ -13,6 +14,7 @@ import { DViewTransform } from "./d-view-transform";
 export class DViewTransformImpl implements DViewTransform {
 	protected _parent: DBase;
 	protected _toTarget: DViewToTarget;
+	protected _constraint: DViewConstraint;
 	protected _newX: number;
 	protected _newY: number;
 	protected _newScaleX: number;
@@ -25,9 +27,16 @@ export class DViewTransformImpl implements DViewTransform {
 	protected _stopper: DViewStopper;
 	protected _duration: number;
 
-	constructor(parent: DBase, toTarget: DViewToTarget, stopper: DViewStopper, duration: number) {
+	constructor(
+		parent: DBase,
+		toTarget: DViewToTarget,
+		stopper: DViewStopper,
+		constraint: DViewConstraint,
+		duration: number
+	) {
 		this._parent = parent;
 		this._toTarget = toTarget;
+		this._constraint = constraint;
 		this._newScaleX = 1;
 		this._newScaleY = 1;
 		this._newX = 0;
@@ -57,15 +66,14 @@ export class DViewTransformImpl implements DViewTransform {
 
 		const target = this._toTarget(this._parent);
 		if (target != null) {
-			target.scale.set(scaleX, scaleY);
-			target.position.set(x, y);
+			this._constraint(target, x, y, scaleX, scaleY);
 		}
 	}
 
 	start(
 		target: DViewTarget,
 		x: number,
-		Y: number,
+		y: number,
 		scaleX: number,
 		scaleY: number,
 		duration?: number,
@@ -78,8 +86,7 @@ export class DViewTransformImpl implements DViewTransform {
 			duration = this._duration;
 		}
 		if (duration <= 0) {
-			target.scale.set(scaleX, scaleY);
-			target.position.set(x, Y);
+			this._constraint(target, x, y, scaleX, scaleY);
 		} else {
 			const position = target.position;
 			const scale = target.scale;
@@ -89,7 +96,7 @@ export class DViewTransformImpl implements DViewTransform {
 			this._oldScaleY = scale.y;
 
 			this._newX = x;
-			this._newY = Y;
+			this._newY = y;
 			this._newScaleX = scaleX;
 			this._newScaleY = scaleY;
 

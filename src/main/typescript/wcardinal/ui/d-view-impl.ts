@@ -17,10 +17,17 @@ import { isString } from "./util/is-string";
 import { toEnum } from "./util/to-enum";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
+import { DViewConstraint } from "./d-view-constraint";
 
 export class DViewImpl implements DView {
+	protected static CONSTRAINT: DViewConstraint = (target, x, y, scaleX, scaleY): void => {
+		target.scale.set(scaleX, scaleY);
+		target.position.set(x, y);
+	};
+
 	protected _parent: DBase;
 	protected _toTarget: DViewToTarget;
+	protected _constraint: DViewConstraint;
 
 	protected _zoomPoint: Point;
 	protected _zoomMin: number;
@@ -51,6 +58,7 @@ export class DViewImpl implements DView {
 	constructor(parent: DBase, toTarget: DViewToTarget, options: DViewOptions | undefined) {
 		this._parent = parent;
 		this._toTarget = toTarget;
+		this._constraint = (options && options.constraint) || DViewImpl.CONSTRAINT;
 
 		this._workRect = new Rectangle();
 
@@ -97,13 +105,21 @@ export class DViewImpl implements DView {
 		this._wheelTranslationChecker = wheelTranslation?.checker ?? UtilGestureModifiers.match;
 
 		// Gesture
-		this._gesture = new DViewGestureImpl(parent, toTarget, this, theme, options?.gesture);
+		this._gesture = new DViewGestureImpl(
+			parent,
+			toTarget,
+			this,
+			this._constraint,
+			theme,
+			options?.gesture
+		);
 
 		// Transform
 		this._transform = new DViewTransformImpl(
 			parent,
 			toTarget,
 			this,
+			this._constraint,
 			this._dblclickZoomDuration
 		);
 	}
@@ -245,7 +261,8 @@ export class DViewImpl implements DView {
 		if (target) {
 			const newScaleX = this.toNormalizedScale(scale.x);
 			const newScaleY = this.toNormalizedScale(scale.y);
-			target.scale.set(newScaleX, newScaleY);
+			const targetPosition = target.position;
+			this._constraint(target, targetPosition.x, targetPosition.y, newScaleX, newScaleY);
 		}
 	}
 
@@ -268,7 +285,8 @@ export class DViewImpl implements DView {
 	set position(position: DViewTargetPoint) {
 		const target = this._toTarget(this._parent);
 		if (target) {
-			target.position.set(position.x, position.y);
+			const targetScale = target.scale;
+			this._constraint(target, position.x, position.y, targetScale.x, targetScale.y);
 		}
 	}
 
@@ -329,10 +347,11 @@ export class DViewImpl implements DView {
 			if (target) {
 				this.stop();
 				const speed = deltas.lowest * this._wheelTranslationSpeed;
-				target.position.set(
-					target.position.x - deltas.deltaX * speed,
-					target.position.y + deltas.deltaY * speed
-				);
+				const targetPosition = target.position;
+				const newX = targetPosition.x - deltas.deltaX * speed;
+				const newY = targetPosition.y + deltas.deltaY * speed;
+				const targetScale = target.scale;
+				this._constraint(target, newX, newY, targetScale.x, targetScale.y);
 				return true;
 			}
 		}

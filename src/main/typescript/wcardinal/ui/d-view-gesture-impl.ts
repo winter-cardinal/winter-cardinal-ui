@@ -12,21 +12,25 @@ import { DViewStopper } from "./d-view-stopper";
 import { DViewTarget, DViewToTarget } from "./d-view-to-target";
 import { toEnum } from "./util/to-enum";
 import { UtilGesture } from "./util/util-gesture";
+import { DViewConstraint } from "./d-view-constraint";
 
 export class DViewGestureImpl implements DViewGesture {
 	protected _parent: DBase;
 	protected _stopper: DViewStopper;
+	protected _constraint: DViewConstraint;
 	protected _gestureUtil?: UtilGesture<DBase>;
 
 	constructor(
 		parent: DBase,
 		toTarget: DViewToTarget,
 		stopper: DViewStopper,
+		constraint: DViewConstraint,
 		theme: DThemeViewGesture,
-		options: DViewGestureOptions | undefined
+		options?: DViewGestureOptions
 	) {
 		this._parent = parent;
 		this._stopper = stopper;
+		this._constraint = constraint;
 
 		const mode = toEnum(options?.mode ?? theme.getGestureMode(), UtilGestureMode);
 		const modifier = toEnum(
@@ -92,8 +96,7 @@ export class DViewGestureImpl implements DViewGesture {
 			const newY = (position.y - cy) * scaleRatio + y;
 
 			// Update
-			target.scale.set(newScaleX, newScaleY);
-			target.position.set(newX, newY);
+			this._constraint(target, newX, newY, newScaleX, newScaleY);
 		}
 	}
 

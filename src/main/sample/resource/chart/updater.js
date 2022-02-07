@@ -13,8 +13,8 @@
 			this._offsetX = 10;
 			this._offsetY = 0;
 			this._modifier = function(y) {return y;}
-			this._animation = false;
 			this._interval = 32;
+			this._fitter = undefined;
 
 			const button = new wcardinal.ui.DButton({
 				parent: application.stage,
@@ -90,13 +90,13 @@
 			return this;
 		}
 
-		animation(enabled) {
-			this._animation = enabled;
+		interval(interval) {
+			this._interval = interval;
 			return this;
 		}
 
-		interval(interval) {
-			this._interval = interval;
+		fitter(fitter) {
+			this._fitter = fitter;
 			return this;
 		}
 
@@ -121,14 +121,14 @@
 					series.toDirty();
 				}
 			}
-			if (this._animation) {
-				plotArea.fit();
+			const fitter = this._fitter;
+			if (fitter != null) {
+				fitter();
 			} else {
 				plotArea.coordinate.fit();
 				plotArea.axis.update();
 				plotArea.series.update();
 			}
-
 			if( this._isEnabled ) {
 				setTimeout( this._updateBound, this._interval );
 			}

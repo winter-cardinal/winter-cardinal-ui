@@ -4,22 +4,18 @@
  */
 
 import { DBase } from "./d-base";
-import {
-	DChartCoordinate,
-	DChartCoordinateTickMajorStepFunction,
-	DChartCoordinateTickMinorStepFunction
-} from "./d-chart-coordinate";
+import { DChartCoordinate } from "./d-chart-coordinate";
+import { DChartCoordinateTickOptions, DThemeChartCoordinateTick } from "./d-chart-coordinate-tick";
+import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
+import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
+import { DThemes } from "./theme/d-themes";
 import { isNumber } from "./util/is-number";
 
-export interface DThemeChartCoordinateLinearTick {
-	toStepScale(scale: number): number;
-}
-
 export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
-	protected _theme: DThemeChartCoordinateLinearTick;
+	protected _theme: DThemeChartCoordinateTick;
 
-	constructor(theme: DThemeChartCoordinateLinearTick) {
-		this._theme = theme;
+	constructor(options?: DChartCoordinateTickOptions) {
+		this._theme = this.toTheme(options);
 	}
 
 	protected toMajorStep(
@@ -129,6 +125,10 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 		// Major tick start position
 		const idomainStart = Math.floor(domainMin / majorStepMapped) - 1;
 		const idomainEnd = Math.ceil(domainMax / majorStepMapped) + 1;
+		const domainMinMapped = transform.map(coordinate.map(domainMin));
+		const domainMaxMapped = transform.map(coordinate.map(domainMax));
+		const from = Math.min(domainMinMapped, domainMaxMapped) - 0.5;
+		const to = Math.max(domainMinMapped, domainMaxMapped) + 0.5;
 
 		// Major / minor tick positions
 		const minorStepMapped = this.toMinorStep(majorStepMapped, minorCountPerMajor, minorStep);
@@ -137,11 +137,11 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 		for (let i = idomainStart; i <= idomainEnd; ++i) {
 			const majorPosition = i * majorStepMapped;
 			if (imajor < majorCount) {
-				if (domainMin <= majorPosition && majorPosition <= domainMax) {
-					const majorProjectedPosition = transform.map(coordinate.map(majorPosition));
+				const majorPositionMapped = transform.map(coordinate.map(majorPosition));
+				if (from <= majorPositionMapped && majorPositionMapped <= to) {
 					const imajorResult = imajor * 3;
 					majorResult[imajorResult + 0] = majorPosition;
-					majorResult[imajorResult + 1] = majorProjectedPosition;
+					majorResult[imajorResult + 1] = majorPositionMapped;
 					majorResult[imajorResult + 2] = majorStepMapped;
 					imajor += 1;
 				}
@@ -150,11 +150,11 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 			for (let j = 0; j < minorCountPerMajor; j += 1) {
 				if (iminor < minorCount) {
 					const minorPosition = majorPosition + (j + 1) * minorStepMapped;
-					if (domainMin <= minorPosition && minorPosition <= domainMax) {
-						const minorProjectedPosition = transform.map(coordinate.map(minorPosition));
+					const minorPositionMapped = transform.map(coordinate.map(minorPosition));
+					if (from <= minorPositionMapped && minorPositionMapped <= to) {
 						const iminorResult = iminor * 3;
 						minorResult[iminorResult + 0] = minorPosition;
-						minorResult[iminorResult + 1] = minorProjectedPosition;
+						minorResult[iminorResult + 1] = minorPositionMapped;
 						minorResult[iminorResult + 2] = minorStepMapped;
 						iminor += 1;
 					}
@@ -173,5 +173,17 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase> {
 			minorResult[iminorResult + 1] = NaN;
 			minorResult[iminorResult + 2] = NaN;
 		}
+	}
+
+	protected toTheme(options?: DChartCoordinateTickOptions): DThemeChartCoordinateTick {
+		return (options && options.theme) || this.getThemeDefault();
+	}
+
+	protected getThemeDefault(): DThemeChartCoordinateTick {
+		return DThemes.getInstance().get(this.getType());
+	}
+
+	protected getType(): string {
+		return "DChartCoordinateTick";
 	}
 }

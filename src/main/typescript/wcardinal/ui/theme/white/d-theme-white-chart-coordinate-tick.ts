@@ -3,13 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeChartCoordinateLog } from "../../d-chart-coordinate-log";
+import { DThemeChartCoordinateTick } from "../../d-chart-coordinate-tick";
 
-export class DThemeDarkChartCoordinateLog implements DThemeChartCoordinateLog {
-	isZero(value: number): boolean {
-		return Math.abs(value) < 0.00001;
-	}
-
+export class DThemeWhiteChartCoordinateTick implements DThemeChartCoordinateTick {
 	toStepScale(scale: number): number {
 		if (5.5 <= scale) {
 			return 10;

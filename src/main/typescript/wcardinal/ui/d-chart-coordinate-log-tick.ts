@@ -4,22 +4,20 @@
  */
 
 import { DBase } from "./d-base";
-import {
-	DChartCoordinate,
-	DChartCoordinateTickMajorStepFunction,
-	DChartCoordinateTickMinorStepFunction
-} from "./d-chart-coordinate";
+import { DChartCoordinate } from "./d-chart-coordinate";
+import { DChartCoordinateTickOptions, DThemeChartCoordinateTick } from "./d-chart-coordinate-tick";
+import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
+import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
+import { DThemes } from "./theme/d-themes";
 import { isNumber } from "./util/is-number";
 
-export interface DThemeChartCoordinateLogTick {
-	toStepScale(scale: number): number;
-}
+export interface DThemeChartCoordinateLogTick extends DThemeChartCoordinateTick {}
 
 export class DChartCoordinateLogTick<CHART extends DBase = DBase> {
-	protected _theme: DThemeChartCoordinateLogTick;
+	protected _theme: DThemeChartCoordinateTick;
 
-	constructor(theme: DThemeChartCoordinateLogTick) {
-		this._theme = theme;
+	constructor(options?: DChartCoordinateTickOptions) {
+		this._theme = this.toTheme(options);
 	}
 
 	protected toMajorStep(
@@ -186,5 +184,17 @@ export class DChartCoordinateLogTick<CHART extends DBase = DBase> {
 			minorResult[iminorResult + 1] = NaN;
 			minorResult[iminorResult + 2] = NaN;
 		}
+	}
+
+	protected toTheme(options?: DChartCoordinateTickOptions): DThemeChartCoordinateTick {
+		return (options && options.theme) || this.getThemeDefault();
+	}
+
+	protected getThemeDefault(): DThemeChartCoordinateTick {
+		return DThemes.getInstance().get(this.getType());
+	}
+
+	protected getType(): string {
+		return "DChartCoordinateTick";
 	}
 }

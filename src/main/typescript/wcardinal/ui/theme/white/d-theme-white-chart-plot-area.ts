@@ -6,6 +6,7 @@
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeChartPlotArea } from "../../d-chart-plot-area";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
+import { DCornerMask } from "../../d-corner-mask";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhiteChartPlotArea extends DThemeWhiteBase implements DThemeChartPlotArea {
@@ -43,6 +44,10 @@ export class DThemeWhiteChartPlotArea extends DThemeWhiteBase implements DThemeC
 
 	getBorderColor(state: DBaseStateSet): number | null {
 		return null;
+	}
+
+	getCornerMask(): number {
+		return DCornerMask.ALL;
 	}
 
 	isOverflowMaskEnabled(): boolean {

@@ -5,26 +5,26 @@
 
 import { DBase } from "./d-base";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
-import { DChartCoordinateTransform } from "./d-chart-coordinate-transform";
+import { DChartCoordinateDirection } from "./d-chart-coordinate-direction";
+import { DChartCoordinateTickOptions } from "./d-chart-coordinate-tick";
+import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
+import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
+import {
+	DChartCoordinateTransform,
+	DChartCoordinateTransformOptions
+} from "./d-chart-coordinate-transform";
 
-export const DChartCoordinateDirection = {
-	X: 0,
-	Y: 1
-} as const;
+export interface DThemeChartCoordinate {
+	isZero(value: number): boolean;
+}
 
-export type DChartCoordinateDirection =
-	typeof DChartCoordinateDirection[keyof typeof DChartCoordinateDirection];
-
-export type DChartCoordinateTickMajorStepFunction = (
-	domainMin: number,
-	domainMax: number,
-	majorCount: number
-) => number;
-
-export type DChartCoordinateTickMinorStepFunction = (
-	majorStep: number,
-	minorCount: number
-) => number;
+export interface DChartCoordinateOptions {
+	transform?: DChartCoordinateTransformOptions;
+	tick?: DChartCoordinateTickOptions;
+	from?: number;
+	to?: number;
+	theme?: DThemeChartCoordinate;
+}
 
 export interface DChartCoordinate<CHART extends DBase = DBase> {
 	/**
@@ -32,6 +32,9 @@ export interface DChartCoordinate<CHART extends DBase = DBase> {
 	 */
 	readonly id: number;
 	readonly transform: DChartCoordinateTransform<CHART>;
+
+	from: number | undefined;
+	to: number | undefined;
 
 	bind(
 		container: DChartCoordinateContainerSub<CHART>,

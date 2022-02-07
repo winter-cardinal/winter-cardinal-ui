@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Fitting with an animation</title>
+	<title>Domain</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -36,8 +36,13 @@
 			x: 100, y: 50,
 			width: 500, height: 400,
 			plotArea: {
+				padding: 0,
 				coordinate: {
-					x: new wcardinal.ui.DChartCoordinateLinear(),
+					x: new wcardinal.ui.DChartCoordinateLinear({
+						// Explicitly set a domain
+						from: 0,
+						to: 100
+					}),
 					y: new wcardinal.ui.DChartCoordinateLinear()
 				},
 				series: {
@@ -64,9 +69,7 @@
 			}
 		});
 
-		new ChartUpdater(application, chart).speed(400).interval(400).capacity(32).fitter(function() {
-			chart.plotArea.fit();
-		}).start();
+		new ChartUpdater(application, chart).start();
 	}());
 	</script>
 </body>

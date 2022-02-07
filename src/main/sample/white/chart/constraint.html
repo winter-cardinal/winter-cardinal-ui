@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Fitting with an animation</title>
+	<title>Constraint</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -36,9 +36,13 @@
 			x: 100, y: 50,
 			width: 500, height: 400,
 			plotArea: {
+				padding: 0,
 				coordinate: {
 					x: new wcardinal.ui.DChartCoordinateLinear(),
-					y: new wcardinal.ui.DChartCoordinateLinear()
+					y: new wcardinal.ui.DChartCoordinateLinear({
+						from: 0,
+						to: 1
+					})
 				},
 				series: {
 					list: [
@@ -60,12 +64,24 @@
 							}
 						})
 					]
+				},
+				view: {
+					constraint: function (target, x, y, scaleX, scaleY) {
+						target.scale.set(scaleX, scaleY);
+
+						const w = chart.plotArea.width;
+						const h = chart.plotArea.height;
+						target.position.set(
+							Math.min(w, Math.max(-w * scaleX, x)),
+							h * (1 - scaleY)
+						);
+					}
 				}
 			}
 		});
 
-		new ChartUpdater(application, chart).speed(400).interval(400).capacity(32).fitter(function() {
-			chart.plotArea.fit();
+		new ChartUpdater(application, chart).modifier(function (value) {
+			return Math.abs(value);
 		}).start();
 	}());
 	</script>

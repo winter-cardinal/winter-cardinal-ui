@@ -8,6 +8,7 @@ import { DBase } from "./d-base";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { DThemeViewGesture, DViewGesture, DViewGestureOptions } from "./d-view-gesture";
 import { DViewTargetPoint } from "./d-view-to-target";
+import { DViewConstraint } from "./d-view-constraint";
 
 export type DViewChecker = (
 	e: WheelEvent | MouseEvent | TouchEvent,
@@ -118,6 +119,9 @@ export interface DViewOptions {
 
 	/** Translation options */
 	translation?: DViewTranslationOptions;
+
+	/** Constraint options */
+	constraint?: DViewConstraint;
 
 	/** Theme */
 	theme?: DThemeView | string;

@@ -6,19 +6,16 @@
 import { DBase } from "./d-base";
 import {
 	DChartCoordinate,
-	DChartCoordinateDirection,
-	DChartCoordinateTickMajorStepFunction,
-	DChartCoordinateTickMinorStepFunction
+	DChartCoordinateOptions,
+	DThemeChartCoordinate
 } from "./d-chart-coordinate";
 import { DChartCoordinateContainerSub } from "./d-chart-coordinate-container-sub";
-import {
-	DChartCoordinateLinearTick,
-	DThemeChartCoordinateLinearTick
-} from "./d-chart-coordinate-linear-tick";
-import {
-	DChartCoordinateTransform,
-	DThemeChartCoordinateTransform
-} from "./d-chart-coordinate-transform";
+import { DChartCoordinateDirection } from "./d-chart-coordinate-direction";
+import { DChartCoordinateLinearTick } from "./d-chart-coordinate-linear-tick";
+import { DChartCoordinateTick } from "./d-chart-coordinate-tick";
+import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
+import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
+import { DChartCoordinateTransform } from "./d-chart-coordinate-transform";
 import { DChartCoordinateTransformImpl } from "./d-chart-coordinate-transform-impl";
 import {
 	DChartCoordinateTransformMark,
@@ -30,14 +27,6 @@ import { DChartRegionImpl } from "./d-chart-region-impl";
 import { DThemes } from "./theme/d-themes";
 import { isNaN } from "./util/is-nan";
 
-export interface DThemeChartCoordinateLinear
-	extends DThemeChartCoordinateTransform,
-		DThemeChartCoordinateLinearTick {}
-
-export interface DChartCoordinateLinearOptions {
-	theme?: DThemeChartCoordinateLinear;
-}
-
 export class DChartCoordinateLinear<CHART extends DBase = DBase>
 	implements DChartCoordinate<CHART>
 {
@@ -45,20 +34,39 @@ export class DChartCoordinateLinear<CHART extends DBase = DBase>
 	protected _transform: DChartCoordinateTransform<CHART>;
 	protected _container?: DChartCoordinateContainerSub<CHART>;
 	protected _direction: DChartCoordinateDirection;
-	protected _theme: DThemeChartCoordinateLinear;
+	protected _theme: DThemeChartCoordinate;
 	protected _work: DChartRegionImpl;
-	protected _tick: DChartCoordinateLinearTick<CHART>;
+	protected _tick: DChartCoordinateTick<CHART>;
 	protected _mark: DChartCoordinateTransformMarkImpl;
+	protected _from?: number;
+	protected _to?: number;
 
-	constructor(options?: DChartCoordinateLinearOptions) {
+	constructor(options?: DChartCoordinateOptions) {
 		this._id = 0;
 		this._direction = DChartCoordinateDirection.X;
-		const theme = this.toTheme(options);
-		this._theme = theme;
-		this._transform = new DChartCoordinateTransformImpl(theme);
-		this._tick = new DChartCoordinateLinearTick(theme);
+		this._theme = this.toTheme(options);
+		this._transform = new DChartCoordinateTransformImpl(options?.transform);
+		this._tick = new DChartCoordinateLinearTick<CHART>(options?.tick);
 		this._work = new DChartRegionImpl(NaN, NaN);
 		this._mark = new DChartCoordinateTransformMarkImpl();
+		this._from = options?.from;
+		this._to = options?.to;
+	}
+
+	get from(): number | undefined {
+		return this._from;
+	}
+
+	set from(from: number | undefined) {
+		this._from = from;
+	}
+
+	get to(): number | undefined {
+		return this._to;
+	}
+
+	set to(to: number | undefined) {
+		this._to = to;
 	}
 
 	bind(
@@ -128,6 +136,12 @@ export class DChartCoordinateLinear<CHART extends DBase = DBase>
 		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
+		if (from == null) {
+			from = this._from;
+		}
+		if (to == null) {
+			to = this._to;
+		}
 		if (from != null && to != null) {
 			result.set(from, to);
 		} else {
@@ -143,6 +157,12 @@ export class DChartCoordinateLinear<CHART extends DBase = DBase>
 		plotArea: DChartPlotArea<CHART>,
 		result: DChartRegion
 	): DChartRegion {
+		if (from == null) {
+			from = this._from;
+		}
+		if (to == null) {
+			to = this._to;
+		}
 		if (from != null && to != null) {
 			result.set(from, to);
 		} else {
@@ -228,15 +248,15 @@ export class DChartCoordinateLinear<CHART extends DBase = DBase>
 		);
 	}
 
-	protected toTheme(options?: DChartCoordinateLinearOptions): DThemeChartCoordinateLinear {
+	protected toTheme(options?: DChartCoordinateOptions): DThemeChartCoordinate {
 		return (options && options.theme) || this.getThemeDefault();
 	}
 
-	protected getThemeDefault(): DThemeChartCoordinateLinear {
+	protected getThemeDefault(): DThemeChartCoordinate {
 		return DThemes.getInstance().get(this.getType());
 	}
 
 	protected getType(): string {
-		return "DChartCoordinateLinear";
+		return "DChartCoordinate";
 	}
 }
