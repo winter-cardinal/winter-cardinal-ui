@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.152.0
+ Winter Cardinal UI v0.154.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2663,7 +2663,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteChart.prototype.getPaddingLeft = function () {
-            return 70;
+            return 80;
         };
         DThemeWhiteChart.prototype.getPaddingRight = function () {
             return 10;
@@ -2711,7 +2711,7 @@
             return DChartAxisPosition.BOTTOM;
         };
         DThemeWhiteChartAxisBase.prototype.getPadding = function () {
-            return 75;
+            return 90;
         };
         DThemeWhiteChartAxisBase.prototype.getLabelAlignHorizontal = function (position) {
             switch (position) {
@@ -2738,7 +2738,7 @@
             }
         };
         DThemeWhiteChartAxisBase.prototype.getLabelPaddingHorizontal = function () {
-            return 50;
+            return 60;
         };
         DThemeWhiteChartAxisBase.prototype.getLabelPaddingVertical = function () {
             return 50;
@@ -2778,6 +2778,9 @@
         };
         DThemeWhiteChartAxisBase.prototype.getMajorTickCount = function () {
             return 3;
+        };
+        DThemeWhiteChartAxisBase.prototype.getMajorTickStep = function () {
+            return undefined;
         };
         DThemeWhiteChartAxisBase.prototype.getMajorTickSize = function () {
             return 10;
@@ -2878,6 +2881,9 @@
         DThemeWhiteChartAxisBase.prototype.getMinorTickCount = function () {
             return 3;
         };
+        DThemeWhiteChartAxisBase.prototype.getMinorTickStep = function () {
+            return undefined;
+        };
         DThemeWhiteChartAxisBase.prototype.getMinorTickSize = function () {
             return 5;
         };
@@ -2960,38 +2966,23 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeWhiteChartCoordinateLinear = /** @class */ (function () {
-        function DThemeWhiteChartCoordinateLinear() {
+    var DThemeWhiteChartCoordinate = /** @class */ (function () {
+        function DThemeWhiteChartCoordinate() {
         }
-        DThemeWhiteChartCoordinateLinear.prototype.isZero = function (value) {
+        DThemeWhiteChartCoordinate.prototype.isZero = function (value) {
             return Math.abs(value) < 0.00001;
         };
-        DThemeWhiteChartCoordinateLinear.prototype.toStepScale = function (scale) {
-            if (5.5 <= scale) {
-                return 10;
-            }
-            else if (2.2 <= scale) {
-                return 5;
-            }
-            else if (1.1 <= scale) {
-                return 2;
-            }
-            return 1;
-        };
-        return DThemeWhiteChartCoordinateLinear;
+        return DThemeWhiteChartCoordinate;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeWhiteChartCoordinateLog = /** @class */ (function () {
-        function DThemeWhiteChartCoordinateLog() {
+    var DThemeWhiteChartCoordinateTick = /** @class */ (function () {
+        function DThemeWhiteChartCoordinateTick() {
         }
-        DThemeWhiteChartCoordinateLog.prototype.isZero = function (value) {
-            return Math.abs(value) < 0.00001;
-        };
-        DThemeWhiteChartCoordinateLog.prototype.toStepScale = function (scale) {
+        DThemeWhiteChartCoordinateTick.prototype.toStepScale = function (scale) {
             if (5.5 <= scale) {
                 return 10;
             }
@@ -3003,7 +2994,20 @@
             }
             return 1;
         };
-        return DThemeWhiteChartCoordinateLog;
+        return DThemeWhiteChartCoordinateTick;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhiteChartCoordinateTransform = /** @class */ (function () {
+        function DThemeWhiteChartCoordinateTransform() {
+        }
+        DThemeWhiteChartCoordinateTransform.prototype.isZero = function (value) {
+            return Math.abs(value) < 0.00001;
+        };
+        return DThemeWhiteChartCoordinateTransform;
     }());
 
     /*
@@ -3077,6 +3081,9 @@
         };
         DThemeWhiteChartPlotArea.prototype.getBorderColor = function (state) {
             return null;
+        };
+        DThemeWhiteChartPlotArea.prototype.getCornerMask = function () {
+            return DCornerMask.ALL;
         };
         DThemeWhiteChartPlotArea.prototype.isOverflowMaskEnabled = function () {
             return true;
@@ -3171,8 +3178,9 @@
         DThemeWhite.set("DChartAxisX", DThemeWhiteChartAxisX);
         DThemeWhite.set("DChartAxisXDatetime", DThemeWhiteChartAxisXDatetime);
         DThemeWhite.set("DChartAxisY", DThemeWhiteChartAxisY);
-        DThemeWhite.set("DChartCoordinateLinear", DThemeWhiteChartCoordinateLinear);
-        DThemeWhite.set("DChartCoordinateLog", DThemeWhiteChartCoordinateLog);
+        DThemeWhite.set("DChartCoordinate", DThemeWhiteChartCoordinate);
+        DThemeWhite.set("DChartCoordinateTick", DThemeWhiteChartCoordinateTick);
+        DThemeWhite.set("DChartCoordinateTransform", DThemeWhiteChartCoordinateTransform);
         DThemeWhite.set("DChartLegend", DThemeWhiteChartLegend);
         DThemeWhite.set("DChartLegendItem", DThemeWhiteChartLegendItem);
         DThemeWhite.set("DChartOverview", DThemeWhiteChartOverview);
@@ -8686,8 +8694,9 @@
         DThemeWhiteChartAxisXDatetime: DThemeWhiteChartAxisXDatetime,
         DThemeWhiteChartAxisX: DThemeWhiteChartAxisX,
         DThemeWhiteChartAxisY: DThemeWhiteChartAxisY,
-        DThemeWhiteChartCoordinateLinear: DThemeWhiteChartCoordinateLinear,
-        DThemeWhiteChartCoordinateLog: DThemeWhiteChartCoordinateLog,
+        DThemeWhiteChartCoordinateTick: DThemeWhiteChartCoordinateTick,
+        DThemeWhiteChartCoordinateTransform: DThemeWhiteChartCoordinateTransform,
+        DThemeWhiteChartCoordinate: DThemeWhiteChartCoordinate,
         DThemeWhiteChartLegendItem: DThemeWhiteChartLegendItem,
         DThemeWhiteChartLegend: DThemeWhiteChartLegend,
         DThemeWhiteChartOverview: DThemeWhiteChartOverview,

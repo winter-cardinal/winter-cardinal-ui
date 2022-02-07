@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.152.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.152.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -48,7 +48,7 @@
 		application.stage.addChild( container );
 
 		application.update();
-		setInterval(() => {
+		setInterval(function () {
 			const circles = container.children;
 			for( let i = (Math.random() * 7) | 0, imax = circles.length; i < imax; i += 7 ) {
 				circles[ i ].fill.color = wcardinal.ui.UtilRgb.fromRgb( 0, 0.5 + 0.5 * Math.random(), 0 );

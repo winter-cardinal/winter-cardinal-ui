@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.152.0
+ Winter Cardinal UI v0.154.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -14108,11 +14108,12 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var DViewGestureImpl = /** @class */ (function () {
-        function DViewGestureImpl(parent, toTarget, stopper, theme, options) {
+        function DViewGestureImpl(parent, toTarget, stopper, constraint, theme, options) {
             var _this = this;
             var _a, _b;
             this._parent = parent;
             this._stopper = stopper;
+            this._constraint = constraint;
             var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getGestureMode(), UtilGestureMode);
             var modifier = toEnum((_b = options === null || options === void 0 ? void 0 : options.modifier) !== null && _b !== void 0 ? _b : theme.getGestureModifier(), UtilGestureModifier);
             if (mode === UtilGestureMode.ON || mode === UtilGestureMode.TOUCH) {
@@ -14155,8 +14156,7 @@
                 var newX = (position.x - cx) * scaleRatio + x;
                 var newY = (position.y - cy) * scaleRatio + y;
                 // Update
-                target.scale.set(newScaleX, newScaleY);
-                target.position.set(newX, newY);
+                this._constraint(target, newX, newY, newScaleX, newScaleY);
             }
         };
         DViewGestureImpl.prototype.stop = function () {
@@ -14175,10 +14175,11 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var DViewTransformImpl = /** @class */ (function () {
-        function DViewTransformImpl(parent, toTarget, stopper, duration) {
+        function DViewTransformImpl(parent, toTarget, stopper, constraint, duration) {
             var _this = this;
             this._parent = parent;
             this._toTarget = toTarget;
+            this._constraint = constraint;
             this._newScaleX = 1;
             this._newScaleY = 1;
             this._newX = 0;
@@ -14205,11 +14206,10 @@
             var y = this._oldY * w0 + this._newY * w1;
             var target = this._toTarget(this._parent);
             if (target != null) {
-                target.scale.set(scaleX, scaleY);
-                target.position.set(x, y);
+                this._constraint(target, x, y, scaleX, scaleY);
             }
         };
-        DViewTransformImpl.prototype.start = function (target, x, Y, scaleX, scaleY, duration, stop) {
+        DViewTransformImpl.prototype.start = function (target, x, y, scaleX, scaleY, duration, stop) {
             if (stop !== false) {
                 this._stopper.stop();
             }
@@ -14217,8 +14217,7 @@
                 duration = this._duration;
             }
             if (duration <= 0) {
-                target.scale.set(scaleX, scaleY);
-                target.position.set(x, Y);
+                this._constraint(target, x, y, scaleX, scaleY);
             }
             else {
                 var position = target.position;
@@ -14228,7 +14227,7 @@
                 this._oldScaleX = scale.x;
                 this._oldScaleY = scale.y;
                 this._newX = x;
-                this._newY = Y;
+                this._newY = y;
                 this._newScaleX = scaleX;
                 this._newScaleY = scaleY;
                 this._animation.duration = duration;
@@ -14250,6 +14249,7 @@
             var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
             this._parent = parent;
             this._toTarget = toTarget;
+            this._constraint = (options && options.constraint) || DViewImpl.CONSTRAINT;
             this._workRect = new pixi_js.Rectangle();
             // Theme
             var theme = this.toTheme(options) || this.getThemeDefault();
@@ -14280,9 +14280,9 @@
             this._wheelTranslationModifier = toEnum((_r = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.modifier) !== null && _r !== void 0 ? _r : theme.getWheelTranslationModifier(), UtilGestureModifier);
             this._wheelTranslationChecker = (_s = wheelTranslation === null || wheelTranslation === void 0 ? void 0 : wheelTranslation.checker) !== null && _s !== void 0 ? _s : UtilGestureModifiers.match;
             // Gesture
-            this._gesture = new DViewGestureImpl(parent, toTarget, this, theme, options === null || options === void 0 ? void 0 : options.gesture);
+            this._gesture = new DViewGestureImpl(parent, toTarget, this, this._constraint, theme, options === null || options === void 0 ? void 0 : options.gesture);
             // Transform
-            this._transform = new DViewTransformImpl(parent, toTarget, this, this._dblclickZoomDuration);
+            this._transform = new DViewTransformImpl(parent, toTarget, this, this._constraint, this._dblclickZoomDuration);
         }
         Object.defineProperty(DViewImpl.prototype, "gesture", {
             get: function () {
@@ -14391,7 +14391,8 @@
                 if (target) {
                     var newScaleX = this.toNormalizedScale(scale.x);
                     var newScaleY = this.toNormalizedScale(scale.y);
-                    target.scale.set(newScaleX, newScaleY);
+                    var targetPosition = target.position;
+                    this._constraint(target, targetPosition.x, targetPosition.y, newScaleX, newScaleY);
                 }
             },
             enumerable: false,
@@ -14415,7 +14416,8 @@
             set: function (position) {
                 var target = this._toTarget(this._parent);
                 if (target) {
-                    target.position.set(position.x, position.y);
+                    var targetScale = target.scale;
+                    this._constraint(target, position.x, position.y, targetScale.x, targetScale.y);
                 }
             },
             enumerable: false,
@@ -14456,7 +14458,11 @@
                 if (target) {
                     this.stop();
                     var speed = deltas.lowest * this._wheelTranslationSpeed;
-                    target.position.set(target.position.x - deltas.deltaX * speed, target.position.y + deltas.deltaY * speed);
+                    var targetPosition = target.position;
+                    var newX = targetPosition.x - deltas.deltaX * speed;
+                    var newY = targetPosition.y + deltas.deltaY * speed;
+                    var targetScale = target.scale;
+                    this._constraint(target, newX, newY, targetScale.x, targetScale.y);
                     return true;
                 }
             }
@@ -14497,6 +14503,10 @@
         };
         DViewImpl.prototype.getType = function () {
             return "DView";
+        };
+        DViewImpl.CONSTRAINT = function (target, x, y, scaleX, scaleY) {
+            target.scale.set(scaleX, scaleY);
+            target.position.set(x, y);
         };
         return DViewImpl;
     }());
@@ -14647,12 +14657,16 @@
             var container = this.toContainer(shape);
             if (container) {
                 if (remote) {
-                    container.data.remote.set(id, value, time);
+                    return container.data.remote.set(id, value, time);
                 }
                 else {
-                    container.data.set(id, value, time);
+                    if (container.data.set(id, value, time)) {
+                        DApplications.update(container);
+                        return true;
+                    }
                 }
             }
+            return false;
         };
         EShapeActionRuntimes.emit = function (shape, name, value, time) {
             var container = EShapeActionRuntimes.toContainer(shape);
@@ -50032,7 +50046,7 @@
             };
         };
         DChartAxisBaseOptionParser.prototype.toTickMajor = function (theme, options) {
-            var _a, _b, _c, _d, _e, _f;
+            var _a, _b, _c, _d, _e, _f, _g;
             var major = options === null || options === void 0 ? void 0 : options.major;
             var position = (_b = (_a = major === null || major === void 0 ? void 0 : major.position) !== null && _a !== void 0 ? _a : options === null || options === void 0 ? void 0 : options.position) !== null && _b !== void 0 ? _b : theme.getMajorTickPosition();
             var optionsStyle = options === null || options === void 0 ? void 0 : options.style;
@@ -50041,7 +50055,8 @@
             var stroke = this.toTickMajorStroke(theme, major === null || major === void 0 ? void 0 : major.stroke, optionsStroke);
             return {
                 count: (_e = major === null || major === void 0 ? void 0 : major.count) !== null && _e !== void 0 ? _e : theme.getMajorTickCount(),
-                size: (_f = major === null || major === void 0 ? void 0 : major.size) !== null && _f !== void 0 ? _f : theme.getMajorTickSize(),
+                step: (_f = major === null || major === void 0 ? void 0 : major.step) !== null && _f !== void 0 ? _f : theme.getMajorTickStep(),
+                size: (_g = major === null || major === void 0 ? void 0 : major.size) !== null && _g !== void 0 ? _g : theme.getMajorTickSize(),
                 position: this.toTickPosition(position),
                 style: style,
                 stroke: stroke,
@@ -50093,13 +50108,14 @@
             }
         };
         DChartAxisBaseOptionParser.prototype.toMinorTick = function (theme, options) {
-            var _a, _b, _c, _d, _e, _f;
-            var minor = options === null || options === void 0 ? void 0 : options.major;
+            var _a, _b, _c, _d, _e, _f, _g;
+            var minor = options === null || options === void 0 ? void 0 : options.minor;
             var position = (_b = (_a = minor === null || minor === void 0 ? void 0 : minor.position) !== null && _a !== void 0 ? _a : options === null || options === void 0 ? void 0 : options.position) !== null && _b !== void 0 ? _b : theme.getMinorTickPosition();
             var style = EShapePointsStyles.from((_d = (_c = minor === null || minor === void 0 ? void 0 : minor.style) !== null && _c !== void 0 ? _c : options === null || options === void 0 ? void 0 : options.style) !== null && _d !== void 0 ? _d : theme.getMinorTickStyle());
             return {
                 count: (_e = minor === null || minor === void 0 ? void 0 : minor.count) !== null && _e !== void 0 ? _e : theme.getMinorTickCount(),
-                size: (_f = minor === null || minor === void 0 ? void 0 : minor.size) !== null && _f !== void 0 ? _f : theme.getMinorTickSize(),
+                step: (_f = minor === null || minor === void 0 ? void 0 : minor.step) !== null && _f !== void 0 ? _f : theme.getMinorTickStep(),
+                size: (_g = minor === null || minor === void 0 ? void 0 : minor.size) !== null && _g !== void 0 ? _g : theme.getMinorTickSize(),
                 position: this.toTickPosition(position),
                 style: style,
                 stroke: this.toTickMinorStroke(theme, minor === null || minor === void 0 ? void 0 : minor.stroke, options === null || options === void 0 ? void 0 : options.stroke),
@@ -50385,13 +50401,17 @@
         };
         DChartAxisBase.prototype.updateTicksX = function (domainMin, domainMax, coordinate, majorShapes, minorShapes, gridlineShapes, shapePositionY, transform, plotAreaHeight) {
             var tick = this._tick;
-            var majorCount = tick.major.count;
-            var majorFormatter = tick.major.formatter;
-            var minorCountPerMajor = tick.minor.count;
+            var majorTick = tick.major;
+            var majorCount = majorTick.count;
+            var majorStep = majorTick.step;
+            var majorFormatter = majorTick.formatter;
+            var minorTick = tick.minor;
+            var minorCountPerMajor = minorTick.count;
             var minorCount = (majorCount + 1) * minorCountPerMajor;
+            var minorStep = minorTick.step;
             var majorTicks = this._majorTicks;
             var minorTicks = this._minorTicks;
-            coordinate.ticks(domainMin, domainMax, majorCount, minorCountPerMajor, minorCount, majorTicks, minorTicks);
+            coordinate.ticks(domainMin, domainMax, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorTicks, minorTicks);
             var a = transform.a;
             var tx = transform.tx;
             for (var i = 0; i < majorCount; ++i) {
@@ -50441,13 +50461,17 @@
         };
         DChartAxisBase.prototype.updateTicksY = function (domainMin, domainMax, coordinate, majorShapes, minorShapes, gridlineShapes, shapePositionX, transform, plotAreaWidth) {
             var tick = this._tick;
-            var majorCount = tick.major.count;
-            var majorFormatter = tick.major.formatter;
-            var minorCountPerMajor = tick.minor.count;
+            var majorTick = tick.major;
+            var majorCount = majorTick.count;
+            var majorStep = majorTick.step;
+            var majorFormatter = majorTick.formatter;
+            var minorTick = tick.minor;
+            var minorCountPerMajor = minorTick.count;
             var minorCount = (majorCount + 1) * minorCountPerMajor;
+            var minorStep = minorTick.step;
             var majorTicks = this._majorTicks;
             var minorTicks = this._minorTicks;
-            coordinate.ticks(domainMin, domainMax, majorCount, minorCountPerMajor, minorCount, majorTicks, minorTicks);
+            coordinate.ticks(domainMin, domainMax, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorTicks, minorTicks);
             var d = transform.d;
             var ty = transform.ty;
             for (var i = 0; i < majorCount; ++i) {
@@ -51087,25 +51111,45 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var DChartCoordinateLinearTick = /** @class */ (function () {
-        function DChartCoordinateLinearTick(theme) {
-            this._theme = theme;
+        function DChartCoordinateLinearTick(options) {
+            this._theme = this.toTheme(options);
         }
-        DChartCoordinateLinearTick.prototype.calcStepMajor = function (domainMin, domainMax, count) {
-            if (0 < count) {
-                var span = Math.abs(domainMax - domainMin) / count;
-                var power = Math.floor(Math.log(span) / Math.LN10);
-                var base = Math.pow(10, power);
-                return this._theme.toStepScale(span / base) * base;
-            }
-            return -1;
-        };
-        DChartCoordinateLinearTick.prototype.calcStepMinor = function (step, minorCount) {
-            if (0 <= step) {
-                return step / (minorCount + 1);
-            }
-            else {
+        DChartCoordinateLinearTick.prototype.toMajorStep = function (domainMin, domainMax, majorCount, majorStep) {
+            if (majorStep == null) {
+                if (0 < majorCount) {
+                    return this.calcStepMajor(domainMin, domainMax, majorCount);
+                }
                 return -1;
             }
+            else if (isNumber(majorStep)) {
+                return majorStep;
+            }
+            else {
+                return majorStep(domainMin, domainMax, majorCount);
+            }
+        };
+        DChartCoordinateLinearTick.prototype.calcStepMajor = function (domainMin, domainMax, majorCount) {
+            var span = Math.abs(domainMax - domainMin) / majorCount;
+            var power = Math.floor(Math.log(span) / Math.LN10);
+            var base = Math.pow(10, power);
+            return this._theme.toStepScale(span / base) * base;
+        };
+        DChartCoordinateLinearTick.prototype.toMinorStep = function (majorStep, minorCount, minorStep) {
+            if (minorStep == null) {
+                if (0 <= majorStep) {
+                    return this.calcStepMinor(majorStep, minorCount);
+                }
+                return -1;
+            }
+            else if (isNumber(minorStep)) {
+                return minorStep;
+            }
+            else {
+                return minorStep(majorStep, minorCount);
+            }
+        };
+        DChartCoordinateLinearTick.prototype.calcStepMinor = function (majorStep, minorCount) {
+            return majorStep / (minorCount + 1);
         };
         DChartCoordinateLinearTick.prototype.calcTickMinorPositions = function (step, count, majorPosition, rangeMin, rangeMax, iresult, result) {
             for (var i = 0; i < count; i += 1) {
@@ -51115,15 +51159,15 @@
                 }
             }
         };
-        DChartCoordinateLinearTick.prototype.calculate = function (domainFrom, domainTo, majorCount, minorCountPerMajor, minorCount, majorResult, minorResult, coordinate) {
+        DChartCoordinateLinearTick.prototype.calculate = function (domainFrom, domainTo, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorResult, minorResult, coordinate) {
             if (majorCount <= 0) {
                 return;
             }
             var transform = coordinate.transform;
             var domainMin = Math.min(domainFrom, domainTo);
             var domainMax = Math.max(domainFrom, domainTo);
-            var majorStep = this.calcStepMajor(domainMin, domainMax, majorCount);
-            if (majorStep <= 0) {
+            var majorStepMapped = this.toMajorStep(domainMin, domainMax, majorCount, majorStep);
+            if (majorStepMapped <= 0) {
                 majorResult[0] = domainMin;
                 majorResult[1] = transform.map(coordinate.map(domainMin));
                 majorResult[2] = 0;
@@ -51142,33 +51186,37 @@
                 return;
             }
             // Major tick start position
-            var idomainStart = Math.floor(domainMin / majorStep) - 1;
-            var idomainEnd = Math.ceil(domainMax / majorStep) + 1;
+            var idomainStart = Math.floor(domainMin / majorStepMapped) - 1;
+            var idomainEnd = Math.ceil(domainMax / majorStepMapped) + 1;
+            var domainMinMapped = transform.map(coordinate.map(domainMin));
+            var domainMaxMapped = transform.map(coordinate.map(domainMax));
+            var from = Math.min(domainMinMapped, domainMaxMapped) - 0.5;
+            var to = Math.max(domainMinMapped, domainMaxMapped) + 0.5;
             // Major / minor tick positions
-            var minorStep = this.calcStepMinor(majorStep, minorCountPerMajor);
+            var minorStepMapped = this.toMinorStep(majorStepMapped, minorCountPerMajor, minorStep);
             var imajor = 0;
             var iminor = 0;
             for (var i = idomainStart; i <= idomainEnd; ++i) {
-                var majorPosition = i * majorStep;
+                var majorPosition = i * majorStepMapped;
                 if (imajor < majorCount) {
-                    if (domainMin <= majorPosition && majorPosition <= domainMax) {
-                        var majorProjectedPosition = transform.map(coordinate.map(majorPosition));
+                    var majorPositionMapped = transform.map(coordinate.map(majorPosition));
+                    if (from <= majorPositionMapped && majorPositionMapped <= to) {
                         var imajorResult = imajor * 3;
                         majorResult[imajorResult + 0] = majorPosition;
-                        majorResult[imajorResult + 1] = majorProjectedPosition;
-                        majorResult[imajorResult + 2] = majorStep;
+                        majorResult[imajorResult + 1] = majorPositionMapped;
+                        majorResult[imajorResult + 2] = majorStepMapped;
                         imajor += 1;
                     }
                 }
                 for (var j = 0; j < minorCountPerMajor; j += 1) {
                     if (iminor < minorCount) {
-                        var minorPosition = majorPosition + (j + 1) * minorStep;
-                        if (domainMin <= minorPosition && minorPosition <= domainMax) {
-                            var minorProjectedPosition = transform.map(coordinate.map(minorPosition));
+                        var minorPosition = majorPosition + (j + 1) * minorStepMapped;
+                        var minorPositionMapped = transform.map(coordinate.map(minorPosition));
+                        if (from <= minorPositionMapped && minorPositionMapped <= to) {
                             var iminorResult = iminor * 3;
                             minorResult[iminorResult + 0] = minorPosition;
-                            minorResult[iminorResult + 1] = minorProjectedPosition;
-                            minorResult[iminorResult + 2] = minorStep;
+                            minorResult[iminorResult + 1] = minorPositionMapped;
+                            minorResult[iminorResult + 2] = minorStepMapped;
                             iminor += 1;
                         }
                     }
@@ -51187,14 +51235,29 @@
                 minorResult[iminorResult + 2] = NaN;
             }
         };
+        DChartCoordinateLinearTick.prototype.toTheme = function (options) {
+            return (options && options.theme) || this.getThemeDefault();
+        };
+        DChartCoordinateLinearTick.prototype.getThemeDefault = function () {
+            return DThemes.getInstance().get(this.getType());
+        };
+        DChartCoordinateLinearTick.prototype.getType = function () {
+            return "DChartCoordinateTick";
+        };
         return DChartCoordinateLinearTick;
     }());
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DChartCoordinateTransformImpl = /** @class */ (function () {
-        function DChartCoordinateTransformImpl(theme) {
-            this._theme = theme;
+        function DChartCoordinateTransformImpl(options) {
+            this._theme = this.toTheme(options);
             this._id = 0;
+            this._isTranslationEnabled = options === null || options === void 0 ? void 0 : options.translation;
             this._translate = 0;
+            this._isScalingEnabled = options === null || options === void 0 ? void 0 : options.scaling;
             this._scale = 1;
             this._itranslate = 0;
             this._iscale = 1;
@@ -51234,11 +51297,13 @@
         };
         DChartCoordinateTransformImpl.prototype.set = function (translate, scale) {
             var isChanged = false;
-            if (translate != null && this._translate !== translate) {
+            if (translate != null &&
+                this._isTranslationEnabled !== false &&
+                this._translate !== translate) {
                 isChanged = true;
                 this._translate = translate;
             }
-            if (scale != null && this._scale !== scale) {
+            if (scale != null && this._isScalingEnabled !== false && this._scale !== scale) {
                 isChanged = true;
                 this._scale = scale;
             }
@@ -51273,6 +51338,15 @@
             for (var i = ifrom + offset; i < iend; i += stride) {
                 values[i] = itranslate + iscale * values[i];
             }
+        };
+        DChartCoordinateTransformImpl.prototype.toTheme = function (options) {
+            return (options && options.theme) || this.getThemeDefault();
+        };
+        DChartCoordinateTransformImpl.prototype.getThemeDefault = function () {
+            return DThemes.getInstance().get(this.getType());
+        };
+        DChartCoordinateTransformImpl.prototype.getType = function () {
+            return "DChartCoordinateTransform";
         };
         return DChartCoordinateTransformImpl;
     }());
@@ -51338,13 +51412,34 @@
         function DChartCoordinateLinear(options) {
             this._id = 0;
             this._direction = DChartCoordinateDirection.X;
-            var theme = this.toTheme(options);
-            this._theme = theme;
-            this._transform = new DChartCoordinateTransformImpl(theme);
-            this._tick = new DChartCoordinateLinearTick(theme);
+            this._theme = this.toTheme(options);
+            this._transform = new DChartCoordinateTransformImpl(options === null || options === void 0 ? void 0 : options.transform);
+            this._tick = new DChartCoordinateLinearTick(options === null || options === void 0 ? void 0 : options.tick);
             this._work = new DChartRegionImpl(NaN, NaN);
             this._mark = new DChartCoordinateTransformMarkImpl();
+            this._from = options === null || options === void 0 ? void 0 : options.from;
+            this._to = options === null || options === void 0 ? void 0 : options.to;
         }
+        Object.defineProperty(DChartCoordinateLinear.prototype, "from", {
+            get: function () {
+                return this._from;
+            },
+            set: function (from) {
+                this._from = from;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DChartCoordinateLinear.prototype, "to", {
+            get: function () {
+                return this._to;
+            },
+            set: function (to) {
+                this._to = to;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DChartCoordinateLinear.prototype.bind = function (container, direction) {
             this._container = container;
             this._direction = direction;
@@ -51384,6 +51479,12 @@
             }
         };
         DChartCoordinateLinear.prototype.toFitDomain = function (from, to, plotArea, result) {
+            if (from == null) {
+                from = this._from;
+            }
+            if (to == null) {
+                to = this._to;
+            }
             if (from != null && to != null) {
                 result.set(from, to);
             }
@@ -51394,6 +51495,12 @@
             return result;
         };
         DChartCoordinateLinear.prototype.toFitRange = function (from, to, plotArea, result) {
+            if (from == null) {
+                from = this._from;
+            }
+            if (to == null) {
+                to = this._to;
+            }
             if (from != null && to != null) {
                 result.set(from, to);
             }
@@ -51449,8 +51556,8 @@
         DChartCoordinateLinear.prototype.unmapAll = function (values, ifrom, iend, stride, offset) {
             // DO NOTHING
         };
-        DChartCoordinateLinear.prototype.ticks = function (domainFrom, domainTo, majorCount, minorCountPerMajor, minorCount, majorResult, minorResult) {
-            this._tick.calculate(domainFrom, domainTo, majorCount, minorCountPerMajor, minorCount, majorResult, minorResult, this);
+        DChartCoordinateLinear.prototype.ticks = function (domainFrom, domainTo, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorResult, minorResult) {
+            this._tick.calculate(domainFrom, domainTo, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorResult, minorResult, this);
         };
         DChartCoordinateLinear.prototype.toTheme = function (options) {
             return (options && options.theme) || this.getThemeDefault();
@@ -51459,7 +51566,7 @@
             return DThemes.getInstance().get(this.getType());
         };
         DChartCoordinateLinear.prototype.getType = function () {
-            return "DChartCoordinateLinear";
+            return "DChartCoordinate";
         };
         return DChartCoordinateLinear;
     }());
@@ -51469,25 +51576,45 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var DChartCoordinateLogTick = /** @class */ (function () {
-        function DChartCoordinateLogTick(theme) {
-            this._theme = theme;
+        function DChartCoordinateLogTick(options) {
+            this._theme = this.toTheme(options);
         }
-        DChartCoordinateLogTick.prototype.calcStepMajor = function (domainMin, domainMax, count) {
-            if (0 < count) {
-                var span = Math.abs(domainMax - domainMin) / count;
-                var power = Math.floor(Math.log(span) / Math.LN10);
-                var base = Math.pow(10, power);
-                return this._theme.toStepScale(span / base) * base;
-            }
-            return -1;
-        };
-        DChartCoordinateLogTick.prototype.calcStepMinor = function (step, minorCount) {
-            if (0 <= step) {
-                return step / (minorCount + 1);
-            }
-            else {
+        DChartCoordinateLogTick.prototype.toMajorStep = function (domainMin, domainMax, majorCount, majorStep) {
+            if (majorStep == null) {
+                if (0 < majorCount) {
+                    return this.calcStepMajor(domainMin, domainMax, majorCount);
+                }
                 return -1;
             }
+            else if (isNumber(majorStep)) {
+                return majorStep;
+            }
+            else {
+                return majorStep(domainMin, domainMax, majorCount);
+            }
+        };
+        DChartCoordinateLogTick.prototype.calcStepMajor = function (domainMin, domainMax, majorCount) {
+            var span = Math.abs(domainMax - domainMin) / majorCount;
+            var power = Math.floor(Math.log(span) / Math.LN10);
+            var base = Math.pow(10, power);
+            return this._theme.toStepScale(span / base) * base;
+        };
+        DChartCoordinateLogTick.prototype.toMinorStep = function (majorStep, minorCount, minorStep) {
+            if (minorStep == null) {
+                if (0 <= majorStep) {
+                    return this.calcStepMinor(majorStep, minorCount);
+                }
+                return -1;
+            }
+            else if (isNumber(minorStep)) {
+                return minorStep;
+            }
+            else {
+                return minorStep(majorStep, minorCount);
+            }
+        };
+        DChartCoordinateLogTick.prototype.calcStepMinor = function (majorStep, minorCount) {
+            return majorStep / (minorCount + 1);
         };
         DChartCoordinateLogTick.prototype.calcTickMinorPositions = function (step, count, majorPosition, rangeMin, rangeMax, iresult, result) {
             for (var i = 0; i < count; i += 1) {
@@ -51497,7 +51624,7 @@
                 }
             }
         };
-        DChartCoordinateLogTick.prototype.calculate = function (domainFrom, domainTo, majorCount, minorCountPerMajor, minorCount, majorResult, minorResult, coordinate) {
+        DChartCoordinateLogTick.prototype.calculate = function (domainFrom, domainTo, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorResult, minorResult, coordinate) {
             if (majorCount <= 0) {
                 return;
             }
@@ -51506,7 +51633,7 @@
             var domainToMapped = coordinate.map(domainTo);
             var domainMinMapped = Math.min(domainFromMapped, domainToMapped);
             var domainMaxMapped = Math.max(domainFromMapped, domainToMapped);
-            var majorStepMapped = this.calcStepMajor(domainMinMapped, domainMaxMapped, majorCount);
+            var majorStepMapped = this.toMajorStep(domainMinMapped, domainMaxMapped, majorCount, majorStep);
             if (majorStepMapped <= 0) {
                 var domainMin = Math.min(domainFrom, domainTo);
                 majorResult[0] = domainMin;
@@ -51530,7 +51657,7 @@
             var idomainStartMapped = Math.floor(domainMinMapped / majorStepMapped) - 1;
             var idomainEndMapped = Math.ceil(domainMaxMapped / majorStepMapped) + 1;
             // Major / minor tick positions
-            var minorStepMapped = this.calcStepMinor(majorStepMapped, minorCountPerMajor);
+            var minorStepMapped = this.toMinorStep(majorStepMapped, minorCountPerMajor, minorStep);
             var imajor = 0;
             var iminor = 0;
             for (var i = idomainStartMapped; i <= idomainEndMapped; ++i) {
@@ -51538,13 +51665,10 @@
                 if (imajor < majorCount) {
                     if (domainMinMapped <= majorPositionMapped &&
                         majorPositionMapped <= domainMaxMapped) {
-                        var majorPosition = coordinate.unmap(majorPositionMapped);
-                        var majorProjectedPosition = transform.map(majorPositionMapped);
-                        var majorStep = coordinate.unmap(majorPositionMapped - 1);
                         var imajorResult = imajor * 3;
-                        majorResult[imajorResult + 0] = majorPosition;
-                        majorResult[imajorResult + 1] = majorProjectedPosition;
-                        majorResult[imajorResult + 2] = majorStep;
+                        majorResult[imajorResult + 0] = coordinate.unmap(majorPositionMapped);
+                        majorResult[imajorResult + 1] = transform.map(majorPositionMapped);
+                        majorResult[imajorResult + 2] = coordinate.unmap(majorPositionMapped - 1);
                         imajor += 1;
                     }
                 }
@@ -51553,13 +51677,10 @@
                         var minorPositionMapped = majorPositionMapped + (j + 1) * minorStepMapped;
                         if (domainMinMapped <= minorPositionMapped &&
                             minorPositionMapped <= domainMaxMapped) {
-                            var minorPosition = coordinate.unmap(minorPositionMapped);
-                            var minorProjectedPosition = transform.map(minorPositionMapped);
-                            var minorStep = coordinate.unmap(minorPositionMapped - 1);
                             var iminorResult = iminor * 3;
-                            minorResult[iminorResult + 0] = minorPosition;
-                            minorResult[iminorResult + 1] = minorProjectedPosition;
-                            minorResult[iminorResult + 2] = minorStep;
+                            minorResult[iminorResult + 0] = coordinate.unmap(minorPositionMapped);
+                            minorResult[iminorResult + 1] = transform.map(minorPositionMapped);
+                            minorResult[iminorResult + 2] = coordinate.unmap(minorPositionMapped - 1);
                             iminor += 1;
                         }
                     }
@@ -51578,6 +51699,15 @@
                 minorResult[iminorResult + 2] = NaN;
             }
         };
+        DChartCoordinateLogTick.prototype.toTheme = function (options) {
+            return (options && options.theme) || this.getThemeDefault();
+        };
+        DChartCoordinateLogTick.prototype.getThemeDefault = function () {
+            return DThemes.getInstance().get(this.getType());
+        };
+        DChartCoordinateLogTick.prototype.getType = function () {
+            return "DChartCoordinateTick";
+        };
         return DChartCoordinateLogTick;
     }());
 
@@ -51589,13 +51719,34 @@
         function DChartCoordinateLog(options) {
             this._id = 0;
             this._direction = DChartCoordinateDirection.X;
-            var theme = this.toTheme(options);
-            this._theme = theme;
-            this._transform = new DChartCoordinateTransformImpl(theme);
-            this._tick = new DChartCoordinateLogTick(theme);
+            this._theme = this.toTheme(options);
+            this._transform = new DChartCoordinateTransformImpl(options === null || options === void 0 ? void 0 : options.transform);
+            this._tick = new DChartCoordinateLogTick(options === null || options === void 0 ? void 0 : options.tick);
             this._work = new DChartRegionImpl(NaN, NaN);
             this._mark = new DChartCoordinateTransformMarkImpl();
+            this._from = options === null || options === void 0 ? void 0 : options.from;
+            this._to = options === null || options === void 0 ? void 0 : options.to;
         }
+        Object.defineProperty(DChartCoordinateLog.prototype, "from", {
+            get: function () {
+                return this._from;
+            },
+            set: function (from) {
+                this._from = from;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DChartCoordinateLog.prototype, "to", {
+            get: function () {
+                return this._to;
+            },
+            set: function (to) {
+                this._to = to;
+            },
+            enumerable: false,
+            configurable: true
+        });
         DChartCoordinateLog.prototype.bind = function (container, direction) {
             this._container = container;
             this._direction = direction;
@@ -51633,6 +51784,12 @@
             }
         };
         DChartCoordinateLog.prototype.toFitDomain = function (from, to, plotArea, result) {
+            if (from == null) {
+                from = this._from;
+            }
+            if (to == null) {
+                to = this._to;
+            }
             if (from != null && to != null) {
                 result.set(from, to);
             }
@@ -51643,6 +51800,12 @@
             return result;
         };
         DChartCoordinateLog.prototype.toFitRange = function (from, to, plotArea, result) {
+            if (from == null) {
+                from = this._from;
+            }
+            if (to == null) {
+                to = this._to;
+            }
             if (from != null && to != null) {
                 result.set(from, to);
             }
@@ -51706,8 +51869,8 @@
                 values[i] = Math.pow(10, values[i]);
             }
         };
-        DChartCoordinateLog.prototype.ticks = function (domainFrom, domainTo, majorCount, minorCountPerMajor, minorCount, majorResult, minorResult) {
-            this._tick.calculate(domainFrom, domainTo, majorCount, minorCountPerMajor, minorCount, majorResult, minorResult, this);
+        DChartCoordinateLog.prototype.ticks = function (domainFrom, domainTo, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorResult, minorResult) {
+            this._tick.calculate(domainFrom, domainTo, majorCount, majorStep, minorCountPerMajor, minorCount, minorStep, majorResult, minorResult, this);
         };
         DChartCoordinateLog.prototype.toTheme = function (options) {
             return (options && options.theme) || this.getThemeDefault();
@@ -51716,7 +51879,7 @@
             return DThemes.getInstance().get(this.getType());
         };
         DChartCoordinateLog.prototype.getType = function () {
-            return "DChartCoordinateLog";
+            return "DChartCoordinate";
         };
         return DChartCoordinateLog;
     }());
@@ -54170,48 +54333,56 @@
             var p1y = NaN;
             var threshold = 0.00001;
             if (babs <= aabs) {
-                var xfrom0 = xcoordinate.unmap(xcoordinate.transform.unmap(0));
-                var xto0 = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
-                p0x = Math.min(xfrom0, xto0);
-                p1x = Math.max(xfrom0, xto0);
-                if (threshold < aabs) {
-                    var yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
-                    var yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
-                    var xfrom1 = (b * (yfrom - y0)) / a + x0;
-                    var xto1 = (b * (yto - y0)) / a + x0;
+                var xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
+                var xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
+                p0x = Math.min(xfrom, xto);
+                p1x = Math.max(xfrom, xto);
+                var yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
+                var yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
+                p0y = Math.min(yfrom, yto);
+                p1y = Math.max(yfrom, yto);
+                if (threshold < babs) {
+                    var f = b / a;
+                    var xfrom1 = f * (yfrom - y0) + x0;
+                    var xto1 = f * (yto - y0) + x0;
                     var p2x = Math.min(xfrom1, xto1);
                     var p3x = Math.max(xfrom1, xto1);
-                    if (p0x < p2x) {
-                        p0x = p2x;
-                    }
-                    if (p3x < p1x) {
-                        p1x = p3x;
-                    }
+                    p0x = Math.max(p0x, p2x);
+                    p1x = Math.min(p1x, p3x);
+                    var g = 1 / f;
+                    p0y = g * (p0x - x0) + b * y0;
+                    p1y = g * (p1x - x0) + b * y0;
                 }
-                p0y = a * (p0x - x0) + b * y0;
-                p1y = a * (p1x - x0) + b * y0;
+                else {
+                    p0x = x0;
+                    p1x = x0;
+                }
             }
             else {
-                var yfrom0 = ycoordinate.unmap(ycoordinate.transform.unmap(0));
-                var yto0 = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
-                p0y = Math.min(yfrom0, yto0);
-                p1y = Math.max(yfrom0, yto0);
-                if (threshold < babs) {
-                    var xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
-                    var xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
-                    var yfrom1 = (a * (xfrom - x0)) / b + y0;
-                    var yto1 = (a * (xto - x0)) / b + y0;
+                var yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
+                var yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
+                p0y = Math.min(yfrom, yto);
+                p1y = Math.max(yfrom, yto);
+                var xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
+                var xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
+                p0x = Math.min(xfrom, xto);
+                p1x = Math.max(xfrom, xto);
+                if (threshold < aabs) {
+                    var f = a / b;
+                    var yfrom1 = f * (xfrom - x0) + y0;
+                    var yto1 = f * (xto - x0) + y0;
                     var p2y = Math.min(yfrom1, yto1);
                     var p3y = Math.max(yfrom1, yto1);
-                    if (p0y < p2y) {
-                        p0y = p2y;
-                    }
-                    if (p3y < p1y) {
-                        p1y = p3y;
-                    }
+                    p0y = Math.max(p0y, p2y);
+                    p1y = Math.min(p1y, p3y);
+                    var g = 1 / f;
+                    p0x = g * (p0y - y0) + a * x0;
+                    p1x = g * (p1y - y0) + a * x0;
                 }
-                p0x = b * (p0y - y0) + a * x0;
-                p1x = b * (p1y - y0) + a * x0;
+                else {
+                    p0y = y0;
+                    p1y = y0;
+                }
             }
             p0x = xcoordinate.transform.map(xcoordinate.map(p0x));
             p0y = ycoordinate.transform.map(ycoordinate.map(p0y));
@@ -54241,6 +54412,7 @@
             line.disallowUploadedUpdate();
             line.points.set(values, segments);
             line.size.set(sx, sy);
+            line.points.toFitted();
             line.transform.position.set(cx, cy);
             line.allowUploadedUpdate();
             DApplications.update(line);
@@ -56006,7 +56178,9 @@
             var controller = this._controller;
             if (controller) {
                 controller.write(id, value);
+                return true;
             }
+            return false;
         };
         return DDiagramDataRemote;
     }());
@@ -56080,8 +56254,10 @@
                         // Value
                         datumValue.value = value;
                     }
+                    return true;
                 }
             }
+            return false;
         };
         DDiagramData.prototype.clear = function (id) {
             var canvas = this._diagram.canvas;
@@ -56091,8 +56267,10 @@
                     for (var i = 0, imax = datum.length; i < imax; ++i) {
                         datum[i].clear();
                     }
+                    return true;
                 }
             }
+            return false;
         };
         DDiagramData.prototype.setAll = function (id, values, times, from, to) {
             var canvas = this._diagram.canvas;
@@ -56111,8 +56289,10 @@
                         // Value
                         datumValue.values = values;
                     }
+                    return true;
                 }
             }
+            return false;
         };
         DDiagramData.prototype.setValue = function (id, value, time) {
             var canvas = this._diagram.canvas;
@@ -56126,8 +56306,10 @@
                         }
                         datumValue.value = value;
                     }
+                    return true;
                 }
             }
+            return false;
         };
         DDiagramData.prototype.setValues = function (id, values, times) {
             var canvas = this._diagram.canvas;
@@ -56141,8 +56323,10 @@
                         }
                         datumValue.values = values;
                     }
+                    return true;
                 }
             }
+            return false;
         };
         DDiagramData.prototype.setTime = function (id, time) {
             var canvas = this._diagram.canvas;
@@ -56152,8 +56336,10 @@
                     for (var i = 0, imax = datum.length; i < imax; ++i) {
                         datum[i].time = time;
                     }
+                    return true;
                 }
             }
+            return false;
         };
         DDiagramData.prototype.setTimes = function (id, times) {
             var canvas = this._diagram.canvas;
@@ -56163,8 +56349,10 @@
                     for (var i = 0, imax = datum.length; i < imax; ++i) {
                         datum[i].times = times;
                     }
+                    return true;
                 }
             }
+            return false;
         };
         DDiagramData.prototype.setRange = function (id, from, to) {
             var canvas = this._diagram.canvas;
@@ -56192,8 +56380,10 @@
                             }
                         }
                     }
+                    return true;
                 }
             }
+            return false;
         };
         return DDiagramData;
     }());
@@ -67892,13 +68082,13 @@
         DChartColorSet2: DChartColorSet2,
         DChartCoordinateContainerImpl: DChartCoordinateContainerImpl,
         DChartCoordinateContainerSubImpl: DChartCoordinateContainerSubImpl,
+        DChartCoordinateDirection: DChartCoordinateDirection,
         DChartCoordinateLinearTick: DChartCoordinateLinearTick,
         DChartCoordinateLinear: DChartCoordinateLinear,
         DChartCoordinateLogTick: DChartCoordinateLogTick,
         DChartCoordinateLog: DChartCoordinateLog,
         DChartCoordinateTransformImpl: DChartCoordinateTransformImpl,
         DChartCoordinateTransformMarkImpl: DChartCoordinateTransformMarkImpl,
-        DChartCoordinateDirection: DChartCoordinateDirection,
         DChartLegendItem: DChartLegendItem,
         DChartLegend: DChartLegend,
         DChartOverview: DChartOverview,

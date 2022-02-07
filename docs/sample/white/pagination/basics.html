@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.152.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.152.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -65,7 +65,7 @@
 								value: "Set Selected"
 							},
 							on: {
-								active: () => {
+								active: function () {
 									pagination.selected = inputSelected.value
 								}
 							}
@@ -76,7 +76,7 @@
 								value: "Get Selected"
 							},
 							on: {
-								active: () => {
+								active: function () {
 									inputSelected.value = pagination.selected;
 								}
 							}
@@ -93,7 +93,7 @@
 								value: "Set Total"
 							},
 							on: {
-								active: () => {
+								active: function () {
 									pagination.total = inputTotal.value
 								}
 							}
@@ -104,7 +104,7 @@
 								value: "Get Total"
 							},
 							on: {
-								active: () => {
+								active: function () {
 									inputTotal.value = pagination.total;
 								}
 							}

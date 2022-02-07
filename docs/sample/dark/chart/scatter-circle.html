@@ -22,8 +22,9 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.152.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.152.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../resource/chart/updater.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -46,7 +47,6 @@
 					list: [
 						new wcardinal.ui.DChartSeriesLineOfCircles(),
 						new wcardinal.ui.DChartSeriesLineOfCircles(),
-						new wcardinal.ui.DChartSeriesLineOfCircles(),
 						new wcardinal.ui.DChartSeriesLineOfCircles()
 					],
 					selection: new wcardinal.ui.DChartSelectionSimple()
@@ -55,7 +55,7 @@
 					list: [
 						new wcardinal.ui.DChartAxisX({
 							label: {
-								value: "X1 Axis"
+								value: "X Axis"
 							}
 						}),
 						new wcardinal.ui.DChartAxisY({
@@ -68,93 +68,7 @@
 			}
 		});
 
-		class Updater {
-			constructor(){
-				this.x = Date.now();
-				this.x0 = this.x;
-				this.isEnabled = false;
-				this.updateBound = () => {
-					this.update();
-				};
-			}
-
-			start() {
-				this.isEnabled = true;
-				this.update();
-			}
-
-			stop() {
-				this.isEnabled = false;
-			}
-
-			toggle() {
-				if( this.isEnabled ) {
-					this.isEnabled = false;
-				} else {
-					this.isEnabled = true;
-					this.update();
-				}
-			}
-
-			isStarted() {
-				return this.isEnabled;
-			}
-
-			update() {
-				this.x += 32;
-				const dx = (this.x - this.x0) * 0.025 * 4;
-
-				const plotArea = chart.plotArea;
-				const size = plotArea.series.size();
-				for( let i = 0; i < size; ++i ) {
-					const series = plotArea.series.get( i );
-					const points = series.points;
-					const dy = Math.sin( dx * 0.025 * (1 + i) );
-					points.push( dx + i * 10, dy );
-					if( 512 < series.points.length ) {
-						points.shift();
-						points.shift();
-					}
-					series.toDirty();
-				}
-				plotArea.coordinate.fit();
-				plotArea.axis.update();
-				plotArea.series.update();
-
-				if( this.isEnabled ) {
-					setTimeout( this.updateBound, 32 );
-				}
-			}
-		}
-		const updater = new Updater();
-		updater.start();
-
-		new wcardinal.ui.DButton({
-			parent: application.stage,
-			x: 390, y: 520,
-			text: {
-				value: "Stop"
-			},
-			on: {
-				active: ( self ) => {
-					updater.toggle();
-					self.text = updater.isStarted() ? "Stop" : "Start";
-				}
-			}
-		});
-
-		new wcardinal.ui.DButton({
-			parent: application.stage,
-			x: 500, y: 520,
-			text: {
-				value: "Fit"
-			},
-			on: {
-				active: () => {
-					chart.plotArea.view.fit();
-				}
-			}
-		});
+		new ChartUpdater(application, chart).start();
 	}());
 	</script>
 </body>

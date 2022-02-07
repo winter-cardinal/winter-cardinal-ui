@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.152.0
+ Winter Cardinal UI v0.154.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2662,7 +2662,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeDarkChart.prototype.getPaddingLeft = function () {
-            return 70;
+            return 80;
         };
         DThemeDarkChart.prototype.getPaddingRight = function () {
             return 10;
@@ -2737,7 +2737,7 @@
             }
         };
         DThemeDarkChartAxisBase.prototype.getLabelPaddingHorizontal = function () {
-            return 50;
+            return 60;
         };
         DThemeDarkChartAxisBase.prototype.getLabelPaddingVertical = function () {
             return 50;
@@ -2777,6 +2777,9 @@
         };
         DThemeDarkChartAxisBase.prototype.getMajorTickCount = function () {
             return 3;
+        };
+        DThemeDarkChartAxisBase.prototype.getMajorTickStep = function () {
+            return undefined;
         };
         DThemeDarkChartAxisBase.prototype.getMajorTickSize = function () {
             return 10;
@@ -2877,6 +2880,9 @@
         DThemeDarkChartAxisBase.prototype.getMinorTickCount = function () {
             return 3;
         };
+        DThemeDarkChartAxisBase.prototype.getMinorTickStep = function () {
+            return undefined;
+        };
         DThemeDarkChartAxisBase.prototype.getMinorTickSize = function () {
             return 5;
         };
@@ -2959,38 +2965,23 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkChartCoordinateLinear = /** @class */ (function () {
-        function DThemeDarkChartCoordinateLinear() {
+    var DThemeDarkChartCoordinate = /** @class */ (function () {
+        function DThemeDarkChartCoordinate() {
         }
-        DThemeDarkChartCoordinateLinear.prototype.isZero = function (value) {
+        DThemeDarkChartCoordinate.prototype.isZero = function (value) {
             return Math.abs(value) < 0.00001;
         };
-        DThemeDarkChartCoordinateLinear.prototype.toStepScale = function (scale) {
-            if (5.5 <= scale) {
-                return 10;
-            }
-            else if (2.2 <= scale) {
-                return 5;
-            }
-            else if (1.1 <= scale) {
-                return 2;
-            }
-            return 1;
-        };
-        return DThemeDarkChartCoordinateLinear;
+        return DThemeDarkChartCoordinate;
     }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkChartCoordinateLog = /** @class */ (function () {
-        function DThemeDarkChartCoordinateLog() {
+    var DThemeDarkChartCoordinateTick = /** @class */ (function () {
+        function DThemeDarkChartCoordinateTick() {
         }
-        DThemeDarkChartCoordinateLog.prototype.isZero = function (value) {
-            return Math.abs(value) < 0.00001;
-        };
-        DThemeDarkChartCoordinateLog.prototype.toStepScale = function (scale) {
+        DThemeDarkChartCoordinateTick.prototype.toStepScale = function (scale) {
             if (5.5 <= scale) {
                 return 10;
             }
@@ -3002,7 +2993,20 @@
             }
             return 1;
         };
-        return DThemeDarkChartCoordinateLog;
+        return DThemeDarkChartCoordinateTick;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkChartCoordinateTransform = /** @class */ (function () {
+        function DThemeDarkChartCoordinateTransform() {
+        }
+        DThemeDarkChartCoordinateTransform.prototype.isZero = function (value) {
+            return Math.abs(value) < 0.00001;
+        };
+        return DThemeDarkChartCoordinateTransform;
     }());
 
     /*
@@ -3076,6 +3080,9 @@
         };
         DThemeDarkChartPlotArea.prototype.getBorderColor = function (state) {
             return null;
+        };
+        DThemeDarkChartPlotArea.prototype.getCornerMask = function () {
+            return DCornerMask.ALL;
         };
         DThemeDarkChartPlotArea.prototype.isOverflowMaskEnabled = function () {
             return true;
@@ -3170,8 +3177,9 @@
         DThemeDark.set("DChartAxisX", DThemeDarkChartAxisX);
         DThemeDark.set("DChartAxisXDatetime", DThemeDarkChartAxisXDatetime);
         DThemeDark.set("DChartAxisY", DThemeDarkChartAxisY);
-        DThemeDark.set("DChartCoordinateLinear", DThemeDarkChartCoordinateLinear);
-        DThemeDark.set("DChartCoordinateLog", DThemeDarkChartCoordinateLog);
+        DThemeDark.set("DChartCoordinate", DThemeDarkChartCoordinate);
+        DThemeDark.set("DChartCoordinateTick", DThemeDarkChartCoordinateTick);
+        DThemeDark.set("DChartCoordinateTransform", DThemeDarkChartCoordinateTransform);
         DThemeDark.set("DChartLegend", DThemeDarkChartLegend);
         DThemeDark.set("DChartLegendItem", DThemeDarkChartLegendItem);
         DThemeDark.set("DChartOverview", DThemeDarkChartOverview);
@@ -8693,8 +8701,9 @@
         DThemeDarkChartAxisX: DThemeDarkChartAxisX,
         DThemeDarkChartAxisXDatetime: DThemeDarkChartAxisXDatetime,
         DThemeDarkChartAxisY: DThemeDarkChartAxisY,
-        DThemeDarkChartCoordinateLinear: DThemeDarkChartCoordinateLinear,
-        DThemeDarkChartCoordinateLog: DThemeDarkChartCoordinateLog,
+        DThemeDarkChartCoordinateTick: DThemeDarkChartCoordinateTick,
+        DThemeDarkChartCoordinateTransform: DThemeDarkChartCoordinateTransform,
+        DThemeDarkChartCoordinate: DThemeDarkChartCoordinate,
         DThemeDarkChartLegend: DThemeDarkChartLegend,
         DThemeDarkChartLegendItem: DThemeDarkChartLegendItem,
         DThemeDarkChartOverview: DThemeDarkChartOverview,

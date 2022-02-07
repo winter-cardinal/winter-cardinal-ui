@@ -1,0 +1,89 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Constraint</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../resource/chart/updater.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const chart = new wcardinal.ui.DChart({
+			parent: application.stage,
+			x: 100, y: 50,
+			width: 500, height: 400,
+			plotArea: {
+				padding: 0,
+				coordinate: {
+					x: new wcardinal.ui.DChartCoordinateLinear(),
+					y: new wcardinal.ui.DChartCoordinateLinear({
+						from: 0,
+						to: 1
+					})
+				},
+				series: {
+					list: [
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine()
+					]
+				},
+				axis: {
+					list: [
+						new wcardinal.ui.DChartAxisX({
+							label: {
+								value: "X Axis"
+							}
+						}),
+						new wcardinal.ui.DChartAxisY({
+							label: {
+								value: "Y Axis"
+							}
+						})
+					]
+				},
+				view: {
+					constraint: function (target, x, y, scaleX, scaleY) {
+						target.scale.set(scaleX, scaleY);
+
+						const w = chart.plotArea.width;
+						const h = chart.plotArea.height;
+						target.position.set(
+							Math.min(w, Math.max(-w * scaleX, x)),
+							h * (1 - scaleY)
+						);
+					}
+				}
+			}
+		});
+
+		new ChartUpdater(application, chart).modifier(function (value) {
+			return Math.abs(value);
+		}).start();
+	}());
+	</script>
+</body>
+</html>
