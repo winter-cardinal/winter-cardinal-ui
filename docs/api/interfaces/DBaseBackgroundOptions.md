@@ -1,0 +1,45 @@
+[Winter Cardinal UI](../README.md) / DBaseBackgroundOptions
+
+# Interface: DBaseBackgroundOptions
+
+[DBase](../classes/DBase.md) background options.
+
+## Hierarchy
+
+- **`DBaseBackgroundOptions`**
+
+  ↳ [`DDiagramCanvasBackgroundOptions`](DDiagramCanvasBackgroundOptions.md)
+
+## Table of contents
+
+### Properties
+
+- [alpha](DBaseBackgroundOptions.md#alpha)
+- [color](DBaseBackgroundOptions.md#color)
+
+## Properties
+
+### alpha
+
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+
+An alpha or a function returning an alpha.
+If a computed value is undefined, falls back to an background alpha of a theme.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L262)
+
+___
+
+### color
+
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+
+A color code or a function returning a color code.
+If a computed value is undefined, falls back to the theme color.
+If a computed value is null, a background is not rendered.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-base.ts:256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L256)

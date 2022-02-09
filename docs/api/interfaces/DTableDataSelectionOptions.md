@@ -1,0 +1,25 @@
+[Winter Cardinal UI](../README.md) / DTableDataSelectionOptions
+
+# Interface: DTableDataSelectionOptions
+
+## Hierarchy
+
+- **`DTableDataSelectionOptions`**
+
+  ↳ [`DTableDataTreeSelectionOptions`](DTableDataTreeSelectionOptions.md)
+
+## Table of contents
+
+### Properties
+
+- [type](DTableDataSelectionOptions.md#type)
+
+## Properties
+
+### type
+
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTableDataSelectionType`](../README.md#dtabledataselectiontype)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data-selection.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-table-data-selection.ts#L19)

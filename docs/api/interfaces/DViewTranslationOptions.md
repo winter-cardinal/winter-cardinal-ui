@@ -1,0 +1,23 @@
+[Winter Cardinal UI](../README.md) / DViewTranslationOptions
+
+# Interface: DViewTranslationOptions
+
+[DView](DView.md) translation options.
+
+## Table of contents
+
+### Properties
+
+- [wheel](DViewTranslationOptions.md#wheel)
+
+## Properties
+
+### wheel
+
+• `Optional` **wheel**: [`DViewTranslationWheelOptions`](DViewTranslationWheelOptions.md)
+
+Wheel translation options
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-view.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-view.ts#L107)

@@ -1,0 +1,30 @@
+[Winter Cardinal UI](../README.md) / DImagePieceTintOptions
+
+# Interface: DImagePieceTintOptions
+
+## Table of contents
+
+### Properties
+
+- [alpha](DImagePieceTintOptions.md#alpha)
+- [color](DImagePieceTintOptions.md#color)
+
+## Properties
+
+### alpha
+
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L14)
+
+___
+
+### color
+
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L13)
