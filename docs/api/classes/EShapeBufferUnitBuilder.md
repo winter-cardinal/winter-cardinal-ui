@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeBufferUnitBuilder
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeBufferUnitBuilder
 
 # Class: EShapeBufferUnitBuilder
 

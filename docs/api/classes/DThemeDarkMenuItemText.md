@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeDarkMenuItemText
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDarkMenuItemText
 
 # Class: DThemeDarkMenuItemText
 
@@ -656,11 +656,11 @@ ___
 
 ### getFontStyle
 
-▸ **getFontStyle**(): [`DFontStyle`](../README.md#dfontstyle)
+▸ **getFontStyle**(): [`DFontStyle`](../index.md#dfontstyle)
 
 #### Returns
 
-[`DFontStyle`](../README.md#dfontstyle)
+[`DFontStyle`](../index.md#dfontstyle)
 
 #### Implementation of
 
@@ -678,11 +678,11 @@ ___
 
 ### getFontVariant
 
-▸ **getFontVariant**(): [`DFontVariant`](../README.md#dfontvariant)
+▸ **getFontVariant**(): [`DFontVariant`](../index.md#dfontvariant)
 
 #### Returns
 
-[`DFontVariant`](../README.md#dfontvariant)
+[`DFontVariant`](../index.md#dfontvariant)
 
 #### Implementation of
 
@@ -700,11 +700,11 @@ ___
 
 ### getFontWeight
 
-▸ **getFontWeight**(): [`DFontWeight`](../README.md#dfontweight)
+▸ **getFontWeight**(): [`DFontWeight`](../index.md#dfontweight)
 
 #### Returns
 
-[`DFontWeight`](../README.md#dfontweight)
+[`DFontWeight`](../index.md#dfontweight)
 
 #### Implementation of
 
@@ -722,13 +722,13 @@ ___
 
 ### getHeight
 
-▸ **getHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a height.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Implementation of
 
@@ -746,11 +746,11 @@ ___
 
 ### getImageAlignHorizontal
 
-▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Implementation of
 
@@ -768,11 +768,11 @@ ___
 
 ### getImageAlignVertical
 
-▸ **getImageAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Implementation of
 
@@ -790,11 +790,11 @@ ___
 
 ### getImageAlignWith
 
-▸ **getImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Implementation of
 
@@ -1263,11 +1263,11 @@ ___
 
 ### getSecondaryImageAlignHorizontal
 
-▸ **getSecondaryImageAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getSecondaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Implementation of
 
@@ -1285,11 +1285,11 @@ ___
 
 ### getSecondaryImageAlignVertical
 
-▸ **getSecondaryImageAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getSecondaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Implementation of
 
@@ -1307,11 +1307,11 @@ ___
 
 ### getSecondaryImageAlignWith
 
-▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Implementation of
 
@@ -1520,11 +1520,11 @@ ___
 
 ### getTertiaryImageAlignHorizontal
 
-▸ **getTertiaryImageAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getTertiaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Implementation of
 
@@ -1542,11 +1542,11 @@ ___
 
 ### getTertiaryImageAlignVertical
 
-▸ **getTertiaryImageAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getTertiaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Implementation of
 
@@ -1564,11 +1564,11 @@ ___
 
 ### getTertiaryImageAlignWith
 
-▸ **getTertiaryImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getTertiaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Implementation of
 
@@ -1686,11 +1686,11 @@ ___
 
 ### getTextAlignHorizontal
 
-▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Implementation of
 
@@ -1708,11 +1708,11 @@ ___
 
 ### getTextAlignVertical
 
-▸ **getTextAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getTextAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Implementation of
 
@@ -1787,11 +1787,11 @@ ___
 
 ### getTextStyleWordWrap
 
-▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Returns
 
-[`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+[`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Implementation of
 
@@ -1890,13 +1890,13 @@ ___
 
 ### getWidth
 
-▸ **getWidth**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a width.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Implementation of
 
@@ -1914,13 +1914,13 @@ ___
 
 ### getX
 
-▸ **getX**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a X coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Implementation of
 
@@ -1938,13 +1938,13 @@ ___
 
 ### getY
 
-▸ **getY**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a Y coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Implementation of
 
@@ -2062,14 +2062,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
 
 #### Implementation of
 

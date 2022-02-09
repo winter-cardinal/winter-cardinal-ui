@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeEditor
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeEditor
 
 # Class: EShapeEditor
 

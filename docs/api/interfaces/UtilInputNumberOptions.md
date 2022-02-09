@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilInputNumberOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilInputNumberOptions
 
 # Interface: UtilInputNumberOptions
 
@@ -158,7 +158,7 @@ ___
 
 ### when
 
-• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Inherited from
 

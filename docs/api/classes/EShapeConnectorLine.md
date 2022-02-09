@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeConnectorLine
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeConnectorLine
 
 # Class: EShapeConnectorLine
 
@@ -1536,7 +1536,7 @@ ___
 
 ### calcHitPart
 
-▸ **calcHitPart**(`x`, `y`): [`EShapeLineBaseHitPart`](../README.md#eshapelinebasehitpart)
+▸ **calcHitPart**(`x`, `y`): [`EShapeLineBaseHitPart`](../index.md#eshapelinebasehitpart)
 
 #### Parameters
 
@@ -1547,7 +1547,7 @@ ___
 
 #### Returns
 
-[`EShapeLineBaseHitPart`](../README.md#eshapelinebasehitpart)
+[`EShapeLineBaseHitPart`](../index.md#eshapelinebasehitpart)
 
 #### Inherited from
 
@@ -1575,9 +1575,9 @@ ___
 | :------ | :------ |
 | `x` | `number` |
 | `y` | `number` |
-| `toThreshold` | ``null`` \| [`EShapeLineBasePointsHitTesterToThreshold`](../README.md#eshapelinebasepointshittestertothreshold) |
-| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../README.md#eshapelinebasepointshittestertorange) |
-| `tester` | [`EShapeLineBasePointsHitTester`](../README.md#eshapelinebasepointshittester)<`RESULT`\> |
+| `toThreshold` | ``null`` \| [`EShapeLineBasePointsHitTesterToThreshold`](../index.md#eshapelinebasepointshittestertothreshold) |
+| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../index.md#eshapelinebasepointshittestertorange) |
+| `tester` | [`EShapeLineBasePointsHitTester`](../index.md#eshapelinebasepointshittester)<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns

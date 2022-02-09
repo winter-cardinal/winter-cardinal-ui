@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DButtonTimeOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DButtonTimeOnOptions
 
 # Interface: DButtonTimeOnOptions<EMITTER\>
 

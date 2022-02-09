@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeDiagramCanvasEditorSnap
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDiagramCanvasEditorSnap
 
 # Interface: DThemeDiagramCanvasEditorSnap
 
@@ -157,11 +157,11 @@ ___
 
 ### getSnapGridSize
 
-▸ **getSnapGridSize**(): [`DDiagramCanvasEditorSnapGridSize`](../README.md#ddiagramcanvaseditorsnapgridsize)
+▸ **getSnapGridSize**(): [`DDiagramCanvasEditorSnapGridSize`](../index.md#ddiagramcanvaseditorsnapgridsize)
 
 #### Returns
 
-[`DDiagramCanvasEditorSnapGridSize`](../README.md#ddiagramcanvaseditorsnapgridsize)
+[`DDiagramCanvasEditorSnapGridSize`](../index.md#ddiagramcanvaseditorsnapgridsize)
 
 #### Defined in
 

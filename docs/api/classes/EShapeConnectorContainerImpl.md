@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeConnectorContainerImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeConnectorContainerImpl
 
 # Class: EShapeConnectorContainerImpl
 

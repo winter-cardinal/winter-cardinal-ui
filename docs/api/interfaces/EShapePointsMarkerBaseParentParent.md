@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapePointsMarkerBaseParentParent
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapePointsMarkerBaseParentParent
 
 # Interface: EShapePointsMarkerBaseParentParent
 
@@ -19,7 +19,7 @@
 
 ### formatted
 
-• `Readonly` **formatted**: [`EShapePointsFormatted`](../README.md#eshapepointsformatted)
+• `Readonly` **formatted**: [`EShapePointsFormatted`](../index.md#eshapepointsformatted)
 
 #### Defined in
 

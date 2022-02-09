@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionSubOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionSubOptions
 
 # Interface: DChartSelectionSubOptions<CHART, EMITTER\>
 
@@ -64,7 +64,7 @@ ___
 
 ### point
 
-• `Optional` **point**: [`DChartSelectionPoint`](../README.md#dchartselectionpoint)
+• `Optional` **point**: [`DChartSelectionPoint`](../index.md#dchartselectionpoint)
 
 #### Defined in
 

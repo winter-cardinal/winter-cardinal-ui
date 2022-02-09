@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilExtractTextureResolutionOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilExtractTextureResolutionOptions
 
 # Interface: UtilExtractTextureResolutionOptions
 

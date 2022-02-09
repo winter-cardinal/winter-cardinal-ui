@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueChangeText
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueChangeText
 
 # Class: EShapeActionValueChangeText
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueChangeTextType`](../README.md#eshapeactionvaluechangetexttype)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueChangeTextType`](../index.md#eshapeactionvaluechangetexttype)\>
 
   ↳ **`EShapeActionValueChangeText`**
 
@@ -39,7 +39,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `subtype` | [`EShapeActionValueChangeTextType`](../README.md#eshapeactionvaluechangetexttype) |
+| `subtype` | [`EShapeActionValueChangeTextType`](../index.md#eshapeactionvaluechangetexttype) |
 | `condition` | `string` |
 | `value` | `string` |
 
@@ -69,7 +69,7 @@ ___
 
 ### subtype
 
-• `Readonly` **subtype**: [`EShapeActionValueChangeTextType`](../README.md#eshapeactionvaluechangetexttype)
+• `Readonly` **subtype**: [`EShapeActionValueChangeTextType`](../index.md#eshapeactionvaluechangetexttype)
 
 #### Inherited from
 
@@ -83,7 +83,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -197,7 +197,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueChangeTextSerialized`](../README.md#eshapeactionvaluechangetextserialized) |
+| `serialized` | [`EShapeActionValueChangeTextSerialized`](../index.md#eshapeactionvaluechangetextserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

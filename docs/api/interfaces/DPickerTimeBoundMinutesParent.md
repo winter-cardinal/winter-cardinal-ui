@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DPickerTimeBoundMinutesParent
+[Winter Cardinal UI - v0.154.0](../index.md) / DPickerTimeBoundMinutesParent
 
 # Interface: DPickerTimeBoundMinutesParent
 

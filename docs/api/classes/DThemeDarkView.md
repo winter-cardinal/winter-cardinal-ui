@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeDarkView
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDarkView
 
 # Class: DThemeDarkView
 
@@ -113,11 +113,11 @@ ___
 
 ### getGestureMode
 
-▸ **getGestureMode**(): [`UtilGestureMode`](../README.md#utilgesturemode)
+▸ **getGestureMode**(): [`UtilGestureMode`](../index.md#utilgesturemode)
 
 #### Returns
 
-[`UtilGestureMode`](../README.md#utilgesturemode)
+[`UtilGestureMode`](../index.md#utilgesturemode)
 
 #### Implementation of
 

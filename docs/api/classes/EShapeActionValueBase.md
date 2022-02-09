@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueBase
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueBase
 
 # Class: EShapeActionValueBase
 
@@ -44,7 +44,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueType`](../README.md#eshapeactionvaluetype) |
+| `type` | [`EShapeActionValueType`](../index.md#eshapeactionvaluetype) |
 | `condition` | `string` |
 
 #### Defined in
@@ -69,7 +69,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Implementation of
 

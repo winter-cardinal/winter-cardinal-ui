@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisContainerImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisContainerImpl
 
 # Class: DChartAxisContainerImpl<CHART\>
 
@@ -76,7 +76,7 @@ ___
 
 ### \_list
 
-• `Protected` **\_list**: `Map`<[`DChartAxisPosition`](../README.md#dchartaxisposition), [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\>[]\>
+• `Protected` **\_list**: `Map`<[`DChartAxisPosition`](../index.md#dchartaxisposition), [`DChartAxis`](../interfaces/DChartAxis.md)<`CHART`\>[]\>
 
 #### Defined in
 
@@ -162,7 +162,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 
@@ -204,7 +204,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 | `index` | `number` |
 
 #### Returns
@@ -253,7 +253,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 

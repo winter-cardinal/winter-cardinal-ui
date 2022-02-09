@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeOpenDialog
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeOpenDialog
 
 # Class: EShapeActionRuntimeOpenDialog<VALUE, INITIAL\>
 
@@ -82,7 +82,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -96,7 +96,7 @@ ___
 
 ### initial
 
-• `Protected` `Abstract` **initial**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`INITIAL`\>
+• `Protected` `Abstract` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`INITIAL`\>
 
 #### Defined in
 
@@ -116,7 +116,7 @@ ___
 
 ### onInputAction
 
-• `Protected` **onInputAction**: [`EShapeActionValueOnInputAction`](../README.md#eshapeactionvalueoninputaction)
+• `Protected` **onInputAction**: [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction)
 
 #### Defined in
 
@@ -140,7 +140,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Inherited from
 

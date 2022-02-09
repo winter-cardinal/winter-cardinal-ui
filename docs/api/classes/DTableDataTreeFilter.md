@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataTreeFilter
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataTreeFilter
 
 # Class: DTableDataTreeFilter<NODE\>
 
@@ -95,7 +95,7 @@ utils.EventEmitter.constructor
 
 ### \_filter
 
-• `Protected` **\_filter**: ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\>
+• `Protected` **\_filter**: ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
 
 #### Defined in
 
@@ -326,13 +326,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\>
+▸ **get**(): ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
 
 Returns a current filter.
 
 #### Returns
 
-``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\>
+``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
 
 #### Implementation of
 
@@ -354,7 +354,7 @@ ___
 | :------ | :------ |
 | `parent` | `DTableDataTreeFilterParent`<`NODE`\> |
 | `nodes` | `NODE`[] |
-| `filter` | [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\> |
+| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
 
 #### Returns
 
@@ -396,7 +396,7 @@ ___
 | :------ | :------ |
 | `node` | `NODE` |
 | `index` | `number` |
-| `filter` | [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\> |
+| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
 
 #### Returns
 
@@ -518,7 +518,7 @@ ___
 | :------ | :------ |
 | `parent` | `DTableDataTreeFilterParent`<`NODE`\> |
 | `nodes` | `NODE`[] |
-| `filter` | [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\> |
+| `filter` | [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
 | `filtered` | `number`[] |
 | `cursor` | [`number`] |
 
@@ -710,7 +710,7 @@ Sets to the given filter.
 
 | Name | Type |
 | :------ | :------ |
-| `filter` | ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\> |
+| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
 
 #### Returns
 

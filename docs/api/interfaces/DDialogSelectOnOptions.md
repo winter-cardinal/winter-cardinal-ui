@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDialogSelectOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDialogSelectOnOptions
 
 # Interface: DDialogSelectOnOptions<VALUE, EMITTER\>
 

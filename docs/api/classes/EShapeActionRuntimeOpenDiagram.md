@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeOpenDiagram
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeOpenDiagram
 
 # Class: EShapeActionRuntimeOpenDiagram
 
@@ -56,7 +56,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Inherited from
 

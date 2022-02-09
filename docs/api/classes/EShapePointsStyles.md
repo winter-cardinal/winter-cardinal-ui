@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapePointsStyles
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapePointsStyles
 
 # Class: EShapePointsStyles
 
@@ -28,7 +28,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `style` | `undefined` \| [`EShapePointsStyleOption`](../README.md#eshapepointsstyleoption) |
+| `style` | `undefined` \| [`EShapePointsStyleOption`](../index.md#eshapepointsstyleoption) |
 
 #### Returns
 

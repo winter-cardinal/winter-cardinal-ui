@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DAnimationFadeIn
+[Winter Cardinal UI - v0.154.0](../index.md) / DAnimationFadeIn
 
 # Class: DAnimationFadeIn<TARGET\>
 
@@ -158,7 +158,7 @@ ___
 
 ### \_onEnd
 
-• `Protected` **\_onEnd**: `undefined` \| [`DAnimationOnEnd`](../README.md#danimationonend)<`TARGET`\>
+• `Protected` **\_onEnd**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)<`TARGET`\>
 
 #### Inherited from
 
@@ -208,7 +208,7 @@ ___
 
 ### \_onStart
 
-• `Protected` **\_onStart**: `undefined` \| [`DAnimationOnEnd`](../README.md#danimationonend)<`TARGET`\>
+• `Protected` **\_onStart**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)<`TARGET`\>
 
 #### Inherited from
 
@@ -222,7 +222,7 @@ ___
 
 ### \_onTime
 
-• `Protected` **\_onTime**: `undefined` \| [`DAnimationOnTime`](../README.md#danimationontime)<`TARGET`\>
+• `Protected` **\_onTime**: `undefined` \| [`DAnimationOnTime`](../index.md#danimationontime)<`TARGET`\>
 
 #### Inherited from
 
@@ -370,7 +370,7 @@ ___
 
 ### \_timing
 
-• `Protected` **\_timing**: [`DAnimationTiming`](../README.md#danimationtiming)<`TARGET`\>
+• `Protected` **\_timing**: [`DAnimationTiming`](../index.md#danimationtiming)<`TARGET`\>
 
 #### Inherited from
 

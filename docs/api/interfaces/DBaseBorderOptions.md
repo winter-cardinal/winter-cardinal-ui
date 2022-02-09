@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DBaseBorderOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DBaseBorderOptions
 
 # Interface: DBaseBorderOptions
 
@@ -18,7 +18,7 @@
 
 ### align
 
-• `Optional` **align**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **align**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 An align or a function returning an align.
 If a computed value is undefined, falls back to a border align of a theme.
@@ -33,7 +33,7 @@ ___
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 An alpha or a function returning an alpha.
 If a computed value is undefined, falls back to a border alpha of a theme.
@@ -46,7 +46,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 A color code or a function returning a color code.
 If a computed value is undefined, falls back to the theme color.
@@ -60,7 +60,7 @@ ___
 
 ### mask
 
-• `Optional` **mask**: ``"NONE"`` \| ``"ALL"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\> \| ``"RIGHT_BOTTOM"`` \| ``"TOP_BOTTOM"`` \| ``"RIGHT_LEFT"`` \| ``"NOT_TOP"`` \| ``"NOT_RIGHT"`` \| ``"NOT_BOTTOM"`` \| ``"NOT_LEFT"``
+• `Optional` **mask**: ``"NONE"`` \| ``"ALL"`` \| ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| ``"TOP_LEFT"`` \| ``"TOP_RIGHT"`` \| ``"BOTTOM_LEFT"`` \| [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> \| ``"RIGHT_BOTTOM"`` \| ``"TOP_BOTTOM"`` \| ``"RIGHT_LEFT"`` \| ``"NOT_TOP"`` \| ``"NOT_RIGHT"`` \| ``"NOT_BOTTOM"`` \| ``"NOT_LEFT"``
 
 Masked borders get removed.
 
@@ -72,7 +72,7 @@ ___
 
 ### width
 
-• `Optional` **width**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **width**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 A width or a function returning a width.
 If a computed value is undefined, falls back to a border width of a theme.

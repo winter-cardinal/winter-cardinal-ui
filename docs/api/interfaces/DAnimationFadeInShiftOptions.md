@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DAnimationFadeInShiftOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DAnimationFadeInShiftOptions
 
 # Interface: DAnimationFadeInShiftOptions
 

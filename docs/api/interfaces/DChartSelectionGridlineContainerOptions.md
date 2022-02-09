@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionGridlineContainerOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionGridlineContainerOptions
 
 # Interface: DChartSelectionGridlineContainerOptions<CHART\>
 

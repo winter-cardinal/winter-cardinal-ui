@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramCanvasTileOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramCanvasTileOptions
 
 # Interface: DDiagramCanvasTileOptions
 
@@ -13,7 +13,7 @@
 
 ### factory
 
-• `Optional` **factory**: [`DDiagramCanvasTilePyramidFactory`](../README.md#ddiagramcanvastilepyramidfactory)
+• `Optional` **factory**: [`DDiagramCanvasTilePyramidFactory`](../index.md#ddiagramcanvastilepyramidfactory)
 
 #### Defined in
 

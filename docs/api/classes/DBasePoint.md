@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DBasePoint
+[Winter Cardinal UI - v0.154.0](../index.md) / DBasePoint
 
 # Class: DBasePoint
 
@@ -38,7 +38,7 @@
 | Name | Type |
 | :------ | :------ |
 | `point` | `IPoint` |
-| `onChange` | [`DBasePointCallback`](../README.md#dbasepointcallback) |
+| `onChange` | [`DBasePointCallback`](../index.md#dbasepointcallback) |
 
 #### Defined in
 
@@ -48,7 +48,7 @@
 
 ### \_onChange
 
-• `Protected` **\_onChange**: [`DBasePointCallback`](../README.md#dbasepointcallback)
+• `Protected` **\_onChange**: [`DBasePointCallback`](../index.md#dbasepointcallback)
 
 #### Defined in
 
@@ -134,7 +134,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `onChange?` | [`DBasePointCallback`](../README.md#dbasepointcallback) |
+| `onChange?` | [`DBasePointCallback`](../index.md#dbasepointcallback) |
 
 #### Returns
 

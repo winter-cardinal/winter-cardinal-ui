@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDynamicTextStyle
+[Winter Cardinal UI - v0.154.0](../index.md) / DDynamicTextStyle
 
 # Class: DDynamicTextStyle
 
@@ -76,7 +76,7 @@
 
 ### \_align
 
-• `Protected` **\_align**: [`DDynamicTextAlign`](../README.md#ddynamictextalign)
+• `Protected` **\_align**: [`DDynamicTextAlign`](../index.md#ddynamictextalign)
 
 #### Defined in
 
@@ -166,7 +166,7 @@ ___
 
 ### \_fontStyle
 
-• `Protected` **\_fontStyle**: [`DFontStyle`](../README.md#dfontstyle)
+• `Protected` **\_fontStyle**: [`DFontStyle`](../index.md#dfontstyle)
 
 #### Defined in
 
@@ -176,7 +176,7 @@ ___
 
 ### \_fontVariant
 
-• `Protected` **\_fontVariant**: [`DFontVariant`](../README.md#dfontvariant)
+• `Protected` **\_fontVariant**: [`DFontVariant`](../index.md#dfontvariant)
 
 #### Defined in
 
@@ -186,7 +186,7 @@ ___
 
 ### \_fontWeight
 
-• `Protected` **\_fontWeight**: [`DFontWeight`](../README.md#dfontweight)
+• `Protected` **\_fontWeight**: [`DFontWeight`](../index.md#dfontweight)
 
 #### Defined in
 
@@ -244,7 +244,7 @@ ___
 
 ### \_wordWrap
 
-• `Protected` **\_wordWrap**: [`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+• `Protected` **\_wordWrap**: [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Defined in
 
@@ -426,11 +426,11 @@ ___
 
 ### fontStyle
 
-• `get` **fontStyle**(): [`DFontStyle`](../README.md#dfontstyle)
+• `get` **fontStyle**(): [`DFontStyle`](../index.md#dfontstyle)
 
 #### Returns
 
-[`DFontStyle`](../README.md#dfontstyle)
+[`DFontStyle`](../index.md#dfontstyle)
 
 #### Defined in
 
@@ -442,7 +442,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `fontStyle` | [`DFontStyle`](../README.md#dfontstyle) |
+| `fontStyle` | [`DFontStyle`](../index.md#dfontstyle) |
 
 #### Returns
 
@@ -456,11 +456,11 @@ ___
 
 ### fontVariant
 
-• `get` **fontVariant**(): [`DFontVariant`](../README.md#dfontvariant)
+• `get` **fontVariant**(): [`DFontVariant`](../index.md#dfontvariant)
 
 #### Returns
 
-[`DFontVariant`](../README.md#dfontvariant)
+[`DFontVariant`](../index.md#dfontvariant)
 
 #### Defined in
 
@@ -472,7 +472,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `fontVariant` | [`DFontVariant`](../README.md#dfontvariant) |
+| `fontVariant` | [`DFontVariant`](../index.md#dfontvariant) |
 
 #### Returns
 
@@ -486,11 +486,11 @@ ___
 
 ### fontWeight
 
-• `get` **fontWeight**(): [`DFontWeight`](../README.md#dfontweight)
+• `get` **fontWeight**(): [`DFontWeight`](../index.md#dfontweight)
 
 #### Returns
 
-[`DFontWeight`](../README.md#dfontweight)
+[`DFontWeight`](../index.md#dfontweight)
 
 #### Defined in
 
@@ -502,7 +502,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `fontWeight` | [`DFontWeight`](../README.md#dfontweight) |
+| `fontWeight` | [`DFontWeight`](../index.md#dfontweight) |
 
 #### Returns
 
@@ -574,11 +574,11 @@ ___
 
 ### wordWrap
 
-• `get` **wordWrap**(): [`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+• `get` **wordWrap**(): [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Returns
 
-[`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+[`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Defined in
 
@@ -590,7 +590,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `wordWrap` | [`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap) |
+| `wordWrap` | [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap) |
 
 #### Returns
 

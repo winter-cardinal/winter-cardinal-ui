@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DPaneGestureOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DPaneGestureOptions
 
 # Interface: DPaneGestureOptions
 
@@ -14,7 +14,7 @@
 
 ### mode
 
-• `Optional` **mode**: ``"OFF"`` \| ``"ON"`` \| ``"TOUCH"`` \| [`UtilGestureMode`](../README.md#utilgesturemode)
+• `Optional` **mode**: ``"OFF"`` \| ``"ON"`` \| ``"TOUCH"`` \| [`UtilGestureMode`](../index.md#utilgesturemode)
 
 #### Defined in
 

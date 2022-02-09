@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DSelectMultipleOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DSelectMultipleOnOptions
 
 # Interface: DSelectMultipleOnOptions<VALUE, EMITTER\>
 

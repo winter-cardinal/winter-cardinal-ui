@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeDataValueImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeDataValueImpl
 
 # Class: EShapeDataValueImpl
 
@@ -72,7 +72,7 @@ ___
 
 ### \_order
 
-• `Protected` **\_order**: [`EShapeDataValueOrder`](../README.md#eshapedatavalueorder)
+• `Protected` **\_order**: [`EShapeDataValueOrder`](../index.md#eshapedatavalueorder)
 
 #### Defined in
 
@@ -272,11 +272,11 @@ ___
 
 ### order
 
-• `get` **order**(): [`EShapeDataValueOrder`](../README.md#eshapedatavalueorder)
+• `get` **order**(): [`EShapeDataValueOrder`](../index.md#eshapedatavalueorder)
 
 #### Returns
 
-[`EShapeDataValueOrder`](../README.md#eshapedatavalueorder)
+[`EShapeDataValueOrder`](../index.md#eshapedatavalueorder)
 
 #### Implementation of
 
@@ -292,7 +292,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `order` | [`EShapeDataValueOrder`](../README.md#eshapedatavalueorder) |
+| `order` | [`EShapeDataValueOrder`](../index.md#eshapedatavalueorder) |
 
 #### Returns
 

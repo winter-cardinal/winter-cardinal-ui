@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataSelectionOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataSelectionOptions
 
 # Interface: DListDataSelectionOptions<ITEM, EMITTER\>
 
@@ -23,7 +23,7 @@
 
 ### mode
 
-• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 **`deprecated`** in favor of [type](DListDataSelectionOptions.md#type)
 
@@ -47,7 +47,7 @@ ___
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 A type.
 

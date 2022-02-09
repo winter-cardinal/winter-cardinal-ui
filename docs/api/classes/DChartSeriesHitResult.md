@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesHitResult
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesHitResult
 
 # Class: DChartSeriesHitResult
 

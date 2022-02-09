@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataTreeOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataTreeOptions
 
 # Interface: DTableDataTreeOptions<NODE, EMITTER\>
 
@@ -35,7 +35,7 @@
 
 ### comparator
 
-• `Optional` **comparator**: [`DTableDataComparator`](../README.md#dtabledatacomparator)<`NODE`\>
+• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)<`NODE`\>
 
 A comparator.
 
@@ -47,7 +47,7 @@ ___
 
 ### filter
 
-• `Optional` **filter**: [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`NODE`\>
+• `Optional` **filter**: [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\>
 
 A filter.
 
@@ -93,7 +93,7 @@ ___
 
 ### selection
 
-• `Optional` **selection**: [`DTableDataTreeSelectionOptions`](DTableDataTreeSelectionOptions.md) \| [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\> \| [`DTableDataTreeSelectionCreator`](../README.md#dtabledatatreeselectioncreator)<`NODE`\>
+• `Optional` **selection**: [`DTableDataTreeSelectionOptions`](DTableDataTreeSelectionOptions.md) \| [`DTableDataTreeSelection`](DTableDataTreeSelection.md)<`NODE`\> \| [`DTableDataTreeSelectionCreator`](../index.md#dtabledatatreeselectioncreator)<`NODE`\>
 
 Selection options.
 

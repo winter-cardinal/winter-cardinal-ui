@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeMiscInputInput
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeMiscInputInput
 
 # Class: EShapeActionRuntimeMiscInputInput<VALUE, UTIL\>
 
@@ -89,7 +89,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -103,7 +103,7 @@ ___
 
 ### onInputAction
 
-• `Protected` **onInputAction**: [`EShapeActionValueOnInputAction`](../README.md#eshapeactionvalueoninputaction)
+• `Protected` **onInputAction**: [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction)
 
 #### Inherited from
 
@@ -131,7 +131,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -306,7 +306,7 @@ ___
 
 ### getPadding
 
-▸ `Protected` **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+▸ `Protected` **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Parameters
 
@@ -317,7 +317,7 @@ ___
 
 #### Returns
 
-``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Inherited from
 
@@ -381,7 +381,7 @@ ___
 
 ### newElementCreator
 
-▸ `Protected` **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+▸ `Protected` **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
 
 #### Parameters
 
@@ -392,7 +392,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+`undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -690,7 +690,7 @@ ___
 
 ### toWhen
 
-▸ `Protected` **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+▸ `Protected` **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Parameters
 
@@ -701,7 +701,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+`undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesPointImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesPointImpl
 
 # Class: DChartSeriesPointImpl
 
@@ -37,7 +37,7 @@
 
 ### x
 
-• `Optional` **x**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• `Optional` **x**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 
@@ -51,7 +51,7 @@ ___
 
 ### y
 
-• `Optional` **y**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• `Optional` **y**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeGroupPoints
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupPoints
 
 # Class: EShapeGroupPoints
 
@@ -66,11 +66,11 @@
 
 ### formatted
 
-• `get` **formatted**(): [`EShapePointsFormatted`](../README.md#eshapepointsformatted)
+• `get` **formatted**(): [`EShapePointsFormatted`](../index.md#eshapepointsformatted)
 
 #### Returns
 
-[`EShapePointsFormatted`](../README.md#eshapepointsformatted)
+[`EShapePointsFormatted`](../index.md#eshapepointsformatted)
 
 #### Implementation of
 
@@ -84,11 +84,11 @@ ___
 
 ### formatter
 
-• `get` **formatter**(): ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+• `get` **formatter**(): ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Returns
 
-``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Implementation of
 
@@ -104,7 +104,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `formatter` | ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter) |
+| `formatter` | ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter) |
 
 #### Returns
 

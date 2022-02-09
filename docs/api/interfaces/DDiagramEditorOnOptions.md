@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramEditorOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramEditorOnOptions
 
 # Interface: DDiagramEditorOnOptions<EMITTER\>
 

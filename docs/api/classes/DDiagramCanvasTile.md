@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramCanvasTile
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramCanvasTile
 
 # Class: DDiagramCanvasTile
 
@@ -59,7 +59,7 @@ ___
 
 ### \_factory
 
-• `Protected` `Optional` **\_factory**: [`DDiagramCanvasTilePyramidFactory`](../README.md#ddiagramcanvastilepyramidfactory)
+• `Protected` `Optional` **\_factory**: [`DDiagramCanvasTilePyramidFactory`](../index.md#ddiagramcanvastilepyramidfactory)
 
 #### Defined in
 
@@ -89,11 +89,11 @@ ___
 
 ### factory
 
-• `get` **factory**(): `undefined` \| [`DDiagramCanvasTilePyramidFactory`](../README.md#ddiagramcanvastilepyramidfactory)
+• `get` **factory**(): `undefined` \| [`DDiagramCanvasTilePyramidFactory`](../index.md#ddiagramcanvastilepyramidfactory)
 
 #### Returns
 
-`undefined` \| [`DDiagramCanvasTilePyramidFactory`](../README.md#ddiagramcanvastilepyramidfactory)
+`undefined` \| [`DDiagramCanvasTilePyramidFactory`](../index.md#ddiagramcanvastilepyramidfactory)
 
 #### Defined in
 

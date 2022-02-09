@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DOutlineLike
+[Winter Cardinal UI - v0.154.0](../index.md) / DOutlineLike
 
 # Interface: DOutlineLike
 
@@ -23,7 +23,7 @@
 
 ### align
 
-• `Optional` **align**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **align**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -33,7 +33,7 @@ ___
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -43,7 +43,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -53,7 +53,7 @@ ___
 
 ### mask
 
-• `Optional` **mask**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **mask**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -63,7 +63,7 @@ ___
 
 ### offset
 
-• `Optional` **offset**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **offset**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -73,7 +73,7 @@ ___
 
 ### width
 
-• `Optional` **width**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **width**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 

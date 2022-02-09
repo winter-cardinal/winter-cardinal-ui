@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesLineOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesLineOptions
 
 # Interface: DChartSeriesLineOptions
 

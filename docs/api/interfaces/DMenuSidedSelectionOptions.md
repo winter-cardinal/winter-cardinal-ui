@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMenuSidedSelectionOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DMenuSidedSelectionOptions
 
 # Interface: DMenuSidedSelectionOptions<EMITTER\>
 
@@ -26,7 +26,7 @@
 
 ### mode
 
-• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../README.md#dmenusidedselectiontype)
+• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype)
 
 **`deprecated`** in favor of [type](DMenuSidedSelectionOptions.md#type)
 
@@ -48,7 +48,7 @@ ___
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../README.md#dmenusidedselectiontype)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype)
 
 A selection type.
 

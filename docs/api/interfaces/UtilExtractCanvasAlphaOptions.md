@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilExtractCanvasAlphaOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilExtractCanvasAlphaOptions
 
 # Interface: UtilExtractCanvasAlphaOptions
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataListSorter
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataListSorter
 
 # Class: DTableDataListSorter<ROW\>
 
@@ -94,7 +94,7 @@ utils.EventEmitter.constructor
 
 ### \_comparator
 
-• `Protected` **\_comparator**: ``null`` \| [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\>
+• `Protected` **\_comparator**: ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
 
 #### Defined in
 
@@ -134,7 +134,7 @@ ___
 
 ### \_order
 
-• `Protected` **\_order**: [`DTableDataOrder`](../README.md#dtabledataorder)
+• `Protected` **\_order**: [`DTableDataOrder`](../index.md#dtabledataorder)
 
 #### Defined in
 
@@ -203,13 +203,13 @@ ___
 
 ### order
 
-• `get` **order**(): [`DTableDataOrder`](../README.md#dtabledataorder)
+• `get` **order**(): [`DTableDataOrder`](../index.md#dtabledataorder)
 
 A sort order.
 
 #### Returns
 
-[`DTableDataOrder`](../README.md#dtabledataorder)
+[`DTableDataOrder`](../index.md#dtabledataorder)
 
 #### Implementation of
 
@@ -227,7 +227,7 @@ A sort order.
 
 | Name | Type |
 | :------ | :------ |
-| `order` | [`DTableDataOrder`](../README.md#dtabledataorder) |
+| `order` | [`DTableDataOrder`](../index.md#dtabledataorder) |
 
 #### Returns
 
@@ -354,13 +354,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\>
+▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
 
 Returns a current comparator.
 
 #### Returns
 
-``null`` \| [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\>
+``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
 
 #### Implementation of
 
@@ -670,7 +670,7 @@ Sets to the given comparator.
 
 | Name | Type |
 | :------ | :------ |
-| `comparator` | ``null`` \| [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\> |
+| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\> |
 
 #### Returns
 
@@ -695,7 +695,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `rows` | `ROW`[] |
-| `comparator` | [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\> |
+| `comparator` | [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\> |
 
 #### Returns
 

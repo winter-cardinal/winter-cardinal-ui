@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableData
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableData
 
 # Interface: DTableData<ROW\>
 
@@ -158,7 +158,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DTableDataEachIteratee`](../README.md#dtabledataeachiteratee)<`ROW`\> | an function called on each datum |
+| `iteratee` | [`DTableDataEachIteratee`](../index.md#dtabledataeachiteratee)<`ROW`\> | an function called on each datum |
 | `ifrom?` | `number` | an index to start an iteration |
 | `ito?` | `number` | an index before which an interation stops |
 

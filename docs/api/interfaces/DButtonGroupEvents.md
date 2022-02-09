@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DButtonGroupEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DButtonGroupEvents
 
 # Interface: DButtonGroupEvents<BUTTON, EMITTER\>
 

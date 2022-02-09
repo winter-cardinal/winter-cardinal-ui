@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMenuSidedSelection
+[Winter Cardinal UI - v0.154.0](../index.md) / DMenuSidedSelection
 
 # Class: DMenuSidedSelection<VALUE\>
 
@@ -142,7 +142,7 @@ ___
 
 ### \_type
 
-• `Protected` **\_type**: [`DMenuSidedSelectionType`](../README.md#dmenusidedselectiontype)
+• `Protected` **\_type**: [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype)
 
 #### Defined in
 
@@ -624,7 +624,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `item` | ``null`` \| [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `mode` | [`DMenuSidedSelectionType`](../README.md#dmenusidedselectiontype) |
+| `mode` | [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype) |
 | `isOn` | `boolean` |
 
 #### Returns

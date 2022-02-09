@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListItemEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DListItemEvents
 
 # Interface: DListItemEvents<VALUE, EMITTER\>
 

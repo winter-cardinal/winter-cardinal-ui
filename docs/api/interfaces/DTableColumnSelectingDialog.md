@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableColumnSelectingDialog
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableColumnSelectingDialog
 
 # Interface: DTableColumnSelectingDialog<DIALOG_VALUE\>
 

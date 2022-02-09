@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisOptions
 
 # Interface: DChartAxisOptions
 
@@ -18,7 +18,7 @@
 
 ### position
 
-• `Optional` **position**: ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `Optional` **position**: ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Defined in
 

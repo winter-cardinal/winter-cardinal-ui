@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDialogOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDialogOnOptions
 
 # Interface: DDialogOnOptions<EMITTER\>
 

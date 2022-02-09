@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLineOfAnyPointsFill
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineOfAnyPointsFill
 
 # Interface: EShapeLineOfAnyPointsFill
 
@@ -27,7 +27,7 @@
 
 ### alpha
 
-• **alpha**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• **alpha**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -37,7 +37,7 @@ ___
 
 ### color
 
-• **color**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• **color**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -133,8 +133,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `color?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
-| `alpha?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `color?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
+| `alpha?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 

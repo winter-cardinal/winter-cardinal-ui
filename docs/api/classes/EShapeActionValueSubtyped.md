@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueSubtyped
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueSubtyped
 
 # Class: EShapeActionValueSubtyped<SUBTYPE\>
 
@@ -73,7 +73,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueType`](../README.md#eshapeactionvaluetype) |
+| `type` | [`EShapeActionValueType`](../index.md#eshapeactionvaluetype) |
 | `condition` | `string` |
 | `subtype` | `SUBTYPE` |
 
@@ -113,7 +113,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 

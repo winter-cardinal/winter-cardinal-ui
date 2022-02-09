@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartCoordinate
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartCoordinate
 
 # Interface: DChartCoordinate<CHART\>
 
@@ -88,7 +88,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `container` | [`DChartCoordinateContainerSub`](DChartCoordinateContainerSub.md)<`CHART`\> |
-| `direction` | [`DChartCoordinateDirection`](../README.md#dchartcoordinatedirection) |
+| `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection) |
 
 #### Returns
 
@@ -228,10 +228,10 @@ Returns major / minor tick positions.
 | `domainMin` | `number` | minimum domain |
 | `domainMax` | `number` | maximum domain |
 | `majorCount` | `number` | Expected major tick count |
-| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../README.md#dchartcoordinatetickmajorstepfunction) | - |
+| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) | - |
 | `minorCountPerMajor` | `number` | Expected minor tick count per major ticks |
 | `minorCount` | `number` | Expected total minor tick count |
-| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../README.md#dchartcoordinatetickminorstepfunction) | - |
+| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) | - |
 | `majorResult` | `Float64Array` | `majorResult.length` must be larger than `majorCount * 3`. |
 | `minorResult` | `Float64Array` | `minorResult.length` must be larger than `minorCount * 3`. |
 

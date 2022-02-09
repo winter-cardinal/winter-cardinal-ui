@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMapTilePyramidImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DMapTilePyramidImpl
 
 # Class: DMapTilePyramidImpl
 
@@ -93,7 +93,7 @@ utils.EventEmitter.constructor
 
 ### \_builder
 
-• `Protected` `Readonly` **\_builder**: [`DMapTileUrlBuilder`](../README.md#dmaptileurlbuilder)
+• `Protected` `Readonly` **\_builder**: [`DMapTileUrlBuilder`](../index.md#dmaptileurlbuilder)
 
 #### Defined in
 

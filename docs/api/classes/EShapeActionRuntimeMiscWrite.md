@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeMiscWrite
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeMiscWrite
 
 # Class: EShapeActionRuntimeMiscWrite
 
@@ -64,7 +64,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -92,7 +92,7 @@ ___
 
 ### target
 
-• `Protected` **target**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Defined in
 
@@ -102,7 +102,7 @@ ___
 
 ### value
 
-• `Protected` **value**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`unknown`\>
+• `Protected` **value**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`unknown`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilFileEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilFileEvents
 
 # Interface: UtilFileEvents<EMITTER\>
 
@@ -31,7 +31,7 @@
 
 ### open
 
-• **open**: [`UtilFileOnOpen`](../README.md#utilfileonopen)<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../README.md#utilfileonopen)<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../README.md#utilfileonopen)<`File`, `EMITTER`\>
+• **open**: [`UtilFileOnOpen`](../index.md#utilfileonopen)<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`File`, `EMITTER`\>
 
 Triggered when a file is opened.
 

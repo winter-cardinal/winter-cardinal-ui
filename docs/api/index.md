@@ -1,14 +1,14 @@
-Winter Cardinal UI
+Winter Cardinal UI - v0.154.0
 
-# Winter Cardinal UI
+# Winter Cardinal UI - v0.154.0
 
 ## Table of contents
 
 ### References
 
-- [DButtonFileAs](README.md#dbuttonfileas)
-- [DDialogAlign](README.md#ddialogalign)
-- [DMenuAlign](README.md#dmenualign)
+- [DButtonFileAs](index.md#dbuttonfileas)
+- [DDialogAlign](index.md#ddialogalign)
+- [DMenuAlign](index.md#dmenualign)
 
 ### Classes
 
@@ -1989,702 +1989,702 @@ Winter Cardinal UI
 
 ### Type aliases
 
-- [DAlignHorizontal](README.md#dalignhorizontal)
-- [DAlignVertical](README.md#dalignvertical)
-- [DAlignWith](README.md#dalignwith)
-- [DAnimationOnEnd](README.md#danimationonend)
-- [DAnimationOnStart](README.md#danimationonstart)
-- [DAnimationOnTime](README.md#danimationontime)
-- [DAnimationTiming](README.md#danimationtiming)
-- [DBaseInteractive](README.md#dbaseinteractive)
-- [DBasePointCallback](README.md#dbasepointcallback)
-- [DBaseShadow](README.md#dbaseshadow)
-- [DBaseStateSetImplObservableOnChange](README.md#dbasestatesetimplobservableonchange)
-- [DBorderMask](README.md#dbordermask)
-- [DButtonBaseWhen](README.md#dbuttonbasewhen)
-- [DButtonFileChecker](README.md#dbuttonfilechecker)
-- [DButtonSelectGetter](README.md#dbuttonselectgetter)
-- [DButtonSelectSetter](README.md#dbuttonselectsetter)
-- [DChartAxisPosition](README.md#dchartaxisposition)
-- [DChartAxisTickPosition](README.md#dchartaxistickposition)
-- [DChartAxisTickPositionOption](README.md#dchartaxistickpositionoption)
-- [DChartCoordinateDirection](README.md#dchartcoordinatedirection)
-- [DChartCoordinateTickMajorStepFunction](README.md#dchartcoordinatetickmajorstepfunction)
-- [DChartCoordinateTickMinorStepFunction](README.md#dchartcoordinatetickminorstepfunction)
-- [DChartSelectionPoint](README.md#dchartselectionpoint)
-- [DChartSelectionStyle](README.md#dchartselectionstyle)
-- [DChartSeriesScalar](README.md#dchartseriesscalar)
-- [DCommandFlag](README.md#dcommandflag)
-- [DCoordinatePosition](README.md#dcoordinateposition)
-- [DCoordinateSize](README.md#dcoordinatesize)
-- [DCoordinateSizeNoAuto](README.md#dcoordinatesizenoauto)
-- [DCornerMask](README.md#dcornermask)
-- [DDiagramCanvasEditorSnapGridSize](README.md#ddiagramcanvaseditorsnapgridsize)
-- [DDiagramCanvasTilePyramidFactory](README.md#ddiagramcanvastilepyramidfactory)
-- [DDiagramDataMapper](README.md#ddiagramdatamapper)
-- [DDiagramLayersLayer](README.md#ddiagramlayerslayer)
-- [DDiagramSerializedSimpleData](README.md#ddiagramserializedsimpledata)
-- [DDiagramSerializedSnapGrid](README.md#ddiagramserializedsnapgrid)
-- [DDialogCloseOn](README.md#ddialogcloseon)
-- [DDialogMode](README.md#ddialogmode)
-- [DDialogSelectItemIsEqual](README.md#ddialogselectitemisequal)
-- [DDialogSelectItemToLabel](README.md#ddialogselectitemtolabel)
-- [DDialogSelectSearchFunction](README.md#ddialogselectsearchfunction)
-- [DDynamicTextAlign](README.md#ddynamictextalign)
-- [DDynamicTextStyleWordWrap](README.md#ddynamictextstylewordwrap)
-- [DFontStyle](README.md#dfontstyle)
-- [DFontVariant](README.md#dfontvariant)
-- [DFontWeight](README.md#dfontweight)
-- [DItemUpdaterInitItem](README.md#ditemupdaterinititem)
-- [DItemUpdaterNewItem](README.md#ditemupdaternewitem)
-- [DLayoutClearType](README.md#dlayoutcleartype)
-- [DLayoutDirection](README.md#dlayoutdirection)
-- [DLinkChecker](README.md#dlinkchecker)
-- [DLinkMenuItemId](README.md#dlinkmenuitemid)
-- [DLinkMenuOptions](README.md#dlinkmenuoptions)
-- [DLinkTarget](README.md#dlinktarget)
-- [DLinkTargetValue](README.md#dlinktargetvalue)
-- [DLinkUrlMaker](README.md#dlinkurlmaker)
-- [DLinkUrlValue](README.md#dlinkurlvalue)
-- [DListDataIteratee](README.md#dlistdataiteratee)
-- [DListDataSelectionType](README.md#dlistdataselectiontype)
-- [DListItemLinkChecker](README.md#dlistitemlinkchecker)
-- [DListItemToId](README.md#dlistitemtoid)
-- [DListItemToImage](README.md#dlistitemtoimage)
-- [DListItemToLabel](README.md#dlistitemtolabel)
-- [DListItemToLinkUrl](README.md#dlistitemtolinkurl)
-- [DListItemToTitle](README.md#dlistitemtotitle)
-- [DMapTileUrlBuilder](README.md#dmaptileurlbuilder)
-- [DMenuItemCreator](README.md#dmenuitemcreator)
-- [DMenuItemLinkChecker](README.md#dmenuitemlinkchecker)
-- [DMenuItemLinkUrlMaker](README.md#dmenuitemlinkurlmaker)
-- [DMenuItemOptionsUnion](README.md#dmenuitemoptionsunion)
-- [DMenuMenuCreator](README.md#dmenumenucreator)
-- [DMenuSidedSelectionType](README.md#dmenusidedselectiontype)
-- [DPickerDatetimeDateDecorator](README.md#dpickerdatetimedatedecorator)
-- [DPickerDatetimeDayLabels](README.md#dpickerdatetimedaylabels)
-- [DPickerDatetimeLabelFormatter](README.md#dpickerdatetimelabelformatter)
-- [DPickerDatetimeMask](README.md#dpickerdatetimemask)
-- [DScalarFunction](README.md#dscalarfunction)
-- [DStateAware](README.md#dstateaware)
-- [DStateAwareOrValue](README.md#dstateawareorvalue)
-- [DStateAwareOrValueMightBe](README.md#dstateawareorvaluemightbe)
-- [DTableBodyCellLinkChecker](README.md#dtablebodycelllinkchecker)
-- [DTableBodyCellLinkUrlMaker](README.md#dtablebodycelllinkurlmaker)
-- [DTableBodyCellOnChange](README.md#dtablebodycellonchange)
-- [DTableBodyCellOptionsUnion](README.md#dtablebodycelloptionsunion)
-- [DTableBodyRowOnChange](README.md#dtablebodyrowonchange)
-- [DTableColumnType](README.md#dtablecolumntype)
-- [DTableDataComparator](README.md#dtabledatacomparator)
-- [DTableDataComparatorFunction](README.md#dtabledatacomparatorfunction)
-- [DTableDataEachIteratee](README.md#dtabledataeachiteratee)
-- [DTableDataFilterFunction](README.md#dtabledatafilterfunction)
-- [DTableDataFilterer](README.md#dtabledatafilterer)
-- [DTableDataMappedEachIteratee](README.md#dtabledatamappedeachiteratee)
-- [DTableDataOrder](README.md#dtabledataorder)
-- [DTableDataSelectionCreator](README.md#dtabledataselectioncreator)
-- [DTableDataSelectionType](README.md#dtabledataselectiontype)
-- [DTableDataTreeSelectionCreator](README.md#dtabledatatreeselectioncreator)
-- [DTableEditable](README.md#dtableeditable)
-- [DTableEditingFormatter](README.md#dtableeditingformatter)
-- [DTableEditingUnformatter](README.md#dtableeditingunformatter)
-- [DTableEditingValidator](README.md#dtableeditingvalidator)
-- [DTableFormatter](README.md#dtableformatter)
-- [DTableGetter](README.md#dtablegetter)
-- [DTableRenderable](README.md#dtablerenderable)
-- [DTableSelectingGetter](README.md#dtableselectinggetter)
-- [DTableSelectingSetter](README.md#dtableselectingsetter)
-- [DTableSetter](README.md#dtablesetter)
-- [DTreeDataSelectionType](README.md#dtreedataselectiontype)
-- [DTreeNodeIteratee](README.md#dtreenodeiteratee)
-- [DViewChecker](README.md#dviewchecker)
-- [DViewConstraint](README.md#dviewconstraint)
-- [DViewToTarget](README.md#dviewtotarget)
-- [DeepPartial](README.md#deeppartial)
-- [EShapeAcceptorType](README.md#eshapeacceptortype)
-- [EShapeActionExpression](README.md#eshapeactionexpression)
-- [EShapeActionExpressionWithParameter](README.md#eshapeactionexpressionwithparameter)
-- [EShapeActionValueBlinkSerialized](README.md#eshapeactionvalueblinkserialized)
-- [EShapeActionValueBlinkType](README.md#eshapeactionvalueblinktype)
-- [EShapeActionValueChangeColorBrightnessSerialized](README.md#eshapeactionvaluechangecolorbrightnessserialized)
-- [EShapeActionValueChangeColorBrightnessSerializedLegacy](README.md#eshapeactionvaluechangecolorbrightnessserializedlegacy)
-- [EShapeActionValueChangeColorCodeSerialized](README.md#eshapeactionvaluechangecolorcodeserialized)
-- [EShapeActionValueChangeColorCodeSerializedLegacy](README.md#eshapeactionvaluechangecolorcodeserializedlegacy)
-- [EShapeActionValueChangeColorSerialized](README.md#eshapeactionvaluechangecolorserialized)
-- [EShapeActionValueChangeColorSerializedLegacy](README.md#eshapeactionvaluechangecolorserializedlegacy)
-- [EShapeActionValueChangeColorTarget](README.md#eshapeactionvaluechangecolortarget)
-- [EShapeActionValueChangeColorType](README.md#eshapeactionvaluechangecolortype)
-- [EShapeActionValueChangeColorTypeLegacy](README.md#eshapeactionvaluechangecolortypelegacy)
-- [EShapeActionValueChangeCursorSerialized](README.md#eshapeactionvaluechangecursorserialized)
-- [EShapeActionValueChangeTextSerialized](README.md#eshapeactionvaluechangetextserialized)
-- [EShapeActionValueChangeTextType](README.md#eshapeactionvaluechangetexttype)
-- [EShapeActionValueEmitEventSerialized](README.md#eshapeactionvalueemiteventserialized)
-- [EShapeActionValueMiscGestureSerialized](README.md#eshapeactionvaluemiscgestureserialized)
-- [EShapeActionValueMiscGestureType](README.md#eshapeactionvaluemiscgesturetype)
-- [EShapeActionValueMiscLayerGestureSerialized](README.md#eshapeactionvaluemisclayergestureserialized)
-- [EShapeActionValueMiscLayerShowHideSerialized](README.md#eshapeactionvaluemisclayershowhideserialized)
-- [EShapeActionValueMiscSerialized](README.md#eshapeactionvaluemiscserialized)
-- [EShapeActionValueMiscSubtype](README.md#eshapeactionvaluemiscsubtype)
-- [EShapeActionValueMiscType](README.md#eshapeactionvaluemisctype)
-- [EShapeActionValueOnInputAction](README.md#eshapeactionvalueoninputaction)
-- [EShapeActionValueOpenSerialized](README.md#eshapeactionvalueopenserialized)
-- [EShapeActionValueOpenType](README.md#eshapeactionvalueopentype)
-- [EShapeActionValueSerialized](README.md#eshapeactionvalueserialized)
-- [EShapeActionValueShowHideSerialized](README.md#eshapeactionvalueshowhideserialized)
-- [EShapeActionValueShowHideType](README.md#eshapeactionvalueshowhidetype)
-- [EShapeActionValueTransformMoveSerialized](README.md#eshapeactionvaluetransformmoveserialized)
-- [EShapeActionValueTransformMoveType](README.md#eshapeactionvaluetransformmovetype)
-- [EShapeActionValueTransformResizeSerialized](README.md#eshapeactionvaluetransformresizeserialized)
-- [EShapeActionValueTransformResizeType](README.md#eshapeactionvaluetransformresizetype)
-- [EShapeActionValueTransformRotateSerialized](README.md#eshapeactionvaluetransformrotateserialized)
-- [EShapeActionValueTransformRotateType](README.md#eshapeactionvaluetransformrotatetype)
-- [EShapeActionValueTransformType](README.md#eshapeactionvaluetransformtype)
-- [EShapeActionValueType](README.md#eshapeactionvaluetype)
-- [EShapeBarPosition](README.md#eshapebarposition)
-- [EShapeCapability](README.md#eshapecapability)
-- [EShapeConnectorBodySerialized](README.md#eshapeconnectorbodyserialized)
-- [EShapeConnectorEdgeContainerSerialized](README.md#eshapeconnectoredgecontainerserialized)
-- [EShapeConnectorEdgeSerialized](README.md#eshapeconnectoredgeserialized)
-- [EShapeCopyPart](README.md#eshapecopypart)
-- [EShapeCorner](README.md#eshapecorner)
-- [EShapeDataValueOrder](README.md#eshapedatavalueorder)
-- [EShapeDataValueRangeType](README.md#eshapedatavaluerangetype)
-- [EShapeDeserializer](README.md#eshapedeserializer)
-- [EShapeLineBaseHitPart](README.md#eshapelinebasehitpart)
-- [EShapeLineBasePointsHitTester](README.md#eshapelinebasepointshittester)
-- [EShapeLineBasePointsHitTesterToRange](README.md#eshapelinebasepointshittestertorange)
-- [EShapeLineBasePointsHitTesterToThreshold](README.md#eshapelinebasepointshittestertothreshold)
-- [EShapeLineOfAnyPointsHitTester](README.md#eshapelineofanypointshittester)
-- [EShapeLineOfAnyPointsHitTesterToRange](README.md#eshapelineofanypointshittestertorange)
-- [EShapeLineOfAnyPointsHitTesterToThreshold](README.md#eshapelineofanypointshittestertothreshold)
-- [EShapeLineOfAnyValue](README.md#eshapelineofanyvalue)
-- [EShapeLinePointsSerialized](README.md#eshapelinepointsserialized)
-- [EShapeOnDeserialized](README.md#eshapeondeserialized)
-- [EShapePointsFormatted](README.md#eshapepointsformatted)
-- [EShapePointsFormattedBoundary](README.md#eshapepointsformattedboundary)
-- [EShapePointsFormatter](README.md#eshapepointsformatter)
-- [EShapePointsMarkerContainerSerialized](README.md#eshapepointsmarkercontainerserialized)
-- [EShapePointsMarkerSerizlized](README.md#eshapepointsmarkerserizlized)
-- [EShapePointsMarkerType](README.md#eshapepointsmarkertype)
-- [EShapePointsStyle](README.md#eshapepointsstyle)
-- [EShapePointsStyleOption](README.md#eshapepointsstyleoption)
-- [EShapeRuntimeReset](README.md#eshaperuntimereset)
-- [EShapeStrokeSide](README.md#eshapestrokeside)
-- [EShapeStrokeStyle](README.md#eshapestrokestyle)
-- [EShapeTextAlignHorizontal](README.md#eshapetextalignhorizontal)
-- [EShapeTextAlignVertical](README.md#eshapetextalignvertical)
-- [EShapeTextDirection](README.md#eshapetextdirection)
-- [EShapeTextStyle](README.md#eshapetextstyle)
-- [EShapeTextWeight](README.md#eshapetextweight)
-- [EShapeType](README.md#eshapetype)
-- [EShapeUploadedConstructor](README.md#eshapeuploadedconstructor)
-- [EShapeUploadedCreator](README.md#eshapeuploadedcreator)
-- [ESnapperModifierAnchor](README.md#esnappermodifieranchor)
-- [ESnapperTargetValueType](README.md#esnappertargetvaluetype)
-- [NumberFormatterFunction](README.md#numberformatterfunction)
-- [UtilAttachAlign](README.md#utilattachalign)
-- [UtilClickOutsideOnClick](README.md#utilclickoutsideonclick)
-- [UtilFileAs](README.md#utilfileas)
-- [UtilFileOnOpen](README.md#utilfileonopen)
-- [UtilGestureChecker](README.md#utilgesturechecker)
-- [UtilGestureEasingOnEnd](README.md#utilgestureeasingonend)
-- [UtilGestureEasingOnMove](README.md#utilgestureeasingonmove)
-- [UtilGestureMode](README.md#utilgesturemode)
-- [UtilGestureModifier](README.md#utilgesturemodifier)
-- [UtilGestureModifierEvent](README.md#utilgesturemodifierevent)
-- [UtilGestureOnEnd](README.md#utilgestureonend)
-- [UtilGestureOnMove](README.md#utilgestureonmove)
-- [UtilGestureOnStart](README.md#utilgestureonstart)
-- [UtilHtmlElementCreator](README.md#utilhtmlelementcreator)
-- [UtilHtmlElementPadding](README.md#utilhtmlelementpadding)
-- [UtilHtmlElementStyler](README.md#utilhtmlelementstyler)
-- [UtilHtmlElementStylerAfter](README.md#utilhtmlelementstylerafter)
-- [UtilHtmlElementStylerBefore](README.md#utilhtmlelementstylerbefore)
-- [UtilHtmlElementToMatrix](README.md#utilhtmlelementtomatrix)
-- [UtilHtmlElementToRect](README.md#utilhtmlelementtorect)
-- [UtilHtmlElementWhen](README.md#utilhtmlelementwhen)
-- [UtilPointerEventOnClick](README.md#utilpointereventonclick)
-- [UtilPointerEventOnDblClick](README.md#utilpointereventondblclick)
-- [UtilWheelEventHandler](README.md#utilwheeleventhandler)
-- [UtilWheelEventName](README.md#utilwheeleventname)
+- [DAlignHorizontal](index.md#dalignhorizontal)
+- [DAlignVertical](index.md#dalignvertical)
+- [DAlignWith](index.md#dalignwith)
+- [DAnimationOnEnd](index.md#danimationonend)
+- [DAnimationOnStart](index.md#danimationonstart)
+- [DAnimationOnTime](index.md#danimationontime)
+- [DAnimationTiming](index.md#danimationtiming)
+- [DBaseInteractive](index.md#dbaseinteractive)
+- [DBasePointCallback](index.md#dbasepointcallback)
+- [DBaseShadow](index.md#dbaseshadow)
+- [DBaseStateSetImplObservableOnChange](index.md#dbasestatesetimplobservableonchange)
+- [DBorderMask](index.md#dbordermask)
+- [DButtonBaseWhen](index.md#dbuttonbasewhen)
+- [DButtonFileChecker](index.md#dbuttonfilechecker)
+- [DButtonSelectGetter](index.md#dbuttonselectgetter)
+- [DButtonSelectSetter](index.md#dbuttonselectsetter)
+- [DChartAxisPosition](index.md#dchartaxisposition)
+- [DChartAxisTickPosition](index.md#dchartaxistickposition)
+- [DChartAxisTickPositionOption](index.md#dchartaxistickpositionoption)
+- [DChartCoordinateDirection](index.md#dchartcoordinatedirection)
+- [DChartCoordinateTickMajorStepFunction](index.md#dchartcoordinatetickmajorstepfunction)
+- [DChartCoordinateTickMinorStepFunction](index.md#dchartcoordinatetickminorstepfunction)
+- [DChartSelectionPoint](index.md#dchartselectionpoint)
+- [DChartSelectionStyle](index.md#dchartselectionstyle)
+- [DChartSeriesScalar](index.md#dchartseriesscalar)
+- [DCommandFlag](index.md#dcommandflag)
+- [DCoordinatePosition](index.md#dcoordinateposition)
+- [DCoordinateSize](index.md#dcoordinatesize)
+- [DCoordinateSizeNoAuto](index.md#dcoordinatesizenoauto)
+- [DCornerMask](index.md#dcornermask)
+- [DDiagramCanvasEditorSnapGridSize](index.md#ddiagramcanvaseditorsnapgridsize)
+- [DDiagramCanvasTilePyramidFactory](index.md#ddiagramcanvastilepyramidfactory)
+- [DDiagramDataMapper](index.md#ddiagramdatamapper)
+- [DDiagramLayersLayer](index.md#ddiagramlayerslayer)
+- [DDiagramSerializedSimpleData](index.md#ddiagramserializedsimpledata)
+- [DDiagramSerializedSnapGrid](index.md#ddiagramserializedsnapgrid)
+- [DDialogCloseOn](index.md#ddialogcloseon)
+- [DDialogMode](index.md#ddialogmode)
+- [DDialogSelectItemIsEqual](index.md#ddialogselectitemisequal)
+- [DDialogSelectItemToLabel](index.md#ddialogselectitemtolabel)
+- [DDialogSelectSearchFunction](index.md#ddialogselectsearchfunction)
+- [DDynamicTextAlign](index.md#ddynamictextalign)
+- [DDynamicTextStyleWordWrap](index.md#ddynamictextstylewordwrap)
+- [DFontStyle](index.md#dfontstyle)
+- [DFontVariant](index.md#dfontvariant)
+- [DFontWeight](index.md#dfontweight)
+- [DItemUpdaterInitItem](index.md#ditemupdaterinititem)
+- [DItemUpdaterNewItem](index.md#ditemupdaternewitem)
+- [DLayoutClearType](index.md#dlayoutcleartype)
+- [DLayoutDirection](index.md#dlayoutdirection)
+- [DLinkChecker](index.md#dlinkchecker)
+- [DLinkMenuItemId](index.md#dlinkmenuitemid)
+- [DLinkMenuOptions](index.md#dlinkmenuoptions)
+- [DLinkTarget](index.md#dlinktarget)
+- [DLinkTargetValue](index.md#dlinktargetvalue)
+- [DLinkUrlMaker](index.md#dlinkurlmaker)
+- [DLinkUrlValue](index.md#dlinkurlvalue)
+- [DListDataIteratee](index.md#dlistdataiteratee)
+- [DListDataSelectionType](index.md#dlistdataselectiontype)
+- [DListItemLinkChecker](index.md#dlistitemlinkchecker)
+- [DListItemToId](index.md#dlistitemtoid)
+- [DListItemToImage](index.md#dlistitemtoimage)
+- [DListItemToLabel](index.md#dlistitemtolabel)
+- [DListItemToLinkUrl](index.md#dlistitemtolinkurl)
+- [DListItemToTitle](index.md#dlistitemtotitle)
+- [DMapTileUrlBuilder](index.md#dmaptileurlbuilder)
+- [DMenuItemCreator](index.md#dmenuitemcreator)
+- [DMenuItemLinkChecker](index.md#dmenuitemlinkchecker)
+- [DMenuItemLinkUrlMaker](index.md#dmenuitemlinkurlmaker)
+- [DMenuItemOptionsUnion](index.md#dmenuitemoptionsunion)
+- [DMenuMenuCreator](index.md#dmenumenucreator)
+- [DMenuSidedSelectionType](index.md#dmenusidedselectiontype)
+- [DPickerDatetimeDateDecorator](index.md#dpickerdatetimedatedecorator)
+- [DPickerDatetimeDayLabels](index.md#dpickerdatetimedaylabels)
+- [DPickerDatetimeLabelFormatter](index.md#dpickerdatetimelabelformatter)
+- [DPickerDatetimeMask](index.md#dpickerdatetimemask)
+- [DScalarFunction](index.md#dscalarfunction)
+- [DStateAware](index.md#dstateaware)
+- [DStateAwareOrValue](index.md#dstateawareorvalue)
+- [DStateAwareOrValueMightBe](index.md#dstateawareorvaluemightbe)
+- [DTableBodyCellLinkChecker](index.md#dtablebodycelllinkchecker)
+- [DTableBodyCellLinkUrlMaker](index.md#dtablebodycelllinkurlmaker)
+- [DTableBodyCellOnChange](index.md#dtablebodycellonchange)
+- [DTableBodyCellOptionsUnion](index.md#dtablebodycelloptionsunion)
+- [DTableBodyRowOnChange](index.md#dtablebodyrowonchange)
+- [DTableColumnType](index.md#dtablecolumntype)
+- [DTableDataComparator](index.md#dtabledatacomparator)
+- [DTableDataComparatorFunction](index.md#dtabledatacomparatorfunction)
+- [DTableDataEachIteratee](index.md#dtabledataeachiteratee)
+- [DTableDataFilterFunction](index.md#dtabledatafilterfunction)
+- [DTableDataFilterer](index.md#dtabledatafilterer)
+- [DTableDataMappedEachIteratee](index.md#dtabledatamappedeachiteratee)
+- [DTableDataOrder](index.md#dtabledataorder)
+- [DTableDataSelectionCreator](index.md#dtabledataselectioncreator)
+- [DTableDataSelectionType](index.md#dtabledataselectiontype)
+- [DTableDataTreeSelectionCreator](index.md#dtabledatatreeselectioncreator)
+- [DTableEditable](index.md#dtableeditable)
+- [DTableEditingFormatter](index.md#dtableeditingformatter)
+- [DTableEditingUnformatter](index.md#dtableeditingunformatter)
+- [DTableEditingValidator](index.md#dtableeditingvalidator)
+- [DTableFormatter](index.md#dtableformatter)
+- [DTableGetter](index.md#dtablegetter)
+- [DTableRenderable](index.md#dtablerenderable)
+- [DTableSelectingGetter](index.md#dtableselectinggetter)
+- [DTableSelectingSetter](index.md#dtableselectingsetter)
+- [DTableSetter](index.md#dtablesetter)
+- [DTreeDataSelectionType](index.md#dtreedataselectiontype)
+- [DTreeNodeIteratee](index.md#dtreenodeiteratee)
+- [DViewChecker](index.md#dviewchecker)
+- [DViewConstraint](index.md#dviewconstraint)
+- [DViewToTarget](index.md#dviewtotarget)
+- [DeepPartial](index.md#deeppartial)
+- [EShapeAcceptorType](index.md#eshapeacceptortype)
+- [EShapeActionExpression](index.md#eshapeactionexpression)
+- [EShapeActionExpressionWithParameter](index.md#eshapeactionexpressionwithparameter)
+- [EShapeActionValueBlinkSerialized](index.md#eshapeactionvalueblinkserialized)
+- [EShapeActionValueBlinkType](index.md#eshapeactionvalueblinktype)
+- [EShapeActionValueChangeColorBrightnessSerialized](index.md#eshapeactionvaluechangecolorbrightnessserialized)
+- [EShapeActionValueChangeColorBrightnessSerializedLegacy](index.md#eshapeactionvaluechangecolorbrightnessserializedlegacy)
+- [EShapeActionValueChangeColorCodeSerialized](index.md#eshapeactionvaluechangecolorcodeserialized)
+- [EShapeActionValueChangeColorCodeSerializedLegacy](index.md#eshapeactionvaluechangecolorcodeserializedlegacy)
+- [EShapeActionValueChangeColorSerialized](index.md#eshapeactionvaluechangecolorserialized)
+- [EShapeActionValueChangeColorSerializedLegacy](index.md#eshapeactionvaluechangecolorserializedlegacy)
+- [EShapeActionValueChangeColorTarget](index.md#eshapeactionvaluechangecolortarget)
+- [EShapeActionValueChangeColorType](index.md#eshapeactionvaluechangecolortype)
+- [EShapeActionValueChangeColorTypeLegacy](index.md#eshapeactionvaluechangecolortypelegacy)
+- [EShapeActionValueChangeCursorSerialized](index.md#eshapeactionvaluechangecursorserialized)
+- [EShapeActionValueChangeTextSerialized](index.md#eshapeactionvaluechangetextserialized)
+- [EShapeActionValueChangeTextType](index.md#eshapeactionvaluechangetexttype)
+- [EShapeActionValueEmitEventSerialized](index.md#eshapeactionvalueemiteventserialized)
+- [EShapeActionValueMiscGestureSerialized](index.md#eshapeactionvaluemiscgestureserialized)
+- [EShapeActionValueMiscGestureType](index.md#eshapeactionvaluemiscgesturetype)
+- [EShapeActionValueMiscLayerGestureSerialized](index.md#eshapeactionvaluemisclayergestureserialized)
+- [EShapeActionValueMiscLayerShowHideSerialized](index.md#eshapeactionvaluemisclayershowhideserialized)
+- [EShapeActionValueMiscSerialized](index.md#eshapeactionvaluemiscserialized)
+- [EShapeActionValueMiscSubtype](index.md#eshapeactionvaluemiscsubtype)
+- [EShapeActionValueMiscType](index.md#eshapeactionvaluemisctype)
+- [EShapeActionValueOnInputAction](index.md#eshapeactionvalueoninputaction)
+- [EShapeActionValueOpenSerialized](index.md#eshapeactionvalueopenserialized)
+- [EShapeActionValueOpenType](index.md#eshapeactionvalueopentype)
+- [EShapeActionValueSerialized](index.md#eshapeactionvalueserialized)
+- [EShapeActionValueShowHideSerialized](index.md#eshapeactionvalueshowhideserialized)
+- [EShapeActionValueShowHideType](index.md#eshapeactionvalueshowhidetype)
+- [EShapeActionValueTransformMoveSerialized](index.md#eshapeactionvaluetransformmoveserialized)
+- [EShapeActionValueTransformMoveType](index.md#eshapeactionvaluetransformmovetype)
+- [EShapeActionValueTransformResizeSerialized](index.md#eshapeactionvaluetransformresizeserialized)
+- [EShapeActionValueTransformResizeType](index.md#eshapeactionvaluetransformresizetype)
+- [EShapeActionValueTransformRotateSerialized](index.md#eshapeactionvaluetransformrotateserialized)
+- [EShapeActionValueTransformRotateType](index.md#eshapeactionvaluetransformrotatetype)
+- [EShapeActionValueTransformType](index.md#eshapeactionvaluetransformtype)
+- [EShapeActionValueType](index.md#eshapeactionvaluetype)
+- [EShapeBarPosition](index.md#eshapebarposition)
+- [EShapeCapability](index.md#eshapecapability)
+- [EShapeConnectorBodySerialized](index.md#eshapeconnectorbodyserialized)
+- [EShapeConnectorEdgeContainerSerialized](index.md#eshapeconnectoredgecontainerserialized)
+- [EShapeConnectorEdgeSerialized](index.md#eshapeconnectoredgeserialized)
+- [EShapeCopyPart](index.md#eshapecopypart)
+- [EShapeCorner](index.md#eshapecorner)
+- [EShapeDataValueOrder](index.md#eshapedatavalueorder)
+- [EShapeDataValueRangeType](index.md#eshapedatavaluerangetype)
+- [EShapeDeserializer](index.md#eshapedeserializer)
+- [EShapeLineBaseHitPart](index.md#eshapelinebasehitpart)
+- [EShapeLineBasePointsHitTester](index.md#eshapelinebasepointshittester)
+- [EShapeLineBasePointsHitTesterToRange](index.md#eshapelinebasepointshittestertorange)
+- [EShapeLineBasePointsHitTesterToThreshold](index.md#eshapelinebasepointshittestertothreshold)
+- [EShapeLineOfAnyPointsHitTester](index.md#eshapelineofanypointshittester)
+- [EShapeLineOfAnyPointsHitTesterToRange](index.md#eshapelineofanypointshittestertorange)
+- [EShapeLineOfAnyPointsHitTesterToThreshold](index.md#eshapelineofanypointshittestertothreshold)
+- [EShapeLineOfAnyValue](index.md#eshapelineofanyvalue)
+- [EShapeLinePointsSerialized](index.md#eshapelinepointsserialized)
+- [EShapeOnDeserialized](index.md#eshapeondeserialized)
+- [EShapePointsFormatted](index.md#eshapepointsformatted)
+- [EShapePointsFormattedBoundary](index.md#eshapepointsformattedboundary)
+- [EShapePointsFormatter](index.md#eshapepointsformatter)
+- [EShapePointsMarkerContainerSerialized](index.md#eshapepointsmarkercontainerserialized)
+- [EShapePointsMarkerSerizlized](index.md#eshapepointsmarkerserizlized)
+- [EShapePointsMarkerType](index.md#eshapepointsmarkertype)
+- [EShapePointsStyle](index.md#eshapepointsstyle)
+- [EShapePointsStyleOption](index.md#eshapepointsstyleoption)
+- [EShapeRuntimeReset](index.md#eshaperuntimereset)
+- [EShapeStrokeSide](index.md#eshapestrokeside)
+- [EShapeStrokeStyle](index.md#eshapestrokestyle)
+- [EShapeTextAlignHorizontal](index.md#eshapetextalignhorizontal)
+- [EShapeTextAlignVertical](index.md#eshapetextalignvertical)
+- [EShapeTextDirection](index.md#eshapetextdirection)
+- [EShapeTextStyle](index.md#eshapetextstyle)
+- [EShapeTextWeight](index.md#eshapetextweight)
+- [EShapeType](index.md#eshapetype)
+- [EShapeUploadedConstructor](index.md#eshapeuploadedconstructor)
+- [EShapeUploadedCreator](index.md#eshapeuploadedcreator)
+- [ESnapperModifierAnchor](index.md#esnappermodifieranchor)
+- [ESnapperTargetValueType](index.md#esnappertargetvaluetype)
+- [NumberFormatterFunction](index.md#numberformatterfunction)
+- [UtilAttachAlign](index.md#utilattachalign)
+- [UtilClickOutsideOnClick](index.md#utilclickoutsideonclick)
+- [UtilFileAs](index.md#utilfileas)
+- [UtilFileOnOpen](index.md#utilfileonopen)
+- [UtilGestureChecker](index.md#utilgesturechecker)
+- [UtilGestureEasingOnEnd](index.md#utilgestureeasingonend)
+- [UtilGestureEasingOnMove](index.md#utilgestureeasingonmove)
+- [UtilGestureMode](index.md#utilgesturemode)
+- [UtilGestureModifier](index.md#utilgesturemodifier)
+- [UtilGestureModifierEvent](index.md#utilgesturemodifierevent)
+- [UtilGestureOnEnd](index.md#utilgestureonend)
+- [UtilGestureOnMove](index.md#utilgestureonmove)
+- [UtilGestureOnStart](index.md#utilgestureonstart)
+- [UtilHtmlElementCreator](index.md#utilhtmlelementcreator)
+- [UtilHtmlElementPadding](index.md#utilhtmlelementpadding)
+- [UtilHtmlElementStyler](index.md#utilhtmlelementstyler)
+- [UtilHtmlElementStylerAfter](index.md#utilhtmlelementstylerafter)
+- [UtilHtmlElementStylerBefore](index.md#utilhtmlelementstylerbefore)
+- [UtilHtmlElementToMatrix](index.md#utilhtmlelementtomatrix)
+- [UtilHtmlElementToRect](index.md#utilhtmlelementtorect)
+- [UtilHtmlElementWhen](index.md#utilhtmlelementwhen)
+- [UtilPointerEventOnClick](index.md#utilpointereventonclick)
+- [UtilPointerEventOnDblClick](index.md#utilpointereventondblclick)
+- [UtilWheelEventHandler](index.md#utilwheeleventhandler)
+- [UtilWheelEventName](index.md#utilwheeleventname)
 
 ### Variables
 
-- [BAR\_INDEX\_COUNT](README.md#bar_index_count)
-- [BAR\_VERTEX\_COUNT](README.md#bar_vertex_count)
-- [CIRCLE\_INDEX\_COUNT](README.md#circle_index_count)
-- [CIRCLE\_VERTEX\_COUNT](README.md#circle_vertex_count)
-- [CIRCLE\_WORLD\_SIZE](README.md#circle_world_size)
-- [DAlignHorizontal](README.md#dalignhorizontal)
-- [DAlignVertical](README.md#dalignvertical)
-- [DAlignWith](README.md#dalignwith)
-- [DBaseInteractive](README.md#dbaseinteractive)
-- [DBaseState](README.md#dbasestate)
-- [DBorderMask](README.md#dbordermask)
-- [DButtonBaseWhen](README.md#dbuttonbasewhen)
-- [DChartAxisPosition](README.md#dchartaxisposition)
-- [DChartAxisTickPosition](README.md#dchartaxistickposition)
-- [DChartCoordinateDirection](README.md#dchartcoordinatedirection)
-- [DChartSelectionPoint](README.md#dchartselectionpoint)
-- [DCommandFlag](README.md#dcommandflag)
-- [DCornerMask](README.md#dcornermask)
-- [DDiagramSerializedVersion](README.md#ddiagramserializedversion)
-- [DDialogCloseOn](README.md#ddialogcloseon)
-- [DDialogMode](README.md#ddialogmode)
-- [DDialogState](README.md#ddialogstate)
-- [DDynamicTextStyleWordWrap](README.md#ddynamictextstylewordwrap)
-- [DHtmlElementState](README.md#dhtmlelementstate)
-- [DLayoutClearType](README.md#dlayoutcleartype)
-- [DLayoutDirection](README.md#dlayoutdirection)
-- [DLinkMenuItemId](README.md#dlinkmenuitemid)
-- [DLinkTarget](README.md#dlinktarget)
-- [DListDataSelectionType](README.md#dlistdataselectiontype)
-- [DMenuSidedSelectionType](README.md#dmenusidedselectiontype)
-- [DPickerDatetimeMask](README.md#dpickerdatetimemask)
-- [DTableColumnType](README.md#dtablecolumntype)
-- [DTableDataOrder](README.md#dtabledataorder)
-- [DTableDataSelectionType](README.md#dtabledataselectiontype)
-- [DTableState](README.md#dtablestate)
-- [DThemeDarkAtlas](README.md#dthemedarkatlas)
-- [DThemeWhiteAtlas](README.md#dthemewhiteatlas)
-- [DTreeDataSelectionType](README.md#dtreedataselectiontype)
-- [DTreeItemState](README.md#dtreeitemstate)
-- [EShapeAcceptorType](README.md#eshapeacceptortype)
-- [EShapeActionValueBlinkType](README.md#eshapeactionvalueblinktype)
-- [EShapeActionValueChangeColorTarget](README.md#eshapeactionvaluechangecolortarget)
-- [EShapeActionValueChangeColorType](README.md#eshapeactionvaluechangecolortype)
-- [EShapeActionValueChangeColorTypeLegacy](README.md#eshapeactionvaluechangecolortypelegacy)
-- [EShapeActionValueChangeTextType](README.md#eshapeactionvaluechangetexttype)
-- [EShapeActionValueMiscGestureType](README.md#eshapeactionvaluemiscgesturetype)
-- [EShapeActionValueMiscType](README.md#eshapeactionvaluemisctype)
-- [EShapeActionValueOnInputAction](README.md#eshapeactionvalueoninputaction)
-- [EShapeActionValueOpenType](README.md#eshapeactionvalueopentype)
-- [EShapeActionValueShowHideType](README.md#eshapeactionvalueshowhidetype)
-- [EShapeActionValueTransformMoveType](README.md#eshapeactionvaluetransformmovetype)
-- [EShapeActionValueTransformResizeType](README.md#eshapeactionvaluetransformresizetype)
-- [EShapeActionValueTransformRotateType](README.md#eshapeactionvaluetransformrotatetype)
-- [EShapeActionValueTransformType](README.md#eshapeactionvaluetransformtype)
-- [EShapeActionValueType](README.md#eshapeactionvaluetype)
-- [EShapeBarPosition](README.md#eshapebarposition)
-- [EShapeCapability](README.md#eshapecapability)
-- [EShapeCopyPart](README.md#eshapecopypart)
-- [EShapeCorner](README.md#eshapecorner)
-- [EShapeDataValueOrder](README.md#eshapedatavalueorder)
-- [EShapeDataValueRangeType](README.md#eshapedatavaluerangetype)
-- [EShapeDeserializers](README.md#eshapedeserializers)
-- [EShapeLayerState](README.md#eshapelayerstate)
-- [EShapeLineBaseHitPart](README.md#eshapelinebasehitpart)
-- [EShapeOnDeserializeds](README.md#eshapeondeserializeds)
-- [EShapePointsMarkerType](README.md#eshapepointsmarkertype)
-- [EShapePointsStyle](README.md#eshapepointsstyle)
-- [EShapeRuntimeReset](README.md#eshaperuntimereset)
-- [EShapeRuntimes](README.md#eshaperuntimes)
-- [EShapeState](README.md#eshapestate)
-- [EShapeStrokeSide](README.md#eshapestrokeside)
-- [EShapeStrokeStyle](README.md#eshapestrokestyle)
-- [EShapeTextAlignHorizontal](README.md#eshapetextalignhorizontal)
-- [EShapeTextAlignVertical](README.md#eshapetextalignvertical)
-- [EShapeTextDirection](README.md#eshapetextdirection)
-- [EShapeTextStyle](README.md#eshapetextstyle)
-- [EShapeTextWeight](README.md#eshapetextweight)
-- [EShapeType](README.md#eshapetype)
-- [EShapeUploadeds](README.md#eshapeuploadeds)
-- [ESnapperModifierAnchor](README.md#esnappermodifieranchor)
-- [ESnapperTargetValueType](README.md#esnappertargetvaluetype)
-- [IMAGE\_SDF\_INDEX\_COUNT](README.md#image_sdf_index_count)
-- [IMAGE\_SDF\_VERTEX\_COUNT](README.md#image_sdf_vertex_count)
-- [IMAGE\_SDF\_WORLD\_SIZE](README.md#image_sdf_world_size)
-- [RECTANGLE\_INDEX\_COUNT](README.md#rectangle_index_count)
-- [RECTANGLE\_ROUNDED\_INDEX\_COUNT](README.md#rectangle_rounded_index_count)
-- [RECTANGLE\_ROUNDED\_VERTEX\_COUNT](README.md#rectangle_rounded_vertex_count)
-- [RECTANGLE\_ROUNDED\_WORLD\_SIZE](README.md#rectangle_rounded_world_size)
-- [RECTANGLE\_VERTEX\_COUNT](README.md#rectangle_vertex_count)
-- [RECTANGLE\_WORLD\_SIZE](README.md#rectangle_world_size)
-- [TEXT\_INDEX\_COUNT](README.md#text_index_count)
-- [TEXT\_VERTEX\_COUNT](README.md#text_vertex_count)
-- [TRIANGLE\_INDEX\_COUNT](README.md#triangle_index_count)
-- [TRIANGLE\_ROUNDED\_INDEX\_COUNT](README.md#triangle_rounded_index_count)
-- [TRIANGLE\_ROUNDED\_VERTEX\_COUNT](README.md#triangle_rounded_vertex_count)
-- [TRIANGLE\_ROUNDED\_WORLD\_SIZE](README.md#triangle_rounded_world_size)
-- [TRIANGLE\_VERTEX\_COUNT](README.md#triangle_vertex_count)
-- [TRIANGLE\_WORLD\_SIZE](README.md#triangle_world_size)
-- [UtilAttachAlign](README.md#utilattachalign)
-- [UtilFileAs](README.md#utilfileas)
-- [UtilGestureMode](README.md#utilgesturemode)
-- [UtilGestureModifier](README.md#utilgesturemodifier)
-- [UtilHtmlElementWhen](README.md#utilhtmlelementwhen)
+- [BAR\_INDEX\_COUNT](index.md#bar_index_count)
+- [BAR\_VERTEX\_COUNT](index.md#bar_vertex_count)
+- [CIRCLE\_INDEX\_COUNT](index.md#circle_index_count)
+- [CIRCLE\_VERTEX\_COUNT](index.md#circle_vertex_count)
+- [CIRCLE\_WORLD\_SIZE](index.md#circle_world_size)
+- [DAlignHorizontal](index.md#dalignhorizontal)
+- [DAlignVertical](index.md#dalignvertical)
+- [DAlignWith](index.md#dalignwith)
+- [DBaseInteractive](index.md#dbaseinteractive)
+- [DBaseState](index.md#dbasestate)
+- [DBorderMask](index.md#dbordermask)
+- [DButtonBaseWhen](index.md#dbuttonbasewhen)
+- [DChartAxisPosition](index.md#dchartaxisposition)
+- [DChartAxisTickPosition](index.md#dchartaxistickposition)
+- [DChartCoordinateDirection](index.md#dchartcoordinatedirection)
+- [DChartSelectionPoint](index.md#dchartselectionpoint)
+- [DCommandFlag](index.md#dcommandflag)
+- [DCornerMask](index.md#dcornermask)
+- [DDiagramSerializedVersion](index.md#ddiagramserializedversion)
+- [DDialogCloseOn](index.md#ddialogcloseon)
+- [DDialogMode](index.md#ddialogmode)
+- [DDialogState](index.md#ddialogstate)
+- [DDynamicTextStyleWordWrap](index.md#ddynamictextstylewordwrap)
+- [DHtmlElementState](index.md#dhtmlelementstate)
+- [DLayoutClearType](index.md#dlayoutcleartype)
+- [DLayoutDirection](index.md#dlayoutdirection)
+- [DLinkMenuItemId](index.md#dlinkmenuitemid)
+- [DLinkTarget](index.md#dlinktarget)
+- [DListDataSelectionType](index.md#dlistdataselectiontype)
+- [DMenuSidedSelectionType](index.md#dmenusidedselectiontype)
+- [DPickerDatetimeMask](index.md#dpickerdatetimemask)
+- [DTableColumnType](index.md#dtablecolumntype)
+- [DTableDataOrder](index.md#dtabledataorder)
+- [DTableDataSelectionType](index.md#dtabledataselectiontype)
+- [DTableState](index.md#dtablestate)
+- [DThemeDarkAtlas](index.md#dthemedarkatlas)
+- [DThemeWhiteAtlas](index.md#dthemewhiteatlas)
+- [DTreeDataSelectionType](index.md#dtreedataselectiontype)
+- [DTreeItemState](index.md#dtreeitemstate)
+- [EShapeAcceptorType](index.md#eshapeacceptortype)
+- [EShapeActionValueBlinkType](index.md#eshapeactionvalueblinktype)
+- [EShapeActionValueChangeColorTarget](index.md#eshapeactionvaluechangecolortarget)
+- [EShapeActionValueChangeColorType](index.md#eshapeactionvaluechangecolortype)
+- [EShapeActionValueChangeColorTypeLegacy](index.md#eshapeactionvaluechangecolortypelegacy)
+- [EShapeActionValueChangeTextType](index.md#eshapeactionvaluechangetexttype)
+- [EShapeActionValueMiscGestureType](index.md#eshapeactionvaluemiscgesturetype)
+- [EShapeActionValueMiscType](index.md#eshapeactionvaluemisctype)
+- [EShapeActionValueOnInputAction](index.md#eshapeactionvalueoninputaction)
+- [EShapeActionValueOpenType](index.md#eshapeactionvalueopentype)
+- [EShapeActionValueShowHideType](index.md#eshapeactionvalueshowhidetype)
+- [EShapeActionValueTransformMoveType](index.md#eshapeactionvaluetransformmovetype)
+- [EShapeActionValueTransformResizeType](index.md#eshapeactionvaluetransformresizetype)
+- [EShapeActionValueTransformRotateType](index.md#eshapeactionvaluetransformrotatetype)
+- [EShapeActionValueTransformType](index.md#eshapeactionvaluetransformtype)
+- [EShapeActionValueType](index.md#eshapeactionvaluetype)
+- [EShapeBarPosition](index.md#eshapebarposition)
+- [EShapeCapability](index.md#eshapecapability)
+- [EShapeCopyPart](index.md#eshapecopypart)
+- [EShapeCorner](index.md#eshapecorner)
+- [EShapeDataValueOrder](index.md#eshapedatavalueorder)
+- [EShapeDataValueRangeType](index.md#eshapedatavaluerangetype)
+- [EShapeDeserializers](index.md#eshapedeserializers)
+- [EShapeLayerState](index.md#eshapelayerstate)
+- [EShapeLineBaseHitPart](index.md#eshapelinebasehitpart)
+- [EShapeOnDeserializeds](index.md#eshapeondeserializeds)
+- [EShapePointsMarkerType](index.md#eshapepointsmarkertype)
+- [EShapePointsStyle](index.md#eshapepointsstyle)
+- [EShapeRuntimeReset](index.md#eshaperuntimereset)
+- [EShapeRuntimes](index.md#eshaperuntimes)
+- [EShapeState](index.md#eshapestate)
+- [EShapeStrokeSide](index.md#eshapestrokeside)
+- [EShapeStrokeStyle](index.md#eshapestrokestyle)
+- [EShapeTextAlignHorizontal](index.md#eshapetextalignhorizontal)
+- [EShapeTextAlignVertical](index.md#eshapetextalignvertical)
+- [EShapeTextDirection](index.md#eshapetextdirection)
+- [EShapeTextStyle](index.md#eshapetextstyle)
+- [EShapeTextWeight](index.md#eshapetextweight)
+- [EShapeType](index.md#eshapetype)
+- [EShapeUploadeds](index.md#eshapeuploadeds)
+- [ESnapperModifierAnchor](index.md#esnappermodifieranchor)
+- [ESnapperTargetValueType](index.md#esnappertargetvaluetype)
+- [IMAGE\_SDF\_INDEX\_COUNT](index.md#image_sdf_index_count)
+- [IMAGE\_SDF\_VERTEX\_COUNT](index.md#image_sdf_vertex_count)
+- [IMAGE\_SDF\_WORLD\_SIZE](index.md#image_sdf_world_size)
+- [RECTANGLE\_INDEX\_COUNT](index.md#rectangle_index_count)
+- [RECTANGLE\_ROUNDED\_INDEX\_COUNT](index.md#rectangle_rounded_index_count)
+- [RECTANGLE\_ROUNDED\_VERTEX\_COUNT](index.md#rectangle_rounded_vertex_count)
+- [RECTANGLE\_ROUNDED\_WORLD\_SIZE](index.md#rectangle_rounded_world_size)
+- [RECTANGLE\_VERTEX\_COUNT](index.md#rectangle_vertex_count)
+- [RECTANGLE\_WORLD\_SIZE](index.md#rectangle_world_size)
+- [TEXT\_INDEX\_COUNT](index.md#text_index_count)
+- [TEXT\_VERTEX\_COUNT](index.md#text_vertex_count)
+- [TRIANGLE\_INDEX\_COUNT](index.md#triangle_index_count)
+- [TRIANGLE\_ROUNDED\_INDEX\_COUNT](index.md#triangle_rounded_index_count)
+- [TRIANGLE\_ROUNDED\_VERTEX\_COUNT](index.md#triangle_rounded_vertex_count)
+- [TRIANGLE\_ROUNDED\_WORLD\_SIZE](index.md#triangle_rounded_world_size)
+- [TRIANGLE\_VERTEX\_COUNT](index.md#triangle_vertex_count)
+- [TRIANGLE\_WORLD\_SIZE](index.md#triangle_world_size)
+- [UtilAttachAlign](index.md#utilattachalign)
+- [UtilFileAs](index.md#utilfileas)
+- [UtilGestureMode](index.md#utilgesturemode)
+- [UtilGestureModifier](index.md#utilgesturemodifier)
+- [UtilHtmlElementWhen](index.md#utilhtmlelementwhen)
 
 ### Functions
 
-- [DChartColorSet1](README.md#dchartcolorset1)
-- [DChartColorSet2](README.md#dchartcolorset2)
-- [DMapTileUrlBuilderKokudo](README.md#dmaptileurlbuilderkokudo)
-- [DMapTileUrlBuilderOsm](README.md#dmaptileurlbuilderosm)
-- [DMapTileUrlBuilderOsmfj](README.md#dmaptileurlbuilderosmfj)
-- [DMenuItemCheckIsCompatible](README.md#dmenuitemcheckiscompatible)
-- [DMenuItemExpandableIsCompatible](README.md#dmenuitemexpandableiscompatible)
-- [DMenuItemLinkIsCompatible](README.md#dmenuitemlinkiscompatible)
-- [DMenuItemMenuIsCompatible](README.md#dmenuitemmenuiscompatible)
-- [DMenuItemMenuToSubMenuOptions](README.md#dmenuitemmenutosubmenuoptions)
-- [DMenuItemSeparatorIsCompatible](README.md#dmenuitemseparatoriscompatible)
-- [DMenuItemSpaceIsCompatible](README.md#dmenuitemspaceiscompatible)
-- [buildBarClipping](README.md#buildbarclipping)
-- [buildBarIndex](README.md#buildbarindex)
-- [buildBarUv](README.md#buildbaruv)
-- [buildBarVertexStepAndColorFill](README.md#buildbarvertexstepandcolorfill)
-- [buildCircleClipping](README.md#buildcircleclipping)
-- [buildCircleIndex](README.md#buildcircleindex)
-- [buildCircleStep](README.md#buildcirclestep)
-- [buildCircleUv](README.md#buildcircleuv)
-- [buildCircleVertex](README.md#buildcirclevertex)
-- [buildColor](README.md#buildcolor)
-- [buildImageSdfClipping](README.md#buildimagesdfclipping)
-- [buildImageSdfIndex](README.md#buildimagesdfindex)
-- [buildImageSdfStep](README.md#buildimagesdfstep)
-- [buildImageSdfUv](README.md#buildimagesdfuv)
-- [buildImageSdfVertex](README.md#buildimagesdfvertex)
-- [buildLineClipping](README.md#buildlineclipping)
-- [buildLineIndex](README.md#buildlineindex)
-- [buildLineOfAnyColor](README.md#buildlineofanycolor)
-- [buildLineUv](README.md#buildlineuv)
-- [buildLineVertexStepAndColorFill](README.md#buildlinevertexstepandcolorfill)
-- [buildNullClipping](README.md#buildnullclipping)
-- [buildNullIndex](README.md#buildnullindex)
-- [buildNullStep](README.md#buildnullstep)
-- [buildNullUv](README.md#buildnulluv)
-- [buildNullVertex](README.md#buildnullvertex)
-- [buildRectangleClipping](README.md#buildrectangleclipping)
-- [buildRectangleIndex](README.md#buildrectangleindex)
-- [buildRectangleRoundedClipping](README.md#buildrectangleroundedclipping)
-- [buildRectangleRoundedIndex](README.md#buildrectangleroundedindex)
-- [buildRectangleRoundedStep](README.md#buildrectangleroundedstep)
-- [buildRectangleRoundedUv](README.md#buildrectangleroundeduv)
-- [buildRectangleRoundedVertex](README.md#buildrectangleroundedvertex)
-- [buildRectangleStep](README.md#buildrectanglestep)
-- [buildRectangleUv](README.md#buildrectangleuv)
-- [buildRectangleVertex](README.md#buildrectanglevertex)
-- [buildTextClipping](README.md#buildtextclipping)
-- [buildTextIndex](README.md#buildtextindex)
-- [buildTextStep](README.md#buildtextstep)
-- [buildTextVertex](README.md#buildtextvertex)
-- [buildTriangleClipping](README.md#buildtriangleclipping)
-- [buildTriangleIndex](README.md#buildtriangleindex)
-- [buildTriangleRoundedClipping](README.md#buildtriangleroundedclipping)
-- [buildTriangleRoundedIndex](README.md#buildtriangleroundedindex)
-- [buildTriangleRoundedStep](README.md#buildtriangleroundedstep)
-- [buildTriangleRoundedUv](README.md#buildtriangleroundeduv)
-- [buildTriangleRoundedVertex](README.md#buildtriangleroundedvertex)
-- [buildTriangleStep](README.md#buildtrianglestep)
-- [buildTriangleUv](README.md#buildtriangleuv)
-- [buildTriangleVertex](README.md#buildtrianglevertex)
-- [copyClipping](README.md#copyclipping)
-- [copyIndex](README.md#copyindex)
-- [copyStep](README.md#copystep)
-- [copyUvs](README.md#copyuvs)
-- [copyVertex](README.md#copyvertex)
-- [createBarUploaded](README.md#createbaruploaded)
-- [createButtonUploaded](README.md#createbuttonuploaded)
-- [createCircle](README.md#createcircle)
-- [createGroupUploaded](README.md#creategroupuploaded)
-- [createImage](README.md#createimage)
-- [createImageSdf](README.md#createimagesdf)
-- [createImageSdfUploaded](README.md#createimagesdfuploaded)
-- [createLabelUploaded](README.md#createlabeluploaded)
-- [createLine](README.md#createline)
-- [createLineOfAnyUploaded](README.md#createlineofanyuploaded)
-- [createLineOfCirclesUploaded](README.md#createlineofcirclesuploaded)
-- [createLineOfRectangleRoundedsUploaded](README.md#createlineofrectangleroundedsuploaded)
-- [createLineOfRectanglesUploaded](README.md#createlineofrectanglesuploaded)
-- [createLineOfTriangleRoundedsUploaded](README.md#createlineoftriangleroundedsuploaded)
-- [createLineOfTrianglesUploaded](README.md#createlineoftrianglesuploaded)
-- [createLineUploaded](README.md#createlineuploaded)
-- [createNullUploaded](README.md#createnulluploaded)
-- [createRectanglePivotedUploaded](README.md#createrectanglepivoteduploaded)
-- [createRectangleRoundedUploaded](README.md#createrectangleroundeduploaded)
-- [createRectangleUploaded](README.md#createrectangleuploaded)
-- [createTriangleRoundedUploaded](README.md#createtriangleroundeduploaded)
-- [createTriangleUploaded](README.md#createtriangleuploaded)
-- [deserialize](README.md#deserialize)
-- [deserializeActionValue](README.md#deserializeactionvalue)
-- [deserializeAll](README.md#deserializeall)
-- [deserializeBar](README.md#deserializebar)
-- [deserializeBase](README.md#deserializebase)
-- [deserializeButton](README.md#deserializebutton)
-- [deserializeCircle](README.md#deserializecircle)
-- [deserializeConnectorLine](README.md#deserializeconnectorline)
-- [deserializeEmbedded](README.md#deserializeembedded)
-- [deserializeGradient](README.md#deserializegradient)
-- [deserializeGroup](README.md#deserializegroup)
-- [deserializeGroupShadowed](README.md#deserializegroupshadowed)
-- [deserializeImage](README.md#deserializeimage)
-- [deserializeImageSdf](README.md#deserializeimagesdf)
-- [deserializeLabel](README.md#deserializelabel)
-- [deserializeLine](README.md#deserializeline)
-- [deserializeLineOfCircles](README.md#deserializelineofcircles)
-- [deserializeLineOfRectangleRoundeds](README.md#deserializelineofrectangleroundeds)
-- [deserializeLineOfRectangles](README.md#deserializelineofrectangles)
-- [deserializeLineOfTriangleRoundeds](README.md#deserializelineoftriangleroundeds)
-- [deserializeLineOfTriangles](README.md#deserializelineoftriangles)
-- [deserializeNull](README.md#deserializenull)
-- [deserializeRectangle](README.md#deserializerectangle)
-- [deserializeRectangleRounded](README.md#deserializerectanglerounded)
-- [deserializeTriangle](README.md#deserializetriangle)
-- [deserializeTriangleRounded](README.md#deserializetrianglerounded)
-- [eShapePointsFormatterCurve](README.md#eshapepointsformattercurve)
-- [hitTestBBox](README.md#hittestbbox)
-- [hitTestCircle](README.md#hittestcircle)
-- [hitTestRectangle](README.md#hittestrectangle)
-- [hitTestRectangleRounded](README.md#hittestrectanglerounded)
-- [hitTestTriangle](README.md#hittesttriangle)
-- [hitTestTriangleFilled](README.md#hittesttrianglefilled)
-- [hitTestTriangleRounded](README.md#hittesttrianglerounded)
-- [isArray](README.md#isarray)
-- [isFunction](README.md#isfunction)
-- [isNaN](README.md#isnan)
-- [isNumber](README.md#isnumber)
-- [isStatic](README.md#isstatic)
-- [isString](README.md#isstring)
-- [loadAll](README.md#loadall)
-- [loadMenuItem](README.md#loadmenuitem)
-- [loadMenuItemAll](README.md#loadmenuitemall)
-- [loadMenuItemExpandable](README.md#loadmenuitemexpandable)
-- [loadMenuSidedItem](README.md#loadmenusideditem)
-- [loadMenuSidedItemExpandable](README.md#loadmenusideditemexpandable)
-- [loadShapeAll](README.md#loadshapeall)
-- [loadShapeBar](README.md#loadshapebar)
-- [loadShapeButton](README.md#loadshapebutton)
-- [loadShapeCircle](README.md#loadshapecircle)
-- [loadShapeConnectorLine](README.md#loadshapeconnectorline)
-- [loadShapeEmbedded](README.md#loadshapeembedded)
-- [loadShapeGroup](README.md#loadshapegroup)
-- [loadShapeGroupShadowed](README.md#loadshapegroupshadowed)
-- [loadShapeImage](README.md#loadshapeimage)
-- [loadShapeLabel](README.md#loadshapelabel)
-- [loadShapeLine](README.md#loadshapeline)
-- [loadShapeLineOfCircles](README.md#loadshapelineofcircles)
-- [loadShapeLineOfRectangleRoundeds](README.md#loadshapelineofrectangleroundeds)
-- [loadShapeLineOfRectangles](README.md#loadshapelineofrectangles)
-- [loadShapeLineOfTriangleRoundeds](README.md#loadshapelineoftriangleroundeds)
-- [loadShapeLineOfTriangles](README.md#loadshapelineoftriangles)
-- [loadShapeNull](README.md#loadshapenull)
-- [loadShapeRectangle](README.md#loadshaperectangle)
-- [loadShapeRectangleRounded](README.md#loadshaperectanglerounded)
-- [loadShapeTriangle](README.md#loadshapetriangle)
-- [loadShapeTriangleRounded](README.md#loadshapetrianglerounded)
-- [loadThemeDark](README.md#loadthemedark)
-- [loadThemeDarkAll](README.md#loadthemedarkall)
-- [loadThemeDarkBase](README.md#loadthemedarkbase)
-- [loadThemeDarkBoard](README.md#loadthemedarkboard)
-- [loadThemeDarkButton](README.md#loadthemedarkbutton)
-- [loadThemeDarkButtonAll](README.md#loadthemedarkbuttonall)
-- [loadThemeDarkButtonAmbient](README.md#loadthemedarkbuttonambient)
-- [loadThemeDarkButtonCheck](README.md#loadthemedarkbuttoncheck)
-- [loadThemeDarkButtonCheckRight](README.md#loadthemedarkbuttoncheckright)
-- [loadThemeDarkButtonColor](README.md#loadthemedarkbuttoncolor)
-- [loadThemeDarkButtonColorGradient](README.md#loadthemedarkbuttoncolorgradient)
-- [loadThemeDarkButtonDanger](README.md#loadthemedarkbuttondanger)
-- [loadThemeDarkButtonDate](README.md#loadthemedarkbuttondate)
-- [loadThemeDarkButtonDatetime](README.md#loadthemedarkbuttondatetime)
-- [loadThemeDarkButtonFile](README.md#loadthemedarkbuttonfile)
-- [loadThemeDarkButtonLink](README.md#loadthemedarkbuttonlink)
-- [loadThemeDarkButtonPrimary](README.md#loadthemedarkbuttonprimary)
-- [loadThemeDarkButtonRadio](README.md#loadthemedarkbuttonradio)
-- [loadThemeDarkButtonRadioRight](README.md#loadthemedarkbuttonradioright)
-- [loadThemeDarkButtonTime](README.md#loadthemedarkbuttontime)
-- [loadThemeDarkCanvasContainer](README.md#loadthemedarkcanvascontainer)
-- [loadThemeDarkChart](README.md#loadthemedarkchart)
-- [loadThemeDarkDiagram](README.md#loadthemedarkdiagram)
-- [loadThemeDarkDiagramEditor](README.md#loadthemedarkdiagrameditor)
-- [loadThemeDarkDialog](README.md#loadthemedarkdialog)
-- [loadThemeDarkDialogAll](README.md#loadthemedarkdialogall)
-- [loadThemeDarkDialogColor](README.md#loadthemedarkdialogcolor)
-- [loadThemeDarkDialogColorGradient](README.md#loadthemedarkdialogcolorgradient)
-- [loadThemeDarkDialogCommand](README.md#loadthemedarkdialogcommand)
-- [loadThemeDarkDialogConfirm](README.md#loadthemedarkdialogconfirm)
-- [loadThemeDarkDialogConfirmDelete](README.md#loadthemedarkdialogconfirmdelete)
-- [loadThemeDarkDialogConfirmDiscard](README.md#loadthemedarkdialogconfirmdiscard)
-- [loadThemeDarkDialogDate](README.md#loadthemedarkdialogdate)
-- [loadThemeDarkDialogDatetime](README.md#loadthemedarkdialogdatetime)
-- [loadThemeDarkDialogInputBoolean](README.md#loadthemedarkdialoginputboolean)
-- [loadThemeDarkDialogInputInteger](README.md#loadthemedarkdialoginputinteger)
-- [loadThemeDarkDialogInputReal](README.md#loadthemedarkdialoginputreal)
-- [loadThemeDarkDialogInputText](README.md#loadthemedarkdialoginputtext)
-- [loadThemeDarkDialogMessage](README.md#loadthemedarkdialogmessage)
-- [loadThemeDarkDialogProcessing](README.md#loadthemedarkdialogprocessing)
-- [loadThemeDarkDialogSaveAs](README.md#loadthemedarkdialogsaveas)
-- [loadThemeDarkDialogSelect](README.md#loadthemedarkdialogselect)
-- [loadThemeDarkDialogTime](README.md#loadthemedarkdialogtime)
-- [loadThemeDarkDropdown](README.md#loadthemedarkdropdown)
-- [loadThemeDarkExpandable](README.md#loadthemedarkexpandable)
-- [loadThemeDarkHtmlElement](README.md#loadthemedarkhtmlelement)
-- [loadThemeDarkImage](README.md#loadthemedarkimage)
-- [loadThemeDarkInputAll](README.md#loadthemedarkinputall)
-- [loadThemeDarkInputAndLabel](README.md#loadthemedarkinputandlabel)
-- [loadThemeDarkInputBoolean](README.md#loadthemedarkinputboolean)
-- [loadThemeDarkInputInteger](README.md#loadthemedarkinputinteger)
-- [loadThemeDarkInputLabel](README.md#loadthemedarkinputlabel)
-- [loadThemeDarkInputReal](README.md#loadthemedarkinputreal)
-- [loadThemeDarkInputSearch](README.md#loadthemedarkinputsearch)
-- [loadThemeDarkInputText](README.md#loadthemedarkinputtext)
-- [loadThemeDarkInputTextArea](README.md#loadthemedarkinputtextarea)
-- [loadThemeDarkLayout](README.md#loadthemedarklayout)
-- [loadThemeDarkLink](README.md#loadthemedarklink)
-- [loadThemeDarkList](README.md#loadthemedarklist)
-- [loadThemeDarkMenu](README.md#loadthemedarkmenu)
-- [loadThemeDarkMenuBar](README.md#loadthemedarkmenubar)
-- [loadThemeDarkMenuSided](README.md#loadthemedarkmenusided)
-- [loadThemeDarkNote](README.md#loadthemedarknote)
-- [loadThemeDarkPagination](README.md#loadthemedarkpagination)
-- [loadThemeDarkPane](README.md#loadthemedarkpane)
-- [loadThemeDarkPickerColor](README.md#loadthemedarkpickercolor)
-- [loadThemeDarkPickerColorGradient](README.md#loadthemedarkpickercolorgradient)
-- [loadThemeDarkPickerDate](README.md#loadthemedarkpickerdate)
-- [loadThemeDarkPickerDatetime](README.md#loadthemedarkpickerdatetime)
-- [loadThemeDarkPickerTime](README.md#loadthemedarkpickertime)
-- [loadThemeDarkScrollBar](README.md#loadthemedarkscrollbar)
-- [loadThemeDarkSelect](README.md#loadthemedarkselect)
-- [loadThemeDarkShape](README.md#loadthemedarkshape)
-- [loadThemeDarkShapeActionValue](README.md#loadthemedarkshapeactionvalue)
-- [loadThemeDarkSlider](README.md#loadthemedarkslider)
-- [loadThemeDarkTable](README.md#loadthemedarktable)
-- [loadThemeDarkText](README.md#loadthemedarktext)
-- [loadThemeDarkTree](README.md#loadthemedarktree)
-- [loadThemeDarkView](README.md#loadthemedarkview)
-- [loadThemeWhite](README.md#loadthemewhite)
-- [loadThemeWhiteAll](README.md#loadthemewhiteall)
-- [loadThemeWhiteBase](README.md#loadthemewhitebase)
-- [loadThemeWhiteBoard](README.md#loadthemewhiteboard)
-- [loadThemeWhiteButton](README.md#loadthemewhitebutton)
-- [loadThemeWhiteButtonAll](README.md#loadthemewhitebuttonall)
-- [loadThemeWhiteButtonAmbient](README.md#loadthemewhitebuttonambient)
-- [loadThemeWhiteButtonCheck](README.md#loadthemewhitebuttoncheck)
-- [loadThemeWhiteButtonCheckRight](README.md#loadthemewhitebuttoncheckright)
-- [loadThemeWhiteButtonColor](README.md#loadthemewhitebuttoncolor)
-- [loadThemeWhiteButtonColorGradient](README.md#loadthemewhitebuttoncolorgradient)
-- [loadThemeWhiteButtonDanger](README.md#loadthemewhitebuttondanger)
-- [loadThemeWhiteButtonDate](README.md#loadthemewhitebuttondate)
-- [loadThemeWhiteButtonDatetime](README.md#loadthemewhitebuttondatetime)
-- [loadThemeWhiteButtonFile](README.md#loadthemewhitebuttonfile)
-- [loadThemeWhiteButtonLink](README.md#loadthemewhitebuttonlink)
-- [loadThemeWhiteButtonPrimary](README.md#loadthemewhitebuttonprimary)
-- [loadThemeWhiteButtonRadio](README.md#loadthemewhitebuttonradio)
-- [loadThemeWhiteButtonRadioRight](README.md#loadthemewhitebuttonradioright)
-- [loadThemeWhiteButtonSecondary](README.md#loadthemewhitebuttonsecondary)
-- [loadThemeWhiteButtonTime](README.md#loadthemewhitebuttontime)
-- [loadThemeWhiteCanvasContainer](README.md#loadthemewhitecanvascontainer)
-- [loadThemeWhiteDiagram](README.md#loadthemewhitediagram)
-- [loadThemeWhiteDiagramEditor](README.md#loadthemewhitediagrameditor)
-- [loadThemeWhiteDialog](README.md#loadthemewhitedialog)
-- [loadThemeWhiteDialogAll](README.md#loadthemewhitedialogall)
-- [loadThemeWhiteDialogColor](README.md#loadthemewhitedialogcolor)
-- [loadThemeWhiteDialogColorGradient](README.md#loadthemewhitedialogcolorgradient)
-- [loadThemeWhiteDialogCommand](README.md#loadthemewhitedialogcommand)
-- [loadThemeWhiteDialogConfirm](README.md#loadthemewhitedialogconfirm)
-- [loadThemeWhiteDialogConfirmDelete](README.md#loadthemewhitedialogconfirmdelete)
-- [loadThemeWhiteDialogConfirmDiscard](README.md#loadthemewhitedialogconfirmdiscard)
-- [loadThemeWhiteDialogDate](README.md#loadthemewhitedialogdate)
-- [loadThemeWhiteDialogDatetime](README.md#loadthemewhitedialogdatetime)
-- [loadThemeWhiteDialogInputBoolean](README.md#loadthemewhitedialoginputboolean)
-- [loadThemeWhiteDialogInputInteger](README.md#loadthemewhitedialoginputinteger)
-- [loadThemeWhiteDialogInputReal](README.md#loadthemewhitedialoginputreal)
-- [loadThemeWhiteDialogInputText](README.md#loadthemewhitedialoginputtext)
-- [loadThemeWhiteDialogMessage](README.md#loadthemewhitedialogmessage)
-- [loadThemeWhiteDialogProcessing](README.md#loadthemewhitedialogprocessing)
-- [loadThemeWhiteDialogSaveAs](README.md#loadthemewhitedialogsaveas)
-- [loadThemeWhiteDialogSelect](README.md#loadthemewhitedialogselect)
-- [loadThemeWhiteDialogTime](README.md#loadthemewhitedialogtime)
-- [loadThemeWhiteDropdown](README.md#loadthemewhitedropdown)
-- [loadThemeWhiteExpandable](README.md#loadthemewhiteexpandable)
-- [loadThemeWhiteImage](README.md#loadthemewhiteimage)
-- [loadThemeWhiteInputAll](README.md#loadthemewhiteinputall)
-- [loadThemeWhiteInputAndLabel](README.md#loadthemewhiteinputandlabel)
-- [loadThemeWhiteInputBoolean](README.md#loadthemewhiteinputboolean)
-- [loadThemeWhiteInputInteger](README.md#loadthemewhiteinputinteger)
-- [loadThemeWhiteInputLabel](README.md#loadthemewhiteinputlabel)
-- [loadThemeWhiteInputReal](README.md#loadthemewhiteinputreal)
-- [loadThemeWhiteInputSearch](README.md#loadthemewhiteinputsearch)
-- [loadThemeWhiteInputText](README.md#loadthemewhiteinputtext)
-- [loadThemeWhiteInputTextArea](README.md#loadthemewhiteinputtextarea)
-- [loadThemeWhiteLayout](README.md#loadthemewhitelayout)
-- [loadThemeWhiteLink](README.md#loadthemewhitelink)
-- [loadThemeWhiteList](README.md#loadthemewhitelist)
-- [loadThemeWhiteMenu](README.md#loadthemewhitemenu)
-- [loadThemeWhiteMenuBar](README.md#loadthemewhitemenubar)
-- [loadThemeWhiteMenuSided](README.md#loadthemewhitemenusided)
-- [loadThemeWhiteNote](README.md#loadthemewhitenote)
-- [loadThemeWhitePagination](README.md#loadthemewhitepagination)
-- [loadThemeWhitePane](README.md#loadthemewhitepane)
-- [loadThemeWhitePickerColor](README.md#loadthemewhitepickercolor)
-- [loadThemeWhitePickerColorGradient](README.md#loadthemewhitepickercolorgradient)
-- [loadThemeWhitePickerDate](README.md#loadthemewhitepickerdate)
-- [loadThemeWhitePickerDatetime](README.md#loadthemewhitepickerdatetime)
-- [loadThemeWhitePickerTime](README.md#loadthemewhitepickertime)
-- [loadThemeWhiteScrollBar](README.md#loadthemewhitescrollbar)
-- [loadThemeWhiteSelect](README.md#loadthemewhiteselect)
-- [loadThemeWhiteShape](README.md#loadthemewhiteshape)
-- [loadThemeWhiteShapeActionValue](README.md#loadthemewhiteshapeactionvalue)
-- [loadThemeWhiteSlider](README.md#loadthemewhiteslider)
-- [loadThemeWhiteTable](README.md#loadthemewhitetable)
-- [loadThemeWhiteText](README.md#loadthemewhitetext)
-- [loadThemeWhiteTree](README.md#loadthemewhitetree)
-- [onDeserializedConnectorLine](README.md#ondeserializedconnectorline)
-- [toCeilingIndex](README.md#toceilingindex)
-- [toChecker](README.md#tochecker)
-- [toComputed](README.md#tocomputed)
-- [toDash](README.md#todash)
-- [toEnum](README.md#toenum)
-- [toGradientImageUrl](README.md#togradientimageurl)
-- [toGradientSerialized](README.md#togradientserialized)
-- [toImageElement](README.md#toimageelement)
-- [toIndexOf](README.md#toindexof)
-- [toLabel](README.md#tolabel)
-- [toLength](README.md#tolength)
-- [toLineIndexCount](README.md#tolineindexcount)
-- [toLineOfAnyPointCount](README.md#tolineofanypointcount)
-- [toLinePointCount](README.md#tolinepointcount)
-- [toLineVertexCount](README.md#tolinevertexcount)
-- [toLinkOptions](README.md#tolinkoptions)
-- [toPadded](README.md#topadded)
-- [toPointsBoundary](README.md#topointsboundary)
-- [toPointsCount](README.md#topointscount)
-- [toResized](README.md#toresized)
-- [toScaleInvariant](README.md#toscaleinvariant)
-- [toSizeNormalized](README.md#tosizenormalized)
-- [toSizeRounded](README.md#tosizerounded)
-- [toString](README.md#tostring)
-- [toSvgTexture](README.md#tosvgtexture)
-- [toSvgUrl](README.md#tosvgurl)
-- [toTextBufferCount](README.md#totextbuffercount)
-- [toTexture](README.md#totexture)
-- [toTextureTransformId](README.md#totexturetransformid)
-- [toTextureUvs](README.md#totextureuvs)
-- [toThresholdDefault](README.md#tothresholddefault)
-- [toTransformLocalId](README.md#totransformlocalid)
-- [toUrl](README.md#tourl)
+- [DChartColorSet1](index.md#dchartcolorset1)
+- [DChartColorSet2](index.md#dchartcolorset2)
+- [DMapTileUrlBuilderKokudo](index.md#dmaptileurlbuilderkokudo)
+- [DMapTileUrlBuilderOsm](index.md#dmaptileurlbuilderosm)
+- [DMapTileUrlBuilderOsmfj](index.md#dmaptileurlbuilderosmfj)
+- [DMenuItemCheckIsCompatible](index.md#dmenuitemcheckiscompatible)
+- [DMenuItemExpandableIsCompatible](index.md#dmenuitemexpandableiscompatible)
+- [DMenuItemLinkIsCompatible](index.md#dmenuitemlinkiscompatible)
+- [DMenuItemMenuIsCompatible](index.md#dmenuitemmenuiscompatible)
+- [DMenuItemMenuToSubMenuOptions](index.md#dmenuitemmenutosubmenuoptions)
+- [DMenuItemSeparatorIsCompatible](index.md#dmenuitemseparatoriscompatible)
+- [DMenuItemSpaceIsCompatible](index.md#dmenuitemspaceiscompatible)
+- [buildBarClipping](index.md#buildbarclipping)
+- [buildBarIndex](index.md#buildbarindex)
+- [buildBarUv](index.md#buildbaruv)
+- [buildBarVertexStepAndColorFill](index.md#buildbarvertexstepandcolorfill)
+- [buildCircleClipping](index.md#buildcircleclipping)
+- [buildCircleIndex](index.md#buildcircleindex)
+- [buildCircleStep](index.md#buildcirclestep)
+- [buildCircleUv](index.md#buildcircleuv)
+- [buildCircleVertex](index.md#buildcirclevertex)
+- [buildColor](index.md#buildcolor)
+- [buildImageSdfClipping](index.md#buildimagesdfclipping)
+- [buildImageSdfIndex](index.md#buildimagesdfindex)
+- [buildImageSdfStep](index.md#buildimagesdfstep)
+- [buildImageSdfUv](index.md#buildimagesdfuv)
+- [buildImageSdfVertex](index.md#buildimagesdfvertex)
+- [buildLineClipping](index.md#buildlineclipping)
+- [buildLineIndex](index.md#buildlineindex)
+- [buildLineOfAnyColor](index.md#buildlineofanycolor)
+- [buildLineUv](index.md#buildlineuv)
+- [buildLineVertexStepAndColorFill](index.md#buildlinevertexstepandcolorfill)
+- [buildNullClipping](index.md#buildnullclipping)
+- [buildNullIndex](index.md#buildnullindex)
+- [buildNullStep](index.md#buildnullstep)
+- [buildNullUv](index.md#buildnulluv)
+- [buildNullVertex](index.md#buildnullvertex)
+- [buildRectangleClipping](index.md#buildrectangleclipping)
+- [buildRectangleIndex](index.md#buildrectangleindex)
+- [buildRectangleRoundedClipping](index.md#buildrectangleroundedclipping)
+- [buildRectangleRoundedIndex](index.md#buildrectangleroundedindex)
+- [buildRectangleRoundedStep](index.md#buildrectangleroundedstep)
+- [buildRectangleRoundedUv](index.md#buildrectangleroundeduv)
+- [buildRectangleRoundedVertex](index.md#buildrectangleroundedvertex)
+- [buildRectangleStep](index.md#buildrectanglestep)
+- [buildRectangleUv](index.md#buildrectangleuv)
+- [buildRectangleVertex](index.md#buildrectanglevertex)
+- [buildTextClipping](index.md#buildtextclipping)
+- [buildTextIndex](index.md#buildtextindex)
+- [buildTextStep](index.md#buildtextstep)
+- [buildTextVertex](index.md#buildtextvertex)
+- [buildTriangleClipping](index.md#buildtriangleclipping)
+- [buildTriangleIndex](index.md#buildtriangleindex)
+- [buildTriangleRoundedClipping](index.md#buildtriangleroundedclipping)
+- [buildTriangleRoundedIndex](index.md#buildtriangleroundedindex)
+- [buildTriangleRoundedStep](index.md#buildtriangleroundedstep)
+- [buildTriangleRoundedUv](index.md#buildtriangleroundeduv)
+- [buildTriangleRoundedVertex](index.md#buildtriangleroundedvertex)
+- [buildTriangleStep](index.md#buildtrianglestep)
+- [buildTriangleUv](index.md#buildtriangleuv)
+- [buildTriangleVertex](index.md#buildtrianglevertex)
+- [copyClipping](index.md#copyclipping)
+- [copyIndex](index.md#copyindex)
+- [copyStep](index.md#copystep)
+- [copyUvs](index.md#copyuvs)
+- [copyVertex](index.md#copyvertex)
+- [createBarUploaded](index.md#createbaruploaded)
+- [createButtonUploaded](index.md#createbuttonuploaded)
+- [createCircle](index.md#createcircle)
+- [createGroupUploaded](index.md#creategroupuploaded)
+- [createImage](index.md#createimage)
+- [createImageSdf](index.md#createimagesdf)
+- [createImageSdfUploaded](index.md#createimagesdfuploaded)
+- [createLabelUploaded](index.md#createlabeluploaded)
+- [createLine](index.md#createline)
+- [createLineOfAnyUploaded](index.md#createlineofanyuploaded)
+- [createLineOfCirclesUploaded](index.md#createlineofcirclesuploaded)
+- [createLineOfRectangleRoundedsUploaded](index.md#createlineofrectangleroundedsuploaded)
+- [createLineOfRectanglesUploaded](index.md#createlineofrectanglesuploaded)
+- [createLineOfTriangleRoundedsUploaded](index.md#createlineoftriangleroundedsuploaded)
+- [createLineOfTrianglesUploaded](index.md#createlineoftrianglesuploaded)
+- [createLineUploaded](index.md#createlineuploaded)
+- [createNullUploaded](index.md#createnulluploaded)
+- [createRectanglePivotedUploaded](index.md#createrectanglepivoteduploaded)
+- [createRectangleRoundedUploaded](index.md#createrectangleroundeduploaded)
+- [createRectangleUploaded](index.md#createrectangleuploaded)
+- [createTriangleRoundedUploaded](index.md#createtriangleroundeduploaded)
+- [createTriangleUploaded](index.md#createtriangleuploaded)
+- [deserialize](index.md#deserialize)
+- [deserializeActionValue](index.md#deserializeactionvalue)
+- [deserializeAll](index.md#deserializeall)
+- [deserializeBar](index.md#deserializebar)
+- [deserializeBase](index.md#deserializebase)
+- [deserializeButton](index.md#deserializebutton)
+- [deserializeCircle](index.md#deserializecircle)
+- [deserializeConnectorLine](index.md#deserializeconnectorline)
+- [deserializeEmbedded](index.md#deserializeembedded)
+- [deserializeGradient](index.md#deserializegradient)
+- [deserializeGroup](index.md#deserializegroup)
+- [deserializeGroupShadowed](index.md#deserializegroupshadowed)
+- [deserializeImage](index.md#deserializeimage)
+- [deserializeImageSdf](index.md#deserializeimagesdf)
+- [deserializeLabel](index.md#deserializelabel)
+- [deserializeLine](index.md#deserializeline)
+- [deserializeLineOfCircles](index.md#deserializelineofcircles)
+- [deserializeLineOfRectangleRoundeds](index.md#deserializelineofrectangleroundeds)
+- [deserializeLineOfRectangles](index.md#deserializelineofrectangles)
+- [deserializeLineOfTriangleRoundeds](index.md#deserializelineoftriangleroundeds)
+- [deserializeLineOfTriangles](index.md#deserializelineoftriangles)
+- [deserializeNull](index.md#deserializenull)
+- [deserializeRectangle](index.md#deserializerectangle)
+- [deserializeRectangleRounded](index.md#deserializerectanglerounded)
+- [deserializeTriangle](index.md#deserializetriangle)
+- [deserializeTriangleRounded](index.md#deserializetrianglerounded)
+- [eShapePointsFormatterCurve](index.md#eshapepointsformattercurve)
+- [hitTestBBox](index.md#hittestbbox)
+- [hitTestCircle](index.md#hittestcircle)
+- [hitTestRectangle](index.md#hittestrectangle)
+- [hitTestRectangleRounded](index.md#hittestrectanglerounded)
+- [hitTestTriangle](index.md#hittesttriangle)
+- [hitTestTriangleFilled](index.md#hittesttrianglefilled)
+- [hitTestTriangleRounded](index.md#hittesttrianglerounded)
+- [isArray](index.md#isarray)
+- [isFunction](index.md#isfunction)
+- [isNaN](index.md#isnan)
+- [isNumber](index.md#isnumber)
+- [isStatic](index.md#isstatic)
+- [isString](index.md#isstring)
+- [loadAll](index.md#loadall)
+- [loadMenuItem](index.md#loadmenuitem)
+- [loadMenuItemAll](index.md#loadmenuitemall)
+- [loadMenuItemExpandable](index.md#loadmenuitemexpandable)
+- [loadMenuSidedItem](index.md#loadmenusideditem)
+- [loadMenuSidedItemExpandable](index.md#loadmenusideditemexpandable)
+- [loadShapeAll](index.md#loadshapeall)
+- [loadShapeBar](index.md#loadshapebar)
+- [loadShapeButton](index.md#loadshapebutton)
+- [loadShapeCircle](index.md#loadshapecircle)
+- [loadShapeConnectorLine](index.md#loadshapeconnectorline)
+- [loadShapeEmbedded](index.md#loadshapeembedded)
+- [loadShapeGroup](index.md#loadshapegroup)
+- [loadShapeGroupShadowed](index.md#loadshapegroupshadowed)
+- [loadShapeImage](index.md#loadshapeimage)
+- [loadShapeLabel](index.md#loadshapelabel)
+- [loadShapeLine](index.md#loadshapeline)
+- [loadShapeLineOfCircles](index.md#loadshapelineofcircles)
+- [loadShapeLineOfRectangleRoundeds](index.md#loadshapelineofrectangleroundeds)
+- [loadShapeLineOfRectangles](index.md#loadshapelineofrectangles)
+- [loadShapeLineOfTriangleRoundeds](index.md#loadshapelineoftriangleroundeds)
+- [loadShapeLineOfTriangles](index.md#loadshapelineoftriangles)
+- [loadShapeNull](index.md#loadshapenull)
+- [loadShapeRectangle](index.md#loadshaperectangle)
+- [loadShapeRectangleRounded](index.md#loadshaperectanglerounded)
+- [loadShapeTriangle](index.md#loadshapetriangle)
+- [loadShapeTriangleRounded](index.md#loadshapetrianglerounded)
+- [loadThemeDark](index.md#loadthemedark)
+- [loadThemeDarkAll](index.md#loadthemedarkall)
+- [loadThemeDarkBase](index.md#loadthemedarkbase)
+- [loadThemeDarkBoard](index.md#loadthemedarkboard)
+- [loadThemeDarkButton](index.md#loadthemedarkbutton)
+- [loadThemeDarkButtonAll](index.md#loadthemedarkbuttonall)
+- [loadThemeDarkButtonAmbient](index.md#loadthemedarkbuttonambient)
+- [loadThemeDarkButtonCheck](index.md#loadthemedarkbuttoncheck)
+- [loadThemeDarkButtonCheckRight](index.md#loadthemedarkbuttoncheckright)
+- [loadThemeDarkButtonColor](index.md#loadthemedarkbuttoncolor)
+- [loadThemeDarkButtonColorGradient](index.md#loadthemedarkbuttoncolorgradient)
+- [loadThemeDarkButtonDanger](index.md#loadthemedarkbuttondanger)
+- [loadThemeDarkButtonDate](index.md#loadthemedarkbuttondate)
+- [loadThemeDarkButtonDatetime](index.md#loadthemedarkbuttondatetime)
+- [loadThemeDarkButtonFile](index.md#loadthemedarkbuttonfile)
+- [loadThemeDarkButtonLink](index.md#loadthemedarkbuttonlink)
+- [loadThemeDarkButtonPrimary](index.md#loadthemedarkbuttonprimary)
+- [loadThemeDarkButtonRadio](index.md#loadthemedarkbuttonradio)
+- [loadThemeDarkButtonRadioRight](index.md#loadthemedarkbuttonradioright)
+- [loadThemeDarkButtonTime](index.md#loadthemedarkbuttontime)
+- [loadThemeDarkCanvasContainer](index.md#loadthemedarkcanvascontainer)
+- [loadThemeDarkChart](index.md#loadthemedarkchart)
+- [loadThemeDarkDiagram](index.md#loadthemedarkdiagram)
+- [loadThemeDarkDiagramEditor](index.md#loadthemedarkdiagrameditor)
+- [loadThemeDarkDialog](index.md#loadthemedarkdialog)
+- [loadThemeDarkDialogAll](index.md#loadthemedarkdialogall)
+- [loadThemeDarkDialogColor](index.md#loadthemedarkdialogcolor)
+- [loadThemeDarkDialogColorGradient](index.md#loadthemedarkdialogcolorgradient)
+- [loadThemeDarkDialogCommand](index.md#loadthemedarkdialogcommand)
+- [loadThemeDarkDialogConfirm](index.md#loadthemedarkdialogconfirm)
+- [loadThemeDarkDialogConfirmDelete](index.md#loadthemedarkdialogconfirmdelete)
+- [loadThemeDarkDialogConfirmDiscard](index.md#loadthemedarkdialogconfirmdiscard)
+- [loadThemeDarkDialogDate](index.md#loadthemedarkdialogdate)
+- [loadThemeDarkDialogDatetime](index.md#loadthemedarkdialogdatetime)
+- [loadThemeDarkDialogInputBoolean](index.md#loadthemedarkdialoginputboolean)
+- [loadThemeDarkDialogInputInteger](index.md#loadthemedarkdialoginputinteger)
+- [loadThemeDarkDialogInputReal](index.md#loadthemedarkdialoginputreal)
+- [loadThemeDarkDialogInputText](index.md#loadthemedarkdialoginputtext)
+- [loadThemeDarkDialogMessage](index.md#loadthemedarkdialogmessage)
+- [loadThemeDarkDialogProcessing](index.md#loadthemedarkdialogprocessing)
+- [loadThemeDarkDialogSaveAs](index.md#loadthemedarkdialogsaveas)
+- [loadThemeDarkDialogSelect](index.md#loadthemedarkdialogselect)
+- [loadThemeDarkDialogTime](index.md#loadthemedarkdialogtime)
+- [loadThemeDarkDropdown](index.md#loadthemedarkdropdown)
+- [loadThemeDarkExpandable](index.md#loadthemedarkexpandable)
+- [loadThemeDarkHtmlElement](index.md#loadthemedarkhtmlelement)
+- [loadThemeDarkImage](index.md#loadthemedarkimage)
+- [loadThemeDarkInputAll](index.md#loadthemedarkinputall)
+- [loadThemeDarkInputAndLabel](index.md#loadthemedarkinputandlabel)
+- [loadThemeDarkInputBoolean](index.md#loadthemedarkinputboolean)
+- [loadThemeDarkInputInteger](index.md#loadthemedarkinputinteger)
+- [loadThemeDarkInputLabel](index.md#loadthemedarkinputlabel)
+- [loadThemeDarkInputReal](index.md#loadthemedarkinputreal)
+- [loadThemeDarkInputSearch](index.md#loadthemedarkinputsearch)
+- [loadThemeDarkInputText](index.md#loadthemedarkinputtext)
+- [loadThemeDarkInputTextArea](index.md#loadthemedarkinputtextarea)
+- [loadThemeDarkLayout](index.md#loadthemedarklayout)
+- [loadThemeDarkLink](index.md#loadthemedarklink)
+- [loadThemeDarkList](index.md#loadthemedarklist)
+- [loadThemeDarkMenu](index.md#loadthemedarkmenu)
+- [loadThemeDarkMenuBar](index.md#loadthemedarkmenubar)
+- [loadThemeDarkMenuSided](index.md#loadthemedarkmenusided)
+- [loadThemeDarkNote](index.md#loadthemedarknote)
+- [loadThemeDarkPagination](index.md#loadthemedarkpagination)
+- [loadThemeDarkPane](index.md#loadthemedarkpane)
+- [loadThemeDarkPickerColor](index.md#loadthemedarkpickercolor)
+- [loadThemeDarkPickerColorGradient](index.md#loadthemedarkpickercolorgradient)
+- [loadThemeDarkPickerDate](index.md#loadthemedarkpickerdate)
+- [loadThemeDarkPickerDatetime](index.md#loadthemedarkpickerdatetime)
+- [loadThemeDarkPickerTime](index.md#loadthemedarkpickertime)
+- [loadThemeDarkScrollBar](index.md#loadthemedarkscrollbar)
+- [loadThemeDarkSelect](index.md#loadthemedarkselect)
+- [loadThemeDarkShape](index.md#loadthemedarkshape)
+- [loadThemeDarkShapeActionValue](index.md#loadthemedarkshapeactionvalue)
+- [loadThemeDarkSlider](index.md#loadthemedarkslider)
+- [loadThemeDarkTable](index.md#loadthemedarktable)
+- [loadThemeDarkText](index.md#loadthemedarktext)
+- [loadThemeDarkTree](index.md#loadthemedarktree)
+- [loadThemeDarkView](index.md#loadthemedarkview)
+- [loadThemeWhite](index.md#loadthemewhite)
+- [loadThemeWhiteAll](index.md#loadthemewhiteall)
+- [loadThemeWhiteBase](index.md#loadthemewhitebase)
+- [loadThemeWhiteBoard](index.md#loadthemewhiteboard)
+- [loadThemeWhiteButton](index.md#loadthemewhitebutton)
+- [loadThemeWhiteButtonAll](index.md#loadthemewhitebuttonall)
+- [loadThemeWhiteButtonAmbient](index.md#loadthemewhitebuttonambient)
+- [loadThemeWhiteButtonCheck](index.md#loadthemewhitebuttoncheck)
+- [loadThemeWhiteButtonCheckRight](index.md#loadthemewhitebuttoncheckright)
+- [loadThemeWhiteButtonColor](index.md#loadthemewhitebuttoncolor)
+- [loadThemeWhiteButtonColorGradient](index.md#loadthemewhitebuttoncolorgradient)
+- [loadThemeWhiteButtonDanger](index.md#loadthemewhitebuttondanger)
+- [loadThemeWhiteButtonDate](index.md#loadthemewhitebuttondate)
+- [loadThemeWhiteButtonDatetime](index.md#loadthemewhitebuttondatetime)
+- [loadThemeWhiteButtonFile](index.md#loadthemewhitebuttonfile)
+- [loadThemeWhiteButtonLink](index.md#loadthemewhitebuttonlink)
+- [loadThemeWhiteButtonPrimary](index.md#loadthemewhitebuttonprimary)
+- [loadThemeWhiteButtonRadio](index.md#loadthemewhitebuttonradio)
+- [loadThemeWhiteButtonRadioRight](index.md#loadthemewhitebuttonradioright)
+- [loadThemeWhiteButtonSecondary](index.md#loadthemewhitebuttonsecondary)
+- [loadThemeWhiteButtonTime](index.md#loadthemewhitebuttontime)
+- [loadThemeWhiteCanvasContainer](index.md#loadthemewhitecanvascontainer)
+- [loadThemeWhiteDiagram](index.md#loadthemewhitediagram)
+- [loadThemeWhiteDiagramEditor](index.md#loadthemewhitediagrameditor)
+- [loadThemeWhiteDialog](index.md#loadthemewhitedialog)
+- [loadThemeWhiteDialogAll](index.md#loadthemewhitedialogall)
+- [loadThemeWhiteDialogColor](index.md#loadthemewhitedialogcolor)
+- [loadThemeWhiteDialogColorGradient](index.md#loadthemewhitedialogcolorgradient)
+- [loadThemeWhiteDialogCommand](index.md#loadthemewhitedialogcommand)
+- [loadThemeWhiteDialogConfirm](index.md#loadthemewhitedialogconfirm)
+- [loadThemeWhiteDialogConfirmDelete](index.md#loadthemewhitedialogconfirmdelete)
+- [loadThemeWhiteDialogConfirmDiscard](index.md#loadthemewhitedialogconfirmdiscard)
+- [loadThemeWhiteDialogDate](index.md#loadthemewhitedialogdate)
+- [loadThemeWhiteDialogDatetime](index.md#loadthemewhitedialogdatetime)
+- [loadThemeWhiteDialogInputBoolean](index.md#loadthemewhitedialoginputboolean)
+- [loadThemeWhiteDialogInputInteger](index.md#loadthemewhitedialoginputinteger)
+- [loadThemeWhiteDialogInputReal](index.md#loadthemewhitedialoginputreal)
+- [loadThemeWhiteDialogInputText](index.md#loadthemewhitedialoginputtext)
+- [loadThemeWhiteDialogMessage](index.md#loadthemewhitedialogmessage)
+- [loadThemeWhiteDialogProcessing](index.md#loadthemewhitedialogprocessing)
+- [loadThemeWhiteDialogSaveAs](index.md#loadthemewhitedialogsaveas)
+- [loadThemeWhiteDialogSelect](index.md#loadthemewhitedialogselect)
+- [loadThemeWhiteDialogTime](index.md#loadthemewhitedialogtime)
+- [loadThemeWhiteDropdown](index.md#loadthemewhitedropdown)
+- [loadThemeWhiteExpandable](index.md#loadthemewhiteexpandable)
+- [loadThemeWhiteImage](index.md#loadthemewhiteimage)
+- [loadThemeWhiteInputAll](index.md#loadthemewhiteinputall)
+- [loadThemeWhiteInputAndLabel](index.md#loadthemewhiteinputandlabel)
+- [loadThemeWhiteInputBoolean](index.md#loadthemewhiteinputboolean)
+- [loadThemeWhiteInputInteger](index.md#loadthemewhiteinputinteger)
+- [loadThemeWhiteInputLabel](index.md#loadthemewhiteinputlabel)
+- [loadThemeWhiteInputReal](index.md#loadthemewhiteinputreal)
+- [loadThemeWhiteInputSearch](index.md#loadthemewhiteinputsearch)
+- [loadThemeWhiteInputText](index.md#loadthemewhiteinputtext)
+- [loadThemeWhiteInputTextArea](index.md#loadthemewhiteinputtextarea)
+- [loadThemeWhiteLayout](index.md#loadthemewhitelayout)
+- [loadThemeWhiteLink](index.md#loadthemewhitelink)
+- [loadThemeWhiteList](index.md#loadthemewhitelist)
+- [loadThemeWhiteMenu](index.md#loadthemewhitemenu)
+- [loadThemeWhiteMenuBar](index.md#loadthemewhitemenubar)
+- [loadThemeWhiteMenuSided](index.md#loadthemewhitemenusided)
+- [loadThemeWhiteNote](index.md#loadthemewhitenote)
+- [loadThemeWhitePagination](index.md#loadthemewhitepagination)
+- [loadThemeWhitePane](index.md#loadthemewhitepane)
+- [loadThemeWhitePickerColor](index.md#loadthemewhitepickercolor)
+- [loadThemeWhitePickerColorGradient](index.md#loadthemewhitepickercolorgradient)
+- [loadThemeWhitePickerDate](index.md#loadthemewhitepickerdate)
+- [loadThemeWhitePickerDatetime](index.md#loadthemewhitepickerdatetime)
+- [loadThemeWhitePickerTime](index.md#loadthemewhitepickertime)
+- [loadThemeWhiteScrollBar](index.md#loadthemewhitescrollbar)
+- [loadThemeWhiteSelect](index.md#loadthemewhiteselect)
+- [loadThemeWhiteShape](index.md#loadthemewhiteshape)
+- [loadThemeWhiteShapeActionValue](index.md#loadthemewhiteshapeactionvalue)
+- [loadThemeWhiteSlider](index.md#loadthemewhiteslider)
+- [loadThemeWhiteTable](index.md#loadthemewhitetable)
+- [loadThemeWhiteText](index.md#loadthemewhitetext)
+- [loadThemeWhiteTree](index.md#loadthemewhitetree)
+- [onDeserializedConnectorLine](index.md#ondeserializedconnectorline)
+- [toCeilingIndex](index.md#toceilingindex)
+- [toChecker](index.md#tochecker)
+- [toComputed](index.md#tocomputed)
+- [toDash](index.md#todash)
+- [toEnum](index.md#toenum)
+- [toGradientImageUrl](index.md#togradientimageurl)
+- [toGradientSerialized](index.md#togradientserialized)
+- [toImageElement](index.md#toimageelement)
+- [toIndexOf](index.md#toindexof)
+- [toLabel](index.md#tolabel)
+- [toLength](index.md#tolength)
+- [toLineIndexCount](index.md#tolineindexcount)
+- [toLineOfAnyPointCount](index.md#tolineofanypointcount)
+- [toLinePointCount](index.md#tolinepointcount)
+- [toLineVertexCount](index.md#tolinevertexcount)
+- [toLinkOptions](index.md#tolinkoptions)
+- [toPadded](index.md#topadded)
+- [toPointsBoundary](index.md#topointsboundary)
+- [toPointsCount](index.md#topointscount)
+- [toResized](index.md#toresized)
+- [toScaleInvariant](index.md#toscaleinvariant)
+- [toSizeNormalized](index.md#tosizenormalized)
+- [toSizeRounded](index.md#tosizerounded)
+- [toString](index.md#tostring)
+- [toSvgTexture](index.md#tosvgtexture)
+- [toSvgUrl](index.md#tosvgurl)
+- [toTextBufferCount](index.md#totextbuffercount)
+- [toTexture](index.md#totexture)
+- [toTextureTransformId](index.md#totexturetransformid)
+- [toTextureUvs](index.md#totextureuvs)
+- [toThresholdDefault](index.md#tothresholddefault)
+- [toTransformLocalId](index.md#totransformlocalid)
+- [toUrl](index.md#tourl)
 
 ## References
 
 ### DButtonFileAs
 
-Renames and re-exports [UtilFileAs](README.md#utilfileas)
+Renames and re-exports [UtilFileAs](index.md#utilfileas)
 
 ___
 
 ### DDialogAlign
 
-Renames and re-exports [UtilAttachAlign](README.md#utilattachalign)
+Renames and re-exports [UtilAttachAlign](index.md#utilattachalign)
 
 ___
 
 ### DMenuAlign
 
-Renames and re-exports [UtilAttachAlign](README.md#utilattachalign)
+Renames and re-exports [UtilAttachAlign](index.md#utilattachalign)
 
 ## Type aliases
 
 ### DAlignHorizontal
 
-Ƭ **DAlignHorizontal**: typeof [`DAlignHorizontal`](README.md#dalignhorizontal)[keyof typeof [`DAlignHorizontal`](README.md#dalignhorizontal)]
+Ƭ **DAlignHorizontal**: typeof [`DAlignHorizontal`](index.md#dalignhorizontal)[keyof typeof [`DAlignHorizontal`](index.md#dalignhorizontal)]
 
 #### Defined in
 
@@ -2694,7 +2694,7 @@ ___
 
 ### DAlignVertical
 
-Ƭ **DAlignVertical**: typeof [`DAlignVertical`](README.md#dalignvertical)[keyof typeof [`DAlignVertical`](README.md#dalignvertical)]
+Ƭ **DAlignVertical**: typeof [`DAlignVertical`](index.md#dalignvertical)[keyof typeof [`DAlignVertical`](index.md#dalignvertical)]
 
 #### Defined in
 
@@ -2704,7 +2704,7 @@ ___
 
 ### DAlignWith
 
-Ƭ **DAlignWith**: typeof [`DAlignWith`](README.md#dalignwith)[keyof typeof [`DAlignWith`](README.md#dalignwith)]
+Ƭ **DAlignWith**: typeof [`DAlignWith`](index.md#dalignwith)[keyof typeof [`DAlignWith`](index.md#dalignwith)]
 
 #### Defined in
 
@@ -2930,7 +2930,7 @@ ___
 
 ### DButtonBaseWhen
 
-Ƭ **DButtonBaseWhen**: typeof [`DButtonBaseWhen`](README.md#dbuttonbasewhen)[keyof typeof [`DButtonBaseWhen`](README.md#dbuttonbasewhen)]
+Ƭ **DButtonBaseWhen**: typeof [`DButtonBaseWhen`](index.md#dbuttonbasewhen)[keyof typeof [`DButtonBaseWhen`](index.md#dbuttonbasewhen)]
 
 #### Defined in
 
@@ -3026,7 +3026,7 @@ ___
 
 ### DChartAxisPosition
 
-Ƭ **DChartAxisPosition**: typeof [`DChartAxisPosition`](README.md#dchartaxisposition)[keyof typeof [`DChartAxisPosition`](README.md#dchartaxisposition)]
+Ƭ **DChartAxisPosition**: typeof [`DChartAxisPosition`](index.md#dchartaxisposition)[keyof typeof [`DChartAxisPosition`](index.md#dchartaxisposition)]
 
 #### Defined in
 
@@ -3036,7 +3036,7 @@ ___
 
 ### DChartAxisTickPosition
 
-Ƭ **DChartAxisTickPosition**: typeof [`DChartAxisTickPosition`](README.md#dchartaxistickposition)[keyof typeof [`DChartAxisTickPosition`](README.md#dchartaxistickposition)]
+Ƭ **DChartAxisTickPosition**: typeof [`DChartAxisTickPosition`](index.md#dchartaxistickposition)[keyof typeof [`DChartAxisTickPosition`](index.md#dchartaxistickposition)]
 
 #### Defined in
 
@@ -3046,7 +3046,7 @@ ___
 
 ### DChartAxisTickPositionOption
 
-Ƭ **DChartAxisTickPositionOption**: [`DChartAxisTickPosition`](README.md#dchartaxistickposition) \| keyof typeof [`DChartAxisTickPosition`](README.md#dchartaxistickposition)
+Ƭ **DChartAxisTickPositionOption**: [`DChartAxisTickPosition`](index.md#dchartaxistickposition) \| keyof typeof [`DChartAxisTickPosition`](index.md#dchartaxistickposition)
 
 #### Defined in
 
@@ -3056,7 +3056,7 @@ ___
 
 ### DChartCoordinateDirection
 
-Ƭ **DChartCoordinateDirection**: typeof [`DChartCoordinateDirection`](README.md#dchartcoordinatedirection)[keyof typeof [`DChartCoordinateDirection`](README.md#dchartcoordinatedirection)]
+Ƭ **DChartCoordinateDirection**: typeof [`DChartCoordinateDirection`](index.md#dchartcoordinatedirection)[keyof typeof [`DChartCoordinateDirection`](index.md#dchartcoordinatedirection)]
 
 #### Defined in
 
@@ -3117,7 +3117,7 @@ ___
 
 ### DChartSelectionPoint
 
-Ƭ **DChartSelectionPoint**: typeof [`DChartSelectionPoint`](README.md#dchartselectionpoint)[keyof typeof [`DChartSelectionPoint`](README.md#dchartselectionpoint)]
+Ƭ **DChartSelectionPoint**: typeof [`DChartSelectionPoint`](index.md#dchartselectionpoint)[keyof typeof [`DChartSelectionPoint`](index.md#dchartselectionpoint)]
 
 #### Defined in
 
@@ -3198,13 +3198,13 @@ ___
 
 ### DCoordinatePosition
 
-Ƭ **DCoordinatePosition**: `number` \| `string` \| ``"center"`` \| ``"padding"`` \| ``"CENTER"`` \| ``"PADDING"`` \| [`DScalarFunction`](README.md#dscalarfunction) \| [`DScalar`](interfaces/DScalar.md)
+Ƭ **DCoordinatePosition**: `number` \| `string` \| ``"center"`` \| ``"padding"`` \| ``"CENTER"`` \| ``"PADDING"`` \| [`DScalarFunction`](index.md#dscalarfunction) \| [`DScalar`](interfaces/DScalar.md)
 
 One of the followings:
 * A position
 * A position keywords
 * A position expression (Parsed by [DScalarExpression](classes/DScalarExpression.md))
-* A function returning a position ([DScalarFunction](README.md#dscalarfunction))
+* A function returning a position ([DScalarFunction](index.md#dscalarfunction))
 * An object returning a position value ([DScalar](interfaces/DScalar.md))
 
 #### Defined in
@@ -3215,13 +3215,13 @@ ___
 
 ### DCoordinateSize
 
-Ƭ **DCoordinateSize**: ``"auto"`` \| ``"AUTO"`` \| [`DCoordinateSizeNoAuto`](README.md#dcoordinatesizenoauto)
+Ƭ **DCoordinateSize**: ``"auto"`` \| ``"AUTO"`` \| [`DCoordinateSizeNoAuto`](index.md#dcoordinatesizenoauto)
 
 One of the followings:
 * A size,
 * A size keywords
 * A size expression (Parsed by [DScalarExpression](classes/DScalarExpression.md))
-* A function returning a size ([DScalarFunction](README.md#dscalarfunction))
+* A function returning a size ([DScalarFunction](index.md#dscalarfunction))
 * An object returning a size ([DScalar](interfaces/DScalar.md))
 
 #### Defined in
@@ -3232,7 +3232,7 @@ ___
 
 ### DCoordinateSizeNoAuto
 
-Ƭ **DCoordinateSizeNoAuto**: `number` \| `string` \| ``"100%"`` \| ``"maximized"`` \| ``"padding"`` \| ``"MAXIMIZED"`` \| ``"PADDING"`` \| [`DScalarFunction`](README.md#dscalarfunction) \| [`DScalar`](interfaces/DScalar.md)
+Ƭ **DCoordinateSizeNoAuto**: `number` \| `string` \| ``"100%"`` \| ``"maximized"`` \| ``"padding"`` \| ``"MAXIMIZED"`` \| ``"PADDING"`` \| [`DScalarFunction`](index.md#dscalarfunction) \| [`DScalar`](interfaces/DScalar.md)
 
 #### Defined in
 
@@ -3373,7 +3373,7 @@ ___
 
 ### DDialogMode
 
-Ƭ **DDialogMode**: typeof [`DDialogMode`](README.md#ddialogmode)[keyof typeof [`DDialogMode`](README.md#ddialogmode)]
+Ƭ **DDialogMode**: typeof [`DDialogMode`](index.md#ddialogmode)[keyof typeof [`DDialogMode`](index.md#ddialogmode)]
 
 #### Defined in
 
@@ -3488,7 +3488,7 @@ ___
 
 ### DDynamicTextStyleWordWrap
 
-Ƭ **DDynamicTextStyleWordWrap**: typeof [`DDynamicTextStyleWordWrap`](README.md#ddynamictextstylewordwrap)[keyof typeof [`DDynamicTextStyleWordWrap`](README.md#ddynamictextstylewordwrap)]
+Ƭ **DDynamicTextStyleWordWrap**: typeof [`DDynamicTextStyleWordWrap`](index.md#ddynamictextstylewordwrap)[keyof typeof [`DDynamicTextStyleWordWrap`](index.md#ddynamictextstylewordwrap)]
 
 #### Defined in
 
@@ -3602,7 +3602,7 @@ ___
 
 ### DLayoutDirection
 
-Ƭ **DLayoutDirection**: typeof [`DLayoutDirection`](README.md#dlayoutdirection)[keyof typeof [`DLayoutDirection`](README.md#dlayoutdirection)]
+Ƭ **DLayoutDirection**: typeof [`DLayoutDirection`](index.md#dlayoutdirection)[keyof typeof [`DLayoutDirection`](index.md#dlayoutdirection)]
 
 #### Defined in
 
@@ -3630,7 +3630,7 @@ ___
 
 ### DLinkMenuItemId
 
-Ƭ **DLinkMenuItemId**: typeof [`DLinkMenuItemId`](README.md#dlinkmenuitemid)[keyof typeof [`DLinkMenuItemId`](README.md#dlinkmenuitemid)]
+Ƭ **DLinkMenuItemId**: typeof [`DLinkMenuItemId`](index.md#dlinkmenuitemid)[keyof typeof [`DLinkMenuItemId`](index.md#dlinkmenuitemid)]
 
 #### Defined in
 
@@ -3640,7 +3640,7 @@ ___
 
 ### DLinkMenuOptions
 
-Ƭ **DLinkMenuOptions**: [`DMenuOptions`](interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](README.md#dlinkmenuitemid)\> \| [`DMenu`](classes/DMenu.md)<[`DLinkMenuItemId`](README.md#dlinkmenuitemid)\>
+Ƭ **DLinkMenuOptions**: [`DMenuOptions`](interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](index.md#dlinkmenuitemid)\> \| [`DMenu`](classes/DMenu.md)<[`DLinkMenuItemId`](index.md#dlinkmenuitemid)\>
 
 #### Defined in
 
@@ -3650,7 +3650,7 @@ ___
 
 ### DLinkTarget
 
-Ƭ **DLinkTarget**: typeof [`DLinkTarget`](README.md#dlinktarget)[keyof typeof [`DLinkTarget`](README.md#dlinktarget)]
+Ƭ **DLinkTarget**: typeof [`DLinkTarget`](index.md#dlinktarget)[keyof typeof [`DLinkTarget`](index.md#dlinktarget)]
 
 #### Defined in
 
@@ -3660,7 +3660,7 @@ ___
 
 ### DLinkTargetValue
 
-Ƭ **DLinkTargetValue**: [`DLinkTarget`](README.md#dlinktarget) \| ``null`` \| `undefined` \| keyof typeof [`DLinkTarget`](README.md#dlinktarget)
+Ƭ **DLinkTargetValue**: [`DLinkTarget`](index.md#dlinktarget) \| ``null`` \| `undefined` \| keyof typeof [`DLinkTarget`](index.md#dlinktarget)
 
 #### Defined in
 
@@ -3670,15 +3670,15 @@ ___
 
 ### DLinkUrlMaker
 
-Ƭ **DLinkUrlMaker**: () => [`DLinkUrlValue`](README.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](README.md#dlinkurlvalue)\>
+Ƭ **DLinkUrlMaker**: () => [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Type declaration
 
-▸ (): [`DLinkUrlValue`](README.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](README.md#dlinkurlvalue)\>
+▸ (): [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 ##### Returns
 
-[`DLinkUrlValue`](README.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](README.md#dlinkurlvalue)\>
+[`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Defined in
 
@@ -3729,7 +3729,7 @@ ___
 
 ### DListDataSelectionType
 
-Ƭ **DListDataSelectionType**: typeof [`DListDataSelectionType`](README.md#dlistdataselectiontype)[keyof typeof [`DListDataSelectionType`](README.md#dlistdataselectiontype)]
+Ƭ **DListDataSelectionType**: typeof [`DListDataSelectionType`](index.md#dlistdataselectiontype)[keyof typeof [`DListDataSelectionType`](index.md#dlistdataselectiontype)]
 
 #### Defined in
 
@@ -3859,7 +3859,7 @@ ___
 
 ### DListItemToLinkUrl
 
-Ƭ **DListItemToLinkUrl**<`VALUE`\>: (`value`: `VALUE`) => [`DLinkUrlValue`](README.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](README.md#dlinkurlvalue)\>
+Ƭ **DListItemToLinkUrl**<`VALUE`\>: (`value`: `VALUE`) => [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Type parameters
 
@@ -3869,7 +3869,7 @@ ___
 
 #### Type declaration
 
-▸ (`value`): [`DLinkUrlValue`](README.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](README.md#dlinkurlvalue)\>
+▸ (`value`): [`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 ##### Parameters
 
@@ -3879,7 +3879,7 @@ ___
 
 ##### Returns
 
-[`DLinkUrlValue`](README.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](README.md#dlinkurlvalue)\>
+[`DLinkUrlValue`](index.md#dlinkurlvalue) \| `Promise`<[`DLinkUrlValue`](index.md#dlinkurlvalue)\>
 
 #### Defined in
 
@@ -3945,7 +3945,7 @@ ___
 
 ### DMenuItemCreator
 
-Ƭ **DMenuItemCreator**: (`options`: [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`any`\>, `sticky`: `boolean`) => `DisplayObject` \| ``null``
+Ƭ **DMenuItemCreator**: (`options`: [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`any`\>, `sticky`: `boolean`) => `DisplayObject` \| ``null``
 
 #### Type declaration
 
@@ -3955,7 +3955,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`any`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`any`\> |
 | `sticky` | `boolean` |
 
 ##### Returns
@@ -4058,7 +4058,7 @@ ___
 
 ### DMenuSidedSelectionType
 
-Ƭ **DMenuSidedSelectionType**: typeof [`DMenuSidedSelectionType`](README.md#dmenusidedselectiontype)[keyof typeof [`DMenuSidedSelectionType`](README.md#dmenusidedselectiontype)]
+Ƭ **DMenuSidedSelectionType**: typeof [`DMenuSidedSelectionType`](index.md#dmenusidedselectiontype)[keyof typeof [`DMenuSidedSelectionType`](index.md#dmenusidedselectiontype)]
 
 #### Defined in
 
@@ -4180,7 +4180,7 @@ ___
 
 ▸ (`state`): `R`
 
-A [DBaseState](README.md#dbasestate)-aware function returning R.
+A [DBaseState](index.md#dbasestate)-aware function returning R.
 
 ##### Parameters
 
@@ -4200,9 +4200,9 @@ ___
 
 ### DStateAwareOrValue
 
-Ƭ **DStateAwareOrValue**<`R`\>: [`DStateAware`](README.md#dstateaware)<`R`\> \| `R`
+Ƭ **DStateAwareOrValue**<`R`\>: [`DStateAware`](index.md#dstateaware)<`R`\> \| `R`
 
-R or a [DBaseState](README.md#dbasestate)-aware function returning R.
+R or a [DBaseState](index.md#dbasestate)-aware function returning R.
 
 #### Type parameters
 
@@ -4218,9 +4218,9 @@ ___
 
 ### DStateAwareOrValueMightBe
 
-Ƭ **DStateAwareOrValueMightBe**<`R`\>: [`DStateAwareOrValue`](README.md#dstateawareorvalue)<`R` \| `undefined`\>
+Ƭ **DStateAwareOrValueMightBe**<`R`\>: [`DStateAwareOrValue`](index.md#dstateawareorvalue)<`R` \| `undefined`\>
 
-R or a [DBaseState](README.md#dbasestate)-aware function returning R.
+R or a [DBaseState](index.md#dbasestate)-aware function returning R.
 If a computed value is undefined, the computed value is supposed to be ignored.
 
 #### Type parameters
@@ -4395,7 +4395,7 @@ ___
 
 ### DTableColumnType
 
-Ƭ **DTableColumnType**: typeof [`DTableColumnType`](README.md#dtablecolumntype)[keyof typeof [`DTableColumnType`](README.md#dtablecolumntype)]
+Ƭ **DTableColumnType**: typeof [`DTableColumnType`](index.md#dtablecolumntype)[keyof typeof [`DTableColumnType`](index.md#dtablecolumntype)]
 
 #### Defined in
 
@@ -4405,7 +4405,7 @@ ___
 
 ### DTableDataComparator
 
-Ƭ **DTableDataComparator**<`ROW`\>: [`DTableDataComparatorFunction`](README.md#dtabledatacomparatorfunction)<`ROW`\> \| [`DTableDataComparatorObject`](interfaces/DTableDataComparatorObject.md)<`ROW`\>
+Ƭ **DTableDataComparator**<`ROW`\>: [`DTableDataComparatorFunction`](index.md#dtabledatacomparatorfunction)<`ROW`\> \| [`DTableDataComparatorObject`](interfaces/DTableDataComparatorObject.md)<`ROW`\>
 
 A row comparator.
 
@@ -4522,7 +4522,7 @@ ___
 
 ### DTableDataFilterer
 
-Ƭ **DTableDataFilterer**<`ROW`\>: [`DTableDataFilterFunction`](README.md#dtabledatafilterfunction)<`ROW`\> \| [`DTableDataFilterObject`](interfaces/DTableDataFilterObject.md)<`ROW`\>
+Ƭ **DTableDataFilterer**<`ROW`\>: [`DTableDataFilterFunction`](index.md#dtabledatafilterfunction)<`ROW`\> \| [`DTableDataFilterObject`](interfaces/DTableDataFilterObject.md)<`ROW`\>
 
 A filterer.
 
@@ -4573,7 +4573,7 @@ ___
 
 ### DTableDataOrder
 
-Ƭ **DTableDataOrder**: typeof [`DTableDataOrder`](README.md#dtabledataorder)[keyof typeof [`DTableDataOrder`](README.md#dtabledataorder)]
+Ƭ **DTableDataOrder**: typeof [`DTableDataOrder`](index.md#dtabledataorder)[keyof typeof [`DTableDataOrder`](index.md#dtabledataorder)]
 
 #### Defined in
 
@@ -4613,7 +4613,7 @@ ___
 
 ### DTableDataSelectionType
 
-Ƭ **DTableDataSelectionType**: typeof [`DTableDataSelectionType`](README.md#dtabledataselectiontype)[keyof typeof [`DTableDataSelectionType`](README.md#dtabledataselectiontype)]
+Ƭ **DTableDataSelectionType**: typeof [`DTableDataSelectionType`](index.md#dtabledataselectiontype)[keyof typeof [`DTableDataSelectionType`](index.md#dtabledataselectiontype)]
 
 #### Defined in
 
@@ -4963,7 +4963,7 @@ ___
 
 ### DTreeDataSelectionType
 
-Ƭ **DTreeDataSelectionType**: typeof [`DTreeDataSelectionType`](README.md#dtreedataselectiontype)[keyof typeof [`DTreeDataSelectionType`](README.md#dtreedataselectiontype)]
+Ƭ **DTreeDataSelectionType**: typeof [`DTreeDataSelectionType`](index.md#dtreedataselectiontype)[keyof typeof [`DTreeDataSelectionType`](index.md#dtreedataselectiontype)]
 
 #### Defined in
 
@@ -5006,7 +5006,7 @@ ___
 
 ### DViewChecker
 
-Ƭ **DViewChecker**: (`e`: `WheelEvent` \| `MouseEvent` \| `TouchEvent`, `modifier`: [`UtilGestureModifier`](README.md#utilgesturemodifier), `target`: [`DBase`](classes/DBase.md)) => `boolean`
+Ƭ **DViewChecker**: (`e`: `WheelEvent` \| `MouseEvent` \| `TouchEvent`, `modifier`: [`UtilGestureModifier`](index.md#utilgesturemodifier), `target`: [`DBase`](classes/DBase.md)) => `boolean`
 
 #### Type declaration
 
@@ -5017,7 +5017,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `e` | `WheelEvent` \| `MouseEvent` \| `TouchEvent` |
-| `modifier` | [`UtilGestureModifier`](README.md#utilgesturemodifier) |
+| `modifier` | [`UtilGestureModifier`](index.md#utilgesturemodifier) |
 | `target` | [`DBase`](classes/DBase.md) |
 
 ##### Returns
@@ -5102,7 +5102,7 @@ ___
 
 ### EShapeAcceptorType
 
-Ƭ **EShapeAcceptorType**: typeof [`EShapeAcceptorType`](README.md#eshapeacceptortype)[keyof typeof [`EShapeAcceptorType`](README.md#eshapeacceptortype)]
+Ƭ **EShapeAcceptorType**: typeof [`EShapeAcceptorType`](index.md#eshapeacceptortype)[keyof typeof [`EShapeAcceptorType`](index.md#eshapeacceptortype)]
 
 #### Defined in
 
@@ -5176,7 +5176,7 @@ ___
 
 ### EShapeActionValueBlinkSerialized
 
-Ƭ **EShapeActionValueBlinkSerialized**: [typeof [`BLINK`](README.md#blink), `number`, typeof [`COLOR_FILL`](README.md#color_fill) \| typeof [`COLOR_STROKE`](README.md#color_stroke), `number`, `number`, `number`]
+Ƭ **EShapeActionValueBlinkSerialized**: [typeof [`BLINK`](index.md#blink), `number`, typeof [`COLOR_FILL`](index.md#color_fill) \| typeof [`COLOR_STROKE`](index.md#color_stroke), `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5186,7 +5186,7 @@ ___
 
 ### EShapeActionValueBlinkType
 
-Ƭ **EShapeActionValueBlinkType**: typeof [`EShapeActionValueBlinkType`](README.md#eshapeactionvalueblinktype)[keyof typeof [`EShapeActionValueBlinkType`](README.md#eshapeactionvalueblinktype)]
+Ƭ **EShapeActionValueBlinkType**: typeof [`EShapeActionValueBlinkType`](index.md#eshapeactionvalueblinktype)[keyof typeof [`EShapeActionValueBlinkType`](index.md#eshapeactionvalueblinktype)]
 
 #### Defined in
 
@@ -5196,7 +5196,7 @@ ___
 
 ### EShapeActionValueChangeColorBrightnessSerialized
 
-Ƭ **EShapeActionValueChangeColorBrightnessSerialized**: [typeof [`CHANGE_COLOR`](README.md#change_color), `number`, [`EShapeActionValueChangeColorType`](README.md#eshapeactionvaluechangecolortype), typeof [`BRIGHTNESS`](README.md#brightness), `number`]
+Ƭ **EShapeActionValueChangeColorBrightnessSerialized**: [typeof [`CHANGE_COLOR`](index.md#change_color), `number`, [`EShapeActionValueChangeColorType`](index.md#eshapeactionvaluechangecolortype), typeof [`BRIGHTNESS`](index.md#brightness), `number`]
 
 #### Defined in
 
@@ -5206,7 +5206,7 @@ ___
 
 ### EShapeActionValueChangeColorBrightnessSerializedLegacy
 
-Ƭ **EShapeActionValueChangeColorBrightnessSerializedLegacy**: [typeof [`CHANGE_COLOR_LEGACY`](README.md#change_color_legacy), `number`, [`EShapeActionValueChangeColorTypeLegacy`](README.md#eshapeactionvaluechangecolortypelegacy), typeof [`BRIGHTNESS`](README.md#brightness), `number`]
+Ƭ **EShapeActionValueChangeColorBrightnessSerializedLegacy**: [typeof [`CHANGE_COLOR_LEGACY`](index.md#change_color_legacy), `number`, [`EShapeActionValueChangeColorTypeLegacy`](index.md#eshapeactionvaluechangecolortypelegacy), typeof [`BRIGHTNESS`](index.md#brightness), `number`]
 
 #### Defined in
 
@@ -5216,7 +5216,7 @@ ___
 
 ### EShapeActionValueChangeColorCodeSerialized
 
-Ƭ **EShapeActionValueChangeColorCodeSerialized**: [typeof [`CHANGE_COLOR`](README.md#change_color), `number`, [`EShapeActionValueChangeColorType`](README.md#eshapeactionvaluechangecolortype), typeof [`CODE`](README.md#code), `number`, `number`, `number`]
+Ƭ **EShapeActionValueChangeColorCodeSerialized**: [typeof [`CHANGE_COLOR`](index.md#change_color), `number`, [`EShapeActionValueChangeColorType`](index.md#eshapeactionvaluechangecolortype), typeof [`CODE`](index.md#code), `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5226,7 +5226,7 @@ ___
 
 ### EShapeActionValueChangeColorCodeSerializedLegacy
 
-Ƭ **EShapeActionValueChangeColorCodeSerializedLegacy**: [typeof [`CHANGE_COLOR_LEGACY`](README.md#change_color_legacy), `number`, [`EShapeActionValueChangeColorTypeLegacy`](README.md#eshapeactionvaluechangecolortypelegacy), typeof [`CODE`](README.md#code), `number`, `number`, `number`]
+Ƭ **EShapeActionValueChangeColorCodeSerializedLegacy**: [typeof [`CHANGE_COLOR_LEGACY`](index.md#change_color_legacy), `number`, [`EShapeActionValueChangeColorTypeLegacy`](index.md#eshapeactionvaluechangecolortypelegacy), typeof [`CODE`](index.md#code), `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5236,7 +5236,7 @@ ___
 
 ### EShapeActionValueChangeColorSerialized
 
-Ƭ **EShapeActionValueChangeColorSerialized**: [typeof [`CHANGE_COLOR`](README.md#change_color), `number`, [`EShapeActionValueChangeColorType`](README.md#eshapeactionvaluechangecolortype), `Target`, `number`, `number`, `number`]
+Ƭ **EShapeActionValueChangeColorSerialized**: [typeof [`CHANGE_COLOR`](index.md#change_color), `number`, [`EShapeActionValueChangeColorType`](index.md#eshapeactionvaluechangecolortype), `Target`, `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5246,7 +5246,7 @@ ___
 
 ### EShapeActionValueChangeColorSerializedLegacy
 
-Ƭ **EShapeActionValueChangeColorSerializedLegacy**: [typeof [`CHANGE_COLOR_LEGACY`](README.md#change_color_legacy), `number`, [`EShapeActionValueChangeColorTypeLegacy`](README.md#eshapeactionvaluechangecolortypelegacy), `Target`, `number`, `number`, `number`]
+Ƭ **EShapeActionValueChangeColorSerializedLegacy**: [typeof [`CHANGE_COLOR_LEGACY`](index.md#change_color_legacy), `number`, [`EShapeActionValueChangeColorTypeLegacy`](index.md#eshapeactionvaluechangecolortypelegacy), `Target`, `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5256,7 +5256,7 @@ ___
 
 ### EShapeActionValueChangeColorTarget
 
-Ƭ **EShapeActionValueChangeColorTarget**: typeof [`EShapeActionValueChangeColorTarget`](README.md#eshapeactionvaluechangecolortarget)[keyof typeof [`EShapeActionValueChangeColorTarget`](README.md#eshapeactionvaluechangecolortarget)]
+Ƭ **EShapeActionValueChangeColorTarget**: typeof [`EShapeActionValueChangeColorTarget`](index.md#eshapeactionvaluechangecolortarget)[keyof typeof [`EShapeActionValueChangeColorTarget`](index.md#eshapeactionvaluechangecolortarget)]
 
 #### Defined in
 
@@ -5276,7 +5276,7 @@ ___
 
 ### EShapeActionValueChangeColorTypeLegacy
 
-Ƭ **EShapeActionValueChangeColorTypeLegacy**: typeof [`EShapeActionValueChangeColorTypeLegacy`](README.md#eshapeactionvaluechangecolortypelegacy)[keyof typeof [`EShapeActionValueChangeColorTypeLegacy`](README.md#eshapeactionvaluechangecolortypelegacy)]
+Ƭ **EShapeActionValueChangeColorTypeLegacy**: typeof [`EShapeActionValueChangeColorTypeLegacy`](index.md#eshapeactionvaluechangecolortypelegacy)[keyof typeof [`EShapeActionValueChangeColorTypeLegacy`](index.md#eshapeactionvaluechangecolortypelegacy)]
 
 #### Defined in
 
@@ -5286,7 +5286,7 @@ ___
 
 ### EShapeActionValueChangeCursorSerialized
 
-Ƭ **EShapeActionValueChangeCursorSerialized**: [typeof [`CHANGE_CURSOR`](README.md#change_cursor), `number`, `number`]
+Ƭ **EShapeActionValueChangeCursorSerialized**: [typeof [`CHANGE_CURSOR`](index.md#change_cursor), `number`, `number`]
 
 #### Defined in
 
@@ -5296,7 +5296,7 @@ ___
 
 ### EShapeActionValueChangeTextSerialized
 
-Ƭ **EShapeActionValueChangeTextSerialized**: [typeof [`CHANGE_TEXT`](README.md#change_text), `number`, [`EShapeActionValueChangeTextType`](README.md#eshapeactionvaluechangetexttype), `number`]
+Ƭ **EShapeActionValueChangeTextSerialized**: [typeof [`CHANGE_TEXT`](index.md#change_text), `number`, [`EShapeActionValueChangeTextType`](index.md#eshapeactionvaluechangetexttype), `number`]
 
 #### Defined in
 
@@ -5306,7 +5306,7 @@ ___
 
 ### EShapeActionValueChangeTextType
 
-Ƭ **EShapeActionValueChangeTextType**: typeof [`EShapeActionValueChangeTextType`](README.md#eshapeactionvaluechangetexttype)[keyof typeof [`EShapeActionValueChangeTextType`](README.md#eshapeactionvaluechangetexttype)]
+Ƭ **EShapeActionValueChangeTextType**: typeof [`EShapeActionValueChangeTextType`](index.md#eshapeactionvaluechangetexttype)[keyof typeof [`EShapeActionValueChangeTextType`](index.md#eshapeactionvaluechangetexttype)]
 
 #### Defined in
 
@@ -5316,7 +5316,7 @@ ___
 
 ### EShapeActionValueEmitEventSerialized
 
-Ƭ **EShapeActionValueEmitEventSerialized**: [typeof [`EMIT_EVENT`](README.md#emit_event), `number`, `number`]
+Ƭ **EShapeActionValueEmitEventSerialized**: [typeof [`EMIT_EVENT`](index.md#emit_event), `number`, `number`]
 
 #### Defined in
 
@@ -5326,7 +5326,7 @@ ___
 
 ### EShapeActionValueMiscGestureSerialized
 
-Ƭ **EShapeActionValueMiscGestureSerialized**: [typeof [`MISC`](README.md#misc), `number`, typeof [`GESTURE`](README.md#gesture), [`EShapeActionValueMiscGestureType`](README.md#eshapeactionvaluemiscgesturetype), `number`, `number`]
+Ƭ **EShapeActionValueMiscGestureSerialized**: [typeof [`MISC`](index.md#misc), `number`, typeof [`GESTURE`](index.md#gesture), [`EShapeActionValueMiscGestureType`](index.md#eshapeactionvaluemiscgesturetype), `number`, `number`]
 
 #### Defined in
 
@@ -5346,7 +5346,7 @@ ___
 
 ### EShapeActionValueMiscLayerGestureSerialized
 
-Ƭ **EShapeActionValueMiscLayerGestureSerialized**: [typeof [`MISC`](README.md#misc), `number`, typeof [`LAYER_GESTURE`](README.md#layer_gesture), [`EShapeActionValueMiscGestureType`](README.md#eshapeactionvaluemiscgesturetype), `number`, `number`]
+Ƭ **EShapeActionValueMiscLayerGestureSerialized**: [typeof [`MISC`](index.md#misc), `number`, typeof [`LAYER_GESTURE`](index.md#layer_gesture), [`EShapeActionValueMiscGestureType`](index.md#eshapeactionvaluemiscgesturetype), `number`, `number`]
 
 #### Defined in
 
@@ -5356,7 +5356,7 @@ ___
 
 ### EShapeActionValueMiscLayerShowHideSerialized
 
-Ƭ **EShapeActionValueMiscLayerShowHideSerialized**: [typeof [`MISC`](README.md#misc), `number`, typeof [`LAYER_SHOW_HIDE`](README.md#layer_show_hide), `number`, `number`]
+Ƭ **EShapeActionValueMiscLayerShowHideSerialized**: [typeof [`MISC`](index.md#misc), `number`, typeof [`LAYER_SHOW_HIDE`](index.md#layer_show_hide), `number`, `number`]
 
 #### Defined in
 
@@ -5366,7 +5366,7 @@ ___
 
 ### EShapeActionValueMiscSerialized
 
-Ƭ **EShapeActionValueMiscSerialized**: [typeof [`MISC`](README.md#misc), `number`, [`EShapeActionValueMiscSubtype`](README.md#eshapeactionvaluemiscsubtype), `number`, [`EShapeActionValueOnInputAction`](README.md#eshapeactionvalueoninputaction), `number`]
+Ƭ **EShapeActionValueMiscSerialized**: [typeof [`MISC`](index.md#misc), `number`, [`EShapeActionValueMiscSubtype`](index.md#eshapeactionvaluemiscsubtype), `number`, [`EShapeActionValueOnInputAction`](index.md#eshapeactionvalueoninputaction), `number`]
 
 #### Defined in
 
@@ -5376,7 +5376,7 @@ ___
 
 ### EShapeActionValueMiscSubtype
 
-Ƭ **EShapeActionValueMiscSubtype**: typeof [`INPUT_TEXT`](README.md#input_text) \| typeof [`INPUT_INTEGER`](README.md#input_integer) \| typeof [`INPUT_REAL`](README.md#input_real) \| typeof [`EMIT_EVENT`](README.md#emit_event) \| typeof [`WRITE_BOTH`](README.md#write_both) \| typeof [`WRITE_LOCAL`](README.md#write_local) \| typeof [`WRITE_REMOTE`](README.md#write_remote) \| typeof [`HTML_ELEMENT`](README.md#html_element) \| typeof [`HTML_ELEMENT_WITHOUT_POINTER_EVENTS`](README.md#html_element_without_pointer_events)
+Ƭ **EShapeActionValueMiscSubtype**: typeof [`INPUT_TEXT`](index.md#input_text) \| typeof [`INPUT_INTEGER`](index.md#input_integer) \| typeof [`INPUT_REAL`](index.md#input_real) \| typeof [`EMIT_EVENT`](index.md#emit_event) \| typeof [`WRITE_BOTH`](index.md#write_both) \| typeof [`WRITE_LOCAL`](index.md#write_local) \| typeof [`WRITE_REMOTE`](index.md#write_remote) \| typeof [`HTML_ELEMENT`](index.md#html_element) \| typeof [`HTML_ELEMENT_WITHOUT_POINTER_EVENTS`](index.md#html_element_without_pointer_events)
 
 #### Defined in
 
@@ -5386,7 +5386,7 @@ ___
 
 ### EShapeActionValueMiscType
 
-Ƭ **EShapeActionValueMiscType**: typeof [`EShapeActionValueMiscType`](README.md#eshapeactionvaluemisctype)[keyof typeof [`EShapeActionValueMiscType`](README.md#eshapeactionvaluemisctype)]
+Ƭ **EShapeActionValueMiscType**: typeof [`EShapeActionValueMiscType`](index.md#eshapeactionvaluemisctype)[keyof typeof [`EShapeActionValueMiscType`](index.md#eshapeactionvaluemisctype)]
 
 #### Defined in
 
@@ -5396,7 +5396,7 @@ ___
 
 ### EShapeActionValueOnInputAction
 
-Ƭ **EShapeActionValueOnInputAction**: typeof [`EShapeActionValueOnInputAction`](README.md#eshapeactionvalueoninputaction)[keyof typeof [`EShapeActionValueOnInputAction`](README.md#eshapeactionvalueoninputaction)]
+Ƭ **EShapeActionValueOnInputAction**: typeof [`EShapeActionValueOnInputAction`](index.md#eshapeactionvalueoninputaction)[keyof typeof [`EShapeActionValueOnInputAction`](index.md#eshapeactionvalueoninputaction)]
 
 #### Defined in
 
@@ -5406,7 +5406,7 @@ ___
 
 ### EShapeActionValueOpenSerialized
 
-Ƭ **EShapeActionValueOpenSerialized**: [typeof [`OPEN`](README.md#open), `number`, [`EShapeActionValueOpenType`](README.md#eshapeactionvalueopentype), `number`, [`EShapeActionValueOnInputAction`](README.md#eshapeactionvalueoninputaction), `number`]
+Ƭ **EShapeActionValueOpenSerialized**: [typeof [`OPEN`](index.md#open), `number`, [`EShapeActionValueOpenType`](index.md#eshapeactionvalueopentype), `number`, [`EShapeActionValueOnInputAction`](index.md#eshapeactionvalueoninputaction), `number`]
 
 #### Defined in
 
@@ -5416,7 +5416,7 @@ ___
 
 ### EShapeActionValueOpenType
 
-Ƭ **EShapeActionValueOpenType**: typeof [`EShapeActionValueOpenType`](README.md#eshapeactionvalueopentype)[keyof typeof [`EShapeActionValueOpenType`](README.md#eshapeactionvalueopentype)]
+Ƭ **EShapeActionValueOpenType**: typeof [`EShapeActionValueOpenType`](index.md#eshapeactionvalueopentype)[keyof typeof [`EShapeActionValueOpenType`](index.md#eshapeactionvalueopentype)]
 
 #### Defined in
 
@@ -5426,7 +5426,7 @@ ___
 
 ### EShapeActionValueSerialized
 
-Ƭ **EShapeActionValueSerialized**: [`EShapeActionValueShowHideSerialized`](README.md#eshapeactionvalueshowhideserialized) \| [`EShapeActionValueBlinkSerialized`](README.md#eshapeactionvalueblinkserialized) \| [`EShapeActionValueBlinkSerialized`](README.md#eshapeactionvalueblinkserialized) \| [`EShapeActionValueChangeColorSerialized`](README.md#eshapeactionvaluechangecolorserialized) \| [`EShapeActionValueChangeColorSerializedLegacy`](README.md#eshapeactionvaluechangecolorserializedlegacy) \| [`EShapeActionValueChangeColorCodeSerialized`](README.md#eshapeactionvaluechangecolorcodeserialized) \| [`EShapeActionValueChangeColorCodeSerializedLegacy`](README.md#eshapeactionvaluechangecolorcodeserializedlegacy) \| [`EShapeActionValueChangeColorBrightnessSerialized`](README.md#eshapeactionvaluechangecolorbrightnessserialized) \| [`EShapeActionValueChangeColorBrightnessSerializedLegacy`](README.md#eshapeactionvaluechangecolorbrightnessserializedlegacy) \| [`EShapeActionValueChangeTextSerialized`](README.md#eshapeactionvaluechangetextserialized) \| [`EShapeActionValueChangeCursorSerialized`](README.md#eshapeactionvaluechangecursorserialized) \| [`EShapeActionValueEmitEventSerialized`](README.md#eshapeactionvalueemiteventserialized) \| [`EShapeActionValueOpenSerialized`](README.md#eshapeactionvalueopenserialized) \| [`EShapeActionValueTransformMoveSerialized`](README.md#eshapeactionvaluetransformmoveserialized) \| [`EShapeActionValueTransformResizeSerialized`](README.md#eshapeactionvaluetransformresizeserialized) \| [`EShapeActionValueTransformRotateSerialized`](README.md#eshapeactionvaluetransformrotateserialized) \| [`EShapeActionValueMiscSerialized`](README.md#eshapeactionvaluemiscserialized) \| [`EShapeActionValueMiscGestureSerialized`](README.md#eshapeactionvaluemiscgestureserialized) \| [`EShapeActionValueMiscLayerGestureSerialized`](README.md#eshapeactionvaluemisclayergestureserialized) \| [`EShapeActionValueMiscLayerShowHideSerialized`](README.md#eshapeactionvaluemisclayershowhideserialized)
+Ƭ **EShapeActionValueSerialized**: [`EShapeActionValueShowHideSerialized`](index.md#eshapeactionvalueshowhideserialized) \| [`EShapeActionValueBlinkSerialized`](index.md#eshapeactionvalueblinkserialized) \| [`EShapeActionValueBlinkSerialized`](index.md#eshapeactionvalueblinkserialized) \| [`EShapeActionValueChangeColorSerialized`](index.md#eshapeactionvaluechangecolorserialized) \| [`EShapeActionValueChangeColorSerializedLegacy`](index.md#eshapeactionvaluechangecolorserializedlegacy) \| [`EShapeActionValueChangeColorCodeSerialized`](index.md#eshapeactionvaluechangecolorcodeserialized) \| [`EShapeActionValueChangeColorCodeSerializedLegacy`](index.md#eshapeactionvaluechangecolorcodeserializedlegacy) \| [`EShapeActionValueChangeColorBrightnessSerialized`](index.md#eshapeactionvaluechangecolorbrightnessserialized) \| [`EShapeActionValueChangeColorBrightnessSerializedLegacy`](index.md#eshapeactionvaluechangecolorbrightnessserializedlegacy) \| [`EShapeActionValueChangeTextSerialized`](index.md#eshapeactionvaluechangetextserialized) \| [`EShapeActionValueChangeCursorSerialized`](index.md#eshapeactionvaluechangecursorserialized) \| [`EShapeActionValueEmitEventSerialized`](index.md#eshapeactionvalueemiteventserialized) \| [`EShapeActionValueOpenSerialized`](index.md#eshapeactionvalueopenserialized) \| [`EShapeActionValueTransformMoveSerialized`](index.md#eshapeactionvaluetransformmoveserialized) \| [`EShapeActionValueTransformResizeSerialized`](index.md#eshapeactionvaluetransformresizeserialized) \| [`EShapeActionValueTransformRotateSerialized`](index.md#eshapeactionvaluetransformrotateserialized) \| [`EShapeActionValueMiscSerialized`](index.md#eshapeactionvaluemiscserialized) \| [`EShapeActionValueMiscGestureSerialized`](index.md#eshapeactionvaluemiscgestureserialized) \| [`EShapeActionValueMiscLayerGestureSerialized`](index.md#eshapeactionvaluemisclayergestureserialized) \| [`EShapeActionValueMiscLayerShowHideSerialized`](index.md#eshapeactionvaluemisclayershowhideserialized)
 
 #### Defined in
 
@@ -5436,7 +5436,7 @@ ___
 
 ### EShapeActionValueShowHideSerialized
 
-Ƭ **EShapeActionValueShowHideSerialized**: [typeof [`SHOW_HIDE`](README.md#show_hide), `number`, [`EShapeActionValueShowHideType`](README.md#eshapeactionvalueshowhidetype)]
+Ƭ **EShapeActionValueShowHideSerialized**: [typeof [`SHOW_HIDE`](index.md#show_hide), `number`, [`EShapeActionValueShowHideType`](index.md#eshapeactionvalueshowhidetype)]
 
 #### Defined in
 
@@ -5446,7 +5446,7 @@ ___
 
 ### EShapeActionValueShowHideType
 
-Ƭ **EShapeActionValueShowHideType**: typeof [`EShapeActionValueShowHideType`](README.md#eshapeactionvalueshowhidetype)[keyof typeof [`EShapeActionValueShowHideType`](README.md#eshapeactionvalueshowhidetype)]
+Ƭ **EShapeActionValueShowHideType**: typeof [`EShapeActionValueShowHideType`](index.md#eshapeactionvalueshowhidetype)[keyof typeof [`EShapeActionValueShowHideType`](index.md#eshapeactionvalueshowhidetype)]
 
 #### Defined in
 
@@ -5456,7 +5456,7 @@ ___
 
 ### EShapeActionValueTransformMoveSerialized
 
-Ƭ **EShapeActionValueTransformMoveSerialized**: [typeof [`TRANSFORM`](README.md#transform), `number`, typeof [`MOVE`](README.md#move), [`EShapeActionValueTransformMoveType`](README.md#eshapeactionvaluetransformmovetype), `number`]
+Ƭ **EShapeActionValueTransformMoveSerialized**: [typeof [`TRANSFORM`](index.md#transform), `number`, typeof [`MOVE`](index.md#move), [`EShapeActionValueTransformMoveType`](index.md#eshapeactionvaluetransformmovetype), `number`]
 
 #### Defined in
 
@@ -5466,7 +5466,7 @@ ___
 
 ### EShapeActionValueTransformMoveType
 
-Ƭ **EShapeActionValueTransformMoveType**: typeof [`EShapeActionValueTransformMoveType`](README.md#eshapeactionvaluetransformmovetype)[keyof typeof [`EShapeActionValueTransformMoveType`](README.md#eshapeactionvaluetransformmovetype)]
+Ƭ **EShapeActionValueTransformMoveType**: typeof [`EShapeActionValueTransformMoveType`](index.md#eshapeactionvaluetransformmovetype)[keyof typeof [`EShapeActionValueTransformMoveType`](index.md#eshapeactionvaluetransformmovetype)]
 
 #### Defined in
 
@@ -5476,7 +5476,7 @@ ___
 
 ### EShapeActionValueTransformResizeSerialized
 
-Ƭ **EShapeActionValueTransformResizeSerialized**: [typeof [`TRANSFORM`](README.md#transform), `number`, typeof [`RESIZE`](README.md#resize), [`EShapeActionValueTransformResizeType`](README.md#eshapeactionvaluetransformresizetype), `number`, `number`, `number`]
+Ƭ **EShapeActionValueTransformResizeSerialized**: [typeof [`TRANSFORM`](index.md#transform), `number`, typeof [`RESIZE`](index.md#resize), [`EShapeActionValueTransformResizeType`](index.md#eshapeactionvaluetransformresizetype), `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5486,7 +5486,7 @@ ___
 
 ### EShapeActionValueTransformResizeType
 
-Ƭ **EShapeActionValueTransformResizeType**: typeof [`EShapeActionValueTransformResizeType`](README.md#eshapeactionvaluetransformresizetype)[keyof typeof [`EShapeActionValueTransformResizeType`](README.md#eshapeactionvaluetransformresizetype)]
+Ƭ **EShapeActionValueTransformResizeType**: typeof [`EShapeActionValueTransformResizeType`](index.md#eshapeactionvaluetransformresizetype)[keyof typeof [`EShapeActionValueTransformResizeType`](index.md#eshapeactionvaluetransformresizetype)]
 
 #### Defined in
 
@@ -5496,7 +5496,7 @@ ___
 
 ### EShapeActionValueTransformRotateSerialized
 
-Ƭ **EShapeActionValueTransformRotateSerialized**: [typeof [`TRANSFORM`](README.md#transform), `number`, typeof [`ROTATE`](README.md#rotate), [`EShapeActionValueTransformRotateType`](README.md#eshapeactionvaluetransformrotatetype), `number`, `number`, `number`]
+Ƭ **EShapeActionValueTransformRotateSerialized**: [typeof [`TRANSFORM`](index.md#transform), `number`, typeof [`ROTATE`](index.md#rotate), [`EShapeActionValueTransformRotateType`](index.md#eshapeactionvaluetransformrotatetype), `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5506,7 +5506,7 @@ ___
 
 ### EShapeActionValueTransformRotateType
 
-Ƭ **EShapeActionValueTransformRotateType**: typeof [`EShapeActionValueTransformRotateType`](README.md#eshapeactionvaluetransformrotatetype)[keyof typeof [`EShapeActionValueTransformRotateType`](README.md#eshapeactionvaluetransformrotatetype)]
+Ƭ **EShapeActionValueTransformRotateType**: typeof [`EShapeActionValueTransformRotateType`](index.md#eshapeactionvaluetransformrotatetype)[keyof typeof [`EShapeActionValueTransformRotateType`](index.md#eshapeactionvaluetransformrotatetype)]
 
 #### Defined in
 
@@ -5516,7 +5516,7 @@ ___
 
 ### EShapeActionValueTransformType
 
-Ƭ **EShapeActionValueTransformType**: typeof [`EShapeActionValueTransformType`](README.md#eshapeactionvaluetransformtype)[keyof typeof [`EShapeActionValueTransformType`](README.md#eshapeactionvaluetransformtype)]
+Ƭ **EShapeActionValueTransformType**: typeof [`EShapeActionValueTransformType`](index.md#eshapeactionvaluetransformtype)[keyof typeof [`EShapeActionValueTransformType`](index.md#eshapeactionvaluetransformtype)]
 
 #### Defined in
 
@@ -5526,7 +5526,7 @@ ___
 
 ### EShapeActionValueType
 
-Ƭ **EShapeActionValueType**: typeof [`EShapeActionValueType`](README.md#eshapeactionvaluetype)[keyof typeof [`EShapeActionValueType`](README.md#eshapeactionvaluetype)]
+Ƭ **EShapeActionValueType**: typeof [`EShapeActionValueType`](index.md#eshapeactionvaluetype)[keyof typeof [`EShapeActionValueType`](index.md#eshapeactionvaluetype)]
 
 #### Defined in
 
@@ -5536,7 +5536,7 @@ ___
 
 ### EShapeBarPosition
 
-Ƭ **EShapeBarPosition**: typeof [`EShapeBarPosition`](README.md#eshapebarposition)[keyof typeof [`EShapeBarPosition`](README.md#eshapebarposition)]
+Ƭ **EShapeBarPosition**: typeof [`EShapeBarPosition`](index.md#eshapebarposition)[keyof typeof [`EShapeBarPosition`](index.md#eshapebarposition)]
 
 #### Defined in
 
@@ -5546,7 +5546,7 @@ ___
 
 ### EShapeCapability
 
-Ƭ **EShapeCapability**: typeof [`EShapeCapability`](README.md#eshapecapability)[keyof typeof [`EShapeCapability`](README.md#eshapecapability)]
+Ƭ **EShapeCapability**: typeof [`EShapeCapability`](index.md#eshapecapability)[keyof typeof [`EShapeCapability`](index.md#eshapecapability)]
 
 #### Defined in
 
@@ -5606,7 +5606,7 @@ ___
 
 ### EShapeDataValueOrder
 
-Ƭ **EShapeDataValueOrder**: typeof [`EShapeDataValueOrder`](README.md#eshapedatavalueorder)[keyof typeof [`EShapeDataValueOrder`](README.md#eshapedatavalueorder)]
+Ƭ **EShapeDataValueOrder**: typeof [`EShapeDataValueOrder`](index.md#eshapedatavalueorder)[keyof typeof [`EShapeDataValueOrder`](index.md#eshapedatavalueorder)]
 
 #### Defined in
 
@@ -5653,7 +5653,7 @@ ___
 
 ### EShapeLineBaseHitPart
 
-Ƭ **EShapeLineBaseHitPart**: typeof [`EShapeLineBaseHitPart`](README.md#eshapelinebasehitpart)[keyof typeof [`EShapeLineBaseHitPart`](README.md#eshapelinebasehitpart)]
+Ƭ **EShapeLineBaseHitPart**: typeof [`EShapeLineBaseHitPart`](index.md#eshapelinebasehitpart)[keyof typeof [`EShapeLineBaseHitPart`](index.md#eshapelinebasehitpart)]
 
 #### Defined in
 
@@ -5925,7 +5925,7 @@ ___
 
 ### EShapePointsFormatter
 
-Ƭ **EShapePointsFormatter**: (`length`: `number`, `values`: `number`[], `segments`: `number`[], `style`: [`EShapePointsStyle`](README.md#eshapepointsstyle), `result`: [`EShapePointsFormattedWithoutBoundary`](interfaces/EShapePointsFormattedWithoutBoundary.md)) => [`EShapePointsFormattedWithoutBoundary`](interfaces/EShapePointsFormattedWithoutBoundary.md)
+Ƭ **EShapePointsFormatter**: (`length`: `number`, `values`: `number`[], `segments`: `number`[], `style`: [`EShapePointsStyle`](index.md#eshapepointsstyle), `result`: [`EShapePointsFormattedWithoutBoundary`](interfaces/EShapePointsFormattedWithoutBoundary.md)) => [`EShapePointsFormattedWithoutBoundary`](interfaces/EShapePointsFormattedWithoutBoundary.md)
 
 #### Type declaration
 
@@ -5938,7 +5938,7 @@ ___
 | `length` | `number` |
 | `values` | `number`[] |
 | `segments` | `number`[] |
-| `style` | [`EShapePointsStyle`](README.md#eshapepointsstyle) |
+| `style` | [`EShapePointsStyle`](index.md#eshapepointsstyle) |
 | `result` | [`EShapePointsFormattedWithoutBoundary`](interfaces/EShapePointsFormattedWithoutBoundary.md) |
 
 ##### Returns
@@ -5963,7 +5963,7 @@ ___
 
 ### EShapePointsMarkerSerizlized
 
-Ƭ **EShapePointsMarkerSerizlized**: [[`EShapePointsMarkerType`](README.md#eshapepointsmarkertype), `number`, `number`, `number`]
+Ƭ **EShapePointsMarkerSerizlized**: [[`EShapePointsMarkerType`](index.md#eshapepointsmarkertype), `number`, `number`, `number`]
 
 #### Defined in
 
@@ -5973,7 +5973,7 @@ ___
 
 ### EShapePointsMarkerType
 
-Ƭ **EShapePointsMarkerType**: typeof [`EShapePointsMarkerType`](README.md#eshapepointsmarkertype)[keyof typeof [`EShapePointsMarkerType`](README.md#eshapepointsmarkertype)]
+Ƭ **EShapePointsMarkerType**: typeof [`EShapePointsMarkerType`](index.md#eshapepointsmarkertype)[keyof typeof [`EShapePointsMarkerType`](index.md#eshapepointsmarkertype)]
 
 #### Defined in
 
@@ -5993,7 +5993,7 @@ ___
 
 ### EShapePointsStyleOption
 
-Ƭ **EShapePointsStyleOption**: [`EShapePointsStyle`](README.md#eshapepointsstyle) \| keyof typeof [`EShapePointsStyle`](README.md#eshapepointsstyle) \| keyof typeof [`EShapePointsStyle`](README.md#eshapepointsstyle)[]
+Ƭ **EShapePointsStyleOption**: [`EShapePointsStyle`](index.md#eshapepointsstyle) \| keyof typeof [`EShapePointsStyle`](index.md#eshapepointsstyle) \| keyof typeof [`EShapePointsStyle`](index.md#eshapepointsstyle)[]
 
 #### Defined in
 
@@ -6003,7 +6003,7 @@ ___
 
 ### EShapeRuntimeReset
 
-Ƭ **EShapeRuntimeReset**: typeof [`EShapeRuntimeReset`](README.md#eshaperuntimereset)[keyof typeof [`EShapeRuntimeReset`](README.md#eshaperuntimereset)]
+Ƭ **EShapeRuntimeReset**: typeof [`EShapeRuntimeReset`](index.md#eshaperuntimereset)[keyof typeof [`EShapeRuntimeReset`](index.md#eshaperuntimereset)]
 
 #### Defined in
 
@@ -6013,7 +6013,7 @@ ___
 
 ### EShapeStrokeSide
 
-Ƭ **EShapeStrokeSide**: typeof [`EShapeStrokeSide`](README.md#eshapestrokeside)[keyof typeof [`EShapeStrokeSide`](README.md#eshapestrokeside)]
+Ƭ **EShapeStrokeSide**: typeof [`EShapeStrokeSide`](index.md#eshapestrokeside)[keyof typeof [`EShapeStrokeSide`](index.md#eshapestrokeside)]
 
 #### Defined in
 
@@ -6033,7 +6033,7 @@ ___
 
 ### EShapeTextAlignHorizontal
 
-Ƭ **EShapeTextAlignHorizontal**: typeof [`EShapeTextAlignHorizontal`](README.md#eshapetextalignhorizontal)[keyof typeof [`EShapeTextAlignHorizontal`](README.md#eshapetextalignhorizontal)]
+Ƭ **EShapeTextAlignHorizontal**: typeof [`EShapeTextAlignHorizontal`](index.md#eshapetextalignhorizontal)[keyof typeof [`EShapeTextAlignHorizontal`](index.md#eshapetextalignhorizontal)]
 
 #### Defined in
 
@@ -6043,7 +6043,7 @@ ___
 
 ### EShapeTextAlignVertical
 
-Ƭ **EShapeTextAlignVertical**: typeof [`EShapeTextAlignVertical`](README.md#eshapetextalignvertical)[keyof typeof [`EShapeTextAlignVertical`](README.md#eshapetextalignvertical)]
+Ƭ **EShapeTextAlignVertical**: typeof [`EShapeTextAlignVertical`](index.md#eshapetextalignvertical)[keyof typeof [`EShapeTextAlignVertical`](index.md#eshapetextalignvertical)]
 
 #### Defined in
 
@@ -6053,7 +6053,7 @@ ___
 
 ### EShapeTextDirection
 
-Ƭ **EShapeTextDirection**: typeof [`EShapeTextDirection`](README.md#eshapetextdirection)[keyof typeof [`EShapeTextDirection`](README.md#eshapetextdirection)]
+Ƭ **EShapeTextDirection**: typeof [`EShapeTextDirection`](index.md#eshapetextdirection)[keyof typeof [`EShapeTextDirection`](index.md#eshapetextdirection)]
 
 #### Defined in
 
@@ -6063,7 +6063,7 @@ ___
 
 ### EShapeTextStyle
 
-Ƭ **EShapeTextStyle**: typeof [`EShapeTextStyle`](README.md#eshapetextstyle)[keyof typeof [`EShapeTextStyle`](README.md#eshapetextstyle)]
+Ƭ **EShapeTextStyle**: typeof [`EShapeTextStyle`](index.md#eshapetextstyle)[keyof typeof [`EShapeTextStyle`](index.md#eshapetextstyle)]
 
 #### Defined in
 
@@ -6073,7 +6073,7 @@ ___
 
 ### EShapeTextWeight
 
-Ƭ **EShapeTextWeight**: typeof [`EShapeTextWeight`](README.md#eshapetextweight)[keyof typeof [`EShapeTextWeight`](README.md#eshapetextweight)]
+Ƭ **EShapeTextWeight**: typeof [`EShapeTextWeight`](index.md#eshapetextweight)[keyof typeof [`EShapeTextWeight`](index.md#eshapetextweight)]
 
 #### Defined in
 
@@ -6153,7 +6153,7 @@ ___
 
 ### ESnapperModifierAnchor
 
-Ƭ **ESnapperModifierAnchor**: typeof [`ESnapperModifierAnchor`](README.md#esnappermodifieranchor)[keyof typeof [`ESnapperModifierAnchor`](README.md#esnappermodifieranchor)]
+Ƭ **ESnapperModifierAnchor**: typeof [`ESnapperModifierAnchor`](index.md#esnappermodifieranchor)[keyof typeof [`ESnapperModifierAnchor`](index.md#esnappermodifieranchor)]
 
 #### Defined in
 
@@ -6163,7 +6163,7 @@ ___
 
 ### ESnapperTargetValueType
 
-Ƭ **ESnapperTargetValueType**: typeof [`ESnapperTargetValueType`](README.md#esnappertargetvaluetype)[keyof typeof [`ESnapperTargetValueType`](README.md#esnappertargetvaluetype)]
+Ƭ **ESnapperTargetValueType**: typeof [`ESnapperTargetValueType`](index.md#esnappertargetvaluetype)[keyof typeof [`ESnapperTargetValueType`](index.md#esnappertargetvaluetype)]
 
 #### Defined in
 
@@ -6198,7 +6198,7 @@ ___
 
 ### UtilAttachAlign
 
-Ƭ **UtilAttachAlign**: typeof [`UtilAttachAlign`](README.md#utilattachalign)[keyof typeof [`UtilAttachAlign`](README.md#utilattachalign)]
+Ƭ **UtilAttachAlign**: typeof [`UtilAttachAlign`](index.md#utilattachalign)[keyof typeof [`UtilAttachAlign`](index.md#utilattachalign)]
 
 #### Defined in
 
@@ -6232,7 +6232,7 @@ ___
 
 ### UtilFileAs
 
-Ƭ **UtilFileAs**: typeof [`UtilFileAs`](README.md#utilfileas)[keyof typeof [`UtilFileAs`](README.md#utilfileas)]
+Ƭ **UtilFileAs**: typeof [`UtilFileAs`](index.md#utilfileas)[keyof typeof [`UtilFileAs`](index.md#utilfileas)]
 
 #### Defined in
 
@@ -6277,7 +6277,7 @@ ___
 
 ### UtilGestureChecker
 
-Ƭ **UtilGestureChecker**<`TARGET`\>: (`e`: `InteractionEvent`, `modifier`: [`UtilGestureModifier`](README.md#utilgesturemodifier), `target`: `TARGET`) => `boolean`
+Ƭ **UtilGestureChecker**<`TARGET`\>: (`e`: `InteractionEvent`, `modifier`: [`UtilGestureModifier`](index.md#utilgesturemodifier), `target`: `TARGET`) => `boolean`
 
 #### Type parameters
 
@@ -6294,7 +6294,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `e` | `InteractionEvent` |
-| `modifier` | [`UtilGestureModifier`](README.md#utilgesturemodifier) |
+| `modifier` | [`UtilGestureModifier`](index.md#utilgesturemodifier) |
 | `target` | `TARGET` |
 
 ##### Returns
@@ -6354,7 +6354,7 @@ ___
 
 ### UtilGestureMode
 
-Ƭ **UtilGestureMode**: typeof [`UtilGestureMode`](README.md#utilgesturemode)[keyof typeof [`UtilGestureMode`](README.md#utilgesturemode)]
+Ƭ **UtilGestureMode**: typeof [`UtilGestureMode`](index.md#utilgesturemode)[keyof typeof [`UtilGestureMode`](index.md#utilgesturemode)]
 
 #### Defined in
 
@@ -6519,7 +6519,7 @@ ___
 
 ### UtilHtmlElementStyler
 
-Ƭ **UtilHtmlElementStyler**<`T`\>: (`target`: `T`, `state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md), `padding`: [`UtilHtmlElementPadding`](README.md#utilhtmlelementpadding) \| ``null``, `elementRect`: `Rectangle` \| ``null``, `elementMatrix`: `Matrix` \| ``null``, `clipperRect`: `Rectangle` \| ``null``) => `void`
+Ƭ **UtilHtmlElementStyler**<`T`\>: (`target`: `T`, `state`: [`DBaseStateSet`](interfaces/DBaseStateSet.md), `padding`: [`UtilHtmlElementPadding`](index.md#utilhtmlelementpadding) \| ``null``, `elementRect`: `Rectangle` \| ``null``, `elementMatrix`: `Matrix` \| ``null``, `clipperRect`: `Rectangle` \| ``null``) => `void`
 
 #### Type parameters
 
@@ -6537,7 +6537,7 @@ ___
 | :------ | :------ |
 | `target` | `T` |
 | `state` | [`DBaseStateSet`](interfaces/DBaseStateSet.md) |
-| `padding` | [`UtilHtmlElementPadding`](README.md#utilhtmlelementpadding) \| ``null`` |
+| `padding` | [`UtilHtmlElementPadding`](index.md#utilhtmlelementpadding) \| ``null`` |
 | `elementRect` | `Rectangle` \| ``null`` |
 | `elementMatrix` | `Matrix` \| ``null`` |
 | `clipperRect` | `Rectangle` \| ``null`` |
@@ -6646,7 +6646,7 @@ ___
 
 ### UtilHtmlElementWhen
 
-Ƭ **UtilHtmlElementWhen**: typeof [`UtilHtmlElementWhen`](README.md#utilhtmlelementwhen)[keyof typeof [`UtilHtmlElementWhen`](README.md#utilhtmlelementwhen)]
+Ƭ **UtilHtmlElementWhen**: typeof [`UtilHtmlElementWhen`](index.md#utilhtmlelementwhen)[keyof typeof [`UtilHtmlElementWhen`](index.md#utilhtmlelementwhen)]
 
 #### Defined in
 
@@ -7936,7 +7936,7 @@ Mappings of shape types and deserializers.
 
 #### Index signature
 
-▪ [type: `number`]: [`EShapeDeserializer`](README.md#eshapedeserializer) \| `undefined`
+▪ [type: `number`]: [`EShapeDeserializer`](index.md#eshapedeserializer) \| `undefined`
 
 #### Defined in
 
@@ -7992,7 +7992,7 @@ Mappings of shape types and `onDeserialized` handlers.
 
 #### Index signature
 
-▪ [type: `number`]: [`EShapeOnDeserialized`](README.md#eshapeondeserialized) \| `undefined`
+▪ [type: `number`]: [`EShapeOnDeserialized`](index.md#eshapeondeserialized) \| `undefined`
 
 #### Defined in
 
@@ -8307,7 +8307,7 @@ ___
 
 #### Index signature
 
-▪ [type: `number`]: [`EShapeUploadedCreator`](README.md#eshapeuploadedcreator) \| `undefined`
+▪ [type: `number`]: [`EShapeUploadedCreator`](index.md#eshapeuploadedcreator) \| `undefined`
 
 #### Defined in
 
@@ -8762,7 +8762,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
 
 #### Returns
 
@@ -8788,7 +8788,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
 
 #### Returns
 
@@ -8814,7 +8814,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
 
 #### Returns
 
@@ -8840,7 +8840,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
 
 #### Returns
 
@@ -8887,7 +8887,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`unknown`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`unknown`\> |
 
 #### Returns
 
@@ -8913,7 +8913,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](README.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](index.md#dmenuitemoptionsunion)<`VALUE`\> |
 
 #### Returns
 
@@ -9824,7 +9824,7 @@ ___
 | `textAtlas` | `undefined` \| [`EShapeTextAtlas`](interfaces/EShapeTextAtlas.md) |
 | `textSize` | `number` |
 | `textOutlineWidth` | `number` |
-| `textWeight` | [`EShapeTextWeight`](README.md#eshapetextweight) |
+| `textWeight` | [`EShapeTextWeight`](index.md#eshapetextweight) |
 
 #### Returns
 
@@ -9855,14 +9855,14 @@ ___
 | `textAtlas` | [`EShapeTextAtlas`](interfaces/EShapeTextAtlas.md) |
 | `textSize` | `number` |
 | `textValue` | `string` |
-| `textStyle` | [`EShapeTextStyle`](README.md#eshapetextstyle) |
-| `textAlignHorizontal` | [`EShapeTextAlignHorizontal`](README.md#eshapetextalignhorizontal) |
-| `textAlignVertical` | [`EShapeTextAlignVertical`](README.md#eshapetextalignvertical) |
+| `textStyle` | [`EShapeTextStyle`](index.md#eshapetextstyle) |
+| `textAlignHorizontal` | [`EShapeTextAlignHorizontal`](index.md#eshapetextalignhorizontal) |
+| `textAlignVertical` | [`EShapeTextAlignVertical`](index.md#eshapetextalignvertical) |
 | `textOffsetHorizontal` | `number` |
 | `textOffsetVertical` | `number` |
 | `textSpacingHorizontal` | `number` |
 | `textSpacingVertical` | `number` |
-| `textDirection` | [`EShapeTextDirection`](README.md#eshapetextdirection) |
+| `textDirection` | [`EShapeTextDirection`](index.md#eshapetextdirection) |
 | `textPaddingHorizontal` | `number` |
 | `textPaddingVertical` | `number` |
 | `textClipping` | `boolean` |
@@ -11627,7 +11627,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `value` | [`EShapeLineOfAnyValue`](README.md#eshapelineofanyvalue) |
+| `value` | [`EShapeLineOfAnyValue`](index.md#eshapelineofanyvalue) |
 
 #### Returns
 
@@ -14280,7 +14280,7 @@ ___
 
 ### toChecker
 
-▸ `Const` **toChecker**<`ROW`, `VALUE`\>(`cell`, `checker?`): `undefined` \| [`DLinkChecker`](README.md#dlinkchecker)
+▸ `Const` **toChecker**<`ROW`, `VALUE`\>(`cell`, `checker?`): `undefined` \| [`DLinkChecker`](index.md#dlinkchecker)
 
 #### Type parameters
 
@@ -14294,11 +14294,11 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, ``null`` \| `VALUE`\> |
-| `checker?` | [`DTableBodyCellLinkChecker`](README.md#dtablebodycelllinkchecker)<`ROW`, `VALUE`\> |
+| `checker?` | [`DTableBodyCellLinkChecker`](index.md#dtablebodycelllinkchecker)<`ROW`, `VALUE`\> |
 
 #### Returns
 
-`undefined` \| [`DLinkChecker`](README.md#dlinkchecker)
+`undefined` \| [`DLinkChecker`](index.md#dlinkchecker)
 
 #### Defined in
 
@@ -14315,7 +14315,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `index` | `number` |
-| `value` | [`EShapeLineOfAnyValue`](README.md#eshapelineofanyvalue) |
+| `value` | [`EShapeLineOfAnyValue`](index.md#eshapelineofanyvalue) |
 | `def` | `number` |
 
 #### Returns
@@ -14643,18 +14643,18 @@ ___
 
 ### toPointsBoundary
 
-▸ `Const` **toPointsBoundary**(`values`, `result`): [`EShapePointsFormattedBoundary`](README.md#eshapepointsformattedboundary)
+▸ `Const` **toPointsBoundary**(`values`, `result`): [`EShapePointsFormattedBoundary`](index.md#eshapepointsformattedboundary)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `values` | `number`[] |
-| `result` | [`EShapePointsFormattedBoundary`](README.md#eshapepointsformattedboundary) |
+| `result` | [`EShapePointsFormattedBoundary`](index.md#eshapepointsformattedboundary) |
 
 #### Returns
 
-[`EShapePointsFormattedBoundary`](README.md#eshapepointsformattedboundary)
+[`EShapePointsFormattedBoundary`](index.md#eshapepointsformattedboundary)
 
 #### Defined in
 
@@ -14951,7 +14951,7 @@ ___
 
 ### toUrl
 
-▸ `Const` **toUrl**<`ROW`, `VALUE`\>(`cell`, `url?`): `undefined` \| `string` \| [`DLinkUrlMaker`](README.md#dlinkurlmaker)
+▸ `Const` **toUrl**<`ROW`, `VALUE`\>(`cell`, `url?`): `undefined` \| `string` \| [`DLinkUrlMaker`](index.md#dlinkurlmaker)
 
 #### Type parameters
 
@@ -14965,11 +14965,11 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `cell` | [`DTableBodyCell`](interfaces/DTableBodyCell.md)<`ROW`, ``null`` \| `VALUE`\> |
-| `url?` | `string` \| [`DTableBodyCellLinkUrlMaker`](README.md#dtablebodycelllinkurlmaker)<`ROW`, `VALUE`\> |
+| `url?` | `string` \| [`DTableBodyCellLinkUrlMaker`](index.md#dtablebodycelllinkurlmaker)<`ROW`, `VALUE`\> |
 
 #### Returns
 
-`undefined` \| `string` \| [`DLinkUrlMaker`](README.md#dlinkurlmaker)
+`undefined` \| `string` \| [`DLinkUrlMaker`](index.md#dlinkurlmaker)
 
 #### Defined in
 

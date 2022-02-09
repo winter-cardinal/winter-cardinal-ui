@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueOpen
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueOpen
 
 # Class: EShapeActionValueOpen
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueOpenType`](../README.md#eshapeactionvalueopentype)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueOpenType`](../index.md#eshapeactionvalueopentype)\>
 
   ↳ **`EShapeActionValueOpen`**
 
@@ -41,10 +41,10 @@
 
 | Name | Type |
 | :------ | :------ |
-| `subtype` | [`EShapeActionValueOpenType`](../README.md#eshapeactionvalueopentype) |
+| `subtype` | [`EShapeActionValueOpenType`](../index.md#eshapeactionvalueopentype) |
 | `condition` | `string` |
 | `target` | `string` |
-| `onInputAction` | [`EShapeActionValueOnInputAction`](../README.md#eshapeactionvalueoninputaction) |
+| `onInputAction` | [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction) |
 | `initial` | `string` |
 
 #### Overrides
@@ -83,7 +83,7 @@ ___
 
 ### onInputAction
 
-• `Readonly` **onInputAction**: [`EShapeActionValueOnInputAction`](../README.md#eshapeactionvalueoninputaction)
+• `Readonly` **onInputAction**: [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction)
 
 #### Defined in
 
@@ -93,7 +93,7 @@ ___
 
 ### subtype
 
-• `Readonly` **subtype**: [`EShapeActionValueOpenType`](../README.md#eshapeactionvalueopentype)
+• `Readonly` **subtype**: [`EShapeActionValueOpenType`](../index.md#eshapeactionvalueopentype)
 
 #### Inherited from
 
@@ -117,7 +117,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -221,7 +221,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueOpenSerialized`](../README.md#eshapeactionvalueopenserialized) |
+| `serialized` | [`EShapeActionValueOpenSerialized`](../index.md#eshapeactionvalueopenserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

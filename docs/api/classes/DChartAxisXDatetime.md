@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisXDatetime
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisXDatetime
 
 # Class: DChartAxisXDatetime<CHART, OPTIONS\>
 
@@ -142,7 +142,7 @@ ___
 
 ### \_label
 
-• `Protected` `Optional` **\_label**: [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+• `Protected` `Optional` **\_label**: [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Inherited from
 
@@ -198,7 +198,7 @@ ___
 
 ### \_position
 
-• `Protected` **\_position**: [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `Protected` **\_position**: [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Inherited from
 
@@ -240,11 +240,11 @@ ___
 
 ### position
 
-• `get` **position**(): [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `get` **position**(): [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Returns
 
-[`DChartAxisPosition`](../README.md#dchartaxisposition)
+[`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Inherited from
 

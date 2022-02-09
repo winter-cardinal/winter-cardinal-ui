@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesFill
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesFill
 
 # Interface: DChartSeriesFill
 
@@ -18,7 +18,7 @@
 
 ### alpha
 
-• **alpha**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **alpha**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 
@@ -28,7 +28,7 @@ ___
 
 ### color
 
-• **color**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **color**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 
@@ -38,7 +38,7 @@ ___
 
 ### enable
 
-• **enable**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`boolean`\>
+• **enable**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`boolean`\>
 
 #### Defined in
 

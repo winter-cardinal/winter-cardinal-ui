@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisBaseTickMajorOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisBaseTickMajorOptions
 
 # Interface: DChartAxisBaseTickMajorOptions
 
@@ -39,7 +39,7 @@ ___
 
 ### position
 
-• `Optional` **position**: [`DChartAxisTickPositionOption`](../README.md#dchartaxistickpositionoption)
+• `Optional` **position**: [`DChartAxisTickPositionOption`](../index.md#dchartaxistickpositionoption)
 
 #### Defined in
 
@@ -59,7 +59,7 @@ ___
 
 ### step
 
-• `Optional` **step**: `number` \| [`DChartCoordinateTickMajorStepFunction`](../README.md#dchartcoordinatetickmajorstepfunction)
+• `Optional` **step**: `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction)
 
 #### Defined in
 
@@ -79,7 +79,7 @@ ___
 
 ### style
 
-• `Optional` **style**: [`EShapePointsStyleOption`](../README.md#eshapepointsstyleoption)
+• `Optional` **style**: [`EShapePointsStyleOption`](../index.md#eshapepointsstyleoption)
 
 #### Defined in
 

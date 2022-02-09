@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValue
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValue
 
 # Interface: EShapeActionValue
 
@@ -34,7 +34,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Defined in
 

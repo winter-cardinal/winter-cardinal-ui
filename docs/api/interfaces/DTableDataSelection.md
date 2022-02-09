@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataSelection
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataSelection
 
 # Interface: DTableDataSelection<ROW\>
 
@@ -110,7 +110,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`DTableDataSelectionType`](../README.md#dtabledataselectiontype)
+• `Readonly` **type**: [`DTableDataSelectionType`](../index.md#dtabledataselectiontype)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeEmbeddeds
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeEmbeddeds
 
 # Class: EShapeEmbeddeds
 

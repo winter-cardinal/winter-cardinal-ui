@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueTransformRotate
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueTransformRotate
 
 # Class: EShapeActionValueTransformRotate
 
 ## Hierarchy
 
-- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)<[`EShapeActionValueTransformType`](../README.md#eshapeactionvaluetransformtype), [`EShapeActionValueTransformRotateType`](../README.md#eshapeactionvaluetransformrotatetype)\>
+- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)<[`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype), [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype)\>
 
   ↳ **`EShapeActionValueTransformRotate`**
 
@@ -42,7 +42,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `opetype` | [`EShapeActionValueTransformRotateType`](../README.md#eshapeactionvaluetransformrotatetype) |
+| `opetype` | [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype) |
 | `condition` | `string` |
 | `originX` | `number` |
 | `originY` | `number` |
@@ -84,7 +84,7 @@ ___
 
 ### opetype
 
-• `Readonly` **opetype**: [`EShapeActionValueTransformRotateType`](../README.md#eshapeactionvaluetransformrotatetype)
+• `Readonly` **opetype**: [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype)
 
 #### Inherited from
 
@@ -118,7 +118,7 @@ ___
 
 ### subtype
 
-• `Readonly` **subtype**: [`EShapeActionValueTransformType`](../README.md#eshapeactionvaluetransformtype)
+• `Readonly` **subtype**: [`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype)
 
 #### Inherited from
 
@@ -132,7 +132,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -236,7 +236,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueTransformRotateSerialized`](../README.md#eshapeactionvaluetransformrotateserialized) |
+| `serialized` | [`EShapeActionValueTransformRotateSerialized`](../index.md#eshapeactionvaluetransformrotateserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

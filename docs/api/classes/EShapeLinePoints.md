@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLinePoints
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLinePoints
 
 # Class: EShapeLinePoints
 
@@ -91,7 +91,7 @@ ___
 
 ### \_formattedBoundaryBase
 
-• `Protected` `Optional` **\_formattedBoundaryBase**: [`EShapePointsFormattedBoundary`](../README.md#eshapepointsformattedboundary)
+• `Protected` `Optional` **\_formattedBoundaryBase**: [`EShapePointsFormattedBoundary`](../index.md#eshapepointsformattedboundary)
 
 #### Defined in
 
@@ -121,7 +121,7 @@ ___
 
 ### \_formatter
 
-• `Protected` `Optional` **\_formatter**: ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+• `Protected` `Optional` **\_formatter**: ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Defined in
 
@@ -241,11 +241,11 @@ ___
 
 ### formatted
 
-• `get` **formatted**(): [`EShapePointsFormatted`](../README.md#eshapepointsformatted)
+• `get` **formatted**(): [`EShapePointsFormatted`](../index.md#eshapepointsformatted)
 
 #### Returns
 
-[`EShapePointsFormatted`](../README.md#eshapepointsformatted)
+[`EShapePointsFormatted`](../index.md#eshapepointsformatted)
 
 #### Implementation of
 
@@ -259,11 +259,11 @@ ___
 
 ### formatter
 
-• `get` **formatter**(): ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+• `get` **formatter**(): ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Returns
 
-``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Implementation of
 
@@ -279,7 +279,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `formatter` | ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter) |
+| `formatter` | ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter) |
 
 #### Returns
 
@@ -484,8 +484,8 @@ ___
 | `ax` | `number` |
 | `ay` | `number` |
 | `threshold` | `number` |
-| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../README.md#eshapelinebasepointshittestertorange) |
-| `tester` | [`EShapeLineBasePointsHitTester`](../README.md#eshapelinebasepointshittester)<`RESULT`\> |
+| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../index.md#eshapelinebasepointshittestertorange) |
+| `tester` | [`EShapeLineBasePointsHitTester`](../index.md#eshapelinebasepointshittester)<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns
@@ -776,8 +776,8 @@ ___
 | :------ | :------ |
 | `values` | `number`[] |
 | `valuesBase` | `number`[] |
-| `boundary` | [`EShapePointsFormattedBoundary`](../README.md#eshapepointsformattedboundary) |
-| `boundaryBase` | [`EShapePointsFormattedBoundary`](../README.md#eshapepointsformattedboundary) |
+| `boundary` | [`EShapePointsFormattedBoundary`](../index.md#eshapepointsformattedboundary) |
+| `boundaryBase` | [`EShapePointsFormattedBoundary`](../index.md#eshapepointsformattedboundary) |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueChangeCursor
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueChangeCursor
 
 # Class: EShapeActionValueChangeCursor
 
@@ -77,7 +77,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -181,7 +181,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueChangeCursorSerialized`](../README.md#eshapeactionvaluechangecursorserialized) |
+| `serialized` | [`EShapeActionValueChangeCursorSerialized`](../index.md#eshapeactionvaluechangecursorserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

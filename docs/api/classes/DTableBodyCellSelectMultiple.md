@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableBodyCellSelectMultiple
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableBodyCellSelectMultiple
 
 # Class: DTableBodyCellSelectMultiple<ROW, VALUE, THEME, OPTIONS\>
 
@@ -317,7 +317,7 @@
 | :------ | :------ |
 | `columnIndex` | `number` |
 | `column` | [`DTableColumn`](../interfaces/DTableColumn.md)<`ROW`, `VALUE`[], `VALUE`[], [`DTableColumnSelectingDialog`](../interfaces/DTableColumnSelectingDialog.md)<`VALUE`[]\>\> |
-| `onChange` | [`DTableBodyCellOnChange`](../README.md#dtablebodycellonchange)<`ROW`, `VALUE`[], `any`\> |
+| `onChange` | [`DTableBodyCellOnChange`](../index.md#dtablebodycellonchange)<`ROW`, `VALUE`[], `any`\> |
 | `options?` | `OPTIONS` |
 
 #### Overrides
@@ -512,7 +512,7 @@ ___
 
 ### \_cursor
 
-• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\>
+• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
 
 #### Implementation of
 
@@ -703,7 +703,7 @@ ___
 
 ### \_onChange
 
-• `Protected` **\_onChange**: [`DTableBodyCellOnChange`](../README.md#dtablebodycellonchange)<`ROW`, `VALUE`[], `any`\>
+• `Protected` **\_onChange**: [`DTableBodyCellOnChange`](../index.md#dtablebodycellonchange)<`ROW`, `VALUE`[], `any`\>
 
 #### Defined in
 
@@ -947,8 +947,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `horizontal` | [`DAlignHorizontal`](../README.md#dalignhorizontal) |
-| `vertical` | [`DAlignVertical`](../README.md#dalignvertical) |
+| `horizontal` | [`DAlignHorizontal`](../index.md#dalignhorizontal) |
+| `vertical` | [`DAlignVertical`](../index.md#dalignvertical) |
 
 #### Inherited from
 
@@ -962,7 +962,7 @@ ___
 
 ### \_textAlpha
 
-• `Protected` **\_textAlpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Protected` **\_textAlpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Inherited from
 
@@ -976,7 +976,7 @@ ___
 
 ### \_textColor
 
-• `Protected` **\_textColor**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Protected` **\_textColor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Inherited from
 
@@ -1033,7 +1033,7 @@ ___
 
 ### \_textValue
 
-• `Protected` `Optional` **\_textValue**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<[`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>[]\>
+• `Protected` `Optional` **\_textValue**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<[`DMenuItem`](DMenuItem.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md), [`DMenuItemOptions`](../interfaces/DMenuItemOptions.md)<`VALUE`, [`DThemeMenuItem`](../interfaces/DThemeMenuItem.md)\>\>[]\>
 
 #### Inherited from
 
@@ -1093,7 +1093,7 @@ ___
 
 ### \_when
 
-• `Protected` **\_when**: [`DButtonBaseWhen`](../README.md#dbuttonbasewhen)
+• `Protected` **\_when**: [`DButtonBaseWhen`](../index.md#dbuttonbasewhen)
 
 #### Inherited from
 
@@ -2173,11 +2173,11 @@ ___
 
 ### image
 
-• `get` **image**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
+• `get` **image**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
 
 #### Inherited from
 
@@ -2193,7 +2193,7 @@ DSelectMultiple.image
 
 | Name | Type |
 | :------ | :------ |
-| `imageSource` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\> |
+| `imageSource` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\> |
 
 #### Returns
 
@@ -2531,11 +2531,11 @@ ___
 
 ### text
 
-• `get` **text**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`VALUE`\>
+• `get` **text**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
 
 #### Inherited from
 
@@ -2551,7 +2551,7 @@ DSelectMultiple.text
 
 | Name | Type |
 | :------ | :------ |
-| `text` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`VALUE`\> |
+| `text` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\> |
 
 #### Returns
 
@@ -3730,11 +3730,11 @@ ___
 
 ### getHeight
 
-▸ **getHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Implementation of
 
@@ -3918,11 +3918,11 @@ ___
 
 ### getWidth
 
-▸ **getWidth**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Implementation of
 
@@ -3940,11 +3940,11 @@ ___
 
 ### getX
 
-▸ **getX**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Implementation of
 
@@ -3962,11 +3962,11 @@ ___
 
 ### getY
 
-▸ **getY**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Implementation of
 
@@ -4136,7 +4136,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `when` | [`DButtonBaseWhen`](../README.md#dbuttonbasewhen) |
+| `when` | [`DButtonBaseWhen`](../index.md#dbuttonbasewhen) |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
 
@@ -4162,7 +4162,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `when` | [`DButtonBaseWhen`](../README.md#dbuttonbasewhen) |
+| `when` | [`DButtonBaseWhen`](../index.md#dbuttonbasewhen) |
 | `theme` | `THEME` |
 | `options?` | `OPTIONS` |
 
@@ -6089,7 +6089,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `height` | [`DCoordinateSize`](../README.md#dcoordinatesize) |
+| `height` | [`DCoordinateSize`](../index.md#dcoordinatesize) |
 
 #### Returns
 
@@ -6189,7 +6189,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `width` | [`DCoordinateSize`](../README.md#dcoordinatesize) |
+| `width` | [`DCoordinateSize`](../index.md#dcoordinatesize) |
 
 #### Returns
 
@@ -6217,7 +6217,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x` | [`DCoordinatePosition`](../README.md#dcoordinateposition) |
+| `x` | [`DCoordinatePosition`](../index.md#dcoordinateposition) |
 
 #### Returns
 
@@ -6245,7 +6245,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `y` | [`DCoordinatePosition`](../README.md#dcoordinateposition) |
+| `y` | [`DCoordinatePosition`](../index.md#dcoordinateposition) |
 
 #### Returns
 
@@ -6408,7 +6408,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `cursor` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\> |
+| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\> |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
 
 #### Returns

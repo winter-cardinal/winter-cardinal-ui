@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DViewOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DViewOptions
 
 # Interface: DViewOptions
 
@@ -18,7 +18,7 @@
 
 ### constraint
 
-• `Optional` **constraint**: [`DViewConstraint`](../README.md#dviewconstraint)
+• `Optional` **constraint**: [`DViewConstraint`](../index.md#dviewconstraint)
 
 Constraint options
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeItemUpdaterOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeItemUpdaterOptions
 
 # Interface: DTreeItemUpdaterOptions<NODE\>
 
@@ -26,7 +26,7 @@
 
 ### initItem
 
-• `Optional` **initItem**: [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DTreeData`](DTreeData.md)<`NODE`\>, [`DTreeItem`](DTreeItem.md)<`NODE`\>\>
+• `Optional` **initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DTreeData`](DTreeData.md)<`NODE`\>, [`DTreeItem`](DTreeItem.md)<`NODE`\>\>
 
 Called to initialize items.
 
@@ -42,7 +42,7 @@ ___
 
 ### newItem
 
-• `Optional` **newItem**: [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DTreeData`](DTreeData.md)<`NODE`\>, [`DTreeItem`](DTreeItem.md)<`NODE`\>\>
+• `Optional` **newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DTreeData`](DTreeData.md)<`NODE`\>, [`DTreeItem`](DTreeItem.md)<`NODE`\>\>
 
 Called to create items.
 

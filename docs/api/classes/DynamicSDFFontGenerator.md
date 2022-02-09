@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DynamicSDFFontGenerator
+[Winter Cardinal UI - v0.154.0](../index.md) / DynamicSDFFontGenerator
 
 # Class: DynamicSDFFontGenerator
 

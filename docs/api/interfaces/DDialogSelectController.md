@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDialogSelectController
+[Winter Cardinal UI - v0.154.0](../index.md) / DDialogSelectController
 
 # Interface: DDialogSelectController<VALUE\>
 
@@ -20,7 +20,7 @@
 
 ### search
 
-• **search**: [`DDialogSelectSearch`](DDialogSelectSearch.md)<`VALUE`\> \| [`DDialogSelectSearchFunction`](../README.md#ddialogselectsearchfunction)<`VALUE`\>
+• **search**: [`DDialogSelectSearch`](DDialogSelectSearch.md)<`VALUE`\> \| [`DDialogSelectSearchFunction`](../index.md#ddialogselectsearchfunction)<`VALUE`\>
 
 #### Defined in
 

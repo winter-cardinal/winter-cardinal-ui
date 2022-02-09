@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeChangeColorCode
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeChangeColorCode
 
 # Class: EShapeActionRuntimeChangeColorCode
 
@@ -59,7 +59,7 @@ EShapeActionRuntimeChangeColorBase.constructor
 
 ### alpha
 
-• `Protected` `Readonly` **alpha**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **alpha**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -69,7 +69,7 @@ ___
 
 ### blend
 
-• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -79,7 +79,7 @@ ___
 
 ### color
 
-• `Protected` `Readonly` **color**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **color**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -89,7 +89,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 

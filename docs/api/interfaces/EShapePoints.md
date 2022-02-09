@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapePoints
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapePoints
 
 # Interface: EShapePoints
 
@@ -41,7 +41,7 @@
 
 ### formatted
 
-• `Readonly` **formatted**: `Readonly`<[`EShapePointsFormatted`](../README.md#eshapepointsformatted)\>
+• `Readonly` **formatted**: `Readonly`<[`EShapePointsFormatted`](../index.md#eshapepointsformatted)\>
 
 #### Defined in
 
@@ -51,7 +51,7 @@ ___
 
 ### formatter
 
-• **formatter**: ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+• **formatter**: ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Defined in
 

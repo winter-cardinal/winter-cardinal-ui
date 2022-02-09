@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DApplicationLayerOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DApplicationLayerOptions
 
 # Class: DApplicationLayerOptions
 

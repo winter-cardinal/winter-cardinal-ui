@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataSelectionNone
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataSelectionNone
 
 # Class: DListDataSelectionNone<ITEM\>
 
@@ -139,11 +139,11 @@ ___
 
 ### type
 
-• `get` **type**(): [`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+• `get` **type**(): [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 #### Returns
 
-[`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+[`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 #### Implementation of
 

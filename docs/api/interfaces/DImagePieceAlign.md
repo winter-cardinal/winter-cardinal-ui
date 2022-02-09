@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DImagePieceAlign
+[Winter Cardinal UI - v0.154.0](../index.md) / DImagePieceAlign
 
 # Interface: DImagePieceAlign
 
@@ -14,7 +14,7 @@
 
 ### horizontal
 
-• **horizontal**: [`DAlignHorizontal`](../README.md#dalignhorizontal)
+• **horizontal**: [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Defined in
 
@@ -24,7 +24,7 @@ ___
 
 ### vertical
 
-• **vertical**: [`DAlignVertical`](../README.md#dalignvertical)
+• **vertical**: [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Defined in
 
@@ -34,7 +34,7 @@ ___
 
 ### with
 
-• **with**: [`DAlignWith`](../README.md#dalignwith)
+• **with**: [`DAlignWith`](../index.md#dalignwith)
 
 #### Defined in
 

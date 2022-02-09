@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataTreeItemAccessor
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataTreeItemAccessor
 
 # Class: DTableDataTreeItemAccessor<NODE\>
 

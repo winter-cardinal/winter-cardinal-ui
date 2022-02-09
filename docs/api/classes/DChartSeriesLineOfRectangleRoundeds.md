@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesLineOfRectangleRoundeds
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesLineOfRectangleRoundeds
 
 # Class: DChartSeriesLineOfRectangleRoundeds<CHART\>
 

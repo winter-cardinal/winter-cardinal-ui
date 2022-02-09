@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilGestureOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilGestureOnOptions
 
 # Interface: UtilGestureOnOptions<TARGET\>
 
@@ -20,7 +20,7 @@
 
 ### end
 
-• `Optional` **end**: [`UtilGestureOnEnd`](../README.md#utilgestureonend)<`TARGET`\>
+• `Optional` **end**: [`UtilGestureOnEnd`](../index.md#utilgestureonend)<`TARGET`\>
 
 #### Defined in
 
@@ -30,7 +30,7 @@ ___
 
 ### move
 
-• `Optional` **move**: [`UtilGestureOnMove`](../README.md#utilgestureonmove)<`TARGET`\>
+• `Optional` **move**: [`UtilGestureOnMove`](../index.md#utilgestureonmove)<`TARGET`\>
 
 #### Defined in
 
@@ -40,7 +40,7 @@ ___
 
 ### start
 
-• `Optional` **start**: [`UtilGestureOnStart`](../README.md#utilgestureonstart)<`TARGET`\>
+• `Optional` **start**: [`UtilGestureOnStart`](../index.md#utilgestureonstart)<`TARGET`\>
 
 #### Defined in
 

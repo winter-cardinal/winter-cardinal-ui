@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLineOfAnyPointsFillImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineOfAnyPointsFillImpl
 
 # Class: EShapeLineOfAnyPointsFillImpl
 
@@ -54,7 +54,7 @@
 
 ### \_alpha
 
-• `Protected` **\_alpha**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `Protected` **\_alpha**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -64,7 +64,7 @@ ___
 
 ### \_color
 
-• `Protected` **\_color**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `Protected` **\_color**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -94,11 +94,11 @@ ___
 
 ### alpha
 
-• `get` **alpha**(): [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `get` **alpha**(): [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Returns
 
-[`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+[`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Implementation of
 
@@ -114,7 +114,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `alpha` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `alpha` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 
@@ -132,11 +132,11 @@ ___
 
 ### color
 
-• `get` **color**(): [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `get` **color**(): [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Returns
 
-[`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+[`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Implementation of
 
@@ -152,7 +152,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `color` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 
@@ -280,8 +280,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `color?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
-| `alpha?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `color?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
+| `alpha?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 

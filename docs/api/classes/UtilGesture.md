@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilGesture
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilGesture
 
 # Class: UtilGesture<TARGET\>
 
@@ -70,7 +70,7 @@
 
 ### \_checkerMove
 
-• `Protected` **\_checkerMove**: [`UtilGestureChecker`](../README.md#utilgesturechecker)<`TARGET`\>
+• `Protected` **\_checkerMove**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
 
 #### Defined in
 
@@ -80,7 +80,7 @@ ___
 
 ### \_checkerStart
 
-• `Protected` **\_checkerStart**: [`UtilGestureChecker`](../README.md#utilgesturechecker)<`TARGET`\>
+• `Protected` **\_checkerStart**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
 
 #### Defined in
 
@@ -110,7 +110,7 @@ ___
 
 ### \_onEnd
 
-• `Protected` `Optional` **\_onEnd**: [`UtilGestureOnEnd`](../README.md#utilgestureonend)<`TARGET`\>
+• `Protected` `Optional` **\_onEnd**: [`UtilGestureOnEnd`](../index.md#utilgestureonend)<`TARGET`\>
 
 #### Defined in
 
@@ -120,7 +120,7 @@ ___
 
 ### \_onMove
 
-• `Protected` `Optional` **\_onMove**: [`UtilGestureOnMove`](../README.md#utilgestureonmove)<`TARGET`\>
+• `Protected` `Optional` **\_onMove**: [`UtilGestureOnMove`](../index.md#utilgestureonmove)<`TARGET`\>
 
 #### Defined in
 
@@ -130,7 +130,7 @@ ___
 
 ### \_onStart
 
-• `Protected` `Optional` **\_onStart**: [`UtilGestureOnStart`](../README.md#utilgestureonstart)<`TARGET`\>
+• `Protected` `Optional` **\_onStart**: [`UtilGestureOnStart`](../index.md#utilgestureonstart)<`TARGET`\>
 
 #### Defined in
 

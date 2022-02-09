@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilHtmlElementOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilHtmlElementOptions
 
 # Interface: UtilHtmlElementOptions<ELEMENT\>
 
@@ -81,7 +81,7 @@ ___
 
 ### when
 
-• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+• `Optional` **when**: ``"CLICKED"`` \| ``"DOUBLE_CLICKED"`` \| ``"FOCUSED"`` \| ``"ALWAYS"`` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Defined in
 

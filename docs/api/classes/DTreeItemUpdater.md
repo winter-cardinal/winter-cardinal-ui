@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeItemUpdater
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeItemUpdater
 
 # Class: DTreeItemUpdater<NODE\>
 
@@ -132,7 +132,7 @@ ___
 
 ### \_initItem
 
-• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
 
 #### Inherited from
 
@@ -244,7 +244,7 @@ ___
 
 ### \_newItem
 
-• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
 
 #### Inherited from
 
@@ -476,7 +476,7 @@ ___
 
 ### toInitItem
 
-▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
 
 #### Parameters
 
@@ -486,7 +486,7 @@ ___
 
 #### Returns
 
-[`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+[`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
 
 #### Inherited from
 
@@ -524,7 +524,7 @@ ___
 
 ### toNewItem
 
-▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
 
 #### Parameters
 
@@ -534,7 +534,7 @@ ___
 
 #### Returns
 
-[`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
+[`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DTreeData`](../interfaces/DTreeData.md)<`NODE`\>, [`DTreeItem`](../interfaces/DTreeItem.md)<`NODE`\>\>
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeWhiteFont
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeWhiteFont
 
 # Class: DThemeWhiteFont
 
@@ -123,11 +123,11 @@ ___
 
 ### getFontStyle
 
-▸ **getFontStyle**(): [`DFontStyle`](../README.md#dfontstyle)
+▸ **getFontStyle**(): [`DFontStyle`](../index.md#dfontstyle)
 
 #### Returns
 
-[`DFontStyle`](../README.md#dfontstyle)
+[`DFontStyle`](../index.md#dfontstyle)
 
 #### Implementation of
 
@@ -141,11 +141,11 @@ ___
 
 ### getFontVariant
 
-▸ **getFontVariant**(): [`DFontVariant`](../README.md#dfontvariant)
+▸ **getFontVariant**(): [`DFontVariant`](../index.md#dfontvariant)
 
 #### Returns
 
-[`DFontVariant`](../README.md#dfontvariant)
+[`DFontVariant`](../index.md#dfontvariant)
 
 #### Implementation of
 
@@ -159,11 +159,11 @@ ___
 
 ### getFontWeight
 
-▸ **getFontWeight**(): [`DFontWeight`](../README.md#dfontweight)
+▸ **getFontWeight**(): [`DFontWeight`](../index.md#dfontweight)
 
 #### Returns
 
-[`DFontWeight`](../README.md#dfontweight)
+[`DFontWeight`](../index.md#dfontweight)
 
 #### Implementation of
 

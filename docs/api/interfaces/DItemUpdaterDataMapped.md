@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DItemUpdaterDataMapped
+[Winter Cardinal UI - v0.154.0](../index.md) / DItemUpdaterDataMapped
 
 # Interface: DItemUpdaterDataMapped<VALUE\>
 

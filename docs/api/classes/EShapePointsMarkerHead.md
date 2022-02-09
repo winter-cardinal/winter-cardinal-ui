@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapePointsMarkerHead
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapePointsMarkerHead
 
 # Class: EShapePointsMarkerHead
 
@@ -201,7 +201,7 @@ ___
 
 ### \_type
 
-• `Protected` **\_type**: [`EShapePointsMarkerType`](../README.md#eshapepointsmarkertype)
+• `Protected` **\_type**: [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype)
 
 #### Inherited from
 
@@ -269,11 +269,11 @@ ___
 
 ### type
 
-• `get` **type**(): [`EShapePointsMarkerType`](../README.md#eshapepointsmarkertype)
+• `get` **type**(): [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype)
 
 #### Returns
 
-[`EShapePointsMarkerType`](../README.md#eshapepointsmarkertype)
+[`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype)
 
 #### Inherited from
 
@@ -289,7 +289,7 @@ EShapePointsMarkerBase.type
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapePointsMarkerType`](../README.md#eshapepointsmarkertype) |
+| `type` | [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype) |
 
 #### Returns
 
@@ -476,7 +476,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type?` | [`EShapePointsMarkerType`](../README.md#eshapepointsmarkertype) |
+| `type?` | [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype) |
 | `sizeX?` | `number` |
 | `sizeY?` | `number` |
 

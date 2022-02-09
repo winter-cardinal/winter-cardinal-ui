@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueShowHide
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueShowHide
 
 # Class: EShapeActionValueShowHide
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueShowHideType`](../README.md#eshapeactionvalueshowhidetype)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueShowHideType`](../index.md#eshapeactionvalueshowhidetype)\>
 
   ↳ **`EShapeActionValueShowHide`**
 
@@ -38,7 +38,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `subtype` | [`EShapeActionValueShowHideType`](../README.md#eshapeactionvalueshowhidetype) |
+| `subtype` | [`EShapeActionValueShowHideType`](../index.md#eshapeactionvalueshowhidetype) |
 | `condition` | `string` |
 
 #### Overrides
@@ -67,7 +67,7 @@ ___
 
 ### subtype
 
-• `Readonly` **subtype**: [`EShapeActionValueShowHideType`](../README.md#eshapeactionvalueshowhidetype)
+• `Readonly` **subtype**: [`EShapeActionValueShowHideType`](../index.md#eshapeactionvalueshowhidetype)
 
 #### Inherited from
 
@@ -81,7 +81,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -185,7 +185,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueShowHideSerialized`](../README.md#eshapeactionvalueshowhideserialized) |
+| `serialized` | [`EShapeActionValueShowHideSerialized`](../index.md#eshapeactionvalueshowhideserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

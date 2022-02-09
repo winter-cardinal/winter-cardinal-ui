@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartCoordinateLogTick
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartCoordinateLogTick
 
 # Class: DChartCoordinateLogTick<CHART\>
 
@@ -144,10 +144,10 @@ ___
 | `domainFrom` | `number` |
 | `domainTo` | `number` |
 | `majorCount` | `number` |
-| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../README.md#dchartcoordinatetickmajorstepfunction) |
+| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) |
 | `minorCountPerMajor` | `number` |
 | `minorCount` | `number` |
-| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../README.md#dchartcoordinatetickminorstepfunction) |
+| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
 | `majorResult` | `Float64Array` |
 | `minorResult` | `Float64Array` |
 | `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
@@ -201,7 +201,7 @@ ___
 | `domainMin` | `number` |
 | `domainMax` | `number` |
 | `majorCount` | `number` |
-| `majorStep?` | `number` \| [`DChartCoordinateTickMajorStepFunction`](../README.md#dchartcoordinatetickmajorstepfunction) |
+| `majorStep?` | `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) |
 
 #### Returns
 
@@ -223,7 +223,7 @@ ___
 | :------ | :------ |
 | `majorStep` | `number` |
 | `minorCount` | `number` |
-| `minorStep?` | `number` \| [`DChartCoordinateTickMinorStepFunction`](../README.md#dchartcoordinatetickminorstepfunction) |
+| `minorStep?` | `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
 
 #### Returns
 

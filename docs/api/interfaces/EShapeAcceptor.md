@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeAcceptor
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeAcceptor
 
 # Interface: EShapeAcceptor
 
@@ -29,7 +29,7 @@
 | Name | Type |
 | :------ | :------ |
 | `id` | `string` |
-| `type` | [`EShapeAcceptorType`](../README.md#eshapeacceptortype) |
+| `type` | [`EShapeAcceptorType`](../index.md#eshapeacceptortype) |
 | `x` | `number` |
 | `y` | `number` |
 

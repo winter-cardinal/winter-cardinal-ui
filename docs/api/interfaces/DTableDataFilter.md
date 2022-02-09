@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataFilter
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataFilter
 
 # Interface: DTableDataFilter<ROW\>
 
@@ -168,13 +168,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\>
+▸ **get**(): ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
 
 Returns a current filter.
 
 #### Returns
 
-``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\>
+``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
 
 #### Defined in
 
@@ -430,7 +430,7 @@ Sets to the given filter.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filter` | ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\> | A filter |
+| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\> | A filter |
 
 #### Returns
 

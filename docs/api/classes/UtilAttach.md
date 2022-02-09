@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilAttach
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilAttach
 
 # Class: UtilAttach
 
@@ -58,7 +58,7 @@ ___
 | `offsetY` | `number` |
 | `clippingWidth` | `number` |
 | `clippingHeight` | `number` |
-| `align` | [`UtilAttachAlign`](../README.md#utilattachalign) |
+| `align` | [`UtilAttachAlign`](../index.md#utilattachalign) |
 
 #### Returns
 

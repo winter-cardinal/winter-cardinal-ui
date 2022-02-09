@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DPickerTimeBoundConstantSecond
+[Winter Cardinal UI - v0.154.0](../index.md) / DPickerTimeBoundConstantSecond
 
 # Interface: DPickerTimeBoundConstantSecond
 

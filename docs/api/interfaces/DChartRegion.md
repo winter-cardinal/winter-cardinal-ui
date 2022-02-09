@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartRegion
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartRegion
 
 # Interface: DChartRegion
 

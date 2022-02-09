@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DPickerColorGradientView
+[Winter Cardinal UI - v0.154.0](../index.md) / DPickerColorGradientView
 
 # Class: DPickerColorGradientView
 

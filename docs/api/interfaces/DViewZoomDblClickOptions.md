@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DViewZoomDblClickOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DViewZoomDblClickOptions
 
 # Interface: DViewZoomDblClickOptions
 
@@ -30,7 +30,7 @@ ___
 
 ### checker
 
-• `Optional` **checker**: [`DViewChecker`](../README.md#dviewchecker)
+• `Optional` **checker**: [`DViewChecker`](../index.md#dviewchecker)
 
 Double click zoom checker.
 If a checker returns false, double click zooms will be canceled.

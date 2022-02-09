@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramDataRemote
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramDataRemote
 
 # Class: DDiagramDataRemote
 

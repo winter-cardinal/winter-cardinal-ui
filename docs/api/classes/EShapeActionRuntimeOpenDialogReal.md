@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeOpenDialogReal
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeOpenDialogReal
 
 # Class: EShapeActionRuntimeOpenDialogReal
 
@@ -61,7 +61,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -75,7 +75,7 @@ ___
 
 ### initial
 
-• `Protected` **initial**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+• `Protected` **initial**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Overrides
 
@@ -103,7 +103,7 @@ ___
 
 ### onInputAction
 
-• `Protected` **onInputAction**: [`EShapeActionValueOnInputAction`](../README.md#eshapeactionvalueoninputaction)
+• `Protected` **onInputAction**: [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction)
 
 #### Inherited from
 
@@ -131,7 +131,7 @@ ___
 
 ### target
 
-• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Inherited from
 

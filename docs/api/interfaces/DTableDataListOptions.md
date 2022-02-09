@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataListOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataListOptions
 
 # Interface: DTableDataListOptions<ROW\>
 
@@ -28,7 +28,7 @@
 
 ### comparator
 
-• `Optional` **comparator**: [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\>
+• `Optional` **comparator**: [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
 
 A comparator.
 
@@ -44,7 +44,7 @@ ___
 
 ### filter
 
-• `Optional` **filter**: [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\>
+• `Optional` **filter**: [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
 
 A filter.
 
@@ -86,7 +86,7 @@ ___
 
 ### selection
 
-• `Optional` **selection**: [`DTableDataSelectionOptions`](DTableDataSelectionOptions.md) \| [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\> \| [`DTableDataSelectionCreator`](../README.md#dtabledataselectioncreator)<`ROW`\>
+• `Optional` **selection**: [`DTableDataSelectionOptions`](DTableDataSelectionOptions.md) \| [`DTableDataSelection`](DTableDataSelection.md)<`ROW`\> \| [`DTableDataSelectionCreator`](../index.md#dtabledataselectioncreator)<`ROW`\>
 
 Selection options.
 

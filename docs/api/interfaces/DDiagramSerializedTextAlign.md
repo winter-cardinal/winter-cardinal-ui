@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSerializedTextAlign
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedTextAlign
 
 # Interface: DDiagramSerializedTextAlign
 
@@ -15,7 +15,7 @@ A serialized text align.
 
 ### 0
 
-• **0**: [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+• **0**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 A horizontal align.
 
@@ -27,7 +27,7 @@ ___
 
 ### 1
 
-• **1**: [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+• **1**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 A vertical align.
 

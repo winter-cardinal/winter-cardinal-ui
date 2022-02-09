@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueOpetyped
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueOpetyped
 
 # Class: EShapeActionValueOpetyped<SUBTYPE, OPETYPE\>
 
@@ -58,7 +58,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueType`](../README.md#eshapeactionvaluetype) |
+| `type` | [`EShapeActionValueType`](../index.md#eshapeactionvaluetype) |
 | `condition` | `string` |
 | `subtype` | `SUBTYPE` |
 | `opetype` | `OPETYPE` |
@@ -113,7 +113,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 

@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueBlink
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueBlink
 
 # Class: EShapeActionValueBlink
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueBlinkType`](../README.md#eshapeactionvalueblinktype)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueBlinkType`](../index.md#eshapeactionvalueblinktype)\>
 
   ↳ **`EShapeActionValueBlink`**
 
@@ -41,7 +41,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `subtype` | [`EShapeActionValueBlinkType`](../README.md#eshapeactionvalueblinktype) |
+| `subtype` | [`EShapeActionValueBlinkType`](../index.md#eshapeactionvalueblinktype) |
 | `condition` | `string` |
 | `interval` | `number` |
 | `color` | `number` |
@@ -103,7 +103,7 @@ ___
 
 ### subtype
 
-• `Readonly` **subtype**: [`EShapeActionValueBlinkType`](../README.md#eshapeactionvalueblinktype)
+• `Readonly` **subtype**: [`EShapeActionValueBlinkType`](../index.md#eshapeactionvalueblinktype)
 
 #### Inherited from
 
@@ -117,7 +117,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -221,7 +221,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueBlinkSerialized`](../README.md#eshapeactionvalueblinkserialized) |
+| `serialized` | [`EShapeActionValueBlinkSerialized`](../index.md#eshapeactionvalueblinkserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

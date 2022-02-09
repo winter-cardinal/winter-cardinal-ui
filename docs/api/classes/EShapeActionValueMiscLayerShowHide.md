@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueMiscLayerShowHide
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueMiscLayerShowHide
 
 # Class: EShapeActionValueMiscLayerShowHide
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`LAYER_SHOW_HIDE`](../README.md#layer_show_hide)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`LAYER_SHOW_HIDE`](../index.md#layer_show_hide)\>
 
   ↳ **`EShapeActionValueMiscLayerShowHide`**
 
@@ -106,7 +106,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -230,7 +230,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueMiscLayerShowHideSerialized`](../README.md#eshapeactionvaluemisclayershowhideserialized) |
+| `serialized` | [`EShapeActionValueMiscLayerShowHideSerialized`](../index.md#eshapeactionvaluemisclayershowhideserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

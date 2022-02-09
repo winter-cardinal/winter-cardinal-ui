@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSerializedSimple
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedSimple
 
 # Interface: DDiagramSerializedSimple
 
@@ -22,7 +22,7 @@ A simplified version of a serialized diagram.
 
 • **data**: `string`
 
-A stringified [DDiagramSerializedSimpleData](../README.md#ddiagramserializedsimpledata).
+A stringified [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpledata).
 
 #### Defined in
 
@@ -56,7 +56,7 @@ ___
 
 A stringified {@link DDiagramSerialized#pieces}.
 
-**`deprecated`** in favor of [DDiagramSerializedSimpleData](../README.md#ddiagramserializedsimpledata).
+**`deprecated`** in favor of [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpledata).
 
 #### Defined in
 
@@ -70,7 +70,7 @@ ___
 
 A stringified {@link DDiagramSerialized#data}.
 
-**`deprecated`** in favor of [DDiagramSerializedSimpleData](../README.md#ddiagramserializedsimpledata).
+**`deprecated`** in favor of [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpledata).
 
 #### Defined in
 

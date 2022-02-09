@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramCanvasBackgroundOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramCanvasBackgroundOptions
 
 # Interface: DDiagramCanvasBackgroundOptions
 
@@ -20,7 +20,7 @@
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 An alpha or a function returning an alpha.
 If a computed value is undefined, falls back to an background alpha of a theme.
@@ -47,7 +47,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 A color code or a function returning a color code.
 If a computed value is undefined, falls back to the theme color.

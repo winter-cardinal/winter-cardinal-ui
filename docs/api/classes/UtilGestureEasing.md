@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilGestureEasing
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilGestureEasing
 
 # Class: UtilGestureEasing
 
@@ -45,8 +45,8 @@
 
 | Name | Type |
 | :------ | :------ |
-| `onMove` | [`UtilGestureEasingOnMove`](../README.md#utilgestureeasingonmove) |
-| `onEnd` | [`UtilGestureEasingOnEnd`](../README.md#utilgestureeasingonend) |
+| `onMove` | [`UtilGestureEasingOnMove`](../index.md#utilgestureeasingonmove) |
+| `onEnd` | [`UtilGestureEasingOnEnd`](../index.md#utilgestureeasingonend) |
 | `options?` | [`UtilGestureEasingOptions`](../interfaces/UtilGestureEasingOptions.md) |
 
 #### Defined in
@@ -157,7 +157,7 @@ ___
 
 ### \_onEnd
 
-• `Protected` **\_onEnd**: [`UtilGestureEasingOnEnd`](../README.md#utilgestureeasingonend)
+• `Protected` **\_onEnd**: [`UtilGestureEasingOnEnd`](../index.md#utilgestureeasingonend)
 
 #### Defined in
 
@@ -167,7 +167,7 @@ ___
 
 ### \_onMove
 
-• `Protected` **\_onMove**: [`UtilGestureEasingOnMove`](../README.md#utilgestureeasingonmove)
+• `Protected` **\_onMove**: [`UtilGestureEasingOnMove`](../index.md#utilgestureeasingonmove)
 
 #### Defined in
 

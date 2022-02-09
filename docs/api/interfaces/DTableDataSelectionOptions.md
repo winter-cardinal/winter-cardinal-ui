@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataSelectionOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataSelectionOptions
 
 # Interface: DTableDataSelectionOptions
 
@@ -18,7 +18,7 @@
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTableDataSelectionType`](../README.md#dtabledataselectiontype)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTableDataSelectionType`](../index.md#dtabledataselectiontype)
 
 #### Defined in
 

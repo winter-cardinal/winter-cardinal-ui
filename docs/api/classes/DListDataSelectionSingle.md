@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataSelectionSingle
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataSelectionSingle
 
 # Class: DListDataSelectionSingle<ITEM\>
 
@@ -163,11 +163,11 @@ ___
 
 ### type
 
-• `get` **type**(): [`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+• `get` **type**(): [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 #### Returns
 
-[`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+[`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 #### Implementation of
 
@@ -448,7 +448,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `id` | `unknown` |
-| `toId` | [`DListItemToId`](../README.md#dlistitemtoid)<`ITEM`\> |
+| `toId` | [`DListItemToId`](../index.md#dlistitemtoid)<`ITEM`\> |
 | `items` | `ITEM`[] |
 
 #### Returns

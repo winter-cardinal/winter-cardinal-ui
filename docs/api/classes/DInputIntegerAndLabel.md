@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DInputIntegerAndLabel
+[Winter Cardinal UI - v0.154.0](../index.md) / DInputIntegerAndLabel
 
 # Class: DInputIntegerAndLabel<THEME, OPTIONS\>
 
@@ -418,7 +418,7 @@ ___
 
 ### \_cursor
 
-• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\>
+• `Protected` `Optional` **\_cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
 
 #### Inherited from
 
@@ -450,7 +450,7 @@ ___
 
 ### \_direction
 
-• `Protected` **\_direction**: [`DLayoutDirection`](../README.md#dlayoutdirection)
+• `Protected` **\_direction**: [`DLayoutDirection`](../index.md#dlayoutdirection)
 
 #### Inherited from
 
@@ -2963,11 +2963,11 @@ ___
 
 ### getHeight
 
-▸ **getHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -3106,11 +3106,11 @@ ___
 
 ### getWidth
 
-▸ **getWidth**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -3124,11 +3124,11 @@ ___
 
 ### getX
 
-▸ **getX**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -3142,11 +3142,11 @@ ___
 
 ### getY
 
-▸ **getY**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -4620,7 +4620,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `height` | [`DCoordinateSize`](../README.md#dcoordinatesize) |
+| `height` | [`DCoordinateSize`](../index.md#dcoordinatesize) |
 
 #### Returns
 
@@ -4708,7 +4708,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `width` | [`DCoordinateSize`](../README.md#dcoordinatesize) |
+| `width` | [`DCoordinateSize`](../index.md#dcoordinatesize) |
 
 #### Returns
 
@@ -4732,7 +4732,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x` | [`DCoordinatePosition`](../README.md#dcoordinateposition) |
+| `x` | [`DCoordinatePosition`](../index.md#dcoordinateposition) |
 
 #### Returns
 
@@ -4756,7 +4756,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `y` | [`DCoordinatePosition`](../README.md#dcoordinateposition) |
+| `y` | [`DCoordinatePosition`](../index.md#dcoordinateposition) |
 
 #### Returns
 
@@ -4917,7 +4917,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `cursor` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\> |
+| `cursor` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\> |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
 
 #### Returns

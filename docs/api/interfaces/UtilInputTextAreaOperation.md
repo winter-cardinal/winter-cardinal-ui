@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilInputTextAreaOperation
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilInputTextAreaOperation
 
 # Interface: UtilInputTextAreaOperation
 
@@ -142,11 +142,11 @@ ___
 
 ### getPadding
 
-▸ **getPadding**(): ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+▸ **getPadding**(): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Returns
 
-``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Inherited from
 

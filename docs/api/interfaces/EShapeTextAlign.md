@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeTextAlign
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTextAlign
 
 # Interface: EShapeTextAlign
 
@@ -33,7 +33,7 @@
 
 ### horizontal
 
-• **horizontal**: [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+• **horizontal**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Inherited from
 
@@ -47,7 +47,7 @@ ___
 
 ### vertical
 
-• **vertical**: [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+• **vertical**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Inherited from
 
@@ -128,8 +128,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `horizontal?` | [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal) |
-| `vertical?` | [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical) |
+| `horizontal?` | [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal) |
+| `vertical?` | [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical) |
 
 #### Returns
 

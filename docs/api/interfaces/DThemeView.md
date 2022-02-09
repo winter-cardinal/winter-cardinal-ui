@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeView
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeView
 
 # Interface: DThemeView
 
@@ -100,11 +100,11 @@ ___
 
 ### getGestureMode
 
-▸ **getGestureMode**(): [`UtilGestureMode`](../README.md#utilgesturemode)
+▸ **getGestureMode**(): [`UtilGestureMode`](../index.md#utilgesturemode)
 
 #### Returns
 
-[`UtilGestureMode`](../README.md#utilgesturemode)
+[`UtilGestureMode`](../index.md#utilgesturemode)
 
 #### Inherited from
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DImagePieceTintOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DImagePieceTintOptions
 
 # Interface: DImagePieceTintOptions
 
@@ -13,7 +13,7 @@
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -23,7 +23,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Defined in
 

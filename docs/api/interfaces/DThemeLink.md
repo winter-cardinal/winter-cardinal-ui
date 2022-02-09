@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeLink
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeLink
 
 # Interface: DThemeLink
 
@@ -38,11 +38,11 @@ ___
 
 ### getMenuOptions
 
-▸ **getMenuOptions**(): [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../README.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>
+▸ **getMenuOptions**(): [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>
 
 #### Returns
 
-[`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../README.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>
+[`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>
 
 #### Defined in
 

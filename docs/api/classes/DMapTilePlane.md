@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMapTilePlane
+[Winter Cardinal UI - v0.154.0](../index.md) / DMapTilePlane
 
 # Class: DMapTilePlane
 
@@ -74,7 +74,7 @@
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `builder` | [`DMapTileUrlBuilder`](../README.md#dmaptileurlbuilder) |
+| `builder` | [`DMapTileUrlBuilder`](../index.md#dmaptileurlbuilder) |
 | `tz` | `number` |
 | `mapping` | [`DMapTileMappingInternal`](../interfaces/DMapTileMappingInternal.md) |
 | `coordinate` | [`DMapCoordinate`](../interfaces/DMapCoordinate.md) |
@@ -88,7 +88,7 @@
 
 ### \_builder
 
-• `Protected` `Readonly` **\_builder**: [`DMapTileUrlBuilder`](../README.md#dmaptileurlbuilder)
+• `Protected` `Readonly` **\_builder**: [`DMapTileUrlBuilder`](../index.md#dmaptileurlbuilder)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeTextAlignLike
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTextAlignLike
 
 # Interface: EShapeTextAlignLike
 
@@ -19,7 +19,7 @@
 
 ### horizontal
 
-• **horizontal**: [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+• **horizontal**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Defined in
 
@@ -29,7 +29,7 @@ ___
 
 ### vertical
 
-• **vertical**: [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+• **vertical**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisBaseOptionParser
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisBaseOptionParser
 
 # Class: DChartAxisBaseOptionParser
 
@@ -99,7 +99,7 @@ ___
 
 ### \_label
 
-• `Protected` **\_label**: `undefined` \| [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+• `Protected` **\_label**: `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
@@ -119,7 +119,7 @@ ___
 
 ### \_position
 
-• `Protected` **\_position**: [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `Protected` **\_position**: [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Defined in
 
@@ -167,11 +167,11 @@ ___
 
 ### label
 
-• `get` **label**(): `undefined` \| [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+• `get` **label**(): `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Returns
 
-`undefined` \| [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+`undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
@@ -195,11 +195,11 @@ ___
 
 ### position
 
-• `get` **position**(): [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `get` **position**(): [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Returns
 
-[`DChartAxisPosition`](../README.md#dchartaxisposition)
+[`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Defined in
 
@@ -265,7 +265,7 @@ ___
 
 ### toLabel
 
-▸ `Protected` **toLabel**(`theme`, `options?`): `undefined` \| [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+▸ `Protected` **toLabel**(`theme`, `options?`): `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Parameters
 
@@ -276,7 +276,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+`undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
@@ -328,18 +328,18 @@ ___
 
 ### toLabelDirection
 
-▸ `Protected` **toLabelDirection**(`theme`, `options?`): [`EShapeTextDirection`](../README.md#eshapetextdirection)
+▸ `Protected` **toLabelDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`EShapeTextDirection`](../README.md#eshapetextdirection) |
+| `options?` | [`EShapeTextDirection`](../index.md#eshapetextdirection) |
 
 #### Returns
 
-[`EShapeTextDirection`](../README.md#eshapetextdirection)
+[`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Defined in
 
@@ -622,7 +622,7 @@ ___
 
 ### toPosition
 
-▸ `Protected` **toPosition**(`theme`, `options?`): [`DChartAxisPosition`](../README.md#dchartaxisposition)
+▸ `Protected` **toPosition**(`theme`, `options?`): [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Parameters
 
@@ -633,7 +633,7 @@ ___
 
 #### Returns
 
-[`DChartAxisPosition`](../README.md#dchartaxisposition)
+[`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Defined in
 
@@ -721,7 +721,7 @@ ___
 | :------ | :------ |
 | `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
 | `options` | `undefined` \| [`DChartAxisBaseTickMajorGridlineOptions`](../interfaces/DChartAxisBaseTickMajorGridlineOptions.md) |
-| `optionsStyle` | `undefined` \| [`EShapePointsStyleOption`](../README.md#eshapepointsstyleoption) |
+| `optionsStyle` | `undefined` \| [`EShapePointsStyleOption`](../index.md#eshapepointsstyleoption) |
 | `optionsStroke` | `undefined` \| `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
 
 #### Returns
@@ -780,18 +780,18 @@ ___
 
 ### toTickMajorTextDirection
 
-▸ `Protected` **toTickMajorTextDirection**(`theme`, `options?`): [`EShapeTextDirection`](../README.md#eshapetextdirection)
+▸ `Protected` **toTickMajorTextDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`EShapeTextDirection`](../README.md#eshapetextdirection) |
+| `options?` | [`EShapeTextDirection`](../index.md#eshapetextdirection) |
 
 #### Returns
 
-[`EShapeTextDirection`](../README.md#eshapetextdirection)
+[`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Defined in
 
@@ -823,17 +823,17 @@ ___
 
 ### toTickPosition
 
-▸ `Protected` **toTickPosition**(`tickPosition`): [`EShapeBarPosition`](../README.md#eshapebarposition)
+▸ `Protected` **toTickPosition**(`tickPosition`): [`EShapeBarPosition`](../index.md#eshapebarposition)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `tickPosition` | ``"INSIDE"`` \| ``"OUTSIDE"`` \| [`DChartAxisTickPosition`](../README.md#dchartaxistickposition) |
+| `tickPosition` | ``"INSIDE"`` \| ``"OUTSIDE"`` \| [`DChartAxisTickPosition`](../index.md#dchartaxistickposition) |
 
 #### Returns
 
-[`EShapeBarPosition`](../README.md#eshapebarposition)
+[`EShapeBarPosition`](../index.md#eshapebarposition)
 
 #### Defined in
 

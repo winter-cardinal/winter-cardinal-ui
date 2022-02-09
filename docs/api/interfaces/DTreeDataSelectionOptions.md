@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeDataSelectionOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeDataSelectionOptions
 
 # Interface: DTreeDataSelectionOptions<ITEM, EMITTER\>
 
@@ -34,7 +34,7 @@ ___
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTreeDataSelectionType`](../README.md#dtreedataselectiontype)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTreeDataSelectionType`](../index.md#dtreedataselectiontype)
 
 A type.
 

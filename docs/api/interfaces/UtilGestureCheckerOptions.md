@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilGestureCheckerOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilGestureCheckerOptions
 
 # Interface: UtilGestureCheckerOptions<TARGET\>
 
@@ -19,7 +19,7 @@
 
 ### move
 
-• `Optional` **move**: [`UtilGestureChecker`](../README.md#utilgesturechecker)<`TARGET`\>
+• `Optional` **move**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
 
 #### Defined in
 
@@ -29,7 +29,7 @@ ___
 
 ### start
 
-• `Optional` **start**: [`UtilGestureChecker`](../README.md#utilgesturechecker)<`TARGET`\>
+• `Optional` **start**: [`UtilGestureChecker`](../index.md#utilgesturechecker)<`TARGET`\>
 
 #### Defined in
 

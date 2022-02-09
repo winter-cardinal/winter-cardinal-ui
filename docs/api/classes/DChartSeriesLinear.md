@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesLinear
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesLinear
 
 # Class: DChartSeriesLinear<CHART\>
 

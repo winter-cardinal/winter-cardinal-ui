@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilInputInput
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilInputInput
 
 # Class: UtilInputInput<VALUE, TARGET, OPERATION, THEME, OPTIONS\>
 
@@ -709,11 +709,11 @@ ___
 
 ### when
 
-• `get` **when**(): [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+• `get` **when**(): [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Returns
 
-[`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+[`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Inherited from
 
@@ -1111,7 +1111,7 @@ ___
 
 ### newClipperStyler
 
-▸ `Protected` **newClipperStyler**(`theme`): (`target`: `HTMLDivElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`) => `void`
+▸ `Protected` **newClipperStyler**(`theme`): (`target`: `HTMLDivElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`) => `void`
 
 #### Parameters
 
@@ -1131,7 +1131,7 @@ ___
 | :------ | :------ |
 | `target` | `HTMLDivElement` |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
-| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding) |
+| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding) |
 | `elementRect` | ``null`` \| `Rectangle` |
 | `elementMatrix` | ``null`` \| `Matrix` |
 | `clipperRect` | ``null`` \| `Rectangle` |
@@ -1152,7 +1152,7 @@ ___
 
 ### newElementStyler
 
-▸ `Protected` **newElementStyler**(`theme`): (`target`: `HTMLInputElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`) => `void`
+▸ `Protected` **newElementStyler**(`theme`): (`target`: `HTMLInputElement`, `state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md), `padding`: ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding), `elementRect`: ``null`` \| `Rectangle`, `elementMatrix`: ``null`` \| `Matrix`, `clipperRect`: ``null`` \| `Rectangle`) => `void`
 
 #### Parameters
 
@@ -1172,7 +1172,7 @@ ___
 | :------ | :------ |
 | `target` | `HTMLInputElement` |
 | `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
-| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding) |
+| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding) |
 | `elementRect` | ``null`` \| `Rectangle` |
 | `elementMatrix` | ``null`` \| `Matrix` |
 | `clipperRect` | ``null`` \| `Rectangle` |

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeDarkTreeItems
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDarkTreeItems
 
 # Class: DThemeDarkTreeItems
 
@@ -515,11 +515,11 @@ ___
 
 ### getSecondaryImageAlignWith
 
-▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Defined in
 

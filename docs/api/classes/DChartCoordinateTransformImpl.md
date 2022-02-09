@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartCoordinateTransformImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartCoordinateTransformImpl
 
 # Class: DChartCoordinateTransformImpl<CHART\>
 
@@ -266,7 +266,7 @@ Translation amount
 | Name | Type |
 | :------ | :------ |
 | `container` | [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\> |
-| `direction` | [`DChartCoordinateDirection`](../README.md#dchartcoordinatedirection) |
+| `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection) |
 
 #### Returns
 

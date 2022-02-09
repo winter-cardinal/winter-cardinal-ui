@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DViewTranslationWheelOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DViewTranslationWheelOptions
 
 # Interface: DViewTranslationWheelOptions
 
@@ -17,7 +17,7 @@
 
 ### checker
 
-• `Optional` **checker**: [`DViewChecker`](../README.md#dviewchecker)
+• `Optional` **checker**: [`DViewChecker`](../index.md#dviewchecker)
 
 Wheel translation checker.
 If a checker returns false, wheel translations will be canceled.

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramEditorEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramEditorEvents
 
 # Interface: DDiagramEditorEvents<EMITTER\>
 

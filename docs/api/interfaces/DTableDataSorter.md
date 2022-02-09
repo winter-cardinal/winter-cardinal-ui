@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataSorter
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataSorter
 
 # Interface: DTableDataSorter<ROW\>
 
@@ -76,7 +76,7 @@ ___
 
 ### order
 
-• **order**: [`DTableDataOrder`](../README.md#dtabledataorder)
+• **order**: [`DTableDataOrder`](../index.md#dtabledataorder)
 
 A sort order.
 
@@ -181,13 +181,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\>
+▸ **get**(): ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
 
 Returns a current comparator.
 
 #### Returns
 
-``null`` \| [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\>
+``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\>
 
 #### Defined in
 
@@ -443,7 +443,7 @@ Sets to the given comparator.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `comparator` | ``null`` \| [`DTableDataComparator`](../README.md#dtabledatacomparator)<`ROW`\> | A comparator |
+| `comparator` | ``null`` \| [`DTableDataComparator`](../index.md#dtabledatacomparator)<`ROW`\> | A comparator |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeText
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeText
 
 # Interface: EShapeText
 
@@ -115,7 +115,7 @@ ___
 
 ### direction
 
-• **direction**: [`EShapeTextDirection`](../README.md#eshapetextdirection)
+• **direction**: [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Inherited from
 
@@ -223,7 +223,7 @@ ___
 
 ### style
 
-• **style**: [`EShapeTextStyle`](../README.md#eshapetextstyle)
+• **style**: [`EShapeTextStyle`](../index.md#eshapetextstyle)
 
 #### Inherited from
 
@@ -261,7 +261,7 @@ ___
 
 ### weight
 
-• **weight**: [`EShapeTextWeight`](../README.md#eshapetextweight)
+• **weight**: [`EShapeTextWeight`](../index.md#eshapetextweight)
 
 #### Inherited from
 
@@ -291,7 +291,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](EShapeTextLike.md)\> |
+| `target?` | [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](EShapeTextLike.md)\> |
 
 #### Returns
 
@@ -357,9 +357,9 @@ ___
 | `alpha?` | `number` |
 | `family?` | `string` |
 | `size?` | `number` |
-| `weight?` | [`EShapeTextWeight`](../README.md#eshapetextweight) |
-| `style?` | [`EShapeTextStyle`](../README.md#eshapetextstyle) |
-| `direction?` | [`EShapeTextDirection`](../README.md#eshapetextdirection) |
+| `weight?` | [`EShapeTextWeight`](../index.md#eshapetextweight) |
+| `style?` | [`EShapeTextStyle`](../index.md#eshapetextstyle) |
+| `direction?` | [`EShapeTextDirection`](../index.md#eshapetextdirection) |
 | `clipping?` | `boolean` |
 
 #### Returns

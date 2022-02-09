@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeMiscHtmlElement
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeMiscHtmlElement
 
 # Class: EShapeActionRuntimeMiscHtmlElement<ELEMENT, UTIL\>
 
@@ -84,7 +84,7 @@ EShapeActionRuntimeMiscHtmlElementBase&lt;ELEMENT, UTIL\&gt;.constructor
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Inherited from
 
@@ -98,7 +98,7 @@ ___
 
 ### elementCreator
 
-• `Protected` `Optional` **elementCreator**: [`EShapeActionExpressionWithParameter`](../README.md#eshapeactionexpressionwithparameter)<``null`` \| `ELEMENT`, `HTMLElement`\>
+• `Protected` `Optional` **elementCreator**: [`EShapeActionExpressionWithParameter`](../index.md#eshapeactionexpressionwithparameter)<``null`` \| `ELEMENT`, `HTMLElement`\>
 
 #### Defined in
 
@@ -293,7 +293,7 @@ ___
 
 ### getPadding
 
-▸ `Protected` **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+▸ `Protected` **getPadding**(`shape`, `runtime`): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Parameters
 
@@ -304,7 +304,7 @@ ___
 
 #### Returns
 
-``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Inherited from
 
@@ -368,7 +368,7 @@ ___
 
 ### newElementCreator
 
-▸ `Protected` **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`ELEMENT`\>
+▸ `Protected` **newElementCreator**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`ELEMENT`\>
 
 #### Parameters
 
@@ -379,7 +379,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`ELEMENT`\>
+`undefined` \| [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`ELEMENT`\>
 
 #### Overrides
 
@@ -650,7 +650,7 @@ ___
 
 ### toWhen
 
-▸ `Protected` **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+▸ `Protected` **toWhen**(`shape`, `runtime`): `undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Parameters
 
@@ -661,7 +661,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+`undefined` \| [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Inherited from
 

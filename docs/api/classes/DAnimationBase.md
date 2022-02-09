@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DAnimationBase
+[Winter Cardinal UI - v0.154.0](../index.md) / DAnimationBase
 
 # Class: DAnimationBase<TARGET\>
 
@@ -128,7 +128,7 @@ ___
 
 ### \_onEnd
 
-• `Protected` **\_onEnd**: `undefined` \| [`DAnimationOnEnd`](../README.md#danimationonend)<`TARGET`\>
+• `Protected` **\_onEnd**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)<`TARGET`\>
 
 #### Defined in
 
@@ -138,7 +138,7 @@ ___
 
 ### \_onStart
 
-• `Protected` **\_onStart**: `undefined` \| [`DAnimationOnEnd`](../README.md#danimationonend)<`TARGET`\>
+• `Protected` **\_onStart**: `undefined` \| [`DAnimationOnEnd`](../index.md#danimationonend)<`TARGET`\>
 
 #### Defined in
 
@@ -148,7 +148,7 @@ ___
 
 ### \_onTime
 
-• `Protected` **\_onTime**: `undefined` \| [`DAnimationOnTime`](../README.md#danimationontime)<`TARGET`\>
+• `Protected` **\_onTime**: `undefined` \| [`DAnimationOnTime`](../index.md#danimationontime)<`TARGET`\>
 
 #### Defined in
 
@@ -206,7 +206,7 @@ ___
 
 ### \_timing
 
-• `Protected` **\_timing**: [`DAnimationTiming`](../README.md#danimationtiming)<`TARGET`\>
+• `Protected` **\_timing**: [`DAnimationTiming`](../index.md#danimationtiming)<`TARGET`\>
 
 #### Defined in
 

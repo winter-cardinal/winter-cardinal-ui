@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilInputEditingOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilInputEditingOptions
 
 # Interface: UtilInputEditingOptions<VALUE\>
 

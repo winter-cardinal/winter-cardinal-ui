@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeChangeTextText
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeChangeTextText
 
 # Class: EShapeActionRuntimeChangeTextText
 
@@ -56,7 +56,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ ___
 
 ### text
 
-• `Protected` **text**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`string`\>
+• `Protected` **text**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`string`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisBaseTickMajorGridlineOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisBaseTickMajorGridlineOptions
 
 # Interface: DChartAxisBaseTickMajorGridlineOptions
 
@@ -34,7 +34,7 @@ ___
 
 ### style
 
-• `Optional` **style**: [`EShapePointsStyleOption`](../README.md#eshapepointsstyleoption)
+• `Optional` **style**: [`EShapePointsStyleOption`](../index.md#eshapepointsstyleoption)
 
 #### Defined in
 

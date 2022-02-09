@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesContainerImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesContainerImpl
 
 # Class: DChartSeriesContainerImpl<CHART\>
 

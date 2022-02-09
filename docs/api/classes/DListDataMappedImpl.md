@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataMappedImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataMappedImpl
 
 # Class: DListDataMappedImpl<ITEM\>
 

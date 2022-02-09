@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeBarPoints
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeBarPoints
 
 # Class: EShapeBarPoints
 
@@ -104,7 +104,7 @@ ___
 
 ### \_position
 
-• `Protected` **\_position**: [`EShapeBarPosition`](../README.md#eshapebarposition)
+• `Protected` **\_position**: [`EShapeBarPosition`](../index.md#eshapebarposition)
 
 #### Defined in
 
@@ -212,11 +212,11 @@ ___
 
 ### formatter
 
-• `get` **formatter**(): ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+• `get` **formatter**(): ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Returns
 
-``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Implementation of
 
@@ -232,7 +232,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `formatter` | ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter) |
+| `formatter` | ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter) |
 
 #### Returns
 
@@ -304,11 +304,11 @@ ___
 
 ### position
 
-• `get` **position**(): [`EShapeBarPosition`](../README.md#eshapebarposition)
+• `get` **position**(): [`EShapeBarPosition`](../index.md#eshapebarposition)
 
 #### Returns
 
-[`EShapeBarPosition`](../README.md#eshapebarposition)
+[`EShapeBarPosition`](../index.md#eshapebarposition)
 
 #### Defined in
 
@@ -320,7 +320,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`EShapeBarPosition`](../README.md#eshapebarposition) |
+| `position` | [`EShapeBarPosition`](../index.md#eshapebarposition) |
 
 #### Returns
 
@@ -495,8 +495,8 @@ ___
 | `ax` | `number` |
 | `ay` | `number` |
 | `threshold` | `number` |
-| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../README.md#eshapelinebasepointshittestertorange) |
-| `tester` | [`EShapeLineBasePointsHitTester`](../README.md#eshapelinebasepointshittester)<`RESULT`\> |
+| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../index.md#eshapelinebasepointshittestertorange) |
+| `tester` | [`EShapeLineBasePointsHitTester`](../index.md#eshapelinebasepointshittester)<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns
@@ -591,7 +591,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `size` | `number` |
-| `position` | [`EShapeBarPosition`](../README.md#eshapebarposition) |
+| `position` | [`EShapeBarPosition`](../index.md#eshapebarposition) |
 | `sizeX` | `number` |
 | `sizeY` | `number` |
 
@@ -634,7 +634,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position?` | [`EShapeBarPosition`](../README.md#eshapebarposition) |
+| `position?` | [`EShapeBarPosition`](../index.md#eshapebarposition) |
 | `size?` | `number` |
 | `style?` | `number` |
 

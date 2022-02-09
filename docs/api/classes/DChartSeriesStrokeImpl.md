@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesStrokeImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesStrokeImpl
 
 # Class: DChartSeriesStrokeImpl
 
@@ -42,7 +42,7 @@
 
 ### align
 
-• **align**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **align**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 
@@ -56,7 +56,7 @@ ___
 
 ### alpha
 
-• **alpha**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **alpha**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 
@@ -70,7 +70,7 @@ ___
 
 ### color
 
-• **color**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **color**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 
@@ -84,7 +84,7 @@ ___
 
 ### enable
 
-• **enable**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`boolean`\>
+• **enable**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`boolean`\>
 
 #### Implementation of
 
@@ -98,7 +98,7 @@ ___
 
 ### side
 
-• **side**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **side**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 
@@ -112,7 +112,7 @@ ___
 
 ### style
 
-• **style**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **style**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 
@@ -126,7 +126,7 @@ ___
 
 ### width
 
-• **width**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **width**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 

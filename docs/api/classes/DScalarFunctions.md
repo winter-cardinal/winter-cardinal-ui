@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DScalarFunctions
+[Winter Cardinal UI - v0.154.0](../index.md) / DScalarFunctions
 
 # Class: DScalarFunctions
 
@@ -23,17 +23,17 @@
 
 ### position
 
-▸ `Static` **position**(`coordinate`): ``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+▸ `Static` **position**(`coordinate`): ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | `undefined` \| [`DCoordinatePosition`](../README.md#dcoordinateposition) |
+| `coordinate` | `undefined` \| [`DCoordinatePosition`](../index.md#dcoordinateposition) |
 
 #### Returns
 
-``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Defined in
 
@@ -43,17 +43,17 @@ ___
 
 ### size
 
-▸ `Static` **size**(`coordinate`): ``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+▸ `Static` **size**(`coordinate`): ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `coordinate` | `undefined` \| [`DCoordinateSizeNoAuto`](../README.md#dcoordinatesizenoauto) |
+| `coordinate` | `undefined` \| [`DCoordinateSizeNoAuto`](../index.md#dcoordinatesizenoauto) |
 
 #### Returns
 
-``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Defined in
 

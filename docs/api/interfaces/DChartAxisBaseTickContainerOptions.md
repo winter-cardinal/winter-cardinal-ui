@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisBaseTickContainerOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisBaseTickContainerOptions
 
 # Interface: DChartAxisBaseTickContainerOptions
 
@@ -47,7 +47,7 @@ ___
 
 ### position
 
-• `Optional` **position**: [`DChartAxisTickPositionOption`](../README.md#dchartaxistickpositionoption)
+• `Optional` **position**: [`DChartAxisTickPositionOption`](../index.md#dchartaxistickpositionoption)
 
 #### Defined in
 
@@ -67,7 +67,7 @@ ___
 
 ### style
 
-• `Optional` **style**: [`EShapePointsStyleOption`](../README.md#eshapepointsstyleoption)
+• `Optional` **style**: [`EShapePointsStyleOption`](../index.md#eshapepointsstyleoption)
 
 #### Defined in
 

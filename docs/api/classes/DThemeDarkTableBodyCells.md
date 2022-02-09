@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeDarkTableBodyCells
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDarkTableBodyCells
 
 # Class: DThemeDarkTableBodyCells
 
@@ -222,11 +222,11 @@ ___
 
 ### getHeight
 
-▸ `Static` **getHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ `Static` **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Defined in
 

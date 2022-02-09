@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTextBaseOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTextBaseOnOptions
 
 # Interface: DTextBaseOnOptions<VALUE, EMITTER\>
 

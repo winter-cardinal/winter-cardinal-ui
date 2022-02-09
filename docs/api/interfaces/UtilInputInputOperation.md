@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilInputInputOperation
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilInputInputOperation
 
 # Interface: UtilInputInputOperation<VALUE\>
 
@@ -152,11 +152,11 @@ ___
 
 ### getPadding
 
-▸ **getPadding**(): ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+▸ **getPadding**(): ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Returns
 
-``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding)
+``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding)
 
 #### Inherited from
 

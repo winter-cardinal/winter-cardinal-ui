@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeDialogInputText
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDialogInputText
 
 # Interface: DThemeDialogInputText
 
@@ -512,11 +512,11 @@ ___
 
 ### getFontStyle
 
-▸ **getFontStyle**(): [`DFontStyle`](../README.md#dfontstyle)
+▸ **getFontStyle**(): [`DFontStyle`](../index.md#dfontstyle)
 
 #### Returns
 
-[`DFontStyle`](../README.md#dfontstyle)
+[`DFontStyle`](../index.md#dfontstyle)
 
 #### Inherited from
 
@@ -530,11 +530,11 @@ ___
 
 ### getFontVariant
 
-▸ **getFontVariant**(): [`DFontVariant`](../README.md#dfontvariant)
+▸ **getFontVariant**(): [`DFontVariant`](../index.md#dfontvariant)
 
 #### Returns
 
-[`DFontVariant`](../README.md#dfontvariant)
+[`DFontVariant`](../index.md#dfontvariant)
 
 #### Inherited from
 
@@ -548,11 +548,11 @@ ___
 
 ### getFontWeight
 
-▸ **getFontWeight**(): [`DFontWeight`](../README.md#dfontweight)
+▸ **getFontWeight**(): [`DFontWeight`](../index.md#dfontweight)
 
 #### Returns
 
-[`DFontWeight`](../README.md#dfontweight)
+[`DFontWeight`](../index.md#dfontweight)
 
 #### Inherited from
 
@@ -566,13 +566,13 @@ ___
 
 ### getHeight
 
-▸ **getHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a height.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -624,11 +624,11 @@ ___
 
 ### getLayoutHeight
 
-▸ **getLayoutHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getLayoutHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -660,11 +660,11 @@ ___
 
 ### getLayoutWidth
 
-▸ **getLayoutWidth**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getLayoutWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -678,11 +678,11 @@ ___
 
 ### getLayoutX
 
-▸ **getLayoutX**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getLayoutX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -696,11 +696,11 @@ ___
 
 ### getLayoutY
 
-▸ **getLayoutY**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getLayoutY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -768,11 +768,11 @@ ___
 
 ### getMode
 
-▸ **getMode**(): [`DDialogMode`](../README.md#ddialogmode)
+▸ **getMode**(): [`DDialogMode`](../index.md#ddialogmode)
 
 #### Returns
 
-[`DDialogMode`](../README.md#ddialogmode)
+[`DDialogMode`](../index.md#ddialogmode)
 
 #### Inherited from
 
@@ -1140,13 +1140,13 @@ ___
 
 ### getWidth
 
-▸ **getWidth**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a width.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -1160,13 +1160,13 @@ ___
 
 ### getX
 
-▸ **getX**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a X coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -1180,13 +1180,13 @@ ___
 
 ### getY
 
-▸ **getY**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a Y coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 

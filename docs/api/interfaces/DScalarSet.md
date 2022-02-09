@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DScalarSet
+[Winter Cardinal UI - v0.154.0](../index.md) / DScalarSet
 
 # Interface: DScalarSet
 
@@ -15,7 +15,7 @@
 
 ### height
 
-• `Optional` **height**: ``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+• `Optional` **height**: ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Defined in
 
@@ -25,7 +25,7 @@ ___
 
 ### width
 
-• `Optional` **width**: ``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+• `Optional` **width**: ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Defined in
 
@@ -35,7 +35,7 @@ ___
 
 ### x
 
-• `Optional` **x**: ``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+• `Optional` **x**: ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Defined in
 
@@ -45,7 +45,7 @@ ___
 
 ### y
 
-• `Optional` **y**: ``null`` \| [`DScalarFunction`](../README.md#dscalarfunction)
+• `Optional` **y**: ``null`` \| [`DScalarFunction`](../index.md#dscalarfunction)
 
 #### Defined in
 

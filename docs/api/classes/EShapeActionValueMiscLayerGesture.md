@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueMiscLayerGesture
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueMiscLayerGesture
 
 # Class: EShapeActionValueMiscLayerGesture
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`LAYER_GESTURE`](../README.md#layer_gesture)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<typeof [`LAYER_GESTURE`](../index.md#layer_gesture)\>
 
   ↳ **`EShapeActionValueMiscLayerGesture`**
 
@@ -116,7 +116,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -220,7 +220,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueMiscLayerGestureSerialized`](../README.md#eshapeactionvaluemisclayergestureserialized) |
+| `serialized` | [`EShapeActionValueMiscLayerGestureSerialized`](../index.md#eshapeactionvaluemisclayergestureserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLineOfAnyPointsPoint
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineOfAnyPointsPoint
 
 # Interface: EShapeLineOfAnyPointsPoint
 
@@ -49,7 +49,7 @@ ___
 
 ### x
 
-• **x**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• **x**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -59,7 +59,7 @@ ___
 
 ### y
 
-• **y**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• **y**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -157,8 +157,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
-| `y?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `x?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
+| `y?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 

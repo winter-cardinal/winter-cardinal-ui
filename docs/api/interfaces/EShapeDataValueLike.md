@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeDataValueLike
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeDataValueLike
 
 # Interface: EShapeDataValueLike
 
@@ -63,7 +63,7 @@ ___
 
 ### order
 
-• **order**: [`EShapeDataValueOrder`](../README.md#eshapedatavalueorder)
+• **order**: [`EShapeDataValueOrder`](../index.md#eshapedatavalueorder)
 
 #### Defined in
 

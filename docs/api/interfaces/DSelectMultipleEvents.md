@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DSelectMultipleEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DSelectMultipleEvents
 
 # Interface: DSelectMultipleEvents<VALUE, EMITTER\>
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisBase
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisBase
 
 # Class: DChartAxisBase<CHART, OPTIONS\>
 
@@ -126,7 +126,7 @@ ___
 
 ### \_label
 
-• `Protected` `Optional` **\_label**: [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+• `Protected` `Optional` **\_label**: [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
@@ -166,7 +166,7 @@ ___
 
 ### \_position
 
-• `Protected` **\_position**: [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `Protected` **\_position**: [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Defined in
 
@@ -196,11 +196,11 @@ ___
 
 ### position
 
-• `get` **position**(): [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `get` **position**(): [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Returns
 
-[`DChartAxisPosition`](../README.md#dchartaxisposition)
+[`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Implementation of
 

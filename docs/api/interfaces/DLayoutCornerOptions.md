@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DLayoutCornerOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DLayoutCornerOptions
 
 # Interface: DLayoutCornerOptions
 

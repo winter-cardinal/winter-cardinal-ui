@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilGestureModifiers
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilGestureModifiers
 
 # Class: UtilGestureModifiers
 
@@ -29,7 +29,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `e` | [`UtilGestureModifierEvent`](../README.md#utilgesturemodifierevent) |
+| `e` | [`UtilGestureModifierEvent`](../index.md#utilgesturemodifierevent) |
 
 #### Returns
 
@@ -49,7 +49,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `e` | [`UtilGestureModifierEvent`](../README.md#utilgesturemodifierevent) |
+| `e` | [`UtilGestureModifierEvent`](../index.md#utilgesturemodifierevent) |
 | `modifier` | `number` |
 
 #### Returns

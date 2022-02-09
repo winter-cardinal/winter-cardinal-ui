@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DSliderEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DSliderEvents
 
 # Interface: DSliderEvents<EMITTER\>
 

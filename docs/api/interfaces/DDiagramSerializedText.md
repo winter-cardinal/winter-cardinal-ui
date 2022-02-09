@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSerializedText
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedText
 
 # Interface: DDiagramSerializedText
 
@@ -64,7 +64,7 @@ ___
 
 ### 11
 
-• **11**: [`EShapeTextDirection`](../README.md#eshapetextdirection)
+• **11**: [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 A direction.
 
@@ -137,7 +137,7 @@ ___
 
 ### 5
 
-• **5**: [`EShapeTextWeight`](../README.md#eshapetextweight)
+• **5**: [`EShapeTextWeight`](../index.md#eshapetextweight)
 
 A weight.
 
@@ -175,7 +175,7 @@ ___
 
 ### 8
 
-• **8**: [`EShapeTextStyle`](../README.md#eshapetextstyle)
+• **8**: [`EShapeTextStyle`](../index.md#eshapetextstyle)
 
 A style.
 

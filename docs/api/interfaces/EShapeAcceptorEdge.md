@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeAcceptorEdge
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeAcceptorEdge
 
 # Interface: EShapeAcceptorEdge
 
@@ -14,7 +14,7 @@
 
 ### type
 
-• **type**: [`EShapeAcceptorType`](../README.md#eshapeacceptortype)
+• **type**: [`EShapeAcceptorType`](../index.md#eshapeacceptortype)
 
 #### Defined in
 

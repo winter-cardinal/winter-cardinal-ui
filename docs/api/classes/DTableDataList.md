@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataList
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataList
 
 # Class: DTableDataList<ROW\>
 
@@ -869,7 +869,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md) \| [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\> \| [`DTableDataSelectionCreator`](../README.md#dtabledataselectioncreator)<`ROW`\> |
+| `options?` | [`DTableDataSelectionOptions`](../interfaces/DTableDataSelectionOptions.md) \| [`DTableDataSelection`](../interfaces/DTableDataSelection.md)<`ROW`\> \| [`DTableDataSelectionCreator`](../index.md#dtabledataselectioncreator)<`ROW`\> |
 
 #### Returns
 

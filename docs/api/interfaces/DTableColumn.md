@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableColumn
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableColumn
 
 # Interface: DTableColumn<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG\>
 
@@ -38,7 +38,7 @@
 
 ### align
 
-• **align**: [`DAlignHorizontal`](../README.md#dalignhorizontal)
+• **align**: [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Defined in
 
@@ -48,7 +48,7 @@ ___
 
 ### body
 
-• `Optional` **body**: [`DTableBodyCellOptionsUnion`](../README.md#dtablebodycelloptionsunion)<`ROW_VALUE`\>
+• `Optional` **body**: [`DTableBodyCellOptionsUnion`](../index.md#dtablebodycelloptionsunion)<`ROW_VALUE`\>
 
 #### Defined in
 
@@ -78,7 +78,7 @@ ___
 
 ### formatter
 
-• `Optional` **formatter**: [`DTableFormatter`](../README.md#dtableformatter)<`CELL_VALUE`\>
+• `Optional` **formatter**: [`DTableFormatter`](../index.md#dtableformatter)<`CELL_VALUE`\>
 
 #### Defined in
 
@@ -98,7 +98,7 @@ ___
 
 ### getter
 
-• **getter**: [`DTableGetter`](../README.md#dtablegetter)<`ROW_VALUE`, `CELL_VALUE`\>
+• **getter**: [`DTableGetter`](../index.md#dtablegetter)<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
@@ -148,7 +148,7 @@ ___
 
 ### renderable
 
-• **renderable**: `boolean` \| [`DTableRenderable`](../README.md#dtablerenderable)<`ROW_VALUE`\>
+• **renderable**: `boolean` \| [`DTableRenderable`](../index.md#dtablerenderable)<`ROW_VALUE`\>
 
 #### Defined in
 
@@ -168,7 +168,7 @@ ___
 
 ### setter
 
-• **setter**: [`DTableSetter`](../README.md#dtablesetter)<`ROW_VALUE`, `CELL_VALUE`\>
+• **setter**: [`DTableSetter`](../index.md#dtablesetter)<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
@@ -188,7 +188,7 @@ ___
 
 ### type
 
-• **type**: [`DTableColumnType`](../README.md#dtablecolumntype)
+• **type**: [`DTableColumnType`](../index.md#dtablecolumntype)
 
 #### Defined in
 

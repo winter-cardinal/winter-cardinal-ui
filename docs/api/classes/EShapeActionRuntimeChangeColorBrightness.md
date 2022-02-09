@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeChangeColorBrightness
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeChangeColorBrightness
 
 # Class: EShapeActionRuntimeChangeColorBrightness
 
@@ -58,7 +58,7 @@ EShapeActionRuntimeChangeColorBase.constructor
 
 ### brightness
 
-• `Protected` `Readonly` **brightness**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **brightness**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -68,7 +68,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 

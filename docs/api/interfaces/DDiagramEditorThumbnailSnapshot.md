@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramEditorThumbnailSnapshot
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramEditorThumbnailSnapshot
 
 # Interface: DDiagramEditorThumbnailSnapshot
 

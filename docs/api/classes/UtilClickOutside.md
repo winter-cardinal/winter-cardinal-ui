@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilClickOutside
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilClickOutside
 
 # Class: UtilClickOutside
 
@@ -43,7 +43,7 @@
 | Name | Type |
 | :------ | :------ |
 | `target` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `onClick` | [`UtilClickOutsideOnClick`](../README.md#utilclickoutsideonclick) |
+| `onClick` | [`UtilClickOutsideOnClick`](../index.md#utilclickoutsideonclick) |
 
 #### Returns
 

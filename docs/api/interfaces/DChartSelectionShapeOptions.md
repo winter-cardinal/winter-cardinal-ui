@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionShapeOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionShapeOptions
 
 # Interface: DChartSelectionShapeOptions<CHART\>
 
@@ -52,7 +52,7 @@ ___
 
 ### style
 
-• `Optional` **style**: [`DChartSelectionStyle`](../README.md#dchartselectionstyle)<`CHART`\>
+• `Optional` **style**: [`DChartSelectionStyle`](../index.md#dchartselectionstyle)<`CHART`\>
 
 #### Defined in
 

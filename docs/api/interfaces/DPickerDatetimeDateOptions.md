@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DPickerDatetimeDateOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DPickerDatetimeDateOptions
 
 # Interface: DPickerDatetimeDateOptions
 
@@ -12,7 +12,7 @@
 
 ### decorator
 
-• `Optional` **decorator**: [`DPickerDatetimeDateDecorator`](../README.md#dpickerdatetimedatedecorator)
+• `Optional` **decorator**: [`DPickerDatetimeDateDecorator`](../index.md#dpickerdatetimedatedecorator)
 
 #### Defined in
 

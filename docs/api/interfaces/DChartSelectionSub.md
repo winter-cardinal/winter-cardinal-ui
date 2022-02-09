@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionSub
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionSub
 
 # Interface: DChartSelectionSub<CHART\>
 

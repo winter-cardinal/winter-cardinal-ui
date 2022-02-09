@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeTransformMoveRelativeY
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeTransformMoveRelativeY
 
 # Class: EShapeActionRuntimeTransformMoveRelativeY
 
@@ -56,7 +56,7 @@
 
 ### amount
 
-• `Protected` `Readonly` **amount**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+• `Protected` `Readonly` **amount**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Inherited from
 
@@ -70,7 +70,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 

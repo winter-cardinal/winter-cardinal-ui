@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLineOfAnyPointsPointImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineOfAnyPointsPointImpl
 
 # Class: EShapeLineOfAnyPointsPointImpl
 
@@ -146,7 +146,7 @@ ___
 
 ### \_x
 
-• `Protected` **\_x**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `Protected` **\_x**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -156,7 +156,7 @@ ___
 
 ### \_y
 
-• `Protected` **\_y**: [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `Protected` **\_y**: [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Defined in
 
@@ -222,11 +222,11 @@ ___
 
 ### x
 
-• `get` **x**(): [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `get` **x**(): [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Returns
 
-[`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+[`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Implementation of
 
@@ -242,7 +242,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `x` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 
@@ -260,11 +260,11 @@ ___
 
 ### y
 
-• `get` **y**(): [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+• `get` **y**(): [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Returns
 
-[`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue)
+[`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue)
 
 #### Implementation of
 
@@ -280,7 +280,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `y` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `y` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 
@@ -304,7 +304,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `value` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `value` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 | `parentLenght` | `number` |
 | `def` | `number` |
 
@@ -428,8 +428,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `x?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
-| `y?` | [`EShapeLineOfAnyValue`](../README.md#eshapelineofanyvalue) |
+| `x?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
+| `y?` | [`EShapeLineOfAnyValue`](../index.md#eshapelineofanyvalue) |
 
 #### Returns
 

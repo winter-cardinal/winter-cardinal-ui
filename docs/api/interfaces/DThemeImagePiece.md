@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeImagePiece
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeImagePiece
 
 # Interface: DThemeImagePiece
 
@@ -30,11 +30,11 @@
 
 ### getImageAlignHorizontal
 
-▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Defined in
 
@@ -44,11 +44,11 @@ ___
 
 ### getImageAlignVertical
 
-▸ **getImageAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Defined in
 
@@ -58,11 +58,11 @@ ___
 
 ### getImageAlignWith
 
-▸ **getImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Defined in
 

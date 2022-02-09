@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataImplSelection
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataImplSelection
 
 # Interface: DListDataImplSelection<ITEM\>
 
@@ -80,7 +80,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+• `Readonly` **type**: [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 #### Inherited from
 

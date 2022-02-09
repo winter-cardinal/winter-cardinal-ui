@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeData
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeData
 
 # Interface: DTreeData<NODE\>
 
@@ -264,7 +264,7 @@ If the iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DTreeNodeIteratee`](../README.md#dtreenodeiteratee)<`NODE`\> | an iteratee |
+| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)<`NODE`\> | an iteratee |
 
 #### Returns
 

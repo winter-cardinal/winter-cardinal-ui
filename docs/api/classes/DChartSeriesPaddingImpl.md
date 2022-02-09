@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesPaddingImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesPaddingImpl
 
 # Class: DChartSeriesPaddingImpl
 
@@ -37,7 +37,7 @@
 
 ### inner
 
-• **inner**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **inner**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 
@@ -51,7 +51,7 @@ ___
 
 ### outer
 
-• **outer**: [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **outer**: [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Implementation of
 

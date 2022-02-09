@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListItemUpdater
+[Winter Cardinal UI - v0.154.0](../index.md) / DListItemUpdater
 
 # Class: DListItemUpdater<VALUE\>
 
@@ -132,7 +132,7 @@ ___
 
 ### \_initItem
 
-• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
+• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
 
 #### Inherited from
 
@@ -244,7 +244,7 @@ ___
 
 ### \_newItem
 
-• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
+• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
 
 #### Inherited from
 
@@ -476,7 +476,7 @@ ___
 
 ### toInitItem
 
-▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
+▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
 
 #### Parameters
 
@@ -486,7 +486,7 @@ ___
 
 #### Returns
 
-[`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
+[`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
 
 #### Inherited from
 
@@ -524,7 +524,7 @@ ___
 
 ### toNewItem
 
-▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
+▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
 
 #### Parameters
 
@@ -534,7 +534,7 @@ ___
 
 #### Returns
 
-[`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
+[`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DListData`](../interfaces/DListData.md)<`VALUE`\>, [`DListItem`](DListItem.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), [`DListItemOptions`](../interfaces/DListItemOptions.md)<`VALUE`, [`DThemeListItem`](../interfaces/DThemeListItem.md), `any`\>\>\>
 
 #### Inherited from
 

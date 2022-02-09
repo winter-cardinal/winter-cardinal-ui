@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSerializedSnap
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedSnap
 
 # Interface: DDiagramSerializedSnap
 
@@ -40,7 +40,7 @@ ___
 
 ### 2
 
-• **2**: [`DDiagramSerializedSnapGrid`](../README.md#ddiagramserializedsnapgrid)
+• **2**: [`DDiagramSerializedSnapGrid`](../index.md#ddiagramserializedsnapgrid)
 
 Snap on grid
 

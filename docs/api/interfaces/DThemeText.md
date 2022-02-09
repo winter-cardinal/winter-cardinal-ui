@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeText
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeText
 
 # Interface: DThemeText<VALUE\>
 
@@ -479,11 +479,11 @@ ___
 
 ### getFontStyle
 
-▸ **getFontStyle**(): [`DFontStyle`](../README.md#dfontstyle)
+▸ **getFontStyle**(): [`DFontStyle`](../index.md#dfontstyle)
 
 #### Returns
 
-[`DFontStyle`](../README.md#dfontstyle)
+[`DFontStyle`](../index.md#dfontstyle)
 
 #### Inherited from
 
@@ -497,11 +497,11 @@ ___
 
 ### getFontVariant
 
-▸ **getFontVariant**(): [`DFontVariant`](../README.md#dfontvariant)
+▸ **getFontVariant**(): [`DFontVariant`](../index.md#dfontvariant)
 
 #### Returns
 
-[`DFontVariant`](../README.md#dfontvariant)
+[`DFontVariant`](../index.md#dfontvariant)
 
 #### Inherited from
 
@@ -515,11 +515,11 @@ ___
 
 ### getFontWeight
 
-▸ **getFontWeight**(): [`DFontWeight`](../README.md#dfontweight)
+▸ **getFontWeight**(): [`DFontWeight`](../index.md#dfontweight)
 
 #### Returns
 
-[`DFontWeight`](../README.md#dfontweight)
+[`DFontWeight`](../index.md#dfontweight)
 
 #### Inherited from
 
@@ -533,13 +533,13 @@ ___
 
 ### getHeight
 
-▸ **getHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a height.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -849,11 +849,11 @@ ___
 
 ### getTextAlignHorizontal
 
-▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Inherited from
 
@@ -867,11 +867,11 @@ ___
 
 ### getTextAlignVertical
 
-▸ **getTextAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getTextAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Inherited from
 
@@ -934,11 +934,11 @@ ___
 
 ### getTextStyleWordWrap
 
-▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Returns
 
-[`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+[`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Inherited from
 
@@ -1021,13 +1021,13 @@ ___
 
 ### getWidth
 
-▸ **getWidth**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a width.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -1041,13 +1041,13 @@ ___
 
 ### getX
 
-▸ **getX**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a X coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -1061,13 +1061,13 @@ ___
 
 ### getY
 
-▸ **getY**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a Y coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -1165,14 +1165,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`VALUE`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`VALUE`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
 
 #### Inherited from
 

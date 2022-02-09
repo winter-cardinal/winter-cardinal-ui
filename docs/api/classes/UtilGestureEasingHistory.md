@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilGestureEasingHistory
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilGestureEasingHistory
 
 # Class: UtilGestureEasingHistory
 

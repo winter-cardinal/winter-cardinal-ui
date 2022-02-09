@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramBaseOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramBaseOnOptions
 
 # Interface: DDiagramBaseOnOptions<CANVAS, EMITTER\>
 

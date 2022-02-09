@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeMiscLayerGesture
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeMiscLayerGesture
 
 # Class: EShapeActionRuntimeMiscLayerGesture
 
@@ -74,7 +74,7 @@ ___
 
 ### \_layers
 
-• `Protected` **\_layers**: `Map`<[`EShape`](../interfaces/EShape.md), [`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer)\>
+• `Protected` **\_layers**: `Map`<[`EShape`](../interfaces/EShape.md), [`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)\>
 
 #### Defined in
 
@@ -104,7 +104,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -132,7 +132,7 @@ ___
 
 ### GESTURE\_UTIL
 
-▪ `Static` `Protected` `Optional` **GESTURE\_UTIL**: [`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer)\>
+▪ `Static` `Protected` `Optional` **GESTURE\_UTIL**: [`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)\>
 
 #### Defined in
 
@@ -168,11 +168,11 @@ ___
 
 ### getGestureUtil
 
-▸ `Protected` **getGestureUtil**(): [`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer)\>
+▸ `Protected` **getGestureUtil**(): [`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)\>
 
 #### Returns
 
-[`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer)\>
+[`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)\>
 
 #### Defined in
 
@@ -207,11 +207,11 @@ ___
 
 ### newGestureUtil
 
-▸ `Protected` **newGestureUtil**(): [`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer)\>
+▸ `Protected` **newGestureUtil**(): [`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)\>
 
 #### Returns
 
-[`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer)\>
+[`UtilGesture`](UtilGesture.md)<[`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer)\>
 
 #### Defined in
 
@@ -356,7 +356,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `layer` | [`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer) |
+| `layer` | [`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer) |
 | `dx` | `number` |
 | `dy` | `number` |
 | `x` | `number` |
@@ -435,7 +435,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `layer` | [`DDiagramLayersLayer`](../README.md#ddiagramlayerslayer) |
+| `layer` | [`DDiagramLayersLayer`](../index.md#ddiagramlayerslayer) |
 | `result` | `Point` |
 
 #### Returns

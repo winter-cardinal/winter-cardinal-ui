@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / BuilderLineOfRectangles
+[Winter Cardinal UI - v0.154.0](../index.md) / BuilderLineOfRectangles
 
 # Class: BuilderLineOfRectangles
 

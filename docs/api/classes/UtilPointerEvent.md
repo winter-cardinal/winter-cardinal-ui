@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilPointerEvent
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilPointerEvent
 
 # Class: UtilPointerEvent
 
@@ -280,7 +280,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `target` | [`UtilPointerEventClickTarget`](../interfaces/UtilPointerEventClickTarget.md) |
-| `onClick` | [`UtilPointerEventOnClick`](../README.md#utilpointereventonclick) |
+| `onClick` | [`UtilPointerEventOnClick`](../index.md#utilpointereventonclick) |
 
 #### Returns
 
@@ -301,7 +301,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `target` | `HTMLElement` |
-| `onDblClick` | [`UtilPointerEventOnDblClick`](../README.md#utilpointereventondblclick) |
+| `onDblClick` | [`UtilPointerEventOnDblClick`](../index.md#utilpointereventondblclick) |
 
 #### Returns
 

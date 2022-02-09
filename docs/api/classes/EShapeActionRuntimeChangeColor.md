@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeChangeColor
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeChangeColor
 
 # Class: EShapeActionRuntimeChangeColor
 
@@ -69,7 +69,7 @@ ___
 
 ### blend
 
-• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `number`\>
+• `Protected` `Readonly` **blend**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -89,7 +89,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 

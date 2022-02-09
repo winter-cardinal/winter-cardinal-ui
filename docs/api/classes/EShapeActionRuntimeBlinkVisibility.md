@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeBlinkVisibility
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeBlinkVisibility
 
 # Class: EShapeActionRuntimeBlinkVisibility
 
@@ -58,7 +58,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 

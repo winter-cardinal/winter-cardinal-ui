@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeTransformRotate
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeTransformRotate
 
 # Class: EShapeActionRuntimeTransformRotate
 
@@ -64,7 +64,7 @@
 
 ### amount
 
-• `Protected` `Readonly` **amount**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+• `Protected` `Readonly` **amount**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Defined in
 
@@ -74,7 +74,7 @@ ___
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 

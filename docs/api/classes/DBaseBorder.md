@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DBaseBorder
+[Winter Cardinal UI - v0.154.0](../index.md) / DBaseBorder
 
 # Class: DBaseBorder
 
@@ -63,7 +63,7 @@
 
 ### \_align
 
-• `Protected` `Optional` **\_align**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Protected` `Optional` **\_align**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -73,7 +73,7 @@ ___
 
 ### \_alpha
 
-• `Protected` `Optional` **\_alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Protected` `Optional` **\_alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -93,7 +93,7 @@ ___
 
 ### \_color
 
-• `Protected` `Optional` **\_color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Protected` `Optional` **\_color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -103,7 +103,7 @@ ___
 
 ### \_mask
 
-• `Protected` `Optional` **\_mask**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Protected` `Optional` **\_mask**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -123,7 +123,7 @@ ___
 
 ### \_width
 
-• `Protected` `Optional` **\_width**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Protected` `Optional` **\_width**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -133,11 +133,11 @@ ___
 
 ### align
 
-• `get` **align**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `get` **align**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Implementation of
 
@@ -153,7 +153,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `align` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\> |
+| `align` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> |
 
 #### Returns
 
@@ -171,11 +171,11 @@ ___
 
 ### alpha
 
-• `get` **alpha**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `get` **alpha**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Implementation of
 
@@ -191,7 +191,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `alpha` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\> |
+| `alpha` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> |
 
 #### Returns
 
@@ -209,11 +209,11 @@ ___
 
 ### color
 
-• `get` **color**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `get` **color**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Implementation of
 
@@ -229,7 +229,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\> |
+| `color` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\> |
 
 #### Returns
 
@@ -247,11 +247,11 @@ ___
 
 ### mask
 
-• `get` **mask**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `get` **mask**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Implementation of
 
@@ -267,7 +267,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mask` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\> |
+| `mask` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> |
 
 #### Returns
 
@@ -285,11 +285,11 @@ ___
 
 ### width
 
-• `get` **width**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `get` **width**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Implementation of
 
@@ -305,7 +305,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `width` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\> |
+| `width` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeMiscEmitEvent
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeMiscEmitEvent
 
 # Class: EShapeActionRuntimeMiscEmitEvent
 
@@ -56,7 +56,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ ___
 
 ### target
 
-• `Protected` **target**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Defined in
 

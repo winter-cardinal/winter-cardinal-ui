@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeGroupTextOffsetViewer
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupTextOffsetViewer
 
 # Class: EShapeGroupTextOffsetViewer
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DBackgroundStateAware
+[Winter Cardinal UI - v0.154.0](../index.md) / DBackgroundStateAware
 
 # Interface: DBackgroundStateAware
 
@@ -31,7 +31,7 @@
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Inherited from
 
@@ -45,7 +45,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Inherited from
 

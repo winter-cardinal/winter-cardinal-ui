@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxis
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxis
 
 # Interface: DChartAxis<CHART\>
 
@@ -29,7 +29,7 @@
 
 ### position
 
-• `Readonly` **position**: [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `Readonly` **position**: [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Defined in
 

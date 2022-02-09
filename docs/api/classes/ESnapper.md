@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / ESnapper
+[Winter Cardinal UI - v0.154.0](../index.md) / ESnapper
 
 # Class: ESnapper
 
@@ -708,7 +708,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `modifier` | [`ESnapperModifier`](../interfaces/ESnapperModifier.md) |
-| `anchor` | [`ESnapperModifierAnchor`](../README.md#esnappermodifieranchor) |
+| `anchor` | [`ESnapperModifierAnchor`](../index.md#esnappermodifieranchor) |
 
 #### Returns
 
@@ -942,7 +942,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `transform` | `Matrix` |
-| `anchor` | [`ESnapperModifierAnchor`](../README.md#esnappermodifieranchor) |
+| `anchor` | [`ESnapperModifierAnchor`](../index.md#esnappermodifieranchor) |
 | `keepRatio` | `boolean` |
 | `scale` | `IPoint` |
 

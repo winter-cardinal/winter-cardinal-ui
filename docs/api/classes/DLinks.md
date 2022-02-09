@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DLinks
+[Winter Cardinal UI - v0.154.0](../index.md) / DLinks
 
 # Class: DLinks
 
@@ -34,7 +34,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../README.md#dlinktarget) |
+| `target?` | ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget) |
 | `options?` | `OPTIONS` |
 
 #### Returns

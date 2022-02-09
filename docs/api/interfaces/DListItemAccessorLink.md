@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListItemAccessorLink
+[Winter Cardinal UI - v0.154.0](../index.md) / DListItemAccessorLink
 
 # Interface: DListItemAccessorLink<VALUE\>
 
@@ -20,7 +20,7 @@
 
 ### checker
 
-• `Optional` **checker**: [`DListItemLinkChecker`](../README.md#dlistitemlinkchecker)<`VALUE`\>
+• `Optional` **checker**: [`DListItemLinkChecker`](../index.md#dlistitemlinkchecker)<`VALUE`\>
 
 #### Defined in
 
@@ -30,7 +30,7 @@ ___
 
 ### target
 
-• **target**: [`DLinkTargetValue`](../README.md#dlinktargetvalue)
+• **target**: [`DLinkTargetValue`](../index.md#dlinktargetvalue)
 
 #### Defined in
 
@@ -40,7 +40,7 @@ ___
 
 ### toUrl
 
-• **toUrl**: [`DListItemToLinkUrl`](../README.md#dlistitemtolinkurl)<`VALUE`\>
+• **toUrl**: [`DListItemToLinkUrl`](../index.md#dlistitemtolinkurl)<`VALUE`\>
 
 #### Defined in
 

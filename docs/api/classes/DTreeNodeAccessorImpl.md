@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeNodeAccessorImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeNodeAccessorImpl
 
 # Class: DTreeNodeAccessorImpl<NODE\>
 

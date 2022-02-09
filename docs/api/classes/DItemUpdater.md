@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DItemUpdater
+[Winter Cardinal UI - v0.154.0](../index.md) / DItemUpdater
 
 # Class: DItemUpdater<VALUE, DATA, DATA_MAPPED, ITEM, OPTIONS\>
 
@@ -130,7 +130,7 @@ ___
 
 ### \_initItem
 
-• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
+• `Protected` **\_initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
 
 #### Defined in
 
@@ -210,7 +210,7 @@ ___
 
 ### \_newItem
 
-• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
+• `Protected` **\_newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
 
 #### Defined in
 
@@ -398,7 +398,7 @@ ___
 
 ### toInitItem
 
-▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
+▸ `Protected` **toInitItem**(`options?`): [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
 
 #### Parameters
 
@@ -408,7 +408,7 @@ ___
 
 #### Returns
 
-[`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
+[`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<`DATA`, `ITEM`\>
 
 #### Defined in
 
@@ -438,7 +438,7 @@ ___
 
 ### toNewItem
 
-▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
+▸ `Protected` **toNewItem**(`options?`): [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
 
 #### Parameters
 
@@ -448,7 +448,7 @@ ___
 
 #### Returns
 
-[`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
+[`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<`DATA`, `ITEM`\>
 
 #### Defined in
 

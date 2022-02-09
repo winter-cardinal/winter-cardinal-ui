@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSerializedDataValue
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedDataValue
 
 # Interface: DDiagramSerializedDataValue
 
@@ -83,7 +83,7 @@ ___
 
 ### 5
 
-• **5**: [`EShapeDataValueOrder`](../README.md#eshapedatavalueorder)
+• **5**: [`EShapeDataValueOrder`](../index.md#eshapedatavalueorder)
 
 A order.
 

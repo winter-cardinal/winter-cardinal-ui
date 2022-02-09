@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueOnInputActions
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueOnInputActions
 
 # Class: EShapeActionValueOnInputActions
 
@@ -35,7 +35,7 @@
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `action` | [`EShapeActionValueOnInputAction`](../README.md#eshapeactionvalueoninputaction) |
+| `action` | [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction) |
 | `target` | `string` |
 | `value` | `VALUE` |
 | `time` | `number` |

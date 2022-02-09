@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeWhiteLink
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeWhiteLink
 
 # Class: DThemeWhiteLink
 
@@ -82,11 +82,11 @@ ___
 
 ### getMenuOptions
 
-▸ **getMenuOptions**(): [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../README.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
+▸ **getMenuOptions**(): [`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
 
 #### Returns
 
-[`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../README.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
+[`DMenuOptions`](../interfaces/DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](../interfaces/DThemeMenu.md)\>
 
 #### Implementation of
 

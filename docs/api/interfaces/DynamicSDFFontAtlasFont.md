@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DynamicSDFFontAtlasFont
+[Winter Cardinal UI - v0.154.0](../index.md) / DynamicSDFFontAtlasFont
 
 # Interface: DynamicSDFFontAtlasFont
 

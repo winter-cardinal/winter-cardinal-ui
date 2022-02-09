@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataSelectionMultiple
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataSelectionMultiple
 
 # Class: DListDataSelectionMultiple<ITEM\>
 
@@ -164,11 +164,11 @@ ___
 
 ### type
 
-• `get` **type**(): [`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+• `get` **type**(): [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 #### Returns
 
-[`DListDataSelectionType`](../README.md#dlistdataselectiontype)
+[`DListDataSelectionType`](../index.md#dlistdataselectiontype)
 
 #### Implementation of
 
@@ -826,7 +826,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `items` | `ITEM`[] |
-| `toId` | [`DListItemToId`](../README.md#dlistitemtoid)<`ITEM`\> |
+| `toId` | [`DListItemToId`](../index.md#dlistitemtoid)<`ITEM`\> |
 | `result` | `Map`<`unknown`, `ITEM`\> |
 
 #### Returns

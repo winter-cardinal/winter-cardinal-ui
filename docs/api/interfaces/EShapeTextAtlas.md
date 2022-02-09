@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeTextAtlas
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTextAtlas
 
 # Interface: EShapeTextAtlas
 

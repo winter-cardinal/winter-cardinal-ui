@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataTreeSelectionImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataTreeSelectionImpl
 
 # Class: DTableDataTreeSelectionImpl<NODE\>
 
@@ -125,7 +125,7 @@ ___
 
 ### \_type
 
-• `Protected` **\_type**: [`DTableDataSelectionType`](../README.md#dtabledataselectiontype)
+• `Protected` **\_type**: [`DTableDataSelectionType`](../index.md#dtabledataselectiontype)
 
 #### Defined in
 
@@ -213,11 +213,11 @@ ___
 
 ### type
 
-• `get` **type**(): [`DTableDataSelectionType`](../README.md#dtabledataselectiontype)
+• `get` **type**(): [`DTableDataSelectionType`](../index.md#dtabledataselectiontype)
 
 #### Returns
 
-[`DTableDataSelectionType`](../README.md#dtabledataselectiontype)
+[`DTableDataSelectionType`](../index.md#dtabledataselectiontype)
 
 #### Implementation of
 

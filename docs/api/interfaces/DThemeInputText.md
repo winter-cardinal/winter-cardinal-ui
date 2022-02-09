@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeInputText
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeInputText
 
 # Interface: DThemeInputText
 
@@ -117,11 +117,11 @@
 
 ### getAfterCreator
 
-▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -232,11 +232,11 @@ ___
 
 ### getBeforeCreator
 
-▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -422,11 +422,11 @@ ___
 
 ### getClipperCreator
 
-▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -623,11 +623,11 @@ ___
 
 ### getElementCreator
 
-▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -677,11 +677,11 @@ ___
 
 ### getFontStyle
 
-▸ **getFontStyle**(): [`DFontStyle`](../README.md#dfontstyle)
+▸ **getFontStyle**(): [`DFontStyle`](../index.md#dfontstyle)
 
 #### Returns
 
-[`DFontStyle`](../README.md#dfontstyle)
+[`DFontStyle`](../index.md#dfontstyle)
 
 #### Inherited from
 
@@ -695,11 +695,11 @@ ___
 
 ### getFontVariant
 
-▸ **getFontVariant**(): [`DFontVariant`](../README.md#dfontvariant)
+▸ **getFontVariant**(): [`DFontVariant`](../index.md#dfontvariant)
 
 #### Returns
 
-[`DFontVariant`](../README.md#dfontvariant)
+[`DFontVariant`](../index.md#dfontvariant)
 
 #### Inherited from
 
@@ -713,11 +713,11 @@ ___
 
 ### getFontWeight
 
-▸ **getFontWeight**(): [`DFontWeight`](../README.md#dfontweight)
+▸ **getFontWeight**(): [`DFontWeight`](../index.md#dfontweight)
 
 #### Returns
 
-[`DFontWeight`](../README.md#dfontweight)
+[`DFontWeight`](../index.md#dfontweight)
 
 #### Inherited from
 
@@ -731,13 +731,13 @@ ___
 
 ### getHeight
 
-▸ **getHeight**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a height.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -751,11 +751,11 @@ ___
 
 ### getImageAlignHorizontal
 
-▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Inherited from
 
@@ -769,11 +769,11 @@ ___
 
 ### getImageAlignVertical
 
-▸ **getImageAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Inherited from
 
@@ -787,11 +787,11 @@ ___
 
 ### getImageAlignWith
 
-▸ **getImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Inherited from
 
@@ -1188,11 +1188,11 @@ ___
 
 ### getSecondaryImageAlignHorizontal
 
-▸ **getSecondaryImageAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getSecondaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Inherited from
 
@@ -1206,11 +1206,11 @@ ___
 
 ### getSecondaryImageAlignVertical
 
-▸ **getSecondaryImageAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getSecondaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Inherited from
 
@@ -1224,11 +1224,11 @@ ___
 
 ### getSecondaryImageAlignWith
 
-▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Inherited from
 
@@ -1389,11 +1389,11 @@ ___
 
 ### getTertiaryImageAlignHorizontal
 
-▸ **getTertiaryImageAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getTertiaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Inherited from
 
@@ -1407,11 +1407,11 @@ ___
 
 ### getTertiaryImageAlignVertical
 
-▸ **getTertiaryImageAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getTertiaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Inherited from
 
@@ -1425,11 +1425,11 @@ ___
 
 ### getTertiaryImageAlignWith
 
-▸ **getTertiaryImageAlignWith**(): [`DAlignWith`](../README.md#dalignwith)
+▸ **getTertiaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
 
 #### Returns
 
-[`DAlignWith`](../README.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith)
 
 #### Inherited from
 
@@ -1551,11 +1551,11 @@ ___
 
 ### getTextAlignHorizontal
 
-▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../README.md#dalignhorizontal)
+▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Returns
 
-[`DAlignHorizontal`](../README.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Inherited from
 
@@ -1569,11 +1569,11 @@ ___
 
 ### getTextAlignVertical
 
-▸ **getTextAlignVertical**(): [`DAlignVertical`](../README.md#dalignvertical)
+▸ **getTextAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
 
 #### Returns
 
-[`DAlignVertical`](../README.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical)
 
 #### Inherited from
 
@@ -1636,11 +1636,11 @@ ___
 
 ### getTextStyleWordWrap
 
-▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Returns
 
-[`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+[`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Inherited from
 
@@ -1723,11 +1723,11 @@ ___
 
 ### getWhen
 
-▸ **getWhen**(): [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+▸ **getWhen**(): [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Returns
 
-[`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+[`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Inherited from
 
@@ -1741,13 +1741,13 @@ ___
 
 ### getWidth
 
-▸ **getWidth**(): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **getWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 Returns a width.
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Inherited from
 
@@ -1761,13 +1761,13 @@ ___
 
 ### getX
 
-▸ **getX**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a X coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -1781,13 +1781,13 @@ ___
 
 ### getY
 
-▸ **getY**(): [`DCoordinatePosition`](../README.md#dcoordinateposition)
+▸ **getY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 Returns a Y coordinate.
 
 #### Returns
 
-[`DCoordinatePosition`](../README.md#dcoordinateposition)
+[`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 #### Inherited from
 
@@ -1885,14 +1885,14 @@ ___
 
 ### newTextValue
 
-▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\>
+▸ **newTextValue**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
 
 Returns a new text value.
 Called to initialize a text value if a text value is not given.
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
 
 #### Inherited from
 
@@ -1962,7 +1962,7 @@ ___
 | :------ | :------ |
 | `target` | `HTMLDivElement` |
 | `state` | [`DBaseStateSet`](DBaseStateSet.md) |
-| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding) |
+| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding) |
 | `elementRect` | ``null`` \| `Rectangle` |
 | `elementMatrix` | ``null`` \| `Matrix` |
 | `clipperRect` | ``null`` \| `Rectangle` |
@@ -1991,7 +1991,7 @@ ___
 | :------ | :------ |
 | `target` | `HTMLInputElement` |
 | `state` | [`DBaseStateSet`](DBaseStateSet.md) |
-| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding) |
+| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding) |
 | `elementRect` | ``null`` \| `Rectangle` |
 | `elementMatrix` | ``null`` \| `Matrix` |
 | `clipperRect` | ``null`` \| `Rectangle` |

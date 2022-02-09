@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DButtonSelectDialog
+[Winter Cardinal UI - v0.154.0](../index.md) / DButtonSelectDialog
 
 # Interface: DButtonSelectDialog<VALUE\>
 

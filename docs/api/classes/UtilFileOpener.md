@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilFileOpener
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilFileOpener
 
 # Class: UtilFileOpener
 
@@ -35,7 +35,7 @@ An utility class for opening files.
 
 | Name | Type |
 | :------ | :------ |
-| `as` | [`UtilFileAs`](../README.md#utilfileas) |
+| `as` | [`UtilFileAs`](../index.md#utilfileas) |
 | `facade` | [`UtilFileFacade`](../interfaces/UtilFileFacade.md) |
 
 #### Defined in
@@ -46,7 +46,7 @@ An utility class for opening files.
 
 ### \_as
 
-• `Protected` **\_as**: [`UtilFileAs`](../README.md#utilfileas)
+• `Protected` **\_as**: [`UtilFileAs`](../index.md#utilfileas)
 
 #### Defined in
 

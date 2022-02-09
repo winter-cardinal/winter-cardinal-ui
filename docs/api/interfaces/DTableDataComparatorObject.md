@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataComparatorObject
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataComparatorObject
 
 # Interface: DTableDataComparatorObject<ROW\>
 

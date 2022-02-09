@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DLinkOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DLinkOptions
 
 # Interface: DLinkOptions
 
@@ -21,7 +21,7 @@
 
 ### checker
 
-• `Optional` **checker**: [`DLinkChecker`](../README.md#dlinkchecker)
+• `Optional` **checker**: [`DLinkChecker`](../index.md#dlinkchecker)
 
 #### Defined in
 
@@ -31,7 +31,7 @@ ___
 
 ### menu
 
-• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../README.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<[`DLinkMenuItemId`](../README.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../README.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>\>
 
 #### Defined in
 
@@ -41,7 +41,7 @@ ___
 
 ### target
 
-• `Optional` **target**: [`DLinkTargetValue`](../README.md#dlinktargetvalue)
+• `Optional` **target**: [`DLinkTargetValue`](../index.md#dlinktargetvalue)
 
 #### Defined in
 
@@ -51,7 +51,7 @@ ___
 
 ### url
 
-• `Optional` **url**: [`DLinkUrlValue`](../README.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../README.md#dlinkurlmaker)
+• `Optional` **url**: [`DLinkUrlValue`](../index.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../index.md#dlinkurlmaker)
 
 #### Defined in
 

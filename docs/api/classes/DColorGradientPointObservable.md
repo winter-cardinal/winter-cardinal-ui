@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DColorGradientPointObservable
+[Winter Cardinal UI - v0.154.0](../index.md) / DColorGradientPointObservable
 
 # Class: DColorGradientPointObservable
 

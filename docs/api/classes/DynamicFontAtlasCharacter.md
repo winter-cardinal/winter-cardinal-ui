@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DynamicFontAtlasCharacter
+[Winter Cardinal UI - v0.154.0](../index.md) / DynamicFontAtlasCharacter
 
 # Class: DynamicFontAtlasCharacter
 

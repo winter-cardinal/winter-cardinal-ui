@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataListFilter
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataListFilter
 
 # Class: DTableDataListFilter<ROW\>
 
@@ -92,7 +92,7 @@ utils.EventEmitter.constructor
 
 ### \_filter
 
-• `Protected` **\_filter**: ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\>
+• `Protected` **\_filter**: ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
 
 #### Defined in
 
@@ -310,13 +310,13 @@ ___
 
 ### get
 
-▸ **get**(): ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\>
+▸ **get**(): ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
 
 Returns a current filter.
 
 #### Returns
 
-``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\>
+``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\>
 
 #### Implementation of
 
@@ -626,7 +626,7 @@ Sets to the given filter.
 
 | Name | Type |
 | :------ | :------ |
-| `filter` | ``null`` \| [`DTableDataFilterer`](../README.md#dtabledatafilterer)<`ROW`\> |
+| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`ROW`\> |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLineBasePoints
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineBasePoints
 
 # Interface: EShapeLineBasePoints
 
@@ -39,7 +39,7 @@
 
 ### formatted
 
-• `Readonly` **formatted**: `Readonly`<[`EShapePointsFormatted`](../README.md#eshapepointsformatted)\>
+• `Readonly` **formatted**: `Readonly`<[`EShapePointsFormatted`](../index.md#eshapepointsformatted)\>
 
 #### Inherited from
 
@@ -53,7 +53,7 @@ ___
 
 ### formatter
 
-• **formatter**: ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+• **formatter**: ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Inherited from
 
@@ -168,8 +168,8 @@ ___
 | `ax` | `number` |
 | `ay` | `number` |
 | `threshold` | `number` |
-| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../README.md#eshapelinebasepointshittestertorange) |
-| `tester` | [`EShapeLineBasePointsHitTester`](../README.md#eshapelinebasepointshittester)<`RESULT`\> |
+| `toRange` | ``null`` \| [`EShapeLineBasePointsHitTesterToRange`](../index.md#eshapelinebasepointshittestertorange) |
+| `tester` | [`EShapeLineBasePointsHitTester`](../index.md#eshapelinebasepointshittester)<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DButtonGroup
+[Winter Cardinal UI - v0.154.0](../index.md) / DButtonGroup
 
 # Class: DButtonGroup<BUTTON, OPTIONS\>
 

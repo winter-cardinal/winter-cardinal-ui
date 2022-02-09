@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DAnimationOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DAnimationOptions
 
 # Interface: DAnimationOptions<TARGET, EMITTER\>
 
@@ -57,7 +57,7 @@ ___
 
 ### onEnd
 
-• `Optional` **onEnd**: [`DAnimationOnEnd`](../README.md#danimationonend)<`TARGET`\>
+• `Optional` **onEnd**: [`DAnimationOnEnd`](../index.md#danimationonend)<`TARGET`\>
 
 Triggered when an animation stops.
 
@@ -69,7 +69,7 @@ ___
 
 ### onStart
 
-• `Optional` **onStart**: [`DAnimationOnStart`](../README.md#danimationonstart)<`TARGET`\>
+• `Optional` **onStart**: [`DAnimationOnStart`](../index.md#danimationonstart)<`TARGET`\>
 
 A function called when an animation starts.
 
@@ -81,7 +81,7 @@ ___
 
 ### onTime
 
-• `Optional` **onTime**: [`DAnimationOnTime`](../README.md#danimationontime)<`TARGET`\>
+• `Optional` **onTime**: [`DAnimationOnTime`](../index.md#danimationontime)<`TARGET`\>
 
 A function called constantly when an animation is on a run.
 
@@ -105,7 +105,7 @@ ___
 
 ### timing
 
-• `Optional` **timing**: [`DAnimationTiming`](../README.md#danimationtiming)<`TARGET`\>
+• `Optional` **timing**: [`DAnimationTiming`](../index.md#danimationtiming)<`TARGET`\>
 
 #### Defined in
 

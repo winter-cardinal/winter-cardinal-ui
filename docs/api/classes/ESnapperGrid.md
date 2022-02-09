@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / ESnapperGrid
+[Winter Cardinal UI - v0.154.0](../index.md) / ESnapperGrid
 
 # Class: ESnapperGrid
 
@@ -215,7 +215,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`DDiagramSerializedSnapGrid`](../README.md#ddiagramserializedsnapgrid) |
+| `serialized` | [`DDiagramSerializedSnapGrid`](../index.md#ddiagramserializedsnapgrid) |
 
 #### Returns
 
@@ -492,11 +492,11 @@ ___
 
 ### serialize
 
-▸ **serialize**(): [`DDiagramSerializedSnapGrid`](../README.md#ddiagramserializedsnapgrid)
+▸ **serialize**(): [`DDiagramSerializedSnapGrid`](../index.md#ddiagramserializedsnapgrid)
 
 #### Returns
 
-[`DDiagramSerializedSnapGrid`](../README.md#ddiagramserializedsnapgrid)
+[`DDiagramSerializedSnapGrid`](../index.md#ddiagramserializedsnapgrid)
 
 #### Defined in
 

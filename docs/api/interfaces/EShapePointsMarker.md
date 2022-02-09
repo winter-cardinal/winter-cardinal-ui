@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapePointsMarker
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapePointsMarker
 
 # Interface: EShapePointsMarker
 
@@ -59,7 +59,7 @@ ___
 
 ### type
 
-• **type**: [`EShapePointsMarkerType`](../README.md#eshapepointsmarkertype)
+• **type**: [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype)
 
 #### Defined in
 
@@ -150,7 +150,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type?` | [`EShapePointsMarkerType`](../README.md#eshapepointsmarkertype) |
+| `type?` | [`EShapePointsMarkerType`](../index.md#eshapepointsmarkertype) |
 | `sizeX?` | `number` |
 | `sizeY?` | `number` |
 

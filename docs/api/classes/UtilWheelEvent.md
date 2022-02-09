@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilWheelEvent
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilWheelEvent
 
 # Class: UtilWheelEvent
 
@@ -42,11 +42,11 @@ ___
 
 ### getNames
 
-▸ **getNames**(): [`UtilWheelEventName`](../README.md#utilwheeleventname)[]
+▸ **getNames**(): [`UtilWheelEventName`](../index.md#utilwheeleventname)[]
 
 #### Returns
 
-[`UtilWheelEventName`](../README.md#utilwheeleventname)[]
+[`UtilWheelEventName`](../index.md#utilwheeleventname)[]
 
 #### Defined in
 
@@ -97,7 +97,7 @@ ___
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `target` | `HTMLElement` | `undefined` |
-| `handler` | [`UtilWheelEventHandler`](../README.md#utilwheeleventhandler) | `undefined` |
+| `handler` | [`UtilWheelEventHandler`](../index.md#utilwheeleventhandler) | `undefined` |
 | `useCapture` | `boolean` | `false` |
 
 #### Returns
@@ -119,7 +119,7 @@ ___
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `target` | `HTMLElement` | `undefined` |
-| `handler` | [`UtilWheelEventHandler`](../README.md#utilwheeleventhandler) | `undefined` |
+| `handler` | [`UtilWheelEventHandler`](../index.md#utilwheeleventhandler) | `undefined` |
 | `useCapture` | `boolean` | `false` |
 
 #### Returns

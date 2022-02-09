@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeDataSelectionSingle
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeDataSelectionSingle
 
 # Class: DTreeDataSelectionSingle<NODE\>
 
@@ -154,13 +154,13 @@ ___
 
 ### type
 
-• `get` **type**(): [`DTreeDataSelectionType`](../README.md#dtreedataselectiontype)
+• `get` **type**(): [`DTreeDataSelectionType`](../index.md#dtreedataselectiontype)
 
 A type.
 
 #### Returns
 
-[`DTreeDataSelectionType`](../README.md#dtreedataselectiontype)
+[`DTreeDataSelectionType`](../index.md#dtreedataselectiontype)
 
 #### Implementation of
 

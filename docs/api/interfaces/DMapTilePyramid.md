@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMapTilePyramid
+[Winter Cardinal UI - v0.154.0](../index.md) / DMapTilePyramid
 
 # Interface: DMapTilePyramid
 

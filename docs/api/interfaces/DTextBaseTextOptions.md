@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTextBaseTextOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTextBaseTextOptions
 
 # Interface: DTextBaseTextOptions<VALUE\>
 
@@ -38,7 +38,7 @@ ___
 
 ### alpha
 
-• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **alpha**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -48,7 +48,7 @@ ___
 
 ### color
 
-• `Optional` **color**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `Optional` **color**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Defined in
 
@@ -68,7 +68,7 @@ ___
 
 ### value
 
-• `Optional` **value**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`VALUE`\>
+• `Optional` **value**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`VALUE`\>
 
 #### Defined in
 

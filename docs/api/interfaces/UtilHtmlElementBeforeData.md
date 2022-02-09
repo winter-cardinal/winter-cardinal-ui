@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilHtmlElementBeforeData
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilHtmlElementBeforeData
 
 # Interface: UtilHtmlElementBeforeData
 
@@ -13,7 +13,7 @@
 
 ### creator
 
-• **creator**: [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+• **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Defined in
 
@@ -23,7 +23,7 @@ ___
 
 ### styler
 
-• **styler**: [`UtilHtmlElementStylerBefore`](../README.md#utilhtmlelementstylerbefore)
+• **styler**: [`UtilHtmlElementStylerBefore`](../index.md#utilhtmlelementstylerbefore)
 
 #### Defined in
 

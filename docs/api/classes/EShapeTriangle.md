@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeTriangle
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTriangle
 
 # Class: EShapeTriangle
 

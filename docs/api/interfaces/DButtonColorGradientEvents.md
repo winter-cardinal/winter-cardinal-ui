@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DButtonColorGradientEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DButtonColorGradientEvents
 
 # Interface: DButtonColorGradientEvents<EMITTER\>
 

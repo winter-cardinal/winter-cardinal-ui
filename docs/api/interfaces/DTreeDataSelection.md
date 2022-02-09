@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeDataSelection
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeDataSelection
 
 # Interface: DTreeDataSelection<NODE\>
 
@@ -83,7 +83,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`DTreeDataSelectionType`](../README.md#dtreedataselectiontype)
+• `Readonly` **type**: [`DTreeDataSelectionType`](../index.md#dtreedataselectiontype)
 
 A type.
 

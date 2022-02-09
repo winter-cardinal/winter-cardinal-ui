@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DImagePiece
+[Winter Cardinal UI - v0.154.0](../index.md) / DImagePiece
 
 # Class: DImagePiece
 
@@ -145,7 +145,7 @@ ___
 
 ### \_source
 
-• `Protected` **\_source**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
+• `Protected` **\_source**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
 
 #### Defined in
 
@@ -241,11 +241,11 @@ ___
 
 ### source
 
-• `get` **source**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
+• `get` **source**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\>
 
 #### Defined in
 
@@ -257,7 +257,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `source` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\> |
+| `source` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `Texture` \| `DisplayObject`\> |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDialogCommandEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DDialogCommandEvents
 
 # Interface: DDialogCommandEvents<VALUE, EMITTER\>
 

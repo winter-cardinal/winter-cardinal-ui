@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionExpressions
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionExpressions
 
 # Class: EShapeActionExpressions
 
@@ -138,7 +138,7 @@ ___
 
 ### from
 
-▸ `Static` **from**<`T`, `DEF`\>(`expression`, `caster`, `def`, `defLiteral`, `nullable`): `DEF` \| [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`T`\>
+▸ `Static` **from**<`T`, `DEF`\>(`expression`, `caster`, `def`, `defLiteral`, `nullable`): `DEF` \| [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`T`\>
 
 #### Type parameters
 
@@ -159,13 +159,13 @@ ___
 
 #### Returns
 
-`DEF` \| [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`T`\>
+`DEF` \| [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`T`\>
 
 #### Defined in
 
 [src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-expressions.ts#L20)
 
-▸ `Static` **from**<`T`, `P`, `DEF`\>(`expression`, `caster`, `def`, `defLiteral`, `nullable`, `parameter`): `DEF` \| [`EShapeActionExpressionWithParameter`](../README.md#eshapeactionexpressionwithparameter)<`T`, `P`\>
+▸ `Static` **from**<`T`, `P`, `DEF`\>(`expression`, `caster`, `def`, `defLiteral`, `nullable`, `parameter`): `DEF` \| [`EShapeActionExpressionWithParameter`](../index.md#eshapeactionexpressionwithparameter)<`T`, `P`\>
 
 #### Type parameters
 
@@ -188,7 +188,7 @@ ___
 
 #### Returns
 
-`DEF` \| [`EShapeActionExpressionWithParameter`](../README.md#eshapeactionexpressionwithparameter)<`T`, `P`\>
+`DEF` \| [`EShapeActionExpressionWithParameter`](../index.md#eshapeactionexpressionwithparameter)<`T`, `P`\>
 
 #### Defined in
 
@@ -198,7 +198,7 @@ ___
 
 ### ofBoolean
 
-▸ `Static` **ofBoolean**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+▸ `Static` **ofBoolean**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Parameters
 
@@ -208,7 +208,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Defined in
 
@@ -218,7 +218,7 @@ ___
 
 ### ofBooleanOrFalse
 
-▸ `Static` **ofBooleanOrFalse**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+▸ `Static` **ofBooleanOrFalse**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Parameters
 
@@ -228,7 +228,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Defined in
 
@@ -238,7 +238,7 @@ ___
 
 ### ofBooleanOrTrue
 
-▸ `Static` **ofBooleanOrTrue**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+▸ `Static` **ofBooleanOrTrue**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Parameters
 
@@ -248,7 +248,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Defined in
 
@@ -258,7 +258,7 @@ ___
 
 ### ofElementOrNull
 
-▸ `Static` **ofElementOrNull**<`ELEMENT`\>(`expression`): `undefined` \| [`EShapeActionExpressionWithParameter`](../README.md#eshapeactionexpressionwithparameter)<``null`` \| `ELEMENT`, `HTMLElement`\>
+▸ `Static` **ofElementOrNull**<`ELEMENT`\>(`expression`): `undefined` \| [`EShapeActionExpressionWithParameter`](../index.md#eshapeactionexpressionwithparameter)<``null`` \| `ELEMENT`, `HTMLElement`\>
 
 #### Type parameters
 
@@ -274,7 +274,7 @@ ___
 
 #### Returns
 
-`undefined` \| [`EShapeActionExpressionWithParameter`](../README.md#eshapeactionexpressionwithparameter)<``null`` \| `ELEMENT`, `HTMLElement`\>
+`undefined` \| [`EShapeActionExpressionWithParameter`](../index.md#eshapeactionexpressionwithparameter)<``null`` \| `ELEMENT`, `HTMLElement`\>
 
 #### Defined in
 
@@ -284,7 +284,7 @@ ___
 
 ### ofNumber
 
-▸ `Static` **ofNumber**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+▸ `Static` **ofNumber**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Parameters
 
@@ -294,7 +294,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Defined in
 
@@ -304,7 +304,7 @@ ___
 
 ### ofNumberOrNull
 
-▸ `Static` **ofNumberOrNull**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `number`\>
+▸ `Static` **ofNumberOrNull**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
 
 #### Parameters
 
@@ -314,7 +314,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `number`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `number`\>
 
 #### Defined in
 
@@ -324,7 +324,7 @@ ___
 
 ### ofNumberOrOne
 
-▸ `Static` **ofNumberOrOne**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+▸ `Static` **ofNumberOrOne**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Parameters
 
@@ -334,7 +334,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Defined in
 
@@ -344,7 +344,7 @@ ___
 
 ### ofNumberOrOneHundred
 
-▸ `Static` **ofNumberOrOneHundred**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+▸ `Static` **ofNumberOrOneHundred**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Parameters
 
@@ -354,7 +354,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Defined in
 
@@ -364,7 +364,7 @@ ___
 
 ### ofString
 
-▸ `Static` **ofString**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`string`\>
+▸ `Static` **ofString**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`string`\>
 
 #### Parameters
 
@@ -374,7 +374,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`string`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`string`\>
 
 #### Defined in
 
@@ -384,7 +384,7 @@ ___
 
 ### ofStringOrNull
 
-▸ `Static` **ofStringOrNull**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+▸ `Static` **ofStringOrNull**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Parameters
 
@@ -394,7 +394,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Defined in
 
@@ -404,7 +404,7 @@ ___
 
 ### ofUnknown
 
-▸ `Static` **ofUnknown**(`expression`): [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`unknown`\>
+▸ `Static` **ofUnknown**(`expression`): [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`unknown`\>
 
 #### Parameters
 
@@ -414,7 +414,7 @@ ___
 
 #### Returns
 
-[`EShapeActionExpression`](../README.md#eshapeactionexpression)<`unknown`\>
+[`EShapeActionExpression`](../index.md#eshapeactionexpression)<`unknown`\>
 
 #### Defined in
 

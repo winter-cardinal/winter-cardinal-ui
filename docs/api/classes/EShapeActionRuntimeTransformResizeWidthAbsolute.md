@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeTransformResizeWidthAbsolute
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeTransformResizeWidthAbsolute
 
 # Class: EShapeActionRuntimeTransformResizeWidthAbsolute
 
@@ -58,7 +58,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -96,7 +96,7 @@ ___
 
 ### size
 
-• `Protected` `Readonly` **size**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+• `Protected` `Readonly` **size**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Inherited from
 

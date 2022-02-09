@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionSubImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionSubImpl
 
 # Class: DChartSelectionSubImpl<CHART\>
 
@@ -154,7 +154,7 @@ ___
 
 ### \_point
 
-• `Protected` **\_point**: [`DChartSelectionPoint`](../README.md#dchartselectionpoint)
+• `Protected` **\_point**: [`DChartSelectionPoint`](../index.md#dchartselectionpoint)
 
 #### Defined in
 

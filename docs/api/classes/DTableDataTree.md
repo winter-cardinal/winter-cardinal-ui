@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataTree
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataTree
 
 # Class: DTableDataTree<NODE\>
 
@@ -932,7 +932,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options?` | [`DTableDataTreeSelectionOptions`](../interfaces/DTableDataTreeSelectionOptions.md) \| [`DTableDataTreeSelection`](../interfaces/DTableDataTreeSelection.md)<`NODE`\> \| [`DTableDataTreeSelectionCreator`](../README.md#dtabledatatreeselectioncreator)<`NODE`\> |
+| `options?` | [`DTableDataTreeSelectionOptions`](../interfaces/DTableDataTreeSelectionOptions.md) \| [`DTableDataTreeSelection`](../interfaces/DTableDataTreeSelection.md)<`NODE`\> \| [`DTableDataTreeSelectionCreator`](../index.md#dtabledatatreeselectioncreator)<`NODE`\> |
 
 #### Returns
 

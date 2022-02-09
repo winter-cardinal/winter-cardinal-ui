@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableBodyRowSelectionOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableBodyRowSelectionOptions
 
 # Interface: DTableBodyRowSelectionOptions
 
@@ -12,7 +12,7 @@
 
 ### type
 
-• `Optional` **type**: [`DTableDataSelectionType`](../README.md#dtabledataselectiontype)
+• `Optional` **type**: [`DTableDataSelectionType`](../index.md#dtabledataselectiontype)
 
 #### Defined in
 

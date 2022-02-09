@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionSimpleOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionSimpleOptions
 
 # Interface: DChartSelectionSimpleOptions<CHART, EMITTER\>
 
@@ -42,7 +42,7 @@ ___
 
 ### point
 
-• `Optional` **point**: ``"PREVIOUS"`` \| ``"NEXT"`` \| ``"CLOSER"`` \| ``"INTERSECTION"`` \| [`DChartSelectionPoint`](../README.md#dchartselectionpoint)
+• `Optional` **point**: ``"PREVIOUS"`` \| ``"NEXT"`` \| ``"CLOSER"`` \| ``"INTERSECTION"`` \| [`DChartSelectionPoint`](../index.md#dchartselectionpoint)
 
 #### Defined in
 

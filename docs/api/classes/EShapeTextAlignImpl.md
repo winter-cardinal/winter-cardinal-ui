@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeTextAlignImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTextAlignImpl
 
 # Class: EShapeTextAlignImpl
 
@@ -42,8 +42,8 @@
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`EShapeTextAlignImplParent`](../interfaces/EShapeTextAlignImplParent.md) |
-| `horizontal` | [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal) |
-| `vertical` | [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical) |
+| `horizontal` | [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal) |
+| `vertical` | [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical) |
 
 #### Defined in
 
@@ -53,7 +53,7 @@
 
 ### \_horizontal
 
-• `Protected` **\_horizontal**: [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+• `Protected` **\_horizontal**: [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Defined in
 
@@ -73,7 +73,7 @@ ___
 
 ### \_vertical
 
-• `Protected` **\_vertical**: [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+• `Protected` **\_vertical**: [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Defined in
 
@@ -83,11 +83,11 @@ ___
 
 ### horizontal
 
-• `get` **horizontal**(): [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+• `get` **horizontal**(): [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Returns
 
-[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Implementation of
 
@@ -103,7 +103,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `horizontal` | [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal) |
+| `horizontal` | [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal) |
 
 #### Returns
 
@@ -121,11 +121,11 @@ ___
 
 ### vertical
 
-• `get` **vertical**(): [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+• `get` **vertical**(): [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Returns
 
-[`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+[`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Implementation of
 
@@ -141,7 +141,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `vertical` | [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical) |
+| `vertical` | [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical) |
 
 #### Returns
 
@@ -238,8 +238,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `horizontal?` | [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal) |
-| `vertical?` | [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical) |
+| `horizontal?` | [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal) |
+| `vertical?` | [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical) |
 
 #### Returns
 

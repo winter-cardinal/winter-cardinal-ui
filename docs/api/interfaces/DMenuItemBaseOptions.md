@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMenuItemBaseOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DMenuItemBaseOptions
 
 # Interface: DMenuItemBaseOptions<VALUE, THEME\>
 
@@ -138,7 +138,7 @@ ___
 
 ### cursor
 
-• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`string`\>
+• `Optional` **cursor**: [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`string`\>
 
 A cursor shape.
 
@@ -154,13 +154,13 @@ ___
 
 ### height
 
-• `Optional` **height**: [`DCoordinateSize`](../README.md#dcoordinatesize)
+• `Optional` **height**: [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 One of the followings:
 * A height
 * A size keyword
 * A size expression (Parsed by [DScalarExpression](../classes/DScalarExpression.md))
-* A function returning a hight ([DScalarFunction](../README.md#dscalarfunction))
+* A function returning a hight ([DScalarFunction](../index.md#dscalarfunction))
 * An object returning a hight ([DScalar](DScalar.md))
 
 #### Inherited from
@@ -305,7 +305,7 @@ ___
 
 ### shadow
 
-• `Optional` **shadow**: ``null`` \| [`DBaseShadow`](../README.md#dbaseshadow)
+• `Optional` **shadow**: ``null`` \| [`DBaseShadow`](../index.md#dbaseshadow)
 
 A shadow.
 
@@ -460,13 +460,13 @@ ___
 
 ### width
 
-• `Optional` **width**: [`DCoordinateSize`](../README.md#dcoordinatesize)
+• `Optional` **width**: [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 One of the followings:
 * A width
 * A size keyword
 * A size expression (Parsed by [DScalarExpression](../classes/DScalarExpression.md))
-* A function returning a width ([DScalarFunction](../README.md#dscalarfunction))
+* A function returning a width ([DScalarFunction](../index.md#dscalarfunction))
 * An object returning a width ([DScalar](DScalar.md))
 
 #### Inherited from
@@ -481,13 +481,13 @@ ___
 
 ### x
 
-• `Optional` **x**: [`DCoordinatePosition`](../README.md#dcoordinateposition)
+• `Optional` **x**: [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 One of the followings:
 * A X position
 * A position keyword
 * A position expression (Parsed by [DScalarExpression](../classes/DScalarExpression.md))
-* A function returning a X position ([DScalarFunction](../README.md#dscalarfunction))
+* A function returning a X position ([DScalarFunction](../index.md#dscalarfunction))
 * An object returning a X position ([DScalar](DScalar.md))
 
 #### Inherited from
@@ -502,13 +502,13 @@ ___
 
 ### y
 
-• `Optional` **y**: [`DCoordinatePosition`](../README.md#dcoordinateposition)
+• `Optional` **y**: [`DCoordinatePosition`](../index.md#dcoordinateposition)
 
 One of the followings:
 * A Y position
 * A position keyword
 * A position expresion (Parsed by [DScalarExpression](../classes/DScalarExpression.md))
-* A function returning a Y position ([DScalarFunction](../README.md#dscalarfunction))
+* A function returning a Y position ([DScalarFunction](../index.md#dscalarfunction))
 * An object returning a Y position ([DScalar](DScalar.md))
 
 #### Inherited from

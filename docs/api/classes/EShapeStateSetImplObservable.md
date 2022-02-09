@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeStateSetImplObservable
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeStateSetImplObservable
 
 # Class: EShapeStateSetImplObservable
 
@@ -166,7 +166,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `onChange` | [`DBaseStateSetImplObservableOnChange`](../README.md#dbasestatesetimplobservableonchange) |
+| `onChange` | [`DBaseStateSetImplObservableOnChange`](../index.md#dbasestatesetimplobservableonchange) |
 
 #### Inherited from
 
@@ -236,7 +236,7 @@ ___
 
 ### \_onChange
 
-• `Protected` **\_onChange**: [`DBaseStateSetImplObservableOnChange`](../README.md#dbasestatesetimplobservableonchange)
+• `Protected` **\_onChange**: [`DBaseStateSetImplObservableOnChange`](../index.md#dbasestatesetimplobservableonchange)
 
 #### Inherited from
 

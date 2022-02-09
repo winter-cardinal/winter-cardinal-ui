@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DButtonFileOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DButtonFileOnOptions
 
 # Interface: DButtonFileOnOptions<VALUE, EMITTER\>
 
@@ -52,7 +52,7 @@
 
 ### open
 
-• `Optional` **open**: [`UtilFileOnOpen`](../README.md#utilfileonopen)<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../README.md#utilfileonopen)<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../README.md#utilfileonopen)<`File`, `EMITTER`\>
+• `Optional` **open**: [`UtilFileOnOpen`](../index.md#utilfileonopen)<`string`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`ArrayBuffer`, `EMITTER`\> \| [`UtilFileOnOpen`](../index.md#utilfileonopen)<`File`, `EMITTER`\>
 
 Triggered when a file is opened.
 

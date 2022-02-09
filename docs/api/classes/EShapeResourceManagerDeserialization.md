@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeResourceManagerDeserialization
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeResourceManagerDeserialization
 
 # Class: EShapeResourceManagerDeserialization
 
@@ -85,7 +85,7 @@ ___
 
 ### \_aligns
 
-• `Protected` **\_aligns**: `Map`<`number`, [[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)]\>
+• `Protected` **\_aligns**: `Map`<`number`, [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)]\>
 
 #### Defined in
 
@@ -255,7 +255,7 @@ ___
 
 ### getAlign
 
-▸ **getAlign**(`id`): `undefined` \| [[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)]
+▸ **getAlign**(`id`): `undefined` \| [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)]
 
 #### Parameters
 
@@ -265,7 +265,7 @@ ___
 
 #### Returns
 
-`undefined` \| [[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)]
+`undefined` \| [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)]
 
 #### Defined in
 
@@ -489,7 +489,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `id` | `number` |
-| `align` | [[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)] |
+| `align` | [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)] |
 
 #### Returns
 

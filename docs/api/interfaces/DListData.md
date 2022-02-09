@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListData
+[Winter Cardinal UI - v0.154.0](../index.md) / DListData
 
 # Interface: DListData<ITEM\>
 
@@ -229,7 +229,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DListDataIteratee`](../README.md#dlistdataiteratee)<`ITEM`\> | an function called on each datum |
+| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)<`ITEM`\> | an function called on each datum |
 | `ifrom?` | `number` | an index to start an iteration |
 | `ito?` | `number` | an index before which an interation stops |
 

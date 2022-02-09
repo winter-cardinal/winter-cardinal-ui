@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DViewGestureImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DViewGestureImpl
 
 # Class: DViewGestureImpl
 
@@ -36,9 +36,9 @@
 | Name | Type |
 | :------ | :------ |
 | `parent` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `toTarget` | [`DViewToTarget`](../README.md#dviewtotarget) |
+| `toTarget` | [`DViewToTarget`](../index.md#dviewtotarget) |
 | `stopper` | [`DViewStopper`](../interfaces/DViewStopper.md) |
-| `constraint` | [`DViewConstraint`](../README.md#dviewconstraint) |
+| `constraint` | [`DViewConstraint`](../index.md#dviewconstraint) |
 | `theme` | [`DThemeViewGesture`](../interfaces/DThemeViewGesture.md) |
 | `options?` | [`DViewGestureOptions`](../interfaces/DViewGestureOptions.md) |
 
@@ -50,7 +50,7 @@
 
 ### \_constraint
 
-• `Protected` **\_constraint**: [`DViewConstraint`](../README.md#dviewconstraint)
+• `Protected` **\_constraint**: [`DViewConstraint`](../index.md#dviewconstraint)
 
 #### Defined in
 

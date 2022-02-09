@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDropdownBaseEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DDropdownBaseEvents
 
 # Interface: DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER\>
 

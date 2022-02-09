@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueEmitEvent
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueEmitEvent
 
 # Class: EShapeActionValueEmitEvent
 
@@ -77,7 +77,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -181,7 +181,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueEmitEventSerialized`](../README.md#eshapeactionvalueemiteventserialized) |
+| `serialized` | [`EShapeActionValueEmitEventSerialized`](../index.md#eshapeactionvalueemiteventserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMapTilePyramidOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DMapTilePyramidOptions
 
 # Interface: DMapTilePyramidOptions
 
@@ -16,7 +16,7 @@
 
 ### builder
 
-• **builder**: [`DMapTileUrlBuilder`](../README.md#dmaptileurlbuilder)
+• **builder**: [`DMapTileUrlBuilder`](../index.md#dmaptileurlbuilder)
 
 #### Defined in
 

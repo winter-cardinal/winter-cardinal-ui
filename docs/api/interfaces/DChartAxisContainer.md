@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisContainer
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisContainer
 
 # Interface: DChartAxisContainer<CHART\>
 
@@ -79,7 +79,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 
@@ -113,7 +113,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 | `index` | `number` |
 
 #### Returns
@@ -154,7 +154,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLineOfAnyPoints
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineOfAnyPoints
 
 # Interface: EShapeLineOfAnyPoints
 
@@ -53,7 +53,7 @@ ___
 
 ### formatted
 
-• `Readonly` **formatted**: `Readonly`<[`EShapePointsFormatted`](../README.md#eshapepointsformatted)\>
+• `Readonly` **formatted**: `Readonly`<[`EShapePointsFormatted`](../index.md#eshapepointsformatted)\>
 
 #### Inherited from
 
@@ -67,7 +67,7 @@ ___
 
 ### formatter
 
-• **formatter**: ``null`` \| [`EShapePointsFormatter`](../README.md#eshapepointsformatter)
+• **formatter**: ``null`` \| [`EShapePointsFormatter`](../index.md#eshapepointsformatter)
 
 #### Inherited from
 
@@ -213,8 +213,8 @@ ___
 | `ss` | `number` |
 | `sa` | `number` |
 | `threshold` | `number` |
-| `toRange` | ``null`` \| [`EShapeLineOfAnyPointsHitTesterToRange`](../README.md#eshapelineofanypointshittestertorange) |
-| `tester` | [`EShapeLineOfAnyPointsHitTester`](../README.md#eshapelineofanypointshittester)<`RESULT`\> |
+| `toRange` | ``null`` \| [`EShapeLineOfAnyPointsHitTesterToRange`](../index.md#eshapelineofanypointshittestertorange) |
+| `tester` | [`EShapeLineOfAnyPointsHitTester`](../index.md#eshapelineofanypointshittester)<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns

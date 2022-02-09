@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesBaseCoordinateContainer
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesBaseCoordinateContainer
 
 # Class: DChartSeriesBaseCoordinateContainer<CHART\>
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataImpl
 
 # Class: DListDataImpl<ITEM\>
 
@@ -455,7 +455,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 | Name | Type |
 | :------ | :------ |
-| `iteratee` | [`DListDataIteratee`](../README.md#dlistdataiteratee)<`ITEM`\> |
+| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)<`ITEM`\> |
 | `from?` | `number` |
 | `to?` | `number` |
 

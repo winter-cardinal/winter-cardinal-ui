@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DynamicAtlas
+[Winter Cardinal UI - v0.154.0](../index.md) / DynamicAtlas
 
 # Class: DynamicAtlas
 

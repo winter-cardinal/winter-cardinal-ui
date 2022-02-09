@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisBaseTickMinorOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisBaseTickMinorOptions
 
 # Interface: DChartAxisBaseTickMinorOptions
 
@@ -27,7 +27,7 @@ ___
 
 ### position
 
-• `Optional` **position**: [`DChartAxisTickPositionOption`](../README.md#dchartaxistickpositionoption)
+• `Optional` **position**: [`DChartAxisTickPositionOption`](../index.md#dchartaxistickpositionoption)
 
 #### Defined in
 
@@ -47,7 +47,7 @@ ___
 
 ### step
 
-• `Optional` **step**: `number` \| [`DChartCoordinateTickMinorStepFunction`](../README.md#dchartcoordinatetickminorstepfunction)
+• `Optional` **step**: `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction)
 
 #### Defined in
 
@@ -67,7 +67,7 @@ ___
 
 ### style
 
-• `Optional` **style**: [`EShapePointsStyleOption`](../README.md#eshapepointsstyleoption)
+• `Optional` **style**: [`EShapePointsStyleOption`](../index.md#eshapepointsstyleoption)
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesStrokeOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesStrokeOptions
 
 # Interface: DChartSeriesStrokeOptions
 
@@ -18,7 +18,7 @@
 
 ### align
 
-• `Optional` **align**: `number` \| `number`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• `Optional` **align**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 
@@ -28,7 +28,7 @@ ___
 
 ### alpha
 
-• `Optional` **alpha**: `number` \| `number`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• `Optional` **alpha**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 
@@ -38,7 +38,7 @@ ___
 
 ### color
 
-• `Optional` **color**: `number` \| `number`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• `Optional` **color**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 
@@ -48,7 +48,7 @@ ___
 
 ### enable
 
-• `Optional` **enable**: `boolean` \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`boolean`\> \| `boolean`[]
+• `Optional` **enable**: `boolean` \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`boolean`\> \| `boolean`[]
 
 #### Defined in
 
@@ -58,7 +58,7 @@ ___
 
 ### side
 
-• **side**: `number` \| `number`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• **side**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 
@@ -68,7 +68,7 @@ ___
 
 ### style
 
-• `Optional` **style**: `number` \| `number`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• `Optional` **style**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 
@@ -78,7 +78,7 @@ ___
 
 ### width
 
-• `Optional` **width**: `number` \| `number`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`number`\>
+• `Optional` **width**: `number` \| `number`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`number`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DBaseAuto
+[Winter Cardinal UI - v0.154.0](../index.md) / DBaseAuto
 
 # Class: DBaseAuto
 
@@ -82,7 +82,7 @@ Update the auto settings by the given size.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `size` | [`DCoordinateSize`](../README.md#dcoordinatesize) | a size |
+| `size` | [`DCoordinateSize`](../index.md#dcoordinatesize) | a size |
 
 #### Returns
 
@@ -98,17 +98,17 @@ ___
 
 ### toCoordinate
 
-▸ **toCoordinate**(`def`): [`DCoordinateSize`](../README.md#dcoordinatesize)
+▸ **toCoordinate**(`def`): [`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `def` | [`DCoordinateSize`](../README.md#dcoordinatesize) |
+| `def` | [`DCoordinateSize`](../index.md#dcoordinatesize) |
 
 #### Returns
 
-[`DCoordinateSize`](../README.md#dcoordinatesize)
+[`DCoordinateSize`](../index.md#dcoordinatesize)
 
 #### Defined in
 

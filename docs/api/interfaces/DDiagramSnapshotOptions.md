@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSnapshotOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSnapshotOptions
 
 # Interface: DDiagramSnapshotOptions<CANVAS, EMITTER\>
 

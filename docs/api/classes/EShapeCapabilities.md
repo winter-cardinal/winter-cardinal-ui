@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeCapabilities
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeCapabilities
 
 # Class: EShapeCapabilities
 
@@ -32,7 +32,7 @@
 
 #### Index signature
 
-▪ [type: `number`]: [`EShapeCapability`](../README.md#eshapecapability) \| `undefined`
+▪ [type: `number`]: [`EShapeCapability`](../index.md#eshapecapability) \| `undefined`
 
 #### Defined in
 

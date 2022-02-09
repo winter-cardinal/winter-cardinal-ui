@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeLineOfAny
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineOfAny
 
 # Interface: EShapeLineOfAny
 
@@ -768,9 +768,9 @@ ___
 | :------ | :------ |
 | `x` | `number` |
 | `y` | `number` |
-| `toThreshold` | ``null`` \| [`EShapeLineOfAnyPointsHitTesterToThreshold`](../README.md#eshapelineofanypointshittestertothreshold) |
-| `toRange` | ``null`` \| [`EShapeLineOfAnyPointsHitTesterToRange`](../README.md#eshapelineofanypointshittestertorange) |
-| `tester` | ``null`` \| [`EShapeLineOfAnyPointsHitTester`](../README.md#eshapelineofanypointshittester)<`RESULT`\> |
+| `toThreshold` | ``null`` \| [`EShapeLineOfAnyPointsHitTesterToThreshold`](../index.md#eshapelineofanypointshittestertothreshold) |
+| `toRange` | ``null`` \| [`EShapeLineOfAnyPointsHitTesterToRange`](../index.md#eshapelineofanypointshittestertorange) |
+| `tester` | ``null`` \| [`EShapeLineOfAnyPointsHitTester`](../index.md#eshapelineofanypointshittester)<`RESULT`\> |
 | `result` | `RESULT` |
 
 #### Returns

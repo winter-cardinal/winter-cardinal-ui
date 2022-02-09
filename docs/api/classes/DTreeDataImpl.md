@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeDataImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeDataImpl
 
 # Class: DTreeDataImpl<NODE\>
 
@@ -390,7 +390,7 @@ If the iteratee explicitly returns false, stops an iteration.
 
 | Name | Type |
 | :------ | :------ |
-| `iteratee` | [`DTreeNodeIteratee`](../README.md#dtreenodeiteratee)<`NODE`\> |
+| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)<`NODE`\> |
 
 #### Returns
 
@@ -416,7 +416,7 @@ ___
 | :------ | :------ |
 | `nodes` | `NODE`[] |
 | `parent` | ``null`` \| `NODE` |
-| `iteratee` | [`DTreeNodeIteratee`](../README.md#dtreenodeiteratee)<`NODE`\> |
+| `iteratee` | [`DTreeNodeIteratee`](../index.md#dtreenodeiteratee)<`NODE`\> |
 
 #### Returns
 

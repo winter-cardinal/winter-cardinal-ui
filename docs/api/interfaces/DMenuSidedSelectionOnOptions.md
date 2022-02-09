@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMenuSidedSelectionOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DMenuSidedSelectionOnOptions
 
 # Interface: DMenuSidedSelectionOnOptions<EMITTER\>
 

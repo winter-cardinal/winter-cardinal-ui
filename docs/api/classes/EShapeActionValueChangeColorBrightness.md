@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueChangeColorBrightness
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueChangeColorBrightness
 
 # Class: EShapeActionValueChangeColorBrightness
 
 ## Hierarchy
 
-- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueChangeColorType`](../README.md#eshapeactionvaluechangecolortype)\>
+- [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<[`EShapeActionValueChangeColorType`](../index.md#eshapeactionvaluechangecolortype)\>
 
   ↳ **`EShapeActionValueChangeColorBrightness`**
 
@@ -93,7 +93,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -197,7 +197,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueChangeColorBrightnessSerialized`](../README.md#eshapeactionvaluechangecolorbrightnessserialized) \| [`EShapeActionValueChangeColorBrightnessSerializedLegacy`](../README.md#eshapeactionvaluechangecolorbrightnessserializedlegacy) |
+| `serialized` | [`EShapeActionValueChangeColorBrightnessSerialized`](../index.md#eshapeactionvaluechangecolorbrightnessserialized) \| [`EShapeActionValueChangeColorBrightnessSerializedLegacy`](../index.md#eshapeactionvaluechangecolorbrightnessserializedlegacy) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

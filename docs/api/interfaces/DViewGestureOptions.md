@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DViewGestureOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DViewGestureOptions
 
 # Interface: DViewGestureOptions
 
@@ -45,7 +45,7 @@ ___
 
 ### mode
 
-• `Optional` **mode**: ``"OFF"`` \| ``"ON"`` \| ``"TOUCH"`` \| [`UtilGestureMode`](../README.md#utilgesturemode)
+• `Optional` **mode**: ``"OFF"`` \| ``"ON"`` \| ``"TOUCH"`` \| [`UtilGestureMode`](../index.md#utilgesturemode)
 
 #### Defined in
 

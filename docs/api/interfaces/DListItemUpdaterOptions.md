@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListItemUpdaterOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DListItemUpdaterOptions
 
 # Interface: DListItemUpdaterOptions<VALUE\>
 
@@ -26,7 +26,7 @@
 
 ### initItem
 
-• `Optional` **initItem**: [`DItemUpdaterInitItem`](../README.md#ditemupdaterinititem)<[`DListData`](DListData.md)<`VALUE`\>, [`DListItem`](../classes/DListItem.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
+• `Optional` **initItem**: [`DItemUpdaterInitItem`](../index.md#ditemupdaterinititem)<[`DListData`](DListData.md)<`VALUE`\>, [`DListItem`](../classes/DListItem.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
 
 Called to initialize items.
 
@@ -42,7 +42,7 @@ ___
 
 ### newItem
 
-• `Optional` **newItem**: [`DItemUpdaterNewItem`](../README.md#ditemupdaternewitem)<[`DListData`](DListData.md)<`VALUE`\>, [`DListItem`](../classes/DListItem.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
+• `Optional` **newItem**: [`DItemUpdaterNewItem`](../index.md#ditemupdaternewitem)<[`DListData`](DListData.md)<`VALUE`\>, [`DListItem`](../classes/DListItem.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), [`DListItemOptions`](DListItemOptions.md)<`VALUE`, [`DThemeListItem`](DThemeListItem.md), `any`\>\>\>
 
 Called to create items.
 

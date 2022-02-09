@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableColumnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableColumnOptions
 
 # Interface: DTableColumnOptions<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG\>
 
@@ -41,7 +41,7 @@
 
 ### align
 
-• `Optional` **align**: ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../README.md#dalignhorizontal)
+• `Optional` **align**: ``"RIGHT"`` \| ``"LEFT"`` \| ``"CENTER"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal)
 
 #### Defined in
 
@@ -51,7 +51,7 @@ ___
 
 ### body
 
-• `Optional` **body**: [`DTableBodyCellOptionsUnion`](../README.md#dtablebodycelloptionsunion)<`ROW_VALUE`\>
+• `Optional` **body**: [`DTableBodyCellOptionsUnion`](../index.md#dtablebodycelloptionsunion)<`ROW_VALUE`\>
 
 #### Defined in
 
@@ -81,7 +81,7 @@ ___
 
 ### editable
 
-• `Optional` **editable**: `boolean` \| ``"auto"`` \| ``"AUTO"`` \| [`DTableEditable`](../README.md#dtableeditable)<`ROW_VALUE`\>
+• `Optional` **editable**: `boolean` \| ``"auto"`` \| ``"AUTO"`` \| [`DTableEditable`](../index.md#dtableeditable)<`ROW_VALUE`\>
 
 If the editable is
 
@@ -108,7 +108,7 @@ ___
 
 ### formatter
 
-• `Optional` **formatter**: [`DTableFormatter`](../README.md#dtableformatter)<`CELL_VALUE`\>
+• `Optional` **formatter**: [`DTableFormatter`](../index.md#dtableformatter)<`CELL_VALUE`\>
 
 #### Defined in
 
@@ -128,7 +128,7 @@ ___
 
 ### getter
 
-• `Optional` **getter**: [`DTableGetter`](../README.md#dtablegetter)<`ROW_VALUE`, `CELL_VALUE`\>
+• `Optional` **getter**: [`DTableGetter`](../index.md#dtablegetter)<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
@@ -178,7 +178,7 @@ ___
 
 ### renderable
 
-• `Optional` **renderable**: `boolean` \| ``"auto"`` \| ``"AUTO"`` \| [`DTableRenderable`](../README.md#dtablerenderable)<`ROW_VALUE`\>
+• `Optional` **renderable**: `boolean` \| ``"auto"`` \| ``"AUTO"`` \| [`DTableRenderable`](../index.md#dtablerenderable)<`ROW_VALUE`\>
 
 If the renderable is
 
@@ -205,7 +205,7 @@ ___
 
 ### setter
 
-• `Optional` **setter**: [`DTableSetter`](../README.md#dtablesetter)<`ROW_VALUE`, `CELL_VALUE`\>
+• `Optional` **setter**: [`DTableSetter`](../index.md#dtablesetter)<`ROW_VALUE`, `CELL_VALUE`\>
 
 #### Defined in
 
@@ -235,7 +235,7 @@ ___
 
 ### type
 
-• `Optional` **type**: ``"COLOR"`` \| ``"TEXT"`` \| ``"ACTION"`` \| ``"DATE"`` \| ``"TIME"`` \| ``"INDEX"`` \| ``"INTEGER"`` \| ``"REAL"`` \| ``"CHECK"`` \| ``"CHECK_SINGLE"`` \| ``"BUTTON"`` \| ``"SELECT"`` \| ``"DATETIME"`` \| ``"LINK"`` \| ``"TREE"`` \| [`DTableColumnType`](../README.md#dtablecolumntype)
+• `Optional` **type**: ``"COLOR"`` \| ``"TEXT"`` \| ``"ACTION"`` \| ``"DATE"`` \| ``"TIME"`` \| ``"INDEX"`` \| ``"INTEGER"`` \| ``"REAL"`` \| ``"CHECK"`` \| ``"CHECK_SINGLE"`` \| ``"BUTTON"`` \| ``"SELECT"`` \| ``"DATETIME"`` \| ``"LINK"`` \| ``"TREE"`` \| [`DTableColumnType`](../index.md#dtablecolumntype)
 
 #### Defined in
 

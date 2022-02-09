@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableColumnSelecting
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableColumnSelecting
 
 # Interface: DTableColumnSelecting<CELL_VALUE, DIALOG_VALUE, DIALOG\>
 
@@ -38,7 +38,7 @@ ___
 
 ### getter
 
-• **getter**: [`DTableSelectingGetter`](../README.md#dtableselectinggetter)<`CELL_VALUE`, `DIALOG`\>
+• **getter**: [`DTableSelectingGetter`](../index.md#dtableselectinggetter)<`CELL_VALUE`, `DIALOG`\>
 
 #### Defined in
 
@@ -68,7 +68,7 @@ ___
 
 ### setter
 
-• **setter**: [`DTableSelectingSetter`](../README.md#dtableselectingsetter)<`CELL_VALUE`, `DIALOG`\>
+• **setter**: [`DTableSelectingSetter`](../index.md#dtableselectingsetter)<`CELL_VALUE`, `DIALOG`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / BuilderTriangle
+[Winter Cardinal UI - v0.154.0](../index.md) / BuilderTriangle
 
 # Class: BuilderTriangle
 

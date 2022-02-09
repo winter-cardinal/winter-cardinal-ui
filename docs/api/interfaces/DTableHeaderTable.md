@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableHeaderTable
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableHeaderTable
 
 # Interface: DTableHeaderTable<ROW\>
 

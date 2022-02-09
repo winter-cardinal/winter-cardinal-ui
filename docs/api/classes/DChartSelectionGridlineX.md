@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionGridlineX
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionGridlineX
 
 # Class: DChartSelectionGridlineX<CHART\>
 
@@ -114,7 +114,7 @@ ___
 
 ### \_style
 
-• `Protected` **\_style**: [`DChartSelectionStyle`](../README.md#dchartselectionstyle)<`CHART`\>
+• `Protected` **\_style**: [`DChartSelectionStyle`](../index.md#dchartselectionstyle)<`CHART`\>
 
 #### Inherited from
 

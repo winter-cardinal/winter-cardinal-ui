@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeGroupStrokeEditor
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupStrokeEditor
 
 # Class: EShapeGroupStrokeEditor
 

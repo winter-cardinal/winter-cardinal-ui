@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSerializedItem
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedItem
 
 # Interface: DDiagramSerializedItem
 

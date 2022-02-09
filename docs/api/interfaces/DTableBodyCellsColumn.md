@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableBodyCellsColumn
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableBodyCellsColumn
 
 # Interface: DTableBodyCellsColumn<ROW\>
 
@@ -29,7 +29,7 @@ ___
 
 ### renderable
 
-• **renderable**: `boolean` \| [`DTableRenderable`](../README.md#dtablerenderable)<`ROW`\>
+• **renderable**: `boolean` \| [`DTableRenderable`](../index.md#dtablerenderable)<`ROW`\>
 
 #### Defined in
 

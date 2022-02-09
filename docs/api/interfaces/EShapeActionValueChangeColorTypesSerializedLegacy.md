@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueChangeColorTypesSerializedLegacy
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueChangeColorTypesSerializedLegacy
 
 # Interface: EShapeActionValueChangeColorTypesSerializedLegacy
 
@@ -23,7 +23,7 @@ ___
 
 ### 2
 
-• **2**: [`EShapeActionValueChangeColorTypeLegacy`](../README.md#eshapeactionvaluechangecolortypelegacy)
+• **2**: [`EShapeActionValueChangeColorTypeLegacy`](../index.md#eshapeactionvaluechangecolortypelegacy)
 
 #### Defined in
 

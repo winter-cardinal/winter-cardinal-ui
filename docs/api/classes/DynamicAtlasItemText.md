@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DynamicAtlasItemText
+[Winter Cardinal UI - v0.154.0](../index.md) / DynamicAtlasItemText
 
 # Class: DynamicAtlasItemText
 

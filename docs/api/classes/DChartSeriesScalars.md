@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesScalars
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesScalars
 
 # Class: DChartSeriesScalars
 
@@ -22,7 +22,7 @@
 
 ### from
 
-▸ `Static` **from**<`T`\>(`value`, `def`): [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`T`\>
+▸ `Static` **from**<`T`\>(`value`, `def`): [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\>
 
 #### Type parameters
 
@@ -34,12 +34,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `value` | `undefined` \| `T` \| `T`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`T`\> |
-| `def` | `T` \| `T`[] \| [`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`T`\> |
+| `value` | `undefined` \| `T` \| `T`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\> |
+| `def` | `T` \| `T`[] \| [`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\> |
 
 #### Returns
 
-[`DChartSeriesScalar`](../README.md#dchartseriesscalar)<`T`\>
+[`DChartSeriesScalar`](../index.md#dchartseriesscalar)<`T`\>
 
 #### Defined in
 

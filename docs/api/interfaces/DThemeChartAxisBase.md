@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DThemeChartAxisBase
+[Winter Cardinal UI - v0.154.0](../index.md) / DThemeChartAxisBase
 
 # Interface: DThemeChartAxisBase
 
@@ -73,17 +73,17 @@
 
 ### getLabelAlignHorizontal
 
-▸ **getLabelAlignHorizontal**(`position`): [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+▸ **getLabelAlignHorizontal**(`position`): [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 
-[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Defined in
 
@@ -93,17 +93,17 @@ ___
 
 ### getLabelAlignVertical
 
-▸ **getLabelAlignVertical**(`position`): [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+▸ **getLabelAlignVertical**(`position`): [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 
-[`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+[`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Defined in
 
@@ -127,11 +127,11 @@ ___
 
 ### getLabelDirection
 
-▸ **getLabelDirection**(): [`EShapeTextDirection`](../README.md#eshapetextdirection)
+▸ **getLabelDirection**(): [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Returns
 
-[`EShapeTextDirection`](../README.md#eshapetextdirection)
+[`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Defined in
 
@@ -309,11 +309,11 @@ ___
 
 ### getMajorTickPosition
 
-▸ **getMajorTickPosition**(): [`DChartAxisTickPosition`](../README.md#dchartaxistickposition)
+▸ **getMajorTickPosition**(): [`DChartAxisTickPosition`](../index.md#dchartaxistickposition)
 
 #### Returns
 
-[`DChartAxisTickPosition`](../README.md#dchartaxistickposition)
+[`DChartAxisTickPosition`](../index.md#dchartaxistickposition)
 
 #### Defined in
 
@@ -337,11 +337,11 @@ ___
 
 ### getMajorTickStep
 
-▸ **getMajorTickStep**(): `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../README.md#dchartcoordinatetickmajorstepfunction)
+▸ **getMajorTickStep**(): `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction)
 
 #### Returns
 
-`undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../README.md#dchartcoordinatetickmajorstepfunction)
+`undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction)
 
 #### Defined in
 
@@ -463,17 +463,17 @@ ___
 
 ### getMajorTickTextAlignHorizontal
 
-▸ **getMajorTickTextAlignHorizontal**(`position`): [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+▸ **getMajorTickTextAlignHorizontal**(`position`): [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 
-[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Defined in
 
@@ -483,17 +483,17 @@ ___
 
 ### getMajorTickTextAlignVertical
 
-▸ **getMajorTickTextAlignVertical**(`position`): [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+▸ **getMajorTickTextAlignVertical**(`position`): [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../README.md#dchartaxisposition) |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition) |
 
 #### Returns
 
-[`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+[`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Defined in
 
@@ -517,11 +517,11 @@ ___
 
 ### getMajorTickTextDirection
 
-▸ **getMajorTickTextDirection**(): [`EShapeTextDirection`](../README.md#eshapetextdirection)
+▸ **getMajorTickTextDirection**(): [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Returns
 
-[`EShapeTextDirection`](../README.md#eshapetextdirection)
+[`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Defined in
 
@@ -587,11 +587,11 @@ ___
 
 ### getMinorTickPosition
 
-▸ **getMinorTickPosition**(): [`DChartAxisTickPosition`](../README.md#dchartaxistickposition)
+▸ **getMinorTickPosition**(): [`DChartAxisTickPosition`](../index.md#dchartaxistickposition)
 
 #### Returns
 
-[`DChartAxisTickPosition`](../README.md#dchartaxistickposition)
+[`DChartAxisTickPosition`](../index.md#dchartaxistickposition)
 
 #### Defined in
 
@@ -615,11 +615,11 @@ ___
 
 ### getMinorTickStep
 
-▸ **getMinorTickStep**(): `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../README.md#dchartcoordinatetickminorstepfunction)
+▸ **getMinorTickStep**(): `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction)
 
 #### Returns
 
-`undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../README.md#dchartcoordinatetickminorstepfunction)
+`undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction)
 
 #### Defined in
 
@@ -755,11 +755,11 @@ ___
 
 ### getPosition
 
-▸ **getPosition**(): [`DChartAxisPosition`](../README.md#dchartaxisposition)
+▸ **getPosition**(): [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Returns
 
-[`DChartAxisPosition`](../README.md#dchartaxisposition)
+[`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Defined in
 

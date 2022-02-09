@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartCoordinateContainerSubImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartCoordinateContainerSubImpl
 
 # Class: DChartCoordinateContainerSubImpl<CHART\>
 
@@ -58,7 +58,7 @@
 | Name | Type |
 | :------ | :------ |
 | `container` | [`DChartCoordinateContainer`](../interfaces/DChartCoordinateContainer.md)<`CHART`\> |
-| `direction` | [`DChartCoordinateDirection`](../README.md#dchartcoordinatedirection) |
+| `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection) |
 
 #### Defined in
 
@@ -78,7 +78,7 @@ ___
 
 ### \_direction
 
-• `Protected` **\_direction**: [`DChartCoordinateDirection`](../README.md#dchartcoordinatedirection)
+• `Protected` **\_direction**: [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection)
 
 #### Defined in
 

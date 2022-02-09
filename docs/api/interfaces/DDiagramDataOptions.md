@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramDataOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramDataOptions
 
 # Interface: DDiagramDataOptions
 
@@ -13,7 +13,7 @@
 
 ### mapper
 
-• `Optional` **mapper**: [`DDiagramDataMapper`](../README.md#ddiagramdatamapper)
+• `Optional` **mapper**: [`DDiagramDataMapper`](../index.md#ddiagramdatamapper)
 
 A data mapper.
 

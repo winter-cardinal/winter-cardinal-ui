@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DCanvasContainerEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DCanvasContainerEvents
 
 # Interface: DCanvasContainerEvents<CANVAS, EMITTER\>
 

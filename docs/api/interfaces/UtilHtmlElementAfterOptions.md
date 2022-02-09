@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilHtmlElementAfterOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilHtmlElementAfterOptions
 
 # Interface: UtilHtmlElementAfterOptions
 
@@ -13,7 +13,7 @@
 
 ### creator
 
-• `Optional` **creator**: [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+• `Optional` **creator**: [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Defined in
 
@@ -23,7 +23,7 @@ ___
 
 ### styler
 
-• `Optional` **styler**: [`UtilHtmlElementStylerAfter`](../README.md#utilhtmlelementstylerafter)
+• `Optional` **styler**: [`UtilHtmlElementStylerAfter`](../index.md#utilhtmlelementstylerafter)
 
 #### Defined in
 

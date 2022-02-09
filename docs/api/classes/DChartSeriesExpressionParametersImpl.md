@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSeriesExpressionParametersImpl
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesExpressionParametersImpl
 
 # Class: DChartSeriesExpressionParametersImpl
 

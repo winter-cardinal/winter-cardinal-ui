@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DSelectOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DSelectOnOptions
 
 # Interface: DSelectOnOptions<VALUE, EMITTER\>
 

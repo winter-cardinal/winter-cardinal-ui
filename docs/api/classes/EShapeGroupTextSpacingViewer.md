@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeGroupTextSpacingViewer
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupTextSpacingViewer
 
 # Class: EShapeGroupTextSpacingViewer
 

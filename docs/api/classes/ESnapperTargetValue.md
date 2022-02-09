@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / ESnapperTargetValue
+[Winter Cardinal UI - v0.154.0](../index.md) / ESnapperTargetValue
 
 # Class: ESnapperTargetValue
 
@@ -27,7 +27,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`ESnapperTargetValueType`](../README.md#esnappertargetvaluetype) |
+| `type` | [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype) |
 | `position` | `number` |
 
 #### Defined in
@@ -48,7 +48,7 @@ ___
 
 ### type
 
-• **type**: [`ESnapperTargetValueType`](../README.md#esnappertargetvaluetype)
+• **type**: [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype)
 
 #### Defined in
 

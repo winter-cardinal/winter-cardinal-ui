@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeChangeTextNumber
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeChangeTextNumber
 
 # Class: EShapeActionRuntimeChangeTextNumber
 
@@ -59,7 +59,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -83,7 +83,7 @@ ___
 
 ### number
 
-• `Protected` **number**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`number`\>
+• `Protected` **number**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`number`\>
 
 #### Defined in
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilThemeInputNumber
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilThemeInputNumber
 
 # Interface: UtilThemeInputNumber
 
@@ -35,11 +35,11 @@
 
 ### getAfterCreator
 
-▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getAfterCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -53,11 +53,11 @@ ___
 
 ### getBeforeCreator
 
-▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getBeforeCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -71,11 +71,11 @@ ___
 
 ### getClipperCreator
 
-▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+▸ **getClipperCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLDivElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLDivElement`\>
 
 #### Inherited from
 
@@ -182,11 +182,11 @@ ___
 
 ### getElementCreator
 
-▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+▸ **getElementCreator**(): [`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
 
 #### Returns
 
-[`UtilHtmlElementCreator`](../README.md#utilhtmlelementcreator)<`HTMLInputElement`\>
+[`UtilHtmlElementCreator`](../index.md#utilhtmlelementcreator)<`HTMLInputElement`\>
 
 #### Inherited from
 
@@ -260,11 +260,11 @@ ___
 
 ### getWhen
 
-▸ **getWhen**(): [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+▸ **getWhen**(): [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Returns
 
-[`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+[`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Inherited from
 
@@ -334,7 +334,7 @@ ___
 | :------ | :------ |
 | `target` | `HTMLDivElement` |
 | `state` | [`DBaseStateSet`](DBaseStateSet.md) |
-| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding) |
+| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding) |
 | `elementRect` | ``null`` \| `Rectangle` |
 | `elementMatrix` | ``null`` \| `Matrix` |
 | `clipperRect` | ``null`` \| `Rectangle` |
@@ -363,7 +363,7 @@ ___
 | :------ | :------ |
 | `target` | `HTMLInputElement` |
 | `state` | [`DBaseStateSet`](DBaseStateSet.md) |
-| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../README.md#utilhtmlelementpadding) |
+| `padding` | ``null`` \| [`UtilHtmlElementPadding`](../index.md#utilhtmlelementpadding) |
 | `elementRect` | ``null`` \| `Rectangle` |
 | `elementMatrix` | ``null`` \| `Matrix` |
 | `clipperRect` | ``null`` \| `Rectangle` |

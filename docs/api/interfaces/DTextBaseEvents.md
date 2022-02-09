@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTextBaseEvents
+[Winter Cardinal UI - v0.154.0](../index.md) / DTextBaseEvents
 
 # Interface: DTextBaseEvents<VALUE, EMITTER\>
 

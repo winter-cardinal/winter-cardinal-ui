@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeActionRuntimeChangeCursor
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionRuntimeChangeCursor
 
 # Class: EShapeActionRuntimeChangeCursor
 
@@ -56,7 +56,7 @@
 
 ### condition
 
-• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<`boolean`\>
+• `Protected` `Readonly` **condition**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<`boolean`\>
 
 #### Inherited from
 
@@ -70,7 +70,7 @@ ___
 
 ### name
 
-• `Protected` **name**: [`EShapeActionExpression`](../README.md#eshapeactionexpression)<``null`` \| `string`\>
+• `Protected` **name**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
 #### Defined in
 

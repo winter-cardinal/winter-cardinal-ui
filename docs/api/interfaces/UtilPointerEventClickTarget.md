@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilPointerEventClickTarget
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilPointerEventClickTarget
 
 # Interface: UtilPointerEventClickTarget
 
@@ -43,7 +43,7 @@
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `handler` | [`UtilPointerEventOnClick`](../README.md#utilpointereventonclick) |
+| `handler` | [`UtilPointerEventOnClick`](../index.md#utilpointereventonclick) |
 
 #### Returns
 

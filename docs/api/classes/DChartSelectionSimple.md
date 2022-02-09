@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionSimple
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionSimple
 
 # Class: DChartSelectionSimple<CHART\>
 
@@ -384,7 +384,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `point` | [`DChartSelectionPoint`](../README.md#dchartselectionpoint) |
+| `point` | [`DChartSelectionPoint`](../index.md#dchartselectionpoint) |
 | `options?` | [`DChartSelectionSubOptions`](../interfaces/DChartSelectionSubOptions.md)<`CHART`, `any`\> |
 
 #### Returns
@@ -405,7 +405,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `point` | [`DChartSelectionPoint`](../README.md#dchartselectionpoint) |
+| `point` | [`DChartSelectionPoint`](../index.md#dchartselectionpoint) |
 | `options?` | [`DChartSelectionSubOptions`](../interfaces/DChartSelectionSubOptions.md)<`CHART`, `any`\> |
 
 #### Returns
@@ -634,7 +634,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `point` | [`DChartSelectionPoint`](../README.md#dchartselectionpoint) |
+| `point` | [`DChartSelectionPoint`](../index.md#dchartselectionpoint) |
 | `options` | `undefined` \| [`DChartSelectionSubOptions`](../interfaces/DChartSelectionSubOptions.md)<`CHART`, `any`\> |
 | `state` | `string` |
 

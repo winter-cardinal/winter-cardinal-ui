@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramCanvasEditorBackground
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramCanvasEditorBackground
 
 # Class: DDiagramCanvasEditorBackground
 
@@ -72,11 +72,11 @@ ___
 
 ### alpha
 
-• `get` **alpha**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+• `get` **alpha**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\>
 
 #### Implementation of
 
@@ -92,7 +92,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `alpha` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<`number`\> |
+| `alpha` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<`number`\> |
 
 #### Returns
 
@@ -110,11 +110,11 @@ ___
 
 ### color
 
-• `get` **color**(): [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+• `get` **color**(): [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Returns
 
-[`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
+[`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\>
 
 #### Implementation of
 
@@ -130,7 +130,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [`DStateAwareOrValueMightBe`](../README.md#dstateawareorvaluemightbe)<``null`` \| `number`\> |
+| `color` | [`DStateAwareOrValueMightBe`](../index.md#dstateawareorvaluemightbe)<``null`` \| `number`\> |
 
 #### Returns
 

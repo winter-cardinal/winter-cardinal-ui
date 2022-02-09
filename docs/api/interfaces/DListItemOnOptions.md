@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListItemOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DListItemOnOptions
 
 # Interface: DListItemOnOptions<NODE, EMITTER\>
 

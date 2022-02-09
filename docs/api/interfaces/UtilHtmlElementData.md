@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / UtilHtmlElementData
+[Winter Cardinal UI - v0.154.0](../index.md) / UtilHtmlElementData
 
 # Interface: UtilHtmlElementData<ELEMENT\>
 
@@ -73,7 +73,7 @@ ___
 
 ### when
 
-• **when**: [`UtilHtmlElementWhen`](../README.md#utilhtmlelementwhen)
+• **when**: [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
 
 #### Defined in
 

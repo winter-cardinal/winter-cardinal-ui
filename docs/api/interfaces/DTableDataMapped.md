@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTableDataMapped
+[Winter Cardinal UI - v0.154.0](../index.md) / DTableDataMapped
 
 # Interface: DTableDataMapped<ROW\>
 
@@ -35,7 +35,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `iteratee` | [`DTableDataMappedEachIteratee`](../README.md#dtabledatamappedeachiteratee)<`ROW`\> | an function called on each mapped datum |
+| `iteratee` | [`DTableDataMappedEachIteratee`](../index.md#dtabledatamappedeachiteratee)<`ROW`\> | an function called on each mapped datum |
 | `ifrom?` | `number` | an index to start an iteration |
 | `iend?` | `number` | - |
 

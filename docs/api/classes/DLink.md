@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DLink
+[Winter Cardinal UI - v0.154.0](../index.md) / DLink
 
 # Class: DLink
 
@@ -61,7 +61,7 @@
 
 ### \_checker
 
-• `Protected` `Optional` **\_checker**: [`DLinkChecker`](../README.md#dlinkchecker)
+• `Protected` `Optional` **\_checker**: [`DLinkChecker`](../index.md#dlinkchecker)
 
 #### Defined in
 
@@ -101,7 +101,7 @@ ___
 
 ### \_target
 
-• `Protected` **\_target**: [`DLinkTarget`](../README.md#dlinktarget)
+• `Protected` **\_target**: [`DLinkTarget`](../index.md#dlinktarget)
 
 #### Defined in
 
@@ -111,7 +111,7 @@ ___
 
 ### \_url
 
-• `Protected` **\_url**: [`DLinkUrlValue`](../README.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../README.md#dlinkurlmaker)
+• `Protected` **\_url**: [`DLinkUrlValue`](../index.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../index.md#dlinkurlmaker)
 
 #### Defined in
 
@@ -141,11 +141,11 @@ ___
 
 ### checker
 
-• `get` **checker**(): `undefined` \| [`DLinkChecker`](../README.md#dlinkchecker)
+• `get` **checker**(): `undefined` \| [`DLinkChecker`](../index.md#dlinkchecker)
 
 #### Returns
 
-`undefined` \| [`DLinkChecker`](../README.md#dlinkchecker)
+`undefined` \| [`DLinkChecker`](../index.md#dlinkchecker)
 
 #### Defined in
 
@@ -157,7 +157,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `checker` | `undefined` \| [`DLinkChecker`](../README.md#dlinkchecker) |
+| `checker` | `undefined` \| [`DLinkChecker`](../index.md#dlinkchecker) |
 
 #### Returns
 
@@ -215,11 +215,11 @@ ___
 
 ### target
 
-• `get` **target**(): [`DLinkTarget`](../README.md#dlinktarget)
+• `get` **target**(): [`DLinkTarget`](../index.md#dlinktarget)
 
 #### Returns
 
-[`DLinkTarget`](../README.md#dlinktarget)
+[`DLinkTarget`](../index.md#dlinktarget)
 
 #### Defined in
 
@@ -231,7 +231,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DLinkTargetValue`](../README.md#dlinktargetvalue) |
+| `target` | [`DLinkTargetValue`](../index.md#dlinktargetvalue) |
 
 #### Returns
 
@@ -245,11 +245,11 @@ ___
 
 ### url
 
-• `get` **url**(): [`DLinkUrlValue`](../README.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../README.md#dlinkurlmaker)
+• `get` **url**(): [`DLinkUrlValue`](../index.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../index.md#dlinkurlmaker)
 
 #### Returns
 
-[`DLinkUrlValue`](../README.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../README.md#dlinkurlmaker)
+[`DLinkUrlValue`](../index.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../index.md#dlinkurlmaker)
 
 #### Defined in
 
@@ -261,7 +261,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `url` | [`DLinkUrlValue`](../README.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../README.md#dlinkurlmaker) |
+| `url` | [`DLinkUrlValue`](../index.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../index.md#dlinkurlmaker) |
 
 #### Returns
 
@@ -454,17 +454,17 @@ ___
 
 ### toNormalizedTarget
 
-▸ `Protected` **toNormalizedTarget**(`target`): [`DLinkTarget`](../README.md#dlinktarget)
+▸ `Protected` **toNormalizedTarget**(`target`): [`DLinkTarget`](../index.md#dlinktarget)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DLinkTargetValue`](../README.md#dlinktargetvalue) |
+| `target` | [`DLinkTargetValue`](../index.md#dlinktargetvalue) |
 
 #### Returns
 
-[`DLinkTarget`](../README.md#dlinktarget)
+[`DLinkTarget`](../index.md#dlinktarget)
 
 #### Defined in
 
@@ -500,7 +500,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target` | [`DLinkUrlValue`](../README.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../README.md#dlinkurlmaker) |
+| `target` | [`DLinkUrlValue`](../index.md#dlinkurlvalue) \| [`DLinkUrlMaker`](../index.md#dlinkurlmaker) |
 | `onResolved` | (`url`: `string`) => `void` |
 
 #### Returns

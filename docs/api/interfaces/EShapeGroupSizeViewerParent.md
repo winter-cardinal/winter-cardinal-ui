@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeGroupSizeViewerParent
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupSizeViewerParent
 
 # Interface: EShapeGroupSizeViewerParent
 

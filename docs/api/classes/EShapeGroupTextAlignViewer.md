@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeGroupTextAlignViewer
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupTextAlignViewer
 
 # Class: EShapeGroupTextAlignViewer
 
@@ -39,11 +39,11 @@
 
 ### horizontal
 
-• `get` **horizontal**(): [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+• `get` **horizontal**(): [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Returns
 
-[`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal)
+[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal)
 
 #### Implementation of
 
@@ -59,7 +59,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `horizontal` | [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal) |
+| `horizontal` | [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal) |
 
 #### Returns
 
@@ -77,11 +77,11 @@ ___
 
 ### vertical
 
-• `get` **vertical**(): [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+• `get` **vertical**(): [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Returns
 
-[`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical)
+[`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)
 
 #### Implementation of
 
@@ -97,7 +97,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `vertical` | [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical) |
+| `vertical` | [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical) |
 
 #### Returns
 
@@ -194,8 +194,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `horizontal?` | [`EShapeTextAlignHorizontal`](../README.md#eshapetextalignhorizontal) |
-| `vertical?` | [`EShapeTextAlignVertical`](../README.md#eshapetextalignvertical) |
+| `horizontal?` | [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal) |
+| `vertical?` | [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical) |
 
 #### Returns
 

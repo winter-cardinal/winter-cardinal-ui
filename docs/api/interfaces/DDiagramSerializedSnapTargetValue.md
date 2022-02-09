@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramSerializedSnapTargetValue
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedSnapTargetValue
 
 # Interface: DDiagramSerializedSnapTargetValue
 
@@ -15,7 +15,7 @@ A serialized snap target.
 
 ### 0
 
-• **0**: [`ESnapperTargetValueType`](../README.md#esnappertargetvaluetype)
+• **0**: [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype)
 
 A type.
 

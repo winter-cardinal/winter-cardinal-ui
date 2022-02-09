@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DTreeItemTextOnOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DTreeItemTextOnOptions
 
 # Interface: DTreeItemTextOnOptions<NODE, EMITTER\>
 

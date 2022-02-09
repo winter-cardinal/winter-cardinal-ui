@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramData
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramData
 
 # Class: DDiagramData
 
@@ -66,7 +66,7 @@ ___
 
 ### \_mapper
 
-• `Protected` **\_mapper**: ``null`` \| [`DDiagramDataMapper`](../README.md#ddiagramdatamapper)
+• `Protected` **\_mapper**: ``null`` \| [`DDiagramDataMapper`](../index.md#ddiagramdatamapper)
 
 #### Defined in
 
@@ -86,11 +86,11 @@ ___
 
 ### mapper
 
-• `get` **mapper**(): ``null`` \| [`DDiagramDataMapper`](../README.md#ddiagramdatamapper)
+• `get` **mapper**(): ``null`` \| [`DDiagramDataMapper`](../index.md#ddiagramdatamapper)
 
 #### Returns
 
-``null`` \| [`DDiagramDataMapper`](../README.md#ddiagramdatamapper)
+``null`` \| [`DDiagramDataMapper`](../index.md#ddiagramdatamapper)
 
 #### Defined in
 
@@ -102,7 +102,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `mapper` | ``null`` \| [`DDiagramDataMapper`](../README.md#ddiagramdatamapper) |
+| `mapper` | ``null`` \| [`DDiagramDataMapper`](../index.md#ddiagramdatamapper) |
 
 #### Returns
 

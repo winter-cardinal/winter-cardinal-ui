@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisBaseTickMajorTextOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisBaseTickMajorTextOptions
 
 # Interface: DChartAxisBaseTickMajorTextOptions
 
@@ -66,7 +66,7 @@ ___
 
 ### direction
 
-• `Optional` **direction**: [`EShapeTextDirection`](../README.md#eshapetextdirection)
+• `Optional` **direction**: [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Defined in
 
@@ -98,7 +98,7 @@ ___
 
 ### formatter
 
-• `Optional` **formatter**: [`NumberFormatterFunction`](../README.md#numberformatterfunction)
+• `Optional` **formatter**: [`NumberFormatterFunction`](../index.md#numberformatterfunction)
 
 A formatter function.
 
@@ -160,7 +160,7 @@ ___
 
 ### style
 
-• `Optional` **style**: [`EShapeTextStyle`](../README.md#eshapetextstyle)
+• `Optional` **style**: [`EShapeTextStyle`](../index.md#eshapetextstyle)
 
 #### Defined in
 
@@ -170,7 +170,7 @@ ___
 
 ### weight
 
-• `Optional` **weight**: [`EShapeTextWeight`](../README.md#eshapetextweight)
+• `Optional` **weight**: [`EShapeTextWeight`](../index.md#eshapetextweight)
 
 #### Defined in
 

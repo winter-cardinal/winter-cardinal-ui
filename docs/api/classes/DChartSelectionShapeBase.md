@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartSelectionShapeBase
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartSelectionShapeBase
 
 # Class: DChartSelectionShapeBase<CHART\>
 
@@ -105,7 +105,7 @@ ___
 
 ### \_style
 
-• `Protected` **\_style**: [`DChartSelectionStyle`](../README.md#dchartselectionstyle)<`CHART`\>
+• `Protected` **\_style**: [`DChartSelectionStyle`](../index.md#dchartselectionstyle)<`CHART`\>
 
 #### Defined in
 

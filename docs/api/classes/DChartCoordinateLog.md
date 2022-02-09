@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartCoordinateLog
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartCoordinateLog
 
 # Class: DChartCoordinateLog<CHART\>
 
@@ -94,7 +94,7 @@ ___
 
 ### \_direction
 
-• `Protected` **\_direction**: [`DChartCoordinateDirection`](../README.md#dchartcoordinatedirection)
+• `Protected` **\_direction**: [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection)
 
 #### Defined in
 
@@ -305,7 +305,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `container` | [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\> |
-| `direction` | [`DChartCoordinateDirection`](../README.md#dchartcoordinatedirection) |
+| `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection) |
 
 #### Returns
 
@@ -542,10 +542,10 @@ Returns major / minor tick positions.
 | `domainFrom` | `number` |
 | `domainTo` | `number` |
 | `majorCount` | `number` |
-| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../README.md#dchartcoordinatetickmajorstepfunction) |
+| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) |
 | `minorCountPerMajor` | `number` |
 | `minorCount` | `number` |
-| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../README.md#dchartcoordinatetickminorstepfunction) |
+| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
 | `majorResult` | `Float64Array` |
 | `minorResult` | `Float64Array` |
 

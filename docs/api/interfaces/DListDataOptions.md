@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DListDataOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DListDataOptions
 
 # Interface: DListDataOptions<ITEM\>
 
@@ -96,7 +96,7 @@ ___
 
 ### toId
 
-• `Optional` **toId**: [`DListItemToId`](../README.md#dlistitemtoid)<`ITEM`\>
+• `Optional` **toId**: [`DListItemToId`](../index.md#dlistitemtoid)<`ITEM`\>
 
 #### Inherited from
 
@@ -110,7 +110,7 @@ ___
 
 ### toImage
 
-• `Optional` **toImage**: [`DListItemToImage`](../README.md#dlistitemtoimage)<`ITEM`\>
+• `Optional` **toImage**: [`DListItemToImage`](../index.md#dlistitemtoimage)<`ITEM`\>
 
 #### Inherited from
 
@@ -124,7 +124,7 @@ ___
 
 ### toLabel
 
-• `Optional` **toLabel**: [`DListItemToLabel`](../README.md#dlistitemtolabel)<`ITEM`\>
+• `Optional` **toLabel**: [`DListItemToLabel`](../index.md#dlistitemtolabel)<`ITEM`\>
 
 #### Inherited from
 
@@ -138,7 +138,7 @@ ___
 
 ### toTitle
 
-• `Optional` **toTitle**: [`DListItemToTitle`](../README.md#dlistitemtotitle)<`ITEM`\>
+• `Optional` **toTitle**: [`DListItemToTitle`](../index.md#dlistitemtotitle)<`ITEM`\>
 
 #### Inherited from
 

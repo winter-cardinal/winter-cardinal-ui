@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDiagramCanvasEditorSnap
+[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramCanvasEditorSnap
 
 # Class: DDiagramCanvasEditorSnap
 
@@ -254,7 +254,7 @@ ___
 | `index` | `number` |
 | `x` | `number` |
 | `y` | `number` |
-| `position` | [`EShapeBarPosition`](../README.md#eshapebarposition) |
+| `position` | [`EShapeBarPosition`](../index.md#eshapebarposition) |
 | `w` | `number` |
 | `h` | `number` |
 | `style` | [`DDiagramCanvasEditorSnapGridMajor`](../interfaces/DDiagramCanvasEditorSnapGridMajor.md) \| [`DDiagramCanvasEditorSnapGridMinor`](../interfaces/DDiagramCanvasEditorSnapGridMinor.md) \| [`DDiagramCanvasEditorSnapTarget`](../interfaces/DDiagramCanvasEditorSnapTarget.md) |

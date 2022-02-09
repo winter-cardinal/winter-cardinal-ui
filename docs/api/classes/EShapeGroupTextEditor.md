@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeGroupTextEditor
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupTextEditor
 
 # Class: EShapeGroupTextEditor
 
@@ -256,11 +256,11 @@ ___
 
 ### direction
 
-• `get` **direction**(): [`EShapeTextDirection`](../README.md#eshapetextdirection)
+• `get` **direction**(): [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Returns
 
-[`EShapeTextDirection`](../README.md#eshapetextdirection)
+[`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Implementation of
 
@@ -276,7 +276,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `direction` | [`EShapeTextDirection`](../README.md#eshapetextdirection) |
+| `direction` | [`EShapeTextDirection`](../index.md#eshapetextdirection) |
 
 #### Returns
 
@@ -408,11 +408,11 @@ ___
 
 ### style
 
-• `get` **style**(): [`EShapeTextStyle`](../README.md#eshapetextstyle)
+• `get` **style**(): [`EShapeTextStyle`](../index.md#eshapetextstyle)
 
 #### Returns
 
-[`EShapeTextStyle`](../README.md#eshapetextstyle)
+[`EShapeTextStyle`](../index.md#eshapetextstyle)
 
 #### Implementation of
 
@@ -428,7 +428,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `style` | [`EShapeTextStyle`](../README.md#eshapetextstyle) |
+| `style` | [`EShapeTextStyle`](../index.md#eshapetextstyle) |
 
 #### Returns
 
@@ -484,11 +484,11 @@ ___
 
 ### weight
 
-• `get` **weight**(): [`EShapeTextWeight`](../README.md#eshapetextweight)
+• `get` **weight**(): [`EShapeTextWeight`](../index.md#eshapetextweight)
 
 #### Returns
 
-[`EShapeTextWeight`](../README.md#eshapetextweight)
+[`EShapeTextWeight`](../index.md#eshapetextweight)
 
 #### Implementation of
 
@@ -504,7 +504,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `weight` | [`EShapeTextWeight`](../README.md#eshapetextweight) |
+| `weight` | [`EShapeTextWeight`](../index.md#eshapetextweight) |
 
 #### Returns
 
@@ -528,7 +528,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\> |
+| `target?` | [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\> |
 
 #### Returns
 
@@ -606,9 +606,9 @@ ___
 | `alpha?` | `number` |
 | `family?` | `string` |
 | `size?` | `number` |
-| `weight?` | [`EShapeTextWeight`](../README.md#eshapetextweight) |
-| `style?` | [`EShapeTextStyle`](../README.md#eshapetextstyle) |
-| `direction?` | [`EShapeTextDirection`](../README.md#eshapetextdirection) |
+| `weight?` | [`EShapeTextWeight`](../index.md#eshapetextweight) |
+| `style?` | [`EShapeTextStyle`](../index.md#eshapetextstyle) |
+| `direction?` | [`EShapeTextDirection`](../index.md#eshapetextdirection) |
 
 #### Returns
 

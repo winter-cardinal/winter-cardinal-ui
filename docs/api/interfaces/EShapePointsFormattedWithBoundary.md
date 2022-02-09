@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapePointsFormattedWithBoundary
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapePointsFormattedWithBoundary
 
 # Interface: EShapePointsFormattedWithBoundary
 
@@ -22,7 +22,7 @@
 
 ### boundary
 
-• **boundary**: [`EShapePointsFormattedBoundary`](../README.md#eshapepointsformattedboundary)
+• **boundary**: [`EShapePointsFormattedBoundary`](../index.md#eshapepointsformattedboundary)
 
 #### Defined in
 

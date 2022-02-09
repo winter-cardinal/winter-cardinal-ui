@@ -4,6 +4,7 @@
 	"gitRevision": "v0.154.0",
 	"githubPages": false,
 	"excludePrivate": true,
+	"includeVersion": true,
 	"entryDocument": "index.md",
 	"entryPoints": [ "src/main/typescript/wcardinal-ui.esm.ts" ]
 }

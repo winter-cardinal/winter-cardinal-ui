@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DChartAxisXOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DChartAxisXOptions
 
 # Interface: DChartAxisXOptions
 
@@ -41,7 +41,7 @@ ___
 
 ### label
 
-• `Optional` **label**: [`DeepPartial`](../README.md#deeppartial)<[`EShapeTextLike`](EShapeTextLike.md)\>
+• `Optional` **label**: [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](EShapeTextLike.md)\>
 
 #### Inherited from
 
@@ -69,7 +69,7 @@ ___
 
 ### position
 
-• `Optional` **position**: ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../README.md#dchartaxisposition)
+• `Optional` **position**: ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../index.md#dchartaxisposition)
 
 #### Inherited from
 

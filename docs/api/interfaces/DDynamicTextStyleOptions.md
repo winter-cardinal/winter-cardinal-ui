@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DDynamicTextStyleOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DDynamicTextStyleOptions
 
 # Interface: DDynamicTextStyleOptions
 
@@ -21,7 +21,7 @@
 
 ### align
 
-• `Optional` **align**: [`DDynamicTextAlign`](../README.md#ddynamictextalign)
+• `Optional` **align**: [`DDynamicTextAlign`](../index.md#ddynamictextalign)
 
 #### Defined in
 
@@ -71,7 +71,7 @@ ___
 
 ### fontStyle
 
-• `Optional` **fontStyle**: [`DFontStyle`](../README.md#dfontstyle)
+• `Optional` **fontStyle**: [`DFontStyle`](../index.md#dfontstyle)
 
 #### Defined in
 
@@ -81,7 +81,7 @@ ___
 
 ### fontVariant
 
-• `Optional` **fontVariant**: [`DFontVariant`](../README.md#dfontvariant)
+• `Optional` **fontVariant**: [`DFontVariant`](../index.md#dfontvariant)
 
 #### Defined in
 
@@ -91,7 +91,7 @@ ___
 
 ### fontWeight
 
-• `Optional` **fontWeight**: [`DFontWeight`](../README.md#dfontweight)
+• `Optional` **fontWeight**: [`DFontWeight`](../index.md#dfontweight)
 
 #### Defined in
 
@@ -111,7 +111,7 @@ ___
 
 ### wordWrap
 
-• `Optional` **wordWrap**: ``"NONE"`` \| ``"NORMAL"`` \| ``"BREAK_ALL"`` \| [`DDynamicTextStyleWordWrap`](../README.md#ddynamictextstylewordwrap)
+• `Optional` **wordWrap**: ``"NONE"`` \| ``"NORMAL"`` \| ``"BREAK_ALL"`` \| [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
 
 #### Defined in
 

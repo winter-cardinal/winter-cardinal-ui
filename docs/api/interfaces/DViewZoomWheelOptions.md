@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DViewZoomWheelOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DViewZoomWheelOptions
 
 # Interface: DViewZoomWheelOptions
 
@@ -17,7 +17,7 @@
 
 ### checker
 
-• `Optional` **checker**: [`DViewChecker`](../README.md#dviewchecker)
+• `Optional` **checker**: [`DViewChecker`](../index.md#dviewchecker)
 
 Wheel zoom checker.
 If a checker returns false, wheel zooms will be canceled.

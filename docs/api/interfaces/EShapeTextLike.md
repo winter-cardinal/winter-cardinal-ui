@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / EShapeTextLike
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTextLike
 
 # Interface: EShapeTextLike
 
@@ -71,7 +71,7 @@ ___
 
 ### direction
 
-• **direction**: [`EShapeTextDirection`](../README.md#eshapetextdirection)
+• **direction**: [`EShapeTextDirection`](../index.md#eshapetextdirection)
 
 #### Defined in
 
@@ -141,7 +141,7 @@ ___
 
 ### style
 
-• **style**: [`EShapeTextStyle`](../README.md#eshapetextstyle)
+• **style**: [`EShapeTextStyle`](../index.md#eshapetextstyle)
 
 #### Defined in
 
@@ -161,7 +161,7 @@ ___
 
 ### weight
 
-• **weight**: [`EShapeTextWeight`](../README.md#eshapetextweight)
+• **weight**: [`EShapeTextWeight`](../index.md#eshapetextweight)
 
 #### Defined in
 

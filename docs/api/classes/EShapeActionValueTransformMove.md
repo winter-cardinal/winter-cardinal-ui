@@ -1,10 +1,10 @@
-[Winter Cardinal UI](../README.md) / EShapeActionValueTransformMove
+[Winter Cardinal UI - v0.154.0](../index.md) / EShapeActionValueTransformMove
 
 # Class: EShapeActionValueTransformMove
 
 ## Hierarchy
 
-- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)<[`EShapeActionValueTransformType`](../README.md#eshapeactionvaluetransformtype), [`EShapeActionValueTransformMoveType`](../README.md#eshapeactionvaluetransformmovetype)\>
+- [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)<[`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype), [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype)\>
 
   ↳ **`EShapeActionValueTransformMove`**
 
@@ -40,7 +40,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `opetype` | [`EShapeActionValueTransformMoveType`](../README.md#eshapeactionvaluetransformmovetype) |
+| `opetype` | [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype) |
 | `condition` | `string` |
 | `amount` | `string` |
 
@@ -80,7 +80,7 @@ ___
 
 ### opetype
 
-• `Readonly` **opetype**: [`EShapeActionValueTransformMoveType`](../README.md#eshapeactionvaluetransformmovetype)
+• `Readonly` **opetype**: [`EShapeActionValueTransformMoveType`](../index.md#eshapeactionvaluetransformmovetype)
 
 #### Inherited from
 
@@ -94,7 +94,7 @@ ___
 
 ### subtype
 
-• `Readonly` **subtype**: [`EShapeActionValueTransformType`](../README.md#eshapeactionvaluetransformtype)
+• `Readonly` **subtype**: [`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype)
 
 #### Inherited from
 
@@ -108,7 +108,7 @@ ___
 
 ### type
 
-• `Readonly` **type**: [`EShapeActionValueType`](../README.md#eshapeactionvaluetype)
+• `Readonly` **type**: [`EShapeActionValueType`](../index.md#eshapeactionvaluetype)
 
 #### Inherited from
 
@@ -212,7 +212,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | [`EShapeActionValueTransformMoveSerialized`](../README.md#eshapeactionvaluetransformmoveserialized) |
+| `serialized` | [`EShapeActionValueTransformMoveSerialized`](../index.md#eshapeactionvaluetransformmoveserialized) |
 | `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
 
 #### Returns

@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DPickerDatetimeDayOptions
+[Winter Cardinal UI - v0.154.0](../index.md) / DPickerDatetimeDayOptions
 
 # Interface: DPickerDatetimeDayOptions
 
@@ -13,7 +13,7 @@
 
 ### labels
 
-• `Optional` **labels**: [`DPickerDatetimeDayLabels`](../README.md#dpickerdatetimedaylabels)
+• `Optional` **labels**: [`DPickerDatetimeDayLabels`](../index.md#dpickerdatetimedaylabels)
 
 #### Defined in
 

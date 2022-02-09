@@ -1,4 +1,4 @@
-[Winter Cardinal UI](../README.md) / DMenuItemExpandables
+[Winter Cardinal UI - v0.154.0](../index.md) / DMenuItemExpandables
 
 # Class: DMenuItemExpandables
 
@@ -30,7 +30,7 @@
 
 ### CREATORS
 
-▪ `Static` `Protected` **CREATORS**: [`DMenuItemCreator`](../README.md#dmenuitemcreator)[] = `[]`
+▪ `Static` `Protected` **CREATORS**: [`DMenuItemCreator`](../index.md#dmenuitemcreator)[] = `[]`
 
 #### Defined in
 
@@ -40,7 +40,7 @@ ___
 
 ### CREATOR\_DEFAULT
 
-▪ `Static` `Protected` **CREATOR\_DEFAULT**: ``null`` \| [`DMenuItemCreator`](../README.md#dmenuitemcreator) = `null`
+▪ `Static` `Protected` **CREATOR\_DEFAULT**: ``null`` \| [`DMenuItemCreator`](../index.md#dmenuitemcreator) = `null`
 
 #### Defined in
 
@@ -56,7 +56,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `creator` | [`DMenuItemCreator`](../README.md#dmenuitemcreator) |
+| `creator` | [`DMenuItemCreator`](../index.md#dmenuitemcreator) |
 
 #### Returns
 
@@ -82,7 +82,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `options` | [`DMenuItemOptionsUnion`](../README.md#dmenuitemoptionsunion)<`VALUE`\> |
+| `options` | [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\> |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -110,7 +110,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `parent` | `Container` |
-| `items` | (`DisplayObject` \| [`DMenuItemOptionsUnion`](../README.md#dmenuitemoptionsunion)<`VALUE`\>)[] |
+| `items` | (`DisplayObject` \| [`DMenuItemOptionsUnion`](../index.md#dmenuitemoptionsunion)<`VALUE`\>)[] |
 | `sticky` | `boolean` |
 
 #### Returns
@@ -131,7 +131,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `creator` | [`DMenuItemCreator`](../README.md#dmenuitemcreator) |
+| `creator` | [`DMenuItemCreator`](../index.md#dmenuitemcreator) |
 
 #### Returns
 
