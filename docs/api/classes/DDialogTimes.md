@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DDialogTimes
+[Winter Cardinal UI - v0.155.0](../index.md) / DDialogTimes
 
 # Class: DDialogTimes
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-times.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-dialog-times.ts#L9)
+[src/main/typescript/wcardinal/ui/d-dialog-times.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-dialog-times.ts#L9)
 
 ## Methods
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-times.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-dialog-times.ts#L10)
+[src/main/typescript/wcardinal/ui/d-dialog-times.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-dialog-times.ts#L10)

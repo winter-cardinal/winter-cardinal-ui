@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DTreeNodeAccessor
+[Winter Cardinal UI - v0.155.0](../index.md) / DTreeNodeAccessor
 
 # Interface: DTreeNodeAccessor<NODE\>
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L22)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L22)
 
 ___
 
@@ -60,13 +60,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L21)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L21)
 
 ___
 
 ### toImage
 
-▸ **toImage**(`node`): `undefined` \| ``null`` \| `Texture` \| `DisplayObject`
+▸ **toImage**(`node`): `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -76,11 +76,11 @@ ___
 
 #### Returns
 
-`undefined` \| ``null`` \| `Texture` \| `DisplayObject`
+`undefined` \| ``null`` \| `DisplayObject` \| `Texture`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L20)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L20)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L18)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L18)
 
 ___
 
@@ -120,4 +120,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L19)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L19)

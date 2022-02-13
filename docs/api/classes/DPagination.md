@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DPagination
+[Winter Cardinal UI - v0.155.0](../index.md) / DPagination
 
 # Class: DPagination<THEME, OPTIONS\>
 
@@ -23,45 +23,44 @@
 
 ### Properties
 
-- [DEFAULT\_SELECTED](DPagination.md#default_selected)
 - [\_accessibleActive](DPagination.md#_accessibleactive)
 - [\_accessibleDiv](DPagination.md#_accessiblediv)
 - [\_auto](DPagination.md#_auto)
 - [\_background](DPagination.md#_background)
 - [\_border](DPagination.md#_border)
 - [\_bounds](DPagination.md#_bounds)
-- [\_buttonOptions](DPagination.md#_buttonoptions)
+- [\_buttonLast](DPagination.md#_buttonlast)
+- [\_buttonNext](DPagination.md#_buttonnext)
+- [\_buttonPages0](DPagination.md#_buttonpages0)
+- [\_buttonPages1](DPagination.md#_buttonpages1)
+- [\_buttonPrevious](DPagination.md#_buttonprevious)
+- [\_buttonTop](DPagination.md#_buttontop)
 - [\_clearType](DPagination.md#_cleartype)
 - [\_corner](DPagination.md#_corner)
 - [\_cornerAdjust](DPagination.md#_corneradjust)
 - [\_cursor](DPagination.md#_cursor)
 - [\_destroyed](DPagination.md#_destroyed)
 - [\_direction](DPagination.md#_direction)
-- [\_dynamicPageBtns](DPagination.md#_dynamicpagebtns)
-- [\_firstPageBtn](DPagination.md#_firstpagebtn)
-- [\_goFirstBtn](DPagination.md#_gofirstbtn)
-- [\_goLastBtn](DPagination.md#_golastbtn)
+- [\_dots0](DPagination.md#_dots0)
+- [\_dots1](DPagination.md#_dots1)
 - [\_isChildrenDirty](DPagination.md#_ischildrendirty)
 - [\_lastDownPoint](DPagination.md#_lastdownpoint)
-- [\_lastPageBtn](DPagination.md#_lastpagebtn)
 - [\_lastSortedIndex](DPagination.md#_lastsortedindex)
 - [\_margin](DPagination.md#_margin)
 - [\_mask](DPagination.md#_mask)
 - [\_multiplicity](DPagination.md#_multiplicity)
-- [\_nextBtn](DPagination.md#_nextbtn)
-- [\_numberPageButtonVisible](DPagination.md#_numberpagebuttonvisible)
 - [\_options](DPagination.md#_options)
 - [\_outline](DPagination.md#_outline)
 - [\_padding](DPagination.md#_padding)
-- [\_previousBtn](DPagination.md#_previousbtn)
+- [\_page](DPagination.md#_page)
 - [\_reflowable](DPagination.md#_reflowable)
 - [\_reverse](DPagination.md#_reverse)
-- [\_selected](DPagination.md#_selected)
 - [\_shortcuts](DPagination.md#_shortcuts)
+- [\_size](DPagination.md#_size)
 - [\_snippet](DPagination.md#_snippet)
 - [\_tempDisplayObjectParent](DPagination.md#_tempdisplayobjectparent)
 - [\_title](DPagination.md#_title)
-- [\_total](DPagination.md#_total)
+- [\_value](DPagination.md#_value)
 - [\_zIndex](DPagination.md#_zindex)
 - [accessible](DPagination.md#accessible)
 - [accessibleChildren](DPagination.md#accessiblechildren)
@@ -104,17 +103,27 @@
 
 - [background](DPagination.md#background)
 - [border](DPagination.md#border)
+- [buttonLast](DPagination.md#buttonlast)
+- [buttonNext](DPagination.md#buttonnext)
+- [buttonPages0](DPagination.md#buttonpages0)
+- [buttonPages1](DPagination.md#buttonpages1)
+- [buttonPrevious](DPagination.md#buttonprevious)
+- [buttonTop](DPagination.md#buttontop)
 - [corner](DPagination.md#corner)
+- [dots0](DPagination.md#dots0)
+- [dots1](DPagination.md#dots1)
 - [height](DPagination.md#height)
 - [margin](DPagination.md#margin)
 - [multiplicity](DPagination.md#multiplicity)
 - [outline](DPagination.md#outline)
 - [padding](DPagination.md#padding)
+- [page](DPagination.md#page)
 - [position](DPagination.md#position)
 - [reflowable](DPagination.md#reflowable)
 - [scale](DPagination.md#scale)
 - [selected](DPagination.md#selected)
 - [shadow](DPagination.md#shadow)
+- [size](DPagination.md#size)
 - [skew](DPagination.md#skew)
 - [snippet](DPagination.md#snippet)
 - [state](DPagination.md#state)
@@ -123,6 +132,7 @@
 - [total](DPagination.md#total)
 - [type](DPagination.md#type)
 - [unsafe](DPagination.md#unsafe)
+- [value](DPagination.md#value)
 - [weight](DPagination.md#weight)
 - [width](DPagination.md#width)
 - [x](DPagination.md#x)
@@ -157,7 +167,6 @@
 - [focus](DPagination.md#focus)
 - [focusOnClosest](DPagination.md#focusonclosest)
 - [getBounds](DPagination.md#getbounds)
-- [getButtonWidth](DPagination.md#getbuttonwidth)
 - [getChildAt](DPagination.md#getchildat)
 - [getChildByName](DPagination.md#getchildbyname)
 - [getChildIndex](DPagination.md#getchildindex)
@@ -182,7 +191,6 @@
 - [hasRefitableWidth](DPagination.md#hasrefitablewidth)
 - [hide](DPagination.md#hide)
 - [init](DPagination.md#init)
-- [initButtons](DPagination.md#initbuttons)
 - [initReflowable](DPagination.md#initreflowable)
 - [isChildrenDirty](DPagination.md#ischildrendirty)
 - [isDirty](DPagination.md#isdirty)
@@ -190,17 +198,31 @@
 - [isHidden](DPagination.md#ishidden)
 - [isRefitable](DPagination.md#isrefitable)
 - [isShown](DPagination.md#isshown)
-- [listenButtonClicked](DPagination.md#listenbuttonclicked)
 - [listenerCount](DPagination.md#listenercount)
 - [listeners](DPagination.md#listeners)
+- [moveTo](DPagination.md#moveto)
+- [newButtonLast](DPagination.md#newbuttonlast)
+- [newButtonNext](DPagination.md#newbuttonnext)
+- [newButtonPage](DPagination.md#newbuttonpage)
+- [newButtonPages0](DPagination.md#newbuttonpages0)
+- [newButtonPages1](DPagination.md#newbuttonpages1)
+- [newButtonPrevious](DPagination.md#newbuttonprevious)
+- [newButtonTop](DPagination.md#newbuttontop)
+- [newDots](DPagination.md#newdots)
+- [newPage](DPagination.md#newpage)
+- [newSpace](DPagination.md#newspace)
 - [off](DPagination.md#off)
 - [on](DPagination.md#on)
 - [onBlur](DPagination.md#onblur)
+- [onButtonLastActive](DPagination.md#onbuttonlastactive)
+- [onButtonNextActive](DPagination.md#onbuttonnextactive)
+- [onButtonPageActive](DPagination.md#onbuttonpageactive)
+- [onButtonPreviousActive](DPagination.md#onbuttonpreviousactive)
+- [onButtonTopActive](DPagination.md#onbuttontopactive)
 - [onChildBlur](DPagination.md#onchildblur)
 - [onChildFocus](DPagination.md#onchildfocus)
 - [onChildrenChange](DPagination.md#onchildrenchange)
 - [onChildrenDirty](DPagination.md#onchildrendirty)
-- [onClickPageButton](DPagination.md#onclickpagebutton)
 - [onDblClick](DPagination.md#ondblclick)
 - [onDown](DPagination.md#ondown)
 - [onDownThis](DPagination.md#ondownthis)
@@ -252,12 +274,10 @@
 - [toGlobal](DPagination.md#toglobal)
 - [toHasDirty](DPagination.md#tohasdirty)
 - [toLocal](DPagination.md#tolocal)
-- [toNumberVisible](DPagination.md#tonumbervisible)
 - [toParentChildrenDirty](DPagination.md#toparentchildrendirty)
 - [toParentHasDirty](DPagination.md#toparenthasdirty)
 - [toParentResized](DPagination.md#toparentresized)
 - [update](DPagination.md#update)
-- [updateStaticButtons](DPagination.md#updatestaticbuttons)
 - [updateTransform](DPagination.md#updatetransform)
 - [mixin](DPagination.md#mixin)
 
@@ -280,25 +300,15 @@
 | :------ | :------ |
 | `options?` | `OPTIONS` |
 
-#### Inherited from
+#### Overrides
 
 [DLayoutHorizontal](DLayoutHorizontal.md).[constructor](DLayoutHorizontal.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:750](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L750)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L115)
 
 ## Properties
-
-### DEFAULT\_SELECTED
-
-• `Protected` **DEFAULT\_SELECTED**: `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L45)
-
-___
 
 ### \_accessibleActive
 
@@ -350,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:729](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L729)
+[src/main/typescript/wcardinal/ui/d-base.ts:729](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L729)
 
 ___
 
@@ -364,7 +374,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:740](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L740)
+[src/main/typescript/wcardinal/ui/d-base.ts:740](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L740)
 
 ___
 
@@ -378,7 +388,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:741](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L741)
+[src/main/typescript/wcardinal/ui/d-base.ts:741](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L741)
 
 ___
 
@@ -400,13 +410,63 @@ node_modules/pixi.js/pixi.js.d.ts:8607
 
 ___
 
-### \_buttonOptions
+### \_buttonLast
 
-• `Protected` **\_buttonOptions**: `DPaginationButtonOption`
+• `Protected` `Optional` **\_buttonLast**: ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L43)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L113)
+
+___
+
+### \_buttonNext
+
+• `Protected` `Optional` **\_buttonNext**: ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L112)
+
+___
+
+### \_buttonPages0
+
+• `Protected` `Optional` **\_buttonPages0**: [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L108)
+
+___
+
+### \_buttonPages1
+
+• `Protected` `Optional` **\_buttonPages1**: [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L110)
+
+___
+
+### \_buttonPrevious
+
+• `Protected` `Optional` **\_buttonPrevious**: ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L106)
+
+___
+
+### \_buttonTop
+
+• `Protected` `Optional` **\_buttonTop**: ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L105)
 
 ___
 
@@ -420,7 +480,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:743](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L743)
+[src/main/typescript/wcardinal/ui/d-base.ts:743](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L743)
 
 ___
 
@@ -434,7 +494,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L727)
+[src/main/typescript/wcardinal/ui/d-base.ts:727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L727)
 
 ___
 
@@ -448,7 +508,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L126)
+[src/main/typescript/wcardinal/ui/d-layout.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L126)
 
 ___
 
@@ -462,7 +522,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L748)
+[src/main/typescript/wcardinal/ui/d-base.ts:748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L748)
 
 ___
 
@@ -494,47 +554,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L128)
+[src/main/typescript/wcardinal/ui/d-layout.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L128)
 
 ___
 
-### \_dynamicPageBtns
+### \_dots0
 
-• `Protected` **\_dynamicPageBtns**: [`DPaginationDynamicButtons`](DPaginationDynamicButtons.md)<[`DThemePaginationDynamicButtons`](../interfaces/DThemePaginationDynamicButtons.md), [`DPaginationDynamicButtonsOptions`](../interfaces/DPaginationDynamicButtonsOptions.md)<[`DThemePaginationDynamicButtons`](../interfaces/DThemePaginationDynamicButtons.md)\>\>
+• `Protected` `Optional` **\_dots0**: [`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L49)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L107)
 
 ___
 
-### \_firstPageBtn
+### \_dots1
 
-• `Protected` **\_firstPageBtn**: [`DButton`](DButton.md)<`unknown`, [`DThemeButton`](../interfaces/DThemeButton.md)<`unknown`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`unknown`, [`DThemeButton`](../interfaces/DThemeButton.md)<`unknown`\>, `any`\>\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L47)
-
-___
-
-### \_goFirstBtn
-
-• `Protected` **\_goFirstBtn**: [`DPaginationNavigationButton`](DPaginationNavigationButton.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>, [`DPaginationNavigationButtonOptions`](../interfaces/DPaginationNavigationButtonOptions.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>\>\>
+• `Protected` `Optional` **\_dots1**: [`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L53)
-
-___
-
-### \_goLastBtn
-
-• `Protected` **\_goLastBtn**: [`DPaginationNavigationButton`](DPaginationNavigationButton.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>, [`DPaginationNavigationButtonOptions`](../interfaces/DPaginationNavigationButtonOptions.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>\>\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L54)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L111)
 
 ___
 
@@ -548,7 +588,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:732](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L732)
+[src/main/typescript/wcardinal/ui/d-base.ts:732](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L732)
 
 ___
 
@@ -562,17 +602,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:747](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L747)
-
-___
-
-### \_lastPageBtn
-
-• `Protected` **\_lastPageBtn**: [`DButton`](DButton.md)<`unknown`, [`DThemeButton`](../interfaces/DThemeButton.md)<`unknown`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`unknown`, [`DThemeButton`](../interfaces/DThemeButton.md)<`unknown`\>, `any`\>\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L48)
+[src/main/typescript/wcardinal/ui/d-base.ts:747](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L747)
 
 ___
 
@@ -605,7 +635,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L125)
+[src/main/typescript/wcardinal/ui/d-layout.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L125)
 
 ___
 
@@ -637,27 +667,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L127)
-
-___
-
-### \_nextBtn
-
-• `Protected` **\_nextBtn**: [`DPaginationNavigationButton`](DPaginationNavigationButton.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>, [`DPaginationNavigationButtonOptions`](../interfaces/DPaginationNavigationButtonOptions.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>\>\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L52)
-
-___
-
-### \_numberPageButtonVisible
-
-• `Protected` **\_numberPageButtonVisible**: `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L44)
+[src/main/typescript/wcardinal/ui/d-layout.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L127)
 
 ___
 
@@ -671,7 +681,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:723](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L723)
+[src/main/typescript/wcardinal/ui/d-base.ts:723](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L723)
 
 ___
 
@@ -685,7 +695,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:742](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L742)
+[src/main/typescript/wcardinal/ui/d-base.ts:742](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L742)
 
 ___
 
@@ -699,17 +709,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:726](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L726)
+[src/main/typescript/wcardinal/ui/d-base.ts:726](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L726)
 
 ___
 
-### \_previousBtn
+### \_page
 
-• `Protected` **\_previousBtn**: [`DPaginationNavigationButton`](DPaginationNavigationButton.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>, [`DPaginationNavigationButtonOptions`](../interfaces/DPaginationNavigationButtonOptions.md)<`unknown`, [`DThemePaginationNavigationButton`](../interfaces/DThemePaginationNavigationButton.md)<`unknown`\>\>\>
+• `Protected` `Optional` **\_page**: [`DPaginationPage`](DPaginationPage.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md), [`DPaginationPageOptions`](../interfaces/DPaginationPageOptions.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L51)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L109)
 
 ___
 
@@ -723,7 +733,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:746](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L746)
+[src/main/typescript/wcardinal/ui/d-base.ts:746](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L746)
 
 ___
 
@@ -737,17 +747,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L129)
-
-___
-
-### \_selected
-
-• `Protected` **\_selected**: `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L42)
+[src/main/typescript/wcardinal/ui/d-layout.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L129)
 
 ___
 
@@ -761,7 +761,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:744](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L744)
+[src/main/typescript/wcardinal/ui/d-base.ts:744](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L744)
+
+___
+
+### \_size
+
+• `Protected` **\_size**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L102)
 
 ___
 
@@ -775,7 +785,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:745](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L745)
+[src/main/typescript/wcardinal/ui/d-base.ts:745](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L745)
 
 ___
 
@@ -805,17 +815,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:739](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L739)
+[src/main/typescript/wcardinal/ui/d-base.ts:739](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L739)
 
 ___
 
-### \_total
+### \_value
 
-• `Protected` **\_total**: `number`
+• `Protected` **\_value**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L41)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L103)
 
 ___
 
@@ -1589,7 +1599,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L123)
+[src/main/typescript/wcardinal/ui/d-layout.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L123)
 
 ___
 
@@ -1603,7 +1613,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:719](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L719)
+[src/main/typescript/wcardinal/ui/d-base.ts:719](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L719)
 
 ## Accessors
 
@@ -1621,7 +1631,7 @@ DLayoutHorizontal.background
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1323)
+[src/main/typescript/wcardinal/ui/d-base.ts:1323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1323)
 
 ___
 
@@ -1639,7 +1649,91 @@ DLayoutHorizontal.border
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1327)
+[src/main/typescript/wcardinal/ui/d-base.ts:1327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1327)
+
+___
+
+### buttonLast
+
+• `Protected` `get` **buttonLast**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:282](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L282)
+
+___
+
+### buttonNext
+
+• `Protected` `get` **buttonNext**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:316](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L316)
+
+___
+
+### buttonPages0
+
+• `Protected` `get` **buttonPages0**(): [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Returns
+
+[`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:399](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L399)
+
+___
+
+### buttonPages1
+
+• `Protected` `get` **buttonPages1**(): [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Returns
+
+[`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:417](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L417)
+
+___
+
+### buttonPrevious
+
+• `Protected` `get` **buttonPrevious**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:341](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L341)
+
+___
+
+### buttonTop
+
+• `Protected` `get` **buttonTop**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:366](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L366)
 
 ___
 
@@ -1657,7 +1751,35 @@ DLayoutHorizontal.corner
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1319)
+[src/main/typescript/wcardinal/ui/d-base.ts:1319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1319)
+
+___
+
+### dots0
+
+• `Protected` `get` **dots0**(): [`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
+
+#### Returns
+
+[`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:260](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L260)
+
+___
+
+### dots1
+
+• `Protected` `get` **dots1**(): [`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
+
+#### Returns
+
+[`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L269)
 
 ___
 
@@ -1675,7 +1797,7 @@ DLayoutHorizontal.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1246)
+[src/main/typescript/wcardinal/ui/d-base.ts:1246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1246)
 
 • `set` **height**(`height`): `void`
 
@@ -1695,7 +1817,7 @@ DLayoutHorizontal.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1250)
+[src/main/typescript/wcardinal/ui/d-base.ts:1250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1250)
 
 ___
 
@@ -1713,7 +1835,7 @@ DLayoutHorizontal.margin
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L142)
+[src/main/typescript/wcardinal/ui/d-layout.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L142)
 
 ___
 
@@ -1731,7 +1853,7 @@ DLayoutHorizontal.multiplicity
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L146)
+[src/main/typescript/wcardinal/ui/d-layout.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L146)
 
 ___
 
@@ -1749,7 +1871,7 @@ DLayoutHorizontal.outline
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
+[src/main/typescript/wcardinal/ui/d-base.ts:1331](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1331)
 
 ___
 
@@ -1767,7 +1889,21 @@ DLayoutHorizontal.padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1315)
+[src/main/typescript/wcardinal/ui/d-base.ts:1315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1315)
+
+___
+
+### page
+
+• `Protected` `get` **page**(): [`DPaginationPage`](DPaginationPage.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md), [`DPaginationPageOptions`](../interfaces/DPaginationPageOptions.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md)\>\>
+
+#### Returns
+
+[`DPaginationPage`](DPaginationPage.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md), [`DPaginationPageOptions`](../interfaces/DPaginationPageOptions.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:435](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L435)
 
 ___
 
@@ -1785,7 +1921,7 @@ DLayoutHorizontal.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1301)
+[src/main/typescript/wcardinal/ui/d-base.ts:1301](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1301)
 
 ___
 
@@ -1803,7 +1939,7 @@ DLayoutHorizontal.reflowable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1012](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1012)
+[src/main/typescript/wcardinal/ui/d-base.ts:1012](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1012)
 
 ___
 
@@ -1821,7 +1957,7 @@ DLayoutHorizontal.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1306](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1306)
+[src/main/typescript/wcardinal/ui/d-base.ts:1306](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1306)
 
 ___
 
@@ -1829,27 +1965,31 @@ ___
 
 • `get` **selected**(): `number`
 
-Get selected page.
+Returns an index of the selected page.
+
+**`deprecated`** in favor of [value](DPagination.md#value).
 
 #### Returns
 
 `number`
 
-index of selected page.
+an index of the selected page.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L98)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L210)
 
-• `set` **selected**(`selected`): `void`
+• `set` **selected**(`index`): `void`
 
-Set selected page.
+Selects a page.
+
+**`deprecated`** in favor of {@link #value}.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selected` | `number` | page's index want to select. |
+| `index` | `number` | an index of a page |
 
 #### Returns
 
@@ -1857,7 +1997,7 @@ Set selected page.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L85)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L200)
 
 ___
 
@@ -1875,7 +2015,7 @@ DLayoutHorizontal.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1653](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1653)
+[src/main/typescript/wcardinal/ui/d-base.ts:1653](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1653)
 
 • `set` **shadow**(`shadow`): `void`
 
@@ -1895,7 +2035,43 @@ DLayoutHorizontal.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1657](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1657)
+[src/main/typescript/wcardinal/ui/d-base.ts:1657](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1657)
+
+___
+
+### size
+
+• `get` **size**(): `number`
+
+Returns a number of total pages.
+
+#### Returns
+
+`number`
+
+a number of total pages.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L236)
+
+• `set` **size**(`size`): `void`
+
+Sets a number of total pages.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `size` | `number` | a number of pages |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L219)
 
 ___
 
@@ -1913,7 +2089,7 @@ DLayoutHorizontal.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1311)
+[src/main/typescript/wcardinal/ui/d-base.ts:1311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1311)
 
 ___
 
@@ -1931,7 +2107,7 @@ DLayoutHorizontal.snippet
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1008](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1008)
+[src/main/typescript/wcardinal/ui/d-base.ts:1008](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1008)
 
 ___
 
@@ -1949,7 +2125,7 @@ DLayoutHorizontal.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1533](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1533)
+[src/main/typescript/wcardinal/ui/d-base.ts:1533](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1533)
 
 ___
 
@@ -1967,7 +2143,7 @@ DLayoutHorizontal.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1537](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1537)
+[src/main/typescript/wcardinal/ui/d-base.ts:1537](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1537)
 
 • `set` **theme**(`theme`): `void`
 
@@ -1987,7 +2163,7 @@ DLayoutHorizontal.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1541](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1541)
+[src/main/typescript/wcardinal/ui/d-base.ts:1541](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1541)
 
 ___
 
@@ -2005,7 +2181,7 @@ DLayoutHorizontal.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1339](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1339)
+[src/main/typescript/wcardinal/ui/d-base.ts:1339](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1339)
 
 • `set` **title**(`title`): `void`
 
@@ -2025,7 +2201,7 @@ DLayoutHorizontal.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1343)
+[src/main/typescript/wcardinal/ui/d-base.ts:1343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1343)
 
 ___
 
@@ -2033,27 +2209,31 @@ ___
 
 • `get` **total**(): `number`
 
-Get total pages.
+Returns a number of total pages.
+
+**`deprecated`** in favor of [size](DPagination.md#size)
 
 #### Returns
 
 `number`
 
-number of total pages.
+a number of total pages.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L122)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L256)
 
 • `set` **total**(`total`): `void`
 
-Set total page.
+Sets a number of total pages.
+
+**`deprecated`** in favor of [size](DPagination.md#size)
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `total` | `number` | number of page want to present in pagination. |
+| `total` | `number` | a number of pages |
 
 #### Returns
 
@@ -2061,7 +2241,7 @@ Set total page.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L107)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L246)
 
 ___
 
@@ -2079,7 +2259,7 @@ DLayoutHorizontal.type
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
+[src/main/typescript/wcardinal/ui/d-base.ts:1129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1129)
 
 ___
 
@@ -2097,7 +2277,43 @@ DLayoutHorizontal.unsafe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1335)
+[src/main/typescript/wcardinal/ui/d-base.ts:1335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1335)
+
+___
+
+### value
+
+• `get` **value**(): `number`
+
+Returns a value that is an index of a current page.
+
+#### Returns
+
+`number`
+
+a value that is an index of a selected page.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L190)
+
+• `set` **value**(`value`): `void`
+
+Sets a value that is an index of a current page.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `number` | a value that is an index of a page |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L178)
 
 ___
 
@@ -2115,7 +2331,7 @@ DLayoutHorizontal.weight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1033](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1033)
+[src/main/typescript/wcardinal/ui/d-base.ts:1033](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1033)
 
 ___
 
@@ -2133,7 +2349,7 @@ DLayoutHorizontal.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1196)
+[src/main/typescript/wcardinal/ui/d-base.ts:1196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1196)
 
 • `set` **width**(`width`): `void`
 
@@ -2153,7 +2369,7 @@ DLayoutHorizontal.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1200)
+[src/main/typescript/wcardinal/ui/d-base.ts:1200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1200)
 
 ___
 
@@ -2171,7 +2387,7 @@ DLayoutHorizontal.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1134)
+[src/main/typescript/wcardinal/ui/d-base.ts:1134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1134)
 
 • `set` **x**(`x`): `void`
 
@@ -2191,7 +2407,7 @@ DLayoutHorizontal.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1138)
+[src/main/typescript/wcardinal/ui/d-base.ts:1138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1138)
 
 ___
 
@@ -2209,7 +2425,7 @@ DLayoutHorizontal.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1165)
+[src/main/typescript/wcardinal/ui/d-base.ts:1165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1165)
 
 • `set` **y**(`y`): `void`
 
@@ -2229,7 +2445,7 @@ DLayoutHorizontal.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1169)
+[src/main/typescript/wcardinal/ui/d-base.ts:1169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1169)
 
 ## Methods
 
@@ -2247,7 +2463,7 @@ DLayoutHorizontal.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1877](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1877)
+[src/main/typescript/wcardinal/ui/d-base.ts:1877](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1877)
 
 ___
 
@@ -2437,7 +2653,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L804)
+[src/main/typescript/wcardinal/ui/d-layout.ts:804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L804)
 
 ___
 
@@ -2455,7 +2671,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1352](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1352)
+[src/main/typescript/wcardinal/ui/d-base.ts:1352](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1352)
 
 ___
 
@@ -2479,7 +2695,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1458](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1458)
+[src/main/typescript/wcardinal/ui/d-base.ts:1458](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1458)
 
 ___
 
@@ -2506,7 +2722,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L261)
+[src/main/typescript/wcardinal/ui/d-layout.ts:261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L261)
 
 ___
 
@@ -2550,7 +2766,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
+[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
 
 ___
 
@@ -2574,7 +2790,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1906](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1906)
+[src/main/typescript/wcardinal/ui/d-base.ts:1906](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1906)
 
 ___
 
@@ -2598,7 +2814,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1893](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1893)
+[src/main/typescript/wcardinal/ui/d-base.ts:1893](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1893)
 
 ___
 
@@ -2624,7 +2840,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:760](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L760)
+[src/main/typescript/wcardinal/ui/d-layout.ts:760](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L760)
 
 ___
 
@@ -2650,7 +2866,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:718](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L718)
+[src/main/typescript/wcardinal/ui/d-layout.ts:718](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L718)
 
 ___
 
@@ -2668,7 +2884,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1926](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1926)
+[src/main/typescript/wcardinal/ui/d-base.ts:1926](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1926)
 
 ___
 
@@ -2768,7 +2984,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:699](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L699)
+[src/main/typescript/wcardinal/ui/d-layout.ts:699](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L699)
 
 ___
 
@@ -2794,7 +3010,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L686)
+[src/main/typescript/wcardinal/ui/d-layout.ts:686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L686)
 
 ___
 
@@ -2820,7 +3036,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:741](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L741)
+[src/main/typescript/wcardinal/ui/d-layout.ts:741](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L741)
 
 ___
 
@@ -2846,7 +3062,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:728](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L728)
+[src/main/typescript/wcardinal/ui/d-layout.ts:728](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L728)
 
 ___
 
@@ -2864,7 +3080,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1454](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1454)
+[src/main/typescript/wcardinal/ui/d-base.ts:1454](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1454)
 
 ___
 
@@ -2882,7 +3098,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1820](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1820)
+[src/main/typescript/wcardinal/ui/d-base.ts:1820](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1820)
 
 ___
 
@@ -2912,20 +3128,6 @@ The rectangular bounding area.
 #### Defined in
 
 node_modules/pixi.js/pixi.js.d.ts:8651
-
-___
-
-### getButtonWidth
-
-▸ `Protected` **getButtonWidth**(): `number`
-
-#### Returns
-
-`number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L291)
 
 ___
 
@@ -3031,7 +3233,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1098](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1098)
+[src/main/typescript/wcardinal/ui/d-base.ts:1098](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1098)
 
 ___
 
@@ -3058,7 +3260,7 @@ Returns a clipping rect.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1919](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1919)
+[src/main/typescript/wcardinal/ui/d-base.ts:1919](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1919)
 
 ___
 
@@ -3109,7 +3311,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1274)
+[src/main/typescript/wcardinal/ui/d-base.ts:1274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1274)
 
 ___
 
@@ -3155,7 +3357,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1687](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1687)
+[src/main/typescript/wcardinal/ui/d-base.ts:1687](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1687)
 
 ___
 
@@ -3180,7 +3382,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L184)
+[src/main/typescript/wcardinal/ui/d-layout.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L184)
 
 ___
 
@@ -3198,7 +3400,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1868](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1868)
+[src/main/typescript/wcardinal/ui/d-base.ts:1868](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1868)
 
 ___
 
@@ -3216,7 +3418,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L323)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:586](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L586)
 
 ___
 
@@ -3234,7 +3436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L150)
+[src/main/typescript/wcardinal/ui/d-layout.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L150)
 
 ___
 
@@ -3252,7 +3454,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1219)
+[src/main/typescript/wcardinal/ui/d-base.ts:1219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1219)
 
 ___
 
@@ -3270,7 +3472,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1142)
+[src/main/typescript/wcardinal/ui/d-base.ts:1142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1142)
 
 ___
 
@@ -3288,7 +3490,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1173)
+[src/main/typescript/wcardinal/ui/d-base.ts:1173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1173)
 
 ___
 
@@ -3314,7 +3516,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:669](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L669)
+[src/main/typescript/wcardinal/ui/d-layout.ts:669](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L669)
 
 ___
 
@@ -3339,7 +3541,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:665](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L665)
+[src/main/typescript/wcardinal/ui/d-layout.ts:665](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L665)
 
 ___
 
@@ -3364,7 +3566,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:661](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L661)
+[src/main/typescript/wcardinal/ui/d-layout.ts:661](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L661)
 
 ___
 
@@ -3382,7 +3584,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1440](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1440)
+[src/main/typescript/wcardinal/ui/d-base.ts:1440](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1440)
 
 ___
 
@@ -3406,7 +3608,7 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1619](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1619)
+[src/main/typescript/wcardinal/ui/d-base.ts:1619](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1619)
 
 ___
 
@@ -3430,7 +3632,7 @@ target is DBase<any, any\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1625](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1625)
+[src/main/typescript/wcardinal/ui/d-base.ts:1625](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1625)
 
 ___
 
@@ -3448,51 +3650,31 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1372](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1372)
+[src/main/typescript/wcardinal/ui/d-base.ts:1372](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1372)
 
 ___
 
 ### init
 
-▸ `Protected` **init**(`options`): `void`
+▸ `Protected` **init**(`options?`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `options` | `OPTIONS` |
+| `options?` | `OPTIONS` |
 
 #### Returns
 
 `void`
 
-#### Overrides
+#### Inherited from
 
 [DLayoutHorizontal](DLayoutHorizontal.md).[init](DLayoutHorizontal.md#init)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L56)
-
-___
-
-### initButtons
-
-▸ `Protected` **initButtons**(`width`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `width` | `number` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L126)
+[src/main/typescript/wcardinal/ui/d-layout.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L131)
 
 ___
 
@@ -3510,7 +3692,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1016](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1016)
+[src/main/typescript/wcardinal/ui/d-base.ts:1016](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1016)
 
 ___
 
@@ -3528,7 +3710,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1428](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1428)
+[src/main/typescript/wcardinal/ui/d-base.ts:1428](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1428)
 
 ___
 
@@ -3546,7 +3728,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1436)
+[src/main/typescript/wcardinal/ui/d-base.ts:1436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1436)
 
 ___
 
@@ -3570,7 +3752,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1765](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1765)
+[src/main/typescript/wcardinal/ui/d-base.ts:1765](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1765)
 
 ___
 
@@ -3588,7 +3770,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1382)
+[src/main/typescript/wcardinal/ui/d-base.ts:1382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1382)
 
 ___
 
@@ -3612,7 +3794,7 @@ target is DRefitable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1615](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1615)
+[src/main/typescript/wcardinal/ui/d-base.ts:1615](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1615)
 
 ___
 
@@ -3630,21 +3812,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1368](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1368)
-
-___
-
-### listenButtonClicked
-
-▸ `Protected` **listenButtonClicked**(): `void`
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L189)
+[src/main/typescript/wcardinal/ui/d-base.ts:1368](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1368)
 
 ___
 
@@ -3697,6 +3865,166 @@ Return the listeners registered for a given event.
 #### Defined in
 
 node_modules/pixi.js/pixi.js.d.ts:24005
+
+___
+
+### moveTo
+
+▸ `Protected` **moveTo**(`index`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `index` | `number` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L307)
+
+___
+
+### newButtonLast
+
+▸ `Protected` **newButtonLast**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L291)
+
+___
+
+### newButtonNext
+
+▸ `Protected` **newButtonNext**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:325](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L325)
+
+___
+
+### newButtonPage
+
+▸ `Protected` **newButtonPage**(): [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>
+
+#### Returns
+
+[`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L391)
+
+___
+
+### newButtonPages0
+
+▸ `Protected` **newButtonPages0**(): [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Returns
+
+[`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:408](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L408)
+
+___
+
+### newButtonPages1
+
+▸ `Protected` **newButtonPages1**(): [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Returns
+
+[`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\>[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:426](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L426)
+
+___
+
+### newButtonPrevious
+
+▸ `Protected` **newButtonPrevious**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:350](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L350)
+
+___
+
+### newButtonTop
+
+▸ `Protected` **newButtonTop**(): ``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Returns
+
+``null`` \| [`DButton`](DButton.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`string`, [`DThemeButton`](../interfaces/DThemeButton.md)<`string`\>, `any`\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:375](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L375)
+
+___
+
+### newDots
+
+▸ `Protected` **newDots**(): [`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
+
+#### Returns
+
+[`DPaginationDots`](DPaginationDots.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md), [`DPaginationDotsOptions`](../interfaces/DPaginationDotsOptions.md)<[`DThemePaginationDots`](../interfaces/DThemePaginationDots.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L278)
+
+___
+
+### newPage
+
+▸ `Protected` **newPage**(): [`DPaginationPage`](DPaginationPage.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md), [`DPaginationPageOptions`](../interfaces/DPaginationPageOptions.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md)\>\>
+
+#### Returns
+
+[`DPaginationPage`](DPaginationPage.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md), [`DPaginationPageOptions`](../interfaces/DPaginationPageOptions.md)<[`DThemePaginationPage`](../interfaces/DThemePaginationPage.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:444](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L444)
+
+___
+
+### newSpace
+
+▸ `Protected` **newSpace**(): [`DLayoutSpace`](DLayoutSpace.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md), [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\>\>
+
+#### Returns
+
+[`DLayoutSpace`](DLayoutSpace.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md), [`DLayoutSpaceOptions`](../interfaces/DLayoutSpaceOptions.md)<[`DThemeLayoutSpace`](../interfaces/DThemeLayoutSpace.md)\>\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L167)
 
 ___
 
@@ -3788,7 +4116,83 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1526](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1526)
+[src/main/typescript/wcardinal/ui/d-base.ts:1526](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1526)
+
+___
+
+### onButtonLastActive
+
+▸ `Protected` **onButtonLastActive**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:303](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L303)
+
+___
+
+### onButtonNextActive
+
+▸ `Protected` **onButtonNextActive**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:337](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L337)
+
+___
+
+### onButtonPageActive
+
+▸ `Protected` **onButtonPageActive**(`button`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `button` | [`DButton`](DButton.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`number`, [`DThemeButton`](../interfaces/DThemeButton.md)<`number`\>, `any`\>\> |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:448](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L448)
+
+___
+
+### onButtonPreviousActive
+
+▸ `Protected` **onButtonPreviousActive**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:362](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L362)
+
+___
+
+### onButtonTopActive
+
+▸ `Protected` **onButtonTopActive**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-pagination.ts:387](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L387)
 
 ___
 
@@ -3812,7 +4216,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1519](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1519)
+[src/main/typescript/wcardinal/ui/d-base.ts:1519](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1519)
 
 ___
 
@@ -3836,7 +4240,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1505](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1505)
+[src/main/typescript/wcardinal/ui/d-base.ts:1505](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1505)
 
 ___
 
@@ -3854,7 +4258,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1020](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1020)
+[src/main/typescript/wcardinal/ui/d-base.ts:1020](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1020)
 
 ___
 
@@ -3872,27 +4276,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1432](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1432)
-
-___
-
-### onClickPageButton
-
-▸ `Protected` **onClickPageButton**(`btn`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `btn` | [`DButton`](DButton.md)<`unknown`, [`DThemeButton`](../interfaces/DThemeButton.md)<`unknown`\>, [`DButtonOptions`](../interfaces/DButtonOptions.md)<`unknown`, [`DThemeButton`](../interfaces/DThemeButton.md)<`unknown`\>, `any`\>\> |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L315)
+[src/main/typescript/wcardinal/ui/d-base.ts:1432](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1432)
 
 ___
 
@@ -3917,7 +4301,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1852](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1852)
+[src/main/typescript/wcardinal/ui/d-base.ts:1852](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1852)
 
 ___
 
@@ -3941,7 +4325,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1779](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1779)
+[src/main/typescript/wcardinal/ui/d-base.ts:1779](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1779)
 
 ___
 
@@ -3965,7 +4349,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1786](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1786)
+[src/main/typescript/wcardinal/ui/d-base.ts:1786](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1786)
 
 ___
 
@@ -3983,7 +4367,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1512](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1512)
+[src/main/typescript/wcardinal/ui/d-base.ts:1512](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1512)
 
 ___
 
@@ -4007,7 +4391,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1754](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1754)
+[src/main/typescript/wcardinal/ui/d-base.ts:1754](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1754)
 
 ___
 
@@ -4031,7 +4415,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1759](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1759)
+[src/main/typescript/wcardinal/ui/d-base.ts:1759](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1759)
 
 ___
 
@@ -4058,7 +4442,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1037](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1037)
+[src/main/typescript/wcardinal/ui/d-base.ts:1037](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1037)
 
 ___
 
@@ -4082,7 +4466,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1843](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1843)
+[src/main/typescript/wcardinal/ui/d-base.ts:1843](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1843)
 
 ___
 
@@ -4106,7 +4490,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1829](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1829)
+[src/main/typescript/wcardinal/ui/d-base.ts:1829](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1829)
 
 ___
 
@@ -4135,7 +4519,7 @@ Called when a parent moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1743](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1743)
+[src/main/typescript/wcardinal/ui/d-base.ts:1743](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1743)
 
 ___
 
@@ -4163,7 +4547,7 @@ Called when a parent resized.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1702](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1702)
+[src/main/typescript/wcardinal/ui/d-base.ts:1702](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1702)
 
 ___
 
@@ -4181,7 +4565,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:265](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L265)
+[src/main/typescript/wcardinal/ui/d-layout.ts:265](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L265)
 
 ___
 
@@ -4199,7 +4583,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1649](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1649)
+[src/main/typescript/wcardinal/ui/d-base.ts:1649](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1649)
 
 ___
 
@@ -4226,7 +4610,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1102)
+[src/main/typescript/wcardinal/ui/d-base.ts:1102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1102)
 
 ___
 
@@ -4253,7 +4637,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1119)
+[src/main/typescript/wcardinal/ui/d-base.ts:1119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1119)
 
 ___
 
@@ -4277,7 +4661,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1025](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1025)
+[src/main/typescript/wcardinal/ui/d-base.ts:1025](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1025)
 
 ___
 
@@ -4304,7 +4688,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
+[src/main/typescript/wcardinal/ui/d-base.ts:1124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1124)
 
 ___
 
@@ -4329,7 +4713,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1481](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1481)
+[src/main/typescript/wcardinal/ui/d-base.ts:1481](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1481)
 
 ___
 
@@ -4353,7 +4737,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1797](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1797)
+[src/main/typescript/wcardinal/ui/d-base.ts:1797](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1797)
 
 ___
 
@@ -4377,7 +4761,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1804)
+[src/main/typescript/wcardinal/ui/d-base.ts:1804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1804)
 
 ___
 
@@ -4403,7 +4787,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1748)
+[src/main/typescript/wcardinal/ui/d-base.ts:1748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1748)
 
 ___
 
@@ -4469,7 +4853,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1555](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1555)
+[src/main/typescript/wcardinal/ui/d-base.ts:1555](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1555)
 
 ___
 
@@ -4487,7 +4871,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1631](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1631)
+[src/main/typescript/wcardinal/ui/d-base.ts:1631](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1631)
 
 ___
 
@@ -4694,7 +5078,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1858](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1858)
+[src/main/typescript/wcardinal/ui/d-base.ts:1858](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1858)
 
 ___
 
@@ -4745,7 +5129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1049](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1049)
+[src/main/typescript/wcardinal/ui/d-base.ts:1049](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1049)
 
 ___
 
@@ -4796,7 +5180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1444](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1444)
+[src/main/typescript/wcardinal/ui/d-base.ts:1444](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1444)
 
 ___
 
@@ -4820,7 +5204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1278)
+[src/main/typescript/wcardinal/ui/d-base.ts:1278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1278)
 
 ___
 
@@ -4908,7 +5292,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1223)
+[src/main/typescript/wcardinal/ui/d-base.ts:1223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1223)
 
 ___
 
@@ -4932,7 +5316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1151)
+[src/main/typescript/wcardinal/ui/d-base.ts:1151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1151)
 
 ___
 
@@ -4956,7 +5340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1182)
+[src/main/typescript/wcardinal/ui/d-base.ts:1182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1182)
 
 ___
 
@@ -4974,7 +5358,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1359](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1359)
+[src/main/typescript/wcardinal/ui/d-base.ts:1359](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1359)
 
 ___
 
@@ -5039,7 +5423,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1411](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1411)
+[src/main/typescript/wcardinal/ui/d-base.ts:1411](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1411)
 
 ___
 
@@ -5066,7 +5450,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:770](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L770)
+[src/main/typescript/wcardinal/ui/d-layout.ts:770](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L770)
 
 ___
 
@@ -5093,7 +5477,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-layout.ts#L787)
+[src/main/typescript/wcardinal/ui/d-layout.ts:787](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-layout.ts#L787)
 
 ___
 
@@ -5118,7 +5502,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:991](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L991)
+[src/main/typescript/wcardinal/ui/d-base.ts:991](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L991)
 
 ___
 
@@ -5136,7 +5520,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1386)
+[src/main/typescript/wcardinal/ui/d-base.ts:1386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1386)
 
 ___
 
@@ -5184,7 +5568,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1395](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1395)
+[src/main/typescript/wcardinal/ui/d-base.ts:1395](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1395)
 
 ___
 
@@ -5219,20 +5603,6 @@ node_modules/pixi.js/pixi.js.d.ts:8679
 
 ___
 
-### toNumberVisible
-
-▸ `Protected` **toNumberVisible**(): `number`
-
-#### Returns
-
-`number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L295)
-
-___
-
 ### toParentChildrenDirty
 
 ▸ **toParentChildrenDirty**(): `void`
@@ -5247,7 +5617,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1421](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1421)
+[src/main/typescript/wcardinal/ui/d-base.ts:1421](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1421)
 
 ___
 
@@ -5265,7 +5635,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1404)
+[src/main/typescript/wcardinal/ui/d-base.ts:1404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1404)
 
 ___
 
@@ -5283,7 +5653,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1680](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base.ts#L1680)
+[src/main/typescript/wcardinal/ui/d-base.ts:1680](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base.ts#L1680)
 
 ___
 
@@ -5297,21 +5667,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pagination.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L217)
-
-___
-
-### updateStaticButtons
-
-▸ `Protected` **updateStaticButtons**(): `void`
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-pagination.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L270)
+[src/main/typescript/wcardinal/ui/d-pagination.ts:459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pagination.ts#L459)
 
 ___
 

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDarkChartCoordinate
+[Winter Cardinal UI - v0.155.0](../index.md) / DThemeDarkChartCoordinate
 
 # Class: DThemeDarkChartCoordinate
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-chart-coordinate.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-chart-coordinate.ts#L9)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-chart-coordinate.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-chart-coordinate.ts#L9)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / EShapeDataValueRangeParent
+[Winter Cardinal UI - v0.155.0](../index.md) / EShapeDataValueRangeParent
 
 # Interface: EShapeDataValueRangeParent
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-range.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-range.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-range.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-range.ts#L28)

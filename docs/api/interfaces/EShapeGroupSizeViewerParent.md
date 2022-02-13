@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / EShapeGroupSizeViewerParent
+[Winter Cardinal UI - v0.155.0](../index.md) / EShapeGroupSizeViewerParent
 
 # Interface: EShapeGroupSizeViewerParent
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-viewer.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-viewer.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-viewer.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-viewer.ts#L14)

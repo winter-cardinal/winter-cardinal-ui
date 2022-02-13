@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DItemUpdaterDataMapped
+[Winter Cardinal UI - v0.155.0](../index.md) / DItemUpdaterDataMapped
 
 # Interface: DItemUpdaterDataMapped<VALUE\>
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-item-updater.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L48)
+[src/main/typescript/wcardinal/ui/d-item-updater.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L48)
 
 ___
 
@@ -57,4 +57,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-item-updater.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L47)
+[src/main/typescript/wcardinal/ui/d-item-updater.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-item-updater.ts#L47)

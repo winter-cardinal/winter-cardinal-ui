@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DScalarExpression
+[Winter Cardinal UI - v0.155.0](../index.md) / DScalarExpression
 
 # Class: DScalarExpression
 
@@ -56,6 +56,8 @@ Examples
 - [toCommaOf](DScalarExpression.md#tocommaof)
 - [toParensesis](DScalarExpression.md#toparensesis)
 - [toToken](DScalarExpression.md#totoken)
+- [toTokenLiteral](DScalarExpression.md#totokenliteral)
+- [toTokenOperator](DScalarExpression.md#totokenoperator)
 - [toUnary](DScalarExpression.md#tounary)
 - [toUnaryNode](DScalarExpression.md#tounarynode)
 
@@ -73,17 +75,17 @@ Examples
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L173)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L168)
 
 ## Properties
 
 ### \_node
 
-• `Protected` **\_node**: `Node`
+• `Protected` **\_node**: [`DScalarExpressionNode`](../index.md#dscalarexpressionnode)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L171)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L166)
 
 ___
 
@@ -93,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L170)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L165)
 
 ## Methods
 
@@ -122,7 +124,7 @@ Calculates a scalar value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L471)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:530](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L530)
 
 ___
 
@@ -134,7 +136,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `Node` |
+| `node` | [`DScalarExpressionNode`](../index.md#dscalarexpressionnode) |
 | `parent` | `number` |
 | `self` | `number` |
 | `padding` | `number` |
@@ -146,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L386)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:445](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L445)
 
 ___
 
@@ -158,9 +160,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `nodes` | `NodeOrToken`[] |
-| `operatorA` | `NodeArithmeticOperator` |
-| `operatorB` | `NodeArithmeticOperator` |
+| `nodes` | [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)[] |
+| `operatorA` | [`DScalarExpressionNodeArithmeticOperator`](../index.md#dscalarexpressionnodearithmeticoperator) |
+| `operatorB` | [`DScalarExpressionNodeArithmeticOperator`](../index.md#dscalarexpressionnodearithmeticoperator) |
 
 #### Returns
 
@@ -168,7 +170,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:326](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L326)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:344](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L344)
 
 ___
 
@@ -180,9 +182,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `NodeOrToken` |
-| `operatorA` | `NodeArithmeticOperator` |
-| `operatorB` | `NodeArithmeticOperator` |
+| `node` | [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken) |
+| `operatorA` | [`DScalarExpressionNodeArithmeticOperator`](../index.md#dscalarexpressionnodearithmeticoperator) |
+| `operatorB` | [`DScalarExpressionNodeArithmeticOperator`](../index.md#dscalarexpressionnodearithmeticoperator) |
 
 #### Returns
 
@@ -190,51 +192,51 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:300](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L300)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L315)
 
 ___
 
 ### toComma
 
-▸ **toComma**(`nodes`, `ifrom`, `ito`): `NodeOrToken`[]
+▸ **toComma**(`nodes`, `ifrom`, `ito`): [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)[]
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `nodes` | `NodeOrToken`[] |
+| `nodes` | [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)[] |
 | `ifrom` | `number` |
 | `ito` | `number` |
 
 #### Returns
 
-`NodeOrToken`[]
+[`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L238)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L240)
 
 ___
 
 ### toCommaOf
 
-▸ **toCommaOf**(`nodes`, `ifrom`, `ito`): `NodeOrToken`
+▸ **toCommaOf**(`nodes`, `ifrom`, `ito`): [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `nodes` | `NodeOrToken`[] |
+| `nodes` | [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)[] |
 | `ifrom` | `number` |
 | `ito` | `number` |
 
 #### Returns
 
-`NodeOrToken`
+[`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L223)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L221)
 
 ___
 
@@ -246,7 +248,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `nodes` | `NodeOrToken`[] |
+| `nodes` | [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)[] |
 | `ifrom` | `number` |
 
 #### Returns
@@ -255,13 +257,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L192)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L187)
 
 ___
 
 ### toToken
 
-▸ **toToken**(`expression`): `Token`[]
+▸ **toToken**(`expression`): [`DScalarExpressionToken`](../index.md#dscalarexpressiontoken)[]
 
 #### Parameters
 
@@ -271,11 +273,51 @@ ___
 
 #### Returns
 
-`Token`[]
+[`DScalarExpressionToken`](../index.md#dscalarexpressiontoken)[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:355](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L355)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:373](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L373)
+
+___
+
+### toTokenLiteral
+
+▸ **toTokenLiteral**(`token`): ``null`` \| [`DScalarExpressionNodeTypeLiteral`](../index.md#dscalarexpressionnodetypeliteral)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `token` | `string` |
+
+#### Returns
+
+``null`` \| [`DScalarExpressionNodeTypeLiteral`](../index.md#dscalarexpressionnodetypeliteral)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:428](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L428)
+
+___
+
+### toTokenOperator
+
+▸ **toTokenOperator**(`token`): ``null`` \| [`DScalarExpressionNodeTypeOperator`](../index.md#dscalarexpressionnodetypeoperator)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `token` | `string` |
+
+#### Returns
+
+``null`` \| [`DScalarExpressionNodeTypeOperator`](../index.md#dscalarexpressionnodetypeoperator)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L404)
 
 ___
 
@@ -287,7 +329,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `nodes` | `NodeOrToken`[] |
+| `nodes` | [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken)[] |
 
 #### Returns
 
@@ -295,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L275)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:281](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L281)
 
 ___
 
@@ -307,7 +349,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `node` | `NodeOrToken` |
+| `node` | [`DScalarExpressionNodeOrToken`](../index.md#dscalarexpressionnodeortoken) |
 
 #### Returns
 
@@ -315,4 +357,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L263)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L269)

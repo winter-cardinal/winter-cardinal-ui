@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTextOffsetLike
+[Winter Cardinal UI - v0.155.0](../index.md) / EShapeTextOffsetLike
 
 # Interface: EShapeTextOffsetLike
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts#L10)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-offset.ts#L11)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DListItemAccessorLink
+[Winter Cardinal UI - v0.155.0](../index.md) / DListItemAccessorLink
 
 # Interface: DListItemAccessorLink<VALUE\>
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L30)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L30)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L29)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L29)
 
 ___
 
@@ -44,4 +44,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L28)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L28)

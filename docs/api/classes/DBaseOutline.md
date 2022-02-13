@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DBaseOutline
+[Winter Cardinal UI - v0.155.0](../index.md) / DBaseOutline
 
 # Class: DBaseOutline
 
@@ -55,11 +55,11 @@
 | :------ | :------ |
 | `theme` | [`DThemeBase`](../interfaces/DThemeBase.md) |
 | `options?` | [`DBaseOptions`](../interfaces/DBaseOptions.md)<`any`, `any`\> |
-| `callback?` | `Callback` |
+| `callback?` | () => `void` |
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L26)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L24)
 
 ## Properties
 
@@ -69,7 +69,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L22)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L20)
 
 ___
 
@@ -79,17 +79,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L19)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L17)
 
 ___
 
 ### \_callback
 
-• `Protected` **\_callback**: `undefined` \| `Callback`
+• `Protected` `Optional` **\_callback**: () => `void`
+
+#### Type declaration
+
+▸ (): `void`
+
+##### Returns
+
+`void`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L24)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L22)
 
 ___
 
@@ -99,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L18)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L16)
 
 ___
 
@@ -109,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L23)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L21)
 
 ___
 
@@ -119,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L21)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L19)
 
 ___
 
@@ -129,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L17)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L15)
 
 ___
 
@@ -139,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L20)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L18)
 
 ## Accessors
 
@@ -157,7 +165,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L179)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L177)
 
 • `set` **align**(`align`): `void`
 
@@ -177,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L183)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L181)
 
 ___
 
@@ -195,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L92)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L90)
 
 • `set` **alpha**(`alpha`): `void`
 
@@ -215,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L96)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L94)
 
 ___
 
@@ -233,7 +241,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L63)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L61)
 
 • `set` **color**(`color`): `void`
 
@@ -253,7 +261,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L67)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L65)
 
 ___
 
@@ -271,7 +279,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L208)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L206)
 
 • `set` **mask**(`mask`): `void`
 
@@ -291,7 +299,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:212](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L212)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L210)
 
 ___
 
@@ -309,7 +317,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L150)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L148)
 
 • `set` **offset**(`offset`): `void`
 
@@ -329,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L154)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L152)
 
 ___
 
@@ -347,7 +355,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L121)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L119)
 
 • `set` **width**(`width`): `void`
 
@@ -367,7 +375,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L125)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L123)
 
 ## Methods
 
@@ -391,7 +399,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L164)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L162)
 
 ___
 
@@ -415,7 +423,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L77)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L75)
 
 ___
 
@@ -439,7 +447,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L48)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L46)
 
 ___
 
@@ -463,7 +471,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L193)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L191)
 
 ___
 
@@ -487,7 +495,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L135)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L133)
 
 ___
 
@@ -505,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L40)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L38)
 
 ___
 
@@ -529,7 +537,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L106)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L104)
 
 ___
 
@@ -553,4 +561,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-outline.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L44)
+[src/main/typescript/wcardinal/ui/d-base-outline.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-outline.ts#L42)

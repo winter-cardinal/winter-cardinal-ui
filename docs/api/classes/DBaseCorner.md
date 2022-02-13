@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DBaseCorner
+[Winter Cardinal UI - v0.155.0](../index.md) / DBaseCorner
 
 # Class: DBaseCorner
 
@@ -48,17 +48,25 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L20)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L18)
 
 ## Properties
 
 ### \_callback
 
-• `Protected` **\_callback**: `undefined` \| `Callback`
+• `Protected` `Optional` **\_callback**: () => `void`
+
+#### Type declaration
+
+▸ (): `void`
+
+##### Returns
+
+`void`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L18)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L16)
 
 ___
 
@@ -68,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L17)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L15)
 
 ___
 
@@ -78,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L14)
 
 ___
 
@@ -88,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L13)
 
 ## Accessors
 
@@ -106,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L65)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L63)
 
 • `set` **mask**(`mask`): `void`
 
@@ -126,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L69)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L67)
 
 ___
 
@@ -144,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L47)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L45)
 
 • `set` **radius**(`radius`): `void`
 
@@ -164,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L51)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L49)
 
 ## Methods
 
@@ -182,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L61)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L59)
 
 ___
 
@@ -200,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L43)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L41)
 
 ___
 
@@ -218,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L35)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L33)
 
 ___
 
@@ -243,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L79)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L77)
 
 ___
 
@@ -267,4 +275,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-corner.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L39)
+[src/main/typescript/wcardinal/ui/d-base-corner.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-corner.ts#L37)

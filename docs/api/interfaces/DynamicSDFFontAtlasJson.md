@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DynamicSDFFontAtlasJson
+[Winter Cardinal UI - v0.155.0](../index.md) / DynamicSDFFontAtlasJson
 
 # Interface: DynamicSDFFontAtlasJson
 
@@ -15,11 +15,11 @@
 
 ### characters
 
-• **characters**: `DynamicFontAtlasCharacters`
+• **characters**: [`DynamicFontAtlasCharacters`](../index.md#dynamicfontatlascharacters)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L24)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L24)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L23)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L23)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L22)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L22)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L21)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L21)

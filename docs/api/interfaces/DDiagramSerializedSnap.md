@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramSerializedSnap
+[Winter Cardinal UI - v0.155.0](../index.md) / DDiagramSerializedSnap
 
 # Interface: DDiagramSerializedSnap
 
@@ -22,7 +22,7 @@ Snap (0: Off, 1: On).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:457](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L457)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:457](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L457)
 
 ___
 
@@ -34,7 +34,7 @@ Snap on targets
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L460)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L460)
 
 ___
 
@@ -46,4 +46,4 @@ Snap on grid
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L463)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L463)

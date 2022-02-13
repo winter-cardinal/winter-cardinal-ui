@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / EShapeLineOfAnyPointsStrokeImpl
+[Winter Cardinal UI - v0.155.0](../index.md) / EShapeLineOfAnyPointsStrokeImpl
 
 # Class: EShapeLineOfAnyPointsStrokeImpl
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L21)
 
 ## Properties
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L19)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L18)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L17)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L16)
 
 ## Accessors
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L40)
 
 • `set` **alpha**(`alpha`): `void`
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L44)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L44)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L32)
 
 • `set` **color**(`color`): `void`
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L36)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L28)
 
 ## Methods
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L71)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L71)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L67)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L67)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L79)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L79)
 
 ___
 
@@ -268,7 +268,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L75)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L75)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L48)
 
 ___
 
@@ -311,4 +311,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L83)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L83)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DListDataSelectionOptions
+[Winter Cardinal UI - v0.155.0](../index.md) / DListDataSelectionOptions
 
 # Interface: DListDataSelectionOptions<ITEM, EMITTER\>
 
@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L44)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L44)
 
 ___
 
@@ -41,7 +41,7 @@ Mappings of event names and handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L54)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L54)
 
 ___
 
@@ -53,4 +53,4 @@ A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L49)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L49)

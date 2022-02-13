@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DChartSeriesLineOfAnyRegion
+[Winter Cardinal UI - v0.155.0](../index.md) / DChartSeriesLineOfAnyRegion
 
 # Interface: DChartSeriesLineOfAnyRegion
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L45)
+[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L45)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L44)
+[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L44)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L47)
+[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L47)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L46)
+[src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-chart-series-line-of-any.ts#L46)

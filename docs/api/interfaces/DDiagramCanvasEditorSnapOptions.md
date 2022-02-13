@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramCanvasEditorSnapOptions
+[Winter Cardinal UI - v0.155.0](../index.md) / DDiagramCanvasEditorSnapOptions
 
 # Interface: DDiagramCanvasEditorSnapOptions
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L51)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L51)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L52)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L52)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L53)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L53)

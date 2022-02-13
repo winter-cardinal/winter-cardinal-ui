@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DDiagramShapeCanvas
+[Winter Cardinal UI - v0.155.0](../index.md) / DDiagramShapeCanvas
 
 # Interface: DDiagramShapeCanvas
 
@@ -18,17 +18,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L23)
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L23)
 
 ___
 
 ### ids
 
-• **ids**: [`DDiagramCanvasIdMap`](DDiagramCanvasIdMap.md)
+• **ids**: [`DDiagramCanvasIdMap`](../index.md#ddiagramcanvasidmap)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L22)
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L22)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L21)

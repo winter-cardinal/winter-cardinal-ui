@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DApplicationTarget
+[Winter Cardinal UI - v0.155.0](../index.md) / DApplicationTarget
 
 # Interface: DApplicationTarget
 
@@ -16,6 +16,8 @@
 
   ↳ [`DImagePieceParent`](DImagePieceParent.md)
 
+  ↳ [`DPaneScrollBarParent`](DPaneScrollBarParent.md)
+
 ## Table of contents
 
 ### Properties
@@ -30,4 +32,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)

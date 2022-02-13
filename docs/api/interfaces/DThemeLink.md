@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DThemeLink
+[Winter Cardinal UI - v0.155.0](../index.md) / DThemeLink
 
 # Interface: DThemeLink
 
@@ -18,7 +18,7 @@
 
 ### getImageSource
 
-▸ **getImageSource**(`state`): ``null`` \| `Texture` \| `DisplayObject`
+▸ **getImageSource**(`state`): ``null`` \| `DisplayObject` \| `Texture`
 
 #### Parameters
 
@@ -28,11 +28,11 @@
 
 #### Returns
 
-``null`` \| `Texture` \| `DisplayObject`
+``null`` \| `DisplayObject` \| `Texture`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-link.ts#L37)
+[src/main/typescript/wcardinal/ui/d-link.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-link.ts#L37)
 
 ___
 
@@ -46,4 +46,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-link.ts#L38)
+[src/main/typescript/wcardinal/ui/d-link.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-link.ts#L38)

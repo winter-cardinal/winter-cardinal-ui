@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / UtilName
+[Winter Cardinal UI - v0.155.0](../index.md) / UtilName
 
 # Class: UtilName
 
@@ -26,15 +26,11 @@
 
 ### \_mapping
 
-▪ `Static` `Protected` **\_mapping**: `Object` = `{}`
-
-#### Index signature
-
-▪ [key: `string`]: `number`
+▪ `Static` `Protected` **\_mapping**: `Record`<`string`, `number`\> = `{}`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-name.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-name.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L7)
 
 ## Methods
 
@@ -54,4 +50,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-name.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-name.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L9)

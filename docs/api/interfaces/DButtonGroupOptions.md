@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DButtonGroupOptions
+[Winter Cardinal UI - v0.155.0](../index.md) / DButtonGroupOptions
 
 # Interface: DButtonGroupOptions<BUTTON, EMITTER\>
 
@@ -23,4 +23,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L33)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L33)

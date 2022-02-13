@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / EShapeTextAtlas
+[Winter Cardinal UI - v0.155.0](../index.md) / EShapeTextAtlas
 
 # Interface: EShapeTextAtlas
 
@@ -15,11 +15,11 @@
 
 ### characters
 
-• **characters**: [`EShapeTextAtlasCharacters`](EShapeTextAtlasCharacters.md)
+• **characters**: [`EShapeTextAtlasCharacters`](../index.md#eshapetextatlascharacters)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L68)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L66)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L65)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L63)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L64)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L62)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L63)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L61)

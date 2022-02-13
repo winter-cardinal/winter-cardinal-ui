@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DDynamicTextMeasure
+[Winter Cardinal UI - v0.155.0](../index.md) / DDynamicTextMeasure
 
 # Class: DDynamicTextMeasure
 
@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L21)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L21)
 
 ## Methods
 
@@ -45,7 +45,7 @@
 | :------ | :------ |
 | `text` | `string` |
 | `atlas` | ``null`` \| [`DynamicFontAtlas`](DynamicFontAtlas.md) |
-| `clipping` | `Clipping` |
+| `clipping` | [`DDynamicTextMeasureClipping`](../interfaces/DDynamicTextMeasureClipping.md) |
 
 #### Returns
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L23)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L23)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `iterator` | `UtilCharacterIterator` |
+| `iterator` | [`UtilCharacterIterator`](UtilCharacterIterator.md) |
 | `clippingWidth` | `number` |
 | `lineHeight` | `number` |
 | `atlas` | [`DynamicFontAtlas`](DynamicFontAtlas.md) |
@@ -78,4 +78,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L304)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L304)

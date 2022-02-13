@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.154.0](../index.md) / DThemeDark
+[Winter Cardinal UI - v0.155.0](../index.md) / DThemeDark
 
 # Class: DThemeDark
 
@@ -31,27 +31,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L14)
 
 ## Properties
 
 ### \_instances
 
-• `Protected` **\_instances**: `INSTANCES`
+• `Protected` **\_instances**: `Record`<`string`, [`DTheme`](../interfaces/DTheme.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L20)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L12)
 
 ___
 
 ### \_classes
 
-▪ `Static` `Protected` **\_classes**: `CLASSES` = `{}`
+▪ `Static` `Protected` **\_classes**: `Record`<`string`, () => `any`\> = `{}`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L11)
 
 ## Methods
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L26)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L18)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L41)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L33)
 
 ___
 
@@ -126,4 +126,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.154.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L45)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark.ts#L37)
