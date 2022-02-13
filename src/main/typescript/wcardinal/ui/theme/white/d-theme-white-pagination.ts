@@ -12,7 +12,11 @@ export class DThemeWhitePagination extends DThemeWhiteLayoutHorizontal implement
 		return "auto";
 	}
 
-	getButtonWidth(): number {
-		return 30;
+	getMargin(): number {
+		return 10;
+	}
+
+	getButtonSpace(): number {
+		return 10;
 	}
 }
