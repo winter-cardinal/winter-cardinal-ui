@@ -6,135 +6,130 @@
 import { DScalar } from "./d-scalar";
 import { isNumber } from "./util/is-number";
 
-const enum NodeType {
+export const DScalarExpressionNodeType = {
 	// Parensesis
-	OPEN,
-	CLOSE,
-	PARENSESIS,
+	OPEN: 0,
+	CLOSE: 1,
+	PARENSESIS: 2,
 
 	// Operations
-	ADD_OR_PLUS,
-	SUB_OR_MINUS,
+	ADD_OR_PLUS: 3,
+	SUB_OR_MINUS: 4,
 
-	PLUS,
-	MINUS,
+	PLUS: 5,
+	MINUS: 6,
 
-	ADD,
-	SUB,
-	MUL,
-	DIV,
+	ADD: 7,
+	SUB: 8,
+	MUL: 9,
+	DIV: 10,
 
 	// Functions
-	MIN,
-	MAX,
-	COMMA,
+	MIN: 11,
+	MAX: 12,
+	COMMA: 13,
 
 	// Literals
-	PARENT,
-	SELF,
-	PADDING,
-	CURRENT,
-	NUMBER
+	PARENT: 14,
+	SELF: 15,
+	PADDING: 16,
+	CURRENT: 17,
+	NUMBER: 18
+} as const;
+
+export type DScalarExpressionNodeType =
+	typeof DScalarExpressionNodeType[keyof typeof DScalarExpressionNodeType];
+
+export type DScalarExpressionNodeTypeOperator =
+	| typeof DScalarExpressionNodeType.SUB_OR_MINUS
+	| typeof DScalarExpressionNodeType.ADD_OR_PLUS
+	| typeof DScalarExpressionNodeType.SUB
+	| typeof DScalarExpressionNodeType.ADD
+	| typeof DScalarExpressionNodeType.MUL
+	| typeof DScalarExpressionNodeType.DIV
+	| typeof DScalarExpressionNodeType.OPEN
+	| typeof DScalarExpressionNodeType.CLOSE
+	| typeof DScalarExpressionNodeType.MIN
+	| typeof DScalarExpressionNodeType.MAX
+	| typeof DScalarExpressionNodeType.COMMA;
+
+export type DScalarExpressionNodeTypeLiteral =
+	| typeof DScalarExpressionNodeType.NUMBER
+	| typeof DScalarExpressionNodeType.PARENT
+	| typeof DScalarExpressionNodeType.SELF
+	| typeof DScalarExpressionNodeType.PADDING
+	| typeof DScalarExpressionNodeType.CURRENT;
+
+export type DScalarExpressionToken =
+	| DScalarExpressionNodeTypeOperator
+	| [DScalarExpressionNodeTypeLiteral, number];
+
+export interface DScalarExpressionNodeOrTokenParensesis {
+	[0]: typeof DScalarExpressionNodeType.PARENSESIS;
+	[1]: DScalarExpressionNodeOrToken[];
 }
 
-type NodeTypeOperator =
-	| NodeType.SUB_OR_MINUS
-	| NodeType.ADD_OR_PLUS
-	| NodeType.SUB
-	| NodeType.ADD
-	| NodeType.MUL
-	| NodeType.DIV
-	| NodeType.OPEN
-	| NodeType.CLOSE
-	| NodeType.MIN
-	| NodeType.MAX
-	| NodeType.COMMA;
-
-type NodeTypeLiteral =
-	| NodeType.NUMBER
-	| NodeType.PARENT
-	| NodeType.SELF
-	| NodeType.PADDING
-	| NodeType.CURRENT;
-
-type Token = NodeTypeOperator | [NodeTypeLiteral, number];
-
-interface NodeOrTokenParensesis {
-	[0]: NodeType.PARENSESIS;
-	[1]: NodeOrToken[];
+export interface DScalarExpressionNodeOrTokenUnary {
+	[0]: typeof DScalarExpressionNodeType.PLUS | typeof DScalarExpressionNodeType.MINUS;
+	[1]: DScalarExpressionNodeOrToken;
 }
 
-interface NodeOrTokenUnary {
-	[0]: NodeType.PLUS | NodeType.MINUS;
-	[1]: NodeOrToken;
+export type DScalarExpressionNodeArithmeticOperator =
+	| typeof DScalarExpressionNodeType.SUB
+	| typeof DScalarExpressionNodeType.ADD
+	| typeof DScalarExpressionNodeType.MUL
+	| typeof DScalarExpressionNodeType.DIV;
+
+export interface DScalarExpressionNodeOrTokenArithmetic {
+	[0]: DScalarExpressionNodeArithmeticOperator;
+	[1]: DScalarExpressionNodeOrToken;
+	[2]: DScalarExpressionNodeOrToken;
 }
 
-type NodeArithmeticOperator = NodeType.SUB | NodeType.ADD | NodeType.MUL | NodeType.DIV;
-
-interface NodeOrTokenArithmetic {
-	[0]: NodeArithmeticOperator;
-	[1]: NodeOrToken;
-	[2]: NodeOrToken;
+export interface DScalarExpressionNodeOrTokenFunction {
+	[0]: typeof DScalarExpressionNodeType.MIN | typeof DScalarExpressionNodeType.MAX;
+	[1]: DScalarExpressionNodeOrToken[];
 }
 
-interface NodeOrTokenFunction {
-	[0]: NodeType.MIN | NodeType.MAX;
-	[1]: NodeOrToken[];
-}
+export type DScalarExpressionNodeOrToken =
+	| DScalarExpressionToken
+	| DScalarExpressionNodeOrTokenParensesis
+	| DScalarExpressionNodeOrTokenUnary
+	| DScalarExpressionNodeOrTokenArithmetic
+	| DScalarExpressionNodeOrTokenFunction;
 
-type NodeOrToken =
-	| Token
-	| NodeOrTokenParensesis
-	| NodeOrTokenUnary
-	| NodeOrTokenArithmetic
-	| NodeOrTokenFunction;
-
-interface NodeLiteral {
-	[0]: NodeTypeLiteral;
+export interface DScalarExpressionNodeLiteral {
+	[0]: DScalarExpressionNodeTypeLiteral;
 	[1]: number;
 }
 
-interface NodeParensesis {
-	[0]: NodeType.PARENSESIS;
-	[1]: Node[];
+export interface DScalarExpressionNodeParensesis {
+	[0]: typeof DScalarExpressionNodeType.PARENSESIS;
+	[1]: DScalarExpressionNode[];
 }
 
-interface NodeUnary {
-	[0]: NodeType.PLUS | NodeType.MINUS;
-	[1]: Node;
+export interface DScalarExpressionNodeUnary {
+	[0]: typeof DScalarExpressionNodeType.PLUS | typeof DScalarExpressionNodeType.MINUS;
+	[1]: DScalarExpressionNode;
 }
 
-interface NodeArithmetic {
-	[0]: NodeArithmeticOperator;
-	[1]: Node;
-	[2]: Node;
+export interface DScalarExpressionNodeArithmetic {
+	[0]: DScalarExpressionNodeArithmeticOperator;
+	[1]: DScalarExpressionNode;
+	[2]: DScalarExpressionNode;
 }
 
-interface NodeFunction {
-	[0]: NodeType.MIN | NodeType.MAX;
-	[1]: Node[];
+export interface DScalarExpressionNodeFunction {
+	[0]: typeof DScalarExpressionNodeType.MIN | typeof DScalarExpressionNodeType.MAX;
+	[1]: DScalarExpressionNode[];
 }
 
-type Node = NodeParensesis | NodeUnary | NodeArithmetic | NodeFunction | NodeLiteral;
-
-const TOKEN_MAPPING_OPERATOR: { [token: string]: NodeTypeOperator | undefined } = {
-	"+": NodeType.ADD_OR_PLUS,
-	"-": NodeType.SUB_OR_MINUS,
-	"*": NodeType.MUL,
-	"/": NodeType.DIV,
-	"(": NodeType.OPEN,
-	")": NodeType.CLOSE,
-	",": NodeType.COMMA,
-	min: NodeType.MIN,
-	max: NodeType.MAX
-};
-
-const TOKEN_MAPPING_LITERAL: { [token: string]: NodeTypeLiteral | undefined } = {
-	"%": NodeType.PARENT,
-	s: NodeType.SELF,
-	p: NodeType.PADDING,
-	c: NodeType.CURRENT
-};
+export type DScalarExpressionNode =
+	| DScalarExpressionNodeParensesis
+	| DScalarExpressionNodeUnary
+	| DScalarExpressionNodeArithmetic
+	| DScalarExpressionNodeFunction
+	| DScalarExpressionNodeLiteral;
 
 /**
  * Parser and evaluator of the scalar expressions like `100% - 50s`.
@@ -168,17 +163,17 @@ const TOKEN_MAPPING_LITERAL: { [token: string]: NodeTypeLiteral | undefined } = 
  */
 export class DScalarExpression implements DScalar {
 	protected static TOKEN_REGEX = /(?:\+|-|\*|\/|\(|\)|min|max|,|(?:\d+(?:\.\d*)?[%psc]?))/g;
-	protected _node: Node;
+	protected _node: DScalarExpressionNode;
 
 	constructor(expression: string) {
-		const nodes: NodeOrToken[] = this.toToken(expression);
+		const nodes: DScalarExpressionNodeOrToken[] = this.toToken(expression);
 		let i = 0;
 		do {
 			i = this.toParensesis(nodes, i);
 		} while (i < nodes.length);
 		this.toUnary(nodes);
-		this.toArithmetic(nodes, NodeType.MUL, NodeType.DIV);
-		this.toArithmetic(nodes, NodeType.ADD, NodeType.SUB);
+		this.toArithmetic(nodes, DScalarExpressionNodeType.MUL, DScalarExpressionNodeType.DIV);
+		this.toArithmetic(nodes, DScalarExpressionNodeType.ADD, DScalarExpressionNodeType.SUB);
 		if (nodes.length === 1) {
 			const node = nodes[0];
 			if (!isNumber(node)) {
@@ -189,27 +184,30 @@ export class DScalarExpression implements DScalar {
 		throw new Error(`Failed to parse '${expression}'`);
 	}
 
-	toParensesis(nodes: NodeOrToken[], ifrom: number): number {
+	toParensesis(nodes: DScalarExpressionNodeOrToken[], ifrom: number): number {
 		let ito = nodes.length;
 		for (let i = ifrom; i < ito; ++i) {
 			const inode = nodes[i];
-			if (inode === NodeType.OPEN) {
+			if (inode === DScalarExpressionNodeType.OPEN) {
 				let istart = i;
-				let nodeType = NodeType.PARENSESIS;
+				let nodeType: DScalarExpressionNodeType = DScalarExpressionNodeType.PARENSESIS;
 				if (0 < i) {
 					const nodeTypePrev = nodes[i - 1];
-					if (nodeTypePrev === NodeType.MIN || nodeTypePrev === NodeType.MAX) {
+					if (
+						nodeTypePrev === DScalarExpressionNodeType.MIN ||
+						nodeTypePrev === DScalarExpressionNodeType.MAX
+					) {
 						istart -= 1;
 						nodeType = nodeTypePrev;
 					}
 				}
 				for (let j = i + 1; j < ito; ++j) {
 					const jnode = nodes[j];
-					if (jnode === NodeType.CLOSE) {
+					if (jnode === DScalarExpressionNodeType.CLOSE) {
 						nodes[istart] = [nodeType, this.toComma(nodes, i + 1, j)];
 						nodes.splice(istart + 1, j - istart);
 						return istart + 1;
-					} else if (jnode === NodeType.OPEN) {
+					} else if (jnode === DScalarExpressionNodeType.OPEN) {
 						j = this.toParensesis(nodes, j) - 1;
 						ito = nodes.length;
 					}
@@ -220,27 +218,35 @@ export class DScalarExpression implements DScalar {
 		return ito;
 	}
 
-	toCommaOf(nodes: NodeOrToken[], ifrom: number, ito: number): NodeOrToken {
+	toCommaOf(
+		nodes: DScalarExpressionNodeOrToken[],
+		ifrom: number,
+		ito: number
+	): DScalarExpressionNodeOrToken {
 		const l = ito - ifrom;
 		if (l <= 0) {
-			return [NodeType.NUMBER, 0];
+			return [DScalarExpressionNodeType.NUMBER, 0];
 		} else if (l <= 1) {
 			return nodes[ifrom];
 		} else {
-			const operand: NodeOrToken[] = [];
+			const operand: DScalarExpressionNodeOrToken[] = [];
 			for (let j = ifrom; j < ito; ++j) {
 				operand.push(nodes[j]);
 			}
-			return [NodeType.PARENSESIS, operand];
+			return [DScalarExpressionNodeType.PARENSESIS, operand];
 		}
 	}
 
-	toComma(nodes: NodeOrToken[], ifrom: number, ito: number): NodeOrToken[] {
-		let result: NodeOrToken[] | null = null;
+	toComma(
+		nodes: DScalarExpressionNodeOrToken[],
+		ifrom: number,
+		ito: number
+	): DScalarExpressionNodeOrToken[] {
+		let result: DScalarExpressionNodeOrToken[] | null = null;
 		let iprev = ifrom;
 		for (let i = ifrom; i < ito; ++i) {
 			const node = nodes[i];
-			if (node === NodeType.COMMA) {
+			if (node === DScalarExpressionNodeType.COMMA) {
 				result = result || [];
 				result.push(this.toCommaOf(nodes, iprev, i));
 				iprev = i + 1;
@@ -248,7 +254,7 @@ export class DScalarExpression implements DScalar {
 		}
 		if (iprev < ito) {
 			if (result == null) {
-				const operand: NodeOrToken[] = [];
+				const operand: DScalarExpressionNodeOrToken[] = [];
 				for (let i = iprev; i < ito; ++i) {
 					operand.push(nodes[i]);
 				}
@@ -260,26 +266,32 @@ export class DScalarExpression implements DScalar {
 		return result || [];
 	}
 
-	toUnaryNode(node: NodeOrToken): void {
+	toUnaryNode(node: DScalarExpressionNodeOrToken): void {
 		if (!isNumber(node)) {
 			if (
-				node[0] === NodeType.PARENSESIS ||
-				node[0] === NodeType.MIN ||
-				node[0] === NodeType.MAX
+				node[0] === DScalarExpressionNodeType.PARENSESIS ||
+				node[0] === DScalarExpressionNodeType.MIN ||
+				node[0] === DScalarExpressionNodeType.MAX
 			) {
 				this.toUnary(node[1]);
 			}
 		}
 	}
 
-	toUnary(nodes: NodeOrToken[]): void {
+	toUnary(nodes: DScalarExpressionNodeOrToken[]): void {
 		for (let i = 0, imax = nodes.length; i < imax; ++i) {
 			const node = nodes[i];
-			if (node === NodeType.ADD_OR_PLUS || node === NodeType.SUB_OR_MINUS) {
+			if (
+				node === DScalarExpressionNodeType.ADD_OR_PLUS ||
+				node === DScalarExpressionNodeType.SUB_OR_MINUS
+			) {
 				if (i <= 0 || isNumber(nodes[i - 1])) {
 					if (i + 1 < imax && !isNumber(nodes[i + 1])) {
 						const operand = nodes.splice(i + 1, 1)[0];
-						const type = node === NodeType.ADD_OR_PLUS ? NodeType.PLUS : NodeType.MINUS;
+						const type =
+							node === DScalarExpressionNodeType.ADD_OR_PLUS
+								? DScalarExpressionNodeType.PLUS
+								: DScalarExpressionNodeType.MINUS;
 						nodes[i] = [type, operand];
 						imax = nodes.length;
 						this.toUnaryNode(operand);
@@ -287,7 +299,10 @@ export class DScalarExpression implements DScalar {
 						throw new Error("Malformed unary operator");
 					}
 				} else {
-					const type = node === NodeType.ADD_OR_PLUS ? NodeType.ADD : NodeType.SUB;
+					const type =
+						node === DScalarExpressionNodeType.ADD_OR_PLUS
+							? DScalarExpressionNodeType.ADD
+							: DScalarExpressionNodeType.SUB;
 					nodes[i] = type;
 				}
 			} else {
@@ -298,24 +313,27 @@ export class DScalarExpression implements DScalar {
 	}
 
 	toArithmeticNode(
-		node: NodeOrToken,
-		operatorA: NodeArithmeticOperator,
-		operatorB: NodeArithmeticOperator
+		node: DScalarExpressionNodeOrToken,
+		operatorA: DScalarExpressionNodeArithmeticOperator,
+		operatorB: DScalarExpressionNodeArithmeticOperator
 	): void {
 		if (!isNumber(node)) {
 			if (
-				node[0] === NodeType.PARENSESIS ||
-				node[0] === NodeType.MIN ||
-				node[0] === NodeType.MAX
+				node[0] === DScalarExpressionNodeType.PARENSESIS ||
+				node[0] === DScalarExpressionNodeType.MIN ||
+				node[0] === DScalarExpressionNodeType.MAX
 			) {
 				this.toArithmetic(node[1], operatorA, operatorB);
-			} else if (node[0] === NodeType.PLUS || node[0] === NodeType.MINUS) {
+			} else if (
+				node[0] === DScalarExpressionNodeType.PLUS ||
+				node[0] === DScalarExpressionNodeType.MINUS
+			) {
 				this.toArithmeticNode(node[1], operatorA, operatorB);
 			} else if (
-				node[0] === NodeType.ADD ||
-				node[0] === NodeType.SUB ||
-				node[0] === NodeType.MUL ||
-				node[0] === NodeType.DIV
+				node[0] === DScalarExpressionNodeType.ADD ||
+				node[0] === DScalarExpressionNodeType.SUB ||
+				node[0] === DScalarExpressionNodeType.MUL ||
+				node[0] === DScalarExpressionNodeType.DIV
 			) {
 				this.toArithmeticNode(node[1], operatorA, operatorB);
 				this.toArithmeticNode(node[2], operatorA, operatorB);
@@ -324,9 +342,9 @@ export class DScalarExpression implements DScalar {
 	}
 
 	toArithmetic(
-		nodes: NodeOrToken[],
-		operatorA: NodeArithmeticOperator,
-		operatorB: NodeArithmeticOperator
+		nodes: DScalarExpressionNodeOrToken[],
+		operatorA: DScalarExpressionNodeArithmeticOperator,
+		operatorB: DScalarExpressionNodeArithmeticOperator
 	): void {
 		for (let i = 0, imax = nodes.length; i < imax; ++i) {
 			const node = nodes[i];
@@ -352,13 +370,13 @@ export class DScalarExpression implements DScalar {
 		}
 	}
 
-	toToken(expression: string): Token[] {
-		const tokens: Token[] = [];
+	toToken(expression: string): DScalarExpressionToken[] {
+		const tokens: DScalarExpressionToken[] = [];
 		while (true) {
 			const matched = DScalarExpression.TOKEN_REGEX.exec(expression);
 			if (matched != null) {
 				const token = matched[0];
-				const tokenTypeOperator = TOKEN_MAPPING_OPERATOR[token];
+				const tokenTypeOperator = this.toTokenOperator(token);
 				if (tokenTypeOperator != null) {
 					tokens.push(tokenTypeOperator);
 				} else {
@@ -369,11 +387,11 @@ export class DScalarExpression implements DScalar {
 						);
 					}
 
-					const tokenTypeLiteral = TOKEN_MAPPING_LITERAL[token[token.length - 1]];
+					const tokenTypeLiteral = this.toTokenLiteral(token);
 					if (tokenTypeLiteral != null) {
 						tokens.push([tokenTypeLiteral, parsedToken * 0.01]);
 					} else {
-						tokens.push([NodeType.NUMBER, parsedToken]);
+						tokens.push([DScalarExpressionNodeType.NUMBER, parsedToken]);
 					}
 				}
 			} else {
@@ -383,49 +401,90 @@ export class DScalarExpression implements DScalar {
 		return tokens;
 	}
 
+	toTokenOperator(token: string): DScalarExpressionNodeTypeOperator | null {
+		switch (token) {
+			case "+":
+				return DScalarExpressionNodeType.ADD_OR_PLUS;
+			case "-":
+				return DScalarExpressionNodeType.SUB_OR_MINUS;
+			case "*":
+				return DScalarExpressionNodeType.MUL;
+			case "/":
+				return DScalarExpressionNodeType.DIV;
+			case "(":
+				return DScalarExpressionNodeType.OPEN;
+			case ")":
+				return DScalarExpressionNodeType.CLOSE;
+			case ",":
+				return DScalarExpressionNodeType.COMMA;
+			case "min":
+				return DScalarExpressionNodeType.MIN;
+			case "max":
+				return DScalarExpressionNodeType.MAX;
+		}
+		return null;
+	}
+
+	toTokenLiteral(token: string): DScalarExpressionNodeTypeLiteral | null {
+		const tokenLength = token.length;
+		if (0 < tokenLength) {
+			switch (token[tokenLength - 1]) {
+				case "%":
+					return DScalarExpressionNodeType.PARENT;
+				case "s":
+					return DScalarExpressionNodeType.SELF;
+				case "p":
+					return DScalarExpressionNodeType.PADDING;
+				case "c":
+					return DScalarExpressionNodeType.CURRENT;
+			}
+		}
+		return null;
+	}
+
 	protected evaluate(
-		node: Node,
+		node: DScalarExpressionNode,
 		parent: number,
 		self: number,
 		padding: number,
 		current: number
 	): number {
 		switch (node[0]) {
-			case NodeType.PARENSESIS:
+			case DScalarExpressionNodeType.PARENSESIS:
 				const nodes = node[1];
 				return this.evaluate(nodes[nodes.length - 1], parent, self, padding, current);
 
 			// Unary operators
-			case NodeType.PLUS:
+			case DScalarExpressionNodeType.PLUS:
 				return +this.evaluate(node[1], parent, self, padding, current);
 
-			case NodeType.MINUS:
+			case DScalarExpressionNodeType.MINUS:
 				return -this.evaluate(node[1], parent, self, padding, current);
 
 			// Four arithmetic operators
-			case NodeType.ADD:
+			case DScalarExpressionNodeType.ADD:
 				return (
 					this.evaluate(node[1], parent, self, padding, current) +
 					this.evaluate(node[2], parent, self, padding, current)
 				);
-			case NodeType.SUB:
+			case DScalarExpressionNodeType.SUB:
 				return (
 					this.evaluate(node[1], parent, self, padding, current) -
 					this.evaluate(node[2], parent, self, padding, current)
 				);
-			case NodeType.MUL:
+			case DScalarExpressionNodeType.MUL:
 				return (
 					this.evaluate(node[1], parent, self, padding, current) *
 					this.evaluate(node[2], parent, self, padding, current)
 				);
-			case NodeType.DIV:
+			case DScalarExpressionNodeType.DIV:
 				return (
 					this.evaluate(node[1], parent, self, padding, current) /
 					this.evaluate(node[2], parent, self, padding, current)
 				);
 
 			// Functions
-			case NodeType.MIN:
+			case DScalarExpressionNodeType.MIN:
 				if (0 < node[1].length) {
 					const args = node[1];
 					let result = this.evaluate(args[0], parent, self, padding, current);
@@ -438,7 +497,7 @@ export class DScalarExpression implements DScalar {
 					return result;
 				}
 				return 0;
-			case NodeType.MAX:
+			case DScalarExpressionNodeType.MAX:
 				if (0 < node[1].length) {
 					const args = node[1];
 					let result = this.evaluate(args[0], parent, self, padding, current);
@@ -453,15 +512,15 @@ export class DScalarExpression implements DScalar {
 				return 0;
 
 			// Literals
-			case NodeType.PARENT:
+			case DScalarExpressionNodeType.PARENT:
 				return node[1] * parent;
-			case NodeType.SELF:
+			case DScalarExpressionNodeType.SELF:
 				return node[1] * self;
-			case NodeType.PADDING:
+			case DScalarExpressionNodeType.PADDING:
 				return node[1] * padding;
-			case NodeType.CURRENT:
+			case DScalarExpressionNodeType.CURRENT:
 				return node[1] * current;
-			case NodeType.NUMBER:
+			case DScalarExpressionNodeType.NUMBER:
 				return node[1];
 		}
 

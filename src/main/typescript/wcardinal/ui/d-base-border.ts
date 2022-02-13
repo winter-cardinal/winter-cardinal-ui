@@ -11,8 +11,6 @@ import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
 import { toEnum } from "./util/to-enum";
 
-type Callback = () => void;
-
 export class DBaseBorder implements DBorderStateAware {
 	protected _theme: DThemeBase;
 	protected _color?: DStateAwareOrValueMightBe<number | null>;
@@ -20,9 +18,9 @@ export class DBaseBorder implements DBorderStateAware {
 	protected _width?: DStateAwareOrValueMightBe<number>;
 	protected _align?: DStateAwareOrValueMightBe<number>;
 	protected _mask?: DStateAwareOrValueMightBe<DBorderMask>;
-	protected _callback: Callback | undefined;
+	protected _callback?: () => void;
 
-	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: Callback) {
+	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: () => void) {
 		this._theme = theme;
 		this._callback = callback;
 		const border = options?.border;

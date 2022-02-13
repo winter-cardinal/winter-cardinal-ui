@@ -11,16 +11,18 @@ import { DDynamicTextStyle, DDynamicTextStyleOptions } from "./d-dynamic-text-st
 import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
 
-interface Clipping {
+export interface DDynamicTextClippingDelta {
+	width: number;
+	height: number;
+}
+
+export interface DDynamicTextClipping {
 	enable: boolean;
 	wordWrap: DDynamicTextStyleWordWrap;
 	width: number;
 	height: number;
 	lineHeight: number;
-	delta: {
-		width: number;
-		height: number;
-	};
+	delta: DDynamicTextClippingDelta;
 }
 
 export class DDynamicText extends Mesh {
@@ -33,7 +35,7 @@ export class DDynamicText extends Mesh {
 	protected _atlasRevisionUpdated: number;
 	protected _width: number;
 	protected _height: number;
-	protected _clipping: Clipping;
+	protected _clipping: DDynamicTextClipping;
 
 	readonly geometry!: DDynamicTextGeometry;
 
@@ -181,7 +183,7 @@ export class DDynamicText extends Mesh {
 		}
 	}
 
-	protected updateClipping(style: DDynamicTextStyle, clipping: Clipping): boolean {
+	protected updateClipping(style: DDynamicTextStyle, clipping: DDynamicTextClipping): boolean {
 		let isChanged = false;
 
 		const styleClipping = style.clipping;

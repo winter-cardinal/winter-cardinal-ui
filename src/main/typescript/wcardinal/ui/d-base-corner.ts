@@ -9,13 +9,11 @@ import { DCornerMask } from "./d-corner-mask";
 import { isNumber } from "./util/is-number";
 import { toEnum } from "./util/to-enum";
 
-type Callback = () => void;
-
 export class DBaseCorner implements DCorner {
 	protected _theme: DThemeBase;
 	protected _radius?: number;
 	protected _mask?: DCornerMask;
-	protected _callback: Callback | undefined;
+	protected _callback?: () => void;
 
 	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: () => void) {
 		this._theme = theme;

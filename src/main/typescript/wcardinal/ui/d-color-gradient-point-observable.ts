@@ -5,13 +5,11 @@
 
 import { DColorGradientPoint } from "./d-color-gradient";
 
-type Callback = (target: DColorGradientPointObservable) => void;
-
 export class DColorGradientPointObservable implements DColorGradientPoint {
 	protected _color: number;
 	protected _alpha: number;
 	protected _position: number;
-	protected _callback: Callback;
+	protected _callback: (target: DColorGradientPointObservable) => void;
 	protected _selected: boolean;
 
 	constructor(
@@ -19,7 +17,7 @@ export class DColorGradientPointObservable implements DColorGradientPoint {
 		alpha: number,
 		position: number,
 		selected: boolean,
-		callback: Callback
+		callback: (target: DColorGradientPointObservable) => void
 	) {
 		this._color = color;
 		this._alpha = alpha;

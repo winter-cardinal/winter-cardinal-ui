@@ -9,16 +9,16 @@ import { DLayoutOptions } from "./d-layout";
 import { DLayoutHorizontal, DThemeLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace, DLayoutSpaceOptions } from "./d-layout-space";
 
-interface InputOptions {
+export interface DInputAndLabelInputOptions {
 	weight?: number;
 }
 
-interface Input extends DisplayObject {
+export interface DInputAndLabelInput extends DisplayObject {
 	readonly height: number;
 }
 
 export interface DInputAndLabelOptions<
-	INPUT_OPTIONS extends InputOptions = InputOptions,
+	INPUT_OPTIONS extends DInputAndLabelInputOptions = DInputAndLabelInputOptions,
 	THEME extends DThemeInputAndLabel = DThemeInputAndLabel
 > extends DLayoutOptions<THEME> {
 	input?: INPUT_OPTIONS;
@@ -29,8 +29,8 @@ export interface DInputAndLabelOptions<
 export interface DThemeInputAndLabel extends DThemeLayoutHorizontal {}
 
 export abstract class DInputAndLabel<
-	INPUT extends Input,
-	INPUT_OPTIONS extends InputOptions,
+	INPUT extends DInputAndLabelInput,
+	INPUT_OPTIONS extends DInputAndLabelInputOptions,
 	THEME extends DThemeInputAndLabel = DThemeInputAndLabel,
 	OPTIONS extends DInputAndLabelOptions<INPUT_OPTIONS, THEME> = DInputAndLabelOptions<
 		INPUT_OPTIONS,

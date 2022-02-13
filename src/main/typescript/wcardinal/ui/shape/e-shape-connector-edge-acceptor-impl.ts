@@ -6,7 +6,7 @@
 import { EShape } from "./e-shape";
 import { EShapeConnectorEdgeAcceptor } from "./e-shape-connector-edge-acceptor";
 
-interface EShapeConnectorEdgeAcceptorImplParent {
+export interface EShapeConnectorEdgeAcceptorImplParent {
 	onAcceptorChange(): void;
 }
 

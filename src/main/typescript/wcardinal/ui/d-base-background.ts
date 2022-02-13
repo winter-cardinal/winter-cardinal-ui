@@ -9,15 +9,13 @@ import { DBaseStateSet } from "./d-base-state-set";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
 
-type Callback = () => void;
-
 export class DBaseBackground implements DBackgroundStateAware {
 	protected _theme: DThemeBase;
 	protected _color?: DStateAwareOrValueMightBe<number | null>;
 	protected _alpha?: DStateAwareOrValueMightBe<number>;
-	protected _callback: Callback | undefined;
+	protected _callback?: () => void;
 
-	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: Callback) {
+	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: () => void) {
 		this._theme = theme;
 		this._callback = callback;
 		const background = options?.background;

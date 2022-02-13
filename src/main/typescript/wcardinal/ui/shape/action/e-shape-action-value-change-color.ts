@@ -15,7 +15,7 @@ import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
-type Target =
+export type EShapeActionValueChangeColorTargetColorOrAlpha =
 	| typeof EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA
 	| typeof EShapeActionValueChangeColorTarget.COLOR
 	| typeof EShapeActionValueChangeColorTarget.ALPHA;
@@ -24,7 +24,7 @@ export type EShapeActionValueChangeColorSerialized = [
 	typeof EShapeActionValueType.CHANGE_COLOR,
 	number,
 	EShapeActionValueChangeColorType,
-	Target,
+	EShapeActionValueChangeColorTargetColorOrAlpha,
 	number,
 	number,
 	number
@@ -34,14 +34,14 @@ export type EShapeActionValueChangeColorSerializedLegacy = [
 	typeof EShapeActionValueType.CHANGE_COLOR_LEGACY,
 	number,
 	EShapeActionValueChangeColorTypeLegacy,
-	Target,
+	EShapeActionValueChangeColorTargetColorOrAlpha,
 	number,
 	number,
 	number
 ];
 
 export class EShapeActionValueChangeColor extends EShapeActionValueSubtyped<EShapeActionValueChangeColorType> {
-	readonly target: Target;
+	readonly target: EShapeActionValueChangeColorTargetColorOrAlpha;
 	readonly color: number;
 	readonly alpha: number;
 	readonly blend: string;
@@ -49,7 +49,7 @@ export class EShapeActionValueChangeColor extends EShapeActionValueSubtyped<ESha
 	constructor(
 		subtype: EShapeActionValueChangeColorType,
 		condition: string,
-		target: Target,
+		target: EShapeActionValueChangeColorTargetColorOrAlpha,
 		color: number,
 		alpha: number,
 		blend: string

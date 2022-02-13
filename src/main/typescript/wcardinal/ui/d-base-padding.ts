@@ -7,15 +7,13 @@ import { DBaseOptions, DThemeBase } from "./d-base";
 import { DPadding } from "./d-padding";
 import { isNumber } from "./util/is-number";
 
-type Callback = () => void;
-
 export class DBasePadding implements DPadding {
 	protected _theme: DThemeBase;
 	protected _left?: number;
 	protected _top?: number;
 	protected _right?: number;
 	protected _bottom?: number;
-	protected _callback: Callback | undefined;
+	protected _callback?: () => void;
 
 	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: () => void) {
 		this._theme = theme;
@@ -44,7 +42,7 @@ export class DBasePadding implements DPadding {
 		this._theme = theme;
 	}
 
-	getCallback(): Callback | undefined {
+	getCallback(): (() => void) | undefined {
 		return this._callback;
 	}
 

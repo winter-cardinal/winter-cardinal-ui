@@ -11,7 +11,7 @@ import {
 	DChartSeriesCoordinateOptions
 } from "./d-chart-series-coordinate";
 
-interface DChartSeriesBaseCoordinateContainerParent<CHART extends DBase = DBase> {
+export interface DChartSeriesBaseCoordinateContainerParent<CHART extends DBase = DBase> {
 	container: DChartSeriesContainer<CHART> | null;
 }
 
