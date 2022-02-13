@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.154.0
+ Winter Cardinal UI v0.155.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -6243,8 +6243,11 @@
         DThemeWhitePagination.prototype.getWidth = function () {
             return "auto";
         };
-        DThemeWhitePagination.prototype.getButtonWidth = function () {
-            return 30;
+        DThemeWhitePagination.prototype.getMargin = function () {
+            return 10;
+        };
+        DThemeWhitePagination.prototype.getButtonSpace = function () {
+            return 10;
         };
         return DThemeWhitePagination;
     }(DThemeWhiteLayoutHorizontal));
@@ -6253,65 +6256,178 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeWhitePaginationDotsButton = /** @class */ (function (_super) {
-        __extends(DThemeWhitePaginationDotsButton, _super);
-        function DThemeWhitePaginationDotsButton() {
+    /* eslint-disable prettier/prettier */
+    DThemeWhiteAtlas.add("pagination_dots", 21, 21, "<g>" +
+        "<circle cx=\"2\" cy=\"15\" r=\"1.1\" fill=\"#fff\" stroke=\"none\" />" +
+        "<circle cx=\"10.5\" cy=\"15\" r=\"1.1\" fill=\"#fff\" stroke=\"none\" />" +
+        "<circle cx=\"19\" cy=\"15\" r=\"1.1\" fill=\"#fff\" stroke=\"none\" />" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var DThemeWhitePaginationDots = /** @class */ (function (_super) {
+        __extends(DThemeWhitePaginationDots, _super);
+        function DThemeWhitePaginationDots() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhitePaginationDotsButton.prototype.getBackgroundColor = function (state) {
-            return null;
+        DThemeWhitePaginationDots.prototype.getWidth = function () {
+            return 30;
         };
-        DThemeWhitePaginationDotsButton.prototype.getBorderColor = function (state) {
-            return null;
+        DThemeWhitePaginationDots.prototype.getHeight = function () {
+            return 30;
         };
-        DThemeWhitePaginationDotsButton.prototype.newTextValue = function () {
-            return "...";
+        DThemeWhitePaginationDots.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
         };
-        return DThemeWhitePaginationDotsButton;
-    }(DThemeWhiteButtonAmbient));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemeWhitePaginationDynamicButtons = /** @class */ (function (_super) {
-        __extends(DThemeWhitePaginationDynamicButtons, _super);
-        function DThemeWhitePaginationDynamicButtons() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeWhitePaginationDynamicButtons.prototype.getWidth = function () {
-            return "auto";
+        DThemeWhitePaginationDots.prototype.getImageSource = function (state) {
+            return DThemeWhiteAtlas.mappings.pagination_dots;
         };
-        return DThemeWhitePaginationDynamicButtons;
-    }(DThemeWhiteLayoutHorizontal));
+        return DThemeWhitePaginationDots;
+    }(DThemeWhiteImageBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     /* eslint-disable prettier/prettier */
-    DThemeWhiteAtlas.add("pagination_navigation_button_previous", 21, 21, "<g>" +
-        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"13 15 7 10 13 5\"></polyline>" +
-        "</g>");
-    DThemeWhiteAtlas.add("pagination_navigation_button_next", 21, 21, "<g>" +
-        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"7 15 13 10 7 5\"></polyline>" +
-        "</g>");
-    DThemeWhiteAtlas.add("pagination_navigation_button_go_first", 21, 21, "<g>" +
-        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"11 15 5 10 11 5\"></polyline>" +
-        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"15 15 9 10 15 5\"></polyline>" +
-        "</g>");
-    DThemeWhiteAtlas.add("pagination_navigation_button_go_last", 21, 21, "<g>" +
+    DThemeWhiteAtlas.add("pagination_button_last", 21, 21, "<g>" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"9 15 15 10 9 5\"></polyline>" +
         "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"5 15 11 10 5 5\"></polyline>" +
         "</g>");
     /* eslint-enable prettier/prettier */
-    var DThemeWhitePaginationNavigationButton = /** @class */ (function (_super) {
-        __extends(DThemeWhitePaginationNavigationButton, _super);
-        function DThemeWhitePaginationNavigationButton() {
+    var DThemeWhitePaginationButtonLast = /** @class */ (function (_super) {
+        __extends(DThemeWhitePaginationButtonLast, _super);
+        function DThemeWhitePaginationButtonLast() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        return DThemeWhitePaginationNavigationButton;
+        DThemeWhitePaginationButtonLast.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeWhitePaginationButtonLast.prototype.getImageSource = function (state) {
+            return DThemeWhiteAtlas.mappings.pagination_button_last;
+        };
+        return DThemeWhitePaginationButtonLast;
     }(DThemeWhiteButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    DThemeWhiteAtlas.add("pagination_button_next", 21, 21, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"7 15 13 10 7 5\"></polyline>" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var DThemeWhitePaginationButtonNext = /** @class */ (function (_super) {
+        __extends(DThemeWhitePaginationButtonNext, _super);
+        function DThemeWhitePaginationButtonNext() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhitePaginationButtonNext.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeWhitePaginationButtonNext.prototype.getImageSource = function (state) {
+            return DThemeWhiteAtlas.mappings.pagination_button_next;
+        };
+        return DThemeWhitePaginationButtonNext;
+    }(DThemeWhiteButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhitePaginationButtonPage = /** @class */ (function (_super) {
+        __extends(DThemeWhitePaginationButtonPage, _super);
+        function DThemeWhitePaginationButtonPage() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhitePaginationButtonPage.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeWhitePaginationButtonPage.prototype.newTextValue = function () {
+            return 0;
+        };
+        DThemeWhitePaginationButtonPage.prototype.getTextStyleClipping = function () {
+            return false;
+        };
+        return DThemeWhitePaginationButtonPage;
+    }(DThemeWhiteButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    DThemeWhiteAtlas.add("pagination_button_previous", 21, 21, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"13 15 7 10 13 5\"></polyline>" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var DThemeWhitePaginationButtonPrevious = /** @class */ (function (_super) {
+        __extends(DThemeWhitePaginationButtonPrevious, _super);
+        function DThemeWhitePaginationButtonPrevious() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhitePaginationButtonPrevious.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeWhitePaginationButtonPrevious.prototype.getImageSource = function (state) {
+            return DThemeWhiteAtlas.mappings.pagination_button_previous;
+        };
+        return DThemeWhitePaginationButtonPrevious;
+    }(DThemeWhiteButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    DThemeWhiteAtlas.add("pagination_button_top", 21, 21, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"11 15 5 10 11 5\"></polyline>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"15 15 9 10 15 5\"></polyline>" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var DThemeWhitePaginationButtonTop = /** @class */ (function (_super) {
+        __extends(DThemeWhitePaginationButtonTop, _super);
+        function DThemeWhitePaginationButtonTop() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhitePaginationButtonTop.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeWhitePaginationButtonTop.prototype.getImageSource = function (state) {
+            return DThemeWhiteAtlas.mappings.pagination_button_top;
+        };
+        return DThemeWhitePaginationButtonTop;
+    }(DThemeWhiteButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhitePaginationPage = /** @class */ (function (_super) {
+        __extends(DThemeWhitePaginationPage, _super);
+        function DThemeWhitePaginationPage() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhitePaginationPage.prototype.getBackgroundColor = function (state) {
+            return DThemeWhiteConstants.HIGHLIGHT_COLOR;
+        };
+        DThemeWhitePaginationPage.prototype.getColor = function (state) {
+            return DThemeWhiteConstants.ACTIVE_COLOR;
+        };
+        DThemeWhitePaginationPage.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeWhitePaginationPage.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeWhitePaginationPage.prototype.getTextStyleClipping = function () {
+            return false;
+        };
+        DThemeWhitePaginationPage.prototype.getTextAlignHorizontal = function () {
+            return DAlignHorizontal.CENTER;
+        };
+        return DThemeWhitePaginationPage;
+    }(DThemeWhiteImageBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -6319,9 +6435,13 @@
      */
     var loadThemeWhitePagination = function () {
         DThemeWhite.set("DPagination", DThemeWhitePagination);
-        DThemeWhite.set("DPaginationNavigationButton", DThemeWhitePaginationNavigationButton);
-        DThemeWhite.set("DPaginationDynamicButtons", DThemeWhitePaginationDynamicButtons);
-        DThemeWhite.set("DPaginationDotsButton", DThemeWhitePaginationDotsButton);
+        DThemeWhite.set("DPaginationPage", DThemeWhitePaginationPage);
+        DThemeWhite.set("DPaginationDots", DThemeWhitePaginationDots);
+        DThemeWhite.set("DPaginationButtonLast", DThemeWhitePaginationButtonLast);
+        DThemeWhite.set("DPaginationButtonNext", DThemeWhitePaginationButtonNext);
+        DThemeWhite.set("DPaginationButtonPage", DThemeWhitePaginationButtonPage);
+        DThemeWhite.set("DPaginationButtonPrevious", DThemeWhitePaginationButtonPrevious);
+        DThemeWhite.set("DPaginationButtonTop", DThemeWhitePaginationButtonTop);
     };
 
     /*
@@ -8804,10 +8924,14 @@
         DThemeWhiteNoteSmallSearching: DThemeWhiteNoteSmallSearching,
         DThemeWhiteNoteSmall: DThemeWhiteNoteSmall,
         DThemeWhiteNote: DThemeWhiteNote,
+        DThemeWhitePaginationButtonLast: DThemeWhitePaginationButtonLast,
+        DThemeWhitePaginationButtonNext: DThemeWhitePaginationButtonNext,
+        DThemeWhitePaginationButtonPage: DThemeWhitePaginationButtonPage,
+        DThemeWhitePaginationButtonPrevious: DThemeWhitePaginationButtonPrevious,
+        DThemeWhitePaginationButtonTop: DThemeWhitePaginationButtonTop,
+        DThemeWhitePaginationDots: DThemeWhitePaginationDots,
+        DThemeWhitePaginationPage: DThemeWhitePaginationPage,
         DThemeWhitePagination: DThemeWhitePagination,
-        DThemeWhitePaginationNavigationButton: DThemeWhitePaginationNavigationButton,
-        DThemeWhitePaginationDynamicButtons: DThemeWhitePaginationDynamicButtons,
-        DThemeWhitePaginationDotsButton: DThemeWhitePaginationDotsButton,
         DThemeWhitePane: DThemeWhitePane,
         DThemeWhitePickerColorGradient: DThemeWhitePickerColorGradient,
         DThemeWhitePickerColor: DThemeWhitePickerColor,

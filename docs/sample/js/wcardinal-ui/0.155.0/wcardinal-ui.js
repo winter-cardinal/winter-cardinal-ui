@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.154.0
+ Winter Cardinal UI v0.155.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -11259,48 +11259,30 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var NodeType;
-    (function (NodeType) {
+    var DScalarExpressionNodeType = {
         // Parensesis
-        NodeType[NodeType["OPEN"] = 0] = "OPEN";
-        NodeType[NodeType["CLOSE"] = 1] = "CLOSE";
-        NodeType[NodeType["PARENSESIS"] = 2] = "PARENSESIS";
+        OPEN: 0,
+        CLOSE: 1,
+        PARENSESIS: 2,
         // Operations
-        NodeType[NodeType["ADD_OR_PLUS"] = 3] = "ADD_OR_PLUS";
-        NodeType[NodeType["SUB_OR_MINUS"] = 4] = "SUB_OR_MINUS";
-        NodeType[NodeType["PLUS"] = 5] = "PLUS";
-        NodeType[NodeType["MINUS"] = 6] = "MINUS";
-        NodeType[NodeType["ADD"] = 7] = "ADD";
-        NodeType[NodeType["SUB"] = 8] = "SUB";
-        NodeType[NodeType["MUL"] = 9] = "MUL";
-        NodeType[NodeType["DIV"] = 10] = "DIV";
+        ADD_OR_PLUS: 3,
+        SUB_OR_MINUS: 4,
+        PLUS: 5,
+        MINUS: 6,
+        ADD: 7,
+        SUB: 8,
+        MUL: 9,
+        DIV: 10,
         // Functions
-        NodeType[NodeType["MIN"] = 11] = "MIN";
-        NodeType[NodeType["MAX"] = 12] = "MAX";
-        NodeType[NodeType["COMMA"] = 13] = "COMMA";
+        MIN: 11,
+        MAX: 12,
+        COMMA: 13,
         // Literals
-        NodeType[NodeType["PARENT"] = 14] = "PARENT";
-        NodeType[NodeType["SELF"] = 15] = "SELF";
-        NodeType[NodeType["PADDING"] = 16] = "PADDING";
-        NodeType[NodeType["CURRENT"] = 17] = "CURRENT";
-        NodeType[NodeType["NUMBER"] = 18] = "NUMBER";
-    })(NodeType || (NodeType = {}));
-    var TOKEN_MAPPING_OPERATOR = {
-        "+": 3 /* ADD_OR_PLUS */,
-        "-": 4 /* SUB_OR_MINUS */,
-        "*": 9 /* MUL */,
-        "/": 10 /* DIV */,
-        "(": 0 /* OPEN */,
-        ")": 1 /* CLOSE */,
-        ",": 13 /* COMMA */,
-        min: 11 /* MIN */,
-        max: 12 /* MAX */
-    };
-    var TOKEN_MAPPING_LITERAL = {
-        "%": 14 /* PARENT */,
-        s: 15 /* SELF */,
-        p: 16 /* PADDING */,
-        c: 17 /* CURRENT */
+        PARENT: 14,
+        SELF: 15,
+        PADDING: 16,
+        CURRENT: 17,
+        NUMBER: 18
     };
     /**
      * Parser and evaluator of the scalar expressions like `100% - 50s`.
@@ -11340,8 +11322,8 @@
                 i = this.toParensesis(nodes, i);
             } while (i < nodes.length);
             this.toUnary(nodes);
-            this.toArithmetic(nodes, 9 /* MUL */, 10 /* DIV */);
-            this.toArithmetic(nodes, 7 /* ADD */, 8 /* SUB */);
+            this.toArithmetic(nodes, DScalarExpressionNodeType.MUL, DScalarExpressionNodeType.DIV);
+            this.toArithmetic(nodes, DScalarExpressionNodeType.ADD, DScalarExpressionNodeType.SUB);
             if (nodes.length === 1) {
                 var node = nodes[0];
                 if (!isNumber(node)) {
@@ -11355,24 +11337,25 @@
             var ito = nodes.length;
             for (var i = ifrom; i < ito; ++i) {
                 var inode = nodes[i];
-                if (inode === 0 /* OPEN */) {
+                if (inode === DScalarExpressionNodeType.OPEN) {
                     var istart = i;
-                    var nodeType = 2 /* PARENSESIS */;
+                    var nodeType = DScalarExpressionNodeType.PARENSESIS;
                     if (0 < i) {
                         var nodeTypePrev = nodes[i - 1];
-                        if (nodeTypePrev === 11 /* MIN */ || nodeTypePrev === 12 /* MAX */) {
+                        if (nodeTypePrev === DScalarExpressionNodeType.MIN ||
+                            nodeTypePrev === DScalarExpressionNodeType.MAX) {
                             istart -= 1;
                             nodeType = nodeTypePrev;
                         }
                     }
                     for (var j = i + 1; j < ito; ++j) {
                         var jnode = nodes[j];
-                        if (jnode === 1 /* CLOSE */) {
+                        if (jnode === DScalarExpressionNodeType.CLOSE) {
                             nodes[istart] = [nodeType, this.toComma(nodes, i + 1, j)];
                             nodes.splice(istart + 1, j - istart);
                             return istart + 1;
                         }
-                        else if (jnode === 0 /* OPEN */) {
+                        else if (jnode === DScalarExpressionNodeType.OPEN) {
                             j = this.toParensesis(nodes, j) - 1;
                             ito = nodes.length;
                         }
@@ -11385,7 +11368,7 @@
         DScalarExpression.prototype.toCommaOf = function (nodes, ifrom, ito) {
             var l = ito - ifrom;
             if (l <= 0) {
-                return [18 /* NUMBER */, 0];
+                return [DScalarExpressionNodeType.NUMBER, 0];
             }
             else if (l <= 1) {
                 return nodes[ifrom];
@@ -11395,7 +11378,7 @@
                 for (var j = ifrom; j < ito; ++j) {
                     operand.push(nodes[j]);
                 }
-                return [2 /* PARENSESIS */, operand];
+                return [DScalarExpressionNodeType.PARENSESIS, operand];
             }
         };
         DScalarExpression.prototype.toComma = function (nodes, ifrom, ito) {
@@ -11403,7 +11386,7 @@
             var iprev = ifrom;
             for (var i = ifrom; i < ito; ++i) {
                 var node = nodes[i];
-                if (node === 13 /* COMMA */) {
+                if (node === DScalarExpressionNodeType.COMMA) {
                     result = result || [];
                     result.push(this.toCommaOf(nodes, iprev, i));
                     iprev = i + 1;
@@ -11425,9 +11408,9 @@
         };
         DScalarExpression.prototype.toUnaryNode = function (node) {
             if (!isNumber(node)) {
-                if (node[0] === 2 /* PARENSESIS */ ||
-                    node[0] === 11 /* MIN */ ||
-                    node[0] === 12 /* MAX */) {
+                if (node[0] === DScalarExpressionNodeType.PARENSESIS ||
+                    node[0] === DScalarExpressionNodeType.MIN ||
+                    node[0] === DScalarExpressionNodeType.MAX) {
                     this.toUnary(node[1]);
                 }
             }
@@ -11435,11 +11418,14 @@
         DScalarExpression.prototype.toUnary = function (nodes) {
             for (var i = 0, imax = nodes.length; i < imax; ++i) {
                 var node = nodes[i];
-                if (node === 3 /* ADD_OR_PLUS */ || node === 4 /* SUB_OR_MINUS */) {
+                if (node === DScalarExpressionNodeType.ADD_OR_PLUS ||
+                    node === DScalarExpressionNodeType.SUB_OR_MINUS) {
                     if (i <= 0 || isNumber(nodes[i - 1])) {
                         if (i + 1 < imax && !isNumber(nodes[i + 1])) {
                             var operand = nodes.splice(i + 1, 1)[0];
-                            var type = node === 3 /* ADD_OR_PLUS */ ? 5 /* PLUS */ : 6 /* MINUS */;
+                            var type = node === DScalarExpressionNodeType.ADD_OR_PLUS
+                                ? DScalarExpressionNodeType.PLUS
+                                : DScalarExpressionNodeType.MINUS;
                             nodes[i] = [type, operand];
                             imax = nodes.length;
                             this.toUnaryNode(operand);
@@ -11449,7 +11435,9 @@
                         }
                     }
                     else {
-                        var type = node === 3 /* ADD_OR_PLUS */ ? 7 /* ADD */ : 8 /* SUB */;
+                        var type = node === DScalarExpressionNodeType.ADD_OR_PLUS
+                            ? DScalarExpressionNodeType.ADD
+                            : DScalarExpressionNodeType.SUB;
                         nodes[i] = type;
                     }
                 }
@@ -11461,18 +11449,19 @@
         };
         DScalarExpression.prototype.toArithmeticNode = function (node, operatorA, operatorB) {
             if (!isNumber(node)) {
-                if (node[0] === 2 /* PARENSESIS */ ||
-                    node[0] === 11 /* MIN */ ||
-                    node[0] === 12 /* MAX */) {
+                if (node[0] === DScalarExpressionNodeType.PARENSESIS ||
+                    node[0] === DScalarExpressionNodeType.MIN ||
+                    node[0] === DScalarExpressionNodeType.MAX) {
                     this.toArithmetic(node[1], operatorA, operatorB);
                 }
-                else if (node[0] === 5 /* PLUS */ || node[0] === 6 /* MINUS */) {
+                else if (node[0] === DScalarExpressionNodeType.PLUS ||
+                    node[0] === DScalarExpressionNodeType.MINUS) {
                     this.toArithmeticNode(node[1], operatorA, operatorB);
                 }
-                else if (node[0] === 7 /* ADD */ ||
-                    node[0] === 8 /* SUB */ ||
-                    node[0] === 9 /* MUL */ ||
-                    node[0] === 10 /* DIV */) {
+                else if (node[0] === DScalarExpressionNodeType.ADD ||
+                    node[0] === DScalarExpressionNodeType.SUB ||
+                    node[0] === DScalarExpressionNodeType.MUL ||
+                    node[0] === DScalarExpressionNodeType.DIV) {
                     this.toArithmeticNode(node[1], operatorA, operatorB);
                     this.toArithmeticNode(node[2], operatorA, operatorB);
                 }
@@ -11509,7 +11498,7 @@
                 var matched = DScalarExpression.TOKEN_REGEX.exec(expression);
                 if (matched != null) {
                     var token = matched[0];
-                    var tokenTypeOperator = TOKEN_MAPPING_OPERATOR[token];
+                    var tokenTypeOperator = this.toTokenOperator(token);
                     if (tokenTypeOperator != null) {
                         tokens.push(tokenTypeOperator);
                     }
@@ -11518,12 +11507,12 @@
                         if (parsedToken !== parsedToken) {
                             throw new Error("Unexpected token '" + token + "' at " + matched.index + " in '" + expression + "'");
                         }
-                        var tokenTypeLiteral = TOKEN_MAPPING_LITERAL[token[token.length - 1]];
+                        var tokenTypeLiteral = this.toTokenLiteral(token);
                         if (tokenTypeLiteral != null) {
                             tokens.push([tokenTypeLiteral, parsedToken * 0.01]);
                         }
                         else {
-                            tokens.push([18 /* NUMBER */, parsedToken]);
+                            tokens.push([DScalarExpressionNodeType.NUMBER, parsedToken]);
                         }
                     }
                 }
@@ -11533,31 +11522,70 @@
             }
             return tokens;
         };
+        DScalarExpression.prototype.toTokenOperator = function (token) {
+            switch (token) {
+                case "+":
+                    return DScalarExpressionNodeType.ADD_OR_PLUS;
+                case "-":
+                    return DScalarExpressionNodeType.SUB_OR_MINUS;
+                case "*":
+                    return DScalarExpressionNodeType.MUL;
+                case "/":
+                    return DScalarExpressionNodeType.DIV;
+                case "(":
+                    return DScalarExpressionNodeType.OPEN;
+                case ")":
+                    return DScalarExpressionNodeType.CLOSE;
+                case ",":
+                    return DScalarExpressionNodeType.COMMA;
+                case "min":
+                    return DScalarExpressionNodeType.MIN;
+                case "max":
+                    return DScalarExpressionNodeType.MAX;
+            }
+            return null;
+        };
+        DScalarExpression.prototype.toTokenLiteral = function (token) {
+            var tokenLength = token.length;
+            if (0 < tokenLength) {
+                switch (token[tokenLength - 1]) {
+                    case "%":
+                        return DScalarExpressionNodeType.PARENT;
+                    case "s":
+                        return DScalarExpressionNodeType.SELF;
+                    case "p":
+                        return DScalarExpressionNodeType.PADDING;
+                    case "c":
+                        return DScalarExpressionNodeType.CURRENT;
+                }
+            }
+            return null;
+        };
         DScalarExpression.prototype.evaluate = function (node, parent, self, padding, current) {
             switch (node[0]) {
-                case 2 /* PARENSESIS */:
+                case DScalarExpressionNodeType.PARENSESIS:
                     var nodes = node[1];
                     return this.evaluate(nodes[nodes.length - 1], parent, self, padding, current);
                 // Unary operators
-                case 5 /* PLUS */:
+                case DScalarExpressionNodeType.PLUS:
                     return +this.evaluate(node[1], parent, self, padding, current);
-                case 6 /* MINUS */:
+                case DScalarExpressionNodeType.MINUS:
                     return -this.evaluate(node[1], parent, self, padding, current);
                 // Four arithmetic operators
-                case 7 /* ADD */:
+                case DScalarExpressionNodeType.ADD:
                     return (this.evaluate(node[1], parent, self, padding, current) +
                         this.evaluate(node[2], parent, self, padding, current));
-                case 8 /* SUB */:
+                case DScalarExpressionNodeType.SUB:
                     return (this.evaluate(node[1], parent, self, padding, current) -
                         this.evaluate(node[2], parent, self, padding, current));
-                case 9 /* MUL */:
+                case DScalarExpressionNodeType.MUL:
                     return (this.evaluate(node[1], parent, self, padding, current) *
                         this.evaluate(node[2], parent, self, padding, current));
-                case 10 /* DIV */:
+                case DScalarExpressionNodeType.DIV:
                     return (this.evaluate(node[1], parent, self, padding, current) /
                         this.evaluate(node[2], parent, self, padding, current));
                 // Functions
-                case 11 /* MIN */:
+                case DScalarExpressionNodeType.MIN:
                     if (0 < node[1].length) {
                         var args = node[1];
                         var result = this.evaluate(args[0], parent, self, padding, current);
@@ -11567,7 +11595,7 @@
                         return result;
                     }
                     return 0;
-                case 12 /* MAX */:
+                case DScalarExpressionNodeType.MAX:
                     if (0 < node[1].length) {
                         var args = node[1];
                         var result = this.evaluate(args[0], parent, self, padding, current);
@@ -11578,15 +11606,15 @@
                     }
                     return 0;
                 // Literals
-                case 14 /* PARENT */:
+                case DScalarExpressionNodeType.PARENT:
                     return node[1] * parent;
-                case 15 /* SELF */:
+                case DScalarExpressionNodeType.SELF:
                     return node[1] * self;
-                case 16 /* PADDING */:
+                case DScalarExpressionNodeType.PADDING:
                     return node[1] * padding;
-                case 17 /* CURRENT */:
+                case DScalarExpressionNodeType.CURRENT:
                     return node[1] * current;
-                case 18 /* NUMBER */:
+                case DScalarExpressionNodeType.NUMBER:
                     return node[1];
             }
             return 0;
@@ -59034,107 +59062,106 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DPaginationDotsButton = /** @class */ (function (_super) {
-        __extends(DPaginationDotsButton, _super);
-        function DPaginationDotsButton() {
+    var DPaginationButtonLast = /** @class */ (function (_super) {
+        __extends(DPaginationButtonLast, _super);
+        function DPaginationButtonLast() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DPaginationDotsButton.prototype.getType = function () {
-            return "DPaginationDotsButton";
+        DPaginationButtonLast.prototype.getType = function () {
+            return "DPaginationButtonLast";
         };
-        return DPaginationDotsButton;
+        return DPaginationButtonLast;
     }(DButtonAmbient));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DPaginationDynamicButtons = /** @class */ (function (_super) {
-        __extends(DPaginationDynamicButtons, _super);
-        function DPaginationDynamicButtons() {
+    var DPaginationButtonNext = /** @class */ (function (_super) {
+        __extends(DPaginationButtonNext, _super);
+        function DPaginationButtonNext() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DPaginationDynamicButtons.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            this._dotsBtnLeft = new DPaginationDotsButton({
-                width: options.button.width,
-                visible: !!options.button.dotsLeft
-            });
-            this._dotsBtnRight = new DPaginationDotsButton({
-                width: options.button.width,
-                visible: !!options.button.dotsRight
-            });
-            this.addChild(this._dotsBtnLeft);
-            this.addChild(this._dotsBtnRight);
+        DPaginationButtonNext.prototype.getType = function () {
+            return "DPaginationButtonNext";
         };
-        DPaginationDynamicButtons.prototype.update = function (options) {
-            var _this = this;
-            if (options.start == null || options.end == null) {
-                return;
-            }
-            var btnsCount = options.end - options.start + 1 > 0 ? options.end - options.start + 1 : 0;
-            var pageButtons = this.children.slice(1, this.children.length - 1);
-            if (pageButtons.length < btnsCount) {
-                for (var i = pageButtons.length; i < btnsCount; i++) {
-                    var btn = new DButton({
-                        width: options.button.width
-                    });
-                    this.addChildAt(btn, this.children.length - 1);
-                    btn.on("active", function (clickedBtn) {
-                        _this.emit("active", clickedBtn);
-                    });
-                }
-                // re-new "pageButtons" after add new buttons
-                pageButtons = this.children.slice(1, this.children.length - 1);
-            }
-            else if (pageButtons.length > btnsCount) {
-                for (var i = btnsCount; i < pageButtons.length; i++) {
-                    pageButtons[i].hide();
-                }
-            }
-            // update button text and active state
-            for (var i = 0; i < btnsCount; i++) {
-                var btn = pageButtons[i];
-                btn.text = options.start + i + 1;
-                btn.state.isActive = options.start + i === options.selected;
-                if (btn.isHidden()) {
-                    btn.show();
-                }
-            }
-            // update visible state of dots buttons
-            if (options.button.dotsLeft) {
-                this._dotsBtnLeft.show();
-            }
-            else {
-                this._dotsBtnLeft.hide();
-            }
-            if (options.button.dotsRight) {
-                this._dotsBtnRight.show();
-            }
-            else {
-                this._dotsBtnRight.hide();
-            }
-        };
-        DPaginationDynamicButtons.prototype.getType = function () {
-            return "DPaginationDynamicButtons";
-        };
-        return DPaginationDynamicButtons;
-    }(DLayoutHorizontal));
+        return DPaginationButtonNext;
+    }(DButtonAmbient));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DPaginationNavigationButton = /** @class */ (function (_super) {
-        __extends(DPaginationNavigationButton, _super);
-        function DPaginationNavigationButton() {
+    var DPaginationButtonPage = /** @class */ (function (_super) {
+        __extends(DPaginationButtonPage, _super);
+        function DPaginationButtonPage() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DPaginationNavigationButton.prototype.getType = function () {
-            return "DPaginationNavigationButton";
+        DPaginationButtonPage.prototype.getType = function () {
+            return "DPaginationButtonPage";
         };
-        return DPaginationNavigationButton;
+        return DPaginationButtonPage;
     }(DButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DPaginationButtonPrevious = /** @class */ (function (_super) {
+        __extends(DPaginationButtonPrevious, _super);
+        function DPaginationButtonPrevious() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DPaginationButtonPrevious.prototype.getType = function () {
+            return "DPaginationButtonPrevious";
+        };
+        return DPaginationButtonPrevious;
+    }(DButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DPaginationButtonTop = /** @class */ (function (_super) {
+        __extends(DPaginationButtonTop, _super);
+        function DPaginationButtonTop() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DPaginationButtonTop.prototype.getType = function () {
+            return "DPaginationButtonTop";
+        };
+        return DPaginationButtonTop;
+    }(DButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DPaginationDots = /** @class */ (function (_super) {
+        __extends(DPaginationDots, _super);
+        function DPaginationDots() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DPaginationDots.prototype.getType = function () {
+            return "DPaginationDots";
+        };
+        return DPaginationDots;
+    }(DImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DPaginationPage = /** @class */ (function (_super) {
+        __extends(DPaginationPage, _super);
+        function DPaginationPage() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DPaginationPage.prototype.getType = function () {
+            return "DPaginationPage";
+        };
+        return DPaginationPage;
+    }(DImageBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -59142,262 +59169,500 @@
      */
     var DPagination = /** @class */ (function (_super) {
         __extends(DPagination, _super);
-        function DPagination() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function DPagination(options) {
+            var _a, _b, _c, _d;
+            var _this = _super.call(this, options) || this;
+            if (options != null) {
+                _this._size = (_b = (_a = options.size) !== null && _a !== void 0 ? _a : options.total) !== null && _b !== void 0 ? _b : 10;
+                _this._value = (_d = (_c = options.value) !== null && _c !== void 0 ? _c : options.selected) !== null && _d !== void 0 ? _d : 0;
+            }
+            else {
+                _this._size = 10;
+                _this._value = 0;
+            }
+            var buttonTop = _this.buttonTop;
+            var buttonPrevious = _this.buttonPrevious;
+            if (buttonTop != null) {
+                _this.addChild(buttonTop);
+            }
+            if (buttonPrevious != null) {
+                _this.addChild(buttonPrevious);
+            }
+            if (buttonTop != null || buttonPrevious != null) {
+                _this.addChild(_this.newSpace());
+            }
+            var buttonPages0 = _this.buttonPages0;
+            var buttonPages0Length = buttonPages0.length;
+            _this.addChild(buttonPages0[buttonPages0Length - 1]);
+            _this.addChild(_this.dots0);
+            for (var i = buttonPages0Length - 2; 0 <= i; --i) {
+                _this.addChild(buttonPages0[i]);
+            }
+            _this.addChild(_this.page);
+            var buttonPages1 = _this.buttonPages1;
+            var buttonPages1Length = buttonPages1.length;
+            for (var i = 0, imax = buttonPages1Length - 1; i < imax; ++i) {
+                _this.addChild(buttonPages1[i]);
+            }
+            _this.addChild(_this.dots1);
+            _this.addChild(buttonPages1[buttonPages1Length - 1]);
+            var buttonNext = _this.buttonNext;
+            var buttonLast = _this.buttonLast;
+            if (buttonNext != null || buttonLast != null) {
+                _this.addChild(_this.newSpace());
+            }
+            if (buttonNext != null) {
+                _this.addChild(buttonNext);
+            }
+            if (buttonLast != null) {
+                _this.addChild(buttonLast);
+            }
+            _this.update();
+            return _this;
         }
-        DPagination.prototype.init = function (options) {
-            var _this = this;
-            var _a;
-            _super.prototype.init.call(this, options);
-            this.DEFAULT_SELECTED = 0; // set default selected index page is page 0
-            // get total pages
-            this._total = options.total;
-            // get selected page
-            this._selected = (_a = options.selected) !== null && _a !== void 0 ? _a : this.DEFAULT_SELECTED;
-            // get button options
-            var button = options.button;
-            this._buttonOptions = {
-                first: !!(button === null || button === void 0 ? void 0 : button.first),
-                last: !!(button === null || button === void 0 ? void 0 : button.last),
-                width: button === null || button === void 0 ? void 0 : button.width
-            };
-            this.initButtons(this.getButtonWidth());
-            this.listenButtonClicked();
-            this.on("resize", function () {
-                _this._numberPageButtonVisible = _this.toNumberVisible();
-                _this.update();
+        DPagination.prototype.newSpace = function () {
+            var _a, _b, _c;
+            return new DLayoutSpace({
+                width: (_c = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.space) !== null && _c !== void 0 ? _c : this.theme.getButtonSpace()
             });
         };
-        Object.defineProperty(DPagination.prototype, "selected", {
+        Object.defineProperty(DPagination.prototype, "value", {
             /**
-             * Get selected page.
+             * Returns a value that is an index of a current page.
              *
-             * @returns index of selected page.
+             * @returns a value that is an index of a selected page.
              */
             get: function () {
-                return this._selected;
+                return this._value;
             },
             /**
-             * Set selected page.
+             * Sets a value that is an index of a current page.
              *
-             * @param selected page's index want to select.
+             * @param value a value that is an index of a page
              */
-            set: function (selected) {
-                if (selected < 0 || selected >= this._total || !Number.isInteger(selected)) {
-                    selected = this.DEFAULT_SELECTED;
-                }
-                this._selected = selected;
-                this.update();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DPagination.prototype, "total", {
-            /**
-             * Get total pages.
-             *
-             * @returns number of total pages.
-             */
-            get: function () {
-                return this._total;
-            },
-            /**
-             * Set total page.
-             *
-             * @param total number of page want to present in pagination.
-             */
-            set: function (total) {
-                if (total >= 0 && Number.isInteger(total)) {
-                    this._total = total;
-                    this._numberPageButtonVisible = this.toNumberVisible();
-                    this.selected = this._selected;
-                    this._lastPageBtn.text = this._total;
+            set: function (value) {
+                if (0 <= value && value < this._size && this._value !== value) {
+                    this._value = value;
                     this.update();
                 }
             },
             enumerable: false,
             configurable: true
         });
-        DPagination.prototype.initButtons = function (width) {
-            this._previousBtn = new DPaginationNavigationButton({
-                width: width,
-                image: {
-                    source: DThemes.getInstance().getAtlas().mappings
-                        .pagination_navigation_button_previous
+        Object.defineProperty(DPagination.prototype, "selected", {
+            /**
+             * Returns an index of the selected page.
+             *
+             * @returns an index of the selected page.
+             * @deprecated in favor of {@link value}.
+             */
+            get: function () {
+                return this.value;
+            },
+            /**
+             * Selects a page.
+             *
+             * @param index an index of a page
+             * @deprecated in favor of {@link #value}.
+             */
+            set: function (index) {
+                this.value = index;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DPagination.prototype, "size", {
+            /**
+             * Returns a number of total pages.
+             *
+             * @returns a number of total pages.
+             */
+            get: function () {
+                return this._size;
+            },
+            /**
+             * Sets a number of total pages.
+             *
+             * @param size a number of pages
+             */
+            set: function (size) {
+                if (0 <= size && this._size !== size) {
+                    this._size = size;
+                    if (size === 0) {
+                        this._value = -1;
+                    }
+                    else {
+                        this._value = Math.max(0, Math.min(this._size - 1, this._value));
+                    }
+                    this.update();
                 }
-            });
-            this._nextBtn = new DPaginationNavigationButton({
-                width: width,
-                image: {
-                    source: DThemes.getInstance().getAtlas().mappings.pagination_navigation_button_next
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DPagination.prototype, "total", {
+            /**
+             * Returns a number of total pages.
+             *
+             * @returns a number of total pages.
+             * @deprecated in favor of {@link size}
+             */
+            get: function () {
+                return this.size;
+            },
+            /**
+             * Sets a number of total pages.
+             *
+             * @param total a number of pages
+             * @deprecated in favor of {@link size}
+             */
+            set: function (total) {
+                this.size = total;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DPagination.prototype, "dots0", {
+            get: function () {
+                var result = this._dots0;
+                if (result == null) {
+                    result = this.newDots();
+                    this._dots0 = result;
                 }
-            });
-            this._goFirstBtn = new DPaginationNavigationButton({
-                width: width,
-                image: {
-                    source: DThemes.getInstance().getAtlas().mappings
-                        .pagination_navigation_button_go_first
-                },
-                visible: this._buttonOptions.first
-            });
-            this._goLastBtn = new DPaginationNavigationButton({
-                width: width,
-                image: {
-                    source: DThemes.getInstance().getAtlas().mappings
-                        .pagination_navigation_button_go_last
-                },
-                visible: this._buttonOptions.last
-            });
-            this._dynamicPageBtns = new DPaginationDynamicButtons({
-                button: {
-                    width: width
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DPagination.prototype, "dots1", {
+            get: function () {
+                var result = this._dots1;
+                if (result == null) {
+                    result = this.newDots();
+                    this._dots1 = result;
                 }
-            });
-            this._firstPageBtn = new DButton({
-                width: width,
-                text: {
-                    value: 1
-                }
-            });
-            this._lastPageBtn = new DButton({
-                width: width,
-                text: {
-                    value: this._total
-                }
-            });
-            this.addChild(this._goFirstBtn);
-            this.addChild(this._previousBtn);
-            this.addChild(this._firstPageBtn);
-            this.addChild(this._dynamicPageBtns);
-            this.addChild(this._lastPageBtn);
-            this.addChild(this._nextBtn);
-            this.addChild(this._goLastBtn);
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newDots = function () {
+            return new DPaginationDots();
         };
-        DPagination.prototype.listenButtonClicked = function () {
+        Object.defineProperty(DPagination.prototype, "buttonLast", {
+            get: function () {
+                var result = this._buttonLast;
+                if (result === undefined) {
+                    result = this.newButtonLast();
+                    this._buttonLast = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonLast = function () {
             var _this = this;
-            this._firstPageBtn.on("active", function (btn) {
-                _this.onClickPageButton(btn);
-            });
-            this._lastPageBtn.on("active", function (btn) {
-                _this.onClickPageButton(btn);
-            });
-            this._dynamicPageBtns.on("active", function (btn) {
-                _this.onClickPageButton(btn);
-            });
-            this._goFirstBtn.on("active", function (btn) {
-                _this.selected = _this.DEFAULT_SELECTED;
-            });
-            this._goLastBtn.on("active", function (btn) {
-                _this.selected = _this._total - 1;
-            });
-            this._nextBtn.on("active", function (btn) {
-                if (_this.selected !== _this._total + 1) {
-                    _this.selected = _this._selected + 1;
+            var _a, _b;
+            var last = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.last;
+            if (last !== null && last !== false && last !== undefined) {
+                var result = new DPaginationButtonLast(last !== true ? last : undefined);
+                result.on("active", function () {
+                    _this.onButtonLastActive();
+                });
+                return result;
+            }
+            return null;
+        };
+        DPagination.prototype.onButtonLastActive = function () {
+            this.moveTo(this._size - 1);
+        };
+        DPagination.prototype.moveTo = function (index) {
+            if (0 <= index && index < this._size && this._value !== index) {
+                var oldIndex = this._value;
+                this._value = index;
+                this.emit("change", index, oldIndex, this);
+                this.update();
+            }
+        };
+        Object.defineProperty(DPagination.prototype, "buttonNext", {
+            get: function () {
+                var result = this._buttonNext;
+                if (result === undefined) {
+                    result = this.newButtonNext();
+                    this._buttonNext = result;
                 }
-            });
-            this._previousBtn.on("active", function (btn) {
-                if (_this._selected !== 0) {
-                    _this.selected = _this._selected - 1;
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonNext = function () {
+            var _this = this;
+            var _a, _b;
+            var next = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.next;
+            if (next !== null && next !== false) {
+                var result = new DPaginationButtonNext(next !== true ? next : undefined);
+                result.on("active", function () {
+                    _this.onButtonNextActive();
+                });
+                return result;
+            }
+            return null;
+        };
+        DPagination.prototype.onButtonNextActive = function () {
+            this.moveTo(this._value + 1);
+        };
+        Object.defineProperty(DPagination.prototype, "buttonPrevious", {
+            get: function () {
+                var result = this._buttonPrevious;
+                if (result === undefined) {
+                    result = this.newButtonPrevious();
+                    this._buttonPrevious = result;
                 }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonPrevious = function () {
+            var _this = this;
+            var _a, _b;
+            var previous = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.previous;
+            if (previous !== null && previous !== false) {
+                var result = new DPaginationButtonPrevious(previous !== true ? previous : undefined);
+                result.on("active", function () {
+                    _this.onButtonPreviousActive();
+                });
+                return result;
+            }
+            return null;
+        };
+        DPagination.prototype.onButtonPreviousActive = function () {
+            this.moveTo(this._value - 1);
+        };
+        Object.defineProperty(DPagination.prototype, "buttonTop", {
+            get: function () {
+                var result = this._buttonTop;
+                if (result === undefined) {
+                    result = this.newButtonTop();
+                    this._buttonTop = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonTop = function () {
+            var _this = this;
+            var _a, _b;
+            var top = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.top;
+            if (top !== null && top !== false && top !== undefined) {
+                var result = new DPaginationButtonTop(top !== true ? top : undefined);
+                result.on("active", function () {
+                    _this.onButtonTopActive();
+                });
+                return result;
+            }
+            return null;
+        };
+        DPagination.prototype.onButtonTopActive = function () {
+            this.moveTo(0);
+        };
+        DPagination.prototype.newButtonPage = function () {
+            var _this = this;
+            var _a, _b;
+            var result = new DPaginationButtonPage((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.page);
+            result.on("active", function () {
+                _this.onButtonPageActive(result);
             });
+            return result;
+        };
+        Object.defineProperty(DPagination.prototype, "buttonPages0", {
+            get: function () {
+                var result = this._buttonPages0;
+                if (result == null) {
+                    result = this.newButtonPages0();
+                    this._buttonPages0 = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonPages0 = function () {
+            return [
+                this.newButtonPage(),
+                this.newButtonPage(),
+                this.newButtonPage(),
+                this.newButtonPage()
+            ];
+        };
+        Object.defineProperty(DPagination.prototype, "buttonPages1", {
+            get: function () {
+                var result = this._buttonPages1;
+                if (result == null) {
+                    result = this.newButtonPages1();
+                    this._buttonPages1 = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newButtonPages1 = function () {
+            return [
+                this.newButtonPage(),
+                this.newButtonPage(),
+                this.newButtonPage(),
+                this.newButtonPage()
+            ];
+        };
+        Object.defineProperty(DPagination.prototype, "page", {
+            get: function () {
+                var result = this._page;
+                if (result == null) {
+                    result = this.newPage();
+                    this._page = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DPagination.prototype.newPage = function () {
+            var _a;
+            return new DPaginationPage((_a = this._options) === null || _a === void 0 ? void 0 : _a.page);
+        };
+        DPagination.prototype.onButtonPageActive = function (button) {
+            var text = button.text;
+            if (isNumber(text)) {
+                this.moveTo(text - 1);
+                if (button.state.isFocused) {
+                    button.state.isHovered = false;
+                    this.page.focus();
+                }
+            }
         };
         DPagination.prototype.update = function () {
-            var startDynamic;
-            var endDynamic;
-            var dotsLeft;
-            var dotsRight;
-            var numberButtonsInLeft = 0;
-            var numberButtonsInRight = 0;
-            this.updateStaticButtons();
-            // Number displayed buttons from first button to selected button when select center button of all buttons.
-            // Not including selected button.
-            var numberButtonsFirstToCenter = Math.ceil((this._numberPageButtonVisible - 1) * 0.5);
-            var numberButtonsCenterToEnd = Math.floor((this._numberPageButtonVisible - 1) * 0.5);
-            if (this._selected < numberButtonsFirstToCenter) {
-                numberButtonsInLeft = this._selected;
-                numberButtonsInRight = this._numberPageButtonVisible - numberButtonsInLeft - 1;
-            }
-            else if (this._selected + numberButtonsCenterToEnd > this._total - 1) {
-                numberButtonsInRight = this._total - 1 - this.selected;
-                numberButtonsInLeft = this._numberPageButtonVisible - numberButtonsInRight - 1;
-            }
-            else {
-                numberButtonsInLeft = numberButtonsFirstToCenter;
-                numberButtonsInRight = numberButtonsCenterToEnd;
-            }
-            if (this._selected <= numberButtonsInLeft) {
-                startDynamic = 1;
-                dotsLeft = false;
-            }
-            else {
-                startDynamic = this._selected - numberButtonsInLeft + 2;
-                dotsLeft = true;
-            }
-            if (this._selected + numberButtonsInRight >= this._total - 1) {
-                endDynamic = this._total - 2;
-                dotsRight = false;
-            }
-            else {
-                endDynamic = this._selected + numberButtonsInRight - 2;
-                dotsRight = true;
-            }
-            this._dynamicPageBtns.update({
-                start: startDynamic,
-                end: endDynamic,
-                selected: this._selected,
-                button: {
-                    width: this.getButtonWidth(),
-                    dotsLeft: dotsLeft,
-                    dotsRight: dotsRight
+            var size = this._size;
+            var value = this._value;
+            if (size <= 0) {
+                var buttonTop = this.buttonTop;
+                if (buttonTop != null) {
+                    buttonTop.state.isEnabled = false;
                 }
-            });
-        };
-        DPagination.prototype.updateStaticButtons = function () {
-            if (this._total > 0) {
-                this._firstPageBtn.show();
+                var buttonPrevious = this.buttonPrevious;
+                if (buttonPrevious != null) {
+                    buttonPrevious.state.isEnabled = false;
+                }
+                this.dots0.hide();
+                var buttonPages0 = this.buttonPages0;
+                for (var i = 0, imax = buttonPages0.length; i < imax; ++i) {
+                    buttonPages0[i].hide();
+                }
+                this.page.hide();
+                var buttonPages1 = this.buttonPages1;
+                for (var i = 0, imax = buttonPages1.length; i < imax; ++i) {
+                    buttonPages1[i].hide();
+                }
+                this.dots1.hide();
+                var buttonNext = this.buttonNext;
+                if (buttonNext != null) {
+                    buttonNext.state.isEnabled = false;
+                }
+                var buttonLast = this.buttonLast;
+                if (buttonLast) {
+                    buttonLast.state.isEnabled = false;
+                }
             }
             else {
-                this._firstPageBtn.hide();
-            }
-            if (this._total > 1) {
-                this._lastPageBtn.show();
-            }
-            else {
-                this._lastPageBtn.hide();
-            }
-            var isFirst = this._selected === this.DEFAULT_SELECTED;
-            var isLast = this._selected === this._total - 1 || this._total === 0;
-            this._firstPageBtn.state.isActive = isFirst;
-            this._lastPageBtn.state.isActive = isLast;
-            this._goFirstBtn.state.isDisabled = isFirst;
-            this._previousBtn.state.isDisabled = isFirst;
-            this._nextBtn.state.isDisabled = isLast;
-            this._goLastBtn.state.isDisabled = isLast;
-        };
-        DPagination.prototype.getButtonWidth = function () {
-            return this._buttonOptions.width ? this._buttonOptions.width : this.theme.getButtonWidth();
-        };
-        DPagination.prototype.toNumberVisible = function () {
-            var numberNavigationBtn = 2; // 2 buttons always displayed are "next" and "previous" button
-            if (this._buttonOptions.first) {
-                numberNavigationBtn++;
-            }
-            if (this._buttonOptions.last) {
-                numberNavigationBtn++;
-            }
-            var widthOfNavigationBtns = numberNavigationBtn * (this.getButtonWidth() + this._margin.horizontal * 2);
-            var widthOfPageBtns = this.width - widthOfNavigationBtns;
-            var numberVisible = Math.floor(widthOfPageBtns / (this.getButtonWidth() + this._margin.horizontal * 2));
-            /* set numberVisible is 5, if it less than 5
-                 If total pages less than numberVisible, set numberVisible equal total pages
-            **/
-            return Math.min(this._total, Math.max(numberVisible, 5));
-        };
-        DPagination.prototype.onClickPageButton = function (btn) {
-            var btnIndex = Number(btn.text) - 1;
-            if (this._selected !== btnIndex) {
-                this._selected = btnIndex;
-                this.update();
+                var from = value - 2;
+                var to = value + 2;
+                if (from < 0) {
+                    to = to - from;
+                    from = 0;
+                }
+                else if (size <= to) {
+                    var delta = to - size + 1;
+                    to -= delta;
+                    from -= delta;
+                }
+                var top_1 = false;
+                if (0 < from) {
+                    top_1 = true;
+                    from = Math.min(from + 1, value);
+                }
+                var last = false;
+                if (to < size - 1) {
+                    last = true;
+                    to = Math.max(to - 1, value);
+                }
+                var buttonTop = this.buttonTop;
+                if (buttonTop != null) {
+                    buttonTop.state.isEnabled = 0 < value;
+                }
+                var buttonPrevious = this.buttonPrevious;
+                if (buttonPrevious != null) {
+                    buttonPrevious.state.isEnabled = 0 < value;
+                }
+                if (top_1) {
+                    this.dots0.show();
+                }
+                else {
+                    this.dots0.hide();
+                }
+                var buttonPages0 = this.buttonPages0;
+                for (var i = 0, imax = buttonPages0.length; i < imax; ++i) {
+                    var index = value - i - 1;
+                    var buttonPage = buttonPages0[i];
+                    if (from <= index && index <= to) {
+                        buttonPage.text = index + 1;
+                        buttonPage.show();
+                    }
+                    else {
+                        if (top_1 && i === imax - 1) {
+                            buttonPage.text = 1;
+                            buttonPage.show();
+                        }
+                        else {
+                            buttonPage.hide();
+                        }
+                    }
+                }
+                this.page.text = value + 1;
+                var buttonPages1 = this.buttonPages1;
+                for (var i = 0, imax = buttonPages1.length; i < imax; ++i) {
+                    var index = value + i + 1;
+                    var buttonPage = buttonPages1[i];
+                    if (from <= index && index <= to) {
+                        buttonPage.text = index + 1;
+                        buttonPage.show();
+                    }
+                    else {
+                        if (last && i === imax - 1) {
+                            buttonPage.text = size;
+                            buttonPage.show();
+                        }
+                        else {
+                            buttonPage.hide();
+                        }
+                    }
+                }
+                if (last) {
+                    this.dots1.show();
+                }
+                else {
+                    this.dots1.hide();
+                }
+                var buttonNext = this.buttonNext;
+                if (buttonNext != null) {
+                    buttonNext.state.isEnabled = value < size - 1;
+                }
+                var buttonLast = this.buttonLast;
+                if (buttonLast != null) {
+                    buttonLast.state.isEnabled = value < size - 1;
+                }
             }
         };
         DPagination.prototype.getType = function () {
@@ -67938,6 +68203,36 @@
         ESnapperModifierAnchor: ESnapperModifierAnchor,
         ESnapper: ESnapper,
         DThemes: DThemes,
+        FormatNodeA: FormatNodeA,
+        FormatNodea: FormatNodea,
+        FormatNodeD: FormatNodeD,
+        FormatNoded: FormatNoded,
+        FormatNodee: FormatNodee,
+        FormatNodef: FormatNodef,
+        FormatNodefsi: FormatNodefsi,
+        FormatNodeg: FormatNodeg,
+        FormatNodeH: FormatNodeH,
+        FormatNodeh: FormatNodeh,
+        FormatNodeM: FormatNodeM,
+        FormatNodem: FormatNodem,
+        FormatNodemi: FormatNodemi,
+        FormatNodeP: FormatNodeP,
+        FormatNodep: FormatNodep,
+        FormatNodePadding: FormatNodePadding,
+        FormatNodeParenthesis: FormatNodeParenthesis,
+        FormatNodePlus: FormatNodePlus,
+        FormatNodePrecision: FormatNodePrecision,
+        FormatNoderd: FormatNoderd,
+        FormatNodeRP: FormatNodeRP,
+        FormatNoderp: FormatNoderp,
+        FormatNodesdt: FormatNodesdt,
+        FormatNodeSpace: FormatNodeSpace,
+        FormatNodessi: FormatNodessi,
+        FormatNodeString: FormatNodeString,
+        FormatNodeY: FormatNodeY,
+        FormatNodey: FormatNodey,
+        FormatNodez: FormatNodez,
+        FormatNodes: FormatNodes,
         DynamicAtlasItemEmpty: DynamicAtlasItemEmpty,
         DynamicAtlasItemFontAtlas: DynamicAtlasItemFontAtlas,
         DynamicAtlasItemImage: DynamicAtlasItemImage,
@@ -67946,6 +68241,7 @@
         DynamicAtlasItem: DynamicAtlasItem,
         DynamicAtlas: DynamicAtlas,
         DynamicFontAtlasCharacterOrigin: DynamicFontAtlasCharacterOrigin,
+        DynamicFontAtlasCharacterType: DynamicFontAtlasCharacterType,
         DynamicFontAtlasCharacter: DynamicFontAtlasCharacter,
         DynamicFontAtlasFont: DynamicFontAtlasFont,
         DynamicFontAtlas: DynamicFontAtlas,
@@ -67973,6 +68269,7 @@
         UtilSvgAtlasBuilder: UtilSvgAtlasBuilder,
         UtilAttachAlign: UtilAttachAlign,
         UtilAttach: UtilAttach,
+        UtilCharacterIterator: UtilCharacterIterator,
         UtilClickOutside: UtilClickOutside,
         UtilClipboard: UtilClipboard,
         UtilGestureData: UtilGestureData,
@@ -68188,6 +68485,7 @@
         DDialogProcessingMessage: DDialogProcessingMessage,
         DDialogProcessing: DDialogProcessing,
         DDialogSaveAs: DDialogSaveAs,
+        DDialogSelectListItemUpdater: DDialogSelectListItemUpdater,
         DDialogSelectListItem: DDialogSelectListItem,
         DDialogSelectList: DDialogSelectList,
         DDialogSelectSearh: DDialogSelectSearh,
@@ -68322,10 +68620,15 @@
         DNoteSmall: DNoteSmall,
         DNote: DNote,
         DNotification: DNotification,
-        DPaginationDotsButton: DPaginationDotsButton,
-        DPaginationDynamicButtons: DPaginationDynamicButtons,
-        DPaginationNavigationButton: DPaginationNavigationButton,
+        DPaginationButtonLast: DPaginationButtonLast,
+        DPaginationButtonNext: DPaginationButtonNext,
+        DPaginationButtonPage: DPaginationButtonPage,
+        DPaginationButtonPrevious: DPaginationButtonPrevious,
+        DPaginationButtonTop: DPaginationButtonTop,
+        DPaginationDots: DPaginationDots,
+        DPaginationPage: DPaginationPage,
         DPagination: DPagination,
+        DPaneScrollBar: DPaneScrollBar,
         DPane: DPane,
         DPickerColorAndAlpha: DPickerColorAndAlpha,
         DPickerColorGradientRecent: DPickerColorGradientRecent,
@@ -68354,6 +68657,7 @@
         DPickerTimeRange: DPickerTimeRange,
         DPickerTime: DPickerTime,
         DPickerTimes: DPickerTimes,
+        DScalarExpressionNodeType: DScalarExpressionNodeType,
         DScalarExpression: DScalarExpression,
         DScalarFunctions: DScalarFunctions,
         DScrollBarHorizontal: DScrollBarHorizontal,
@@ -68424,6 +68728,7 @@
         DTableHeaderCell: DTableHeaderCell,
         DTableHeader: DTableHeader,
         DTableRow: DTableRow,
+        DTableScrollBar: DTableScrollBar,
         DTableState: DTableState,
         DTable: DTable,
         DTextBase: DTextBase,

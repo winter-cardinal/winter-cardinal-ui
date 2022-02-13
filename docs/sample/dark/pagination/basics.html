@@ -22,99 +22,23 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.154.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.155.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.155.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
-		const pagination = new wcardinal.ui.DPagination({
+		new wcardinal.ui.DPagination({
 			parent: application.stage,
-			x: 50,
-			y: 50,
-			width: "100% - 100",
-			total: 15,
-			selected: 0,
-			button: {
-				first: true,
-				last: true,
-				width: 36
+			x: "center", y: "center",
+			on: {
+				change: function(newIndex, oldIndex, emitter) {
+					console.log(newIndex, oldIndex, emitter);
+				}
 			}
 		})
-
-		const inputSelected = new wcardinal.ui.DInputInteger({
-			weight: 1
-		});
-
-		const inputTotal = new wcardinal.ui.DInputInteger({
-			weight: 1
-		});
-
-		new wcardinal.ui.DLayoutVertical({
-			parent: application.stage,
-			x: 50, y: 100,
-			children: [
-				new wcardinal.ui.DLayoutHorizontal({
-					width: 460,
-					children: [
-						new wcardinal.ui.DButtonPrimary({
-							weight: 1,
-							text: {
-								value: "Set Selected"
-							},
-							on: {
-								active: function () {
-									pagination.selected = inputSelected.value
-								}
-							}
-						}),
-						new wcardinal.ui.DButtonPrimary({
-							weight: 1,
-							text: {
-								value: "Get Selected"
-							},
-							on: {
-								active: function () {
-									inputSelected.value = pagination.selected;
-								}
-							}
-						}),
-						inputSelected
-					]
-				}),
-				new wcardinal.ui.DLayoutHorizontal({
-					width: 460,
-					children: [
-						new wcardinal.ui.DButtonPrimary({
-							weight: 1,
-							text: {
-								value: "Set Total"
-							},
-							on: {
-								active: function () {
-									pagination.total = inputTotal.value
-								}
-							}
-						}),
-						new wcardinal.ui.DButtonPrimary({
-							weight: 1,
-							text: {
-								value: "Get Total"
-							},
-							on: {
-								active: function () {
-									inputTotal.value = pagination.total;
-								}
-							}
-						}),
-						inputTotal
-					]
-				}),
-			]
-		});
-
 	}());
 	</script>
 </body>

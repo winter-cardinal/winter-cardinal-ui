@@ -189,6 +189,12 @@
     * [State change event](./other/state.html)
 * Pagination
     * [Basics](./pagination/basics.html)
+    * [Last button](./pagination/last.html)
+    * [No next button](./pagination/no-next.html)
+    * [No previous button](./pagination/no-previous.html)
+    * [Number of pages](./pagination/size.html)
+    * [Top button](./pagination/top.html)
+    * [Default page](./pagination/value.html)
 * Pane
     * [Basics](./pane/basics.html)
 * Select
