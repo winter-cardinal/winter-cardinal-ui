@@ -5,6 +5,4 @@
 
 export type DOnFunction = (...args: any[]) => any;
 
-export interface DOnOptions {
-	[key: string]: DOnFunction | undefined;
-}
+export type DOnOptions = Record<string, DOnFunction | undefined>;

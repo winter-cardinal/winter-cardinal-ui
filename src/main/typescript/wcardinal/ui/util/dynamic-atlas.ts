@@ -15,10 +15,10 @@ export class DynamicAtlas {
 
 	protected _canvas: HTMLCanvasElement;
 	protected _sortedData: DynamicAtlasItem[];
-	protected _idToDatum: { [id: string]: DynamicAtlasItem };
+	protected _idToDatum: Record<string, DynamicAtlasItem>;
 	protected _baseTexture: BaseTexture;
 	protected _isDirty: boolean;
-	protected _predefined: { [id: string]: DynamicAtlasItem };
+	protected _predefined: Record<string, DynamicAtlasItem>;
 
 	constructor(resolution: number) {
 		const canvas = (this._canvas = document.createElement("canvas"));

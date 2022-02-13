@@ -55,9 +55,7 @@ export interface EShapeTextAtlasCharacter {
 	};
 }
 
-export interface EShapeTextAtlasCharacters {
-	[character: string]: EShapeTextAtlasCharacter;
-}
+export type EShapeTextAtlasCharacters = Record<string, EShapeTextAtlasCharacter>;
 
 export interface EShapeTextAtlas {
 	width: number;

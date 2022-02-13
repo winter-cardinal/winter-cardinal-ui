@@ -51,7 +51,10 @@ void main(void) {
 	gl_FragColor = texture * vec4( mix( vec3( c ), vColor.xyz, vColor.a ), 1.0 );
 }`;
 
-type Parts = Array<{ data: DColorGradient | null; rect: Rectangle }>;
+export interface DPickerColorGradientViewPart {
+	data: DColorGradient | null;
+	rect: Rectangle;
+}
 
 export class DPickerColorGradientView extends Mesh {
 	protected _nPointsPerData: number;
@@ -64,7 +67,7 @@ export class DPickerColorGradientView extends Mesh {
 	protected _workColor: number[];
 	protected _workPoint: Point;
 
-	protected _parts: Parts;
+	protected _parts: DPickerColorGradientViewPart[];
 
 	protected constructor(
 		nPointsPerData: number,
@@ -72,7 +75,7 @@ export class DPickerColorGradientView extends Mesh {
 		uvs: Float32Array,
 		colors: Float32Array,
 		indices: Uint16Array,
-		parts: Parts,
+		parts: DPickerColorGradientViewPart[],
 		geometry: Geometry,
 		shader: Shader
 	) {
@@ -318,7 +321,7 @@ export class DPickerColorGradientView extends Mesh {
 		const colors = new Float32Array(size * (nPointsPerData + 2) * 2 * 4);
 		const indices = new Uint16Array(size * (nPointsPerData + 1) * 6);
 
-		const parts: Parts = [];
+		const parts: DPickerColorGradientViewPart[] = [];
 		for (let i = 0; i < size; ++i) {
 			parts.push({
 				data: null,

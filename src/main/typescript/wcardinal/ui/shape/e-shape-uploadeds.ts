@@ -15,6 +15,4 @@ export type EShapeUploadedCreator = (
 	antialiasWeight: number
 ) => EShapeUploaded | null;
 
-export const EShapeUploadeds: {
-	[type: number]: EShapeUploadedCreator | undefined;
-} = {};
+export const EShapeUploadeds: Record<number, EShapeUploadedCreator | undefined> = {};

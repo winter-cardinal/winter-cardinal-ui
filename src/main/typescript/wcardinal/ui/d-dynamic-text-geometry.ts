@@ -9,7 +9,7 @@ import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
 import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
 
-interface Clipping {
+export interface DDynamicTextGeometryClipping {
 	enable: boolean;
 	wordWrap: DDynamicTextStyleWordWrap;
 	width: number;
@@ -29,7 +29,11 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		this.clipped = false;
 	}
 
-	update(text: string, atlas: DynamicFontAtlas | null, clipping: Clipping): void {
+	update(
+		text: string,
+		atlas: DynamicFontAtlas | null,
+		clipping: DDynamicTextGeometryClipping
+	): void {
 		const vertexBuffer = this.getBuffer("aVertexPosition");
 		const uvBuffer = this.getBuffer("aTextureCoord");
 		const indexBuffer = this.getIndex();

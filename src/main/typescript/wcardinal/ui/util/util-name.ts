@@ -4,7 +4,7 @@
  */
 
 export class UtilName {
-	protected static _mapping: { [key: string]: number } = {};
+	protected static _mapping: Record<string, number> = {};
 
 	static create(type: string): string {
 		const mapping = this._mapping;

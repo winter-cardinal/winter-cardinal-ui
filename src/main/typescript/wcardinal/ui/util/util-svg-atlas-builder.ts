@@ -17,13 +17,13 @@ export class UtilSvgAtlasBuilder {
 	protected _ratio: number;
 	protected _margin: number;
 
-	protected _frames: { [name: string]: Rectangle };
+	protected _frames: Record<string, Rectangle>;
 	protected _svg: string;
 	protected _nextX: number;
 	protected _nextY: number;
 	protected _height: number;
 
-	protected _built?: { [name: string]: Texture };
+	protected _built?: Record<string, Texture>;
 
 	constructor(width: number, ratio: number, margin: number) {
 		this._width = width;
@@ -81,11 +81,11 @@ export class UtilSvgAtlasBuilder {
 		return name in this._frames;
 	}
 
-	get mappings(): { [name: string]: Texture } {
+	get mappings(): Record<string, Texture> {
 		return this.build();
 	}
 
-	build(options?: UtilSvgAtlasBuilderBuildOptions): { [name: string]: Texture } {
+	build(options?: UtilSvgAtlasBuilderBuildOptions): Record<string, Texture> {
 		let built = this._built;
 		if (built == null || options?.force) {
 			const resolution = options?.resolution ?? window.devicePixelRatio ?? 1;

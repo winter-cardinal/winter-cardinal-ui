@@ -19,7 +19,7 @@ export type EShapeDeserializer = (
 /**
  * Mappings of shape types and deserializers.
  */
-export const EShapeDeserializers: { [type: number]: EShapeDeserializer | undefined } = {};
+export const EShapeDeserializers: Record<number, EShapeDeserializer | undefined> = {};
 
 /**
  * A handler which is called after the deserializations of all the shapes are completed.
@@ -34,4 +34,4 @@ export type EShapeOnDeserialized = (
 /**
  * Mappings of shape types and `onDeserialized` handlers.
  */
-export const EShapeOnDeserializeds: { [type: number]: EShapeOnDeserialized | undefined } = {};
+export const EShapeOnDeserializeds: Record<number, EShapeOnDeserialized | undefined> = {};

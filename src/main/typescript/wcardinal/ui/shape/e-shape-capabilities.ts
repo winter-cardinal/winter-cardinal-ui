@@ -8,7 +8,7 @@ import { EShapeCapability } from "./e-shape-capability";
 import { EShapeType } from "./e-shape-type";
 
 export class EShapeCapabilities {
-	static mappings: { [type: number]: EShapeCapability | undefined } = {};
+	static mappings: Record<number, EShapeCapability | undefined> = {};
 
 	static get(type: EShapeType): EShapeCapability {
 		const capability = this.mappings[type];

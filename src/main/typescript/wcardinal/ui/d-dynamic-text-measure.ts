@@ -7,7 +7,7 @@ import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./util/dynamic-font-atlas-character-type";
 
-interface Clipping {
+export interface DDynamicTextMeasureClipping {
 	enable: boolean;
 	wordWrap: DDynamicTextStyleWordWrap;
 	width: number;
@@ -23,7 +23,7 @@ export class DDynamicTextMeasure {
 	static measure(
 		text: string,
 		atlas: DynamicFontAtlas | null,
-		clipping: Clipping
+		clipping: DDynamicTextMeasureClipping
 	): DDynamicTextMeasureResult {
 		const result = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
 		DDynamicTextMeasure.RESULT = result;

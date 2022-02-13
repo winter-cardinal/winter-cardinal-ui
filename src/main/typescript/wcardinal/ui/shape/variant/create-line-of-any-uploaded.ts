@@ -12,7 +12,7 @@ import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-
 import { Builder } from "./builder";
 import { BuilderText } from "./builder-text";
 
-type BuilderConstructor = new (
+export type BuilderConstructor = new (
 	vertexOffset: number,
 	indexOffset: number,
 	vertexCount: number,

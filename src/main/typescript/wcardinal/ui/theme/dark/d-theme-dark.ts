@@ -7,17 +7,9 @@ import { UtilSvgAtlasBuilder } from "../../util/util-svg-atlas-builder";
 import { DTheme } from "../d-theme";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 
-interface CLASSES {
-	[type: string]: new () => any;
-}
-
-interface INSTANCES {
-	[type: string]: DTheme;
-}
-
 export class DThemeDark implements DTheme {
-	protected static _classes: CLASSES = {};
-	protected _instances: INSTANCES;
+	protected static _classes: Record<string, new () => any> = {};
+	protected _instances: Record<string, DTheme>;
 
 	constructor() {
 		this._instances = {};

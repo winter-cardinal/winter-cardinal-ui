@@ -5,6 +5,4 @@
 
 import { EShapeDataValue } from "./shape/e-shape-data-value";
 
-export interface DDiagramCanvasDataMap {
-	[id: string]: EShapeDataValue[] | undefined;
-}
+export type DDiagramCanvasDataMap = Record<string, EShapeDataValue[] | undefined>;

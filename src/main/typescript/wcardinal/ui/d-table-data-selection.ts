@@ -62,7 +62,7 @@ export interface DTableDataSelection<ROW> extends utils.EventEmitter {
 	 */
 	toSortedArray(): Array<[number, ROW]>;
 
-	toObject(): { [index: number]: ROW };
+	toObject(): Record<number, ROW>;
 
 	toMap(): Map<number, ROW>;
 }

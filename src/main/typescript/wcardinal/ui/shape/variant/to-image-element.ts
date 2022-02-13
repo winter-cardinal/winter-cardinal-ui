@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-interface ImageElements {
-	[src: string]: Promise<HTMLImageElement> | HTMLImageElement | undefined;
-}
+type ImageElement = Promise<HTMLImageElement> | HTMLImageElement;
 
-const imageElementCache: ImageElements = {};
+const imageElementCache: Record<string, ImageElement | undefined> = {};
 
 export const toImageElement = (dataUrl: string): Promise<HTMLImageElement> => {
 	const cachedImageElement = imageElementCache[dataUrl];

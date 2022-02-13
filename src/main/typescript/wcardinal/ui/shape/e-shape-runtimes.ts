@@ -6,6 +6,6 @@
 import { EShape } from "./e-shape";
 import { EShapeRuntime } from "./e-shape-runtime";
 
-export const EShapeRuntimes: {
-	[type: number]: (new (shape: EShape) => EShapeRuntime) | undefined;
-} = {};
+export type EShapeRuntimeConstructor = new (shape: EShape) => EShapeRuntime;
+
+export const EShapeRuntimes: Record<number, EShapeRuntimeConstructor | undefined> = {};

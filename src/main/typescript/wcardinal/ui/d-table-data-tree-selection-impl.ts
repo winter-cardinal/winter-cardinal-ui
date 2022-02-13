@@ -308,9 +308,9 @@ export class DTableDataTreeSelectionImpl<NODE>
 		return this.toArray().sort(COMPARATOR);
 	}
 
-	toObject(): { [index: number]: NODE } {
+	toObject(): Record<number, NODE> {
 		const rows = this._rows;
-		const result: { [index: number]: NODE } = {};
+		const result: Record<number, NODE> = {};
 		this._parent.each((row: NODE, index: number): void => {
 			if (rows.has(row)) {
 				result[index] = row;

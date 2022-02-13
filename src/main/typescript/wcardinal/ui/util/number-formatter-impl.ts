@@ -31,7 +31,7 @@ import { FormatNodeString } from "./format-node/format-node-string";
 import { FormatNodeY } from "./format-node/format-node-y-large";
 import { FormatNodey } from "./format-node/format-node-y-small";
 import { FormatNodez } from "./format-node/format-node-z";
-import { FormatNoderd } from "./format-node/format-noder-d";
+import { FormatNoderd } from "./format-node/format-node-rd";
 import { FormatNodes } from "./format-node/format-nodes";
 import { NumberFormatter } from "./number-formatter";
 

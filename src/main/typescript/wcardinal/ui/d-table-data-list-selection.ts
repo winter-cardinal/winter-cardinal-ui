@@ -239,8 +239,8 @@ export class DTableDataListSelection<ROW>
 		return this.toArray().sort(COMPARATOR);
 	}
 
-	toObject(): { [index: number]: ROW } {
-		const result: { [index: number]: ROW } = {};
+	toObject(): Record<number, ROW> {
+		const result: Record<number, ROW> = {};
 		const parent = this._parent;
 		this._indices.forEach((index: number): void => {
 			result[index] = parent.get(index)!;

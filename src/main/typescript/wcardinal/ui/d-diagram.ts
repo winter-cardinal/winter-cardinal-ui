@@ -118,8 +118,8 @@ export class DDiagram<
 		dataShape: EShape | null,
 		dataMapper: DDiagramDataMapper | null
 	): void {
-		const formatterMap: { [format: string]: (value: unknown) => unknown } = {};
-		const initialMap: { [initial: string]: unknown | undefined } = {};
+		const formatterMap: Record<string, (value: unknown) => unknown> = {};
+		const initialMap: Record<string, unknown | undefined> = {};
 		const actionMap: Map<EShapeActionValue, EShapeActionRuntime> = new Map<
 			EShapeActionValue,
 			EShapeActionRuntime

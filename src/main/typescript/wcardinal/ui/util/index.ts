@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+export * from "./format-node";
 export * from "./deep-partial";
 export * from "./dynamic-atlas-item-empty";
 export * from "./dynamic-atlas-item-font-atlas";
@@ -12,7 +13,9 @@ export * from "./dynamic-atlas-item-white";
 export * from "./dynamic-atlas-item";
 export * from "./dynamic-atlas";
 export * from "./dynamic-font-atlas-chaaracter-origin";
+export * from "./dynamic-font-atlas-character-type";
 export * from "./dynamic-font-atlas-character";
+export * from "./dynamic-font-atlas-characters";
 export * from "./dynamic-font-atlas-font";
 export * from "./dynamic-font-atlas";
 export * from "./dynamic-font-atlases";
@@ -40,6 +43,7 @@ export * from "./to-svg-url";
 export * from "./util-alpha";
 export * from "./util-svg-atlas-builder";
 export * from "./util-attach";
+export * from "./util-character-iterator";
 export * from "./util-click-outside";
 export * from "./util-clipboard";
 export * from "./util-gesture-data";
@@ -50,6 +54,7 @@ export * from "./util-gesture-modifier";
 export * from "./util-gesture-modifiers";
 export * from "./util-gesture";
 export * from "./util-extract";
+export * from "./util-extractor-pixels";
 export * from "./util-extractor";
 export * from "./util-file-downloader";
 export * from "./util-file-opener";

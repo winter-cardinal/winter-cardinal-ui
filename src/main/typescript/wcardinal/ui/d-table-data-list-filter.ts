@@ -8,7 +8,7 @@ import { DTableDataFilter, DTableDataFilterer } from "./d-table-data-filter";
 import { DTableDataSorter } from "./d-table-data-sorter";
 import { isFunction } from "./util/is-function";
 
-interface DTableDataListFilterParent<ROW> {
+export interface DTableDataListFilterParent<ROW> {
 	readonly sorter: DTableDataSorter<ROW>;
 	readonly rows: ROW[];
 	update(): void;

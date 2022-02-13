@@ -8,7 +8,7 @@ import { DynamicAtlasItemFontAtlas } from "./dynamic-atlas-item-font-atlas";
 import { DynamicSDFFontAtlas } from "./dynamic-sdf-font-atlas";
 
 export class DynamicSDFFontAtlases {
-	protected _atlases: { [family: string]: DynamicSDFFontAtlas };
+	protected _atlases: Record<string, DynamicSDFFontAtlas>;
 
 	constructor() {
 		this._atlases = {};

@@ -9,7 +9,7 @@ import { DTableDataTreeNode } from "./d-table-data-tree-item";
 import { DTableDataTreeItemAccessor } from "./d-table-data-tree-item-accessor";
 import { isFunction } from "./util/is-function";
 
-interface DTableDataTreeFilterParent<NODE> {
+export interface DTableDataTreeFilterParent<NODE> {
 	readonly nodes: NODE[] | undefined;
 	readonly accessor: DTableDataTreeItemAccessor<NODE>;
 	isOpened(node: NODE): boolean;

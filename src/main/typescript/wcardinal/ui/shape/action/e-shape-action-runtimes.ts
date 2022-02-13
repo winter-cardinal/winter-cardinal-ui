@@ -7,11 +7,11 @@ import { DApplications } from "../../d-applications";
 import { DCanvasContainer } from "../../d-canvas-container";
 import { EShape } from "../e-shape";
 
-interface EShapeActionRuntimeContainerDataRemote {
+export interface EShapeActionRuntimeContainerDataRemote {
 	set(id: string, value: unknown, time: number): boolean;
 }
 
-interface EShapeActionRuntimeContainerData {
+export interface EShapeActionRuntimeContainerData {
 	readonly remote: EShapeActionRuntimeContainerDataRemote;
 
 	set(
@@ -23,11 +23,11 @@ interface EShapeActionRuntimeContainerData {
 	): boolean;
 }
 
-interface EShapeActionRuntimeContainerShape {
+export interface EShapeActionRuntimeContainerShape {
 	emit(name: string, ...args: unknown[]): void;
 }
 
-interface EShapeActionRuntimeContainer extends DCanvasContainer {
+export interface EShapeActionRuntimeContainer extends DCanvasContainer {
 	readonly shape: EShapeActionRuntimeContainerShape;
 	readonly data: EShapeActionRuntimeContainerData;
 

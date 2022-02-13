@@ -9,7 +9,7 @@ import { DPadding, DPaddingLike } from "./d-padding";
 /**
  * PixiJS options
  */
-interface PixiApplicationOptions {
+export interface PixiApplicationOptions {
 	width: number;
 	height: number;
 	autoStart: boolean;
@@ -19,11 +19,11 @@ interface PixiApplicationOptions {
 	antialias: boolean;
 }
 
-interface DApplicationLayerBackgroundOptions {
+export interface DApplicationLayerBackgroundOptions {
 	color?: number | null;
 }
 
-interface DApplicationLayerOptionsOptions {
+export interface DApplicationLayerOptionsOptions {
 	root: HTMLElement;
 	padding?: number | DPaddingLike;
 	width?: number;
