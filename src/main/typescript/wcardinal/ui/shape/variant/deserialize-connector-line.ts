@@ -15,7 +15,7 @@ export const deserializeConnectorLine = (
 	item: DDiagramSerializedItem,
 	manager: EShapeResourceManagerDeserialization,
 	shape?: EShapeConnectorLine
-): Promise<EShapeConnectorLine> | EShapeConnectorLine | null => {
+): Promise<EShapeConnectorLine> | EShapeConnectorLine => {
 	return deserializeBase(item, manager, shape || new EShapeConnectorLine());
 };
 

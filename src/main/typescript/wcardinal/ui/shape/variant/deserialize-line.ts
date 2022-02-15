@@ -13,7 +13,7 @@ export const deserializeLine = (
 	item: DDiagramSerializedItem,
 	manager: EShapeResourceManagerDeserialization,
 	shape?: EShapeLine
-): Promise<EShapeLine> | EShapeLine | null => {
+): Promise<EShapeLine> | EShapeLine => {
 	shape = shape || new EShapeLine();
 	const result = deserializeBase(item, manager, shape);
 	shape.points.deserialize(item[15], manager);
