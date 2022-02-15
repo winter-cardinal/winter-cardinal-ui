@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.155.0
+ Winter Cardinal UI v0.157.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -33636,6 +33636,144 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeLayerState = {
+        INVISIBLE: "INVISIBLE",
+        INTERACTIVE: "INTERACTIVE",
+        DRAGGABLE: "DRAGGABLE",
+        PINCHABLE: "PINCHABLE"
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeEmbeddedLayer = /** @class */ (function (_super) {
+        __extends(EShapeEmbeddedLayer, _super);
+        function EShapeEmbeddedLayer(name, isEditMode, type) {
+            if (type === void 0) { type = EShapeType.EMBEDDED_LAYER; }
+            var _this = _super.call(this, isEditMode, type) || this;
+            _this._name = name;
+            return _this;
+        }
+        Object.defineProperty(EShapeEmbeddedLayer.prototype, "name", {
+            get: function () {
+                return this._name;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeEmbeddedLayer.prototype.newGroupFill = function () {
+            return new EShapeFillImpl(this, false, 0xffffff, 1);
+        };
+        EShapeEmbeddedLayer.prototype.isGroupSizeFittable = function () {
+            return false;
+        };
+        EShapeEmbeddedLayer.prototype.clone = function () {
+            var result = this.newClone().copy(this);
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var clone = children[i].clone();
+                clone.parent = result;
+                result.children.push(clone);
+            }
+            result.onChildTransformChange();
+            result.toDirty();
+            result.size.init();
+            return result;
+        };
+        EShapeEmbeddedLayer.prototype.newClone = function () {
+            var constructor = this.constructor;
+            return new constructor(this._name, this._isEditMode, this.type);
+        };
+        EShapeEmbeddedLayer.prototype.serializeChildren = function (manager) {
+            return [];
+        };
+        EShapeEmbeddedLayer.prototype.serializeImage = function (manager) {
+            return -1;
+        };
+        EShapeEmbeddedLayer.prototype.serializeGradient = function (manager) {
+            return -1;
+        };
+        EShapeEmbeddedLayer.deserialize = function (serialized, manager, width, height) {
+            var _a, _b, _c;
+            var result = new EShapeEmbeddedLayer(this.deserializeName(serialized[0], manager), manager.isEditMode);
+            var visibility = serialized[1];
+            var visible = visibility == null || !!(visibility & 0x2);
+            if (!visible) {
+                result.visible = false;
+                result.state.add(EShapeLayerState.INVISIBLE);
+            }
+            var positionX = -0.5 * width + (serialized[2] || 0);
+            var positionY = -0.5 * height + (serialized[3] || 0);
+            result.transform.position.set(positionX, positionY);
+            var sizeX = (_a = serialized[4]) !== null && _a !== void 0 ? _a : width;
+            var sizeY = (_b = serialized[5]) !== null && _b !== void 0 ? _b : height;
+            result.size.set(sizeX, sizeY);
+            var fillId = serialized[6];
+            if (fillId != null) {
+                result.fill.deserialize(fillId, manager);
+            }
+            if (!manager.isEditMode) {
+                var state = (_c = serialized[7]) !== null && _c !== void 0 ? _c : 1;
+                var isInteractive = state & 0x1;
+                var isDraggable = state & 0x2;
+                var isPinchable = state & 0x4;
+                if (isDraggable || isPinchable) {
+                    var gestureType = (isDraggable
+                        ? EShapeActionValueMiscGestureType.DRAG
+                        : EShapeActionValueMiscGestureType.NONE) |
+                        (isPinchable
+                            ? EShapeActionValueMiscGestureType.PINCH
+                            : EShapeActionValueMiscGestureType.NONE);
+                    result.action.add(new EShapeActionValueMiscLayerGesture("", gestureType));
+                }
+                if (isInteractive || isDraggable || isPinchable) {
+                    result.interactive = true;
+                }
+            }
+            return result;
+        };
+        EShapeEmbeddedLayer.deserializeName = function (target, manager) {
+            if (isString(target)) {
+                return target;
+            }
+            else {
+                var resources = manager.resources;
+                if (0 <= target && target <= resources.length) {
+                    return resources[target];
+                }
+                return "";
+            }
+        };
+        return EShapeEmbeddedLayer;
+    }(EShapeGroupViewer));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectangle = /** @class */ (function (_super) {
+        __extends(EShapeRectangle, _super);
+        function EShapeRectangle(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE; }
+            return _super.call(this, type) || this;
+        }
+        EShapeRectangle.prototype.clone = function () {
+            return new EShapeRectangle(this.type).copy(this);
+        };
+        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeRectangle;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var create = function (name, width, height, container, manager, item) {
         var shape = new EShapeEmbedded(name, manager.isEditMode);
         var result = deserializeBase(item, manager, shape);
@@ -33648,6 +33786,31 @@
         shape.size.set(sizeX, sizeY);
         return result;
     };
+    var createMissing = function (name, manager, item) {
+        var shape = new EShapeEmbedded(name, manager.isEditMode);
+        var result = deserializeBase(item, manager, shape);
+        var size = shape.size;
+        var sizeX = size.x;
+        var sizeY = size.y;
+        var children = shape.children;
+        var layer = new EShapeEmbeddedLayer("missing", manager.isEditMode);
+        var px = 0.5 * sizeX;
+        var py = 0.5 * sizeX;
+        layer.transform.position.set(-px, -py);
+        layer.size.set(sizeX, sizeY);
+        layer.parent = shape;
+        var rectangle = new EShapeRectangle();
+        rectangle.stroke.color = 0xff0000;
+        rectangle.transform.position.set(px, py);
+        rectangle.size.copyFrom(shape.size);
+        rectangle.attach(layer);
+        children.push(layer);
+        shape.onChildTransformChange();
+        shape.toDirty();
+        shape.onAttach();
+        shape.size.init();
+        return result;
+    };
     var deserializeEmbedded = function (item, manager) {
         var pieces = manager.pieces;
         var pieceId = item[15];
@@ -33658,6 +33821,9 @@
                 var pieceDatum = pieceData.get(piece);
                 if (pieceDatum) {
                     return create(piece, pieceDatum.width, pieceDatum.height, pieceDatum.layer, manager, item);
+                }
+                else {
+                    return createMissing(piece, manager, item);
                 }
             }
         }
@@ -34588,28 +34754,6 @@
         }
         return null;
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeRectangle = /** @class */ (function (_super) {
-        __extends(EShapeRectangle, _super);
-        function EShapeRectangle(type) {
-            if (type === void 0) { type = EShapeType.RECTANGLE; }
-            return _super.call(this, type) || this;
-        }
-        EShapeRectangle.prototype.clone = function () {
-            return new EShapeRectangle(this.type).copy(this);
-        };
-        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
-            }
-            return false;
-        };
-        return EShapeRectangle;
-    }(EShapePrimitive));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -38050,122 +38194,6 @@
         };
         return EShapeConnectors;
     }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeLayerState = {
-        INVISIBLE: "INVISIBLE",
-        INTERACTIVE: "INTERACTIVE",
-        DRAGGABLE: "DRAGGABLE",
-        PINCHABLE: "PINCHABLE"
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeEmbeddedLayer = /** @class */ (function (_super) {
-        __extends(EShapeEmbeddedLayer, _super);
-        function EShapeEmbeddedLayer(name, isEditMode, type) {
-            if (type === void 0) { type = EShapeType.EMBEDDED_LAYER; }
-            var _this = _super.call(this, isEditMode, type) || this;
-            _this._name = name;
-            return _this;
-        }
-        Object.defineProperty(EShapeEmbeddedLayer.prototype, "name", {
-            get: function () {
-                return this._name;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        EShapeEmbeddedLayer.prototype.newGroupFill = function () {
-            return new EShapeFillImpl(this, false, 0xffffff, 1);
-        };
-        EShapeEmbeddedLayer.prototype.isGroupSizeFittable = function () {
-            return false;
-        };
-        EShapeEmbeddedLayer.prototype.clone = function () {
-            var result = this.newClone().copy(this);
-            var children = this.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var clone = children[i].clone();
-                clone.parent = result;
-                result.children.push(clone);
-            }
-            result.onChildTransformChange();
-            result.toDirty();
-            result.size.init();
-            return result;
-        };
-        EShapeEmbeddedLayer.prototype.newClone = function () {
-            var constructor = this.constructor;
-            return new constructor(this._name, this._isEditMode, this.type);
-        };
-        EShapeEmbeddedLayer.prototype.serializeChildren = function (manager) {
-            return [];
-        };
-        EShapeEmbeddedLayer.prototype.serializeImage = function (manager) {
-            return -1;
-        };
-        EShapeEmbeddedLayer.prototype.serializeGradient = function (manager) {
-            return -1;
-        };
-        EShapeEmbeddedLayer.deserialize = function (serialized, manager, width, height) {
-            var _a, _b, _c;
-            var result = new EShapeEmbeddedLayer(this.deserializeName(serialized[0], manager), manager.isEditMode);
-            var visibility = serialized[1];
-            var visible = visibility == null || !!(visibility & 0x2);
-            if (!visible) {
-                result.visible = false;
-                result.state.add(EShapeLayerState.INVISIBLE);
-            }
-            var positionX = -0.5 * width + (serialized[2] || 0);
-            var positionY = -0.5 * height + (serialized[3] || 0);
-            result.transform.position.set(positionX, positionY);
-            var sizeX = (_a = serialized[4]) !== null && _a !== void 0 ? _a : width;
-            var sizeY = (_b = serialized[5]) !== null && _b !== void 0 ? _b : height;
-            result.size.set(sizeX, sizeY);
-            var fillId = serialized[6];
-            if (fillId != null) {
-                result.fill.deserialize(fillId, manager);
-            }
-            if (!manager.isEditMode) {
-                var state = (_c = serialized[7]) !== null && _c !== void 0 ? _c : 1;
-                var isInteractive = state & 0x1;
-                var isDraggable = state & 0x2;
-                var isPinchable = state & 0x4;
-                if (isDraggable || isPinchable) {
-                    var gestureType = (isDraggable
-                        ? EShapeActionValueMiscGestureType.DRAG
-                        : EShapeActionValueMiscGestureType.NONE) |
-                        (isPinchable
-                            ? EShapeActionValueMiscGestureType.PINCH
-                            : EShapeActionValueMiscGestureType.NONE);
-                    result.action.add(new EShapeActionValueMiscLayerGesture("", gestureType));
-                }
-                if (isInteractive || isDraggable || isPinchable) {
-                    result.interactive = true;
-                }
-            }
-            return result;
-        };
-        EShapeEmbeddedLayer.deserializeName = function (target, manager) {
-            if (isString(target)) {
-                return target;
-            }
-            else {
-                var resources = manager.resources;
-                if (0 <= target && target <= resources.length) {
-                    return resources[target];
-                }
-                return "";
-            }
-        };
-        return EShapeEmbeddedLayer;
-    }(EShapeGroupViewer));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -46043,8 +46071,12 @@
             };
             this._anchors = [];
             //
+            var recentColumn = theme.getGradientRecentColumn();
+            var recentWidth = theme.getGradientRecentWidth();
+            var recentMargin = theme.getGradientRecentMargin();
+            var recentWidthAndMargin = recentWidth + recentMargin;
             var inputLabelWidth = picker.theme.getInputLabelWidth();
-            var inputWidth = picker.theme.getMainWidth() * 0.5;
+            var inputWidth = recentWidth * recentColumn + recentMargin * (recentColumn - 1);
             var inputMargin = 5;
             var inputDirectionMargin = theme.getGradientDirectionMargin();
             var inputDirectionTexture = theme.getGradientDirectionTexture();
@@ -46053,7 +46085,7 @@
                 parent: this,
                 x: inputLeft + inputLabelWidth + inputMargin,
                 y: paddingTop,
-                width: inputWidth - inputLabelWidth - inputMargin,
+                width: inputWidth - (inputLabelWidth + inputMargin) * 2,
                 step: 1,
                 image: {
                     source: inputDirectionTexture,
@@ -46071,10 +46103,6 @@
                 }
             });
             // Recent gradients
-            var recentColumn = theme.getGradientRecentColumn();
-            var recentWidth = theme.getGradientRecentWidth();
-            var recentMargin = theme.getGradientRecentMargin();
-            var recentWidthAndMargin = recentWidth + recentMargin;
             var x0 = inputLeft;
             var y0 = inputDirection.y + inputDirection.height + inputDirectionMargin;
             if (DPickerColorGradient.RECENT_COLOR_GRADIENT == null) {
