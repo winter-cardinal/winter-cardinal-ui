@@ -113,8 +113,12 @@ export class DPickerColorGradient<
 		this._anchors = [];
 
 		//
+		const recentColumn = theme.getGradientRecentColumn();
+		const recentWidth = theme.getGradientRecentWidth();
+		const recentMargin = theme.getGradientRecentMargin();
+		const recentWidthAndMargin = recentWidth + recentMargin;
 		const inputLabelWidth = picker.theme.getInputLabelWidth();
-		const inputWidth = picker.theme.getMainWidth() * 0.5;
+		const inputWidth = recentWidth * recentColumn + recentMargin * (recentColumn - 1);
 		const inputMargin = 5;
 		const inputDirectionMargin = theme.getGradientDirectionMargin();
 		const inputDirectionTexture = theme.getGradientDirectionTexture();
@@ -123,7 +127,7 @@ export class DPickerColorGradient<
 			parent: this,
 			x: inputLeft + inputLabelWidth + inputMargin,
 			y: paddingTop,
-			width: inputWidth - inputLabelWidth - inputMargin,
+			width: inputWidth - (inputLabelWidth + inputMargin) * 2,
 			step: 1,
 			image: {
 				source: inputDirectionTexture,
@@ -142,10 +146,6 @@ export class DPickerColorGradient<
 		});
 
 		// Recent gradients
-		const recentColumn = theme.getGradientRecentColumn();
-		const recentWidth = theme.getGradientRecentWidth();
-		const recentMargin = theme.getGradientRecentMargin();
-		const recentWidthAndMargin = recentWidth + recentMargin;
 		const x0 = inputLeft;
 		const y0 = inputDirection.y + inputDirection.height + inputDirectionMargin;
 		if (DPickerColorGradient.RECENT_COLOR_GRADIENT == null) {
