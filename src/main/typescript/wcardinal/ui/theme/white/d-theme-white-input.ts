@@ -99,7 +99,7 @@ export abstract class DThemeWhiteInput<
 		return true;
 	}
 
-	protected getElementStyleMargin(state: DBaseStateSet): string {
-		return "margin: 0.1em 0 0 0;";
+	protected getElementStyleBorder(state: DBaseStateSet): string {
+		return `border: 1px solid transparent; box-sizing: border-box;`;
 	}
 }

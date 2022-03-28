@@ -21,6 +21,8 @@ export class DynamicFontAtlasFont {
 		this.height = size + padding * 2;
 		const metrics = TextMetrics.measureFont(fontId);
 		this.ascent = metrics.ascent;
-		this.descent = metrics.descent;
+		// Becase the descent returned by TextMatrics#measureFont is tend
+		// to be the half of the actual descent browsers use internally.
+		this.descent = metrics.descent * 2;
 	}
 }
