@@ -66,11 +66,25 @@ export class DMenuItemText<
 		const text = this._shortcutText;
 		const margin = this._shortcutMargin;
 		if (text != null && margin != null) {
-			const toRounded = this.toRounded;
-			text.position.set(
-				toRounded(this.width - margin - text.width),
-				toRounded((this.height - text.height) * 0.5)
-			);
+			const auto = this._auto;
+
+			let textX = 0;
+			if (auto.width.isOn) {
+				textX = margin;
+			} else {
+				textX = this.width - text.width - margin;
+			}
+
+			let textY = 0;
+			const padding = this._padding;
+			const ptop = padding.getTop();
+			if (auto.height.isOn) {
+				textY = ptop;
+			} else {
+				textY = ptop + (this.height - ptop - padding.getBottom() - text.height) * 0.5;
+			}
+
+			text.position.set(textX, textY);
 		}
 	}
 

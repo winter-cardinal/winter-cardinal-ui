@@ -729,7 +729,7 @@ export class DBase<
 	protected _auto: DBaseAutoSet;
 	private _isDirty: boolean;
 	private _hasDirty: boolean;
-	protected _isChildrenDirty: boolean;
+	private _isHierarchyDirty: boolean;
 	private _shadow: DShadow | null;
 	private _onShadowUpdateBound: () => void;
 	private _weight: number;
@@ -768,7 +768,7 @@ export class DBase<
 		this._auto = new DBaseAutoSet();
 		this._isDirty = true;
 		this._hasDirty = false;
-		this._isChildrenDirty = false;
+		this._isHierarchyDirty = false;
 		this._shadow = null;
 		this.name = options?.name ?? "";
 		const theme = toTheme(options) || this.getThemeDefault();
@@ -778,7 +778,7 @@ export class DBase<
 		this._clearType = toEnum(options?.clear ?? theme.getClearType(), DLayoutClearType);
 		this._padding = new DBasePadding(theme, options, (): void => {
 			this.toParentResized();
-			this.toChildrenDirty();
+			this.toHierarchyDirty();
 			DApplications.update(this);
 		});
 		const toDirtyAndUpdate = (): void => {
@@ -920,8 +920,8 @@ export class DBase<
 			if (this.isDirty() || this.hasDirty()) {
 				this.toParentHasDirty();
 			}
-			if (this._isChildrenDirty) {
-				this.toParentChildrenDirty();
+			if (this._isHierarchyDirty) {
+				this.toParentHierarchyDirty();
 			}
 			const newParent = this.parent;
 			if (newParent instanceof DBase) {
@@ -1018,7 +1018,7 @@ export class DBase<
 	}
 
 	protected onChildrenChange(): void {
-		this.toChildrenDirty();
+		this.toHierarchyDirty();
 		super.onChildrenChange();
 	}
 
@@ -1046,53 +1046,54 @@ export class DBase<
 		this.emit("move", newX, newY, oldX, oldY, this);
 	}
 
-	resize(width: number, height: number): boolean {
+	resize(width?: number, height?: number): boolean {
 		const oldWidth = this._width;
 		const oldHeight = this._height;
-		const widthResized = oldWidth !== width;
-		const heightResized = oldHeight !== height;
-
-		if (widthResized) {
-			this._width = width;
+		const newWidth = width != null ? width : oldWidth;
+		const newHeight = height != null ? height : oldHeight;
+		const isWidthChanged = oldWidth !== newWidth;
+		const isHeightChanged = oldHeight !== newHeight;
+		if (isWidthChanged) {
+			this._width = newWidth;
 		}
-
-		if (heightResized) {
-			this._height = height;
+		if (isHeightChanged) {
+			this._height = newHeight;
 		}
-
-		const resized = widthResized || heightResized;
-		if (resized) {
-			this.onResize(width, height, oldWidth, oldHeight);
+		const isChanged = isWidthChanged || isHeightChanged;
+		if (isChanged) {
+			this.onResize(newWidth, newHeight, oldWidth, oldHeight);
 		}
-
-		if (widthResized) {
+		if (isWidthChanged) {
 			const scalarSet = this._scalarSet;
 			if (scalarSet.x != null) {
-				const position = this.transform.position;
+				const position = this._position;
 				const parent = this.getParentOfSize();
 				if (parent) {
-					this.x = scalarSet.x(parent.width, width, parent.padding.getLeft(), position.x);
+					this._position.x = scalarSet.x(
+						parent.width,
+						newWidth,
+						parent.padding.getLeft(),
+						position.x
+					);
 				}
 			}
 		}
-
-		if (heightResized) {
+		if (isHeightChanged) {
 			const scalarSet = this._scalarSet;
 			if (scalarSet.y != null) {
-				const position = this.transform.position;
+				const position = this._position;
 				const parent = this.getParentOfSize();
 				if (parent) {
-					this.y = scalarSet.y(
+					this._position.y = scalarSet.y(
 						parent.height,
-						height,
+						newHeight,
 						parent.padding.getTop(),
 						position.y
 					);
 				}
 			}
 		}
-
-		return resized;
+		return isChanged;
 	}
 
 	getClearType(): DLayoutClearType {
@@ -1101,7 +1102,7 @@ export class DBase<
 
 	onResize(newWidth: number, newHeight: number, oldWidth: number, oldHeight: number): void {
 		this.toDirty();
-		this.toChildrenDirty();
+		this.toHierarchyDirty();
 
 		const padding = this._padding;
 		const children = this.children;
@@ -1135,8 +1136,8 @@ export class DBase<
 		return this._position.x;
 	}
 
-	set x(x: number) {
-		this._position.x = x;
+	set x(x: DCoordinatePosition) {
+		this.setX(x);
 	}
 
 	getX(): DCoordinatePosition {
@@ -1144,15 +1145,24 @@ export class DBase<
 		if (scalarSet.x != null) {
 			return scalarSet.x;
 		} else {
-			return this.x;
+			return this._position.x;
 		}
 	}
 
 	setX(x: DCoordinatePosition): void {
+		const scalarSet = this._scalarSet;
 		if (isNumber(x)) {
-			this.x = x;
+			const position = this._position;
+			if (position.x !== x) {
+				scalarSet.x = undefined;
+				position.x = x;
+			} else {
+				if (scalarSet.x !== undefined) {
+					scalarSet.x = undefined;
+					this.toParentResized();
+				}
+			}
 		} else {
-			const scalarSet = this._scalarSet;
 			const scalar = DScalarFunctions.position(x);
 			if (scalarSet.x !== scalar) {
 				scalarSet.x = scalar;
@@ -1166,8 +1176,8 @@ export class DBase<
 		return this._position.y;
 	}
 
-	set y(y: number) {
-		this._position.y = y;
+	set y(y: DCoordinatePosition) {
+		this.setY(y);
 	}
 
 	getY(): DCoordinatePosition {
@@ -1175,15 +1185,24 @@ export class DBase<
 		if (scalarSet.y != null) {
 			return scalarSet.y;
 		} else {
-			return this.y;
+			return this._position.y;
 		}
 	}
 
 	setY(y: DCoordinatePosition): void {
+		const scalarSet = this._scalarSet;
 		if (isNumber(y)) {
-			this.y = y;
+			const position = this._position;
+			if (position.y !== y) {
+				scalarSet.y = undefined;
+				position.y = y;
+			} else {
+				if (scalarSet.y !== undefined) {
+					scalarSet.y = undefined;
+					this.toParentResized();
+				}
+			}
 		} else {
-			const scalarSet = this._scalarSet;
 			const scalar = DScalarFunctions.position(y);
 			if (scalarSet.y !== scalar) {
 				scalarSet.y = scalar;
@@ -1197,23 +1216,8 @@ export class DBase<
 		return this._width;
 	}
 
-	set width(width: number) {
-		const oldWidth = this._width;
-		if (oldWidth !== width) {
-			this._width = width;
-			const height = this._height;
-			this.onResize(width, height, oldWidth, height);
-
-			// Layout
-			const scalarSet = this._scalarSet;
-			if (scalarSet.x != null) {
-				const position = this.transform.position;
-				const parent = this.getParentOfSize();
-				if (parent) {
-					this.x = scalarSet.x(parent.width, width, parent.padding.getLeft(), position.x);
-				}
-			}
-		}
+	set width(width: DCoordinateSize) {
+		this.setWidth(width);
 	}
 
 	getWidth(): DCoordinateSize {
@@ -1225,14 +1229,38 @@ export class DBase<
 		const isOn = auto.isOn;
 		const isAuto = auto.from(width);
 		if (auto.isOn !== isOn) {
-			this.toChildrenDirty();
+			this.toHierarchyDirty();
 			DApplications.update(this);
 		}
 		if (!isAuto) {
+			const scalarSet = this._scalarSet;
 			if (isNumber(width)) {
-				this.width = width;
+				const oldWidth = this._width;
+				if (oldWidth !== width) {
+					scalarSet.width = undefined;
+					this._width = width;
+					const height = this._height;
+					this.onResize(width, height, oldWidth, height);
+
+					if (scalarSet.x != null) {
+						const position = this._position;
+						const parent = this.getParentOfSize();
+						if (parent) {
+							position.x = scalarSet.x(
+								parent.width,
+								width,
+								parent.padding.getLeft(),
+								position.x
+							);
+						}
+					}
+				} else {
+					if (scalarSet.width !== undefined) {
+						scalarSet.width = undefined;
+						this.toParentResized();
+					}
+				}
 			} else {
-				const scalarSet = this._scalarSet;
 				const scalar = DScalarFunctions.size(width);
 				if (scalarSet.width !== scalar) {
 					scalarSet.width = scalar;
@@ -1247,28 +1275,8 @@ export class DBase<
 		return this._height;
 	}
 
-	set height(height: number) {
-		const oldHeight = this._height;
-		if (oldHeight !== height) {
-			this._height = height;
-			const width = this._width;
-			this.onResize(width, height, width, oldHeight);
-
-			// Layout
-			const scalarSet = this._scalarSet;
-			if (scalarSet.y != null) {
-				const position = this.transform.position;
-				const parent = this.getParentOfSize();
-				if (parent) {
-					this.y = scalarSet.y(
-						parent.height,
-						height,
-						parent.padding.getTop(),
-						position.y
-					);
-				}
-			}
-		}
+	set height(height: DCoordinateSize) {
+		this.setHeight(height);
 	}
 
 	getHeight(): DCoordinateSize {
@@ -1280,14 +1288,38 @@ export class DBase<
 		const isOn = auto.isOn;
 		const isAuto = auto.from(height);
 		if (auto.isOn !== isOn) {
-			this.toChildrenDirty();
+			this.toHierarchyDirty();
 			DApplications.update(this);
 		}
 		if (!isAuto) {
+			const scalarSet = this._scalarSet;
 			if (isNumber(height)) {
-				this.height = height;
+				const oldHeight = this._height;
+				if (oldHeight !== height) {
+					scalarSet.height = undefined;
+					this._height = height;
+					const width = this._width;
+					this.onResize(width, height, width, oldHeight);
+
+					if (scalarSet.y != null) {
+						const position = this._position;
+						const parent = this.getParentOfSize();
+						if (parent) {
+							position.y = scalarSet.y(
+								parent.height,
+								height,
+								parent.padding.getTop(),
+								position.y
+							);
+						}
+					}
+				} else {
+					if (scalarSet.height !== undefined) {
+						scalarSet.height = undefined;
+						this.toParentResized();
+					}
+				}
 			} else {
-				const scalarSet = this._scalarSet;
 				const scalar = DScalarFunctions.size(height);
 				if (scalarSet.height !== scalar) {
 					scalarSet.height = scalar;
@@ -1359,7 +1391,7 @@ export class DBase<
 	show(): this {
 		if (!this.visible) {
 			this.visible = true;
-			this.toParentChildrenDirty();
+			this.toParentHierarchyDirty();
 			DApplications.update(this);
 		}
 		return this;
@@ -1372,7 +1404,7 @@ export class DBase<
 	hide(): this {
 		if (this.visible) {
 			this.visible = false;
-			this.toParentChildrenDirty();
+			this.toParentHierarchyDirty();
 			this.blur(true);
 			DApplications.update(this);
 		}
@@ -1408,28 +1440,28 @@ export class DBase<
 		}
 	}
 
-	toChildrenDirty(): boolean {
-		if (!this._isChildrenDirty) {
-			this._isChildrenDirty = true;
-			this.onChildrenDirty();
-			this.toParentChildrenDirty();
+	toHierarchyDirty(): boolean {
+		if (!this._isHierarchyDirty) {
+			this._isHierarchyDirty = true;
+			this.onHierarchyDirty();
+			this.toParentHierarchyDirty();
 			return true;
 		}
 		return false;
 	}
 
-	toParentChildrenDirty(): void {
+	toParentHierarchyDirty(): void {
 		const parent = this.parent;
 		if (parent instanceof DBase) {
-			parent.toChildrenDirty();
+			parent.toHierarchyDirty();
 		}
 	}
 
-	isChildrenDirty(): boolean {
-		return this._isChildrenDirty;
+	isHierarchyDirty(): boolean {
+		return this._isHierarchyDirty;
 	}
 
-	protected onChildrenDirty(): void {
+	protected onHierarchyDirty(): void {
 		// DO NOTHING
 	}
 
@@ -1552,18 +1584,29 @@ export class DBase<
 		}
 	}
 
-	refit(): void {
-		if (this._isChildrenDirty) {
-			this._isChildrenDirty = false;
+	reflow(): void {
+		const isDirty = this._isDirty;
+		if (isDirty) {
+			this.onReflow();
+			this._isDirty = false;
+		}
+
+		const hasDirty = this._hasDirty;
+		const isHierarchyDirty = this._isHierarchyDirty;
+		if (hasDirty || isHierarchyDirty) {
+			this._hasDirty = false;
+			this._isHierarchyDirty = false;
 
 			const children = this.children;
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
 				if (child instanceof DBase) {
-					child.refit();
+					child.reflow();
 				}
 			}
+		}
 
+		if (isDirty || hasDirty || isHierarchyDirty) {
 			this.onRefit();
 		}
 	}
@@ -1598,7 +1641,7 @@ export class DBase<
 					width = Math.max(width, child.x + child.width);
 				}
 			}
-			this.width = width + this.padding.getRight();
+			this.resize(width + this.padding.getRight(), undefined);
 		} else if (isHeightAuto) {
 			let height = 0;
 			const children = this.children;
@@ -1608,7 +1651,7 @@ export class DBase<
 					height = Math.max(height, child.y + child.height);
 				}
 			}
-			this.height = height + this.padding.getBottom();
+			this.resize(undefined, height + this.padding.getBottom());
 		}
 	}
 
@@ -1626,24 +1669,6 @@ export class DBase<
 		return (
 			this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getWidth()))
 		);
-	}
-
-	reflow(): void {
-		if (this._isDirty) {
-			this.onReflow();
-			this._isDirty = false;
-		}
-
-		if (this._hasDirty) {
-			const children = this.children;
-			for (let i = 0, imax = children.length; i < imax; ++i) {
-				const child = children[i];
-				if (child instanceof DBase) {
-					child.reflow();
-				}
-			}
-			this._hasDirty = false;
-		}
 	}
 
 	protected onReflow(): void {

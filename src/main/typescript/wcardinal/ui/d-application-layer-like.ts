@@ -15,7 +15,6 @@ export interface DApplicationLayerLike extends Application {
 
 	update(): void;
 	render(): void;
-	refit(): void;
 	reflow(): void;
 
 	getFocusController(): DControllerFocus;

@@ -158,10 +158,6 @@ export class DHtmlElement<
 		result.width = point.x - result.x;
 		result.height = point.y - result.y;
 
-		// Rounds pixels as Pixi.js does
-		result.x = ((result.x * resolution) | 0) / resolution;
-		result.y = ((result.y * resolution) | 0) / resolution;
-
 		return result;
 	}
 

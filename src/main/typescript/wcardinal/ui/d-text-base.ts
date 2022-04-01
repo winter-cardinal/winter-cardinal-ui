@@ -90,6 +90,11 @@ export interface DThemeTextBase<VALUE = unknown> extends DThemeBase {
 	isOverflowMaskEnabled(): boolean;
 }
 
+export interface DTextBaseAlign {
+	vertical: DAlignVertical;
+	horizontal: DAlignHorizontal;
+}
+
 const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 	theme: THEME,
 	options: DTextBaseOptions<VALUE, THEME> | undefined,
@@ -135,7 +140,7 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 const toTextAlign = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 	theme: THEME,
 	options?: DTextBaseOptions<VALUE, THEME>
-): { vertical: DAlignVertical; horizontal: DAlignHorizontal } => {
+): DTextBaseAlign => {
 	const align = options?.text?.align;
 	return {
 		vertical: toEnum(align?.vertical ?? theme.getTextAlignVertical(), DAlignVertical),
@@ -158,10 +163,7 @@ export class DTextBase<
 	protected _textColor!: DStateAwareOrValueMightBe<number>;
 	protected _textAlpha!: DStateAwareOrValueMightBe<number>;
 	protected _textStyle!: DDynamicTextStyleOptions;
-	protected _textAlign!: {
-		vertical: DAlignVertical;
-		horizontal: DAlignHorizontal;
-	};
+	protected _textAlign!: DTextBaseAlign;
 	protected _textFormatter!: (value: VALUE, caller: any) => string;
 	protected _isOverflowMaskEnabled!: boolean;
 	protected _overflowMask?: DBaseOverflowMaskSimple | null;
@@ -261,35 +263,41 @@ export class DTextBase<
 	protected updateTextPosition(text: DDynamicText): void {
 		const align = this._textAlign;
 		const padding = this._padding;
-		const toRounded = this.toRounded;
+		const auto = this._auto;
 
-		switch (align.horizontal) {
-			case DAlignHorizontal.LEFT:
-				text.x = toRounded(padding.getLeft());
-				break;
-			case DAlignHorizontal.CENTER:
-				text.x = toRounded((this.width - text.width) * 0.5);
-				break;
-			case DAlignHorizontal.RIGHT:
-				text.x = toRounded(this.width - text.width - padding.getRight());
-				break;
+		let textX = 0;
+		const pleft = padding.getLeft();
+		const alignHorizontal = align.horizontal;
+		if (auto.width.isOn || alignHorizontal === DAlignHorizontal.LEFT) {
+			textX = pleft;
+		} else {
+			const width = this.width;
+			const textWidth = text.width;
+			const pright = padding.getRight();
+			if (alignHorizontal === DAlignHorizontal.CENTER) {
+				textX = pleft + (width - pleft - pright - textWidth) * 0.5;
+			} else {
+				textX = width - textWidth - pright;
+			}
 		}
 
-		switch (align.vertical) {
-			case DAlignVertical.TOP:
-				text.y = toRounded(padding.getTop());
-				break;
-			case DAlignVertical.MIDDLE:
-				text.y = toRounded((this.height - text.height) * 0.5);
-				break;
-			case DAlignVertical.BOTTOM:
-				text.y = toRounded(this.height - text.height - padding.getBottom());
-				break;
+		let textY = 0;
+		const ptop = padding.getTop();
+		const alignVertical = align.vertical;
+		if (auto.height.isOn || alignVertical === DAlignVertical.TOP) {
+			textY = ptop;
+		} else {
+			const height = this.height;
+			const textHeight = text.height;
+			const pbottom = padding.getBottom();
+			if (alignVertical === DAlignVertical.MIDDLE) {
+				textY = ptop + (height - ptop - pbottom - textHeight) * 0.5;
+			} else {
+				textY = height - textHeight - pbottom;
+			}
 		}
-	}
 
-	protected toRounded(this: unknown, value: number): number {
-		return Math.round(value);
+		text.position.set(textX, textY);
 	}
 
 	protected getTextColor(theme: THEME, state: DBaseStateSet): number {

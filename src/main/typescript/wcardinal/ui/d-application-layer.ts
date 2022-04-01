@@ -40,7 +40,6 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	protected _renderBound: () => void;
 	protected _isLocked: boolean;
 	protected _isOverlay: boolean;
-	protected _refitLimit: number;
 	protected _reflowLimit: number;
 	protected _rootElement: HTMLElement;
 	protected _elementContainer: HTMLElement;
@@ -59,7 +58,6 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		this._isOverlay = options.isOverlay();
 		this._padding = options.getPadding();
 		this._rootElement = options.getRootElement();
-		this._refitLimit = 5;
 		this._reflowLimit = 5;
 		this._elementContainer = this.newElementContainer();
 
@@ -276,7 +274,6 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	render(): void {
-		this.refit();
 		this.reflow();
 
 		// Please note why the following line is here.
@@ -306,34 +303,16 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 		return this._padding;
 	}
 
-	refit(): void {
-		const children = this.stage.children;
-		for (let ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
-			let isChildrenDirty = false;
-			for (let i = 0, imax = children.length; i < imax; ++i) {
-				const child = children[i];
-				if (child instanceof DBase) {
-					child.refit();
-					isChildrenDirty = isChildrenDirty || child.isChildrenDirty();
-				}
-			}
-
-			// If DBases are changed during the `refit` process, need to refit again.
-			if (!isChildrenDirty) {
-				break;
-			}
-		}
-	}
-
 	reflow(): void {
 		const children = this.stage.children;
-		for (let ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
+		for (let ilimit = 0, limit = this._reflowLimit; ilimit < limit; ++ilimit) {
 			let isDirty = false;
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
 				if (child instanceof DBase) {
 					child.reflow();
-					isDirty = isDirty || child.isDirty() || child.hasDirty();
+					isDirty =
+						isDirty || child.isDirty() || child.hasDirty() || child.isHierarchyDirty();
 				}
 			}
 

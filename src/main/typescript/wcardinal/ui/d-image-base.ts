@@ -18,6 +18,7 @@ import {
 	DThemeImageBaseTertiary
 } from "./d-image-base-theme-wrapper-tertiary";
 import { DImagePiece, DImagePieceOptions, DThemeImagePiece } from "./d-image-piece";
+import { DImagePieceLayouter } from "./d-image-piece-layouter";
 import { DOnOptions } from "./d-on-options";
 import { DStateAwareOrValueMightBe } from "./d-state-aware";
 import { DTextBase, DTextBaseEvents, DTextBaseOptions, DThemeTextBase } from "./d-text-base";
@@ -90,6 +91,7 @@ export class DImageBase<
 	THEME extends DThemeImageBase<VALUE> = DThemeImageBase<VALUE>,
 	OPTIONS extends DImageBaseOptions<VALUE, THEME> = DImageBaseOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
+	protected static LAYOUTER?: DImagePieceLayouter;
 	protected _images!: DImagePiece[];
 
 	protected init(options?: OPTIONS): void {
@@ -143,301 +145,28 @@ export class DImageBase<
 	}
 
 	protected updateTextAndImage(): void {
-		const text = this._text;
 		const images = this._images;
-		const padding = this._padding;
-
-		const toRounded = this.toRounded;
-
-		const width = this.width;
-		const height = this.height;
-
-		const pl = padding.getLeft();
-		const pr = padding.getRight();
-		const pt = padding.getTop();
-		const pb = padding.getBottom();
-
-		const noText = text == null;
-
-		let textLeftFirst = noText;
-		let textTopFirst = noText;
-
-		let textRightLastMargin = 0;
-		let textBottomLastMargin = 0;
-
-		let textLeft = 0;
-		let textRight = 0;
-		let textTop = 0;
-		let textBottom = 0;
-
-		let paddingLeft = pl;
-		let paddingRight = width - pr;
-		let paddingTop = pt;
-		let paddingBottom = height - pb;
-
-		let borderLeft = 0;
-		let borderRight = width;
-		let borderTop = 0;
-		let borderBottom = height;
-
+		const layouter = (DImageBase.LAYOUTER ??= new DImagePieceLayouter());
 		for (let i = 0, imax = images.length; i < imax; ++i) {
 			const image = images[i];
 			image.updateSource();
 			image.updateTint();
 			image.updateBound();
-
-			const imageImage = image.image;
-			if (imageImage) {
-				const imageBound = image.bound;
-				const imageBoundWidth = imageBound.width;
-				const imageBoundHeight = imageBound.height;
-				const imageMargin = image.margin;
-				const imageMarginHorizontal = imageMargin.horizontal;
-				const imageMarginVertical = imageMargin.vertical;
-
-				// Text
-				if (image.align.with === DAlignWith.TEXT) {
-					switch (image.align.horizontal) {
-						case DAlignHorizontal.LEFT:
-							imageImage.x = textLeft;
-							textLeft += imageBoundWidth;
-							if (textLeftFirst) {
-								textLeftFirst = false;
-							} else {
-								textLeft += imageMarginHorizontal;
-							}
-							break;
-						case DAlignHorizontal.CENTER:
-							// DO NOTHING
-							break;
-						case DAlignHorizontal.RIGHT:
-							textRight -= imageBoundWidth;
-							imageImage.x = textRight;
-							textRight -= imageMarginHorizontal;
-							textRightLastMargin = imageMarginHorizontal;
-							break;
-					}
-					switch (image.align.vertical) {
-						case DAlignVertical.TOP:
-							imageImage.y = textTop;
-							textTop += imageBoundHeight;
-							if (textTopFirst) {
-								textTopFirst = false;
-							} else {
-								textTop += imageMarginVertical;
-							}
-							break;
-						case DAlignVertical.MIDDLE:
-							// DO NOTHING
-							break;
-						case DAlignVertical.BOTTOM:
-							textBottom -= imageBoundHeight;
-							imageImage.y = textBottom;
-							textBottom -= imageMarginVertical;
-							textBottomLastMargin = imageMarginVertical;
-							break;
-					}
-				}
-
-				// Padding
-				if (image.align.with === DAlignWith.PADDING) {
-					switch (image.align.horizontal) {
-						case DAlignHorizontal.LEFT:
-							paddingLeft += imageMarginHorizontal;
-							imageImage.x = toRounded(paddingLeft);
-							paddingLeft += imageBoundWidth;
-							break;
-						case DAlignHorizontal.CENTER:
-							// DO NOTHING
-							break;
-						case DAlignHorizontal.RIGHT:
-							paddingRight -= imageBoundWidth + imageMarginHorizontal;
-							imageImage.x = toRounded(paddingRight);
-							break;
-					}
-					switch (image.align.vertical) {
-						case DAlignVertical.TOP:
-							paddingTop += imageMarginVertical;
-							imageImage.y = toRounded(paddingTop);
-							paddingTop += imageBoundHeight;
-							break;
-						case DAlignVertical.MIDDLE:
-							// DO NOTHING
-							break;
-						case DAlignVertical.BOTTOM:
-							paddingBottom -= imageBoundHeight + imageMarginVertical;
-							imageImage.y = toRounded(paddingBottom);
-							break;
-					}
-				}
-
-				// Border
-				if (image.align.with === DAlignWith.BORDER) {
-					switch (image.align.horizontal) {
-						case DAlignHorizontal.LEFT:
-							borderLeft += imageMarginHorizontal;
-							imageImage.x = toRounded(borderLeft);
-							borderLeft += imageBoundWidth;
-							break;
-						case DAlignHorizontal.CENTER:
-							// DO NOTHING
-							break;
-						case DAlignHorizontal.RIGHT:
-							borderRight -= imageBoundWidth + imageMarginHorizontal;
-							imageImage.x = toRounded(borderRight);
-							break;
-					}
-					switch (image.align.vertical) {
-						case DAlignVertical.TOP:
-							borderTop += imageMarginVertical;
-							imageImage.y = toRounded(borderTop);
-							borderTop += imageBoundHeight;
-							break;
-						case DAlignVertical.MIDDLE:
-							// DO NOTHING
-							break;
-						case DAlignVertical.BOTTOM:
-							borderBottom -= imageBoundHeight + imageMarginVertical;
-							imageImage.y = toRounded(borderBottom);
-							break;
-					}
-				}
-			}
+			layouter.add(image);
 		}
-		if (noText) {
-			textRight += textRightLastMargin;
-			textBottom += textBottomLastMargin;
-		}
-
-		// Text
-		let textLeftAdjust = 0;
-		let textCenterAdjust = 0;
-		let textRightAdjust = 0;
-		let textTopAdjust = 0;
-		let textMiddleAdjust = 0;
-		let textBottomAdjust = 0;
-
+		const text = this._text;
 		if (text != null) {
 			this.updateTextColor(text);
-			text.setClippingDelta(textLeft - textRight, textTop - textBottom);
-
-			const textAlign = this._textAlign;
-			const textWidth = text.width;
-			const textHeight = text.height;
-			switch (textAlign.horizontal) {
-				case DAlignHorizontal.LEFT:
-					textLeftAdjust = pl;
-					textRightAdjust = textLeftAdjust + textLeft + textWidth - textRight;
-					break;
-				case DAlignHorizontal.CENTER:
-					textLeftAdjust = (width - textLeft + textRight - textWidth) * 0.5;
-					textRightAdjust = textLeftAdjust + textLeft + textWidth - textRight;
-					break;
-				case DAlignHorizontal.RIGHT:
-					textRightAdjust = width - pr;
-					textLeftAdjust = textRightAdjust + textRight - textWidth - textLeft;
-					break;
-			}
-
-			text.x = toRounded(textLeftAdjust + textLeft);
-			textCenterAdjust = textLeftAdjust + textLeft + textWidth * 0.5;
-
-			switch (textAlign.vertical) {
-				case DAlignVertical.TOP:
-					textTopAdjust = pt;
-					textBottomAdjust = textTopAdjust + textTop + textHeight - textBottom;
-					break;
-				case DAlignVertical.MIDDLE:
-					textTopAdjust = (height - textTop + textBottom - textHeight) * 0.5;
-					textBottomAdjust = textTopAdjust + textTop + textHeight - textBottom;
-					break;
-				case DAlignVertical.BOTTOM:
-					textBottomAdjust = height - pb;
-					textTopAdjust = textBottomAdjust + textBottom - textHeight - textTop;
-					break;
-			}
-
-			text.y = toRounded(textTopAdjust + textTop);
-			textMiddleAdjust = textTopAdjust + textTop + textHeight * 0.5;
-		} else {
-			textLeftAdjust = (width - textLeft + textRight) * 0.5;
-			textRightAdjust = textLeftAdjust + textLeft - textRight;
-			textCenterAdjust = textLeftAdjust + textLeft;
-
-			textTopAdjust = (height - textTop + textBottom) * 0.5;
-			textBottomAdjust = textTopAdjust + textTop - textBottom;
-			textMiddleAdjust = textTopAdjust + textTop;
+			layouter.set(text);
 		}
-
-		const paddingCenterAdjust = width * 0.5;
-		const paddingMiddleAdjust = height * 0.5;
-
-		const borderCenterAdjust = width * 0.5;
-		const borderMiddleAdjust = height * 0.5;
-
-		for (let i = 0, imax = images.length; i < imax; ++i) {
-			const image = images[i];
-			const imageImage = image.image;
-			if (imageImage) {
-				const imageBound = image.bound;
-				const imageBoundWidth = imageBound.width;
-				const imageBoundHeight = imageBound.height;
-
-				// Text
-				if (image.align.with === DAlignWith.TEXT) {
-					switch (image.align.horizontal) {
-						case DAlignHorizontal.LEFT:
-							imageImage.x = toRounded(imageImage.x + textLeftAdjust);
-							break;
-						case DAlignHorizontal.CENTER:
-							imageImage.x = toRounded(textCenterAdjust - imageBoundWidth * 0.5);
-							break;
-						case DAlignHorizontal.RIGHT:
-							imageImage.x = toRounded(imageImage.x + textRightAdjust);
-							break;
-					}
-					switch (image.align.vertical) {
-						case DAlignVertical.TOP:
-							imageImage.y = toRounded(imageImage.y + textTopAdjust);
-							break;
-						case DAlignVertical.MIDDLE:
-							imageImage.y = toRounded(textMiddleAdjust - imageBoundHeight * 0.5);
-							break;
-						case DAlignVertical.BOTTOM:
-							imageImage.y = toRounded(imageImage.y + textBottomAdjust);
-							break;
-					}
-				}
-
-				// Padding
-				if (image.align.with === DAlignWith.PADDING) {
-					switch (image.align.horizontal) {
-						case DAlignHorizontal.CENTER:
-							imageImage.x = toRounded(paddingCenterAdjust - imageBoundWidth * 0.5);
-							break;
-					}
-					switch (image.align.vertical) {
-						case DAlignVertical.MIDDLE:
-							imageImage.y = toRounded(paddingMiddleAdjust - imageBoundHeight * 0.5);
-							break;
-					}
-				}
-
-				// Border
-				if (image.align.with === DAlignWith.BORDER) {
-					switch (image.align.horizontal) {
-						case DAlignHorizontal.CENTER:
-							imageImage.x = toRounded(borderCenterAdjust - imageBoundWidth * 0.5);
-							break;
-					}
-					switch (image.align.vertical) {
-						case DAlignVertical.MIDDLE:
-							imageImage.y = toRounded(borderMiddleAdjust - imageBoundHeight * 0.5);
-							break;
-					}
-				}
-			}
-		}
+		const auto = this._auto;
+		layouter.execute(
+			this._padding,
+			this._textAlign,
+			auto.width.isOn ? null : this.width,
+			auto.height.isOn ? null : this.height
+		);
+		layouter.clear();
 	}
 
 	protected isRefitable(target: any): target is DRefitable {

@@ -60,12 +60,12 @@ export class DMenuSided<
 		return new DMenuSidedSelection<VALUE>(this.content, options);
 	}
 
-	protected onChildrenDirty(): void {
+	protected onHierarchyDirty(): void {
 		const selection = this._selection;
 		if (selection != null) {
 			selection.toDirty();
 		}
-		super.onChildrenDirty();
+		super.onHierarchyDirty();
 	}
 
 	protected newItems(
