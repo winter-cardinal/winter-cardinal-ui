@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.158.0
+ Winter Cardinal UI v0.159.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -1695,7 +1695,7 @@
             };
         };
         EShapeFillImpl.prototype.serialize = function (manager) {
-            var stringified = "[" + (this._enable ? 1 : 0) + "," + this._color + "," + this._alpha + "]";
+            var stringified = "[".concat(this._enable ? 1 : 0, ",").concat(this._color, ",").concat(this._alpha, "]");
             return manager.addResource(stringified);
         };
         EShapeFillImpl.prototype.deserialize = function (target, manager) {
@@ -2087,7 +2087,7 @@
             return result;
         };
         EShapeBarPoints.prototype.serialize = function (manager) {
-            return manager.addResource("[" + this._position + "," + this._size + "," + this._style + "]");
+            return manager.addResource("[".concat(this._position, ",").concat(this._size, ",").concat(this._style, "]"));
         };
         EShapeBarPoints.prototype.deserialize = function (resourceId, manager) {
             if (0 <= resourceId && resourceId < manager.resources.length) {
@@ -3707,10 +3707,10 @@
      */
     var toGradientSerialized = function (gradient) {
         var points = gradient.points;
-        var result = "[" + gradient.direction;
+        var result = "[".concat(gradient.direction);
         for (var i = 0, imax = points.length, j = 1; i < imax; i += 1, j += 3) {
             var point = points[i];
-            result += "," + point.color + "," + point.alpha + "," + point.position;
+            result += ",".concat(point.color, ",").concat(point.alpha, ",").concat(point.position);
         }
         result += "]";
         return result;
@@ -4602,7 +4602,7 @@
         };
         EShapeStrokeImpl.prototype.serialize = function (manager) {
             var enable = this._enable ? 1 : 0;
-            var serialized = "[" + enable + "," + this._color + "," + this._alpha + "," + this._width + "," + this._align + "," + this._side + "," + this._style + "]";
+            var serialized = "[".concat(enable, ",").concat(this._color, ",").concat(this._alpha, ",").concat(this._width, ",").concat(this._align, ",").concat(this._side, ",").concat(this._style, "]");
             return manager.addResource(serialized);
         };
         EShapeStrokeImpl.prototype.deserialize = function (target, manager) {
@@ -4832,7 +4832,7 @@
             };
         };
         EShapeDataValueRangeImpl.prototype.serialize = function (manager) {
-            var serialized = "[" + this._type + "," + this._from + "," + this._to + "]";
+            var serialized = "[".concat(this._type, ",").concat(this._from, ",").concat(this._to, "]");
             return manager.addResource(serialized);
         };
         EShapeDataValueRangeImpl.prototype.deserialize = function (target, manager) {
@@ -5342,7 +5342,7 @@
             var initialSerialized = manager.addResource(this.initial);
             var formatSerialized = manager.addResource(this.format.trim());
             var rangeSerialized = this.range.serialize(manager);
-            return manager.addResource("[" + idSerialized + "," + initialSerialized + "," + formatSerialized + "," + rangeSerialized + "," + this._capacity + "," + this._order + "]");
+            return manager.addResource("[".concat(idSerialized, ",").concat(initialSerialized, ",").concat(formatSerialized, ",").concat(rangeSerialized, ",").concat(this._capacity, ",").concat(this._order, "]"));
         };
         EShapeDataValueImpl.prototype.deserialize = function (target, manager) {
             var resources = manager.resources;
@@ -5582,9 +5582,9 @@
                 return manager.addResource("[]");
             }
             else {
-                var serialized = "[" + values[0].serialize(manager);
+                var serialized = "[".concat(values[0].serialize(manager));
                 for (var i = 1, imax = values.length; i < imax; ++i) {
-                    serialized += "," + values[i].serialize(manager);
+                    serialized += ",".concat(values[i].serialize(manager));
                 }
                 serialized += "]";
                 return manager.addResource(serialized);
@@ -5674,7 +5674,7 @@
             };
         };
         EShapeTextAlignImpl.prototype.serialize = function (manager) {
-            return manager.addResource("[" + this._horizontal + "," + this._vertical + "]");
+            return manager.addResource("[".concat(this._horizontal, ",").concat(this._vertical, "]"));
         };
         EShapeTextAlignImpl.prototype.deserialize = function (target, manager) {
             var resources = manager.resources;
@@ -5755,7 +5755,7 @@
             };
         };
         EShapeTextOffsetImpl.prototype.serialize = function (manager) {
-            return manager.addResource("[" + this._horizontal + "," + this._vertical + "]");
+            return manager.addResource("[".concat(this._horizontal, ",").concat(this._vertical, "]"));
         };
         EShapeTextOffsetImpl.prototype.deserialize = function (target, manager) {
             var resources = manager.resources;
@@ -5877,7 +5877,7 @@
             };
         };
         EShapeTextOutlineImpl.prototype.serialize = function (manager) {
-            var serialized = "[" + (this._enable ? 1 : 0) + "," + this._color + "," + this._alpha + "," + this._width + "]";
+            var serialized = "[".concat(this._enable ? 1 : 0, ",").concat(this._color, ",").concat(this._alpha, ",").concat(this._width, "]");
             return manager.addResource(serialized);
         };
         EShapeTextOutlineImpl.prototype.deserialize = function (target, manager) {
@@ -6161,9 +6161,9 @@
             var outlineId = this.outline.serialize(manager);
             var spacingId = this.spacing.serialize(manager);
             var paddingId = this.padding.serialize(manager);
-            var serialized = "[" + valueId + "," + this._color + "," + this._alpha + "," + familyId + "," + this._size + "," +
-                (this._weight + "," + alignId + "," + offsetId + "," + this._style + "," + outlineId + ",") +
-                (spacingId + "," + this._direction + "," + paddingId + "," + (this._clipping ? 1 : 0) + "]");
+            var serialized = "[".concat(valueId, ",").concat(this._color, ",").concat(this._alpha, ",").concat(familyId, ",").concat(this._size, ",") +
+                "".concat(this._weight, ",").concat(alignId, ",").concat(offsetId, ",").concat(this._style, ",").concat(outlineId, ",") +
+                "".concat(spacingId, ",").concat(this._direction, ",").concat(paddingId, ",").concat(this._clipping ? 1 : 0, "]");
             return manager.addResource(serialized);
         };
         EShapeTextImpl.prototype.deserialize = function (target, manager) {
@@ -6975,7 +6975,7 @@
         UtilRgb.fromCode = function (code) {
             var trimmed = code.trim().toLowerCase();
             if (trimmed.length === 6) {
-                var color = Number("0x" + trimmed);
+                var color = Number("0x".concat(trimmed));
                 if (color === color) {
                     return color;
                 }
@@ -7600,13 +7600,13 @@
                     "with( shape ) {" +
                     "with( state ) {" +
                     (nullable ?
-                        ("var result = (" + expression + ");" +
-                            ("return (result != null ? " + caster + "(result) : null);")) :
-                        "return " + caster + "(" + expression + ");") +
+                        ("var result = (".concat(expression, ");") +
+                            "return (result != null ? ".concat(caster, "(result) : null);")) :
+                        "return ".concat(caster, "(").concat(expression, ");")) +
                     "}" +
                     "}" +
                     "} catch( e ) {" +
-                    ("return " + defLiteral + ";") +
+                    "return ".concat(defLiteral, ";") +
                     "}";
                 /* eslint-enable prettier/prettier */
                 if (parameter == null) {
@@ -8003,7 +8003,7 @@
         };
         EShapeActionValueBlink.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.interval + "," + this.color + "," + this.alpha + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(this.interval, ",").concat(this.color, ",").concat(this.alpha, "]"));
         };
         EShapeActionValueBlink.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -8317,7 +8317,7 @@
         EShapeActionValueChangeColor.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
             var blendId = manager.addResource(this.blend);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.target + "," + this.color + "," + this.alpha + "," + blendId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(this.target, ",").concat(this.color, ",").concat(this.alpha, ",").concat(blendId, "]"));
         };
         EShapeActionValueChangeColor.deserialize = function (serialized, manager) {
             var subtype = EShapeActionValueChangeColorTypes.from(serialized);
@@ -8402,7 +8402,7 @@
             var conditionId = manager.addResource(this.condition);
             var target = EShapeActionValueChangeColorTarget.BRIGHTNESS;
             var brightnessId = manager.addResource(this.brightness);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + target + "," + brightnessId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(target, ",").concat(brightnessId, "]"));
         };
         EShapeActionValueChangeColorBrightness.deserialize = function (serialized, manager) {
             var subtype = EShapeActionValueChangeColorTypes.from(serialized);
@@ -8466,7 +8466,7 @@
             var colorId = manager.addResource(this.color);
             var alphaId = manager.addResource(this.alpha);
             var blendId = manager.addResource(this.blend);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + target + "," + colorId + "," + alphaId + "," + blendId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(target, ",").concat(colorId, ",").concat(alphaId, ",").concat(blendId, "]"));
         };
         EShapeActionValueChangeColorCode.deserialize = function (serialized, manager) {
             var subtype = EShapeActionValueChangeColorTypes.from(serialized);
@@ -8524,7 +8524,7 @@
         EShapeActionValueChangeCursor.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
             var nameId = manager.addResource(this.name);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + nameId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(nameId, "]"));
         };
         EShapeActionValueChangeCursor.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -8581,7 +8581,7 @@
         function FormatNoded() {
         }
         FormatNoded.prototype.format = function (target, step, date) {
-            return "" + (target | 0);
+            return "".concat(target | 0);
         };
         return FormatNoded;
     }());
@@ -8703,7 +8703,7 @@
         };
         FormatNodefsi.prototype.format_ = function (target, unitInverse, postfix) {
             var value = target * unitInverse;
-            return "" + value.toFixed(this.precision) + postfix;
+            return "".concat(value.toFixed(this.precision)).concat(postfix);
         };
         return FormatNodefsi;
     }(FormatNodePrecision));
@@ -8796,7 +8796,7 @@
         function FormatNodeP() {
         }
         FormatNodeP.prototype.format = function (target, step, date) {
-            return ((target * 100) | 0) + "%";
+            return "".concat((target * 100) | 0, "%");
         };
         return FormatNodeP;
     }());
@@ -8809,7 +8809,7 @@
         function FormatNodep() {
         }
         FormatNodep.prototype.format = function (target, step, date) {
-            return (target | 0) + "%";
+            return "".concat(target | 0, "%");
         };
         return FormatNodep;
     }());
@@ -8841,7 +8841,7 @@
         FormatNodeParenthesis.prototype.format = function (target, step, date) {
             var result = this.node.format(target, step, date);
             if (0 < result.length && result[0] === "-") {
-                return "(" + result.substring(1, result.length) + ")";
+                return "(".concat(result.substring(1, result.length), ")");
             }
             return result;
         };
@@ -8859,7 +8859,7 @@
         FormatNodePlus.prototype.format = function (target, step, date) {
             var result = this.node.format(target, step, date);
             if (0 < result.length && result[0] !== "-") {
-                return "+" + result;
+                return "+".concat(result);
             }
             return result;
         };
@@ -8874,7 +8874,7 @@
         function FormatNodeRP() {
         }
         FormatNodeRP.prototype.format = function (target, step, date) {
-            return Math.round(target * 100) + "%";
+            return "".concat(Math.round(target * 100), "%");
         };
         return FormatNodeRP;
     }());
@@ -8887,7 +8887,7 @@
         function FormatNoderp() {
         }
         FormatNoderp.prototype.format = function (target, step, date) {
-            return Math.round(target) + "%";
+            return "".concat(Math.round(target), "%");
         };
         return FormatNoderp;
     }());
@@ -8908,24 +8908,24 @@
         }
         FormatNodesdt.prototype.format = function (target, step, date) {
             if (step < 1000) {
-                return this.s.format(target, step, date) + "." + this.mi.format(target, step, date);
+                return "".concat(this.s.format(target, step, date), ".").concat(this.mi.format(target, step, date));
             }
             else if (step < 60000) {
-                return this.m.format(target, step, date) + ":" + this.s.format(target, step, date);
+                return "".concat(this.m.format(target, step, date), ":").concat(this.s.format(target, step, date));
             }
             else if (step < 3600000) {
-                return this.H.format(target, step, date) + ":" + this.m.format(target, step, date);
+                return "".concat(this.H.format(target, step, date), ":").concat(this.m.format(target, step, date));
             }
             else if (step < 86400000) {
                 var M = this.M.format(target, step, date);
                 var D = this.D.format(target, step, date);
-                return M + "/" + D + " " + this.H.format(target, step, date);
+                return "".concat(M, "/").concat(D, " ").concat(this.H.format(target, step, date));
             }
             else if (step < 2592000000) {
-                return this.M.format(target, step, date) + "/" + this.D.format(target, step, date);
+                return "".concat(this.M.format(target, step, date), "/").concat(this.D.format(target, step, date));
             }
             else {
-                return this.Y.format(target, step, date) + "/" + this.M.format(target, step, date);
+                return "".concat(this.Y.format(target, step, date), "/").concat(this.M.format(target, step, date));
             }
         };
         return FormatNodesdt;
@@ -8942,7 +8942,7 @@
         FormatNodeSpace.prototype.format = function (target, step, date) {
             var result = this.node.format(target, step, date);
             if (0 < result.length && result[0] !== "-") {
-                return " " + result;
+                return " ".concat(result);
             }
             return result;
         };
@@ -9016,7 +9016,7 @@
             var tzs = z <= 0 ? "+" : "-";
             var tzh = toPadded(String(Math.floor(Math.abs(z) / 60)), 2, "0");
             var tzm = toPadded(String(Math.floor(Math.abs(z) % 60)), 2, "0");
-            return "" + tzs + tzh + ":" + tzm;
+            return "".concat(tzs).concat(tzh, ":").concat(tzm);
         };
         return FormatNodez;
     }());
@@ -9029,7 +9029,7 @@
         function FormatNoderd() {
         }
         FormatNoderd.prototype.format = function (target, step, date) {
-            return "" + Math.round(target);
+            return "".concat(Math.round(target));
         };
         return FormatNoderd;
     }());
@@ -9394,7 +9394,7 @@
         EShapeActionValueChangeText.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
             var valueId = manager.addResource(this.value);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + valueId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(valueId, "]"));
         };
         EShapeActionValueChangeText.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -11331,7 +11331,7 @@
                     return;
                 }
             }
-            throw new Error("Failed to parse '" + expression + "'");
+            throw new Error("Failed to parse '".concat(expression, "'"));
         }
         DScalarExpression.prototype.toParensesis = function (nodes, ifrom) {
             var ito = nodes.length;
@@ -11484,7 +11484,7 @@
                             continue;
                         }
                     }
-                    throw new Error("Malformed operands for the operator " + node);
+                    throw new Error("Malformed operands for the operator ".concat(node));
                 }
                 else {
                     this.toArithmeticNode(node, operatorA, operatorB);
@@ -11505,7 +11505,7 @@
                     else {
                         var parsedToken = parseFloat(token);
                         if (parsedToken !== parsedToken) {
-                            throw new Error("Unexpected token '" + token + "' at " + matched.index + " in '" + expression + "'");
+                            throw new Error("Unexpected token '".concat(token, "' at ").concat(matched.index, " in '").concat(expression, "'"));
                         }
                         var tokenTypeLiteral = this.toTokenLiteral(token);
                         if (tokenTypeLiteral != null) {
@@ -12140,8 +12140,9 @@
     var DBase = /** @class */ (function (_super) {
         __extends(DBase, _super);
         function DBase(options) {
+            var _this = this;
             var _a, _b, _c, _d, _e, _f, _g, _h, _j;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             // Transform
             var transform = _this.transform;
             _this._position = new DBasePoint(transform.position, function (newX, newY, oldX, oldY) {
@@ -13588,8 +13589,9 @@
     var DAnimationBase = /** @class */ (function (_super) {
         __extends(DAnimationBase, _super);
         function DAnimationBase(options) {
+            var _this = this;
             var _a, _b, _c;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             _this._id = null;
             _this._target = (_a = options === null || options === void 0 ? void 0 : options.target) !== null && _a !== void 0 ? _a : null;
             _this._startTime = 0;
@@ -14784,7 +14786,7 @@
         EShapeActionValueEmitEvent.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
             var nameId = manager.addResource(this.name);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + nameId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(nameId, "]"));
         };
         EShapeActionValueEmitEvent.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -15550,8 +15552,9 @@
     var UtilInput = /** @class */ (function (_super) {
         __extends(UtilInput, _super);
         function UtilInput(target, operation, theme, options) {
-            var _a, _b, _c, _d, _e, _f, _g;
-            var _this = _super.call(this, target, operation, theme, options) || this;
+            var _this = this;
+            var _a, _b, _c, _d, _e, _f;
+            _this = _super.call(this, target, operation, theme, options) || this;
             _this._operation = operation;
             _this._onInputKeyDownBound = function (e) {
                 _this.onInputKeyDown(e);
@@ -15565,9 +15568,9 @@
             _this._description = (_a = options === null || options === void 0 ? void 0 : options.description) !== null && _a !== void 0 ? _a : "";
             var editing = options === null || options === void 0 ? void 0 : options.editing;
             _this._editingFormatter =
-                (_e = (_b = editing === null || editing === void 0 ? void 0 : editing.formatter) !== null && _b !== void 0 ? _b : (_d = (_c = options) === null || _c === void 0 ? void 0 : _c.text) === null || _d === void 0 ? void 0 : _d.formatter) !== null && _e !== void 0 ? _e : theme.getEditingFormatter();
-            _this._editingUnformatter = (_f = editing === null || editing === void 0 ? void 0 : editing.unformatter) !== null && _f !== void 0 ? _f : theme.getEditingUnformatter();
-            _this._editingValidator = (_g = editing === null || editing === void 0 ? void 0 : editing.validator) !== null && _g !== void 0 ? _g : theme.getEditingValidator();
+                (_d = (_b = editing === null || editing === void 0 ? void 0 : editing.formatter) !== null && _b !== void 0 ? _b : (_c = options === null || options === void 0 ? void 0 : options.text) === null || _c === void 0 ? void 0 : _c.formatter) !== null && _d !== void 0 ? _d : theme.getEditingFormatter();
+            _this._editingUnformatter = (_e = editing === null || editing === void 0 ? void 0 : editing.unformatter) !== null && _e !== void 0 ? _e : theme.getEditingUnformatter();
+            _this._editingValidator = (_f = editing === null || editing === void 0 ? void 0 : editing.validator) !== null && _f !== void 0 ? _f : theme.getEditingValidator();
             return _this;
         }
         UtilInput.prototype.onEnd = function () {
@@ -15684,8 +15687,9 @@
     var UtilInputNumber = /** @class */ (function (_super) {
         __extends(UtilInputNumber, _super);
         function UtilInputNumber(target, operation, theme, options) {
+            var _this = this;
             var _a, _b, _c;
-            var _this = _super.call(this, target, operation, theme, options) || this;
+            _this = _super.call(this, target, operation, theme, options) || this;
             _this._step = (_a = options === null || options === void 0 ? void 0 : options.step) !== null && _a !== void 0 ? _a : theme.getStep();
             _this._min = (_b = options === null || options === void 0 ? void 0 : options.min) !== null && _b !== void 0 ? _b : theme.getMin();
             _this._max = (_c = options === null || options === void 0 ? void 0 : options.max) !== null && _c !== void 0 ? _c : theme.getMax();
@@ -15778,7 +15782,7 @@
         UtilInputNumber.prototype.updateStep = function (input) {
             var step = this.step;
             if (step != null) {
-                input.step = "" + step;
+                input.step = "".concat(step);
             }
             else {
                 input.step = "any";
@@ -15787,7 +15791,7 @@
         UtilInputNumber.prototype.updateMin = function (input) {
             var min = this.min;
             if (min != null) {
-                input.min = "" + min;
+                input.min = "".concat(min);
             }
             else {
                 input.removeAttribute("min");
@@ -15796,7 +15800,7 @@
         UtilInputNumber.prototype.updateMax = function (input) {
             var max = this.max;
             if (max != null) {
-                input.max = "" + max;
+                input.max = "".concat(max);
             }
             else {
                 input.removeAttribute("max");
@@ -16116,7 +16120,7 @@
             var conditionId = manager.addResource(this.condition);
             var targetId = manager.addResource(this.target);
             var valueId = manager.addResource(this.value);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + targetId + "," + this.onInputAction + "," + valueId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(targetId, ",").concat(this.onInputAction, ",").concat(valueId, "]"));
         };
         EShapeActionValueMisc.deserialize = function (serialized, manager) {
             var resources = manager.resources;
@@ -16237,7 +16241,7 @@
         };
         EShapeActionValueMiscGesture.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.gestureType + "," + this.scaleMin + "," + this.scaleMax + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(this.gestureType, ",").concat(this.scaleMin, ",").concat(this.scaleMax, "]"));
         };
         EShapeActionValueMiscGesture.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -16664,7 +16668,7 @@
                 gl.compileShader(shader);
                 if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
                     console &&
-                        console.error("Failed to compile the shader: " + gl.getShaderInfoLog(shader));
+                        console.error("Failed to compile the shader: ".concat(gl.getShaderInfoLog(shader)));
                     return null;
                 }
             }
@@ -16684,7 +16688,7 @@
                             gl.linkProgram(shaderProgram);
                             if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
                                 console &&
-                                    console.error("Failed to link the program: " + gl.getError());
+                                    console.error("Failed to link the program: ".concat(gl.getError()));
                                 gl.deleteShader(vertexShader);
                                 gl.deleteShader(fragmentShader);
                                 return null;
@@ -16888,7 +16892,7 @@
      */
     var DynamicSDFFontAtlas = /** @class */ (function () {
         function DynamicSDFFontAtlas(fontFamily) {
-            this._id = "font-atlas:" + fontFamily;
+            this._id = "font-atlas:".concat(fontFamily);
             this._generator = DynamicSDFFontGenerator.getInstance().init();
             this._canvas = document.createElement("canvas");
             this._font = {
@@ -18198,7 +18202,7 @@
         };
         EShapeActionValueMiscLayerGesture.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.gestureType + "," + this.scaleMin + "," + this.scaleMax + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(this.gestureType, ",").concat(this.scaleMin, ",").concat(this.scaleMax, "]"));
         };
         EShapeActionValueMiscLayerGesture.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -18287,7 +18291,7 @@
             var conditionId = manager.addResource(this.condition);
             var layersId = this.serializeLayers(manager);
             var bringToFrontId = this.bringToFront ? 1 : 0;
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + layersId + "," + bringToFrontId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(layersId, ",").concat(bringToFrontId, "]"));
         };
         EShapeActionValueMiscLayerShowHide.prototype.serializeLayers = function (manager) {
             var layers = this.layers;
@@ -19905,7 +19909,7 @@
             }
         };
         DDynamicTextStyle.prototype.newFontId = function () {
-            return this._fontStyle + " " + this._fontVariant + " " + this._fontWeight + " " + this._fontSize + "px " + this._fontFamily;
+            return "".concat(this._fontStyle, " ").concat(this._fontVariant, " ").concat(this._fontWeight, " ").concat(this._fontSize, "px ").concat(this._fontFamily);
         };
         Object.defineProperty(DDynamicTextStyle.prototype, "clipping", {
             get: function () {
@@ -20758,8 +20762,9 @@
     var DAnimationFadeIn = /** @class */ (function (_super) {
         __extends(DAnimationFadeIn, _super);
         function DAnimationFadeIn(options) {
+            var _this = this;
             var _a, _b;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._storedX = 0;
             _this._storedY = 0;
             _this._storedAlpha = 0;
@@ -24924,7 +24929,7 @@
             var conditionId = manager.addResource(this.condition);
             var targetId = manager.addResource(this.target);
             var initialId = manager.addResource(this.initial);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + targetId + "," + this.onInputAction + "," + initialId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(targetId, ",").concat(this.onInputAction, ",").concat(initialId, "]"));
         };
         EShapeActionValueOpen.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -24978,7 +24983,7 @@
         };
         EShapeActionValueShowHide.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, "]"));
         };
         EShapeActionValueShowHide.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -25214,7 +25219,7 @@
         EShapeActionValueTransformMove.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
             var amountId = manager.addResource(this.amount);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.opetype + "," + amountId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(this.opetype, ",").concat(amountId, "]"));
         };
         EShapeActionValueTransformMove.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -25499,7 +25504,7 @@
         EShapeActionValueTransformResize.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
             var amountId = manager.addResource(this.amount);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.opetype + "," + this.originX + "," + this.originY + "," + amountId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(this.opetype, ",").concat(this.originX, ",").concat(this.originY, ",").concat(amountId, "]"));
         };
         EShapeActionValueTransformResize.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -25519,7 +25524,7 @@
             var _this = _super.call(this, value, reset) || this;
             _this.originX = value.originX;
             _this.originY = value.originY;
-            _this.amount = EShapeActionExpressions.ofNumber("(" + value.amount + ") * (Math.PI / 180)");
+            _this.amount = EShapeActionExpressions.ofNumber("(".concat(value.amount, ") * (Math.PI / 180)"));
             return _this;
         }
         EShapeActionRuntimeTransformRotate.prototype.adjustPosition = function (shape, runtime, oldRotation, newRotation, originX, originY) {
@@ -25630,7 +25635,7 @@
         EShapeActionValueTransformRotate.prototype.serialize = function (manager) {
             var conditionId = manager.addResource(this.condition);
             var amountId = manager.addResource(this.amount);
-            return manager.addResource("[" + this.type + "," + conditionId + "," + this.subtype + "," + this.opetype + "," + this.originX + "," + this.originY + "," + amountId + "]");
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(this.opetype, ",").concat(this.originX, ",").concat(this.originY, ",").concat(amountId, "]"));
         };
         EShapeActionValueTransformRotate.deserialize = function (serialized, manager) {
             var condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -27346,7 +27351,7 @@
             var result = _super.prototype.serialize.call(this, manager);
             var isToggle = this._isToggle ? 1 : 0;
             var isGrouped = this._isGrouped ? 2 : 0;
-            result[15] = manager.addResource("[" + (isToggle | isGrouped) + "]");
+            result[15] = manager.addResource("[".concat(isToggle | isGrouped, "]"));
             return result;
         };
         return EShapeButton;
@@ -29639,7 +29644,7 @@
         EShapePointsMarkerBase.prototype.serialize = function (manager) {
             var size = this._size;
             var fillId = this._fill.serialize(manager);
-            return manager.addResource("[" + this._type + "," + size.x + "," + size.y + "," + fillId + "]");
+            return manager.addResource("[".concat(this._type, ",").concat(size.x, ",").concat(size.y, ",").concat(fillId, "]"));
         };
         EShapePointsMarkerBase.prototype.deserialize = function (resourceId, manager) {
             var resources = manager.resources;
@@ -29788,7 +29793,7 @@
         EShapePointsMarkerContainerImpl.prototype.serialize = function (manager) {
             var headId = this._head.serialize(manager);
             var tailId = this._tail.serialize(manager);
-            return manager.addResource("[" + headId + "," + tailId + "]");
+            return manager.addResource("[".concat(headId, ",").concat(tailId, "]"));
         };
         EShapePointsMarkerContainerImpl.prototype.deserialize = function (resourceId, manager) {
             var resources = manager.resources;
@@ -30250,7 +30255,7 @@
             if (marker) {
                 markerId = marker.serialize(manager);
             }
-            return manager.addResource("[" + values + "," + segments + "," + style + "," + markerId + "]");
+            return manager.addResource("[".concat(values, ",").concat(segments, ",").concat(style, ",").concat(markerId, "]"));
         };
         EShapeLinePoints.prototype.deserialize = function (resourceId, manager) {
             var resources = manager.resources;
@@ -31257,7 +31262,7 @@
             var edge = acceptor.edge;
             var edgeId = edge != null ? manager.addResource(edge) : -1;
             var local = this._local;
-            return manager.addResource("[" + shapeUuid + "," + edgeId + "," + local.x + "," + local.y + "," + this._margin + "]");
+            return manager.addResource("[".concat(shapeUuid, ",").concat(edgeId, ",").concat(local.x, ",").concat(local.y, ",").concat(this._margin, "]"));
         };
         EShapeConnectorEdgeImpl.prototype.deserialize = function (resourceId, mapping, manager) {
             var resources = manager.resources;
@@ -31427,7 +31432,7 @@
         EShapeConnectorEdgeContainerImpl.prototype.serialize = function (manager) {
             var tailId = this._tail.serialize(manager);
             var headId = this._head.serialize(manager);
-            return manager.addResource("[" + tailId + "," + headId + "]");
+            return manager.addResource("[".concat(tailId, ",").concat(headId, "]"));
         };
         EShapeConnectorEdgeContainerImpl.prototype.deserialize = function (resourceId, mapping, manager) {
             var resources = manager.resources;
@@ -31760,7 +31765,7 @@
             var edgeId = this._edge.serialize(manager);
             var bodyId = this._body.serialize(manager);
             var pointsId = this._points.serialize(manager);
-            result[15] = manager.addResource("[" + edgeId + "," + pointsId + "," + bodyId + "]");
+            result[15] = manager.addResource("[".concat(edgeId, ",").concat(pointsId, ",").concat(bodyId, "]"));
             return result;
         };
         return EShapeConnectorLine;
@@ -38710,7 +38715,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var toSvgUrl = function (svg) {
-        return "data:image/svg+xml;base64," + btoa(svg);
+        return "data:image/svg+xml;base64,".concat(btoa(svg));
     };
 
     /*
@@ -38726,7 +38731,7 @@
             var color = UtilRgb.toCode(point.color);
             var alpha = point.alpha;
             var offset = point.position * 100;
-            stops += "<stop offset=\"" + offset + "%\" stop-color=\"#" + color + "\" stop-opacity=\"" + alpha + "\" />";
+            stops += "<stop offset=\"".concat(offset, "%\" stop-color=\"#").concat(color, "\" stop-opacity=\"").concat(alpha, "\" />");
         }
         var radian = (direction * Math.PI) / 180;
         var dx = 0.5 * Math.cos(radian);
@@ -38735,7 +38740,7 @@
         /* eslint-disable prettier/prettier */
         "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\">" +
             "<defs>" +
-            ("<linearGradient id=\"o2glkm3aeu2oio\" x1=\"" + (0.5 - dx) + "\" x2=\"" + (0.5 + dx) + "\" y1=\"" + (0.5 - dy) + "\" y2=\"" + (0.5 + dy) + "\">") +
+            "<linearGradient id=\"o2glkm3aeu2oio\" x1=\"".concat(0.5 - dx, "\" x2=\"").concat(0.5 + dx, "\" y1=\"").concat(0.5 - dy, "\" y2=\"").concat(0.5 + dy, "\">") +
             stops +
             "</linearGradient>" +
             "</defs>" +
@@ -38902,8 +38907,9 @@
     var DMenuItemBase = /** @class */ (function (_super) {
         __extends(DMenuItemBase, _super);
         function DMenuItemBase(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._value = (_a = options === null || options === void 0 ? void 0 : options.value) !== null && _a !== void 0 ? _a : null;
             return _this;
         }
@@ -39183,7 +39189,7 @@
                         parent.addChild(created);
                     }
                     else {
-                        throw new Error("No matching menu item creator found: " + JSON.stringify(item));
+                        throw new Error("No matching menu item creator found: ".concat(JSON.stringify(item)));
                     }
                 }
             }
@@ -42345,7 +42351,7 @@
                 frames[name] = new pixi_js.Rectangle(x, y, width, height);
                 // Svg
                 var ratio = this._ratio;
-                this._svg += "<g transform=\"translate(" + x * ratio + "," + y * ratio + ")\">" + path + "</g>";
+                this._svg += "<g transform=\"translate(".concat(x * ratio, ",").concat(y * ratio, ")\">").concat(path, "</g>");
                 return true;
             }
             return false;
@@ -42370,11 +42376,11 @@
                 var realWidth = width * resolution;
                 var realHeight = height * resolution;
                 var ratio = this._ratio;
-                var attrWidth = "width=\"" + realWidth + "\"";
-                var attrHeight = "height=\"" + realHeight + "\"";
-                var attrViewBox = "viewBox=\"0 0 " + width * ratio + " " + height * ratio + "\"";
+                var attrWidth = "width=\"".concat(realWidth, "\"");
+                var attrHeight = "height=\"".concat(realHeight, "\"");
+                var attrViewBox = "viewBox=\"0 0 ".concat(width * ratio, " ").concat(height * ratio, "\"");
                 var attrXmlns = "xmlns=\"http://www.w3.org/2000/svg\"";
-                var url = toSvgUrl("<svg " + attrWidth + " " + attrHeight + " " + attrViewBox + " " + attrXmlns + ">" + this._svg + "</svg>");
+                var url = toSvgUrl("<svg ".concat(attrWidth, " ").concat(attrHeight, " ").concat(attrViewBox, " ").concat(attrXmlns, ">").concat(this._svg, "</svg>"));
                 var scaleMode = (_c = options === null || options === void 0 ? void 0 : options.scaling) !== null && _c !== void 0 ? _c : pixi_js.SCALE_MODES.NEAREST;
                 var baseTexture = pixi_js.BaseTexture.from(url, {
                     resolution: resolution,
@@ -42838,11 +42844,11 @@
         UtilName.create = function (type) {
             var mapping = this._mapping;
             if (type in mapping) {
-                return type + " " + ++mapping[type];
+                return "".concat(type, " ").concat(++mapping[type]);
             }
             else {
                 mapping[type] = 1;
-                return type + " 1";
+                return "".concat(type, " 1");
             }
         };
         UtilName._mapping = {};
@@ -42860,7 +42866,7 @@
             var r = (color >> 16) & 0xff;
             var g = (color >> 8) & 0xff;
             var b = color & 0xff;
-            return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+            return "rgba(".concat(r, ",").concat(g, ",").concat(b, ",").concat(alpha, ")");
         };
         return UtilRgba;
     }());
@@ -43146,8 +43152,9 @@
     var DAnimationEmpty = /** @class */ (function (_super) {
         __extends(DAnimationEmpty, _super);
         function DAnimationEmpty(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             _this._target = (_a = options === null || options === void 0 ? void 0 : options.target) !== null && _a !== void 0 ? _a : null;
             _this._reverse = false;
             _this._isStarted = false;
@@ -46933,7 +46940,7 @@
             var y = toPadded(String(date.getFullYear()), 4, "0");
             var M = toPadded(String(date.getMonth() + 1), 2, "0");
             var S = toPadded(String(date.getDate()), 2, "0");
-            return y + "/" + M + "/" + S;
+            return "".concat(y, "/").concat(M, "/").concat(S);
         };
         return DPickerDates;
     }());
@@ -46980,10 +46987,10 @@
         DPickerDatetimes.format = function (date, mask) {
             var hms = DPickerTimes.format(date, mask);
             if (0 < hms.length) {
-                return DPickerDates.format(date) + " " + hms;
+                return "".concat(DPickerDates.format(date), " ").concat(hms);
             }
             else {
-                return "" + DPickerDates.format(date);
+                return "".concat(DPickerDates.format(date));
             }
         };
         DPickerDatetimes.toMask = function (options) {
@@ -48654,8 +48661,9 @@
     var DScrollBar = /** @class */ (function (_super) {
         __extends(DScrollBar, _super);
         function DScrollBar(options) {
+            var _this = this;
             var _a, _b;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._start = 0;
             _this._end = 1;
             _this.visible = false;
@@ -49119,8 +49127,9 @@
     var DPane = /** @class */ (function (_super) {
         __extends(DPane, _super);
         function DPane(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             // Mask
             var theme = _this.theme;
             if ((_a = options === null || options === void 0 ? void 0 : options.mask) !== null && _a !== void 0 ? _a : theme.isOverflowMaskEnabled()) {
@@ -49976,8 +49985,9 @@
     var DButtonSelect = /** @class */ (function (_super) {
         __extends(DButtonSelect, _super);
         function DButtonSelect(options) {
+            var _this = this;
             var _a, _b;
-            var _this = _super.call(this, toOptions(options)) || this;
+            _this = _super.call(this, toOptions(options)) || this;
             _this._dialogGetter = (_a = options === null || options === void 0 ? void 0 : options.getter) !== null && _a !== void 0 ? _a : defaultGetter$1;
             _this._dialogSetter = (_b = options === null || options === void 0 ? void 0 : options.setter) !== null && _b !== void 0 ? _b : defaultSetter$1;
             return _this;
@@ -53082,8 +53092,9 @@
     var DChartSelectionSubImpl = /** @class */ (function (_super) {
         __extends(DChartSelectionSubImpl, _super);
         function DChartSelectionSubImpl(options) {
+            var _this = this;
             var _a, _b, _c;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             _this._container = null;
             _this._series = null;
             _this._isEnabled = (_a = options.enable) !== null && _a !== void 0 ? _a : true;
@@ -53244,8 +53255,9 @@
     var DChartSelectionSimple = /** @class */ (function (_super) {
         __extends(DChartSelectionSimple, _super);
         function DChartSelectionSimple(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             _this._container = null;
             var point = toEnum((_a = options === null || options === void 0 ? void 0 : options.point) !== null && _a !== void 0 ? _a : DChartSelectionPoint.CLOSER, DChartSelectionPoint);
             _this._selected = _this.newSelected(point, options === null || options === void 0 ? void 0 : options.selected);
@@ -54110,8 +54122,9 @@
     var DChartSeriesLine = /** @class */ (function (_super) {
         __extends(DChartSeriesLine, _super);
         function DChartSeriesLine(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._line = null;
             _this._options = options;
             _this._points = (_a = options === null || options === void 0 ? void 0 : options.points) !== null && _a !== void 0 ? _a : [];
@@ -55034,8 +55047,9 @@
     var DDiagramBase = /** @class */ (function (_super) {
         __extends(DDiagramBase, _super);
         function DDiagramBase(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._serialized = null;
             _this._tileFactory = options === null || options === void 0 ? void 0 : options.tile;
             _this._controller = options === null || options === void 0 ? void 0 : options.controller;
@@ -57088,10 +57102,10 @@
                                 var formatter = Function("value", 
                                 /* eslint-disable prettier/prettier */
                                 "try {" +
-                                    ("return (" + datumFormat + ");") +
+                                    "return (".concat(datumFormat, ");") +
                                     "} catch( e1 ) {" +
                                     "try {" +
-                                    ("return (" + (0 < datumInitial.length ? datumInitial : 0) + ");") +
+                                    "return (".concat(0 < datumInitial.length ? datumInitial : 0, ");") +
                                     "} catch( e2 ) {" +
                                     "return 0;" +
                                     "}" +
@@ -57114,7 +57128,7 @@
                                 shapeDatum.value = initialMap[datumInitial] = Function(
                                 /* eslint-disable prettier/prettier */
                                 "try {" +
-                                    ("return (" + datumInitial + ");") +
+                                    "return (".concat(datumInitial, ");") +
                                     "} catch( e ) {" +
                                     "return 0;" +
                                     "}"
@@ -57346,8 +57360,9 @@
     var DDialogProcessing = /** @class */ (function (_super) {
         __extends(DDialogProcessing, _super);
         function DDialogProcessing(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._isDone = true;
             _this._startTime = 0;
             var delay = options === null || options === void 0 ? void 0 : options.delay;
@@ -58793,20 +58808,20 @@
      */
     var DMapTileUrlBuilderKokudo = function (tz, tx, ty) {
         if (5 <= tz) {
-            return "https://cyberjapandata.gsi.go.jp/xyz/pale/" + tz + "/" + tx + "/" + ty + ".png";
+            return "https://cyberjapandata.gsi.go.jp/xyz/pale/".concat(tz, "/").concat(tx, "/").concat(ty, ".png");
         }
         else if (2 <= tz) {
-            return "https://cyberjapandata.gsi.go.jp/xyz/std/" + tz + "/" + tx + "/" + ty + ".png";
+            return "https://cyberjapandata.gsi.go.jp/xyz/std/".concat(tz, "/").concat(tx, "/").concat(ty, ".png");
         }
         else {
-            return "https://cyberjapandata.gsi.go.jp/xyz/earthhillshade/" + tz + "/" + tx + "/" + ty + ".png";
+            return "https://cyberjapandata.gsi.go.jp/xyz/earthhillshade/".concat(tz, "/").concat(tx, "/").concat(ty, ".png");
         }
     };
     var DMapTileUrlBuilderOsm = function (tz, tx, ty) {
-        return "https://" + "abc"[(tx + ty) % 3] + ".tile.openstreetmap.org/" + tz + "/" + tx + "/" + ty + ".png";
+        return "https://".concat("abc"[(tx + ty) % 3], ".tile.openstreetmap.org/").concat(tz, "/").concat(tx, "/").concat(ty, ".png");
     };
     var DMapTileUrlBuilderOsmfj = function (tz, tx, ty) {
-        return "https://j.tile.openstreetmap.jp/" + tz + "/" + tx + "/" + ty + ".png";
+        return "https://j.tile.openstreetmap.jp/".concat(tz, "/").concat(tx, "/").concat(ty, ".png");
     };
     var DMapTilePyramids = /** @class */ (function () {
         function DMapTilePyramids() {
@@ -58993,8 +59008,9 @@
     var DMenuSidedSelection = /** @class */ (function (_super) {
         __extends(DMenuSidedSelection, _super);
         function DMenuSidedSelection(content, options) {
+            var _this = this;
             var _a, _b, _c;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             _this._content = content;
             _this._item = null;
             _this._isDirty = true;
@@ -59115,8 +59131,9 @@
     var DMenuSided = /** @class */ (function (_super) {
         __extends(DMenuSided, _super);
         function DMenuSided(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             var context = new DMenuContext(_this);
             _this._context = context;
             context.add(_this);
@@ -59344,8 +59361,9 @@
     var DPagination = /** @class */ (function (_super) {
         __extends(DPagination, _super);
         function DPagination(options) {
+            var _this = this;
             var _a, _b, _c, _d;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             if (options != null) {
                 _this._size = (_b = (_a = options.size) !== null && _a !== void 0 ? _a : options.total) !== null && _b !== void 0 ? _b : 10;
                 _this._value = (_d = (_c = options.value) !== null && _c !== void 0 ? _c : options.selected) !== null && _d !== void 0 ? _d : 0;
@@ -60310,7 +60328,7 @@
             var text = options.text || {};
             options.text = text;
             if (text.value == null) {
-                text.value = "" + options.value;
+                text.value = "".concat(options.value);
             }
             return options;
         };
@@ -60325,7 +60343,7 @@
             var text = options.text || {};
             options.text = text;
             if (text.value == null) {
-                text.value = "" + options.value;
+                text.value = "".concat(options.value);
             }
             return options;
         };
@@ -60752,8 +60770,9 @@
     var DTableBodyCellSelectDialog = /** @class */ (function (_super) {
         __extends(DTableBodyCellSelectDialog, _super);
         function DTableBodyCellSelectDialog(columnIndex, column, onChange, options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
             _this._column = column;
@@ -60957,8 +60976,9 @@
     var DTableBodyCellSelectPromise = /** @class */ (function (_super) {
         __extends(DTableBodyCellSelectPromise, _super);
         function DTableBodyCellSelectPromise(columnIndex, column, onChange, options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._rowIndex = -1;
             _this._columnIndex = columnIndex;
             _this._column = column;
@@ -61147,8 +61167,9 @@
     var DTableBodyCellButton = /** @class */ (function (_super) {
         __extends(DTableBodyCellButton, _super);
         function DTableBodyCellButton(columnIndex, column, onChange, options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, columnIndex, column, onChange, options) || this;
+            _this = _super.call(this, columnIndex, column, onChange, options) || this;
             var when = toEnum((_a = options === null || options === void 0 ? void 0 : options.when) !== null && _a !== void 0 ? _a : DButtonBaseWhen.CLICKED, DButtonBaseWhen);
             _this._when = when;
             _this.initOnClick(when, _this.theme, options);
@@ -62583,8 +62604,9 @@
     var DTableBodyCellTree = /** @class */ (function (_super) {
         __extends(DTableBodyCellTree, _super);
         function DTableBodyCellTree(columnIndex, column, onChange, options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, columnIndex, column, onChange, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
+            _this = _super.call(this, columnIndex, column, onChange, DLinks.toStateOptions((_a = options === null || options === void 0 ? void 0 : options.link) === null || _a === void 0 ? void 0 : _a.target, options)) || this;
             _this._padding = new DBasePaddingAdjustable(_this._padding);
             return _this;
         }
@@ -62710,8 +62732,9 @@
     var DTableRow = /** @class */ (function (_super) {
         __extends(DTableRow, _super);
         function DTableRow(options) {
+            var _this = this;
             var _a, _b;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._reverse = true;
             _this._frozen = (_a = options.frozen) !== null && _a !== void 0 ? _a : 0;
             _this._columns = (_b = options.columns) !== null && _b !== void 0 ? _b : [];
@@ -63318,8 +63341,9 @@
     var DTableDataListSelection = /** @class */ (function (_super) {
         __extends(DTableDataListSelection, _super);
         function DTableDataListSelection(parent, options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             _this._parent = parent;
             _this._type = toEnum((_a = options === null || options === void 0 ? void 0 : options.type) !== null && _a !== void 0 ? _a : DTableDataSelectionType.NONE, DTableDataSelectionType);
             _this._indices = new Set();
@@ -63998,8 +64022,9 @@
     var DTableBody = /** @class */ (function (_super) {
         __extends(DTableBody, _super);
         function DTableBody(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this.transform.position.y = (_a = options.offset) !== null && _a !== void 0 ? _a : 0;
             var data = _this.toData(options.data);
             _this._data = data;
@@ -64386,8 +64411,9 @@
     var DTableCategory = /** @class */ (function (_super) {
         __extends(DTableCategory, _super);
         function DTableCategory(options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             var offset = (_a = options.offset) !== null && _a !== void 0 ? _a : 0;
             _this._offset = offset;
             _this.transform.position.y = offset;
@@ -64645,8 +64671,9 @@
     var DTableDataTreeSelectionImpl = /** @class */ (function (_super) {
         __extends(DTableDataTreeSelectionImpl, _super);
         function DTableDataTreeSelectionImpl(parent, options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this) || this;
+            _this = _super.call(this) || this;
             _this._parent = parent;
             _this._type = toEnum((_a = options === null || options === void 0 ? void 0 : options.type) !== null && _a !== void 0 ? _a : DTableDataSelectionType.NONE, DTableDataSelectionType);
             _this._rows = new Set();
@@ -65620,8 +65647,9 @@
     var DTableHeader = /** @class */ (function (_super) {
         __extends(DTableHeader, _super);
         function DTableHeader(options) {
+            var _this = this;
             var _a, _b;
-            var _this = _super.call(this, options) || this;
+            _this = _super.call(this, options) || this;
             _this._table = (_a = options.table) !== null && _a !== void 0 ? _a : null;
             var offset = (_b = options.offset) !== null && _b !== void 0 ? _b : 0;
             _this._offset = offset;
@@ -67655,8 +67683,9 @@
     var DTreeItemButton = /** @class */ (function (_super) {
         __extends(DTreeItemButton, _super);
         function DTreeItemButton(data, options) {
+            var _this = this;
             var _a;
-            var _this = _super.call(this, data, options) || this;
+            _this = _super.call(this, data, options) || this;
             var when = toEnum((_a = options === null || options === void 0 ? void 0 : options.when) !== null && _a !== void 0 ? _a : DButtonBaseWhen.CLICKED, DButtonBaseWhen);
             _this._when = when;
             _this.initOnClick(when, _this.theme, options);

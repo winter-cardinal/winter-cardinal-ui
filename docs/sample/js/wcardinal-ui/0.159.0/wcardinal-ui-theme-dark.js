@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.158.0
+ Winter Cardinal UI v0.159.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -39,7 +39,7 @@
                     return instance;
                 }
                 else {
-                    throw new Error("No theme for the type '" + type + "'");
+                    throw new Error("No theme for the type '".concat(type, "'"));
                 }
             }
         };
@@ -177,12 +177,12 @@
         /* eslint-disable prettier/prettier */
         DThemeDarkAtlas.add(id, d, d, "<g>" +
             "<defs>" +
-            ("<radialGradient id=\"" + id + "_filter\">") +
-            ("<stop offset=\"0%\" stop-color=\"black\" stop-opacity=\"" + opacity + "\" />") +
+            "<radialGradient id=\"".concat(id, "_filter\">") +
+            "<stop offset=\"0%\" stop-color=\"black\" stop-opacity=\"".concat(opacity, "\" />") +
             "<stop offset=\"100%\" stop-color=\"black\" stop-opacity=\"0\" />" +
             "</radialGradient>" +
             "</defs>" +
-            ("<rect x=\"0\" y=\"0\" width=\"" + d + "\" height=\"" + d + "\" fill=\"url(#" + id + "_filter)\"/>") +
+            "<rect x=\"0\" y=\"0\" width=\"".concat(d, "\" height=\"").concat(d, "\" fill=\"url(#").concat(id, "_filter)\"/>") +
             "</g>");
         /* eslint-enable prettier/prettier */
     };
@@ -788,7 +788,7 @@
         "</g>");
     /* eslint-enable prettier/prettier */
     var formatter$a = function (colorAndAlpha) {
-        return "#" + UtilRgb.toCode(colorAndAlpha.color) + " A" + colorAndAlpha.alpha.toFixed(2);
+        return "#".concat(UtilRgb.toCode(colorAndAlpha.color), " A").concat(colorAndAlpha.alpha.toFixed(2));
     };
     var DThemeDarkButtonColor = /** @class */ (function (_super) {
         __extends(DThemeDarkButtonColor, _super);
@@ -948,7 +948,7 @@
         for (var ih = 0; ih < height; ++ih) {
             for (var iw = 0; iw < width; ++iw) {
                 var color = (iw + ih) % 2 === 0 ? LIGHT : DARK;
-                result += "<rect x=\"" + 9 * iw + "\" y=\"" + 9 * ih + "\" width=\"9\" height=\"9\" fill=\"" + color + "\" />";
+                result += "<rect x=\"".concat(9 * iw, "\" y=\"").concat(9 * ih, "\" width=\"9\" height=\"9\" fill=\"").concat(color, "\" />");
             }
         }
         result += "</g>";
@@ -1479,7 +1479,7 @@
     ];
     var DAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     var defaultLabelFormatter = function (date) {
-        return MONTH_LABELS[date.getMonth()] + " " + date.getFullYear();
+        return "".concat(MONTH_LABELS[date.getMonth()], " ").concat(date.getFullYear());
     };
     var defaultDateDecorator = function () {
         /* DO NOTHING*/
@@ -3497,20 +3497,20 @@
             return this.toTypedLabel(type, value);
         };
         EThemeDarkShapeActionValue.prototype.toTypedLabel = function (type, value) {
-            return this.toTypeLabel(type) + ": " + this.toConditionLabel(value.condition);
+            return "".concat(this.toTypeLabel(type), ": ").concat(this.toConditionLabel(value.condition));
         };
         EThemeDarkShapeActionValue.prototype.toSubtypedLabel = function (type, subtype, value) {
             var typeLabel = this.toTypeLabel(type);
             switch (type) {
                 case EShapeActionValueType.SHOW_HIDE:
-                    return "" + this.toShowHideTypeLabel(subtype);
+                    return "".concat(this.toShowHideTypeLabel(subtype));
                 case EShapeActionValueType.BLINK:
-                    return typeLabel + ": " + this.toBlinkTypeLabel(subtype);
+                    return "".concat(typeLabel, ": ").concat(this.toBlinkTypeLabel(subtype));
                 case EShapeActionValueType.CHANGE_COLOR:
                 case EShapeActionValueType.CHANGE_COLOR_LEGACY:
-                    return typeLabel + ": " + this.toChangeColorTypeLabel(subtype);
+                    return "".concat(typeLabel, ": ").concat(this.toChangeColorTypeLabel(subtype));
                 case EShapeActionValueType.MISC:
-                    return typeLabel + ": " + this.toMiscTypeLabel(subtype);
+                    return "".concat(typeLabel, ": ").concat(this.toMiscTypeLabel(subtype));
             }
             return null;
         };
@@ -3520,11 +3520,11 @@
                     var subtypeLabel = this.toTransformTypeLabel(subtype);
                     switch (subtype) {
                         case EShapeActionValueTransformType.ROTATE:
-                            return subtypeLabel + ": " + this.toTransformRotateTypeLabel(opetype);
+                            return "".concat(subtypeLabel, ": ").concat(this.toTransformRotateTypeLabel(opetype));
                         case EShapeActionValueTransformType.MOVE:
-                            return subtypeLabel + ": " + this.toTransformMoveTypeLabel(opetype);
+                            return "".concat(subtypeLabel, ": ").concat(this.toTransformMoveTypeLabel(opetype));
                         case EShapeActionValueTransformType.RESIZE:
-                            return subtypeLabel + ": " + this.toTransformResizeTypeLabel(opetype);
+                            return "".concat(subtypeLabel, ": ").concat(this.toTransformResizeTypeLabel(opetype));
                     }
             }
             return null;
@@ -4379,11 +4379,11 @@
         DThemeDarkHtmlElement.prototype.getElementStylePadding = function (state, padding) {
             if (padding) {
                 if ("getLeft" in padding) {
-                    return ("padding: " + padding.getTop() + "px " + padding.getRight() + "px " +
-                        (padding.getBottom() + "px " + padding.getLeft() + "px;"));
+                    return ("padding: ".concat(padding.getTop(), "px ").concat(padding.getRight(), "px ") +
+                        "".concat(padding.getBottom(), "px ").concat(padding.getLeft(), "px;"));
                 }
                 else {
-                    return "padding: " + padding.vertical + "px " + padding.horizontal + "px;";
+                    return "padding: ".concat(padding.vertical, "px ").concat(padding.horizontal, "px;");
                 }
             }
             return "padding: 0px;";
@@ -4396,21 +4396,21 @@
                 if (clipperRect) {
                     var left = elementRect.x - clipperRect.x;
                     var top_1 = elementRect.y - clipperRect.y;
-                    return "left:" + left + "px; top:" + top_1 + "px;";
+                    return "left:".concat(left, "px; top:").concat(top_1, "px;");
                 }
-                return "left:" + elementRect.x + "px; top: " + elementRect.y + "px;";
+                return "left:".concat(elementRect.x, "px; top: ").concat(elementRect.y, "px;");
             }
             return "left: 0px; top: 0px;";
         };
         DThemeDarkHtmlElement.prototype.getElementStylePositionSize = function (rect) {
             if (rect) {
-                return "width: " + rect.width + "px; height: " + rect.height + "px;";
+                return "width: ".concat(rect.width, "px; height: ").concat(rect.height, "px;");
             }
             return "width: 0px; height: 0px;";
         };
         DThemeDarkHtmlElement.prototype.getElementStylePositionTransform = function (matrix) {
             if (matrix) {
-                return "transform: matrix(" + matrix.a + "," + matrix.b + "," + matrix.c + "," + matrix.d + "," + matrix.tx + "," + matrix.ty + ");";
+                return "transform: matrix(".concat(matrix.a, ",").concat(matrix.b, ",").concat(matrix.c, ",").concat(matrix.d, ",").concat(matrix.tx, ",").concat(matrix.ty, ");");
             }
             return "";
         };
@@ -4421,10 +4421,10 @@
                 this.getElementStylePositionTransform(elementMatrix));
         };
         DThemeDarkHtmlElement.prototype.getElementStyleText = function (state) {
-            return ("font-family: " + this.getFontFamilly() + ";" +
-                ("font-size: " + this.getFontSize() + "px;") +
-                ("color: #" + this.getColor(state).toString(16) + ";") +
-                ("line-height: " + this.getLineHeight() + "px;") +
+            return ("font-family: ".concat(this.getFontFamilly(), ";") +
+                "font-size: ".concat(this.getFontSize(), "px;") +
+                "color: #".concat(this.getColor(state).toString(16), ";") +
+                "line-height: ".concat(this.getLineHeight(), "px;") +
                 "-moz-tab-size: 4; -o-tab-size: 4; tab-size: 4;");
         };
         DThemeDarkHtmlElement.prototype.getElementStyleMargin = function (state) {
@@ -4448,14 +4448,14 @@
         };
         DThemeDarkHtmlElement.prototype.getClipperStylePositionPosition = function (rect) {
             if (rect) {
-                return "left: " + rect.x + "px; top: " + rect.y + "px;";
+                return "left: ".concat(rect.x, "px; top: ").concat(rect.y, "px;");
             }
             return "left: 0px; top: 0px;";
         };
         DThemeDarkHtmlElement.prototype.getClipperStylePositionSize = function (rect) {
             if (rect) {
-                return ("width: " + rect.width + "px; height: " + rect.height + "px;" +
-                    ("line-height: " + rect.height + "px;"));
+                return ("width: ".concat(rect.width, "px; height: ").concat(rect.height, "px;") +
+                    "line-height: ".concat(rect.height, "px;"));
             }
             return "width: 0px; height: 0px;";
         };
@@ -4695,7 +4695,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var CREATOR_CLASSNAME$1 = "d-theme-dark-input";
-    var CREATOR_CLASSNAME_ELEMENT$1 = CREATOR_CLASSNAME$1 + "-element";
+    var CREATOR_CLASSNAME_ELEMENT$1 = "".concat(CREATOR_CLASSNAME$1, "-element");
     var elementCreator$1 = function (container) {
         var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT$1);
         if (0 < found.length) {
@@ -4717,15 +4717,15 @@
         container.appendChild(result);
         return result;
     };
-    var CREATOR_CLASSNAME_CLIPPER$1 = CREATOR_CLASSNAME$1 + "-clipper";
+    var CREATOR_CLASSNAME_CLIPPER$1 = "".concat(CREATOR_CLASSNAME$1, "-clipper");
     var clipperCreator$1 = function (container) {
         return divCreator$1(container, CREATOR_CLASSNAME_CLIPPER$1);
     };
-    var CREATOR_CLASSNAME_BEFORE$1 = CREATOR_CLASSNAME$1 + "-before";
+    var CREATOR_CLASSNAME_BEFORE$1 = "".concat(CREATOR_CLASSNAME$1, "-before");
     var beforeCreator$1 = function (container) {
         return divCreator$1(container, CREATOR_CLASSNAME_BEFORE$1);
     };
-    var CREATOR_CLASSNAME_AFTER$1 = CREATOR_CLASSNAME$1 + "-after";
+    var CREATOR_CLASSNAME_AFTER$1 = "".concat(CREATOR_CLASSNAME$1, "-after");
     var afterCreator$1 = function (container) {
         return divCreator$1(container, CREATOR_CLASSNAME_AFTER$1);
     };
@@ -4937,7 +4937,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var CREATOR_CLASSNAME = "d-theme-dark-input-text-area";
-    var CREATOR_CLASSNAME_ELEMENT = CREATOR_CLASSNAME + "-element";
+    var CREATOR_CLASSNAME_ELEMENT = "".concat(CREATOR_CLASSNAME, "-element");
     var elementCreator = function (container) {
         var found = container.getElementsByClassName(CREATOR_CLASSNAME_ELEMENT);
         if (0 < found.length) {
@@ -4959,15 +4959,15 @@
         container.appendChild(result);
         return result;
     };
-    var CREATOR_CLASSNAME_CLIPPER = CREATOR_CLASSNAME + "-clipper";
+    var CREATOR_CLASSNAME_CLIPPER = "".concat(CREATOR_CLASSNAME, "-clipper");
     var clipperCreator = function (container) {
         return divCreator(container, CREATOR_CLASSNAME_CLIPPER);
     };
-    var CREATOR_CLASSNAME_BEFORE = CREATOR_CLASSNAME + "-before";
+    var CREATOR_CLASSNAME_BEFORE = "".concat(CREATOR_CLASSNAME, "-before");
     var beforeCreator = function (container) {
         return divCreator(container, CREATOR_CLASSNAME_BEFORE);
     };
-    var CREATOR_CLASSNAME_AFTER = CREATOR_CLASSNAME + "-after";
+    var CREATOR_CLASSNAME_AFTER = "".concat(CREATOR_CLASSNAME, "-after");
     var afterCreator = function (container) {
         return divCreator(container, CREATOR_CLASSNAME_AFTER);
     };
