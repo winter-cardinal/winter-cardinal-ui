@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.159.0
+ Winter Cardinal UI v0.160.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -68713,6 +68713,15 @@
         DImageBaseThemeWrapperSecondary: DImageBaseThemeWrapperSecondary,
         DImageBaseThemeWrapperTertiary: DImageBaseThemeWrapperTertiary,
         DImageBase: DImageBase,
+        DImagePieceLayouterPartBottom: DImagePieceLayouterPartBottom,
+        DImagePieceLayouterPartCenter: DImagePieceLayouterPartCenter,
+        DImagePieceLayouterPartContainer: DImagePieceLayouterPartContainer,
+        DImagePieceLayouterPartLeft: DImagePieceLayouterPartLeft,
+        DImagePieceLayouterPartMiddle: DImagePieceLayouterPartMiddle,
+        DImagePieceLayouterPartRight: DImagePieceLayouterPartRight,
+        DImagePieceLayouterPartTop: DImagePieceLayouterPartTop,
+        DImagePieceLayouterPart: DImagePieceLayouterPart,
+        DImagePieceLayouter: DImagePieceLayouter,
         DImagePiece: DImagePiece,
         DImage: DImage,
         DInputAndLabel: DInputAndLabel,
