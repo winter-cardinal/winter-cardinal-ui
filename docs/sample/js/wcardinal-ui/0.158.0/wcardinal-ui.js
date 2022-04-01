@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.157.0
+ Winter Cardinal UI v0.158.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -12159,7 +12159,7 @@
             _this._auto = new DBaseAutoSet();
             _this._isDirty = true;
             _this._hasDirty = false;
-            _this._isChildrenDirty = false;
+            _this._isHierarchyDirty = false;
             _this._shadow = null;
             _this.name = (_a = options === null || options === void 0 ? void 0 : options.name) !== null && _a !== void 0 ? _a : "";
             var theme = toTheme(options) || _this.getThemeDefault();
@@ -12169,7 +12169,7 @@
             _this._clearType = toEnum((_b = options === null || options === void 0 ? void 0 : options.clear) !== null && _b !== void 0 ? _b : theme.getClearType(), DLayoutClearType);
             _this._padding = new DBasePadding(theme, options, function () {
                 _this.toParentResized();
-                _this.toChildrenDirty();
+                _this.toHierarchyDirty();
                 DApplications.update(_this);
             });
             var toDirtyAndUpdate = function () {
@@ -12298,8 +12298,8 @@
                 if (_this.isDirty() || _this.hasDirty()) {
                     _this.toParentHasDirty();
                 }
-                if (_this._isChildrenDirty) {
-                    _this.toParentChildrenDirty();
+                if (_this._isHierarchyDirty) {
+                    _this.toParentHierarchyDirty();
                 }
                 var newParent = _this.parent;
                 if (newParent instanceof DBase) {
@@ -12391,7 +12391,7 @@
             new DBaseReflowableImpl(this);
         };
         DBase.prototype.onChildrenChange = function () {
-            this.toChildrenDirty();
+            this.toHierarchyDirty();
             _super.prototype.onChildrenChange.call(this);
         };
         DBase.prototype.onShortcut = function (e) {
@@ -12421,46 +12421,48 @@
         DBase.prototype.resize = function (width, height) {
             var oldWidth = this._width;
             var oldHeight = this._height;
-            var widthResized = oldWidth !== width;
-            var heightResized = oldHeight !== height;
-            if (widthResized) {
-                this._width = width;
+            var newWidth = width != null ? width : oldWidth;
+            var newHeight = height != null ? height : oldHeight;
+            var isWidthChanged = oldWidth !== newWidth;
+            var isHeightChanged = oldHeight !== newHeight;
+            if (isWidthChanged) {
+                this._width = newWidth;
             }
-            if (heightResized) {
-                this._height = height;
+            if (isHeightChanged) {
+                this._height = newHeight;
             }
-            var resized = widthResized || heightResized;
-            if (resized) {
-                this.onResize(width, height, oldWidth, oldHeight);
+            var isChanged = isWidthChanged || isHeightChanged;
+            if (isChanged) {
+                this.onResize(newWidth, newHeight, oldWidth, oldHeight);
             }
-            if (widthResized) {
+            if (isWidthChanged) {
                 var scalarSet = this._scalarSet;
                 if (scalarSet.x != null) {
-                    var position = this.transform.position;
+                    var position = this._position;
                     var parent_1 = this.getParentOfSize();
                     if (parent_1) {
-                        this.x = scalarSet.x(parent_1.width, width, parent_1.padding.getLeft(), position.x);
+                        this._position.x = scalarSet.x(parent_1.width, newWidth, parent_1.padding.getLeft(), position.x);
                     }
                 }
             }
-            if (heightResized) {
+            if (isHeightChanged) {
                 var scalarSet = this._scalarSet;
                 if (scalarSet.y != null) {
-                    var position = this.transform.position;
+                    var position = this._position;
                     var parent_2 = this.getParentOfSize();
                     if (parent_2) {
-                        this.y = scalarSet.y(parent_2.height, height, parent_2.padding.getTop(), position.y);
+                        this._position.y = scalarSet.y(parent_2.height, newHeight, parent_2.padding.getTop(), position.y);
                     }
                 }
             }
-            return resized;
+            return isChanged;
         };
         DBase.prototype.getClearType = function () {
             return this._clearType;
         };
         DBase.prototype.onResize = function (newWidth, newHeight, oldWidth, oldHeight) {
             this.toDirty();
-            this.toChildrenDirty();
+            this.toHierarchyDirty();
             var padding = this._padding;
             var children = this.children;
             for (var i = 0, imax = children.length; i < imax; ++i) {
@@ -12493,7 +12495,7 @@
                 return this._position.x;
             },
             set: function (x) {
-                this._position.x = x;
+                this.setX(x);
             },
             enumerable: false,
             configurable: true
@@ -12504,15 +12506,25 @@
                 return scalarSet.x;
             }
             else {
-                return this.x;
+                return this._position.x;
             }
         };
         DBase.prototype.setX = function (x) {
+            var scalarSet = this._scalarSet;
             if (isNumber(x)) {
-                this.x = x;
+                var position = this._position;
+                if (position.x !== x) {
+                    scalarSet.x = undefined;
+                    position.x = x;
+                }
+                else {
+                    if (scalarSet.x !== undefined) {
+                        scalarSet.x = undefined;
+                        this.toParentResized();
+                    }
+                }
             }
             else {
-                var scalarSet = this._scalarSet;
                 var scalar = DScalarFunctions.position(x);
                 if (scalarSet.x !== scalar) {
                     scalarSet.x = scalar;
@@ -12526,7 +12538,7 @@
                 return this._position.y;
             },
             set: function (y) {
-                this._position.y = y;
+                this.setY(y);
             },
             enumerable: false,
             configurable: true
@@ -12537,15 +12549,25 @@
                 return scalarSet.y;
             }
             else {
-                return this.y;
+                return this._position.y;
             }
         };
         DBase.prototype.setY = function (y) {
+            var scalarSet = this._scalarSet;
             if (isNumber(y)) {
-                this.y = y;
+                var position = this._position;
+                if (position.y !== y) {
+                    scalarSet.y = undefined;
+                    position.y = y;
+                }
+                else {
+                    if (scalarSet.y !== undefined) {
+                        scalarSet.y = undefined;
+                        this.toParentResized();
+                    }
+                }
             }
             else {
-                var scalarSet = this._scalarSet;
                 var scalar = DScalarFunctions.position(y);
                 if (scalarSet.y !== scalar) {
                     scalarSet.y = scalar;
@@ -12559,21 +12581,7 @@
                 return this._width;
             },
             set: function (width) {
-                var oldWidth = this._width;
-                if (oldWidth !== width) {
-                    this._width = width;
-                    var height = this._height;
-                    this.onResize(width, height, oldWidth, height);
-                    // Layout
-                    var scalarSet = this._scalarSet;
-                    if (scalarSet.x != null) {
-                        var position = this.transform.position;
-                        var parent_3 = this.getParentOfSize();
-                        if (parent_3) {
-                            this.x = scalarSet.x(parent_3.width, width, parent_3.padding.getLeft(), position.x);
-                        }
-                    }
-                }
+                this.setWidth(width);
             },
             enumerable: false,
             configurable: true
@@ -12586,15 +12594,34 @@
             var isOn = auto.isOn;
             var isAuto = auto.from(width);
             if (auto.isOn !== isOn) {
-                this.toChildrenDirty();
+                this.toHierarchyDirty();
                 DApplications.update(this);
             }
             if (!isAuto) {
+                var scalarSet = this._scalarSet;
                 if (isNumber(width)) {
-                    this.width = width;
+                    var oldWidth = this._width;
+                    if (oldWidth !== width) {
+                        scalarSet.width = undefined;
+                        this._width = width;
+                        var height = this._height;
+                        this.onResize(width, height, oldWidth, height);
+                        if (scalarSet.x != null) {
+                            var position = this._position;
+                            var parent_3 = this.getParentOfSize();
+                            if (parent_3) {
+                                position.x = scalarSet.x(parent_3.width, width, parent_3.padding.getLeft(), position.x);
+                            }
+                        }
+                    }
+                    else {
+                        if (scalarSet.width !== undefined) {
+                            scalarSet.width = undefined;
+                            this.toParentResized();
+                        }
+                    }
                 }
                 else {
-                    var scalarSet = this._scalarSet;
                     var scalar = DScalarFunctions.size(width);
                     if (scalarSet.width !== scalar) {
                         scalarSet.width = scalar;
@@ -12609,21 +12636,7 @@
                 return this._height;
             },
             set: function (height) {
-                var oldHeight = this._height;
-                if (oldHeight !== height) {
-                    this._height = height;
-                    var width = this._width;
-                    this.onResize(width, height, width, oldHeight);
-                    // Layout
-                    var scalarSet = this._scalarSet;
-                    if (scalarSet.y != null) {
-                        var position = this.transform.position;
-                        var parent_4 = this.getParentOfSize();
-                        if (parent_4) {
-                            this.y = scalarSet.y(parent_4.height, height, parent_4.padding.getTop(), position.y);
-                        }
-                    }
-                }
+                this.setHeight(height);
             },
             enumerable: false,
             configurable: true
@@ -12636,15 +12649,34 @@
             var isOn = auto.isOn;
             var isAuto = auto.from(height);
             if (auto.isOn !== isOn) {
-                this.toChildrenDirty();
+                this.toHierarchyDirty();
                 DApplications.update(this);
             }
             if (!isAuto) {
+                var scalarSet = this._scalarSet;
                 if (isNumber(height)) {
-                    this.height = height;
+                    var oldHeight = this._height;
+                    if (oldHeight !== height) {
+                        scalarSet.height = undefined;
+                        this._height = height;
+                        var width = this._width;
+                        this.onResize(width, height, width, oldHeight);
+                        if (scalarSet.y != null) {
+                            var position = this._position;
+                            var parent_4 = this.getParentOfSize();
+                            if (parent_4) {
+                                position.y = scalarSet.y(parent_4.height, height, parent_4.padding.getTop(), position.y);
+                            }
+                        }
+                    }
+                    else {
+                        if (scalarSet.height !== undefined) {
+                            scalarSet.height = undefined;
+                            this.toParentResized();
+                        }
+                    }
                 }
                 else {
-                    var scalarSet = this._scalarSet;
                     var scalar = DScalarFunctions.size(height);
                     if (scalarSet.height !== scalar) {
                         scalarSet.height = scalar;
@@ -12743,7 +12775,7 @@
         DBase.prototype.show = function () {
             if (!this.visible) {
                 this.visible = true;
-                this.toParentChildrenDirty();
+                this.toParentHierarchyDirty();
                 DApplications.update(this);
             }
             return this;
@@ -12754,7 +12786,7 @@
         DBase.prototype.hide = function () {
             if (this.visible) {
                 this.visible = false;
-                this.toParentChildrenDirty();
+                this.toParentHierarchyDirty();
                 this.blur(true);
                 DApplications.update(this);
             }
@@ -12785,25 +12817,25 @@
                 parent.toHasDirty();
             }
         };
-        DBase.prototype.toChildrenDirty = function () {
-            if (!this._isChildrenDirty) {
-                this._isChildrenDirty = true;
-                this.onChildrenDirty();
-                this.toParentChildrenDirty();
+        DBase.prototype.toHierarchyDirty = function () {
+            if (!this._isHierarchyDirty) {
+                this._isHierarchyDirty = true;
+                this.onHierarchyDirty();
+                this.toParentHierarchyDirty();
                 return true;
             }
             return false;
         };
-        DBase.prototype.toParentChildrenDirty = function () {
+        DBase.prototype.toParentHierarchyDirty = function () {
             var parent = this.parent;
             if (parent instanceof DBase) {
-                parent.toChildrenDirty();
+                parent.toHierarchyDirty();
             }
         };
-        DBase.prototype.isChildrenDirty = function () {
-            return this._isChildrenDirty;
+        DBase.prototype.isHierarchyDirty = function () {
+            return this._isHierarchyDirty;
         };
-        DBase.prototype.onChildrenDirty = function () {
+        DBase.prototype.onHierarchyDirty = function () {
             // DO NOTHING
         };
         DBase.prototype.isDirty = function () {
@@ -12919,16 +12951,26 @@
             enumerable: false,
             configurable: true
         });
-        DBase.prototype.refit = function () {
-            if (this._isChildrenDirty) {
-                this._isChildrenDirty = false;
+        DBase.prototype.reflow = function () {
+            var isDirty = this._isDirty;
+            if (isDirty) {
+                this.onReflow();
+                this._isDirty = false;
+            }
+            var hasDirty = this._hasDirty;
+            var isHierarchyDirty = this._isHierarchyDirty;
+            if (hasDirty || isHierarchyDirty) {
+                this._hasDirty = false;
+                this._isHierarchyDirty = false;
                 var children = this.children;
                 for (var i = 0, imax = children.length; i < imax; ++i) {
                     var child = children[i];
                     if (child instanceof DBase) {
-                        child.refit();
+                        child.reflow();
                     }
                 }
+            }
+            if (isDirty || hasDirty || isHierarchyDirty) {
                 this.onRefit();
             }
         };
@@ -12963,7 +13005,7 @@
                         width = Math.max(width, child.x + child.width);
                     }
                 }
-                this.width = width + this.padding.getRight();
+                this.resize(width + this.padding.getRight(), undefined);
             }
             else if (isHeightAuto) {
                 var height = 0;
@@ -12974,7 +13016,7 @@
                         height = Math.max(height, child.y + child.height);
                     }
                 }
-                this.height = height + this.padding.getBottom();
+                this.resize(undefined, height + this.padding.getBottom());
             }
         };
         DBase.prototype.isRefitable = function (target) {
@@ -12985,22 +13027,6 @@
         };
         DBase.prototype.hasRefitableWidth = function (target) {
             return (this.isRefitable(target) && !(target instanceof DBase && isFunction(target.getWidth())));
-        };
-        DBase.prototype.reflow = function () {
-            if (this._isDirty) {
-                this.onReflow();
-                this._isDirty = false;
-            }
-            if (this._hasDirty) {
-                var children = this.children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var child = children[i];
-                    if (child instanceof DBase) {
-                        child.reflow();
-                    }
-                }
-                this._hasDirty = false;
-            }
         };
         DBase.prototype.onReflow = function () {
             this._reflowable.onReflow(this, this._width, this._height);
@@ -18305,36 +18331,6 @@
         DOUBLE_CLICKED: 1
     };
 
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DAlignHorizontal = {
-        LEFT: 0,
-        CENTER: 1,
-        RIGHT: 2
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DAlignVertical = {
-        TOP: 0,
-        MIDDLE: 1,
-        BOTTOM: 2
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DAlignWith = {
-        TEXT: 0,
-        PADDING: 1,
-        BORDER: 2
-    };
-
     var DImageBaseThemeWrapperSecondary = /** @class */ (function () {
         function DImageBaseThemeWrapperSecondary(theme) {
             this._theme = theme;
@@ -18396,6 +18392,36 @@
         };
         return DImageBaseThemeWrapperTertiary;
     }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DAlignHorizontal = {
+        LEFT: 0,
+        CENTER: 1,
+        RIGHT: 2
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DAlignVertical = {
+        TOP: 0,
+        MIDDLE: 1,
+        BOTTOM: 2
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DAlignWith = {
+        TEXT: 0,
+        PADDING: 1,
+        BORDER: 2
+    };
 
     var toImageAlign = function (theme, options) {
         var _a, _b, _c;
@@ -18675,6 +18701,388 @@
             DApplications.update(this._parent);
         };
         return DImagePiece;
+    }());
+
+    var DImagePieceLayouterPart = /** @class */ (function () {
+        function DImagePieceLayouterPart() {
+            this.pieces = [];
+            this.size = 0;
+        }
+        DImagePieceLayouterPart.prototype.clear = function () {
+            this.pieces.length = 0;
+            this.size = 0;
+        };
+        DImagePieceLayouterPart.prototype.add = function (image, size, margin) {
+            var pieces = this.pieces;
+            pieces.push(image);
+            this.size += margin + size;
+        };
+        return DImagePieceLayouterPart;
+    }());
+
+    var DImagePieceLayouterPartBottom = /** @class */ (function (_super) {
+        __extends(DImagePieceLayouterPartBottom, _super);
+        function DImagePieceLayouterPartBottom() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DImagePieceLayouterPartBottom.prototype.execute = function (pbottom, height, marginAfter) {
+            var pieces = this.pieces;
+            var y = height - pbottom;
+            if (marginAfter) {
+                var margin = 0;
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    y -= margin + piece.bound.height;
+                    piece.image.y = y;
+                    margin = piece.margin.horizontal;
+                }
+            }
+            else {
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    y -= piece.margin.horizontal + piece.bound.height;
+                    piece.image.y = y;
+                }
+            }
+        };
+        return DImagePieceLayouterPartBottom;
+    }(DImagePieceLayouterPart));
+
+    var DImagePieceLayouterPartCenter = /** @class */ (function (_super) {
+        __extends(DImagePieceLayouterPartCenter, _super);
+        function DImagePieceLayouterPartCenter() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DImagePieceLayouterPartCenter.prototype.add = function (image, size, margin) {
+            var pieces = this.pieces;
+            pieces.push(image);
+            this.size = Math.max(this.size, size);
+        };
+        DImagePieceLayouterPartCenter.prototype.execute = function (pleft, pright, width) {
+            var c = pleft + (width - pleft - pright) * 0.5;
+            var pieces = this.pieces;
+            for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                var piece = pieces[i];
+                piece.image.x = c - piece.bound.width * 0.5;
+            }
+        };
+        return DImagePieceLayouterPartCenter;
+    }(DImagePieceLayouterPart));
+
+    var DImagePieceLayouterPartLeft = /** @class */ (function (_super) {
+        __extends(DImagePieceLayouterPartLeft, _super);
+        function DImagePieceLayouterPartLeft() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DImagePieceLayouterPartLeft.prototype.execute = function (pleft, marginAfter) {
+            var pieces = this.pieces;
+            var x = pleft;
+            if (marginAfter) {
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    piece.image.x = x;
+                    x += piece.bound.width + piece.margin.horizontal;
+                }
+            }
+            else {
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    x += piece.margin.horizontal;
+                    piece.image.x = x;
+                    x += piece.bound.width;
+                }
+            }
+        };
+        return DImagePieceLayouterPartLeft;
+    }(DImagePieceLayouterPart));
+
+    var DImagePieceLayouterPartMiddle = /** @class */ (function (_super) {
+        __extends(DImagePieceLayouterPartMiddle, _super);
+        function DImagePieceLayouterPartMiddle() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DImagePieceLayouterPartMiddle.prototype.add = function (image, size, margin) {
+            var pieces = this.pieces;
+            pieces.push(image);
+            this.size = Math.max(this.size, size);
+        };
+        DImagePieceLayouterPartMiddle.prototype.execute = function (ptop, pbottom, height) {
+            var c = ptop + (height - ptop - pbottom) * 0.5;
+            var pieces = this.pieces;
+            for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                var piece = pieces[i];
+                piece.image.y = c - piece.bound.height * 0.5;
+            }
+        };
+        return DImagePieceLayouterPartMiddle;
+    }(DImagePieceLayouterPart));
+
+    var DImagePieceLayouterPartRight = /** @class */ (function (_super) {
+        __extends(DImagePieceLayouterPartRight, _super);
+        function DImagePieceLayouterPartRight() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DImagePieceLayouterPartRight.prototype.execute = function (pright, width, marginAfter) {
+            var pieces = this.pieces;
+            var x = width - pright;
+            if (marginAfter) {
+                var margin = 0;
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    x -= margin + piece.bound.width;
+                    piece.image.x = x;
+                    margin = piece.margin.horizontal;
+                }
+            }
+            else {
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    x -= piece.margin.horizontal + piece.bound.width;
+                    piece.image.x = x;
+                }
+            }
+        };
+        return DImagePieceLayouterPartRight;
+    }(DImagePieceLayouterPart));
+
+    var DImagePieceLayouterPartTop = /** @class */ (function (_super) {
+        __extends(DImagePieceLayouterPartTop, _super);
+        function DImagePieceLayouterPartTop() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DImagePieceLayouterPartTop.prototype.execute = function (ptop, marginAfter) {
+            var pieces = this.pieces;
+            var y = ptop;
+            if (marginAfter) {
+                var margin = 0;
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    piece.image.y = margin + y;
+                    y += piece.bound.height;
+                    margin = piece.margin.vertical;
+                }
+            }
+            else {
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    var piece = pieces[i];
+                    y += piece.margin.vertical;
+                    piece.image.y = y;
+                    y += piece.bound.height;
+                }
+            }
+        };
+        return DImagePieceLayouterPartTop;
+    }(DImagePieceLayouterPart));
+
+    var DImagePieceLayouterPartContainer = /** @class */ (function () {
+        function DImagePieceLayouterPartContainer() {
+            this.left = new DImagePieceLayouterPartLeft();
+            this.center = new DImagePieceLayouterPartCenter();
+            this.right = new DImagePieceLayouterPartRight();
+            this.top = new DImagePieceLayouterPartTop();
+            this.middle = new DImagePieceLayouterPartMiddle();
+            this.bottom = new DImagePieceLayouterPartBottom();
+        }
+        DImagePieceLayouterPartContainer.prototype.clear = function () {
+            this.left.clear();
+            this.center.clear();
+            this.right.clear();
+            this.top.clear();
+            this.middle.clear();
+            this.bottom.clear();
+            this.text = undefined;
+        };
+        DImagePieceLayouterPartContainer.prototype.add = function (image) {
+            var imageImage = image.image;
+            if (imageImage != null) {
+                var imageBound = image.bound;
+                var imageBoundWidth = imageBound.width;
+                var imageBoundHeight = imageBound.height;
+                var imageMargin = image.margin;
+                var imageMarginHorizontal = imageMargin.horizontal;
+                var imageMarginVertical = imageMargin.vertical;
+                var imageAlign = image.align;
+                switch (imageAlign.horizontal) {
+                    case DAlignHorizontal.LEFT:
+                        this.left.add(image, imageBoundWidth, imageMarginHorizontal);
+                        break;
+                    case DAlignHorizontal.CENTER:
+                        this.center.add(image, imageBoundWidth, imageMarginHorizontal);
+                        break;
+                    case DAlignHorizontal.RIGHT:
+                        this.right.add(image, imageBoundWidth, imageMarginHorizontal);
+                        break;
+                }
+                switch (imageAlign.vertical) {
+                    case DAlignVertical.TOP:
+                        this.top.add(image, imageBoundHeight, imageMarginVertical);
+                        break;
+                    case DAlignVertical.MIDDLE:
+                        this.middle.add(image, imageBoundHeight, imageMarginVertical);
+                        break;
+                    case DAlignVertical.BOTTOM:
+                        this.bottom.add(image, imageBoundHeight, imageMarginVertical);
+                        break;
+                }
+            }
+        };
+        DImagePieceLayouterPartContainer.prototype.set = function (text) {
+            this.text = text;
+        };
+        Object.defineProperty(DImagePieceLayouterPartContainer.prototype, "width", {
+            get: function () {
+                var text = this.text;
+                var left = this.left;
+                var center = this.center;
+                var right = this.right;
+                if (text) {
+                    return Math.max(left.size + text.width + right.size, center.size);
+                }
+                else {
+                    return Math.max(left.size, right.size, center.size);
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DImagePieceLayouterPartContainer.prototype, "height", {
+            get: function () {
+                var text = this.text;
+                var top = this.top;
+                var middle = this.middle;
+                var bottom = this.bottom;
+                if (text) {
+                    return Math.max(top.size + text.height + bottom.size, middle.size);
+                }
+                else {
+                    return Math.max(top.size, bottom.size, middle.size);
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DImagePieceLayouterPartContainer.prototype.execute = function (pleft, ptop, pright, pbottom, textAlign, width, height) {
+            var left = this.left;
+            var center = this.center;
+            var right = this.right;
+            var top = this.top;
+            var middle = this.middle;
+            var bottom = this.bottom;
+            var text = this.text;
+            if (text) {
+                var textX = 0;
+                var textWidth = text.width;
+                switch (textAlign.horizontal) {
+                    case DAlignHorizontal.LEFT:
+                        textX = pleft + left.size;
+                        break;
+                    case DAlignHorizontal.CENTER:
+                        textX =
+                            pleft +
+                                (width - pleft - pright - (left.size + textWidth + right.size)) * 0.5 +
+                                left.size;
+                        break;
+                    case DAlignHorizontal.RIGHT:
+                        textX = width - pright - right.size - textWidth;
+                        break;
+                }
+                var textY = 0;
+                var textHeight = text.height;
+                switch (textAlign.vertical) {
+                    case DAlignVertical.TOP:
+                        textY = ptop + top.size;
+                        break;
+                    case DAlignVertical.MIDDLE:
+                        textY =
+                            ptop +
+                                (height - ptop - pbottom - (top.size + textHeight + bottom.size)) * 0.5 +
+                                top.size;
+                        break;
+                    case DAlignVertical.BOTTOM:
+                        textY = height - pbottom - bottom.size - textHeight;
+                        break;
+                }
+                text.position.set(textX, textY);
+                text.setClippingDelta(left.size + right.size, top.size + bottom.size);
+                left.execute(textX - left.size, true);
+                center.execute(0, 0, textX * 2 + textWidth);
+                right.execute(0, textX + textWidth + right.size, true);
+                top.execute(textY - top.size, true);
+                middle.execute(0, 0, textY * 2 + textHeight);
+                bottom.execute(0, textY + textHeight + bottom.size, true);
+            }
+            else {
+                left.execute(pleft, false);
+                center.execute(pleft, pright, width);
+                right.execute(pright, width, false);
+                top.execute(ptop, false);
+                middle.execute(ptop, pbottom, height);
+                bottom.execute(pbottom, height, false);
+            }
+        };
+        return DImagePieceLayouterPartContainer;
+    }());
+
+    var DImagePieceLayouter = /** @class */ (function () {
+        function DImagePieceLayouter() {
+            this.text = new DImagePieceLayouterPartContainer();
+            this.padding = new DImagePieceLayouterPartContainer();
+            this.border = new DImagePieceLayouterPartContainer();
+        }
+        DImagePieceLayouter.prototype.clear = function () {
+            this.text.clear();
+            this.padding.clear();
+            this.border.clear();
+        };
+        DImagePieceLayouter.prototype.add = function (image) {
+            var imageImage = image.image;
+            if (imageImage) {
+                switch (image.align.with) {
+                    case DAlignWith.TEXT:
+                        this.text.add(image);
+                        break;
+                    case DAlignWith.PADDING:
+                        this.padding.add(image);
+                        break;
+                    case DAlignWith.BORDER:
+                        this.border.add(image);
+                        break;
+                }
+            }
+        };
+        DImagePieceLayouter.prototype.set = function (text) {
+            this.text.set(text);
+        };
+        DImagePieceLayouter.prototype.execute = function (padding, textAlign, width, height) {
+            var pleft = padding.getLeft();
+            var ptop = padding.getTop();
+            var pright = padding.getRight();
+            var pbottom = padding.getBottom();
+            if (width == null) {
+                width = pleft + this.width + pright;
+            }
+            if (height == null) {
+                height = ptop + this.height + pbottom;
+            }
+            this.border.execute(0, 0, 0, 0, textAlign, width, height);
+            this.padding.execute(pleft, ptop, pright, pbottom, textAlign, width, height);
+            this.text.execute(pleft, ptop, pright, pbottom, textAlign, width, height);
+        };
+        Object.defineProperty(DImagePieceLayouter.prototype, "width", {
+            get: function () {
+                return Math.max(this.border.width, this.padding.width, this.text.width);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DImagePieceLayouter.prototype, "height", {
+            get: function () {
+                return Math.max(this.border.height, this.padding.height, this.text.height);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return DImagePieceLayouter;
     }());
 
     /*
@@ -19902,32 +20310,42 @@
         DTextBase.prototype.updateTextPosition = function (text) {
             var align = this._textAlign;
             var padding = this._padding;
-            var toRounded = this.toRounded;
-            switch (align.horizontal) {
-                case DAlignHorizontal.LEFT:
-                    text.x = toRounded(padding.getLeft());
-                    break;
-                case DAlignHorizontal.CENTER:
-                    text.x = toRounded((this.width - text.width) * 0.5);
-                    break;
-                case DAlignHorizontal.RIGHT:
-                    text.x = toRounded(this.width - text.width - padding.getRight());
-                    break;
+            var auto = this._auto;
+            var textX = 0;
+            var pleft = padding.getLeft();
+            var alignHorizontal = align.horizontal;
+            if (auto.width.isOn || alignHorizontal === DAlignHorizontal.LEFT) {
+                textX = pleft;
             }
-            switch (align.vertical) {
-                case DAlignVertical.TOP:
-                    text.y = toRounded(padding.getTop());
-                    break;
-                case DAlignVertical.MIDDLE:
-                    text.y = toRounded((this.height - text.height) * 0.5);
-                    break;
-                case DAlignVertical.BOTTOM:
-                    text.y = toRounded(this.height - text.height - padding.getBottom());
-                    break;
+            else {
+                var width = this.width;
+                var textWidth = text.width;
+                var pright = padding.getRight();
+                if (alignHorizontal === DAlignHorizontal.CENTER) {
+                    textX = pleft + (width - pleft - pright - textWidth) * 0.5;
+                }
+                else {
+                    textX = width - textWidth - pright;
+                }
             }
-        };
-        DTextBase.prototype.toRounded = function (value) {
-            return Math.round(value);
+            var textY = 0;
+            var ptop = padding.getTop();
+            var alignVertical = align.vertical;
+            if (auto.height.isOn || alignVertical === DAlignVertical.TOP) {
+                textY = ptop;
+            }
+            else {
+                var height = this.height;
+                var textHeight = text.height;
+                var pbottom = padding.getBottom();
+                if (alignVertical === DAlignVertical.MIDDLE) {
+                    textY = ptop + (height - ptop - pbottom - textHeight) * 0.5;
+                }
+                else {
+                    textY = height - textHeight - pbottom;
+                }
+            }
+            text.position.set(textX, textY);
         };
         DTextBase.prototype.getTextColor = function (theme, state) {
             var color = this._textColor;
@@ -20097,277 +20515,24 @@
             this.updateTextAndImage();
         };
         DImageBase.prototype.updateTextAndImage = function () {
-            var text = this._text;
+            var _a;
             var images = this._images;
-            var padding = this._padding;
-            var toRounded = this.toRounded;
-            var width = this.width;
-            var height = this.height;
-            var pl = padding.getLeft();
-            var pr = padding.getRight();
-            var pt = padding.getTop();
-            var pb = padding.getBottom();
-            var noText = text == null;
-            var textLeftFirst = noText;
-            var textTopFirst = noText;
-            var textRightLastMargin = 0;
-            var textBottomLastMargin = 0;
-            var textLeft = 0;
-            var textRight = 0;
-            var textTop = 0;
-            var textBottom = 0;
-            var paddingLeft = pl;
-            var paddingRight = width - pr;
-            var paddingTop = pt;
-            var paddingBottom = height - pb;
-            var borderLeft = 0;
-            var borderRight = width;
-            var borderTop = 0;
-            var borderBottom = height;
+            var layouter = ((_a = DImageBase.LAYOUTER) !== null && _a !== void 0 ? _a : (DImageBase.LAYOUTER = new DImagePieceLayouter()));
             for (var i = 0, imax = images.length; i < imax; ++i) {
                 var image = images[i];
                 image.updateSource();
                 image.updateTint();
                 image.updateBound();
-                var imageImage = image.image;
-                if (imageImage) {
-                    var imageBound = image.bound;
-                    var imageBoundWidth = imageBound.width;
-                    var imageBoundHeight = imageBound.height;
-                    var imageMargin = image.margin;
-                    var imageMarginHorizontal = imageMargin.horizontal;
-                    var imageMarginVertical = imageMargin.vertical;
-                    // Text
-                    if (image.align.with === DAlignWith.TEXT) {
-                        switch (image.align.horizontal) {
-                            case DAlignHorizontal.LEFT:
-                                imageImage.x = textLeft;
-                                textLeft += imageBoundWidth;
-                                if (textLeftFirst) {
-                                    textLeftFirst = false;
-                                }
-                                else {
-                                    textLeft += imageMarginHorizontal;
-                                }
-                                break;
-                            case DAlignHorizontal.CENTER:
-                                // DO NOTHING
-                                break;
-                            case DAlignHorizontal.RIGHT:
-                                textRight -= imageBoundWidth;
-                                imageImage.x = textRight;
-                                textRight -= imageMarginHorizontal;
-                                textRightLastMargin = imageMarginHorizontal;
-                                break;
-                        }
-                        switch (image.align.vertical) {
-                            case DAlignVertical.TOP:
-                                imageImage.y = textTop;
-                                textTop += imageBoundHeight;
-                                if (textTopFirst) {
-                                    textTopFirst = false;
-                                }
-                                else {
-                                    textTop += imageMarginVertical;
-                                }
-                                break;
-                            case DAlignVertical.MIDDLE:
-                                // DO NOTHING
-                                break;
-                            case DAlignVertical.BOTTOM:
-                                textBottom -= imageBoundHeight;
-                                imageImage.y = textBottom;
-                                textBottom -= imageMarginVertical;
-                                textBottomLastMargin = imageMarginVertical;
-                                break;
-                        }
-                    }
-                    // Padding
-                    if (image.align.with === DAlignWith.PADDING) {
-                        switch (image.align.horizontal) {
-                            case DAlignHorizontal.LEFT:
-                                paddingLeft += imageMarginHorizontal;
-                                imageImage.x = toRounded(paddingLeft);
-                                paddingLeft += imageBoundWidth;
-                                break;
-                            case DAlignHorizontal.CENTER:
-                                // DO NOTHING
-                                break;
-                            case DAlignHorizontal.RIGHT:
-                                paddingRight -= imageBoundWidth + imageMarginHorizontal;
-                                imageImage.x = toRounded(paddingRight);
-                                break;
-                        }
-                        switch (image.align.vertical) {
-                            case DAlignVertical.TOP:
-                                paddingTop += imageMarginVertical;
-                                imageImage.y = toRounded(paddingTop);
-                                paddingTop += imageBoundHeight;
-                                break;
-                            case DAlignVertical.MIDDLE:
-                                // DO NOTHING
-                                break;
-                            case DAlignVertical.BOTTOM:
-                                paddingBottom -= imageBoundHeight + imageMarginVertical;
-                                imageImage.y = toRounded(paddingBottom);
-                                break;
-                        }
-                    }
-                    // Border
-                    if (image.align.with === DAlignWith.BORDER) {
-                        switch (image.align.horizontal) {
-                            case DAlignHorizontal.LEFT:
-                                borderLeft += imageMarginHorizontal;
-                                imageImage.x = toRounded(borderLeft);
-                                borderLeft += imageBoundWidth;
-                                break;
-                            case DAlignHorizontal.CENTER:
-                                // DO NOTHING
-                                break;
-                            case DAlignHorizontal.RIGHT:
-                                borderRight -= imageBoundWidth + imageMarginHorizontal;
-                                imageImage.x = toRounded(borderRight);
-                                break;
-                        }
-                        switch (image.align.vertical) {
-                            case DAlignVertical.TOP:
-                                borderTop += imageMarginVertical;
-                                imageImage.y = toRounded(borderTop);
-                                borderTop += imageBoundHeight;
-                                break;
-                            case DAlignVertical.MIDDLE:
-                                // DO NOTHING
-                                break;
-                            case DAlignVertical.BOTTOM:
-                                borderBottom -= imageBoundHeight + imageMarginVertical;
-                                imageImage.y = toRounded(borderBottom);
-                                break;
-                        }
-                    }
-                }
+                layouter.add(image);
             }
-            if (noText) {
-                textRight += textRightLastMargin;
-                textBottom += textBottomLastMargin;
-            }
-            // Text
-            var textLeftAdjust = 0;
-            var textCenterAdjust = 0;
-            var textRightAdjust = 0;
-            var textTopAdjust = 0;
-            var textMiddleAdjust = 0;
-            var textBottomAdjust = 0;
+            var text = this._text;
             if (text != null) {
                 this.updateTextColor(text);
-                text.setClippingDelta(textLeft - textRight, textTop - textBottom);
-                var textAlign = this._textAlign;
-                var textWidth = text.width;
-                var textHeight = text.height;
-                switch (textAlign.horizontal) {
-                    case DAlignHorizontal.LEFT:
-                        textLeftAdjust = pl;
-                        textRightAdjust = textLeftAdjust + textLeft + textWidth - textRight;
-                        break;
-                    case DAlignHorizontal.CENTER:
-                        textLeftAdjust = (width - textLeft + textRight - textWidth) * 0.5;
-                        textRightAdjust = textLeftAdjust + textLeft + textWidth - textRight;
-                        break;
-                    case DAlignHorizontal.RIGHT:
-                        textRightAdjust = width - pr;
-                        textLeftAdjust = textRightAdjust + textRight - textWidth - textLeft;
-                        break;
-                }
-                text.x = toRounded(textLeftAdjust + textLeft);
-                textCenterAdjust = textLeftAdjust + textLeft + textWidth * 0.5;
-                switch (textAlign.vertical) {
-                    case DAlignVertical.TOP:
-                        textTopAdjust = pt;
-                        textBottomAdjust = textTopAdjust + textTop + textHeight - textBottom;
-                        break;
-                    case DAlignVertical.MIDDLE:
-                        textTopAdjust = (height - textTop + textBottom - textHeight) * 0.5;
-                        textBottomAdjust = textTopAdjust + textTop + textHeight - textBottom;
-                        break;
-                    case DAlignVertical.BOTTOM:
-                        textBottomAdjust = height - pb;
-                        textTopAdjust = textBottomAdjust + textBottom - textHeight - textTop;
-                        break;
-                }
-                text.y = toRounded(textTopAdjust + textTop);
-                textMiddleAdjust = textTopAdjust + textTop + textHeight * 0.5;
+                layouter.set(text);
             }
-            else {
-                textLeftAdjust = (width - textLeft + textRight) * 0.5;
-                textRightAdjust = textLeftAdjust + textLeft - textRight;
-                textCenterAdjust = textLeftAdjust + textLeft;
-                textTopAdjust = (height - textTop + textBottom) * 0.5;
-                textBottomAdjust = textTopAdjust + textTop - textBottom;
-                textMiddleAdjust = textTopAdjust + textTop;
-            }
-            var paddingCenterAdjust = width * 0.5;
-            var paddingMiddleAdjust = height * 0.5;
-            var borderCenterAdjust = width * 0.5;
-            var borderMiddleAdjust = height * 0.5;
-            for (var i = 0, imax = images.length; i < imax; ++i) {
-                var image = images[i];
-                var imageImage = image.image;
-                if (imageImage) {
-                    var imageBound = image.bound;
-                    var imageBoundWidth = imageBound.width;
-                    var imageBoundHeight = imageBound.height;
-                    // Text
-                    if (image.align.with === DAlignWith.TEXT) {
-                        switch (image.align.horizontal) {
-                            case DAlignHorizontal.LEFT:
-                                imageImage.x = toRounded(imageImage.x + textLeftAdjust);
-                                break;
-                            case DAlignHorizontal.CENTER:
-                                imageImage.x = toRounded(textCenterAdjust - imageBoundWidth * 0.5);
-                                break;
-                            case DAlignHorizontal.RIGHT:
-                                imageImage.x = toRounded(imageImage.x + textRightAdjust);
-                                break;
-                        }
-                        switch (image.align.vertical) {
-                            case DAlignVertical.TOP:
-                                imageImage.y = toRounded(imageImage.y + textTopAdjust);
-                                break;
-                            case DAlignVertical.MIDDLE:
-                                imageImage.y = toRounded(textMiddleAdjust - imageBoundHeight * 0.5);
-                                break;
-                            case DAlignVertical.BOTTOM:
-                                imageImage.y = toRounded(imageImage.y + textBottomAdjust);
-                                break;
-                        }
-                    }
-                    // Padding
-                    if (image.align.with === DAlignWith.PADDING) {
-                        switch (image.align.horizontal) {
-                            case DAlignHorizontal.CENTER:
-                                imageImage.x = toRounded(paddingCenterAdjust - imageBoundWidth * 0.5);
-                                break;
-                        }
-                        switch (image.align.vertical) {
-                            case DAlignVertical.MIDDLE:
-                                imageImage.y = toRounded(paddingMiddleAdjust - imageBoundHeight * 0.5);
-                                break;
-                        }
-                    }
-                    // Border
-                    if (image.align.with === DAlignWith.BORDER) {
-                        switch (image.align.horizontal) {
-                            case DAlignHorizontal.CENTER:
-                                imageImage.x = toRounded(borderCenterAdjust - imageBoundWidth * 0.5);
-                                break;
-                        }
-                        switch (image.align.vertical) {
-                            case DAlignVertical.MIDDLE:
-                                imageImage.y = toRounded(borderMiddleAdjust - imageBoundHeight * 0.5);
-                                break;
-                        }
-                    }
-                }
-            }
+            var auto = this._auto;
+            layouter.execute(this._padding, this._textAlign, auto.width.isOn ? null : this.width, auto.height.isOn ? null : this.height);
+            layouter.clear();
         };
         DImageBase.prototype.isRefitable = function (target) {
             if (_super.prototype.isRefitable.call(this, target)) {
@@ -22673,9 +22838,6 @@
             this.toGlobal(point, point, true);
             result.width = point.x - result.x;
             result.height = point.y - result.y;
-            // Rounds pixels as Pixi.js does
-            result.x = ((result.x * resolution) | 0) / resolution;
-            result.y = ((result.y * resolution) | 0) / resolution;
             return result;
         };
         DHtmlElement.prototype.getClipperRect = function (resolution, point, result) {
@@ -38884,8 +39046,24 @@
             var text = this._shortcutText;
             var margin = this._shortcutMargin;
             if (text != null && margin != null) {
-                var toRounded = this.toRounded;
-                text.position.set(toRounded(this.width - margin - text.width), toRounded((this.height - text.height) * 0.5));
+                var auto = this._auto;
+                var textX = 0;
+                if (auto.width.isOn) {
+                    textX = margin;
+                }
+                else {
+                    textX = this.width - text.width - margin;
+                }
+                var textY = 0;
+                var padding = this._padding;
+                var ptop = padding.getTop();
+                if (auto.height.isOn) {
+                    textY = ptop;
+                }
+                else {
+                    textY = ptop + (this.height - ptop - padding.getBottom() - text.height) * 0.5;
+                }
+                text.position.set(textX, textY);
             }
         };
         DMenuItemText.prototype.updateTextColor = function (text) {
@@ -41639,7 +41817,9 @@
             this.height = size + padding * 2;
             var metrics = pixi_js.TextMetrics.measureFont(fontId);
             this.ascent = metrics.ascent;
-            this.descent = metrics.descent;
+            // Becase the descent returned by TextMatrics#measureFont is tend
+            // to be the half of the actual descent browsers use internally.
+            this.descent = metrics.descent * 2;
         }
         return DynamicFontAtlasFont;
     }());
@@ -43747,7 +43927,6 @@
             _this._isOverlay = options.isOverlay();
             _this._padding = options.getPadding();
             _this._rootElement = options.getRootElement();
-            _this._refitLimit = 5;
             _this._reflowLimit = 5;
             _this._elementContainer = _this.newElementContainer();
             _this.application = application;
@@ -43941,7 +44120,6 @@
             }
         };
         DApplicationLayer.prototype.render = function () {
-            this.refit();
             this.reflow();
             // Please note why the following line is here.
             //
@@ -43977,32 +44155,16 @@
             enumerable: false,
             configurable: true
         });
-        DApplicationLayer.prototype.refit = function () {
-            var children = this.stage.children;
-            for (var ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
-                var isChildrenDirty = false;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    var child = children[i];
-                    if (child instanceof DBase) {
-                        child.refit();
-                        isChildrenDirty = isChildrenDirty || child.isChildrenDirty();
-                    }
-                }
-                // If DBases are changed during the `refit` process, need to refit again.
-                if (!isChildrenDirty) {
-                    break;
-                }
-            }
-        };
         DApplicationLayer.prototype.reflow = function () {
             var children = this.stage.children;
-            for (var ilimit = 0, limit = this._refitLimit; ilimit < limit; ++ilimit) {
+            for (var ilimit = 0, limit = this._reflowLimit; ilimit < limit; ++ilimit) {
                 var isDirty = false;
                 for (var i = 0, imax = children.length; i < imax; ++i) {
                     var child = children[i];
                     if (child instanceof DBase) {
                         child.reflow();
-                        isDirty = isDirty || child.isDirty() || child.hasDirty();
+                        isDirty =
+                            isDirty || child.isDirty() || child.hasDirty() || child.isHierarchyDirty();
                     }
                 }
                 // If DBases are changed during the `reflow` process, need to reflow again.
@@ -54790,16 +54952,6 @@
             }
             return cleanup === true || cleanup.background === true;
         };
-        DDiagramSnapshot.prototype.toCleanupRefit = function (options) {
-            if (options == null) {
-                return true;
-            }
-            var cleanup = options.cleanup;
-            if (cleanup == null || cleanup === true) {
-                return true;
-            }
-            return cleanup !== false && cleanup.refit !== false;
-        };
         DDiagramSnapshot.prototype.toCleanupReflow = function (options) {
             if (options == null) {
                 return true;
@@ -54849,17 +55001,11 @@
                     }
                 }
                 // Refit & reflow
-                var refit = this.toCleanupRefit(options);
                 var reflow = this.toCleanupReflow(options);
-                if (refit || reflow) {
+                if (reflow) {
                     var layer = DApplications.getLayer(canvas);
                     if (layer) {
-                        if (refit) {
-                            layer.refit();
-                        }
-                        if (reflow) {
-                            layer.reflow();
-                        }
+                        layer.reflow();
                     }
                 }
                 // Extracts
@@ -58987,12 +59133,12 @@
         DMenuSided.prototype.newSelection = function (options) {
             return new DMenuSidedSelection(this.content, options);
         };
-        DMenuSided.prototype.onChildrenDirty = function () {
+        DMenuSided.prototype.onHierarchyDirty = function () {
             var selection = this._selection;
             if (selection != null) {
                 selection.toDirty();
             }
-            _super.prototype.onChildrenDirty.call(this);
+            _super.prototype.onHierarchyDirty.call(this);
         };
         DMenuSided.prototype.newItems = function (items, sticky) {
             DMenuSideds.newItems(this.content, items, sticky);
