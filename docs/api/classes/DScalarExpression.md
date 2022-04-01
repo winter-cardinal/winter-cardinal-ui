@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DScalarExpression
+[Winter Cardinal UI - v0.160.0](../index.md) / DScalarExpression
 
 # Class: DScalarExpression
 
@@ -75,7 +75,7 @@ Examples
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L168)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L168)
 
 ## Properties
 
@@ -85,7 +85,7 @@ Examples
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L166)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L166)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L165)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L165)
 
 ## Methods
 
@@ -124,7 +124,7 @@ Calculates a scalar value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:530](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L530)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:530](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L530)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:445](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L445)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:445](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L445)
 
 ___
 
@@ -170,7 +170,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:344](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L344)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:344](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L344)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L315)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L315)
 
 ___
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L240)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L240)
 
 ___
 
@@ -236,7 +236,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L221)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L221)
 
 ___
 
@@ -257,7 +257,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L187)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L187)
 
 ___
 
@@ -277,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:373](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L373)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:373](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L373)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:428](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L428)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:428](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L428)
 
 ___
 
@@ -317,7 +317,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L404)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L404)
 
 ___
 
@@ -337,7 +337,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:281](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L281)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:281](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L281)
 
 ___
 
@@ -357,4 +357,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L269)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L269)

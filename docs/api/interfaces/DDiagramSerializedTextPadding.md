@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DDiagramSerializedTextPadding
+[Winter Cardinal UI - v0.160.0](../index.md) / DDiagramSerializedTextPadding
 
 # Interface: DDiagramSerializedTextPadding
 
@@ -21,7 +21,7 @@ A horizontal padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L169)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L169)
 
 ___
 
@@ -33,4 +33,4 @@ A vertical padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L172)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L172)

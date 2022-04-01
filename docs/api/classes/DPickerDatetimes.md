@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DPickerDatetimes
+[Winter Cardinal UI - v0.160.0](../index.md) / DPickerDatetimes
 
 # Class: DPickerDatetimes
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-datetimes.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-picker-datetimes.ts#L12)
+[src/main/typescript/wcardinal/ui/d-picker-datetimes.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-picker-datetimes.ts#L12)
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-datetimes.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-picker-datetimes.ts#L21)
+[src/main/typescript/wcardinal/ui/d-picker-datetimes.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-picker-datetimes.ts#L21)

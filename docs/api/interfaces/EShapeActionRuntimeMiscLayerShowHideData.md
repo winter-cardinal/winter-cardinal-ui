@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / EShapeActionRuntimeMiscLayerShowHideData
+[Winter Cardinal UI - v0.160.0](../index.md) / EShapeActionRuntimeMiscLayerShowHideData
 
 # Interface: EShapeActionRuntimeMiscLayerShowHideData
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts#L14)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts#L15)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-layer-show-hide.ts#L13)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / UtilExtractCanvasScaleOptions
+[Winter Cardinal UI - v0.160.0](../index.md) / UtilExtractCanvasScaleOptions
 
 # Interface: UtilExtractCanvasScaleOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L38)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L38)

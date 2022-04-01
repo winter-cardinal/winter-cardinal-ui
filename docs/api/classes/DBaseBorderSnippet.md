@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DBaseBorderSnippet
+[Winter Cardinal UI - v0.160.0](../index.md) / DBaseBorderSnippet
 
 # Class: DBaseBorderSnippet
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L13)
+[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L13)
 
 ## Methods
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L15)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L25)
+[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L25)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L32)
+[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L32)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L69)
+[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L69)
 
 ___
 
@@ -141,4 +141,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L73)
+[src/main/typescript/wcardinal/ui/d-base-border-snippet.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-border-snippet.ts#L73)

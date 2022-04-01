@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DTextBaseTextAlignOptions
+[Winter Cardinal UI - v0.160.0](../index.md) / DTextBaseTextAlignOptions
 
 # Interface: DTextBaseTextAlignOptions
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L26)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L26)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L25)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L25)

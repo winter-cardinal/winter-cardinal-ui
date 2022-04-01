@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / UtilExtractorPixels
+[Winter Cardinal UI - v0.160.0](../index.md) / UtilExtractorPixels
 
 # Interface: UtilExtractorPixels
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts#L9)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts#L8)
+[src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts#L8)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-extractor-pixels.ts#L7)

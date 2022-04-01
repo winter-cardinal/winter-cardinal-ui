@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DColorGradient
+[Winter Cardinal UI - v0.160.0](../index.md) / DColorGradient
 
 # Interface: DColorGradient
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-color-gradient.ts#L14)
+[src/main/typescript/wcardinal/ui/d-color-gradient.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-color-gradient.ts#L14)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-color-gradient.ts#L13)
+[src/main/typescript/wcardinal/ui/d-color-gradient.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-color-gradient.ts#L13)

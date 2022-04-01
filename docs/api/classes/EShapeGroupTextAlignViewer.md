@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / EShapeGroupTextAlignViewer
+[Winter Cardinal UI - v0.160.0](../index.md) / EShapeGroupTextAlignViewer
 
 # Class: EShapeGroupTextAlignViewer
 
@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L13)
 
 ## Accessors
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L17)
 
 • `set` **horizontal**(`horizontal`): `void`
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L21)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L25)
 
 • `set` **vertical**(`vertical`): `void`
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L29)
 
 ## Methods
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L33)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L52)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L52)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L48)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L37)
 
 ___
 
@@ -225,4 +225,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-viewer.ts#L41)

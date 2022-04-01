@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DTableScrollBar
+[Winter Cardinal UI - v0.160.0](../index.md) / DTableScrollBar
 
 # Class: DTableScrollBar
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L34)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L34)
 
 ## Properties
 
@@ -68,7 +68,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L31)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L31)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L32)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L32)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L30)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L30)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L26)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L26)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L25)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L25)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L28)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L28)
 
 ___
 
@@ -166,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L27)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L27)
 
 ## Methods
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L105)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L105)
 
 ___
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L101)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L101)
 
 ___
 
@@ -238,7 +238,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L113)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L113)
 
 ___
 
@@ -262,7 +262,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-scrollbar.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-table-scrollbar.ts#L9)
+[src/main/typescript/wcardinal/ui/d-table-scrollbar.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-scrollbar.ts#L9)
 
 ___
 
@@ -280,7 +280,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L47)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L47)
 
 ___
 
@@ -304,7 +304,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L55)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L55)
 
 ___
 
@@ -328,4 +328,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L66)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L66)

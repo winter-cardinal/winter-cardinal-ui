@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / EShapeDeleter
+[Winter Cardinal UI - v0.160.0](../index.md) / EShapeDeleter
 
 # Class: EShapeDeleter
 
@@ -38,4 +38,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/e-shape-deleter.ts#L11)

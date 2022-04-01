@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DDiagramSnapshotCleanupOptions
+[Winter Cardinal UI - v0.160.0](../index.md) / DDiagramSnapshotCleanupOptions
 
 # Interface: DDiagramSnapshotCleanupOptions
 
@@ -9,7 +9,6 @@ Options to eliminate the snap grid, the snap targets and the canvas background f
 ### Properties
 
 - [background](DDiagramSnapshotCleanupOptions.md#background)
-- [refit](DDiagramSnapshotCleanupOptions.md#refit)
 - [reflow](DDiagramSnapshotCleanupOptions.md#reflow)
 - [snap](DDiagramSnapshotCleanupOptions.md#snap)
 
@@ -21,17 +20,7 @@ Options to eliminate the snap grid, the snap targets and the canvas background f
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L58)
-
-___
-
-### refit
-
-• `Optional` **refit**: `boolean`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L59)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L58)
 
 ___
 
@@ -41,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L60)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L59)
 
 ___
 
@@ -51,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L57)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L57)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / EShapeDataValueRangeImpl
+[Winter Cardinal UI - v0.160.0](../index.md) / EShapeDataValueRangeImpl
 
 # Class: EShapeDataValueRangeImpl
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L21)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L17)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L18)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L16)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L19)
 
 ## Accessors
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L41)
 
 • `set` **from**(`from`): `void`
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L45)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L45)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L55)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L55)
 
 • `set` **to**(`to`): `void`
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L59)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L59)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L27)
 
 • `set` **type**(`type`): `void`
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L31)
 
 ## Methods
 
@@ -226,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L168)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L168)
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L172)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L172)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:213](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L213)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:213](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L213)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L164)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L164)
 
 ___
 
@@ -321,7 +321,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L147)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L147)
 
 ___
 
@@ -345,7 +345,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L208)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L208)
 
 ___
 
@@ -370,7 +370,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L69)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L69)
 
 ___
 
@@ -388,4 +388,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L200)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-range-impl.ts#L200)

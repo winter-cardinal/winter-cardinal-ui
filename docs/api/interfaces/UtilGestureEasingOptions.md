@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / UtilGestureEasingOptions
+[Winter Cardinal UI - v0.160.0](../index.md) / UtilGestureEasingOptions
 
 # Interface: UtilGestureEasingOptions
 
@@ -22,4 +22,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-easing.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing.ts#L15)
+[src/main/typescript/wcardinal/ui/util/util-gesture-easing.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing.ts#L15)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DynamicFontAtlasCharacterOrigin
+[Winter Cardinal UI - v0.160.0](../index.md) / DynamicFontAtlasCharacterOrigin
 
 # Class: DynamicFontAtlasCharacterOrigin
 
@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts#L10)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts#L10)
 
 ## Properties
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts#L7)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts#L7)
 
 ___
 
@@ -48,4 +48,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts#L8)
+[src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/dynamic-font-atlas-chaaracter-origin.ts#L8)

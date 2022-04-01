@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / UtilGestureModifiers
+[Winter Cardinal UI - v0.160.0](../index.md) / UtilGestureModifiers
 
 # Class: UtilGestureModifiers
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts#L16)
+[src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts#L16)
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts#L25)
+[src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-gesture-modifiers.ts#L25)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DBaseAuto
+[Winter Cardinal UI - v0.160.0](../index.md) / DBaseAuto
 
 # Class: DBaseAuto
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-auto.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L11)
+[src/main/typescript/wcardinal/ui/d-base-auto.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L11)
 
 ## Properties
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-auto.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L9)
+[src/main/typescript/wcardinal/ui/d-base-auto.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L9)
 
 ## Accessors
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-auto.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-auto.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L15)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-auto.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L19)
+[src/main/typescript/wcardinal/ui/d-base-auto.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L19)
 
 ## Methods
 
@@ -92,7 +92,7 @@ True if the given size is "auto".
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-auto.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L33)
+[src/main/typescript/wcardinal/ui/d-base-auto.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L33)
 
 ___
 
@@ -112,4 +112,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-auto.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L23)
+[src/main/typescript/wcardinal/ui/d-base-auto.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-auto.ts#L23)

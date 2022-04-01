@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / EShapeResourceManagerDeserializationSerialized
+[Winter Cardinal UI - v0.160.0](../index.md) / EShapeResourceManagerDeserializationSerialized
 
 # Interface: EShapeResourceManagerDeserializationSerialized
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L22)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L20)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L21)

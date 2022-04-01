@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DTableDataParent
+[Winter Cardinal UI - v0.160.0](../index.md) / DTableDataParent
 
 # Interface: DTableDataParent
 
@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L87)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L87)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L88)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L88)
 
 ___
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L89)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L89)

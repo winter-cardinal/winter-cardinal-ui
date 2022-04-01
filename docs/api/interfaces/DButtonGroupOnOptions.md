@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / DButtonGroupOnOptions
+[Winter Cardinal UI - v0.160.0](../index.md) / DButtonGroupOnOptions
 
 # Interface: DButtonGroupOnOptions<BUTTON, EMITTER\>
 
@@ -51,4 +51,4 @@ Partial.active
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-group.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L19)
+[src/main/typescript/wcardinal/ui/d-button-group.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-group.ts#L19)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.155.0](../index.md) / UtilGestureTarget
+[Winter Cardinal UI - v0.160.0](../index.md) / UtilGestureTarget
 
 # Interface: UtilGestureTarget
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.155.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L18)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L18)
