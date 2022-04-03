@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.160.0
+ Winter Cardinal UI v0.161.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -817,6 +817,8 @@
 
     const DDialogMode = wcardinal.ui.DDialogMode;
 
+    const DDialogState = wcardinal.ui.DDialogState;
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -841,11 +843,24 @@
         DThemeDarkDialog.prototype.getOffsetY = function () {
             return 5;
         };
-        DThemeDarkDialog.prototype.getBackgroundColor = function () {
-            return DThemeDarkConstants.BACKGROUND_COLOR;
+        DThemeDarkDialog.prototype.getBackgroundColor = function (state) {
+            if (state.is(DDialogState.MENU)) {
+                return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+            }
+            else {
+                return DThemeDarkConstants.BACKGROUND_COLOR;
+            }
         };
         DThemeDarkDialog.prototype.getBorderColor = function (state) {
-            return 0x393939;
+            if (state.is(DDialogState.MENU)) {
+                return null;
+            }
+            else {
+                return 0x393939;
+            }
+        };
+        DThemeDarkDialog.prototype.getOutlineColor = function (state) {
+            return null;
         };
         DThemeDarkDialog.prototype.getPaddingLeft = function () {
             return 16;

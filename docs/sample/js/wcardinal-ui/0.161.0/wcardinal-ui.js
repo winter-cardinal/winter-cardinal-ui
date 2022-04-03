@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.160.0
+ Winter Cardinal UI v0.161.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -18973,9 +18973,14 @@
             var middle = this.middle;
             var bottom = this.bottom;
             var text = this.text;
-            if (text) {
+            if (text !== undefined) {
                 var textX = 0;
-                var textWidth = text.width;
+                var textWidth = 0;
+                var textHeight = 0;
+                if (text != null) {
+                    textWidth = text.width;
+                    textHeight = text.height;
+                }
                 switch (textAlign.horizontal) {
                     case DAlignHorizontal.LEFT:
                         textX = pleft + left.size;
@@ -18991,7 +18996,6 @@
                         break;
                 }
                 var textY = 0;
-                var textHeight = text.height;
                 switch (textAlign.vertical) {
                     case DAlignVertical.TOP:
                         textY = ptop + top.size;
@@ -19006,8 +19010,10 @@
                         textY = height - pbottom - bottom.size - textHeight;
                         break;
                 }
-                text.position.set(textX, textY);
-                text.setClippingDelta(left.size + right.size, top.size + bottom.size);
+                if (text != null) {
+                    text.position.set(textX, textY);
+                    text.setClippingDelta(left.size + right.size, top.size + bottom.size);
+                }
                 left.execute(textX - left.size, true);
                 center.execute(0, 0, textX * 2 + textWidth);
                 right.execute(0, textX + textWidth + right.size, true);
@@ -20534,6 +20540,9 @@
                 this.updateTextColor(text);
                 layouter.set(text);
             }
+            else {
+                layouter.set(null);
+            }
             var auto = this._auto;
             layouter.execute(this._padding, this._textAlign, auto.width.isOn ? null : this.width, auto.height.isOn ? null : this.height);
             layouter.clear();
@@ -21127,7 +21136,7 @@
             this._onPrerenderBound = function () {
                 _this.onPrerender();
             };
-            // Modeless
+            // Mode
             var theme = this.theme;
             var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getMode(), DDialogMode);
             this._mode = mode;
@@ -46075,12 +46084,15 @@
             return indices;
         };
         DPickerColorGradientView.prototype._calculateBounds = function () {
+            var worldTransform = this.transform.worldTransform;
             var rect = this._parts[0].rect;
             var bounds = this._bounds;
             var work = this._workPoint;
             work.set(rect.x, rect.y);
+            worldTransform.apply(work, work);
             bounds.addPoint(work);
             work.set(rect.x + rect.width, rect.y + rect.height);
+            worldTransform.apply(work, work);
             bounds.addPoint(work);
         };
         DPickerColorGradientView.prototype.update = function () {
@@ -46585,20 +46597,33 @@
             _super.prototype.onActivate.call(this, e);
             var value = this._textValueComputed;
             var dialog = this.dialog;
-            dialog.value.fromObject(value);
-            dialog.open().then(function () {
-                var newValue = dialog.value;
-                var oldValue = new DColorGradientObservable().fromObject(value);
-                value.fromObject(newValue);
-                var view = _this._view;
-                if (view != null) {
-                    view.update();
-                }
-                _this.onTextChange();
-                _this.createOrUpdateText();
-                DApplications.update(_this);
-                _this.emit("change", newValue, oldValue, _this);
+            if (value != null) {
+                dialog.value.fromObject(value);
+            }
+            dialog.open(this).then(function (newValue) {
+                _this.onValueChange(newValue, _this.toClone(value));
             });
+        };
+        DButtonColorGradient.prototype.toClone = function (value) {
+            var result = new DColorGradientObservable();
+            if (value != null) {
+                result.fromObject(value);
+            }
+            return result;
+        };
+        DButtonColorGradient.prototype.onValueChange = function (newValue, oldValue) {
+            var value = this._textValueComputed;
+            if (value != null) {
+                value.fromObject(newValue);
+            }
+            var view = this._view;
+            if (view != null) {
+                view.update();
+            }
+            this.onTextChange();
+            this.createOrUpdateText();
+            DApplications.update(this);
+            this.emit("change", newValue, oldValue, this);
         };
         Object.defineProperty(DButtonColorGradient.prototype, "dialog", {
             get: function () {
@@ -46607,11 +46632,14 @@
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
                     if (options) {
-                        dialog = new DDialogColorGradient(options);
+                        dialog = this.newDialog(options);
                     }
                     else {
                         if (DButtonColorGradient.DIALOG == null) {
-                            DButtonColorGradient.DIALOG = new DDialogColorGradient();
+                            DButtonColorGradient.DIALOG = this.newDialog({
+                                mode: "MENU",
+                                sticky: true
+                            });
                         }
                         dialog = DButtonColorGradient.DIALOG;
                     }
@@ -46622,6 +46650,9 @@
             enumerable: false,
             configurable: true
         });
+        DButtonColorGradient.prototype.newDialog = function (options) {
+            return new DDialogColorGradient(options);
+        };
         Object.defineProperty(DButtonColorGradient.prototype, "value", {
             get: function () {
                 return this._textValueComputed;
@@ -46708,34 +46739,21 @@
         function DButtonColor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DButtonColor.prototype.init = function (options) {
-            var _this = this;
-            _super.prototype.init.call(this, options);
-            var value = this._textValueComputed;
-            this._value = new DPickerColorAndAlpha(value, function (color) {
-                value.color = color;
-                _this.onColorChange();
-            }, function (alpha) {
-                value.alpha = alpha;
-                _this.updateTextForcibly();
-            });
-        };
         DButtonColor.prototype.onActivate = function (e) {
             var _this = this;
             _super.prototype.onActivate.call(this, e);
-            var value = this._textValueComputed;
             var dialog = this.dialog;
-            var dialogCurrent = dialog.current;
-            var dialogNew = dialog.new;
-            dialogCurrent.color = value.color;
-            dialogCurrent.alpha = value.alpha;
-            dialogNew.color = value.color;
-            dialogNew.alpha = value.alpha;
-            dialog.open().then(function () {
-                value.color = dialogNew.color;
-                value.alpha = dialogNew.alpha;
-                _this.onColorChange();
-                _this.onValueChange(_this.toClone(dialogNew), _this.toClone(dialogCurrent));
+            var value = this._textValueComputed;
+            if (value != null) {
+                var dialogCurrent = dialog.current;
+                dialogCurrent.color = value.color;
+                dialogCurrent.alpha = value.alpha;
+                var dialogNew = dialog.new;
+                dialogNew.color = value.color;
+                dialogNew.alpha = value.alpha;
+            }
+            dialog.open(this).then(function () {
+                _this.onValueChange(_this.toClone(dialog.new), _this.toClone(dialog.current));
             });
         };
         DButtonColor.prototype.toClone = function (value) {
@@ -46745,6 +46763,12 @@
             };
         };
         DButtonColor.prototype.onValueChange = function (newValue, oldValue) {
+            var value = this._textValueComputed;
+            if (value != null) {
+                value.color = newValue.color;
+                value.alpha = newValue.alpha;
+            }
+            this.onColorChange();
             this.emit("change", newValue, oldValue, this);
         };
         DButtonColor.prototype.toImageTintOptions = function (tint) {
@@ -46790,11 +46814,14 @@
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
                     if (options) {
-                        dialog = new DDialogColor(options);
+                        dialog = this.newDialog(options);
                     }
                     else {
                         if (DButtonColor.DIALOG == null) {
-                            DButtonColor.DIALOG = new DDialogColor();
+                            DButtonColor.DIALOG = this.newDialog({
+                                mode: "MENU",
+                                sticky: true
+                            });
                         }
                         dialog = DButtonColor.DIALOG;
                     }
@@ -46805,13 +46832,32 @@
             enumerable: false,
             configurable: true
         });
+        DButtonColor.prototype.newDialog = function (options) {
+            return new DDialogColor(options);
+        };
         Object.defineProperty(DButtonColor.prototype, "value", {
             get: function () {
-                return this._value;
+                var result = this._value;
+                if (result == null) {
+                    result = this.newValue();
+                    this._value = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
         });
+        DButtonColor.prototype.newValue = function () {
+            var _this = this;
+            var value = this._textValueComputed;
+            return new DPickerColorAndAlpha(value, function (color) {
+                value.color = color;
+                _this.onColorChange();
+            }, function (alpha) {
+                value.alpha = alpha;
+                _this.updateTextForcibly();
+            });
+        };
         DButtonColor.prototype.getType = function () {
             return "DButtonColor";
         };
@@ -46837,22 +46883,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDialogDates = /** @class */ (function () {
-        function DDialogDates() {
-        }
-        DDialogDates.getInstance = function () {
-            if (DDialogDates.INSTANCE == null) {
-                DDialogDates.INSTANCE = new DDialogDate();
-            }
-            return DDialogDates.INSTANCE;
-        };
-        return DDialogDates;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DButtonDate = /** @class */ (function (_super) {
         __extends(DButtonDate, _super);
         function DButtonDate() {
@@ -46867,12 +46897,13 @@
             dialog.current = new Date(value);
             dialog.new = new Date(value);
             dialog.page = new Date(value);
-            dialog.open().then(function () {
-                var newValue = dialog.new;
-                var oldValue = dialog.current;
-                _this.text = new Date(newValue.getTime());
-                _this.emit("change", newValue, oldValue, _this);
+            dialog.open(this).then(function () {
+                _this.onValueChange(dialog.new, dialog.current);
             });
+        };
+        DButtonDate.prototype.onValueChange = function (newValue, oldValue) {
+            this.text = new Date(newValue.getTime());
+            this.emit("change", newValue, oldValue, this);
         };
         Object.defineProperty(DButtonDate.prototype, "dialog", {
             get: function () {
@@ -46881,10 +46912,16 @@
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
                     if (options) {
-                        dialog = new DDialogDate(options);
+                        dialog = this.newDialog(options);
                     }
                     else {
-                        dialog = DDialogDates.getInstance();
+                        if (DButtonDate.DIALOG == null) {
+                            DButtonDate.DIALOG = this.newDialog({
+                                mode: "MENU",
+                                sticky: true
+                            });
+                        }
+                        dialog = DButtonDate.DIALOG;
                     }
                     this._dialog = dialog;
                 }
@@ -46893,6 +46930,9 @@
             enumerable: false,
             configurable: true
         });
+        DButtonDate.prototype.newDialog = function (options) {
+            return new DDialogDate(options);
+        };
         Object.defineProperty(DButtonDate.prototype, "value", {
             get: function () {
                 var _a;
@@ -46912,22 +46952,6 @@
         };
         return DButtonDate;
     }(DButton));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDialogDatetimes = /** @class */ (function () {
-        function DDialogDatetimes() {
-        }
-        DDialogDatetimes.getInstance = function () {
-            if (DDialogDatetimes.INSTANCE == null) {
-                DDialogDatetimes.INSTANCE = new DDialogDatetime();
-            }
-            return DDialogDatetimes.INSTANCE;
-        };
-        return DDialogDatetimes;
-    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -47017,12 +47041,13 @@
             dialog.current = new Date(value);
             dialog.new = new Date(value);
             dialog.page = new Date(value);
-            dialog.open().then(function () {
-                var newValue = dialog.new;
-                var oldValue = dialog.current;
-                _this.text = new Date(newValue.getTime());
-                _this.emit("change", newValue, oldValue, _this);
+            dialog.open(this).then(function () {
+                _this.onValueChange(dialog.new, dialog.current);
             });
+        };
+        DButtonDatetime.prototype.onValueChange = function (newValue, oldValue) {
+            this.text = new Date(newValue.getTime());
+            this.emit("change", newValue, oldValue, this);
         };
         DButtonDatetime.prototype.getDatetimeMask = function () {
             var _a, _b;
@@ -47040,10 +47065,16 @@
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
                     if (options) {
-                        dialog = new DDialogDatetime(options);
+                        dialog = this.newDialog(options);
                     }
                     else {
-                        dialog = DDialogDatetimes.getInstance();
+                        if (DButtonDatetime.DIALOG == null) {
+                            DButtonDatetime.DIALOG = this.newDialog({
+                                mode: "MENU",
+                                sticky: true
+                            });
+                        }
+                        dialog = DButtonDatetime.DIALOG;
                     }
                     this._dialog = dialog;
                 }
@@ -47052,6 +47083,9 @@
             enumerable: false,
             configurable: true
         });
+        DButtonDatetime.prototype.newDialog = function (options) {
+            return new DDialogDatetime(options);
+        };
         Object.defineProperty(DButtonDatetime.prototype, "value", {
             get: function () {
                 var _a;
@@ -50048,22 +50082,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDialogTimes = /** @class */ (function () {
-        function DDialogTimes() {
-        }
-        DDialogTimes.getInstance = function () {
-            if (DDialogTimes.INSTANCE == null) {
-                DDialogTimes.INSTANCE = new DDialogTime();
-            }
-            return DDialogTimes.INSTANCE;
-        };
-        return DDialogTimes;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DButtonTime = /** @class */ (function (_super) {
         __extends(DButtonTime, _super);
         function DButtonTime() {
@@ -50077,12 +50095,13 @@
             var dialog = this.dialog;
             dialog.current = new Date(value);
             dialog.new = new Date(value);
-            dialog.open().then(function () {
-                var newValue = dialog.new;
-                var oldValue = dialog.current;
-                _this.text = new Date(newValue.getTime());
-                _this.emit("change", newValue, oldValue, _this);
+            dialog.open(this).then(function () {
+                _this.onValueChange(dialog.new, dialog.current);
             });
+        };
+        DButtonTime.prototype.onValueChange = function (newValue, oldValue) {
+            this.text = new Date(newValue.getTime());
+            this.emit("change", newValue, oldValue, this);
         };
         DButtonTime.prototype.getDatetimeMask = function () {
             var _a, _b;
@@ -50100,10 +50119,16 @@
                 if (dialog == null) {
                     var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
                     if (options) {
-                        dialog = new DDialogTime(options);
+                        dialog = this.newDialog(options);
                     }
                     else {
-                        dialog = DDialogTimes.getInstance();
+                        if (DButtonTime.DIALOG == null) {
+                            DButtonTime.DIALOG = this.newDialog({
+                                mode: "MENU",
+                                sticky: true
+                            });
+                        }
+                        dialog = DButtonTime.DIALOG;
                     }
                     this._dialog = dialog;
                 }
@@ -50112,6 +50137,9 @@
             enumerable: false,
             configurable: true
         });
+        DButtonTime.prototype.newDialog = function (options) {
+            return new DDialogTime(options);
+        };
         Object.defineProperty(DButtonTime.prototype, "value", {
             get: function () {
                 var _a;
@@ -61388,6 +61416,9 @@
                 _super.prototype.onValueChange.call(this, newValue, oldValue);
                 this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
             }
+            else {
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+            }
         };
         Object.defineProperty(DTableBodyCellColor.prototype, "row", {
             get: function () {
@@ -61420,7 +61451,7 @@
         DTableBodyCellColor.prototype.set = function (newValue, row, supplimental, rowIndex, columnIndex, forcibly) {
             this._row = row;
             this._rowIndex = rowIndex;
-            var value = this._value;
+            var value = this.value;
             if (isNumber(newValue)) {
                 value.color = newValue;
                 value.alpha = 1;
@@ -61468,48 +61499,19 @@
             _this._onChange = onChange;
             return _this;
         }
-        DTableBodyCellDate.prototype.onActivate = function (e) {
-            var _this = this;
-            var _a, _b;
-            _super.prototype.onActivate.call(this, e);
-            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
-            var dialog = this.dialog;
-            dialog.current = new Date(value);
-            dialog.new = new Date(value);
-            dialog.page = new Date(value);
-            dialog.open().then(function () {
-                var newValue = dialog.new;
-                var oldValue = dialog.current;
-                _this.text = new Date(newValue.getTime());
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    var columnIndex = _this._columnIndex;
-                    _this._column.setter(row, columnIndex, newValue);
-                    _this.emit("change", newValue, oldValue, _this);
-                    _this._onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
-                }
-            });
+        DTableBodyCellDate.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+            }
+            else {
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+            }
         };
-        Object.defineProperty(DTableBodyCellDate.prototype, "dialog", {
-            get: function () {
-                var _a;
-                var dialog = this._dialog;
-                if (dialog == null) {
-                    var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options) {
-                        dialog = new DDialogDate(options);
-                    }
-                    else {
-                        dialog = DDialogDates.getInstance();
-                    }
-                    this._dialog = dialog;
-                }
-                return dialog;
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(DTableBodyCellDate.prototype, "row", {
             get: function () {
                 return this._row;
@@ -61575,7 +61577,7 @@
             return "DTableBodyCellDate";
         };
         return DTableBodyCellDate;
-    }(DButton));
+    }(DButtonDate));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -61591,57 +61593,19 @@
             _this._onChange = onChange;
             return _this;
         }
-        DTableBodyCellDatetime.prototype.onActivate = function (e) {
-            var _this = this;
-            var _a, _b;
-            _super.prototype.onActivate.call(this, e);
-            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
-            var dialog = this.dialog;
-            dialog.current = new Date(value);
-            dialog.new = new Date(value);
-            dialog.page = new Date(value);
-            dialog.open().then(function () {
-                var newValue = dialog.new;
-                var oldValue = dialog.current;
-                _this.text = new Date(newValue.getTime());
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    var columnIndex = _this._columnIndex;
-                    _this._column.setter(row, columnIndex, newValue);
-                    _this.emit("change", newValue, oldValue, _this);
-                    _this._onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
-                }
-            });
-        };
-        DTableBodyCellDatetime.prototype.getDatetimeMask = function () {
-            var _a, _b;
-            var result = this._datetimeMask;
-            if (result == null) {
-                result = DPickerDatetimes.toMask((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog) === null || _b === void 0 ? void 0 : _b.picker);
-                this._datetimeMask = result;
+        DTableBodyCellDatetime.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
             }
-            return result;
+            else {
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+            }
         };
-        Object.defineProperty(DTableBodyCellDatetime.prototype, "dialog", {
-            get: function () {
-                var _a;
-                var dialog = this._dialog;
-                if (dialog == null) {
-                    var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options) {
-                        dialog = new DDialogDatetime(options);
-                    }
-                    else {
-                        dialog = DDialogDatetimes.getInstance();
-                    }
-                    this._dialog = dialog;
-                }
-                return dialog;
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(DTableBodyCellDatetime.prototype, "row", {
             get: function () {
                 return this._row;
@@ -61707,7 +61671,7 @@
             return "DTableBodyCellDatetime";
         };
         return DTableBodyCellDatetime;
-    }(DButton));
+    }(DButtonDatetime));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -62480,56 +62444,19 @@
             _this._onChange = onChange;
             return _this;
         }
-        DTableBodyCellTime.prototype.onActivate = function (e) {
-            var _this = this;
-            var _a, _b;
-            _super.prototype.onActivate.call(this, e);
-            var value = (_b = (_a = this._textValueComputed) === null || _a === void 0 ? void 0 : _a.getTime()) !== null && _b !== void 0 ? _b : Date.now();
-            var dialog = this.dialog;
-            dialog.current = new Date(value);
-            dialog.new = new Date(value);
-            dialog.open().then(function () {
-                var newValue = dialog.new;
-                var oldValue = dialog.current;
-                _this.text = new Date(newValue.getTime());
-                var row = _this._row;
-                if (row !== undefined) {
-                    var rowIndex = _this._rowIndex;
-                    var columnIndex = _this._columnIndex;
-                    _this._column.setter(row, columnIndex, newValue);
-                    _this.emit("change", newValue, oldValue, _this);
-                    _this._onChange(newValue, oldValue, row, rowIndex, columnIndex, _this);
-                }
-            });
-        };
-        DTableBodyCellTime.prototype.getDatetimeMask = function () {
-            var _a, _b;
-            var result = this._datetimeMask;
-            if (result == null) {
-                result = DPickerTimes.toMask((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog) === null || _b === void 0 ? void 0 : _b.picker);
-                this._datetimeMask = result;
+        DTableBodyCellTime.prototype.onValueChange = function (newValue, oldValue) {
+            var row = this._row;
+            if (row !== undefined) {
+                var rowIndex = this._rowIndex;
+                var columnIndex = this._columnIndex;
+                this._column.setter(row, columnIndex, newValue);
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+                this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
             }
-            return result;
+            else {
+                _super.prototype.onValueChange.call(this, newValue, oldValue);
+            }
         };
-        Object.defineProperty(DTableBodyCellTime.prototype, "dialog", {
-            get: function () {
-                var _a;
-                var dialog = this._dialog;
-                if (dialog == null) {
-                    var options = (_a = this._options) === null || _a === void 0 ? void 0 : _a.dialog;
-                    if (options) {
-                        dialog = new DDialogTime(options);
-                    }
-                    else {
-                        dialog = DDialogTimes.getInstance();
-                    }
-                    this._dialog = dialog;
-                }
-                return dialog;
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(DTableBodyCellTime.prototype, "row", {
             get: function () {
                 return this._row;
@@ -62595,7 +62522,7 @@
             return "DTableBodyCellTime";
         };
         return DTableBodyCellTime;
-    }(DButton));
+    }(DButtonTime));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -68675,9 +68602,7 @@
         DDialogConfirmMessage: DDialogConfirmMessage,
         DDialogConfirm: DDialogConfirm,
         DDialogDate: DDialogDate,
-        DDialogDates: DDialogDates,
         DDialogDatetime: DDialogDatetime,
-        DDialogDatetimes: DDialogDatetimes,
         DDialogInputBoolean: DDialogInputBoolean,
         DDialogInputInteger: DDialogInputInteger,
         DDialogInputReal: DDialogInputReal,
@@ -68695,7 +68620,6 @@
         DDialogSelect: DDialogSelect,
         DDialogState: DDialogState,
         DDialogTime: DDialogTime,
-        DDialogTimes: DDialogTimes,
         DDialog: DDialog,
         DDropdownBase: DDropdownBase,
         DDropdown: DDropdown,

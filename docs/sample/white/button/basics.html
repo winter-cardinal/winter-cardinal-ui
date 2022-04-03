@@ -17,8 +17,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.160.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.160.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.161.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.161.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -48,30 +48,6 @@
 								color: 0x555555
 							}
 						}),
-						new wcardinal.ui.DButtonCheck({
-							width: "100%",
-							text: {
-								value: "Check"
-							}
-						}),
-						new wcardinal.ui.DButtonCheckRight({
-							width: "100%",
-							text: {
-								value: "Check"
-							}
-						}),
-						new wcardinal.ui.DButtonRadio({
-							width: "100%",
-							text: {
-								value: "Radio"
-							}
-						}),
-						new wcardinal.ui.DButtonRadioRight({
-							width: "100%",
-							text: {
-								value: "Radio"
-							}
-						}),
 						new wcardinal.ui.DButton({
 							width: "100%",
 							text: {
@@ -100,43 +76,6 @@
 							width: "100%",
 							text: {
 								value: "Ambient"
-							}
-						}),
-						new wcardinal.ui.DButtonLink({
-							width: "100%",
-							url: "../",
-							text: {
-								value: "Link"
-							}
-						}),
-						new wcardinal.ui.DButtonColor({
-							width: "100%"
-						}),
-						new wcardinal.ui.DButtonColorGradient({
-							width: "100%"
-						}),
-						new wcardinal.ui.DButtonFile({
-							width: "100%",
-							text: {
-								value: "File"
-							}
-						}),
-						new wcardinal.ui.DButtonSelect({
-							width: "100%",
-							dialog: {
-								controller: {
-									search: function ( word ) {
-										return Promise.resolve([{
-											id: "Apple"
-										}, {
-											id: "Orange"
-										}, {
-											id: "Pineapple"
-										}].filter(function( item ) {
-											return word.length <= 0 || 0 <= item.id.indexOf( word )
-										}));
-									}
-								}
 							}
 						})
 					]
@@ -161,30 +100,6 @@
 								color: 0x555555
 							}
 						}),
-						new wcardinal.ui.DButtonCheck({
-							width: "100%",
-							text: {
-								value: "Check"
-							}
-						}),
-						new wcardinal.ui.DButtonCheckRight({
-							width: "100%",
-							text: {
-								value: "Check"
-							}
-						}),
-						new wcardinal.ui.DButtonRadio({
-							width: "100%",
-							text: {
-								value: "Radio"
-							}
-						}),
-						new wcardinal.ui.DButtonRadioRight({
-							width: "100%",
-							text: {
-								value: "Radio"
-							}
-						}),
 						new wcardinal.ui.DButton({
 							width: "100%",
 							text: {
@@ -214,28 +129,6 @@
 							text: {
 								value: "Ambient"
 							}
-						}),
-						new wcardinal.ui.DButtonLink({
-							width: "100%",
-							url: "../",
-							text: {
-								value: "Link"
-							}
-						}),
-						new wcardinal.ui.DButtonColor({
-							width: "100%"
-						}),
-						new wcardinal.ui.DButtonColorGradient({
-							width: "100%"
-						}),
-						new wcardinal.ui.DButtonFile({
-							width: "100%",
-							text: {
-								value: "File"
-							}
-						}),
-						new wcardinal.ui.DButtonSelect({
-							width: "100%"
 						})
 					]
 				}),

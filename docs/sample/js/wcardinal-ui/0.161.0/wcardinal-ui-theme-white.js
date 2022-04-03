@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.160.0
+ Winter Cardinal UI v0.161.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -827,6 +827,8 @@
 
     const DDialogMode = wcardinal.ui.DDialogMode;
 
+    const DDialogState = wcardinal.ui.DDialogState;
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
@@ -851,11 +853,24 @@
         DThemeWhiteDialog.prototype.getOffsetY = function () {
             return 5;
         };
-        DThemeWhiteDialog.prototype.getBackgroundColor = function () {
-            return DThemeWhiteConstants.BACKGROUND_COLOR;
+        DThemeWhiteDialog.prototype.getBackgroundColor = function (state) {
+            if (state.is(DDialogState.MENU)) {
+                return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
+            }
+            else {
+                return DThemeWhiteConstants.BACKGROUND_COLOR;
+            }
         };
         DThemeWhiteDialog.prototype.getBorderColor = function (state) {
-            return 0xfafafa;
+            if (state.is(DDialogState.MENU)) {
+                return null;
+            }
+            else {
+                return 0xfafafa;
+            }
+        };
+        DThemeWhiteDialog.prototype.getOutlineColor = function (state) {
+            return null;
         };
         DThemeWhiteDialog.prototype.getPaddingLeft = function () {
             return 16;
@@ -5180,7 +5195,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DThemeWhiteMenu.prototype.getBackgroundColor = function (state) {
-            return 0xffffff;
+            return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
         };
         DThemeWhiteMenu.prototype.getOffsetX = function () {
             return 5;

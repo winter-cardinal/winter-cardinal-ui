@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gradient color picker</title>
+	<title>Time</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,23 +22,18 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.160.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.160.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.161.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.161.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DButtonColorGradient({
+		new wcardinal.ui.DButtonTime({
 			parent: application.stage,
-			x: 50, y: 50,
+			x: "center", y: "center",
 			width: 200
-		});
-
-		new wcardinal.ui.DPickerColorGradient({
-			parent: application.stage,
-			x: 50, y: 100
 		});
 	}());
 	</script>
