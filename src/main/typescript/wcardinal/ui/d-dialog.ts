@@ -112,7 +112,7 @@ export class DDialog<
 			this.onPrerender();
 		};
 
-		// Modeless
+		// Mode
 		const theme = this.theme;
 		const mode = toEnum(options?.mode ?? theme.getMode(), DDialogMode);
 		this._mode = mode;

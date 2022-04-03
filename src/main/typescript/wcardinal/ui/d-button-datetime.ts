@@ -6,7 +6,6 @@
 import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
-import { DDialogDatetimes } from "./d-dialog-datetimes";
 import { DOnOptions } from "./d-on-options";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerDatetimes } from "./d-picker-datetimes";
@@ -50,6 +49,7 @@ export class DButtonDatetime<
 	THEME extends DThemeButtonDatetime = DThemeButtonDatetime,
 	OPTIONS extends DButtonDatetimeOptions<THEME> = DButtonDatetimeOptions<THEME>
 > extends DButton<Date, THEME, OPTIONS> {
+	protected static DIALOG?: DDialogDatetime;
 	protected _dialog?: DDialogDatetime;
 	protected _datetimeMask?: DPickerDatetimeMask;
 
@@ -62,12 +62,14 @@ export class DButtonDatetime<
 		dialog.current = new Date(value);
 		dialog.new = new Date(value);
 		dialog.page = new Date(value);
-		dialog.open().then((): void => {
-			const newValue = dialog.new;
-			const oldValue = dialog.current;
-			this.text = new Date(newValue.getTime());
-			this.emit("change", newValue, oldValue, this);
+		dialog.open(this).then((): void => {
+			this.onValueChange(dialog.new, dialog.current);
 		});
+	}
+
+	protected onValueChange(newValue: Date, oldValue: Date): void {
+		this.text = new Date(newValue.getTime());
+		this.emit("change", newValue, oldValue, this);
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {
@@ -84,13 +86,23 @@ export class DButtonDatetime<
 		if (dialog == null) {
 			const options = this._options?.dialog;
 			if (options) {
-				dialog = new DDialogDatetime(options);
+				dialog = this.newDialog(options);
 			} else {
-				dialog = DDialogDatetimes.getInstance();
+				if (DButtonDatetime.DIALOG == null) {
+					DButtonDatetime.DIALOG = this.newDialog({
+						mode: "MENU",
+						sticky: true
+					});
+				}
+				dialog = DButtonDatetime.DIALOG;
 			}
 			this._dialog = dialog;
 		}
 		return dialog;
+	}
+
+	protected newDialog(options?: DDialogDatetimeOptions): DDialogDatetime {
+		return new DDialogDatetime(options);
 	}
 
 	get value(): Date {

@@ -9,6 +9,7 @@ import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialog } from "../../d-dialog";
 import { DDialogCloseOn } from "../../d-dialog-close-on";
 import { DDialogMode } from "../../d-dialog-mode";
+import { DDialogState } from "../../d-dialog-state";
 import { DShadow } from "../../d-shadow";
 import { DThemeDarkBase } from "./d-theme-dark-base";
 import { DThemeDarkConstants } from "./d-theme-dark-constants";
@@ -34,12 +35,24 @@ export class DThemeDarkDialog extends DThemeDarkBase implements DThemeDialog {
 		return 5;
 	}
 
-	getBackgroundColor(): number {
-		return DThemeDarkConstants.BACKGROUND_COLOR;
+	getBackgroundColor(state: DBaseStateSet): number {
+		if (state.is(DDialogState.MENU)) {
+			return DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD;
+		} else {
+			return DThemeDarkConstants.BACKGROUND_COLOR;
+		}
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
-		return 0x393939;
+		if (state.is(DDialogState.MENU)) {
+			return null;
+		} else {
+			return 0x393939;
+		}
+	}
+
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return null;
 	}
 
 	getPaddingLeft(): number {

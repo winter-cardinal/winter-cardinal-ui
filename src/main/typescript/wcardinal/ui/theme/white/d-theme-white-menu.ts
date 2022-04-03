@@ -8,11 +8,12 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeMenu } from "../../d-menu";
 import { DShadow } from "../../d-shadow";
+import { DThemeWhiteConstants } from "./d-theme-white-constants";
 import { DThemeWhiteLayoutVertical } from "./d-theme-white-layout-vertical";
 
 export class DThemeWhiteMenu extends DThemeWhiteLayoutVertical implements DThemeMenu {
 	getBackgroundColor(state: DBaseStateSet): number | null {
-		return 0xffffff;
+		return DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	}
 
 	getOffsetX(): number {

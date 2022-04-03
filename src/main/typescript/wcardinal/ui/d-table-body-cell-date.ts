@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
-import { DButton, DButtonOptions, DThemeButton } from "./d-button";
-import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
-import { DDialogDates } from "./d-dialog-dates";
+import { DButtonDate, DButtonDateOptions, DThemeButtonDate } from "./d-button-date";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
@@ -15,11 +12,9 @@ import { isNumber } from "./util/is-number";
 export interface DTableBodyCellDateOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellDate = DThemeTableBodyCellDate
-> extends DButtonOptions<Date, THEME> {
-	dialog?: DDialogDateOptions;
-}
+> extends DButtonDateOptions<THEME> {}
 
-export interface DThemeTableBodyCellDate extends DThemeButton<Date> {}
+export interface DThemeTableBodyCellDate extends DThemeButtonDate {}
 
 export class DTableBodyCellDate<
 		ROW = unknown,
@@ -29,7 +24,7 @@ export class DTableBodyCellDate<
 			THEME
 		>
 	>
-	extends DButton<Date, THEME, OPTIONS>
+	extends DButtonDate<THEME, OPTIONS>
 	implements DTableBodyCell<ROW, Date>
 {
 	protected _row?: ROW;
@@ -37,7 +32,6 @@ export class DTableBodyCellDate<
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, Date>;
 	protected _onChange: DTableBodyCellOnChange<ROW, Date>;
-	protected _dialog?: DDialogDate;
 
 	constructor(
 		columnIndex: number,
@@ -53,42 +47,17 @@ export class DTableBodyCellDate<
 		this._onChange = onChange;
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
-		super.onActivate(e);
-		const value = this._textValueComputed?.getTime() ?? Date.now();
-		const dialog = this.dialog;
-		dialog.current = new Date(value);
-		dialog.new = new Date(value);
-		dialog.page = new Date(value);
-		dialog.open().then((): void => {
-			const newValue = dialog.new;
-			const oldValue = dialog.current;
-			this.text = new Date(newValue.getTime());
-			const row = this._row;
-			if (row !== undefined) {
-				const rowIndex = this._rowIndex;
-				const columnIndex = this._columnIndex;
-				this._column.setter(row, columnIndex, newValue);
-				this.emit("change", newValue, oldValue, this);
-				this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
-			}
-		});
-	}
-
-	get dialog(): DDialogDate {
-		let dialog = this._dialog;
-		if (dialog == null) {
-			const options = this._options?.dialog;
-			if (options) {
-				dialog = new DDialogDate(options);
-			} else {
-				dialog = DDialogDates.getInstance();
-			}
-			this._dialog = dialog;
+	protected onValueChange(newValue: Date, oldValue: Date): void {
+		const row = this._row;
+		if (row !== undefined) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._column.setter(row, columnIndex, newValue);
+			super.onValueChange(newValue, oldValue);
+			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+		} else {
+			super.onValueChange(newValue, oldValue);
 		}
-		return dialog;
 	}
 
 	get row(): ROW | undefined {

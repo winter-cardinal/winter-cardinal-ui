@@ -3,12 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction } from "pixi.js";
-import { DButton, DButtonOptions, DThemeButton } from "./d-button";
-import { DDialogDatetime, DDialogDatetimeOptions } from "./d-dialog-datetime";
-import { DDialogDatetimes } from "./d-dialog-datetimes";
-import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
-import { DPickerDatetimes } from "./d-picker-datetimes";
+import { DButtonDatetime, DButtonDatetimeOptions, DThemeButtonDatetime } from "./d-button-datetime";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
@@ -17,11 +12,9 @@ import { isNumber } from "./util/is-number";
 export interface DTableBodyCellDatetimeOptions<
 	ROW = unknown,
 	THEME extends DThemeTableBodyCellDatetime = DThemeTableBodyCellDatetime
-> extends DButtonOptions<Date, THEME> {
-	dialog?: DDialogDatetimeOptions;
-}
+> extends DButtonDatetimeOptions<THEME> {}
 
-export interface DThemeTableBodyCellDatetime extends DThemeButton<Date> {}
+export interface DThemeTableBodyCellDatetime extends DThemeButtonDatetime {}
 
 export class DTableBodyCellDatetime<
 		ROW = unknown,
@@ -31,7 +24,7 @@ export class DTableBodyCellDatetime<
 			THEME
 		>
 	>
-	extends DButton<Date, THEME, OPTIONS>
+	extends DButtonDatetime<THEME, OPTIONS>
 	implements DTableBodyCell<ROW, Date>
 {
 	protected _row?: ROW;
@@ -39,8 +32,6 @@ export class DTableBodyCellDatetime<
 	protected _columnIndex: number;
 	protected _column: DTableColumn<ROW, Date>;
 	protected _onChange: DTableBodyCellOnChange<ROW, Date>;
-	protected _dialog?: DDialogDatetime;
-	protected _datetimeMask?: DPickerDatetimeMask;
 
 	constructor(
 		columnIndex: number,
@@ -56,51 +47,17 @@ export class DTableBodyCellDatetime<
 		this._onChange = onChange;
 	}
 
-	protected onActivate(
-		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
-	): void {
-		super.onActivate(e);
-		const value = this._textValueComputed?.getTime() ?? Date.now();
-		const dialog = this.dialog;
-		dialog.current = new Date(value);
-		dialog.new = new Date(value);
-		dialog.page = new Date(value);
-		dialog.open().then((): void => {
-			const newValue = dialog.new;
-			const oldValue = dialog.current;
-			this.text = new Date(newValue.getTime());
-			const row = this._row;
-			if (row !== undefined) {
-				const rowIndex = this._rowIndex;
-				const columnIndex = this._columnIndex;
-				this._column.setter(row, columnIndex, newValue);
-				this.emit("change", newValue, oldValue, this);
-				this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
-			}
-		});
-	}
-
-	getDatetimeMask(): DPickerDatetimeMask {
-		let result = this._datetimeMask;
-		if (result == null) {
-			result = DPickerDatetimes.toMask(this._options?.dialog?.picker);
-			this._datetimeMask = result;
+	protected onValueChange(newValue: Date, oldValue: Date): void {
+		const row = this._row;
+		if (row !== undefined) {
+			const rowIndex = this._rowIndex;
+			const columnIndex = this._columnIndex;
+			this._column.setter(row, columnIndex, newValue);
+			super.onValueChange(newValue, oldValue);
+			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+		} else {
+			super.onValueChange(newValue, oldValue);
 		}
-		return result;
-	}
-
-	get dialog(): DDialogDatetime {
-		let dialog = this._dialog;
-		if (dialog == null) {
-			const options = this._options?.dialog;
-			if (options) {
-				dialog = new DDialogDatetime(options);
-			} else {
-				dialog = DDialogDatetimes.getInstance();
-			}
-			this._dialog = dialog;
-		}
-		return dialog;
 	}
 
 	get row(): ROW | undefined {

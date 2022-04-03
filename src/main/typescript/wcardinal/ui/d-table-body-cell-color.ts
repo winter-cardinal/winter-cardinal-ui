@@ -57,6 +57,8 @@ export class DTableBodyCellColor<
 			this._column.setter(row, columnIndex, newValue);
 			super.onValueChange(newValue, oldValue);
 			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+		} else {
+			super.onValueChange(newValue, oldValue);
 		}
 	}
 
@@ -86,7 +88,7 @@ export class DTableBodyCellColor<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		const value = this._value;
+		const value = this.value;
 		if (isNumber(newValue)) {
 			value.color = newValue;
 			value.alpha = 1;

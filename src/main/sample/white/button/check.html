@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Color picker</title>
+	<title>Check</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,15 +30,25 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DButtonColor({
+		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
-			x: 50, y: 50,
-			width: 200
-		});
-
-		new wcardinal.ui.DPickerColor({
-			parent: application.stage,
-			x: 50, y: 100
+			x: "center", y: "center",
+			width: 200, height: "auto",
+			margin: 32,
+			children: [
+				new wcardinal.ui.DButtonCheck({
+					width: "100%",
+					text: {
+						value: "Check button"
+					}
+				}),
+				new wcardinal.ui.DButtonCheckRight({
+					width: "100%",
+					text: {
+						value: "Check button"
+					}
+				})
+			]
 		});
 	}());
 	</script>

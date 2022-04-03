@@ -6,7 +6,6 @@
 import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogTime, DDialogTimeOptions } from "./d-dialog-time";
-import { DDialogTimes } from "./d-dialog-times";
 import { DOnOptions } from "./d-on-options";
 import { DPickerDatetimeMask } from "./d-picker-datetime-mask";
 import { DPickerTimes } from "./d-picker-times";
@@ -50,6 +49,7 @@ export class DButtonTime<
 	THEME extends DThemeButtonTime = DThemeButtonTime,
 	OPTIONS extends DButtonTimeOptions<THEME> = DButtonTimeOptions<THEME>
 > extends DButton<Date, THEME, OPTIONS> {
+	protected static DIALOG?: DDialogTime;
 	protected _dialog?: DDialogTime;
 	protected _datetimeMask?: DPickerDatetimeMask;
 
@@ -61,12 +61,14 @@ export class DButtonTime<
 		const dialog = this.dialog;
 		dialog.current = new Date(value);
 		dialog.new = new Date(value);
-		dialog.open().then((): void => {
-			const newValue = dialog.new;
-			const oldValue = dialog.current;
-			this.text = new Date(newValue.getTime());
-			this.emit("change", newValue, oldValue, this);
+		dialog.open(this).then((): void => {
+			this.onValueChange(dialog.new, dialog.current);
 		});
+	}
+
+	protected onValueChange(newValue: Date, oldValue: Date): void {
+		this.text = new Date(newValue.getTime());
+		this.emit("change", newValue, oldValue, this);
 	}
 
 	getDatetimeMask(): DPickerDatetimeMask {
@@ -83,13 +85,23 @@ export class DButtonTime<
 		if (dialog == null) {
 			const options = this._options?.dialog;
 			if (options) {
-				dialog = new DDialogTime(options);
+				dialog = this.newDialog(options);
 			} else {
-				dialog = DDialogTimes.getInstance();
+				if (DButtonTime.DIALOG == null) {
+					DButtonTime.DIALOG = this.newDialog({
+						mode: "MENU",
+						sticky: true
+					});
+				}
+				dialog = DButtonTime.DIALOG;
 			}
 			this._dialog = dialog;
 		}
 		return dialog;
+	}
+
+	protected newDialog(options?: DDialogTimeOptions): DDialogTime {
+		return new DDialogTime(options);
 	}
 
 	get value(): Date {

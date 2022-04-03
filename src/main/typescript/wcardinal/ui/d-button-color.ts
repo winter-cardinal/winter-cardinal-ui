@@ -59,42 +59,24 @@ export class DButtonColor<
 > extends DButton<DColorAndAlpha, THEME, OPTIONS> {
 	protected static DIALOG?: DDialogColor;
 	protected _dialog?: DDialogColor;
-	protected _value!: DPickerColorAndAlpha;
-
-	protected init(options?: OPTIONS): void {
-		super.init(options);
-
-		const value = this._textValueComputed!;
-		this._value = new DPickerColorAndAlpha(
-			value,
-			(color: number): void => {
-				value.color = color;
-				this.onColorChange();
-			},
-			(alpha: number): void => {
-				value.alpha = alpha;
-				this.updateTextForcibly();
-			}
-		);
-	}
+	protected _value?: DPickerColorAndAlpha;
 
 	protected onActivate(
 		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
 	): void {
 		super.onActivate(e);
-		const value = this._textValueComputed!;
 		const dialog = this.dialog;
-		const dialogCurrent = dialog.current;
-		const dialogNew = dialog.new;
-		dialogCurrent.color = value.color;
-		dialogCurrent.alpha = value.alpha;
-		dialogNew.color = value.color;
-		dialogNew.alpha = value.alpha;
-		dialog.open().then((): void => {
-			value.color = dialogNew.color;
-			value.alpha = dialogNew.alpha;
-			this.onColorChange();
-			this.onValueChange(this.toClone(dialogNew), this.toClone(dialogCurrent));
+		const value = this._textValueComputed;
+		if (value != null) {
+			const dialogCurrent = dialog.current;
+			dialogCurrent.color = value.color;
+			dialogCurrent.alpha = value.alpha;
+			const dialogNew = dialog.new;
+			dialogNew.color = value.color;
+			dialogNew.alpha = value.alpha;
+		}
+		dialog.open(this).then((): void => {
+			this.onValueChange(this.toClone(dialog.new), this.toClone(dialog.current));
 		});
 	}
 
@@ -106,6 +88,12 @@ export class DButtonColor<
 	}
 
 	protected onValueChange(newValue: DColorAndAlpha, oldValue: DColorAndAlpha): void {
+		const value = this._textValueComputed;
+		if (value != null) {
+			value.color = newValue.color;
+			value.alpha = newValue.alpha;
+		}
+		this.onColorChange();
 		this.emit("change", newValue, oldValue, this);
 	}
 
@@ -156,10 +144,13 @@ export class DButtonColor<
 		if (dialog == null) {
 			const options = this._options?.dialog;
 			if (options) {
-				dialog = new DDialogColor(options);
+				dialog = this.newDialog(options);
 			} else {
 				if (DButtonColor.DIALOG == null) {
-					DButtonColor.DIALOG = new DDialogColor();
+					DButtonColor.DIALOG = this.newDialog({
+						mode: "MENU",
+						sticky: true
+					});
 				}
 				dialog = DButtonColor.DIALOG;
 			}
@@ -168,8 +159,32 @@ export class DButtonColor<
 		return dialog;
 	}
 
+	protected newDialog(options?: DDialogColorOptions): DDialogColor {
+		return new DDialogColor(options);
+	}
+
 	get value(): DColorAndAlpha {
-		return this._value;
+		let result = this._value;
+		if (result == null) {
+			result = this.newValue();
+			this._value = result;
+		}
+		return result;
+	}
+
+	protected newValue(): DPickerColorAndAlpha {
+		const value = this._textValueComputed!;
+		return new DPickerColorAndAlpha(
+			value,
+			(color: number): void => {
+				value.color = color;
+				this.onColorChange();
+			},
+			(alpha: number): void => {
+				value.alpha = alpha;
+				this.updateTextForcibly();
+			}
+		);
 	}
 
 	protected getType(): string {

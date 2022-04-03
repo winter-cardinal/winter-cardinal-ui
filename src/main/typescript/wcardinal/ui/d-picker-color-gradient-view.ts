@@ -219,12 +219,15 @@ export class DPickerColorGradientView extends Mesh {
 	}
 
 	protected _calculateBounds(): void {
+		const worldTransform = this.transform.worldTransform;
 		const rect = this._parts[0].rect;
 		const bounds = this._bounds;
 		const work = this._workPoint;
 		work.set(rect.x, rect.y);
+		worldTransform.apply(work, work);
 		bounds.addPoint(work);
 		work.set(rect.x + rect.width, rect.y + rect.height);
+		worldTransform.apply(work, work);
 		bounds.addPoint(work);
 	}
 

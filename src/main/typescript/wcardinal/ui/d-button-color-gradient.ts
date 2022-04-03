@@ -6,6 +6,7 @@
 import { interaction, Texture } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
+import { DColorGradient } from "./d-color-gradient";
 import { DColorGradientObservable } from "./d-color-gradient-observable";
 import { DDialogColorGradient, DDialogColorGradientOptions } from "./d-dialog-color-gradient";
 import { DOnOptions } from "./d-on-options";
@@ -87,22 +88,37 @@ export class DButtonColorGradient<
 		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
 	): void {
 		super.onActivate(e);
-		const value = this._textValueComputed!;
+		const value = this._textValueComputed;
 		const dialog = this.dialog;
-		dialog.value.fromObject(value);
-		dialog.open().then((): void => {
-			const newValue = dialog.value;
-			const oldValue = new DColorGradientObservable().fromObject(value);
-			value.fromObject(newValue);
-			const view = this._view;
-			if (view != null) {
-				view.update();
-			}
-			this.onTextChange();
-			this.createOrUpdateText();
-			DApplications.update(this);
-			this.emit("change", newValue, oldValue, this);
+		if (value != null) {
+			dialog.value.fromObject(value);
+		}
+		dialog.open(this).then((newValue): void => {
+			this.onValueChange(newValue, this.toClone(value));
 		});
+	}
+
+	protected toClone(value?: DColorGradient): DColorGradient {
+		const result = new DColorGradientObservable();
+		if (value != null) {
+			result.fromObject(value);
+		}
+		return result;
+	}
+
+	protected onValueChange(newValue: DColorGradient, oldValue: DColorGradient): void {
+		const value = this._textValueComputed;
+		if (value != null) {
+			value.fromObject(newValue);
+		}
+		const view = this._view;
+		if (view != null) {
+			view.update();
+		}
+		this.onTextChange();
+		this.createOrUpdateText();
+		DApplications.update(this);
+		this.emit("change", newValue, oldValue, this);
 	}
 
 	get dialog(): DDialogColorGradient {
@@ -110,16 +126,23 @@ export class DButtonColorGradient<
 		if (dialog == null) {
 			const options = this._options?.dialog;
 			if (options) {
-				dialog = new DDialogColorGradient(options);
+				dialog = this.newDialog(options);
 			} else {
 				if (DButtonColorGradient.DIALOG == null) {
-					DButtonColorGradient.DIALOG = new DDialogColorGradient();
+					DButtonColorGradient.DIALOG = this.newDialog({
+						mode: "MENU",
+						sticky: true
+					});
 				}
 				dialog = DButtonColorGradient.DIALOG;
 			}
 			this._dialog = dialog;
 		}
 		return dialog;
+	}
+
+	protected newDialog(options?: DDialogColorGradientOptions): DDialogColorGradient {
+		return new DDialogColorGradient(options);
 	}
 
 	get value(): DColorGradientObservable {

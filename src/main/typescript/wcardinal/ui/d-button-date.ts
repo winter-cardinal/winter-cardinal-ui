@@ -6,7 +6,6 @@
 import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
 import { DDialogDate, DDialogDateOptions } from "./d-dialog-date";
-import { DDialogDates } from "./d-dialog-dates";
 import { DOnOptions } from "./d-on-options";
 
 /**
@@ -50,6 +49,7 @@ export class DButtonDate<
 	THEME extends DThemeButtonDate = DThemeButtonDate,
 	OPTIONS extends DButtonDateOptions<THEME> = DButtonDateOptions<THEME>
 > extends DButton<Date, THEME, OPTIONS> {
+	protected static DIALOG?: DDialogDate;
 	protected _dialog?: DDialogDate;
 
 	protected onActivate(
@@ -61,12 +61,14 @@ export class DButtonDate<
 		dialog.current = new Date(value);
 		dialog.new = new Date(value);
 		dialog.page = new Date(value);
-		dialog.open().then((): void => {
-			const newValue = dialog.new;
-			const oldValue = dialog.current;
-			this.text = new Date(newValue.getTime());
-			this.emit("change", newValue, oldValue, this);
+		dialog.open(this).then((): void => {
+			this.onValueChange(dialog.new, dialog.current);
 		});
+	}
+
+	protected onValueChange(newValue: Date, oldValue: Date): void {
+		this.text = new Date(newValue.getTime());
+		this.emit("change", newValue, oldValue, this);
 	}
 
 	get dialog(): DDialogDate {
@@ -74,13 +76,23 @@ export class DButtonDate<
 		if (dialog == null) {
 			const options = this._options?.dialog;
 			if (options) {
-				dialog = new DDialogDate(options);
+				dialog = this.newDialog(options);
 			} else {
-				dialog = DDialogDates.getInstance();
+				if (DButtonDate.DIALOG == null) {
+					DButtonDate.DIALOG = this.newDialog({
+						mode: "MENU",
+						sticky: true
+					});
+				}
+				dialog = DButtonDate.DIALOG;
 			}
 			this._dialog = dialog;
 		}
 		return dialog;
+	}
+
+	protected newDialog(options?: DDialogDateOptions): DDialogDate {
+		return new DDialogDate(options);
 	}
 
 	get value(): Date {
