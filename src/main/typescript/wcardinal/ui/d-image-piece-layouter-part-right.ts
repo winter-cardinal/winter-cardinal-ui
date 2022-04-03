@@ -1,10 +1,10 @@
 import { DImagePieceLayouterPart } from "./d-image-piece-layouter-part";
 
 export class DImagePieceLayouterPartRight extends DImagePieceLayouterPart {
-	execute(pright: number, width: number, marginAfter: boolean): void {
-		const pieces = this.pieces;
+	execute(pright: number, width: number): void {
+		const pieces = this._pieces;
 		let x = width - pright;
-		if (marginAfter) {
+		if (this._text !== undefined) {
 			let margin = 0;
 			for (let i = 0, imax = pieces.length; i < imax; ++i) {
 				const piece = pieces[i];

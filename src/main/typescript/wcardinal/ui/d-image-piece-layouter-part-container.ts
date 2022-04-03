@@ -77,30 +77,50 @@ export class DImagePieceLayouterPartContainer {
 	}
 
 	set(text: DDynamicText | null): void {
+		this.left.set(text);
+		this.center.set(text);
+		this.right.set(text);
+		this.top.set(text);
+		this.middle.set(text);
+		this.bottom.set(text);
 		this.text = text;
 	}
 
 	get width(): number {
 		const text = this.text;
 		const left = this.left;
+		const leftSize = left.size;
 		const center = this.center;
+		const centerSize = center.size;
 		const right = this.right;
-		if (text) {
-			return Math.max(left.size + text.width + right.size, center.size);
+		const rightSize = right.size;
+		if (text !== undefined) {
+			if (text !== null) {
+				return Math.max(leftSize + text.width + rightSize, centerSize);
+			} else {
+				return Math.max(leftSize + rightSize, centerSize);
+			}
 		} else {
-			return Math.max(left.size, right.size, center.size);
+			return Math.max(leftSize, rightSize, centerSize);
 		}
 	}
 
 	get height(): number {
 		const text = this.text;
 		const top = this.top;
+		const topSize = top.size;
 		const middle = this.middle;
+		const middleSize = middle.size;
 		const bottom = this.bottom;
-		if (text) {
-			return Math.max(top.size + text.height + bottom.size, middle.size);
+		const bottomSize = bottom.size;
+		if (text !== undefined) {
+			if (text !== null) {
+				return Math.max(topSize + text.height + bottomSize, middleSize);
+			} else {
+				return Math.max(topSize + bottomSize, middleSize);
+			}
 		} else {
-			return Math.max(top.size, bottom.size, middle.size);
+			return Math.max(topSize, bottomSize, middleSize);
 		}
 	}
 
@@ -122,6 +142,11 @@ export class DImagePieceLayouterPartContainer {
 
 		const text = this.text;
 		if (text !== undefined) {
+			const leftSize = left.size;
+			const rightSize = right.size;
+			const topSize = top.size;
+			const bottomSize = bottom.size;
+
 			let textX = 0;
 			let textWidth = 0;
 			let textHeight = 0;
@@ -131,51 +156,51 @@ export class DImagePieceLayouterPartContainer {
 			}
 			switch (textAlign.horizontal) {
 				case DAlignHorizontal.LEFT:
-					textX = pleft + left.size;
+					textX = pleft + leftSize;
 					break;
 				case DAlignHorizontal.CENTER:
 					textX =
 						pleft +
-						(width - pleft - pright - (left.size + textWidth + right.size)) * 0.5 +
-						left.size;
+						(width - pleft - pright - (leftSize + textWidth + rightSize)) * 0.5 +
+						leftSize;
 					break;
 				case DAlignHorizontal.RIGHT:
-					textX = width - pright - right.size - textWidth;
+					textX = width - pright - rightSize - textWidth;
 					break;
 			}
 
 			let textY = 0;
 			switch (textAlign.vertical) {
 				case DAlignVertical.TOP:
-					textY = ptop + top.size;
+					textY = ptop + topSize;
 					break;
 				case DAlignVertical.MIDDLE:
 					textY =
 						ptop +
-						(height - ptop - pbottom - (top.size + textHeight + bottom.size)) * 0.5 +
-						top.size;
+						(height - ptop - pbottom - (topSize + textHeight + bottomSize)) * 0.5 +
+						topSize;
 					break;
 				case DAlignVertical.BOTTOM:
-					textY = height - pbottom - bottom.size - textHeight;
+					textY = height - pbottom - bottomSize - textHeight;
 					break;
 			}
 			if (text != null) {
 				text.position.set(textX, textY);
-				text.setClippingDelta(left.size + right.size, top.size + bottom.size);
+				text.setClippingDelta(leftSize + rightSize, topSize + bottomSize);
 			}
-			left.execute(textX - left.size, true);
+			left.execute(textX - leftSize);
 			center.execute(0, 0, textX * 2 + textWidth);
-			right.execute(0, textX + textWidth + right.size, true);
-			top.execute(textY - top.size, true);
+			right.execute(0, textX + textWidth + rightSize);
+			top.execute(textY - topSize);
 			middle.execute(0, 0, textY * 2 + textHeight);
-			bottom.execute(0, textY + textHeight + bottom.size, true);
+			bottom.execute(0, textY + textHeight + bottomSize);
 		} else {
-			left.execute(pleft, false);
+			left.execute(pleft);
 			center.execute(pleft, pright, width);
-			right.execute(pright, width, false);
-			top.execute(ptop, false);
+			right.execute(pright, width);
+			top.execute(ptop);
 			middle.execute(ptop, pbottom, height);
-			bottom.execute(pbottom, height, false);
+			bottom.execute(pbottom, height);
 		}
 	}
 }
