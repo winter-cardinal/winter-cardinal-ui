@@ -158,6 +158,8 @@ export class DImageBase<
 		if (text != null) {
 			this.updateTextColor(text);
 			layouter.set(text);
+		} else {
+			layouter.set(null);
 		}
 		const auto = this._auto;
 		layouter.execute(

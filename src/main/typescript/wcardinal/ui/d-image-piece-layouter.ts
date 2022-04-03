@@ -39,7 +39,7 @@ export class DImagePieceLayouter {
 		}
 	}
 
-	set(text: DDynamicText): void {
+	set(text: DDynamicText | null): void {
 		this.text.set(text);
 	}
 

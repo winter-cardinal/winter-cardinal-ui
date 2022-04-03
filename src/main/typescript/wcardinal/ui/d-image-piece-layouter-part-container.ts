@@ -18,7 +18,7 @@ export class DImagePieceLayouterPartContainer {
 	middle: DImagePieceLayouterPartMiddle;
 	bottom: DImagePieceLayouterPartBottom;
 
-	text?: DDynamicText;
+	text?: DDynamicText | null;
 
 	constructor() {
 		this.left = new DImagePieceLayouterPartLeft();
@@ -76,7 +76,7 @@ export class DImagePieceLayouterPartContainer {
 		}
 	}
 
-	set(text: DDynamicText): void {
+	set(text: DDynamicText | null): void {
 		this.text = text;
 	}
 
@@ -121,9 +121,14 @@ export class DImagePieceLayouterPartContainer {
 		const bottom = this.bottom;
 
 		const text = this.text;
-		if (text) {
+		if (text !== undefined) {
 			let textX = 0;
-			const textWidth = text.width;
+			let textWidth = 0;
+			let textHeight = 0;
+			if (text != null) {
+				textWidth = text.width;
+				textHeight = text.height;
+			}
 			switch (textAlign.horizontal) {
 				case DAlignHorizontal.LEFT:
 					textX = pleft + left.size;
@@ -140,7 +145,6 @@ export class DImagePieceLayouterPartContainer {
 			}
 
 			let textY = 0;
-			const textHeight = text.height;
 			switch (textAlign.vertical) {
 				case DAlignVertical.TOP:
 					textY = ptop + top.size;
@@ -155,10 +159,10 @@ export class DImagePieceLayouterPartContainer {
 					textY = height - pbottom - bottom.size - textHeight;
 					break;
 			}
-
-			text.position.set(textX, textY);
-			text.setClippingDelta(left.size + right.size, top.size + bottom.size);
-
+			if (text != null) {
+				text.position.set(textX, textY);
+				text.setClippingDelta(left.size + right.size, top.size + bottom.size);
+			}
 			left.execute(textX - left.size, true);
 			center.execute(0, 0, textX * 2 + textWidth);
 			right.execute(0, textX + textWidth + right.size, true);
