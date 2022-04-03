@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.161.0
+ Winter Cardinal UI v0.162.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -18709,18 +18709,32 @@
 
     var DImagePieceLayouterPart = /** @class */ (function () {
         function DImagePieceLayouterPart() {
-            this.pieces = [];
-            this.size = 0;
+            this._pieces = [];
+            this._size = 0;
+            this._margin = 0;
         }
         DImagePieceLayouterPart.prototype.clear = function () {
-            this.pieces.length = 0;
-            this.size = 0;
+            this._pieces.length = 0;
+            this._size = 0;
+            this._margin = 0;
+            this._text = undefined;
         };
         DImagePieceLayouterPart.prototype.add = function (image, size, margin) {
-            var pieces = this.pieces;
+            var pieces = this._pieces;
             pieces.push(image);
-            this.size += margin + size;
+            this._size += margin + size;
+            this._margin = margin;
         };
+        DImagePieceLayouterPart.prototype.set = function (text) {
+            this._text = text;
+        };
+        Object.defineProperty(DImagePieceLayouterPart.prototype, "size", {
+            get: function () {
+                return this._size - (this._text === null ? this._margin : 0);
+            },
+            enumerable: false,
+            configurable: true
+        });
         return DImagePieceLayouterPart;
     }());
 
@@ -18729,10 +18743,10 @@
         function DImagePieceLayouterPartBottom() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DImagePieceLayouterPartBottom.prototype.execute = function (pbottom, height, marginAfter) {
-            var pieces = this.pieces;
+        DImagePieceLayouterPartBottom.prototype.execute = function (pbottom, height) {
+            var pieces = this._pieces;
             var y = height - pbottom;
-            if (marginAfter) {
+            if (this._text !== undefined) {
                 var margin = 0;
                 for (var i = 0, imax = pieces.length; i < imax; ++i) {
                     var piece = pieces[i];
@@ -18758,13 +18772,13 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DImagePieceLayouterPartCenter.prototype.add = function (image, size, margin) {
-            var pieces = this.pieces;
+            var pieces = this._pieces;
             pieces.push(image);
-            this.size = Math.max(this.size, size);
+            this._size = Math.max(this.size, size);
         };
         DImagePieceLayouterPartCenter.prototype.execute = function (pleft, pright, width) {
             var c = pleft + (width - pleft - pright) * 0.5;
-            var pieces = this.pieces;
+            var pieces = this._pieces;
             for (var i = 0, imax = pieces.length; i < imax; ++i) {
                 var piece = pieces[i];
                 piece.image.x = c - piece.bound.width * 0.5;
@@ -18778,10 +18792,10 @@
         function DImagePieceLayouterPartLeft() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DImagePieceLayouterPartLeft.prototype.execute = function (pleft, marginAfter) {
-            var pieces = this.pieces;
+        DImagePieceLayouterPartLeft.prototype.execute = function (pleft) {
+            var pieces = this._pieces;
             var x = pleft;
-            if (marginAfter) {
+            if (this._text !== undefined) {
                 for (var i = 0, imax = pieces.length; i < imax; ++i) {
                     var piece = pieces[i];
                     piece.image.x = x;
@@ -18806,13 +18820,13 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         DImagePieceLayouterPartMiddle.prototype.add = function (image, size, margin) {
-            var pieces = this.pieces;
+            var pieces = this._pieces;
             pieces.push(image);
-            this.size = Math.max(this.size, size);
+            this._size = Math.max(this.size, size);
         };
         DImagePieceLayouterPartMiddle.prototype.execute = function (ptop, pbottom, height) {
             var c = ptop + (height - ptop - pbottom) * 0.5;
-            var pieces = this.pieces;
+            var pieces = this._pieces;
             for (var i = 0, imax = pieces.length; i < imax; ++i) {
                 var piece = pieces[i];
                 piece.image.y = c - piece.bound.height * 0.5;
@@ -18826,10 +18840,10 @@
         function DImagePieceLayouterPartRight() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DImagePieceLayouterPartRight.prototype.execute = function (pright, width, marginAfter) {
-            var pieces = this.pieces;
+        DImagePieceLayouterPartRight.prototype.execute = function (pright, width) {
+            var pieces = this._pieces;
             var x = width - pright;
-            if (marginAfter) {
+            if (this._text !== undefined) {
                 var margin = 0;
                 for (var i = 0, imax = pieces.length; i < imax; ++i) {
                     var piece = pieces[i];
@@ -18854,10 +18868,10 @@
         function DImagePieceLayouterPartTop() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DImagePieceLayouterPartTop.prototype.execute = function (ptop, marginAfter) {
-            var pieces = this.pieces;
+        DImagePieceLayouterPartTop.prototype.execute = function (ptop) {
+            var pieces = this._pieces;
             var y = ptop;
-            if (marginAfter) {
+            if (this._text !== undefined) {
                 var margin = 0;
                 for (var i = 0, imax = pieces.length; i < imax; ++i) {
                     var piece = pieces[i];
@@ -18931,19 +18945,33 @@
             }
         };
         DImagePieceLayouterPartContainer.prototype.set = function (text) {
+            this.left.set(text);
+            this.center.set(text);
+            this.right.set(text);
+            this.top.set(text);
+            this.middle.set(text);
+            this.bottom.set(text);
             this.text = text;
         };
         Object.defineProperty(DImagePieceLayouterPartContainer.prototype, "width", {
             get: function () {
                 var text = this.text;
                 var left = this.left;
+                var leftSize = left.size;
                 var center = this.center;
+                var centerSize = center.size;
                 var right = this.right;
-                if (text) {
-                    return Math.max(left.size + text.width + right.size, center.size);
+                var rightSize = right.size;
+                if (text !== undefined) {
+                    if (text !== null) {
+                        return Math.max(leftSize + text.width + rightSize, centerSize);
+                    }
+                    else {
+                        return Math.max(leftSize + rightSize, centerSize);
+                    }
                 }
                 else {
-                    return Math.max(left.size, right.size, center.size);
+                    return Math.max(leftSize, rightSize, centerSize);
                 }
             },
             enumerable: false,
@@ -18953,13 +18981,21 @@
             get: function () {
                 var text = this.text;
                 var top = this.top;
+                var topSize = top.size;
                 var middle = this.middle;
+                var middleSize = middle.size;
                 var bottom = this.bottom;
-                if (text) {
-                    return Math.max(top.size + text.height + bottom.size, middle.size);
+                var bottomSize = bottom.size;
+                if (text !== undefined) {
+                    if (text !== null) {
+                        return Math.max(topSize + text.height + bottomSize, middleSize);
+                    }
+                    else {
+                        return Math.max(topSize + bottomSize, middleSize);
+                    }
                 }
                 else {
-                    return Math.max(top.size, bottom.size, middle.size);
+                    return Math.max(topSize, bottomSize, middleSize);
                 }
             },
             enumerable: false,
@@ -18974,6 +19010,10 @@
             var bottom = this.bottom;
             var text = this.text;
             if (text !== undefined) {
+                var leftSize = left.size;
+                var rightSize = right.size;
+                var topSize = top.size;
+                var bottomSize = bottom.size;
                 var textX = 0;
                 var textWidth = 0;
                 var textHeight = 0;
@@ -18983,51 +19023,51 @@
                 }
                 switch (textAlign.horizontal) {
                     case DAlignHorizontal.LEFT:
-                        textX = pleft + left.size;
+                        textX = pleft + leftSize;
                         break;
                     case DAlignHorizontal.CENTER:
                         textX =
                             pleft +
-                                (width - pleft - pright - (left.size + textWidth + right.size)) * 0.5 +
-                                left.size;
+                                (width - pleft - pright - (leftSize + textWidth + rightSize)) * 0.5 +
+                                leftSize;
                         break;
                     case DAlignHorizontal.RIGHT:
-                        textX = width - pright - right.size - textWidth;
+                        textX = width - pright - rightSize - textWidth;
                         break;
                 }
                 var textY = 0;
                 switch (textAlign.vertical) {
                     case DAlignVertical.TOP:
-                        textY = ptop + top.size;
+                        textY = ptop + topSize;
                         break;
                     case DAlignVertical.MIDDLE:
                         textY =
                             ptop +
-                                (height - ptop - pbottom - (top.size + textHeight + bottom.size)) * 0.5 +
-                                top.size;
+                                (height - ptop - pbottom - (topSize + textHeight + bottomSize)) * 0.5 +
+                                topSize;
                         break;
                     case DAlignVertical.BOTTOM:
-                        textY = height - pbottom - bottom.size - textHeight;
+                        textY = height - pbottom - bottomSize - textHeight;
                         break;
                 }
                 if (text != null) {
                     text.position.set(textX, textY);
-                    text.setClippingDelta(left.size + right.size, top.size + bottom.size);
+                    text.setClippingDelta(leftSize + rightSize, topSize + bottomSize);
                 }
-                left.execute(textX - left.size, true);
+                left.execute(textX - leftSize);
                 center.execute(0, 0, textX * 2 + textWidth);
-                right.execute(0, textX + textWidth + right.size, true);
-                top.execute(textY - top.size, true);
+                right.execute(0, textX + textWidth + rightSize);
+                top.execute(textY - topSize);
                 middle.execute(0, 0, textY * 2 + textHeight);
-                bottom.execute(0, textY + textHeight + bottom.size, true);
+                bottom.execute(0, textY + textHeight + bottomSize);
             }
             else {
-                left.execute(pleft, false);
+                left.execute(pleft);
                 center.execute(pleft, pright, width);
-                right.execute(pright, width, false);
-                top.execute(ptop, false);
+                right.execute(pright, width);
+                top.execute(ptop);
                 middle.execute(ptop, pbottom, height);
-                bottom.execute(pbottom, height, false);
+                bottom.execute(pbottom, height);
             }
         };
         return DImagePieceLayouterPartContainer;
