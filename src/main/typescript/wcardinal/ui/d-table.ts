@@ -146,6 +146,9 @@ const toColumnAlign = <ROW, CELL>(
 		case DTableColumnType.SELECT:
 		case DTableColumnType.ACTION:
 		case DTableColumnType.LINK:
+		case DTableColumnType.CHECK:
+		case DTableColumnType.CHECK_SINGLE:
+		case DTableColumnType.COLOR:
 			return DAlignHorizontal.CENTER;
 		default:
 			return DAlignHorizontal.LEFT;
