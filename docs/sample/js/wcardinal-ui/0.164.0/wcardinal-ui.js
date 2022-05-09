@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.162.0
+ Winter Cardinal UI v0.164.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -41864,17 +41864,79 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var UtilFont = /** @class */ (function () {
+        function UtilFont() {
+        }
+        UtilFont.measure = function (font) {
+            var results = this._results;
+            if (results == null) {
+                results = new Map();
+                this._results = results;
+            }
+            var result = results.get(font);
+            if (result != null) {
+                return result;
+            }
+            var span = this._span;
+            if (span == null) {
+                span = document.createElement("span");
+                span.innerText = "|ÉqÅ";
+                span.style.border = "none";
+                span.style.margin = "0px";
+                this._span = span;
+            }
+            var block = this._block;
+            if (block == null) {
+                block = document.createElement("div");
+                block.style.display = "inline-block";
+                block.style.width = "0px";
+                block.style.height = "0px";
+                block.style.border = "none";
+                block.style.margin = "0px";
+                block.style.verticalAlign = "baseline";
+                this._block = block;
+            }
+            var div = this._div;
+            if (div == null) {
+                div = document.createElement("div");
+                div.style.position = "absolute";
+                div.style.padding = "0px";
+                div.style.margin = "0px";
+                div.style.visibility = "hidden";
+                div.appendChild(span);
+                div.appendChild(block);
+                document.body.appendChild(div);
+                this._div = div;
+            }
+            span.style.font = font;
+            var blockRect = block.getBoundingClientRect();
+            var blockRectTop = blockRect.top;
+            var spanRect = span.getBoundingClientRect();
+            var ascent = blockRectTop - spanRect.top;
+            var descent = spanRect.bottom - blockRectTop;
+            result = {
+                ascent: ascent,
+                descent: descent
+            };
+            results.set(font, result);
+            return result;
+        };
+        return UtilFont;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DynamicFontAtlasFont = /** @class */ (function () {
         function DynamicFontAtlasFont(fontId, size, color, padding) {
             this.id = fontId;
             this.size = size;
             this.color = pixi_js.utils.hex2string(color);
             this.height = size + padding * 2;
-            var metrics = pixi_js.TextMetrics.measureFont(fontId);
+            var metrics = UtilFont.measure(fontId);
             this.ascent = metrics.ascent;
-            // Becase the descent returned by TextMatrics#measureFont is tend
-            // to be the half of the actual descent browsers use internally.
-            this.descent = metrics.descent * 2;
+            this.descent = metrics.descent;
         }
         return DynamicFontAtlasFont;
     }());
@@ -65789,6 +65851,9 @@
             case DTableColumnType.SELECT:
             case DTableColumnType.ACTION:
             case DTableColumnType.LINK:
+            case DTableColumnType.CHECK:
+            case DTableColumnType.CHECK_SINGLE:
+            case DTableColumnType.COLOR:
                 return DAlignHorizontal.CENTER;
             default:
                 return DAlignHorizontal.LEFT;
@@ -68454,6 +68519,7 @@
         UtilFileDownloader: UtilFileDownloader,
         UtilFileAs: UtilFileAs,
         UtilFileOpener: UtilFileOpener,
+        UtilFont: UtilFont,
         UtilHsv: UtilHsv,
         UtilHtmlElementWhen: UtilHtmlElementWhen,
         UtilHtmlElement: UtilHtmlElement,
