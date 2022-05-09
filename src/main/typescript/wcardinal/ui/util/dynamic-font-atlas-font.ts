@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { TextMetrics, utils } from "pixi.js";
+import { utils } from "pixi.js";
+import { UtilFont } from "./util-font";
 
 export class DynamicFontAtlasFont {
 	id: string;
@@ -19,10 +20,8 @@ export class DynamicFontAtlasFont {
 		this.size = size;
 		this.color = utils.hex2string(color);
 		this.height = size + padding * 2;
-		const metrics = TextMetrics.measureFont(fontId);
+		const metrics = UtilFont.measure(fontId);
 		this.ascent = metrics.ascent;
-		// Becase the descent returned by TextMatrics#measureFont is tend
-		// to be the half of the actual descent browsers use internally.
-		this.descent = metrics.descent * 2;
+		this.descent = metrics.descent;
 	}
 }
