@@ -58,6 +58,7 @@ export * from "./util-extractor-pixels";
 export * from "./util-extractor";
 export * from "./util-file-downloader";
 export * from "./util-file-opener";
+export * from "./util-font";
 export * from "./util-hsv";
 export * from "./util-html-element-when";
 export * from "./util-html-element";
