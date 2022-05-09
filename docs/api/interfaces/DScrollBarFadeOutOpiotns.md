@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DScrollBarFadeOutOpiotns
+[Winter Cardinal UI - v0.164.0](../index.md) / DScrollBarFadeOutOpiotns
 
 # Interface: DScrollBarFadeOutOpiotns
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scroll-bar.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scroll-bar.ts#L12)
+[src/main/typescript/wcardinal/ui/d-scroll-bar.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-scroll-bar.ts#L12)

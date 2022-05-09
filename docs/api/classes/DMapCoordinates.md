@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DMapCoordinates
+[Winter Cardinal UI - v0.164.0](../index.md) / DMapCoordinates
 
 # Class: DMapCoordinates
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinates.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-map-coordinates.ts#L10)
+[src/main/typescript/wcardinal/ui/d-map-coordinates.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-map-coordinates.ts#L10)
 
 ## Accessors
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinates.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-map-coordinates.ts#L12)
+[src/main/typescript/wcardinal/ui/d-map-coordinates.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-map-coordinates.ts#L12)

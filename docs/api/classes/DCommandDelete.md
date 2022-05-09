@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DCommandDelete
+[Winter Cardinal UI - v0.164.0](../index.md) / DCommandDelete
 
 # Class: DCommandDelete
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-delete.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L23)
+[src/main/typescript/wcardinal/ui/d-command-delete.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L23)
 
 ___
 
@@ -62,7 +62,7 @@ Called to executed this command.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-delete.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L11)
+[src/main/typescript/wcardinal/ui/d-command-delete.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L11)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-delete.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L27)
+[src/main/typescript/wcardinal/ui/d-command-delete.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L27)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-delete.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L15)
+[src/main/typescript/wcardinal/ui/d-command-delete.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L15)
 
 ___
 
@@ -116,4 +116,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-delete.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L19)
+[src/main/typescript/wcardinal/ui/d-command-delete.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-delete.ts#L19)

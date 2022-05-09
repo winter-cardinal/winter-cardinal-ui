@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DMenuItemSeparatorReflowable
+[Winter Cardinal UI - v0.164.0](../index.md) / DMenuItemSeparatorReflowable
 
 # Class: DMenuItemSeparatorReflowable
 
@@ -183,7 +183,7 @@ Graphics.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L11)
+[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L11)
 
 ## Properties
 
@@ -3112,7 +3112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L17)
+[src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-menu-item-separator-reflowable.ts#L17)
 
 ___
 

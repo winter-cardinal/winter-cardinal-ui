@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DTableBodyCellDatetime
+[Winter Cardinal UI - v0.164.0](../index.md) / DTableBodyCellDatetime
 
 # Class: DTableBodyCellDatetime<ROW, THEME, OPTIONS\>
 
@@ -12,7 +12,7 @@
 
 ## Hierarchy
 
-- [`DButton`](DButton.md)<`Date`, `THEME`, `OPTIONS`\>
+- [`DButtonDatetime`](DButtonDatetime.md)<`THEME`, `OPTIONS`\>
 
   ↳ **`DTableBodyCellDatetime`**
 
@@ -105,6 +105,7 @@
 - [worldTransform](DTableBodyCellDatetime.md#worldtransform)
 - [worldVisible](DTableBodyCellDatetime.md#worldvisible)
 - [zIndex](DTableBodyCellDatetime.md#zindex)
+- [DIALOG](DTableBodyCellDatetime.md#dialog)
 - [LAYOUTER](DTableBodyCellDatetime.md#layouter)
 - [WORK\_CONTAINS\_POINT](DTableBodyCellDatetime.md#work_contains_point)
 
@@ -135,6 +136,7 @@
 - [title](DTableBodyCellDatetime.md#title)
 - [type](DTableBodyCellDatetime.md#type)
 - [unsafe](DTableBodyCellDatetime.md#unsafe)
+- [value](DTableBodyCellDatetime.md#value)
 - [weight](DTableBodyCellDatetime.md#weight)
 - [width](DTableBodyCellDatetime.md#width)
 - [x](DTableBodyCellDatetime.md#x)
@@ -199,6 +201,7 @@
 - [isShown](DTableBodyCellDatetime.md#isshown)
 - [listenerCount](DTableBodyCellDatetime.md#listenercount)
 - [listeners](DTableBodyCellDatetime.md#listeners)
+- [newDialog](DTableBodyCellDatetime.md#newdialog)
 - [newImage](DTableBodyCellDatetime.md#newimage)
 - [newImages](DTableBodyCellDatetime.md#newimages)
 - [off](DTableBodyCellDatetime.md#off)
@@ -236,6 +239,7 @@
 - [onToggleStart](DTableBodyCellDatetime.md#ontogglestart)
 - [onUp](DTableBodyCellDatetime.md#onup)
 - [onUpThis](DTableBodyCellDatetime.md#onupthis)
+- [onValueChange](DTableBodyCellDatetime.md#onvaluechange)
 - [onWheel](DTableBodyCellDatetime.md#onwheel)
 - [once](DTableBodyCellDatetime.md#once)
 - [reflow](DTableBodyCellDatetime.md#reflow)
@@ -305,11 +309,11 @@
 
 #### Overrides
 
-[DButton](DButton.md).[constructor](DButton.md#constructor)
+[DButtonDatetime](DButtonDatetime.md).[constructor](DButtonDatetime.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L45)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L36)
 
 ## Properties
 
@@ -329,7 +333,7 @@
 
 #### Inherited from
 
-[DButton](DButton.md).[_accessibleActive](DButton.md#_accessibleactive)
+[DButtonDatetime](DButtonDatetime.md).[_accessibleActive](DButtonDatetime.md#_accessibleactive)
 
 #### Defined in
 
@@ -353,7 +357,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_accessibleDiv](DButton.md#_accessiblediv)
+[DButtonDatetime](DButtonDatetime.md).[_accessibleDiv](DButtonDatetime.md#_accessiblediv)
 
 #### Defined in
 
@@ -371,11 +375,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_auto](DButton.md#_auto)
+[DButtonDatetime](DButtonDatetime.md).[_auto](DButtonDatetime.md#_auto)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:729](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L729)
+[src/main/typescript/wcardinal/ui/d-base.ts:729](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L729)
 
 ___
 
@@ -389,11 +393,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_background](DButton.md#_background)
+[DButtonDatetime](DButtonDatetime.md).[_background](DButtonDatetime.md#_background)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:740](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L740)
+[src/main/typescript/wcardinal/ui/d-base.ts:740](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L740)
 
 ___
 
@@ -407,11 +411,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_border](DButton.md#_border)
+[DButtonDatetime](DButtonDatetime.md).[_border](DButtonDatetime.md#_border)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:741](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L741)
+[src/main/typescript/wcardinal/ui/d-base.ts:741](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L741)
 
 ___
 
@@ -429,7 +433,7 @@ The bounds object, this is used to calculate and store the bounds of the display
 
 #### Inherited from
 
-[DButton](DButton.md).[_bounds](DButton.md#_bounds)
+[DButtonDatetime](DButtonDatetime.md).[_bounds](DButtonDatetime.md#_bounds)
 
 #### Defined in
 
@@ -447,11 +451,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_clearType](DButton.md#_cleartype)
+[DButtonDatetime](DButtonDatetime.md).[_clearType](DButtonDatetime.md#_cleartype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:743](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L743)
+[src/main/typescript/wcardinal/ui/d-base.ts:743](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L743)
 
 ___
 
@@ -461,7 +465,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L33)
 
 ___
 
@@ -471,7 +475,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L39)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L32)
 
 ___
 
@@ -485,11 +489,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_corner](DButton.md#_corner)
+[DButtonDatetime](DButtonDatetime.md).[_corner](DButtonDatetime.md#_corner)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L727)
+[src/main/typescript/wcardinal/ui/d-base.ts:727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L727)
 
 ___
 
@@ -503,11 +507,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_cursor](DButton.md#_cursor)
+[DButtonDatetime](DButtonDatetime.md).[_cursor](DButtonDatetime.md#_cursor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L748)
+[src/main/typescript/wcardinal/ui/d-base.ts:748](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L748)
 
 ___
 
@@ -515,9 +519,13 @@ ___
 
 • `Protected` `Optional` **\_datetimeMask**: `number`
 
+#### Inherited from
+
+[DButtonDatetime](DButtonDatetime.md).[_datetimeMask](DButtonDatetime.md#_datetimemask)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L43)
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L54)
 
 ___
 
@@ -535,7 +543,7 @@ If the object has been destroyed via destroy(). If true, it should not be used.
 
 #### Inherited from
 
-[DButton](DButton.md).[_destroyed](DButton.md#_destroyed)
+[DButtonDatetime](DButtonDatetime.md).[_destroyed](DButtonDatetime.md#_destroyed)
 
 #### Defined in
 
@@ -547,9 +555,13 @@ ___
 
 • `Protected` `Optional` **\_dialog**: [`DDialogDatetime`](DDialogDatetime.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md), [`DDialogDatetimeOptions`](../interfaces/DDialogDatetimeOptions.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md)\>\>
 
+#### Inherited from
+
+[DButtonDatetime](DButtonDatetime.md).[_dialog](DButtonDatetime.md#_dialog)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L42)
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L53)
 
 ___
 
@@ -559,11 +571,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_images](DButton.md#_images)
+[DButtonDatetime](DButtonDatetime.md).[_images](DButtonDatetime.md#_images)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L95)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L95)
 
 ___
 
@@ -573,11 +585,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_isOverflowMaskEnabled](DButton.md#_isoverflowmaskenabled)
+[DButtonDatetime](DButtonDatetime.md).[_isOverflowMaskEnabled](DButtonDatetime.md#_isoverflowmaskenabled)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L168)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L168)
 
 ___
 
@@ -587,11 +599,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_isTextVisible](DButton.md#_istextvisible)
+[DButtonDatetime](DButtonDatetime.md).[_isTextVisible](DButtonDatetime.md#_istextvisible)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L170)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L170)
 
 ___
 
@@ -601,11 +613,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_isToggle](DButton.md#_istoggle)
+[DButtonDatetime](DButtonDatetime.md).[_isToggle](DButtonDatetime.md#_istoggle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L95)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L95)
 
 ___
 
@@ -619,11 +631,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_lastDownPoint](DButton.md#_lastdownpoint)
+[DButtonDatetime](DButtonDatetime.md).[_lastDownPoint](DButtonDatetime.md#_lastdownpoint)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:747](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L747)
+[src/main/typescript/wcardinal/ui/d-base.ts:747](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L747)
 
 ___
 
@@ -642,7 +654,7 @@ Used by containers to help sort objects with the same zIndex, by using previous 
 
 #### Inherited from
 
-[DButton](DButton.md).[_lastSortedIndex](DButton.md#_lastsortedindex)
+[DButtonDatetime](DButtonDatetime.md).[_lastSortedIndex](DButtonDatetime.md#_lastsortedindex)
 
 #### Defined in
 
@@ -664,7 +676,7 @@ The original, cached mask of the object.
 
 #### Inherited from
 
-[DButton](DButton.md).[_mask](DButton.md#_mask)
+[DButtonDatetime](DButtonDatetime.md).[_mask](DButtonDatetime.md#_mask)
 
 #### Defined in
 
@@ -678,7 +690,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L41)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L34)
 
 ___
 
@@ -692,11 +704,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_options](DButton.md#_options)
+[DButtonDatetime](DButtonDatetime.md).[_options](DButtonDatetime.md#_options)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:723](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L723)
+[src/main/typescript/wcardinal/ui/d-base.ts:723](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L723)
 
 ___
 
@@ -710,11 +722,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_outline](DButton.md#_outline)
+[DButtonDatetime](DButtonDatetime.md).[_outline](DButtonDatetime.md#_outline)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:742](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L742)
+[src/main/typescript/wcardinal/ui/d-base.ts:742](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L742)
 
 ___
 
@@ -724,11 +736,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_overflowMask](DButton.md#_overflowmask)
+[DButtonDatetime](DButtonDatetime.md).[_overflowMask](DButtonDatetime.md#_overflowmask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L169)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L169)
 
 ___
 
@@ -742,11 +754,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_padding](DButton.md#_padding)
+[DButtonDatetime](DButtonDatetime.md).[_padding](DButtonDatetime.md#_padding)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:726](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L726)
+[src/main/typescript/wcardinal/ui/d-base.ts:726](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L726)
 
 ___
 
@@ -760,11 +772,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_reflowable](DButton.md#_reflowable)
+[DButtonDatetime](DButtonDatetime.md).[_reflowable](DButtonDatetime.md#_reflowable)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:746](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L746)
+[src/main/typescript/wcardinal/ui/d-base.ts:746](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L746)
 
 ___
 
@@ -774,7 +786,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L37)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L30)
 
 ___
 
@@ -784,7 +796,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L38)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L31)
 
 ___
 
@@ -798,11 +810,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_shortcuts](DButton.md#_shortcuts)
+[DButtonDatetime](DButtonDatetime.md).[_shortcuts](DButtonDatetime.md#_shortcuts)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:744](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L744)
+[src/main/typescript/wcardinal/ui/d-base.ts:744](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L744)
 
 ___
 
@@ -816,11 +828,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_snippet](DButton.md#_snippet)
+[DButtonDatetime](DButtonDatetime.md).[_snippet](DButtonDatetime.md#_snippet)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:745](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L745)
+[src/main/typescript/wcardinal/ui/d-base.ts:745](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L745)
 
 ___
 
@@ -836,7 +848,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_tempDisplayObjectParent](DButton.md#_tempdisplayobjectparent)
+[DButtonDatetime](DButtonDatetime.md).[_tempDisplayObjectParent](DButtonDatetime.md#_tempdisplayobjectparent)
 
 #### Defined in
 
@@ -850,11 +862,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_text](DButton.md#_text)
+[DButtonDatetime](DButtonDatetime.md).[_text](DButtonDatetime.md#_text)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L160)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L160)
 
 ___
 
@@ -864,11 +876,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_textAlign](DButton.md#_textalign)
+[DButtonDatetime](DButtonDatetime.md).[_textAlign](DButtonDatetime.md#_textalign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L166)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L166)
 
 ___
 
@@ -878,11 +890,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_textAlpha](DButton.md#_textalpha)
+[DButtonDatetime](DButtonDatetime.md).[_textAlpha](DButtonDatetime.md#_textalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L164)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L164)
 
 ___
 
@@ -892,11 +904,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_textColor](DButton.md#_textcolor)
+[DButtonDatetime](DButtonDatetime.md).[_textColor](DButtonDatetime.md#_textcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L163)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L163)
 
 ___
 
@@ -921,11 +933,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_textFormatter](DButton.md#_textformatter)
+[DButtonDatetime](DButtonDatetime.md).[_textFormatter](DButtonDatetime.md#_textformatter)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L167)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L167)
 
 ___
 
@@ -935,11 +947,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_textStyle](DButton.md#_textstyle)
+[DButtonDatetime](DButtonDatetime.md).[_textStyle](DButtonDatetime.md#_textstyle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L165)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L165)
 
 ___
 
@@ -949,11 +961,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_textValue](DButton.md#_textvalue)
+[DButtonDatetime](DButtonDatetime.md).[_textValue](DButtonDatetime.md#_textvalue)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L161)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L161)
 
 ___
 
@@ -963,11 +975,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_textValueComputed](DButton.md#_textvaluecomputed)
+[DButtonDatetime](DButtonDatetime.md).[_textValueComputed](DButtonDatetime.md#_textvaluecomputed)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L162)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L162)
 
 ___
 
@@ -981,11 +993,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_title](DButton.md#_title)
+[DButtonDatetime](DButtonDatetime.md).[_title](DButtonDatetime.md#_title)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:739](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L739)
+[src/main/typescript/wcardinal/ui/d-base.ts:739](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L739)
 
 ___
 
@@ -995,11 +1007,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[_when](DButton.md#_when)
+[DButtonDatetime](DButtonDatetime.md).[_when](DButtonDatetime.md#_when)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L96)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L96)
 
 ___
 
@@ -1018,7 +1030,7 @@ A higher value will mean it will be rendered on top of other displayObjects with
 
 #### Inherited from
 
-[DButton](DButton.md).[_zIndex](DButton.md#_zindex)
+[DButtonDatetime](DButtonDatetime.md).[_zIndex](DButtonDatetime.md#_zindex)
 
 #### Defined in
 
@@ -1043,7 +1055,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[accessible](DButton.md#accessible)
+[DButtonDatetime](DButtonDatetime.md).[accessible](DButtonDatetime.md#accessible)
 
 #### Defined in
 
@@ -1070,7 +1082,7 @@ be accessible. Defaults to true.
 
 #### Inherited from
 
-[DButton](DButton.md).[accessibleChildren](DButton.md#accessiblechildren)
+[DButtonDatetime](DButtonDatetime.md).[accessibleChildren](DButtonDatetime.md#accessiblechildren)
 
 #### Defined in
 
@@ -1094,7 +1106,7 @@ Sets the aria-label attribute of the shadow div
 
 #### Inherited from
 
-[DButton](DButton.md).[accessibleHint](DButton.md#accessiblehint)
+[DButtonDatetime](DButtonDatetime.md).[accessibleHint](DButtonDatetime.md#accessiblehint)
 
 #### Defined in
 
@@ -1121,7 +1133,7 @@ Defaults to auto.
 
 #### Inherited from
 
-[DButton](DButton.md).[accessiblePointerEvents](DButton.md#accessiblepointerevents)
+[DButtonDatetime](DButtonDatetime.md).[accessiblePointerEvents](DButtonDatetime.md#accessiblepointerevents)
 
 #### Defined in
 
@@ -1146,7 +1158,7 @@ If accessibleTitle AND accessibleHint has not been this will default to 'display
 
 #### Inherited from
 
-[DButton](DButton.md).[accessibleTitle](DButton.md#accessibletitle)
+[DButtonDatetime](DButtonDatetime.md).[accessibleTitle](DButtonDatetime.md#accessibletitle)
 
 #### Defined in
 
@@ -1173,7 +1185,7 @@ depending on this type. Defaults to button.
 
 #### Inherited from
 
-[DButton](DButton.md).[accessibleType](DButton.md#accessibletype)
+[DButtonDatetime](DButtonDatetime.md).[accessibleType](DButtonDatetime.md#accessibletype)
 
 #### Defined in
 
@@ -1195,7 +1207,7 @@ The opacity of the object.
 
 #### Inherited from
 
-[DButton](DButton.md).[alpha](DButton.md#alpha)
+[DButtonDatetime](DButtonDatetime.md).[alpha](DButtonDatetime.md#alpha)
 
 #### Defined in
 
@@ -1218,7 +1230,7 @@ The angle of the object in degrees.
 
 #### Inherited from
 
-[DButton](DButton.md).[angle](DButton.md#angle)
+[DButtonDatetime](DButtonDatetime.md).[angle](DButtonDatetime.md#angle)
 
 #### Defined in
 
@@ -1248,7 +1260,7 @@ sprite.buttonMode = true;
 
 #### Inherited from
 
-[DButton](DButton.md).[buttonMode](DButton.md#buttonmode)
+[DButtonDatetime](DButtonDatetime.md).[buttonMode](DButtonDatetime.md#buttonmode)
 
 #### Defined in
 
@@ -1278,7 +1290,7 @@ as it will take a snapshot of what is currently there. If the textures have not 
 
 #### Inherited from
 
-[DButton](DButton.md).[cacheAsBitmap](DButton.md#cacheasbitmap)
+[DButtonDatetime](DButtonDatetime.md).[cacheAsBitmap](DButtonDatetime.md#cacheasbitmap)
 
 #### Defined in
 
@@ -1302,7 +1314,7 @@ The array of children of this container.
 
 #### Inherited from
 
-[DButton](DButton.md).[children](DButton.md#children)
+[DButtonDatetime](DButtonDatetime.md).[children](DButtonDatetime.md#children)
 
 #### Defined in
 
@@ -1334,7 +1346,7 @@ sprite.cursor = 'wait';
 
 #### Inherited from
 
-[DButton](DButton.md).[cursor](DButton.md#cursor)
+[DButtonDatetime](DButtonDatetime.md).[cursor](DButtonDatetime.md#cursor)
 
 #### Defined in
 
@@ -1359,7 +1371,7 @@ Also works as an interaction mask.
 
 #### Inherited from
 
-[DButton](DButton.md).[filterArea](DButton.md#filterarea)
+[DButtonDatetime](DButtonDatetime.md).[filterArea](DButtonDatetime.md#filterarea)
 
 #### Defined in
 
@@ -1383,7 +1395,7 @@ To remove filters simply set this property to `'null'`.
 
 #### Inherited from
 
-[DButton](DButton.md).[filters](DButton.md#filters)
+[DButtonDatetime](DButtonDatetime.md).[filters](DButtonDatetime.md#filters)
 
 #### Defined in
 
@@ -1413,7 +1425,7 @@ sprite.hitArea = new PIXI.Rectangle(0, 0, 100, 100);
 
 #### Inherited from
 
-[DButton](DButton.md).[hitArea](DButton.md#hitarea)
+[DButtonDatetime](DButtonDatetime.md).[hitArea](DButtonDatetime.md#hitarea)
 
 #### Defined in
 
@@ -1445,7 +1457,7 @@ sprite.on('tap', (event) => {
 
 #### Inherited from
 
-[DButton](DButton.md).[interactive](DButton.md#interactive)
+[DButtonDatetime](DButtonDatetime.md).[interactive](DButtonDatetime.md#interactive)
 
 #### Defined in
 
@@ -1470,7 +1482,7 @@ Setting this to false allows PixiJS to bypass a recursive `hitTest` function
 
 #### Inherited from
 
-[DButton](DButton.md).[interactiveChildren](DButton.md#interactivechildren)
+[DButtonDatetime](DButtonDatetime.md).[interactiveChildren](DButtonDatetime.md#interactivechildren)
 
 #### Defined in
 
@@ -1492,7 +1504,7 @@ Does any other displayObject use this object as a mask?
 
 #### Inherited from
 
-[DButton](DButton.md).[isMask](DButton.md#ismask)
+[DButtonDatetime](DButtonDatetime.md).[isMask](DButtonDatetime.md#ismask)
 
 #### Defined in
 
@@ -1514,7 +1526,7 @@ used to fast check if a sprite is.. a sprite!
 
 #### Inherited from
 
-[DButton](DButton.md).[isSprite](DButton.md#issprite)
+[DButtonDatetime](DButtonDatetime.md).[isSprite](DButtonDatetime.md#issprite)
 
 #### Defined in
 
@@ -1538,7 +1550,7 @@ Current transform of the object based on local factors: position, scale, other s
 
 #### Inherited from
 
-[DButton](DButton.md).[localTransform](DButton.md#localtransform)
+[DButtonDatetime](DButtonDatetime.md).[localTransform](DButtonDatetime.md#localtransform)
 
 #### Defined in
 
@@ -1576,7 +1588,7 @@ sprite.mask = graphics;
 
 #### Inherited from
 
-[DButton](DButton.md).[mask](DButton.md#mask)
+[DButtonDatetime](DButtonDatetime.md).[mask](DButtonDatetime.md#mask)
 
 #### Defined in
 
@@ -1600,7 +1612,7 @@ The instance name of the object.
 
 #### Inherited from
 
-[DButton](DButton.md).[name](DButton.md#name)
+[DButtonDatetime](DButtonDatetime.md).[name](DButtonDatetime.md#name)
 
 #### Defined in
 
@@ -1624,7 +1636,7 @@ The display object container that contains this display object.
 
 #### Inherited from
 
-[DButton](DButton.md).[parent](DButton.md#parent)
+[DButtonDatetime](DButtonDatetime.md).[parent](DButtonDatetime.md#parent)
 
 #### Defined in
 
@@ -1647,7 +1659,7 @@ Assignment by value since pixi-v4.
 
 #### Inherited from
 
-[DButton](DButton.md).[pivot](DButton.md#pivot)
+[DButtonDatetime](DButtonDatetime.md).[pivot](DButtonDatetime.md#pivot)
 
 #### Defined in
 
@@ -1672,7 +1684,7 @@ Only affects recursive calls from parent. You can ask for bounds manually.
 
 #### Inherited from
 
-[DButton](DButton.md).[renderable](DButton.md#renderable)
+[DButtonDatetime](DButtonDatetime.md).[renderable](DButtonDatetime.md#renderable)
 
 #### Defined in
 
@@ -1695,7 +1707,7 @@ The rotation of the object in radians.
 
 #### Inherited from
 
-[DButton](DButton.md).[rotation](DButton.md#rotation)
+[DButtonDatetime](DButtonDatetime.md).[rotation](DButtonDatetime.md#rotation)
 
 #### Defined in
 
@@ -1718,7 +1730,7 @@ Will get automatically set to true if a new child is added, or if a child's zInd
 
 #### Inherited from
 
-[DButton](DButton.md).[sortDirty](DButton.md#sortdirty)
+[DButtonDatetime](DButtonDatetime.md).[sortDirty](DButtonDatetime.md#sortdirty)
 
 #### Defined in
 
@@ -1750,7 +1762,7 @@ as the zIndex sorting may cause the child to automatically sorted to another pos
 
 #### Inherited from
 
-[DButton](DButton.md).[sortableChildren](DButton.md#sortablechildren)
+[DButtonDatetime](DButtonDatetime.md).[sortableChildren](DButtonDatetime.md#sortablechildren)
 
 #### Defined in
 
@@ -1773,7 +1785,7 @@ This will become read-only later, please do not assign anything there unless you
 
 #### Inherited from
 
-[DButton](DButton.md).[transform](DButton.md#transform)
+[DButtonDatetime](DButtonDatetime.md).[transform](DButtonDatetime.md#transform)
 
 #### Defined in
 
@@ -1798,7 +1810,7 @@ Only affects recursive calls from parent. You can ask for bounds or call updateT
 
 #### Inherited from
 
-[DButton](DButton.md).[visible](DButton.md#visible)
+[DButtonDatetime](DButtonDatetime.md).[visible](DButtonDatetime.md#visible)
 
 #### Defined in
 
@@ -1822,7 +1834,7 @@ The multiplied alpha of the displayObject.
 
 #### Inherited from
 
-[DButton](DButton.md).[worldAlpha](DButton.md#worldalpha)
+[DButtonDatetime](DButtonDatetime.md).[worldAlpha](DButtonDatetime.md#worldalpha)
 
 #### Defined in
 
@@ -1846,7 +1858,7 @@ Current transform of the object based on world (parent) factors.
 
 #### Inherited from
 
-[DButton](DButton.md).[worldTransform](DButton.md#worldtransform)
+[DButtonDatetime](DButtonDatetime.md).[worldTransform](DButtonDatetime.md#worldtransform)
 
 #### Defined in
 
@@ -1870,7 +1882,7 @@ Indicates if the object is globally visible.
 
 #### Inherited from
 
-[DButton](DButton.md).[worldVisible](DButton.md#worldvisible)
+[DButtonDatetime](DButtonDatetime.md).[worldVisible](DButtonDatetime.md#worldvisible)
 
 #### Defined in
 
@@ -1895,11 +1907,25 @@ and thus rendered on top of other displayObjects within the same container.
 
 #### Inherited from
 
-[DButton](DButton.md).[zIndex](DButton.md#zindex)
+[DButtonDatetime](DButtonDatetime.md).[zIndex](DButtonDatetime.md#zindex)
 
 #### Defined in
 
 node_modules/pixi.js/pixi.js.d.ts:8780
+
+___
+
+### DIALOG
+
+▪ `Static` `Protected` `Optional` **DIALOG**: [`DDialogDatetime`](DDialogDatetime.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md), [`DDialogDatetimeOptions`](../interfaces/DDialogDatetimeOptions.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md)\>\>
+
+#### Inherited from
+
+[DButtonDatetime](DButtonDatetime.md).[DIALOG](DButtonDatetime.md#dialog)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L52)
 
 ___
 
@@ -1909,11 +1935,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[LAYOUTER](DButton.md#layouter)
+[DButtonDatetime](DButtonDatetime.md).[LAYOUTER](DButtonDatetime.md#layouter)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L94)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L94)
 
 ___
 
@@ -1923,11 +1949,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[WORK_CONTAINS_POINT](DButton.md#work_contains_point)
+[DButtonDatetime](DButtonDatetime.md).[WORK_CONTAINS_POINT](DButtonDatetime.md#work_contains_point)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:719](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L719)
+[src/main/typescript/wcardinal/ui/d-base.ts:719](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L719)
 
 ## Accessors
 
@@ -1945,11 +1971,11 @@ DTableBodyCell.background
 
 #### Inherited from
 
-DButton.background
+DButtonDatetime.background
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1355](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1355)
+[src/main/typescript/wcardinal/ui/d-base.ts:1355](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1355)
 
 ___
 
@@ -1967,11 +1993,11 @@ DTableBodyCell.border
 
 #### Inherited from
 
-DButton.border
+DButtonDatetime.border
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1359](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1359)
+[src/main/typescript/wcardinal/ui/d-base.ts:1359](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1359)
 
 ___
 
@@ -1991,7 +2017,7 @@ A column.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L118)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L75)
 
 ___
 
@@ -2011,7 +2037,7 @@ A column index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L114)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L71)
 
 ___
 
@@ -2029,11 +2055,11 @@ DTableBodyCell.corner
 
 #### Inherited from
 
-DButton.corner
+DButtonDatetime.corner
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1351](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1351)
+[src/main/typescript/wcardinal/ui/d-base.ts:1351](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1351)
 
 ___
 
@@ -2045,9 +2071,13 @@ ___
 
 [`DDialogDatetime`](DDialogDatetime.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md), [`DDialogDatetimeOptions`](../interfaces/DDialogDatetimeOptions.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md)\>\>
 
+#### Inherited from
+
+DButtonDatetime.dialog
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L92)
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L84)
 
 ___
 
@@ -2065,11 +2095,11 @@ DTableBodyCell.height
 
 #### Inherited from
 
-DButton.height
+DButtonDatetime.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1274)
+[src/main/typescript/wcardinal/ui/d-base.ts:1274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1274)
 
 • `set` **height**(`height`): `void`
 
@@ -2089,11 +2119,11 @@ DTableBodyCell.height
 
 #### Inherited from
 
-DButton.height
+DButtonDatetime.height
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1278)
+[src/main/typescript/wcardinal/ui/d-base.ts:1278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1278)
 
 ___
 
@@ -2107,11 +2137,11 @@ ___
 
 #### Inherited from
 
-DButton.image
+DButtonDatetime.image
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L125)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L125)
 
 • `set` **image**(`imageSource`): `void`
 
@@ -2127,11 +2157,11 @@ DButton.image
 
 #### Inherited from
 
-DButton.image
+DButtonDatetime.image
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L129)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L129)
 
 ___
 
@@ -2145,11 +2175,11 @@ ___
 
 #### Inherited from
 
-DButton.isToggle
+DButtonDatetime.isToggle
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L122)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L122)
 
 ___
 
@@ -2167,11 +2197,11 @@ DTableBodyCell.outline
 
 #### Inherited from
 
-DButton.outline
+DButtonDatetime.outline
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1363](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1363)
+[src/main/typescript/wcardinal/ui/d-base.ts:1363](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1363)
 
 ___
 
@@ -2189,11 +2219,11 @@ DTableBodyCell.padding
 
 #### Inherited from
 
-DButton.padding
+DButtonDatetime.padding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1347](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1347)
+[src/main/typescript/wcardinal/ui/d-base.ts:1347](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1347)
 
 ___
 
@@ -2211,11 +2241,11 @@ DTableBodyCell.position
 
 #### Inherited from
 
-DButton.position
+DButtonDatetime.position
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1333](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1333)
+[src/main/typescript/wcardinal/ui/d-base.ts:1333](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1333)
 
 ___
 
@@ -2233,11 +2263,11 @@ DTableBodyCell.reflowable
 
 #### Inherited from
 
-DButton.reflowable
+DButtonDatetime.reflowable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1012](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1012)
+[src/main/typescript/wcardinal/ui/d-base.ts:1012](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1012)
 
 ___
 
@@ -2258,7 +2288,7 @@ Otherwise, Undefined.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L106)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L63)
 
 ___
 
@@ -2279,7 +2309,7 @@ Otherise, -1.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L110)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L67)
 
 ___
 
@@ -2297,11 +2327,11 @@ DTableBodyCell.scale
 
 #### Inherited from
 
-DButton.scale
+DButtonDatetime.scale
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1338](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1338)
+[src/main/typescript/wcardinal/ui/d-base.ts:1338](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1338)
 
 ___
 
@@ -2319,11 +2349,11 @@ DTableBodyCell.shadow
 
 #### Inherited from
 
-DButton.shadow
+DButtonDatetime.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1678](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1678)
+[src/main/typescript/wcardinal/ui/d-base.ts:1678](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1678)
 
 • `set` **shadow**(`shadow`): `void`
 
@@ -2343,11 +2373,11 @@ DTableBodyCell.shadow
 
 #### Inherited from
 
-DButton.shadow
+DButtonDatetime.shadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1682)
+[src/main/typescript/wcardinal/ui/d-base.ts:1682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1682)
 
 ___
 
@@ -2365,11 +2395,11 @@ DTableBodyCell.skew
 
 #### Inherited from
 
-DButton.skew
+DButtonDatetime.skew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1343)
+[src/main/typescript/wcardinal/ui/d-base.ts:1343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1343)
 
 ___
 
@@ -2387,11 +2417,11 @@ DTableBodyCell.snippet
 
 #### Inherited from
 
-DButton.snippet
+DButtonDatetime.snippet
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1008](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1008)
+[src/main/typescript/wcardinal/ui/d-base.ts:1008](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1008)
 
 ___
 
@@ -2409,11 +2439,11 @@ DTableBodyCell.state
 
 #### Inherited from
 
-DButton.state
+DButtonDatetime.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1565](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1565)
+[src/main/typescript/wcardinal/ui/d-base.ts:1565](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1565)
 
 ___
 
@@ -2427,11 +2457,11 @@ ___
 
 #### Inherited from
 
-DButton.text
+DButtonDatetime.text
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L197)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L197)
 
 • `set` **text**(`text`): `void`
 
@@ -2447,11 +2477,11 @@ DButton.text
 
 #### Inherited from
 
-DButton.text
+DButtonDatetime.text
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L190)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L190)
 
 ___
 
@@ -2469,11 +2499,11 @@ DTableBodyCell.theme
 
 #### Inherited from
 
-DButton.theme
+DButtonDatetime.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1569)
+[src/main/typescript/wcardinal/ui/d-base.ts:1569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1569)
 
 • `set` **theme**(`theme`): `void`
 
@@ -2493,11 +2523,11 @@ DTableBodyCell.theme
 
 #### Inherited from
 
-DButton.theme
+DButtonDatetime.theme
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1573)
+[src/main/typescript/wcardinal/ui/d-base.ts:1573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1573)
 
 ___
 
@@ -2515,11 +2545,11 @@ DTableBodyCell.title
 
 #### Inherited from
 
-DButton.title
+DButtonDatetime.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1371](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1371)
+[src/main/typescript/wcardinal/ui/d-base.ts:1371](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1371)
 
 • `set` **title**(`title`): `void`
 
@@ -2539,11 +2569,11 @@ DTableBodyCell.title
 
 #### Inherited from
 
-DButton.title
+DButtonDatetime.title
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1375](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1375)
+[src/main/typescript/wcardinal/ui/d-base.ts:1375](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1375)
 
 ___
 
@@ -2561,11 +2591,11 @@ DTableBodyCell.type
 
 #### Inherited from
 
-DButton.type
+DButtonDatetime.type
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1130)
+[src/main/typescript/wcardinal/ui/d-base.ts:1130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1130)
 
 ___
 
@@ -2583,11 +2613,49 @@ DTableBodyCell.unsafe
 
 #### Inherited from
 
-DButton.unsafe
+DButtonDatetime.unsafe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1367](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1367)
+[src/main/typescript/wcardinal/ui/d-base.ts:1367](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1367)
+
+___
+
+### value
+
+• `get` **value**(): `Date`
+
+#### Returns
+
+`Date`
+
+#### Inherited from
+
+DButtonDatetime.value
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L108)
+
+• `set` **value**(`value`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `Date` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+DButtonDatetime.value
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L112)
 
 ___
 
@@ -2605,11 +2673,11 @@ DTableBodyCell.weight
 
 #### Inherited from
 
-DButton.weight
+DButtonDatetime.weight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1033](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1033)
+[src/main/typescript/wcardinal/ui/d-base.ts:1033](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1033)
 
 ___
 
@@ -2627,11 +2695,11 @@ DTableBodyCell.width
 
 #### Inherited from
 
-DButton.width
+DButtonDatetime.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1215)
+[src/main/typescript/wcardinal/ui/d-base.ts:1215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1215)
 
 • `set` **width**(`width`): `void`
 
@@ -2651,11 +2719,11 @@ DTableBodyCell.width
 
 #### Inherited from
 
-DButton.width
+DButtonDatetime.width
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1219)
+[src/main/typescript/wcardinal/ui/d-base.ts:1219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1219)
 
 ___
 
@@ -2673,11 +2741,11 @@ DTableBodyCell.x
 
 #### Inherited from
 
-DButton.x
+DButtonDatetime.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1135)
+[src/main/typescript/wcardinal/ui/d-base.ts:1135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1135)
 
 • `set` **x**(`x`): `void`
 
@@ -2697,11 +2765,11 @@ DTableBodyCell.x
 
 #### Inherited from
 
-DButton.x
+DButtonDatetime.x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1139)
+[src/main/typescript/wcardinal/ui/d-base.ts:1139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1139)
 
 ___
 
@@ -2719,11 +2787,11 @@ DTableBodyCell.y
 
 #### Inherited from
 
-DButton.y
+DButtonDatetime.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1175)
+[src/main/typescript/wcardinal/ui/d-base.ts:1175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1175)
 
 • `set` **y**(`y`): `void`
 
@@ -2743,11 +2811,11 @@ DTableBodyCell.y
 
 #### Inherited from
 
-DButton.y
+DButtonDatetime.y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1179)
+[src/main/typescript/wcardinal/ui/d-base.ts:1179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1179)
 
 ## Methods
 
@@ -2765,11 +2833,11 @@ DButton.y
 
 #### Inherited from
 
-[DButton](DButton.md).[_calculateBounds](DButton.md#_calculatebounds)
+[DButtonDatetime](DButtonDatetime.md).[_calculateBounds](DButtonDatetime.md#_calculatebounds)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
+[src/main/typescript/wcardinal/ui/d-base.ts:1902](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1902)
 
 ___
 
@@ -2790,7 +2858,7 @@ internal function for toLocal()
 
 #### Inherited from
 
-[DButton](DButton.md).[_recursivePostUpdateTransform](DButton.md#_recursivepostupdatetransform)
+[DButtonDatetime](DButtonDatetime.md).[_recursivePostUpdateTransform](DButtonDatetime.md#_recursivepostupdatetransform)
 
 #### Defined in
 
@@ -2820,7 +2888,7 @@ To be overridden by the subclasses.
 
 #### Inherited from
 
-[DButton](DButton.md).[_render](DButton.md#_render)
+[DButtonDatetime](DButtonDatetime.md).[_render](DButtonDatetime.md#_render)
 
 #### Defined in
 
@@ -2860,7 +2928,7 @@ The first child that was added.
 
 #### Inherited from
 
-[DButton](DButton.md).[addChild](DButton.md#addchild)
+[DButtonDatetime](DButtonDatetime.md).[addChild](DButtonDatetime.md#addchild)
 
 #### Defined in
 
@@ -2899,7 +2967,7 @@ The child that was added.
 
 #### Inherited from
 
-[DButton](DButton.md).[addChildAt](DButton.md#addchildat)
+[DButtonDatetime](DButtonDatetime.md).[addChildAt](DButtonDatetime.md#addchildat)
 
 #### Defined in
 
@@ -2929,7 +2997,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[addListener](DButton.md#addlistener)
+[DButtonDatetime](DButtonDatetime.md).[addListener](DButtonDatetime.md#addlistener)
 
 #### Defined in
 
@@ -2955,7 +3023,7 @@ node_modules/pixi.js/pixi.js.d.ts:24103
 
 #### Inherited from
 
-[DButton](DButton.md).[addListener](DButton.md#addlistener)
+[DButtonDatetime](DButtonDatetime.md).[addListener](DButtonDatetime.md#addlistener)
 
 #### Defined in
 
@@ -2977,11 +3045,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[applyTitle](DButton.md#applytitle)
+[DButtonDatetime](DButtonDatetime.md).[applyTitle](DButtonDatetime.md#applytitle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L383)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L383)
 
 ___
 
@@ -3005,11 +3073,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[blur](DButton.md#blur)
+[DButtonDatetime](DButtonDatetime.md).[blur](DButtonDatetime.md#blur)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1490](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1490)
+[src/main/typescript/wcardinal/ui/d-base.ts:1490](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1490)
 
 ___
 
@@ -3029,7 +3097,7 @@ Recalculates the bounds of the container.
 
 #### Inherited from
 
-[DButton](DButton.md).[calculateBounds](DButton.md#calculatebounds)
+[DButtonDatetime](DButtonDatetime.md).[calculateBounds](DButtonDatetime.md#calculatebounds)
 
 #### Defined in
 
@@ -3047,11 +3115,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[computeTextValue](DButton.md#computetextvalue)
+[DButtonDatetime](DButtonDatetime.md).[computeTextValue](DButtonDatetime.md#computetextvalue)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L205)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L205)
 
 ___
 
@@ -3075,11 +3143,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[containsGlobalPoint](DButton.md#containsglobalpoint)
+[DButtonDatetime](DButtonDatetime.md).[containsGlobalPoint](DButtonDatetime.md#containsglobalpoint)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1927](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1927)
+[src/main/typescript/wcardinal/ui/d-base.ts:1927](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1927)
 
 ___
 
@@ -3103,11 +3171,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[containsLocalPoint](DButton.md#containslocalpoint)
+[DButtonDatetime](DButtonDatetime.md).[containsLocalPoint](DButtonDatetime.md#containslocalpoint)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1931](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1931)
+[src/main/typescript/wcardinal/ui/d-base.ts:1931](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1931)
 
 ___
 
@@ -3131,11 +3199,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[containsPoint](DButton.md#containspoint)
+[DButtonDatetime](DButtonDatetime.md).[containsPoint](DButtonDatetime.md#containspoint)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1918](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1918)
+[src/main/typescript/wcardinal/ui/d-base.ts:1918](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1918)
 
 ___
 
@@ -3149,11 +3217,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[createOrUpdateText](DButton.md#createorupdatetext)
+[DButtonDatetime](DButtonDatetime.md).[createOrUpdateText](DButtonDatetime.md#createorupdatetext)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L220)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L220)
 
 ___
 
@@ -3173,11 +3241,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[createText](DButton.md#createtext)
+[DButtonDatetime](DButtonDatetime.md).[createText](DButtonDatetime.md#createtext)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L247)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L247)
 
 ___
 
@@ -3195,11 +3263,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[destroy](DButton.md#destroy)
+[DButtonDatetime](DButtonDatetime.md).[destroy](DButtonDatetime.md#destroy)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:260](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L260)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:260](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L260)
 
 ___
 
@@ -3224,7 +3292,7 @@ Will crash if there's no parent element.
 
 #### Inherited from
 
-[DButton](DButton.md).[displayObjectUpdateTransform](DButton.md#displayobjectupdatetransform)
+[DButtonDatetime](DButtonDatetime.md).[displayObjectUpdateTransform](DButtonDatetime.md#displayobjectupdatetransform)
 
 #### Defined in
 
@@ -3257,7 +3325,7 @@ Calls each of the listeners registered for a given event.
 
 #### Inherited from
 
-[DButton](DButton.md).[emit](DButton.md#emit)
+[DButtonDatetime](DButtonDatetime.md).[emit](DButtonDatetime.md#emit)
 
 #### Defined in
 
@@ -3281,7 +3349,7 @@ Return an array listing the events for which the emitter has registered listener
 
 #### Inherited from
 
-[DButton](DButton.md).[eventNames](DButton.md#eventnames)
+[DButtonDatetime](DButtonDatetime.md).[eventNames](DButtonDatetime.md#eventnames)
 
 #### Defined in
 
@@ -3303,11 +3371,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[focus](DButton.md#focus)
+[DButtonDatetime](DButtonDatetime.md).[focus](DButtonDatetime.md#focus)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1486](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1486)
+[src/main/typescript/wcardinal/ui/d-base.ts:1486](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1486)
 
 ___
 
@@ -3325,11 +3393,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[focusOnClosest](DButton.md#focusonclosest)
+[DButtonDatetime](DButtonDatetime.md).[focusOnClosest](DButtonDatetime.md#focusonclosest)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1845](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1845)
+[src/main/typescript/wcardinal/ui/d-base.ts:1845](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1845)
 
 ___
 
@@ -3358,7 +3426,7 @@ The rectangular bounding area.
 
 #### Inherited from
 
-[DButton](DButton.md).[getBounds](DButton.md#getbounds)
+[DButtonDatetime](DButtonDatetime.md).[getBounds](DButtonDatetime.md#getbounds)
 
 #### Defined in
 
@@ -3390,7 +3458,7 @@ The child at the given index, if any.
 
 #### Inherited from
 
-[DButton](DButton.md).[getChildAt](DButton.md#getchildat)
+[DButtonDatetime](DButtonDatetime.md).[getChildAt](DButtonDatetime.md#getchildat)
 
 #### Defined in
 
@@ -3426,7 +3494,7 @@ The child with the specified name.
 
 #### Inherited from
 
-[DButton](DButton.md).[getChildByName](DButton.md#getchildbyname)
+[DButtonDatetime](DButtonDatetime.md).[getChildByName](DButtonDatetime.md#getchildbyname)
 
 #### Defined in
 
@@ -3458,7 +3526,7 @@ The index position of the child display object to identify
 
 #### Inherited from
 
-[DButton](DButton.md).[getChildIndex](DButton.md#getchildindex)
+[DButtonDatetime](DButtonDatetime.md).[getChildIndex](DButtonDatetime.md#getchildindex)
 
 #### Defined in
 
@@ -3480,11 +3548,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getClearType](DButton.md#getcleartype)
+[DButtonDatetime](DButtonDatetime.md).[getClearType](DButtonDatetime.md#getcleartype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1099](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1099)
+[src/main/typescript/wcardinal/ui/d-base.ts:1099](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1099)
 
 ___
 
@@ -3511,11 +3579,11 @@ Returns a clipping rect.
 
 #### Inherited from
 
-[DButton](DButton.md).[getClippingRect](DButton.md#getclippingrect)
+[DButtonDatetime](DButtonDatetime.md).[getClippingRect](DButtonDatetime.md#getclippingrect)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1944](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1944)
+[src/main/typescript/wcardinal/ui/d-base.ts:1944](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1944)
 
 ___
 
@@ -3527,9 +3595,13 @@ ___
 
 `number`
 
+#### Inherited from
+
+[DButtonDatetime](DButtonDatetime.md).[getDatetimeMask](DButtonDatetime.md#getdatetimemask)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L83)
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L75)
 
 ___
 
@@ -3562,7 +3634,7 @@ The updated point.
 
 #### Inherited from
 
-[DButton](DButton.md).[getGlobalPosition](DButton.md#getglobalposition)
+[DButtonDatetime](DButtonDatetime.md).[getGlobalPosition](DButtonDatetime.md#getglobalposition)
 
 #### Defined in
 
@@ -3584,11 +3656,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getHeight](DButton.md#getheight)
+[DButtonDatetime](DButtonDatetime.md).[getHeight](DButtonDatetime.md#getheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1282](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1282)
+[src/main/typescript/wcardinal/ui/d-base.ts:1282](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1282)
 
 ___
 
@@ -3616,7 +3688,7 @@ The rectangular bounding area.
 
 #### Inherited from
 
-[DButton](DButton.md).[getLocalBounds](DButton.md#getlocalbounds)
+[DButtonDatetime](DButtonDatetime.md).[getLocalBounds](DButtonDatetime.md#getlocalbounds)
 
 #### Defined in
 
@@ -3634,11 +3706,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getOverflowMask](DButton.md#getoverflowmask)
+[DButtonDatetime](DButtonDatetime.md).[getOverflowMask](DButtonDatetime.md#getoverflowmask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L251)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L251)
 
 ___
 
@@ -3656,11 +3728,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getParentOfSize](DButton.md#getparentofsize)
+[DButtonDatetime](DButtonDatetime.md).[getParentOfSize](DButtonDatetime.md#getparentofsize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1712](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1712)
+[src/main/typescript/wcardinal/ui/d-base.ts:1712](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1712)
 
 ___
 
@@ -3681,11 +3753,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getTextAlpha](DButton.md#gettextalpha)
+[DButtonDatetime](DButtonDatetime.md).[getTextAlpha](DButtonDatetime.md#gettextalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:318](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L318)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:318](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L318)
 
 ___
 
@@ -3706,11 +3778,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getTextColor](DButton.md#gettextcolor)
+[DButtonDatetime](DButtonDatetime.md).[getTextColor](DButtonDatetime.md#gettextcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:303](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L303)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:303](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L303)
 
 ___
 
@@ -3728,11 +3800,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getThemeDefault](DButton.md#getthemedefault)
+[DButtonDatetime](DButtonDatetime.md).[getThemeDefault](DButtonDatetime.md#getthemedefault)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1893](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1893)
+[src/main/typescript/wcardinal/ui/d-base.ts:1893](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1893)
 
 ___
 
@@ -3750,11 +3822,11 @@ ___
 
 #### Overrides
 
-[DButton](DButton.md).[getType](DButton.md#gettype)
+[DButtonDatetime](DButtonDatetime.md).[getType](DButtonDatetime.md#gettype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L162)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L119)
 
 ___
 
@@ -3772,11 +3844,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getWidth](DButton.md#getwidth)
+[DButtonDatetime](DButtonDatetime.md).[getWidth](DButtonDatetime.md#getwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1223)
+[src/main/typescript/wcardinal/ui/d-base.ts:1223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1223)
 
 ___
 
@@ -3794,11 +3866,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getX](DButton.md#getx)
+[DButtonDatetime](DButtonDatetime.md).[getX](DButtonDatetime.md#getx)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1143)
+[src/main/typescript/wcardinal/ui/d-base.ts:1143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1143)
 
 ___
 
@@ -3816,11 +3888,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[getY](DButton.md#gety)
+[DButtonDatetime](DButtonDatetime.md).[getY](DButtonDatetime.md#gety)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1183)
+[src/main/typescript/wcardinal/ui/d-base.ts:1183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1183)
 
 ___
 
@@ -3838,11 +3910,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[hasDirty](DButton.md#hasdirty)
+[DButtonDatetime](DButtonDatetime.md).[hasDirty](DButtonDatetime.md#hasdirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1472](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1472)
+[src/main/typescript/wcardinal/ui/d-base.ts:1472](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1472)
 
 ___
 
@@ -3866,11 +3938,11 @@ target is DRefitable
 
 #### Inherited from
 
-[DButton](DButton.md).[hasRefitableHeight](DButton.md#hasrefitableheight)
+[DButtonDatetime](DButtonDatetime.md).[hasRefitableHeight](DButtonDatetime.md#hasrefitableheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1662](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1662)
+[src/main/typescript/wcardinal/ui/d-base.ts:1662](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1662)
 
 ___
 
@@ -3894,11 +3966,11 @@ target is DBase<any, any\>
 
 #### Inherited from
 
-[DButton](DButton.md).[hasRefitableWidth](DButton.md#hasrefitablewidth)
+[DButtonDatetime](DButtonDatetime.md).[hasRefitableWidth](DButtonDatetime.md#hasrefitablewidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1668](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1668)
+[src/main/typescript/wcardinal/ui/d-base.ts:1668](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1668)
 
 ___
 
@@ -3916,11 +3988,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[hide](DButton.md#hide)
+[DButtonDatetime](DButtonDatetime.md).[hide](DButtonDatetime.md#hide)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1404)
+[src/main/typescript/wcardinal/ui/d-base.ts:1404](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1404)
 
 ___
 
@@ -3934,11 +4006,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[hideText](DButton.md#hidetext)
+[DButtonDatetime](DButtonDatetime.md).[hideText](DButtonDatetime.md#hidetext)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:366](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L366)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:366](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L366)
 
 ___
 
@@ -3962,11 +4034,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[init](DButton.md#init)
+[DButtonDatetime](DButtonDatetime.md).[init](DButtonDatetime.md#init)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L98)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L98)
 
 ___
 
@@ -3988,11 +4060,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[initOnClick](DButton.md#initonclick)
+[DButtonDatetime](DButtonDatetime.md).[initOnClick](DButtonDatetime.md#initonclick)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L126)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L126)
 
 ___
 
@@ -4014,11 +4086,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[initOnPress](DButton.md#initonpress)
+[DButtonDatetime](DButtonDatetime.md).[initOnPress](DButtonDatetime.md#initonpress)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L134)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L134)
 
 ___
 
@@ -4036,11 +4108,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[initReflowable](DButton.md#initreflowable)
+[DButtonDatetime](DButtonDatetime.md).[initReflowable](DButtonDatetime.md#initreflowable)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1016](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1016)
+[src/main/typescript/wcardinal/ui/d-base.ts:1016](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1016)
 
 ___
 
@@ -4058,11 +4130,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[isDirty](DButton.md#isdirty)
+[DButtonDatetime](DButtonDatetime.md).[isDirty](DButtonDatetime.md#isdirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1468](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1468)
+[src/main/typescript/wcardinal/ui/d-base.ts:1468](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1468)
 
 ___
 
@@ -4086,11 +4158,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[isEventTarget](DButton.md#iseventtarget)
+[DButtonDatetime](DButtonDatetime.md).[isEventTarget](DButtonDatetime.md#iseventtarget)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1790](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1790)
+[src/main/typescript/wcardinal/ui/d-base.ts:1790](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1790)
 
 ___
 
@@ -4108,11 +4180,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[isHidden](DButton.md#ishidden)
+[DButtonDatetime](DButtonDatetime.md).[isHidden](DButtonDatetime.md#ishidden)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1414](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1414)
+[src/main/typescript/wcardinal/ui/d-base.ts:1414](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1414)
 
 ___
 
@@ -4130,11 +4202,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[isHierarchyDirty](DButton.md#ishierarchydirty)
+[DButtonDatetime](DButtonDatetime.md).[isHierarchyDirty](DButtonDatetime.md#ishierarchydirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1460)
+[src/main/typescript/wcardinal/ui/d-base.ts:1460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1460)
 
 ___
 
@@ -4158,11 +4230,11 @@ target is DRefitable
 
 #### Inherited from
 
-[DButton](DButton.md).[isRefitable](DButton.md#isrefitable)
+[DButtonDatetime](DButtonDatetime.md).[isRefitable](DButtonDatetime.md#isrefitable)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L172)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L174)
 
 ___
 
@@ -4180,11 +4252,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[isShown](DButton.md#isshown)
+[DButtonDatetime](DButtonDatetime.md).[isShown](DButtonDatetime.md#isshown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1400](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1400)
+[src/main/typescript/wcardinal/ui/d-base.ts:1400](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1400)
 
 ___
 
@@ -4210,7 +4282,7 @@ Return the number of listeners listening to a given event.
 
 #### Inherited from
 
-[DButton](DButton.md).[listenerCount](DButton.md#listenercount)
+[DButtonDatetime](DButtonDatetime.md).[listenerCount](DButtonDatetime.md#listenercount)
 
 #### Defined in
 
@@ -4240,11 +4312,35 @@ Return the listeners registered for a given event.
 
 #### Inherited from
 
-[DButton](DButton.md).[listeners](DButton.md#listeners)
+[DButtonDatetime](DButtonDatetime.md).[listeners](DButtonDatetime.md#listeners)
 
 #### Defined in
 
 node_modules/pixi.js/pixi.js.d.ts:24005
+
+___
+
+### newDialog
+
+▸ `Protected` **newDialog**(`options?`): [`DDialogDatetime`](DDialogDatetime.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md), [`DDialogDatetimeOptions`](../interfaces/DDialogDatetimeOptions.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md)\>\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `options?` | [`DDialogDatetimeOptions`](../interfaces/DDialogDatetimeOptions.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md)\> |
+
+#### Returns
+
+[`DDialogDatetime`](DDialogDatetime.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md), [`DDialogDatetimeOptions`](../interfaces/DDialogDatetimeOptions.md)<[`DThemeDialogDatetime`](../interfaces/DThemeDialogDatetime.md)\>\>
+
+#### Inherited from
+
+[DButtonDatetime](DButtonDatetime.md).[newDialog](DButtonDatetime.md#newdialog)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L104)
 
 ___
 
@@ -4265,11 +4361,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[newImage](DButton.md#newimage)
+[DButtonDatetime](DButtonDatetime.md).[newImage](DButtonDatetime.md#newimage)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L121)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L121)
 
 ___
 
@@ -4290,11 +4386,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[newImages](DButton.md#newimages)
+[DButtonDatetime](DButtonDatetime.md).[newImages](DButtonDatetime.md#newimages)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L102)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L102)
 
 ___
 
@@ -4320,7 +4416,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[off](DButton.md#off)
+[DButtonDatetime](DButtonDatetime.md).[off](DButtonDatetime.md#off)
 
 #### Defined in
 
@@ -4350,7 +4446,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[on](DButton.md#on)
+[DButtonDatetime](DButtonDatetime.md).[on](DButtonDatetime.md#on)
 
 #### Defined in
 
@@ -4376,7 +4472,7 @@ node_modules/pixi.js/pixi.js.d.ts:24112
 
 #### Inherited from
 
-[DButton](DButton.md).[on](DButton.md#on)
+[DButtonDatetime](DButtonDatetime.md).[on](DButtonDatetime.md#on)
 
 #### Defined in
 
@@ -4398,13 +4494,13 @@ ___
 
 `void`
 
-#### Overrides
+#### Inherited from
 
-[DButton](DButton.md).[onActivate](DButton.md#onactivate)
+[DButtonDatetime](DButtonDatetime.md).[onActivate](DButtonDatetime.md#onactivate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L59)
+[src/main/typescript/wcardinal/ui/d-button-datetime.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-datetime.ts#L56)
 
 ___
 
@@ -4424,11 +4520,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onActivateKeyDown](DButton.md#onactivatekeydown)
+[DButtonDatetime](DButtonDatetime.md).[onActivateKeyDown](DButtonDatetime.md#onactivatekeydown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L221)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:221](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L221)
 
 ___
 
@@ -4448,11 +4544,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onActivateKeyUp](DButton.md#onactivatekeyup)
+[DButtonDatetime](DButtonDatetime.md).[onActivateKeyUp](DButtonDatetime.md#onactivatekeyup)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:231](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L231)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:231](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L231)
 
 ___
 
@@ -4470,11 +4566,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onBlur](DButton.md#onblur)
+[DButtonDatetime](DButtonDatetime.md).[onBlur](DButtonDatetime.md#onblur)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1558](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1558)
+[src/main/typescript/wcardinal/ui/d-base.ts:1558](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1558)
 
 ___
 
@@ -4498,11 +4594,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onChildBlur](DButton.md#onchildblur)
+[DButtonDatetime](DButtonDatetime.md).[onChildBlur](DButtonDatetime.md#onchildblur)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1551](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1551)
+[src/main/typescript/wcardinal/ui/d-base.ts:1551](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1551)
 
 ___
 
@@ -4526,11 +4622,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onChildFocus](DButton.md#onchildfocus)
+[DButtonDatetime](DButtonDatetime.md).[onChildFocus](DButtonDatetime.md#onchildfocus)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1537](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1537)
+[src/main/typescript/wcardinal/ui/d-base.ts:1537](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1537)
 
 ___
 
@@ -4548,11 +4644,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onChildrenChange](DButton.md#onchildrenchange)
+[DButtonDatetime](DButtonDatetime.md).[onChildrenChange](DButtonDatetime.md#onchildrenchange)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1020](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1020)
+[src/main/typescript/wcardinal/ui/d-base.ts:1020](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1020)
 
 ___
 
@@ -4572,11 +4668,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onClick](DButton.md#onclick)
+[DButtonDatetime](DButtonDatetime.md).[onClick](DButtonDatetime.md#onclick)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L163)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L163)
 
 ___
 
@@ -4601,11 +4697,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onDblClick](DButton.md#ondblclick)
+[DButtonDatetime](DButtonDatetime.md).[onDblClick](DButtonDatetime.md#ondblclick)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L174)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L174)
 
 ___
 
@@ -4629,11 +4725,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onDown](DButton.md#ondown)
+[DButtonDatetime](DButtonDatetime.md).[onDown](DButtonDatetime.md#ondown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1804)
+[src/main/typescript/wcardinal/ui/d-base.ts:1804](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1804)
 
 ___
 
@@ -4657,11 +4753,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onDownThis](DButton.md#ondownthis)
+[DButtonDatetime](DButtonDatetime.md).[onDownThis](DButtonDatetime.md#ondownthis)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1811](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1811)
+[src/main/typescript/wcardinal/ui/d-base.ts:1811](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1811)
 
 ___
 
@@ -4679,11 +4775,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onFocus](DButton.md#onfocus)
+[DButtonDatetime](DButtonDatetime.md).[onFocus](DButtonDatetime.md#onfocus)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1544)
+[src/main/typescript/wcardinal/ui/d-base.ts:1544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1544)
 
 ___
 
@@ -4701,11 +4797,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onHierarchyDirty](DButton.md#onhierarchydirty)
+[DButtonDatetime](DButtonDatetime.md).[onHierarchyDirty](DButtonDatetime.md#onhierarchydirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1464](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1464)
+[src/main/typescript/wcardinal/ui/d-base.ts:1464](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1464)
 
 ___
 
@@ -4725,11 +4821,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onInactivate](DButton.md#oninactivate)
+[DButtonDatetime](DButtonDatetime.md).[onInactivate](DButtonDatetime.md#oninactivate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L190)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L190)
 
 ___
 
@@ -4753,11 +4849,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onKeyDown](DButton.md#onkeydown)
+[DButtonDatetime](DButtonDatetime.md).[onKeyDown](DButtonDatetime.md#onkeydown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L244)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L244)
 
 ___
 
@@ -4781,11 +4877,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onKeyUp](DButton.md#onkeyup)
+[DButtonDatetime](DButtonDatetime.md).[onKeyUp](DButtonDatetime.md#onkeyup)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L252)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L252)
 
 ___
 
@@ -4812,11 +4908,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onMove](DButton.md#onmove)
+[DButtonDatetime](DButtonDatetime.md).[onMove](DButtonDatetime.md#onmove)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1037](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1037)
+[src/main/typescript/wcardinal/ui/d-base.ts:1037](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1037)
 
 ___
 
@@ -4840,11 +4936,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onOut](DButton.md#onout)
+[DButtonDatetime](DButtonDatetime.md).[onOut](DButtonDatetime.md#onout)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1868](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1868)
+[src/main/typescript/wcardinal/ui/d-base.ts:1868](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1868)
 
 ___
 
@@ -4868,11 +4964,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onOver](DButton.md#onover)
+[DButtonDatetime](DButtonDatetime.md).[onOver](DButtonDatetime.md#onover)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1854](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1854)
+[src/main/typescript/wcardinal/ui/d-base.ts:1854](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1854)
 
 ___
 
@@ -4901,11 +4997,11 @@ Called when a parent moved.
 
 #### Inherited from
 
-[DButton](DButton.md).[onParentMove](DButton.md#onparentmove)
+[DButtonDatetime](DButtonDatetime.md).[onParentMove](DButtonDatetime.md#onparentmove)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1768](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1768)
+[src/main/typescript/wcardinal/ui/d-base.ts:1768](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1768)
 
 ___
 
@@ -4933,11 +5029,11 @@ Called when a parent resized.
 
 #### Inherited from
 
-[DButton](DButton.md).[onParentResize](DButton.md#onparentresize)
+[DButtonDatetime](DButtonDatetime.md).[onParentResize](DButtonDatetime.md#onparentresize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1727)
+[src/main/typescript/wcardinal/ui/d-base.ts:1727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1727)
 
 ___
 
@@ -4955,11 +5051,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onRefit](DButton.md#onrefit)
+[DButtonDatetime](DButtonDatetime.md).[onRefit](DButtonDatetime.md#onrefit)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1614](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1614)
+[src/main/typescript/wcardinal/ui/d-base.ts:1614](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1614)
 
 ___
 
@@ -4977,11 +5073,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onReflow](DButton.md#onreflow)
+[DButtonDatetime](DButtonDatetime.md).[onReflow](DButtonDatetime.md#onreflow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:374](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L374)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:374](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L374)
 
 ___
 
@@ -5008,11 +5104,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onResize](DButton.md#onresize)
+[DButtonDatetime](DButtonDatetime.md).[onResize](DButtonDatetime.md#onresize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1103)
+[src/main/typescript/wcardinal/ui/d-base.ts:1103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1103)
 
 ___
 
@@ -5039,11 +5135,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onScale](DButton.md#onscale)
+[DButtonDatetime](DButtonDatetime.md).[onScale](DButtonDatetime.md#onscale)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
+[src/main/typescript/wcardinal/ui/d-base.ts:1120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1120)
 
 ___
 
@@ -5067,11 +5163,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onShortcut](DButton.md#onshortcut)
+[DButtonDatetime](DButtonDatetime.md).[onShortcut](DButtonDatetime.md#onshortcut)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L117)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L117)
 
 ___
 
@@ -5098,11 +5194,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onSkew](DButton.md#onskew)
+[DButtonDatetime](DButtonDatetime.md).[onSkew](DButtonDatetime.md#onskew)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1125)
+[src/main/typescript/wcardinal/ui/d-base.ts:1125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1125)
 
 ___
 
@@ -5127,11 +5223,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onStateChange](DButton.md#onstatechange)
+[DButtonDatetime](DButtonDatetime.md).[onStateChange](DButtonDatetime.md#onstatechange)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L133)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L133)
 
 ___
 
@@ -5145,11 +5241,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onTextChange](DButton.md#ontextchange)
+[DButtonDatetime](DButtonDatetime.md).[onTextChange](DButtonDatetime.md#ontextchange)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L201)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L201)
 
 ___
 
@@ -5169,11 +5265,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onToggleEnd](DButton.md#ontoggleend)
+[DButtonDatetime](DButtonDatetime.md).[onToggleEnd](DButtonDatetime.md#ontoggleend)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L211)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L211)
 
 ___
 
@@ -5193,11 +5289,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onToggleStart](DButton.md#ontogglestart)
+[DButtonDatetime](DButtonDatetime.md).[onToggleStart](DButtonDatetime.md#ontogglestart)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L205)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L205)
 
 ___
 
@@ -5221,11 +5317,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onUp](DButton.md#onup)
+[DButtonDatetime](DButtonDatetime.md).[onUp](DButtonDatetime.md#onup)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1822](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1822)
+[src/main/typescript/wcardinal/ui/d-base.ts:1822](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1822)
 
 ___
 
@@ -5249,11 +5345,36 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onUpThis](DButton.md#onupthis)
+[DButtonDatetime](DButtonDatetime.md).[onUpThis](DButtonDatetime.md#onupthis)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1829](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1829)
+[src/main/typescript/wcardinal/ui/d-base.ts:1829](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1829)
+
+___
+
+### onValueChange
+
+▸ `Protected` **onValueChange**(`newValue`, `oldValue`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `newValue` | `Date` |
+| `oldValue` | `Date` |
+
+#### Returns
+
+`void`
+
+#### Overrides
+
+[DButtonDatetime](DButtonDatetime.md).[onValueChange](DButtonDatetime.md#onvaluechange)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L50)
 
 ___
 
@@ -5279,11 +5400,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[onWheel](DButton.md#onwheel)
+[DButtonDatetime](DButtonDatetime.md).[onWheel](DButtonDatetime.md#onwheel)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1773](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1773)
+[src/main/typescript/wcardinal/ui/d-base.ts:1773](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1773)
 
 ___
 
@@ -5309,7 +5430,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[once](DButton.md#once)
+[DButtonDatetime](DButtonDatetime.md).[once](DButtonDatetime.md#once)
 
 #### Defined in
 
@@ -5335,7 +5456,7 @@ node_modules/pixi.js/pixi.js.d.ts:24109
 
 #### Inherited from
 
-[DButton](DButton.md).[once](DButton.md#once)
+[DButtonDatetime](DButtonDatetime.md).[once](DButtonDatetime.md#once)
 
 #### Defined in
 
@@ -5357,11 +5478,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[reflow](DButton.md#reflow)
+[DButtonDatetime](DButtonDatetime.md).[reflow](DButtonDatetime.md#reflow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1587](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1587)
+[src/main/typescript/wcardinal/ui/d-base.ts:1587](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1587)
 
 ___
 
@@ -5385,7 +5506,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[removeAllListeners](DButton.md#removealllisteners)
+[DButtonDatetime](DButtonDatetime.md).[removeAllListeners](DButtonDatetime.md#removealllisteners)
 
 #### Defined in
 
@@ -5409,7 +5530,7 @@ node_modules/pixi.js/pixi.js.d.ts:24098
 
 #### Inherited from
 
-[DButton](DButton.md).[removeAllListeners](DButton.md#removealllisteners)
+[DButtonDatetime](DButtonDatetime.md).[removeAllListeners](DButtonDatetime.md#removealllisteners)
 
 #### Defined in
 
@@ -5447,7 +5568,7 @@ The first child that was removed.
 
 #### Inherited from
 
-[DButton](DButton.md).[removeChild](DButton.md#removechild)
+[DButtonDatetime](DButtonDatetime.md).[removeChild](DButtonDatetime.md#removechild)
 
 #### Defined in
 
@@ -5479,7 +5600,7 @@ The child that was removed.
 
 #### Inherited from
 
-[DButton](DButton.md).[removeChildAt](DButton.md#removechildat)
+[DButtonDatetime](DButtonDatetime.md).[removeChildAt](DButtonDatetime.md#removechildat)
 
 #### Defined in
 
@@ -5512,7 +5633,7 @@ List of removed children
 
 #### Inherited from
 
-[DButton](DButton.md).[removeChildren](DButton.md#removechildren)
+[DButtonDatetime](DButtonDatetime.md).[removeChildren](DButtonDatetime.md#removechildren)
 
 #### Defined in
 
@@ -5542,7 +5663,7 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[removeListener](DButton.md#removelistener)
+[DButtonDatetime](DButtonDatetime.md).[removeListener](DButtonDatetime.md#removelistener)
 
 #### Defined in
 
@@ -5568,7 +5689,7 @@ node_modules/pixi.js/pixi.js.d.ts:24095
 
 #### Inherited from
 
-[DButton](DButton.md).[removeListener](DButton.md#removelistener)
+[DButtonDatetime](DButtonDatetime.md).[removeListener](DButtonDatetime.md#removelistener)
 
 #### Defined in
 
@@ -5596,11 +5717,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[render](DButton.md#render)
+[DButtonDatetime](DButtonDatetime.md).[render](DButtonDatetime.md#render)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1883](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1883)
+[src/main/typescript/wcardinal/ui/d-base.ts:1883](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1883)
 
 ___
 
@@ -5626,7 +5747,7 @@ Render the object using the WebGL renderer and advanced features.
 
 #### Inherited from
 
-[DButton](DButton.md).[renderAdvanced](DButton.md#renderadvanced)
+[DButtonDatetime](DButtonDatetime.md).[renderAdvanced](DButtonDatetime.md#renderadvanced)
 
 #### Defined in
 
@@ -5655,11 +5776,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[resize](DButton.md#resize)
+[DButtonDatetime](DButtonDatetime.md).[resize](DButtonDatetime.md#resize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1049](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1049)
+[src/main/typescript/wcardinal/ui/d-base.ts:1049](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1049)
 
 ___
 
@@ -5688,7 +5809,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L122)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L79)
 
 ___
 
@@ -5715,7 +5836,7 @@ Changes the position of an existing child in the display object container
 
 #### Inherited from
 
-[DButton](DButton.md).[setChildIndex](DButton.md#setchildindex)
+[DButtonDatetime](DButtonDatetime.md).[setChildIndex](DButtonDatetime.md#setchildindex)
 
 #### Defined in
 
@@ -5743,11 +5864,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[setFocused](DButton.md#setfocused)
+[DButtonDatetime](DButtonDatetime.md).[setFocused](DButtonDatetime.md#setfocused)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1476)
+[src/main/typescript/wcardinal/ui/d-base.ts:1476](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1476)
 
 ___
 
@@ -5771,11 +5892,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[setHeight](DButton.md#setheight)
+[DButtonDatetime](DButtonDatetime.md).[setHeight](DButtonDatetime.md#setheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1286)
+[src/main/typescript/wcardinal/ui/d-base.ts:1286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1286)
 
 ___
 
@@ -5803,7 +5924,7 @@ The Container that this DisplayObject was added to.
 
 #### Inherited from
 
-[DButton](DButton.md).[setParent](DButton.md#setparent)
+[DButtonDatetime](DButtonDatetime.md).[setParent](DButtonDatetime.md#setparent)
 
 #### Defined in
 
@@ -5843,7 +5964,7 @@ The DisplayObject instance
 
 #### Inherited from
 
-[DButton](DButton.md).[setTransform](DButton.md#settransform)
+[DButtonDatetime](DButtonDatetime.md).[setTransform](DButtonDatetime.md#settransform)
 
 #### Defined in
 
@@ -5871,11 +5992,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[setWidth](DButton.md#setwidth)
+[DButtonDatetime](DButtonDatetime.md).[setWidth](DButtonDatetime.md#setwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1227)
+[src/main/typescript/wcardinal/ui/d-base.ts:1227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1227)
 
 ___
 
@@ -5899,11 +6020,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[setX](DButton.md#setx)
+[DButtonDatetime](DButtonDatetime.md).[setX](DButtonDatetime.md#setx)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1152)
+[src/main/typescript/wcardinal/ui/d-base.ts:1152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1152)
 
 ___
 
@@ -5927,11 +6048,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[setY](DButton.md#sety)
+[DButtonDatetime](DButtonDatetime.md).[setY](DButtonDatetime.md#sety)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1192)
+[src/main/typescript/wcardinal/ui/d-base.ts:1192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1192)
 
 ___
 
@@ -5949,11 +6070,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[show](DButton.md#show)
+[DButtonDatetime](DButtonDatetime.md).[show](DButtonDatetime.md#show)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1391)
+[src/main/typescript/wcardinal/ui/d-base.ts:1391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1391)
 
 ___
 
@@ -5967,11 +6088,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[showText](DButton.md#showtext)
+[DButtonDatetime](DButtonDatetime.md).[showText](DButtonDatetime.md#showtext)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:358](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L358)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:358](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L358)
 
 ___
 
@@ -5991,7 +6112,7 @@ Sorts children by zIndex. Previous order is mantained for 2 children with the sa
 
 #### Inherited from
 
-[DButton](DButton.md).[sortChildren](DButton.md#sortchildren)
+[DButtonDatetime](DButtonDatetime.md).[sortChildren](DButtonDatetime.md#sortchildren)
 
 #### Defined in
 
@@ -6022,7 +6143,7 @@ Swaps the position of 2 Display Objects within this container.
 
 #### Inherited from
 
-[DButton](DButton.md).[swapChildren](DButton.md#swapchildren)
+[DButtonDatetime](DButtonDatetime.md).[swapChildren](DButtonDatetime.md#swapchildren)
 
 #### Defined in
 
@@ -6051,11 +6172,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toCursor](DButton.md#tocursor)
+[DButtonDatetime](DButtonDatetime.md).[toCursor](DButtonDatetime.md#tocursor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:991](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L991)
+[src/main/typescript/wcardinal/ui/d-base.ts:991](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L991)
 
 ___
 
@@ -6073,11 +6194,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toDirty](DButton.md#todirty)
+[DButtonDatetime](DButtonDatetime.md).[toDirty](DButtonDatetime.md#todirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1418](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1418)
+[src/main/typescript/wcardinal/ui/d-base.ts:1418](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1418)
 
 ___
 
@@ -6107,7 +6228,7 @@ A point object representing the position of this object.
 
 #### Inherited from
 
-[DButton](DButton.md).[toGlobal](DButton.md#toglobal)
+[DButtonDatetime](DButtonDatetime.md).[toGlobal](DButtonDatetime.md#toglobal)
 
 #### Defined in
 
@@ -6129,11 +6250,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toHasDirty](DButton.md#tohasdirty)
+[DButtonDatetime](DButtonDatetime.md).[toHasDirty](DButtonDatetime.md#tohasdirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1427](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1427)
+[src/main/typescript/wcardinal/ui/d-base.ts:1427](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1427)
 
 ___
 
@@ -6151,11 +6272,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toHierarchyDirty](DButton.md#tohierarchydirty)
+[DButtonDatetime](DButtonDatetime.md).[toHierarchyDirty](DButtonDatetime.md#tohierarchydirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1443](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1443)
+[src/main/typescript/wcardinal/ui/d-base.ts:1443](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1443)
 
 ___
 
@@ -6176,11 +6297,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toImageOptions](DButton.md#toimageoptions)
+[DButtonDatetime](DButtonDatetime.md).[toImageOptions](DButtonDatetime.md#toimageoptions)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L114)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L114)
 
 ___
 
@@ -6211,7 +6332,7 @@ A point object representing the position of this object
 
 #### Inherited from
 
-[DButton](DButton.md).[toLocal](DButton.md#tolocal)
+[DButtonDatetime](DButtonDatetime.md).[toLocal](DButtonDatetime.md#tolocal)
 
 #### Defined in
 
@@ -6233,11 +6354,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toParentHasDirty](DButton.md#toparenthasdirty)
+[DButtonDatetime](DButtonDatetime.md).[toParentHasDirty](DButtonDatetime.md#toparenthasdirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1436)
+[src/main/typescript/wcardinal/ui/d-base.ts:1436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1436)
 
 ___
 
@@ -6255,11 +6376,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toParentHierarchyDirty](DButton.md#toparenthierarchydirty)
+[DButtonDatetime](DButtonDatetime.md).[toParentHierarchyDirty](DButtonDatetime.md#toparenthierarchydirty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1453](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1453)
+[src/main/typescript/wcardinal/ui/d-base.ts:1453](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1453)
 
 ___
 
@@ -6277,11 +6398,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toParentResized](DButton.md#toparentresized)
+[DButtonDatetime](DButtonDatetime.md).[toParentResized](DButtonDatetime.md#toparentresized)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:1705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L1705)
+[src/main/typescript/wcardinal/ui/d-base.ts:1705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L1705)
 
 ___
 
@@ -6295,11 +6416,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[toggle](DButton.md#toggle)
+[DButtonDatetime](DButtonDatetime.md).[toggle](DButtonDatetime.md#toggle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L196)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L196)
 
 ___
 
@@ -6317,7 +6438,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L157)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-body-cell-datetime.ts#L114)
 
 ___
 
@@ -6331,11 +6452,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[updateText](DButton.md#updatetext)
+[DButtonDatetime](DButtonDatetime.md).[updateText](DButtonDatetime.md#updatetext)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L142)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L142)
 
 ___
 
@@ -6349,11 +6470,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[updateTextAndImage](DButton.md#updatetextandimage)
+[DButtonDatetime](DButtonDatetime.md).[updateTextAndImage](DButtonDatetime.md#updatetextandimage)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L147)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L147)
 
 ___
 
@@ -6373,11 +6494,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[updateTextColor](DButton.md#updatetextcolor)
+[DButtonDatetime](DButtonDatetime.md).[updateTextColor](DButtonDatetime.md#updatetextcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:333](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L333)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:333](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L333)
 
 ___
 
@@ -6397,11 +6518,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[updateTextPosition](DButton.md#updatetextposition)
+[DButtonDatetime](DButtonDatetime.md).[updateTextPosition](DButtonDatetime.md#updatetextposition)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L263)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L263)
 
 ___
 
@@ -6415,11 +6536,11 @@ ___
 
 #### Inherited from
 
-[DButton](DButton.md).[updateTextValue](DButton.md#updatetextvalue)
+[DButtonDatetime](DButtonDatetime.md).[updateTextValue](DButtonDatetime.md#updatetextvalue)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:340](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L340)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:340](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L340)
 
 ___
 
@@ -6439,7 +6560,7 @@ Updates the transform on all children of this container for rendering
 
 #### Inherited from
 
-[DButton](DButton.md).[updateTransform](DButton.md#updatetransform)
+[DButtonDatetime](DButtonDatetime.md).[updateTransform](DButtonDatetime.md#updatetransform)
 
 #### Defined in
 
@@ -6465,7 +6586,7 @@ Mixes all enumerable properties and methods from a source object to DisplayObjec
 
 #### Inherited from
 
-[DButton](DButton.md).[mixin](DButton.md#mixin)
+[DButtonDatetime](DButtonDatetime.md).[mixin](DButtonDatetime.md#mixin)
 
 #### Defined in
 

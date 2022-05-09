@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DScalarExpressionNodeParensesis
+[Winter Cardinal UI - v0.164.0](../index.md) / DScalarExpressionNodeParensesis
 
 # Interface: DScalarExpressionNodeParensesis
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L107)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L107)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L108)
+[src/main/typescript/wcardinal/ui/d-scalar-expression.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-scalar-expression.ts#L108)

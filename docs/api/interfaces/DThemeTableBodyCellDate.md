@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DThemeTableBodyCellDate
+[Winter Cardinal UI - v0.164.0](../index.md) / DThemeTableBodyCellDate
 
 # Interface: DThemeTableBodyCellDate
 
 ## Hierarchy
 
-- [`DThemeButton`](DThemeButton.md)<`Date`\>
+- [`DThemeButtonDate`](DThemeButtonDate.md)
 
   ↳ **`DThemeTableBodyCellDate`**
 
@@ -112,11 +112,11 @@
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getAlpha](DThemeButton.md#getalpha)
+[DThemeButtonDate](DThemeButtonDate.md).[getAlpha](DThemeButtonDate.md#getalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L34)
+[src/main/typescript/wcardinal/ui/d-font.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L34)
 
 ___
 
@@ -138,11 +138,11 @@ Returns a background alpha.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBackgroundAlpha](DThemeButton.md#getbackgroundalpha)
+[DThemeButtonDate](DThemeButtonDate.md).[getBackgroundAlpha](DThemeButtonDate.md#getbackgroundalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:503](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L503)
+[src/main/typescript/wcardinal/ui/d-base.ts:503](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L503)
 
 ___
 
@@ -165,11 +165,11 @@ If the color is null, backgrounds are not be rendered.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBackgroundColor](DThemeButton.md#getbackgroundcolor)
+[DThemeButtonDate](DThemeButtonDate.md).[getBackgroundColor](DThemeButtonDate.md#getbackgroundcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:496](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L496)
+[src/main/typescript/wcardinal/ui/d-base.ts:496](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L496)
 
 ___
 
@@ -185,11 +185,11 @@ Returns a background texture.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBackgroundTexture](DThemeButton.md#getbackgroundtexture)
+[DThemeButtonDate](DThemeButtonDate.md).[getBackgroundTexture](DThemeButtonDate.md#getbackgroundtexture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L508)
+[src/main/typescript/wcardinal/ui/d-base.ts:508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L508)
 
 ___
 
@@ -211,11 +211,11 @@ Returns a border align.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBorderAlign](DThemeButton.md#getborderalign)
+[DThemeButtonDate](DThemeButtonDate.md).[getBorderAlign](DThemeButtonDate.md#getborderalign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:537](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L537)
+[src/main/typescript/wcardinal/ui/d-base.ts:537](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L537)
 
 ___
 
@@ -237,11 +237,11 @@ Returns a border alpha.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBorderAlpha](DThemeButton.md#getborderalpha)
+[DThemeButtonDate](DThemeButtonDate.md).[getBorderAlpha](DThemeButtonDate.md#getborderalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:523](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L523)
+[src/main/typescript/wcardinal/ui/d-base.ts:523](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L523)
 
 ___
 
@@ -264,11 +264,11 @@ If the color is null, borders are not be rendered.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBorderColor](DThemeButton.md#getbordercolor)
+[DThemeButtonDate](DThemeButtonDate.md).[getBorderColor](DThemeButtonDate.md#getbordercolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:516](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L516)
+[src/main/typescript/wcardinal/ui/d-base.ts:516](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L516)
 
 ___
 
@@ -290,11 +290,11 @@ Returns a border mask.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBorderMask](DThemeButton.md#getbordermask)
+[DThemeButtonDate](DThemeButtonDate.md).[getBorderMask](DThemeButtonDate.md#getbordermask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L544)
+[src/main/typescript/wcardinal/ui/d-base.ts:544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L544)
 
 ___
 
@@ -310,11 +310,11 @@ Returns a border texture.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBorderTexture](DThemeButton.md#getbordertexture)
+[DThemeButtonDate](DThemeButtonDate.md).[getBorderTexture](DThemeButtonDate.md#getbordertexture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:549](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L549)
+[src/main/typescript/wcardinal/ui/d-base.ts:549](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L549)
 
 ___
 
@@ -336,11 +336,11 @@ Returns a border width.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getBorderWidth](DThemeButton.md#getborderwidth)
+[DThemeButtonDate](DThemeButtonDate.md).[getBorderWidth](DThemeButtonDate.md#getborderwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:530](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L530)
+[src/main/typescript/wcardinal/ui/d-base.ts:530](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L530)
 
 ___
 
@@ -357,11 +357,11 @@ A clear type is for layout classes including [DLayoutVertical](../classes/DLayou
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getClearType](DThemeButton.md#getcleartype)
+[DThemeButtonDate](DThemeButtonDate.md).[getClearType](DThemeButtonDate.md#getcleartype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:649](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L649)
+[src/main/typescript/wcardinal/ui/d-base.ts:649](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L649)
 
 ___
 
@@ -381,11 +381,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getColor](DThemeButton.md#getcolor)
+[DThemeButtonDate](DThemeButtonDate.md).[getColor](DThemeButtonDate.md#getcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L33)
+[src/main/typescript/wcardinal/ui/d-font.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L33)
 
 ___
 
@@ -401,11 +401,11 @@ Returns a corner mask.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getCornerMask](DThemeButton.md#getcornermask)
+[DThemeButtonDate](DThemeButtonDate.md).[getCornerMask](DThemeButtonDate.md#getcornermask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:579](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L579)
+[src/main/typescript/wcardinal/ui/d-base.ts:579](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L579)
 
 ___
 
@@ -421,11 +421,11 @@ Returns a corner radius.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getCornerRadius](DThemeButton.md#getcornerradius)
+[DThemeButtonDate](DThemeButtonDate.md).[getCornerRadius](DThemeButtonDate.md#getcornerradius)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:574](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L574)
+[src/main/typescript/wcardinal/ui/d-base.ts:574](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L574)
 
 ___
 
@@ -447,11 +447,11 @@ Returns a cursor.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getCursor](DThemeButton.md#getcursor)
+[DThemeButtonDate](DThemeButtonDate.md).[getCursor](DThemeButtonDate.md#getcursor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:671](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L671)
+[src/main/typescript/wcardinal/ui/d-base.ts:671](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L671)
 
 ___
 
@@ -465,11 +465,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getFontFamilly](DThemeButton.md#getfontfamilly)
+[DThemeButtonDate](DThemeButtonDate.md).[getFontFamilly](DThemeButtonDate.md#getfontfamilly)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L28)
+[src/main/typescript/wcardinal/ui/d-font.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L28)
 
 ___
 
@@ -483,11 +483,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getFontSize](DThemeButton.md#getfontsize)
+[DThemeButtonDate](DThemeButtonDate.md).[getFontSize](DThemeButtonDate.md#getfontsize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L29)
+[src/main/typescript/wcardinal/ui/d-font.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L29)
 
 ___
 
@@ -501,11 +501,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getFontStyle](DThemeButton.md#getfontstyle)
+[DThemeButtonDate](DThemeButtonDate.md).[getFontStyle](DThemeButtonDate.md#getfontstyle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L31)
+[src/main/typescript/wcardinal/ui/d-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L31)
 
 ___
 
@@ -519,11 +519,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getFontVariant](DThemeButton.md#getfontvariant)
+[DThemeButtonDate](DThemeButtonDate.md).[getFontVariant](DThemeButtonDate.md#getfontvariant)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L32)
+[src/main/typescript/wcardinal/ui/d-font.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L32)
 
 ___
 
@@ -537,11 +537,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getFontWeight](DThemeButton.md#getfontweight)
+[DThemeButtonDate](DThemeButtonDate.md).[getFontWeight](DThemeButtonDate.md#getfontweight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L30)
+[src/main/typescript/wcardinal/ui/d-font.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L30)
 
 ___
 
@@ -557,11 +557,11 @@ Returns a height.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getHeight](DThemeButton.md#getheight)
+[DThemeButtonDate](DThemeButtonDate.md).[getHeight](DThemeButtonDate.md#getheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:483](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L483)
+[src/main/typescript/wcardinal/ui/d-base.ts:483](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L483)
 
 ___
 
@@ -575,11 +575,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageAlignHorizontal](DThemeButton.md#getimagealignhorizontal)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageAlignHorizontal](DThemeButtonDate.md#getimagealignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L60)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L60)
 
 ___
 
@@ -593,11 +593,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageAlignVertical](DThemeButton.md#getimagealignvertical)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageAlignVertical](DThemeButtonDate.md#getimagealignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L61)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L61)
 
 ___
 
@@ -611,11 +611,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageAlignWith](DThemeButton.md#getimagealignwith)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageAlignWith](DThemeButtonDate.md#getimagealignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L62)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L62)
 
 ___
 
@@ -629,11 +629,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageMarginHorizontal](DThemeButton.md#getimagemarginhorizontal)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageMarginHorizontal](DThemeButtonDate.md#getimagemarginhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L63)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L63)
 
 ___
 
@@ -647,11 +647,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageMarginVertial](DThemeButton.md#getimagemarginvertial)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageMarginVertial](DThemeButtonDate.md#getimagemarginvertial)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L64)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L64)
 
 ___
 
@@ -671,11 +671,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageSource](DThemeButton.md#getimagesource)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageSource](DThemeButtonDate.md#getimagesource)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L67)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L67)
 
 ___
 
@@ -695,11 +695,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageTintAlpha](DThemeButton.md#getimagetintalpha)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageTintAlpha](DThemeButtonDate.md#getimagetintalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L66)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L66)
 
 ___
 
@@ -719,11 +719,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getImageTintColor](DThemeButton.md#getimagetintcolor)
+[DThemeButtonDate](DThemeButtonDate.md).[getImageTintColor](DThemeButtonDate.md#getimagetintcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L65)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L65)
 
 ___
 
@@ -739,11 +739,11 @@ Returns an interactivity.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getInteractive](DThemeButton.md#getinteractive)
+[DThemeButtonDate](DThemeButtonDate.md).[getInteractive](DThemeButtonDate.md#getinteractive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:633](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L633)
+[src/main/typescript/wcardinal/ui/d-base.ts:633](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L633)
 
 ___
 
@@ -757,11 +757,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getLineHeight](DThemeButton.md#getlineheight)
+[DThemeButtonDate](DThemeButtonDate.md).[getLineHeight](DThemeButtonDate.md#getlineheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-font.ts#L35)
+[src/main/typescript/wcardinal/ui/d-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-font.ts#L35)
 
 ___
 
@@ -783,11 +783,11 @@ Returns an outline align.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getOutlineAlign](DThemeButton.md#getoutlinealign)
+[DThemeButtonDate](DThemeButtonDate.md).[getOutlineAlign](DThemeButtonDate.md#getoutlinealign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:615](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L615)
+[src/main/typescript/wcardinal/ui/d-base.ts:615](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L615)
 
 ___
 
@@ -809,11 +809,11 @@ Returns an outline alpha.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getOutlineAlpha](DThemeButton.md#getoutlinealpha)
+[DThemeButtonDate](DThemeButtonDate.md).[getOutlineAlpha](DThemeButtonDate.md#getoutlinealpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:594](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L594)
+[src/main/typescript/wcardinal/ui/d-base.ts:594](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L594)
 
 ___
 
@@ -836,11 +836,11 @@ If the color is null, outlines are not be rendered.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getOutlineColor](DThemeButton.md#getoutlinecolor)
+[DThemeButtonDate](DThemeButtonDate.md).[getOutlineColor](DThemeButtonDate.md#getoutlinecolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:587](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L587)
+[src/main/typescript/wcardinal/ui/d-base.ts:587](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L587)
 
 ___
 
@@ -862,11 +862,11 @@ Returns an outline mask.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getOutlineMask](DThemeButton.md#getoutlinemask)
+[DThemeButtonDate](DThemeButtonDate.md).[getOutlineMask](DThemeButtonDate.md#getoutlinemask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:622](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L622)
+[src/main/typescript/wcardinal/ui/d-base.ts:622](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L622)
 
 ___
 
@@ -888,11 +888,11 @@ Returns an outline offset.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getOutlineOffset](DThemeButton.md#getoutlineoffset)
+[DThemeButtonDate](DThemeButtonDate.md).[getOutlineOffset](DThemeButtonDate.md#getoutlineoffset)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:608](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L608)
+[src/main/typescript/wcardinal/ui/d-base.ts:608](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L608)
 
 ___
 
@@ -914,11 +914,11 @@ Returns an outline width.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getOutlineWidth](DThemeButton.md#getoutlinewidth)
+[DThemeButtonDate](DThemeButtonDate.md).[getOutlineWidth](DThemeButtonDate.md#getoutlinewidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:601](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L601)
+[src/main/typescript/wcardinal/ui/d-base.ts:601](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L601)
 
 ___
 
@@ -934,11 +934,11 @@ Returns a bottom padding.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getPaddingBottom](DThemeButton.md#getpaddingbottom)
+[DThemeButtonDate](DThemeButtonDate.md).[getPaddingBottom](DThemeButtonDate.md#getpaddingbottom)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L569)
+[src/main/typescript/wcardinal/ui/d-base.ts:569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L569)
 
 ___
 
@@ -954,11 +954,11 @@ Returns a left padding.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getPaddingLeft](DThemeButton.md#getpaddingleft)
+[DThemeButtonDate](DThemeButtonDate.md).[getPaddingLeft](DThemeButtonDate.md#getpaddingleft)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:554](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L554)
+[src/main/typescript/wcardinal/ui/d-base.ts:554](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L554)
 
 ___
 
@@ -974,11 +974,11 @@ Returns a right padding.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getPaddingRight](DThemeButton.md#getpaddingright)
+[DThemeButtonDate](DThemeButtonDate.md).[getPaddingRight](DThemeButtonDate.md#getpaddingright)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:559](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L559)
+[src/main/typescript/wcardinal/ui/d-base.ts:559](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L559)
 
 ___
 
@@ -994,11 +994,11 @@ Returns a top padding.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getPaddingTop](DThemeButton.md#getpaddingtop)
+[DThemeButtonDate](DThemeButtonDate.md).[getPaddingTop](DThemeButtonDate.md#getpaddingtop)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L564)
+[src/main/typescript/wcardinal/ui/d-base.ts:564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L564)
 
 ___
 
@@ -1012,11 +1012,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageAlignHorizontal](DThemeButton.md#getsecondaryimagealignhorizontal)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageAlignHorizontal](DThemeButtonDate.md#getsecondaryimagealignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L54)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L54)
 
 ___
 
@@ -1030,11 +1030,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageAlignVertical](DThemeButton.md#getsecondaryimagealignvertical)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageAlignVertical](DThemeButtonDate.md#getsecondaryimagealignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L55)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L55)
 
 ___
 
@@ -1048,11 +1048,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageAlignWith](DThemeButton.md#getsecondaryimagealignwith)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageAlignWith](DThemeButtonDate.md#getsecondaryimagealignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L56)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L56)
 
 ___
 
@@ -1066,11 +1066,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageMarginHorizontal](DThemeButton.md#getsecondaryimagemarginhorizontal)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageMarginHorizontal](DThemeButtonDate.md#getsecondaryimagemarginhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L57)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L57)
 
 ___
 
@@ -1084,11 +1084,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageMarginVertial](DThemeButton.md#getsecondaryimagemarginvertial)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageMarginVertial](DThemeButtonDate.md#getsecondaryimagemarginvertial)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L58)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L58)
 
 ___
 
@@ -1108,11 +1108,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageSource](DThemeButton.md#getsecondaryimagesource)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageSource](DThemeButtonDate.md#getsecondaryimagesource)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L61)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L61)
 
 ___
 
@@ -1132,11 +1132,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageTintAlpha](DThemeButton.md#getsecondaryimagetintalpha)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageTintAlpha](DThemeButtonDate.md#getsecondaryimagetintalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L60)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L60)
 
 ___
 
@@ -1156,11 +1156,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getSecondaryImageTintColor](DThemeButton.md#getsecondaryimagetintcolor)
+[DThemeButtonDate](DThemeButtonDate.md).[getSecondaryImageTintColor](DThemeButtonDate.md#getsecondaryimagetintcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L59)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L59)
 
 ___
 
@@ -1177,11 +1177,11 @@ If a shadow is null, no shadow is rendered.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getShadow](DThemeButton.md#getshadow)
+[DThemeButtonDate](DThemeButtonDate.md).[getShadow](DThemeButtonDate.md#getshadow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:628](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L628)
+[src/main/typescript/wcardinal/ui/d-base.ts:628](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L628)
 
 ___
 
@@ -1195,11 +1195,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageAlignHorizontal](DThemeButton.md#gettertiaryimagealignhorizontal)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageAlignHorizontal](DThemeButtonDate.md#gettertiaryimagealignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L63)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L63)
 
 ___
 
@@ -1213,11 +1213,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageAlignVertical](DThemeButton.md#gettertiaryimagealignvertical)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageAlignVertical](DThemeButtonDate.md#gettertiaryimagealignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L64)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L64)
 
 ___
 
@@ -1231,11 +1231,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageAlignWith](DThemeButton.md#gettertiaryimagealignwith)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageAlignWith](DThemeButtonDate.md#gettertiaryimagealignwith)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L65)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L65)
 
 ___
 
@@ -1249,11 +1249,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageMarginHorizontal](DThemeButton.md#gettertiaryimagemarginhorizontal)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageMarginHorizontal](DThemeButtonDate.md#gettertiaryimagemarginhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L66)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L66)
 
 ___
 
@@ -1267,11 +1267,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageMarginVertial](DThemeButton.md#gettertiaryimagemarginvertial)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageMarginVertial](DThemeButtonDate.md#gettertiaryimagemarginvertial)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L67)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L67)
 
 ___
 
@@ -1291,11 +1291,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageSource](DThemeButton.md#gettertiaryimagesource)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageSource](DThemeButtonDate.md#gettertiaryimagesource)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L70)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L70)
 
 ___
 
@@ -1315,11 +1315,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageTintAlpha](DThemeButton.md#gettertiaryimagetintalpha)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageTintAlpha](DThemeButtonDate.md#gettertiaryimagetintalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L69)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L69)
 
 ___
 
@@ -1339,11 +1339,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTertiaryImageTintColor](DThemeButton.md#gettertiaryimagetintcolor)
+[DThemeButtonDate](DThemeButtonDate.md).[getTertiaryImageTintColor](DThemeButtonDate.md#gettertiaryimagetintcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L68)
+[src/main/typescript/wcardinal/ui/d-image-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-base.ts#L68)
 
 ___
 
@@ -1357,11 +1357,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTextAlignHorizontal](DThemeButton.md#gettextalignhorizontal)
+[DThemeButtonDate](DThemeButtonDate.md).[getTextAlignHorizontal](DThemeButtonDate.md#gettextalignhorizontal)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L87)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L87)
 
 ___
 
@@ -1375,11 +1375,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTextAlignVertical](DThemeButton.md#gettextalignvertical)
+[DThemeButtonDate](DThemeButtonDate.md).[getTextAlignVertical](DThemeButtonDate.md#gettextalignvertical)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L86)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L86)
 
 ___
 
@@ -1406,11 +1406,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTextFormatter](DThemeButton.md#gettextformatter)
+[DThemeButtonDate](DThemeButtonDate.md).[getTextFormatter](DThemeButtonDate.md#gettextformatter)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L70)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L70)
 
 ___
 
@@ -1424,11 +1424,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTextStyleClipping](DThemeButton.md#gettextstyleclipping)
+[DThemeButtonDate](DThemeButtonDate.md).[getTextStyleClipping](DThemeButtonDate.md#gettextstyleclipping)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L88)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L88)
 
 ___
 
@@ -1442,11 +1442,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTextStyleWordWrap](DThemeButton.md#gettextstylewordwrap)
+[DThemeButtonDate](DThemeButtonDate.md).[getTextStyleWordWrap](DThemeButtonDate.md#gettextstylewordwrap)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L89)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L89)
 
 ___
 
@@ -1469,11 +1469,11 @@ Called to get a text vale if there is no text value.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTextValue](DThemeButton.md#gettextvalue)
+[DThemeButtonDate](DThemeButtonDate.md).[getTextValue](DThemeButtonDate.md#gettextvalue)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L84)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L84)
 
 ___
 
@@ -1489,11 +1489,11 @@ Returns a tooltip text.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getTitle](DThemeButton.md#gettitle)
+[DThemeButtonDate](DThemeButtonDate.md).[getTitle](DThemeButtonDate.md#gettitle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:643](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L643)
+[src/main/typescript/wcardinal/ui/d-base.ts:643](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L643)
 
 ___
 
@@ -1511,11 +1511,11 @@ If a weight is less than or equals to zero, layout classes are supposed not to c
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getWeight](DThemeButton.md#getweight)
+[DThemeButtonDate](DThemeButtonDate.md).[getWeight](DThemeButtonDate.md#getweight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:656](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L656)
+[src/main/typescript/wcardinal/ui/d-base.ts:656](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L656)
 
 ___
 
@@ -1531,11 +1531,11 @@ Returns when to activate a button.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getWhen](DThemeButton.md#getwhen)
+[DThemeButtonDate](DThemeButtonDate.md).[getWhen](DThemeButtonDate.md#getwhen)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L83)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L83)
 
 ___
 
@@ -1551,11 +1551,11 @@ Returns a width.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getWidth](DThemeButton.md#getwidth)
+[DThemeButtonDate](DThemeButtonDate.md).[getWidth](DThemeButtonDate.md#getwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L488)
+[src/main/typescript/wcardinal/ui/d-base.ts:488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L488)
 
 ___
 
@@ -1571,11 +1571,11 @@ Returns a X coordinate.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getX](DThemeButton.md#getx)
+[DThemeButtonDate](DThemeButtonDate.md).[getX](DThemeButtonDate.md#getx)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:473](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L473)
+[src/main/typescript/wcardinal/ui/d-base.ts:473](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L473)
 
 ___
 
@@ -1591,11 +1591,11 @@ Returns a Y coordinate.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[getY](DThemeButton.md#gety)
+[DThemeButtonDate](DThemeButtonDate.md).[getY](DThemeButtonDate.md#gety)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:478](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L478)
+[src/main/typescript/wcardinal/ui/d-base.ts:478](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L478)
 
 ___
 
@@ -1609,11 +1609,11 @@ ___
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[isOverflowMaskEnabled](DThemeButton.md#isoverflowmaskenabled)
+[DThemeButtonDate](DThemeButtonDate.md).[isOverflowMaskEnabled](DThemeButtonDate.md#isoverflowmaskenabled)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L90)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L90)
 
 ___
 
@@ -1629,11 +1629,11 @@ Returns true to turn a toggle mode on.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[isToggle](DThemeButton.md#istoggle)
+[DThemeButtonDate](DThemeButtonDate.md).[isToggle](DThemeButtonDate.md#istoggle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L78)
+[src/main/typescript/wcardinal/ui/d-button-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-button-base.ts#L78)
 
 ___
 
@@ -1649,11 +1649,11 @@ Creates a new shadow.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[newShadow](DThemeButton.md#newshadow)
+[DThemeButtonDate](DThemeButtonDate.md).[newShadow](DThemeButtonDate.md#newshadow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:661](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L661)
+[src/main/typescript/wcardinal/ui/d-base.ts:661](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L661)
 
 ___
 
@@ -1669,11 +1669,11 @@ Creates a new weak shadow.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[newShadowWeak](DThemeButton.md#newshadowweak)
+[DThemeButtonDate](DThemeButtonDate.md).[newShadowWeak](DThemeButtonDate.md#newshadowweak)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:666](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L666)
+[src/main/typescript/wcardinal/ui/d-base.ts:666](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L666)
 
 ___
 
@@ -1695,11 +1695,11 @@ Returns true if focusable.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[newState](DThemeButton.md#newstate)
+[DThemeButtonDate](DThemeButtonDate.md).[newState](DThemeButtonDate.md#newstate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:638](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base.ts#L638)
+[src/main/typescript/wcardinal/ui/d-base.ts:638](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base.ts#L638)
 
 ___
 
@@ -1716,8 +1716,8 @@ Called to initialize a text value if a text value is not given.
 
 #### Inherited from
 
-[DThemeButton](DThemeButton.md).[newTextValue](DThemeButton.md#newtextvalue)
+[DThemeButtonDate](DThemeButtonDate.md).[newTextValue](DThemeButtonDate.md#newtextvalue)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L76)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L76)

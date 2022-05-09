@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / EShapeLineOfAnyPointsStrokeImplParent
+[Winter Cardinal UI - v0.164.0](../index.md) / EShapeLineOfAnyPointsStrokeImplParent
 
 # Interface: EShapeLineOfAnyPointsStrokeImplParent
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-stroke-impl.ts#L12)

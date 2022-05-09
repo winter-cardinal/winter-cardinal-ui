@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DDiagramSerializedLayer
+[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramSerializedLayer
 
 # Interface: DDiagramSerializedLayer
 
@@ -27,7 +27,7 @@ A name or a resource index number of a name
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:349](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L349)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:349](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L349)
 
 ___
 
@@ -46,7 +46,7 @@ A visibility.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:361](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L361)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:361](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L361)
 
 ___
 
@@ -58,7 +58,7 @@ A X-coordinate position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:364](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L364)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:364](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L364)
 
 ___
 
@@ -70,7 +70,7 @@ A Y-coordinate position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:367](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L367)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:367](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L367)
 
 ___
 
@@ -82,7 +82,7 @@ A width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:370](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L370)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:370](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L370)
 
 ___
 
@@ -94,7 +94,7 @@ A height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:373](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L373)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:373](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L373)
 
 ___
 
@@ -107,7 +107,7 @@ JSON.stringify(DDiagramSerializedFill).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:379](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L379)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:379](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L379)
 
 ___
 
@@ -127,4 +127,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:392](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L392)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:392](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L392)

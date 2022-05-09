@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DChartSeriesLinearOptions
+[Winter Cardinal UI - v0.164.0](../index.md) / DChartSeriesLinearOptions
 
 # Interface: DChartSeriesLinearOptions
 
@@ -38,7 +38,7 @@ A coefficient of the variable x. The default value is 1.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L8)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L8)
 
 ___
 
@@ -54,7 +54,7 @@ A coefficient of the variable y. The default value is 1.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L11)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L26)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L27)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L30)
 
 ___
 
@@ -108,7 +108,7 @@ X coordinate of the point the line passes through. The default value is 0.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L14)
 
 ___
 
@@ -124,4 +124,4 @@ Y coordinate of the point the line passes through. The default value is 0.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L17)

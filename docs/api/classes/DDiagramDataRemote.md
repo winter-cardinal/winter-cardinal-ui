@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DDiagramDataRemote
+[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramDataRemote
 
 # Class: DDiagramDataRemote
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L17)
 
 ## Properties
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L15)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L15)
 
 ## Methods
 
@@ -62,4 +62,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L21)

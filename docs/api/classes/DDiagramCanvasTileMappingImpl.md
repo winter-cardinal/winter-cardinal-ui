@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DDiagramCanvasTileMappingImpl
+[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramCanvasTileMappingImpl
 
 # Class: DDiagramCanvasTileMappingImpl
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L16)
 
 • **new DDiagramCanvasTileMappingImpl**(`cb`, `enable`, `lon0`, `lat0`, `lon1`, `lat1`)
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L17)
 
 ## Properties
 
@@ -79,7 +79,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L14)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L11)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L12)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L13)
 
 ## Accessors
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L51)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L51)
 
 • `set` **enable**(`enable`): `void`
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L55)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L55)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L62)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L62)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L66)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L66)
 
 ## Methods
 
@@ -197,4 +197,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L70)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-impl.ts#L70)

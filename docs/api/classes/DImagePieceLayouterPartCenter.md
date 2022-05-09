@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DImagePieceLayouterPartCenter
+[Winter Cardinal UI - v0.164.0](../index.md) / DImagePieceLayouterPartCenter
 
 # Class: DImagePieceLayouterPartCenter
 
@@ -16,7 +16,13 @@
 
 ### Properties
 
-- [pieces](DImagePieceLayouterPartCenter.md#pieces)
+- [\_margin](DImagePieceLayouterPartCenter.md#_margin)
+- [\_pieces](DImagePieceLayouterPartCenter.md#_pieces)
+- [\_size](DImagePieceLayouterPartCenter.md#_size)
+- [\_text](DImagePieceLayouterPartCenter.md#_text)
+
+### Accessors
+
 - [size](DImagePieceLayouterPartCenter.md#size)
 
 ### Methods
@@ -24,6 +30,7 @@
 - [add](DImagePieceLayouterPartCenter.md#add)
 - [clear](DImagePieceLayouterPartCenter.md#clear)
 - [execute](DImagePieceLayouterPartCenter.md#execute)
+- [set](DImagePieceLayouterPartCenter.md#set)
 
 ## Constructors
 
@@ -37,35 +44,81 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L7)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L11)
 
 ## Properties
 
-### pieces
+### \_margin
 
-• **pieces**: [`DImagePiece`](DImagePiece.md)[]
+• `Protected` **\_margin**: `number`
 
 #### Inherited from
 
-[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[pieces](DImagePieceLayouterPart.md#pieces)
+[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[_margin](DImagePieceLayouterPart.md#_margin)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L4)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L7)
 
 ___
 
-### size
+### \_pieces
 
-• **size**: `number`
+• `Protected` **\_pieces**: [`DImagePiece`](DImagePiece.md)[]
 
 #### Inherited from
 
-[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[size](DImagePieceLayouterPart.md#size)
+[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[_pieces](DImagePieceLayouterPart.md#_pieces)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L5)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L5)
+
+___
+
+### \_size
+
+• `Protected` **\_size**: `number`
+
+#### Inherited from
+
+[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[_size](DImagePieceLayouterPart.md#_size)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L6)
+
+___
+
+### \_text
+
+• `Protected` `Optional` **\_text**: ``null`` \| [`DDynamicText`](DDynamicText.md)
+
+#### Inherited from
+
+[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[_text](DImagePieceLayouterPart.md#_text)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L9)
+
+## Accessors
+
+### size
+
+• `get` **size**(): `number`
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+DImagePieceLayouterPart.size
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L35)
 
 ## Methods
 
@@ -91,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts#L5)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts#L5)
 
 ___
 
@@ -109,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L12)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L17)
 
 ___
 
@@ -131,4 +184,28 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts#L11)
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part-center.ts#L11)
+
+___
+
+### set
+
+▸ **set**(`text`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `text` | ``null`` \| [`DDynamicText`](DDynamicText.md) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[DImagePieceLayouterPart](DImagePieceLayouterPart.md).[set](DImagePieceLayouterPart.md#set)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-image-piece-layouter-part.ts#L31)

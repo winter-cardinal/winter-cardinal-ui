@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / DShadow
+[Winter Cardinal UI - v0.164.0](../index.md) / DShadow
 
 # Interface: DShadow
 
@@ -1435,7 +1435,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-reflowable.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/d-base-reflowable.ts#L9)
+[src/main/typescript/wcardinal/ui/d-base-reflowable.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-base-reflowable.ts#L9)
 
 ___
 

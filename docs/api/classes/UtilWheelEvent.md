@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / UtilWheelEvent
+[Winter Cardinal UI - v0.164.0](../index.md) / UtilWheelEvent
 
 # Class: UtilWheelEvent
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L68)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L68)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L39)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L39)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L76)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L76)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L83)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L83)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L60)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L60)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L52)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L52)
 
 ___
 
@@ -142,4 +142,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L175)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L175)

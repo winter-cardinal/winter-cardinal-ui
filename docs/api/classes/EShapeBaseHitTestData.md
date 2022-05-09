@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / EShapeBaseHitTestData
+[Winter Cardinal UI - v0.164.0](../index.md) / EShapeBaseHitTestData
 
 # Class: EShapeBaseHitTestData
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L15)
 
 ## Properties
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L10)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L13)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L12)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L11)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L9)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L7)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L8)
 
 ## Methods
 
@@ -126,4 +126,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-base-hit-test-data.ts#L25)

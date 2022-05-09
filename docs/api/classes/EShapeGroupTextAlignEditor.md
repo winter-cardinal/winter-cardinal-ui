@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / EShapeGroupTextAlignEditor
+[Winter Cardinal UI - v0.164.0](../index.md) / EShapeGroupTextAlignEditor
 
 # Class: EShapeGroupTextAlignEditor
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L16)
 
 ## Properties
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L14)
 
 ## Accessors
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L20)
 
 • `set` **horizontal**(`horizontal`): `void`
 
@@ -91,7 +91,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L28)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L35)
 
 • `set` **vertical**(`vertical`): `void`
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L43)
 
 ## Methods
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L50)
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L79)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L79)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L75)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L75)
 
 ___
 
@@ -227,7 +227,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L57)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L57)
 
 ___
 
@@ -245,4 +245,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L64)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-align-editor.ts#L64)

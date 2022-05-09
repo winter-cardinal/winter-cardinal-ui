@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.160.0](../index.md) / UtilFileEvents
+[Winter Cardinal UI - v0.164.0](../index.md) / UtilFileEvents
 
 # Interface: UtilFileEvents<EMITTER\>
 
@@ -37,7 +37,7 @@ Triggered when a file is opened.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L43)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L43)
 
 ## Methods
 
@@ -60,7 +60,7 @@ Triggered when an operation is aborted.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L54)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L54)
 
 ___
 
@@ -82,4 +82,4 @@ Triggered when an operation is canceled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.160.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L61)
+[src/main/typescript/wcardinal/ui/util/util-file-opener.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/util-file-opener.ts#L61)
