@@ -76,7 +76,7 @@ export class DThemeDarkPickerColorGradient
 	}
 
 	getInteractive(): DBaseInteractive {
-		return DBaseInteractive.BOTH;
+		return DBaseInteractive.CHILDREN;
 	}
 
 	newState(state: DBaseStateSet): void {

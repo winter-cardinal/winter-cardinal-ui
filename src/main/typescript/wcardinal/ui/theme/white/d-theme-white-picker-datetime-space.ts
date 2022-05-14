@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DThemePickerDatetimeSpace } from "../../d-picker-datetime-space";
@@ -31,5 +32,9 @@ export class DThemeWhitePickerDatetimeSpace
 	newState(state: DBaseStateSet): void {
 		super.newState(state);
 		state.isFocusable = false;
+	}
+
+	getInteractive(): DBaseInteractive {
+		return DBaseInteractive.NONE;
 	}
 }

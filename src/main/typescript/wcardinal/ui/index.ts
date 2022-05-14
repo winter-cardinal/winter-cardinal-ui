@@ -226,6 +226,8 @@ export * from "./d-dialog-confirm-message";
 export * from "./d-dialog-confirm";
 export * from "./d-dialog-date";
 export * from "./d-dialog-datetime";
+export * from "./d-dialog-gesture-impl";
+export * from "./d-dialog-gesture";
 export * from "./d-dialog-input-boolean";
 export * from "./d-dialog-input-integer";
 export * from "./d-dialog-input-real";

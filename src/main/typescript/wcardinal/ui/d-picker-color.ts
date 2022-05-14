@@ -15,6 +15,7 @@ import { DPickerColorRecent } from "./d-picker-color-recent";
 import { UtilHsv } from "./util/util-hsv";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilRgb } from "./util/util-rgb";
+import { DBaseInteractive } from "./d-base-interactive";
 
 export interface DPickerColorOptions<THEME extends DThemePickerColor = DThemePickerColor>
 	extends DBaseOptions<THEME> {}
@@ -325,7 +326,8 @@ export class DPickerColor<
 				width: inputLabelWidth,
 				text: {
 					value: "#"
-				}
+				},
+				interactive: DBaseInteractive.NONE
 			},
 			input: {
 				weight: 1,
@@ -354,7 +356,8 @@ export class DPickerColor<
 				width: inputLabelWidth,
 				text: {
 					value: "A"
-				}
+				},
+				interactive: DBaseInteractive.NONE
 			},
 			input: {
 				weight: 1,

@@ -4,6 +4,7 @@
  */
 
 import { DBase, DBaseOptions } from "./d-base";
+import { DBaseInteractive } from "./d-base-interactive";
 import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
@@ -116,6 +117,7 @@ export abstract class DDialogInput<
 		if (isString(label)) {
 			return {
 				weight: 1,
+				interactive: DBaseInteractive.NONE,
 				text: {
 					value: label
 				}
@@ -128,9 +130,14 @@ export abstract class DDialogInput<
 				text.value = theme.getLabel();
 			}
 
-			// Margin
+			// Weight
 			if (label.width === undefined && label.weight === undefined) {
 				label.weight = 1;
+			}
+
+			// Interactive
+			if (label.interactive === undefined) {
+				label.interactive = DBaseInteractive.NONE;
 			}
 
 			return label;

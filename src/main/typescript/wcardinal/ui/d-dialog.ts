@@ -3,17 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Point } from "pixi.js";
+import { Point, Rectangle } from "pixi.js";
 import { DAnimation } from "./d-animation";
-import { DAnimationFadeIn } from "./d-animation-fade-in";
+import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
+import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
 import { DDialogAlign } from "./d-dialog-align";
 import { DDialogCloseOn } from "./d-dialog-close-on";
+import { DDialogGesture, DDialogGestureOptions } from "./d-dialog-gesture";
+import { DDialogGestureImpl } from "./d-dialog-gesture-impl";
 import { DDialogMode } from "./d-dialog-mode";
 import { DDialogState } from "./d-dialog-state";
 import { DOnOptions } from "./d-on-options";
+import { DPadding } from "./d-padding";
 import { toEnum } from "./util/to-enum";
 import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
@@ -59,7 +63,9 @@ export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog, EMITT
 
 	sticky?: boolean;
 
-	align?: DDialogAlign;
+	gesture?: boolean | DDialogGestureOptions;
+
+	align?: DDialogAlign | null;
 
 	/**
 	 * Mappings of event names and handlers.
@@ -72,10 +78,13 @@ export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog, EMITT
  */
 export interface DThemeDialog extends DThemeBase {
 	getMode(): DDialogMode;
-	closeOn(): DDialogCloseOn;
-	isSticky(): boolean;
-	getOffsetX(): number;
-	getOffsetY(): number;
+	closeOn(mode: DDialogMode): DDialogCloseOn;
+	isSticky(mode: DDialogMode): boolean;
+	isGestureEnabled(mode: DDialogMode): boolean;
+	getOffsetX(mode: DDialogMode): number;
+	getOffsetY(mode: DDialogMode): number;
+	getAlign(mode: DDialogMode): DDialogAlign | null;
+	newAnimation(mode: DDialogMode): DAnimation<DBase> | null;
 }
 
 /**
@@ -91,6 +100,8 @@ export class DDialog<
 	THEME extends DThemeDialog = DThemeDialog,
 	OPTIONS extends DDialogOptions<THEME> = DDialogOptions<THEME>
 > extends DBase<THEME, OPTIONS> {
+	protected static WORK_BOUNDS?: Rectangle;
+
 	protected _promise?: Promise<VALUE>;
 	protected _resolve?: (value: VALUE | PromiseLike<VALUE>) => void;
 	protected _reject?: (reason?: any) => void;
@@ -102,8 +113,11 @@ export class DDialog<
 	protected _mode!: DDialogMode;
 	protected _sticky!: boolean;
 	protected _onPrerenderBound!: () => void;
-	protected _align!: DDialogAlign;
+	protected _align!: DDialogAlign | null;
 	protected _owner?: DBase<any, any> | null;
+
+	protected _gesture!: DDialogGesture<this>;
+	protected _layer!: DApplicationLayerLike | null;
 
 	protected init(options?: OPTIONS): void {
 		super.init(options);
@@ -111,6 +125,7 @@ export class DDialog<
 		this._onPrerenderBound = (): void => {
 			this.onPrerender();
 		};
+		this._layer = null;
 
 		// Mode
 		const theme = this.theme;
@@ -118,54 +133,80 @@ export class DDialog<
 		this._mode = mode;
 
 		// Sticky
-		this._sticky = options?.sticky ?? theme.isSticky();
+		this._sticky = options?.sticky ?? theme.isSticky(mode);
 
 		// Close On
-		const closeOn = options?.closeOn ?? theme.closeOn();
+		const closeOn = options?.closeOn ?? theme.closeOn(mode);
 		this._closeOn = closeOn;
 
 		// Align
-		this._align = toEnum(options?.align ?? DDialogAlign.BOTTOM, DDialogAlign);
+		this._align = toEnum(options?.align ?? theme.getAlign(mode), DDialogAlign);
 
 		// Overlay
-		this._overlay = new UtilOverlay();
+		const overlay = new UtilOverlay();
+		this._overlay = overlay;
 
-		// Others
+		// Gesture
+		this._gesture = new DDialogGestureImpl(
+			this,
+			mode,
+			overlay,
+			options?.gesture ?? theme.isGestureEnabled(mode)
+		);
+
+		// State
 		switch (mode) {
 			case DDialogMode.MODAL:
-			case DDialogMode.MENU:
 				this.visible = false;
-				const state = this.state;
-				state.lock();
-				state.isFocusRoot = true;
-				state.add(mode === DDialogMode.MODAL ? DDialogState.MODAL : DDialogState.MENU);
-				state.unlock();
-				if (closeOn & DDialogCloseOn.CLICK_OUTSIDE) {
-					UtilClickOutside.apply(this, (): void => {
-						this.onCloseOn();
-					});
-				}
+				this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MODAL);
 				break;
 			case DDialogMode.MODELESS:
 				this.state.add(DDialogState.MODELESS);
 				break;
+			case DDialogMode.MENU:
+				this.visible = false;
+				this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MENU);
+				break;
 		}
+
+		// Outside-click handling
+		if (closeOn & DDialogCloseOn.CLICK_OUTSIDE) {
+			UtilClickOutside.apply(this, (): void => {
+				this.onCloseOn();
+			});
+		}
+	}
+
+	get mode(): DDialogMode {
+		return this._mode;
+	}
+
+	get gesture(): DDialogGesture<this> {
+		return this._gesture;
+	}
+
+	get layer(): DApplicationLayerLike | null {
+		return this._layer;
+	}
+
+	onParentResize(parentWidth: number, parentHeight: number, parentPadding: DPadding): void {
+		if (this.isOpened()) {
+			const layer = this._layer;
+			if (layer != null) {
+				const gesture = this._gesture;
+				if (gesture.isDirty()) {
+					const position = this.position;
+					gesture.constraint(this, layer, position.x, position.y);
+				}
+			}
+		}
+		super.onParentResize(parentWidth, parentHeight, parentPadding);
 	}
 
 	protected getAnimation(): DAnimation | null {
 		let result = this._animation;
 		if (result === undefined) {
-			switch (this._mode) {
-				case DDialogMode.MODAL:
-					result = this._options?.animation ?? new DAnimationFadeIn();
-					break;
-				case DDialogMode.MODELESS:
-					result = null;
-					break;
-				case DDialogMode.MENU:
-					result = this._options?.animation ?? null;
-					break;
-			}
+			result = this._options?.animation ?? this.theme.newAnimation(this._mode);
 			if (result) {
 				result.target = this;
 				result.on("end", (isReverse: boolean): void => {
@@ -205,55 +246,69 @@ export class DDialog<
 
 			this._owner = owner;
 
+			// Attach to a layer
+			let layer: DApplicationLayerLike | null = null;
 			switch (this._mode) {
 				case DDialogMode.MODAL:
-					{
-						const layer = this._overlay.pick(this);
-						layer.stage.addChild(this);
-					}
+				case DDialogMode.MENU:
+					layer = this._overlay.pick(this);
+					layer.stage.addChild(this);
 					break;
 				case DDialogMode.MODELESS:
 					break;
-				case DDialogMode.MENU:
-					{
-						const layer = this._overlay.pick(this);
-						layer.stage.addChild(this);
-
-						// Position & size
-						const renderer = layer.renderer;
-						const onPrerenderBound = this._onPrerenderBound;
-						if (this._sticky) {
-							renderer.on("prerender", onPrerenderBound);
-						} else {
-							renderer.once("prerender", onPrerenderBound);
-						}
-					}
-					break;
 			}
+
+			// Position & size
+			const align = this._align;
+			if (align != null && !this._gesture.isDirty()) {
+				layer = layer ?? DApplications.getLayer(this);
+				if (layer != null) {
+					const renderer = layer.renderer;
+					const onPrerenderBound = this._onPrerenderBound;
+					if (this._sticky) {
+						renderer.on("prerender", onPrerenderBound);
+					} else {
+						renderer.once("prerender", onPrerenderBound);
+					}
+				}
+			}
+
+			// Layer
+			this._layer = layer;
+
+			// Done
 			this.onOpen();
 		}
 		return result;
 	}
 
 	protected onPrerender(): void {
+		const align = this._align;
+		if (align == null) {
+			return;
+		}
+
+		const layer = this._layer;
+		if (layer == null) {
+			return;
+		}
+
 		const owner = this._owner;
 		if (owner) {
-			const bounds = owner.getBounds();
-			if (bounds) {
-				const layer = this._overlay.picked;
-				if (layer) {
-					const theme = this.theme;
-					UtilAttach.attach(
-						this,
-						bounds,
-						theme.getOffsetX(),
-						theme.getOffsetY(),
-						layer.width,
-						layer.height,
-						this._align
-					);
-				}
-			}
+			const mode = this._mode;
+			const bounds = owner.getBounds(false, (DDialog.WORK_BOUNDS ??= new Rectangle()));
+			const theme = this.theme;
+			UtilAttach.attach(
+				this,
+				bounds,
+				theme.getOffsetX(mode),
+				theme.getOffsetY(mode),
+				layer.width,
+				layer.height,
+				align
+			);
+		} else {
+			this.position.set((layer.width - this.width) * 0.5, (layer.height - this.height) * 0.5);
 		}
 	}
 
@@ -306,7 +361,7 @@ export class DDialog<
 
 	protected onClose(): void {
 		// Focus
-		const layer = this._overlay.picked;
+		const layer = this._layer;
 		const focused = this._focused;
 		if (focused != null) {
 			this._focused = null;
@@ -323,17 +378,10 @@ export class DDialog<
 			this.blur(true);
 		}
 
-		// Remove the prerender event handler
-		switch (this._mode) {
-			case DDialogMode.MODAL:
-				break;
-			case DDialogMode.MODELESS:
-				break;
-			case DDialogMode.MENU:
-				if (layer) {
-					layer.renderer.off("prerender", this._onPrerenderBound);
-				}
-				break;
+		// Remove the prerender event handler and forget the layer
+		if (layer) {
+			layer.renderer.off("prerender", this._onPrerenderBound);
+			this._layer = null;
 		}
 
 		// Forget the owner
@@ -352,17 +400,10 @@ export class DDialog<
 	}
 
 	onKeyDown(e: KeyboardEvent): boolean {
-		switch (this._mode) {
-			case DDialogMode.MODAL:
-			case DDialogMode.MENU:
-				if (this._closeOn & DDialogCloseOn.ESC) {
-					if (UtilKeyboardEvent.isCancelKey(e)) {
-						this.onCloseOn();
-					}
-				}
-				break;
-			case DDialogMode.MODELESS:
-				break;
+		if (this._closeOn & DDialogCloseOn.ESC) {
+			if (UtilKeyboardEvent.isCancelKey(e)) {
+				this.onCloseOn();
+			}
 		}
 		return super.onKeyDown(e);
 	}

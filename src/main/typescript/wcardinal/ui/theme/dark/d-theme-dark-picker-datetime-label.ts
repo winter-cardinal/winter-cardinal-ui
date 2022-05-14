@@ -4,6 +4,7 @@
  */
 
 import { DAlignHorizontal } from "../../d-align-horizontal";
+import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DFontWeight } from "../../d-font";
@@ -45,5 +46,9 @@ export class DThemeDarkPickerDatetimeLabel
 
 	newTextValue(): DStateAwareOrValueMightBe<Date> {
 		return new Date();
+	}
+
+	getInteractive(): DBaseInteractive {
+		return DBaseInteractive.NONE;
 	}
 }

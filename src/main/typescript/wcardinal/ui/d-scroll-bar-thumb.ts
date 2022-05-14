@@ -22,7 +22,6 @@ export abstract class DScrollBarThumb extends DBase<DThemeScrollBarThumb, DScrol
 		const position = new Point();
 		this._gestureUtil = new UtilGesture<DScrollBarThumb>({
 			bind: this,
-			easing: true,
 			on: {
 				start: (): void => {
 					position.copyFrom(this.position);

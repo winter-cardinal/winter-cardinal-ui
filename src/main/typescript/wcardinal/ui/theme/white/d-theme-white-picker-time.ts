@@ -12,8 +12,12 @@ import { DThemePickerTime } from "../../d-picker-time";
 import { DThemeWhiteBase } from "./d-theme-white-base";
 
 export class DThemeWhitePickerTime extends DThemeWhiteBase implements DThemePickerTime {
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return null;
+	}
+
 	getInteractive(): DBaseInteractive {
-		return DBaseInteractive.BOTH;
+		return DBaseInteractive.CHILDREN;
 	}
 
 	newState(state: DBaseStateSet): void {

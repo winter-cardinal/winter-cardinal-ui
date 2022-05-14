@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DAnimation } from "../../d-animation";
+import { DAnimationFadeIn } from "../../d-animation-fade-in";
+import { DBase } from "../../d-base";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialog } from "../../d-dialog";
+import { DDialogAlign } from "../../d-dialog-align";
 import { DDialogCloseOn } from "../../d-dialog-close-on";
 import { DDialogMode } from "../../d-dialog-mode";
 import { DDialogState } from "../../d-dialog-state";
@@ -19,20 +23,58 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 		return DDialogMode.MODAL;
 	}
 
-	closeOn(): DDialogCloseOn {
-		return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
+	closeOn(mode: DDialogMode): DDialogCloseOn {
+		switch (mode) {
+			case DDialogMode.MODAL:
+			case DDialogMode.MENU:
+				return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
+			case DDialogMode.MODELESS:
+				return DDialogCloseOn.NONE;
+				break;
+		}
 	}
 
-	isSticky(): boolean {
+	isSticky(mode: DDialogMode): boolean {
 		return false;
 	}
 
-	getOffsetX(): number {
+	isGestureEnabled(mode: DDialogMode): boolean {
+		switch (mode) {
+			case DDialogMode.MODAL:
+			case DDialogMode.MODELESS:
+				return true;
+			case DDialogMode.MENU:
+				return false;
+		}
+	}
+
+	getOffsetX(mode: DDialogMode): number {
 		return 5;
 	}
 
-	getOffsetY(): number {
+	getOffsetY(mode: DDialogMode): number {
 		return 5;
+	}
+
+	getAlign(mode: DDialogMode): DDialogAlign {
+		switch (mode) {
+			case DDialogMode.MODAL:
+				return DDialogAlign.OVER;
+			case DDialogMode.MODELESS:
+			case DDialogMode.MENU:
+				return DDialogAlign.BOTTOM;
+		}
+	}
+
+	newAnimation(mode: DDialogMode): DAnimation<DBase> | null {
+		switch (mode) {
+			case DDialogMode.MODAL:
+				return new DAnimationFadeIn();
+			case DDialogMode.MODELESS:
+				return null;
+			case DDialogMode.MENU:
+				return null;
+		}
 	}
 
 	getBackgroundColor(state: DBaseStateSet): number {
@@ -72,11 +114,11 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 	}
 
 	getX(): DCoordinatePosition {
-		return "center";
+		return 0;
 	}
 
 	getY(): DCoordinatePosition {
-		return "center";
+		return 0;
 	}
 
 	getWidth(): DCoordinateSize {

@@ -248,7 +248,7 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 	}
 
 	getInteractive(): DBaseInteractive {
-		return DBaseInteractive.BOTH;
+		return DBaseInteractive.CHILDREN;
 	}
 
 	newState(state: DBaseStateSet): void {

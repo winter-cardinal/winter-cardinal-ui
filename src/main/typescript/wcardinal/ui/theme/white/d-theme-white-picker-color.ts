@@ -248,7 +248,7 @@ export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePic
 	}
 
 	getInteractive(): DBaseInteractive {
-		return DBaseInteractive.BOTH;
+		return DBaseInteractive.CHILDREN;
 	}
 
 	newState(state: DBaseStateSet): void {
