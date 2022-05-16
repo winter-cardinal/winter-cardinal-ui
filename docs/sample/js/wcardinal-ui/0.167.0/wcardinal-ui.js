@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.165.0
+ Winter Cardinal UI v0.167.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -20550,7 +20550,9 @@
                 return this._images[0].source;
             },
             set: function (imageSource) {
-                this._images[0].source = imageSource;
+                var image = this._images[0];
+                image.source = imageSource;
+                image.updateSource();
             },
             enumerable: false,
             configurable: true
@@ -21117,6 +21119,711 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DynamicAtlasItemText = /** @class */ (function (_super) {
+        __extends(DynamicAtlasItemText, _super);
+        function DynamicAtlasItemText(id, text, baseTexture) {
+            var _this = _super.call(this, id, text.width, text.height, 0, baseTexture) || this;
+            _this._text = text;
+            return _this;
+        }
+        DynamicAtlasItemText.prototype.render = function (context) {
+            var frame = this.frame;
+            context.drawImage(this._text.canvas, frame.x, frame.y, frame.width, frame.height);
+        };
+        return DynamicAtlasItemText;
+    }(DynamicAtlasItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilFont = /** @class */ (function () {
+        function UtilFont() {
+        }
+        UtilFont.measure = function (font) {
+            var results = this._results;
+            if (results == null) {
+                results = new Map();
+                this._results = results;
+            }
+            var result = results.get(font);
+            if (result != null) {
+                return result;
+            }
+            var span = this._span;
+            if (span == null) {
+                span = document.createElement("span");
+                span.innerText = "|ÉqÅ";
+                span.style.border = "none";
+                span.style.margin = "0px";
+                this._span = span;
+            }
+            var block = this._block;
+            if (block == null) {
+                block = document.createElement("div");
+                block.style.display = "inline-block";
+                block.style.width = "0px";
+                block.style.height = "0px";
+                block.style.border = "none";
+                block.style.margin = "0px";
+                block.style.verticalAlign = "baseline";
+                this._block = block;
+            }
+            var div = this._div;
+            if (div == null) {
+                div = document.createElement("div");
+                div.style.position = "absolute";
+                div.style.padding = "0px";
+                div.style.margin = "0px";
+                div.style.visibility = "hidden";
+                div.appendChild(span);
+                div.appendChild(block);
+                document.body.appendChild(div);
+                this._div = div;
+            }
+            span.style.font = font;
+            var blockRect = block.getBoundingClientRect();
+            var blockRectTop = blockRect.top;
+            var spanRect = span.getBoundingClientRect();
+            var ascent = blockRectTop - spanRect.top;
+            var descent = spanRect.bottom - blockRectTop;
+            result = {
+                ascent: ascent,
+                descent: descent
+            };
+            results.set(font, result);
+            return result;
+        };
+        return UtilFont;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasFont = /** @class */ (function () {
+        function DynamicFontAtlasFont(fontId, size, color, padding) {
+            this.id = fontId;
+            this.size = size;
+            this.color = pixi_js.utils.hex2string(color);
+            this.height = size + padding * 2;
+            var metrics = UtilFont.measure(fontId);
+            this.ascent = metrics.ascent;
+            this.descent = metrics.descent;
+        }
+        return DynamicFontAtlasFont;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlas = /** @class */ (function () {
+        function DynamicFontAtlas(fontId, fontSize, fontColor, resolution) {
+            this._id = fontId;
+            this._canvas = document.createElement("canvas");
+            this._context = null;
+            var padding = this.toPadding(fontSize);
+            this._padding = padding;
+            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, padding);
+            this._characters = {};
+            this._length = 0;
+            this._unrefCount = 0;
+            this._width = 1;
+            this._height = 1;
+            this._revision = 0;
+            this._revisionUpdated = 0;
+            this._texture = pixi_js.Texture.from(this._canvas, {
+                mipmap: pixi_js.MIPMAP_MODES.OFF,
+                resolution: resolution,
+                scaleMode: pixi_js.SCALE_MODES.NEAREST
+            });
+            var characters = this._characters;
+            this.add_(" ", " ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+            this.add_("\t", "    ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+            this.add_("...", "...", characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+            for (var i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
+                var char = ASCII_CHARACTERS[i];
+                this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+            }
+        }
+        DynamicFontAtlas.prototype.toPadding = function (fontSize) {
+            return Math.max(3, Math.ceil(fontSize * 0.2));
+        };
+        Object.defineProperty(DynamicFontAtlas.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "font", {
+            get: function () {
+                return this._font;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "height", {
+            get: function () {
+                return this._height;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "canvas", {
+            get: function () {
+                return this._canvas;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "characters", {
+            get: function () {
+                return this._characters;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "texture", {
+            get: function () {
+                return this._texture;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicFontAtlas.prototype.add_ = function (id, character, characters, type) {
+            if (!this.isIgnored(character)) {
+                var data = characters[id];
+                if (data != null) {
+                    if (!(data.type & DynamicFontAtlasCharacterType.RESERVED)) {
+                        if (data.ref === 0) {
+                            this._unrefCount -= 1;
+                        }
+                        data.ref += 1;
+                    }
+                }
+                else {
+                    var advance = this.getAdvance(character);
+                    var padding = this._padding;
+                    var width = Math.ceil(padding + advance + padding);
+                    var height = this.font.height;
+                    characters[id] = new DynamicFontAtlasCharacter(character, advance, width, height, type);
+                    this._length += 1;
+                    this._revision += 1;
+                }
+            }
+        };
+        DynamicFontAtlas.prototype.isIgnored = function (character) {
+            switch (character) {
+                case "\n": // Line feed
+                    return true;
+                case "\r": // Carriage return
+                    return true;
+                case "\v": // Vertical tab
+                    return true;
+                case "\f": // Form feed
+                    return true;
+                case "\u0085": // Next line
+                    return true;
+            }
+            return false;
+        };
+        DynamicFontAtlas.prototype.remove_ = function (id, characters) {
+            var data = characters[id];
+            if (data != null) {
+                if (!(data.type & DynamicFontAtlasCharacterType.RESERVED) && 0 < data.ref) {
+                    data.ref -= 1;
+                    if (data.ref === 0) {
+                        this._unrefCount += 1;
+                    }
+                }
+            }
+        };
+        DynamicFontAtlas.prototype.cleanup_ = function () {
+            if (this._length >> 1 <= this._unrefCount) {
+                var characters = this._characters;
+                for (var character in characters) {
+                    if (characters[character].ref <= 0) {
+                        delete characters[character];
+                    }
+                }
+                this._length -= this._unrefCount;
+                this._revision += 1;
+                this._unrefCount = 0;
+            }
+        };
+        DynamicFontAtlas.prototype.add = function (targets, type) {
+            if (type === void 0) { type = DynamicFontAtlasCharacterType.LETTER; }
+            var characters = this._characters;
+            var iterator = UtilCharacterIterator.from(targets);
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                this.add_(character, character, characters, type);
+            }
+        };
+        DynamicFontAtlas.prototype.remove = function (targets) {
+            var characters = this._characters;
+            var iterator = UtilCharacterIterator.from(targets);
+            while (iterator.hasNext()) {
+                this.remove_(iterator.next(), characters);
+            }
+        };
+        DynamicFontAtlas.prototype.get = function (id) {
+            return this._characters[id];
+        };
+        DynamicFontAtlas.prototype.getAdvance = function (target) {
+            var context = this.getContext();
+            if (context != null) {
+                return context.measureText(target).width;
+            }
+            return 0;
+        };
+        DynamicFontAtlas.prototype.getContext = function () {
+            var context = this._context;
+            if (context == null) {
+                var canvas = this._canvas;
+                if (canvas != null) {
+                    context = this._context = canvas.getContext("2d", { alpha: true });
+                    if (context == null) {
+                        return null;
+                    }
+                }
+                else {
+                    return null;
+                }
+            }
+            var font = this._font;
+            if (context.font !== font.id) {
+                context.font = font.id;
+                font.id = context.font;
+                context.textAlign = "left";
+                context.textBaseline = "alphabetic";
+                context.lineWidth = 0;
+                context.lineCap = "round";
+                context.lineJoin = "miter";
+                context.miterLimit = 0;
+                context.fillStyle = font.color;
+                context.strokeStyle = "#0000ff";
+            }
+            return context;
+        };
+        DynamicFontAtlas.prototype.update = function () {
+            this.cleanup_();
+            if (this._revisionUpdated < this._revision) {
+                this._revisionUpdated = this._revision;
+                var canvas = this._canvas;
+                if (canvas != null) {
+                    var font = this._font;
+                    var fontHeight = font.height;
+                    var characters = this._characters;
+                    var width = (this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight));
+                    var offsetX = this._padding;
+                    var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
+                    var x = 0;
+                    var y = 0;
+                    for (var key in characters) {
+                        var character = characters[key];
+                        if (width <= x + character.width) {
+                            x = 0;
+                            y += fontHeight;
+                        }
+                        character.x = x;
+                        character.y = y;
+                        character.origin.x = x + offsetX;
+                        character.origin.y = y + offsetY;
+                        x += character.width;
+                    }
+                    var height = (this._height = y + fontHeight);
+                    // Make a input canvas
+                    // Here, we need to reset the context because
+                    // context settings will be lost when we set the width/height.
+                    var baseTexture = this._texture.baseTexture;
+                    var resolution = baseTexture.resolution;
+                    var realWidth = Math.ceil(width * resolution);
+                    var realHeight = Math.ceil(height * resolution);
+                    canvas.width = realWidth;
+                    canvas.height = realHeight;
+                    var context = this.getContext();
+                    if (context != null) {
+                        context.save();
+                        context.scale(resolution, resolution);
+                        context.clearRect(0, 0, width, height);
+                        for (var key in characters) {
+                            var character = characters[key];
+                            context.fillText(key, character.origin.x, character.origin.y);
+                        }
+                        context.restore();
+                    }
+                    baseTexture.setRealSize(realWidth, realHeight);
+                    return true;
+                }
+            }
+            return false;
+        };
+        DynamicFontAtlas.prototype.getRevision = function () {
+            return this._revision;
+        };
+        DynamicFontAtlas.prototype.getRevisionUpdate = function () {
+            return this._revisionUpdated;
+        };
+        Object.defineProperty(DynamicFontAtlas.prototype, "length", {
+            get: function () {
+                return this._length;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicFontAtlas.prototype.destroy = function () {
+            var canvas = this._canvas;
+            if (canvas != null) {
+                this._canvas = null;
+            }
+            var characters = this._characters;
+            for (var character in characters) {
+                delete characters[character];
+            }
+        };
+        DynamicFontAtlas.prototype.toPowerOf2 = function (size) {
+            var result = 32;
+            while (result < size) {
+                result <<= 1;
+            }
+            return result;
+        };
+        return DynamicFontAtlas;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var update = function (atlas) {
+        atlas.update();
+    };
+    var updateAll = function (colorToAltas) {
+        colorToAltas.forEach(update);
+    };
+    var destroy = function (atlas) {
+        atlas.update();
+    };
+    var destroyAll = function (colorToAltas) {
+        colorToAltas.forEach(destroy);
+    };
+    var DynamicFontAtlases = /** @class */ (function () {
+        function DynamicFontAtlases(layer) {
+            var _this = this;
+            this._atlases = new Map();
+            this._resolution = layer.renderer.resolution;
+            layer.renderer.on("prerender", function () {
+                _this.update();
+            });
+        }
+        DynamicFontAtlases.prototype.add = function (fontId, fontSize, fontColor, targets) {
+            var atlases = this._atlases;
+            var colorToAtlas = atlases.get(fontId);
+            if (colorToAtlas == null) {
+                colorToAtlas = new Map();
+                atlases.set(fontId, colorToAtlas);
+            }
+            var atlas = colorToAtlas.get(fontColor);
+            if (atlas == null) {
+                atlas = new DynamicFontAtlas(fontId, fontSize, fontColor, this._resolution);
+                colorToAtlas.set(fontColor, atlas);
+            }
+            atlas.add(targets);
+        };
+        DynamicFontAtlases.prototype.remove = function (fontId, fontColor, targets) {
+            var colorToAtlas = this._atlases.get(fontId);
+            if (colorToAtlas != null) {
+                var atlas = colorToAtlas.get(fontColor);
+                if (atlas != null) {
+                    atlas.remove(targets);
+                }
+            }
+        };
+        DynamicFontAtlases.prototype.get = function (fontId, fontColor) {
+            var atlases = this._atlases;
+            var colorToAtlas = atlases.get(fontId);
+            if (colorToAtlas == null) {
+                return null;
+            }
+            var atlas = colorToAtlas.get(fontColor);
+            if (atlas == null) {
+                return null;
+            }
+            return atlas;
+        };
+        DynamicFontAtlases.prototype.update = function () {
+            this._atlases.forEach(updateAll);
+        };
+        DynamicFontAtlases.prototype.destroy = function () {
+            var atlases = this._atlases;
+            atlases.forEach(destroyAll);
+            atlases.clear();
+        };
+        return DynamicFontAtlases;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var isNaN = function (target) {
+        return target !== target;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var Lazy = /** @class */ (function () {
+        function Lazy(newInstance, options, base) {
+            var _this = this;
+            this.instance = null;
+            this.newInstance = newInstance;
+            this.options = options;
+            if (base != null) {
+                if (base.state.isActive) {
+                    setTimeout(function () {
+                        _this.get();
+                    }, 0);
+                }
+                base.on("active", function () {
+                    _this.get();
+                });
+            }
+        }
+        Lazy.prototype.get = function () {
+            var result = this.instance;
+            if (result == null) {
+                result = new this.newInstance(this.options);
+                this.instance = result;
+            }
+            return result;
+        };
+        return Lazy;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Returns a ceiling index of the given value.
+     * The array must be sorted in an ascending order.
+     *
+     * @param array an array sorted in an ascending order
+     * @param value a value to be searched
+     * @returns a ceiling index of the given value
+     */
+    var toCeilingIndex = function (array, value, size, offset) {
+        var i0 = 0;
+        var i1 = Math.floor(array.length / size) - 1;
+        while (i0 <= i1) {
+            var i2 = i0 + ((i1 - i0) >> 1);
+            var v2 = array[i2 * size + offset];
+            if (value < v2) {
+                i1 = i2 - 1;
+            }
+            else if (v2 < value) {
+                i0 = i2 + 1;
+            }
+            else {
+                return i2;
+            }
+        }
+        return Math.max(i0, i1);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toIndexOf = function (array, value) {
+        var i0 = 0;
+        var i1 = array.length - 1;
+        while (i0 <= i1) {
+            var i2 = i0 + ((i1 - i0) >> 1);
+            var v2 = array[i2];
+            if (value < v2) {
+                i1 = i2 - 1;
+            }
+            else if (v2 < value) {
+                i0 = i2 + 1;
+            }
+            else {
+                return i2;
+            }
+        }
+        return -1;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toLabel$1 = function (target) {
+        if (target != null) {
+            if (isString(target)) {
+                return target;
+            }
+            else if (isNumber(target)) {
+                return String(target);
+            }
+            else if ("name" in target) {
+                return target.name;
+            }
+            else if ("label" in target) {
+                return target.label;
+            }
+            else if ("id" in target) {
+                return target.id;
+            }
+        }
+        return "";
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toString = function (value) {
+        return value != null ? String(value) : "";
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSvgUrl = function (svg) {
+        return "data:image/svg+xml;base64,".concat(btoa(svg));
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSvgTexture = function (svg, resolution) {
+        return pixi_js.Texture.from(toSvgUrl(svg), {
+            resolution: resolution
+        });
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilSvgAtlasBuilder = /** @class */ (function () {
+        function UtilSvgAtlasBuilder(width, ratio, margin) {
+            this._width = width;
+            this._ratio = ratio;
+            this._margin = margin;
+            this._frames = {};
+            this._svg = "";
+            this._nextX = 0;
+            this._nextY = 0;
+            this._height = 0;
+        }
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "ratio", {
+            get: function () {
+                return this._ratio;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "margin", {
+            get: function () {
+                return this._margin;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilSvgAtlasBuilder.prototype.add = function (name, width, height, path) {
+            var frames = this._frames;
+            if (!(name in frames)) {
+                // Position
+                var margin = this._margin;
+                var x = this._nextX;
+                var y = this._nextY;
+                if (this._width <= x + width) {
+                    x = 0;
+                    y = this._nextY + this._height + margin;
+                    this._height = height;
+                    this._nextY = y;
+                }
+                else {
+                    this._height = Math.max(this._height, height);
+                }
+                this._nextX = x + width + margin;
+                // Frame
+                frames[name] = new pixi_js.Rectangle(x, y, width, height);
+                // Svg
+                var ratio = this._ratio;
+                this._svg += "<g transform=\"translate(".concat(x * ratio, ",").concat(y * ratio, ")\">").concat(path, "</g>");
+                return true;
+            }
+            return false;
+        };
+        UtilSvgAtlasBuilder.prototype.has = function (name) {
+            return name in this._frames;
+        };
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "mappings", {
+            get: function () {
+                return this.build();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilSvgAtlasBuilder.prototype.build = function (options) {
+            var _a, _b, _c;
+            var built = this._built;
+            if (built == null || (options === null || options === void 0 ? void 0 : options.force)) {
+                var resolution = (_b = (_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1;
+                var width = this._width;
+                var height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
+                var realWidth = width * resolution;
+                var realHeight = height * resolution;
+                var ratio = this._ratio;
+                var attrWidth = "width=\"".concat(realWidth, "\"");
+                var attrHeight = "height=\"".concat(realHeight, "\"");
+                var attrViewBox = "viewBox=\"0 0 ".concat(width * ratio, " ").concat(height * ratio, "\"");
+                var attrXmlns = "xmlns=\"http://www.w3.org/2000/svg\"";
+                var url = toSvgUrl("<svg ".concat(attrWidth, " ").concat(attrHeight, " ").concat(attrViewBox, " ").concat(attrXmlns, ">").concat(this._svg, "</svg>"));
+                var scaleMode = (_c = options === null || options === void 0 ? void 0 : options.scaling) !== null && _c !== void 0 ? _c : pixi_js.SCALE_MODES.NEAREST;
+                var baseTexture = pixi_js.BaseTexture.from(url, {
+                    resolution: resolution,
+                    scaleMode: scaleMode
+                });
+                var frames_1 = this._frames;
+                built = this._built = {};
+                for (var name_1 in frames_1) {
+                    built[name_1] = new pixi_js.Texture(baseTexture, frames_1[name_1]);
+                }
+            }
+            return built;
+        };
+        return UtilSvgAtlasBuilder;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var UtilClickOutside = /** @class */ (function () {
         function UtilClickOutside() {
         }
@@ -21142,6 +21849,582 @@
         };
         UtilClickOutside.point = new pixi_js.Point();
         return UtilClickOutside;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var getSelection = function (element) {
+        var selection = document.getSelection();
+        if (selection) {
+            var range = document.createRange();
+            range.selectNodeContents(element);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+        return selection;
+    };
+    var toClipboardData = function (e) {
+        return e.clipboardData || window.clipboardData;
+    };
+    var copyUsingDiv = function (text) {
+        var div = document.createElement("div");
+        div.setAttribute("style", "-webkit-user-select: text !important");
+        div.textContent = "Dummy";
+        document.body.appendChild(div);
+        var selection = getSelection(div);
+        var result = false;
+        if (selection) {
+            var handler = function (e) {
+                if (e.target === div) {
+                    var clipboardData = toClipboardData(e);
+                    clipboardData.setData("text/plain", text);
+                    result = clipboardData.getData("text/plain") === text;
+                    e.preventDefault();
+                }
+            };
+            document.addEventListener("copy", handler);
+            try {
+                document.execCommand("copy");
+            }
+            finally {
+                document.removeEventListener("copy", handler);
+            }
+            selection.removeAllRanges();
+        }
+        document.body.removeChild(div);
+        return result;
+    };
+    var copyUsingSpan = function (text) {
+        var div = document.createElement("div");
+        div.setAttribute("style", "-webkit-user-select: text !important");
+        var span = document.createElement("span");
+        span.innerText = text;
+        var root = div.attachShadow ? div.attachShadow({ mode: "open" }) : div;
+        root.appendChild(span);
+        document.body.appendChild(div);
+        var result = false;
+        var selection = getSelection(div);
+        if (selection) {
+            result = document.execCommand("copy");
+            selection.removeAllRanges();
+        }
+        document.body.removeChild(div);
+        return result;
+    };
+    var copyUsingWindow = function (window, text) {
+        if (typeof ClipboardEvent === "undefined") {
+            var clipboardData = window.clipboardData;
+            if (typeof clipboardData !== "undefined" && typeof clipboardData.setData !== "undefined") {
+                clipboardData.setData("Text", text);
+                return true;
+            }
+        }
+        return false;
+    };
+    var UtilClipboard = /** @class */ (function (_super) {
+        __extends(UtilClipboard, _super);
+        function UtilClipboard() {
+            var _this = _super.call(this) || this;
+            var element = document.body;
+            element.addEventListener("copy", function (e) {
+                if (e.target === element) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _this.emit("copy", toClipboardData(e));
+                }
+            });
+            element.addEventListener("cut", function (e) {
+                if (e.target === element) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _this.emit("cut", toClipboardData(e));
+                }
+            });
+            element.addEventListener("paste", function (e) {
+                if (e.target === element) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _this.emit("paste", toClipboardData(e));
+                }
+            });
+            return _this;
+        }
+        UtilClipboard.copy = function (text) {
+            var clipboard = navigator.clipboard;
+            if (clipboard && clipboard.writeText) {
+                clipboard.writeText(text);
+            }
+            else {
+                if (!copyUsingWindow(window, text)) {
+                    if (!copyUsingDiv(text)) {
+                        if (navigator.userAgent.indexOf("Edge") < 0) {
+                            copyUsingSpan(text);
+                        }
+                    }
+                }
+            }
+        };
+        return UtilClipboard;
+    }(pixi_js.utils.EventEmitter));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilExtractor = /** @class */ (function () {
+        function UtilExtractor() {
+        }
+        UtilExtractor.toTexture = function (target, resolution, clear, skipUpdateTransform) {
+            var scale = target.transform.scale;
+            var result = pixi_js.RenderTexture.create({
+                width: target.width * scale.x,
+                height: target.height * scale.y,
+                scaleMode: pixi_js.SCALE_MODES.LINEAR,
+                resolution: resolution
+            });
+            var matrix = new pixi_js.Matrix(undefined, undefined, undefined, undefined, -target.position.x, -target.position.y);
+            var layer = DApplications.getLayer(target);
+            if (layer) {
+                layer.renderer.render(target, result, clear, matrix, skipUpdateTransform);
+            }
+            return result;
+        };
+        UtilExtractor.toPixels = function (renderTexture, renderer) {
+            var resolution = renderTexture.resolution;
+            var frame = renderTexture.frame;
+            var width = Math.floor(frame.width * resolution);
+            var height = Math.floor(frame.height * resolution);
+            var pixels = new Uint8Array(4 * width * height);
+            renderer.renderTexture.bind(renderTexture);
+            var gl = renderer.gl;
+            gl.readPixels(frame.x * resolution, frame.y * resolution, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+            return {
+                width: width,
+                height: height,
+                array: pixels
+            };
+        };
+        UtilExtractor.toCanvas = function (pixels, scale, ignorePremutipliedAlpha) {
+            var width = pixels.width;
+            var height = pixels.height;
+            var array = pixels.array;
+            var canvasRenderTarget = new pixi_js.utils.CanvasRenderTarget(width, height, 1);
+            var imageData = canvasRenderTarget.context.getImageData(0, 0, width, height);
+            if (ignorePremutipliedAlpha) {
+                imageData.data.set(array);
+            }
+            else {
+                pixi_js.Extract.arrayPostDivide(array, imageData.data);
+            }
+            canvasRenderTarget.context.putImageData(imageData, 0, 0);
+            // Scale down
+            if (scale != null && scale !== 1) {
+                canvasRenderTarget.context.scale(scale, scale);
+                canvasRenderTarget.context.drawImage(canvasRenderTarget.canvas, 0, 0);
+                var scaledWidth = Math.floor(width * scale);
+                var scaledHeight = Math.floor(height * scale);
+                var scaledImageData = canvasRenderTarget.context.getImageData(0, 0, scaledWidth, scaledHeight);
+                canvasRenderTarget.resize(scaledWidth, scaledHeight);
+                canvasRenderTarget.context.putImageData(scaledImageData, 0, 0);
+            }
+            return canvasRenderTarget;
+        };
+        UtilExtractor.toBase64 = function (canvas, format, quality) {
+            return canvas.toDataURL(format, quality);
+        };
+        return UtilExtractor;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilFileDownloader = /** @class */ (function () {
+        function UtilFileDownloader() {
+        }
+        /**
+         * Downloads a file of the given name and URL.
+         *
+         * @param filename a file name
+         * @param url a file URL
+         */
+        UtilFileDownloader.downloadUrl = function (filename, url) {
+            var a = document.createElement("a");
+            if ("download" in a) {
+                a.href = url;
+                a.setAttribute("download", filename);
+                a.style.display = "none";
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function () {
+                    document.body.removeChild(a);
+                }, 66);
+            }
+            else {
+                if (!window.open(url)) {
+                    location.href = url;
+                }
+            }
+        };
+        /**
+         * Downloads a file of the given name with the given contents.
+         *
+         * @param filename a file name
+         * @param contents file contents
+         * @param insertBom false to stop the BOM insertion
+         */
+        UtilFileDownloader.download = function (filename, contents, insertBom) {
+            var blob = new Blob(insertBom !== false ? ["\ufeff", contents] : [contents], {
+                type: "text/plain"
+            });
+            var navigator = window.navigator;
+            if ("msSaveBlob" in navigator) {
+                // IE10 and 11
+                navigator.msSaveBlob(blob, filename);
+            }
+            else {
+                this.downloadUrl(filename, URL.createObjectURL(blob));
+            }
+        };
+        return UtilFileDownloader;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toResolution = function (options) {
+        var _a;
+        var target = options.target;
+        var resolution = options.resolution;
+        if (resolution != null) {
+            if (isNumber(resolution)) {
+                return resolution;
+            }
+            else {
+                var scale = target.transform.scale;
+                var size = Math.max(target.width * scale.x, target.height * scale.y);
+                return Math.min(1, resolution.size / size);
+            }
+        }
+        else {
+            return (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
+        }
+    };
+    var toScale = function (pixels, options) {
+        var scale = options.scale;
+        if (scale != null) {
+            if (isNumber(scale)) {
+                return scale;
+            }
+            else {
+                var size = scale.size;
+                return Math.min(1, size / pixels.width, size / pixels.height);
+            }
+        }
+    };
+    var toRenderer = function (options) {
+        var renderer = options.renderer;
+        if (renderer) {
+            return renderer;
+        }
+        var application = options.application;
+        if (application) {
+            return application.getLayerBase().renderer;
+        }
+        var layer = options.layer || DApplications.getLayer(options.target);
+        if (layer) {
+            return layer.renderer;
+        }
+        throw new Error("No renderer / application / layer found.");
+    };
+    var UtilExtract = /** @class */ (function () {
+        function UtilExtract() {
+        }
+        UtilExtract.texture = function (options) {
+            var _a;
+            var target = options.target;
+            var resolution = toResolution(options);
+            var skipUpdateTransform = (_a = options.transform) === null || _a === void 0 ? void 0 : _a.update;
+            return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
+        };
+        UtilExtract.pixels = function (options) {
+            var renderer = toRenderer(options);
+            var texture = this.texture(options);
+            try {
+                return UtilExtractor.toPixels(texture, renderer);
+            }
+            finally {
+                if (texture) {
+                    texture.destroy();
+                }
+            }
+        };
+        UtilExtract.canvas = function (options) {
+            var _a, _b;
+            var pixels = this.pixels(options);
+            var ignorePremutipliedAlpha = (_b = (_a = options.alpha) === null || _a === void 0 ? void 0 : _a.premultiplied) === null || _b === void 0 ? void 0 : _b.ignore;
+            var scale = toScale(pixels, options);
+            return UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha);
+        };
+        UtilExtract.base64 = function (options) {
+            var canvas = this.canvas(options);
+            try {
+                return UtilExtractor.toBase64(canvas.canvas, options.format, options.quality);
+            }
+            finally {
+                if (canvas) {
+                    canvas.destroy();
+                }
+            }
+        };
+        UtilExtract.file = function (options) {
+            UtilFileDownloader.downloadUrl(options.filename, this.base64(options));
+        };
+        return UtilExtract;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * An output format.
+     */
+    var UtilFileAs = {
+        TEXT: 0,
+        DATA_URL: 1,
+        BINARY_STRING: 2,
+        ARRAY_BUTTER: 3,
+        FILE: 4
+    };
+    /**
+     * An utility class for opening files.
+     */
+    var UtilFileOpener = /** @class */ (function () {
+        function UtilFileOpener(as, facade) {
+            this._input = null;
+            this._as = as;
+            this._facade = facade;
+        }
+        UtilFileOpener.prototype.open = function () {
+            var input = this.getOrCreateInput();
+            if (input != null) {
+                input.click();
+            }
+            else {
+                this.onCancel();
+            }
+        };
+        UtilFileOpener.prototype.getOrCreateInput = function () {
+            var _this = this;
+            if ("FileReader" in window && this._input == null) {
+                var input_1 = document.createElement("input");
+                this._input = input_1;
+                input_1.setAttribute("type", "file");
+                input_1.setAttribute("style", "display:none");
+                input_1.addEventListener("change", function (e) {
+                    _this.onInputChange(input_1);
+                    input_1.value = "";
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                });
+                document.body.appendChild(input_1);
+            }
+            return this._input;
+        };
+        UtilFileOpener.prototype.onInputChange = function (input) {
+            var _this = this;
+            var files = input.files;
+            if (files != null && 0 < files.length) {
+                var file_1 = files[0];
+                if (this._as === UtilFileAs.FILE) {
+                    this.onOpen(file_1, file_1);
+                }
+                else {
+                    var fileReader = new FileReader();
+                    fileReader.onload = function (e) {
+                        if (e.target != null) {
+                            var target = e.target;
+                            _this.onOpen(target.result, file_1);
+                        }
+                    };
+                    fileReader.onabort = function (e) {
+                        _this.onAboart(e);
+                    };
+                    switch (this._as) {
+                        case UtilFileAs.TEXT:
+                            fileReader.readAsText(file_1);
+                            break;
+                        case UtilFileAs.DATA_URL:
+                            fileReader.readAsDataURL(file_1);
+                            break;
+                        case UtilFileAs.BINARY_STRING:
+                            fileReader.readAsBinaryString(file_1);
+                            break;
+                        case UtilFileAs.ARRAY_BUTTER:
+                            fileReader.readAsArrayBuffer(file_1);
+                            break;
+                        default:
+                            fileReader.readAsText(file_1);
+                            break;
+                    }
+                }
+            }
+            else {
+                this.onCancel();
+            }
+        };
+        UtilFileOpener.prototype.onOpen = function (result, file) {
+            var facade = this._facade;
+            facade.emit("open", result, file, facade);
+        };
+        UtilFileOpener.prototype.onAboart = function (e) {
+            var facade = this._facade;
+            facade.emit("abort", e, facade);
+        };
+        UtilFileOpener.prototype.onCancel = function () {
+            var facade = this._facade;
+            facade.emit("cancel", facade);
+        };
+        return UtilFileOpener;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilHsv = /** @class */ (function () {
+        function UtilHsv() {
+        }
+        /**
+         * Returns HSV colors.
+         * Ranges of components are:
+         *
+         * * H: [0, 360)
+         * * S: [0, 255]
+         * * V: [0, 255]
+         *
+         * @param color a rgb color
+         * @return an array of hsv components
+         */
+        UtilHsv.fromRgb = function (color) {
+            var r = (color & 0xff0000) >> 16;
+            var g = (color & 0x00ff00) >> 8;
+            var b = (color & 0x0000ff) | 0;
+            var max = Math.max(r, g, b);
+            var min = Math.min(r, g, b);
+            var length = max - min;
+            var h = 0;
+            if (0 < length) {
+                if (r === max) {
+                    h = (60 * (g - b)) / length;
+                }
+                else if (g === max) {
+                    h = (60 * (b - r)) / length + 120;
+                }
+                else if (b === max) {
+                    h = (60 * (r - g)) / length + 240;
+                }
+                if (h < 0) {
+                    h += 360;
+                }
+            }
+            var s = (length / max) * 255;
+            var v = max;
+            return [h, s, v];
+        };
+        UtilHsv.toRgb = function (h, s, v) {
+            var max = v;
+            var min = v - (s / 255) * v;
+            var length = max - min;
+            var r = 0;
+            var g = 0;
+            var b = 0;
+            if (h <= 60) {
+                r = max;
+                g = (h / 60) * length + min;
+                b = min;
+            }
+            else if (h <= 120) {
+                r = ((120 - h) / 60) * length + min;
+                g = max;
+                b = min;
+            }
+            else if (h <= 180) {
+                r = min;
+                g = max;
+                b = ((h - 120) / 60) * length + min;
+            }
+            else if (h <= 240) {
+                r = min;
+                g = ((240 - h) / 60) * length + min;
+                b = max;
+            }
+            else if (h <= 300) {
+                r = ((h - 240) / 60) * length + min;
+                g = min;
+                b = max;
+            }
+            else {
+                r = max;
+                g = min;
+                b = ((360 - h) / 60) * length + min;
+            }
+            r = Math.max(0, Math.min(255, r));
+            g = Math.max(0, Math.min(255, g));
+            b = Math.max(0, Math.min(255, b));
+            return (r << 16) | (g << 8) | b;
+        };
+        return UtilHsv;
+    }());
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilInputTextArea = /** @class */ (function (_super) {
+        __extends(UtilInputTextArea, _super);
+        function UtilInputTextArea() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        UtilInputTextArea.prototype.onElementAttached = function (element, before, after) {
+            element.addEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementAttached.call(this, element, before, after);
+        };
+        UtilInputTextArea.prototype.onElementDetached = function (element, before, after) {
+            element.removeEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementDetached.call(this, element, before, after);
+        };
+        UtilInputTextArea.prototype.onInputKeyDown = function (e) {
+            if (UtilKeyboardEvent.isOkKey(e)) {
+                this._operation.onEnter();
+            }
+        };
+        return UtilInputTextArea;
+    }(UtilInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilName = /** @class */ (function () {
+        function UtilName() {
+        }
+        UtilName.create = function (type) {
+            var mapping = this._mapping;
+            if (type in mapping) {
+                return "".concat(type, " ").concat(++mapping[type]);
+            }
+            else {
+                mapping[type] = 1;
+                return "".concat(type, " 1");
+            }
+        };
+        UtilName._mapping = {};
+        return UtilName;
     }());
 
     var UtilOverlay = /** @class */ (function () {
@@ -21180,6 +22463,296 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var UtilRgba = /** @class */ (function () {
+        function UtilRgba() {
+        }
+        UtilRgba.toCode = function (color, alpha) {
+            var r = (color >> 16) & 0xff;
+            var g = (color >> 8) & 0xff;
+            var b = color & 0xff;
+            return "rgba(".concat(r, ",").concat(g, ",").concat(b, ",").concat(alpha, ")");
+        };
+        return UtilRgba;
+    }());
+
+    var UtilStateBlinker = /** @class */ (function () {
+        function UtilStateBlinker(state, delay, interval) {
+            var _this = this;
+            this._isOn = true;
+            this._targets = new Set();
+            this._state = state;
+            this._delay = delay;
+            this._interval = interval;
+            this._timeout = null;
+            var updateBound = function () {
+                _this.advance();
+                _this.update();
+                _this._timeout = window.setTimeout(updateBound, interval);
+            };
+            this._updateBound = updateBound;
+        }
+        UtilStateBlinker.prototype.start = function () {
+            if (this._timeout == null) {
+                this._timeout = window.setTimeout(this._updateBound, this._delay);
+            }
+            return this;
+        };
+        UtilStateBlinker.prototype.stop = function () {
+            var timeout = this._timeout;
+            if (timeout != null) {
+                this._timeout = null;
+                clearTimeout(timeout);
+            }
+            return this;
+        };
+        UtilStateBlinker.prototype.add = function (target) {
+            this._targets.add(target);
+            target.state.set(this._state, this.isOn());
+            return this;
+        };
+        UtilStateBlinker.prototype.remove = function (target) {
+            if (this._targets.delete(target)) {
+                target.state.remove(this._state);
+                return true;
+            }
+            return false;
+        };
+        UtilStateBlinker.prototype.contains = function (target) {
+            return this._targets.has(target);
+        };
+        UtilStateBlinker.prototype.clear = function () {
+            this._targets.clear();
+            return this;
+        };
+        UtilStateBlinker.prototype.isOn = function () {
+            return this._isOn;
+        };
+        UtilStateBlinker.prototype.isOff = function () {
+            return !this._isOn;
+        };
+        UtilStateBlinker.prototype.advance = function () {
+            this._isOn = !this._isOn;
+            return this;
+        };
+        UtilStateBlinker.prototype.update = function () {
+            var isOn = this.isOn();
+            var state = this._state;
+            this._targets.forEach(function (target) {
+                target.state.set(state, isOn);
+            });
+            return this;
+        };
+        return UtilStateBlinker;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilTransition = /** @class */ (function () {
+        function UtilTransition(options) {
+            var _a;
+            this._duration = (_a = options === null || options === void 0 ? void 0 : options.duration) !== null && _a !== void 0 ? _a : 300;
+            this._current = null;
+            this._lastUpdate = 0;
+            this._updateId = null;
+        }
+        UtilTransition.prototype.show = function (next, forcibly) {
+            var _this = this;
+            var updateId = this._updateId;
+            if (updateId != null) {
+                clearTimeout(updateId);
+            }
+            var current = this._current;
+            if (next !== current) {
+                var duration = this._duration;
+                var lastUpdate = this._lastUpdate;
+                var now = Date.now();
+                var remaining = lastUpdate + duration - now;
+                if (forcibly === true || remaining <= 0) {
+                    this.update(now, next);
+                }
+                else {
+                    this._updateId = window.setTimeout(function () {
+                        _this.update(Date.now(), next);
+                    }, remaining);
+                }
+            }
+        };
+        UtilTransition.prototype.update = function (now, next) {
+            var current = this._current;
+            if (current !== next) {
+                this._lastUpdate = now;
+                if (current != null) {
+                    current.hide();
+                }
+                this._current = next;
+                if (next != null) {
+                    next.show();
+                }
+            }
+        };
+        UtilTransition.prototype.hide = function () {
+            this.show(null);
+        };
+        return UtilTransition;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /*!
+     * jQuery Mousewheel 3.1.13
+     *
+     * Copyright jQuery Foundation and other contributors
+     * Released under the MIT license
+     * http://jquery.org/license
+     *
+     * See also https://github.com/mapbox/mapbox-gl-js/blob/001c7b9/js/ui/handler/scroll_zoom.js
+     * and https://github.com/openlayers/openlayers/blob/v5.2.0/src/ol/interaction/MouseWheelZoom.js#L51
+     */
+    var UtilWheelEvent = /** @class */ (function () {
+        function UtilWheelEvent() {
+            this._lowest = null;
+            this._timestamp = 0;
+            this._lineHeight = null;
+            this._pageHeight = null;
+        }
+        UtilWheelEvent.prototype.getNames = function () {
+            var result = this._names;
+            if (result == null) {
+                if ("onwheel" in document || 9 <= document.documentMode) {
+                    result = ["wheel"];
+                }
+                else {
+                    result = ["mousewheel", "DOMMouseScroll", "MozMousePixelScroll"];
+                }
+                this._names = result;
+            }
+            return result;
+        };
+        UtilWheelEvent.prototype.on = function (target, handler, useCapture) {
+            if (useCapture === void 0) { useCapture = false; }
+            var names = this.getNames();
+            for (var i = names.length - 1; 0 <= i; --i) {
+                var name_1 = names[i];
+                target.addEventListener(name_1, handler, useCapture);
+            }
+        };
+        UtilWheelEvent.prototype.off = function (target, handler, useCapture) {
+            if (useCapture === void 0) { useCapture = false; }
+            var names = this.getNames();
+            for (var i = names.length - 1; 0 <= i; --i) {
+                var name_2 = names[i];
+                target.removeEventListener(name_2, handler, useCapture);
+            }
+        };
+        UtilWheelEvent.prototype.getLineHeight = function () {
+            if (this._lineHeight == null) {
+                var theme = DThemes.getInstance().get("DBase");
+                this._lineHeight = theme.getLineHeight();
+            }
+            return this._lineHeight;
+        };
+        UtilWheelEvent.prototype.getPageHeight = function () {
+            if (this._pageHeight == null) {
+                this._pageHeight = this.getLineHeight() * 12;
+            }
+            return this._pageHeight;
+        };
+        UtilWheelEvent.prototype.normalize = function (e) {
+            var deltaX = 0;
+            var deltaY = 0;
+            // Old school scrollwheel delta
+            if ("detail" in e) {
+                deltaY = e.detail * -1;
+            }
+            if ("wheelDelta" in e) {
+                deltaY = e.wheelDelta;
+            }
+            if ("wheelDeltaY" in e) {
+                deltaY = e.wheelDeltaY;
+            }
+            if ("wheelDeltaX" in e) {
+                deltaX = e.wheelDeltaX * -1;
+            }
+            // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
+            if ("axis" in e && e.axis === e.HORIZONTAL_AXIS) {
+                deltaX = deltaY * -1;
+                deltaY = 0;
+            }
+            // New school wheel delta (wheel event)
+            if ("deltaY" in e) {
+                deltaY = e.deltaY * -1;
+            }
+            if ("deltaX" in e) {
+                deltaX = e.deltaX;
+            }
+            // No change actually happened, no reason to go any further
+            if (deltaY === 0 && deltaX === 0) {
+                return null;
+            }
+            // Store lowest absolute delta to normalize the delta values
+            var delta = Math.max(Math.abs(deltaY), Math.abs(deltaX));
+            // Reset the this._lowest to better handle multiple device types
+            // that give different a different lowestDelta
+            // Ex: trackpad = 3 and mouse wheel = 120
+            var now = Date.now();
+            if (this._timestamp + 200 <= now) {
+                this._lowest = null;
+            }
+            this._timestamp = now;
+            //
+            var shouldAdjust = e.type === "mousewheel" && delta % 120 === 0;
+            if (!this._lowest || delta < this._lowest) {
+                this._lowest = delta;
+                // Adjust older deltas if necessary
+                if (shouldAdjust) {
+                    this._lowest /= 40;
+                }
+            }
+            // Adjust older deltas if necessary
+            if (shouldAdjust) {
+                // Divide all the things by 40!
+                delta /= 40;
+                deltaX /= 40;
+                deltaY /= 40;
+            }
+            // Get a whole, normalized value for the deltas
+            var lowest = this._lowest;
+            delta = Math.floor(delta / lowest);
+            deltaX = Math[1 <= deltaX ? "floor" : "ceil"](deltaX / lowest);
+            deltaY = Math[1 <= deltaY ? "floor" : "ceil"](deltaY / lowest);
+            // Mode
+            var mode = e.deltaMode || 0;
+            if (mode !== 0) {
+                var scale = mode === 1 ? this.getLineHeight() : this.getPageHeight();
+                delta *= scale;
+                deltaX *= scale;
+                deltaY *= scale;
+            }
+            return {
+                mode: mode,
+                delta: delta,
+                deltaX: deltaX,
+                deltaY: deltaY,
+                lowest: lowest
+            };
+        };
+        UtilWheelEvent.getInstance = function () {
+            if (this.INSTANCE == null) {
+                this.INSTANCE = new UtilWheelEvent();
+            }
+            return this.INSTANCE;
+        };
+        return UtilWheelEvent;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     /**
      * A dialog class.
      *
@@ -21195,7 +22768,7 @@
         }
         DDialog.prototype.init = function (options) {
             var _this = this;
-            var _a, _b, _c, _d;
+            var _a, _b;
             _super.prototype.init.call(this, options);
             this._onPrerenderBound = function () {
                 _this.onPrerender();
@@ -21208,13 +22781,12 @@
             // Sticky
             this._sticky = (_b = options === null || options === void 0 ? void 0 : options.sticky) !== null && _b !== void 0 ? _b : theme.isSticky(mode);
             // Close On
-            var closeOn = (_c = options === null || options === void 0 ? void 0 : options.closeOn) !== null && _c !== void 0 ? _c : theme.closeOn(mode);
+            var closeOn = this.toCloseOn(mode, theme, options);
             this._closeOn = closeOn;
             // Align
-            this._align = toEnum((_d = options === null || options === void 0 ? void 0 : options.align) !== null && _d !== void 0 ? _d : theme.getAlign(mode), UtilAttachAlign);
+            this._align = this.toAlign(mode, theme, options);
             // Overlay
-            var overlay = new UtilOverlay();
-            this._overlay = overlay;
+            this._overlay = new UtilOverlay();
             // Gesture
             this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
             // State
@@ -21238,9 +22810,52 @@
                 });
             }
         };
+        DDialog.prototype.toCloseOn = function (mode, theme, options) {
+            var closeOn = options === null || options === void 0 ? void 0 : options.closeOn;
+            if (closeOn == null) {
+                return theme.closeOn(mode);
+            }
+            else if (isArray(closeOn)) {
+                var result = DDialogCloseOn.NONE;
+                for (var i = 0, imax = closeOn.length; i < imax; ++i) {
+                    result |= DDialogCloseOn[closeOn[i]];
+                }
+                return result;
+            }
+            else if (isString(closeOn)) {
+                return DDialogCloseOn[closeOn];
+            }
+            return closeOn;
+        };
+        DDialog.prototype.toAlign = function (mode, theme, options) {
+            var align = options === null || options === void 0 ? void 0 : options.align;
+            if (align === null) {
+                return null;
+            }
+            else if (align === undefined) {
+                return theme.getAlign(mode);
+            }
+            else {
+                return toEnum(align, UtilAttachAlign);
+            }
+        };
         Object.defineProperty(DDialog.prototype, "mode", {
             get: function () {
                 return this._mode;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "align", {
+            get: function () {
+                return this._align;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "algin", {
+            set: function (align) {
+                this._align = align;
             },
             enumerable: false,
             configurable: true
@@ -21333,7 +22948,16 @@
                 }
             }
         };
-        DDialog.prototype.open = function (owner) {
+        /**
+         * Opens a dialog.
+         *
+         * @param opener An opener of a dialog.
+         * The dialog position is determined based on a position and a size of the opener.
+         * If the opener is undefined, the dialog is placed at the center of the screen.
+         *
+         * @returns a value of this dialog
+         */
+        DDialog.prototype.open = function (opener) {
             var _this = this;
             var result = this._promise;
             if (result == null) {
@@ -21342,7 +22966,7 @@
                     _this._reject = reject;
                 });
                 this._promise = result;
-                this._owner = owner;
+                this._opener = opener;
                 // Attach to a layer
                 var layer = null;
                 switch (this._mode) {
@@ -21361,9 +22985,8 @@
                 if (gesture.mode === DDialogGestureMode.CLEAN) {
                     gesture.toClean();
                 }
-                var align = this._align;
-                if (align != null && gesture.isClean()) {
-                    if (layer != null) {
+                if (layer != null) {
+                    if (gesture.isClean()) {
                         var renderer = layer.renderer;
                         var onPrerenderBound = this._onPrerenderBound;
                         if (this._sticky) {
@@ -21373,10 +22996,10 @@
                             renderer.once("prerender", onPrerenderBound);
                         }
                     }
-                }
-                else if (layer != null) {
-                    var position = this.position;
-                    gesture.constraint(this, layer, position.x, position.y);
+                    else {
+                        var position = this.position;
+                        gesture.constraint(this, layer, position.x, position.y);
+                    }
                 }
                 // Done
                 this.onOpen();
@@ -21385,18 +23008,15 @@
         };
         DDialog.prototype.onPrerender = function () {
             var _a;
-            var align = this._align;
-            if (align == null) {
-                return;
-            }
             var layer = this._layer;
             if (layer == null) {
                 return;
             }
-            var owner = this._owner;
-            if (owner) {
+            var align = this._align;
+            var opener = this._opener;
+            if (align != null && opener != null) {
                 var mode = this._mode;
-                var bounds = owner.getBounds(false, ((_a = DDialog.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialog.WORK_BOUNDS = new pixi_js.Rectangle())));
+                var bounds = opener.getBounds(false, ((_a = DDialog.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialog.WORK_BOUNDS = new pixi_js.Rectangle())));
                 var theme = this.theme;
                 UtilAttach.attach(this, bounds, theme.getOffsetX(mode), theme.getOffsetY(mode), layer.width, layer.height, align);
             }
@@ -21467,8 +23087,8 @@
                 layer.renderer.off("prerender", this._onPrerenderBound);
                 this._layer = null;
             }
-            // Forget the owner
-            this._owner = null;
+            // Forget the opener
+            this._opener = null;
             // Animation
             var animation = this.getAnimation();
             if (animation) {
@@ -24768,14 +26388,6 @@
         };
         return DDialogTime;
     }(DDialogCommand));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var isNaN = function (target) {
-        return target !== target;
-    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -29176,29 +30788,6 @@
         };
         return BuilderNull;
     }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toIndexOf = function (array, value) {
-        var i0 = 0;
-        var i1 = array.length - 1;
-        while (i0 <= i1) {
-            var i2 = i0 + ((i1 - i0) >> 1);
-            var v2 = array[i2];
-            if (value < v2) {
-                i1 = i2 - 1;
-            }
-            else if (v2 < value) {
-                i0 = i2 + 1;
-            }
-            else {
-                return i2;
-            }
-        }
-        return -1;
-    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -38851,14 +40440,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var toSvgUrl = function (svg) {
-        return "data:image/svg+xml;base64,".concat(btoa(svg));
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var toGradientImageUrl = function (gradient) {
         var direction = gradient.direction;
         var points = gradient.points;
@@ -39417,124 +40998,6 @@
         THIS_WINDOW: 1,
         NEW_WINDOW: 2
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var getSelection = function (element) {
-        var selection = document.getSelection();
-        if (selection) {
-            var range = document.createRange();
-            range.selectNodeContents(element);
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }
-        return selection;
-    };
-    var toClipboardData = function (e) {
-        return e.clipboardData || window.clipboardData;
-    };
-    var copyUsingDiv = function (text) {
-        var div = document.createElement("div");
-        div.setAttribute("style", "-webkit-user-select: text !important");
-        div.textContent = "Dummy";
-        document.body.appendChild(div);
-        var selection = getSelection(div);
-        var result = false;
-        if (selection) {
-            var handler = function (e) {
-                if (e.target === div) {
-                    var clipboardData = toClipboardData(e);
-                    clipboardData.setData("text/plain", text);
-                    result = clipboardData.getData("text/plain") === text;
-                    e.preventDefault();
-                }
-            };
-            document.addEventListener("copy", handler);
-            try {
-                document.execCommand("copy");
-            }
-            finally {
-                document.removeEventListener("copy", handler);
-            }
-            selection.removeAllRanges();
-        }
-        document.body.removeChild(div);
-        return result;
-    };
-    var copyUsingSpan = function (text) {
-        var div = document.createElement("div");
-        div.setAttribute("style", "-webkit-user-select: text !important");
-        var span = document.createElement("span");
-        span.innerText = text;
-        var root = div.attachShadow ? div.attachShadow({ mode: "open" }) : div;
-        root.appendChild(span);
-        document.body.appendChild(div);
-        var result = false;
-        var selection = getSelection(div);
-        if (selection) {
-            result = document.execCommand("copy");
-            selection.removeAllRanges();
-        }
-        document.body.removeChild(div);
-        return result;
-    };
-    var copyUsingWindow = function (window, text) {
-        if (typeof ClipboardEvent === "undefined") {
-            var clipboardData = window.clipboardData;
-            if (typeof clipboardData !== "undefined" && typeof clipboardData.setData !== "undefined") {
-                clipboardData.setData("Text", text);
-                return true;
-            }
-        }
-        return false;
-    };
-    var UtilClipboard = /** @class */ (function (_super) {
-        __extends(UtilClipboard, _super);
-        function UtilClipboard() {
-            var _this = _super.call(this) || this;
-            var element = document.body;
-            element.addEventListener("copy", function (e) {
-                if (e.target === element) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _this.emit("copy", toClipboardData(e));
-                }
-            });
-            element.addEventListener("cut", function (e) {
-                if (e.target === element) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _this.emit("cut", toClipboardData(e));
-                }
-            });
-            element.addEventListener("paste", function (e) {
-                if (e.target === element) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _this.emit("paste", toClipboardData(e));
-                }
-            });
-            return _this;
-        }
-        UtilClipboard.copy = function (text) {
-            var clipboard = navigator.clipboard;
-            if (clipboard && clipboard.writeText) {
-                clipboard.writeText(text);
-            }
-            else {
-                if (!copyUsingWindow(window, text)) {
-                    if (!copyUsingDiv(text)) {
-                        if (navigator.userAgent.indexOf("Edge") < 0) {
-                            copyUsingSpan(text);
-                        }
-                    }
-                }
-            }
-        };
-        return UtilClipboard;
-    }(pixi_js.utils.EventEmitter));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -41929,1420 +43392,6 @@
         };
         return ESnapper;
     }(pixi_js.utils.EventEmitter));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicAtlasItemText = /** @class */ (function (_super) {
-        __extends(DynamicAtlasItemText, _super);
-        function DynamicAtlasItemText(id, text, baseTexture) {
-            var _this = _super.call(this, id, text.width, text.height, 0, baseTexture) || this;
-            _this._text = text;
-            return _this;
-        }
-        DynamicAtlasItemText.prototype.render = function (context) {
-            var frame = this.frame;
-            context.drawImage(this._text.canvas, frame.x, frame.y, frame.width, frame.height);
-        };
-        return DynamicAtlasItemText;
-    }(DynamicAtlasItem));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilFont = /** @class */ (function () {
-        function UtilFont() {
-        }
-        UtilFont.measure = function (font) {
-            var results = this._results;
-            if (results == null) {
-                results = new Map();
-                this._results = results;
-            }
-            var result = results.get(font);
-            if (result != null) {
-                return result;
-            }
-            var span = this._span;
-            if (span == null) {
-                span = document.createElement("span");
-                span.innerText = "|ÉqÅ";
-                span.style.border = "none";
-                span.style.margin = "0px";
-                this._span = span;
-            }
-            var block = this._block;
-            if (block == null) {
-                block = document.createElement("div");
-                block.style.display = "inline-block";
-                block.style.width = "0px";
-                block.style.height = "0px";
-                block.style.border = "none";
-                block.style.margin = "0px";
-                block.style.verticalAlign = "baseline";
-                this._block = block;
-            }
-            var div = this._div;
-            if (div == null) {
-                div = document.createElement("div");
-                div.style.position = "absolute";
-                div.style.padding = "0px";
-                div.style.margin = "0px";
-                div.style.visibility = "hidden";
-                div.appendChild(span);
-                div.appendChild(block);
-                document.body.appendChild(div);
-                this._div = div;
-            }
-            span.style.font = font;
-            var blockRect = block.getBoundingClientRect();
-            var blockRectTop = blockRect.top;
-            var spanRect = span.getBoundingClientRect();
-            var ascent = blockRectTop - spanRect.top;
-            var descent = spanRect.bottom - blockRectTop;
-            result = {
-                ascent: ascent,
-                descent: descent
-            };
-            results.set(font, result);
-            return result;
-        };
-        return UtilFont;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasFont = /** @class */ (function () {
-        function DynamicFontAtlasFont(fontId, size, color, padding) {
-            this.id = fontId;
-            this.size = size;
-            this.color = pixi_js.utils.hex2string(color);
-            this.height = size + padding * 2;
-            var metrics = UtilFont.measure(fontId);
-            this.ascent = metrics.ascent;
-            this.descent = metrics.descent;
-        }
-        return DynamicFontAtlasFont;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlas = /** @class */ (function () {
-        function DynamicFontAtlas(fontId, fontSize, fontColor, resolution) {
-            this._id = fontId;
-            this._canvas = document.createElement("canvas");
-            this._context = null;
-            var padding = this.toPadding(fontSize);
-            this._padding = padding;
-            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, padding);
-            this._characters = {};
-            this._length = 0;
-            this._unrefCount = 0;
-            this._width = 1;
-            this._height = 1;
-            this._revision = 0;
-            this._revisionUpdated = 0;
-            this._texture = pixi_js.Texture.from(this._canvas, {
-                mipmap: pixi_js.MIPMAP_MODES.OFF,
-                resolution: resolution,
-                scaleMode: pixi_js.SCALE_MODES.NEAREST
-            });
-            var characters = this._characters;
-            this.add_(" ", " ", characters, DynamicFontAtlasCharacterType.SPACE_R);
-            this.add_("\t", "    ", characters, DynamicFontAtlasCharacterType.SPACE_R);
-            this.add_("...", "...", characters, DynamicFontAtlasCharacterType.LETTER_RNB);
-            for (var i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
-                var char = ASCII_CHARACTERS[i];
-                this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
-            }
-        }
-        DynamicFontAtlas.prototype.toPadding = function (fontSize) {
-            return Math.max(3, Math.ceil(fontSize * 0.2));
-        };
-        Object.defineProperty(DynamicFontAtlas.prototype, "id", {
-            get: function () {
-                return this._id;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "font", {
-            get: function () {
-                return this._font;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "height", {
-            get: function () {
-                return this._height;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "canvas", {
-            get: function () {
-                return this._canvas;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "characters", {
-            get: function () {
-                return this._characters;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "texture", {
-            get: function () {
-                return this._texture;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicFontAtlas.prototype.add_ = function (id, character, characters, type) {
-            if (!this.isIgnored(character)) {
-                var data = characters[id];
-                if (data != null) {
-                    if (!(data.type & DynamicFontAtlasCharacterType.RESERVED)) {
-                        if (data.ref === 0) {
-                            this._unrefCount -= 1;
-                        }
-                        data.ref += 1;
-                    }
-                }
-                else {
-                    var advance = this.getAdvance(character);
-                    var padding = this._padding;
-                    var width = Math.ceil(padding + advance + padding);
-                    var height = this.font.height;
-                    characters[id] = new DynamicFontAtlasCharacter(character, advance, width, height, type);
-                    this._length += 1;
-                    this._revision += 1;
-                }
-            }
-        };
-        DynamicFontAtlas.prototype.isIgnored = function (character) {
-            switch (character) {
-                case "\n": // Line feed
-                    return true;
-                case "\r": // Carriage return
-                    return true;
-                case "\v": // Vertical tab
-                    return true;
-                case "\f": // Form feed
-                    return true;
-                case "\u0085": // Next line
-                    return true;
-            }
-            return false;
-        };
-        DynamicFontAtlas.prototype.remove_ = function (id, characters) {
-            var data = characters[id];
-            if (data != null) {
-                if (!(data.type & DynamicFontAtlasCharacterType.RESERVED) && 0 < data.ref) {
-                    data.ref -= 1;
-                    if (data.ref === 0) {
-                        this._unrefCount += 1;
-                    }
-                }
-            }
-        };
-        DynamicFontAtlas.prototype.cleanup_ = function () {
-            if (this._length >> 1 <= this._unrefCount) {
-                var characters = this._characters;
-                for (var character in characters) {
-                    if (characters[character].ref <= 0) {
-                        delete characters[character];
-                    }
-                }
-                this._length -= this._unrefCount;
-                this._revision += 1;
-                this._unrefCount = 0;
-            }
-        };
-        DynamicFontAtlas.prototype.add = function (targets, type) {
-            if (type === void 0) { type = DynamicFontAtlasCharacterType.LETTER; }
-            var characters = this._characters;
-            var iterator = UtilCharacterIterator.from(targets);
-            while (iterator.hasNext()) {
-                var character = iterator.next();
-                this.add_(character, character, characters, type);
-            }
-        };
-        DynamicFontAtlas.prototype.remove = function (targets) {
-            var characters = this._characters;
-            var iterator = UtilCharacterIterator.from(targets);
-            while (iterator.hasNext()) {
-                this.remove_(iterator.next(), characters);
-            }
-        };
-        DynamicFontAtlas.prototype.get = function (id) {
-            return this._characters[id];
-        };
-        DynamicFontAtlas.prototype.getAdvance = function (target) {
-            var context = this.getContext();
-            if (context != null) {
-                return context.measureText(target).width;
-            }
-            return 0;
-        };
-        DynamicFontAtlas.prototype.getContext = function () {
-            var context = this._context;
-            if (context == null) {
-                var canvas = this._canvas;
-                if (canvas != null) {
-                    context = this._context = canvas.getContext("2d", { alpha: true });
-                    if (context == null) {
-                        return null;
-                    }
-                }
-                else {
-                    return null;
-                }
-            }
-            var font = this._font;
-            if (context.font !== font.id) {
-                context.font = font.id;
-                font.id = context.font;
-                context.textAlign = "left";
-                context.textBaseline = "alphabetic";
-                context.lineWidth = 0;
-                context.lineCap = "round";
-                context.lineJoin = "miter";
-                context.miterLimit = 0;
-                context.fillStyle = font.color;
-                context.strokeStyle = "#0000ff";
-            }
-            return context;
-        };
-        DynamicFontAtlas.prototype.update = function () {
-            this.cleanup_();
-            if (this._revisionUpdated < this._revision) {
-                this._revisionUpdated = this._revision;
-                var canvas = this._canvas;
-                if (canvas != null) {
-                    var font = this._font;
-                    var fontHeight = font.height;
-                    var characters = this._characters;
-                    var width = (this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight));
-                    var offsetX = this._padding;
-                    var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
-                    var x = 0;
-                    var y = 0;
-                    for (var key in characters) {
-                        var character = characters[key];
-                        if (width <= x + character.width) {
-                            x = 0;
-                            y += fontHeight;
-                        }
-                        character.x = x;
-                        character.y = y;
-                        character.origin.x = x + offsetX;
-                        character.origin.y = y + offsetY;
-                        x += character.width;
-                    }
-                    var height = (this._height = y + fontHeight);
-                    // Make a input canvas
-                    // Here, we need to reset the context because
-                    // context settings will be lost when we set the width/height.
-                    var baseTexture = this._texture.baseTexture;
-                    var resolution = baseTexture.resolution;
-                    var realWidth = Math.ceil(width * resolution);
-                    var realHeight = Math.ceil(height * resolution);
-                    canvas.width = realWidth;
-                    canvas.height = realHeight;
-                    var context = this.getContext();
-                    if (context != null) {
-                        context.save();
-                        context.scale(resolution, resolution);
-                        context.clearRect(0, 0, width, height);
-                        for (var key in characters) {
-                            var character = characters[key];
-                            context.fillText(key, character.origin.x, character.origin.y);
-                        }
-                        context.restore();
-                    }
-                    baseTexture.setRealSize(realWidth, realHeight);
-                    return true;
-                }
-            }
-            return false;
-        };
-        DynamicFontAtlas.prototype.getRevision = function () {
-            return this._revision;
-        };
-        DynamicFontAtlas.prototype.getRevisionUpdate = function () {
-            return this._revisionUpdated;
-        };
-        Object.defineProperty(DynamicFontAtlas.prototype, "length", {
-            get: function () {
-                return this._length;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicFontAtlas.prototype.destroy = function () {
-            var canvas = this._canvas;
-            if (canvas != null) {
-                this._canvas = null;
-            }
-            var characters = this._characters;
-            for (var character in characters) {
-                delete characters[character];
-            }
-        };
-        DynamicFontAtlas.prototype.toPowerOf2 = function (size) {
-            var result = 32;
-            while (result < size) {
-                result <<= 1;
-            }
-            return result;
-        };
-        return DynamicFontAtlas;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var update = function (atlas) {
-        atlas.update();
-    };
-    var updateAll = function (colorToAltas) {
-        colorToAltas.forEach(update);
-    };
-    var destroy = function (atlas) {
-        atlas.update();
-    };
-    var destroyAll = function (colorToAltas) {
-        colorToAltas.forEach(destroy);
-    };
-    var DynamicFontAtlases = /** @class */ (function () {
-        function DynamicFontAtlases(layer) {
-            var _this = this;
-            this._atlases = new Map();
-            this._resolution = layer.renderer.resolution;
-            layer.renderer.on("prerender", function () {
-                _this.update();
-            });
-        }
-        DynamicFontAtlases.prototype.add = function (fontId, fontSize, fontColor, targets) {
-            var atlases = this._atlases;
-            var colorToAtlas = atlases.get(fontId);
-            if (colorToAtlas == null) {
-                colorToAtlas = new Map();
-                atlases.set(fontId, colorToAtlas);
-            }
-            var atlas = colorToAtlas.get(fontColor);
-            if (atlas == null) {
-                atlas = new DynamicFontAtlas(fontId, fontSize, fontColor, this._resolution);
-                colorToAtlas.set(fontColor, atlas);
-            }
-            atlas.add(targets);
-        };
-        DynamicFontAtlases.prototype.remove = function (fontId, fontColor, targets) {
-            var colorToAtlas = this._atlases.get(fontId);
-            if (colorToAtlas != null) {
-                var atlas = colorToAtlas.get(fontColor);
-                if (atlas != null) {
-                    atlas.remove(targets);
-                }
-            }
-        };
-        DynamicFontAtlases.prototype.get = function (fontId, fontColor) {
-            var atlases = this._atlases;
-            var colorToAtlas = atlases.get(fontId);
-            if (colorToAtlas == null) {
-                return null;
-            }
-            var atlas = colorToAtlas.get(fontColor);
-            if (atlas == null) {
-                return null;
-            }
-            return atlas;
-        };
-        DynamicFontAtlases.prototype.update = function () {
-            this._atlases.forEach(updateAll);
-        };
-        DynamicFontAtlases.prototype.destroy = function () {
-            var atlases = this._atlases;
-            atlases.forEach(destroyAll);
-            atlases.clear();
-        };
-        return DynamicFontAtlases;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var Lazy = /** @class */ (function () {
-        function Lazy(newInstance, options, base) {
-            var _this = this;
-            this.instance = null;
-            this.newInstance = newInstance;
-            this.options = options;
-            if (base != null) {
-                if (base.state.isActive) {
-                    setTimeout(function () {
-                        _this.get();
-                    }, 0);
-                }
-                base.on("active", function () {
-                    _this.get();
-                });
-            }
-        }
-        Lazy.prototype.get = function () {
-            var result = this.instance;
-            if (result == null) {
-                result = new this.newInstance(this.options);
-                this.instance = result;
-            }
-            return result;
-        };
-        return Lazy;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * Returns a ceiling index of the given value.
-     * The array must be sorted in an ascending order.
-     *
-     * @param array an array sorted in an ascending order
-     * @param value a value to be searched
-     * @returns a ceiling index of the given value
-     */
-    var toCeilingIndex = function (array, value, size, offset) {
-        var i0 = 0;
-        var i1 = Math.floor(array.length / size) - 1;
-        while (i0 <= i1) {
-            var i2 = i0 + ((i1 - i0) >> 1);
-            var v2 = array[i2 * size + offset];
-            if (value < v2) {
-                i1 = i2 - 1;
-            }
-            else if (v2 < value) {
-                i0 = i2 + 1;
-            }
-            else {
-                return i2;
-            }
-        }
-        return Math.max(i0, i1);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toLabel$1 = function (target) {
-        if (target != null) {
-            if (isString(target)) {
-                return target;
-            }
-            else if (isNumber(target)) {
-                return String(target);
-            }
-            else if ("name" in target) {
-                return target.name;
-            }
-            else if ("label" in target) {
-                return target.label;
-            }
-            else if ("id" in target) {
-                return target.id;
-            }
-        }
-        return "";
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toString = function (value) {
-        return value != null ? String(value) : "";
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSvgTexture = function (svg, resolution) {
-        return pixi_js.Texture.from(toSvgUrl(svg), {
-            resolution: resolution
-        });
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilSvgAtlasBuilder = /** @class */ (function () {
-        function UtilSvgAtlasBuilder(width, ratio, margin) {
-            this._width = width;
-            this._ratio = ratio;
-            this._margin = margin;
-            this._frames = {};
-            this._svg = "";
-            this._nextX = 0;
-            this._nextY = 0;
-            this._height = 0;
-        }
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "ratio", {
-            get: function () {
-                return this._ratio;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "margin", {
-            get: function () {
-                return this._margin;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        UtilSvgAtlasBuilder.prototype.add = function (name, width, height, path) {
-            var frames = this._frames;
-            if (!(name in frames)) {
-                // Position
-                var margin = this._margin;
-                var x = this._nextX;
-                var y = this._nextY;
-                if (this._width <= x + width) {
-                    x = 0;
-                    y = this._nextY + this._height + margin;
-                    this._height = height;
-                    this._nextY = y;
-                }
-                else {
-                    this._height = Math.max(this._height, height);
-                }
-                this._nextX = x + width + margin;
-                // Frame
-                frames[name] = new pixi_js.Rectangle(x, y, width, height);
-                // Svg
-                var ratio = this._ratio;
-                this._svg += "<g transform=\"translate(".concat(x * ratio, ",").concat(y * ratio, ")\">").concat(path, "</g>");
-                return true;
-            }
-            return false;
-        };
-        UtilSvgAtlasBuilder.prototype.has = function (name) {
-            return name in this._frames;
-        };
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "mappings", {
-            get: function () {
-                return this.build();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        UtilSvgAtlasBuilder.prototype.build = function (options) {
-            var _a, _b, _c;
-            var built = this._built;
-            if (built == null || (options === null || options === void 0 ? void 0 : options.force)) {
-                var resolution = (_b = (_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1;
-                var width = this._width;
-                var height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
-                var realWidth = width * resolution;
-                var realHeight = height * resolution;
-                var ratio = this._ratio;
-                var attrWidth = "width=\"".concat(realWidth, "\"");
-                var attrHeight = "height=\"".concat(realHeight, "\"");
-                var attrViewBox = "viewBox=\"0 0 ".concat(width * ratio, " ").concat(height * ratio, "\"");
-                var attrXmlns = "xmlns=\"http://www.w3.org/2000/svg\"";
-                var url = toSvgUrl("<svg ".concat(attrWidth, " ").concat(attrHeight, " ").concat(attrViewBox, " ").concat(attrXmlns, ">").concat(this._svg, "</svg>"));
-                var scaleMode = (_c = options === null || options === void 0 ? void 0 : options.scaling) !== null && _c !== void 0 ? _c : pixi_js.SCALE_MODES.NEAREST;
-                var baseTexture = pixi_js.BaseTexture.from(url, {
-                    resolution: resolution,
-                    scaleMode: scaleMode
-                });
-                var frames_1 = this._frames;
-                built = this._built = {};
-                for (var name_1 in frames_1) {
-                    built[name_1] = new pixi_js.Texture(baseTexture, frames_1[name_1]);
-                }
-            }
-            return built;
-        };
-        return UtilSvgAtlasBuilder;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilExtractor = /** @class */ (function () {
-        function UtilExtractor() {
-        }
-        UtilExtractor.toTexture = function (target, resolution, clear, skipUpdateTransform) {
-            var scale = target.transform.scale;
-            var result = pixi_js.RenderTexture.create({
-                width: target.width * scale.x,
-                height: target.height * scale.y,
-                scaleMode: pixi_js.SCALE_MODES.LINEAR,
-                resolution: resolution
-            });
-            var matrix = new pixi_js.Matrix(undefined, undefined, undefined, undefined, -target.position.x, -target.position.y);
-            var layer = DApplications.getLayer(target);
-            if (layer) {
-                layer.renderer.render(target, result, clear, matrix, skipUpdateTransform);
-            }
-            return result;
-        };
-        UtilExtractor.toPixels = function (renderTexture, renderer) {
-            var resolution = renderTexture.resolution;
-            var frame = renderTexture.frame;
-            var width = Math.floor(frame.width * resolution);
-            var height = Math.floor(frame.height * resolution);
-            var pixels = new Uint8Array(4 * width * height);
-            renderer.renderTexture.bind(renderTexture);
-            var gl = renderer.gl;
-            gl.readPixels(frame.x * resolution, frame.y * resolution, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-            return {
-                width: width,
-                height: height,
-                array: pixels
-            };
-        };
-        UtilExtractor.toCanvas = function (pixels, scale, ignorePremutipliedAlpha) {
-            var width = pixels.width;
-            var height = pixels.height;
-            var array = pixels.array;
-            var canvasRenderTarget = new pixi_js.utils.CanvasRenderTarget(width, height, 1);
-            var imageData = canvasRenderTarget.context.getImageData(0, 0, width, height);
-            if (ignorePremutipliedAlpha) {
-                imageData.data.set(array);
-            }
-            else {
-                pixi_js.Extract.arrayPostDivide(array, imageData.data);
-            }
-            canvasRenderTarget.context.putImageData(imageData, 0, 0);
-            // Scale down
-            if (scale != null && scale !== 1) {
-                canvasRenderTarget.context.scale(scale, scale);
-                canvasRenderTarget.context.drawImage(canvasRenderTarget.canvas, 0, 0);
-                var scaledWidth = Math.floor(width * scale);
-                var scaledHeight = Math.floor(height * scale);
-                var scaledImageData = canvasRenderTarget.context.getImageData(0, 0, scaledWidth, scaledHeight);
-                canvasRenderTarget.resize(scaledWidth, scaledHeight);
-                canvasRenderTarget.context.putImageData(scaledImageData, 0, 0);
-            }
-            return canvasRenderTarget;
-        };
-        UtilExtractor.toBase64 = function (canvas, format, quality) {
-            return canvas.toDataURL(format, quality);
-        };
-        return UtilExtractor;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilFileDownloader = /** @class */ (function () {
-        function UtilFileDownloader() {
-        }
-        /**
-         * Downloads a file of the given name and URL.
-         *
-         * @param filename a file name
-         * @param url a file URL
-         */
-        UtilFileDownloader.downloadUrl = function (filename, url) {
-            var a = document.createElement("a");
-            if ("download" in a) {
-                a.href = url;
-                a.setAttribute("download", filename);
-                a.style.display = "none";
-                document.body.appendChild(a);
-                a.click();
-                setTimeout(function () {
-                    document.body.removeChild(a);
-                }, 66);
-            }
-            else {
-                if (!window.open(url)) {
-                    location.href = url;
-                }
-            }
-        };
-        /**
-         * Downloads a file of the given name with the given contents.
-         *
-         * @param filename a file name
-         * @param contents file contents
-         * @param insertBom false to stop the BOM insertion
-         */
-        UtilFileDownloader.download = function (filename, contents, insertBom) {
-            var blob = new Blob(insertBom !== false ? ["\ufeff", contents] : [contents], {
-                type: "text/plain"
-            });
-            var navigator = window.navigator;
-            if ("msSaveBlob" in navigator) {
-                // IE10 and 11
-                navigator.msSaveBlob(blob, filename);
-            }
-            else {
-                this.downloadUrl(filename, URL.createObjectURL(blob));
-            }
-        };
-        return UtilFileDownloader;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toResolution = function (options) {
-        var _a;
-        var target = options.target;
-        var resolution = options.resolution;
-        if (resolution != null) {
-            if (isNumber(resolution)) {
-                return resolution;
-            }
-            else {
-                var scale = target.transform.scale;
-                var size = Math.max(target.width * scale.x, target.height * scale.y);
-                return Math.min(1, resolution.size / size);
-            }
-        }
-        else {
-            return (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
-        }
-    };
-    var toScale = function (pixels, options) {
-        var scale = options.scale;
-        if (scale != null) {
-            if (isNumber(scale)) {
-                return scale;
-            }
-            else {
-                var size = scale.size;
-                return Math.min(1, size / pixels.width, size / pixels.height);
-            }
-        }
-    };
-    var toRenderer = function (options) {
-        var renderer = options.renderer;
-        if (renderer) {
-            return renderer;
-        }
-        var application = options.application;
-        if (application) {
-            return application.getLayerBase().renderer;
-        }
-        var layer = options.layer || DApplications.getLayer(options.target);
-        if (layer) {
-            return layer.renderer;
-        }
-        throw new Error("No renderer / application / layer found.");
-    };
-    var UtilExtract = /** @class */ (function () {
-        function UtilExtract() {
-        }
-        UtilExtract.texture = function (options) {
-            var _a;
-            var target = options.target;
-            var resolution = toResolution(options);
-            var skipUpdateTransform = (_a = options.transform) === null || _a === void 0 ? void 0 : _a.update;
-            return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
-        };
-        UtilExtract.pixels = function (options) {
-            var renderer = toRenderer(options);
-            var texture = this.texture(options);
-            try {
-                return UtilExtractor.toPixels(texture, renderer);
-            }
-            finally {
-                if (texture) {
-                    texture.destroy();
-                }
-            }
-        };
-        UtilExtract.canvas = function (options) {
-            var _a, _b;
-            var pixels = this.pixels(options);
-            var ignorePremutipliedAlpha = (_b = (_a = options.alpha) === null || _a === void 0 ? void 0 : _a.premultiplied) === null || _b === void 0 ? void 0 : _b.ignore;
-            var scale = toScale(pixels, options);
-            return UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha);
-        };
-        UtilExtract.base64 = function (options) {
-            var canvas = this.canvas(options);
-            try {
-                return UtilExtractor.toBase64(canvas.canvas, options.format, options.quality);
-            }
-            finally {
-                if (canvas) {
-                    canvas.destroy();
-                }
-            }
-        };
-        UtilExtract.file = function (options) {
-            UtilFileDownloader.downloadUrl(options.filename, this.base64(options));
-        };
-        return UtilExtract;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * An output format.
-     */
-    var UtilFileAs = {
-        TEXT: 0,
-        DATA_URL: 1,
-        BINARY_STRING: 2,
-        ARRAY_BUTTER: 3,
-        FILE: 4
-    };
-    /**
-     * An utility class for opening files.
-     */
-    var UtilFileOpener = /** @class */ (function () {
-        function UtilFileOpener(as, facade) {
-            this._input = null;
-            this._as = as;
-            this._facade = facade;
-        }
-        UtilFileOpener.prototype.open = function () {
-            var input = this.getOrCreateInput();
-            if (input != null) {
-                input.click();
-            }
-            else {
-                this.onCancel();
-            }
-        };
-        UtilFileOpener.prototype.getOrCreateInput = function () {
-            var _this = this;
-            if ("FileReader" in window && this._input == null) {
-                var input_1 = document.createElement("input");
-                this._input = input_1;
-                input_1.setAttribute("type", "file");
-                input_1.setAttribute("style", "display:none");
-                input_1.addEventListener("change", function (e) {
-                    _this.onInputChange(input_1);
-                    input_1.value = "";
-                    e.stopImmediatePropagation();
-                    e.preventDefault();
-                });
-                document.body.appendChild(input_1);
-            }
-            return this._input;
-        };
-        UtilFileOpener.prototype.onInputChange = function (input) {
-            var _this = this;
-            var files = input.files;
-            if (files != null && 0 < files.length) {
-                var file_1 = files[0];
-                if (this._as === UtilFileAs.FILE) {
-                    this.onOpen(file_1, file_1);
-                }
-                else {
-                    var fileReader = new FileReader();
-                    fileReader.onload = function (e) {
-                        if (e.target != null) {
-                            var target = e.target;
-                            _this.onOpen(target.result, file_1);
-                        }
-                    };
-                    fileReader.onabort = function (e) {
-                        _this.onAboart(e);
-                    };
-                    switch (this._as) {
-                        case UtilFileAs.TEXT:
-                            fileReader.readAsText(file_1);
-                            break;
-                        case UtilFileAs.DATA_URL:
-                            fileReader.readAsDataURL(file_1);
-                            break;
-                        case UtilFileAs.BINARY_STRING:
-                            fileReader.readAsBinaryString(file_1);
-                            break;
-                        case UtilFileAs.ARRAY_BUTTER:
-                            fileReader.readAsArrayBuffer(file_1);
-                            break;
-                        default:
-                            fileReader.readAsText(file_1);
-                            break;
-                    }
-                }
-            }
-            else {
-                this.onCancel();
-            }
-        };
-        UtilFileOpener.prototype.onOpen = function (result, file) {
-            var facade = this._facade;
-            facade.emit("open", result, file, facade);
-        };
-        UtilFileOpener.prototype.onAboart = function (e) {
-            var facade = this._facade;
-            facade.emit("abort", e, facade);
-        };
-        UtilFileOpener.prototype.onCancel = function () {
-            var facade = this._facade;
-            facade.emit("cancel", facade);
-        };
-        return UtilFileOpener;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilHsv = /** @class */ (function () {
-        function UtilHsv() {
-        }
-        /**
-         * Returns HSV colors.
-         * Ranges of components are:
-         *
-         * * H: [0, 360)
-         * * S: [0, 255]
-         * * V: [0, 255]
-         *
-         * @param color a rgb color
-         * @return an array of hsv components
-         */
-        UtilHsv.fromRgb = function (color) {
-            var r = (color & 0xff0000) >> 16;
-            var g = (color & 0x00ff00) >> 8;
-            var b = (color & 0x0000ff) | 0;
-            var max = Math.max(r, g, b);
-            var min = Math.min(r, g, b);
-            var length = max - min;
-            var h = 0;
-            if (0 < length) {
-                if (r === max) {
-                    h = (60 * (g - b)) / length;
-                }
-                else if (g === max) {
-                    h = (60 * (b - r)) / length + 120;
-                }
-                else if (b === max) {
-                    h = (60 * (r - g)) / length + 240;
-                }
-                if (h < 0) {
-                    h += 360;
-                }
-            }
-            var s = (length / max) * 255;
-            var v = max;
-            return [h, s, v];
-        };
-        UtilHsv.toRgb = function (h, s, v) {
-            var max = v;
-            var min = v - (s / 255) * v;
-            var length = max - min;
-            var r = 0;
-            var g = 0;
-            var b = 0;
-            if (h <= 60) {
-                r = max;
-                g = (h / 60) * length + min;
-                b = min;
-            }
-            else if (h <= 120) {
-                r = ((120 - h) / 60) * length + min;
-                g = max;
-                b = min;
-            }
-            else if (h <= 180) {
-                r = min;
-                g = max;
-                b = ((h - 120) / 60) * length + min;
-            }
-            else if (h <= 240) {
-                r = min;
-                g = ((240 - h) / 60) * length + min;
-                b = max;
-            }
-            else if (h <= 300) {
-                r = ((h - 240) / 60) * length + min;
-                g = min;
-                b = max;
-            }
-            else {
-                r = max;
-                g = min;
-                b = ((360 - h) / 60) * length + min;
-            }
-            r = Math.max(0, Math.min(255, r));
-            g = Math.max(0, Math.min(255, g));
-            b = Math.max(0, Math.min(255, b));
-            return (r << 16) | (g << 8) | b;
-        };
-        return UtilHsv;
-    }());
-
-    /*
-     * Copyright (C) 2021 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilInputTextArea = /** @class */ (function (_super) {
-        __extends(UtilInputTextArea, _super);
-        function UtilInputTextArea() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        UtilInputTextArea.prototype.onElementAttached = function (element, before, after) {
-            element.addEventListener("keydown", this._onInputKeyDownBound);
-            _super.prototype.onElementAttached.call(this, element, before, after);
-        };
-        UtilInputTextArea.prototype.onElementDetached = function (element, before, after) {
-            element.removeEventListener("keydown", this._onInputKeyDownBound);
-            _super.prototype.onElementDetached.call(this, element, before, after);
-        };
-        UtilInputTextArea.prototype.onInputKeyDown = function (e) {
-            if (UtilKeyboardEvent.isOkKey(e)) {
-                this._operation.onEnter();
-            }
-        };
-        return UtilInputTextArea;
-    }(UtilInput));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilName = /** @class */ (function () {
-        function UtilName() {
-        }
-        UtilName.create = function (type) {
-            var mapping = this._mapping;
-            if (type in mapping) {
-                return "".concat(type, " ").concat(++mapping[type]);
-            }
-            else {
-                mapping[type] = 1;
-                return "".concat(type, " 1");
-            }
-        };
-        UtilName._mapping = {};
-        return UtilName;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilRgba = /** @class */ (function () {
-        function UtilRgba() {
-        }
-        UtilRgba.toCode = function (color, alpha) {
-            var r = (color >> 16) & 0xff;
-            var g = (color >> 8) & 0xff;
-            var b = color & 0xff;
-            return "rgba(".concat(r, ",").concat(g, ",").concat(b, ",").concat(alpha, ")");
-        };
-        return UtilRgba;
-    }());
-
-    var UtilStateBlinker = /** @class */ (function () {
-        function UtilStateBlinker(state, delay, interval) {
-            var _this = this;
-            this._isOn = true;
-            this._targets = new Set();
-            this._state = state;
-            this._delay = delay;
-            this._interval = interval;
-            this._timeout = null;
-            var updateBound = function () {
-                _this.advance();
-                _this.update();
-                _this._timeout = window.setTimeout(updateBound, interval);
-            };
-            this._updateBound = updateBound;
-        }
-        UtilStateBlinker.prototype.start = function () {
-            if (this._timeout == null) {
-                this._timeout = window.setTimeout(this._updateBound, this._delay);
-            }
-            return this;
-        };
-        UtilStateBlinker.prototype.stop = function () {
-            var timeout = this._timeout;
-            if (timeout != null) {
-                this._timeout = null;
-                clearTimeout(timeout);
-            }
-            return this;
-        };
-        UtilStateBlinker.prototype.add = function (target) {
-            this._targets.add(target);
-            target.state.set(this._state, this.isOn());
-            return this;
-        };
-        UtilStateBlinker.prototype.remove = function (target) {
-            if (this._targets.delete(target)) {
-                target.state.remove(this._state);
-                return true;
-            }
-            return false;
-        };
-        UtilStateBlinker.prototype.contains = function (target) {
-            return this._targets.has(target);
-        };
-        UtilStateBlinker.prototype.clear = function () {
-            this._targets.clear();
-            return this;
-        };
-        UtilStateBlinker.prototype.isOn = function () {
-            return this._isOn;
-        };
-        UtilStateBlinker.prototype.isOff = function () {
-            return !this._isOn;
-        };
-        UtilStateBlinker.prototype.advance = function () {
-            this._isOn = !this._isOn;
-            return this;
-        };
-        UtilStateBlinker.prototype.update = function () {
-            var isOn = this.isOn();
-            var state = this._state;
-            this._targets.forEach(function (target) {
-                target.state.set(state, isOn);
-            });
-            return this;
-        };
-        return UtilStateBlinker;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilTransition = /** @class */ (function () {
-        function UtilTransition(options) {
-            var _a;
-            this._duration = (_a = options === null || options === void 0 ? void 0 : options.duration) !== null && _a !== void 0 ? _a : 300;
-            this._current = null;
-            this._lastUpdate = 0;
-            this._updateId = null;
-        }
-        UtilTransition.prototype.show = function (next, forcibly) {
-            var _this = this;
-            var updateId = this._updateId;
-            if (updateId != null) {
-                clearTimeout(updateId);
-            }
-            var current = this._current;
-            if (next !== current) {
-                var duration = this._duration;
-                var lastUpdate = this._lastUpdate;
-                var now = Date.now();
-                var remaining = lastUpdate + duration - now;
-                if (forcibly === true || remaining <= 0) {
-                    this.update(now, next);
-                }
-                else {
-                    this._updateId = window.setTimeout(function () {
-                        _this.update(Date.now(), next);
-                    }, remaining);
-                }
-            }
-        };
-        UtilTransition.prototype.update = function (now, next) {
-            var current = this._current;
-            if (current !== next) {
-                this._lastUpdate = now;
-                if (current != null) {
-                    current.hide();
-                }
-                this._current = next;
-                if (next != null) {
-                    next.show();
-                }
-            }
-        };
-        UtilTransition.prototype.hide = function () {
-            this.show(null);
-        };
-        return UtilTransition;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /*!
-     * jQuery Mousewheel 3.1.13
-     *
-     * Copyright jQuery Foundation and other contributors
-     * Released under the MIT license
-     * http://jquery.org/license
-     *
-     * See also https://github.com/mapbox/mapbox-gl-js/blob/001c7b9/js/ui/handler/scroll_zoom.js
-     * and https://github.com/openlayers/openlayers/blob/v5.2.0/src/ol/interaction/MouseWheelZoom.js#L51
-     */
-    var UtilWheelEvent = /** @class */ (function () {
-        function UtilWheelEvent() {
-            this._lowest = null;
-            this._timestamp = 0;
-            this._lineHeight = null;
-            this._pageHeight = null;
-        }
-        UtilWheelEvent.prototype.getNames = function () {
-            var result = this._names;
-            if (result == null) {
-                if ("onwheel" in document || 9 <= document.documentMode) {
-                    result = ["wheel"];
-                }
-                else {
-                    result = ["mousewheel", "DOMMouseScroll", "MozMousePixelScroll"];
-                }
-                this._names = result;
-            }
-            return result;
-        };
-        UtilWheelEvent.prototype.on = function (target, handler, useCapture) {
-            if (useCapture === void 0) { useCapture = false; }
-            var names = this.getNames();
-            for (var i = names.length - 1; 0 <= i; --i) {
-                var name_1 = names[i];
-                target.addEventListener(name_1, handler, useCapture);
-            }
-        };
-        UtilWheelEvent.prototype.off = function (target, handler, useCapture) {
-            if (useCapture === void 0) { useCapture = false; }
-            var names = this.getNames();
-            for (var i = names.length - 1; 0 <= i; --i) {
-                var name_2 = names[i];
-                target.removeEventListener(name_2, handler, useCapture);
-            }
-        };
-        UtilWheelEvent.prototype.getLineHeight = function () {
-            if (this._lineHeight == null) {
-                var theme = DThemes.getInstance().get("DBase");
-                this._lineHeight = theme.getLineHeight();
-            }
-            return this._lineHeight;
-        };
-        UtilWheelEvent.prototype.getPageHeight = function () {
-            if (this._pageHeight == null) {
-                this._pageHeight = this.getLineHeight() * 12;
-            }
-            return this._pageHeight;
-        };
-        UtilWheelEvent.prototype.normalize = function (e) {
-            var deltaX = 0;
-            var deltaY = 0;
-            // Old school scrollwheel delta
-            if ("detail" in e) {
-                deltaY = e.detail * -1;
-            }
-            if ("wheelDelta" in e) {
-                deltaY = e.wheelDelta;
-            }
-            if ("wheelDeltaY" in e) {
-                deltaY = e.wheelDeltaY;
-            }
-            if ("wheelDeltaX" in e) {
-                deltaX = e.wheelDeltaX * -1;
-            }
-            // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
-            if ("axis" in e && e.axis === e.HORIZONTAL_AXIS) {
-                deltaX = deltaY * -1;
-                deltaY = 0;
-            }
-            // New school wheel delta (wheel event)
-            if ("deltaY" in e) {
-                deltaY = e.deltaY * -1;
-            }
-            if ("deltaX" in e) {
-                deltaX = e.deltaX;
-            }
-            // No change actually happened, no reason to go any further
-            if (deltaY === 0 && deltaX === 0) {
-                return null;
-            }
-            // Store lowest absolute delta to normalize the delta values
-            var delta = Math.max(Math.abs(deltaY), Math.abs(deltaX));
-            // Reset the this._lowest to better handle multiple device types
-            // that give different a different lowestDelta
-            // Ex: trackpad = 3 and mouse wheel = 120
-            var now = Date.now();
-            if (this._timestamp + 200 <= now) {
-                this._lowest = null;
-            }
-            this._timestamp = now;
-            //
-            var shouldAdjust = e.type === "mousewheel" && delta % 120 === 0;
-            if (!this._lowest || delta < this._lowest) {
-                this._lowest = delta;
-                // Adjust older deltas if necessary
-                if (shouldAdjust) {
-                    this._lowest /= 40;
-                }
-            }
-            // Adjust older deltas if necessary
-            if (shouldAdjust) {
-                // Divide all the things by 40!
-                delta /= 40;
-                deltaX /= 40;
-                deltaY /= 40;
-            }
-            // Get a whole, normalized value for the deltas
-            var lowest = this._lowest;
-            delta = Math.floor(delta / lowest);
-            deltaX = Math[1 <= deltaX ? "floor" : "ceil"](deltaX / lowest);
-            deltaY = Math[1 <= deltaY ? "floor" : "ceil"](deltaY / lowest);
-            // Mode
-            var mode = e.deltaMode || 0;
-            if (mode !== 0) {
-                var scale = mode === 1 ? this.getLineHeight() : this.getPageHeight();
-                delta *= scale;
-                deltaX *= scale;
-                deltaY *= scale;
-            }
-            return {
-                mode: mode,
-                delta: delta,
-                deltaX: deltaX,
-                deltaY: deltaY,
-                lowest: lowest
-            };
-        };
-        UtilWheelEvent.getInstance = function () {
-            if (this.INSTANCE == null) {
-                this.INSTANCE = new UtilWheelEvent();
-            }
-            return this.INSTANCE;
-        };
-        return UtilWheelEvent;
-    }());
 
     /*
      * Copyright (C) 2019 Toshiba Corporation

@@ -98,6 +98,12 @@
     * [Snapshot](./diagram/snapshot.html)
     * [Text](./diagram/text.html)
 * Dialog
+    * [Align (Bottom)](./dialog/align-bottom.html)
+    * [Align (Left)](./dialog/align-left.html)
+    * [Align (Null)](./dialog/align-null.html)
+    * [Align (Over)](./dialog/align-over.html)
+    * [Align (Right)](./dialog/align-right.html)
+    * [Align (Top)](./dialog/align-top.html)
     * [Color dialog](./dialog/color.html)
     * [Gradient color dialog](./dialog/color-gradient.html)
     * [Delete confirm dialog](./dialog/confirm-delete.html)

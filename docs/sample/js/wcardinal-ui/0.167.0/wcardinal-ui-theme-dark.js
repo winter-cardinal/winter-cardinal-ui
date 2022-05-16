@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.165.0
+ Winter Cardinal UI v0.167.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -868,13 +868,7 @@
             return 5;
         };
         DThemeDarkDialog.prototype.getAlign = function (mode) {
-            switch (mode) {
-                case DDialogMode.MODAL:
-                    return DDialogAlign.OVER;
-                case DDialogMode.MODELESS:
-                case DDialogMode.MENU:
-                    return DDialogAlign.BOTTOM;
-            }
+            return DDialogAlign.BOTTOM;
         };
         DThemeDarkDialog.prototype.newAnimation = function (mode) {
             switch (mode) {

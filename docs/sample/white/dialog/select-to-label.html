@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.165.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.165.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.167.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.167.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -33,19 +33,19 @@
 		var dialog = new wcardinal.ui.DDialogSelect({
 			list: {
 				data: {
-					toLabel: function ( value ) {
+					toLabel: function (value) {
 						return value.name.toUpperCase();
 					}
 				}
 			},
 			controller: {
-				search: function ( word ) {
+				search: function (word) {
 					return Promise.resolve([
 						{ name: "Apple" },
 						{ name: "Orange" },
 						{ name: "Pineapple" }
-					].filter(function( item ) {
-						return word.length <= 0 || 0 <= item.name.toUpperCase().indexOf( word );
+					].filter(function (item) {
+						return word.length <= 0 || 0 <= item.name.toUpperCase().indexOf(word);
 					}));
 				}
 			}
@@ -59,12 +59,12 @@
 				value: "Open"
 			},
 			on: {
-				active: function () {
-					dialog.open().then(function( value ){
-						console.log( value );
+				active: function (emitter) {
+					dialog.open(emitter).then(function(value){
+						console.log(value);
 					})
 					.catch(function() {
-						console.log( "Canceled" );
+						console.log("Canceled");
 					});
 				}
 			}
