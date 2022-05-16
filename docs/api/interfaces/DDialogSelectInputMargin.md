@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DDialogSelectInputMargin
+[Winter Cardinal UI - v0.165.0](../index.md) / DDialogSelectInputMargin
 
 # Interface: DDialogSelectInputMargin
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L30)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L30)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L31)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L31)

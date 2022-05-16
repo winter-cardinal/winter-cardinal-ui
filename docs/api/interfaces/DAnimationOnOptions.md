@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DAnimationOnOptions
+[Winter Cardinal UI - v0.165.0](../index.md) / DAnimationOnOptions
 
 # Interface: DAnimationOnOptions<EMITTER\>
 
@@ -51,7 +51,7 @@ Partial.end
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-animation.ts#L76)
+[src/main/typescript/wcardinal/ui/d-animation.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-animation.ts#L76)
 
 ___
 
@@ -78,7 +78,7 @@ Partial.start
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-animation.ts#L58)
+[src/main/typescript/wcardinal/ui/d-animation.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-animation.ts#L58)
 
 ___
 
@@ -107,4 +107,4 @@ Partial.time
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-animation.ts#L68)
+[src/main/typescript/wcardinal/ui/d-animation.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-animation.ts#L68)

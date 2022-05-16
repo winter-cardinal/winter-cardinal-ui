@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramSerializedTextOutline
+[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramSerializedTextOutline
 
 # Interface: DDiagramSerializedTextOutline
 
@@ -23,7 +23,7 @@ A serialized text outline.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L119)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L119)
 
 ___
 
@@ -35,7 +35,7 @@ A color.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L122)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L122)
 
 ___
 
@@ -47,7 +47,7 @@ An alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L125)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L125)
 
 ___
 
@@ -59,4 +59,4 @@ A width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L128)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L128)

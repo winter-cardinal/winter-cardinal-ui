@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / EShapeTextOutlineLike
+[Winter Cardinal UI - v0.165.0](../index.md) / EShapeTextOutlineLike
 
 # Interface: EShapeTextOutlineLike
 
@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L12)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L11)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L10)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-text-outline.ts#L13)

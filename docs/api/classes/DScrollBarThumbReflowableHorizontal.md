@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DScrollBarThumbReflowableHorizontal
+[Winter Cardinal UI - v0.165.0](../index.md) / DScrollBarThumbReflowableHorizontal
 
 # Class: DScrollBarThumbReflowableHorizontal
 
@@ -183,7 +183,7 @@ Graphics.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts#L12)
+[src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts#L12)
 
 ## Properties
 
@@ -3112,7 +3112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts#L18)
+[src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-scroll-bar-thumb-reflowable-horizontal.ts#L18)
 
 ___
 

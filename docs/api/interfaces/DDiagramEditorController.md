@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramEditorController
+[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramEditorController
 
 # Interface: DDiagramEditorController
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L53)
+[src/main/typescript/wcardinal/ui/d-diagram-base.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L53)
 
 ## Methods
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L42)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L42)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L40)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L40)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L54)
+[src/main/typescript/wcardinal/ui/d-diagram-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L54)
 
 ___
 
@@ -119,4 +119,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L41)
+[src/main/typescript/wcardinal/ui/d-diagram-editor.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-editor.ts#L41)

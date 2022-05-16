@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DChartSeriesBarSizeOptions
+[Winter Cardinal UI - v0.165.0](../index.md) / DChartSeriesBarSizeOptions
 
 # Interface: DChartSeriesBarSizeOptions
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-bar.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-bar.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-series-bar.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-series-bar.ts#L22)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L7)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L7)
 
 ___
 
@@ -52,4 +52,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L8)
+[src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-series-point-computed.ts#L8)

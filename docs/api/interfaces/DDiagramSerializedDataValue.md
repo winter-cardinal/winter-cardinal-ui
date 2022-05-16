@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramSerializedDataValue
+[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramSerializedDataValue
 
 # Interface: DDiagramSerializedDataValue
 
@@ -26,7 +26,7 @@ Stored at DDiagramSerialized#resources.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L43)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L43)
 
 ___
 
@@ -39,7 +39,7 @@ Stored at DDiagramSerialized#resources.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L49)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L49)
 
 ___
 
@@ -52,7 +52,7 @@ Stored at DDiagramSerialized#resources.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L55)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L55)
 
 ___
 
@@ -65,7 +65,7 @@ Stored at DDiagramSerialized#resources.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L61)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L61)
 
 ___
 
@@ -77,7 +77,7 @@ A capacity.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L66)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L66)
 
 ___
 
@@ -89,4 +89,4 @@ A order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L71)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L71)

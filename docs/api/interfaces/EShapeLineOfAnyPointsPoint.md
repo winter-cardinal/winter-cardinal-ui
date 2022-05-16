@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / EShapeLineOfAnyPointsPoint
+[Winter Cardinal UI - v0.165.0](../index.md) / EShapeLineOfAnyPointsPoint
 
 # Interface: EShapeLineOfAnyPointsPoint
 
@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L9)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L12)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L10)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L11)
 
 ## Methods
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L18)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L16)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L17)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L20)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L21)
 
 ___
 
@@ -166,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L14)
 
 ___
 
@@ -180,4 +180,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-line-of-any-points-point.ts#L23)

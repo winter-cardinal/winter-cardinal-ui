@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DCommandCreate
+[Winter Cardinal UI - v0.165.0](../index.md) / DCommandCreate
 
 # Class: DCommandCreate
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-create.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L20)
+[src/main/typescript/wcardinal/ui/d-command-create.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L20)
 
 ___
 
@@ -62,7 +62,7 @@ Called to executed this command.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-create.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L10)
+[src/main/typescript/wcardinal/ui/d-command-create.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L10)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-create.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L24)
+[src/main/typescript/wcardinal/ui/d-command-create.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L24)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-create.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L12)
+[src/main/typescript/wcardinal/ui/d-command-create.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L12)
 
 ___
 
@@ -116,4 +116,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-create.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L16)
+[src/main/typescript/wcardinal/ui/d-command-create.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-create.ts#L16)

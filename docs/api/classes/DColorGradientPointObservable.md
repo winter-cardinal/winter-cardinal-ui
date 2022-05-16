@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DColorGradientPointObservable
+[Winter Cardinal UI - v0.165.0](../index.md) / DColorGradientPointObservable
 
 # Class: DColorGradientPointObservable
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L15)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L15)
 
 ## Properties
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L10)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L10)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L12)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L12)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L9)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L9)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L11)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L11)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L13)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L13)
 
 ## Accessors
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L55)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L55)
 
 • `set` **alpha**(`alpha`): `void`
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L59)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L59)
 
 ___
 
@@ -170,7 +170,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L44)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L44)
 
 • `set` **color**(`color`): `void`
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L48)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L48)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L66)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L66)
 
 • `set` **position**(`position`): `void`
 
@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L70)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L70)
 
 ___
 
@@ -242,7 +242,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L77)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L77)
 
 • `set` **selected**(`selected`): `void`
 
@@ -258,7 +258,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L81)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L81)
 
 ## Methods
 
@@ -281,7 +281,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L29)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L29)
 
 ___
 
@@ -295,4 +295,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L88)
+[src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-color-gradient-point-observable.ts#L88)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DMapPoint
+[Winter Cardinal UI - v0.165.0](../index.md) / DMapPoint
 
 # Interface: DMapPoint
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L7)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L7)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L8)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L8)

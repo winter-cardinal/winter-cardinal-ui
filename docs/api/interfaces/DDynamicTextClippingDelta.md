@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DDynamicTextClippingDelta
+[Winter Cardinal UI - v0.165.0](../index.md) / DDynamicTextClippingDelta
 
 # Interface: DDynamicTextClippingDelta
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L16)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L16)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L15)
+[src/main/typescript/wcardinal/ui/d-dynamic-text.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-dynamic-text.ts#L15)

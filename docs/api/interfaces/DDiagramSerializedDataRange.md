@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramSerializedDataRange
+[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramSerializedDataRange
 
 # Interface: DDiagramSerializedDataRange
 
@@ -22,7 +22,7 @@ A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L26)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L26)
 
 ___
 
@@ -34,7 +34,7 @@ A lower bound.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L29)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L29)
 
 ___
 
@@ -46,4 +46,4 @@ An upper bound.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L32)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L32)

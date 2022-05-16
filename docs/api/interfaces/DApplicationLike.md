@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DApplicationLike
+[Winter Cardinal UI - v0.165.0](../index.md) / DApplicationLike
 
 # Interface: DApplicationLike
 
@@ -32,7 +32,7 @@ The stage of the base layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L18)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L18)
 
 ## Methods
 
@@ -48,7 +48,7 @@ Returns a focus controller.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L28)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L28)
 
 ___
 
@@ -64,7 +64,7 @@ Returns a base layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L38)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L38)
 
 ___
 
@@ -82,7 +82,7 @@ if the overlay layer is disabled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L45)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L45)
 
 ___
 
@@ -98,7 +98,7 @@ Returns a resolution.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L33)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L33)
 
 ___
 
@@ -114,7 +114,7 @@ Returns a root element.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L23)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L23)
 
 ___
 
@@ -130,7 +130,7 @@ Renders layers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L55)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L55)
 
 ___
 
@@ -146,4 +146,4 @@ Updates layers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L50)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L50)

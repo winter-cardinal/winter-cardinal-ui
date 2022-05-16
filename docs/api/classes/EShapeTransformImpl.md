@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / EShapeTransformImpl
+[Winter Cardinal UI - v0.165.0](../index.md) / EShapeTransformImpl
 
 # Class: EShapeTransformImpl
 
@@ -70,7 +70,7 @@ Transform.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L28)
 
 ## Properties
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L25)
 
 ___
 
@@ -298,7 +298,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L26)
 
 ___
 
@@ -492,7 +492,7 @@ node_modules/pixi.js/pixi.js.d.ts:12330
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L48)
 
 ___
 
@@ -510,7 +510,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L44)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L44)
 
 ___
 
@@ -528,7 +528,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L52)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L52)
 
 ___
 
@@ -546,7 +546,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L56)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L56)
 
 ___
 
@@ -570,7 +570,7 @@ Transform.onChange
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L34)
 
 ___
 
@@ -648,7 +648,7 @@ Transform.updateSkew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L39)
 
 ___
 
@@ -678,4 +678,4 @@ Transform.updateTransform
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L60)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DTableDataFilter
+[Winter Cardinal UI - v0.165.0](../index.md) / DTableDataFilter
 
 # Interface: DTableDataFilter<ROW\>
 
@@ -56,7 +56,7 @@ Table data filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L29)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L29)
 
 ___
 
@@ -69,7 +69,7 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L35)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L35)
 
 ## Methods
 
@@ -113,7 +113,7 @@ Applys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L40)
 
 ___
 
@@ -178,7 +178,7 @@ Returns a current filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L55)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L55)
 
 ___
 
@@ -194,7 +194,7 @@ Returns true if a filter is applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L50)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L50)
 
 ___
 
@@ -268,7 +268,7 @@ Returns a mapped index of the specified sorted index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L69)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L69)
 
 ___
 
@@ -438,7 +438,7 @@ Sets to the given filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L62)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L62)
 
 ___
 
@@ -454,7 +454,7 @@ Unapplys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L45)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L45)
 
 ___
 
@@ -477,4 +477,4 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L77)
+[src/main/typescript/wcardinal/ui/d-table-data-filter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-filter.ts#L77)

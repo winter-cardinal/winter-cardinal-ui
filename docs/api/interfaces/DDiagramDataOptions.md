@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DDiagramDataOptions
+[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramDataOptions
 
 # Interface: DDiagramDataOptions
 
@@ -19,7 +19,7 @@ A data mapper.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-data.ts#L31)
+[src/main/typescript/wcardinal/ui/d-diagram-data.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-data.ts#L31)
 
 ___
 
@@ -31,4 +31,4 @@ Remote data options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-diagram-data.ts#L36)
+[src/main/typescript/wcardinal/ui/d-diagram-data.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-data.ts#L36)

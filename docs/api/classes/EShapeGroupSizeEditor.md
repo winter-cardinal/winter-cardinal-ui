@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / EShapeGroupSizeEditor
+[Winter Cardinal UI - v0.165.0](../index.md) / EShapeGroupSizeEditor
 
 # Class: EShapeGroupSizeEditor
 
@@ -18,7 +18,6 @@
 - [\_layouts](EShapeGroupSizeEditor.md#_layouts)
 - [\_parent](EShapeGroupSizeEditor.md#_parent)
 - [\_size](EShapeGroupSizeEditor.md#_size)
-- [\_workPoint](EShapeGroupSizeEditor.md#_workpoint)
 - [\_workRectForCalcRect](EShapeGroupSizeEditor.md#_workrectforcalcrect)
 - [\_workRectForFit](EShapeGroupSizeEditor.md#_workrectforfit)
 
@@ -61,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L21)
 
 ## Properties
 
@@ -71,7 +70,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L19)
 
 ___
 
@@ -81,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L16)
 
 ___
 
@@ -91,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L14)
 
 ___
 
@@ -101,17 +100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L15)
-
-___
-
-### \_workPoint
-
-• `Protected` **\_workPoint**: `Point`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L15)
 
 ___
 
@@ -121,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L17)
 
 ___
 
@@ -131,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L18)
 
 ## Accessors
 
@@ -149,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L32)
 
 • `set` **x**(`x`): `void`
 
@@ -169,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L36)
 
 ___
 
@@ -187,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L45)
 
 • `set` **y**(`y`): `void`
 
@@ -207,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L49)
 
 ## Methods
 
@@ -227,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L191)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L190)
 
 ___
 
@@ -245,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L78)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L77)
 
 ___
 
@@ -259,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L83)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L82)
 
 ___
 
@@ -283,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L87)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L86)
 
 ___
 
@@ -307,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L101)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L100)
 
 ___
 
@@ -321,7 +310,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L115)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L114)
 
 ___
 
@@ -345,7 +334,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L105)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L104)
 
 ___
 
@@ -363,7 +352,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L109)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L108)
 
 ___
 
@@ -381,7 +370,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L28)
 
 ___
 
@@ -403,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L251)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L249)
 
 ___
 
@@ -424,7 +413,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:212](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L212)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L210)
 
 ___
 
@@ -451,7 +440,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L220)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L218)
 
 ___
 
@@ -473,7 +462,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L175)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L174)
 
 ___
 
@@ -498,4 +487,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L59)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-size-editor.ts#L58)

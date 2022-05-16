@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / FormatNodef
+[Winter Cardinal UI - v0.165.0](../index.md) / FormatNodef
 
 # Class: FormatNodef
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts#L11)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts#L11)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-precision.ts#L9)
 
 ## Methods
 
@@ -80,4 +80,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-f.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-f.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-f.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-f.ts#L9)

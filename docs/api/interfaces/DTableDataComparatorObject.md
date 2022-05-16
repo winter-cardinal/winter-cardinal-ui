@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DTableDataComparatorObject
+[Winter Cardinal UI - v0.165.0](../index.md) / DTableDataComparatorObject
 
 # Interface: DTableDataComparatorObject<ROW\>
 
@@ -37,4 +37,4 @@ A row comparator object.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L22)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L22)

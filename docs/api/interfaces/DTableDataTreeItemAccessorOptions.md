@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.164.0](../index.md) / DTableDataTreeItemAccessorOptions
+[Winter Cardinal UI - v0.165.0](../index.md) / DTableDataTreeItemAccessorOptions
 
 # Interface: DTableDataTreeItemAccessorOptions<NODE\>
 
@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L8)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L8)
 
 ___
 
@@ -59,4 +59,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.164.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L7)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L7)
