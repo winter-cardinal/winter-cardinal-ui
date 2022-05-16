@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DThemeViewGesture
+[Winter Cardinal UI - v0.167.0](../index.md) / DThemeViewGesture
 
 # Interface: DThemeViewGesture
 
@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L21)
+[src/main/typescript/wcardinal/ui/d-view-gesture.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L21)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L19)
+[src/main/typescript/wcardinal/ui/d-view-gesture.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L19)
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-gesture.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L20)
+[src/main/typescript/wcardinal/ui/d-view-gesture.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-view-gesture.ts#L20)

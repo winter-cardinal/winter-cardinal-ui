@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DCommandClear
+[Winter Cardinal UI - v0.167.0](../index.md) / DCommandClear
 
 # Class: DCommandClear
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-clear.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L22)
+[src/main/typescript/wcardinal/ui/d-command-clear.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L22)
 
 ___
 
@@ -62,7 +62,7 @@ Called to executed this command.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-clear.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L10)
+[src/main/typescript/wcardinal/ui/d-command-clear.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L10)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-clear.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L26)
+[src/main/typescript/wcardinal/ui/d-command-clear.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L26)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-clear.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L14)
+[src/main/typescript/wcardinal/ui/d-command-clear.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L14)
 
 ___
 
@@ -116,4 +116,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-clear.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L18)
+[src/main/typescript/wcardinal/ui/d-command-clear.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-command-clear.ts#L18)

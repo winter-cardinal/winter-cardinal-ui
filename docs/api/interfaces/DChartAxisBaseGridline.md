@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DChartAxisBaseGridline
+[Winter Cardinal UI - v0.167.0](../index.md) / DChartAxisBaseGridline
 
 # Interface: DChartAxisBaseGridline
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L36)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L39)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L38)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L37)

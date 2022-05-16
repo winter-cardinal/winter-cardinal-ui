@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / EShapePointsMarkerBase
+[Winter Cardinal UI - v0.167.0](../index.md) / EShapePointsMarkerBase
 
 # Class: EShapePointsMarkerBase
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L40)
 
 ## Properties
 
@@ -81,7 +81,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L38)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L33)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L32)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L31)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L30)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L29)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L35)
 
 ___
 
@@ -151,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L36)
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L37)
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L34)
 
 ## Accessors
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L168)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L168)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L109)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L109)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L121)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L121)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L90)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L90)
 
 • `set` **type**(`type`): `void`
 
@@ -263,7 +263,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L94)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L94)
 
 ## Methods
 
@@ -287,7 +287,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L184)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L184)
 
 ___
 
@@ -312,7 +312,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L209)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L209)
 
 ___
 
@@ -330,7 +330,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L63)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L63)
 
 ___
 
@@ -344,7 +344,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L59)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L59)
 
 ___
 
@@ -358,7 +358,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L172)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L172)
 
 ___
 
@@ -372,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L113)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L113)
 
 ___
 
@@ -386,7 +386,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L101)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L101)
 
 ___
 
@@ -410,7 +410,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L203)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L203)
 
 ___
 
@@ -436,7 +436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L190)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L190)
 
 ___
 
@@ -457,7 +457,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L145)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L145)
 
 ___
 
@@ -481,7 +481,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L147)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L147)
 
 ___
 
@@ -499,7 +499,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L73)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L73)
 
 ___
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L125)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L125)
 
 ___
 
@@ -527,4 +527,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L180)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-base.ts#L180)

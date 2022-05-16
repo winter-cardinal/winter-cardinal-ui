@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DThemeWhiteLink
+[Winter Cardinal UI - v0.167.0](../index.md) / DThemeWhiteLink
 
 # Class: DThemeWhiteLink
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L18)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L53)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L53)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L49)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L49)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L22)
 
 ___
 
@@ -108,4 +108,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L57)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-link.ts#L57)

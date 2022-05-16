@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / EShapeDataValueImpl
+[Winter Cardinal UI - v0.167.0](../index.md) / EShapeDataValueImpl
 
 # Class: EShapeDataValueImpl
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L38)
 
 ## Properties
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L31)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L32)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L34)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L27)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L30)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L26)
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L29)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L24)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L36)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L22)
 
 ___
 
@@ -196,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L23)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L25)
 
 ## Accessors
 
@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:324](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L324)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:324](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L324)
 
 • `set` **capacity**(`capacity`): `void`
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:328](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L328)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:328](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L328)
 
 ___
 
@@ -266,7 +266,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L117)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L117)
 
 ___
 
@@ -284,7 +284,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L378)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L378)
 
 • `set` **order**(`order`): `void`
 
@@ -304,7 +304,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L382)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:382](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L382)
 
 ___
 
@@ -322,7 +322,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L49)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L49)
 
 • `set` **parent**(`parent`): `void`
 
@@ -342,7 +342,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L53)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L53)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L206)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L206)
 
 • `set` **time**(`newTime`): `void`
 
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L210)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L210)
 
 ___
 
@@ -398,7 +398,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L259)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L259)
 
 • `set` **times**(`newTimes`): `void`
 
@@ -418,7 +418,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:268](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L268)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:268](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L268)
 
 ___
 
@@ -436,7 +436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L60)
 
 • `set` **value**(`newValue`): `void`
 
@@ -456,7 +456,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L64)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L64)
 
 ___
 
@@ -474,7 +474,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L121)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L121)
 
 • `set` **values**(`newValues`): `void`
 
@@ -494,7 +494,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L130)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L130)
 
 ## Methods
 
@@ -512,7 +512,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:465](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L465)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:465](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L465)
 
 ___
 
@@ -538,7 +538,7 @@ This method does not copy the `#values` and `#times` for the performance.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:496](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L496)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:496](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L496)
 
 ___
 
@@ -563,7 +563,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:527](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L527)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:527](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L527)
 
 ___
 
@@ -587,7 +587,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L508)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:508](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L508)
 
 ___
 
@@ -611,7 +611,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L386)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:386](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L386)
 
 ___
 
@@ -635,7 +635,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:415](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L415)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:415](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L415)
 
 ___
 
@@ -659,4 +659,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:517](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L517)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts:517](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-data-value-impl.ts#L517)

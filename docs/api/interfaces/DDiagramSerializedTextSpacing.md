@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramSerializedTextSpacing
+[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramSerializedTextSpacing
 
 # Interface: DDiagramSerializedTextSpacing
 
@@ -21,7 +21,7 @@ A horizontal spacing.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L158)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L158)
 
 ___
 
@@ -33,4 +33,4 @@ A vertical spacing.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L161)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L161)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DChartRegionImplObservable
+[Winter Cardinal UI - v0.167.0](../index.md) / DChartRegionImplObservable
 
 # Class: DChartRegionImplObservable
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L14)
 
 ## Properties
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L10)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L10)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L12)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L12)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L11)
 
 ## Accessors
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L20)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L20)
 
 • `set` **from**(`from`): `void`
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L24)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L24)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L28)
 
 • `set` **to**(`to`): `void`
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L32)
 
 ## Methods
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L59)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L59)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L73)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L73)
 
 ___
 
@@ -227,4 +227,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-region-impl-observable.ts#L36)

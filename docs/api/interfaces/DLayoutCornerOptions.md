@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DLayoutCornerOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / DLayoutCornerOptions
 
 # Interface: DLayoutCornerOptions
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-layout.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-layout.ts#L26)
+[src/main/typescript/wcardinal/ui/d-layout.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-layout.ts#L26)
 
 ___
 
@@ -40,7 +40,7 @@ Masked corners get unrounded.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base.ts#L81)
+[src/main/typescript/wcardinal/ui/d-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base.ts#L81)
 
 ___
 
@@ -56,4 +56,4 @@ A radius
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base.ts#L78)
+[src/main/typescript/wcardinal/ui/d-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base.ts#L78)

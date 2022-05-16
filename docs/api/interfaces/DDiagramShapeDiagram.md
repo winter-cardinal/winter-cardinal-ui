@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramShapeDiagram
+[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramShapeDiagram
 
 # Interface: DDiagramShapeDiagram
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L27)
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L27)
 
 ___
 
@@ -37,4 +37,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-application-like.ts#L11)

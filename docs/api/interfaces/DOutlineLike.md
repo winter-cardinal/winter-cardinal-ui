@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DOutlineLike
+[Winter Cardinal UI - v0.167.0](../index.md) / DOutlineLike
 
 # Interface: DOutlineLike
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-outline.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-outline.ts#L16)
+[src/main/typescript/wcardinal/ui/d-outline.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-outline.ts#L16)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-outline.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-outline.ts#L13)
+[src/main/typescript/wcardinal/ui/d-outline.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-outline.ts#L13)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-outline.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-outline.ts#L12)
+[src/main/typescript/wcardinal/ui/d-outline.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-outline.ts#L12)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-outline.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-outline.ts#L17)
+[src/main/typescript/wcardinal/ui/d-outline.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-outline.ts#L17)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-outline.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-outline.ts#L15)
+[src/main/typescript/wcardinal/ui/d-outline.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-outline.ts#L15)
 
 ___
 
@@ -77,4 +77,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-outline.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-outline.ts#L14)
+[src/main/typescript/wcardinal/ui/d-outline.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-outline.ts#L14)

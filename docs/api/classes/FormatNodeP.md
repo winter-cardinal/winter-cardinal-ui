@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / FormatNodep
+[Winter Cardinal UI - v0.167.0](../index.md) / FormatNodep
 
 # Class: FormatNodep
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-p-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-p-small.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-p-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-p-small.ts#L9)

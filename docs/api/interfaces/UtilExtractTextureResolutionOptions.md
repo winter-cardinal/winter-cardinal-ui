@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / UtilExtractTextureResolutionOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / UtilExtractTextureResolutionOptions
 
 # Interface: UtilExtractTextureResolutionOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L17)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L17)

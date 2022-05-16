@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DBaseBorderOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / DBaseBorderOptions
 
 # Interface: DBaseBorderOptions
 
@@ -27,7 +27,7 @@ If an align is 1, a border is rendered completely outside of a [DBase](../classe
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:294](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base.ts#L294)
+[src/main/typescript/wcardinal/ui/d-base.ts:294](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base.ts#L294)
 
 ___
 
@@ -40,7 +40,7 @@ If a computed value is undefined, falls back to a border alpha of a theme.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:280](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base.ts#L280)
+[src/main/typescript/wcardinal/ui/d-base.ts:280](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base.ts#L280)
 
 ___
 
@@ -54,7 +54,7 @@ If a computed value is null, a background is not rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base.ts#L274)
+[src/main/typescript/wcardinal/ui/d-base.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base.ts#L274)
 
 ___
 
@@ -66,7 +66,7 @@ Masked borders get removed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:297](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base.ts#L297)
+[src/main/typescript/wcardinal/ui/d-base.ts:297](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base.ts#L297)
 
 ___
 
@@ -79,4 +79,4 @@ If a computed value is undefined, falls back to a border width of a theme.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base.ts#L286)
+[src/main/typescript/wcardinal/ui/d-base.ts:286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base.ts#L286)

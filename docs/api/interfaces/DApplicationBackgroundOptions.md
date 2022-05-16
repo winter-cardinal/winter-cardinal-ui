@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DApplicationBackgroundOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / DApplicationBackgroundOptions
 
 # Interface: DApplicationBackgroundOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-application.ts#L17)
+[src/main/typescript/wcardinal/ui/d-application.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-application.ts#L17)

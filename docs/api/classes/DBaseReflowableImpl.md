@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DBaseReflowableImpl
+[Winter Cardinal UI - v0.167.0](../index.md) / DBaseReflowableImpl
 
 # Class: DBaseReflowableImpl
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L17)
 
 ## Properties
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L13)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L14)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L15)
 
 ## Methods
 
@@ -92,4 +92,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-reflowable-impl.ts#L33)

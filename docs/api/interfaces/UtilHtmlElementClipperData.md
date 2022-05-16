@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / UtilHtmlElementClipperData
+[Winter Cardinal UI - v0.167.0](../index.md) / UtilHtmlElementClipperData
 
 # Interface: UtilHtmlElementClipperData
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L109)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L109)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L110)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L110)

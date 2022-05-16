@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / EShapeRendererIteratorDatum
+[Winter Cardinal UI - v0.167.0](../index.md) / EShapeRendererIteratorDatum
 
 # Class: EShapeRendererIteratorDatum
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L14)
 
 ## Properties
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L11)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L12)
 
 ## Methods
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L24)
 
 ___
 
@@ -80,4 +80,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L19)

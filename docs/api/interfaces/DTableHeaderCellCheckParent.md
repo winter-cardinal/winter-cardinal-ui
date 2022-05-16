@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DTableHeaderCellCheckParent
+[Winter Cardinal UI - v0.167.0](../index.md) / DTableHeaderCellCheckParent
 
 # Interface: DTableHeaderCellCheckParent<ROW\>
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L12)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L12)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L13)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L13)
 
 ___
 
@@ -44,4 +44,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L14)
+[src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-header-cell-check.ts#L14)

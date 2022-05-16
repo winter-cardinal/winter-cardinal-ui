@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DImagePiece
+[Winter Cardinal UI - v0.167.0](../index.md) / DImagePiece
 
 # Class: DImagePiece
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L105)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L105)
 
 ## Properties
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L98)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L98)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L101)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L101)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L96)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L96)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L95)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L95)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L99)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L99)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L103)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L103)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L91)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L91)
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L97)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L97)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L93)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L93)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L92)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L92)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L100)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L100)
 
 ## Accessors
 
@@ -193,7 +193,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L132)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L132)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L140)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L140)
 
 ___
 
@@ -221,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L128)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L128)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L136)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L136)
 
 ___
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L144)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L144)
 
 • `set` **source**(`source`): `void`
 
@@ -265,7 +265,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L148)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L148)
 
 ## Methods
 
@@ -279,7 +279,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L155)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L155)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:353](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L353)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:353](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L353)
 
 ___
 
@@ -313,7 +313,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:349](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L349)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:349](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L349)
 
 ___
 
@@ -333,7 +333,7 @@ target is DisplayObject & Object
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L217)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L217)
 
 ___
 
@@ -354,7 +354,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L170)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L170)
 
 ___
 
@@ -368,7 +368,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:365](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L365)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:365](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L365)
 
 ___
 
@@ -389,7 +389,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L241)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L241)
 
 ___
 
@@ -410,7 +410,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L223)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L223)
 
 ___
 
@@ -424,7 +424,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L174)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L174)
 
 ___
 
@@ -442,7 +442,7 @@ True if the computed source is changed
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:294](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L294)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:294](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L294)
 
 ___
 
@@ -460,4 +460,4 @@ True if the tint is changed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L264)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:264](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L264)

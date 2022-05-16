@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DChartSelection
+[Winter Cardinal UI - v0.167.0](../index.md) / DChartSelection
 
 # Interface: DChartSelection<CHART\>
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L27)
 
 ___
 
@@ -345,7 +345,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L28)
 
 ___
 
@@ -359,4 +359,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L29)

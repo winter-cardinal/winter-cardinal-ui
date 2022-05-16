@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DInputAndLabelInput
+[Winter Cardinal UI - v0.167.0](../index.md) / DInputAndLabelInput
 
 # Interface: DInputAndLabelInput
 
@@ -528,7 +528,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-input-and-label.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-input-and-label.ts#L17)
+[src/main/typescript/wcardinal/ui/d-input-and-label.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-input-and-label.ts#L17)
 
 ___
 

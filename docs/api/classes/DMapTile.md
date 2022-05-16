@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DMapTile
+[Winter Cardinal UI - v0.167.0](../index.md) / DMapTile
 
 # Class: DMapTile
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L14)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L14)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L12)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L12)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L9)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L9)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L10)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L10)
 
 ## Accessors
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L40)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L40)
 
 ## Methods
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L50)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L50)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L24)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L24)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L44)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L44)
 
 ___
 
@@ -165,4 +165,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L34)
+[src/main/typescript/wcardinal/ui/d-map-tile.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-map-tile.ts#L34)

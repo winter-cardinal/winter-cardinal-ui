@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DChartAxisOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / DChartAxisOptions
 
 # Interface: DChartAxisOptions
 
@@ -22,4 +22,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-axis.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-axis.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-axis.ts#L11)

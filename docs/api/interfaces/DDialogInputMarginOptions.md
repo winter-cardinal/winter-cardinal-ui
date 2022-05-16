@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DDialogInputMarginOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / DDialogInputMarginOptions
 
 # Interface: DDialogInputMarginOptions
 
@@ -27,7 +27,7 @@ Partial.horizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-input.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-dialog-input.ts#L17)
+[src/main/typescript/wcardinal/ui/d-dialog-input.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-dialog-input.ts#L17)
 
 ___
 
@@ -41,4 +41,4 @@ Partial.vertical
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-input.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-dialog-input.ts#L18)
+[src/main/typescript/wcardinal/ui/d-dialog-input.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-dialog-input.ts#L18)

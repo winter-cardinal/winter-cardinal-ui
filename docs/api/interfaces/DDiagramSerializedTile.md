@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramSerializedTile
+[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramSerializedTile
 
 # Interface: DDiagramSerializedTile
 
@@ -18,4 +18,4 @@ Serialized tile settings.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:478](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L478)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:478](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L478)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DChartSelectionShape
+[Winter Cardinal UI - v0.167.0](../index.md) / DChartSelectionShape
 
 # Interface: DChartSelectionShape<CHART\>
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L28)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L30)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L29)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L35)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L35)
 
 ___
 
@@ -111,4 +111,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L36)

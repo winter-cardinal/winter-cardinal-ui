@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DThemeChartSelectionSub
+[Winter Cardinal UI - v0.167.0](../index.md) / DThemeChartSelectionSub
 
 # Interface: DThemeChartSelectionSub
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L24)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L24)

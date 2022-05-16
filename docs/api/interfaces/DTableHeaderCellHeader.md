@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DTableHeaderCellHeader
+[Winter Cardinal UI - v0.167.0](../index.md) / DTableHeaderCellHeader
 
 # Interface: DTableHeaderCellHeader<ROW\>
 
@@ -22,4 +22,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L18)
+[src/main/typescript/wcardinal/ui/d-table-header-cell.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-header-cell.ts#L18)

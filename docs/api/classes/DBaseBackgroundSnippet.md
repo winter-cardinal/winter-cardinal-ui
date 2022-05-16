@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DBaseBackgroundSnippet
+[Winter Cardinal UI - v0.167.0](../index.md) / DBaseBackgroundSnippet
 
 # Class: DBaseBackgroundSnippet
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L13)
+[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L13)
 
 ## Methods
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L15)
+[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L15)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L25)
+[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L25)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L32)
+[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L32)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L62)
+[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L62)
 
 ___
 
@@ -141,4 +141,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L66)
+[src/main/typescript/wcardinal/ui/d-base-background-snippet.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-background-snippet.ts#L66)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DTableDataList
+[Winter Cardinal UI - v0.167.0](../index.md) / DTableDataList
 
 # Class: DTableDataList<ROW\>
 
@@ -95,7 +95,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L28)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L28)
 
 ## Properties
 
@@ -105,7 +105,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L23)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L23)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L26)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L26)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L21)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L21)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L22)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L22)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L25)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L25)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L24)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L24)
 
 ## Accessors
 
@@ -175,7 +175,7 @@ A data filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L266)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L266)
 
 ___
 
@@ -195,7 +195,7 @@ Sorted and filtered data.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L274)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:274](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L274)
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L95)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L95)
 
 ___
 
@@ -229,7 +229,7 @@ A data selection.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L262)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L262)
 
 ___
 
@@ -249,7 +249,7 @@ A data sorter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L270)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L270)
 
 ## Methods
 
@@ -270,7 +270,7 @@ A data sorter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L161)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L161)
 
 ___
 
@@ -291,7 +291,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L182)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L182)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L81)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L81)
 
 ___
 
@@ -361,7 +361,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L125)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L125)
 
 ___
 
@@ -381,7 +381,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L137)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L137)
 
 ___
 
@@ -401,7 +401,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L148)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L148)
 
 ___
 
@@ -430,7 +430,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L246)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L246)
 
 ___
 
@@ -514,7 +514,7 @@ The index is an index on rows filters and sorters are not applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L210)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L210)
 
 ___
 
@@ -588,7 +588,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L106)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L106)
 
 ___
 
@@ -608,7 +608,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L77)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L77)
 
 ___
 
@@ -729,7 +729,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L232)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L232)
 
 ___
 
@@ -817,7 +817,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L218)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L218)
 
 ___
 
@@ -837,7 +837,7 @@ Returns a size of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L121)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L121)
 
 ___
 
@@ -857,7 +857,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L85)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L85)
 
 ___
 
@@ -877,7 +877,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L63)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L63)
 
 ___
 
@@ -891,7 +891,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L113)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L113)
 
 ___
 
@@ -905,4 +905,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L99)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L99)

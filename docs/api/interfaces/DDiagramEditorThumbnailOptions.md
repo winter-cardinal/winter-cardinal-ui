@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DDiagramEditorThumbnailOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramEditorThumbnailOptions
 
 # Interface: DDiagramEditorThumbnailOptions
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L14)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L14)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L12)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L12)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L13)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-editor-thumbnail.ts#L13)

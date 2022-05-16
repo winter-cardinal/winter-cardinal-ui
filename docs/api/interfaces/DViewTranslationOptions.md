@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.165.0](../index.md) / DViewTranslationOptions
+[Winter Cardinal UI - v0.167.0](../index.md) / DViewTranslationOptions
 
 # Interface: DViewTranslationOptions
 
@@ -20,4 +20,4 @@ Wheel translation options
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.165.0/src/main/typescript/wcardinal/ui/d-view.ts#L107)
+[src/main/typescript/wcardinal/ui/d-view.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-view.ts#L107)
