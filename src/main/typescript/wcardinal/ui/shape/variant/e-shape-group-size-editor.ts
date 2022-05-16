@@ -14,7 +14,6 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 	protected _parent: EShapeGroupSizeParent;
 	protected _size: Point;
 	protected _layouts: EShapeLayout[];
-	protected _workPoint: Point = new Point();
 	protected _workRectForCalcRect: Rectangle = new Rectangle();
 	protected _workRectForFit: Rectangle = new Rectangle();
 	protected _isFittable: boolean;
@@ -197,12 +196,11 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 			result.width = 0;
 			result.height = 0;
 		} else {
-			const workPoint = this._workPoint;
 			const workRect = this._workRectForCalcRect;
-			children[0].getBoundsLocal(workPoint, false, result);
+			children[0].getBoundsLocal(false, result);
 			for (let i = 1, imax = children.length; i < imax; ++i) {
 				const child = children[i];
-				child.getBoundsLocal(workPoint, false, workRect);
+				child.getBoundsLocal(false, workRect);
 				result.enlarge(workRect);
 			}
 		}

@@ -8,6 +8,7 @@ import { isNumber } from "../../util/is-number";
 import { isString } from "../../util/is-string";
 import { NumberFormatter } from "../../util/number-formatter";
 import { NumberFormatters } from "../../util/number-formatters";
+import { EShape } from "../e-shape";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dialog";
@@ -27,14 +28,14 @@ export class EShapeActionRuntimeOpenDialogDate extends EShapeActionRuntimeOpenDi
 		this.initial = EShapeActionExpressions.ofUnknown(value.initial);
 	}
 
-	protected open(target: string, initial: unknown): Promise<string> {
+	protected open(shape: EShape, target: string, initial: unknown): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogDate.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogDate();
 			EShapeActionRuntimeOpenDialogDate.DIALOG = dialog;
 		}
 		dialog.new = dialog.current = this.toDate(initial);
-		return dialog.open().then((value) => {
+		return dialog.open(shape).then((value) => {
 			return this.getFormatter().format(value.getTime(), 0);
 		});
 	}

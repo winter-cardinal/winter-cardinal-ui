@@ -519,7 +519,9 @@ export class UtilHtmlElement<
 	}
 
 	protected toElementFocused(element: ELEMENT): void {
-		element.focus();
+		element.focus({
+			preventScroll: true
+		});
 	}
 
 	protected onStart(): void {

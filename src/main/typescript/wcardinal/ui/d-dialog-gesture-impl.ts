@@ -12,8 +12,8 @@ import {
 	DDialogGestureOptions,
 	DDialogGestureParent
 } from "./d-dialog-gesture";
-import { DDialogMode } from "./d-dialog-mode";
-import { UtilOverlay } from "./util";
+import { DDialogGestureMode } from "./d-dialog-gesture-mode";
+import { toEnum } from "./util/to-enum";
 import { UtilGesture } from "./util/util-gesture";
 
 export class DDialogGestureImpl<PARENT extends DDialogGestureParent>
@@ -22,8 +22,7 @@ export class DDialogGestureImpl<PARENT extends DDialogGestureParent>
 	protected static WORK_BOUNDS?: Rectangle;
 
 	protected _parent: PARENT;
-	protected _mode: DDialogMode;
-	protected _overlay: UtilOverlay;
+	protected _mode: DDialogGestureMode;
 	protected _options?: DDialogGestureOptions;
 
 	protected _isEnabled: boolean;
@@ -32,32 +31,27 @@ export class DDialogGestureImpl<PARENT extends DDialogGestureParent>
 	protected _constraint?: DDialogGestureConstraint;
 	protected _util?: UtilGesture<any>;
 
-	constructor(
-		parent: PARENT,
-		mode: DDialogMode,
-		overlay: UtilOverlay,
-		options: boolean | DDialogGestureOptions
-	) {
+	constructor(parent: PARENT, options: DDialogGestureOptions) {
 		this._parent = parent;
-		this._mode = mode;
-		this._overlay = overlay;
-
-		if (options === true) {
+		this._options = options;
+		if (options.enable) {
 			this._util = this.newUtil();
-			this._isEnabled = true;
-		} else if (options === false) {
-			this._isEnabled = true;
-		} else {
-			this._options = options;
-			this._util = this.newUtil();
-			this._isEnabled = true;
 		}
-
+		this._mode = toEnum(options.mode ?? DDialogGestureMode.DIRTY, DDialogGestureMode);
+		this._isEnabled = true;
 		this._isDirty = false;
 	}
 
 	get parent(): PARENT {
 		return this._parent;
+	}
+
+	get mode(): DDialogGestureMode {
+		return this._mode;
+	}
+
+	set mode(mode: DDialogGestureMode) {
+		this._mode = mode;
 	}
 
 	get constraint(): DDialogGestureConstraint {
@@ -81,6 +75,10 @@ export class DDialogGestureImpl<PARENT extends DDialogGestureParent>
 
 	isDirty(): boolean {
 		return this._isDirty;
+	}
+
+	isClean(): boolean {
+		return !this._isDirty;
 	}
 
 	toClean(): void {

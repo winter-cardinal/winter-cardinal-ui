@@ -632,7 +632,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return result;
 	}
 
-	getBounds(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle {
+	getBounds(skipUpdate: boolean, result: Rectangle): Rectangle {
 		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
@@ -641,13 +641,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const worldId = this.transform.getWorldId();
 		if (worldId !== this._boundsTransformId) {
 			this._boundsTransformId = worldId;
-			this.getBounds_(this.transform.worldTransform, work, bounds);
+			this.getBounds_(this.transform.worldTransform, bounds);
 		}
 		result.copyFrom(bounds);
 		return result;
 	}
 
-	getBoundsInternal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle {
+	getBoundsInternal(skipUpdate: boolean, result: Rectangle): Rectangle {
 		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
@@ -656,13 +656,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const currentLocalId = this.transform.getLocalIdCurrent();
 		if (currentLocalId !== this._boundsInternalTransformId) {
 			this._boundsInternalTransformId = currentLocalId;
-			this.getBounds_(this.transform.internalTransform, work, boundsInternal);
+			this.getBounds_(this.transform.internalTransform, boundsInternal);
 		}
 		result.copyFrom(boundsInternal);
 		return result;
 	}
 
-	getBoundsLocal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle {
+	getBoundsLocal(skipUpdate: boolean, result: Rectangle): Rectangle {
 		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
@@ -671,7 +671,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const currentLocalId = this.transform.getLocalIdCurrent();
 		if (currentLocalId !== this._boundsLocalTransformId) {
 			this._boundsLocalTransformId = currentLocalId;
-			this.getBounds_(this.transform.localTransform, work, boundsLocal);
+			this.getBounds_(this.transform.localTransform, boundsLocal);
 		}
 		result.copyFrom(boundsLocal);
 		return result;
@@ -681,7 +681,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return this.size;
 	}
 
-	protected getBounds_(transform: Matrix, work: Point, result: Rectangle): Rectangle {
+	protected getBounds_(transform: Matrix, result: Rectangle): Rectangle {
 		const pivot = this.transform.pivot;
 		const px = pivot.x;
 		const py = pivot.y;

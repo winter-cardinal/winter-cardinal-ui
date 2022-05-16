@@ -4,6 +4,7 @@
  */
 
 import { DDialogInputInteger } from "../../d-dialog-input-integer";
+import { EShape } from "../e-shape";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dialog";
@@ -18,7 +19,7 @@ export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpe
 		this.initial = EShapeActionExpressions.ofNumber(value.initial);
 	}
 
-	protected open(target: string, initial: number): Promise<number> {
+	protected override open(shape: EShape, target: string, initial: number): Promise<number> {
 		let dialog = EShapeActionRuntimeOpenDialogInteger.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogInputInteger({
@@ -32,6 +33,6 @@ export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpe
 			}
 		}
 		dialog.value = initial;
-		return dialog.open();
+		return dialog.open(shape);
 	}
 }

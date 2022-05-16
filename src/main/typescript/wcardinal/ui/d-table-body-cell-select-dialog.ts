@@ -69,7 +69,7 @@ export class DTableBodyCellSelectDialog<
 		if (dialog) {
 			const oldValue = this._textValueComputed ?? null;
 			selecting.setter(dialog, oldValue);
-			dialog.open().then((): void => {
+			dialog.open(this).then((): void => {
 				const newValue = selecting.getter(dialog);
 				if (this._isSyncEnabled) {
 					if (newValue !== oldValue) {

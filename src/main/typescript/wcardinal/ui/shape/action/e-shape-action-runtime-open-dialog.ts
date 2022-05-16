@@ -33,7 +33,7 @@ export abstract class EShapeActionRuntimeOpenDialog<
 					const initial = this.initial(shape, time);
 					this.isOpened = true;
 					setTimeout(() => {
-						this.open(target, initial).then(
+						this.open(shape, target, initial).then(
 							(value) => {
 								this.isOpened = false;
 								EShapeActionValueOnInputActions.execute(
@@ -54,5 +54,5 @@ export abstract class EShapeActionRuntimeOpenDialog<
 		}
 	}
 
-	protected abstract open(target: string, initial: INITIAL): Promise<VALUE>;
+	protected abstract open(shape: EShape, target: string, initial: INITIAL): Promise<VALUE>;
 }

@@ -14,6 +14,7 @@ import { DDialogAlign } from "./d-dialog-align";
 import { DDialogCloseOn } from "./d-dialog-close-on";
 import { DDialogGesture, DDialogGestureOptions } from "./d-dialog-gesture";
 import { DDialogGestureImpl } from "./d-dialog-gesture-impl";
+import { DDialogGestureMode } from "./d-dialog-gesture-mode";
 import { DDialogMode } from "./d-dialog-mode";
 import { DDialogState } from "./d-dialog-state";
 import { DOnOptions } from "./d-on-options";
@@ -81,10 +82,15 @@ export interface DThemeDialog extends DThemeBase {
 	closeOn(mode: DDialogMode): DDialogCloseOn;
 	isSticky(mode: DDialogMode): boolean;
 	isGestureEnabled(mode: DDialogMode): boolean;
+	getGestureMode(mode: DDialogMode): DDialogGestureMode;
 	getOffsetX(mode: DDialogMode): number;
 	getOffsetY(mode: DDialogMode): number;
 	getAlign(mode: DDialogMode): DDialogAlign | null;
 	newAnimation(mode: DDialogMode): DAnimation<DBase> | null;
+}
+
+export interface DDialogOwner {
+	getBounds(skipUpdate: boolean, result: Rectangle): Rectangle;
 }
 
 /**
@@ -114,7 +120,7 @@ export class DDialog<
 	protected _sticky!: boolean;
 	protected _onPrerenderBound!: () => void;
 	protected _align!: DDialogAlign | null;
-	protected _owner?: DBase<any, any> | null;
+	protected _owner?: DDialogOwner | null;
 
 	protected _gesture!: DDialogGesture<this>;
 	protected _layer!: DApplicationLayerLike | null;
@@ -147,12 +153,7 @@ export class DDialog<
 		this._overlay = overlay;
 
 		// Gesture
-		this._gesture = new DDialogGestureImpl(
-			this,
-			mode,
-			overlay,
-			options?.gesture ?? theme.isGestureEnabled(mode)
-		);
+		this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
 
 		// State
 		switch (mode) {
@@ -187,6 +188,37 @@ export class DDialog<
 
 	get layer(): DApplicationLayerLike | null {
 		return this._layer;
+	}
+
+	protected toGestureOptions(
+		mode: DDialogMode,
+		theme: THEME,
+		options?: OPTIONS
+	): DDialogGestureOptions {
+		const gesture = options?.gesture;
+		if (gesture === true) {
+			return {
+				enable: true,
+				mode: theme.getGestureMode(mode)
+			};
+		} else if (gesture === false) {
+			return {
+				enable: false,
+				mode: theme.getGestureMode(mode)
+			};
+		} else if (gesture != null) {
+			if (gesture.enable === undefined) {
+				gesture.enable = theme.isGestureEnabled(mode);
+			}
+			if (gesture.mode === undefined) {
+				gesture.mode = theme.getGestureMode(mode);
+			}
+			return gesture;
+		}
+		return {
+			enable: theme.isGestureEnabled(mode),
+			mode: theme.getGestureMode(mode)
+		};
 	}
 
 	onParentResize(parentWidth: number, parentHeight: number, parentPadding: DPadding): void {
@@ -235,7 +267,7 @@ export class DDialog<
 		}
 	}
 
-	open(owner?: DBase<any, any>): Promise<VALUE> {
+	open(owner?: DDialogOwner): Promise<VALUE> {
 		let result = this._promise;
 		if (result == null) {
 			result = new Promise<VALUE>((resolve, reject): void => {
@@ -255,13 +287,18 @@ export class DDialog<
 					layer.stage.addChild(this);
 					break;
 				case DDialogMode.MODELESS:
+					layer = DApplications.getLayer(this);
 					break;
 			}
+			this._layer = layer;
 
 			// Position & size
+			const gesture = this._gesture;
+			if (gesture.mode === DDialogGestureMode.CLEAN) {
+				gesture.toClean();
+			}
 			const align = this._align;
-			if (align != null && !this._gesture.isDirty()) {
-				layer = layer ?? DApplications.getLayer(this);
+			if (align != null && gesture.isClean()) {
 				if (layer != null) {
 					const renderer = layer.renderer;
 					const onPrerenderBound = this._onPrerenderBound;
@@ -271,10 +308,10 @@ export class DDialog<
 						renderer.once("prerender", onPrerenderBound);
 					}
 				}
+			} else if (layer != null) {
+				const position = this.position;
+				gesture.constraint(this, layer, position.x, position.y);
 			}
-
-			// Layer
-			this._layer = layer;
 
 			// Done
 			this.onOpen();

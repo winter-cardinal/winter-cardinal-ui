@@ -52,7 +52,7 @@ export class DChartPlotAreaContainer extends EShapeContainer implements DViewTar
 			for (let i = 0, imax = children.length; i < imax; ++i) {
 				const child = children[i];
 				if (child.visible) {
-					child.getBoundsInternal(work, false, rect);
+					child.getBoundsInternal(false, rect);
 					if (isFirst) {
 						isFirst = false;
 						xmin = rect.x;

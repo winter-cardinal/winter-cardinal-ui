@@ -134,7 +134,7 @@ export interface EShape extends utils.EventEmitter {
 	// Coordinate
 	toGlobal(position: IPoint, result: Point, skipUpdate?: boolean): Point;
 	toLocal(position: IPoint, from?: DisplayObject, result?: Point, skipUpdate?: boolean): Point;
-	getBounds(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle;
-	getBoundsInternal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle;
-	getBoundsLocal(work: Point, skipUpdate: boolean, result: Rectangle): Rectangle;
+	getBounds(skipUpdate: boolean, result: Rectangle): Rectangle;
+	getBoundsInternal(skipUpdate: boolean, result: Rectangle): Rectangle;
+	getBoundsLocal(skipUpdate: boolean, result: Rectangle): Rectangle;
 }

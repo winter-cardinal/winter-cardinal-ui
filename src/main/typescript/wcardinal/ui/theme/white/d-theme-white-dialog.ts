@@ -12,6 +12,7 @@ import { DCoordinatePosition, DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialog } from "../../d-dialog";
 import { DDialogAlign } from "../../d-dialog-align";
 import { DDialogCloseOn } from "../../d-dialog-close-on";
+import { DDialogGestureMode } from "../../d-dialog-gesture-mode";
 import { DDialogMode } from "../../d-dialog-mode";
 import { DDialogState } from "../../d-dialog-state";
 import { DShadow } from "../../d-shadow";
@@ -46,6 +47,10 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 			case DDialogMode.MENU:
 				return false;
 		}
+	}
+
+	getGestureMode(mode: DDialogMode): DDialogGestureMode {
+		return DDialogGestureMode.DIRTY;
 	}
 
 	getOffsetX(mode: DDialogMode): number {

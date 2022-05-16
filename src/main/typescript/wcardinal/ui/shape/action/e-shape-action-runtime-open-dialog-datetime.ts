@@ -6,6 +6,7 @@
 import { DDialogDatetime } from "../../d-dialog-datetime";
 import { isNumber } from "../../util/is-number";
 import { isString } from "../../util/is-string";
+import { EShape } from "../e-shape";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dialog";
@@ -24,14 +25,14 @@ export class EShapeActionRuntimeOpenDialogDatetime extends EShapeActionRuntimeOp
 		this.initial = EShapeActionExpressions.ofUnknown(value.initial);
 	}
 
-	protected open(target: string, initial: unknown): Promise<string> {
+	protected override open(shape: EShape, target: string, initial: unknown): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogDatetime.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogDatetime();
 			EShapeActionRuntimeOpenDialogDatetime.DIALOG = dialog;
 		}
 		dialog.new = dialog.current = this.toDate(initial);
-		return dialog.open().then((value) => {
+		return dialog.open(shape).then((value) => {
 			return value.toISOString();
 		});
 	}
