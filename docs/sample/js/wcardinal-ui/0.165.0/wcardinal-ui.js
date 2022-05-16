@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.164.0
+ Winter Cardinal UI v0.165.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4202,7 +4202,7 @@
             this.transform.worldTransform.applyInverse(result, result);
             return result;
         };
-        EShapeBase.prototype.getBounds = function (work, skipUpdate, result) {
+        EShapeBase.prototype.getBounds = function (skipUpdate, result) {
             if (skipUpdate !== true) {
                 this.updateTransform();
             }
@@ -4211,12 +4211,12 @@
             var worldId = this.transform.getWorldId();
             if (worldId !== this._boundsTransformId) {
                 this._boundsTransformId = worldId;
-                this.getBounds_(this.transform.worldTransform, work, bounds);
+                this.getBounds_(this.transform.worldTransform, bounds);
             }
             result.copyFrom(bounds);
             return result;
         };
-        EShapeBase.prototype.getBoundsInternal = function (work, skipUpdate, result) {
+        EShapeBase.prototype.getBoundsInternal = function (skipUpdate, result) {
             if (skipUpdate !== true) {
                 this.updateTransform();
             }
@@ -4225,12 +4225,12 @@
             var currentLocalId = this.transform.getLocalIdCurrent();
             if (currentLocalId !== this._boundsInternalTransformId) {
                 this._boundsInternalTransformId = currentLocalId;
-                this.getBounds_(this.transform.internalTransform, work, boundsInternal);
+                this.getBounds_(this.transform.internalTransform, boundsInternal);
             }
             result.copyFrom(boundsInternal);
             return result;
         };
-        EShapeBase.prototype.getBoundsLocal = function (work, skipUpdate, result) {
+        EShapeBase.prototype.getBoundsLocal = function (skipUpdate, result) {
             if (skipUpdate !== true) {
                 this.updateTransform();
             }
@@ -4239,7 +4239,7 @@
             var currentLocalId = this.transform.getLocalIdCurrent();
             if (currentLocalId !== this._boundsLocalTransformId) {
                 this._boundsLocalTransformId = currentLocalId;
-                this.getBounds_(this.transform.localTransform, work, boundsLocal);
+                this.getBounds_(this.transform.localTransform, boundsLocal);
             }
             result.copyFrom(boundsLocal);
             return result;
@@ -4247,7 +4247,7 @@
         EShapeBase.prototype.getBoundsSize = function () {
             return this.size;
         };
-        EShapeBase.prototype.getBounds_ = function (transform, work, result) {
+        EShapeBase.prototype.getBounds_ = function (transform, result) {
             var pivot = this.transform.pivot;
             var px = pivot.x;
             var py = pivot.y;
@@ -15122,7 +15122,9 @@
             }
         };
         UtilHtmlElement.prototype.toElementFocused = function (element) {
-            element.focus();
+            element.focus({
+                preventScroll: true
+            });
         };
         UtilHtmlElement.prototype.onStart = function () {
             this._operation.onStart();
@@ -20808,121 +20810,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DAnimationFadeIn = /** @class */ (function (_super) {
-        __extends(DAnimationFadeIn, _super);
-        function DAnimationFadeIn(options) {
-            var _this = this;
-            var _a, _b;
-            _this = _super.call(this, options) || this;
-            _this._storedX = 0;
-            _this._storedY = 0;
-            _this._storedAlpha = 0;
-            _this._storedTime = 0;
-            _this._storedTarget = null;
-            _this._layer = null;
-            // Shifts
-            var shift = options === null || options === void 0 ? void 0 : options.shift;
-            _this._shiftX = (_a = shift === null || shift === void 0 ? void 0 : shift.x) !== null && _a !== void 0 ? _a : 0;
-            _this._shiftY = (_b = shift === null || shift === void 0 ? void 0 : shift.y) !== null && _b !== void 0 ? _b : 15;
-            _this._onPrerenderBound = function () {
-                _this.onPrerender();
-            };
-            _this._onPostrenderBound = function () {
-                _this.onPostrender();
-            };
-            return _this;
-        }
-        DAnimationFadeIn.prototype.stop = function () {
-            this._storedTime = 0;
-            this.removeEventListeners();
-            _super.prototype.stop.call(this);
-        };
-        DAnimationFadeIn.prototype.addEventListeners = function (target) {
-            var layer = DApplications.getLayer(target);
-            if (layer) {
-                this._layer = layer;
-                var renderer = layer.renderer;
-                renderer.on("prerender", this._onPrerenderBound);
-                renderer.on("postrender", this._onPostrenderBound);
-            }
-        };
-        DAnimationFadeIn.prototype.removeEventListeners = function () {
-            var layer = this._layer;
-            if (layer) {
-                this._layer = null;
-                var renderer = layer.renderer;
-                renderer.off("prerender", this._onPrerenderBound);
-                renderer.off("postrender", this._onPostrenderBound);
-            }
-        };
-        DAnimationFadeIn.prototype.onStart = function (isReverse) {
-            var target = (this._storedTarget = this._target);
-            if (target != null) {
-                this._storedTime = 0;
-                this.removeEventListeners();
-                this.addEventListeners(target);
-                if (!isReverse) {
-                    target.visible = true;
-                }
-                _super.prototype.onStart.call(this, isReverse);
-            }
-        };
-        DAnimationFadeIn.prototype.onTime = function (time, isReverse, elapsedTime) {
-            var target = this._storedTarget;
-            if (target != null) {
-                var layer = this._layer;
-                if (layer) {
-                    this._storedTime = time;
-                    _super.prototype.onTime.call(this, time, isReverse, elapsedTime);
-                    layer.update();
-                }
-                else {
-                    this._storedTime = time;
-                    _super.prototype.onTime.call(this, time, isReverse, elapsedTime);
-                }
-            }
-        };
-        DAnimationFadeIn.prototype.onEnd = function (isReverse) {
-            var target = this._storedTarget;
-            if (target != null) {
-                this.removeEventListeners();
-                if (isReverse) {
-                    target.visible = false;
-                }
-                _super.prototype.onEnd.call(this, isReverse);
-            }
-        };
-        DAnimationFadeIn.prototype.onPrerender = function () {
-            var target = this._storedTarget;
-            if (target != null) {
-                var storedTime = this._storedTime;
-                // Position
-                var position = target.unsafe.position;
-                this._storedX = position.x;
-                this._storedY = position.y;
-                position.set(position.x - this._shiftX * (1 - storedTime), position.y - this._shiftY * (1 - storedTime));
-                // Alpha
-                this._storedAlpha = target.alpha;
-                target.alpha = storedTime;
-            }
-        };
-        DAnimationFadeIn.prototype.onPostrender = function () {
-            var target = this._storedTarget;
-            if (target != null) {
-                // Position
-                var position = target.unsafe.position;
-                position.set(this._storedX, this._storedY);
-                // Alpha
-                target.alpha = this._storedAlpha;
-            }
-        };
-        return DAnimationFadeIn;
-    }(DAnimationBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var UtilAttachAlign = {
         TOP: 0,
         TOP_LEFT: 1,
@@ -21067,6 +20954,143 @@
     };
 
     /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogGestureMode = {
+        DIRTY: 0,
+        CLEAN: 1
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogGestureImpl = /** @class */ (function () {
+        function DDialogGestureImpl(parent, options) {
+            var _a;
+            this._parent = parent;
+            this._options = options;
+            if (options.enable) {
+                this._util = this.newUtil();
+            }
+            this._mode = toEnum((_a = options.mode) !== null && _a !== void 0 ? _a : DDialogGestureMode.DIRTY, DDialogGestureMode);
+            this._isEnabled = true;
+            this._isDirty = false;
+        }
+        Object.defineProperty(DDialogGestureImpl.prototype, "parent", {
+            get: function () {
+                return this._parent;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialogGestureImpl.prototype, "mode", {
+            get: function () {
+                return this._mode;
+            },
+            set: function (mode) {
+                this._mode = mode;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialogGestureImpl.prototype, "constraint", {
+            get: function () {
+                var _a, _b;
+                var result = this._constraint;
+                if (result == null) {
+                    result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.constraint) !== null && _b !== void 0 ? _b : this.newConstraint();
+                    this._constraint = result;
+                }
+                return result;
+            },
+            set: function (constraint) {
+                this._constraint = constraint;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogGestureImpl.prototype.newConstraint = function () {
+            var _this = this;
+            return function (target, layer, x, y) {
+                _this.toConstrained(target, layer, x, y);
+            };
+        };
+        DDialogGestureImpl.prototype.isDirty = function () {
+            return this._isDirty;
+        };
+        DDialogGestureImpl.prototype.isClean = function () {
+            return !this._isDirty;
+        };
+        DDialogGestureImpl.prototype.toClean = function () {
+            if (this._isDirty) {
+                this._isDirty = false;
+            }
+        };
+        DDialogGestureImpl.prototype.newUtil = function () {
+            var _this = this;
+            var p = new pixi_js.Point();
+            var parent = this._parent;
+            var position = parent.position;
+            return new UtilGesture({
+                bind: parent,
+                checker: {
+                    start: function (e) {
+                        // Are children clicked?
+                        if (e.target !== parent) {
+                            return false;
+                        }
+                        // Is clicked outside?
+                        p.copyFrom(e.data.global);
+                        parent.toLocal(p, undefined, p, true);
+                        var x = p.x;
+                        var y = p.y;
+                        if (x < 0 || y < 0 || parent.width < x || parent.height < y) {
+                            return false;
+                        }
+                        // Ok
+                        return true;
+                    }
+                },
+                on: {
+                    start: function () {
+                        p.copyFrom(position);
+                    },
+                    move: function (target, dx, dy) {
+                        p.set(p.x + dx, p.y + dy);
+                        if (!_this._isDirty) {
+                            _this._isDirty = true;
+                            parent.setX(position.x);
+                            parent.setY(position.y);
+                        }
+                        var layer = parent.layer;
+                        if (layer != null) {
+                            _this.constraint(parent, layer, p.x, p.y);
+                        }
+                    }
+                }
+            });
+        };
+        DDialogGestureImpl.prototype.toConstrained = function (target, layer, x, y) {
+            var _a;
+            var position = target.position;
+            if (layer) {
+                var bounds = target.getBounds(false, ((_a = DDialogGestureImpl.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialogGestureImpl.WORK_BOUNDS = new pixi_js.Rectangle())));
+                var obx = bounds.x + x - position.x;
+                var oby = bounds.y + y - position.y;
+                var nbx = Math.min(Math.max(0, obx), layer.width - bounds.width);
+                var nby = Math.min(Math.max(0, oby), layer.height - bounds.height);
+                position.set(x + nbx - obx, y + nby - oby);
+            }
+            else {
+                position.set(x, y);
+            }
+        };
+        return DDialogGestureImpl;
+    }());
+
+    /*
      * Copyright (C) 2021 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
@@ -21176,56 +21200,112 @@
             this._onPrerenderBound = function () {
                 _this.onPrerender();
             };
+            this._layer = null;
             // Mode
             var theme = this.theme;
             var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getMode(), DDialogMode);
             this._mode = mode;
             // Sticky
-            this._sticky = (_b = options === null || options === void 0 ? void 0 : options.sticky) !== null && _b !== void 0 ? _b : theme.isSticky();
+            this._sticky = (_b = options === null || options === void 0 ? void 0 : options.sticky) !== null && _b !== void 0 ? _b : theme.isSticky(mode);
             // Close On
-            var closeOn = (_c = options === null || options === void 0 ? void 0 : options.closeOn) !== null && _c !== void 0 ? _c : theme.closeOn();
+            var closeOn = (_c = options === null || options === void 0 ? void 0 : options.closeOn) !== null && _c !== void 0 ? _c : theme.closeOn(mode);
             this._closeOn = closeOn;
             // Align
-            this._align = toEnum((_d = options === null || options === void 0 ? void 0 : options.align) !== null && _d !== void 0 ? _d : UtilAttachAlign.BOTTOM, UtilAttachAlign);
+            this._align = toEnum((_d = options === null || options === void 0 ? void 0 : options.align) !== null && _d !== void 0 ? _d : theme.getAlign(mode), UtilAttachAlign);
             // Overlay
-            this._overlay = new UtilOverlay();
-            // Others
+            var overlay = new UtilOverlay();
+            this._overlay = overlay;
+            // Gesture
+            this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
+            // State
             switch (mode) {
                 case DDialogMode.MODAL:
-                case DDialogMode.MENU:
                     this.visible = false;
-                    var state = this.state;
-                    state.lock();
-                    state.isFocusRoot = true;
-                    state.add(mode === DDialogMode.MODAL ? DDialogState.MODAL : DDialogState.MENU);
-                    state.unlock();
-                    if (closeOn & DDialogCloseOn.CLICK_OUTSIDE) {
-                        UtilClickOutside.apply(this, function () {
-                            _this.onCloseOn();
-                        });
-                    }
+                    this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MODAL);
                     break;
                 case DDialogMode.MODELESS:
                     this.state.add(DDialogState.MODELESS);
                     break;
+                case DDialogMode.MENU:
+                    this.visible = false;
+                    this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MENU);
+                    break;
             }
+            // Outside-click handling
+            if (closeOn & DDialogCloseOn.CLICK_OUTSIDE) {
+                UtilClickOutside.apply(this, function () {
+                    _this.onCloseOn();
+                });
+            }
+        };
+        Object.defineProperty(DDialog.prototype, "mode", {
+            get: function () {
+                return this._mode;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "gesture", {
+            get: function () {
+                return this._gesture;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "layer", {
+            get: function () {
+                return this._layer;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialog.prototype.toGestureOptions = function (mode, theme, options) {
+            var gesture = options === null || options === void 0 ? void 0 : options.gesture;
+            if (gesture === true) {
+                return {
+                    enable: true,
+                    mode: theme.getGestureMode(mode)
+                };
+            }
+            else if (gesture === false) {
+                return {
+                    enable: false,
+                    mode: theme.getGestureMode(mode)
+                };
+            }
+            else if (gesture != null) {
+                if (gesture.enable === undefined) {
+                    gesture.enable = theme.isGestureEnabled(mode);
+                }
+                if (gesture.mode === undefined) {
+                    gesture.mode = theme.getGestureMode(mode);
+                }
+                return gesture;
+            }
+            return {
+                enable: theme.isGestureEnabled(mode),
+                mode: theme.getGestureMode(mode)
+            };
+        };
+        DDialog.prototype.onParentResize = function (parentWidth, parentHeight, parentPadding) {
+            if (this.isOpened()) {
+                var layer = this._layer;
+                if (layer != null) {
+                    var gesture = this._gesture;
+                    if (gesture.isDirty()) {
+                        var position = this.position;
+                        gesture.constraint(this, layer, position.x, position.y);
+                    }
+                }
+            }
+            _super.prototype.onParentResize.call(this, parentWidth, parentHeight, parentPadding);
         };
         DDialog.prototype.getAnimation = function () {
             var _this = this;
-            var _a, _b, _c, _d;
+            var _a, _b;
             var result = this._animation;
             if (result === undefined) {
-                switch (this._mode) {
-                    case DDialogMode.MODAL:
-                        result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.animation) !== null && _b !== void 0 ? _b : new DAnimationFadeIn();
-                        break;
-                    case DDialogMode.MODELESS:
-                        result = null;
-                        break;
-                    case DDialogMode.MENU:
-                        result = (_d = (_c = this._options) === null || _c === void 0 ? void 0 : _c.animation) !== null && _d !== void 0 ? _d : null;
-                        break;
-                }
+                result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.animation) !== null && _b !== void 0 ? _b : this.theme.newAnimation(this._mode);
                 if (result) {
                     result.target = this;
                     result.on("end", function (isReverse) {
@@ -21263,46 +21343,65 @@
                 });
                 this._promise = result;
                 this._owner = owner;
+                // Attach to a layer
+                var layer = null;
                 switch (this._mode) {
                     case DDialogMode.MODAL:
-                        {
-                            var layer = this._overlay.pick(this);
-                            layer.stage.addChild(this);
-                        }
+                    case DDialogMode.MENU:
+                        layer = this._overlay.pick(this);
+                        layer.stage.addChild(this);
                         break;
                     case DDialogMode.MODELESS:
-                        break;
-                    case DDialogMode.MENU:
-                        {
-                            var layer = this._overlay.pick(this);
-                            layer.stage.addChild(this);
-                            // Position & size
-                            var renderer = layer.renderer;
-                            var onPrerenderBound = this._onPrerenderBound;
-                            if (this._sticky) {
-                                renderer.on("prerender", onPrerenderBound);
-                            }
-                            else {
-                                renderer.once("prerender", onPrerenderBound);
-                            }
-                        }
+                        layer = DApplications.getLayer(this);
                         break;
                 }
+                this._layer = layer;
+                // Position & size
+                var gesture = this._gesture;
+                if (gesture.mode === DDialogGestureMode.CLEAN) {
+                    gesture.toClean();
+                }
+                var align = this._align;
+                if (align != null && gesture.isClean()) {
+                    if (layer != null) {
+                        var renderer = layer.renderer;
+                        var onPrerenderBound = this._onPrerenderBound;
+                        if (this._sticky) {
+                            renderer.on("prerender", onPrerenderBound);
+                        }
+                        else {
+                            renderer.once("prerender", onPrerenderBound);
+                        }
+                    }
+                }
+                else if (layer != null) {
+                    var position = this.position;
+                    gesture.constraint(this, layer, position.x, position.y);
+                }
+                // Done
                 this.onOpen();
             }
             return result;
         };
         DDialog.prototype.onPrerender = function () {
+            var _a;
+            var align = this._align;
+            if (align == null) {
+                return;
+            }
+            var layer = this._layer;
+            if (layer == null) {
+                return;
+            }
             var owner = this._owner;
             if (owner) {
-                var bounds = owner.getBounds();
-                if (bounds) {
-                    var layer = this._overlay.picked;
-                    if (layer) {
-                        var theme = this.theme;
-                        UtilAttach.attach(this, bounds, theme.getOffsetX(), theme.getOffsetY(), layer.width, layer.height, this._align);
-                    }
-                }
+                var mode = this._mode;
+                var bounds = owner.getBounds(false, ((_a = DDialog.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialog.WORK_BOUNDS = new pixi_js.Rectangle())));
+                var theme = this.theme;
+                UtilAttach.attach(this, bounds, theme.getOffsetX(mode), theme.getOffsetY(mode), layer.width, layer.height, align);
+            }
+            else {
+                this.position.set((layer.width - this.width) * 0.5, (layer.height - this.height) * 0.5);
             }
         };
         DDialog.prototype.onOpen = function () {
@@ -21345,7 +21444,7 @@
         };
         DDialog.prototype.onClose = function () {
             // Focus
-            var layer = this._overlay.picked;
+            var layer = this._layer;
             var focused = this._focused;
             if (focused != null) {
                 this._focused = null;
@@ -21363,17 +21462,10 @@
             else {
                 this.blur(true);
             }
-            // Remove the prerender event handler
-            switch (this._mode) {
-                case DDialogMode.MODAL:
-                    break;
-                case DDialogMode.MODELESS:
-                    break;
-                case DDialogMode.MENU:
-                    if (layer) {
-                        layer.renderer.off("prerender", this._onPrerenderBound);
-                    }
-                    break;
+            // Remove the prerender event handler and forget the layer
+            if (layer) {
+                layer.renderer.off("prerender", this._onPrerenderBound);
+                this._layer = null;
             }
             // Forget the owner
             this._owner = null;
@@ -21389,17 +21481,10 @@
             this.emit("close", this);
         };
         DDialog.prototype.onKeyDown = function (e) {
-            switch (this._mode) {
-                case DDialogMode.MODAL:
-                case DDialogMode.MENU:
-                    if (this._closeOn & DDialogCloseOn.ESC) {
-                        if (UtilKeyboardEvent.isCancelKey(e)) {
-                            this.onCloseOn();
-                        }
-                    }
-                    break;
-                case DDialogMode.MODELESS:
-                    break;
+            if (this._closeOn & DDialogCloseOn.ESC) {
+                if (UtilKeyboardEvent.isCancelKey(e)) {
+                    this.onCloseOn();
+                }
             }
             return _super.prototype.onKeyDown.call(this, e);
         };
@@ -22402,6 +22487,7 @@
             if (isString(label)) {
                 return {
                     weight: 1,
+                    interactive: DBaseInteractive.NONE,
                     text: {
                         value: label
                     }
@@ -22414,9 +22500,13 @@
                 if (text.value === undefined) {
                     text.value = theme.getLabel();
                 }
-                // Margin
+                // Weight
                 if (label.width === undefined && label.weight === undefined) {
                     label.weight = 1;
+                }
+                // Interactive
+                if (label.interactive === undefined) {
+                    label.interactive = DBaseInteractive.NONE;
                 }
                 return label;
             }
@@ -22752,7 +22842,7 @@
                         var initial_1 = this.initial(shape, time);
                         this.isOpened = true;
                         setTimeout(function () {
-                            _this.open(target_1, initial_1).then(function (value) {
+                            _this.open(shape, target_1, initial_1).then(function (value) {
                                 _this.isOpened = false;
                                 EShapeActionValueOnInputActions.execute(shape, _this.onInputAction, target_1, value, time);
                             }, function () {
@@ -22777,7 +22867,7 @@
             _this.initial = EShapeActionExpressions.ofBooleanOrFalse(value.initial);
             return _this;
         }
-        EShapeActionRuntimeOpenDialogBoolean.prototype.open = function (target, initial) {
+        EShapeActionRuntimeOpenDialogBoolean.prototype.open = function (shape, target, initial) {
             var dialog = EShapeActionRuntimeOpenDialogBoolean.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputBoolean({
@@ -22792,7 +22882,7 @@
                 }
             }
             dialog.value = initial;
-            return dialog.open();
+            return dialog.open(shape);
         };
         return EShapeActionRuntimeOpenDialogBoolean;
     }(EShapeActionRuntimeOpenDialog));
@@ -23149,7 +23239,7 @@
             _this.initial = EShapeActionExpressions.ofNumber(value.initial);
             return _this;
         }
-        EShapeActionRuntimeOpenDialogInteger.prototype.open = function (target, initial) {
+        EShapeActionRuntimeOpenDialogInteger.prototype.open = function (shape, target, initial) {
             var dialog = EShapeActionRuntimeOpenDialogInteger.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputInteger({
@@ -23164,7 +23254,7 @@
                 }
             }
             dialog.value = initial;
-            return dialog.open();
+            return dialog.open(shape);
         };
         return EShapeActionRuntimeOpenDialogInteger;
     }(EShapeActionRuntimeOpenDialog));
@@ -23229,7 +23319,7 @@
             _this.initial = EShapeActionExpressions.ofNumber(value.initial);
             return _this;
         }
-        EShapeActionRuntimeOpenDialogReal.prototype.open = function (target, initial) {
+        EShapeActionRuntimeOpenDialogReal.prototype.open = function (shape, target, initial) {
             var dialog = EShapeActionRuntimeOpenDialogReal.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputReal({
@@ -23244,7 +23334,7 @@
                 }
             }
             dialog.value = initial;
-            return dialog.open();
+            return dialog.open(shape);
         };
         return EShapeActionRuntimeOpenDialogReal;
     }(EShapeActionRuntimeOpenDialog));
@@ -23312,7 +23402,7 @@
             _this.initial = EShapeActionExpressions.ofString(value.initial);
             return _this;
         }
-        EShapeActionRuntimeOpenDialogText.prototype.open = function (target, initial) {
+        EShapeActionRuntimeOpenDialogText.prototype.open = function (shape, target, initial) {
             var dialog = EShapeActionRuntimeOpenDialogText.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputText({
@@ -23327,7 +23417,7 @@
                 }
             }
             dialog.value = initial;
-            return dialog.open();
+            return dialog.open(shape);
         };
         return EShapeActionRuntimeOpenDialogText;
     }(EShapeActionRuntimeOpenDialog));
@@ -24599,14 +24689,14 @@
             _this.initial = EShapeActionExpressions.ofUnknown(value.initial);
             return _this;
         }
-        EShapeActionRuntimeOpenDialogDatetime.prototype.open = function (target, initial) {
+        EShapeActionRuntimeOpenDialogDatetime.prototype.open = function (shape, target, initial) {
             var dialog = EShapeActionRuntimeOpenDialogDatetime.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogDatetime();
                 EShapeActionRuntimeOpenDialogDatetime.DIALOG = dialog;
             }
             dialog.new = dialog.current = this.toDate(initial);
-            return dialog.open().then(function (value) {
+            return dialog.open(shape).then(function (value) {
                 return value.toISOString();
             });
         };
@@ -24698,7 +24788,7 @@
             _this.initial = EShapeActionExpressions.ofUnknown(value.initial);
             return _this;
         }
-        EShapeActionRuntimeOpenDialogTime.prototype.open = function (target, initial) {
+        EShapeActionRuntimeOpenDialogTime.prototype.open = function (shape, target, initial) {
             var _this = this;
             var dialog = EShapeActionRuntimeOpenDialogTime.DIALOG;
             if (dialog == null) {
@@ -24706,7 +24796,7 @@
                 EShapeActionRuntimeOpenDialogTime.DIALOG = dialog;
             }
             dialog.new = dialog.current = this.toDate(initial);
-            return dialog.open().then(function (value) {
+            return dialog.open(shape).then(function (value) {
                 return _this.getFormatter().format(value.getTime(), 0);
             });
         };
@@ -24895,7 +24985,7 @@
             _this.initial = EShapeActionExpressions.ofUnknown(value.initial);
             return _this;
         }
-        EShapeActionRuntimeOpenDialogDate.prototype.open = function (target, initial) {
+        EShapeActionRuntimeOpenDialogDate.prototype.open = function (shape, target, initial) {
             var _this = this;
             var dialog = EShapeActionRuntimeOpenDialogDate.DIALOG;
             if (dialog == null) {
@@ -24903,7 +24993,7 @@
                 EShapeActionRuntimeOpenDialogDate.DIALOG = dialog;
             }
             dialog.new = dialog.current = this.toDate(initial);
-            return dialog.open().then(function (value) {
+            return dialog.open(shape).then(function (value) {
                 return _this.getFormatter().format(value.getTime(), 0);
             });
         };
@@ -32826,7 +32916,6 @@
      */
     var EShapeGroupSizeEditor = /** @class */ (function () {
         function EShapeGroupSizeEditor(parent, x, y, isFittable) {
-            this._workPoint = new pixi_js.Point();
             this._workRectForCalcRect = new pixi_js.Rectangle();
             this._workRectForFit = new pixi_js.Rectangle();
             this._parent = parent;
@@ -32993,12 +33082,11 @@
                 result.height = 0;
             }
             else {
-                var workPoint = this._workPoint;
                 var workRect = this._workRectForCalcRect;
-                children[0].getBoundsLocal(workPoint, false, result);
+                children[0].getBoundsLocal(false, result);
                 for (var i = 1, imax = children.length; i < imax; ++i) {
                     var child = children[i];
-                    child.getBoundsLocal(workPoint, false, workRect);
+                    child.getBoundsLocal(false, workRect);
                     result.enlarge(workRect);
                 }
             }
@@ -43365,6 +43453,121 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DAnimationFadeIn = /** @class */ (function (_super) {
+        __extends(DAnimationFadeIn, _super);
+        function DAnimationFadeIn(options) {
+            var _this = this;
+            var _a, _b;
+            _this = _super.call(this, options) || this;
+            _this._storedX = 0;
+            _this._storedY = 0;
+            _this._storedAlpha = 0;
+            _this._storedTime = 0;
+            _this._storedTarget = null;
+            _this._layer = null;
+            // Shifts
+            var shift = options === null || options === void 0 ? void 0 : options.shift;
+            _this._shiftX = (_a = shift === null || shift === void 0 ? void 0 : shift.x) !== null && _a !== void 0 ? _a : 0;
+            _this._shiftY = (_b = shift === null || shift === void 0 ? void 0 : shift.y) !== null && _b !== void 0 ? _b : 15;
+            _this._onPrerenderBound = function () {
+                _this.onPrerender();
+            };
+            _this._onPostrenderBound = function () {
+                _this.onPostrender();
+            };
+            return _this;
+        }
+        DAnimationFadeIn.prototype.stop = function () {
+            this._storedTime = 0;
+            this.removeEventListeners();
+            _super.prototype.stop.call(this);
+        };
+        DAnimationFadeIn.prototype.addEventListeners = function (target) {
+            var layer = DApplications.getLayer(target);
+            if (layer) {
+                this._layer = layer;
+                var renderer = layer.renderer;
+                renderer.on("prerender", this._onPrerenderBound);
+                renderer.on("postrender", this._onPostrenderBound);
+            }
+        };
+        DAnimationFadeIn.prototype.removeEventListeners = function () {
+            var layer = this._layer;
+            if (layer) {
+                this._layer = null;
+                var renderer = layer.renderer;
+                renderer.off("prerender", this._onPrerenderBound);
+                renderer.off("postrender", this._onPostrenderBound);
+            }
+        };
+        DAnimationFadeIn.prototype.onStart = function (isReverse) {
+            var target = (this._storedTarget = this._target);
+            if (target != null) {
+                this._storedTime = 0;
+                this.removeEventListeners();
+                this.addEventListeners(target);
+                if (!isReverse) {
+                    target.visible = true;
+                }
+                _super.prototype.onStart.call(this, isReverse);
+            }
+        };
+        DAnimationFadeIn.prototype.onTime = function (time, isReverse, elapsedTime) {
+            var target = this._storedTarget;
+            if (target != null) {
+                var layer = this._layer;
+                if (layer) {
+                    this._storedTime = time;
+                    _super.prototype.onTime.call(this, time, isReverse, elapsedTime);
+                    layer.update();
+                }
+                else {
+                    this._storedTime = time;
+                    _super.prototype.onTime.call(this, time, isReverse, elapsedTime);
+                }
+            }
+        };
+        DAnimationFadeIn.prototype.onEnd = function (isReverse) {
+            var target = this._storedTarget;
+            if (target != null) {
+                this.removeEventListeners();
+                if (isReverse) {
+                    target.visible = false;
+                }
+                _super.prototype.onEnd.call(this, isReverse);
+            }
+        };
+        DAnimationFadeIn.prototype.onPrerender = function () {
+            var target = this._storedTarget;
+            if (target != null) {
+                var storedTime = this._storedTime;
+                // Position
+                var position = target.unsafe.position;
+                this._storedX = position.x;
+                this._storedY = position.y;
+                position.set(position.x - this._shiftX * (1 - storedTime), position.y - this._shiftY * (1 - storedTime));
+                // Alpha
+                this._storedAlpha = target.alpha;
+                target.alpha = storedTime;
+            }
+        };
+        DAnimationFadeIn.prototype.onPostrender = function () {
+            var target = this._storedTarget;
+            if (target != null) {
+                // Position
+                var position = target.unsafe.position;
+                position.set(this._storedX, this._storedY);
+                // Alpha
+                target.alpha = this._storedAlpha;
+            }
+        };
+        return DAnimationFadeIn;
+    }(DAnimationBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DApplicationPadding = /** @class */ (function () {
         function DApplicationPadding(padding) {
             var _a, _b, _c, _d;
@@ -45639,7 +45842,8 @@
                     width: inputLabelWidth,
                     text: {
                         value: "#"
-                    }
+                    },
+                    interactive: DBaseInteractive.NONE
                 },
                 input: {
                     weight: 1,
@@ -45667,7 +45871,8 @@
                     width: inputLabelWidth,
                     text: {
                         value: "A"
-                    }
+                    },
+                    interactive: DBaseInteractive.NONE
                 },
                 input: {
                     weight: 1,
@@ -48959,7 +49164,6 @@
             var position = new pixi_js.Point();
             this._gestureUtil = new UtilGesture({
                 bind: this,
-                easing: true,
                 on: {
                     start: function () {
                         position.copyFrom(_this.position);
@@ -52336,7 +52540,7 @@
                 for (var i = 0, imax = children.length; i < imax; ++i) {
                     var child = children[i];
                     if (child.visible) {
-                        child.getBoundsInternal(work, false, rect);
+                        child.getBoundsInternal(false, rect);
                         if (isFirst) {
                             isFirst = false;
                             xmin = rect.x;
@@ -60919,7 +61123,7 @@
             if (dialog) {
                 var oldValue_1 = (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : null;
                 selecting.setter(dialog, oldValue_1);
-                dialog.open().then(function () {
+                dialog.open(this).then(function () {
                     var newValue = selecting.getter(dialog);
                     if (_this._isSyncEnabled) {
                         if (newValue !== oldValue_1) {
@@ -68709,6 +68913,8 @@
         DDialogConfirm: DDialogConfirm,
         DDialogDate: DDialogDate,
         DDialogDatetime: DDialogDatetime,
+        DDialogGestureImpl: DDialogGestureImpl,
+        DDialogGestureMode: DDialogGestureMode,
         DDialogInputBoolean: DDialogInputBoolean,
         DDialogInputInteger: DDialogInputInteger,
         DDialogInputReal: DDialogInputReal,

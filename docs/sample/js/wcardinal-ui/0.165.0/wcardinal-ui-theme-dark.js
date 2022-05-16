@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.164.0
+ Winter Cardinal UI v0.165.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -813,7 +813,13 @@
         return DThemeDarkButtonColor;
     }(DThemeDarkButton));
 
+    const DAnimationFadeIn = wcardinal.ui.DAnimationFadeIn;
+
+    const DDialogAlign = wcardinal.ui.DDialogAlign;
+
     const DDialogCloseOn = wcardinal.ui.DDialogCloseOn;
+
+    const DDialogGestureMode = wcardinal.ui.DDialogGestureMode;
 
     const DDialogMode = wcardinal.ui.DDialogMode;
 
@@ -831,17 +837,54 @@
         DThemeDarkDialog.prototype.getMode = function () {
             return DDialogMode.MODAL;
         };
-        DThemeDarkDialog.prototype.closeOn = function () {
-            return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
+        DThemeDarkDialog.prototype.closeOn = function (mode) {
+            switch (mode) {
+                case DDialogMode.MODAL:
+                case DDialogMode.MENU:
+                    return DDialogCloseOn.ESC | DDialogCloseOn.CLICK_OUTSIDE;
+                case DDialogMode.MODELESS:
+                    return DDialogCloseOn.NONE;
+            }
         };
-        DThemeDarkDialog.prototype.isSticky = function () {
+        DThemeDarkDialog.prototype.isSticky = function (mode) {
             return false;
         };
-        DThemeDarkDialog.prototype.getOffsetX = function () {
+        DThemeDarkDialog.prototype.isGestureEnabled = function (mode) {
+            switch (mode) {
+                case DDialogMode.MODAL:
+                case DDialogMode.MODELESS:
+                    return true;
+                case DDialogMode.MENU:
+                    return false;
+            }
+        };
+        DThemeDarkDialog.prototype.getGestureMode = function (mode) {
+            return DDialogGestureMode.DIRTY;
+        };
+        DThemeDarkDialog.prototype.getOffsetX = function (mode) {
             return 5;
         };
-        DThemeDarkDialog.prototype.getOffsetY = function () {
+        DThemeDarkDialog.prototype.getOffsetY = function (mode) {
             return 5;
+        };
+        DThemeDarkDialog.prototype.getAlign = function (mode) {
+            switch (mode) {
+                case DDialogMode.MODAL:
+                    return DDialogAlign.OVER;
+                case DDialogMode.MODELESS:
+                case DDialogMode.MENU:
+                    return DDialogAlign.BOTTOM;
+            }
+        };
+        DThemeDarkDialog.prototype.newAnimation = function (mode) {
+            switch (mode) {
+                case DDialogMode.MODAL:
+                    return new DAnimationFadeIn();
+                case DDialogMode.MODELESS:
+                    return null;
+                case DDialogMode.MENU:
+                    return null;
+            }
         };
         DThemeDarkDialog.prototype.getBackgroundColor = function (state) {
             if (state.is(DDialogState.MENU)) {
@@ -875,10 +918,10 @@
             return 16;
         };
         DThemeDarkDialog.prototype.getX = function () {
-            return "center";
+            return 0;
         };
         DThemeDarkDialog.prototype.getY = function () {
-            return "center";
+            return 0;
         };
         DThemeDarkDialog.prototype.getWidth = function () {
             return 400;
@@ -1130,7 +1173,7 @@
             return null;
         };
         DThemeDarkPickerColor.prototype.getInteractive = function () {
-            return DBaseInteractive.BOTH;
+            return DBaseInteractive.CHILDREN;
         };
         DThemeDarkPickerColor.prototype.newState = function (state) {
             _super.prototype.newState.call(this, state);
@@ -1280,7 +1323,7 @@
             return null;
         };
         DThemeDarkPickerColorGradient.prototype.getInteractive = function () {
-            return DBaseInteractive.BOTH;
+            return DBaseInteractive.CHILDREN;
         };
         DThemeDarkPickerColorGradient.prototype.newState = function (state) {
             _super.prototype.newState.call(this, state);
@@ -1422,8 +1465,11 @@
         function DThemeDarkPickerTime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        DThemeDarkPickerTime.prototype.getBackgroundColor = function (state) {
+            return null;
+        };
         DThemeDarkPickerTime.prototype.getInteractive = function () {
-            return DBaseInteractive.BOTH;
+            return DBaseInteractive.CHILDREN;
         };
         DThemeDarkPickerTime.prototype.newState = function (state) {
             _super.prototype.newState.call(this, state);
@@ -1696,6 +1742,9 @@
         DThemeDarkPickerDatetimeLabel.prototype.newTextValue = function () {
             return new Date();
         };
+        DThemeDarkPickerDatetimeLabel.prototype.getInteractive = function () {
+            return DBaseInteractive.NONE;
+        };
         return DThemeDarkPickerDatetimeLabel;
     }(DThemeDarkText));
 
@@ -1753,6 +1802,9 @@
         DThemeDarkPickerDatetimeSpace.prototype.newState = function (state) {
             _super.prototype.newState.call(this, state);
             state.isFocusable = false;
+        };
+        DThemeDarkPickerDatetimeSpace.prototype.getInteractive = function () {
+            return DBaseInteractive.NONE;
         };
         return DThemeDarkPickerDatetimeSpace;
     }(DThemeDarkBase));
