@@ -40,12 +40,12 @@
 				value: "Open"
 			},
 			on: {
-				active: function () {
-					dialog.open().then(function () {
-						console.log( "Confirmed" );
+				active: function (emitter) {
+					dialog.open(emitter).then(function () {
+						console.log("Confirmed");
 					})
 					.catch(function() {
-						console.log( "Canceled" );
+						console.log("Canceled");
 					});
 				}
 			}

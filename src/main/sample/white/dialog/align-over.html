@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Time dialog</title>
+	<title>Align (Over)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,7 +30,9 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogTime();
+		var dialog = new wcardinal.ui.DDialogInputInteger({
+			align: "OVER"
+		});
 
 		new wcardinal.ui.DButton({
 			parent: application.stage,
@@ -41,15 +43,10 @@
 			},
 			on: {
 				active: function (emitter) {
-					dialog.open(emitter).then(function (date) {
-						console.log(date);
-					})
-					.catch(function() {
-						console.log("Canceled");
-					});
+					dialog.open(emitter);
 				}
 			}
-		})
+		});
 	}());
 	</script>
 </body>

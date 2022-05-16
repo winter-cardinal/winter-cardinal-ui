@@ -70,10 +70,10 @@
 				width: itemWidth * 3,
 				height: itemHeight * 2,
 				data: {
-					toLabel: function ( value ) {
+					toLabel: function (value) {
 						return value.name;
 					},
-					toImage: function( item ) {
+					toImage: function(item) {
 						return item.image;
 					}
 				},
@@ -104,12 +104,12 @@
 				}
 			},
 			controller: {
-				search: function ( word ) {
+				search: function (word) {
 					return Promise.resolve([
 						{ name: "Cloud", image: imageCloud },
 						{ name: "Laptop", image: imageLaptop },
 						{ name: "Wifi", image: imageWifi }
-					].filter(function( item ) {
+					].filter(function (item) {
 						return word.length <= 0 || 0 <= item.name.indexOf( word );
 					}));
 				}
@@ -124,12 +124,12 @@
 				value: "Open"
 			},
 			on: {
-				active: function () {
-					dialog.open().then(function( value ){
-						console.log( value );
+				active: function (emitter) {
+					dialog.open(emitter).then(function (value){
+						console.log(value);
 					})
 					.catch(function() {
-						console.log( "Canceled" );
+						console.log("Canceled");
 					});
 				}
 			}

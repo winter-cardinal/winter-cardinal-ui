@@ -4,7 +4,7 @@
  */
 
 import { DAlignHorizontal } from "./d-align-horizontal";
-import { DDialogOwner } from "./d-dialog";
+import { DDialogOpener } from "./d-dialog";
 import { DDialogSelectOptions } from "./d-dialog-select";
 import { DMenu, DMenuOptions } from "./d-menu";
 import { DTableBodyCellButtonOptions } from "./d-table-body-cell-button";
@@ -110,7 +110,7 @@ export interface DTableColumnSorting<ROW_VALUE> {
 
 export interface DTableColumnSelectingDialog<DIALOG_VALUE> {
 	readonly value: DIALOG_VALUE;
-	open(owner?: DDialogOwner): Promise<DIALOG_VALUE>;
+	open(owner?: DDialogOpener): Promise<DIALOG_VALUE>;
 }
 
 export interface DTableColumnSelectingOptions<

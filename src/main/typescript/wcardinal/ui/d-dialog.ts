@@ -19,6 +19,7 @@ import { DDialogMode } from "./d-dialog-mode";
 import { DDialogState } from "./d-dialog-state";
 import { DOnOptions } from "./d-on-options";
 import { DPadding } from "./d-padding";
+import { isArray, isString } from "./util";
 import { toEnum } from "./util/to-enum";
 import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
@@ -54,7 +55,8 @@ export interface DDialogOnOptions<EMITTER> extends Partial<DDialogEvents<EMITTER
  */
 export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog, EMITTER = any>
 	extends DBaseOptions<THEME> {
-	closeOn?: DDialogCloseOn;
+	closeOn?: DDialogCloseOn | Array<keyof typeof DDialogCloseOn> | keyof typeof DDialogCloseOn;
+
 	animation?: DAnimation<DBase>;
 
 	/**
@@ -66,7 +68,7 @@ export interface DDialogOptions<THEME extends DThemeDialog = DThemeDialog, EMITT
 
 	gesture?: boolean | DDialogGestureOptions;
 
-	align?: DDialogAlign | null;
+	align?: DDialogAlign | null | keyof typeof DDialogAlign;
 
 	/**
 	 * Mappings of event names and handlers.
@@ -89,7 +91,7 @@ export interface DThemeDialog extends DThemeBase {
 	newAnimation(mode: DDialogMode): DAnimation<DBase> | null;
 }
 
-export interface DDialogOwner {
+export interface DDialogOpener {
 	getBounds(skipUpdate: boolean, result: Rectangle): Rectangle;
 }
 
@@ -120,7 +122,7 @@ export class DDialog<
 	protected _sticky!: boolean;
 	protected _onPrerenderBound!: () => void;
 	protected _align!: DDialogAlign | null;
-	protected _owner?: DDialogOwner | null;
+	protected _opener?: DDialogOpener | null;
 
 	protected _gesture!: DDialogGesture<this>;
 	protected _layer!: DApplicationLayerLike | null;
@@ -142,15 +144,14 @@ export class DDialog<
 		this._sticky = options?.sticky ?? theme.isSticky(mode);
 
 		// Close On
-		const closeOn = options?.closeOn ?? theme.closeOn(mode);
+		const closeOn = this.toCloseOn(mode, theme, options);
 		this._closeOn = closeOn;
 
 		// Align
-		this._align = toEnum(options?.align ?? theme.getAlign(mode), DDialogAlign);
+		this._align = this.toAlign(mode, theme, options);
 
 		// Overlay
-		const overlay = new UtilOverlay();
-		this._overlay = overlay;
+		this._overlay = new UtilOverlay();
 
 		// Gesture
 		this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
@@ -178,8 +179,43 @@ export class DDialog<
 		}
 	}
 
+	protected toCloseOn(mode: DDialogMode, theme: THEME, options?: OPTIONS): DDialogCloseOn {
+		const closeOn = options?.closeOn;
+		if (closeOn == null) {
+			return theme.closeOn(mode);
+		} else if (isArray(closeOn)) {
+			let result = DDialogCloseOn.NONE;
+			for (let i = 0, imax = closeOn.length; i < imax; ++i) {
+				result |= DDialogCloseOn[closeOn[i]];
+			}
+			return result;
+		} else if (isString(closeOn)) {
+			return DDialogCloseOn[closeOn];
+		}
+		return closeOn;
+	}
+
+	protected toAlign(mode: DDialogMode, theme: THEME, options?: OPTIONS): DDialogAlign | null {
+		const align = options?.align;
+		if (align === null) {
+			return null;
+		} else if (align === undefined) {
+			return theme.getAlign(mode);
+		} else {
+			return toEnum(align, DDialogAlign);
+		}
+	}
+
 	get mode(): DDialogMode {
 		return this._mode;
+	}
+
+	get align(): DDialogAlign | null {
+		return this._align;
+	}
+
+	set algin(align: DDialogAlign | null) {
+		this._align = align;
 	}
 
 	get gesture(): DDialogGesture<this> {
@@ -267,7 +303,16 @@ export class DDialog<
 		}
 	}
 
-	open(owner?: DDialogOwner): Promise<VALUE> {
+	/**
+	 * Opens a dialog.
+	 *
+	 * @param opener An opener of a dialog.
+	 * The dialog position is determined based on a position and a size of the opener.
+	 * If the opener is undefined, the dialog is placed at the center of the screen.
+	 *
+	 * @returns a value of this dialog
+	 */
+	open(opener?: DDialogOpener): Promise<VALUE> {
 		let result = this._promise;
 		if (result == null) {
 			result = new Promise<VALUE>((resolve, reject): void => {
@@ -276,7 +321,7 @@ export class DDialog<
 			});
 			this._promise = result;
 
-			this._owner = owner;
+			this._opener = opener;
 
 			// Attach to a layer
 			let layer: DApplicationLayerLike | null = null;
@@ -297,9 +342,8 @@ export class DDialog<
 			if (gesture.mode === DDialogGestureMode.CLEAN) {
 				gesture.toClean();
 			}
-			const align = this._align;
-			if (align != null && gesture.isClean()) {
-				if (layer != null) {
+			if (layer != null) {
+				if (gesture.isClean()) {
 					const renderer = layer.renderer;
 					const onPrerenderBound = this._onPrerenderBound;
 					if (this._sticky) {
@@ -307,10 +351,10 @@ export class DDialog<
 					} else {
 						renderer.once("prerender", onPrerenderBound);
 					}
+				} else {
+					const position = this.position;
+					gesture.constraint(this, layer, position.x, position.y);
 				}
-			} else if (layer != null) {
-				const position = this.position;
-				gesture.constraint(this, layer, position.x, position.y);
 			}
 
 			// Done
@@ -320,20 +364,15 @@ export class DDialog<
 	}
 
 	protected onPrerender(): void {
-		const align = this._align;
-		if (align == null) {
-			return;
-		}
-
 		const layer = this._layer;
 		if (layer == null) {
 			return;
 		}
-
-		const owner = this._owner;
-		if (owner) {
+		const align = this._align;
+		const opener = this._opener;
+		if (align != null && opener != null) {
 			const mode = this._mode;
-			const bounds = owner.getBounds(false, (DDialog.WORK_BOUNDS ??= new Rectangle()));
+			const bounds = opener.getBounds(false, (DDialog.WORK_BOUNDS ??= new Rectangle()));
 			const theme = this.theme;
 			UtilAttach.attach(
 				this,
@@ -421,8 +460,8 @@ export class DDialog<
 			this._layer = null;
 		}
 
-		// Forget the owner
-		this._owner = null;
+		// Forget the opener
+		this._opener = null;
 
 		// Animation
 		const animation = this.getAnimation();

@@ -40,9 +40,9 @@
 				value: "Open"
 			},
 			on: {
-				active: function () {
-					dialog.open();
-					if( 0.5 < Math.random() ) {
+				active: function (emitter) {
+					dialog.open(emitter);
+					if (0.5 < Math.random()) {
 						dialog.resolve();
 					} else {
 						dialog.reject();

@@ -33,17 +33,17 @@
 		var dialog = new wcardinal.ui.DDialogInputInteger({
 			mode: "MENU",
 			on: {
-				ok: function ( value, input ) {
-					console.log( value, input );
+				ok: function (value, input) {
+					console.log(value, input);
 				},
 
-				cancel: function ( reason, input ) {
-					console.log( reason, input );
+				cancel: function (reason, input) {
+					console.log(reason, input);
 				}
 			}
 		});
 
-		const button = new wcardinal.ui.DButton({
+		new wcardinal.ui.DButton({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 300,
@@ -51,12 +51,12 @@
 				value: "Open"
 			},
 			on: {
-				active: function () {
-					dialog.open( button ).then(function( value ){
+				active: function (emitter) {
+					dialog.open(emitter).then(function(value){
 						console.log( value );
 					})
 					.catch(function() {
-						console.log( "Canceled" );
+						console.log("Canceled");
 					});
 				}
 			}

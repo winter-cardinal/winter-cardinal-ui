@@ -62,13 +62,7 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 	}
 
 	getAlign(mode: DDialogMode): DDialogAlign {
-		switch (mode) {
-			case DDialogMode.MODAL:
-				return DDialogAlign.OVER;
-			case DDialogMode.MODELESS:
-			case DDialogMode.MENU:
-				return DDialogAlign.BOTTOM;
-		}
+		return DDialogAlign.BOTTOM;
 	}
 
 	newAnimation(mode: DDialogMode): DAnimation<DBase> | null {
