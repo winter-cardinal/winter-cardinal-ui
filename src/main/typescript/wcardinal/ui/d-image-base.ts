@@ -127,7 +127,9 @@ export class DImageBase<
 	}
 
 	set image(imageSource: DStateAwareOrValueMightBe<Texture | DisplayObject | null>) {
-		this._images[0].source = imageSource;
+		const image = this._images[0];
+		image.source = imageSource;
+		image.updateSource();
 	}
 
 	protected onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
