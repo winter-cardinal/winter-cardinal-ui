@@ -5,6 +5,7 @@
 
 import { interaction } from "pixi.js";
 import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button";
+import { DDialogOpener } from "./d-dialog";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 import { DOnOptions } from "./d-on-options";
 
@@ -13,7 +14,7 @@ import { DOnOptions } from "./d-on-options";
  */
 export interface DButtonSelectDialog<VALUE> {
 	readonly value: VALUE | null;
-	open(): Promise<unknown>;
+	open(opener?: DDialogOpener): Promise<unknown>;
 }
 
 /**
@@ -52,8 +53,8 @@ export interface DButtonSelectOnOptions<VALUE, EMITTER>
  * {@link DButtonSelect} options.
  */
 export interface DButtonSelectOptions<
-	VALUE extends unknown = unknown,
-	DIALOG_VALUE extends unknown = unknown,
+	VALUE = unknown,
+	DIALOG_VALUE = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
 	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
 	EMITTER = any
@@ -128,8 +129,8 @@ const toOptions = <OPTIONS extends DButtonSelectOptions<any, any, any, any>>(
 };
 
 export class DButtonSelect<
-	VALUE extends unknown = unknown,
-	DIALOG_VALUE extends unknown = unknown,
+	VALUE = unknown,
+	DIALOG_VALUE = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
 	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
 	OPTIONS extends DButtonSelectOptions<VALUE, DIALOG_VALUE, DIALOG, THEME> = DButtonSelectOptions<
@@ -156,7 +157,7 @@ export class DButtonSelect<
 		const dialog = this.dialog;
 		const oldValue = this._textValueComputed ?? null;
 		this._dialogSetter(dialog, oldValue);
-		dialog.open().then((): void => {
+		dialog.open(this).then((): void => {
 			const newValue = this._dialogGetter(dialog);
 			if (newValue !== oldValue) {
 				this.text = newValue;
