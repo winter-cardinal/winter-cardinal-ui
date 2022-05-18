@@ -19,6 +19,10 @@ const isCommandClear = (command: DCommand): boolean => {
 	return !!(command.getFlag() & DCommandFlag.CLEAR);
 };
 
+const isCommandClean = (command: DCommand): boolean => {
+	return !!(command.getFlag() & DCommandFlag.CLEAN);
+};
+
 export class DControllerDefaultCommand extends utils.EventEmitter implements DControllerCommand {
 	protected _position: number;
 	protected _done: DCommand[];
@@ -50,91 +54,114 @@ export class DControllerDefaultCommand extends utils.EventEmitter implements DCo
 	}
 
 	push(command: DCommand): void {
-		const waiting = this._waiting;
-		waiting.push(command);
+		this._waiting.push(command);
 		this.next();
 	}
 
 	next(): void {
-		if (this._executing == null) {
-			const waiting = this._waiting;
-			if (0 < waiting.length) {
-				const command = waiting.shift();
-				if (command != null) {
-					if (command instanceof DCommandUndo) {
-						const done = this._done;
-						if (this._position < done.length) {
-							const current = done[done.length - 1 - this._position];
-							this._position += 1;
-							this.emit("change", this);
-							const result = current.undo();
-							if (result === true) {
-								this.onSuccess(command);
-							} else if (result === false) {
-								this.onFail(command);
-							} else {
-								this._executing = result.then(
-									() => {
-										this.onSuccess(command);
-									},
-									() => {
-										this.onFail(command);
-									}
-								);
-							}
-						}
-					} else if (command instanceof DCommandRedo) {
-						const done = this._done;
-						if (0 < this._position) {
-							const current = done[done.length - this._position];
-							this._position -= 1;
-							this.emit("change", this);
-							const result = current.redo();
-							if (result === true) {
-								this.onSuccess(command);
-							} else if (result === false) {
-								this.onFail(command);
-							} else {
-								this._executing = result.then(
-									() => {
-										this.onSuccess(command);
-									},
-									() => {
-										this.onFail(command);
-									}
-								);
-							}
-						}
-					} else {
-						const isClear = isCommandClear(command);
-						const isStorable = isCommandStorable(command);
-						if (isClear || isStorable) {
-							const size = isClear ? this._done.length : this._position;
-							if (0 < size) {
-								this.remove(size);
-								this._position = 0;
-								this.emit("change", this);
-							}
-							this.cleanup();
-						}
-						const result = command.execute();
-						if (result === true) {
-							this.onSuccess(command);
-						} else if (result === false) {
-							this.onFail(command);
-						} else {
-							this._executing = result.then(
-								() => {
-									this.onSuccess(command);
-								},
-								() => {
-									this.onFail(command);
-								}
-							);
-						}
+		if (this._executing != null) {
+			// Still executing a command.
+			// So do nothing.
+			return;
+		}
+
+		const waiting = this._waiting;
+		if (waiting.length <= 0) {
+			// There is no waiting commands.
+			// So do nothing.
+			return;
+		}
+
+		const command = waiting.shift();
+		if (command == null) {
+			// There is no waiting commands.
+			// So do nothing.
+			return;
+		}
+
+		if (command instanceof DCommandUndo) {
+			this.executeUndo(command);
+		} else if (command instanceof DCommandRedo) {
+			this.executeRedo(command);
+		} else {
+			this.execute(command);
+		}
+	}
+
+	protected executeUndo(command: DCommandUndo): void {
+		const done = this._done;
+		if (this._position < done.length) {
+			const current = done[done.length - 1 - this._position];
+			this._position += 1;
+			this.emit("change", this);
+			const result = current.undo();
+			if (result === true) {
+				this.onSuccessUndo(current);
+			} else if (result === false) {
+				this.onFail(command);
+			} else {
+				this._executing = result.then(
+					() => {
+						this.onSuccessUndo(current);
+					},
+					() => {
+						this.onFail(command);
 					}
-				}
+				);
 			}
+		}
+	}
+
+	protected executeRedo(command: DCommandRedo): void {
+		const done = this._done;
+		if (0 < this._position) {
+			const current = done[done.length - this._position];
+			this._position -= 1;
+			this.emit("change", this);
+			const result = current.redo();
+			if (result === true) {
+				this.onSuccessRedo(current);
+			} else if (result === false) {
+				this.onFail(command);
+			} else {
+				this._executing = result.then(
+					() => {
+						this.onSuccessRedo(current);
+					},
+					() => {
+						this.onFail(command);
+					}
+				);
+			}
+		}
+	}
+
+	protected execute(command: DCommand): void {
+		const isClear = isCommandClear(command);
+		const isStorable = isCommandStorable(command);
+		if (isClear || isStorable) {
+			const size = isClear ? this._done.length : this._position;
+			if (0 < size) {
+				this.remove(size);
+				this._position = 0;
+				this.emit("change", this);
+			}
+			this.cleanup();
+		}
+		const result = command.execute();
+		if (result === true) {
+			this.onSuccess(command);
+		} else if (result === false) {
+			this.onFail(command);
+		} else {
+			this._executing = result.then(
+				() => {
+					this.onSuccess(command);
+				},
+				() => {
+					this.onFail(command);
+				}
+			);
 		}
 	}
 
@@ -170,8 +197,26 @@ export class DControllerDefaultCommand extends utils.EventEmitter implements DCo
 		this._executing = null;
 		if (isCommandStorable(command)) {
 			this._done.push(command);
+			if (!isCommandClean(command)) {
+				this.emit("dirty", this);
+			}
+		}
+		this.emit("change", this);
+		this.next();
+	}
+
+	protected onSuccessUndo(undoed: DCommand): void {
+		this._executing = null;
+		if (!isCommandClean(undoed)) {
 			this.emit("dirty", this);
-		} else if (command instanceof DCommandUndo || command instanceof DCommandRedo) {
+		}
+		this.emit("change", this);
+		this.next();
+	}
+
+	protected onSuccessRedo(redoed: DCommand): void {
+		this._executing = null;
+		if (!isCommandClean(redoed)) {
 			this.emit("dirty", this);
 		}
 		this.emit("change", this);

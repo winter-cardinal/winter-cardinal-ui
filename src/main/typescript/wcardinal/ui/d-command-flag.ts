@@ -12,9 +12,14 @@ export const DCommandFlag = {
 	UNSTORABLE: 1,
 
 	/**
-	 * Commands with a `CLEAR` flag clears the command queue.
+	 * Commands with a `CLEAR` flag clear the command queue.
 	 */
-	CLEAR: 2
+	CLEAR: 2,
+
+	/**
+	 * Commands with a `CLEAN` flag are not considered as modifications to documents
+	 */
+	CLEAN: 4
 } as const;
 
 export type DCommandFlag = number;
