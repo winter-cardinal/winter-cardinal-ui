@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.167.0
+ Winter Cardinal UI v0.168.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -50388,7 +50388,7 @@
             var dialog = this.dialog;
             var oldValue = (_a = this._textValueComputed) !== null && _a !== void 0 ? _a : null;
             this._dialogSetter(dialog, oldValue);
-            dialog.open().then(function () {
+            dialog.open(this).then(function () {
                 var newValue = _this._dialogGetter(dialog);
                 if (newValue !== oldValue) {
                     _this.text = newValue;
