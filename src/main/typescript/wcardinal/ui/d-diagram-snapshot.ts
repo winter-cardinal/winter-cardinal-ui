@@ -9,8 +9,8 @@ import { DBase } from "./d-base";
 import { DBaseSnippetContainer } from "./d-base-snippet-container";
 import { DOnOptions } from "./d-on-options";
 import { DView } from "./d-view";
-import { EShapeContainer } from "./shape";
-import { isNumber } from "./util";
+import { EShapeContainer } from "./shape/e-shape-container";
+import { isNumber } from "./util/is-number";
 import { isString } from "./util/is-string";
 import { UtilExtract } from "./util/util-extract";
 

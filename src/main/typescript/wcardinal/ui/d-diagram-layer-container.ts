@@ -7,7 +7,7 @@ import { Container } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "./d-diagram-serialized";
-import { EShapeResourceManagerDeserialization } from "./shape";
+import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
 
 export class DDiagramLayerContainer extends Container {

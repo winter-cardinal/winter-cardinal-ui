@@ -8,7 +8,7 @@ import { EShapeCapability } from "../e-shape-capability";
 import { EShapeDeserializers } from "../e-shape-deserializers";
 import { EShapeType } from "../e-shape-type";
 import { EShapeUploadeds } from "../e-shape-uploadeds";
-import { createRectanglePivotedUploaded } from "../variant";
+import { createRectanglePivotedUploaded } from "../variant/create-rectangle-pivoted-uploaded";
 import { deserializeRectanglePivoted } from "../variant/deserialize-rectangle-pivoted";
 
 export const loadShapeRectanglePivoted = (): void => {

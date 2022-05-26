@@ -4,7 +4,7 @@
  */
 
 import { UtilRgb } from "../../util/util-rgb";
-import { EShapeActionRuntime } from "../action";
+import { EShapeActionRuntime } from "../action/e-shape-action-runtime";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeStateSet } from "../e-shape-state-set";
