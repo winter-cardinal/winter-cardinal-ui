@@ -5,7 +5,7 @@
 
 /* eslint-disable prettier/prettier */
 
-const NONE			= 0b0;
+const NONE			= 0x0;
 
 const ID			= 0x1;
 const POSITION		= 0x2;
@@ -31,13 +31,15 @@ const ORDER_IN_LAYER= 0x40000;
 
 const CHILDREN		= 0x80000;
 
+const DATA_MAPPING	= 0x100000;
+
 const COORDINATE	= ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW | ALIGN;
 const SHAPE			= REPLACING | GROUPING | FILL | STROKE;
 const LAYER			= ORDER_IN_LAYER;
 const PRIMITIVE		= COORDINATE | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
-const EMBEDDED		= COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER;
+const EMBEDDED		= COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER | DATA_MAPPING;
 const CONNECTOR		= ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
-const ALL			= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
+const ALL			= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING;
 
 export const EShapeCapability = {
 	NONE,
@@ -62,6 +64,7 @@ export const EShapeCapability = {
 	/** @deprecated in favor of {@link DATA} */
 	TAG: DATA,
 	DATA,
+	DATA_MAPPING,
 	ACTION,
 	CURSOR,
 	ORDER_IN_LAYER,
