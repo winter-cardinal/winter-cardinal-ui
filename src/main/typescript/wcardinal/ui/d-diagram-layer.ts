@@ -5,8 +5,6 @@
 
 import { IPoint } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
-import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
-import { DDiagramCanvasDataMap } from "./d-diagram-canvas-data-map";
 import { DDiagramLayerBackground } from "./d-diagram-layer-background";
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "./d-diagram-serialized";
 import { EShapeActionValueMiscGestureType } from "./shape/action/e-shape-action-value-misc-gesture-type";
@@ -19,7 +17,6 @@ import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-man
 import { EShapeRuntime } from "./shape/e-shape-runtime";
 import { EShapeRectanglePivoted } from "./shape/variant/e-shape-rectangle-pivoted";
 import { isString } from "./util/is-string";
-import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export class DDiagramLayer extends EShapeContainer {
 	reference: number;
@@ -69,7 +66,7 @@ export class DDiagramLayer extends EShapeContainer {
 		return result;
 	}
 
-	initialize(data: DDiagramCanvasDataMap, ids: DDiagramCanvasIdMap, actionables: EShape[]): void {
+	initialize(actionables: EShape[]): void {
 		const interactives = this.interactives;
 		const shape = this._shape;
 		const isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
@@ -95,46 +92,12 @@ export class DDiagramLayer extends EShapeContainer {
 			shape.interactive = true;
 			interactives.push(shape);
 		}
-		this.doInitialize(this.children, data, interactives, actionables, ids);
+		this.doInitialize(this.children, interactives);
 	}
 
-	protected doInitialize(
-		shapes: EShape[],
-		data: DDiagramCanvasDataMap,
-		interactives: EShape[],
-		actionables: EShape[],
-		ids: DDiagramCanvasIdMap
-	): void {
+	protected doInitialize(shapes: EShape[], interactives: EShape[]): void {
 		for (let i = 0, imax = shapes.length; i < imax; ++i) {
 			const shape = shapes[i];
-
-			// Data mappings
-			const shapeData = shape.data;
-			for (let j = 0, jmax = shapeData.size(); j < jmax; ++j) {
-				const shapeDatum = shapeData.get(j);
-				if (shapeDatum) {
-					const shapeDatumId = shapeDatum.id;
-					if (0 < shapeDatumId.length) {
-						let shapeDatumList = data[shapeDatumId];
-						if (shapeDatumList == null) {
-							shapeDatumList = [];
-							data[shapeDatumId] = shapeDatumList;
-						}
-						shapeDatumList.push(shapeDatum);
-					}
-				}
-			}
-
-			// Id mappings
-			const shapeId = shape.id;
-			if (0 < shapeId.length) {
-				const mapping: EShape[] | undefined = ids[shapeId];
-				if (mapping == null) {
-					ids[shapeId] = [shape];
-				} else {
-					mapping.push(shape);
-				}
-			}
 
 			const runtime = shape.runtime;
 			if (runtime) {
@@ -142,28 +105,12 @@ export class DDiagramLayer extends EShapeContainer {
 				if (shape.interactive || 0 < shape.cursor.length || runtime.interactive) {
 					interactives.push(shape);
 				}
-
-				// Actionables
-				if (runtime.isActionable()) {
-					actionables.push(shape);
-				}
-
-				// Shortcuts
-				const shortcut = shape.shortcut;
-				if (shortcut != null) {
-					UtilKeyboardEvent.on(shape, shortcut, (e: KeyboardEvent): void => {
-						runtime.onClick(shape, e);
-					});
-				}
-
-				// Runtime
-				runtime.initialize(shape);
 			}
 
 			// Children
 			const children = shape.children;
 			if (0 < children.length) {
-				this.doInitialize(children, data, interactives, actionables, ids);
+				this.doInitialize(children, interactives);
 			}
 		}
 	}

@@ -11,19 +11,6 @@ export interface DDiagramDataRemoteOptions {
 	controller?: DDiagramDataRemoteController;
 }
 
-export class DDiagramDataRemote {
-	protected _controller?: DDiagramDataRemoteController;
-
-	constructor(options?: DDiagramDataRemoteOptions) {
-		this._controller = options && options.controller;
-	}
-
-	set(id: string, value: unknown, time: number): boolean {
-		const controller = this._controller;
-		if (controller) {
-			controller.write(id, value);
-			return true;
-		}
-		return false;
-	}
+export interface DDiagramDataRemote {
+	set(id: string, value: unknown, time: number): boolean;
 }

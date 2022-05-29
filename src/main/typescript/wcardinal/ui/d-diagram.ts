@@ -14,15 +14,11 @@ import {
 import { DDiagramCanvas, DDiagramCanvasOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
-import { DDiagramData, DDiagramDataMapper, DDiagramDataOptions } from "./d-diagram-data";
-import { EShapeActionRuntime } from "./shape/action/e-shape-action-runtime";
-import { EShapeActionRuntimeOpen } from "./shape/action/e-shape-action-runtime-open";
-import { EShapeActionValue } from "./shape/action/e-shape-action-value";
-import { EShape } from "./shape/e-shape";
-import { EShapeRuntime } from "./shape/e-shape-runtime";
-import { EShapeRuntimes } from "./shape/e-shape-runtimes";
-import { EShapeType } from "./shape/e-shape-type";
+import { DDiagramData, DDiagramDataOptions } from "./d-diagram-data";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { EShape } from "./shape/e-shape";
+import { DDiagramDataImpl } from "./d-diagram-data-impl";
+import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 
 /**
  * {@link DDiagram} piece controller.
@@ -103,133 +99,18 @@ export class DDiagram<
 		});
 
 		//
-		const data = new DDiagramData(this, options && (options.data || options.tag));
+		const data = new DDiagramDataImpl(this, options && (options.data || options.tag));
 		this.data = data;
 		this.tag = data;
 		this.shape = new DDiagramShape(this);
 	}
 
-	protected initialize(shapes: EShape[]): void {
-		this.initializeShapes(shapes, null, this.data.mapper);
-	}
-
-	protected initializeShapes(
+	protected initLayer(
+		canvas: DDiagramCanvas,
 		shapes: EShape[],
-		dataShape: EShape | null,
-		dataMapper: DDiagramDataMapper | null
+		mapper?: DDiagramDataMapper | null
 	): void {
-		const formatterMap: Record<string, (value: unknown) => unknown> = {};
-		const initialMap: Record<string, unknown | undefined> = {};
-		const actionMap: Map<EShapeActionValue, EShapeActionRuntime> = new Map<
-			EShapeActionValue,
-			EShapeActionRuntime
-		>();
-
-		for (let i = 0, imax = shapes.length; i < imax; ++i) {
-			const shape = shapes[i];
-			const runtimeConstructor = EShapeRuntimes[shape.type] || EShapeRuntime;
-			const runtime = (shape.runtime = new runtimeConstructor(shape));
-
-			// Data
-			const shapeData = shape.data;
-			for (let j = 0, jmax = shapeData.size(); j < jmax; ++j) {
-				const shapeDatum = shapeData.get(j);
-				if (shapeDatum) {
-					// Mapping
-					if (dataMapper) {
-						dataMapper(shapeDatum, dataShape || shape);
-					}
-
-					// Format
-					const datumFormat = shapeDatum.format;
-					const datumInitial = shapeDatum.initial;
-					if (datumFormat in formatterMap) {
-						shapeDatum.formatter = formatterMap[datumFormat];
-					} else if (0 < datumFormat.length) {
-						try {
-							const formatter = Function(
-								"value",
-								/* eslint-disable prettier/prettier */
-								`try {` +
-									`return (${datumFormat});` +
-								`} catch( e1 ) {` +
-									`try {` +
-										`return (${0 < datumInitial.length ? datumInitial : 0});` +
-									`} catch( e2 ) {` +
-										`return 0;` +
-									`}` +
-								`}`
-								/* eslint-enable prettier/prettier */
-							) as any;
-							formatterMap[datumFormat] = formatter;
-							shapeDatum.formatter = formatter;
-						} catch (e) {
-							//
-						}
-					}
-
-					// Initial
-					if (datumInitial in initialMap) {
-						shapeDatum.value = initialMap[datumInitial];
-					} else if (0 < datumInitial.length) {
-						try {
-							shapeDatum.value = initialMap[datumInitial] = Function(
-								/* eslint-disable prettier/prettier */
-								`try {` +
-									`return (${datumInitial});` +
-								`} catch( e ) {` +
-									`return 0;` +
-								`}`
-								/* eslint-enable prettier/prettier */
-							)();
-						} catch (e) {
-							//
-						}
-					}
-				}
-			}
-
-			// Initialize runtime actions
-			const values = shape.action.values;
-			const actions = runtime.actions;
-			for (let j = 0, jmax = values.length; j < jmax; ++j) {
-				const value = values[j];
-				let action: EShapeActionRuntime | undefined | null = actionMap.get(value);
-				if (action == null) {
-					action = value.toRuntime();
-					if (action != null) {
-						if (action instanceof EShapeActionRuntimeOpen) {
-							if (shape.cursor.length <= 0) {
-								shape.cursor = "pointer";
-							}
-						}
-
-						actionMap.set(value, action);
-						actions.push(action);
-						runtime.reset |= action.reset;
-					}
-				} else {
-					actions.push(action);
-					runtime.reset |= action.reset;
-				}
-			}
-
-			// Children
-			const children = shape.children;
-			if (0 < children.length) {
-				this.initializeShapes(children, this.toDataShape(dataShape, shape), dataMapper);
-			}
-		}
-	}
-
-	protected toDataShape(dataShape: EShape | null, shape: EShape): EShape | null {
-		if (dataShape != null) {
-			return dataShape;
-		}
-		if (shape.type === EShapeType.EMBEDDED) {
-			return shape;
-		}
-		return null;
+		super.initLayer(canvas, shapes, mapper || this.data.mapper);
 	}
 
 	protected isEditMode(): boolean {

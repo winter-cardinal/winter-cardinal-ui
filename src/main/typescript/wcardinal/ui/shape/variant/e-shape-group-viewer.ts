@@ -20,7 +20,7 @@ import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeViewer } from "./e-shape-group-stroke-viewer";
 import { EShapeGroupTextViewer } from "./e-shape-group-text-viewer";
-import { EShapeDataImpl } from "./e-shape-data-impl";
+import { EShapeDataImpl } from "../e-shape-data-impl";
 
 export abstract class EShapeGroupViewer extends EShapeBase {
 	size: EShapeGroupSize;

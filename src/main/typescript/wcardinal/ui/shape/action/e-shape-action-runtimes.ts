@@ -6,6 +6,8 @@
 import { DApplications } from "../../d-applications";
 import { DCanvasContainer } from "../../d-canvas-container";
 import { EShape } from "../e-shape";
+import { EShapeType } from "../e-shape-type";
+import { EShapeBase } from "../variant/e-shape-base";
 
 export interface EShapeActionRuntimeContainerDataRemote {
 	set(id: string, value: unknown, time: number): boolean;
@@ -35,11 +37,21 @@ export interface EShapeActionRuntimeContainer extends DCanvasContainer {
 }
 
 export class EShapeActionRuntimes {
+	static isContainer(target: unknown): target is EShapeActionRuntimeContainer {
+		return target != null && target instanceof DCanvasContainer;
+	}
+
+	static isEmbedded(target: unknown): target is EShape {
+		return (
+			target != null && target instanceof EShapeBase && target.type === EShapeType.EMBEDDED
+		);
+	}
+
 	static toContainer(shape?: EShape | null): EShapeActionRuntimeContainer | null {
 		let current: { parent: any } | null | undefined = shape;
 		while (current != null) {
-			if (current instanceof DCanvasContainer) {
-				return current as EShapeActionRuntimeContainer;
+			if (this.isContainer(current)) {
+				return current;
 			}
 			current = current.parent;
 		}
@@ -60,15 +72,25 @@ export class EShapeActionRuntimes {
 		time: number,
 		remote: boolean
 	): boolean {
-		const container = this.toContainer(shape);
-		if (container) {
-			if (remote) {
+		if (remote) {
+			const container = this.toContainer(shape);
+			if (container) {
 				return container.data.remote.set(id, value, time);
-			} else {
-				if (container.data.set(id, value, time)) {
-					DApplications.update(container);
+			}
+		} else {
+			let current: { parent: any } | null | undefined = shape;
+			while (current != null) {
+				if (this.isContainer(current)) {
+					current.data.set(id, value, time);
+					DApplications.update(current);
 					return true;
+				} else if (this.isEmbedded(current)) {
+					if (current.data.getPrivate()?.set(id, value, time)) {
+						DApplications.update(current);
+						return true;
+					}
 				}
+				current = current.parent;
 			}
 		}
 		return false;

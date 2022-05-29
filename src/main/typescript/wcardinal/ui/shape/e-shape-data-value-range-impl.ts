@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
+import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import {
 	EShapeDataValueRange,
 	EShapeDataValueRangeLike,
 	EShapeDataValueRangeParent,
 	EShapeDataValueRangeType
-} from "../e-shape-data-value-range";
+} from "./e-shape-data-value-range";
 
 export class EShapeDataValueRangeImpl implements EShapeDataValueRange {
 	protected _type: EShapeDataValueRangeType;

@@ -3,19 +3,34 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, IPoint, Point } from "pixi.js";
+import { interaction, IPoint, Point, Renderer } from "pixi.js";
 import { DApplications } from "./d-applications";
 import {
 	DDiagramCanvasBase,
 	DDiagramCanvasBaseOptions,
 	DThemeDiagramCanvasBase
 } from "./d-diagram-canvas-base";
-import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
-import { DDiagramCanvasDataMap } from "./d-diagram-canvas-data-map";
-import { EShapeContainer } from "./shape";
 import { EShape } from "./shape/e-shape";
 import { EShapeBase } from "./shape/variant/e-shape-base";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { EShapeActionValue } from "./shape/action/e-shape-action-value";
+import { EShapeActionRuntime } from "./shape/action/e-shape-action-runtime";
+import { DDiagramDataMapper } from "./d-diagram-data-mapper";
+import { EShapeRuntimes } from "./shape/e-shape-runtimes";
+import { EShapeRuntime } from "./shape/e-shape-runtime";
+import { EShapeActionRuntimeOpen } from "./shape/action/e-shape-action-runtime-open";
+import { EShapeDataValue } from "./shape/e-shape-data-value";
+import { EShapeDataValueType } from "./shape/e-shape-data-value-type";
+import { EShapeType } from "./shape/e-shape-type";
+import { EShapeContainer } from "./shape/e-shape-container";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { EShapeDataValueScope } from "./shape";
+import { DDiagramCanvasData } from "./d-diagram-canvas-data";
+import { DDiagramCanvasDataImpl } from "./d-diagram-canvas-data-impl";
+import { DDiagramCanvasShape } from "./d-diagram-canvas-shape";
+import { DDiagramCanvasShapeImpl } from "./d-diagram-canvas-shape-impl";
+import { DDiagramCanvasTicker } from "./d-diagram-canvas-ticker";
+import { DDiagramCanvasTickerImpl } from "./d-diagram-canvas-ticker-impl";
 
 export interface DDiagramCanvasOptions<THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas>
 	extends DDiagramCanvasBaseOptions<THEME> {}
@@ -28,34 +43,59 @@ export class DDiagramCanvas<
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
 	protected static WORK_DBLCLICK?: Point;
 
-	/** @deprecated in favor of {@link data} */
-	tags: DDiagramCanvasDataMap;
-	data: DDiagramCanvasDataMap;
-	actionables: EShape[];
-	ids: DDiagramCanvasIdMap;
+	protected _data: DDiagramCanvasData;
+	protected _shape: DDiagramCanvasShape;
+	protected _ticker: DDiagramCanvasTicker;
+	protected _actionables: EShape[];
 
 	protected _overed?: EShape | null;
 	protected _downed?: EShape | null;
 	protected _downeds: Set<EShape>;
 
+	protected _updateBound: () => void;
+
 	constructor(options: OPTIONS) {
 		super(options);
-		const data = {};
-		this.data = data;
-		this.tags = data;
-		this.actionables = [];
-		this.ids = {};
+		this._data = new DDiagramCanvasDataImpl();
+		this._shape = new DDiagramCanvasShapeImpl();
+		this._ticker = new DDiagramCanvasTickerImpl();
+		this._actionables = [];
 		this._downeds = new Set<EShape>();
+		this._updateBound = (): void => {
+			DApplications.update(this);
+		};
 	}
 
-	initialize(): void {
+	get data(): DDiagramCanvasData {
+		return this._data;
+	}
+
+	get shape(): DDiagramCanvasShape {
+		return this._shape;
+	}
+
+	get ticker(): DDiagramCanvasTicker {
+		return this._ticker;
+	}
+
+	initialize(shapes: EShape[], mapper?: DDiagramDataMapper | null): void {
 		const time = Date.now();
-		const data = this.data;
-		const actionables = this.actionables;
-		const ids = this.ids;
+		const actionables = this._actionables;
+		this.initialize_(
+			shapes,
+			null,
+			mapper,
+			new Map<string, (value: unknown) => unknown>(),
+			new Map<string, unknown>(),
+			new Map<EShapeActionValue, EShapeActionRuntime>(),
+			this._ticker,
+			this._shape,
+			this._data,
+			actionables
+		);
 		const layers = this._layer.children;
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
-			layers[i].initialize(data, ids, actionables);
+			layers[i].initialize(actionables);
 		}
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
 			const layerChildren = layers[i].children;
@@ -63,6 +103,256 @@ export class DDiagramCanvas<
 				layerChildren[j].update(time);
 			}
 		}
+		this._ticker.start();
+	}
+
+	protected initialize_(
+		shapes: EShape[],
+		dataShape: EShape | null,
+		mapper: DDiagramDataMapper | null | undefined,
+		formatToFormatter: Map<string, (value: unknown) => unknown>,
+		initialToInitialValue: Map<string, unknown>,
+		actionValueToRuntime: Map<EShapeActionValue, EShapeActionRuntime>,
+		canvasTicker: DDiagramCanvasTicker,
+		canvasShape: DDiagramCanvasShape,
+		canvasData: DDiagramCanvasData,
+		actionables: EShape[]
+	): void {
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			const shape = shapes[i];
+
+			// ID
+			const id = shape.id;
+			if (0 < id.length) {
+				canvasShape.add(id, shape);
+			}
+
+			// Data
+			this.initData(
+				shape,
+				dataShape,
+				mapper,
+				formatToFormatter,
+				initialToInitialValue,
+				canvasTicker,
+				canvasData
+			);
+
+			// Runtime
+			const runtime = new (EShapeRuntimes[shape.type] || EShapeRuntime)(shape);
+			shape.runtime = runtime;
+
+			// Action
+			this.initActions(shape, runtime, actionValueToRuntime);
+
+			// Actionables
+			if (runtime.isActionable()) {
+				actionables.push(shape);
+			}
+
+			// Shortcut
+			const shortcut = shape.shortcut;
+			if (shortcut != null) {
+				UtilKeyboardEvent.on(shape, shortcut, (e: KeyboardEvent): void => {
+					runtime.onClick(shape, e);
+				});
+			}
+
+			// Init the runtime
+			runtime.initialize(shape);
+
+			// Children
+			const children = shape.children;
+			if (0 < children.length) {
+				this.initialize_(
+					children,
+					this.toDataShape(dataShape, shape),
+					mapper,
+					formatToFormatter,
+					initialToInitialValue,
+					actionValueToRuntime,
+					canvasTicker,
+					canvasShape,
+					canvasData,
+					actionables
+				);
+			}
+		}
+	}
+
+	protected initData(
+		shape: EShape,
+		dataShape: EShape | null,
+		mapper: DDiagramDataMapper | null | undefined,
+		formatToFormatter: Map<string, (value: unknown) => unknown>,
+		initialToInitialValue: Map<string, unknown>,
+		canvasTicker: DDiagramCanvasTicker,
+		canvasData: DDiagramCanvasData
+	): void {
+		const data = shape.data;
+		for (let i = 0, imax = data.size(); i < imax; ++i) {
+			const value = data.get(i);
+			if (value) {
+				// Mapping
+				if (value.scope === EShapeDataValueScope.PRIVATE) {
+					const id = value.id;
+					if (0 < id.length) {
+						if (dataShape) {
+							dataShape.data.private.add(id, value);
+						} else {
+							canvasData.private.add(id, value);
+						}
+					}
+				} else {
+					if (mapper) {
+						mapper(value, dataShape || shape);
+					}
+					const id = value.id;
+					if (0 < id.length) {
+						canvasData.add(id, value);
+					}
+				}
+
+				// Format
+				const format = value.format;
+				const initial = value.initial;
+				if (formatToFormatter.has(format)) {
+					value.formatter = formatToFormatter.get(format);
+				} else if (0 < format.length) {
+					try {
+						const formatter = this.calcFormatter(value, format, initial);
+						formatToFormatter.set(format, formatter);
+						value.formatter = formatter;
+					} catch (e) {
+						// DO NOTHING
+					}
+				}
+
+				// Initial
+				if (initialToInitialValue.has(initial)) {
+					this.setInitial(value, initialToInitialValue.get(initial), canvasTicker);
+				} else if (0 < initial.length) {
+					try {
+						const initialValue = this.calcInitial(value, initial);
+						initialToInitialValue.set(initial, initialValue);
+						this.setInitial(value, initialValue, canvasTicker);
+					} catch (e) {
+						// DO NOTHING
+					}
+				}
+			}
+		}
+	}
+
+	protected initActions(
+		shape: EShape,
+		shapeRuntime: EShapeRuntime,
+		valueToRuntime: Map<EShapeActionValue, EShapeActionRuntime>
+	): void {
+		const values = shape.action.values;
+		const runtimes = shapeRuntime.actions;
+		for (let i = 0, imax = values.length; i < imax; ++i) {
+			const value = values[i];
+			let runtime = valueToRuntime.get(value);
+			if (runtime == null) {
+				runtime = value.toRuntime();
+				if (runtime != null) {
+					if (runtime instanceof EShapeActionRuntimeOpen) {
+						if (shape.cursor.length <= 0) {
+							shape.cursor = "pointer";
+						}
+					}
+
+					valueToRuntime.set(value, runtime);
+					runtimes.push(runtime);
+					shapeRuntime.reset |= runtime.reset;
+				}
+			} else {
+				runtimes.push(runtime);
+				shapeRuntime.reset |= runtime.reset;
+			}
+		}
+	}
+
+	protected calcFormatter(
+		value: EShapeDataValue,
+		format: string,
+		initial: string
+	): (value: unknown) => unknown {
+		const def = this.toInitial(value);
+		return Function(
+			"value",
+			/* eslint-disable prettier/prettier */
+			`try {` +
+				`return (${format});` +
+			`} catch( e1 ) {` +
+				`try {` +
+					`return (${0 < initial.length ? initial : def});` +
+				`} catch( e2 ) {` +
+					`return ${def};` +
+				`}` +
+			`}`
+			/* eslint-enable prettier/prettier */
+		) as any;
+	}
+
+	protected setInitial(
+		value: EShapeDataValue,
+		initial: unknown,
+		tickers: DDiagramCanvasTicker
+	): void {
+		if (value.type === EShapeDataValueType.TICKER) {
+			tickers.add(initial).add(value);
+			value.value = 0;
+		} else {
+			value.value = initial;
+		}
+	}
+
+	protected calcInitial(value: EShapeDataValue, initial: string): unknown {
+		return Function(
+			/* eslint-disable prettier/prettier */
+			`try {` +
+				`return (${initial});` +
+			`} catch( e ) {` +
+				`return ${this.toInitial(value)};` +
+			`}`
+			/* eslint-enable prettier/prettier */
+		)();
+	}
+
+	protected toInitial(value: EShapeDataValue): string {
+		switch (value.type) {
+			case EShapeDataValueType.NUMBER:
+				return "0";
+			case EShapeDataValueType.NUMBER_ARRAY:
+				return "[]";
+			case EShapeDataValueType.STRING:
+				return '""';
+			case EShapeDataValueType.STRING_ARRAY:
+				return "[]";
+			case EShapeDataValueType.OBJECT:
+				return "{}";
+			case EShapeDataValueType.OBJECT_ARRAY:
+				return "[]";
+			case EShapeDataValueType.TICKER:
+				return "0";
+		}
+	}
+
+	protected toDataShape(dataShape: EShape | null, shape: EShape): EShape | null {
+		if (dataShape != null) {
+			return dataShape;
+		}
+		if (shape.type === EShapeType.EMBEDDED) {
+			return shape;
+		}
+		return null;
+	}
+
+	protected onDestroy(): void {
+		this._ticker.stop();
+		super.onDestroy();
 	}
 
 	hitTestInteractives(global: IPoint): EShape | null {
@@ -276,6 +566,50 @@ export class DDiagramCanvas<
 			return true;
 		}
 		return false;
+	}
+
+	update(): void {
+		const actionables = this._actionables;
+		if (0 < actionables.length) {
+			let effect = -1;
+			const time = Date.now();
+			for (let i = 0, imax = actionables.length; i < imax; ++i) {
+				const actionable = actionables[i];
+				actionable.update(time);
+				const runtime = actionable.runtime;
+				if (runtime && time < runtime.effect) {
+					const runtimeEffect = runtime.effect;
+					if (time < runtimeEffect) {
+						effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
+					}
+				}
+			}
+			if (0 <= effect) {
+				window.setTimeout(this._updateBound, effect - Date.now());
+			}
+		}
+	}
+
+	onRender(renderer: Renderer): void {
+		const actionables = this._actionables;
+		if (0 < actionables.length) {
+			let effect = -1;
+			const time = Date.now();
+			for (let i = 0, imax = actionables.length; i < imax; ++i) {
+				const actionable = actionables[i];
+				actionable.onRender(time, renderer);
+				const runtime = actionable.runtime;
+				if (runtime && time < runtime.effect) {
+					const runtimeEffect = runtime.effect;
+					if (time < runtimeEffect) {
+						effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
+					}
+				}
+			}
+			if (0 <= effect) {
+				window.setTimeout(this._updateBound, effect - Date.now());
+			}
+		}
 	}
 
 	protected getType(): string {

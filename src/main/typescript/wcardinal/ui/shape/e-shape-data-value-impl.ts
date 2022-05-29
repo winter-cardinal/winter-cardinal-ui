@@ -3,16 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDiagramSerializedDataValue } from "../../d-diagram-serialized";
-import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import {
-	EShapeDataValue,
-	EShapeDataValueOrder,
-	EShapeDataValueParent
-} from "../e-shape-data-value";
-import { EShapeDataValueRange } from "../e-shape-data-value-range";
+import { DDiagramSerializedDataValue } from "../d-diagram-serialized";
+import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
+import { EShapeDataValue, EShapeDataValueParent } from "./e-shape-data-value";
+import { EShapeDataValueRange } from "./e-shape-data-value-range";
 import { EShapeDataValueRangeImpl } from "./e-shape-data-value-range-impl";
+import { EShapeDataValueOrder } from "./e-shape-data-value-order";
+import { EShapeDataValueType } from "./e-shape-data-value-type";
+import { EShapeDataValueScope } from "./e-shape-data-value-scope";
 
 const INDEX_COMPARATOR = (a: number, b: number): number => {
 	return a - b;
@@ -20,6 +19,8 @@ const INDEX_COMPARATOR = (a: number, b: number): number => {
 
 export class EShapeDataValueImpl implements EShapeDataValue {
 	id: string;
+	type: EShapeDataValueType;
+	scope: EShapeDataValueScope;
 	initial: string;
 	format: string;
 	range: EShapeDataValueRange;
@@ -37,6 +38,8 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 
 	constructor() {
 		this.id = "";
+		this.type = EShapeDataValueType.NUMBER;
+		this.scope = EShapeDataValueScope.PUBLIC;
 		this.initial = "";
 		this.format = "";
 		this.range = new EShapeDataValueRangeImpl();
@@ -495,6 +498,8 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	 */
 	copy(target: EShapeDataValue): this {
 		this.id = target.id;
+		this.type = target.type;
+		this.scope = target.scope;
 		this.initial = target.initial;
 		this.format = target.format;
 		this.formatter = target.formatter;
@@ -508,6 +513,8 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	isEquals(target: EShapeDataValue): boolean {
 		return (
 			this.id === target.id &&
+			this.type === target.type &&
+			this.scope === target.scope &&
 			this.initial === target.initial &&
 			this.formatter === target.formatter &&
 			this.range.isEquals(target.range)
@@ -515,12 +522,12 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
-		const idSerialized = manager.addData(this.id);
-		const initialSerialized = manager.addResource(this.initial);
-		const formatSerialized = manager.addResource(this.format.trim());
-		const rangeSerialized = this.range.serialize(manager);
+		const id = manager.addData(this.id);
+		const initial = manager.addResource(this.initial);
+		const format = manager.addResource(this.format.trim());
+		const range = this.range.serialize(manager);
 		return manager.addResource(
-			`[${idSerialized},${initialSerialized},${formatSerialized},${rangeSerialized},${this._capacity},${this._order}]`
+			`[${id},${initial},${format},${range},${this._capacity},${this._order},${this.type},${this.scope}]`
 		);
 	}
 
@@ -533,6 +540,8 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 				manager.setDataValue(target, parsed);
 			}
 			this.id = manager.data[parsed[0]] || "";
+			this.type = parsed[6] ?? EShapeDataValueType.NUMBER;
+			this.scope = parsed[7] ?? EShapeDataValueScope.PUBLIC;
 			this.initial = resources[parsed[1]] || "";
 			this.format = resources[parsed[2]] || "";
 			this.range.deserialize(parsed[3], manager);

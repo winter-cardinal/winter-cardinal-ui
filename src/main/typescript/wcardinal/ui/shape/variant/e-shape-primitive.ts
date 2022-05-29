@@ -16,7 +16,7 @@ import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
 import { EShapeFillImpl } from "./e-shape-fill-impl";
 import { EShapeStrokeImpl } from "./e-shape-stroke-impl";
-import { EShapeDataImpl } from "./e-shape-data-impl";
+import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeTextImpl } from "./e-shape-text-impl";
 
 export abstract class EShapePrimitive extends EShapeBase {

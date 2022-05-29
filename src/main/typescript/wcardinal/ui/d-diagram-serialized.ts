@@ -7,7 +7,7 @@ import { DDiagramCanvasTileMapping } from "./d-diagram-canvas-mapping";
 import { EShapeCorner } from "./shape/e-shape-corner";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
-import { EShapeDataValueOrder } from "./shape/e-shape-data-value";
+import { EShapeDataValueOrder } from "./shape/e-shape-data-value-order";
 import { EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
 import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "./shape/e-shape-text-align-vertical";
@@ -15,6 +15,8 @@ import { EShapeTextDirection } from "./shape/e-shape-text-direction";
 import { EShapeType } from "./shape/e-shape-type";
 import { ESnapperTargetValueType } from "./snapper/e-snapper-target-value";
 import { EShapeDataValueRangeType } from "./shape/e-shape-data-value-range";
+import { EShapeDataValueType } from "./shape/e-shape-data-value-type";
+import { EShapeDataValueScope } from "./shape/e-shape-data-value-scope";
 
 export const DDiagramSerializedVersion: number = 1;
 
@@ -38,25 +40,21 @@ export interface DDiagramSerializedDataRange {
 export interface DDiagramSerializedDataValue {
 	/**
 	 * A resource index number of an ID.
-	 * Stored at DDiagramSerialized#resources.
 	 */
 	[0]: number;
 
 	/**
 	 * A resource index number of an initial value expression.
-	 * Stored at DDiagramSerialized#resources.
 	 */
 	[1]: number;
 
 	/**
 	 * A resource index number of a format expression.
-	 * Stored at DDiagramSerialized#resources.
 	 */
 	[2]: number;
 
 	/**
-	 * A resource index number of a serialized range, JSON.stringify(DDiagramSerializedDataRange).
-	 * Stored at DDiagramSerialized#resources.
+	 * A resource index number of JSON.stringify(DDiagramSerializedDataRange).
 	 */
 	[3]: number;
 
@@ -69,7 +67,44 @@ export interface DDiagramSerializedDataValue {
 	 * A order.
 	 */
 	[5]: EShapeDataValueOrder;
+
+	/**
+	 * A type.
+	 */
+	[6]: EShapeDataValueType | undefined;
+
+	/**
+	 * A scope.
+	 */
+	[7]: EShapeDataValueScope | undefined;
 }
+
+/**
+ * A serialized data mapping.
+ * Each number at the index 2N+0 is a resource index number of the N-th mapping source.
+ * Each number at the index 2N+1 is a resource index number of the N-th mapping destination.
+ */
+export type DDiagramSerializedDataMapping = number[];
+
+/**
+ * A serialized data with a mapping data.
+ * Each number is a resource index number of JSON.stringify(DDiagramSerializedDataValue).
+ * The last number is a resource index number of JSON.stringify(DDiagramSerializedDataMapping).
+ */
+export type DDiagramSerializedDataWithMapping = [number[]];
+
+/**
+ * A serialized data without a mapping data.
+ * Each number is a resource index number of JSON.stringify(DDiagramSerializedDataValue).
+ */
+export type DDiagramSerializedDataWithoutMapping = number[];
+
+/**
+ * A serialized data.
+ */
+export type DDiagramSerializedData =
+	| DDiagramSerializedDataWithoutMapping
+	| DDiagramSerializedDataWithMapping;
 
 /**
  * A serialized fill.
@@ -195,14 +230,12 @@ export interface DDiagramSerializedText {
 	[5]: EShapeTextWeight;
 
 	/**
-	 * A resource index number of a stringified serialized align,
-	 * JSON.stringify(DDiagramSerializedTextAlign).
+	 * A resource index number of JSON.stringify(DDiagramSerializedTextAlign).
 	 */
 	[6]: number;
 
 	/**
-	 * A resource index number of a stringified serialized offset,
-	 * JSON.stringify(DDiagramSerializedTextOffset).
+	 * A resource index number of JSON.stringify(DDiagramSerializedTextOffset).
 	 */
 	[7]: number;
 
@@ -210,14 +243,12 @@ export interface DDiagramSerializedText {
 	[8]: EShapeTextStyle;
 
 	/**
-	 * A resource index number of a stringified serialized outline,
-	 * JSON.stringify(DDiagramSerializedTextOutline).
+	 * A resource index number of JSON.stringify(DDiagramSerializedTextOutline).
 	 */
 	[9]: number;
 
 	/**
-	 * A resource index number of a stringified serialized spacing,
-	 * JSON.stringify(DDiagramSerializedTextSpacing).
+	 * A resource index number of JSON.stringify(DDiagramSerializedTextSpacing).
 	 */
 	[10]: number;
 
@@ -225,8 +256,7 @@ export interface DDiagramSerializedText {
 	[11]: EShapeTextDirection;
 
 	/**
-	 * A resource index number of a stringified serialized padding,
-	 * JSON.stringify(DDiagramSerializedTextPadding).
+	 * A resource index number of JSON.stringify(DDiagramSerializedTextPadding).
 	 */
 	[12]: number;
 
@@ -263,14 +293,12 @@ export interface DDiagramSerializedItem {
 	[7]: number;
 
 	/**
-	 * A resource index number of a stringified serialized fill,
-	 * JSON.stringify(DDiagramSerializedFill).
+	 * A resource index number of JSON.stringify(DDiagramSerializedFill).
 	 */
 	[8]: number;
 
 	/**
-	 * A resource index number of a stringified serialized stroke,
-	 * JSON.stringify(DDiagramSerializedStroke).
+	 * A resource index number of JSON.stringify(DDiagramSerializedStroke).
 	 */
 	[9]: number;
 
@@ -278,14 +306,12 @@ export interface DDiagramSerializedItem {
 	[10]: number;
 
 	/**
-	 * A resource index number of a stringified serialized text,
-	 * JSON.stringify(DDiagramSerializedText).
+	 * A resource index number of JSON.stringify(DDiagramSerializedText).
 	 */
 	[11]: number;
 
 	/**
-	 * A resource index number of stringified serialized data,
-	 * JSON.stringify(DDiagramSerializedDataValue[]).
+	 * A resource index number of JSON.stringify(DDiagramSerializedData).
 	 */
 	[12]: number;
 
@@ -313,9 +339,9 @@ export interface DDiagramSerializedItem {
 	 * JSON.stringify(number[]).
 	 *
 	 * * The first number in the array is a direction in degree.
-	 * * The number at an index number 1 + 3 * n + 0 is a color of a n-th point.
-	 * * The number at an index number 1 + 3 * n + 1 is a alpha of a n-th point.
-	 * * The number at an index number 1 + 3 * n + 2 is a position of a n-th point whose range is [0, 1].
+	 * * Each number at the index 3N + 1 is a color of a N-th point.
+	 * * Each number at the index 3N + 2 is a alpha of a N-th point.
+	 * * Each number at the index 3N + 3 is a position of a N-th point whose range is [0, 1].
 	 */
 	[19]: number;
 

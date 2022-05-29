@@ -7,6 +7,10 @@ import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeDataValue } from "./e-shape-data-value";
 import { EShapeDataValueRange } from "./e-shape-data-value-range";
+import { EShapeDataMapping } from "./e-shape-data-mapping";
+import { EShapeDataValueType } from "./e-shape-data-value-type";
+import { EShapeDataValueScope } from "./e-shape-data-value-scope";
+import { EShapeDataPrivate } from "./e-shape-data-private";
 
 export interface EShapeData {
 	readonly values: EShapeDataValue[];
@@ -14,6 +18,8 @@ export interface EShapeData {
 
 	// Shortcuts
 	readonly id: string;
+	readonly type: EShapeDataValueType;
+	readonly scope: EShapeDataValueScope;
 	readonly initial: string;
 	readonly format: string;
 	readonly range: EShapeDataValueRange;
@@ -22,6 +28,15 @@ export interface EShapeData {
 	time: number;
 	capacity: number;
 
+	// Mapping
+	readonly mapping: EShapeDataMapping;
+	getMapping(): EShapeDataMapping | undefined;
+
+	// Private
+	readonly private: EShapeDataPrivate;
+	getPrivate(): EShapeDataPrivate | undefined;
+
+	// Methods
 	add(value: EShapeDataValue, index?: number): void;
 	set(index: number, value: EShapeDataValue): EShapeDataValue | null;
 	indexOf(target: EShapeDataValue): number;

@@ -17,6 +17,7 @@ import {
 	DDiagramCanvasBaseOptions
 } from "./d-diagram-canvas-base";
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
+import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramLayer } from "./d-diagram-layer";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
 import { DDiagramSnapshot, DDiagramSnapshotOptions } from "./d-diagram-snapshot";
@@ -167,25 +168,31 @@ export abstract class DDiagramBase<
 		pieces?: string[],
 		pieceData?: Map<string, EShapeEmbeddedDatum | null>
 	): void {
-		const layer = canvas.layer;
 		const manager = new EShapeResourceManagerDeserialization(
 			serialized,
 			pieces,
 			pieceData,
 			isEditMode
 		);
-		DDiagrams.newLayer(serialized, layer, manager).then((shapes: EShape[]): void => {
-			layer.init();
-			this.initialize(shapes);
-			canvas.initialize(shapes);
-			DApplications.update(this);
-			this.emit("ready", this);
+		DDiagrams.newLayer(serialized, canvas.layer, manager).then((shapes: EShape[]): void => {
+			this.initLayer(canvas, shapes);
 		});
 		if (this._isAmbient) {
 			const background = this.toCanvasBaseBackgroundOptions(serialized, this.theme, false);
 			this.background.color = background.color;
 			this.background.alpha = background.alpha;
 		}
+	}
+
+	protected initLayer(
+		canvas: CANVAS,
+		shapes: EShape[],
+		mapper?: DDiagramDataMapper | null
+	): void {
+		canvas.layer.init();
+		canvas.initialize(shapes, mapper);
+		DApplications.update(this);
+		this.emit("ready", this);
 	}
 
 	protected toCanvasBaseOptions(serialized: DDiagramSerialized): DDiagramCanvasBaseOptions<any> {
@@ -231,10 +238,6 @@ export abstract class DDiagramBase<
 				this.set(DDiagrams.toSerialized(found));
 			});
 		}
-	}
-
-	protected initialize(shapes: EShape[]): void {
-		// DO NOTHING
 	}
 
 	protected abstract newCanvas(serialized: DDiagramSerialized): CANVAS;

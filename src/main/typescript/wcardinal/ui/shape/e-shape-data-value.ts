@@ -6,16 +6,14 @@
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeDataValueRange, EShapeDataValueRangeLike } from "./e-shape-data-value-range";
-
-export const EShapeDataValueOrder = {
-	ASCENDING: 0,
-	DESCENDING: 1
-} as const;
-
-export type EShapeDataValueOrder = typeof EShapeDataValueOrder[keyof typeof EShapeDataValueOrder];
+import { EShapeDataValueOrder } from "./e-shape-data-value-order";
+import { EShapeDataValueScope } from "./e-shape-data-value-scope";
+import { EShapeDataValueType } from "./e-shape-data-value-type";
 
 export interface EShapeDataValueLike {
 	id: string;
+	type: EShapeDataValueType;
+	scope: EShapeDataValueScope;
 	initial: string;
 	format: string;
 	range: EShapeDataValueRangeLike;

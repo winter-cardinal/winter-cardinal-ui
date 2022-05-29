@@ -3,19 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeData } from "../e-shape-data";
-import { EShapeDataValue } from "../e-shape-data-value";
-import { EShapeDataValueRange } from "../e-shape-data-value-range";
+import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
+import { EShapeData } from "./e-shape-data";
+import { EShapeDataValue } from "./e-shape-data-value";
+import { EShapeDataValueRange } from "./e-shape-data-value-range";
 import { EShapeDataValueImpl } from "./e-shape-data-value-impl";
 import { EShapeDataValueRangeImpl } from "./e-shape-data-value-range-impl";
+import { EShapeDataValueType } from "./e-shape-data-value-type";
+import { EShapeDataMapping } from "./e-shape-data-mapping";
+import { EShapeDataMappingImpl } from "./e-shape-data-mapping-impl";
+import { EShapeDataValueScope } from "./e-shape-data-value-scope";
+import { DDiagramSerializedData, DDiagramSerializedDataWithMapping } from "../d-diagram-serialized";
+import { isArray } from "../util/is-array";
+import { EShapeDataPrivate } from "./e-shape-data-private";
+import { EShapeDataPrivateImpl } from "./e-shape-data-private-impl";
 
 let RANGE_DUMMY: EShapeDataValueRange | undefined;
 
 export class EShapeDataImpl implements EShapeData {
 	protected _values: EShapeDataValue[];
 	protected _isChanged: boolean;
+	protected _mapping?: EShapeDataMapping;
+	protected _private?: EShapeDataPrivate;
 
 	constructor() {
 		this._values = [];
@@ -40,6 +50,22 @@ export class EShapeDataImpl implements EShapeData {
 			return values[0].id;
 		}
 		return "";
+	}
+
+	get type(): EShapeDataValueType {
+		const values = this._values;
+		if (0 < values.length) {
+			return values[0].type;
+		}
+		return EShapeDataValueType.NUMBER;
+	}
+
+	get scope(): EShapeDataValueScope {
+		const values = this._values;
+		if (0 < values.length) {
+			return values[0].scope;
+		}
+		return EShapeDataValueScope.PRIVATE;
 	}
 
 	get initial(): string {
@@ -117,6 +143,40 @@ export class EShapeDataImpl implements EShapeData {
 		if (0 < values.length) {
 			values[0].capacity = capacity;
 		}
+	}
+
+	get mapping(): EShapeDataMapping {
+		let result = this._mapping;
+		if (result == null) {
+			result = this.newMapping();
+			this._mapping = result;
+		}
+		return result;
+	}
+
+	protected newMapping(): EShapeDataMapping {
+		return new EShapeDataMappingImpl();
+	}
+
+	getMapping(): EShapeDataMapping | undefined {
+		return this._mapping;
+	}
+
+	get private(): EShapeDataPrivate {
+		let result = this._private;
+		if (result == null) {
+			result = this.newPrivate();
+			this._private = result;
+		}
+		return result;
+	}
+
+	protected newPrivate(): EShapeDataPrivate {
+		return new EShapeDataPrivateImpl();
+	}
+
+	getPrivate(): EShapeDataPrivate | undefined {
+		return this._private;
 	}
 
 	add(value: EShapeDataValue, index?: number): void {
@@ -208,41 +268,67 @@ export class EShapeDataImpl implements EShapeData {
 			}
 		}
 
+		const targetMapping = target.getMapping();
+		if (targetMapping) {
+			this.mapping.copy(targetMapping);
+		}
+
 		return this;
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const values = this._values;
-		if (values.length <= 0) {
-			return manager.addResource("[]");
+		const result: string[] = [];
+		for (let i = 0, imax = values.length; i < imax; ++i) {
+			result.push(`${values[i].serialize(manager)}`);
+		}
+
+		const mapping = this._mapping;
+		if (mapping != null) {
+			result.push(`${mapping.serialize(manager)}`);
+			return manager.addResource(`[${JSON.stringify(result)}]`);
 		} else {
-			let serialized = `[${values[0].serialize(manager)}`;
-			for (let i = 1, imax = values.length; i < imax; ++i) {
-				serialized += `,${values[i].serialize(manager)}`;
-			}
-			serialized += "]";
-			return manager.addResource(serialized);
+			return manager.addResource(JSON.stringify(result));
 		}
 	}
 
 	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
-		if (0 <= target && target < manager.resources.length) {
-			let deserialized: number[] | undefined = manager.getData(target);
-			if (deserialized == null) {
-				deserialized = JSON.parse(manager.resources[target]) as number[];
-				manager.setData(target, deserialized);
+		const resources = manager.resources;
+		if (0 <= target && target < resources.length) {
+			let parsed = manager.getData(target);
+			if (parsed == null) {
+				parsed = JSON.parse(resources[target]) as DDiagramSerializedData;
+				manager.setData(target, parsed);
 			}
 
 			const values = this._values;
 			values.length = 0;
-			const deserializedLength = deserialized.length;
-			for (let i = 0; i < deserializedLength; ++i) {
-				const index = deserialized[i];
-				const value = new EShapeDataValueImpl();
-				value.parent = this;
-				value.deserialize(index, manager);
-				values.push(value);
+			if (this.isMapped(parsed)) {
+				const first = parsed[0];
+				const firstLength = first.length;
+				for (let i = 0, imax = firstLength - 1; i < imax; ++i) {
+					const index = first[i];
+					const value = new EShapeDataValueImpl();
+					value.parent = this;
+					value.deserialize(index, manager);
+					values.push(value);
+				}
+				this.mapping.deserialize(first[firstLength - 1], manager);
+			} else {
+				for (let i = 0, imax = parsed.length; i < imax; ++i) {
+					const index = parsed[i];
+					const value = new EShapeDataValueImpl();
+					value.parent = this;
+					value.deserialize(index, manager);
+					values.push(value);
+				}
 			}
 		}
+	}
+
+	protected isMapped(
+		target: DDiagramSerializedData
+	): target is DDiagramSerializedDataWithMapping {
+		return 0 < target.length && isArray(target[0]);
 	}
 }

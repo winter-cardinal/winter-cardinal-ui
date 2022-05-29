@@ -6,7 +6,7 @@
 import { Renderer, utils } from "pixi.js";
 import { DApplicationTarget } from "./d-application-like";
 import { DApplications } from "./d-applications";
-import { DDiagramCanvasIdMap } from "./d-diagram-canvas-id-map";
+import { DDiagramCanvasShape } from "./d-diagram-canvas-shape";
 import { EShape } from "./shape/e-shape";
 
 export interface DDiagramShapeLayer {
@@ -19,8 +19,9 @@ export interface DDiagramShapeLayerContainer {
 
 export interface DDiagramShapeCanvas {
 	layer: DDiagramShapeLayerContainer;
-	ids: DDiagramCanvasIdMap;
-	actionables: EShape[];
+	shape: DDiagramCanvasShape;
+	update(): void;
+	onRender(renderer: Renderer): void;
 }
 
 export interface DDiagramShapeDiagram extends DApplicationTarget {
@@ -43,64 +44,33 @@ export class DDiagramShape extends utils.EventEmitter {
 	}
 
 	update(): void {
-		const diagram = this._diagram;
-		const canvas = diagram.canvas;
+		const canvas = this._diagram.canvas;
 		if (canvas) {
-			const actionables = canvas.actionables;
-			if (0 < actionables.length) {
-				let effect = -1;
-				const time = Date.now();
-				for (let i = 0, imax = actionables.length; i < imax; ++i) {
-					const actionable = actionables[i];
-					actionable.update(time);
-					const runtime = actionable.runtime;
-					if (runtime && time < runtime.effect) {
-						const runtimeEffect = runtime.effect;
-						if (time < runtimeEffect) {
-							effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
-						}
-					}
-				}
-				if (0 <= effect) {
-					setTimeout(this._updateBound, effect - Date.now());
-				}
-			}
+			canvas.update();
 		}
 	}
 
 	onRender(renderer: Renderer): void {
-		const diagram = this._diagram;
-		const canvas = diagram.canvas;
+		const canvas = this._diagram.canvas;
 		if (canvas) {
-			const actionables = canvas.actionables;
-			if (0 < actionables.length) {
-				let effect = -1;
-				const time = Date.now();
-				for (let i = 0, imax = actionables.length; i < imax; ++i) {
-					const actionable = actionables[i];
-					actionable.onRender(time, renderer);
-					const runtime = actionable.runtime;
-					if (runtime && time < runtime.effect) {
-						const runtimeEffect = runtime.effect;
-						if (time < runtimeEffect) {
-							effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
-						}
-					}
-				}
-				if (0 <= effect) {
-					setTimeout(this._updateBound, effect - Date.now());
-				}
-			}
+			canvas.onRender(renderer);
 		}
 	}
 
 	get(id: string): EShape | null {
-		const shapes = this._diagram.canvas?.ids[id];
-		return shapes && 0 < shapes.length ? shapes[0] : null;
+		const canvas = this._diagram.canvas;
+		if (canvas) {
+			return canvas.shape.get(id);
+		}
+		return null;
 	}
 
 	getAll(id: string): EShape[] {
-		return this._diagram.canvas?.ids[id] || [];
+		const canvas = this._diagram.canvas;
+		if (canvas) {
+			return canvas.shape.getAll(id);
+		}
+		return [];
 	}
 
 	each(callback: (shape: EShape) => boolean | void, reverse = false): EShape | null {

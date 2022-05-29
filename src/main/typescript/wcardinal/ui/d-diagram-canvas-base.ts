@@ -8,6 +8,7 @@ import { DBaseBackgroundOptions } from "./d-base";
 import { DCanvas, DCanvasOptions, DThemeCanvas } from "./d-canvas";
 import { DDiagramCanvasEditorBackground } from "./d-diagram-canvas-editor-background";
 import { DDiagramCanvasTile, DDiagramCanvasTileOptions } from "./d-diagram-canvas-tile";
+import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import { EShape } from "./shape/e-shape";
 
@@ -74,16 +75,20 @@ export class DDiagramCanvasBase<
 		return this._layer;
 	}
 
-	initialize(shapes: EShape[]): void {
+	initialize(shapes: EShape[], mapper?: DDiagramDataMapper | null): void {
 		// DO NOTHING
 	}
 
 	destroy(): void {
 		if (!this._destroyed) {
-			this._tile.destroy();
-			this._layer.destroy();
+			this.onDestroy();
 			super.destroy();
 		}
+	}
+
+	protected onDestroy(): void {
+		this._tile.destroy();
+		this._layer.destroy();
 	}
 
 	hitTest(global: IPoint, onHit?: (shape: EShape) => boolean): EShape | null {

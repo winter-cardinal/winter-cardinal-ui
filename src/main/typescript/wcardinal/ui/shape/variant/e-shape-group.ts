@@ -22,7 +22,7 @@ import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeEditor } from "./e-shape-group-stroke-editor";
 import { EShapeGroupTextEditor } from "./e-shape-group-text-editor";
-import { EShapeDataImpl } from "./e-shape-data-impl";
+import { EShapeDataImpl } from "../e-shape-data-impl";
 
 export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent {
 	size: EShapeGroupSize;

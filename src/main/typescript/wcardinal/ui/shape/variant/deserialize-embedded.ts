@@ -4,6 +4,8 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShape } from "../e-shape";
+import { EShapeDataMapper } from "../e-shape-data-mapper";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { deserializeBase } from "./deserialize-base";
@@ -28,6 +30,7 @@ const create = (
 	container.copyTo(shape);
 	shape.size.init();
 	shape.size.set(sizeX, sizeY);
+	applyDataMappings(shape, manager);
 	return result;
 };
 
@@ -63,7 +66,54 @@ const createMissing = (
 	shape.onAttach();
 
 	shape.size.init();
+	applyDataMappings(shape, manager);
 	return result;
+};
+
+const applyDataMappings = (
+	shape: EShapeEmbedded,
+	manager: EShapeResourceManagerDeserialization
+): void => {
+	const mapping = shape.data.getMapping();
+	if (mapping != null) {
+		const values = mapping.values;
+		for (let i = 0, imax = values.length; i < imax; ++i) {
+			const value = values[i];
+			const source = value[0];
+			const mapper = manager.getDataMapper(source);
+			if (mapper != null) {
+				const children = shape.children;
+				const destination = manager.getDataDestination(value[1]);
+				const initial = value[2];
+				applyDataMapping(children, mapper, destination, initial);
+			}
+		}
+	}
+};
+
+const applyDataMapping = (
+	targets: EShape[],
+	mapper: EShapeDataMapper,
+	destination: string[] | null,
+	initial: string
+): void => {
+	for (let i = 0, imax = targets.length; i < imax; ++i) {
+		const target = targets[i];
+
+		const targetData = target.data;
+		for (let j = 0, jmax = targetData.size(); j < jmax; ++j) {
+			const targetDatum = targetData.get(j);
+			if (targetDatum) {
+				mapper.map(targetDatum, destination, initial);
+			}
+		}
+
+		// Children
+		const children = target.children;
+		if (0 < children.length) {
+			applyDataMapping(children, mapper, destination, initial);
+		}
+	}
 };
 
 export const deserializeEmbedded = (
