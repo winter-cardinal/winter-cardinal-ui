@@ -4,13 +4,15 @@
  */
 
 import { DDiagramCanvasTicker } from "./d-diagram-canvas-ticker";
-import { DDiagramTicker } from "./d-diagram-ticker";
+import { DDiagramTicker, DDiagramTickerParent } from "./d-diagram-ticker";
 import { isNumber } from "./util/is-number";
 
 export class DDiagramCanvasTickerImpl implements DDiagramCanvasTicker {
+	protected _parent: DDiagramTickerParent;
 	protected _data: Map<number, DDiagramTicker>;
 
-	constructor() {
+	constructor(parent: DDiagramTickerParent) {
+		this._parent = parent;
 		this._data = new Map<number, DDiagramTicker>();
 	}
 
@@ -21,7 +23,7 @@ export class DDiagramCanvasTickerImpl implements DDiagramCanvasTicker {
 		if (ticker != null) {
 			return ticker;
 		}
-		const newTicker = new DDiagramTicker(normalized);
+		const newTicker = new DDiagramTicker(this._parent, normalized);
 		data.set(normalized, newTicker);
 		return newTicker;
 	}

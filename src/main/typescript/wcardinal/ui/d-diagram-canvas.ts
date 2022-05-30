@@ -58,7 +58,7 @@ export class DDiagramCanvas<
 		super(options);
 		this._data = new DDiagramCanvasDataImpl();
 		this._shape = new DDiagramCanvasShapeImpl();
-		this._ticker = new DDiagramCanvasTickerImpl();
+		this._ticker = new DDiagramCanvasTickerImpl(this);
 		this._actionables = [];
 		this._downeds = new Set<EShape>();
 		this._updateBound = (): void => {

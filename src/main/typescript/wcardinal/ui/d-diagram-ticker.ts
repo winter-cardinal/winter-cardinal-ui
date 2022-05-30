@@ -3,18 +3,24 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DApplicationTarget } from "./d-application-like";
+import { DApplications } from "./d-applications";
 import { EShapeDataValue } from "./shape/e-shape-data-value";
 
+export interface DDiagramTickerParent extends DApplicationTarget {}
+
 export class DDiagramTicker {
+	protected _parent: DDiagramTickerParent;
 	protected _interval: number;
 	protected _timeoutId?: number;
 	protected _onTimeBound: () => void;
 	protected _values: EShapeDataValue[];
 
-	constructor(interval: number) {
+	constructor(parent: DDiagramTickerParent, interval: number) {
+		this._parent = parent;
 		this._values = [];
 		this._interval = interval;
-		this._onTimeBound = () => {
+		this._onTimeBound = (): void => {
 			this.onTime();
 		};
 	}
@@ -42,6 +48,7 @@ export class DDiagramTicker {
 			for (let i = 0, imax = values.length; i < imax; ++i) {
 				values[i].value = t;
 			}
+			DApplications.update(this._parent);
 		}
 		this._timeoutId = window.setTimeout(this._onTimeBound, this.getInterval());
 	}
