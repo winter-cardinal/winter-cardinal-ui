@@ -278,14 +278,14 @@ export class EShapeDataImpl implements EShapeData {
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const values = this._values;
-		const result: string[] = [];
+		const result: number[] = [];
 		for (let i = 0, imax = values.length; i < imax; ++i) {
-			result.push(`${values[i].serialize(manager)}`);
+			result.push(values[i].serialize(manager));
 		}
 
 		const mapping = this._mapping;
 		if (mapping != null) {
-			result.push(`${mapping.serialize(manager)}`);
+			result.push(mapping.serialize(manager));
 			return manager.addResource(`[${JSON.stringify(result)}]`);
 		} else {
 			return manager.addResource(JSON.stringify(result));
