@@ -1,0 +1,48 @@
+﻿{
+	"version": 1,
+	"name": "Embedding (Data mapping)",
+	"width": 500,
+	"height": 500,
+	"background": {
+		"color": 16777215,
+		"alpha": 1
+	},
+	"tile": {
+		"mapping": {
+			"enable": false,
+			"from": {
+				"lon": -180,
+				"lat": 85.05112877980659
+			},
+			"to": {
+				"lon": 180,
+				"lat": -85.05112877980659
+			}
+		}
+	},
+	"resources": [
+		"",
+		"Apple.*",
+		"Pineapple.*",
+		"1",
+		"[1,2,3]",
+		"[[\"4\"]]",
+		"Default layer",
+		"[0,16777215,1]"
+	],
+	"data": [],
+	"pieces": [
+		"embedded-data-mapping"
+	],
+	"layers": [
+		[6,3,0,0,500,400,7,1]
+	],
+	"items": [
+		[18,0,250,250,500,500,0,0,-1,-1,0,-1,5,0,0,0,0,[],-1,-1,[],0,0,0,-1,-1,5]
+	],
+	"snap": [
+		1,
+		[1,1,[]],
+		[1,1,10]
+	]
+}

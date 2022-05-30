@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.168.0
+ Winter Cardinal UI v0.173.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4626,15 +4626,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeDataValueOrder = {
-        ASCENDING: 0,
-        DESCENDING: 1
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var FROM = 1;
     var TO = 2;
     var EShapeDataValueRangeType = {
@@ -4856,12 +4847,53 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeDataValueOrder = {
+        ASCENDING: 0,
+        DESCENDING: 1
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeDataValueType = {
+        NUMBER: 0,
+        NUMBER_ARRAY: 1,
+        STRING: 2,
+        STRING_ARRAY: 3,
+        OBJECT: 4,
+        OBJECT_ARRAY: 5,
+        TICKER: 6
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeDataValueScope = {
+        /**
+         * A private data is accessible only from inside the graphic that this data belongs to.
+         * The data is not accessible from anywhere outside the graphic.
+         */
+        PRIVATE: 0,
+        /**
+         * A public data is accessible from anywhere outside graphics.
+         */
+        PUBLIC: 1
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var INDEX_COMPARATOR = function (a, b) {
         return a - b;
     };
     var EShapeDataValueImpl = /** @class */ (function () {
         function EShapeDataValueImpl() {
             this.id = "";
+            this.type = EShapeDataValueType.NUMBER;
+            this.scope = EShapeDataValueScope.PUBLIC;
             this.initial = "";
             this.format = "";
             this.range = new EShapeDataValueRangeImpl();
@@ -5322,6 +5354,8 @@
          */
         EShapeDataValueImpl.prototype.copy = function (target) {
             this.id = target.id;
+            this.type = target.type;
+            this.scope = target.scope;
             this.initial = target.initial;
             this.format = target.format;
             this.formatter = target.formatter;
@@ -5333,18 +5367,21 @@
         };
         EShapeDataValueImpl.prototype.isEquals = function (target) {
             return (this.id === target.id &&
+                this.type === target.type &&
+                this.scope === target.scope &&
                 this.initial === target.initial &&
                 this.formatter === target.formatter &&
                 this.range.isEquals(target.range));
         };
         EShapeDataValueImpl.prototype.serialize = function (manager) {
-            var idSerialized = manager.addData(this.id);
-            var initialSerialized = manager.addResource(this.initial);
-            var formatSerialized = manager.addResource(this.format.trim());
-            var rangeSerialized = this.range.serialize(manager);
-            return manager.addResource("[".concat(idSerialized, ",").concat(initialSerialized, ",").concat(formatSerialized, ",").concat(rangeSerialized, ",").concat(this._capacity, ",").concat(this._order, "]"));
+            var id = manager.addData(this.id);
+            var initial = manager.addResource(this.initial);
+            var format = manager.addResource(this.format.trim());
+            var range = this.range.serialize(manager);
+            return manager.addResource("[".concat(id, ",").concat(initial, ",").concat(format, ",").concat(range, ",").concat(this._capacity, ",").concat(this._order, ",").concat(this.type, ",").concat(this.scope, "]"));
         };
         EShapeDataValueImpl.prototype.deserialize = function (target, manager) {
+            var _a, _b;
             var resources = manager.resources;
             if (0 <= target && target < resources.length) {
                 var parsed = manager.getDataValue(target);
@@ -5353,6 +5390,8 @@
                     manager.setDataValue(target, parsed);
                 }
                 this.id = manager.data[parsed[0]] || "";
+                this.type = (_a = parsed[6]) !== null && _a !== void 0 ? _a : EShapeDataValueType.NUMBER;
+                this.scope = (_b = parsed[7]) !== null && _b !== void 0 ? _b : EShapeDataValueScope.PUBLIC;
                 this.initial = resources[parsed[1]] || "";
                 this.format = resources[parsed[2]] || "";
                 this.range.deserialize(parsed[3], manager);
@@ -5362,6 +5401,193 @@
             return this;
         };
         return EShapeDataValueImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeDataMappingImpl = /** @class */ (function () {
+        function EShapeDataMappingImpl() {
+            this.values = [];
+        }
+        EShapeDataMappingImpl.prototype.add = function (value, index) {
+            var values = this.values;
+            if (index != null) {
+                values.splice(index, 0, value);
+            }
+            else {
+                values.push(value);
+            }
+            return this;
+        };
+        EShapeDataMappingImpl.prototype.addAll = function (values) {
+            var destination = this.values;
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                destination.push(values[i]);
+            }
+            return this;
+        };
+        EShapeDataMappingImpl.prototype.clearAndAdd = function (value) {
+            this.clear();
+            this.add(value);
+            return this;
+        };
+        EShapeDataMappingImpl.prototype.clearAndAddAll = function (values) {
+            this.clear();
+            this.addAll(values);
+            return this;
+        };
+        EShapeDataMappingImpl.prototype.indexOf = function (target) {
+            var values = this.values;
+            // Instance-based matching
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                var value = values[i];
+                if (value === target) {
+                    return i;
+                }
+            }
+            // Data-based matching
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                var value = values[i];
+                if (value[0] === target[0] && value[1] === target[1] && value[2] === target[2]) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+        EShapeDataMappingImpl.prototype.get = function (index) {
+            var values = this.values;
+            if (0 <= index || index < values.length) {
+                return values[index];
+            }
+            return null;
+        };
+        EShapeDataMappingImpl.prototype.set = function (index, value) {
+            var values = this.values;
+            if (0 <= index || index < values.length) {
+                var result = values[index];
+                values[index] = value;
+                return result;
+            }
+            return null;
+        };
+        EShapeDataMappingImpl.prototype.remove = function (index) {
+            var values = this.values;
+            if (0 <= index || index < values.length) {
+                return values.splice(index, 1)[0];
+            }
+            return null;
+        };
+        EShapeDataMappingImpl.prototype.clear = function () {
+            this.values.length = 0;
+            return this;
+        };
+        EShapeDataMappingImpl.prototype.size = function () {
+            return this.values.length;
+        };
+        EShapeDataMappingImpl.prototype.swap = function (indexA, indexB) {
+            var values = this.values;
+            var tmp = values[indexB];
+            values[indexB] = values[indexA];
+            values[indexA] = tmp;
+            return this;
+        };
+        EShapeDataMappingImpl.prototype.copy = function (target) {
+            this.clearAndAddAll(target.values);
+        };
+        EShapeDataMappingImpl.prototype.serialize = function (manager) {
+            var result = "[";
+            var delimiter = "";
+            var values = this.values;
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                var value = values[i];
+                var s = manager.addResource(value[0]);
+                var d = manager.addResource(value[1]);
+                var t = manager.addResource(value[2]);
+                result += "".concat(delimiter).concat(s, ",").concat(d, ",").concat(t);
+                delimiter = ",";
+            }
+            result += "]";
+            return manager.addResource(result);
+        };
+        EShapeDataMappingImpl.prototype.deserialize = function (target, manager) {
+            var values = this.values;
+            values.length = 0;
+            var resources = manager.resources;
+            var resourcesLength = resources.length;
+            if (0 <= target && target < resourcesLength) {
+                var parsed = manager.getDataMapping(target);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[target]);
+                    manager.setDataMapping(target, parsed);
+                }
+                for (var i = 0, imax = parsed.length; i < imax; i += 3) {
+                    var is = parsed[i];
+                    var id = parsed[i + 1];
+                    var it = parsed[i + 2];
+                    values.push([
+                        0 <= is && is < resourcesLength ? resources[is] : "",
+                        0 <= id && id < resourcesLength ? resources[id] : "",
+                        0 <= it && it < resourcesLength ? resources[it] : ""
+                    ]);
+                }
+            }
+        };
+        return EShapeDataMappingImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var isArray = Array.isArray ||
+        (function (target) {
+            return Object.prototype.toString.call(target) === "[object Array]";
+        });
+
+    var EShapeDataPrivateImpl = /** @class */ (function () {
+        function EShapeDataPrivateImpl() {
+        }
+        EShapeDataPrivateImpl.prototype.add = function (id, value) {
+            var _a;
+            var data = ((_a = this._data) !== null && _a !== void 0 ? _a : (this._data = new Map()));
+            var list = data.get(id);
+            if (list == null) {
+                data.set(id, [value]);
+            }
+            else {
+                list.push(value);
+            }
+        };
+        EShapeDataPrivateImpl.prototype.set = function (id, value, time, from, to) {
+            var data = this._data;
+            if (data == null) {
+                return false;
+            }
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                var datumValue = datum[i];
+                var range = datumValue.range;
+                // Range
+                range.set(from, to);
+                // Time
+                if (time !== undefined) {
+                    datumValue.time = time;
+                }
+                // Value
+                datumValue.value = value;
+            }
+            return true;
+        };
+        return EShapeDataPrivateImpl;
     }());
 
     /*
@@ -5398,6 +5624,28 @@
                     return values[0].id;
                 }
                 return "";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDataImpl.prototype, "type", {
+            get: function () {
+                var values = this._values;
+                if (0 < values.length) {
+                    return values[0].type;
+                }
+                return EShapeDataValueType.NUMBER;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(EShapeDataImpl.prototype, "scope", {
+            get: function () {
+                var values = this._values;
+                if (0 < values.length) {
+                    return values[0].scope;
+                }
+                return EShapeDataValueScope.PRIVATE;
             },
             enumerable: false,
             configurable: true
@@ -5497,6 +5745,42 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(EShapeDataImpl.prototype, "mapping", {
+            get: function () {
+                var result = this._mapping;
+                if (result == null) {
+                    result = this.newMapping();
+                    this._mapping = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeDataImpl.prototype.newMapping = function () {
+            return new EShapeDataMappingImpl();
+        };
+        EShapeDataImpl.prototype.getMapping = function () {
+            return this._mapping;
+        };
+        Object.defineProperty(EShapeDataImpl.prototype, "private", {
+            get: function () {
+                var result = this._private;
+                if (result == null) {
+                    result = this.newPrivate();
+                    this._private = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        EShapeDataImpl.prototype.newPrivate = function () {
+            return new EShapeDataPrivateImpl();
+        };
+        EShapeDataImpl.prototype.getPrivate = function () {
+            return this._private;
+        };
         EShapeDataImpl.prototype.add = function (value, index) {
             var values = this._values;
             value.parent = this;
@@ -5574,40 +5858,62 @@
                     values.push(newValue);
                 }
             }
+            var targetMapping = target.getMapping();
+            if (targetMapping) {
+                this.mapping.copy(targetMapping);
+            }
             return this;
         };
         EShapeDataImpl.prototype.serialize = function (manager) {
             var values = this._values;
-            if (values.length <= 0) {
-                return manager.addResource("[]");
+            var result = [];
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                result.push("".concat(values[i].serialize(manager)));
+            }
+            var mapping = this._mapping;
+            if (mapping != null) {
+                result.push("".concat(mapping.serialize(manager)));
+                return manager.addResource("[".concat(JSON.stringify(result), "]"));
             }
             else {
-                var serialized = "[".concat(values[0].serialize(manager));
-                for (var i = 1, imax = values.length; i < imax; ++i) {
-                    serialized += ",".concat(values[i].serialize(manager));
-                }
-                serialized += "]";
-                return manager.addResource(serialized);
+                return manager.addResource(JSON.stringify(result));
             }
         };
         EShapeDataImpl.prototype.deserialize = function (target, manager) {
-            if (0 <= target && target < manager.resources.length) {
-                var deserialized = manager.getData(target);
-                if (deserialized == null) {
-                    deserialized = JSON.parse(manager.resources[target]);
-                    manager.setData(target, deserialized);
+            var resources = manager.resources;
+            if (0 <= target && target < resources.length) {
+                var parsed = manager.getData(target);
+                if (parsed == null) {
+                    parsed = JSON.parse(resources[target]);
+                    manager.setData(target, parsed);
                 }
                 var values = this._values;
                 values.length = 0;
-                var deserializedLength = deserialized.length;
-                for (var i = 0; i < deserializedLength; ++i) {
-                    var index = deserialized[i];
-                    var value = new EShapeDataValueImpl();
-                    value.parent = this;
-                    value.deserialize(index, manager);
-                    values.push(value);
+                if (this.isMapped(parsed)) {
+                    var first = parsed[0];
+                    var firstLength = first.length;
+                    for (var i = 0, imax = firstLength - 1; i < imax; ++i) {
+                        var index = first[i];
+                        var value = new EShapeDataValueImpl();
+                        value.parent = this;
+                        value.deserialize(index, manager);
+                        values.push(value);
+                    }
+                    this.mapping.deserialize(first[firstLength - 1], manager);
+                }
+                else {
+                    for (var i = 0, imax = parsed.length; i < imax; ++i) {
+                        var index = parsed[i];
+                        var value = new EShapeDataValueImpl();
+                        value.parent = this;
+                        value.deserialize(index, manager);
+                        values.push(value);
+                    }
                 }
             }
+        };
+        EShapeDataImpl.prototype.isMapped = function (target) {
+            return 0 < target.length && isArray(target[0]);
         };
         return EShapeDataImpl;
     }());
@@ -6928,15 +7234,6 @@
         }
         return null;
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var isArray = Array.isArray ||
-        (function (target) {
-            return Object.prototype.toString.call(target) === "[object Array]";
-        });
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -14693,10 +14990,16 @@
     var EShapeActionRuntimes = /** @class */ (function () {
         function EShapeActionRuntimes() {
         }
+        EShapeActionRuntimes.isContainer = function (target) {
+            return target != null && target instanceof DCanvasContainer;
+        };
+        EShapeActionRuntimes.isEmbedded = function (target) {
+            return (target != null && target instanceof EShapeBase && target.type === EShapeType.EMBEDDED);
+        };
         EShapeActionRuntimes.toContainer = function (shape) {
             var current = shape;
             while (current != null) {
-                if (current instanceof DCanvasContainer) {
+                if (this.isContainer(current)) {
                     return current;
                 }
                 current = current.parent;
@@ -14710,16 +15013,28 @@
             }
         };
         EShapeActionRuntimes.write = function (shape, id, value, time, remote) {
-            var container = this.toContainer(shape);
-            if (container) {
-                if (remote) {
+            var _a;
+            if (remote) {
+                var container = this.toContainer(shape);
+                if (container) {
                     return container.data.remote.set(id, value, time);
                 }
-                else {
-                    if (container.data.set(id, value, time)) {
-                        DApplications.update(container);
+            }
+            else {
+                var current = shape;
+                while (current != null) {
+                    if (this.isContainer(current)) {
+                        current.data.set(id, value, time);
+                        DApplications.update(current);
                         return true;
                     }
+                    else if (this.isEmbedded(current)) {
+                        if ((_a = current.data.getPrivate()) === null || _a === void 0 ? void 0 : _a.set(id, value, time)) {
+                            DApplications.update(current);
+                            return true;
+                        }
+                    }
+                    current = current.parent;
                 }
             }
             return false;
@@ -21119,711 +21434,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DynamicAtlasItemText = /** @class */ (function (_super) {
-        __extends(DynamicAtlasItemText, _super);
-        function DynamicAtlasItemText(id, text, baseTexture) {
-            var _this = _super.call(this, id, text.width, text.height, 0, baseTexture) || this;
-            _this._text = text;
-            return _this;
-        }
-        DynamicAtlasItemText.prototype.render = function (context) {
-            var frame = this.frame;
-            context.drawImage(this._text.canvas, frame.x, frame.y, frame.width, frame.height);
-        };
-        return DynamicAtlasItemText;
-    }(DynamicAtlasItem));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilFont = /** @class */ (function () {
-        function UtilFont() {
-        }
-        UtilFont.measure = function (font) {
-            var results = this._results;
-            if (results == null) {
-                results = new Map();
-                this._results = results;
-            }
-            var result = results.get(font);
-            if (result != null) {
-                return result;
-            }
-            var span = this._span;
-            if (span == null) {
-                span = document.createElement("span");
-                span.innerText = "|ÉqÅ";
-                span.style.border = "none";
-                span.style.margin = "0px";
-                this._span = span;
-            }
-            var block = this._block;
-            if (block == null) {
-                block = document.createElement("div");
-                block.style.display = "inline-block";
-                block.style.width = "0px";
-                block.style.height = "0px";
-                block.style.border = "none";
-                block.style.margin = "0px";
-                block.style.verticalAlign = "baseline";
-                this._block = block;
-            }
-            var div = this._div;
-            if (div == null) {
-                div = document.createElement("div");
-                div.style.position = "absolute";
-                div.style.padding = "0px";
-                div.style.margin = "0px";
-                div.style.visibility = "hidden";
-                div.appendChild(span);
-                div.appendChild(block);
-                document.body.appendChild(div);
-                this._div = div;
-            }
-            span.style.font = font;
-            var blockRect = block.getBoundingClientRect();
-            var blockRectTop = blockRect.top;
-            var spanRect = span.getBoundingClientRect();
-            var ascent = blockRectTop - spanRect.top;
-            var descent = spanRect.bottom - blockRectTop;
-            result = {
-                ascent: ascent,
-                descent: descent
-            };
-            results.set(font, result);
-            return result;
-        };
-        return UtilFont;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlasFont = /** @class */ (function () {
-        function DynamicFontAtlasFont(fontId, size, color, padding) {
-            this.id = fontId;
-            this.size = size;
-            this.color = pixi_js.utils.hex2string(color);
-            this.height = size + padding * 2;
-            var metrics = UtilFont.measure(fontId);
-            this.ascent = metrics.ascent;
-            this.descent = metrics.descent;
-        }
-        return DynamicFontAtlasFont;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DynamicFontAtlas = /** @class */ (function () {
-        function DynamicFontAtlas(fontId, fontSize, fontColor, resolution) {
-            this._id = fontId;
-            this._canvas = document.createElement("canvas");
-            this._context = null;
-            var padding = this.toPadding(fontSize);
-            this._padding = padding;
-            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, padding);
-            this._characters = {};
-            this._length = 0;
-            this._unrefCount = 0;
-            this._width = 1;
-            this._height = 1;
-            this._revision = 0;
-            this._revisionUpdated = 0;
-            this._texture = pixi_js.Texture.from(this._canvas, {
-                mipmap: pixi_js.MIPMAP_MODES.OFF,
-                resolution: resolution,
-                scaleMode: pixi_js.SCALE_MODES.NEAREST
-            });
-            var characters = this._characters;
-            this.add_(" ", " ", characters, DynamicFontAtlasCharacterType.SPACE_R);
-            this.add_("\t", "    ", characters, DynamicFontAtlasCharacterType.SPACE_R);
-            this.add_("...", "...", characters, DynamicFontAtlasCharacterType.LETTER_RNB);
-            for (var i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
-                var char = ASCII_CHARACTERS[i];
-                this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
-            }
-        }
-        DynamicFontAtlas.prototype.toPadding = function (fontSize) {
-            return Math.max(3, Math.ceil(fontSize * 0.2));
-        };
-        Object.defineProperty(DynamicFontAtlas.prototype, "id", {
-            get: function () {
-                return this._id;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "font", {
-            get: function () {
-                return this._font;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "height", {
-            get: function () {
-                return this._height;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "canvas", {
-            get: function () {
-                return this._canvas;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "characters", {
-            get: function () {
-                return this._characters;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DynamicFontAtlas.prototype, "texture", {
-            get: function () {
-                return this._texture;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicFontAtlas.prototype.add_ = function (id, character, characters, type) {
-            if (!this.isIgnored(character)) {
-                var data = characters[id];
-                if (data != null) {
-                    if (!(data.type & DynamicFontAtlasCharacterType.RESERVED)) {
-                        if (data.ref === 0) {
-                            this._unrefCount -= 1;
-                        }
-                        data.ref += 1;
-                    }
-                }
-                else {
-                    var advance = this.getAdvance(character);
-                    var padding = this._padding;
-                    var width = Math.ceil(padding + advance + padding);
-                    var height = this.font.height;
-                    characters[id] = new DynamicFontAtlasCharacter(character, advance, width, height, type);
-                    this._length += 1;
-                    this._revision += 1;
-                }
-            }
-        };
-        DynamicFontAtlas.prototype.isIgnored = function (character) {
-            switch (character) {
-                case "\n": // Line feed
-                    return true;
-                case "\r": // Carriage return
-                    return true;
-                case "\v": // Vertical tab
-                    return true;
-                case "\f": // Form feed
-                    return true;
-                case "\u0085": // Next line
-                    return true;
-            }
-            return false;
-        };
-        DynamicFontAtlas.prototype.remove_ = function (id, characters) {
-            var data = characters[id];
-            if (data != null) {
-                if (!(data.type & DynamicFontAtlasCharacterType.RESERVED) && 0 < data.ref) {
-                    data.ref -= 1;
-                    if (data.ref === 0) {
-                        this._unrefCount += 1;
-                    }
-                }
-            }
-        };
-        DynamicFontAtlas.prototype.cleanup_ = function () {
-            if (this._length >> 1 <= this._unrefCount) {
-                var characters = this._characters;
-                for (var character in characters) {
-                    if (characters[character].ref <= 0) {
-                        delete characters[character];
-                    }
-                }
-                this._length -= this._unrefCount;
-                this._revision += 1;
-                this._unrefCount = 0;
-            }
-        };
-        DynamicFontAtlas.prototype.add = function (targets, type) {
-            if (type === void 0) { type = DynamicFontAtlasCharacterType.LETTER; }
-            var characters = this._characters;
-            var iterator = UtilCharacterIterator.from(targets);
-            while (iterator.hasNext()) {
-                var character = iterator.next();
-                this.add_(character, character, characters, type);
-            }
-        };
-        DynamicFontAtlas.prototype.remove = function (targets) {
-            var characters = this._characters;
-            var iterator = UtilCharacterIterator.from(targets);
-            while (iterator.hasNext()) {
-                this.remove_(iterator.next(), characters);
-            }
-        };
-        DynamicFontAtlas.prototype.get = function (id) {
-            return this._characters[id];
-        };
-        DynamicFontAtlas.prototype.getAdvance = function (target) {
-            var context = this.getContext();
-            if (context != null) {
-                return context.measureText(target).width;
-            }
-            return 0;
-        };
-        DynamicFontAtlas.prototype.getContext = function () {
-            var context = this._context;
-            if (context == null) {
-                var canvas = this._canvas;
-                if (canvas != null) {
-                    context = this._context = canvas.getContext("2d", { alpha: true });
-                    if (context == null) {
-                        return null;
-                    }
-                }
-                else {
-                    return null;
-                }
-            }
-            var font = this._font;
-            if (context.font !== font.id) {
-                context.font = font.id;
-                font.id = context.font;
-                context.textAlign = "left";
-                context.textBaseline = "alphabetic";
-                context.lineWidth = 0;
-                context.lineCap = "round";
-                context.lineJoin = "miter";
-                context.miterLimit = 0;
-                context.fillStyle = font.color;
-                context.strokeStyle = "#0000ff";
-            }
-            return context;
-        };
-        DynamicFontAtlas.prototype.update = function () {
-            this.cleanup_();
-            if (this._revisionUpdated < this._revision) {
-                this._revisionUpdated = this._revision;
-                var canvas = this._canvas;
-                if (canvas != null) {
-                    var font = this._font;
-                    var fontHeight = font.height;
-                    var characters = this._characters;
-                    var width = (this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight));
-                    var offsetX = this._padding;
-                    var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
-                    var x = 0;
-                    var y = 0;
-                    for (var key in characters) {
-                        var character = characters[key];
-                        if (width <= x + character.width) {
-                            x = 0;
-                            y += fontHeight;
-                        }
-                        character.x = x;
-                        character.y = y;
-                        character.origin.x = x + offsetX;
-                        character.origin.y = y + offsetY;
-                        x += character.width;
-                    }
-                    var height = (this._height = y + fontHeight);
-                    // Make a input canvas
-                    // Here, we need to reset the context because
-                    // context settings will be lost when we set the width/height.
-                    var baseTexture = this._texture.baseTexture;
-                    var resolution = baseTexture.resolution;
-                    var realWidth = Math.ceil(width * resolution);
-                    var realHeight = Math.ceil(height * resolution);
-                    canvas.width = realWidth;
-                    canvas.height = realHeight;
-                    var context = this.getContext();
-                    if (context != null) {
-                        context.save();
-                        context.scale(resolution, resolution);
-                        context.clearRect(0, 0, width, height);
-                        for (var key in characters) {
-                            var character = characters[key];
-                            context.fillText(key, character.origin.x, character.origin.y);
-                        }
-                        context.restore();
-                    }
-                    baseTexture.setRealSize(realWidth, realHeight);
-                    return true;
-                }
-            }
-            return false;
-        };
-        DynamicFontAtlas.prototype.getRevision = function () {
-            return this._revision;
-        };
-        DynamicFontAtlas.prototype.getRevisionUpdate = function () {
-            return this._revisionUpdated;
-        };
-        Object.defineProperty(DynamicFontAtlas.prototype, "length", {
-            get: function () {
-                return this._length;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DynamicFontAtlas.prototype.destroy = function () {
-            var canvas = this._canvas;
-            if (canvas != null) {
-                this._canvas = null;
-            }
-            var characters = this._characters;
-            for (var character in characters) {
-                delete characters[character];
-            }
-        };
-        DynamicFontAtlas.prototype.toPowerOf2 = function (size) {
-            var result = 32;
-            while (result < size) {
-                result <<= 1;
-            }
-            return result;
-        };
-        return DynamicFontAtlas;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var update = function (atlas) {
-        atlas.update();
-    };
-    var updateAll = function (colorToAltas) {
-        colorToAltas.forEach(update);
-    };
-    var destroy = function (atlas) {
-        atlas.update();
-    };
-    var destroyAll = function (colorToAltas) {
-        colorToAltas.forEach(destroy);
-    };
-    var DynamicFontAtlases = /** @class */ (function () {
-        function DynamicFontAtlases(layer) {
-            var _this = this;
-            this._atlases = new Map();
-            this._resolution = layer.renderer.resolution;
-            layer.renderer.on("prerender", function () {
-                _this.update();
-            });
-        }
-        DynamicFontAtlases.prototype.add = function (fontId, fontSize, fontColor, targets) {
-            var atlases = this._atlases;
-            var colorToAtlas = atlases.get(fontId);
-            if (colorToAtlas == null) {
-                colorToAtlas = new Map();
-                atlases.set(fontId, colorToAtlas);
-            }
-            var atlas = colorToAtlas.get(fontColor);
-            if (atlas == null) {
-                atlas = new DynamicFontAtlas(fontId, fontSize, fontColor, this._resolution);
-                colorToAtlas.set(fontColor, atlas);
-            }
-            atlas.add(targets);
-        };
-        DynamicFontAtlases.prototype.remove = function (fontId, fontColor, targets) {
-            var colorToAtlas = this._atlases.get(fontId);
-            if (colorToAtlas != null) {
-                var atlas = colorToAtlas.get(fontColor);
-                if (atlas != null) {
-                    atlas.remove(targets);
-                }
-            }
-        };
-        DynamicFontAtlases.prototype.get = function (fontId, fontColor) {
-            var atlases = this._atlases;
-            var colorToAtlas = atlases.get(fontId);
-            if (colorToAtlas == null) {
-                return null;
-            }
-            var atlas = colorToAtlas.get(fontColor);
-            if (atlas == null) {
-                return null;
-            }
-            return atlas;
-        };
-        DynamicFontAtlases.prototype.update = function () {
-            this._atlases.forEach(updateAll);
-        };
-        DynamicFontAtlases.prototype.destroy = function () {
-            var atlases = this._atlases;
-            atlases.forEach(destroyAll);
-            atlases.clear();
-        };
-        return DynamicFontAtlases;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var isNaN = function (target) {
-        return target !== target;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var Lazy = /** @class */ (function () {
-        function Lazy(newInstance, options, base) {
-            var _this = this;
-            this.instance = null;
-            this.newInstance = newInstance;
-            this.options = options;
-            if (base != null) {
-                if (base.state.isActive) {
-                    setTimeout(function () {
-                        _this.get();
-                    }, 0);
-                }
-                base.on("active", function () {
-                    _this.get();
-                });
-            }
-        }
-        Lazy.prototype.get = function () {
-            var result = this.instance;
-            if (result == null) {
-                result = new this.newInstance(this.options);
-                this.instance = result;
-            }
-            return result;
-        };
-        return Lazy;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * Returns a ceiling index of the given value.
-     * The array must be sorted in an ascending order.
-     *
-     * @param array an array sorted in an ascending order
-     * @param value a value to be searched
-     * @returns a ceiling index of the given value
-     */
-    var toCeilingIndex = function (array, value, size, offset) {
-        var i0 = 0;
-        var i1 = Math.floor(array.length / size) - 1;
-        while (i0 <= i1) {
-            var i2 = i0 + ((i1 - i0) >> 1);
-            var v2 = array[i2 * size + offset];
-            if (value < v2) {
-                i1 = i2 - 1;
-            }
-            else if (v2 < value) {
-                i0 = i2 + 1;
-            }
-            else {
-                return i2;
-            }
-        }
-        return Math.max(i0, i1);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toIndexOf = function (array, value) {
-        var i0 = 0;
-        var i1 = array.length - 1;
-        while (i0 <= i1) {
-            var i2 = i0 + ((i1 - i0) >> 1);
-            var v2 = array[i2];
-            if (value < v2) {
-                i1 = i2 - 1;
-            }
-            else if (v2 < value) {
-                i0 = i2 + 1;
-            }
-            else {
-                return i2;
-            }
-        }
-        return -1;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toLabel$1 = function (target) {
-        if (target != null) {
-            if (isString(target)) {
-                return target;
-            }
-            else if (isNumber(target)) {
-                return String(target);
-            }
-            else if ("name" in target) {
-                return target.name;
-            }
-            else if ("label" in target) {
-                return target.label;
-            }
-            else if ("id" in target) {
-                return target.id;
-            }
-        }
-        return "";
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toString = function (value) {
-        return value != null ? String(value) : "";
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSvgUrl = function (svg) {
-        return "data:image/svg+xml;base64,".concat(btoa(svg));
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSvgTexture = function (svg, resolution) {
-        return pixi_js.Texture.from(toSvgUrl(svg), {
-            resolution: resolution
-        });
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilSvgAtlasBuilder = /** @class */ (function () {
-        function UtilSvgAtlasBuilder(width, ratio, margin) {
-            this._width = width;
-            this._ratio = ratio;
-            this._margin = margin;
-            this._frames = {};
-            this._svg = "";
-            this._nextX = 0;
-            this._nextY = 0;
-            this._height = 0;
-        }
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "width", {
-            get: function () {
-                return this._width;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "ratio", {
-            get: function () {
-                return this._ratio;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "margin", {
-            get: function () {
-                return this._margin;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        UtilSvgAtlasBuilder.prototype.add = function (name, width, height, path) {
-            var frames = this._frames;
-            if (!(name in frames)) {
-                // Position
-                var margin = this._margin;
-                var x = this._nextX;
-                var y = this._nextY;
-                if (this._width <= x + width) {
-                    x = 0;
-                    y = this._nextY + this._height + margin;
-                    this._height = height;
-                    this._nextY = y;
-                }
-                else {
-                    this._height = Math.max(this._height, height);
-                }
-                this._nextX = x + width + margin;
-                // Frame
-                frames[name] = new pixi_js.Rectangle(x, y, width, height);
-                // Svg
-                var ratio = this._ratio;
-                this._svg += "<g transform=\"translate(".concat(x * ratio, ",").concat(y * ratio, ")\">").concat(path, "</g>");
-                return true;
-            }
-            return false;
-        };
-        UtilSvgAtlasBuilder.prototype.has = function (name) {
-            return name in this._frames;
-        };
-        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "mappings", {
-            get: function () {
-                return this.build();
-            },
-            enumerable: false,
-            configurable: true
-        });
-        UtilSvgAtlasBuilder.prototype.build = function (options) {
-            var _a, _b, _c;
-            var built = this._built;
-            if (built == null || (options === null || options === void 0 ? void 0 : options.force)) {
-                var resolution = (_b = (_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1;
-                var width = this._width;
-                var height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
-                var realWidth = width * resolution;
-                var realHeight = height * resolution;
-                var ratio = this._ratio;
-                var attrWidth = "width=\"".concat(realWidth, "\"");
-                var attrHeight = "height=\"".concat(realHeight, "\"");
-                var attrViewBox = "viewBox=\"0 0 ".concat(width * ratio, " ").concat(height * ratio, "\"");
-                var attrXmlns = "xmlns=\"http://www.w3.org/2000/svg\"";
-                var url = toSvgUrl("<svg ".concat(attrWidth, " ").concat(attrHeight, " ").concat(attrViewBox, " ").concat(attrXmlns, ">").concat(this._svg, "</svg>"));
-                var scaleMode = (_c = options === null || options === void 0 ? void 0 : options.scaling) !== null && _c !== void 0 ? _c : pixi_js.SCALE_MODES.NEAREST;
-                var baseTexture = pixi_js.BaseTexture.from(url, {
-                    resolution: resolution,
-                    scaleMode: scaleMode
-                });
-                var frames_1 = this._frames;
-                built = this._built = {};
-                for (var name_1 in frames_1) {
-                    built[name_1] = new pixi_js.Texture(baseTexture, frames_1[name_1]);
-                }
-            }
-            return built;
-        };
-        return UtilSvgAtlasBuilder;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var UtilClickOutside = /** @class */ (function () {
         function UtilClickOutside() {
         }
@@ -21849,582 +21459,6 @@
         };
         UtilClickOutside.point = new pixi_js.Point();
         return UtilClickOutside;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var getSelection = function (element) {
-        var selection = document.getSelection();
-        if (selection) {
-            var range = document.createRange();
-            range.selectNodeContents(element);
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }
-        return selection;
-    };
-    var toClipboardData = function (e) {
-        return e.clipboardData || window.clipboardData;
-    };
-    var copyUsingDiv = function (text) {
-        var div = document.createElement("div");
-        div.setAttribute("style", "-webkit-user-select: text !important");
-        div.textContent = "Dummy";
-        document.body.appendChild(div);
-        var selection = getSelection(div);
-        var result = false;
-        if (selection) {
-            var handler = function (e) {
-                if (e.target === div) {
-                    var clipboardData = toClipboardData(e);
-                    clipboardData.setData("text/plain", text);
-                    result = clipboardData.getData("text/plain") === text;
-                    e.preventDefault();
-                }
-            };
-            document.addEventListener("copy", handler);
-            try {
-                document.execCommand("copy");
-            }
-            finally {
-                document.removeEventListener("copy", handler);
-            }
-            selection.removeAllRanges();
-        }
-        document.body.removeChild(div);
-        return result;
-    };
-    var copyUsingSpan = function (text) {
-        var div = document.createElement("div");
-        div.setAttribute("style", "-webkit-user-select: text !important");
-        var span = document.createElement("span");
-        span.innerText = text;
-        var root = div.attachShadow ? div.attachShadow({ mode: "open" }) : div;
-        root.appendChild(span);
-        document.body.appendChild(div);
-        var result = false;
-        var selection = getSelection(div);
-        if (selection) {
-            result = document.execCommand("copy");
-            selection.removeAllRanges();
-        }
-        document.body.removeChild(div);
-        return result;
-    };
-    var copyUsingWindow = function (window, text) {
-        if (typeof ClipboardEvent === "undefined") {
-            var clipboardData = window.clipboardData;
-            if (typeof clipboardData !== "undefined" && typeof clipboardData.setData !== "undefined") {
-                clipboardData.setData("Text", text);
-                return true;
-            }
-        }
-        return false;
-    };
-    var UtilClipboard = /** @class */ (function (_super) {
-        __extends(UtilClipboard, _super);
-        function UtilClipboard() {
-            var _this = _super.call(this) || this;
-            var element = document.body;
-            element.addEventListener("copy", function (e) {
-                if (e.target === element) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _this.emit("copy", toClipboardData(e));
-                }
-            });
-            element.addEventListener("cut", function (e) {
-                if (e.target === element) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _this.emit("cut", toClipboardData(e));
-                }
-            });
-            element.addEventListener("paste", function (e) {
-                if (e.target === element) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _this.emit("paste", toClipboardData(e));
-                }
-            });
-            return _this;
-        }
-        UtilClipboard.copy = function (text) {
-            var clipboard = navigator.clipboard;
-            if (clipboard && clipboard.writeText) {
-                clipboard.writeText(text);
-            }
-            else {
-                if (!copyUsingWindow(window, text)) {
-                    if (!copyUsingDiv(text)) {
-                        if (navigator.userAgent.indexOf("Edge") < 0) {
-                            copyUsingSpan(text);
-                        }
-                    }
-                }
-            }
-        };
-        return UtilClipboard;
-    }(pixi_js.utils.EventEmitter));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilExtractor = /** @class */ (function () {
-        function UtilExtractor() {
-        }
-        UtilExtractor.toTexture = function (target, resolution, clear, skipUpdateTransform) {
-            var scale = target.transform.scale;
-            var result = pixi_js.RenderTexture.create({
-                width: target.width * scale.x,
-                height: target.height * scale.y,
-                scaleMode: pixi_js.SCALE_MODES.LINEAR,
-                resolution: resolution
-            });
-            var matrix = new pixi_js.Matrix(undefined, undefined, undefined, undefined, -target.position.x, -target.position.y);
-            var layer = DApplications.getLayer(target);
-            if (layer) {
-                layer.renderer.render(target, result, clear, matrix, skipUpdateTransform);
-            }
-            return result;
-        };
-        UtilExtractor.toPixels = function (renderTexture, renderer) {
-            var resolution = renderTexture.resolution;
-            var frame = renderTexture.frame;
-            var width = Math.floor(frame.width * resolution);
-            var height = Math.floor(frame.height * resolution);
-            var pixels = new Uint8Array(4 * width * height);
-            renderer.renderTexture.bind(renderTexture);
-            var gl = renderer.gl;
-            gl.readPixels(frame.x * resolution, frame.y * resolution, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-            return {
-                width: width,
-                height: height,
-                array: pixels
-            };
-        };
-        UtilExtractor.toCanvas = function (pixels, scale, ignorePremutipliedAlpha) {
-            var width = pixels.width;
-            var height = pixels.height;
-            var array = pixels.array;
-            var canvasRenderTarget = new pixi_js.utils.CanvasRenderTarget(width, height, 1);
-            var imageData = canvasRenderTarget.context.getImageData(0, 0, width, height);
-            if (ignorePremutipliedAlpha) {
-                imageData.data.set(array);
-            }
-            else {
-                pixi_js.Extract.arrayPostDivide(array, imageData.data);
-            }
-            canvasRenderTarget.context.putImageData(imageData, 0, 0);
-            // Scale down
-            if (scale != null && scale !== 1) {
-                canvasRenderTarget.context.scale(scale, scale);
-                canvasRenderTarget.context.drawImage(canvasRenderTarget.canvas, 0, 0);
-                var scaledWidth = Math.floor(width * scale);
-                var scaledHeight = Math.floor(height * scale);
-                var scaledImageData = canvasRenderTarget.context.getImageData(0, 0, scaledWidth, scaledHeight);
-                canvasRenderTarget.resize(scaledWidth, scaledHeight);
-                canvasRenderTarget.context.putImageData(scaledImageData, 0, 0);
-            }
-            return canvasRenderTarget;
-        };
-        UtilExtractor.toBase64 = function (canvas, format, quality) {
-            return canvas.toDataURL(format, quality);
-        };
-        return UtilExtractor;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilFileDownloader = /** @class */ (function () {
-        function UtilFileDownloader() {
-        }
-        /**
-         * Downloads a file of the given name and URL.
-         *
-         * @param filename a file name
-         * @param url a file URL
-         */
-        UtilFileDownloader.downloadUrl = function (filename, url) {
-            var a = document.createElement("a");
-            if ("download" in a) {
-                a.href = url;
-                a.setAttribute("download", filename);
-                a.style.display = "none";
-                document.body.appendChild(a);
-                a.click();
-                setTimeout(function () {
-                    document.body.removeChild(a);
-                }, 66);
-            }
-            else {
-                if (!window.open(url)) {
-                    location.href = url;
-                }
-            }
-        };
-        /**
-         * Downloads a file of the given name with the given contents.
-         *
-         * @param filename a file name
-         * @param contents file contents
-         * @param insertBom false to stop the BOM insertion
-         */
-        UtilFileDownloader.download = function (filename, contents, insertBom) {
-            var blob = new Blob(insertBom !== false ? ["\ufeff", contents] : [contents], {
-                type: "text/plain"
-            });
-            var navigator = window.navigator;
-            if ("msSaveBlob" in navigator) {
-                // IE10 and 11
-                navigator.msSaveBlob(blob, filename);
-            }
-            else {
-                this.downloadUrl(filename, URL.createObjectURL(blob));
-            }
-        };
-        return UtilFileDownloader;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toResolution = function (options) {
-        var _a;
-        var target = options.target;
-        var resolution = options.resolution;
-        if (resolution != null) {
-            if (isNumber(resolution)) {
-                return resolution;
-            }
-            else {
-                var scale = target.transform.scale;
-                var size = Math.max(target.width * scale.x, target.height * scale.y);
-                return Math.min(1, resolution.size / size);
-            }
-        }
-        else {
-            return (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
-        }
-    };
-    var toScale = function (pixels, options) {
-        var scale = options.scale;
-        if (scale != null) {
-            if (isNumber(scale)) {
-                return scale;
-            }
-            else {
-                var size = scale.size;
-                return Math.min(1, size / pixels.width, size / pixels.height);
-            }
-        }
-    };
-    var toRenderer = function (options) {
-        var renderer = options.renderer;
-        if (renderer) {
-            return renderer;
-        }
-        var application = options.application;
-        if (application) {
-            return application.getLayerBase().renderer;
-        }
-        var layer = options.layer || DApplications.getLayer(options.target);
-        if (layer) {
-            return layer.renderer;
-        }
-        throw new Error("No renderer / application / layer found.");
-    };
-    var UtilExtract = /** @class */ (function () {
-        function UtilExtract() {
-        }
-        UtilExtract.texture = function (options) {
-            var _a;
-            var target = options.target;
-            var resolution = toResolution(options);
-            var skipUpdateTransform = (_a = options.transform) === null || _a === void 0 ? void 0 : _a.update;
-            return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
-        };
-        UtilExtract.pixels = function (options) {
-            var renderer = toRenderer(options);
-            var texture = this.texture(options);
-            try {
-                return UtilExtractor.toPixels(texture, renderer);
-            }
-            finally {
-                if (texture) {
-                    texture.destroy();
-                }
-            }
-        };
-        UtilExtract.canvas = function (options) {
-            var _a, _b;
-            var pixels = this.pixels(options);
-            var ignorePremutipliedAlpha = (_b = (_a = options.alpha) === null || _a === void 0 ? void 0 : _a.premultiplied) === null || _b === void 0 ? void 0 : _b.ignore;
-            var scale = toScale(pixels, options);
-            return UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha);
-        };
-        UtilExtract.base64 = function (options) {
-            var canvas = this.canvas(options);
-            try {
-                return UtilExtractor.toBase64(canvas.canvas, options.format, options.quality);
-            }
-            finally {
-                if (canvas) {
-                    canvas.destroy();
-                }
-            }
-        };
-        UtilExtract.file = function (options) {
-            UtilFileDownloader.downloadUrl(options.filename, this.base64(options));
-        };
-        return UtilExtract;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * An output format.
-     */
-    var UtilFileAs = {
-        TEXT: 0,
-        DATA_URL: 1,
-        BINARY_STRING: 2,
-        ARRAY_BUTTER: 3,
-        FILE: 4
-    };
-    /**
-     * An utility class for opening files.
-     */
-    var UtilFileOpener = /** @class */ (function () {
-        function UtilFileOpener(as, facade) {
-            this._input = null;
-            this._as = as;
-            this._facade = facade;
-        }
-        UtilFileOpener.prototype.open = function () {
-            var input = this.getOrCreateInput();
-            if (input != null) {
-                input.click();
-            }
-            else {
-                this.onCancel();
-            }
-        };
-        UtilFileOpener.prototype.getOrCreateInput = function () {
-            var _this = this;
-            if ("FileReader" in window && this._input == null) {
-                var input_1 = document.createElement("input");
-                this._input = input_1;
-                input_1.setAttribute("type", "file");
-                input_1.setAttribute("style", "display:none");
-                input_1.addEventListener("change", function (e) {
-                    _this.onInputChange(input_1);
-                    input_1.value = "";
-                    e.stopImmediatePropagation();
-                    e.preventDefault();
-                });
-                document.body.appendChild(input_1);
-            }
-            return this._input;
-        };
-        UtilFileOpener.prototype.onInputChange = function (input) {
-            var _this = this;
-            var files = input.files;
-            if (files != null && 0 < files.length) {
-                var file_1 = files[0];
-                if (this._as === UtilFileAs.FILE) {
-                    this.onOpen(file_1, file_1);
-                }
-                else {
-                    var fileReader = new FileReader();
-                    fileReader.onload = function (e) {
-                        if (e.target != null) {
-                            var target = e.target;
-                            _this.onOpen(target.result, file_1);
-                        }
-                    };
-                    fileReader.onabort = function (e) {
-                        _this.onAboart(e);
-                    };
-                    switch (this._as) {
-                        case UtilFileAs.TEXT:
-                            fileReader.readAsText(file_1);
-                            break;
-                        case UtilFileAs.DATA_URL:
-                            fileReader.readAsDataURL(file_1);
-                            break;
-                        case UtilFileAs.BINARY_STRING:
-                            fileReader.readAsBinaryString(file_1);
-                            break;
-                        case UtilFileAs.ARRAY_BUTTER:
-                            fileReader.readAsArrayBuffer(file_1);
-                            break;
-                        default:
-                            fileReader.readAsText(file_1);
-                            break;
-                    }
-                }
-            }
-            else {
-                this.onCancel();
-            }
-        };
-        UtilFileOpener.prototype.onOpen = function (result, file) {
-            var facade = this._facade;
-            facade.emit("open", result, file, facade);
-        };
-        UtilFileOpener.prototype.onAboart = function (e) {
-            var facade = this._facade;
-            facade.emit("abort", e, facade);
-        };
-        UtilFileOpener.prototype.onCancel = function () {
-            var facade = this._facade;
-            facade.emit("cancel", facade);
-        };
-        return UtilFileOpener;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilHsv = /** @class */ (function () {
-        function UtilHsv() {
-        }
-        /**
-         * Returns HSV colors.
-         * Ranges of components are:
-         *
-         * * H: [0, 360)
-         * * S: [0, 255]
-         * * V: [0, 255]
-         *
-         * @param color a rgb color
-         * @return an array of hsv components
-         */
-        UtilHsv.fromRgb = function (color) {
-            var r = (color & 0xff0000) >> 16;
-            var g = (color & 0x00ff00) >> 8;
-            var b = (color & 0x0000ff) | 0;
-            var max = Math.max(r, g, b);
-            var min = Math.min(r, g, b);
-            var length = max - min;
-            var h = 0;
-            if (0 < length) {
-                if (r === max) {
-                    h = (60 * (g - b)) / length;
-                }
-                else if (g === max) {
-                    h = (60 * (b - r)) / length + 120;
-                }
-                else if (b === max) {
-                    h = (60 * (r - g)) / length + 240;
-                }
-                if (h < 0) {
-                    h += 360;
-                }
-            }
-            var s = (length / max) * 255;
-            var v = max;
-            return [h, s, v];
-        };
-        UtilHsv.toRgb = function (h, s, v) {
-            var max = v;
-            var min = v - (s / 255) * v;
-            var length = max - min;
-            var r = 0;
-            var g = 0;
-            var b = 0;
-            if (h <= 60) {
-                r = max;
-                g = (h / 60) * length + min;
-                b = min;
-            }
-            else if (h <= 120) {
-                r = ((120 - h) / 60) * length + min;
-                g = max;
-                b = min;
-            }
-            else if (h <= 180) {
-                r = min;
-                g = max;
-                b = ((h - 120) / 60) * length + min;
-            }
-            else if (h <= 240) {
-                r = min;
-                g = ((240 - h) / 60) * length + min;
-                b = max;
-            }
-            else if (h <= 300) {
-                r = ((h - 240) / 60) * length + min;
-                g = min;
-                b = max;
-            }
-            else {
-                r = max;
-                g = min;
-                b = ((360 - h) / 60) * length + min;
-            }
-            r = Math.max(0, Math.min(255, r));
-            g = Math.max(0, Math.min(255, g));
-            b = Math.max(0, Math.min(255, b));
-            return (r << 16) | (g << 8) | b;
-        };
-        return UtilHsv;
-    }());
-
-    /*
-     * Copyright (C) 2021 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilInputTextArea = /** @class */ (function (_super) {
-        __extends(UtilInputTextArea, _super);
-        function UtilInputTextArea() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        UtilInputTextArea.prototype.onElementAttached = function (element, before, after) {
-            element.addEventListener("keydown", this._onInputKeyDownBound);
-            _super.prototype.onElementAttached.call(this, element, before, after);
-        };
-        UtilInputTextArea.prototype.onElementDetached = function (element, before, after) {
-            element.removeEventListener("keydown", this._onInputKeyDownBound);
-            _super.prototype.onElementDetached.call(this, element, before, after);
-        };
-        UtilInputTextArea.prototype.onInputKeyDown = function (e) {
-            if (UtilKeyboardEvent.isOkKey(e)) {
-                this._operation.onEnter();
-            }
-        };
-        return UtilInputTextArea;
-    }(UtilInput));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilName = /** @class */ (function () {
-        function UtilName() {
-        }
-        UtilName.create = function (type) {
-            var mapping = this._mapping;
-            if (type in mapping) {
-                return "".concat(type, " ").concat(++mapping[type]);
-            }
-            else {
-                mapping[type] = 1;
-                return "".concat(type, " 1");
-            }
-        };
-        UtilName._mapping = {};
-        return UtilName;
     }());
 
     var UtilOverlay = /** @class */ (function () {
@@ -22457,296 +21491,6 @@
             return layer;
         };
         return UtilOverlay;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilRgba = /** @class */ (function () {
-        function UtilRgba() {
-        }
-        UtilRgba.toCode = function (color, alpha) {
-            var r = (color >> 16) & 0xff;
-            var g = (color >> 8) & 0xff;
-            var b = color & 0xff;
-            return "rgba(".concat(r, ",").concat(g, ",").concat(b, ",").concat(alpha, ")");
-        };
-        return UtilRgba;
-    }());
-
-    var UtilStateBlinker = /** @class */ (function () {
-        function UtilStateBlinker(state, delay, interval) {
-            var _this = this;
-            this._isOn = true;
-            this._targets = new Set();
-            this._state = state;
-            this._delay = delay;
-            this._interval = interval;
-            this._timeout = null;
-            var updateBound = function () {
-                _this.advance();
-                _this.update();
-                _this._timeout = window.setTimeout(updateBound, interval);
-            };
-            this._updateBound = updateBound;
-        }
-        UtilStateBlinker.prototype.start = function () {
-            if (this._timeout == null) {
-                this._timeout = window.setTimeout(this._updateBound, this._delay);
-            }
-            return this;
-        };
-        UtilStateBlinker.prototype.stop = function () {
-            var timeout = this._timeout;
-            if (timeout != null) {
-                this._timeout = null;
-                clearTimeout(timeout);
-            }
-            return this;
-        };
-        UtilStateBlinker.prototype.add = function (target) {
-            this._targets.add(target);
-            target.state.set(this._state, this.isOn());
-            return this;
-        };
-        UtilStateBlinker.prototype.remove = function (target) {
-            if (this._targets.delete(target)) {
-                target.state.remove(this._state);
-                return true;
-            }
-            return false;
-        };
-        UtilStateBlinker.prototype.contains = function (target) {
-            return this._targets.has(target);
-        };
-        UtilStateBlinker.prototype.clear = function () {
-            this._targets.clear();
-            return this;
-        };
-        UtilStateBlinker.prototype.isOn = function () {
-            return this._isOn;
-        };
-        UtilStateBlinker.prototype.isOff = function () {
-            return !this._isOn;
-        };
-        UtilStateBlinker.prototype.advance = function () {
-            this._isOn = !this._isOn;
-            return this;
-        };
-        UtilStateBlinker.prototype.update = function () {
-            var isOn = this.isOn();
-            var state = this._state;
-            this._targets.forEach(function (target) {
-                target.state.set(state, isOn);
-            });
-            return this;
-        };
-        return UtilStateBlinker;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilTransition = /** @class */ (function () {
-        function UtilTransition(options) {
-            var _a;
-            this._duration = (_a = options === null || options === void 0 ? void 0 : options.duration) !== null && _a !== void 0 ? _a : 300;
-            this._current = null;
-            this._lastUpdate = 0;
-            this._updateId = null;
-        }
-        UtilTransition.prototype.show = function (next, forcibly) {
-            var _this = this;
-            var updateId = this._updateId;
-            if (updateId != null) {
-                clearTimeout(updateId);
-            }
-            var current = this._current;
-            if (next !== current) {
-                var duration = this._duration;
-                var lastUpdate = this._lastUpdate;
-                var now = Date.now();
-                var remaining = lastUpdate + duration - now;
-                if (forcibly === true || remaining <= 0) {
-                    this.update(now, next);
-                }
-                else {
-                    this._updateId = window.setTimeout(function () {
-                        _this.update(Date.now(), next);
-                    }, remaining);
-                }
-            }
-        };
-        UtilTransition.prototype.update = function (now, next) {
-            var current = this._current;
-            if (current !== next) {
-                this._lastUpdate = now;
-                if (current != null) {
-                    current.hide();
-                }
-                this._current = next;
-                if (next != null) {
-                    next.show();
-                }
-            }
-        };
-        UtilTransition.prototype.hide = function () {
-            this.show(null);
-        };
-        return UtilTransition;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /*!
-     * jQuery Mousewheel 3.1.13
-     *
-     * Copyright jQuery Foundation and other contributors
-     * Released under the MIT license
-     * http://jquery.org/license
-     *
-     * See also https://github.com/mapbox/mapbox-gl-js/blob/001c7b9/js/ui/handler/scroll_zoom.js
-     * and https://github.com/openlayers/openlayers/blob/v5.2.0/src/ol/interaction/MouseWheelZoom.js#L51
-     */
-    var UtilWheelEvent = /** @class */ (function () {
-        function UtilWheelEvent() {
-            this._lowest = null;
-            this._timestamp = 0;
-            this._lineHeight = null;
-            this._pageHeight = null;
-        }
-        UtilWheelEvent.prototype.getNames = function () {
-            var result = this._names;
-            if (result == null) {
-                if ("onwheel" in document || 9 <= document.documentMode) {
-                    result = ["wheel"];
-                }
-                else {
-                    result = ["mousewheel", "DOMMouseScroll", "MozMousePixelScroll"];
-                }
-                this._names = result;
-            }
-            return result;
-        };
-        UtilWheelEvent.prototype.on = function (target, handler, useCapture) {
-            if (useCapture === void 0) { useCapture = false; }
-            var names = this.getNames();
-            for (var i = names.length - 1; 0 <= i; --i) {
-                var name_1 = names[i];
-                target.addEventListener(name_1, handler, useCapture);
-            }
-        };
-        UtilWheelEvent.prototype.off = function (target, handler, useCapture) {
-            if (useCapture === void 0) { useCapture = false; }
-            var names = this.getNames();
-            for (var i = names.length - 1; 0 <= i; --i) {
-                var name_2 = names[i];
-                target.removeEventListener(name_2, handler, useCapture);
-            }
-        };
-        UtilWheelEvent.prototype.getLineHeight = function () {
-            if (this._lineHeight == null) {
-                var theme = DThemes.getInstance().get("DBase");
-                this._lineHeight = theme.getLineHeight();
-            }
-            return this._lineHeight;
-        };
-        UtilWheelEvent.prototype.getPageHeight = function () {
-            if (this._pageHeight == null) {
-                this._pageHeight = this.getLineHeight() * 12;
-            }
-            return this._pageHeight;
-        };
-        UtilWheelEvent.prototype.normalize = function (e) {
-            var deltaX = 0;
-            var deltaY = 0;
-            // Old school scrollwheel delta
-            if ("detail" in e) {
-                deltaY = e.detail * -1;
-            }
-            if ("wheelDelta" in e) {
-                deltaY = e.wheelDelta;
-            }
-            if ("wheelDeltaY" in e) {
-                deltaY = e.wheelDeltaY;
-            }
-            if ("wheelDeltaX" in e) {
-                deltaX = e.wheelDeltaX * -1;
-            }
-            // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
-            if ("axis" in e && e.axis === e.HORIZONTAL_AXIS) {
-                deltaX = deltaY * -1;
-                deltaY = 0;
-            }
-            // New school wheel delta (wheel event)
-            if ("deltaY" in e) {
-                deltaY = e.deltaY * -1;
-            }
-            if ("deltaX" in e) {
-                deltaX = e.deltaX;
-            }
-            // No change actually happened, no reason to go any further
-            if (deltaY === 0 && deltaX === 0) {
-                return null;
-            }
-            // Store lowest absolute delta to normalize the delta values
-            var delta = Math.max(Math.abs(deltaY), Math.abs(deltaX));
-            // Reset the this._lowest to better handle multiple device types
-            // that give different a different lowestDelta
-            // Ex: trackpad = 3 and mouse wheel = 120
-            var now = Date.now();
-            if (this._timestamp + 200 <= now) {
-                this._lowest = null;
-            }
-            this._timestamp = now;
-            //
-            var shouldAdjust = e.type === "mousewheel" && delta % 120 === 0;
-            if (!this._lowest || delta < this._lowest) {
-                this._lowest = delta;
-                // Adjust older deltas if necessary
-                if (shouldAdjust) {
-                    this._lowest /= 40;
-                }
-            }
-            // Adjust older deltas if necessary
-            if (shouldAdjust) {
-                // Divide all the things by 40!
-                delta /= 40;
-                deltaX /= 40;
-                deltaY /= 40;
-            }
-            // Get a whole, normalized value for the deltas
-            var lowest = this._lowest;
-            delta = Math.floor(delta / lowest);
-            deltaX = Math[1 <= deltaX ? "floor" : "ceil"](deltaX / lowest);
-            deltaY = Math[1 <= deltaY ? "floor" : "ceil"](deltaY / lowest);
-            // Mode
-            var mode = e.deltaMode || 0;
-            if (mode !== 0) {
-                var scale = mode === 1 ? this.getLineHeight() : this.getPageHeight();
-                delta *= scale;
-                deltaX *= scale;
-                deltaY *= scale;
-            }
-            return {
-                mode: mode,
-                delta: delta,
-                deltaX: deltaX,
-                deltaY: deltaY,
-                lowest: lowest
-            };
-        };
-        UtilWheelEvent.getInstance = function () {
-            if (this.INSTANCE == null) {
-                this.INSTANCE = new UtilWheelEvent();
-            }
-            return this.INSTANCE;
-        };
-        return UtilWheelEvent;
     }());
 
     /*
@@ -26393,6 +25137,14 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var isNaN = function (target) {
+        return target !== target;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionRuntimeOpenDialogTime = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeOpenDialogTime, _super);
         function EShapeActionRuntimeOpenDialogTime(value) {
@@ -27691,7 +26443,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     /* eslint-disable prettier/prettier */
-    var NONE = 0;
+    var NONE = 0x0;
     var ID = 0x1;
     var POSITION = 0x2;
     var WIDTH = 0x4;
@@ -27712,13 +26464,14 @@
     var CURSOR = 0x20000;
     var ORDER_IN_LAYER = 0x40000;
     var CHILDREN = 0x80000;
+    var DATA_MAPPING = 0x100000;
     var COORDINATE = ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW | ALIGN;
     var SHAPE = REPLACING | GROUPING | FILL | STROKE;
     var LAYER = ORDER_IN_LAYER;
     var PRIMITIVE = COORDINATE | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
-    var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER;
+    var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER | DATA_MAPPING;
     var CONNECTOR = ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
-    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS;
+    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING;
     var EShapeCapability = {
         NONE: NONE,
         ID: ID,
@@ -27739,6 +26492,7 @@
         /** @deprecated in favor of {@link DATA} */
         TAG: DATA,
         DATA: DATA,
+        DATA_MAPPING: DATA_MAPPING,
         ACTION: ACTION,
         CURSOR: CURSOR,
         ORDER_IN_LAYER: ORDER_IN_LAYER,
@@ -29127,54 +27881,6 @@
         }
         return deserializeBase(item, manager, shape);
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionValueMiscEmitEvent = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscEmitEvent, _super);
-        function EShapeActionValueMiscEmitEvent(condition, target) {
-            return _super.call(this, EShapeActionValueMiscType.EMIT_EVENT, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, "") || this;
-        }
-        return EShapeActionValueMiscEmitEvent;
-    }(EShapeActionValueMisc));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionValueMiscHtmlElement = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscHtmlElement, _super);
-        function EShapeActionValueMiscHtmlElement(subtype, when, initializer) {
-            return _super.call(this, subtype, when, "", EShapeActionValueOnInputAction.EMIT_EVENT, initializer) || this;
-        }
-        return EShapeActionValueMiscHtmlElement;
-    }(EShapeActionValueMisc));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionValueMiscInput = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscInput, _super);
-        function EShapeActionValueMiscInput(subtype, when, target, onInputAction) {
-            return _super.call(this, subtype, when, target, onInputAction, "") || this;
-        }
-        return EShapeActionValueMiscInput;
-    }(EShapeActionValueMisc));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeActionValueMiscWrite = /** @class */ (function (_super) {
-        __extends(EShapeActionValueMiscWrite, _super);
-        function EShapeActionValueMiscWrite(subtype, condition, target, value) {
-            return _super.call(this, subtype, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, value) || this;
-        }
-        return EShapeActionValueMiscWrite;
-    }(EShapeActionValueMisc));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -30788,6 +29494,29 @@
         };
         return BuilderNull;
     }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toIndexOf = function (array, value) {
+        var i0 = 0;
+        var i1 = array.length - 1;
+        while (i0 <= i1) {
+            var i2 = i0 + ((i1 - i0) >> 1);
+            var v2 = array[i2];
+            if (value < v2) {
+                i1 = i2 - 1;
+            }
+            else if (v2 < value) {
+                i0 = i2 + 1;
+            }
+            else {
+                return i2;
+            }
+        }
+        return -1;
+    };
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -35677,6 +34406,7 @@
         container.copyTo(shape);
         shape.size.init();
         shape.size.set(sizeX, sizeY);
+        applyDataMappings(shape, manager);
         return result;
     };
     var createMissing = function (name, manager, item) {
@@ -35702,7 +34432,42 @@
         shape.toDirty();
         shape.onAttach();
         shape.size.init();
+        applyDataMappings(shape, manager);
         return result;
+    };
+    var applyDataMappings = function (shape, manager) {
+        var mapping = shape.data.getMapping();
+        if (mapping != null) {
+            var values = mapping.values;
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                var value = values[i];
+                var source = value[0];
+                var mapper = manager.getDataMapper(source);
+                if (mapper != null) {
+                    var children = shape.children;
+                    var destination = manager.getDataDestination(value[1]);
+                    var initial = value[2];
+                    applyDataMapping(children, mapper, destination, initial);
+                }
+            }
+        }
+    };
+    var applyDataMapping = function (targets, mapper, destination, initial) {
+        for (var i = 0, imax = targets.length; i < imax; ++i) {
+            var target = targets[i];
+            var targetData = target.data;
+            for (var j = 0, jmax = targetData.size(); j < jmax; ++j) {
+                var targetDatum = targetData.get(j);
+                if (targetDatum) {
+                    mapper.map(targetDatum, destination, initial);
+                }
+            }
+            // Children
+            var children = target.children;
+            if (0 < children.length) {
+                applyDataMapping(children, mapper, destination, initial);
+            }
+        }
     };
     var deserializeEmbedded = function (item, manager) {
         var pieces = manager.pieces;
@@ -39688,6 +38453,160 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeRectanglePivoted = /** @class */ (function (_super) {
+        __extends(EShapeRectanglePivoted, _super);
+        function EShapeRectanglePivoted(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE_PIVOTED; }
+            return _super.call(this, type) || this;
+        }
+        EShapeRectanglePivoted.prototype.toHitTestData = function (x, y) {
+            var result = _super.prototype.toHitTestData.call(this, x, y);
+            result.x -= result.width;
+            result.y -= result.height;
+            return result;
+        };
+        return EShapeRectanglePivoted;
+    }(EShapeRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectanglePivoted = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeRectanglePivoted());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectanglePivoted = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_PIVOTED] = createRectanglePivotedUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_PIVOTED] = deserializeRectanglePivoted;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_PIVOTED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeRectangleRounded = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeRectangleRounded());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeRectangleRounded = function () {
+        EShapeUploadeds[EShapeType.RECTANGLE_ROUNDED] = createRectangleRoundedUploaded;
+        EShapeDeserializers[EShapeType.RECTANGLE_ROUNDED] = deserializeRectangleRounded;
+        EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var BuilderTriangle = /** @class */ (function (_super) {
+        __extends(BuilderTriangle, _super);
+        function BuilderTriangle() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        BuilderTriangle.prototype.init = function (buffer) {
+            buffer.updateClippings();
+            buffer.updateIndices();
+            buildTriangleClipping(buffer.clippings, this.vertexOffset);
+            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
+        };
+        BuilderTriangle.prototype.update = function (buffer, shape) {
+            this.updateVertexStepAndUv(buffer, shape);
+            this.updateColorFill(buffer, shape);
+            this.updateColorStroke(buffer, shape);
+        };
+        BuilderTriangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
+            var size = shape.size;
+            var sizeX = size.x;
+            var sizeY = size.y;
+            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
+            var transformLocalId = toTransformLocalId(shape);
+            var isTransformChanged = this.transformLocalId !== transformLocalId;
+            var stroke = shape.stroke;
+            var strokeAlign = stroke.align;
+            var strokeWidth = stroke.enable ? stroke.width : 0;
+            var strokeStyle = stroke.style;
+            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
+                this.strokeWidth !== strokeWidth ||
+                this.strokeStyle !== strokeStyle;
+            var texture = toTexture(shape);
+            var textureTransformId = toTextureTransformId(texture);
+            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
+            var isVertexChanged = isSizeChanged || isStrokeChanged;
+            if (isVertexChanged || isTransformChanged || isTextureChanged) {
+                this.sizeX = sizeX;
+                this.sizeY = sizeY;
+                this.transformLocalId = transformLocalId;
+                this.strokeAlign = strokeAlign;
+                this.strokeWidth = strokeWidth;
+                this.strokeStyle = strokeStyle;
+                this.texture = texture;
+                this.textureTransformId = textureTransformId;
+                var voffset = this.vertexOffset;
+                buffer.updateVertices();
+                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
+                if (isVertexChanged || isTransformChanged) {
+                    buffer.updateSteps();
+                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
+                }
+                if (isVertexChanged || isTextureChanged) {
+                    buffer.updateUvs();
+                    buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
+                }
+            }
+        };
+        return BuilderTriangle;
+    }(BuilderBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createTriangleUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+        var tcount = toTextBufferCount(shape);
+        var tvcount = tcount * TEXT_VERTEX_COUNT;
+        var ticount = tcount * TEXT_INDEX_COUNT;
+        var vcount = TRIANGLE_VERTEX_COUNT + tvcount;
+        var icount = TRIANGLE_INDEX_COUNT + ticount;
+        if (buffer.check(voffset, ioffset, vcount, icount)) {
+            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
+                new BuilderTriangle(voffset, ioffset, vcount - tvcount, icount - ticount),
+                new BuilderText(voffset + TRIANGLE_VERTEX_COUNT, ioffset + TRIANGLE_INDEX_COUNT, tvcount, ticount)
+            ]).init(shape);
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeTriangle = function (item, manager, shape) {
+        return deserializeBase(item, manager, shape || new EShapeTriangle());
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadShapeTriangle = function () {
+        EShapeUploadeds[EShapeType.TRIANGLE] = createTriangleUploaded;
+        EShapeDeserializers[EShapeType.TRIANGLE] = deserializeTriangle;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var BuilderTriangleRounded = /** @class */ (function (_super) {
         __extends(BuilderTriangleRounded, _super);
         function BuilderTriangleRounded(vertexOffset, indexOffset, vertexCount, indexCount) {
@@ -39762,122 +38681,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var BuilderTriangle = /** @class */ (function (_super) {
-        __extends(BuilderTriangle, _super);
-        function BuilderTriangle() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        BuilderTriangle.prototype.init = function (buffer) {
-            buffer.updateClippings();
-            buffer.updateIndices();
-            buildTriangleClipping(buffer.clippings, this.vertexOffset);
-            buildTriangleIndex(buffer.indices, this.vertexOffset, this.indexOffset);
-        };
-        BuilderTriangle.prototype.update = function (buffer, shape) {
-            this.updateVertexStepAndUv(buffer, shape);
-            this.updateColorFill(buffer, shape);
-            this.updateColorStroke(buffer, shape);
-        };
-        BuilderTriangle.prototype.updateVertexStepAndUv = function (buffer, shape) {
-            var size = shape.size;
-            var sizeX = size.x;
-            var sizeY = size.y;
-            var isSizeChanged = sizeX !== this.sizeX || sizeY !== this.sizeY;
-            var transformLocalId = toTransformLocalId(shape);
-            var isTransformChanged = this.transformLocalId !== transformLocalId;
-            var stroke = shape.stroke;
-            var strokeAlign = stroke.align;
-            var strokeWidth = stroke.enable ? stroke.width : 0;
-            var strokeStyle = stroke.style;
-            var isStrokeChanged = this.strokeAlign !== strokeAlign ||
-                this.strokeWidth !== strokeWidth ||
-                this.strokeStyle !== strokeStyle;
-            var texture = toTexture(shape);
-            var textureTransformId = toTextureTransformId(texture);
-            var isTextureChanged = texture !== this.texture || textureTransformId !== this.textureTransformId;
-            var isVertexChanged = isSizeChanged || isStrokeChanged;
-            if (isVertexChanged || isTransformChanged || isTextureChanged) {
-                this.sizeX = sizeX;
-                this.sizeY = sizeY;
-                this.transformLocalId = transformLocalId;
-                this.strokeAlign = strokeAlign;
-                this.strokeWidth = strokeWidth;
-                this.strokeStyle = strokeStyle;
-                this.texture = texture;
-                this.textureTransformId = textureTransformId;
-                var voffset = this.vertexOffset;
-                buffer.updateVertices();
-                buildTriangleVertex(buffer.vertices, voffset, 0, 0, sizeX, sizeY, strokeAlign, strokeWidth, shape.transform.internalTransform, TRIANGLE_WORLD_SIZE);
-                if (isVertexChanged || isTransformChanged) {
-                    buffer.updateSteps();
-                    buildTriangleStep(buffer.steps, buffer.clippings, voffset, TRIANGLE_VERTEX_COUNT, strokeWidth, strokeStyle, TRIANGLE_WORLD_SIZE);
-                }
-                if (isVertexChanged || isTextureChanged) {
-                    buffer.updateUvs();
-                    buildTriangleUv(buffer.uvs, toTextureUvs(texture), voffset, TRIANGLE_WORLD_SIZE);
-                }
-            }
-        };
-        return BuilderTriangle;
-    }(BuilderBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createImageSdf = function (dataUrl, convertToSdf) {
-        if (convertToSdf) {
-            return toImageElement(dataUrl).then(function (imageElement) {
-                var generator = DynamicSDFFontGenerator.getInstance().init();
-                generator.updateTexture(imageElement);
-                generator.render();
-                var canvas = document.createElement("canvas");
-                generator.read(canvas);
-                return createImageSdf(canvas.toDataURL(), false);
-            });
-        }
-        else {
-            return toImageElement(dataUrl).then(function (imageElement) {
-                return new EShapeImageSdf(imageElement);
-            });
-        }
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var createImage = function (dataUrl) {
-        return toImageElement(dataUrl).then(function (imageElement) {
-            return new EShapeImage(imageElement);
-        });
-    };
-
-    var createLine = function (points, segments, strokeWidth, pointsStyle) {
-        // Calculate the boundary
-        var boundary = toPointsBoundary(points, [0, 0, 0, 0]);
-        var cx = (boundary[2] + boundary[0]) * 0.5;
-        var cy = (boundary[3] + boundary[1]) * 0.5;
-        var sx = boundary[2] - boundary[0];
-        var sy = boundary[3] - boundary[1];
-        // Calculate values
-        var values = [];
-        for (var i = 0, imax = points.length; i < imax; i += 2) {
-            values.push(points[i] - cx, points[i + 1] - cy);
-        }
-        // Create a line
-        var result = new EShapeLine();
-        result.stroke.set(true, undefined, undefined, strokeWidth);
-        result.transform.position.set(cx, cy);
-        result.size.set(sx, sy);
-        result.points.set(values, segments, pointsStyle);
-        return result;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var createTriangleRoundedUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount * TEXT_VERTEX_COUNT;
@@ -39897,671 +38700,8 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createTriangleUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
-        var tcount = toTextBufferCount(shape);
-        var tvcount = tcount * TEXT_VERTEX_COUNT;
-        var ticount = tcount * TEXT_INDEX_COUNT;
-        var vcount = TRIANGLE_VERTEX_COUNT + tvcount;
-        var icount = TRIANGLE_INDEX_COUNT + ticount;
-        if (buffer.check(voffset, ioffset, vcount, icount)) {
-            return new EShapeUploadedImpl(buffer, voffset, ioffset, vcount, icount, [
-                new BuilderTriangle(voffset, ioffset, vcount - tvcount, icount - ticount),
-                new BuilderText(voffset + TRIANGLE_VERTEX_COUNT, ioffset + TRIANGLE_INDEX_COUNT, tvcount, ticount)
-            ]).init(shape);
-        }
-        return null;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeUuidMappingImpl = /** @class */ (function () {
-        function EShapeUuidMappingImpl(shapes) {
-            this._shapes = shapes;
-        }
-        EShapeUuidMappingImpl.prototype.find = function (uuid) {
-            return this.getUuidToShape().get(uuid);
-        };
-        EShapeUuidMappingImpl.prototype.getUuidToShape = function () {
-            var result = this._uuidToShape;
-            if (result == null) {
-                result = this.newUuidToShape();
-                this._uuidToShape = result;
-            }
-            return result;
-        };
-        EShapeUuidMappingImpl.prototype.newUuidToShape = function () {
-            var result = new Map();
-            this.fillUuidToShape(this._shapes, result);
-            return result;
-        };
-        EShapeUuidMappingImpl.prototype.fillUuidToShape = function (shapes, result) {
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                var shape = shapes[i];
-                result.set(shape.uuid, shape);
-                var children = shape.children;
-                if (0 < children.length) {
-                    this.fillUuidToShape(children, result);
-                }
-            }
-        };
-        return EShapeUuidMappingImpl;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeAll = function (serializeds, manager) {
-        var shapes = [];
-        for (var i = 0, imax = serializeds.length; i < imax; ++i) {
-            shapes.push(deserialize(serializeds[i], manager));
-        }
-        if (0 < shapes.length) {
-            return Promise.all(shapes).then(function (resolved) {
-                callOnDeserialized(serializeds, resolved, new EShapeUuidMappingImpl(resolved), manager);
-                return resolved;
-            });
-        }
-        return null;
-    };
-    var callOnDeserialized = function (serializeds, shapes, mapping, manager) {
-        for (var i = 0, imax = serializeds.length; i < imax; ++i) {
-            var serialized = serializeds[i];
-            var shape = shapes[i];
-            var onDeserialized = EShapeOnDeserializeds[serialized[0]];
-            if (onDeserialized) {
-                onDeserialized(serialized, shape, mapping, manager);
-            }
-            callOnDeserialized(serialized[20], shape.children, mapping, manager);
-        }
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeRectangleRounded = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeRectangleRounded());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var deserializeTriangleRounded = function (item, manager, shape) {
         return deserializeBase(item, manager, shape || new EShapeTriangleRounded());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeTriangle = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeTriangle());
-    };
-
-    var EShapeEmbeddedDatum = /** @class */ (function () {
-        function EShapeEmbeddedDatum(name, width, height, layer) {
-            this.name = name;
-            this.width = width;
-            this.height = height;
-            this.layer = layer;
-        }
-        return EShapeEmbeddedDatum;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeConnectors = /** @class */ (function () {
-        function EShapeConnectors() {
-        }
-        EShapeConnectors.isConnector = function (target) {
-            return target != null && target.type === EShapeType.CONNECTOR_LINE;
-        };
-        EShapeConnectors.newMapping = function (sources, destinations, result) {
-            var _a;
-            if (result == null) {
-                result = (_a = EShapeConnectors._MAPPING) !== null && _a !== void 0 ? _a : (EShapeConnectors._MAPPING = new Map());
-                result.clear();
-            }
-            for (var i = 0, imax = sources.length; i < imax; ++i) {
-                var fromChild = sources[i];
-                var toChild = destinations[i];
-                result.set(fromChild, toChild);
-                this.newMapping(fromChild.children, toChild.children, result);
-            }
-            return result;
-        };
-        EShapeConnectors.moveAll = function (rootSources, rootDestinations, sources, destinations, mapping) {
-            for (var i = 0, imax = sources.length; i < imax; ++i) {
-                var source = sources[i];
-                var destination = destinations[i];
-                if (this.isConnector(source)) {
-                    if (this.isConnector(destination)) {
-                        var sourceEdge = source.edge;
-                        var destEdge = destination.edge;
-                        var sourceHead = sourceEdge.head;
-                        var sourceHeadShape = sourceHead.acceptor.shape;
-                        if (sourceHeadShape) {
-                            if (mapping == null) {
-                                mapping = this.newMapping(rootSources, rootDestinations);
-                            }
-                            var destHeadShape = mapping.get(sourceHeadShape);
-                            if (destHeadShape) {
-                                var destHead = destEdge.head;
-                                destHead.detach();
-                                destHead.set(destHeadShape);
-                                destHead.attach();
-                                destHeadShape.connector.remove(sourceHead);
-                            }
-                        }
-                        var sourceTail = sourceEdge.tail;
-                        var sourceTailShape = sourceTail.acceptor.shape;
-                        if (sourceTailShape) {
-                            if (mapping == null) {
-                                mapping = this.newMapping(rootSources, rootDestinations);
-                            }
-                            var destTailShape = mapping.get(sourceTailShape);
-                            if (destTailShape) {
-                                var destTail = destEdge.tail;
-                                destTail.detach();
-                                destTail.set(destTailShape);
-                                destTail.attach();
-                                destTailShape.connector.remove(sourceTail);
-                            }
-                        }
-                    }
-                }
-                mapping = this.moveAll(rootSources, rootDestinations, source.children, destination.children, mapping);
-            }
-            return mapping;
-        };
-        EShapeConnectors.move = function (from, to) {
-            var fromChildren = from.children;
-            var toChildren = to.children;
-            this.moveAll(fromChildren, toChildren, fromChildren, toChildren);
-        };
-        return EShapeConnectors;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeEmbeddedLayerContainer = /** @class */ (function () {
-        function EShapeEmbeddedLayerContainer(width, height, isEditMode) {
-            this.children = [];
-            this._width = width;
-            this._height = height;
-            this._isEditMode = isEditMode;
-        }
-        EShapeEmbeddedLayerContainer.prototype.hasConnectors = function (shapes) {
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                var shape = shapes[i];
-                if (shape.type === EShapeType.CONNECTOR_LINE) {
-                    return true;
-                }
-                var children = shape.children;
-                if (0 < children.length) {
-                    if (this.hasConnectors(children)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
-        EShapeEmbeddedLayerContainer.prototype.newHasConnectors = function () {
-            var result = new Map();
-            var layers = this.children;
-            for (var i = 0, imax = layers.length; i < imax; ++i) {
-                var layer = layers[i];
-                result.set(layer, this.hasConnectors(layer.children));
-            }
-            return result;
-        };
-        EShapeEmbeddedLayerContainer.prototype.copyTo = function (destination) {
-            var _a;
-            var hasConnectors = ((_a = this._hasConnectors) !== null && _a !== void 0 ? _a : (this._hasConnectors = this.newHasConnectors()));
-            var layers = this.children;
-            var children = destination.children;
-            for (var i = 0, imax = layers.length; i < imax; ++i) {
-                var layer = layers[i];
-                var clone = layer.clone();
-                clone.parent = destination;
-                children.push(clone);
-                if (hasConnectors.get(layer)) {
-                    EShapeConnectors.move(layer, clone);
-                }
-            }
-            destination.onChildTransformChange();
-            destination.toDirty();
-            destination.onAttach();
-        };
-        EShapeEmbeddedLayerContainer.prototype.deserialize = function (serializedLayers, manager) {
-            var serializedLayersLength = serializedLayers.length;
-            if (0 < serializedLayersLength) {
-                var width = this._width;
-                var height = this._height;
-                for (var i = 0; i < serializedLayersLength; ++i) {
-                    this.children.push(EShapeEmbeddedLayer.deserialize(serializedLayers[i], manager, width, height));
-                }
-            }
-        };
-        return EShapeEmbeddedLayerContainer;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeResourceManagerDeserialization = /** @class */ (function () {
-        function EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode) {
-            this.resources = serialized.resources;
-            this.data = serialized.data || serialized.tags || serialized.resources;
-            this.pieces = pieces;
-            this.pieceData = pieceData;
-            this.isEditMode = isEditMode;
-            this._actions = new Map();
-            this._fills = new Map();
-            this._strokes = new Map();
-            this._data = new Map();
-            this._dataValues = new Map();
-            this._ranges = new Map();
-            this._aligns = new Map();
-            this._margins = new Map();
-            this._texts = new Map();
-            this._textOutlines = new Map();
-            this._extensions = new Map();
-        }
-        EShapeResourceManagerDeserialization.prototype.getAction = function (id) {
-            return this._actions.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setAction = function (id, action) {
-            this._actions.set(id, action);
-        };
-        EShapeResourceManagerDeserialization.prototype.getFill = function (id) {
-            return this._fills.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setFill = function (id, fill) {
-            this._fills.set(id, fill);
-        };
-        EShapeResourceManagerDeserialization.prototype.getStroke = function (id) {
-            return this._strokes.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setStroke = function (id, stroke) {
-            this._strokes.set(id, stroke);
-        };
-        EShapeResourceManagerDeserialization.prototype.getData = function (id) {
-            return this._data.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setData = function (id, data) {
-            this._data.set(id, data);
-        };
-        EShapeResourceManagerDeserialization.prototype.getDataValue = function (id) {
-            return this._dataValues.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setDataValue = function (id, dataValue) {
-            this._dataValues.set(id, dataValue);
-        };
-        EShapeResourceManagerDeserialization.prototype.getRange = function (id) {
-            return this._ranges.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setRange = function (id, range) {
-            this._ranges.set(id, range);
-        };
-        EShapeResourceManagerDeserialization.prototype.getAlign = function (id) {
-            return this._aligns.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setAlign = function (id, align) {
-            this._aligns.set(id, align);
-        };
-        EShapeResourceManagerDeserialization.prototype.getMargin = function (id) {
-            return this._margins.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setMargin = function (id, margin) {
-            this._margins.set(id, margin);
-        };
-        EShapeResourceManagerDeserialization.prototype.getText = function (id) {
-            return this._texts.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setText = function (id, text) {
-            this._texts.set(id, text);
-        };
-        EShapeResourceManagerDeserialization.prototype.getTextOutline = function (id) {
-            return this._textOutlines.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setTextOutline = function (id, textOutline) {
-            this._textOutlines.set(id, textOutline);
-        };
-        EShapeResourceManagerDeserialization.prototype.getExtension = function (id) {
-            return this._extensions.get(id);
-        };
-        EShapeResourceManagerDeserialization.prototype.setExtension = function (id, extension) {
-            this._extensions.set(id, extension);
-        };
-        return EShapeResourceManagerDeserialization;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDiagrams = /** @class */ (function () {
-        function DDiagrams() {
-        }
-        DDiagrams.toSimple = function (serialized) {
-            return {
-                version: serialized.version,
-                id: serialized.id,
-                name: serialized.name,
-                thumbnail: serialized.thumbnail,
-                data: JSON.stringify({
-                    width: serialized.width,
-                    height: serialized.height,
-                    background: serialized.background,
-                    tile: serialized.tile,
-                    resources: serialized.resources,
-                    data: serialized.data || serialized.tags,
-                    pieces: serialized.pieces,
-                    layers: serialized.layers,
-                    items: serialized.items,
-                    snap: serialized.snap
-                })
-            };
-        };
-        DDiagrams.toSerialized = function (target) {
-            if (!("items" in target)) {
-                var data = JSON.parse(target.data);
-                var result = {
-                    version: target.version,
-                    id: target.id,
-                    name: target.name,
-                    width: data.width,
-                    height: data.height,
-                    background: data.background,
-                    tile: data.tile,
-                    resources: data.resources,
-                    data: data.data || data.tags,
-                    pieces: data.pieces,
-                    layers: data.layers,
-                    items: data.items,
-                    snap: data.snap,
-                    thumbnail: target.thumbnail
-                };
-                if (result.data == null) {
-                    var tags = target.tags;
-                    if (tags != null) {
-                        result.data = JSON.parse(tags);
-                    }
-                }
-                if (result.pieces == null) {
-                    var pieces = target.pieces;
-                    if (pieces != null) {
-                        result.pieces = JSON.parse(pieces);
-                    }
-                }
-                return result;
-            }
-            return target;
-        };
-        DDiagrams.newLayer = function (serialized, container, manager) {
-            // Layers
-            container.deserialize(serialized.layers, manager);
-            // Items
-            var serializedItems = serialized.items;
-            var shapePromises = deserializeAll(serializedItems, manager);
-            if (shapePromises != null) {
-                return shapePromises.then(function (shapes) {
-                    var layers = container.children;
-                    for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                        var serializedItem = serializedItems[i];
-                        var shape = shapes[i];
-                        var layer = layers[serializedItem[16]];
-                        if (layer != null) {
-                            shape.parent = layer;
-                            shape.uploaded = undefined;
-                            layer.children.push(shape);
-                        }
-                    }
-                    for (var i = 0, imax = layers.length; i < imax; ++i) {
-                        var layer = layers[i];
-                        layer.onChildTransformChange();
-                        layer.toDirty();
-                        var children = layer.children;
-                        for (var j = 0, jmax = children.length; j < jmax; ++j) {
-                            children[j].onAttach();
-                        }
-                    }
-                    return shapes;
-                });
-            }
-            else {
-                return Promise.resolve([]);
-            }
-        };
-        DDiagrams.toPieceData = function (controller, pieces, isEditMode) {
-            var result = new Map();
-            var onFulfilled = function () {
-                return result;
-            };
-            return this.toPieceData_(controller, pieces, result, isEditMode).then(onFulfilled, onFulfilled);
-        };
-        DDiagrams.toPieceData_ = function (controller, pieces, pieceData, isEditMode) {
-            var _this = this;
-            var promises = [];
-            if (pieces && 0 < pieces.length && controller) {
-                var _loop_1 = function (i, imax) {
-                    var piece = pieces[i];
-                    if (!pieceData.has(piece)) {
-                        pieceData.set(piece, null);
-                        promises.push(controller.piece.getByName(piece).then(function (found) {
-                            return _this.toPieceData__(controller, piece, found, isEditMode, pieceData);
-                        }, function () {
-                            return null;
-                        }));
-                    }
-                };
-                for (var i = 0, imax = pieces.length; i < imax; ++i) {
-                    _loop_1(i, imax);
-                }
-            }
-            return Promise.all(promises);
-        };
-        DDiagrams.toPieceData__ = function (controller, name, serializedOrSimple, isEditMode, pieceData) {
-            var _this = this;
-            var serialized = this.toSerialized(serializedOrSimple);
-            var width = serialized.width;
-            var height = serialized.height;
-            var container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
-            pieceData.set(name, new EShapeEmbeddedDatum(name, width, height, container));
-            var pieces = serialized.pieces;
-            return this.toPieceData_(controller, pieces, pieceData, isEditMode).then(function () {
-                return _this.newLayer(serialized, container, new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode));
-            });
-        };
-        return DDiagrams;
-    }());
-
-    var EShapeEmbeddeds = /** @class */ (function () {
-        function EShapeEmbeddeds() {
-        }
-        EShapeEmbeddeds.from = function (serializedOrSimple, controller, isEditMode) {
-            var _this = this;
-            var serialized = DDiagrams.toSerialized(serializedOrSimple);
-            var pieces = serialized.pieces;
-            return DDiagrams.toPieceData(controller, pieces, isEditMode).then(function (pieceData) {
-                return _this.from_(serialized, isEditMode, pieces, pieceData);
-            });
-        };
-        EShapeEmbeddeds.from_ = function (serialized, isEditMode, pieces, pieceData) {
-            var _this = this;
-            var width = serialized.width;
-            var height = serialized.height;
-            var container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
-            var manager = new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode);
-            return DDiagrams.newLayer(serialized, container, manager).then(function () {
-                return _this.create(serialized.name, width, height, container, manager);
-            });
-        };
-        EShapeEmbeddeds.create = function (name, width, height, container, manager) {
-            var shape = new EShapeEmbedded(name, manager.isEditMode);
-            shape.size.set(width, height);
-            container.copyTo(shape);
-            shape.size.init();
-            return shape;
-        };
-        return EShapeEmbeddeds;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeRectanglePivoted = /** @class */ (function (_super) {
-        __extends(EShapeRectanglePivoted, _super);
-        function EShapeRectanglePivoted(type) {
-            if (type === void 0) { type = EShapeType.RECTANGLE_PIVOTED; }
-            return _super.call(this, type) || this;
-        }
-        EShapeRectanglePivoted.prototype.toHitTestData = function (x, y) {
-            var result = _super.prototype.toHitTestData.call(this, x, y);
-            result.x -= result.width;
-            result.y -= result.height;
-            return result;
-        };
-        return EShapeRectanglePivoted;
-    }(EShapeRectangle));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toGradientImageUrl = function (gradient) {
-        var direction = gradient.direction;
-        var points = gradient.points;
-        var stops = "";
-        for (var i = 0, imax = points.length; i < imax; ++i) {
-            var point = points[i];
-            var color = UtilRgb.toCode(point.color);
-            var alpha = point.alpha;
-            var offset = point.position * 100;
-            stops += "<stop offset=\"".concat(offset, "%\" stop-color=\"#").concat(color, "\" stop-opacity=\"").concat(alpha, "\" />");
-        }
-        var radian = (direction * Math.PI) / 180;
-        var dx = 0.5 * Math.cos(radian);
-        var dy = -0.5 * Math.sin(radian);
-        var url = toSvgUrl(
-        /* eslint-disable prettier/prettier */
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\">" +
-            "<defs>" +
-            "<linearGradient id=\"o2glkm3aeu2oio\" x1=\"".concat(0.5 - dx, "\" x2=\"").concat(0.5 + dx, "\" y1=\"").concat(0.5 - dy, "\" y2=\"").concat(0.5 + dy, "\">") +
-            stops +
-            "</linearGradient>" +
-            "</defs>" +
-            "<rect x=\"0\" y=\"0\" width=\"32\" height=\"32\" stroke=\"none\" fill=\"url(#o2glkm3aeu2oio)\" />" +
-            "</svg>"
-        /* eslint-enable prettier/prettier */
-        );
-        return url;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toSizeRounded = function (value) {
-        return Math.round(value * 100) / 100;
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var toResized = function (shape, from, to, centerMode, isPerfect) {
-        shape.disallowUploadedUpdate();
-        var position = shape.transform.position;
-        if (centerMode) {
-            var dx = Math.abs(to.x - from.x);
-            var dy = Math.abs(to.y - from.y);
-            if (isPerfect) {
-                var hsize = Math.max(dx, dy);
-                var size = hsize + hsize;
-                shape.size.set(toSizeNormalized(size), toSizeNormalized(size));
-                position.set(toSizeRounded(from.x), toSizeRounded(from.y));
-            }
-            else {
-                shape.size.set(toSizeNormalized(dx + dx), toSizeNormalized(dy + dy));
-                position.set(toSizeRounded(from.x), toSizeRounded(from.y));
-            }
-        }
-        else {
-            if (isPerfect) {
-                var dx = to.x - from.x;
-                var dy = to.y - from.y;
-                var size = Math.max(Math.abs(dx), Math.abs(dy));
-                var x2 = from.x + (dx < 0 ? -size : +size);
-                var y2 = from.y + (dy < 0 ? -size : +size);
-                var hsize = size * 0.5;
-                var x = Math.min(from.x, x2) + hsize;
-                var y = Math.min(from.y, y2) + hsize;
-                shape.size.set(toSizeNormalized(size), toSizeNormalized(size));
-                position.set(toSizeRounded(x), toSizeRounded(y));
-            }
-            else {
-                var x0 = Math.min(from.x, to.x);
-                var y0 = Math.min(from.y, to.y);
-                var x1 = Math.max(from.x, to.x);
-                var y1 = Math.max(from.y, to.y);
-                var width = x1 - x0;
-                var height = y1 - y0;
-                var px = width * 0.5;
-                var py = height * 0.5;
-                shape.size.set(toSizeNormalized(width), toSizeNormalized(height));
-                position.set(toSizeRounded(x0 + px), toSizeRounded(y0 + py));
-            }
-        }
-        shape.allowUploadedUpdate();
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var deserializeRectanglePivoted = function (item, manager, shape) {
-        return deserializeBase(item, manager, shape || new EShapeRectanglePivoted());
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeRectanglePivoted = function () {
-        EShapeUploadeds[EShapeType.RECTANGLE_PIVOTED] = createRectanglePivotedUploaded;
-        EShapeDeserializers[EShapeType.RECTANGLE_PIVOTED] = deserializeRectanglePivoted;
-        EShapeCapabilities.set(EShapeType.RECTANGLE_PIVOTED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeRectangleRounded = function () {
-        EShapeUploadeds[EShapeType.RECTANGLE_ROUNDED] = createRectangleRoundedUploaded;
-        EShapeDeserializers[EShapeType.RECTANGLE_ROUNDED] = deserializeRectangleRounded;
-        EShapeCapabilities.set(EShapeType.RECTANGLE_ROUNDED, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE | EShapeCapability.BORDER_RADIUS);
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var loadShapeTriangle = function () {
-        EShapeUploadeds[EShapeType.TRIANGLE] = createTriangleUploaded;
-        EShapeDeserializers[EShapeType.TRIANGLE] = deserializeTriangle;
     };
 
     /*
@@ -40998,6 +39138,124 @@
         THIS_WINDOW: 1,
         NEW_WINDOW: 2
     };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var getSelection = function (element) {
+        var selection = document.getSelection();
+        if (selection) {
+            var range = document.createRange();
+            range.selectNodeContents(element);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+        return selection;
+    };
+    var toClipboardData = function (e) {
+        return e.clipboardData || window.clipboardData;
+    };
+    var copyUsingDiv = function (text) {
+        var div = document.createElement("div");
+        div.setAttribute("style", "-webkit-user-select: text !important");
+        div.textContent = "Dummy";
+        document.body.appendChild(div);
+        var selection = getSelection(div);
+        var result = false;
+        if (selection) {
+            var handler = function (e) {
+                if (e.target === div) {
+                    var clipboardData = toClipboardData(e);
+                    clipboardData.setData("text/plain", text);
+                    result = clipboardData.getData("text/plain") === text;
+                    e.preventDefault();
+                }
+            };
+            document.addEventListener("copy", handler);
+            try {
+                document.execCommand("copy");
+            }
+            finally {
+                document.removeEventListener("copy", handler);
+            }
+            selection.removeAllRanges();
+        }
+        document.body.removeChild(div);
+        return result;
+    };
+    var copyUsingSpan = function (text) {
+        var div = document.createElement("div");
+        div.setAttribute("style", "-webkit-user-select: text !important");
+        var span = document.createElement("span");
+        span.innerText = text;
+        var root = div.attachShadow ? div.attachShadow({ mode: "open" }) : div;
+        root.appendChild(span);
+        document.body.appendChild(div);
+        var result = false;
+        var selection = getSelection(div);
+        if (selection) {
+            result = document.execCommand("copy");
+            selection.removeAllRanges();
+        }
+        document.body.removeChild(div);
+        return result;
+    };
+    var copyUsingWindow = function (window, text) {
+        if (typeof ClipboardEvent === "undefined") {
+            var clipboardData = window.clipboardData;
+            if (typeof clipboardData !== "undefined" && typeof clipboardData.setData !== "undefined") {
+                clipboardData.setData("Text", text);
+                return true;
+            }
+        }
+        return false;
+    };
+    var UtilClipboard = /** @class */ (function (_super) {
+        __extends(UtilClipboard, _super);
+        function UtilClipboard() {
+            var _this = _super.call(this) || this;
+            var element = document.body;
+            element.addEventListener("copy", function (e) {
+                if (e.target === element) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _this.emit("copy", toClipboardData(e));
+                }
+            });
+            element.addEventListener("cut", function (e) {
+                if (e.target === element) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _this.emit("cut", toClipboardData(e));
+                }
+            });
+            element.addEventListener("paste", function (e) {
+                if (e.target === element) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _this.emit("paste", toClipboardData(e));
+                }
+            });
+            return _this;
+        }
+        UtilClipboard.copy = function (text) {
+            var clipboard = navigator.clipboard;
+            if (clipboard && clipboard.writeText) {
+                clipboard.writeText(text);
+            }
+            else {
+                if (!copyUsingWindow(window, text)) {
+                    if (!copyUsingDiv(text)) {
+                        if (navigator.userAgent.indexOf("Edge") < 0) {
+                            copyUsingSpan(text);
+                        }
+                    }
+                }
+            }
+        };
+        return UtilClipboard;
+    }(pixi_js.utils.EventEmitter));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -42291,6 +40549,835 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeActionValueMiscEmitEvent = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscEmitEvent, _super);
+        function EShapeActionValueMiscEmitEvent(condition, target) {
+            return _super.call(this, EShapeActionValueMiscType.EMIT_EVENT, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, "") || this;
+        }
+        return EShapeActionValueMiscEmitEvent;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscHtmlElement = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscHtmlElement, _super);
+        function EShapeActionValueMiscHtmlElement(subtype, when, initializer) {
+            return _super.call(this, subtype, when, "", EShapeActionValueOnInputAction.EMIT_EVENT, initializer) || this;
+        }
+        return EShapeActionValueMiscHtmlElement;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscInput = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscInput, _super);
+        function EShapeActionValueMiscInput(subtype, when, target, onInputAction) {
+            return _super.call(this, subtype, when, target, onInputAction, "") || this;
+        }
+        return EShapeActionValueMiscInput;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscWrite = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscWrite, _super);
+        function EShapeActionValueMiscWrite(subtype, condition, target, value) {
+            return _super.call(this, subtype, condition, target, EShapeActionValueOnInputAction.EMIT_EVENT, value) || this;
+        }
+        return EShapeActionValueMiscWrite;
+    }(EShapeActionValueMisc));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createImageSdf = function (dataUrl, convertToSdf) {
+        if (convertToSdf) {
+            return toImageElement(dataUrl).then(function (imageElement) {
+                var generator = DynamicSDFFontGenerator.getInstance().init();
+                generator.updateTexture(imageElement);
+                generator.render();
+                var canvas = document.createElement("canvas");
+                generator.read(canvas);
+                return createImageSdf(canvas.toDataURL(), false);
+            });
+        }
+        else {
+            return toImageElement(dataUrl).then(function (imageElement) {
+                return new EShapeImageSdf(imageElement);
+            });
+        }
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var createImage = function (dataUrl) {
+        return toImageElement(dataUrl).then(function (imageElement) {
+            return new EShapeImage(imageElement);
+        });
+    };
+
+    var createLine = function (points, segments, strokeWidth, pointsStyle) {
+        // Calculate the boundary
+        var boundary = toPointsBoundary(points, [0, 0, 0, 0]);
+        var cx = (boundary[2] + boundary[0]) * 0.5;
+        var cy = (boundary[3] + boundary[1]) * 0.5;
+        var sx = boundary[2] - boundary[0];
+        var sy = boundary[3] - boundary[1];
+        // Calculate values
+        var values = [];
+        for (var i = 0, imax = points.length; i < imax; i += 2) {
+            values.push(points[i] - cx, points[i + 1] - cy);
+        }
+        // Create a line
+        var result = new EShapeLine();
+        result.stroke.set(true, undefined, undefined, strokeWidth);
+        result.transform.position.set(cx, cy);
+        result.size.set(sx, sy);
+        result.points.set(values, segments, pointsStyle);
+        return result;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeUuidMappingImpl = /** @class */ (function () {
+        function EShapeUuidMappingImpl(shapes) {
+            this._shapes = shapes;
+        }
+        EShapeUuidMappingImpl.prototype.find = function (uuid) {
+            return this.getUuidToShape().get(uuid);
+        };
+        EShapeUuidMappingImpl.prototype.getUuidToShape = function () {
+            var result = this._uuidToShape;
+            if (result == null) {
+                result = this.newUuidToShape();
+                this._uuidToShape = result;
+            }
+            return result;
+        };
+        EShapeUuidMappingImpl.prototype.newUuidToShape = function () {
+            var result = new Map();
+            this.fillUuidToShape(this._shapes, result);
+            return result;
+        };
+        EShapeUuidMappingImpl.prototype.fillUuidToShape = function (shapes, result) {
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                var shape = shapes[i];
+                result.set(shape.uuid, shape);
+                var children = shape.children;
+                if (0 < children.length) {
+                    this.fillUuidToShape(children, result);
+                }
+            }
+        };
+        return EShapeUuidMappingImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var deserializeAll = function (serializeds, manager) {
+        var shapes = [];
+        for (var i = 0, imax = serializeds.length; i < imax; ++i) {
+            shapes.push(deserialize(serializeds[i], manager));
+        }
+        if (0 < shapes.length) {
+            return Promise.all(shapes).then(function (resolved) {
+                callOnDeserialized(serializeds, resolved, new EShapeUuidMappingImpl(resolved), manager);
+                return resolved;
+            });
+        }
+        return null;
+    };
+    var callOnDeserialized = function (serializeds, shapes, mapping, manager) {
+        for (var i = 0, imax = serializeds.length; i < imax; ++i) {
+            var serialized = serializeds[i];
+            var shape = shapes[i];
+            var onDeserialized = EShapeOnDeserializeds[serialized[0]];
+            if (onDeserialized) {
+                onDeserialized(serialized, shape, mapping, manager);
+            }
+            callOnDeserialized(serialized[20], shape.children, mapping, manager);
+        }
+    };
+
+    var EShapeEmbeddedDatum = /** @class */ (function () {
+        function EShapeEmbeddedDatum(name, width, height, layer) {
+            this.name = name;
+            this.width = width;
+            this.height = height;
+            this.layer = layer;
+        }
+        return EShapeEmbeddedDatum;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeConnectors = /** @class */ (function () {
+        function EShapeConnectors() {
+        }
+        EShapeConnectors.isConnector = function (target) {
+            return target != null && target.type === EShapeType.CONNECTOR_LINE;
+        };
+        EShapeConnectors.newMapping = function (sources, destinations, result) {
+            var _a;
+            if (result == null) {
+                result = (_a = EShapeConnectors._MAPPING) !== null && _a !== void 0 ? _a : (EShapeConnectors._MAPPING = new Map());
+                result.clear();
+            }
+            for (var i = 0, imax = sources.length; i < imax; ++i) {
+                var fromChild = sources[i];
+                var toChild = destinations[i];
+                result.set(fromChild, toChild);
+                this.newMapping(fromChild.children, toChild.children, result);
+            }
+            return result;
+        };
+        EShapeConnectors.moveAll = function (rootSources, rootDestinations, sources, destinations, mapping) {
+            for (var i = 0, imax = sources.length; i < imax; ++i) {
+                var source = sources[i];
+                var destination = destinations[i];
+                if (this.isConnector(source)) {
+                    if (this.isConnector(destination)) {
+                        var sourceEdge = source.edge;
+                        var destEdge = destination.edge;
+                        var sourceHead = sourceEdge.head;
+                        var sourceHeadShape = sourceHead.acceptor.shape;
+                        if (sourceHeadShape) {
+                            if (mapping == null) {
+                                mapping = this.newMapping(rootSources, rootDestinations);
+                            }
+                            var destHeadShape = mapping.get(sourceHeadShape);
+                            if (destHeadShape) {
+                                var destHead = destEdge.head;
+                                destHead.detach();
+                                destHead.set(destHeadShape);
+                                destHead.attach();
+                                destHeadShape.connector.remove(sourceHead);
+                            }
+                        }
+                        var sourceTail = sourceEdge.tail;
+                        var sourceTailShape = sourceTail.acceptor.shape;
+                        if (sourceTailShape) {
+                            if (mapping == null) {
+                                mapping = this.newMapping(rootSources, rootDestinations);
+                            }
+                            var destTailShape = mapping.get(sourceTailShape);
+                            if (destTailShape) {
+                                var destTail = destEdge.tail;
+                                destTail.detach();
+                                destTail.set(destTailShape);
+                                destTail.attach();
+                                destTailShape.connector.remove(sourceTail);
+                            }
+                        }
+                    }
+                }
+                mapping = this.moveAll(rootSources, rootDestinations, source.children, destination.children, mapping);
+            }
+            return mapping;
+        };
+        EShapeConnectors.move = function (from, to) {
+            var fromChildren = from.children;
+            var toChildren = to.children;
+            this.moveAll(fromChildren, toChildren, fromChildren, toChildren);
+        };
+        return EShapeConnectors;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeEmbeddedLayerContainer = /** @class */ (function () {
+        function EShapeEmbeddedLayerContainer(width, height, isEditMode) {
+            this.children = [];
+            this._width = width;
+            this._height = height;
+            this._isEditMode = isEditMode;
+        }
+        EShapeEmbeddedLayerContainer.prototype.hasConnectors = function (shapes) {
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                var shape = shapes[i];
+                if (shape.type === EShapeType.CONNECTOR_LINE) {
+                    return true;
+                }
+                var children = shape.children;
+                if (0 < children.length) {
+                    if (this.hasConnectors(children)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+        EShapeEmbeddedLayerContainer.prototype.newHasConnectors = function () {
+            var result = new Map();
+            var layers = this.children;
+            for (var i = 0, imax = layers.length; i < imax; ++i) {
+                var layer = layers[i];
+                result.set(layer, this.hasConnectors(layer.children));
+            }
+            return result;
+        };
+        EShapeEmbeddedLayerContainer.prototype.copyTo = function (destination) {
+            var _a;
+            var hasConnectors = ((_a = this._hasConnectors) !== null && _a !== void 0 ? _a : (this._hasConnectors = this.newHasConnectors()));
+            var layers = this.children;
+            var children = destination.children;
+            for (var i = 0, imax = layers.length; i < imax; ++i) {
+                var layer = layers[i];
+                var clone = layer.clone();
+                clone.parent = destination;
+                children.push(clone);
+                if (hasConnectors.get(layer)) {
+                    EShapeConnectors.move(layer, clone);
+                }
+            }
+            destination.onChildTransformChange();
+            destination.toDirty();
+            destination.onAttach();
+        };
+        EShapeEmbeddedLayerContainer.prototype.deserialize = function (serializedLayers, manager) {
+            var serializedLayersLength = serializedLayers.length;
+            if (0 < serializedLayersLength) {
+                var width = this._width;
+                var height = this._height;
+                for (var i = 0; i < serializedLayersLength; ++i) {
+                    this.children.push(EShapeEmbeddedLayer.deserialize(serializedLayers[i], manager, width, height));
+                }
+            }
+        };
+        return EShapeEmbeddedLayerContainer;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeDataMapperImpl = /** @class */ (function () {
+        function EShapeDataMapperImpl(source) {
+            var sources = this.newSources(source);
+            this._sources = sources;
+            this._sourceIndices = this.newSourceIndices(sources);
+            this._targetIndices = [];
+            this._targetIndicesLength = 0;
+        }
+        EShapeDataMapperImpl.prototype.map = function (value, destinations, initial) {
+            var sources = this._sources;
+            if (sources == null) {
+                return;
+            }
+            var valueId = value.id;
+            var target = valueId.toLowerCase();
+            this.calcTargetIndices(target);
+            var targetIndices = this._targetIndices;
+            var targetIndicesLength = this._targetIndicesLength;
+            var sourcesLength = sources.length;
+            if (sourcesLength + 1 !== targetIndicesLength) {
+                return;
+            }
+            for (var i = 0; i < sourcesLength; ++i) {
+                var source = sources[i];
+                var targetIndex0 = targetIndices[i];
+                var targetIndex1 = targetIndices[i + 1];
+                if (source !== EShapeDataMapperImpl.WILDCARD &&
+                    source !== target.substring(targetIndex0 + 1, targetIndex1)) {
+                    return;
+                }
+            }
+            // Destination
+            if (destinations != null) {
+                var id = this.newValueId(destinations, valueId, targetIndices);
+                if (id != null) {
+                    value.id = id;
+                }
+            }
+            // Initial
+            if (0 < initial.length) {
+                value.initial = initial;
+            }
+        };
+        EShapeDataMapperImpl.prototype.newSources = function (source) {
+            if (source == null || source.length <= 0) {
+                return null;
+            }
+            return source.toLowerCase().split(EShapeDataMapperImpl.SEPARATOR);
+        };
+        EShapeDataMapperImpl.prototype.newValueId = function (destinations, target, targetIndices) {
+            var result = "";
+            var delimiter = "";
+            var wildcard = EShapeDataMapperImpl.WILDCARD;
+            var separator = EShapeDataMapperImpl.SEPARATOR;
+            var sourceIndices = this._sourceIndices;
+            var sourceIndicesLength = sourceIndices.length;
+            var index = sourceIndicesLength;
+            for (var i = 0, imax = destinations.length; i < imax; ++i) {
+                var d = destinations[imax - 1 - i];
+                if (d === wildcard) {
+                    index -= 1;
+                    if (0 <= index) {
+                        var sourceIndex = sourceIndices[index];
+                        var targetIndex0 = targetIndices[sourceIndex];
+                        var targetIndex1 = targetIndices[sourceIndex + 1];
+                        result = target.substring(targetIndex0 + 1, targetIndex1) + delimiter + result;
+                    }
+                    else {
+                        return null;
+                    }
+                }
+                else {
+                    result = d + delimiter + result;
+                }
+                delimiter = separator;
+            }
+            return result;
+        };
+        EShapeDataMapperImpl.prototype.calcTargetIndices = function (target) {
+            var targetIndices = this._targetIndices;
+            var size = 1;
+            targetIndices[0] = -1;
+            var index0 = -1;
+            var index1 = -1;
+            while (0 <= (index1 = target.indexOf(EShapeDataMapperImpl.SEPARATOR, index0 + 1))) {
+                targetIndices[size] = index1;
+                index0 = index1;
+                size += 1;
+            }
+            targetIndices[size] = target.length;
+            size += 1;
+            this._targetIndicesLength = size;
+        };
+        EShapeDataMapperImpl.prototype.newSourceIndices = function (sources) {
+            var result = [];
+            if (sources != null) {
+                var wildcard = EShapeDataMapperImpl.WILDCARD;
+                for (var i = 0, imax = sources.length; i < imax; ++i) {
+                    var s = sources[i];
+                    if (s === wildcard) {
+                        result.push(i);
+                    }
+                }
+            }
+            return result;
+        };
+        EShapeDataMapperImpl.split = function (target) {
+            if (target == null || target.length <= 0) {
+                return null;
+            }
+            return target.split(this.SEPARATOR);
+        };
+        EShapeDataMapperImpl.SEPARATOR = ".";
+        EShapeDataMapperImpl.WILDCARD = "*";
+        return EShapeDataMapperImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeResourceManagerDeserialization = /** @class */ (function () {
+        function EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode) {
+            this.resources = serialized.resources;
+            this.data = serialized.data || serialized.tags || serialized.resources;
+            this.pieces = pieces;
+            this.pieceData = pieceData;
+            this.isEditMode = isEditMode;
+            this._actions = new Map();
+            this._fills = new Map();
+            this._strokes = new Map();
+            this._data = new Map();
+            this._dataValues = new Map();
+            this._dataMapping = new Map();
+            this._dataMappers = new Map();
+            this._dataDestinations = new Map();
+            this._ranges = new Map();
+            this._aligns = new Map();
+            this._margins = new Map();
+            this._texts = new Map();
+            this._textOutlines = new Map();
+            this._extensions = new Map();
+        }
+        EShapeResourceManagerDeserialization.prototype.getAction = function (id) {
+            return this._actions.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setAction = function (id, action) {
+            this._actions.set(id, action);
+        };
+        EShapeResourceManagerDeserialization.prototype.getFill = function (id) {
+            return this._fills.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setFill = function (id, fill) {
+            this._fills.set(id, fill);
+        };
+        EShapeResourceManagerDeserialization.prototype.getStroke = function (id) {
+            return this._strokes.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setStroke = function (id, stroke) {
+            this._strokes.set(id, stroke);
+        };
+        EShapeResourceManagerDeserialization.prototype.getData = function (id) {
+            return this._data.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setData = function (id, data) {
+            this._data.set(id, data);
+        };
+        EShapeResourceManagerDeserialization.prototype.getDataValue = function (id) {
+            return this._dataValues.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setDataValue = function (id, dataValue) {
+            this._dataValues.set(id, dataValue);
+        };
+        EShapeResourceManagerDeserialization.prototype.getDataMapping = function (id) {
+            return this._dataMapping.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setDataMapping = function (id, dataMapping) {
+            this._dataMapping.set(id, dataMapping);
+        };
+        EShapeResourceManagerDeserialization.prototype.getDataMapper = function (source) {
+            var dataMappers = this._dataMappers;
+            var result = dataMappers.get(source);
+            if (result === undefined) {
+                result = new EShapeDataMapperImpl(source);
+                dataMappers.set(source, result);
+            }
+            return result;
+        };
+        EShapeResourceManagerDeserialization.prototype.getDataDestination = function (destination) {
+            var dataDestinations = this._dataDestinations;
+            var result = dataDestinations.get(destination);
+            if (result === undefined) {
+                result = EShapeDataMapperImpl.split(destination);
+                dataDestinations.set(destination, result);
+            }
+            return result;
+        };
+        EShapeResourceManagerDeserialization.prototype.getRange = function (id) {
+            return this._ranges.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setRange = function (id, range) {
+            this._ranges.set(id, range);
+        };
+        EShapeResourceManagerDeserialization.prototype.getAlign = function (id) {
+            return this._aligns.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setAlign = function (id, align) {
+            this._aligns.set(id, align);
+        };
+        EShapeResourceManagerDeserialization.prototype.getMargin = function (id) {
+            return this._margins.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setMargin = function (id, margin) {
+            this._margins.set(id, margin);
+        };
+        EShapeResourceManagerDeserialization.prototype.getText = function (id) {
+            return this._texts.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setText = function (id, text) {
+            this._texts.set(id, text);
+        };
+        EShapeResourceManagerDeserialization.prototype.getTextOutline = function (id) {
+            return this._textOutlines.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setTextOutline = function (id, textOutline) {
+            this._textOutlines.set(id, textOutline);
+        };
+        EShapeResourceManagerDeserialization.prototype.getExtension = function (id) {
+            return this._extensions.get(id);
+        };
+        EShapeResourceManagerDeserialization.prototype.setExtension = function (id, extension) {
+            this._extensions.set(id, extension);
+        };
+        return EShapeResourceManagerDeserialization;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagrams = /** @class */ (function () {
+        function DDiagrams() {
+        }
+        DDiagrams.toSimple = function (serialized) {
+            return {
+                version: serialized.version,
+                id: serialized.id,
+                name: serialized.name,
+                thumbnail: serialized.thumbnail,
+                data: JSON.stringify({
+                    width: serialized.width,
+                    height: serialized.height,
+                    background: serialized.background,
+                    tile: serialized.tile,
+                    resources: serialized.resources,
+                    data: serialized.data || serialized.tags,
+                    pieces: serialized.pieces,
+                    layers: serialized.layers,
+                    items: serialized.items,
+                    snap: serialized.snap
+                })
+            };
+        };
+        DDiagrams.toSerialized = function (target) {
+            if (!("items" in target)) {
+                var data = JSON.parse(target.data);
+                var result = {
+                    version: target.version,
+                    id: target.id,
+                    name: target.name,
+                    width: data.width,
+                    height: data.height,
+                    background: data.background,
+                    tile: data.tile,
+                    resources: data.resources,
+                    data: data.data || data.tags,
+                    pieces: data.pieces,
+                    layers: data.layers,
+                    items: data.items,
+                    snap: data.snap,
+                    thumbnail: target.thumbnail
+                };
+                if (result.data == null) {
+                    var tags = target.tags;
+                    if (tags != null) {
+                        result.data = JSON.parse(tags);
+                    }
+                }
+                if (result.pieces == null) {
+                    var pieces = target.pieces;
+                    if (pieces != null) {
+                        result.pieces = JSON.parse(pieces);
+                    }
+                }
+                return result;
+            }
+            return target;
+        };
+        DDiagrams.newLayer = function (serialized, container, manager) {
+            // Layers
+            container.deserialize(serialized.layers, manager);
+            // Items
+            var serializedItems = serialized.items;
+            var shapePromises = deserializeAll(serializedItems, manager);
+            if (shapePromises != null) {
+                return shapePromises.then(function (shapes) {
+                    var layers = container.children;
+                    for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                        var serializedItem = serializedItems[i];
+                        var shape = shapes[i];
+                        var layer = layers[serializedItem[16]];
+                        if (layer != null) {
+                            shape.parent = layer;
+                            shape.uploaded = undefined;
+                            layer.children.push(shape);
+                        }
+                    }
+                    for (var i = 0, imax = layers.length; i < imax; ++i) {
+                        var layer = layers[i];
+                        layer.onChildTransformChange();
+                        layer.toDirty();
+                        var children = layer.children;
+                        for (var j = 0, jmax = children.length; j < jmax; ++j) {
+                            children[j].onAttach();
+                        }
+                    }
+                    return shapes;
+                });
+            }
+            else {
+                return Promise.resolve([]);
+            }
+        };
+        DDiagrams.toPieceData = function (controller, pieces, isEditMode) {
+            var result = new Map();
+            var onFulfilled = function () {
+                return result;
+            };
+            return this.toPieceData_(controller, pieces, result, isEditMode).then(onFulfilled, onFulfilled);
+        };
+        DDiagrams.toPieceData_ = function (controller, pieces, pieceData, isEditMode) {
+            var _this = this;
+            var promises = [];
+            if (pieces && 0 < pieces.length && controller) {
+                var _loop_1 = function (i, imax) {
+                    var piece = pieces[i];
+                    if (!pieceData.has(piece)) {
+                        pieceData.set(piece, null);
+                        promises.push(controller.piece.getByName(piece).then(function (found) {
+                            return _this.toPieceData__(controller, piece, found, isEditMode, pieceData);
+                        }, function () {
+                            return null;
+                        }));
+                    }
+                };
+                for (var i = 0, imax = pieces.length; i < imax; ++i) {
+                    _loop_1(i, imax);
+                }
+            }
+            return Promise.all(promises);
+        };
+        DDiagrams.toPieceData__ = function (controller, name, serializedOrSimple, isEditMode, pieceData) {
+            var _this = this;
+            var serialized = this.toSerialized(serializedOrSimple);
+            var width = serialized.width;
+            var height = serialized.height;
+            var container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
+            pieceData.set(name, new EShapeEmbeddedDatum(name, width, height, container));
+            var pieces = serialized.pieces;
+            return this.toPieceData_(controller, pieces, pieceData, isEditMode).then(function () {
+                return _this.newLayer(serialized, container, new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode));
+            });
+        };
+        return DDiagrams;
+    }());
+
+    var EShapeEmbeddeds = /** @class */ (function () {
+        function EShapeEmbeddeds() {
+        }
+        EShapeEmbeddeds.from = function (serializedOrSimple, controller, isEditMode) {
+            var _this = this;
+            var serialized = DDiagrams.toSerialized(serializedOrSimple);
+            var pieces = serialized.pieces;
+            return DDiagrams.toPieceData(controller, pieces, isEditMode).then(function (pieceData) {
+                return _this.from_(serialized, isEditMode, pieces, pieceData);
+            });
+        };
+        EShapeEmbeddeds.from_ = function (serialized, isEditMode, pieces, pieceData) {
+            var _this = this;
+            var width = serialized.width;
+            var height = serialized.height;
+            var container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
+            var manager = new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode);
+            return DDiagrams.newLayer(serialized, container, manager).then(function () {
+                return _this.create(serialized.name, width, height, container, manager);
+            });
+        };
+        EShapeEmbeddeds.create = function (name, width, height, container, manager) {
+            var shape = new EShapeEmbedded(name, manager.isEditMode);
+            shape.size.set(width, height);
+            container.copyTo(shape);
+            shape.size.init();
+            return shape;
+        };
+        return EShapeEmbeddeds;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSvgUrl = function (svg) {
+        return "data:image/svg+xml;base64,".concat(btoa(svg));
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toGradientImageUrl = function (gradient) {
+        var direction = gradient.direction;
+        var points = gradient.points;
+        var stops = "";
+        for (var i = 0, imax = points.length; i < imax; ++i) {
+            var point = points[i];
+            var color = UtilRgb.toCode(point.color);
+            var alpha = point.alpha;
+            var offset = point.position * 100;
+            stops += "<stop offset=\"".concat(offset, "%\" stop-color=\"#").concat(color, "\" stop-opacity=\"").concat(alpha, "\" />");
+        }
+        var radian = (direction * Math.PI) / 180;
+        var dx = 0.5 * Math.cos(radian);
+        var dy = -0.5 * Math.sin(radian);
+        var url = toSvgUrl(
+        /* eslint-disable prettier/prettier */
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\">" +
+            "<defs>" +
+            "<linearGradient id=\"o2glkm3aeu2oio\" x1=\"".concat(0.5 - dx, "\" x2=\"").concat(0.5 + dx, "\" y1=\"").concat(0.5 - dy, "\" y2=\"").concat(0.5 + dy, "\">") +
+            stops +
+            "</linearGradient>" +
+            "</defs>" +
+            "<rect x=\"0\" y=\"0\" width=\"32\" height=\"32\" stroke=\"none\" fill=\"url(#o2glkm3aeu2oio)\" />" +
+            "</svg>"
+        /* eslint-enable prettier/prettier */
+        );
+        return url;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSizeRounded = function (value) {
+        return Math.round(value * 100) / 100;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toResized = function (shape, from, to, centerMode, isPerfect) {
+        shape.disallowUploadedUpdate();
+        var position = shape.transform.position;
+        if (centerMode) {
+            var dx = Math.abs(to.x - from.x);
+            var dy = Math.abs(to.y - from.y);
+            if (isPerfect) {
+                var hsize = Math.max(dx, dy);
+                var size = hsize + hsize;
+                shape.size.set(toSizeNormalized(size), toSizeNormalized(size));
+                position.set(toSizeRounded(from.x), toSizeRounded(from.y));
+            }
+            else {
+                shape.size.set(toSizeNormalized(dx + dx), toSizeNormalized(dy + dy));
+                position.set(toSizeRounded(from.x), toSizeRounded(from.y));
+            }
+        }
+        else {
+            if (isPerfect) {
+                var dx = to.x - from.x;
+                var dy = to.y - from.y;
+                var size = Math.max(Math.abs(dx), Math.abs(dy));
+                var x2 = from.x + (dx < 0 ? -size : +size);
+                var y2 = from.y + (dy < 0 ? -size : +size);
+                var hsize = size * 0.5;
+                var x = Math.min(from.x, x2) + hsize;
+                var y = Math.min(from.y, y2) + hsize;
+                shape.size.set(toSizeNormalized(size), toSizeNormalized(size));
+                position.set(toSizeRounded(x), toSizeRounded(y));
+            }
+            else {
+                var x0 = Math.min(from.x, to.x);
+                var y0 = Math.min(from.y, to.y);
+                var x1 = Math.max(from.x, to.x);
+                var y1 = Math.max(from.y, to.y);
+                var width = x1 - x0;
+                var height = y1 - y0;
+                var px = width * 0.5;
+                var py = height * 0.5;
+                shape.size.set(toSizeNormalized(width), toSizeNormalized(height));
+                position.set(toSizeRounded(x0 + px), toSizeRounded(y0 + py));
+            }
+        }
+        shape.allowUploadedUpdate();
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     /**
      * {@link EShape} search utility.
      */
@@ -43397,6 +42484,1420 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DynamicAtlasItemText = /** @class */ (function (_super) {
+        __extends(DynamicAtlasItemText, _super);
+        function DynamicAtlasItemText(id, text, baseTexture) {
+            var _this = _super.call(this, id, text.width, text.height, 0, baseTexture) || this;
+            _this._text = text;
+            return _this;
+        }
+        DynamicAtlasItemText.prototype.render = function (context) {
+            var frame = this.frame;
+            context.drawImage(this._text.canvas, frame.x, frame.y, frame.width, frame.height);
+        };
+        return DynamicAtlasItemText;
+    }(DynamicAtlasItem));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilFont = /** @class */ (function () {
+        function UtilFont() {
+        }
+        UtilFont.measure = function (font) {
+            var results = this._results;
+            if (results == null) {
+                results = new Map();
+                this._results = results;
+            }
+            var result = results.get(font);
+            if (result != null) {
+                return result;
+            }
+            var span = this._span;
+            if (span == null) {
+                span = document.createElement("span");
+                span.innerText = "|ÉqÅ";
+                span.style.border = "none";
+                span.style.margin = "0px";
+                this._span = span;
+            }
+            var block = this._block;
+            if (block == null) {
+                block = document.createElement("div");
+                block.style.display = "inline-block";
+                block.style.width = "0px";
+                block.style.height = "0px";
+                block.style.border = "none";
+                block.style.margin = "0px";
+                block.style.verticalAlign = "baseline";
+                this._block = block;
+            }
+            var div = this._div;
+            if (div == null) {
+                div = document.createElement("div");
+                div.style.position = "absolute";
+                div.style.padding = "0px";
+                div.style.margin = "0px";
+                div.style.visibility = "hidden";
+                div.appendChild(span);
+                div.appendChild(block);
+                document.body.appendChild(div);
+                this._div = div;
+            }
+            span.style.font = font;
+            var blockRect = block.getBoundingClientRect();
+            var blockRectTop = blockRect.top;
+            var spanRect = span.getBoundingClientRect();
+            var ascent = blockRectTop - spanRect.top;
+            var descent = spanRect.bottom - blockRectTop;
+            result = {
+                ascent: ascent,
+                descent: descent
+            };
+            results.set(font, result);
+            return result;
+        };
+        return UtilFont;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlasFont = /** @class */ (function () {
+        function DynamicFontAtlasFont(fontId, size, color, padding) {
+            this.id = fontId;
+            this.size = size;
+            this.color = pixi_js.utils.hex2string(color);
+            this.height = size + padding * 2;
+            var metrics = UtilFont.measure(fontId);
+            this.ascent = metrics.ascent;
+            this.descent = metrics.descent;
+        }
+        return DynamicFontAtlasFont;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DynamicFontAtlas = /** @class */ (function () {
+        function DynamicFontAtlas(fontId, fontSize, fontColor, resolution) {
+            this._id = fontId;
+            this._canvas = document.createElement("canvas");
+            this._context = null;
+            var padding = this.toPadding(fontSize);
+            this._padding = padding;
+            this._font = new DynamicFontAtlasFont(fontId, fontSize, fontColor, padding);
+            this._characters = {};
+            this._length = 0;
+            this._unrefCount = 0;
+            this._width = 1;
+            this._height = 1;
+            this._revision = 0;
+            this._revisionUpdated = 0;
+            this._texture = pixi_js.Texture.from(this._canvas, {
+                mipmap: pixi_js.MIPMAP_MODES.OFF,
+                resolution: resolution,
+                scaleMode: pixi_js.SCALE_MODES.NEAREST
+            });
+            var characters = this._characters;
+            this.add_(" ", " ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+            this.add_("\t", "    ", characters, DynamicFontAtlasCharacterType.SPACE_R);
+            this.add_("...", "...", characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+            for (var i = 0, imax = ASCII_CHARACTERS.length; i < imax; ++i) {
+                var char = ASCII_CHARACTERS[i];
+                this.add_(char, char, characters, DynamicFontAtlasCharacterType.LETTER_RNB);
+            }
+        }
+        DynamicFontAtlas.prototype.toPadding = function (fontSize) {
+            return Math.max(3, Math.ceil(fontSize * 0.2));
+        };
+        Object.defineProperty(DynamicFontAtlas.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "font", {
+            get: function () {
+                return this._font;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "height", {
+            get: function () {
+                return this._height;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "canvas", {
+            get: function () {
+                return this._canvas;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "characters", {
+            get: function () {
+                return this._characters;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DynamicFontAtlas.prototype, "texture", {
+            get: function () {
+                return this._texture;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicFontAtlas.prototype.add_ = function (id, character, characters, type) {
+            if (!this.isIgnored(character)) {
+                var data = characters[id];
+                if (data != null) {
+                    if (!(data.type & DynamicFontAtlasCharacterType.RESERVED)) {
+                        if (data.ref === 0) {
+                            this._unrefCount -= 1;
+                        }
+                        data.ref += 1;
+                    }
+                }
+                else {
+                    var advance = this.getAdvance(character);
+                    var padding = this._padding;
+                    var width = Math.ceil(padding + advance + padding);
+                    var height = this.font.height;
+                    characters[id] = new DynamicFontAtlasCharacter(character, advance, width, height, type);
+                    this._length += 1;
+                    this._revision += 1;
+                }
+            }
+        };
+        DynamicFontAtlas.prototype.isIgnored = function (character) {
+            switch (character) {
+                case "\n": // Line feed
+                    return true;
+                case "\r": // Carriage return
+                    return true;
+                case "\v": // Vertical tab
+                    return true;
+                case "\f": // Form feed
+                    return true;
+                case "\u0085": // Next line
+                    return true;
+            }
+            return false;
+        };
+        DynamicFontAtlas.prototype.remove_ = function (id, characters) {
+            var data = characters[id];
+            if (data != null) {
+                if (!(data.type & DynamicFontAtlasCharacterType.RESERVED) && 0 < data.ref) {
+                    data.ref -= 1;
+                    if (data.ref === 0) {
+                        this._unrefCount += 1;
+                    }
+                }
+            }
+        };
+        DynamicFontAtlas.prototype.cleanup_ = function () {
+            if (this._length >> 1 <= this._unrefCount) {
+                var characters = this._characters;
+                for (var character in characters) {
+                    if (characters[character].ref <= 0) {
+                        delete characters[character];
+                    }
+                }
+                this._length -= this._unrefCount;
+                this._revision += 1;
+                this._unrefCount = 0;
+            }
+        };
+        DynamicFontAtlas.prototype.add = function (targets, type) {
+            if (type === void 0) { type = DynamicFontAtlasCharacterType.LETTER; }
+            var characters = this._characters;
+            var iterator = UtilCharacterIterator.from(targets);
+            while (iterator.hasNext()) {
+                var character = iterator.next();
+                this.add_(character, character, characters, type);
+            }
+        };
+        DynamicFontAtlas.prototype.remove = function (targets) {
+            var characters = this._characters;
+            var iterator = UtilCharacterIterator.from(targets);
+            while (iterator.hasNext()) {
+                this.remove_(iterator.next(), characters);
+            }
+        };
+        DynamicFontAtlas.prototype.get = function (id) {
+            return this._characters[id];
+        };
+        DynamicFontAtlas.prototype.getAdvance = function (target) {
+            var context = this.getContext();
+            if (context != null) {
+                return context.measureText(target).width;
+            }
+            return 0;
+        };
+        DynamicFontAtlas.prototype.getContext = function () {
+            var context = this._context;
+            if (context == null) {
+                var canvas = this._canvas;
+                if (canvas != null) {
+                    context = this._context = canvas.getContext("2d", { alpha: true });
+                    if (context == null) {
+                        return null;
+                    }
+                }
+                else {
+                    return null;
+                }
+            }
+            var font = this._font;
+            if (context.font !== font.id) {
+                context.font = font.id;
+                font.id = context.font;
+                context.textAlign = "left";
+                context.textBaseline = "alphabetic";
+                context.lineWidth = 0;
+                context.lineCap = "round";
+                context.lineJoin = "miter";
+                context.miterLimit = 0;
+                context.fillStyle = font.color;
+                context.strokeStyle = "#0000ff";
+            }
+            return context;
+        };
+        DynamicFontAtlas.prototype.update = function () {
+            this.cleanup_();
+            if (this._revisionUpdated < this._revision) {
+                this._revisionUpdated = this._revision;
+                var canvas = this._canvas;
+                if (canvas != null) {
+                    var font = this._font;
+                    var fontHeight = font.height;
+                    var characters = this._characters;
+                    var width = (this._width = this.toPowerOf2(Math.ceil(Math.sqrt(this._length)) * fontHeight));
+                    var offsetX = this._padding;
+                    var offsetY = Math.round((fontHeight - (font.ascent + font.descent)) * 0.5 + font.ascent);
+                    var x = 0;
+                    var y = 0;
+                    for (var key in characters) {
+                        var character = characters[key];
+                        if (width <= x + character.width) {
+                            x = 0;
+                            y += fontHeight;
+                        }
+                        character.x = x;
+                        character.y = y;
+                        character.origin.x = x + offsetX;
+                        character.origin.y = y + offsetY;
+                        x += character.width;
+                    }
+                    var height = (this._height = y + fontHeight);
+                    // Make a input canvas
+                    // Here, we need to reset the context because
+                    // context settings will be lost when we set the width/height.
+                    var baseTexture = this._texture.baseTexture;
+                    var resolution = baseTexture.resolution;
+                    var realWidth = Math.ceil(width * resolution);
+                    var realHeight = Math.ceil(height * resolution);
+                    canvas.width = realWidth;
+                    canvas.height = realHeight;
+                    var context = this.getContext();
+                    if (context != null) {
+                        context.save();
+                        context.scale(resolution, resolution);
+                        context.clearRect(0, 0, width, height);
+                        for (var key in characters) {
+                            var character = characters[key];
+                            context.fillText(key, character.origin.x, character.origin.y);
+                        }
+                        context.restore();
+                    }
+                    baseTexture.setRealSize(realWidth, realHeight);
+                    return true;
+                }
+            }
+            return false;
+        };
+        DynamicFontAtlas.prototype.getRevision = function () {
+            return this._revision;
+        };
+        DynamicFontAtlas.prototype.getRevisionUpdate = function () {
+            return this._revisionUpdated;
+        };
+        Object.defineProperty(DynamicFontAtlas.prototype, "length", {
+            get: function () {
+                return this._length;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DynamicFontAtlas.prototype.destroy = function () {
+            var canvas = this._canvas;
+            if (canvas != null) {
+                this._canvas = null;
+            }
+            var characters = this._characters;
+            for (var character in characters) {
+                delete characters[character];
+            }
+        };
+        DynamicFontAtlas.prototype.toPowerOf2 = function (size) {
+            var result = 32;
+            while (result < size) {
+                result <<= 1;
+            }
+            return result;
+        };
+        return DynamicFontAtlas;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var update = function (atlas) {
+        atlas.update();
+    };
+    var updateAll = function (colorToAltas) {
+        colorToAltas.forEach(update);
+    };
+    var destroy = function (atlas) {
+        atlas.update();
+    };
+    var destroyAll = function (colorToAltas) {
+        colorToAltas.forEach(destroy);
+    };
+    var DynamicFontAtlases = /** @class */ (function () {
+        function DynamicFontAtlases(layer) {
+            var _this = this;
+            this._atlases = new Map();
+            this._resolution = layer.renderer.resolution;
+            layer.renderer.on("prerender", function () {
+                _this.update();
+            });
+        }
+        DynamicFontAtlases.prototype.add = function (fontId, fontSize, fontColor, targets) {
+            var atlases = this._atlases;
+            var colorToAtlas = atlases.get(fontId);
+            if (colorToAtlas == null) {
+                colorToAtlas = new Map();
+                atlases.set(fontId, colorToAtlas);
+            }
+            var atlas = colorToAtlas.get(fontColor);
+            if (atlas == null) {
+                atlas = new DynamicFontAtlas(fontId, fontSize, fontColor, this._resolution);
+                colorToAtlas.set(fontColor, atlas);
+            }
+            atlas.add(targets);
+        };
+        DynamicFontAtlases.prototype.remove = function (fontId, fontColor, targets) {
+            var colorToAtlas = this._atlases.get(fontId);
+            if (colorToAtlas != null) {
+                var atlas = colorToAtlas.get(fontColor);
+                if (atlas != null) {
+                    atlas.remove(targets);
+                }
+            }
+        };
+        DynamicFontAtlases.prototype.get = function (fontId, fontColor) {
+            var atlases = this._atlases;
+            var colorToAtlas = atlases.get(fontId);
+            if (colorToAtlas == null) {
+                return null;
+            }
+            var atlas = colorToAtlas.get(fontColor);
+            if (atlas == null) {
+                return null;
+            }
+            return atlas;
+        };
+        DynamicFontAtlases.prototype.update = function () {
+            this._atlases.forEach(updateAll);
+        };
+        DynamicFontAtlases.prototype.destroy = function () {
+            var atlases = this._atlases;
+            atlases.forEach(destroyAll);
+            atlases.clear();
+        };
+        return DynamicFontAtlases;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var Lazy = /** @class */ (function () {
+        function Lazy(newInstance, options, base) {
+            var _this = this;
+            this.instance = null;
+            this.newInstance = newInstance;
+            this.options = options;
+            if (base != null) {
+                if (base.state.isActive) {
+                    setTimeout(function () {
+                        _this.get();
+                    }, 0);
+                }
+                base.on("active", function () {
+                    _this.get();
+                });
+            }
+        }
+        Lazy.prototype.get = function () {
+            var result = this.instance;
+            if (result == null) {
+                result = new this.newInstance(this.options);
+                this.instance = result;
+            }
+            return result;
+        };
+        return Lazy;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * Returns a ceiling index of the given value.
+     * The array must be sorted in an ascending order.
+     *
+     * @param array an array sorted in an ascending order
+     * @param value a value to be searched
+     * @returns a ceiling index of the given value
+     */
+    var toCeilingIndex = function (array, value, size, offset) {
+        var i0 = 0;
+        var i1 = Math.floor(array.length / size) - 1;
+        while (i0 <= i1) {
+            var i2 = i0 + ((i1 - i0) >> 1);
+            var v2 = array[i2 * size + offset];
+            if (value < v2) {
+                i1 = i2 - 1;
+            }
+            else if (v2 < value) {
+                i0 = i2 + 1;
+            }
+            else {
+                return i2;
+            }
+        }
+        return Math.max(i0, i1);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toLabel$1 = function (target) {
+        if (target != null) {
+            if (isString(target)) {
+                return target;
+            }
+            else if (isNumber(target)) {
+                return String(target);
+            }
+            else if ("name" in target) {
+                return target.name;
+            }
+            else if ("label" in target) {
+                return target.label;
+            }
+            else if ("id" in target) {
+                return target.id;
+            }
+        }
+        return "";
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toString = function (value) {
+        return value != null ? String(value) : "";
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toSvgTexture = function (svg, resolution) {
+        return pixi_js.Texture.from(toSvgUrl(svg), {
+            resolution: resolution
+        });
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilSvgAtlasBuilder = /** @class */ (function () {
+        function UtilSvgAtlasBuilder(width, ratio, margin) {
+            this._width = width;
+            this._ratio = ratio;
+            this._margin = margin;
+            this._frames = {};
+            this._svg = "";
+            this._nextX = 0;
+            this._nextY = 0;
+            this._height = 0;
+        }
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "width", {
+            get: function () {
+                return this._width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "ratio", {
+            get: function () {
+                return this._ratio;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "margin", {
+            get: function () {
+                return this._margin;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilSvgAtlasBuilder.prototype.add = function (name, width, height, path) {
+            var frames = this._frames;
+            if (!(name in frames)) {
+                // Position
+                var margin = this._margin;
+                var x = this._nextX;
+                var y = this._nextY;
+                if (this._width <= x + width) {
+                    x = 0;
+                    y = this._nextY + this._height + margin;
+                    this._height = height;
+                    this._nextY = y;
+                }
+                else {
+                    this._height = Math.max(this._height, height);
+                }
+                this._nextX = x + width + margin;
+                // Frame
+                frames[name] = new pixi_js.Rectangle(x, y, width, height);
+                // Svg
+                var ratio = this._ratio;
+                this._svg += "<g transform=\"translate(".concat(x * ratio, ",").concat(y * ratio, ")\">").concat(path, "</g>");
+                return true;
+            }
+            return false;
+        };
+        UtilSvgAtlasBuilder.prototype.has = function (name) {
+            return name in this._frames;
+        };
+        Object.defineProperty(UtilSvgAtlasBuilder.prototype, "mappings", {
+            get: function () {
+                return this.build();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilSvgAtlasBuilder.prototype.build = function (options) {
+            var _a, _b, _c;
+            var built = this._built;
+            if (built == null || (options === null || options === void 0 ? void 0 : options.force)) {
+                var resolution = (_b = (_a = options === null || options === void 0 ? void 0 : options.resolution) !== null && _a !== void 0 ? _a : window.devicePixelRatio) !== null && _b !== void 0 ? _b : 1;
+                var width = this._width;
+                var height = Math.pow(2, Math.ceil(Math.log(this._nextY + this._height) / Math.LN2));
+                var realWidth = width * resolution;
+                var realHeight = height * resolution;
+                var ratio = this._ratio;
+                var attrWidth = "width=\"".concat(realWidth, "\"");
+                var attrHeight = "height=\"".concat(realHeight, "\"");
+                var attrViewBox = "viewBox=\"0 0 ".concat(width * ratio, " ").concat(height * ratio, "\"");
+                var attrXmlns = "xmlns=\"http://www.w3.org/2000/svg\"";
+                var url = toSvgUrl("<svg ".concat(attrWidth, " ").concat(attrHeight, " ").concat(attrViewBox, " ").concat(attrXmlns, ">").concat(this._svg, "</svg>"));
+                var scaleMode = (_c = options === null || options === void 0 ? void 0 : options.scaling) !== null && _c !== void 0 ? _c : pixi_js.SCALE_MODES.NEAREST;
+                var baseTexture = pixi_js.BaseTexture.from(url, {
+                    resolution: resolution,
+                    scaleMode: scaleMode
+                });
+                var frames_1 = this._frames;
+                built = this._built = {};
+                for (var name_1 in frames_1) {
+                    built[name_1] = new pixi_js.Texture(baseTexture, frames_1[name_1]);
+                }
+            }
+            return built;
+        };
+        return UtilSvgAtlasBuilder;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilExtractor = /** @class */ (function () {
+        function UtilExtractor() {
+        }
+        UtilExtractor.toTexture = function (target, resolution, clear, skipUpdateTransform) {
+            var scale = target.transform.scale;
+            var result = pixi_js.RenderTexture.create({
+                width: target.width * scale.x,
+                height: target.height * scale.y,
+                scaleMode: pixi_js.SCALE_MODES.LINEAR,
+                resolution: resolution
+            });
+            var matrix = new pixi_js.Matrix(undefined, undefined, undefined, undefined, -target.position.x, -target.position.y);
+            var layer = DApplications.getLayer(target);
+            if (layer) {
+                layer.renderer.render(target, result, clear, matrix, skipUpdateTransform);
+            }
+            return result;
+        };
+        UtilExtractor.toPixels = function (renderTexture, renderer) {
+            var resolution = renderTexture.resolution;
+            var frame = renderTexture.frame;
+            var width = Math.floor(frame.width * resolution);
+            var height = Math.floor(frame.height * resolution);
+            var pixels = new Uint8Array(4 * width * height);
+            renderer.renderTexture.bind(renderTexture);
+            var gl = renderer.gl;
+            gl.readPixels(frame.x * resolution, frame.y * resolution, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+            return {
+                width: width,
+                height: height,
+                array: pixels
+            };
+        };
+        UtilExtractor.toCanvas = function (pixels, scale, ignorePremutipliedAlpha) {
+            var width = pixels.width;
+            var height = pixels.height;
+            var array = pixels.array;
+            var canvasRenderTarget = new pixi_js.utils.CanvasRenderTarget(width, height, 1);
+            var imageData = canvasRenderTarget.context.getImageData(0, 0, width, height);
+            if (ignorePremutipliedAlpha) {
+                imageData.data.set(array);
+            }
+            else {
+                pixi_js.Extract.arrayPostDivide(array, imageData.data);
+            }
+            canvasRenderTarget.context.putImageData(imageData, 0, 0);
+            // Scale down
+            if (scale != null && scale !== 1) {
+                canvasRenderTarget.context.scale(scale, scale);
+                canvasRenderTarget.context.drawImage(canvasRenderTarget.canvas, 0, 0);
+                var scaledWidth = Math.floor(width * scale);
+                var scaledHeight = Math.floor(height * scale);
+                var scaledImageData = canvasRenderTarget.context.getImageData(0, 0, scaledWidth, scaledHeight);
+                canvasRenderTarget.resize(scaledWidth, scaledHeight);
+                canvasRenderTarget.context.putImageData(scaledImageData, 0, 0);
+            }
+            return canvasRenderTarget;
+        };
+        UtilExtractor.toBase64 = function (canvas, format, quality) {
+            return canvas.toDataURL(format, quality);
+        };
+        return UtilExtractor;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilFileDownloader = /** @class */ (function () {
+        function UtilFileDownloader() {
+        }
+        /**
+         * Downloads a file of the given name and URL.
+         *
+         * @param filename a file name
+         * @param url a file URL
+         */
+        UtilFileDownloader.downloadUrl = function (filename, url) {
+            var a = document.createElement("a");
+            if ("download" in a) {
+                a.href = url;
+                a.setAttribute("download", filename);
+                a.style.display = "none";
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function () {
+                    document.body.removeChild(a);
+                }, 66);
+            }
+            else {
+                if (!window.open(url)) {
+                    location.href = url;
+                }
+            }
+        };
+        /**
+         * Downloads a file of the given name with the given contents.
+         *
+         * @param filename a file name
+         * @param contents file contents
+         * @param insertBom false to stop the BOM insertion
+         */
+        UtilFileDownloader.download = function (filename, contents, insertBom) {
+            var blob = new Blob(insertBom !== false ? ["\ufeff", contents] : [contents], {
+                type: "text/plain"
+            });
+            var navigator = window.navigator;
+            if ("msSaveBlob" in navigator) {
+                // IE10 and 11
+                navigator.msSaveBlob(blob, filename);
+            }
+            else {
+                this.downloadUrl(filename, URL.createObjectURL(blob));
+            }
+        };
+        return UtilFileDownloader;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var toResolution = function (options) {
+        var _a;
+        var target = options.target;
+        var resolution = options.resolution;
+        if (resolution != null) {
+            if (isNumber(resolution)) {
+                return resolution;
+            }
+            else {
+                var scale = target.transform.scale;
+                var size = Math.max(target.width * scale.x, target.height * scale.y);
+                return Math.min(1, resolution.size / size);
+            }
+        }
+        else {
+            return (_a = window.devicePixelRatio) !== null && _a !== void 0 ? _a : 1;
+        }
+    };
+    var toScale = function (pixels, options) {
+        var scale = options.scale;
+        if (scale != null) {
+            if (isNumber(scale)) {
+                return scale;
+            }
+            else {
+                var size = scale.size;
+                return Math.min(1, size / pixels.width, size / pixels.height);
+            }
+        }
+    };
+    var toRenderer = function (options) {
+        var renderer = options.renderer;
+        if (renderer) {
+            return renderer;
+        }
+        var application = options.application;
+        if (application) {
+            return application.getLayerBase().renderer;
+        }
+        var layer = options.layer || DApplications.getLayer(options.target);
+        if (layer) {
+            return layer.renderer;
+        }
+        throw new Error("No renderer / application / layer found.");
+    };
+    var UtilExtract = /** @class */ (function () {
+        function UtilExtract() {
+        }
+        UtilExtract.texture = function (options) {
+            var _a;
+            var target = options.target;
+            var resolution = toResolution(options);
+            var skipUpdateTransform = (_a = options.transform) === null || _a === void 0 ? void 0 : _a.update;
+            return UtilExtractor.toTexture(target, resolution, options.clear, skipUpdateTransform);
+        };
+        UtilExtract.pixels = function (options) {
+            var renderer = toRenderer(options);
+            var texture = this.texture(options);
+            try {
+                return UtilExtractor.toPixels(texture, renderer);
+            }
+            finally {
+                if (texture) {
+                    texture.destroy();
+                }
+            }
+        };
+        UtilExtract.canvas = function (options) {
+            var _a, _b;
+            var pixels = this.pixels(options);
+            var ignorePremutipliedAlpha = (_b = (_a = options.alpha) === null || _a === void 0 ? void 0 : _a.premultiplied) === null || _b === void 0 ? void 0 : _b.ignore;
+            var scale = toScale(pixels, options);
+            return UtilExtractor.toCanvas(pixels, scale, ignorePremutipliedAlpha);
+        };
+        UtilExtract.base64 = function (options) {
+            var canvas = this.canvas(options);
+            try {
+                return UtilExtractor.toBase64(canvas.canvas, options.format, options.quality);
+            }
+            finally {
+                if (canvas) {
+                    canvas.destroy();
+                }
+            }
+        };
+        UtilExtract.file = function (options) {
+            UtilFileDownloader.downloadUrl(options.filename, this.base64(options));
+        };
+        return UtilExtract;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * An output format.
+     */
+    var UtilFileAs = {
+        TEXT: 0,
+        DATA_URL: 1,
+        BINARY_STRING: 2,
+        ARRAY_BUTTER: 3,
+        FILE: 4
+    };
+    /**
+     * An utility class for opening files.
+     */
+    var UtilFileOpener = /** @class */ (function () {
+        function UtilFileOpener(as, facade) {
+            this._input = null;
+            this._as = as;
+            this._facade = facade;
+        }
+        UtilFileOpener.prototype.open = function () {
+            var input = this.getOrCreateInput();
+            if (input != null) {
+                input.click();
+            }
+            else {
+                this.onCancel();
+            }
+        };
+        UtilFileOpener.prototype.getOrCreateInput = function () {
+            var _this = this;
+            if ("FileReader" in window && this._input == null) {
+                var input_1 = document.createElement("input");
+                this._input = input_1;
+                input_1.setAttribute("type", "file");
+                input_1.setAttribute("style", "display:none");
+                input_1.addEventListener("change", function (e) {
+                    _this.onInputChange(input_1);
+                    input_1.value = "";
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                });
+                document.body.appendChild(input_1);
+            }
+            return this._input;
+        };
+        UtilFileOpener.prototype.onInputChange = function (input) {
+            var _this = this;
+            var files = input.files;
+            if (files != null && 0 < files.length) {
+                var file_1 = files[0];
+                if (this._as === UtilFileAs.FILE) {
+                    this.onOpen(file_1, file_1);
+                }
+                else {
+                    var fileReader = new FileReader();
+                    fileReader.onload = function (e) {
+                        if (e.target != null) {
+                            var target = e.target;
+                            _this.onOpen(target.result, file_1);
+                        }
+                    };
+                    fileReader.onabort = function (e) {
+                        _this.onAboart(e);
+                    };
+                    switch (this._as) {
+                        case UtilFileAs.TEXT:
+                            fileReader.readAsText(file_1);
+                            break;
+                        case UtilFileAs.DATA_URL:
+                            fileReader.readAsDataURL(file_1);
+                            break;
+                        case UtilFileAs.BINARY_STRING:
+                            fileReader.readAsBinaryString(file_1);
+                            break;
+                        case UtilFileAs.ARRAY_BUTTER:
+                            fileReader.readAsArrayBuffer(file_1);
+                            break;
+                        default:
+                            fileReader.readAsText(file_1);
+                            break;
+                    }
+                }
+            }
+            else {
+                this.onCancel();
+            }
+        };
+        UtilFileOpener.prototype.onOpen = function (result, file) {
+            var facade = this._facade;
+            facade.emit("open", result, file, facade);
+        };
+        UtilFileOpener.prototype.onAboart = function (e) {
+            var facade = this._facade;
+            facade.emit("abort", e, facade);
+        };
+        UtilFileOpener.prototype.onCancel = function () {
+            var facade = this._facade;
+            facade.emit("cancel", facade);
+        };
+        return UtilFileOpener;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilHsv = /** @class */ (function () {
+        function UtilHsv() {
+        }
+        /**
+         * Returns HSV colors.
+         * Ranges of components are:
+         *
+         * * H: [0, 360)
+         * * S: [0, 255]
+         * * V: [0, 255]
+         *
+         * @param color a rgb color
+         * @return an array of hsv components
+         */
+        UtilHsv.fromRgb = function (color) {
+            var r = (color & 0xff0000) >> 16;
+            var g = (color & 0x00ff00) >> 8;
+            var b = (color & 0x0000ff) | 0;
+            var max = Math.max(r, g, b);
+            var min = Math.min(r, g, b);
+            var length = max - min;
+            var h = 0;
+            if (0 < length) {
+                if (r === max) {
+                    h = (60 * (g - b)) / length;
+                }
+                else if (g === max) {
+                    h = (60 * (b - r)) / length + 120;
+                }
+                else if (b === max) {
+                    h = (60 * (r - g)) / length + 240;
+                }
+                if (h < 0) {
+                    h += 360;
+                }
+            }
+            var s = (length / max) * 255;
+            var v = max;
+            return [h, s, v];
+        };
+        UtilHsv.toRgb = function (h, s, v) {
+            var max = v;
+            var min = v - (s / 255) * v;
+            var length = max - min;
+            var r = 0;
+            var g = 0;
+            var b = 0;
+            if (h <= 60) {
+                r = max;
+                g = (h / 60) * length + min;
+                b = min;
+            }
+            else if (h <= 120) {
+                r = ((120 - h) / 60) * length + min;
+                g = max;
+                b = min;
+            }
+            else if (h <= 180) {
+                r = min;
+                g = max;
+                b = ((h - 120) / 60) * length + min;
+            }
+            else if (h <= 240) {
+                r = min;
+                g = ((240 - h) / 60) * length + min;
+                b = max;
+            }
+            else if (h <= 300) {
+                r = ((h - 240) / 60) * length + min;
+                g = min;
+                b = max;
+            }
+            else {
+                r = max;
+                g = min;
+                b = ((360 - h) / 60) * length + min;
+            }
+            r = Math.max(0, Math.min(255, r));
+            g = Math.max(0, Math.min(255, g));
+            b = Math.max(0, Math.min(255, b));
+            return (r << 16) | (g << 8) | b;
+        };
+        return UtilHsv;
+    }());
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilInputTextArea = /** @class */ (function (_super) {
+        __extends(UtilInputTextArea, _super);
+        function UtilInputTextArea() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        UtilInputTextArea.prototype.onElementAttached = function (element, before, after) {
+            element.addEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementAttached.call(this, element, before, after);
+        };
+        UtilInputTextArea.prototype.onElementDetached = function (element, before, after) {
+            element.removeEventListener("keydown", this._onInputKeyDownBound);
+            _super.prototype.onElementDetached.call(this, element, before, after);
+        };
+        UtilInputTextArea.prototype.onInputKeyDown = function (e) {
+            if (UtilKeyboardEvent.isOkKey(e)) {
+                this._operation.onEnter();
+            }
+        };
+        return UtilInputTextArea;
+    }(UtilInput));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilName = /** @class */ (function () {
+        function UtilName() {
+        }
+        UtilName.create = function (type) {
+            var mapping = this._mapping;
+            if (type in mapping) {
+                return "".concat(type, " ").concat(++mapping[type]);
+            }
+            else {
+                mapping[type] = 1;
+                return "".concat(type, " 1");
+            }
+        };
+        UtilName._mapping = {};
+        return UtilName;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilRgba = /** @class */ (function () {
+        function UtilRgba() {
+        }
+        UtilRgba.toCode = function (color, alpha) {
+            var r = (color >> 16) & 0xff;
+            var g = (color >> 8) & 0xff;
+            var b = color & 0xff;
+            return "rgba(".concat(r, ",").concat(g, ",").concat(b, ",").concat(alpha, ")");
+        };
+        return UtilRgba;
+    }());
+
+    var UtilStateBlinker = /** @class */ (function () {
+        function UtilStateBlinker(state, delay, interval) {
+            var _this = this;
+            this._isOn = true;
+            this._targets = new Set();
+            this._state = state;
+            this._delay = delay;
+            this._interval = interval;
+            this._timeout = null;
+            var updateBound = function () {
+                _this.advance();
+                _this.update();
+                _this._timeout = window.setTimeout(updateBound, interval);
+            };
+            this._updateBound = updateBound;
+        }
+        UtilStateBlinker.prototype.start = function () {
+            if (this._timeout == null) {
+                this._timeout = window.setTimeout(this._updateBound, this._delay);
+            }
+            return this;
+        };
+        UtilStateBlinker.prototype.stop = function () {
+            var timeout = this._timeout;
+            if (timeout != null) {
+                this._timeout = null;
+                clearTimeout(timeout);
+            }
+            return this;
+        };
+        UtilStateBlinker.prototype.add = function (target) {
+            this._targets.add(target);
+            target.state.set(this._state, this.isOn());
+            return this;
+        };
+        UtilStateBlinker.prototype.remove = function (target) {
+            if (this._targets.delete(target)) {
+                target.state.remove(this._state);
+                return true;
+            }
+            return false;
+        };
+        UtilStateBlinker.prototype.contains = function (target) {
+            return this._targets.has(target);
+        };
+        UtilStateBlinker.prototype.clear = function () {
+            this._targets.clear();
+            return this;
+        };
+        UtilStateBlinker.prototype.isOn = function () {
+            return this._isOn;
+        };
+        UtilStateBlinker.prototype.isOff = function () {
+            return !this._isOn;
+        };
+        UtilStateBlinker.prototype.advance = function () {
+            this._isOn = !this._isOn;
+            return this;
+        };
+        UtilStateBlinker.prototype.update = function () {
+            var isOn = this.isOn();
+            var state = this._state;
+            this._targets.forEach(function (target) {
+                target.state.set(state, isOn);
+            });
+            return this;
+        };
+        return UtilStateBlinker;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilTransition = /** @class */ (function () {
+        function UtilTransition(options) {
+            var _a;
+            this._duration = (_a = options === null || options === void 0 ? void 0 : options.duration) !== null && _a !== void 0 ? _a : 300;
+            this._current = null;
+            this._lastUpdate = 0;
+            this._updateId = null;
+        }
+        UtilTransition.prototype.show = function (next, forcibly) {
+            var _this = this;
+            var updateId = this._updateId;
+            if (updateId != null) {
+                clearTimeout(updateId);
+            }
+            var current = this._current;
+            if (next !== current) {
+                var duration = this._duration;
+                var lastUpdate = this._lastUpdate;
+                var now = Date.now();
+                var remaining = lastUpdate + duration - now;
+                if (forcibly === true || remaining <= 0) {
+                    this.update(now, next);
+                }
+                else {
+                    this._updateId = window.setTimeout(function () {
+                        _this.update(Date.now(), next);
+                    }, remaining);
+                }
+            }
+        };
+        UtilTransition.prototype.update = function (now, next) {
+            var current = this._current;
+            if (current !== next) {
+                this._lastUpdate = now;
+                if (current != null) {
+                    current.hide();
+                }
+                this._current = next;
+                if (next != null) {
+                    next.show();
+                }
+            }
+        };
+        UtilTransition.prototype.hide = function () {
+            this.show(null);
+        };
+        return UtilTransition;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /*!
+     * jQuery Mousewheel 3.1.13
+     *
+     * Copyright jQuery Foundation and other contributors
+     * Released under the MIT license
+     * http://jquery.org/license
+     *
+     * See also https://github.com/mapbox/mapbox-gl-js/blob/001c7b9/js/ui/handler/scroll_zoom.js
+     * and https://github.com/openlayers/openlayers/blob/v5.2.0/src/ol/interaction/MouseWheelZoom.js#L51
+     */
+    var UtilWheelEvent = /** @class */ (function () {
+        function UtilWheelEvent() {
+            this._lowest = null;
+            this._timestamp = 0;
+            this._lineHeight = null;
+            this._pageHeight = null;
+        }
+        UtilWheelEvent.prototype.getNames = function () {
+            var result = this._names;
+            if (result == null) {
+                if ("onwheel" in document || 9 <= document.documentMode) {
+                    result = ["wheel"];
+                }
+                else {
+                    result = ["mousewheel", "DOMMouseScroll", "MozMousePixelScroll"];
+                }
+                this._names = result;
+            }
+            return result;
+        };
+        UtilWheelEvent.prototype.on = function (target, handler, useCapture) {
+            if (useCapture === void 0) { useCapture = false; }
+            var names = this.getNames();
+            for (var i = names.length - 1; 0 <= i; --i) {
+                var name_1 = names[i];
+                target.addEventListener(name_1, handler, useCapture);
+            }
+        };
+        UtilWheelEvent.prototype.off = function (target, handler, useCapture) {
+            if (useCapture === void 0) { useCapture = false; }
+            var names = this.getNames();
+            for (var i = names.length - 1; 0 <= i; --i) {
+                var name_2 = names[i];
+                target.removeEventListener(name_2, handler, useCapture);
+            }
+        };
+        UtilWheelEvent.prototype.getLineHeight = function () {
+            if (this._lineHeight == null) {
+                var theme = DThemes.getInstance().get("DBase");
+                this._lineHeight = theme.getLineHeight();
+            }
+            return this._lineHeight;
+        };
+        UtilWheelEvent.prototype.getPageHeight = function () {
+            if (this._pageHeight == null) {
+                this._pageHeight = this.getLineHeight() * 12;
+            }
+            return this._pageHeight;
+        };
+        UtilWheelEvent.prototype.normalize = function (e) {
+            var deltaX = 0;
+            var deltaY = 0;
+            // Old school scrollwheel delta
+            if ("detail" in e) {
+                deltaY = e.detail * -1;
+            }
+            if ("wheelDelta" in e) {
+                deltaY = e.wheelDelta;
+            }
+            if ("wheelDeltaY" in e) {
+                deltaY = e.wheelDeltaY;
+            }
+            if ("wheelDeltaX" in e) {
+                deltaX = e.wheelDeltaX * -1;
+            }
+            // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
+            if ("axis" in e && e.axis === e.HORIZONTAL_AXIS) {
+                deltaX = deltaY * -1;
+                deltaY = 0;
+            }
+            // New school wheel delta (wheel event)
+            if ("deltaY" in e) {
+                deltaY = e.deltaY * -1;
+            }
+            if ("deltaX" in e) {
+                deltaX = e.deltaX;
+            }
+            // No change actually happened, no reason to go any further
+            if (deltaY === 0 && deltaX === 0) {
+                return null;
+            }
+            // Store lowest absolute delta to normalize the delta values
+            var delta = Math.max(Math.abs(deltaY), Math.abs(deltaX));
+            // Reset the this._lowest to better handle multiple device types
+            // that give different a different lowestDelta
+            // Ex: trackpad = 3 and mouse wheel = 120
+            var now = Date.now();
+            if (this._timestamp + 200 <= now) {
+                this._lowest = null;
+            }
+            this._timestamp = now;
+            //
+            var shouldAdjust = e.type === "mousewheel" && delta % 120 === 0;
+            if (!this._lowest || delta < this._lowest) {
+                this._lowest = delta;
+                // Adjust older deltas if necessary
+                if (shouldAdjust) {
+                    this._lowest /= 40;
+                }
+            }
+            // Adjust older deltas if necessary
+            if (shouldAdjust) {
+                // Divide all the things by 40!
+                delta /= 40;
+                deltaX /= 40;
+                deltaY /= 40;
+            }
+            // Get a whole, normalized value for the deltas
+            var lowest = this._lowest;
+            delta = Math.floor(delta / lowest);
+            deltaX = Math[1 <= deltaX ? "floor" : "ceil"](deltaX / lowest);
+            deltaY = Math[1 <= deltaY ? "floor" : "ceil"](deltaY / lowest);
+            // Mode
+            var mode = e.deltaMode || 0;
+            if (mode !== 0) {
+                var scale = mode === 1 ? this.getLineHeight() : this.getPageHeight();
+                delta *= scale;
+                deltaX *= scale;
+                deltaY *= scale;
+            }
+            return {
+                mode: mode,
+                delta: delta,
+                deltaX: deltaX,
+                deltaY: deltaY,
+                lowest: lowest
+            };
+        };
+        UtilWheelEvent.getInstance = function () {
+            if (this.INSTANCE == null) {
+                this.INSTANCE = new UtilWheelEvent();
+            }
+            return this.INSTANCE;
+        };
+        return UtilWheelEvent;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DAnimationEmpty = /** @class */ (function (_super) {
         __extends(DAnimationEmpty, _super);
         function DAnimationEmpty(options) {
@@ -43891,9 +44392,13 @@
          */
         UNSTORABLE: 1,
         /**
-         * Commands with a `CLEAR` flag clears the command queue.
+         * Commands with a `CLEAR` flag clear the command queue.
          */
-        CLEAR: 2
+        CLEAR: 2,
+        /**
+         * Commands with a `CLEAN` flag are not considered as modifications to documents
+         */
+        CLEAN: 4
     };
 
     /*
@@ -43981,6 +44486,9 @@
     var isCommandClear = function (command) {
         return !!(command.getFlag() & DCommandFlag.CLEAR);
     };
+    var isCommandClean = function (command) {
+        return !!(command.getFlag() & DCommandFlag.CLEAN);
+    };
     var DControllerDefaultCommand = /** @class */ (function (_super) {
         __extends(DControllerDefaultCommand, _super);
         function DControllerDefaultCommand() {
@@ -44007,90 +44515,109 @@
             }
         };
         DControllerDefaultCommand.prototype.push = function (command) {
-            var waiting = this._waiting;
-            waiting.push(command);
+            this._waiting.push(command);
             this.next();
         };
         DControllerDefaultCommand.prototype.next = function () {
+            if (this._executing != null) {
+                // Still executing a command.
+                // So do nothing.
+                return;
+            }
+            var waiting = this._waiting;
+            if (waiting.length <= 0) {
+                // There is no waiting commands.
+                // So do nothing.
+                return;
+            }
+            var command = waiting.shift();
+            if (command == null) {
+                // There is no waiting commands.
+                // So do nothing.
+                return;
+            }
+            if (command instanceof DCommandUndo) {
+                this.executeUndo(command);
+            }
+            else if (command instanceof DCommandRedo) {
+                this.executeRedo(command);
+            }
+            else {
+                this.execute(command);
+            }
+        };
+        DControllerDefaultCommand.prototype.executeUndo = function (command) {
             var _this = this;
-            if (this._executing == null) {
-                var waiting = this._waiting;
-                if (0 < waiting.length) {
-                    var command_1 = waiting.shift();
-                    if (command_1 != null) {
-                        if (command_1 instanceof DCommandUndo) {
-                            var done = this._done;
-                            if (this._position < done.length) {
-                                var current = done[done.length - 1 - this._position];
-                                this._position += 1;
-                                this.emit("change", this);
-                                var result = current.undo();
-                                if (result === true) {
-                                    this.onSuccess(command_1);
-                                }
-                                else if (result === false) {
-                                    this.onFail(command_1);
-                                }
-                                else {
-                                    this._executing = result.then(function () {
-                                        _this.onSuccess(command_1);
-                                    }, function () {
-                                        _this.onFail(command_1);
-                                    });
-                                }
-                            }
-                        }
-                        else if (command_1 instanceof DCommandRedo) {
-                            var done = this._done;
-                            if (0 < this._position) {
-                                var current = done[done.length - this._position];
-                                this._position -= 1;
-                                this.emit("change", this);
-                                var result = current.redo();
-                                if (result === true) {
-                                    this.onSuccess(command_1);
-                                }
-                                else if (result === false) {
-                                    this.onFail(command_1);
-                                }
-                                else {
-                                    this._executing = result.then(function () {
-                                        _this.onSuccess(command_1);
-                                    }, function () {
-                                        _this.onFail(command_1);
-                                    });
-                                }
-                            }
-                        }
-                        else {
-                            var isClear = isCommandClear(command_1);
-                            var isStorable = isCommandStorable(command_1);
-                            if (isClear || isStorable) {
-                                var size = isClear ? this._done.length : this._position;
-                                if (0 < size) {
-                                    this.remove(size);
-                                    this._position = 0;
-                                    this.emit("change", this);
-                                }
-                                this.cleanup();
-                            }
-                            var result = command_1.execute();
-                            if (result === true) {
-                                this.onSuccess(command_1);
-                            }
-                            else if (result === false) {
-                                this.onFail(command_1);
-                            }
-                            else {
-                                this._executing = result.then(function () {
-                                    _this.onSuccess(command_1);
-                                }, function () {
-                                    _this.onFail(command_1);
-                                });
-                            }
-                        }
-                    }
+            var done = this._done;
+            if (this._position < done.length) {
+                var current_1 = done[done.length - 1 - this._position];
+                this._position += 1;
+                this.emit("change", this);
+                var result = current_1.undo();
+                if (result === true) {
+                    this.onSuccessUndo(current_1);
                 }
+                else if (result === false) {
+                    this.onFail(command);
+                }
+                else {
+                    this._executing = result.then(function () {
+                        _this.onSuccessUndo(current_1);
+                    }, function () {
+                        _this.onFail(command);
+                    });
+                }
+            }
+        };
+        DControllerDefaultCommand.prototype.executeRedo = function (command) {
+            var _this = this;
+            var done = this._done;
+            if (0 < this._position) {
+                var current_2 = done[done.length - this._position];
+                this._position -= 1;
+                this.emit("change", this);
+                var result = current_2.redo();
+                if (result === true) {
+                    this.onSuccessRedo(current_2);
+                }
+                else if (result === false) {
+                    this.onFail(command);
+                }
+                else {
+                    this._executing = result.then(function () {
+                        _this.onSuccessRedo(current_2);
+                    }, function () {
+                        _this.onFail(command);
+                    });
+                }
+            }
+        };
+        DControllerDefaultCommand.prototype.execute = function (command) {
+            var _this = this;
+            var isClear = isCommandClear(command);
+            var isStorable = isCommandStorable(command);
+            if (isClear || isStorable) {
+                var size = isClear ? this._done.length : this._position;
+                if (0 < size) {
+                    this.remove(size);
+                    this._position = 0;
+                    this.emit("change", this);
+                }
+                this.cleanup();
+            }
+            var result = command.execute();
+            if (result === true) {
+                this.onSuccess(command);
+            }
+            else if (result === false) {
+                this.onFail(command);
+            }
+            else {
+                this._executing = result.then(function () {
+                    _this.onSuccess(command);
+                }, function () {
+                    _this.onFail(command);
+                });
             }
         };
         DControllerDefaultCommand.prototype.cleanup = function () {
@@ -44122,9 +44649,24 @@
             this._executing = null;
             if (isCommandStorable(command)) {
                 this._done.push(command);
+                if (!isCommandClean(command)) {
+                    this.emit("dirty", this);
+                }
+            }
+            this.emit("change", this);
+            this.next();
+        };
+        DControllerDefaultCommand.prototype.onSuccessUndo = function (undoed) {
+            this._executing = null;
+            if (!isCommandClean(undoed)) {
                 this.emit("dirty", this);
             }
-            else if (command instanceof DCommandUndo || command instanceof DCommandRedo) {
+            this.emit("change", this);
+            this.next();
+        };
+        DControllerDefaultCommand.prototype.onSuccessRedo = function (redoed) {
+            this._executing = null;
+            if (!isCommandClean(redoed)) {
                 this.emit("dirty", this);
             }
             this.emit("change", this);
@@ -55479,20 +56021,21 @@
         };
         DDiagramBase.prototype.newLayer = function (serialized, canvas, isEditMode, pieces, pieceData) {
             var _this = this;
-            var layer = canvas.layer;
             var manager = new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode);
-            DDiagrams.newLayer(serialized, layer, manager).then(function (shapes) {
-                layer.init();
-                _this.initialize(shapes);
-                canvas.initialize(shapes);
-                DApplications.update(_this);
-                _this.emit("ready", _this);
+            DDiagrams.newLayer(serialized, canvas.layer, manager).then(function (shapes) {
+                _this.initLayer(canvas, shapes);
             });
             if (this._isAmbient) {
                 var background = this.toCanvasBaseBackgroundOptions(serialized, this.theme, false);
                 this.background.color = background.color;
                 this.background.alpha = background.alpha;
             }
+        };
+        DDiagramBase.prototype.initLayer = function (canvas, shapes, mapper) {
+            canvas.layer.init();
+            canvas.initialize(shapes, mapper);
+            DApplications.update(this);
+            this.emit("ready", this);
         };
         DDiagramBase.prototype.toCanvasBaseOptions = function (serialized) {
             var _a;
@@ -55534,9 +56077,6 @@
                     _this.set(DDiagrams.toSerialized(found));
                 });
             }
-        };
-        DDiagramBase.prototype.initialize = function (shapes) {
-            // DO NOTHING
         };
         DDiagramBase.prototype.onUnset = function () {
             var canvas = this.canvas;
@@ -55859,7 +56399,7 @@
             result.state.add(EShapeLayerState.INTERACTIVE);
             return result;
         };
-        DDiagramLayer.prototype.initialize = function (data, ids, actionables) {
+        DDiagramLayer.prototype.initialize = function (actionables) {
             var interactives = this.interactives;
             var shape = this._shape;
             var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
@@ -55882,67 +56422,23 @@
                 shape.interactive = true;
                 interactives.push(shape);
             }
-            this.doInitialize(this.children, data, interactives, actionables, ids);
+            this.doInitialize(this.children, interactives);
         };
-        DDiagramLayer.prototype.doInitialize = function (shapes, data, interactives, actionables, ids) {
-            var _loop_1 = function (i, imax) {
+        DDiagramLayer.prototype.doInitialize = function (shapes, interactives) {
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
                 var shape = shapes[i];
-                // Data mappings
-                var shapeData = shape.data;
-                for (var j = 0, jmax = shapeData.size(); j < jmax; ++j) {
-                    var shapeDatum = shapeData.get(j);
-                    if (shapeDatum) {
-                        var shapeDatumId = shapeDatum.id;
-                        if (0 < shapeDatumId.length) {
-                            var shapeDatumList = data[shapeDatumId];
-                            if (shapeDatumList == null) {
-                                shapeDatumList = [];
-                                data[shapeDatumId] = shapeDatumList;
-                            }
-                            shapeDatumList.push(shapeDatum);
-                        }
-                    }
-                }
-                // Id mappings
-                var shapeId = shape.id;
-                if (0 < shapeId.length) {
-                    var mapping = ids[shapeId];
-                    if (mapping == null) {
-                        ids[shapeId] = [shape];
-                    }
-                    else {
-                        mapping.push(shape);
-                    }
-                }
                 var runtime = shape.runtime;
                 if (runtime) {
                     // Interactives
                     if (shape.interactive || 0 < shape.cursor.length || runtime.interactive) {
                         interactives.push(shape);
                     }
-                    // Actionables
-                    if (runtime.isActionable()) {
-                        actionables.push(shape);
-                    }
-                    // Shortcuts
-                    var shortcut = shape.shortcut;
-                    if (shortcut != null) {
-                        UtilKeyboardEvent.on(shape, shortcut, function (e) {
-                            runtime.onClick(shape, e);
-                        });
-                    }
-                    // Runtime
-                    runtime.initialize(shape);
                 }
                 // Children
                 var children = shape.children;
                 if (0 < children.length) {
-                    this_1.doInitialize(children, data, interactives, actionables, ids);
+                    this.doInitialize(children, interactives);
                 }
-            };
-            var this_1 = this;
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                _loop_1(i);
             }
         };
         DDiagramLayer.prototype.hitTestInteractives = function (global) {
@@ -56277,15 +56773,18 @@
             enumerable: false,
             configurable: true
         });
-        DDiagramCanvasBase.prototype.initialize = function (shapes) {
+        DDiagramCanvasBase.prototype.initialize = function (shapes, mapper) {
             // DO NOTHING
         };
         DDiagramCanvasBase.prototype.destroy = function () {
             if (!this._destroyed) {
-                this._tile.destroy();
-                this._layer.destroy();
+                this.onDestroy();
                 _super.prototype.destroy.call(this);
             }
+        };
+        DDiagramCanvasBase.prototype.onDestroy = function () {
+            this._tile.destroy();
+            this._layer.destroy();
         };
         DDiagramCanvasBase.prototype.hitTest = function (global, onHit) {
             var layers = this._layer.children;
@@ -56305,6 +56804,268 @@
         };
         return DDiagramCanvasBase;
     }(DCanvas));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramCanvasDataPrivateImpl = /** @class */ (function () {
+        function DDiagramCanvasDataPrivateImpl() {
+        }
+        DDiagramCanvasDataPrivateImpl.prototype.add = function (id, value) {
+            var _a;
+            var data = ((_a = this._data) !== null && _a !== void 0 ? _a : (this._data = new Map()));
+            var list = data.get(id);
+            if (list == null) {
+                data.set(id, [value]);
+            }
+            else {
+                list.push(value);
+            }
+        };
+        DDiagramCanvasDataPrivateImpl.prototype.set = function (id, value, time, from, to) {
+            var data = this._data;
+            if (data == null) {
+                return false;
+            }
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                var datumValue = datum[i];
+                var range = datumValue.range;
+                // Range
+                range.set(from, to);
+                // Time
+                if (time !== undefined) {
+                    datumValue.time = time;
+                }
+                // Value
+                datumValue.value = value;
+            }
+            return true;
+        };
+        return DDiagramCanvasDataPrivateImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramCanvasDataImpl = /** @class */ (function () {
+        function DDiagramCanvasDataImpl() {
+        }
+        Object.defineProperty(DDiagramCanvasDataImpl.prototype, "private", {
+            get: function () {
+                var result = this._private;
+                if (result == null) {
+                    result = this.newPrivate();
+                    this._private = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramCanvasDataImpl.prototype.newPrivate = function () {
+            return new DDiagramCanvasDataPrivateImpl();
+        };
+        Object.defineProperty(DDiagramCanvasDataImpl.prototype, "ids", {
+            get: function () {
+                var data = this._data;
+                if (data != null) {
+                    var result_1 = [];
+                    data.forEach(function (value, id) {
+                        result_1.push(id);
+                    });
+                    return result_1;
+                }
+                return [];
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramCanvasDataImpl.prototype.each = function (callback) {
+            var data = this._data;
+            if (data != null) {
+                var result_2 = null;
+                data.forEach(function (value, id) {
+                    if (result_2 == null) {
+                        if (callback(id) === false) {
+                            result_2 = id;
+                        }
+                    }
+                });
+                return result_2;
+            }
+            return null;
+        };
+        DDiagramCanvasDataImpl.prototype.add = function (id, value) {
+            var _a;
+            var data = ((_a = this._data) !== null && _a !== void 0 ? _a : (this._data = new Map()));
+            var list = data.get(id);
+            if (list == null) {
+                data.set(id, [value]);
+            }
+            else {
+                list.push(value);
+            }
+        };
+        DDiagramCanvasDataImpl.prototype.set = function (id, value, time, from, to) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        var range = datumValue.range;
+                        // Range
+                        range.set(from, to);
+                        // Time
+                        if (time !== undefined) {
+                            datumValue.time = time;
+                        }
+                        // Value
+                        datumValue.value = value;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDiagramCanvasDataImpl.prototype.clear = function (id) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        datum[i].clear();
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDiagramCanvasDataImpl.prototype.setAll = function (id, values, times, from, to) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        var range = datumValue.range;
+                        // Range
+                        range.set(from, to);
+                        // Time
+                        if (times !== undefined) {
+                            datumValue.times = times;
+                        }
+                        // Value
+                        datumValue.values = values;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDiagramCanvasDataImpl.prototype.setValue = function (id, value, time) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        if (time !== undefined) {
+                            datumValue.time = time;
+                        }
+                        datumValue.value = value;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDiagramCanvasDataImpl.prototype.setValues = function (id, values, times) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var datumValue = datum[i];
+                        if (times !== undefined) {
+                            datumValue.times = times;
+                        }
+                        datumValue.values = values;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDiagramCanvasDataImpl.prototype.setTime = function (id, time) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        datum[i].time = time;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDiagramCanvasDataImpl.prototype.setTimes = function (id, times) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        datum[i].times = times;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        DDiagramCanvasDataImpl.prototype.setRange = function (id, from, to) {
+            var data = this._data;
+            if (data != null) {
+                var datum = data.get(id);
+                if (datum != null) {
+                    for (var i = 0, imax = datum.length; i < imax; ++i) {
+                        var range = datum[i].range;
+                        if (from !== undefined) {
+                            if (from !== null) {
+                                range.type |= EShapeDataValueRangeType.FROM;
+                                range.from = from;
+                            }
+                            else {
+                                range.type &= ~EShapeDataValueRangeType.FROM;
+                            }
+                        }
+                        if (to !== undefined) {
+                            if (to !== null) {
+                                range.type |= EShapeDataValueRangeType.TO;
+                                range.to = to;
+                            }
+                            else {
+                                range.type &= ~EShapeDataValueRangeType.TO;
+                            }
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
+        };
+        return DDiagramCanvasDataImpl;
+    }());
 
     /*
      * Copyright (C) 2021 Toshiba Corporation
@@ -56537,26 +57298,163 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DDiagramCanvasShapeImpl = /** @class */ (function () {
+        function DDiagramCanvasShapeImpl() {
+            this._data = new Map();
+        }
+        DDiagramCanvasShapeImpl.prototype.add = function (id, shape) {
+            var data = this._data;
+            var shapes = data.get(id);
+            if (shapes == null) {
+                data.set(id, [shape]);
+            }
+            else {
+                shapes.push(shape);
+            }
+        };
+        DDiagramCanvasShapeImpl.prototype.get = function (id) {
+            var shapes = this._data.get(id);
+            if (shapes && 0 < shapes.length) {
+                return shapes[0];
+            }
+            return null;
+        };
+        DDiagramCanvasShapeImpl.prototype.getAll = function (id) {
+            return this._data.get(id) || [];
+        };
+        return DDiagramCanvasShapeImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramTicker = /** @class */ (function () {
+        function DDiagramTicker(parent, interval) {
+            var _this = this;
+            this._parent = parent;
+            this._values = [];
+            this._interval = interval;
+            this._onTimeBound = function () {
+                _this.onTime();
+            };
+        }
+        DDiagramTicker.prototype.add = function (value) {
+            this._values.push(value);
+        };
+        DDiagramTicker.prototype.start = function () {
+            if (this._timeoutId == null) {
+                this.onTime();
+            }
+        };
+        DDiagramTicker.prototype.getInterval = function () {
+            var now = Date.now();
+            var interval = this._interval;
+            return Math.max(0, interval - (now % interval));
+        };
+        DDiagramTicker.prototype.onTime = function () {
+            var values = this._values;
+            if (0 < values.length) {
+                var t = Date.now() / this._interval;
+                for (var i = 0, imax = values.length; i < imax; ++i) {
+                    values[i].value = t;
+                }
+                DApplications.update(this._parent);
+            }
+            this._timeoutId = window.setTimeout(this._onTimeBound, this.getInterval());
+        };
+        DDiagramTicker.prototype.stop = function () {
+            var timeoutId = this._timeoutId;
+            if (timeoutId != null) {
+                clearTimeout(timeoutId);
+                this._timeoutId = undefined;
+            }
+        };
+        return DDiagramTicker;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramCanvasTickerImpl = /** @class */ (function () {
+        function DDiagramCanvasTickerImpl(parent) {
+            this._parent = parent;
+            this._data = new Map();
+        }
+        DDiagramCanvasTickerImpl.prototype.add = function (interval) {
+            var data = this._data;
+            var normalized = this.toNormalized(interval);
+            var ticker = data.get(normalized);
+            if (ticker != null) {
+                return ticker;
+            }
+            var newTicker = new DDiagramTicker(this._parent, normalized);
+            data.set(normalized, newTicker);
+            return newTicker;
+        };
+        DDiagramCanvasTickerImpl.prototype.toNormalized = function (interval) {
+            return isNumber(interval) ? Math.max(1, Math.round(interval)) : 1000;
+        };
+        DDiagramCanvasTickerImpl.prototype.start = function () {
+            this._data.forEach(function (ticker) {
+                ticker.start();
+            });
+        };
+        DDiagramCanvasTickerImpl.prototype.stop = function () {
+            this._data.forEach(function (ticker) {
+                ticker.stop();
+            });
+        };
+        return DDiagramCanvasTickerImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DDiagramCanvas = /** @class */ (function (_super) {
         __extends(DDiagramCanvas, _super);
         function DDiagramCanvas(options) {
             var _this = _super.call(this, options) || this;
-            var data = {};
-            _this.data = data;
-            _this.tags = data;
-            _this.actionables = [];
-            _this.ids = {};
+            _this._data = new DDiagramCanvasDataImpl();
+            _this._shape = new DDiagramCanvasShapeImpl();
+            _this._ticker = new DDiagramCanvasTickerImpl(_this);
+            _this._actionables = [];
             _this._downeds = new Set();
+            _this._updateBound = function () {
+                DApplications.update(_this);
+            };
             return _this;
         }
-        DDiagramCanvas.prototype.initialize = function () {
+        Object.defineProperty(DDiagramCanvas.prototype, "data", {
+            get: function () {
+                return this._data;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramCanvas.prototype, "shape", {
+            get: function () {
+                return this._shape;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramCanvas.prototype, "ticker", {
+            get: function () {
+                return this._ticker;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramCanvas.prototype.initialize = function (shapes, mapper) {
             var time = Date.now();
-            var data = this.data;
-            var actionables = this.actionables;
-            var ids = this.ids;
+            var actionables = this._actionables;
+            this.initialize_(shapes, null, mapper, new Map(), new Map(), new Map(), this._ticker, this._shape, this._data, actionables);
             var layers = this._layer.children;
             for (var i = 0, imax = layers.length; i < imax; ++i) {
-                layers[i].initialize(data, ids, actionables);
+                layers[i].initialize(actionables);
             }
             for (var i = 0, imax = layers.length; i < imax; ++i) {
                 var layerChildren = layers[i].children;
@@ -56564,6 +57462,199 @@
                     layerChildren[j].update(time);
                 }
             }
+            this._ticker.start();
+        };
+        DDiagramCanvas.prototype.initialize_ = function (shapes, dataShape, mapper, formatToFormatter, initialToInitialValue, actionValueToRuntime, canvasTicker, canvasShape, canvasData, actionables) {
+            var _loop_1 = function (i, imax) {
+                var shape = shapes[i];
+                // ID
+                var id = shape.id;
+                if (0 < id.length) {
+                    canvasShape.add(id, shape);
+                }
+                // Data
+                this_1.initData(shape, dataShape, mapper, formatToFormatter, initialToInitialValue, canvasTicker, canvasData);
+                // Runtime
+                var runtime = new (EShapeRuntimes[shape.type] || EShapeRuntime)(shape);
+                shape.runtime = runtime;
+                // Action
+                this_1.initActions(shape, runtime, actionValueToRuntime);
+                // Actionables
+                if (runtime.isActionable()) {
+                    actionables.push(shape);
+                }
+                // Shortcut
+                var shortcut = shape.shortcut;
+                if (shortcut != null) {
+                    UtilKeyboardEvent.on(shape, shortcut, function (e) {
+                        runtime.onClick(shape, e);
+                    });
+                }
+                // Init the runtime
+                runtime.initialize(shape);
+                // Children
+                var children = shape.children;
+                if (0 < children.length) {
+                    this_1.initialize_(children, this_1.toDataShape(dataShape, shape), mapper, formatToFormatter, initialToInitialValue, actionValueToRuntime, canvasTicker, canvasShape, canvasData, actionables);
+                }
+            };
+            var this_1 = this;
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                _loop_1(i);
+            }
+        };
+        DDiagramCanvas.prototype.initData = function (shape, dataShape, mapper, formatToFormatter, initialToInitialValue, canvasTicker, canvasData) {
+            var data = shape.data;
+            for (var i = 0, imax = data.size(); i < imax; ++i) {
+                var value = data.get(i);
+                if (value) {
+                    // Mapping
+                    if (value.type !== EShapeDataValueType.TICKER) {
+                        if (value.scope === EShapeDataValueScope.PRIVATE) {
+                            var id = value.id;
+                            if (0 < id.length) {
+                                if (dataShape) {
+                                    dataShape.data.private.add(id, value);
+                                }
+                                else {
+                                    canvasData.private.add(id, value);
+                                }
+                            }
+                        }
+                        else {
+                            if (mapper) {
+                                mapper(value, dataShape || shape);
+                            }
+                            var id = value.id;
+                            if (0 < id.length) {
+                                canvasData.add(id, value);
+                            }
+                        }
+                    }
+                    // Format
+                    var format = value.format;
+                    var initial = value.initial;
+                    if (formatToFormatter.has(format)) {
+                        value.formatter = formatToFormatter.get(format);
+                    }
+                    else if (0 < format.length) {
+                        try {
+                            var formatter = this.calcFormatter(value, format, initial);
+                            formatToFormatter.set(format, formatter);
+                            value.formatter = formatter;
+                        }
+                        catch (e) {
+                            // DO NOTHING
+                        }
+                    }
+                    // Initial
+                    if (initialToInitialValue.has(initial)) {
+                        this.setInitial(value, initialToInitialValue.get(initial), canvasTicker);
+                    }
+                    else if (0 < initial.length) {
+                        try {
+                            var initialValue = this.calcInitial(value, initial);
+                            initialToInitialValue.set(initial, initialValue);
+                            this.setInitial(value, initialValue, canvasTicker);
+                        }
+                        catch (e) {
+                            // DO NOTHING
+                        }
+                    }
+                }
+            }
+        };
+        DDiagramCanvas.prototype.initActions = function (shape, shapeRuntime, valueToRuntime) {
+            var values = shape.action.values;
+            var runtimes = shapeRuntime.actions;
+            for (var i = 0, imax = values.length; i < imax; ++i) {
+                var value = values[i];
+                var runtime = valueToRuntime.get(value);
+                if (runtime == null) {
+                    runtime = value.toRuntime();
+                    if (runtime != null) {
+                        if (runtime instanceof EShapeActionRuntimeOpen) {
+                            if (shape.cursor.length <= 0) {
+                                shape.cursor = "pointer";
+                            }
+                        }
+                        valueToRuntime.set(value, runtime);
+                        runtimes.push(runtime);
+                        shapeRuntime.reset |= runtime.reset;
+                    }
+                }
+                else {
+                    runtimes.push(runtime);
+                    shapeRuntime.reset |= runtime.reset;
+                }
+            }
+        };
+        DDiagramCanvas.prototype.calcFormatter = function (value, format, initial) {
+            var def = this.toInitial(value);
+            return Function("value", 
+            /* eslint-disable prettier/prettier */
+            "try {" +
+                "return (".concat(format, ");") +
+                "} catch( e1 ) {" +
+                "try {" +
+                "return (".concat(0 < initial.length ? initial : def, ");") +
+                "} catch( e2 ) {" +
+                "return ".concat(def, ";") +
+                "}" +
+                "}"
+            /* eslint-enable prettier/prettier */
+            );
+        };
+        DDiagramCanvas.prototype.setInitial = function (value, initial, tickers) {
+            if (value.type === EShapeDataValueType.TICKER) {
+                tickers.add(initial).add(value);
+                value.value = 0;
+            }
+            else {
+                value.value = initial;
+            }
+        };
+        DDiagramCanvas.prototype.calcInitial = function (value, initial) {
+            return Function(
+            /* eslint-disable prettier/prettier */
+            "try {" +
+                "return (".concat(initial, ");") +
+                "} catch( e ) {" +
+                "return ".concat(this.toInitial(value), ";") +
+                "}"
+            /* eslint-enable prettier/prettier */
+            )();
+        };
+        DDiagramCanvas.prototype.toInitial = function (value) {
+            switch (value.type) {
+                case EShapeDataValueType.NUMBER:
+                    return "0";
+                case EShapeDataValueType.NUMBER_ARRAY:
+                    return "[]";
+                case EShapeDataValueType.STRING:
+                    return '""';
+                case EShapeDataValueType.STRING_ARRAY:
+                    return "[]";
+                case EShapeDataValueType.OBJECT:
+                    return "{}";
+                case EShapeDataValueType.OBJECT_ARRAY:
+                    return "[]";
+                case EShapeDataValueType.TICKER:
+                    return "0";
+            }
+        };
+        DDiagramCanvas.prototype.toDataShape = function (dataShape, shape) {
+            if (dataShape != null) {
+                return dataShape;
+            }
+            if (shape.type === EShapeType.EMBEDDED) {
+                return shape;
+            }
+            return null;
+        };
+        DDiagramCanvas.prototype.onDestroy = function () {
+            this._ticker.stop();
+            _super.prototype.onDestroy.call(this);
         };
         DDiagramCanvas.prototype.hitTestInteractives = function (global) {
             var layers = this._layer.children;
@@ -56759,6 +57850,48 @@
             }
             return false;
         };
+        DDiagramCanvas.prototype.update = function () {
+            var actionables = this._actionables;
+            if (0 < actionables.length) {
+                var effect = -1;
+                var time = Date.now();
+                for (var i = 0, imax = actionables.length; i < imax; ++i) {
+                    var actionable = actionables[i];
+                    actionable.update(time);
+                    var runtime = actionable.runtime;
+                    if (runtime && time < runtime.effect) {
+                        var runtimeEffect = runtime.effect;
+                        if (time < runtimeEffect) {
+                            effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
+                        }
+                    }
+                }
+                if (0 <= effect) {
+                    window.setTimeout(this._updateBound, effect - Date.now());
+                }
+            }
+        };
+        DDiagramCanvas.prototype.onRender = function (renderer) {
+            var actionables = this._actionables;
+            if (0 < actionables.length) {
+                var effect = -1;
+                var time = Date.now();
+                for (var i = 0, imax = actionables.length; i < imax; ++i) {
+                    var actionable = actionables[i];
+                    actionable.onRender(time, renderer);
+                    var runtime = actionable.runtime;
+                    if (runtime && time < runtime.effect) {
+                        var runtimeEffect = runtime.effect;
+                        if (time < runtimeEffect) {
+                            effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
+                        }
+                    }
+                }
+                if (0 <= effect) {
+                    window.setTimeout(this._updateBound, effect - Date.now());
+                }
+            }
+        };
         DDiagramCanvas.prototype.getType = function () {
             return "DDiagramCanvas";
         };
@@ -56769,11 +57902,29 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDiagramDataRemote = /** @class */ (function () {
-        function DDiagramDataRemote(options) {
+    var DDiagramDataPrivateImpl = /** @class */ (function () {
+        function DDiagramDataPrivateImpl(diagram) {
+            this._diagram = diagram;
+        }
+        DDiagramDataPrivateImpl.prototype.set = function (id, value, time, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                return canvas.data.private.set(id, value, time, from, to);
+            }
+            return false;
+        };
+        return DDiagramDataPrivateImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramDataRemoteImpl = /** @class */ (function () {
+        function DDiagramDataRemoteImpl(options) {
             this._controller = options && options.controller;
         }
-        DDiagramDataRemote.prototype.set = function (id, value, time) {
+        DDiagramDataRemoteImpl.prototype.set = function (id, value, time) {
             var controller = this._controller;
             if (controller) {
                 controller.write(id, value);
@@ -56781,7 +57932,7 @@
             }
             return false;
         };
-        return DDiagramDataRemote;
+        return DDiagramDataRemoteImpl;
     }());
 
     /*
@@ -56791,16 +57942,17 @@
     /**
      * A data helper class for diagrams.
      */
-    var DDiagramData = /** @class */ (function () {
-        function DDiagramData(diagram, options) {
+    var DDiagramDataImpl = /** @class */ (function () {
+        function DDiagramDataImpl(diagram, options) {
             this._diagram = diagram;
             this._mapper = (options && options.mapper) || null;
-            this._remote = new DDiagramDataRemote(options && options.remote);
+            this._remote = new DDiagramDataRemoteImpl(options && options.remote);
+            this._private = new DDiagramDataPrivateImpl(diagram);
         }
-        DDiagramData.prototype.update = function () {
+        DDiagramDataImpl.prototype.update = function () {
             // DO NOTHING
         };
-        Object.defineProperty(DDiagramData.prototype, "mapper", {
+        Object.defineProperty(DDiagramDataImpl.prototype, "mapper", {
             get: function () {
                 return this._mapper;
             },
@@ -56810,181 +57962,95 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DDiagramData.prototype, "remote", {
+        Object.defineProperty(DDiagramDataImpl.prototype, "remote", {
             get: function () {
                 return this._remote;
             },
             enumerable: false,
             configurable: true
         });
-        DDiagramData.prototype.getIds = function () {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                return Object.keys(canvas.data);
-            }
-            return [];
-        };
-        DDiagramData.prototype.each = function (callback) {
-            var canvas = this._diagram.canvas;
-            if (canvas != null) {
-                var data = canvas.data;
-                for (var id in data) {
-                    if (callback(id) === false) {
-                        return id;
-                    }
+        Object.defineProperty(DDiagramDataImpl.prototype, "private", {
+            get: function () {
+                return this._private;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramDataImpl.prototype, "ids", {
+            get: function () {
+                var canvas = this._diagram.canvas;
+                if (canvas) {
+                    return canvas.data.ids;
                 }
+                return [];
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramDataImpl.prototype.each = function (callback) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                return canvas.data.each(callback);
             }
             return null;
         };
-        DDiagramData.prototype.set = function (id, value, time, from, to) {
+        DDiagramDataImpl.prototype.set = function (id, value, time, from, to) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        var range = datumValue.range;
-                        // Range
-                        range.set(from, to);
-                        // Time
-                        if (time !== undefined) {
-                            datumValue.time = time;
-                        }
-                        // Value
-                        datumValue.value = value;
-                    }
-                    return true;
-                }
+                return canvas.data.set(id, value, time, from, to);
             }
             return false;
         };
-        DDiagramData.prototype.clear = function (id) {
+        DDiagramDataImpl.prototype.clear = function (id) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        datum[i].clear();
-                    }
-                    return true;
-                }
+                return canvas.data.clear(id);
             }
             return false;
         };
-        DDiagramData.prototype.setAll = function (id, values, times, from, to) {
+        DDiagramDataImpl.prototype.setAll = function (id, values, times, from, to) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        var range = datumValue.range;
-                        // Range
-                        range.set(from, to);
-                        // Time
-                        if (times !== undefined) {
-                            datumValue.times = times;
-                        }
-                        // Value
-                        datumValue.values = values;
-                    }
-                    return true;
-                }
+                return canvas.data.setAll(id, values, times, from, to);
             }
             return false;
         };
-        DDiagramData.prototype.setValue = function (id, value, time) {
+        DDiagramDataImpl.prototype.setValue = function (id, value, time) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        if (time !== undefined) {
-                            datumValue.time = time;
-                        }
-                        datumValue.value = value;
-                    }
-                    return true;
-                }
+                return canvas.data.setValue(id, value, time);
             }
             return false;
         };
-        DDiagramData.prototype.setValues = function (id, values, times) {
+        DDiagramDataImpl.prototype.setValues = function (id, values, times) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        if (times !== undefined) {
-                            datumValue.times = times;
-                        }
-                        datumValue.values = values;
-                    }
-                    return true;
-                }
+                return canvas.data.setValues(id, values, times);
             }
             return false;
         };
-        DDiagramData.prototype.setTime = function (id, time) {
+        DDiagramDataImpl.prototype.setTime = function (id, time) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        datum[i].time = time;
-                    }
-                    return true;
-                }
+                return canvas.data.setTime(id, time);
             }
             return false;
         };
-        DDiagramData.prototype.setTimes = function (id, times) {
+        DDiagramDataImpl.prototype.setTimes = function (id, times) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        datum[i].times = times;
-                    }
-                    return true;
-                }
+                return canvas.data.setTimes(id, times);
             }
             return false;
         };
-        DDiagramData.prototype.setRange = function (id, from, to) {
+        DDiagramDataImpl.prototype.setRange = function (id, from, to) {
             var canvas = this._diagram.canvas;
             if (canvas != null) {
-                var datum = canvas.data[id];
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var range = datum[i].range;
-                        if (from !== undefined) {
-                            if (from !== null) {
-                                range.type |= EShapeDataValueRangeType.FROM;
-                                range.from = from;
-                            }
-                            else {
-                                range.type &= ~EShapeDataValueRangeType.FROM;
-                            }
-                        }
-                        if (to !== undefined) {
-                            if (to !== null) {
-                                range.type |= EShapeDataValueRangeType.TO;
-                                range.to = to;
-                            }
-                            else {
-                                range.type &= ~EShapeDataValueRangeType.TO;
-                            }
-                        }
-                    }
-                    return true;
-                }
+                return canvas.data.setRange(id, from, to);
             }
             return false;
         };
-        return DDiagramData;
+        return DDiagramDataImpl;
     }());
 
     /*
@@ -57316,63 +58382,30 @@
             return _this;
         }
         DDiagramShape.prototype.update = function () {
-            var diagram = this._diagram;
-            var canvas = diagram.canvas;
+            var canvas = this._diagram.canvas;
             if (canvas) {
-                var actionables = canvas.actionables;
-                if (0 < actionables.length) {
-                    var effect = -1;
-                    var time = Date.now();
-                    for (var i = 0, imax = actionables.length; i < imax; ++i) {
-                        var actionable = actionables[i];
-                        actionable.update(time);
-                        var runtime = actionable.runtime;
-                        if (runtime && time < runtime.effect) {
-                            var runtimeEffect = runtime.effect;
-                            if (time < runtimeEffect) {
-                                effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
-                            }
-                        }
-                    }
-                    if (0 <= effect) {
-                        setTimeout(this._updateBound, effect - Date.now());
-                    }
-                }
+                canvas.update();
             }
         };
         DDiagramShape.prototype.onRender = function (renderer) {
-            var diagram = this._diagram;
-            var canvas = diagram.canvas;
+            var canvas = this._diagram.canvas;
             if (canvas) {
-                var actionables = canvas.actionables;
-                if (0 < actionables.length) {
-                    var effect = -1;
-                    var time = Date.now();
-                    for (var i = 0, imax = actionables.length; i < imax; ++i) {
-                        var actionable = actionables[i];
-                        actionable.onRender(time, renderer);
-                        var runtime = actionable.runtime;
-                        if (runtime && time < runtime.effect) {
-                            var runtimeEffect = runtime.effect;
-                            if (time < runtimeEffect) {
-                                effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
-                            }
-                        }
-                    }
-                    if (0 <= effect) {
-                        setTimeout(this._updateBound, effect - Date.now());
-                    }
-                }
+                canvas.onRender(renderer);
             }
         };
         DDiagramShape.prototype.get = function (id) {
-            var _a;
-            var shapes = (_a = this._diagram.canvas) === null || _a === void 0 ? void 0 : _a.ids[id];
-            return shapes && 0 < shapes.length ? shapes[0] : null;
+            var canvas = this._diagram.canvas;
+            if (canvas) {
+                return canvas.shape.get(id);
+            }
+            return null;
         };
         DDiagramShape.prototype.getAll = function (id) {
-            var _a;
-            return ((_a = this._diagram.canvas) === null || _a === void 0 ? void 0 : _a.ids[id]) || [];
+            var canvas = this._diagram.canvas;
+            if (canvas) {
+                return canvas.shape.getAll(id);
+            }
+            return [];
         };
         DDiagramShape.prototype.each = function (callback, reverse) {
             if (reverse === void 0) { reverse = false; }
@@ -57448,121 +58481,14 @@
                 }
             });
             //
-            var data = new DDiagramData(_this, options && (options.data || options.tag));
+            var data = new DDiagramDataImpl(_this, options && (options.data || options.tag));
             _this.data = data;
             _this.tag = data;
             _this.shape = new DDiagramShape(_this);
             return _this;
         }
-        DDiagram.prototype.initialize = function (shapes) {
-            this.initializeShapes(shapes, null, this.data.mapper);
-        };
-        DDiagram.prototype.initializeShapes = function (shapes, dataShape, dataMapper) {
-            var formatterMap = {};
-            var initialMap = {};
-            var actionMap = new Map();
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                var shape = shapes[i];
-                var runtimeConstructor = EShapeRuntimes[shape.type] || EShapeRuntime;
-                var runtime = (shape.runtime = new runtimeConstructor(shape));
-                // Data
-                var shapeData = shape.data;
-                for (var j = 0, jmax = shapeData.size(); j < jmax; ++j) {
-                    var shapeDatum = shapeData.get(j);
-                    if (shapeDatum) {
-                        // Mapping
-                        if (dataMapper) {
-                            dataMapper(shapeDatum, dataShape || shape);
-                        }
-                        // Format
-                        var datumFormat = shapeDatum.format;
-                        var datumInitial = shapeDatum.initial;
-                        if (datumFormat in formatterMap) {
-                            shapeDatum.formatter = formatterMap[datumFormat];
-                        }
-                        else if (0 < datumFormat.length) {
-                            try {
-                                var formatter = Function("value", 
-                                /* eslint-disable prettier/prettier */
-                                "try {" +
-                                    "return (".concat(datumFormat, ");") +
-                                    "} catch( e1 ) {" +
-                                    "try {" +
-                                    "return (".concat(0 < datumInitial.length ? datumInitial : 0, ");") +
-                                    "} catch( e2 ) {" +
-                                    "return 0;" +
-                                    "}" +
-                                    "}"
-                                /* eslint-enable prettier/prettier */
-                                );
-                                formatterMap[datumFormat] = formatter;
-                                shapeDatum.formatter = formatter;
-                            }
-                            catch (e) {
-                                //
-                            }
-                        }
-                        // Initial
-                        if (datumInitial in initialMap) {
-                            shapeDatum.value = initialMap[datumInitial];
-                        }
-                        else if (0 < datumInitial.length) {
-                            try {
-                                shapeDatum.value = initialMap[datumInitial] = Function(
-                                /* eslint-disable prettier/prettier */
-                                "try {" +
-                                    "return (".concat(datumInitial, ");") +
-                                    "} catch( e ) {" +
-                                    "return 0;" +
-                                    "}"
-                                /* eslint-enable prettier/prettier */
-                                )();
-                            }
-                            catch (e) {
-                                //
-                            }
-                        }
-                    }
-                }
-                // Initialize runtime actions
-                var values = shape.action.values;
-                var actions = runtime.actions;
-                for (var j = 0, jmax = values.length; j < jmax; ++j) {
-                    var value = values[j];
-                    var action = actionMap.get(value);
-                    if (action == null) {
-                        action = value.toRuntime();
-                        if (action != null) {
-                            if (action instanceof EShapeActionRuntimeOpen) {
-                                if (shape.cursor.length <= 0) {
-                                    shape.cursor = "pointer";
-                                }
-                            }
-                            actionMap.set(value, action);
-                            actions.push(action);
-                            runtime.reset |= action.reset;
-                        }
-                    }
-                    else {
-                        actions.push(action);
-                        runtime.reset |= action.reset;
-                    }
-                }
-                // Children
-                var children = shape.children;
-                if (0 < children.length) {
-                    this.initializeShapes(children, this.toDataShape(dataShape, shape), dataMapper);
-                }
-            }
-        };
-        DDiagram.prototype.toDataShape = function (dataShape, shape) {
-            if (dataShape != null) {
-                return dataShape;
-            }
-            if (shape.type === EShapeType.EMBEDDED) {
-                return shape;
-            }
-            return null;
+        DDiagram.prototype.initLayer = function (canvas, shapes, mapper) {
+            _super.prototype.initLayer.call(this, canvas, shapes, mapper || this.data.mapper);
         };
         DDiagram.prototype.isEditMode = function () {
             return false;
@@ -68541,9 +69467,6 @@
         EShapeButton: EShapeButton,
         EShapeCircle: EShapeCircle,
         EShapeConnectorLine: EShapeConnectorLine,
-        EShapeDataImpl: EShapeDataImpl,
-        EShapeDataValueImpl: EShapeDataValueImpl,
-        EShapeDataValueRangeImpl: EShapeDataValueRangeImpl,
         EShapeEmbeddedDatum: EShapeEmbeddedDatum,
         EShapeEmbeddedLayerContainer: EShapeEmbeddedLayerContainer,
         EShapeEmbeddedLayer: EShapeEmbeddedLayer,
@@ -68639,8 +69562,16 @@
         EShapeContainer: EShapeContainer,
         EShapeCopyPart: EShapeCopyPart,
         EShapeCorner: EShapeCorner,
-        EShapeDataValueRangeType: EShapeDataValueRangeType,
+        EShapeDataImpl: EShapeDataImpl,
+        EShapeDataMapperImpl: EShapeDataMapperImpl,
+        EShapeDataMappingImpl: EShapeDataMappingImpl,
+        EShapeDataPrivateImpl: EShapeDataPrivateImpl,
+        EShapeDataValueImpl: EShapeDataValueImpl,
+        EShapeDataValueScope: EShapeDataValueScope,
         EShapeDataValueOrder: EShapeDataValueOrder,
+        EShapeDataValueRangeImpl: EShapeDataValueRangeImpl,
+        EShapeDataValueRangeType: EShapeDataValueRangeType,
+        EShapeDataValueType: EShapeDataValueType,
         EShapeDefaults: EShapeDefaults,
         EShapeDeleter: EShapeDeleter,
         EShapeDeserializers: EShapeDeserializers,
@@ -68932,15 +69863,20 @@
         DCornerMask: DCornerMask,
         DDiagramBase: DDiagramBase,
         DDiagramCanvasBase: DDiagramCanvasBase,
+        DDiagramCanvasDataImpl: DDiagramCanvasDataImpl,
+        DDiagramCanvasDataPrivateImpl: DDiagramCanvasDataPrivateImpl,
         DDiagramCanvasEditorBackground: DDiagramCanvasEditorBackground,
         DDiagramCanvasEditorSnap: DDiagramCanvasEditorSnap,
         DDiagramCanvasEditor: DDiagramCanvasEditor,
         DDiagramCanvasTileMappingImpl: DDiagramCanvasTileMappingImpl,
         DDiagramCanvasTileMappingPointImpl: DDiagramCanvasTileMappingPointImpl,
+        DDiagramCanvasShapeImpl: DDiagramCanvasShapeImpl,
+        DDiagramCanvasTickerImpl: DDiagramCanvasTickerImpl,
         DDiagramCanvasTile: DDiagramCanvasTile,
         DDiagramCanvas: DDiagramCanvas,
-        DDiagramDataRemote: DDiagramDataRemote,
-        DDiagramData: DDiagramData,
+        DDiagramDataImpl: DDiagramDataImpl,
+        DDiagramDataPrivateImpl: DDiagramDataPrivateImpl,
+        DDiagramDataRemoteImpl: DDiagramDataRemoteImpl,
         DDiagramEditorThumbnail: DDiagramEditorThumbnail,
         DDiagramEditor: DDiagramEditor,
         DDiagramLayerContainer: DDiagramLayerContainer,
@@ -68949,6 +69885,7 @@
         DDiagramSerializedVersion: DDiagramSerializedVersion,
         DDiagramShape: DDiagramShape,
         DDiagramSnapshot: DDiagramSnapshot,
+        DDiagramTicker: DDiagramTicker,
         DDiagram: DDiagram,
         DDiagrams: DDiagrams,
         DDialogAlign: UtilAttachAlign,

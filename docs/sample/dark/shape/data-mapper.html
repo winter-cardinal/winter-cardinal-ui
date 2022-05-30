@@ -1,0 +1,64 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Data mapper</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.173.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.173.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const EShapeDataMapperImpl = wcardinal.ui.EShapeDataMapperImpl;
+		const EShapeDataValueImpl = wcardinal.ui.EShapeDataValueImpl;
+		const test = function(id, source, destination, initial) {
+			const mapper = new EShapeDataMapperImpl(source);
+			const value = new EShapeDataValueImpl();
+			value.id = id;
+			value.initial = "0";
+			mapper.map(value, EShapeDataMapperImpl.split(destination), initial);
+			console.log(JSON.stringify(value.id), JSON.stringify(value.initial));
+		};
+
+		test("device.sensor", "device.*", "device1.*", "");
+		test("Device.Sensor", "device.*", "Device1.*", "");
+		test("device.sensor", "device.*", "device1.*", "1");
+		test("Device.Sensor", "device.*", "Device1.*", "1");
+		test("device.sensor", "device.*", "device1.sensor1", "2");
+		test("Device.Sensor", "device.*", "Device1.Sensor1", "2");
+		test("device.sensor", "device1.*", "device2.*", "3");
+		test("Device.Sensor", "device1.*", "Device2.*", "3");
+		test("device.sensor", "*.sensor", "*.sensor1", "4");
+		test("DEVICE.SENSOR", "*.sensor", "*.SENSOR1", "4");
+		test("device.sensor", "*.sensor1", "*.sensor2", "5");
+		test("DEVICE.SENSOR", "*.sensor1", "*.SENSOR2", "5");
+
+		test("device.alarm.alarm1", "device.*.*", "device1.*", "6");
+		test("Device.Alarm.Alarm1", "device.*.*", "Device1.*", "6");
+		test("device.alarm.alarm1", "*.alarm.*", "device1.alarm.*", "7");
+		test("Device.Alarm.Alarm1", "*.alarm.*", "Device1.alarm.*", "7");
+		test("device.alarm.alarm1", "*.alarm.alarm1", "*.alarm.alarm2", "8");
+		test("Device.Alarm.Alarm1", "*.alarm.alarm1", "*.alarm.alarm2", "8");
+	}());
+	</script>
+</body>
+</html>

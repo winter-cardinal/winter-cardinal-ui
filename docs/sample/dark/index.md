@@ -68,6 +68,7 @@
     * [Editor mode (Ambient)](./diagram/editor-ambient.html)
     * [Editor mode (Snap enabled)](./diagram/editor-snap.html)
     * [Embedding graphics](./diagram/embedding.html)
+    * [Embedding graphics (Data mappings)](./diagram/embedding-data-mapping.html)
     * [Embedding graphics (Nested)](./diagram/embedding-nested.html)
     * [Embedding graphics (Non-existing)](./diagram/embedding-non-existing.html)
     * [Emitting events when a shape is clicked](./diagram/emit-event.html)
@@ -97,6 +98,7 @@
     * [Shape gesture (No pinch)](./diagram/shape-gesture-no-pinch.html)
     * [Snapshot](./diagram/snapshot.html)
     * [Text](./diagram/text.html)
+    * [Ticker](./diagram/ticker.html)
 * Dialog
     * [Align (Bottom)](./dialog/align-bottom.html)
     * [Align (Left)](./dialog/align-left.html)
@@ -222,6 +224,7 @@
     * [Bulk update](./shape/bulk-update.html)
     * [Connector](./shape/connector.html)
     * [Corner](./shape/corner.html)
+    * [Data mapper](./shape/data-mapper.html)
     * [Embedded shape](./shape/embedded.html)
     * [Embedded shapes from files](./shape/embedded-from.html)
     * [Hit test](./shape/hit-test.html)
