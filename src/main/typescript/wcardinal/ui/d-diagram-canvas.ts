@@ -194,22 +194,24 @@ export class DDiagramCanvas<
 			const value = data.get(i);
 			if (value) {
 				// Mapping
-				if (value.scope === EShapeDataValueScope.PRIVATE) {
-					const id = value.id;
-					if (0 < id.length) {
-						if (dataShape) {
-							dataShape.data.private.add(id, value);
-						} else {
-							canvasData.private.add(id, value);
+				if (value.type !== EShapeDataValueType.TICKER) {
+					if (value.scope === EShapeDataValueScope.PRIVATE) {
+						const id = value.id;
+						if (0 < id.length) {
+							if (dataShape) {
+								dataShape.data.private.add(id, value);
+							} else {
+								canvasData.private.add(id, value);
+							}
 						}
-					}
-				} else {
-					if (mapper) {
-						mapper(value, dataShape || shape);
-					}
-					const id = value.id;
-					if (0 < id.length) {
-						canvasData.add(id, value);
+					} else {
+						if (mapper) {
+							mapper(value, dataShape || shape);
+						}
+						const id = value.id;
+						if (0 < id.length) {
+							canvasData.add(id, value);
+						}
 					}
 				}
 
