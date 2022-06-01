@@ -5,7 +5,6 @@ import { terser } from "rollup-plugin-terser";
 import path from 'path';
 import copy from 'rollup-plugin-copy';
 import sourcemaps from 'rollup-plugin-sourcemaps';
-import fs from 'fs';
 
 // In/out directories
 const name = 'wcardinal-ui';
@@ -16,19 +15,12 @@ const SAMPLE_JS_PIXI_DIR = `${SAMPLE_DIR}/js/pixi/latest`;
 const SAMPLE_JS_CSS_LINE_BREAK_DIR = `${SAMPLE_DIR}/js/css-line-break/latest`;
 const SAMPLE_JS_WCUI_DIR = `${SAMPLE_DIR}/js/wcardinal-ui/latest`;
 
-// License header
-const LICENSE_HEADER_LINES = fs.readFileSync( './LICENSE_HEADER', 'UTF-8' ).split( '\n' );
-const LICENSE_HEADER_LINES_LENGTH = LICENSE_HEADER_LINES.length;
-if( 0 < LICENSE_HEADER_LINES_LENGTH && LICENSE_HEADER_LINES[ LICENSE_HEADER_LINES_LENGTH - 1 ].trim().length <= 0 ) {
-        LICENSE_HEADER_LINES.splice( LICENSE_HEADER_LINES_LENGTH - 1, 1 );
-}
-const LICENSE_HEADER = LICENSE_HEADER_LINES.join( '\n ' );
-
 // Banner
 const BANNER =
 `/*
  Winter Cardinal UI v${version}
- ${LICENSE_HEADER}
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
 
  Material Design icons by Google
  Apache license version 2.0.
