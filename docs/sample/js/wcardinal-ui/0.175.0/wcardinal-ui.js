@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.174.0
+ Winter Cardinal UI v0.175.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4879,7 +4879,13 @@
         /**
          * A public data is accessible from anywhere outside graphics.
          */
-        PUBLIC: 1
+        PUBLIC: 1,
+        /**
+         * A protected data is accessible only from inside graphics.
+         * Unlike the private data, the protected data is also accessible from parent graphics
+         * containing the graphic that this data belongs to.
+         */
+        PROTECTED: 2
     };
 
     /*
@@ -5546,10 +5552,10 @@
             return Object.prototype.toString.call(target) === "[object Array]";
         });
 
-    var EShapeDataPrivateImpl = /** @class */ (function () {
-        function EShapeDataPrivateImpl() {
+    var EShapeDataScopedImpl = /** @class */ (function () {
+        function EShapeDataScopedImpl() {
         }
-        EShapeDataPrivateImpl.prototype.add = function (id, value) {
+        EShapeDataScopedImpl.prototype.add = function (id, value) {
             var _a;
             var data = ((_a = this._data) !== null && _a !== void 0 ? _a : (this._data = new Map()));
             var list = data.get(id);
@@ -5560,7 +5566,7 @@
                 list.push(value);
             }
         };
-        EShapeDataPrivateImpl.prototype.set = function (id, value, time, from, to) {
+        EShapeDataScopedImpl.prototype.set = function (id, value, time, from, to) {
             var data = this._data;
             if (data == null) {
                 return false;
@@ -5587,7 +5593,7 @@
             }
             return true;
         };
-        return EShapeDataPrivateImpl;
+        return EShapeDataScopedImpl;
     }());
 
     /*
@@ -5776,7 +5782,7 @@
             configurable: true
         });
         EShapeDataImpl.prototype.newPrivate = function () {
-            return new EShapeDataPrivateImpl();
+            return new EShapeDataScopedImpl();
         };
         EShapeDataImpl.prototype.getPrivate = function () {
             return this._private;
@@ -7239,14 +7245,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var isNumber = function (target) {
-        return (typeof target === "number" || Object.prototype.toString.call(target) === "[object Number]");
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var toPadded = function (str, length, c) {
         var strLength = str.length;
         if (length < strLength) {
@@ -8200,7 +8198,11 @@
             return this.type === value.type && this.condition === value.condition;
         };
         EShapeActionValueBase.prototype.toLabel = function () {
-            return DThemes.getInstance().get("EShapeActionValue").toLabel(this);
+            return this.getTheme().toLabel(this);
+        };
+        EShapeActionValueBase.prototype.getTheme = function () {
+            var _a;
+            return ((_a = EShapeActionValueBase.THEME) !== null && _a !== void 0 ? _a : (EShapeActionValueBase.THEME = DThemes.getInstance().get("EShapeActionValue")));
         };
         return EShapeActionValueBase;
     }());
@@ -8240,7 +8242,16 @@
         CHANGE_TEXT: 6,
         CHANGE_CURSOR: 7,
         MISC: 8,
-        CHANGE_COLOR: 9
+        CHANGE_COLOR: 9,
+        EXTENSION: 1000
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var isNumber = function (target) {
+        return (typeof target === "number" || Object.prototype.toString.call(target) === "[object Number]");
     };
 
     /*
@@ -15024,9 +15035,17 @@
                 var current = shape;
                 while (current != null) {
                     if (this.isContainer(current)) {
-                        current.data.set(id, value, time);
-                        DApplications.update(current);
-                        return true;
+                        if (current.data.protected.set(id, value, time)) {
+                            DApplications.update(current);
+                            return true;
+                        }
+                        else {
+                            if (current.data.set(id, value, time)) {
+                                DApplications.update(current);
+                                return true;
+                            }
+                        }
+                        return false;
                     }
                     else if (this.isEmbedded(current)) {
                         if ((_a = current.data.getPrivate()) === null || _a === void 0 ? void 0 : _a.set(id, value, time)) {
@@ -26152,18 +26171,73 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var deserializeActionValue = function (serialized, manager) {
+        switch (serialized[0]) {
+            case EShapeActionValueType.SHOW_HIDE:
+                return EShapeActionValueShowHide.deserialize(serialized, manager);
+            case EShapeActionValueType.BLINK:
+                return EShapeActionValueBlink.deserialize(serialized, manager);
+            case EShapeActionValueType.CHANGE_COLOR:
+            case EShapeActionValueType.CHANGE_COLOR_LEGACY:
+                switch (serialized[3]) {
+                    case EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA:
+                    case EShapeActionValueChangeColorTarget.COLOR:
+                    case EShapeActionValueChangeColorTarget.ALPHA:
+                        return EShapeActionValueChangeColor.deserialize(serialized, manager);
+                    case EShapeActionValueChangeColorTarget.CODE:
+                        return EShapeActionValueChangeColorCode.deserialize(serialized, manager);
+                    case EShapeActionValueChangeColorTarget.BRIGHTNESS:
+                        return EShapeActionValueChangeColorBrightness.deserialize(serialized, manager);
+                }
+                break;
+            case EShapeActionValueType.CHANGE_TEXT:
+                return EShapeActionValueChangeText.deserialize(serialized, manager);
+            case EShapeActionValueType.CHANGE_CURSOR:
+                return EShapeActionValueChangeCursor.deserialize(serialized, manager);
+            case EShapeActionValueType.EMIT_EVENT:
+                return EShapeActionValueEmitEvent.deserialize(serialized, manager);
+            case EShapeActionValueType.OPEN:
+                return EShapeActionValueOpen.deserialize(serialized, manager);
+            case EShapeActionValueType.TRANSFORM:
+                switch (serialized[2]) {
+                    case EShapeActionValueTransformType.MOVE:
+                        return EShapeActionValueTransformMove.deserialize(serialized, manager);
+                    case EShapeActionValueTransformType.RESIZE:
+                        return EShapeActionValueTransformResize.deserialize(serialized, manager);
+                    case EShapeActionValueTransformType.ROTATE:
+                        return EShapeActionValueTransformRotate.deserialize(serialized, manager);
+                }
+                break;
+            case EShapeActionValueType.MISC:
+                switch (serialized[2]) {
+                    case EShapeActionValueMiscType.GESTURE:
+                        return EShapeActionValueMiscGesture.deserialize(serialized, manager);
+                    case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+                        return EShapeActionValueMiscLayerShowHide.deserialize(serialized, manager);
+                    case EShapeActionValueMiscType.LAYER_GESTURE:
+                        return EShapeActionValueMiscLayerGesture.deserialize(serialized, manager);
+                    default:
+                        return EShapeActionValueMisc.deserialize(serialized, manager);
+                }
+        }
+        return null;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueDeserializers = {};
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var toSerialized = function (resource) {
         try {
             var parsed = JSON.parse(resource);
-            if (isArray(parsed)) {
-                for (var i = 0, imax = parsed.length; i < imax; ++i) {
-                    if (!isNumber(parsed[i])) {
-                        return null;
-                    }
-                }
-                if (2 <= parsed.length) {
-                    return parsed;
-                }
+            if (isArray(parsed) && 2 <= parsed.length) {
+                return parsed;
             }
             return null;
         }
@@ -26171,67 +26245,33 @@
             return null;
         }
     };
-    var deserializeActionValue = function (id, manager) {
-        var action = manager.getAction(id);
-        if (action != null) {
-            return action;
-        }
+    var deserializeActionValues = function (indices, manager, result) {
+        var action = result.action;
         var resources = manager.resources;
-        var resource = resources[id];
-        if (resource != null) {
-            var serialized = toSerialized(resource);
-            if (serialized != null) {
-                switch (serialized[0]) {
-                    case EShapeActionValueType.SHOW_HIDE:
-                        return EShapeActionValueShowHide.deserialize(serialized, manager);
-                    case EShapeActionValueType.BLINK:
-                        return EShapeActionValueBlink.deserialize(serialized, manager);
-                    case EShapeActionValueType.CHANGE_COLOR:
-                    case EShapeActionValueType.CHANGE_COLOR_LEGACY:
-                        switch (serialized[3]) {
-                            case EShapeActionValueChangeColorTarget.COLOR_AND_ALPHA:
-                            case EShapeActionValueChangeColorTarget.COLOR:
-                            case EShapeActionValueChangeColorTarget.ALPHA:
-                                return EShapeActionValueChangeColor.deserialize(serialized, manager);
-                            case EShapeActionValueChangeColorTarget.CODE:
-                                return EShapeActionValueChangeColorCode.deserialize(serialized, manager);
-                            case EShapeActionValueChangeColorTarget.BRIGHTNESS:
-                                return EShapeActionValueChangeColorBrightness.deserialize(serialized, manager);
+        for (var i = 0, imax = indices.length; i < imax; ++i) {
+            var index = indices[i];
+            var saved = manager.getAction(index);
+            if (saved != null) {
+                action.add(saved);
+            }
+            var resource = resources[index];
+            if (resource != null) {
+                var serialized = toSerialized(resource);
+                if (serialized != null && 0 < serialized.length) {
+                    var type = serialized[0];
+                    var deserializer = EShapeActionValueType.EXTENSION <= type
+                        ? EShapeActionValueDeserializers[type]
+                        : deserializeActionValue;
+                    if (deserializer != null) {
+                        var deserialized = deserializer(serialized, manager);
+                        if (deserialized != null) {
+                            manager.setAction(index, deserialized);
+                            action.add(deserialized);
                         }
-                        break;
-                    case EShapeActionValueType.CHANGE_TEXT:
-                        return EShapeActionValueChangeText.deserialize(serialized, manager);
-                    case EShapeActionValueType.CHANGE_CURSOR:
-                        return EShapeActionValueChangeCursor.deserialize(serialized, manager);
-                    case EShapeActionValueType.EMIT_EVENT:
-                        return EShapeActionValueEmitEvent.deserialize(serialized, manager);
-                    case EShapeActionValueType.OPEN:
-                        return EShapeActionValueOpen.deserialize(serialized, manager);
-                    case EShapeActionValueType.TRANSFORM:
-                        switch (serialized[2]) {
-                            case EShapeActionValueTransformType.MOVE:
-                                return EShapeActionValueTransformMove.deserialize(serialized, manager);
-                            case EShapeActionValueTransformType.RESIZE:
-                                return EShapeActionValueTransformResize.deserialize(serialized, manager);
-                            case EShapeActionValueTransformType.ROTATE:
-                                return EShapeActionValueTransformRotate.deserialize(serialized, manager);
-                        }
-                        break;
-                    case EShapeActionValueType.MISC:
-                        switch (serialized[2]) {
-                            case EShapeActionValueMiscType.GESTURE:
-                                return EShapeActionValueMiscGesture.deserialize(serialized, manager);
-                            case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
-                                return EShapeActionValueMiscLayerShowHide.deserialize(serialized, manager);
-                            case EShapeActionValueMiscType.LAYER_GESTURE:
-                                return EShapeActionValueMiscLayerGesture.deserialize(serialized, manager);
-                            default:
-                                return EShapeActionValueMisc.deserialize(serialized, manager);
-                        }
+                    }
                 }
             }
         }
-        return new EShapeActionValueShowHide(EShapeActionValueShowHideType.SHOW, "");
     };
 
     /*
@@ -26261,7 +26301,7 @@
             return null;
         }
     };
-    var deserializeGradient = function (target) {
+    var toGradientLike = function (target) {
         var parsed = parse(target);
         if (parsed == null || parsed.length < 7) {
             return undefined;
@@ -26280,6 +26320,15 @@
                 points: points,
                 direction: direction
             };
+        }
+    };
+    var deserializeGradient = function (index, manager, result) {
+        var resources = manager.resources;
+        if (0 <= index && index < resources.length) {
+            var serialized = resources[index];
+            if (isString(serialized)) {
+                result.gradient = toGradientLike(serialized);
+            }
         }
     };
 
@@ -26319,8 +26368,40 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var deserializeChildren = function (serializeds, manager, result) {
+        if (0 < serializeds.length) {
+            var deserializeds = [];
+            for (var i = 0, imax = serializeds.length; i < imax; ++i) {
+                deserializeds.push(deserialize(serializeds[i], manager));
+            }
+            return Promise.all(deserializeds).then(function (children) {
+                result.children = children;
+                for (var i = 0, imax = children.length; i < imax; ++i) {
+                    children[i].parent = result;
+                }
+                result.onChildTransformChange();
+                result.toDirty();
+                return result;
+            });
+        }
+        return null;
+    };
+    var deserializeImage$1 = function (index, manager, result) {
+        var resources = manager.resources;
+        if (0 <= index && index < resources.length) {
+            var imageSrc = resources[index];
+            if (isString(imageSrc)) {
+                return toImageElement(imageSrc).then(function (imageElement) {
+                    result.image = imageElement;
+                    return result;
+                });
+            }
+        }
+        return null;
+    };
     var deserializeBase = function (item, manager, result) {
-        result.id = manager.resources[item[1]] || "";
+        var resources = manager.resources;
+        result.id = resources[item[1]] || "";
         var transform = result.transform;
         transform.position.set(item[2], item[3]);
         transform.rotation = item[6];
@@ -26340,68 +26421,28 @@
         state.isFocusable = !(item23 & 2);
         state.isActive = !!(item23 & 4);
         var item24 = item[24];
-        result.shortcut = 0 <= item24 ? manager.resources[item24] : undefined;
+        result.shortcut = 0 <= item24 ? resources[item24] : undefined;
         var item25 = item[25];
-        result.title = 0 <= item25 ? manager.resources[item25] : undefined;
+        result.title = 0 <= item25 ? resources[item25] : undefined;
         var item26 = item[26];
         result.uuid = item26 != null ? item26 : 0;
-        // Children
-        var childrenPromise = null;
-        var childrenSerialized = item[20];
-        if (0 < childrenSerialized.length) {
-            var childrenOrPromises = [];
-            for (var i = 0, imax = childrenSerialized.length; i < imax; ++i) {
-                childrenOrPromises.push(deserialize(childrenSerialized[i], manager));
-            }
-            childrenPromise = Promise.all(childrenOrPromises).then(function (children) {
-                result.children = children;
-                for (var i = 0, imax = children.length; i < imax; ++i) {
-                    children[i].parent = result;
-                }
-                result.onChildTransformChange();
-                result.toDirty();
-                return result;
-            });
-        }
-        // Action
-        var serializedActions = item[17];
-        for (var i = 0, imax = serializedActions.length; i < imax; ++i) {
-            result.action.add(deserializeActionValue(serializedActions[i], manager));
-        }
-        // Gradient
-        var gradientId = item[19];
-        if (0 <= gradientId && gradientId < manager.resources.length) {
-            var gradient = manager.resources[gradientId];
-            if (isString(gradient)) {
-                result.gradient = deserializeGradient(gradient);
-            }
-        }
-        // Image
-        var imagePromise = null;
-        var imageId = item[18];
-        if (0 <= imageId && imageId < manager.resources.length) {
-            var imageSrc = manager.resources[imageId];
-            if (isString(imageSrc)) {
-                imagePromise = toImageElement(imageSrc).then(function (imageElement) {
-                    result.image = imageElement;
-                    return result;
-                });
-            }
-        }
-        //
-        if (childrenPromise != null) {
-            if (imagePromise != null) {
-                return Promise.all([childrenPromise, imagePromise]).then(function () {
+        var children = deserializeChildren(item[20], manager, result);
+        deserializeActionValues(item[17], manager, result);
+        deserializeGradient(item[19], manager, result);
+        var image = deserializeImage$1(item[18], manager, result);
+        if (children != null) {
+            if (image != null) {
+                return Promise.all([children, image]).then(function () {
                     return result;
                 });
             }
             else {
-                return childrenPromise;
+                return children;
             }
         }
         else {
-            if (imagePromise != null) {
-                return imagePromise;
+            if (image != null) {
+                return image;
             }
             else {
                 return result;
@@ -34458,7 +34499,7 @@
             var targetData = target.data;
             for (var j = 0, jmax = targetData.size(); j < jmax; ++j) {
                 var targetDatum = targetData.get(j);
-                if (targetDatum) {
+                if (targetDatum && targetDatum.scope !== EShapeDataValueScope.PRIVATE) {
                     mapper.map(targetDatum, destination, initial);
                 }
             }
@@ -56809,10 +56850,70 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDiagramCanvasDataPrivateImpl = /** @class */ (function () {
-        function DDiagramCanvasDataPrivateImpl() {
+    var DDiagramCanvasDataImpl = /** @class */ (function () {
+        function DDiagramCanvasDataImpl() {
         }
-        DDiagramCanvasDataPrivateImpl.prototype.add = function (id, value) {
+        Object.defineProperty(DDiagramCanvasDataImpl.prototype, "private", {
+            get: function () {
+                var result = this._private;
+                if (result == null) {
+                    result = this.newPrivate();
+                    this._private = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramCanvasDataImpl.prototype.newPrivate = function () {
+            return new EShapeDataScopedImpl();
+        };
+        Object.defineProperty(DDiagramCanvasDataImpl.prototype, "protected", {
+            get: function () {
+                var result = this._protected;
+                if (result == null) {
+                    result = this.newProtected();
+                    this._protected = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramCanvasDataImpl.prototype.newProtected = function () {
+            return new EShapeDataScopedImpl();
+        };
+        Object.defineProperty(DDiagramCanvasDataImpl.prototype, "ids", {
+            get: function () {
+                var data = this._data;
+                if (data == null) {
+                    return [];
+                }
+                var result = [];
+                data.forEach(function (value, id) {
+                    result.push(id);
+                });
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramCanvasDataImpl.prototype.each = function (callback) {
+            var data = this._data;
+            if (data == null) {
+                return null;
+            }
+            var result = null;
+            data.forEach(function (value, id) {
+                if (result == null) {
+                    if (callback(id) === false) {
+                        result = id;
+                    }
+                }
+            });
+            return result;
+        };
+        DDiagramCanvasDataImpl.prototype.add = function (id, value) {
             var _a;
             var data = ((_a = this._data) !== null && _a !== void 0 ? _a : (this._data = new Map()));
             var list = data.get(id);
@@ -56823,7 +56924,7 @@
                 list.push(value);
             }
         };
-        DDiagramCanvasDataPrivateImpl.prototype.set = function (id, value, time, from, to) {
+        DDiagramCanvasDataImpl.prototype.set = function (id, value, time, from, to) {
             var data = this._data;
             if (data == null) {
                 return false;
@@ -56850,219 +56951,166 @@
             }
             return true;
         };
-        return DDiagramCanvasDataPrivateImpl;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDiagramCanvasDataImpl = /** @class */ (function () {
-        function DDiagramCanvasDataImpl() {
-        }
-        Object.defineProperty(DDiagramCanvasDataImpl.prototype, "private", {
-            get: function () {
-                var result = this._private;
-                if (result == null) {
-                    result = this.newPrivate();
-                    this._private = result;
-                }
-                return result;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDiagramCanvasDataImpl.prototype.newPrivate = function () {
-            return new DDiagramCanvasDataPrivateImpl();
-        };
-        Object.defineProperty(DDiagramCanvasDataImpl.prototype, "ids", {
-            get: function () {
-                var data = this._data;
-                if (data != null) {
-                    var result_1 = [];
-                    data.forEach(function (value, id) {
-                        result_1.push(id);
-                    });
-                    return result_1;
-                }
-                return [];
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDiagramCanvasDataImpl.prototype.each = function (callback) {
-            var data = this._data;
-            if (data != null) {
-                var result_2 = null;
-                data.forEach(function (value, id) {
-                    if (result_2 == null) {
-                        if (callback(id) === false) {
-                            result_2 = id;
-                        }
-                    }
-                });
-                return result_2;
-            }
-            return null;
-        };
-        DDiagramCanvasDataImpl.prototype.add = function (id, value) {
-            var _a;
-            var data = ((_a = this._data) !== null && _a !== void 0 ? _a : (this._data = new Map()));
-            var list = data.get(id);
-            if (list == null) {
-                data.set(id, [value]);
-            }
-            else {
-                list.push(value);
-            }
-        };
-        DDiagramCanvasDataImpl.prototype.set = function (id, value, time, from, to) {
-            var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        var range = datumValue.range;
-                        // Range
-                        range.set(from, to);
-                        // Time
-                        if (time !== undefined) {
-                            datumValue.time = time;
-                        }
-                        // Value
-                        datumValue.value = value;
-                    }
-                    return true;
-                }
-            }
-            return false;
-        };
         DDiagramCanvasDataImpl.prototype.clear = function (id) {
             var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        datum[i].clear();
-                    }
-                    return true;
-                }
+            if (data == null) {
+                return false;
             }
-            return false;
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                datum[i].clear();
+            }
+            return true;
         };
         DDiagramCanvasDataImpl.prototype.setAll = function (id, values, times, from, to) {
             var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        var range = datumValue.range;
-                        // Range
-                        range.set(from, to);
-                        // Time
-                        if (times !== undefined) {
-                            datumValue.times = times;
-                        }
-                        // Value
-                        datumValue.values = values;
-                    }
-                    return true;
-                }
+            if (data == null) {
+                return false;
             }
-            return false;
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                var datumValue = datum[i];
+                var range = datumValue.range;
+                // Range
+                range.set(from, to);
+                // Time
+                if (times !== undefined) {
+                    datumValue.times = times;
+                }
+                // Value
+                datumValue.values = values;
+            }
+            return true;
         };
         DDiagramCanvasDataImpl.prototype.setValue = function (id, value, time) {
             var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        if (time !== undefined) {
-                            datumValue.time = time;
-                        }
-                        datumValue.value = value;
-                    }
-                    return true;
-                }
+            if (data == null) {
+                return false;
             }
-            return false;
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                var datumValue = datum[i];
+                if (time !== undefined) {
+                    datumValue.time = time;
+                }
+                datumValue.value = value;
+            }
+            return true;
         };
         DDiagramCanvasDataImpl.prototype.setValues = function (id, values, times) {
             var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var datumValue = datum[i];
-                        if (times !== undefined) {
-                            datumValue.times = times;
-                        }
-                        datumValue.values = values;
-                    }
-                    return true;
-                }
+            if (data == null) {
+                return false;
             }
-            return false;
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                var datumValue = datum[i];
+                if (times !== undefined) {
+                    datumValue.times = times;
+                }
+                datumValue.values = values;
+            }
+            return true;
         };
         DDiagramCanvasDataImpl.prototype.setTime = function (id, time) {
             var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        datum[i].time = time;
-                    }
-                    return true;
-                }
+            if (data == null) {
+                return false;
             }
-            return false;
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                datum[i].time = time;
+            }
+            return true;
         };
         DDiagramCanvasDataImpl.prototype.setTimes = function (id, times) {
             var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        datum[i].times = times;
-                    }
-                    return true;
-                }
+            if (data == null) {
+                return false;
             }
-            return false;
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                datum[i].times = times;
+            }
+            return true;
         };
         DDiagramCanvasDataImpl.prototype.setRange = function (id, from, to) {
             var data = this._data;
-            if (data != null) {
-                var datum = data.get(id);
-                if (datum != null) {
-                    for (var i = 0, imax = datum.length; i < imax; ++i) {
-                        var range = datum[i].range;
-                        if (from !== undefined) {
-                            if (from !== null) {
-                                range.type |= EShapeDataValueRangeType.FROM;
-                                range.from = from;
-                            }
-                            else {
-                                range.type &= ~EShapeDataValueRangeType.FROM;
-                            }
-                        }
-                        if (to !== undefined) {
-                            if (to !== null) {
-                                range.type |= EShapeDataValueRangeType.TO;
-                                range.to = to;
-                            }
-                            else {
-                                range.type &= ~EShapeDataValueRangeType.TO;
-                            }
-                        }
+            if (data == null) {
+                return false;
+            }
+            var datum = data.get(id);
+            if (datum == null) {
+                return false;
+            }
+            var size = datum.length;
+            if (size <= 0) {
+                return false;
+            }
+            for (var i = 0; i < size; ++i) {
+                var range = datum[i].range;
+                if (from !== undefined) {
+                    if (from !== null) {
+                        range.type |= EShapeDataValueRangeType.FROM;
+                        range.from = from;
                     }
-                    return true;
+                    else {
+                        range.type &= ~EShapeDataValueRangeType.FROM;
+                    }
+                }
+                if (to !== undefined) {
+                    if (to !== null) {
+                        range.type |= EShapeDataValueRangeType.TO;
+                        range.to = to;
+                    }
+                    else {
+                        range.type &= ~EShapeDataValueRangeType.TO;
+                    }
                 }
             }
-            return false;
+            return true;
         };
         return DDiagramCanvasDataImpl;
     }());
@@ -57521,6 +57569,12 @@
                                 }
                             }
                         }
+                        else if (value.scope === EShapeDataValueScope.PROTECTED) {
+                            var id = value.id;
+                            if (0 < id.length) {
+                                canvasData.protected.add(id, value);
+                            }
+                        }
                         else {
                             if (mapper) {
                                 mapper(value, dataShape || shape);
@@ -57920,6 +57974,24 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DDiagramDataProtectedImpl = /** @class */ (function () {
+        function DDiagramDataProtectedImpl(diagram) {
+            this._diagram = diagram;
+        }
+        DDiagramDataProtectedImpl.prototype.set = function (id, value, time, from, to) {
+            var canvas = this._diagram.canvas;
+            if (canvas != null) {
+                return canvas.data.protected.set(id, value, time, from, to);
+            }
+            return false;
+        };
+        return DDiagramDataProtectedImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var DDiagramDataRemoteImpl = /** @class */ (function () {
         function DDiagramDataRemoteImpl(options) {
             this._controller = options && options.controller;
@@ -57948,6 +58020,7 @@
             this._mapper = (options && options.mapper) || null;
             this._remote = new DDiagramDataRemoteImpl(options && options.remote);
             this._private = new DDiagramDataPrivateImpl(diagram);
+            this._protected = new DDiagramDataProtectedImpl(diagram);
         }
         DDiagramDataImpl.prototype.update = function () {
             // DO NOTHING
@@ -57972,6 +58045,13 @@
         Object.defineProperty(DDiagramDataImpl.prototype, "private", {
             get: function () {
                 return this._private;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramDataImpl.prototype, "protected", {
+            get: function () {
+                return this._protected;
             },
             enumerable: false,
             configurable: true
@@ -69244,6 +69324,7 @@
         EShapeActionValueChangeCursor: EShapeActionValueChangeCursor,
         EShapeActionValueChangeTextType: EShapeActionValueChangeTextType,
         EShapeActionValueChangeText: EShapeActionValueChangeText,
+        EShapeActionValueDeserializers: EShapeActionValueDeserializers,
         EShapeActionValueEmitEvent: EShapeActionValueEmitEvent,
         EShapeActionValueMiscEmitEvent: EShapeActionValueMiscEmitEvent,
         EShapeActionValueMiscGestureType: EShapeActionValueMiscGestureType,
@@ -69565,7 +69646,7 @@
         EShapeDataImpl: EShapeDataImpl,
         EShapeDataMapperImpl: EShapeDataMapperImpl,
         EShapeDataMappingImpl: EShapeDataMappingImpl,
-        EShapeDataPrivateImpl: EShapeDataPrivateImpl,
+        EShapeDataScopedImpl: EShapeDataScopedImpl,
         EShapeDataValueImpl: EShapeDataValueImpl,
         EShapeDataValueScope: EShapeDataValueScope,
         EShapeDataValueOrder: EShapeDataValueOrder,
@@ -69864,7 +69945,6 @@
         DDiagramBase: DDiagramBase,
         DDiagramCanvasBase: DDiagramCanvasBase,
         DDiagramCanvasDataImpl: DDiagramCanvasDataImpl,
-        DDiagramCanvasDataPrivateImpl: DDiagramCanvasDataPrivateImpl,
         DDiagramCanvasEditorBackground: DDiagramCanvasEditorBackground,
         DDiagramCanvasEditorSnap: DDiagramCanvasEditorSnap,
         DDiagramCanvasEditor: DDiagramCanvasEditor,

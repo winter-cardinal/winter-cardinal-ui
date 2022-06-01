@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.174.0
+ Winter Cardinal UI v0.175.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3608,6 +3608,13 @@
                     return "Emit an event";
                 case EShapeActionValueType.MISC:
                     return "Misc.";
+                default:
+                    if (EShapeActionValueType.EXTENSION <= type) {
+                        return "Extension";
+                    }
+                    else {
+                        return "Unknown";
+                    }
             }
         };
         EThemeWhiteShapeActionValue.prototype.toConditionLabel = function (condition) {
