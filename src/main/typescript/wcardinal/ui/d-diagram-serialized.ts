@@ -345,7 +345,7 @@ export interface DDiagramSerializedItem {
 	 */
 	[19]: number;
 
-	/** A children. */
+	/** Children. */
 	[20]: DDiagramSerializedItem[];
 
 	/** A X pivot. */
