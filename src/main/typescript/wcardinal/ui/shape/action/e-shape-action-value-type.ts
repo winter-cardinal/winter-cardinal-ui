@@ -15,7 +15,8 @@ export const EShapeActionValueType = {
 	CHANGE_TEXT: 6,
 	CHANGE_CURSOR: 7,
 	MISC: 8,
-	CHANGE_COLOR: 9
+	CHANGE_COLOR: 9,
+	EXTENSION: 1000
 } as const;
 
 export type EShapeActionValueType =

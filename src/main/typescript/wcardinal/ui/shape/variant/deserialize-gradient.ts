@@ -3,7 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { isString } from "../../util/is-string";
+import { EShape } from "../e-shape";
 import { EShapeGradientLike, EShapeGradientPointLike } from "../e-shape-gradient";
+import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 
 const parse = (target: string): number[] | null => {
 	try {
@@ -13,7 +16,7 @@ const parse = (target: string): number[] | null => {
 	}
 };
 
-export const deserializeGradient = (target: string): EShapeGradientLike | undefined => {
+const toGradientLike = (target: string): EShapeGradientLike | undefined => {
 	const parsed = parse(target);
 	if (parsed == null || parsed.length < 7) {
 		return undefined;
@@ -31,5 +34,19 @@ export const deserializeGradient = (target: string): EShapeGradientLike | undefi
 			points,
 			direction
 		};
+	}
+};
+
+export const deserializeGradient = (
+	index: number,
+	manager: EShapeResourceManagerDeserialization,
+	result: EShape
+): void => {
+	const resources = manager.resources;
+	if (0 <= index && index < resources.length) {
+		const serialized = resources[index];
+		if (isString(serialized)) {
+			result.gradient = toGradientLike(serialized);
+		}
 	}
 };

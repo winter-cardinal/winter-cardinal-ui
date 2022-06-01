@@ -79,6 +79,7 @@ export * from "./e-shape-action-value-change-color";
 export * from "./e-shape-action-value-change-cursor";
 export * from "./e-shape-action-value-change-text-type";
 export * from "./e-shape-action-value-change-text";
+export * from "./e-shape-action-value-deserializers";
 export * from "./e-shape-action-value-emit-event";
 export * from "./e-shape-action-value-misc-emit-event";
 export * from "./e-shape-action-value-misc-gesture-type";

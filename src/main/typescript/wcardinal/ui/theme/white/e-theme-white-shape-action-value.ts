@@ -1,5 +1,4 @@
 import { EShapeActionValue, EThemeShapeActionValue } from "../../shape/action/e-shape-action-value";
-import { EShapeActionValueBase } from "../../shape/action/e-shape-action-value-base";
 import { EShapeActionValueBlinkType } from "../../shape/action/e-shape-action-value-blink-type";
 import { EShapeActionValueChangeColorTarget } from "../../shape/action/e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeColorType } from "../../shape/action/e-shape-action-value-change-color-type";
@@ -37,7 +36,7 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 		return this.toTypedLabel(type, value);
 	}
 
-	protected toTypedLabel(type: EShapeActionValueType, value: EShapeActionValueBase): string {
+	protected toTypedLabel(type: EShapeActionValueType, value: EShapeActionValue): string {
 		return `${this.toTypeLabel(type)}: ${this.toConditionLabel(value.condition)}`;
 	}
 
@@ -103,6 +102,12 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 				return "Emit an event";
 			case EShapeActionValueType.MISC:
 				return "Misc.";
+			default:
+				if (EShapeActionValueType.EXTENSION <= type) {
+					return "Extension";
+				} else {
+					return "Unknown";
+				}
 		}
 	}
 

@@ -5,7 +5,7 @@
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { isString } from "../../util/is-string";
-import { deserializeActionValue } from "../action/deserialize-action-value";
+import { deserializeActionValues } from "../action/deserialize-action-values";
 import { EShape } from "../e-shape";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { deserialize } from "./deserialize";
@@ -13,12 +13,54 @@ import { deserializeGradient } from "./deserialize-gradient";
 import { toImageElement } from "./to-image-element";
 import { toSizeNormalized } from "./to-size-normalized";
 
+const deserializeChildren = <SHAPE extends EShape>(
+	serializeds: DDiagramSerializedItem[],
+	manager: EShapeResourceManagerDeserialization,
+	result: SHAPE
+): Promise<SHAPE> | null => {
+	if (0 < serializeds.length) {
+		const deserializeds = [];
+		for (let i = 0, imax = serializeds.length; i < imax; ++i) {
+			deserializeds.push(deserialize(serializeds[i], manager));
+		}
+		return Promise.all(deserializeds).then((children: EShape[]): SHAPE => {
+			result.children = children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				children[i].parent = result;
+			}
+			result.onChildTransformChange();
+			result.toDirty();
+			return result;
+		});
+	}
+	return null;
+};
+
+const deserializeImage = <SHAPE extends EShape>(
+	index: number,
+	manager: EShapeResourceManagerDeserialization,
+	result: SHAPE
+): Promise<SHAPE> | null => {
+	const resources = manager.resources;
+	if (0 <= index && index < resources.length) {
+		const imageSrc = resources[index];
+		if (isString(imageSrc)) {
+			return toImageElement(imageSrc).then((imageElement) => {
+				result.image = imageElement;
+				return result;
+			});
+		}
+	}
+	return null;
+};
+
 export const deserializeBase = <SHAPE extends EShape>(
 	item: DDiagramSerializedItem,
 	manager: EShapeResourceManagerDeserialization,
 	result: SHAPE
 ): Promise<SHAPE> | SHAPE => {
-	result.id = manager.resources[item[1]] || "";
+	const resources = manager.resources;
+	result.id = resources[item[1]] || "";
 	const transform = result.transform;
 	transform.position.set(item[2], item[3]);
 	transform.rotation = item[6];
@@ -38,71 +80,28 @@ export const deserializeBase = <SHAPE extends EShape>(
 	state.isFocusable = !(item23 & 2);
 	state.isActive = !!(item23 & 4);
 	const item24 = item[24];
-	result.shortcut = 0 <= item24 ? manager.resources[item24] : undefined;
+	result.shortcut = 0 <= item24 ? resources[item24] : undefined;
 	const item25 = item[25];
-	result.title = 0 <= item25 ? manager.resources[item25] : undefined;
+	result.title = 0 <= item25 ? resources[item25] : undefined;
 	const item26 = item[26];
 	result.uuid = item26 != null ? item26 : 0;
 
-	// Children
-	let childrenPromise: Promise<SHAPE> | null = null;
-	const childrenSerialized = item[20];
-	if (0 < childrenSerialized.length) {
-		const childrenOrPromises = [];
-		for (let i = 0, imax = childrenSerialized.length; i < imax; ++i) {
-			childrenOrPromises.push(deserialize(childrenSerialized[i], manager));
-		}
-		childrenPromise = Promise.all(childrenOrPromises).then((children: EShape[]) => {
-			result.children = children;
-			for (let i = 0, imax = children.length; i < imax; ++i) {
-				children[i].parent = result;
-			}
-			result.onChildTransformChange();
-			result.toDirty();
-			return result;
-		});
-	}
+	const children = deserializeChildren(item[20], manager, result);
+	deserializeActionValues(item[17], manager, result);
+	deserializeGradient(item[19], manager, result);
+	const image = deserializeImage(item[18], manager, result);
 
-	// Action
-	const serializedActions = item[17];
-	for (let i = 0, imax = serializedActions.length; i < imax; ++i) {
-		result.action.add(deserializeActionValue(serializedActions[i], manager));
-	}
-
-	// Gradient
-	const gradientId = item[19];
-	if (0 <= gradientId && gradientId < manager.resources.length) {
-		const gradient = manager.resources[gradientId];
-		if (isString(gradient)) {
-			result.gradient = deserializeGradient(gradient);
-		}
-	}
-
-	// Image
-	let imagePromise: Promise<SHAPE> | null = null;
-	const imageId = item[18];
-	if (0 <= imageId && imageId < manager.resources.length) {
-		const imageSrc = manager.resources[imageId];
-		if (isString(imageSrc)) {
-			imagePromise = toImageElement(imageSrc).then((imageElement) => {
-				result.image = imageElement;
-				return result;
-			});
-		}
-	}
-
-	//
-	if (childrenPromise != null) {
-		if (imagePromise != null) {
-			return Promise.all([childrenPromise, imagePromise]).then(() => {
+	if (children != null) {
+		if (image != null) {
+			return Promise.all([children, image]).then(() => {
 				return result;
 			});
 		} else {
-			return childrenPromise;
+			return children;
 		}
 	} else {
-		if (imagePromise != null) {
-			return imagePromise;
+		if (image != null) {
+			return image;
 		} else {
 			return result;
 		}

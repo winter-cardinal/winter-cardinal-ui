@@ -10,6 +10,8 @@ import { EShapeActionValue, EThemeShapeActionValue } from "./e-shape-action-valu
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 
 export abstract class EShapeActionValueBase implements EShapeActionValue {
+	protected static THEME?: EThemeShapeActionValue;
+
 	readonly type: EShapeActionValueType;
 	readonly condition: string;
 
@@ -23,7 +25,12 @@ export abstract class EShapeActionValueBase implements EShapeActionValue {
 	}
 
 	toLabel(): string {
-		return DThemes.getInstance().get<EThemeShapeActionValue>("EShapeActionValue").toLabel(this);
+		return this.getTheme().toLabel(this);
+	}
+
+	protected getTheme(): EThemeShapeActionValue {
+		return (EShapeActionValueBase.THEME ??=
+			DThemes.getInstance().get<EThemeShapeActionValue>("EShapeActionValue"));
 	}
 
 	abstract toRuntime(): EShapeActionRuntime;
