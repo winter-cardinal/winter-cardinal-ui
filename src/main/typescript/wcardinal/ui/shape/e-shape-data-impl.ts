@@ -16,8 +16,8 @@ import { EShapeDataMappingImpl } from "./e-shape-data-mapping-impl";
 import { EShapeDataValueScope } from "./e-shape-data-value-scope";
 import { DDiagramSerializedData, DDiagramSerializedDataWithMapping } from "../d-diagram-serialized";
 import { isArray } from "../util/is-array";
-import { EShapeDataPrivate } from "./e-shape-data-private";
-import { EShapeDataPrivateImpl } from "./e-shape-data-private-impl";
+import { EShapeDataScoped } from "./e-shape-data-scoped";
+import { EShapeDataScopedImpl } from "./e-shape-data-scoped-impl";
 
 let RANGE_DUMMY: EShapeDataValueRange | undefined;
 
@@ -25,7 +25,7 @@ export class EShapeDataImpl implements EShapeData {
 	protected _values: EShapeDataValue[];
 	protected _isChanged: boolean;
 	protected _mapping?: EShapeDataMapping;
-	protected _private?: EShapeDataPrivate;
+	protected _private?: EShapeDataScoped;
 
 	constructor() {
 		this._values = [];
@@ -162,7 +162,7 @@ export class EShapeDataImpl implements EShapeData {
 		return this._mapping;
 	}
 
-	get private(): EShapeDataPrivate {
+	get private(): EShapeDataScoped {
 		let result = this._private;
 		if (result == null) {
 			result = this.newPrivate();
@@ -171,11 +171,11 @@ export class EShapeDataImpl implements EShapeData {
 		return result;
 	}
 
-	protected newPrivate(): EShapeDataPrivate {
-		return new EShapeDataPrivateImpl();
+	protected newPrivate(): EShapeDataScoped {
+		return new EShapeDataScopedImpl();
 	}
 
-	getPrivate(): EShapeDataPrivate | undefined {
+	getPrivate(): EShapeDataScoped | undefined {
 		return this._private;
 	}
 

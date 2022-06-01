@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDiagramCanvasDataPrivate } from "./d-diagram-canvas-data-private";
+import { EShapeDataScoped } from "./shape/e-shape-data-scoped";
 import { EShapeDataValue } from "./shape/e-shape-data-value";
 
 export interface DDiagramCanvasData {
-	readonly private: DDiagramCanvasDataPrivate;
+	readonly private: EShapeDataScoped;
+	readonly protected: EShapeDataScoped;
 	readonly ids: string[];
 	each(callback: (id: string) => boolean | void): string | null;
 	add(id: string, value: EShapeDataValue): void;

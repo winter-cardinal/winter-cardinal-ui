@@ -6,7 +6,7 @@
 import { DDiagramDataDiagram } from "./d-diagram-data";
 import { DDiagramDataScoped } from "./d-diagram-data-scoped";
 
-export class DDiagramDataPrivateImpl implements DDiagramDataScoped {
+export class DDiagramDataProtectedImpl implements DDiagramDataScoped {
 	protected _diagram: DDiagramDataDiagram;
 
 	constructor(diagram: DDiagramDataDiagram) {
@@ -22,7 +22,7 @@ export class DDiagramDataPrivateImpl implements DDiagramDataScoped {
 	): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.private.set(id, value, time, from, to);
+			return canvas.data.protected.set(id, value, time, from, to);
 		}
 		return false;
 	}

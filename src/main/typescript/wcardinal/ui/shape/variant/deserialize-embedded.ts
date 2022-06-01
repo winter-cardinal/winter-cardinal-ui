@@ -6,6 +6,7 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShape } from "../e-shape";
 import { EShapeDataMapper } from "../e-shape-data-mapper";
+import { EShapeDataValueScope } from "../e-shape-data-value-scope";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { deserializeBase } from "./deserialize-base";
@@ -103,7 +104,7 @@ const applyDataMapping = (
 		const targetData = target.data;
 		for (let j = 0, jmax = targetData.size(); j < jmax; ++j) {
 			const targetDatum = targetData.get(j);
-			if (targetDatum) {
+			if (targetDatum && targetDatum.scope !== EShapeDataValueScope.PRIVATE) {
 				mapper.map(targetDatum, destination, initial);
 			}
 		}

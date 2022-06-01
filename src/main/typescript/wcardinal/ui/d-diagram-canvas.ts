@@ -204,6 +204,11 @@ export class DDiagramCanvas<
 								canvasData.private.add(id, value);
 							}
 						}
+					} else if (value.scope === EShapeDataValueScope.PROTECTED) {
+						const id = value.id;
+						if (0 < id.length) {
+							canvasData.protected.add(id, value);
+						}
 					} else {
 						if (mapper) {
 							mapper(value, dataShape || shape);

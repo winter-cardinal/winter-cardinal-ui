@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface DDiagramDataPrivate {
+export interface DDiagramDataScoped {
 	set(
 		id: string,
 		value: unknown,

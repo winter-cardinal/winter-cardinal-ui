@@ -13,7 +13,14 @@ export const EShapeDataValueScope = {
 	/**
 	 * A public data is accessible from anywhere outside graphics.
 	 */
-	PUBLIC: 1
+	PUBLIC: 1,
+
+	/**
+	 * A protected data is accessible only from inside graphics.
+	 * Unlike the private data, the protected data is also accessible from parent graphics
+	 * containing the graphic that this data belongs to.
+	 */
+	PROTECTED: 2
 } as const;
 
 export type EShapeDataValueScope = typeof EShapeDataValueScope[keyof typeof EShapeDataValueScope];

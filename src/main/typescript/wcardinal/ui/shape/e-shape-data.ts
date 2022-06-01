@@ -10,7 +10,7 @@ import { EShapeDataValueRange } from "./e-shape-data-value-range";
 import { EShapeDataMapping } from "./e-shape-data-mapping";
 import { EShapeDataValueType } from "./e-shape-data-value-type";
 import { EShapeDataValueScope } from "./e-shape-data-value-scope";
-import { EShapeDataPrivate } from "./e-shape-data-private";
+import { EShapeDataScoped } from "./e-shape-data-scoped";
 
 export interface EShapeData {
 	readonly values: EShapeDataValue[];
@@ -33,8 +33,8 @@ export interface EShapeData {
 	getMapping(): EShapeDataMapping | undefined;
 
 	// Private
-	readonly private: EShapeDataPrivate;
-	getPrivate(): EShapeDataPrivate | undefined;
+	readonly private: EShapeDataScoped;
+	getPrivate(): EShapeDataScoped | undefined;
 
 	// Methods
 	add(value: EShapeDataValue, index?: number): void;

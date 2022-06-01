@@ -9,12 +9,13 @@ import { EShape } from "../e-shape";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "../variant/e-shape-base";
 
-export interface EShapeActionRuntimeContainerDataRemote {
+export interface EShapeActionRuntimeContainerDataScoped {
 	set(id: string, value: unknown, time: number): boolean;
 }
 
 export interface EShapeActionRuntimeContainerData {
-	readonly remote: EShapeActionRuntimeContainerDataRemote;
+	readonly remote: EShapeActionRuntimeContainerDataScoped;
+	readonly protected: EShapeActionRuntimeContainerDataScoped;
 
 	set(
 		id: string,
@@ -81,9 +82,16 @@ export class EShapeActionRuntimes {
 			let current: { parent: any } | null | undefined = shape;
 			while (current != null) {
 				if (this.isContainer(current)) {
-					current.data.set(id, value, time);
-					DApplications.update(current);
-					return true;
+					if (current.data.protected.set(id, value, time)) {
+						DApplications.update(current);
+						return true;
+					} else {
+						if (current.data.set(id, value, time)) {
+							DApplications.update(current);
+							return true;
+						}
+					}
+					return false;
 				} else if (this.isEmbedded(current)) {
 					if (current.data.getPrivate()?.set(id, value, time)) {
 						DApplications.update(current);

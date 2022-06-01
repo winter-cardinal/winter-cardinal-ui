@@ -5,8 +5,9 @@
 
 import { DDiagramDataDiagram, DDiagramDataOptions } from "./d-diagram-data";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
-import { DDiagramDataPrivate } from "./d-diagram-data-private";
+import { DDiagramDataScoped } from "./d-diagram-data-scoped";
 import { DDiagramDataPrivateImpl } from "./d-diagram-data-private-impl";
+import { DDiagramDataProtectedImpl } from "./d-diagram-data-protected-impl";
 import { DDiagramDataRemote } from "./d-diagram-data-remote";
 import { DDiagramDataRemoteImpl } from "./d-diagram-data-remote-impl";
 
@@ -17,13 +18,15 @@ export class DDiagramDataImpl {
 	protected _diagram: DDiagramDataDiagram;
 	protected _mapper: DDiagramDataMapper | null;
 	protected _remote: DDiagramDataRemote;
-	protected _private: DDiagramDataPrivate;
+	protected _private: DDiagramDataScoped;
+	protected _protected: DDiagramDataScoped;
 
 	constructor(diagram: DDiagramDataDiagram, options?: DDiagramDataOptions) {
 		this._diagram = diagram;
 		this._mapper = (options && options.mapper) || null;
 		this._remote = new DDiagramDataRemoteImpl(options && options.remote);
 		this._private = new DDiagramDataPrivateImpl(diagram);
+		this._protected = new DDiagramDataProtectedImpl(diagram);
 	}
 
 	update(): void {
@@ -42,8 +45,12 @@ export class DDiagramDataImpl {
 		return this._remote;
 	}
 
-	get private(): DDiagramDataPrivate {
+	get private(): DDiagramDataScoped {
 		return this._private;
+	}
+
+	get protected(): DDiagramDataScoped {
+		return this._protected;
 	}
 
 	get ids(): string[] {

@@ -1,7 +1,7 @@
-import { EShapeDataPrivate } from "./e-shape-data-private";
+import { EShapeDataScoped } from "./e-shape-data-scoped";
 import { EShapeDataValue } from "./e-shape-data-value";
 
-export class EShapeDataPrivateImpl implements EShapeDataPrivate {
+export class EShapeDataScopedImpl implements EShapeDataScoped {
 	protected _data?: Map<string, EShapeDataValue[]>;
 
 	add(id: string, value: EShapeDataValue): void {

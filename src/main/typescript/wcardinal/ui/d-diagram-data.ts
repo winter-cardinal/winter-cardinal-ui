@@ -5,7 +5,7 @@
 
 import { DDiagramCanvasData } from "./d-diagram-canvas-data";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
-import { DDiagramDataPrivate } from "./d-diagram-data-private";
+import { DDiagramDataScoped } from "./d-diagram-data-scoped";
 import { DDiagramDataRemote } from "./d-diagram-data-remote";
 import { DDiagramDataRemoteOptions } from "./d-diagram-data-remote";
 
@@ -34,7 +34,8 @@ export interface DDiagramDataOptions {
  */
 export interface DDiagramData {
 	readonly remote: DDiagramDataRemote;
-	readonly private: DDiagramDataPrivate;
+	readonly private: DDiagramDataScoped;
+	readonly protected: DDiagramDataScoped;
 	readonly ids: string[];
 	mapper: DDiagramDataMapper | null;
 	each(callback: (id: string) => boolean | void): string | null;
