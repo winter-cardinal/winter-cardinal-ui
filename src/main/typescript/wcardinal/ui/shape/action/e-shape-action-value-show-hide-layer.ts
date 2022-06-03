@@ -6,34 +6,34 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
-import { EShapeActionRuntimeMiscLayerShowHide } from "./e-shape-action-runtime-misc-layer-show-hide";
-import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
+import { EShapeActionRuntimeShowHideLayer } from "./e-shape-action-runtime-show-hide-layer";
+import { EShapeActionValueShowHideType } from "./e-shape-action-value-show-hide-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
-export type EShapeActionValueMiscLayerShowHideSerialized = [
-	typeof EShapeActionValueType.MISC,
+export type EShapeActionValueShowHideLayerSerialized = [
+	typeof EShapeActionValueType.SHOW_HIDE,
 	number,
-	typeof EShapeActionValueMiscType.LAYER_SHOW_HIDE,
+	typeof EShapeActionValueShowHideType.LAYER,
 	number,
 	number
 ];
 
-export class EShapeActionValueMiscLayerShowHide extends EShapeActionValueSubtyped<
-	typeof EShapeActionValueMiscType.LAYER_SHOW_HIDE
+export class EShapeActionValueShowHideLayer extends EShapeActionValueSubtyped<
+	typeof EShapeActionValueShowHideType.LAYER
 > {
 	readonly layers: number[];
 	readonly bringToFront: boolean;
 
 	constructor(condition: string, layers: number[], bringToFront: boolean) {
-		super(EShapeActionValueType.MISC, condition, EShapeActionValueMiscType.LAYER_SHOW_HIDE);
+		super(EShapeActionValueType.SHOW_HIDE, condition, EShapeActionValueShowHideType.LAYER);
 		this.layers = layers;
 		this.bringToFront = bringToFront;
 	}
 
 	toRuntime(): EShapeActionRuntime {
-		return new EShapeActionRuntimeMiscLayerShowHide(this);
+		return new EShapeActionRuntimeShowHideLayer(this);
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
@@ -58,13 +58,13 @@ export class EShapeActionValueMiscLayerShowHide extends EShapeActionValueSubtype
 	}
 
 	static deserialize(
-		serialized: EShapeActionValueMiscLayerShowHideSerialized,
+		serialized: EShapeActionValueShowHideLayerSerialized,
 		manager: EShapeResourceManagerDeserialization
-	): EShapeActionValueMiscLayerShowHide {
+	): EShapeActionValueShowHideLayer {
 		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
 		const layers = this.deserializeLayers(serialized[3], manager);
 		const bringToFront = !!serialized[4];
-		return new EShapeActionValueMiscLayerShowHide(condition, layers, bringToFront);
+		return new EShapeActionValueShowHideLayer(condition, layers, bringToFront);
 	}
 
 	static deserializeLayers(

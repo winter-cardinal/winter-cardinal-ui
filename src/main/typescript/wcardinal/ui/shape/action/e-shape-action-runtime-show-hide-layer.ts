@@ -7,22 +7,22 @@ import { DDiagramLayers, DDiagramLayersLayer } from "../../d-diagram-layers";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
-import { EShapeActionValueMiscLayerShowHide } from "./e-shape-action-value-misc-layer-show-hide";
+import { EShapeActionValueShowHideLayer } from "./e-shape-action-value-show-hide-layer";
 
-export interface EShapeActionRuntimeMiscLayerShowHideData {
+export interface EShapeActionRuntimeShowHideLayerData {
 	layers: DDiagramLayersLayer[];
 	bringToFront: boolean;
 	condition: boolean | null;
 }
 
-export class EShapeActionRuntimeMiscLayerShowHide extends EShapeActionRuntimeConditional {
-	protected _data: Map<EShape, EShapeActionRuntimeMiscLayerShowHideData>;
+export class EShapeActionRuntimeShowHideLayer extends EShapeActionRuntimeConditional {
+	protected _data: Map<EShape, EShapeActionRuntimeShowHideLayerData>;
 	protected _layers: number[];
 	protected _bringToFront: boolean;
 
-	constructor(value: EShapeActionValueMiscLayerShowHide) {
+	constructor(value: EShapeActionValueShowHideLayer) {
 		super(value, EShapeRuntimeReset.NONE);
-		this._data = new Map<EShape, EShapeActionRuntimeMiscLayerShowHideData>();
+		this._data = new Map<EShape, EShapeActionRuntimeShowHideLayerData>();
 		this._layers = value.layers;
 		this._bringToFront = value.bringToFront;
 	}
@@ -59,7 +59,7 @@ export class EShapeActionRuntimeMiscLayerShowHide extends EShapeActionRuntimeCon
 		}
 	}
 
-	protected newData(shape: EShape): EShapeActionRuntimeMiscLayerShowHideData | undefined {
+	protected newData(shape: EShape): EShapeActionRuntimeShowHideLayerData | undefined {
 		const layers = DDiagramLayers.toLayers(shape, this._layers);
 		if (0 < layers.length) {
 			return {

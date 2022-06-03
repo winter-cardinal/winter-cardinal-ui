@@ -9,12 +9,15 @@ import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditi
 import { EShapeActionValueShowHide } from "./e-shape-action-value-show-hide";
 import { EShapeActionValueShowHideType } from "./e-shape-action-value-show-hide-type";
 
+/**
+ * @deprecated in favor of {@link EShapeActionRuntimeShowHideShape}.
+ */
 export class EShapeActionRuntimeShowHide extends EShapeActionRuntimeConditional {
 	visibility: boolean;
 
 	constructor(value: EShapeActionValueShowHide) {
 		super(value, EShapeRuntimeReset.VISIBILITY);
-		this.visibility = value.subtype === EShapeActionValueShowHideType.SHOW;
+		this.visibility = value.subtype === EShapeActionValueShowHideType.SHAPE_SHOW;
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {

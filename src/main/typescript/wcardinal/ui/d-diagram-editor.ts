@@ -7,13 +7,12 @@ import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
 import {
 	DDiagramBase,
-	DDiagramBaseController,
 	DDiagramBaseEvents,
 	DDiagramBaseOptions,
-	DDiagramBasePieceController,
 	DThemeDiagramBase
 } from "./d-diagram-base";
 import { DDiagramCanvasEditor, DDiagramCanvasEditorOptions } from "./d-diagram-canvas-editor";
+import { DDiagramEditorController } from "./d-diagram-editor-controller";
 import {
 	DDiagramEditorThumbnail,
 	DDiagramEditorThumbnailOptions,
@@ -27,20 +26,6 @@ import {
 import { DDiagrams } from "./d-diagrams";
 import { DOnOptions } from "./d-on-options";
 import { ESnapper } from "./snapper/e-snapper";
-
-/**
- * {@link DDiagramEditor} piece controller.
- */
-export interface DDiagramEditorPieceController extends DDiagramBasePieceController {}
-
-/**
- * {@link DDiagramEditor} controller.
- */
-export interface DDiagramEditorController extends DDiagramBaseController {
-	get(id: number): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
-	save(simple: DDiagramSerializedSimple): Promise<number>;
-	delete(id: number): Promise<void>;
-}
 
 /**
  * {@link DDiagramEditor} events.

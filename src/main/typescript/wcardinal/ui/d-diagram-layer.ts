@@ -7,8 +7,9 @@ import { IPoint } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DDiagramLayerBackground } from "./d-diagram-layer-background";
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "./d-diagram-serialized";
-import { EShapeActionValueMiscGestureType } from "./shape/action/e-shape-action-value-misc-gesture-type";
-import { EShapeActionValueMiscLayerGesture } from "./shape/action/e-shape-action-value-misc-layer-gesture";
+import { EShapeActionValueGesture } from "./shape/action/e-shape-action-value-gesture";
+import { EShapeActionValueGestureOperationType } from "./shape/action/e-shape-action-value-gesture-operation-type";
+import { EShapeActionValueGestureType } from "./shape/action/e-shape-action-value-gesture-type";
 import { EShape } from "./shape/e-shape";
 import { EShapeContainer } from "./shape/e-shape-container";
 import { EShapeLayerState } from "./shape/e-shape-layer-state";
@@ -77,13 +78,17 @@ export class DDiagramLayer extends EShapeContainer {
 			shape.runtime = runtime;
 			const gestureType =
 				(isDraggable
-					? EShapeActionValueMiscGestureType.DRAG
-					: EShapeActionValueMiscGestureType.NONE) |
+					? EShapeActionValueGestureOperationType.DRAG
+					: EShapeActionValueGestureOperationType.NONE) |
 				(isPinchable
-					? EShapeActionValueMiscGestureType.PINCH
-					: EShapeActionValueMiscGestureType.NONE);
+					? EShapeActionValueGestureOperationType.PINCH
+					: EShapeActionValueGestureOperationType.NONE);
 			runtime.actions.push(
-				new EShapeActionValueMiscLayerGesture("", gestureType).toRuntime()
+				new EShapeActionValueGesture(
+					"",
+					EShapeActionValueGestureType.LAYER,
+					gestureType
+				).toRuntime()
 			);
 			actionables.push(shape);
 			runtime.initialize(shape);

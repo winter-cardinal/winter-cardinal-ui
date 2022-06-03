@@ -1,8 +1,14 @@
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { EShapeActionValue, EThemeShapeActionValue } from "../../shape/action/e-shape-action-value";
 import { EShapeActionValueBlinkType } from "../../shape/action/e-shape-action-value-blink-type";
 import { EShapeActionValueChangeColorTarget } from "../../shape/action/e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeColorType } from "../../shape/action/e-shape-action-value-change-color-type";
 import { EShapeActionValueChangeTextType } from "../../shape/action/e-shape-action-value-change-text-type";
+import { EShapeActionValueGestureType } from "../../shape/action/e-shape-action-value-gesture-type";
 import { EShapeActionValueMiscType } from "../../shape/action/e-shape-action-value-misc-type";
 import { EShapeActionValueOnInputAction } from "../../shape/action/e-shape-action-value-on-input-action";
 import { EShapeActionValueOpenType } from "../../shape/action/e-shape-action-value-open-type";
@@ -42,18 +48,20 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 
 	protected toSubtypedLabel(
 		type: EShapeActionValueType,
-		subtype: EShapeActionValueShowHideType,
+		subtype: any,
 		value: EShapeActionValueSubtyped<any>
 	): string | null {
 		const typeLabel = this.toTypeLabel(type);
 		switch (type) {
 			case EShapeActionValueType.SHOW_HIDE:
-				return `${this.toShowHideTypeLabel(subtype)}`;
+				return `${typeLabel}: ${this.toShowHideTypeLabel(subtype)}`;
 			case EShapeActionValueType.BLINK:
 				return `${typeLabel}: ${this.toBlinkTypeLabel(subtype)}`;
 			case EShapeActionValueType.CHANGE_COLOR:
 			case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 				return `${typeLabel}: ${this.toChangeColorTypeLabel(subtype)}`;
+			case EShapeActionValueType.GESTURE:
+				return `${typeLabel}: ${this.toGestureTypeLabel(subtype)}`;
 			case EShapeActionValueType.MISC:
 				return `${typeLabel}: ${this.toMiscTypeLabel(subtype)}`;
 		}
@@ -100,6 +108,8 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 				return "Change cursor";
 			case EShapeActionValueType.EMIT_EVENT:
 				return "Emit an event";
+			case EShapeActionValueType.GESTURE:
+				return "Gesture";
 			case EShapeActionValueType.MISC:
 				return "Misc.";
 			default:
@@ -139,10 +149,14 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 
 	toShowHideTypeLabel(type: EShapeActionValueShowHideType): string {
 		switch (type) {
-			case EShapeActionValueShowHideType.SHOW:
+			case EShapeActionValueShowHideType.SHAPE_SHOW:
 				return "Show";
-			case EShapeActionValueShowHideType.HIDE:
+			case EShapeActionValueShowHideType.SHAPE_HIDE:
 				return "Hide";
+			case EShapeActionValueShowHideType.SHAPE:
+				return "Shape";
+			case EShapeActionValueShowHideType.LAYER:
+				return "Layer";
 		}
 	}
 
@@ -273,6 +287,15 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 		}
 	}
 
+	toGestureTypeLabel(type: EShapeActionValueGestureType): string {
+		switch (type) {
+			case EShapeActionValueGestureType.SHAPE:
+				return "Shape";
+			case EShapeActionValueGestureType.LAYER:
+				return "Layer";
+		}
+	}
+
 	toMiscTypeLabel(type: EShapeActionValueMiscType): string {
 		switch (type) {
 			case EShapeActionValueMiscType.INPUT_TEXT:
@@ -293,9 +316,9 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 				return "HTML element";
 			case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
 				return "HTML element (No pointer events)";
-			case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+			case EShapeActionValueMiscType.SHOW_HIDE_LAYER:
 				return "Show / hide layers";
-			case EShapeActionValueMiscType.LAYER_GESTURE:
+			case EShapeActionValueMiscType.GESTURE_LAYER:
 				return "Layer gesture";
 			case EShapeActionValueMiscType.GESTURE:
 				return "Gesture";

@@ -6,11 +6,11 @@
 const DRAG = 1;
 const PINCH = 2;
 
-export const EShapeActionValueMiscGestureType = {
+export const EShapeActionValueGestureOperationType = {
 	NONE: 0,
 	DRAG,
 	PINCH,
 	ALL: DRAG | PINCH
 } as const;
 
-export type EShapeActionValueMiscGestureType = number;
+export type EShapeActionValueGestureOperationType = number;

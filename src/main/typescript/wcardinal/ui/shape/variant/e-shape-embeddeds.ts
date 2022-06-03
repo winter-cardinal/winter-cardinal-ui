@@ -1,4 +1,9 @@
-import { DDiagramBaseController } from "../../d-diagram-base";
+/*
+ * Copyright (C) 2019 Toshiba Corporation
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { DDiagramBaseController } from "../../d-diagram-base-controller";
 import { DDiagramSerialized, DDiagramSerializedSimple } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
 import { EShapeLayerContainer } from "../e-shape-layer-container";

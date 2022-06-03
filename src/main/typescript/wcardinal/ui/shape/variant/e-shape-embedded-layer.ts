@@ -5,8 +5,9 @@
 
 import { DDiagramSerializedItem, DDiagramSerializedLayer } from "../../d-diagram-serialized";
 import { isString } from "../../util/is-string";
-import { EShapeActionValueMiscGestureType } from "../action/e-shape-action-value-misc-gesture-type";
-import { EShapeActionValueMiscLayerGesture } from "../action/e-shape-action-value-misc-layer-gesture";
+import { EShapeActionValueGesture } from "../action/e-shape-action-value-gesture";
+import { EShapeActionValueGestureOperationType } from "../action/e-shape-action-value-gesture-operation-type";
+import { EShapeActionValueGestureType } from "../action/e-shape-action-value-gesture-type";
 import { EShapeFill } from "../e-shape-fill";
 import { EShapeLayer } from "../e-shape-layer";
 import { EShapeLayerState } from "../e-shape-layer-state";
@@ -106,12 +107,18 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 			if (isDraggable || isPinchable) {
 				const gestureType =
 					(isDraggable
-						? EShapeActionValueMiscGestureType.DRAG
-						: EShapeActionValueMiscGestureType.NONE) |
+						? EShapeActionValueGestureOperationType.DRAG
+						: EShapeActionValueGestureOperationType.NONE) |
 					(isPinchable
-						? EShapeActionValueMiscGestureType.PINCH
-						: EShapeActionValueMiscGestureType.NONE);
-				result.action.add(new EShapeActionValueMiscLayerGesture("", gestureType));
+						? EShapeActionValueGestureOperationType.PINCH
+						: EShapeActionValueGestureOperationType.NONE);
+				result.action.add(
+					new EShapeActionValueGesture(
+						"",
+						EShapeActionValueGestureType.LAYER,
+						gestureType
+					)
+				);
 			}
 			if (isInteractive || isDraggable || isPinchable) {
 				result.interactive = true;

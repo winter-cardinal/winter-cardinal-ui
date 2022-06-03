@@ -13,8 +13,11 @@ export const EShapeActionValueMiscType = {
 	WRITE_REMOTE: 6,
 	HTML_ELEMENT: 7,
 	HTML_ELEMENT_WITHOUT_POINTER_EVENTS: 8,
-	LAYER_SHOW_HIDE: 9,
-	LAYER_GESTURE: 10,
+	/** @deprecated in favor of {@link EShapeActionValueShowHideType.LAYER} */
+	SHOW_HIDE_LAYER: 9,
+	/** @deprecated in favor of {@link EShapeActionValueType.GESTURE} */
+	GESTURE_LAYER: 10,
+	/** @deprecated in favor of {@link EShapeActionValueType.GESTURE} */
 	GESTURE: 11
 } as const;
 

@@ -11,6 +11,7 @@ import {
 	DCanvasContainerOptions,
 	DThemeCanvasContainer
 } from "./d-canvas-container";
+import { DDiagramBaseController } from "./d-diagram-base-controller";
 import {
 	DDiagramCanvasBackgroundOptions,
 	DDiagramCanvasBase,
@@ -19,7 +20,7 @@ import {
 import { DDiagramCanvasTilePyramidFactory } from "./d-diagram-canvas-tile";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramLayer } from "./d-diagram-layer";
-import { DDiagramSerialized, DDiagramSerializedSimple } from "./d-diagram-serialized";
+import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramSnapshot, DDiagramSnapshotOptions } from "./d-diagram-snapshot";
 import { DDiagrams } from "./d-diagrams";
 import { DOnOptions } from "./d-on-options";
@@ -38,21 +39,6 @@ export interface DDiagramBaseEvents<CANVAS, EMITTER>
 	 * @param emitter an emitter
 	 */
 	ready(emitter: EMITTER): void;
-}
-
-/**
- * {@link DDiagram} piece controller.
- */
-export interface DDiagramBasePieceController {
-	getByName(name: string): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
-}
-
-/**
- * {@link DDiagram} controller.
- */
-export interface DDiagramBaseController {
-	piece: DDiagramBasePieceController;
-	getByName(name: string): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 }
 
 /**
@@ -229,15 +215,6 @@ export abstract class DDiagramBase<
 			color: background?.color ?? theme.getCanvasBackgroundColor(),
 			alpha: background?.alpha ?? theme.getCanvasBackgroundAlpha()
 		};
-	}
-
-	openByName(name: string): void {
-		const controller = this._controller;
-		if (controller) {
-			controller.getByName(name).then((found): void => {
-				this.set(DDiagrams.toSerialized(found));
-			});
-		}
 	}
 
 	protected abstract newCanvas(serialized: DDiagramSerialized): CANVAS;

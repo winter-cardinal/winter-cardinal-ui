@@ -5,31 +5,28 @@
 
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeActionRuntimeShowHide } from "./e-shape-action-runtime-show-hide";
+import { EShapeActionRuntime } from "./e-shape-action-runtime";
+import { EShapeActionRuntimeShowHideShape } from "./e-shape-action-runtime-show-hide-shape";
 import { EShapeActionValueShowHideType } from "./e-shape-action-value-show-hide-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
-/**
- * @deprecated in favor of {@link EShapeActionValueShowHideShapeSerialized}.
- */
-export type EShapeActionValueShowHideSerialized = [
+export type EShapeActionValueShowHideShapeSerialized = [
 	typeof EShapeActionValueType.SHOW_HIDE,
 	number,
-	EShapeActionValueShowHideType
+	typeof EShapeActionValueShowHideType.SHAPE
 ];
 
-/**
- * @deprecated in favor of {@link EShapeActionValueShowHideShape}.
- */
-export class EShapeActionValueShowHide extends EShapeActionValueSubtyped<EShapeActionValueShowHideType> {
-	constructor(subtype: EShapeActionValueShowHideType, condition: string) {
-		super(EShapeActionValueType.SHOW_HIDE, condition, subtype);
+export class EShapeActionValueShowHideShape extends EShapeActionValueSubtyped<
+	typeof EShapeActionValueShowHideType.SHAPE
+> {
+	constructor(condition: string) {
+		super(EShapeActionValueType.SHOW_HIDE, condition, EShapeActionValueShowHideType.SHAPE);
 	}
 
-	toRuntime(): EShapeActionRuntimeShowHide {
-		return new EShapeActionRuntimeShowHide(this);
+	toRuntime(): EShapeActionRuntime {
+		return new EShapeActionRuntimeShowHideShape(this);
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
@@ -38,10 +35,10 @@ export class EShapeActionValueShowHide extends EShapeActionValueSubtyped<EShapeA
 	}
 
 	static deserialize(
-		serialized: EShapeActionValueShowHideSerialized,
+		serialized: EShapeActionValueShowHideShapeSerialized,
 		manager: EShapeResourceManagerDeserialization
-	): EShapeActionValueShowHide {
+	): EShapeActionValueShowHideShape {
 		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
-		return new EShapeActionValueShowHide(serialized[2], condition);
+		return new EShapeActionValueShowHideShape(condition);
 	}
 }

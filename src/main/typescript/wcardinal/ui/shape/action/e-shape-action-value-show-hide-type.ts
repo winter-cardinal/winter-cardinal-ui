@@ -4,8 +4,12 @@
  */
 
 export const EShapeActionValueShowHideType = {
-	SHOW: 0,
-	HIDE: 1
+	/** @deprecated in favor of {@link SHAPE} */
+	SHAPE_SHOW: 0,
+	/** @deprecated in favor of {@link SHAPE} */
+	SHAPE_HIDE: 1,
+	SHAPE: 2,
+	LAYER: 3
 } as const;
 
 export type EShapeActionValueShowHideType =

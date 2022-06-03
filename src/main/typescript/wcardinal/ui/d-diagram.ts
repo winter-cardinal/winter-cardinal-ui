@@ -4,13 +4,7 @@
  */
 
 import { interaction, Renderer } from "pixi.js";
-import {
-	DDiagramBase,
-	DDiagramBaseController,
-	DDiagramBaseOptions,
-	DDiagramBasePieceController,
-	DThemeDiagramBase
-} from "./d-diagram-base";
+import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvas, DDiagramCanvasOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
@@ -19,16 +13,7 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 import { EShape } from "./shape/e-shape";
 import { DDiagramDataImpl } from "./d-diagram-data-impl";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
-
-/**
- * {@link DDiagram} piece controller.
- */
-export interface DDiagramPieceController extends DDiagramBasePieceController {}
-
-/**
- * {@link DDiagram} controller.
- */
-export interface DDiagramController extends DDiagramBaseController {}
+import { DDiagramController } from "./d-diagram-controller";
 
 /**
  * {@link DDiagram} options.

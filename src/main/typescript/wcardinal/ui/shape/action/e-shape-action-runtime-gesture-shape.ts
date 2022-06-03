@@ -5,64 +5,47 @@
 
 import { interaction, Point } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
-import { DDiagramLayers, DDiagramLayersLayer } from "../../d-diagram-layers";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
-import { EShapeActionValueMiscLayerGesture } from "./e-shape-action-value-misc-layer-gesture";
 import { DApplications } from "../../d-applications";
 import { UtilGesture } from "../../util/util-gesture";
-import { EShapeActionValueMiscGestureType } from "./e-shape-action-value-misc-gesture-type";
+import { EShapeActionValueGestureOperationType } from "./e-shape-action-value-gesture-operation-type";
+import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
 
-export class EShapeActionRuntimeMiscLayerGesture extends EShapeActionRuntimeConditional {
-	protected static GESTURE_UTIL?: UtilGesture<DDiagramLayersLayer>;
-	protected _layers: Map<EShape, DDiagramLayersLayer>;
-	protected _gestureType: EShapeActionValueMiscGestureType;
+export class EShapeActionRuntimeGestureShape extends EShapeActionRuntimeConditional {
+	protected static GESTURE_UTIL?: UtilGesture<EShape>;
+	protected _operationType: EShapeActionValueGestureOperationType;
 	protected _scaleMin: number;
 	protected _scaleMax: number;
 
-	constructor(value: EShapeActionValueMiscLayerGesture) {
+	constructor(value: EShapeActionValueGesture) {
 		super(value, EShapeRuntimeReset.NONE);
-		this._layers = new Map<EShape, DDiagramLayersLayer>();
-		this._gestureType = value.gestureType;
+		this._operationType = value.operationType;
 		this._scaleMin = value.scaleMin;
 		this._scaleMax = value.scaleMax;
-	}
-
-	initialize(shape: EShape, runtime: EShapeRuntime): void {
-		super.initialize(shape, runtime);
-
-		const layers = this._layers;
-		const layer = layers.get(shape);
-		if (layer == null) {
-			const newLayer = DDiagramLayers.toLayer(shape);
-			if (newLayer != null) {
-				this._layers.set(shape, newLayer);
-			}
-		}
 	}
 
 	onDown(shape: EShape, runtime: EShapeRuntime, e: InteractionEvent | KeyboardEvent): void {
 		super.onDown(shape, runtime, e);
 
 		if (e instanceof InteractionEvent) {
-			const layer = this._layers.get(shape);
-			if (layer && this.condition(shape, e.data.originalEvent.timeStamp)) {
-				this.getGestureUtil().onDown(layer, e);
+			if (this.condition(shape, e.data.originalEvent.timeStamp)) {
+				this.getGestureUtil().onDown(shape, e);
 			}
 		}
 	}
 
-	protected getGestureUtil(): UtilGesture<DDiagramLayersLayer> {
-		return (EShapeActionRuntimeMiscLayerGesture.GESTURE_UTIL ??= this.newGestureUtil());
+	protected getGestureUtil(): UtilGesture<EShape> {
+		return (EShapeActionRuntimeGestureShape.GESTURE_UTIL ??= this.newGestureUtil());
 	}
 
-	protected newGestureUtil(): UtilGesture<DDiagramLayersLayer> {
+	protected newGestureUtil(): UtilGesture<EShape> {
 		const work = new Point();
-		return new UtilGesture<DDiagramLayersLayer>({
+		return new UtilGesture<EShape>({
 			on: {
 				move: (
-					target: DDiagramLayersLayer,
+					target: EShape,
 					dx: number,
 					dy: number,
 					x: number,
@@ -76,7 +59,7 @@ export class EShapeActionRuntimeMiscLayerGesture extends EShapeActionRuntimeCond
 	}
 
 	protected onGestureMove(
-		layer: DDiagramLayersLayer,
+		target: EShape,
 		dx: number,
 		dy: number,
 		x: number,
@@ -84,15 +67,15 @@ export class EShapeActionRuntimeMiscLayerGesture extends EShapeActionRuntimeCond
 		ds: number,
 		work: Point
 	): void {
-		const parent = layer.parent;
+		const parent = target.parent;
 		if (parent) {
-			const transform = layer.transform;
-			const gestureType = this._gestureType;
+			const transform = target.transform;
+			const gestureType = this._operationType;
 			let isChanged = false;
 
 			// Scale
 			let scaleRatio = 1;
-			if (gestureType & EShapeActionValueMiscGestureType.PINCH) {
+			if (gestureType & EShapeActionValueGestureOperationType.PINCH) {
 				const scale = transform.scale;
 				const oldScale = scale.y;
 				const newScale = Math.min(this._scaleMax, Math.max(this._scaleMin, oldScale * ds));
@@ -102,7 +85,7 @@ export class EShapeActionRuntimeMiscLayerGesture extends EShapeActionRuntimeCond
 			}
 
 			// Position
-			if (gestureType & EShapeActionValueMiscGestureType.DRAG) {
+			if (gestureType & EShapeActionValueGestureOperationType.DRAG) {
 				parent.toLocal(work.set(x, y), undefined, work);
 				const lx = work.x;
 				const ly = work.y;
@@ -120,17 +103,8 @@ export class EShapeActionRuntimeMiscLayerGesture extends EShapeActionRuntimeCond
 
 			// Update
 			if (isChanged) {
-				DApplications.update(layer);
+				DApplications.update(target);
 			}
 		}
-	}
-
-	protected toSize(layer: DDiagramLayersLayer, result: Point): Point {
-		if ("size" in layer) {
-			result.copyFrom(layer.size);
-		} else {
-			result.set((layer as any).width, (layer as any).height);
-		}
-		return result;
 	}
 }

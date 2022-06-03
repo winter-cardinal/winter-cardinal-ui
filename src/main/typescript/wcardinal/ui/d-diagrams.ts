@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDiagramBaseController } from "./d-diagram-base";
+import { DDiagramBaseController } from "./d-diagram-base-controller";
 import { DDiagramLayerContainer } from "./d-diagram-layer-container";
 import {
 	DDiagramSerialized,
