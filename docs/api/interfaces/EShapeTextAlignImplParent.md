@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / EShapeTextAlignImplParent
+[Winter Cardinal UI - v0.179.0](../index.md) / EShapeTextAlignImplParent
 
 # Interface: EShapeTextAlignImplParent
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl-parent.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl-parent.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl-parent.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl-parent.ts#L7)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DControllerDefaultCommand
+[Winter Cardinal UI - v0.179.0](../index.md) / DControllerDefaultCommand
 
 # Class: DControllerDefaultCommand
 
@@ -32,6 +32,9 @@
 - [clear](DControllerDefaultCommand.md#clear)
 - [emit](DControllerDefaultCommand.md#emit)
 - [eventNames](DControllerDefaultCommand.md#eventnames)
+- [execute](DControllerDefaultCommand.md#execute)
+- [executeRedo](DControllerDefaultCommand.md#executeredo)
+- [executeUndo](DControllerDefaultCommand.md#executeundo)
 - [isRedoable](DControllerDefaultCommand.md#isredoable)
 - [isUndoable](DControllerDefaultCommand.md#isundoable)
 - [last](DControllerDefaultCommand.md#last)
@@ -42,6 +45,8 @@
 - [on](DControllerDefaultCommand.md#on)
 - [onFail](DControllerDefaultCommand.md#onfail)
 - [onSuccess](DControllerDefaultCommand.md#onsuccess)
+- [onSuccessRedo](DControllerDefaultCommand.md#onsuccessredo)
+- [onSuccessUndo](DControllerDefaultCommand.md#onsuccessundo)
 - [once](DControllerDefaultCommand.md#once)
 - [push](DControllerDefaultCommand.md#push)
 - [redo](DControllerDefaultCommand.md#redo)
@@ -63,7 +68,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L28)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L32)
 
 ## Properties
 
@@ -73,7 +78,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L24)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L28)
 
 ___
 
@@ -83,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L26)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L30)
 
 ___
 
@@ -93,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L23)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L27)
 
 ___
 
@@ -103,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L25)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L29)
 
 ## Methods
 
@@ -149,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L141)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L168)
 
 ___
 
@@ -167,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L196)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L241)
 
 ___
 
@@ -228,6 +233,66 @@ node_modules/pixi.js/pixi.js.d.ts:23996
 
 ___
 
+### execute
+
+▸ `Protected` **execute**(`command`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `command` | [`DCommand`](../interfaces/DCommand.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L139)
+
+___
+
+### executeRedo
+
+▸ `Protected` **executeRedo**(`command`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `command` | [`DCommandRedo`](DCommandRedo.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L115)
+
+___
+
+### executeUndo
+
+▸ `Protected` **executeUndo**(`command`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `command` | [`DCommandUndo`](DCommandUndo.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L91)
+
+___
+
 ### isRedoable
 
 ▸ **isRedoable**(): `boolean`
@@ -242,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L214)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L259)
 
 ___
 
@@ -260,7 +325,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L218)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L263)
 
 ___
 
@@ -278,7 +343,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L37)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L41)
 
 ___
 
@@ -352,7 +417,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L58)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L61)
 
 ___
 
@@ -439,7 +504,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L181)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L226)
 
 ___
 
@@ -459,7 +524,47 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L169)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L196)
+
+___
+
+### onSuccessRedo
+
+▸ `Protected` **onSuccessRedo**(`redoed`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `redoed` | [`DCommand`](../interfaces/DCommand.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L217)
+
+___
+
+### onSuccessUndo
+
+▸ `Protected` **onSuccessUndo**(`undoed`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `undoed` | [`DCommand`](../interfaces/DCommand.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L208)
 
 ___
 
@@ -517,7 +622,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L52)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L56)
 
 ___
 
@@ -535,7 +640,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L200)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:245](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L245)
 
 ___
 
@@ -555,7 +660,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L152)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L179)
 
 ___
 
@@ -640,7 +745,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L192)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L237)
 
 ___
 
@@ -658,4 +763,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L207)
+[src/main/typescript/wcardinal/ui/d-controller-default-command.ts:252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-controller-default-command.ts#L252)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramController
+[Winter Cardinal UI - v0.179.0](../index.md) / DDiagramController
 
 # Interface: DDiagramController
 
@@ -19,6 +19,7 @@
 ### Methods
 
 - [getByName](DDiagramController.md#getbyname)
+- [open](DDiagramController.md#open)
 
 ## Properties
 
@@ -32,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L53)
+[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L33)
 
 ## Methods
 
@@ -56,4 +57,32 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-base.ts#L54)
+[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L34)
+
+___
+
+### open
+
+▸ `Optional` **open**(`type`, `id`, `inNewWindow`): `void`
+
+Opens a diagram or a page.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `type` | `number` | a diagram or a page |
+| `id` | `string` | an id to identify a diagram or a page |
+| `inNewWindow` | `boolean` | true to open in a new window |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[DDiagramBaseController](DDiagramBaseController.md).[open](DDiagramBaseController.md#open)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L43)

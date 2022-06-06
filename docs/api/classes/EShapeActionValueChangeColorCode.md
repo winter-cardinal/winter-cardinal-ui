@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / EShapeActionValueChangeColorCode
+[Winter Cardinal UI - v0.179.0](../index.md) / EShapeActionValueChangeColorCode
 
 # Class: EShapeActionValueChangeColorCode
 
@@ -22,9 +22,11 @@
 - [condition](EShapeActionValueChangeColorCode.md#condition)
 - [subtype](EShapeActionValueChangeColorCode.md#subtype)
 - [type](EShapeActionValueChangeColorCode.md#type)
+- [THEME](EShapeActionValueChangeColorCode.md#theme)
 
 ### Methods
 
+- [getTheme](EShapeActionValueChangeColorCode.md#gettheme)
 - [isEquals](EShapeActionValueChangeColorCode.md#isequals)
 - [serialize](EShapeActionValueChangeColorCode.md#serialize)
 - [toLabel](EShapeActionValueChangeColorCode.md#tolabel)
@@ -53,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L43)
 
 ## Properties
 
@@ -63,7 +65,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L40)
 
 ___
 
@@ -73,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L41)
 
 ___
 
@@ -83,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L39)
 
 ___
 
@@ -97,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L16)
 
 ___
 
@@ -111,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L13)
 
 ___
 
@@ -125,9 +127,41 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L15)
+
+___
+
+### THEME
+
+▪ `Static` `Protected` `Optional` **THEME**: [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+
+#### Inherited from
+
+[EShapeActionValueSubtyped](EShapeActionValueSubtyped.md).[THEME](EShapeActionValueSubtyped.md#theme)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L13)
 
 ## Methods
+
+### getTheme
+
+▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+
+#### Returns
+
+[`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+
+#### Inherited from
+
+[EShapeActionValueSubtyped](EShapeActionValueSubtyped.md).[getTheme](EShapeActionValueSubtyped.md#gettheme)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L31)
+
+___
 
 ### isEquals
 
@@ -149,7 +183,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L56)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L56)
 
 ___
 
@@ -173,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L70)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L70)
 
 ___
 
@@ -191,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L27)
 
 ___
 
@@ -209,7 +243,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L66)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L66)
 
 ___
 
@@ -230,4 +264,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L81)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-code.ts#L81)

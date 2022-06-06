@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DPickerColorGradientRecent
+[Winter Cardinal UI - v0.179.0](../index.md) / DPickerColorGradientRecent
 
 # Class: DPickerColorGradientRecent
 
@@ -58,7 +58,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L35)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L35)
 
 ## Properties
 
@@ -68,7 +68,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L33)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L33)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L32)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L32)
 
 ## Methods
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L75)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L75)
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L65)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L65)
 
 ___
 
@@ -215,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L46)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L46)
 
 ___
 
@@ -229,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L42)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L42)
 
 ___
 
@@ -384,7 +384,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L85)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L85)
 
 ___
 
@@ -464,7 +464,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L54)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L54)
 
 ___
 
@@ -478,4 +478,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L95)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-recent.ts#L95)

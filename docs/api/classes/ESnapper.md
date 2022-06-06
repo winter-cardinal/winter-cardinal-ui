@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / ESnapper
+[Winter Cardinal UI - v0.179.0](../index.md) / ESnapper
 
 # Class: ESnapper
 
@@ -88,7 +88,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L73)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L73)
 
 ## Properties
 
@@ -98,7 +98,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L67)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L67)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L53)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L53)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L52)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L52)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L65)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L65)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L51)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L51)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L55)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L55)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L56)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L56)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L60)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L60)
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L61)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L61)
 
 ___
 
@@ -188,7 +188,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L62)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L62)
 
 ___
 
@@ -198,7 +198,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L63)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L63)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L58)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L58)
 
 ___
 
@@ -218,7 +218,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L69)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L69)
 
 ___
 
@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L71)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L71)
 
 ## Accessors
 
@@ -242,7 +242,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L112)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L112)
 
 • `set` **enable**(`enable`): `void`
 
@@ -258,7 +258,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L116)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L116)
 
 ## Methods
 
@@ -308,7 +308,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L275)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L275)
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:352](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L352)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:352](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L352)
 
 ___
 
@@ -357,7 +357,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:411](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L411)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:411](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L411)
 
 ___
 
@@ -381,7 +381,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L391)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:391](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L391)
 
 ___
 
@@ -407,7 +407,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:465](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L465)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:465](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L465)
 
 ___
 
@@ -431,7 +431,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:401](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L401)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:401](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L401)
 
 ___
 
@@ -451,7 +451,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:596](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L596)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:596](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L596)
 
 ___
 
@@ -514,7 +514,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L236)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L236)
 
 ___
 
@@ -675,7 +675,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L123)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L123)
 
 ___
 
@@ -695,7 +695,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L232)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L232)
 
 ___
 
@@ -716,7 +716,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:290](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L290)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:290](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L290)
 
 ___
 
@@ -736,7 +736,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L143)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L143)
 
 ___
 
@@ -809,7 +809,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:586](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L586)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:586](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L586)
 
 ___
 
@@ -823,7 +823,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:592](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L592)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:592](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L592)
 
 ___
 
@@ -847,7 +847,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L332)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L332)
 
 ___
 
@@ -868,7 +868,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L149)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L149)
 
 ___
 
@@ -888,7 +888,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L244)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:244](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L244)
 
 ___
 
@@ -908,7 +908,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L240)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L240)
 
 ___
 
@@ -929,7 +929,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L248)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:248](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L248)
 
 ___
 
@@ -952,7 +952,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L479)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:479](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L479)
 
 ___
 
@@ -973,7 +973,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L183)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L183)
 
 ___
 
@@ -994,4 +994,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L197)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L197)

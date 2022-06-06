@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / UtilHtmlElementPaddingLTRB
+[Winter Cardinal UI - v0.179.0](../index.md) / UtilHtmlElementPaddingLTRB
 
 # Interface: UtilHtmlElementPaddingLTRB
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L18)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L18)
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L15)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L15)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L17)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L17)
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L16)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L16)

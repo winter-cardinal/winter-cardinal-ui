@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DBackground
+[Winter Cardinal UI - v0.179.0](../index.md) / DBackground
 
 # Interface: DBackground
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-background.ts#L12)
+[src/main/typescript/wcardinal/ui/d-background.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-background.ts#L12)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-background.ts#L11)
+[src/main/typescript/wcardinal/ui/d-background.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-background.ts#L11)

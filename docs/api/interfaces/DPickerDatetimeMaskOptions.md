@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DPickerDatetimeMaskOptions
+[Winter Cardinal UI - v0.179.0](../index.md) / DPickerDatetimeMaskOptions
 
 # Interface: DPickerDatetimeMaskOptions
 
@@ -12,8 +12,8 @@
 
 ### mask
 
-• `Optional` **mask**: `number` \| ``"NONE"`` \| ``"ALL"`` \| ``"DATE"`` \| ``"HOURS"`` \| ``"MINUTES"`` \| ``"SECONDS"`` \| ``"TIME"`` \| (``"NONE"`` \| ``"ALL"`` \| ``"DATE"`` \| ``"HOURS"`` \| ``"MINUTES"`` \| ``"SECONDS"`` \| ``"TIME"``)[]
+• `Optional` **mask**: `number` \| ``"NONE"`` \| ``"ALL"`` \| ``"DATE"`` \| ``"TIME"`` \| ``"HOURS"`` \| ``"MINUTES"`` \| ``"SECONDS"`` \| (``"NONE"`` \| ``"ALL"`` \| ``"DATE"`` \| ``"TIME"`` \| ``"HOURS"`` \| ``"MINUTES"`` \| ``"SECONDS"``)[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts#L12)
+[src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts#L12)

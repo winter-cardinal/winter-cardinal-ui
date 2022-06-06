@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / EShapeActionRuntimeOpenDialog
+[Winter Cardinal UI - v0.179.0](../index.md) / EShapeActionRuntimeOpenDialog
 
 # Class: EShapeActionRuntimeOpenDialog<VALUE, INITIAL\>
 
@@ -11,17 +11,23 @@
 
 ## Hierarchy
 
-- [`EShapeActionRuntimeOpen`](EShapeActionRuntimeOpen.md)
+- [`EShapeActionRuntimeConditional`](EShapeActionRuntimeConditional.md)
 
   ↳ **`EShapeActionRuntimeOpenDialog`**
 
   ↳↳ [`EShapeActionRuntimeOpenDialogBoolean`](EShapeActionRuntimeOpenDialogBoolean.md)
+
+  ↳↳ [`EShapeActionRuntimeOpenDialogDate`](EShapeActionRuntimeOpenDialogDate.md)
+
+  ↳↳ [`EShapeActionRuntimeOpenDialogDatetime`](EShapeActionRuntimeOpenDialogDatetime.md)
 
   ↳↳ [`EShapeActionRuntimeOpenDialogInteger`](EShapeActionRuntimeOpenDialogInteger.md)
 
   ↳↳ [`EShapeActionRuntimeOpenDialogReal`](EShapeActionRuntimeOpenDialogReal.md)
 
   ↳↳ [`EShapeActionRuntimeOpenDialogText`](EShapeActionRuntimeOpenDialogText.md)
+
+  ↳↳ [`EShapeActionRuntimeOpenDialogTime`](EShapeActionRuntimeOpenDialogTime.md)
 
 ## Table of contents
 
@@ -68,15 +74,15 @@
 
 | Name | Type |
 | :------ | :------ |
-| `value` | [`EShapeActionValueOpen`](EShapeActionValueOpen.md) |
+| `value` | [`EShapeActionValueOpenDialog`](EShapeActionValueOpenDialog.md) |
 
 #### Overrides
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[constructor](EShapeActionRuntimeOpen.md#constructor)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[constructor](EShapeActionRuntimeConditional.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L24)
 
 ## Properties
 
@@ -86,11 +92,11 @@
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[condition](EShapeActionRuntimeOpen.md#condition)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[condition](EShapeActionRuntimeConditional.md#condition)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
 
 ___
 
@@ -100,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L22)
 
 ___
 
@@ -110,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L21)
 
 ___
 
@@ -120,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L20)
 
 ___
 
@@ -130,11 +136,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[reset](EShapeActionRuntimeOpen.md#reset)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[reset](EShapeActionRuntimeConditional.md#reset)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
 
 ___
 
@@ -142,13 +148,9 @@ ___
 
 • `Protected` `Readonly` **target**: [`EShapeActionExpression`](../index.md#eshapeactionexpression)<``null`` \| `string`\>
 
-#### Inherited from
-
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[target](EShapeActionRuntimeOpen.md#target)
-
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L19)
 
 ## Methods
 
@@ -170,11 +172,11 @@ ___
 
 #### Overrides
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[execute](EShapeActionRuntimeOpen.md#execute)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[execute](EShapeActionRuntimeConditional.md#execute)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L31)
 
 ___
 
@@ -195,11 +197,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[initialize](EShapeActionRuntimeOpen.md#initialize)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[initialize](EShapeActionRuntimeConditional.md#initialize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
 
 ___
 
@@ -220,11 +222,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[onBlur](EShapeActionRuntimeOpen.md#onblur)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onBlur](EShapeActionRuntimeConditional.md#onblur)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
 
 ___
 
@@ -247,11 +249,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[onDblClick](EShapeActionRuntimeOpen.md#ondblclick)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onDblClick](EShapeActionRuntimeConditional.md#ondblclick)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
 
 ___
 
@@ -273,11 +275,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[onDown](EShapeActionRuntimeOpen.md#ondown)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onDown](EShapeActionRuntimeConditional.md#ondown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L43)
 
 ___
 
@@ -299,11 +301,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[onDowning](EShapeActionRuntimeOpen.md#ondowning)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onDowning](EShapeActionRuntimeConditional.md#ondowning)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
 
 ___
 
@@ -324,11 +326,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[onFocus](EShapeActionRuntimeOpen.md#onfocus)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onFocus](EShapeActionRuntimeConditional.md#onfocus)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
 
 ___
 
@@ -350,11 +352,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[onMove](EShapeActionRuntimeOpen.md#onmove)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onMove](EShapeActionRuntimeConditional.md#onmove)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
 
 ___
 
@@ -377,11 +379,11 @@ ___
 
 #### Inherited from
 
-[EShapeActionRuntimeOpen](EShapeActionRuntimeOpen.md).[onRender](EShapeActionRuntimeOpen.md#onrender)
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRender](EShapeActionRuntimeConditional.md#onrender)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)
 
 ___
 
@@ -403,4 +405,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L57)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-open-dialog.ts#L60)

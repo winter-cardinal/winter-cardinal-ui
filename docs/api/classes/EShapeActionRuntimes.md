@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / EShapeActionRuntimes
+[Winter Cardinal UI - v0.179.0](../index.md) / EShapeActionRuntimes
 
 # Class: EShapeActionRuntimes
 
@@ -11,6 +11,8 @@
 ### Methods
 
 - [emit](EShapeActionRuntimes.md#emit)
+- [isContainer](EShapeActionRuntimes.md#iscontainer)
+- [isEmbedded](EShapeActionRuntimes.md#isembedded)
 - [open](EShapeActionRuntimes.md#open)
 - [toContainer](EShapeActionRuntimes.md#tocontainer)
 - [write](EShapeActionRuntimes.md#write)
@@ -40,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L77)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L139)
 
 ▸ `Static` **emit**(`shape`, `name`, `value`, `time`): `void`
 
@@ -59,20 +61,62 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L78)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L140)
+
+___
+
+### isContainer
+
+▸ `Static` **isContainer**(`target`): target is EShapeActionRuntimeContainer
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `unknown` |
+
+#### Returns
+
+target is EShapeActionRuntimeContainer
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L48)
+
+___
+
+### isEmbedded
+
+▸ `Static` **isEmbedded**(`target`): target is EShape
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `unknown` |
+
+#### Returns
+
+target is EShape
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L52)
 
 ___
 
 ### open
 
-▸ `Static` **open**(`shape`, `target`): `void`
+▸ `Static` **open**(`shape`, `type`, `target`, `inNewWindow`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
+| `type` | `number` |
 | `target` | `string` |
+| `inNewWindow` | `boolean` |
 
 #### Returns
 
@@ -80,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L49)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L69)
 
 ___
 
@@ -100,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L58)
 
 ___
 
@@ -124,4 +168,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L56)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L101)

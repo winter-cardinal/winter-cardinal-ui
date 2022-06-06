@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DPaneScrollBarOptions
+[Winter Cardinal UI - v0.179.0](../index.md) / DPaneScrollBarOptions
 
 # Interface: DPaneScrollBarOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L8)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L8)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L7)
+[src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-pane-scrollbar.ts#L7)

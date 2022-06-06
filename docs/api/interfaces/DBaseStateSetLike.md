@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DBaseStateSetLike
+[Winter Cardinal UI - v0.179.0](../index.md) / DBaseStateSetLike
 
 # Interface: DBaseStateSetLike
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-state-set-like.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-base-state-set-like.ts#L7)
+[src/main/typescript/wcardinal/ui/d-base-state-set-like.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base-state-set-like.ts#L7)

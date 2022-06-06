@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DButtonSelectDialog
+[Winter Cardinal UI - v0.179.0](../index.md) / DButtonSelectDialog
 
 # Interface: DButtonSelectDialog<VALUE\>
 
@@ -28,13 +28,19 @@ A dialog to select values.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-select.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-button-select.ts#L15)
+[src/main/typescript/wcardinal/ui/d-button-select.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-button-select.ts#L16)
 
 ## Methods
 
 ### open
 
-▸ **open**(): `Promise`<`unknown`\>
+▸ **open**(`opener?`): `Promise`<`unknown`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `opener?` | [`DDialogOpener`](DDialogOpener.md) |
 
 #### Returns
 
@@ -42,4 +48,4 @@ A dialog to select values.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-button-select.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-button-select.ts#L16)
+[src/main/typescript/wcardinal/ui/d-button-select.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-button-select.ts#L17)

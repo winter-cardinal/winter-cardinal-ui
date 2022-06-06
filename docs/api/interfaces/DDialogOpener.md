@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DDialogOpener
+[Winter Cardinal UI - v0.179.0](../index.md) / DDialogOpener
 
 # Interface: DDialogOpener
 
@@ -27,4 +27,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L95)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L96)

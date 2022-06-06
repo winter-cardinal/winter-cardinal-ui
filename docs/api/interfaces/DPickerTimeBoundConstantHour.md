@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DPickerTimeBoundConstantHour
+[Winter Cardinal UI - v0.179.0](../index.md) / DPickerTimeBoundConstantHour
 
 # Interface: DPickerTimeBoundConstantHour
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts#L18)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts#L18)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts#L17)
+[src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-time-bound-constant.ts#L17)

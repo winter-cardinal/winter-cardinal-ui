@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / FormatNodea
+[Winter Cardinal UI - v0.179.0](../index.md) / FormatNodea
 
 # Class: FormatNodea
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-a-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-a-small.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-a-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-a-small.ts#L9)

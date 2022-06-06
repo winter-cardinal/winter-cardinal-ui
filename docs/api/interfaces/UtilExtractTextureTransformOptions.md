@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / UtilExtractTextureTransformOptions
+[Winter Cardinal UI - v0.179.0](../index.md) / UtilExtractTextureTransformOptions
 
 # Interface: UtilExtractTextureTransformOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extract.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L21)
+[src/main/typescript/wcardinal/ui/util/util-extract.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-extract.ts#L21)

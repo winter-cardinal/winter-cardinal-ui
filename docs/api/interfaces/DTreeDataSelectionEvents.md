@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DTreeDataSelectionEvents
+[Winter Cardinal UI - v0.179.0](../index.md) / DTreeDataSelectionEvents
 
 # Interface: DTreeDataSelectionEvents<EMITTER\>
 
@@ -36,4 +36,4 @@ Triggered when a selection is changed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L28)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L28)

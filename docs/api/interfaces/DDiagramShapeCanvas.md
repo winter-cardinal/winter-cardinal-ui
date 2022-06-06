@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramShapeCanvas
+[Winter Cardinal UI - v0.179.0](../index.md) / DDiagramShapeCanvas
 
 # Interface: DDiagramShapeCanvas
 
@@ -6,31 +6,15 @@
 
 ### Properties
 
-- [actionables](DDiagramShapeCanvas.md#actionables)
-- [ids](DDiagramShapeCanvas.md#ids)
 - [layer](DDiagramShapeCanvas.md#layer)
+- [shape](DDiagramShapeCanvas.md#shape)
+
+### Methods
+
+- [onRender](DDiagramShapeCanvas.md#onrender)
+- [update](DDiagramShapeCanvas.md#update)
 
 ## Properties
-
-### actionables
-
-• **actionables**: [`EShape`](EShape.md)[]
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L23)
-
-___
-
-### ids
-
-• **ids**: [`DDiagramCanvasIdMap`](../index.md#ddiagramcanvasidmap)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L22)
-
-___
 
 ### layer
 
@@ -38,4 +22,48 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L21)
+
+___
+
+### shape
+
+• **shape**: [`DDiagramCanvasShape`](DDiagramCanvasShape.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L22)
+
+## Methods
+
+### onRender
+
+▸ **onRender**(`renderer`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `renderer` | `Renderer` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L24)
+
+___
+
+### update
+
+▸ **update**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-shape.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-shape.ts#L23)

@@ -1,54 +1,54 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / EShapeActionRuntimeMiscGesture
+[Winter Cardinal UI - v0.179.0](../index.md) / EShapeActionRuntimeGestureShape
 
-# Class: EShapeActionRuntimeMiscGesture
+# Class: EShapeActionRuntimeGestureShape
 
 ## Hierarchy
 
 - [`EShapeActionRuntimeConditional`](EShapeActionRuntimeConditional.md)
 
-  ↳ **`EShapeActionRuntimeMiscGesture`**
+  ↳ **`EShapeActionRuntimeGestureShape`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](EShapeActionRuntimeMiscGesture.md#constructor)
+- [constructor](EShapeActionRuntimeGestureShape.md#constructor)
 
 ### Properties
 
-- [\_gestureType](EShapeActionRuntimeMiscGesture.md#_gesturetype)
-- [\_scaleMax](EShapeActionRuntimeMiscGesture.md#_scalemax)
-- [\_scaleMin](EShapeActionRuntimeMiscGesture.md#_scalemin)
-- [condition](EShapeActionRuntimeMiscGesture.md#condition)
-- [reset](EShapeActionRuntimeMiscGesture.md#reset)
-- [GESTURE\_UTIL](EShapeActionRuntimeMiscGesture.md#gesture_util)
+- [\_operationType](EShapeActionRuntimeGestureShape.md#_operationtype)
+- [\_scaleMax](EShapeActionRuntimeGestureShape.md#_scalemax)
+- [\_scaleMin](EShapeActionRuntimeGestureShape.md#_scalemin)
+- [condition](EShapeActionRuntimeGestureShape.md#condition)
+- [reset](EShapeActionRuntimeGestureShape.md#reset)
+- [GESTURE\_UTIL](EShapeActionRuntimeGestureShape.md#gesture_util)
 
 ### Methods
 
-- [execute](EShapeActionRuntimeMiscGesture.md#execute)
-- [getGestureUtil](EShapeActionRuntimeMiscGesture.md#getgestureutil)
-- [initialize](EShapeActionRuntimeMiscGesture.md#initialize)
-- [newGestureUtil](EShapeActionRuntimeMiscGesture.md#newgestureutil)
-- [onBlur](EShapeActionRuntimeMiscGesture.md#onblur)
-- [onDblClick](EShapeActionRuntimeMiscGesture.md#ondblclick)
-- [onDown](EShapeActionRuntimeMiscGesture.md#ondown)
-- [onDowning](EShapeActionRuntimeMiscGesture.md#ondowning)
-- [onFocus](EShapeActionRuntimeMiscGesture.md#onfocus)
-- [onGestureMove](EShapeActionRuntimeMiscGesture.md#ongesturemove)
-- [onMove](EShapeActionRuntimeMiscGesture.md#onmove)
-- [onRender](EShapeActionRuntimeMiscGesture.md#onrender)
+- [execute](EShapeActionRuntimeGestureShape.md#execute)
+- [getGestureUtil](EShapeActionRuntimeGestureShape.md#getgestureutil)
+- [initialize](EShapeActionRuntimeGestureShape.md#initialize)
+- [newGestureUtil](EShapeActionRuntimeGestureShape.md#newgestureutil)
+- [onBlur](EShapeActionRuntimeGestureShape.md#onblur)
+- [onDblClick](EShapeActionRuntimeGestureShape.md#ondblclick)
+- [onDown](EShapeActionRuntimeGestureShape.md#ondown)
+- [onDowning](EShapeActionRuntimeGestureShape.md#ondowning)
+- [onFocus](EShapeActionRuntimeGestureShape.md#onfocus)
+- [onGestureMove](EShapeActionRuntimeGestureShape.md#ongesturemove)
+- [onMove](EShapeActionRuntimeGestureShape.md#onmove)
+- [onRender](EShapeActionRuntimeGestureShape.md#onrender)
 
 ## Constructors
 
 ### constructor
 
-• **new EShapeActionRuntimeMiscGesture**(`value`)
+• **new EShapeActionRuntimeGestureShape**(`value`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `value` | [`EShapeActionValueMiscGesture`](EShapeActionValueMiscGesture.md) |
+| `value` | [`EShapeActionValueGesture`](EShapeActionValueGesture.md) |
 
 #### Overrides
 
@@ -56,17 +56,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L22)
 
 ## Properties
 
-### \_gestureType
+### \_operationType
 
-• `Protected` **\_gestureType**: `number`
+• `Protected` **\_operationType**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L18)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L20)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L19)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L17)
 
 ## Methods
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L27)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L39)
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L43)
 
 ___
 
@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
 
 ___
 
@@ -281,7 +281,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L29)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
 
 ___
 
@@ -332,7 +332,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
 
 ___
 
@@ -358,7 +358,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-gesture.ts#L61)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-gesture-shape.ts#L61)
 
 ___
 
@@ -384,7 +384,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
 
 ___
 
@@ -411,4 +411,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)

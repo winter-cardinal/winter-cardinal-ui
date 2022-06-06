@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramSerializedDataValue
+[Winter Cardinal UI - v0.179.0](../index.md) / DDiagramSerializedDataValue
 
 # Interface: DDiagramSerializedDataValue
 
@@ -14,6 +14,8 @@ A serialized data value.
 - [3](DDiagramSerializedDataValue.md#3)
 - [4](DDiagramSerializedDataValue.md#4)
 - [5](DDiagramSerializedDataValue.md#5)
+- [6](DDiagramSerializedDataValue.md#6)
+- [7](DDiagramSerializedDataValue.md#7)
 
 ## Properties
 
@@ -22,11 +24,10 @@ A serialized data value.
 • **0**: `number`
 
 A resource index number of an ID.
-Stored at DDiagramSerialized#resources.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L43)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L44)
 
 ___
 
@@ -35,11 +36,10 @@ ___
 • **1**: `number`
 
 A resource index number of an initial value expression.
-Stored at DDiagramSerialized#resources.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L49)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L49)
 
 ___
 
@@ -48,11 +48,10 @@ ___
 • **2**: `number`
 
 A resource index number of a format expression.
-Stored at DDiagramSerialized#resources.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L55)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L54)
 
 ___
 
@@ -60,12 +59,11 @@ ___
 
 • **3**: `number`
 
-A resource index number of a serialized range, JSON.stringify(DDiagramSerializedDataRange).
-Stored at DDiagramSerialized#resources.
+A resource index number of JSON.stringify(DDiagramSerializedDataRange).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L61)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L59)
 
 ___
 
@@ -77,7 +75,7 @@ A capacity.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L66)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L64)
 
 ___
 
@@ -89,4 +87,28 @@ A order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L71)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L69)
+
+___
+
+### 6
+
+• **6**: `undefined` \| [`EShapeDataValueType`](../index.md#eshapedatavaluetype)
+
+A type.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L74)
+
+___
+
+### 7
+
+• **7**: `undefined` \| [`EShapeDataValueScope`](../index.md#eshapedatavaluescope)
+
+A scope.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L79)

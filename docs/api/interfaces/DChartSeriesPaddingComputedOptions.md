@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DChartSeriesPaddingComputedOptions
+[Winter Cardinal UI - v0.179.0](../index.md) / DChartSeriesPaddingComputedOptions
 
 # Interface: DChartSeriesPaddingComputedOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts#L8)
+[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts#L8)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts#L7)
+[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed.ts#L7)

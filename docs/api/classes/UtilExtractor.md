@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / UtilExtractor
+[Winter Cardinal UI - v0.179.0](../index.md) / UtilExtractor
 
 # Class: UtilExtractor
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L103)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L103)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L66)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L66)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L40)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L40)
 
 ___
 
@@ -107,4 +107,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-extractor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L12)
+[src/main/typescript/wcardinal/ui/util/util-extractor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-extractor.ts#L12)

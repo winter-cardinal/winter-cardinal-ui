@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / UtilGesture
+[Winter Cardinal UI - v0.179.0](../index.md) / UtilGesture
 
 # Class: UtilGesture<TARGET\>
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L88)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L88)
 
 ## Properties
 
@@ -74,7 +74,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L81)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L81)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L80)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L80)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L82)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L82)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L79)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L79)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L78)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L78)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L77)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L77)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L76)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L76)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L83)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L83)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L85)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L85)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L86)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L86)
 
 ## Methods
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L166)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L166)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L155)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L155)
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L173)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L173)
 
 ___
 
@@ -244,7 +244,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L112)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L112)
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L131)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L131)
 
 ___
 
@@ -296,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L234)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L234)
 
 ___
 
@@ -328,7 +328,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L228)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L228)
 
 ___
 
@@ -349,7 +349,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L184)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L184)
 
 ___
 
@@ -369,7 +369,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:350](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L350)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:350](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L350)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:325](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L325)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:325](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L325)
 
 ___
 
@@ -414,7 +414,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L283)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L283)
 
 ___
 
@@ -435,7 +435,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L240)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L240)
 
 ___
 
@@ -455,7 +455,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L354)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L354)
 
 ___
 
@@ -475,4 +475,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L149)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L149)

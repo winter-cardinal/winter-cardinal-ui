@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / EShapeActionValueSubtyped
+[Winter Cardinal UI - v0.179.0](../index.md) / EShapeActionValueSubtyped
 
 # Class: EShapeActionValueSubtyped<SUBTYPE\>
 
@@ -24,17 +24,19 @@
 
   ↳↳ [`EShapeActionValueChangeText`](EShapeActionValueChangeText.md)
 
-  ↳↳ [`EShapeActionValueMiscGesture`](EShapeActionValueMiscGesture.md)
-
-  ↳↳ [`EShapeActionValueMiscLayerGesture`](EShapeActionValueMiscLayerGesture.md)
-
-  ↳↳ [`EShapeActionValueMiscLayerShowHide`](EShapeActionValueMiscLayerShowHide.md)
+  ↳↳ [`EShapeActionValueGesture`](EShapeActionValueGesture.md)
 
   ↳↳ [`EShapeActionValueMisc`](EShapeActionValueMisc.md)
+
+  ↳↳ [`EShapeActionValueOpenDialog`](EShapeActionValueOpenDialog.md)
 
   ↳↳ [`EShapeActionValueOpen`](EShapeActionValueOpen.md)
 
   ↳↳ [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)
+
+  ↳↳ [`EShapeActionValueShowHideLayer`](EShapeActionValueShowHideLayer.md)
+
+  ↳↳ [`EShapeActionValueShowHideShape`](EShapeActionValueShowHideShape.md)
 
   ↳↳ [`EShapeActionValueShowHide`](EShapeActionValueShowHide.md)
 
@@ -49,9 +51,11 @@
 - [condition](EShapeActionValueSubtyped.md#condition)
 - [subtype](EShapeActionValueSubtyped.md#subtype)
 - [type](EShapeActionValueSubtyped.md#type)
+- [THEME](EShapeActionValueSubtyped.md#theme)
 
 ### Methods
 
+- [getTheme](EShapeActionValueSubtyped.md#gettheme)
 - [isEquals](EShapeActionValueSubtyped.md#isequals)
 - [serialize](EShapeActionValueSubtyped.md#serialize)
 - [toLabel](EShapeActionValueSubtyped.md#tolabel)
@@ -83,7 +87,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L15)
 
 ## Properties
 
@@ -97,7 +101,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L16)
 
 ___
 
@@ -107,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L13)
 
 ___
 
@@ -121,9 +125,41 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L15)
+
+___
+
+### THEME
+
+▪ `Static` `Protected` `Optional` **THEME**: [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+
+#### Inherited from
+
+[EShapeActionValueBase](EShapeActionValueBase.md).[THEME](EShapeActionValueBase.md#theme)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L13)
 
 ## Methods
+
+### getTheme
+
+▸ `Protected` **getTheme**(): [`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+
+#### Returns
+
+[`EThemeShapeActionValue`](../interfaces/EThemeShapeActionValue.md)
+
+#### Inherited from
+
+[EShapeActionValueBase](EShapeActionValueBase.md).[getTheme](EShapeActionValueBase.md#gettheme)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L31)
+
+___
 
 ### isEquals
 
@@ -145,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-subtyped.ts#L20)
 
 ___
 
@@ -169,7 +205,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L37)
 
 ___
 
@@ -187,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L27)
 
 ___
 
@@ -205,4 +241,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L36)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DAnimationFadeInShiftOptions
+[Winter Cardinal UI - v0.179.0](../index.md) / DAnimationFadeInShiftOptions
 
 # Interface: DAnimationFadeInShiftOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L13)
+[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L13)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L14)
+[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L14)

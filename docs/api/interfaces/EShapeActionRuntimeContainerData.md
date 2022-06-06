@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / EShapeActionRuntimeContainerData
+[Winter Cardinal UI - v0.179.0](../index.md) / EShapeActionRuntimeContainerData
 
 # Interface: EShapeActionRuntimeContainerData
 
@@ -6,6 +6,7 @@
 
 ### Properties
 
+- [protected](EShapeActionRuntimeContainerData.md#protected)
 - [remote](EShapeActionRuntimeContainerData.md#remote)
 
 ### Methods
@@ -14,13 +15,23 @@
 
 ## Properties
 
-### remote
+### protected
 
-• `Readonly` **remote**: [`EShapeActionRuntimeContainerDataRemote`](EShapeActionRuntimeContainerDataRemote.md)
+• `Readonly` **protected**: [`EShapeActionRuntimeContainerDataScoped`](EShapeActionRuntimeContainerDataScoped.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L24)
+
+___
+
+### remote
+
+• `Readonly` **remote**: [`EShapeActionRuntimeContainerDataScoped`](EShapeActionRuntimeContainerDataScoped.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L23)
 
 ## Methods
 
@@ -44,4 +55,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L26)

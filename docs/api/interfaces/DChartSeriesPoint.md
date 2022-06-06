@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DChartSeriesPoint
+[Winter Cardinal UI - v0.179.0](../index.md) / DChartSeriesPoint
 
 # Interface: DChartSeriesPoint
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-series-point.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-series-point.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-point.ts#L14)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-point.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-chart-series-point.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-series-point.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-point.ts#L15)

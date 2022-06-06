@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.167.0](../index.md) / DDiagramLayersShape
+[Winter Cardinal UI - v0.179.0](../index.md) / DDiagramLayersShape
 
 # Interface: DDiagramLayersShape
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-layers.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.167.0/src/main/typescript/wcardinal/ui/d-diagram-layers.ts#L12)
+[src/main/typescript/wcardinal/ui/d-diagram-layers.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-layers.ts#L12)
