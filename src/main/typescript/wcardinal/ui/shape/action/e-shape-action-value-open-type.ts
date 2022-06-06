@@ -29,7 +29,7 @@ export const EShapeActionValueOpenType = {
 	DIAGRAM: 10,
 	PAGE: 11,
 	DIALOG: 12,
-	EXTENSION: typeof DDiagramBaseControllerOpenType.EXTENSION
+	EXTENSION: DDiagramBaseControllerOpenType.EXTENSION
 } as const;
 
 export type EShapeActionValueOpenType =
