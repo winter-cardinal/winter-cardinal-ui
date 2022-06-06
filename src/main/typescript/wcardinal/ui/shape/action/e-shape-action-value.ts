@@ -12,6 +12,7 @@ import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-
 import { EShapeActionValueChangeTextType } from "./e-shape-action-value-change-text-type";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
+import { EShapeActionValueOpenDialogType } from "./e-shape-action-value-open-dialog-type";
 import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";
 import { EShapeActionValueShowHideType } from "./e-shape-action-value-show-hide-type";
 import { EShapeActionValueTransformMoveType } from "./e-shape-action-value-transform-move-type";
@@ -34,6 +35,7 @@ export interface EThemeShapeActionValue {
 	toChangeColorTargetLabel(type: EShapeActionValueChangeColorTarget): string;
 	toChangeTextTypeLabel(type: EShapeActionValueChangeTextType): string;
 	toOpenTypeLabel(type: EShapeActionValueOpenType): string;
+	toOpenDialogTypeLabel(type: EShapeActionValueOpenDialogType): string;
 	toMiscTypeLabel(type: EShapeActionValueMiscType): string;
 	toHtmlElementWhenLabel(when: UtilHtmlElementWhen): string;
 	toOnInputActionLabel(type: EShapeActionValueOnInputAction): string;

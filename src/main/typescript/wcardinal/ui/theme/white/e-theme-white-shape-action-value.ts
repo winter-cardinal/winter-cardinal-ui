@@ -11,6 +11,7 @@ import { EShapeActionValueChangeTextType } from "../../shape/action/e-shape-acti
 import { EShapeActionValueGestureType } from "../../shape/action/e-shape-action-value-gesture-type";
 import { EShapeActionValueMiscType } from "../../shape/action/e-shape-action-value-misc-type";
 import { EShapeActionValueOnInputAction } from "../../shape/action/e-shape-action-value-on-input-action";
+import { EShapeActionValueOpenDialogType } from "../../shape/action/e-shape-action-value-open-dialog-type";
 import { EShapeActionValueOpenType } from "../../shape/action/e-shape-action-value-open-type";
 import { EShapeActionValueOpetyped } from "../../shape/action/e-shape-action-value-opetyped";
 import { EShapeActionValueShowHideType } from "../../shape/action/e-shape-action-value-show-hide-type";
@@ -60,6 +61,10 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueType.CHANGE_COLOR:
 			case EShapeActionValueType.CHANGE_COLOR_LEGACY:
 				return `${typeLabel}: ${this.toChangeColorTypeLabel(subtype)}`;
+			case EShapeActionValueType.CHANGE_TEXT:
+				return `${typeLabel}: ${this.toChangeTextTypeLabel(subtype)}`;
+			case EShapeActionValueType.OPEN:
+				return `${typeLabel}: ${this.toOpenTypeLabel(subtype)}`;
 			case EShapeActionValueType.GESTURE:
 				return `${typeLabel}: ${this.toGestureTypeLabel(subtype)}`;
 			case EShapeActionValueType.MISC:
@@ -296,6 +301,25 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 				} else {
 					return "Unknown";
 				}
+		}
+	}
+
+	toOpenDialogTypeLabel(type: EShapeActionValueOpenDialogType): string {
+		switch (type) {
+			case EShapeActionValueOpenDialogType.TEXT:
+				return "Text";
+			case EShapeActionValueOpenDialogType.INTEGER:
+				return "Integer";
+			case EShapeActionValueOpenDialogType.REAL:
+				return "Real";
+			case EShapeActionValueOpenDialogType.BOOLEAN:
+				return "Boolean";
+			case EShapeActionValueOpenDialogType.DATE:
+				return "Date";
+			case EShapeActionValueOpenDialogType.TIME:
+				return "Time";
+			case EShapeActionValueOpenDialogType.DATETIME:
+				return "Datetime";
 		}
 	}
 
