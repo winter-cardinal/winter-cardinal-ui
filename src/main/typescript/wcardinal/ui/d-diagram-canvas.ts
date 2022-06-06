@@ -18,19 +18,18 @@ import { EShapeActionRuntime } from "./shape/action/e-shape-action-runtime";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { EShapeRuntimes } from "./shape/e-shape-runtimes";
 import { EShapeRuntime } from "./shape/e-shape-runtime";
-import { EShapeActionRuntimeOpen } from "./shape/action/e-shape-action-runtime-open";
 import { EShapeDataValue } from "./shape/e-shape-data-value";
 import { EShapeDataValueType } from "./shape/e-shape-data-value-type";
 import { EShapeType } from "./shape/e-shape-type";
 import { EShapeContainer } from "./shape/e-shape-container";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
-import { EShapeDataValueScope } from "./shape";
 import { DDiagramCanvasData } from "./d-diagram-canvas-data";
 import { DDiagramCanvasDataImpl } from "./d-diagram-canvas-data-impl";
 import { DDiagramCanvasShape } from "./d-diagram-canvas-shape";
 import { DDiagramCanvasShapeImpl } from "./d-diagram-canvas-shape-impl";
 import { DDiagramCanvasTicker } from "./d-diagram-canvas-ticker";
 import { DDiagramCanvasTickerImpl } from "./d-diagram-canvas-ticker-impl";
+import { EShapeDataValueScope } from "./shape/e-shape-data-value-scope";
 
 export interface DDiagramCanvasOptions<THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas>
 	extends DDiagramCanvasBaseOptions<THEME> {}
@@ -264,12 +263,6 @@ export class DDiagramCanvas<
 			if (runtime == null) {
 				runtime = value.toRuntime();
 				if (runtime != null) {
-					if (runtime instanceof EShapeActionRuntimeOpen) {
-						if (shape.cursor.length <= 0) {
-							shape.cursor = "pointer";
-						}
-					}
-
 					valueToRuntime.set(value, runtime);
 					runtimes.push(runtime);
 					shapeRuntime.reset |= runtime.reset;

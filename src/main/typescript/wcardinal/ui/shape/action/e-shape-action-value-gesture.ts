@@ -10,11 +10,21 @@ import { EShapeActionRuntimeGestureLayer } from "./e-shape-action-runtime-gestur
 import { EShapeActionRuntimeGestureShape } from "./e-shape-action-runtime-gesture-shape";
 import { EShapeActionValueGestureOperationType } from "./e-shape-action-value-gesture-operation-type";
 import { EShapeActionValueGestureType } from "./e-shape-action-value-gesture-type";
+import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
-export type EShapeActionValueGestureSerialized = [
+export type EShapeActionValueGestureSerializedLegacy = [
+	typeof EShapeActionValueType.MISC,
+	number,
+	typeof EShapeActionValueMiscType.GESTURE | typeof EShapeActionValueMiscType.GESTURE_LAYER,
+	EShapeActionValueGestureOperationType,
+	number, // Minimum scale
+	number // Maximum scale
+];
+
+export type EShapeActionValueGestureSerializedNew = [
 	typeof EShapeActionValueType.GESTURE,
 	number,
 	EShapeActionValueGestureType,
@@ -22,6 +32,10 @@ export type EShapeActionValueGestureSerialized = [
 	number, // Minimum scale
 	number // Maximum scale
 ];
+
+export type EShapeActionValueGestureSerialized =
+	| EShapeActionValueGestureSerializedLegacy
+	| EShapeActionValueGestureSerializedNew;
 
 export class EShapeActionValueGesture extends EShapeActionValueSubtyped<EShapeActionValueGestureType> {
 	readonly operationType: EShapeActionValueGestureOperationType;
@@ -35,7 +49,7 @@ export class EShapeActionValueGesture extends EShapeActionValueSubtyped<EShapeAc
 		scaleMin: number = 0.05,
 		scaleMax: number = 20
 	) {
-		super(EShapeActionValueType.MISC, condition, subtype);
+		super(EShapeActionValueType.GESTURE, condition, subtype);
 		this.operationType = operationType;
 		this.scaleMin = scaleMin;
 		this.scaleMax = scaleMax;
@@ -62,10 +76,25 @@ export class EShapeActionValueGesture extends EShapeActionValueSubtyped<EShapeAc
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueGesture {
 		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
-		const subtype = serialized[2];
+		const subtype = this.toSubType(serialized);
 		const operationType = serialized[3];
 		const scaleMin = serialized[4];
 		const scaleMax = serialized[5];
 		return new EShapeActionValueGesture(condition, subtype, operationType, scaleMin, scaleMax);
+	}
+
+	protected static toSubType(
+		serialized: EShapeActionValueGestureSerialized
+	): EShapeActionValueGestureType {
+		if (serialized[0] === EShapeActionValueType.MISC) {
+			switch (serialized[2]) {
+				case EShapeActionValueMiscType.GESTURE:
+					return EShapeActionValueGestureType.SHAPE;
+				case EShapeActionValueMiscType.GESTURE_LAYER:
+					return EShapeActionValueGestureType.LAYER;
+			}
+		} else {
+			return serialized[2];
+		}
 	}
 }

@@ -12,7 +12,7 @@ import { EShape } from "../e-shape";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeOpenDialog } from "./e-shape-action-runtime-open-dialog";
-import { EShapeActionValueOpen } from "./e-shape-action-value-open";
+import { EShapeActionValueOpenDialog } from "./e-shape-action-value-open-dialog";
 
 export class EShapeActionRuntimeOpenDialogDate extends EShapeActionRuntimeOpenDialog<
 	string,
@@ -23,7 +23,7 @@ export class EShapeActionRuntimeOpenDialogDate extends EShapeActionRuntimeOpenDi
 
 	protected initial: EShapeActionExpression<unknown>;
 
-	constructor(value: EShapeActionValueOpen) {
+	constructor(value: EShapeActionValueOpenDialog) {
 		super(value);
 		this.initial = EShapeActionExpressions.ofUnknown(value.initial);
 	}

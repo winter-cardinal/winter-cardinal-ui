@@ -6,21 +6,24 @@
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeActionExpression } from "./e-shape-action-expression";
-import { EShapeActionRuntimeOpen } from "./e-shape-action-runtime-open";
+import { EShapeActionExpressions } from "./e-shape-action-expressions";
+import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
 import { EShapeActionValueOnInputActions } from "./e-shape-action-value-on-input-actions";
-import { EShapeActionValueOpen } from "./e-shape-action-value-open";
+import { EShapeActionValueOpenDialog } from "./e-shape-action-value-open-dialog";
 
 export abstract class EShapeActionRuntimeOpenDialog<
 	VALUE = unknown,
 	INITIAL = VALUE
-> extends EShapeActionRuntimeOpen {
+> extends EShapeActionRuntimeConditional {
+	protected readonly target: EShapeActionExpression<string | null>;
 	protected onInputAction: EShapeActionValueOnInputAction;
 	protected isOpened: boolean;
 	protected abstract initial: EShapeActionExpression<INITIAL>;
 
-	constructor(value: EShapeActionValueOpen) {
+	constructor(value: EShapeActionValueOpenDialog) {
 		super(value, EShapeRuntimeReset.NONE);
+		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
 		this.onInputAction = value.onInputAction;
 		this.isOpened = false;
 	}

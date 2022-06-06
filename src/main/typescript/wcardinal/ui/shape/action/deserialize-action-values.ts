@@ -34,21 +34,22 @@ export const deserializeActionValues = (
 		const saved = manager.getAction(index);
 		if (saved != null) {
 			action.add(saved);
-		}
-		const resource = resources[index];
-		if (resource != null) {
-			const serialized = toSerialized(resource);
-			if (serialized != null && 0 < serialized.length) {
-				const type = serialized[0];
-				const deserializer =
-					EShapeActionValueType.EXTENSION <= type
-						? EShapeActionValueDeserializers[type]
-						: deserializeActionValue;
-				if (deserializer != null) {
-					const deserialized = deserializer(serialized, manager);
-					if (deserialized != null) {
-						manager.setAction(index, deserialized);
-						action.add(deserialized);
+		} else {
+			const resource = resources[index];
+			if (resource != null) {
+				const serialized = toSerialized(resource);
+				if (serialized != null && 0 < serialized.length) {
+					const type = serialized[0];
+					const deserializer =
+						EShapeActionValueType.EXTENSION <= type
+							? EShapeActionValueDeserializers[type]
+							: deserializeActionValue;
+					if (deserializer != null) {
+						const deserialized = deserializer(serialized, manager);
+						if (deserialized != null) {
+							manager.setAction(index, deserialized);
+							action.add(deserialized);
+						}
 					}
 				}
 			}

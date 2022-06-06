@@ -17,14 +17,14 @@ export interface DDiagramBasePieceController {
  */
 export const DDiagramBaseControllerOpenType = {
 	DIAGRAM: 0,
-	PAGE: 1
+	PAGE: 1,
+	EXTENSION: 1000
 } as const;
 
 /**
  * {@link DDiagram} controller open type.
  */
-export type DDiagramBaseControllerOpenType =
-	typeof DDiagramBaseControllerOpenType[keyof typeof DDiagramBaseControllerOpenType];
+export type DDiagramBaseControllerOpenType = number;
 
 /**
  * {@link DDiagram} controller.

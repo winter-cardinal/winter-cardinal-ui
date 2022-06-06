@@ -17,6 +17,8 @@ import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
 import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
+import { EShapeActionValueOpenDialog } from "./e-shape-action-value-open-dialog";
+import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";
 import { EShapeActionValueShowHide } from "./e-shape-action-value-show-hide";
 import { EShapeActionValueShowHideLayer } from "./e-shape-action-value-show-hide-layer";
 import { EShapeActionValueShowHideShape } from "./e-shape-action-value-show-hide-shape";
@@ -68,7 +70,24 @@ export const deserializeActionValue = (
 		case EShapeActionValueType.EMIT_EVENT:
 			return EShapeActionValueEmitEvent.deserialize(serialized as any, manager);
 		case EShapeActionValueType.OPEN:
-			return EShapeActionValueOpen.deserialize(serialized as any, manager);
+			switch (serialized[2]) {
+				case EShapeActionValueOpenType.DIAGRAM_LEGACY:
+				case EShapeActionValueOpenType.PAGE_LEGACY:
+				case EShapeActionValueOpenType.PAGE_INPLACE_LEGACY:
+				case EShapeActionValueOpenType.DIAGRAM:
+				case EShapeActionValueOpenType.PAGE:
+					return EShapeActionValueOpen.deserialize(serialized as any, manager);
+				case EShapeActionValueOpenType.DIALOG_TEXT:
+				case EShapeActionValueOpenType.DIALOG_INTEGER:
+				case EShapeActionValueOpenType.DIALOG_REAL:
+				case EShapeActionValueOpenType.DIALOG_BOOLEAN:
+				case EShapeActionValueOpenType.DIALOG_DATE:
+				case EShapeActionValueOpenType.DIALOG_TIME:
+				case EShapeActionValueOpenType.DIALOG_DATETIME:
+				case EShapeActionValueOpenType.DIALOG:
+					return EShapeActionValueOpenDialog.deserialize(serialized as any, manager);
+			}
+			break;
 		case EShapeActionValueType.TRANSFORM:
 			switch (serialized[2]) {
 				case EShapeActionValueTransformType.MOVE:

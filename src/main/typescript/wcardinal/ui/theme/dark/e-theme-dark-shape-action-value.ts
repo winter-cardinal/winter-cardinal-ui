@@ -264,11 +264,11 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 
 	toOpenTypeLabel(type: EShapeActionValueOpenType): string {
 		switch (type) {
-			case EShapeActionValueOpenType.DIAGRAM:
+			case EShapeActionValueOpenType.DIAGRAM_LEGACY:
 				return "Diagram";
-			case EShapeActionValueOpenType.PAGE:
+			case EShapeActionValueOpenType.PAGE_LEGACY:
 				return "Page (New window)";
-			case EShapeActionValueOpenType.PAGE_INPLACE:
+			case EShapeActionValueOpenType.PAGE_INPLACE_LEGACY:
 				return "Page (In-place)";
 			case EShapeActionValueOpenType.DIALOG_TEXT:
 				return "Dialog (Text)";
@@ -284,6 +284,18 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 				return "Dialog (Time)";
 			case EShapeActionValueOpenType.DIALOG_DATETIME:
 				return "Dialog (Datetime)";
+			case EShapeActionValueOpenType.DIAGRAM:
+				return "Diagram";
+			case EShapeActionValueOpenType.PAGE:
+				return "Page";
+			case EShapeActionValueOpenType.DIALOG:
+				return "Dialog";
+			default:
+				if (EShapeActionValueOpenType.EXTENSION <= type) {
+					return "Extension";
+				} else {
+					return "Unknown";
+				}
 		}
 	}
 
