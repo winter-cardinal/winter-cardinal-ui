@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.175.0
+ Winter Cardinal UI v0.179.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -3508,9 +3508,13 @@
 
     const EShapeActionValueChangeTextType = wcardinal.ui.EShapeActionValueChangeTextType;
 
+    const EShapeActionValueGestureType = wcardinal.ui.EShapeActionValueGestureType;
+
     const EShapeActionValueMiscType = wcardinal.ui.EShapeActionValueMiscType;
 
     const EShapeActionValueOnInputAction = wcardinal.ui.EShapeActionValueOnInputAction;
+
+    const EShapeActionValueOpenDialogType = wcardinal.ui.EShapeActionValueOpenDialogType;
 
     const EShapeActionValueOpenType = wcardinal.ui.EShapeActionValueOpenType;
 
@@ -3532,6 +3536,10 @@
 
     const UtilHtmlElementWhen = wcardinal.ui.UtilHtmlElementWhen;
 
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EThemeWhiteShapeActionValue = /** @class */ (function () {
         function EThemeWhiteShapeActionValue() {
         }
@@ -3561,12 +3569,18 @@
             var typeLabel = this.toTypeLabel(type);
             switch (type) {
                 case EShapeActionValueType.SHOW_HIDE:
-                    return "".concat(this.toShowHideTypeLabel(subtype));
+                    return "".concat(typeLabel, ": ").concat(this.toShowHideTypeLabel(subtype));
                 case EShapeActionValueType.BLINK:
                     return "".concat(typeLabel, ": ").concat(this.toBlinkTypeLabel(subtype));
                 case EShapeActionValueType.CHANGE_COLOR:
                 case EShapeActionValueType.CHANGE_COLOR_LEGACY:
                     return "".concat(typeLabel, ": ").concat(this.toChangeColorTypeLabel(subtype));
+                case EShapeActionValueType.CHANGE_TEXT:
+                    return "".concat(typeLabel, ": ").concat(this.toChangeTextTypeLabel(subtype));
+                case EShapeActionValueType.OPEN:
+                    return "".concat(typeLabel, ": ").concat(this.toOpenTypeLabel(subtype));
+                case EShapeActionValueType.GESTURE:
+                    return "".concat(typeLabel, ": ").concat(this.toGestureTypeLabel(subtype));
                 case EShapeActionValueType.MISC:
                     return "".concat(typeLabel, ": ").concat(this.toMiscTypeLabel(subtype));
             }
@@ -3606,6 +3620,8 @@
                     return "Change cursor";
                 case EShapeActionValueType.EMIT_EVENT:
                     return "Emit an event";
+                case EShapeActionValueType.GESTURE:
+                    return "Gesture";
                 case EShapeActionValueType.MISC:
                     return "Misc.";
                 default:
@@ -3644,10 +3660,14 @@
         };
         EThemeWhiteShapeActionValue.prototype.toShowHideTypeLabel = function (type) {
             switch (type) {
-                case EShapeActionValueShowHideType.SHOW:
+                case EShapeActionValueShowHideType.SHAPE_SHOW:
                     return "Show";
-                case EShapeActionValueShowHideType.HIDE:
+                case EShapeActionValueShowHideType.SHAPE_HIDE:
                     return "Hide";
+                case EShapeActionValueShowHideType.SHAPE:
+                    return "Shape";
+                case EShapeActionValueShowHideType.LAYER:
+                    return "Layer";
             }
         };
         EThemeWhiteShapeActionValue.prototype.toTransformTypeLabel = function (type) {
@@ -3747,11 +3767,11 @@
         };
         EThemeWhiteShapeActionValue.prototype.toOpenTypeLabel = function (type) {
             switch (type) {
-                case EShapeActionValueOpenType.DIAGRAM:
+                case EShapeActionValueOpenType.DIAGRAM_LEGACY:
                     return "Diagram";
-                case EShapeActionValueOpenType.PAGE:
+                case EShapeActionValueOpenType.PAGE_LEGACY:
                     return "Page (New window)";
-                case EShapeActionValueOpenType.PAGE_INPLACE:
+                case EShapeActionValueOpenType.PAGE_INPLACE_LEGACY:
                     return "Page (In-place)";
                 case EShapeActionValueOpenType.DIALOG_TEXT:
                     return "Dialog (Text)";
@@ -3767,6 +3787,45 @@
                     return "Dialog (Time)";
                 case EShapeActionValueOpenType.DIALOG_DATETIME:
                     return "Dialog (Datetime)";
+                case EShapeActionValueOpenType.DIAGRAM:
+                    return "Diagram";
+                case EShapeActionValueOpenType.PAGE:
+                    return "Page";
+                case EShapeActionValueOpenType.DIALOG:
+                    return "Dialog";
+                default:
+                    if (EShapeActionValueOpenType.EXTENSION <= type) {
+                        return "Extension";
+                    }
+                    else {
+                        return "Unknown";
+                    }
+            }
+        };
+        EThemeWhiteShapeActionValue.prototype.toOpenDialogTypeLabel = function (type) {
+            switch (type) {
+                case EShapeActionValueOpenDialogType.TEXT:
+                    return "Text";
+                case EShapeActionValueOpenDialogType.INTEGER:
+                    return "Integer";
+                case EShapeActionValueOpenDialogType.REAL:
+                    return "Real";
+                case EShapeActionValueOpenDialogType.BOOLEAN:
+                    return "Boolean";
+                case EShapeActionValueOpenDialogType.DATE:
+                    return "Date";
+                case EShapeActionValueOpenDialogType.TIME:
+                    return "Time";
+                case EShapeActionValueOpenDialogType.DATETIME:
+                    return "Datetime";
+            }
+        };
+        EThemeWhiteShapeActionValue.prototype.toGestureTypeLabel = function (type) {
+            switch (type) {
+                case EShapeActionValueGestureType.SHAPE:
+                    return "Shape";
+                case EShapeActionValueGestureType.LAYER:
+                    return "Layer";
             }
         };
         EThemeWhiteShapeActionValue.prototype.toMiscTypeLabel = function (type) {
@@ -3789,9 +3848,9 @@
                     return "HTML element";
                 case EShapeActionValueMiscType.HTML_ELEMENT_WITHOUT_POINTER_EVENTS:
                     return "HTML element (No pointer events)";
-                case EShapeActionValueMiscType.LAYER_SHOW_HIDE:
+                case EShapeActionValueMiscType.SHOW_HIDE_LAYER:
                     return "Show / hide layers";
-                case EShapeActionValueMiscType.LAYER_GESTURE:
+                case EShapeActionValueMiscType.GESTURE_LAYER:
                     return "Layer gesture";
                 case EShapeActionValueMiscType.GESTURE:
                     return "Gesture";
