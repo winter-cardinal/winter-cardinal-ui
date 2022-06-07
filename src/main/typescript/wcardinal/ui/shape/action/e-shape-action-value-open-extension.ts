@@ -39,7 +39,7 @@ export class EShapeActionValueOpenExtension extends EShapeActionValueSubtyped<nu
 	toLabel(): string {
 		const typeLabel = this.getTheme().toTypeLabel(this.type);
 		const datum = EShapeActionOpenExtensions.get(this.subtype);
-		return `${typeLabel}: ${datum != null ? datum : "Unknown"}`;
+		return `${typeLabel}: ${datum != null ? datum.label : "Unknown"}`;
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
