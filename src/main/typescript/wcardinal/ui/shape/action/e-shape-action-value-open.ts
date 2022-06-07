@@ -30,7 +30,7 @@ export type EShapeActionValueOpenSerializedLegacy = [
 export type EShapeActionValueOpenSerializedNew = [
 	typeof EShapeActionValueType.OPEN,
 	number,
-	number,
+	typeof EShapeActionValueOpenType.DIAGRAM | typeof EShapeActionValueOpenType.PAGE,
 	number,
 	0 | 1
 ];
@@ -39,11 +39,18 @@ export type EShapeActionValueOpenSerialized =
 	| EShapeActionValueOpenSerializedNew
 	| EShapeActionValueOpenSerializedLegacy;
 
-export class EShapeActionValueOpen extends EShapeActionValueSubtyped<number> {
+export class EShapeActionValueOpen extends EShapeActionValueSubtyped<
+	typeof EShapeActionValueOpenType.DIAGRAM | typeof EShapeActionValueOpenType.PAGE
+> {
 	readonly target: string;
 	readonly inNewWindow: boolean;
 
-	constructor(subtype: number, condition: string, target: string, inNewWindow: boolean) {
+	constructor(
+		subtype: typeof EShapeActionValueOpenType.DIAGRAM | typeof EShapeActionValueOpenType.PAGE,
+		condition: string,
+		target: string,
+		inNewWindow: boolean
+	) {
 		super(EShapeActionValueType.OPEN, condition, subtype);
 		this.target = target;
 		this.inNewWindow = inNewWindow;
@@ -64,8 +71,6 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<number> {
 				return new EShapeActionRuntimeOpen(this, DDiagramBaseControllerOpenType.DIAGRAM);
 			case EShapeActionValueOpenType.PAGE:
 				return new EShapeActionRuntimeOpen(this, DDiagramBaseControllerOpenType.PAGE);
-			default:
-				return new EShapeActionRuntimeOpen(this, this.subtype);
 		}
 	}
 
@@ -92,7 +97,9 @@ export class EShapeActionValueOpen extends EShapeActionValueSubtyped<number> {
 		);
 	}
 
-	protected static toSubType(serialized: EShapeActionValueOpenSerialized): number {
+	protected static toSubType(
+		serialized: EShapeActionValueOpenSerialized
+	): typeof EShapeActionValueOpenType.DIAGRAM | typeof EShapeActionValueOpenType.PAGE {
 		if (serialized.length === 6) {
 			switch (serialized[2]) {
 				case EShapeActionValueOpenType.DIAGRAM_LEGACY:

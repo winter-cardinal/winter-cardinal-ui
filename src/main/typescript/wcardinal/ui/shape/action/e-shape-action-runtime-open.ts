@@ -11,13 +11,17 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
+import { EShapeActionValueOpenExtension } from "./e-shape-action-value-open-extension";
 
 export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 	protected subtype: number;
 	protected readonly target: EShapeActionExpression<string | null>;
 	protected inNewWindow: boolean;
 
-	constructor(value: EShapeActionValueOpen, subtype: DDiagramBaseControllerOpenType) {
+	constructor(
+		value: EShapeActionValueOpen | EShapeActionValueOpenExtension,
+		subtype: DDiagramBaseControllerOpenType
+	) {
 		super(value, EShapeRuntimeReset.NONE);
 		this.subtype = subtype;
 		this.target = EShapeActionExpressions.ofStringOrNull(value.target);

@@ -32,5 +32,4 @@ export const EShapeActionValueOpenType = {
 	EXTENSION: DDiagramBaseControllerOpenType.EXTENSION
 } as const;
 
-export type EShapeActionValueOpenType =
-	typeof EShapeActionValueOpenType[keyof typeof EShapeActionValueOpenType];
+export type EShapeActionValueOpenType = number;

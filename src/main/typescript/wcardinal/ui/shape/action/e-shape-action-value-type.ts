@@ -20,5 +20,4 @@ export const EShapeActionValueType = {
 	EXTENSION: 1000
 } as const;
 
-export type EShapeActionValueType =
-	typeof EShapeActionValueType[keyof typeof EShapeActionValueType];
+export type EShapeActionValueType = number;
