@@ -14,6 +14,7 @@ import { DDiagrams } from "../../d-diagrams";
 import { EShape } from "../e-shape";
 import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "../variant/e-shape-base";
+import { EShapeActionOpenOpeners } from "./e-shape-action-open-opener";
 
 export interface EShapeActionRuntimeContainerDataScoped {
 	set(id: string, value: unknown, time: number): boolean;
@@ -73,28 +74,29 @@ export class EShapeActionRuntimes {
 		target: string,
 		inNewWindow: boolean
 	): void {
-		const container = this.toContainer(shape);
-		if (container) {
-			const controller = container.controller;
-			if (controller) {
-				if (controller.open != null) {
-					controller.open(type, target, inNewWindow);
-				} else {
-					switch (type) {
-						case DDiagramBaseControllerOpenType.DIAGRAM:
+		const opener = EShapeActionOpenOpeners[type];
+		if (opener != null) {
+			opener(target, inNewWindow);
+		} else {
+			switch (type) {
+				case DDiagramBaseControllerOpenType.DIAGRAM:
+					const container = this.toContainer(shape);
+					if (container) {
+						const controller = container.controller;
+						if (controller) {
 							controller.getByName(target).then((found): void => {
 								container.set(DDiagrams.toSerialized(found));
 							});
-							break;
-						case DDiagramBaseControllerOpenType.PAGE:
-							if (inNewWindow) {
-								window.open(target);
-							} else {
-								window.location.href = target;
-							}
-							break;
+						}
 					}
-				}
+					break;
+				case DDiagramBaseControllerOpenType.PAGE:
+					if (inNewWindow) {
+						window.open(target);
+					} else {
+						window.location.href = target;
+					}
+					break;
 			}
 		}
 	}

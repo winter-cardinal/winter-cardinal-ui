@@ -32,13 +32,4 @@ export type DDiagramBaseControllerOpenType = number;
 export interface DDiagramBaseController {
 	piece: DDiagramBasePieceController;
 	getByName(name: string): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
-
-	/**
-	 * Opens a diagram or a page.
-	 *
-	 * @param type a diagram or a page
-	 * @param id an id to identify a diagram or a page
-	 * @param inNewWindow true to open in a new window
-	 */
-	open?(type: DDiagramBaseControllerOpenType, id: string, inNewWindow: boolean): void;
 }
