@@ -8,6 +8,7 @@ export * from "./e-shape-action-bases";
 export * from "./e-shape-action-expression";
 export * from "./e-shape-action-expressions";
 export * from "./e-shape-action-open-extensions";
+export * from "./e-shape-action-open-opener";
 export * from "./e-shape-action-runtime-blink-brighten";
 export * from "./e-shape-action-runtime-blink-color-fill";
 export * from "./e-shape-action-runtime-blink-color-stroke";
