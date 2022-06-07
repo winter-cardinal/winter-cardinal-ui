@@ -21,6 +21,7 @@ export interface EShapeActionRuntimeContainerDataScoped {
 
 export interface EShapeActionRuntimeContainerData {
 	readonly remote: EShapeActionRuntimeContainerDataScoped;
+	readonly private: EShapeActionRuntimeContainerDataScoped;
 	readonly protected: EShapeActionRuntimeContainerDataScoped;
 
 	set(
@@ -114,7 +115,10 @@ export class EShapeActionRuntimes {
 			let current: { parent: any } | null | undefined = shape;
 			while (current != null) {
 				if (this.isContainer(current)) {
-					if (current.data.protected.set(id, value, time)) {
+					if (current.data.private.set(id, value, time)) {
+						DApplications.update(current);
+						return true;
+					} else if (current.data.protected.set(id, value, time)) {
 						DApplications.update(current);
 						return true;
 					} else {
