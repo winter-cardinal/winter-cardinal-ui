@@ -4,8 +4,8 @@
  */
 
 import { EShape } from "./e-shape";
-import { EShapeType } from "./e-shape-type";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
+import { EShapeEmbedded } from "./variant/e-shape-embedded";
 
 export class EShapeUuidMappingImpl implements EShapeUuidMapping {
 	protected _shapes: EShape[];
@@ -39,7 +39,7 @@ export class EShapeUuidMappingImpl implements EShapeUuidMapping {
 			const shape = shapes[i];
 			result.set(shape.uuid, shape);
 
-			if (shape.type !== EShapeType.EMBEDDED) {
+			if (shape instanceof EShapeEmbedded) {
 				const children = shape.children;
 				if (0 < children.length) {
 					this.fillUuidToShape(children, result);

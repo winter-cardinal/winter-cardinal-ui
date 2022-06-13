@@ -12,8 +12,7 @@ import {
 import { DDiagramSerialized } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
 import { EShape } from "../e-shape";
-import { EShapeType } from "../e-shape-type";
-import { EShapeBase } from "../variant/e-shape-base";
+import { EShapeEmbedded } from "../variant/e-shape-embedded";
 import { EShapeActionOpenOpeners } from "./e-shape-action-open-opener";
 
 export interface EShapeActionRuntimeContainerDataScoped {
@@ -48,13 +47,11 @@ export interface EShapeActionRuntimeContainer extends DCanvasContainer {
 
 export class EShapeActionRuntimes {
 	static isContainer(target: unknown): target is EShapeActionRuntimeContainer {
-		return target != null && target instanceof DCanvasContainer;
+		return target instanceof DCanvasContainer;
 	}
 
-	static isEmbedded(target: unknown): target is EShape {
-		return (
-			target != null && target instanceof EShapeBase && target.type === EShapeType.EMBEDDED
-		);
+	static isEmbedded(target: unknown): target is EShapeEmbedded {
+		return target instanceof EShapeEmbedded;
 	}
 
 	static toContainer(shape?: EShape | null): EShapeActionRuntimeContainer | null {

@@ -79,6 +79,7 @@ export * from "./deserialize-button";
 export * from "./deserialize-circle";
 export * from "./deserialize-connector-line";
 export * from "./deserialize-embedded";
+export * from "./deserialize-embedded-layer";
 export * from "./deserialize-gradient";
 export * from "./deserialize-group-shadowed";
 export * from "./deserialize-group";

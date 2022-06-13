@@ -20,9 +20,10 @@ const create = (
 	height: number,
 	container: EShapeLayerContainer,
 	manager: EShapeResourceManagerDeserialization,
-	item: DDiagramSerializedItem
+	item: DDiagramSerializedItem,
+	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	const shape = new EShapeEmbedded(name, manager.isEditMode);
+	shape = shape || new EShapeEmbedded(name, manager.isEditMode);
 	const result = deserializeBase(item, manager, shape);
 	const shapeSize = shape.size;
 	const sizeX = shapeSize.x;
@@ -38,9 +39,10 @@ const create = (
 const createMissing = (
 	name: string,
 	manager: EShapeResourceManagerDeserialization,
-	item: DDiagramSerializedItem
+	item: DDiagramSerializedItem,
+	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	const shape = new EShapeEmbedded(name, manager.isEditMode);
+	shape = shape || new EShapeEmbedded(name, manager.isEditMode);
 	const result = deserializeBase(item, manager, shape);
 
 	const size = shape.size;
@@ -119,7 +121,8 @@ const applyDataMapping = (
 
 export const deserializeEmbedded = (
 	item: DDiagramSerializedItem,
-	manager: EShapeResourceManagerDeserialization
+	manager: EShapeResourceManagerDeserialization,
+	creator?: (name: string, manager: EShapeResourceManagerDeserialization) => EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded | null => {
 	const pieces = manager.pieces;
 	const pieceId = item[15];
@@ -128,6 +131,7 @@ export const deserializeEmbedded = (
 		if (pieceData) {
 			const piece = pieces[pieceId];
 			const pieceDatum = pieceData.get(piece);
+			const shape = creator && creator(piece, manager);
 			if (pieceDatum) {
 				return create(
 					piece,
@@ -135,10 +139,11 @@ export const deserializeEmbedded = (
 					pieceDatum.height,
 					pieceDatum.layer,
 					manager,
-					item
+					item,
+					shape
 				);
 			} else {
-				return createMissing(piece, manager, item);
+				return createMissing(piece, manager, item, shape);
 			}
 		}
 	}

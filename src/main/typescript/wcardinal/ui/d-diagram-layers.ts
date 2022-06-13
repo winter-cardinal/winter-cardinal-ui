@@ -6,7 +6,7 @@
 import { DBaseStateSet } from "./d-base-state-set";
 import { EShape } from "./shape/e-shape";
 import { EShapeContainer } from "./shape/e-shape-container";
-import { EShapeType } from "./shape/e-shape-type";
+import { EShapeEmbeddedLayer } from "./shape/variant/e-shape-embedded-layer";
 
 export interface DDiagramLayersShape {
 	parent: EShapeContainer | EShape | null;
@@ -44,7 +44,7 @@ export class DDiagramLayers {
 			if (parent instanceof EShapeContainer) {
 				return parent as DDiagramLayersShapeContainer;
 			}
-			if (parent.type === EShapeType.EMBEDDED_LAYER) {
+			if (parent instanceof EShapeEmbeddedLayer) {
 				return parent;
 			}
 			parent = parent.parent;

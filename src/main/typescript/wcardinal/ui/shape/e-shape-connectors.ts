@@ -5,13 +5,13 @@
 
 import { EShape } from "./e-shape";
 import { EShapeConnector } from "./e-shape-connector";
-import { EShapeType } from "./e-shape-type";
+import { EShapeConnectorLine } from "./variant/e-shape-connector-line";
 
 export class EShapeConnectors {
 	protected static _MAPPING?: Map<EShape, EShape>;
 
 	protected static isConnector(target: EShape | null): target is EShapeConnector {
-		return target != null && target.type === EShapeType.CONNECTOR_LINE;
+		return target instanceof EShapeConnectorLine;
 	}
 
 	protected static newMapping(

@@ -8,7 +8,8 @@ import { EShape } from "../e-shape";
 import { EShapeConnectors } from "../e-shape-connectors";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
-import { EShapeType } from "../e-shape-type";
+import { deserializeEmbeddedLayer } from "./deserialize-embedded-layer";
+import { EShapeConnectorLine } from "./e-shape-connector-line";
 import { EShapeEmbeddedLayer } from "./e-shape-embedded-layer";
 
 export class EShapeEmbeddedLayerContainer implements EShapeLayerContainer {
@@ -28,7 +29,7 @@ export class EShapeEmbeddedLayerContainer implements EShapeLayerContainer {
 	protected hasConnectors(shapes: EShape[]): boolean {
 		for (let i = 0, imax = shapes.length; i < imax; ++i) {
 			const shape = shapes[i];
-			if (shape.type === EShapeType.CONNECTOR_LINE) {
+			if (shape instanceof EShapeConnectorLine) {
 				return true;
 			}
 			const children = shape.children;
@@ -79,7 +80,7 @@ export class EShapeEmbeddedLayerContainer implements EShapeLayerContainer {
 			const height = this._height;
 			for (let i = 0; i < serializedLayersLength; ++i) {
 				this.children.push(
-					EShapeEmbeddedLayer.deserialize(serializedLayers[i], manager, width, height)
+					deserializeEmbeddedLayer(serializedLayers[i], manager, width, height)
 				);
 			}
 		}
