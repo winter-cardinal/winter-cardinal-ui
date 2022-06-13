@@ -5,6 +5,8 @@
 
 import { Matrix, Point } from "pixi.js";
 import { EShape } from "../e-shape";
+import { EShapeCapabilities } from "../e-shape-capabilities";
+import { EShapeCapability } from "../e-shape-capability";
 import { EShapeLayout } from "../e-shape-layout";
 import { EShapeTransforms } from "../e-shape-transforms";
 
@@ -15,6 +17,8 @@ export class EShapeGroupSizeLayout implements EShapeLayout {
 	protected base: Point;
 	protected shapeBase: Point;
 	protected transform: Matrix;
+
+	protected capable: boolean;
 
 	constructor(shape: EShape, bx: number, by: number) {
 		this.shape = shape;
@@ -30,6 +34,13 @@ export class EShapeGroupSizeLayout implements EShapeLayout {
 		this.transform = new Matrix();
 		shape.updateTransform();
 		shape.transform.localTransform.copyTo(this.transform);
+
+		this.capable =
+			EShapeCapabilities.contains(shape, EShapeCapability.POSITION) &&
+			EShapeCapabilities.contains(shape, EShapeCapability.WIDTH) &&
+			EShapeCapabilities.contains(shape, EShapeCapability.HEIGHT) &&
+			EShapeCapabilities.contains(shape, EShapeCapability.ROTATION) &&
+			EShapeCapabilities.contains(shape, EShapeCapability.SKEW);
 	}
 
 	isCompatible(shape: EShape): boolean {
@@ -49,6 +60,9 @@ export class EShapeGroupSizeLayout implements EShapeLayout {
 	}
 
 	update(shape: EShape, baseX: number, baseY: number, pivotX: number, pivotY: number): void {
+		if (!this.capable) {
+			return;
+		}
 		const sx = baseX / this.base.x;
 		const sy = baseY / this.base.y;
 		const childBase = this.shapeBase;
