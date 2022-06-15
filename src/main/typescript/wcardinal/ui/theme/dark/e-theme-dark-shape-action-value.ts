@@ -358,6 +358,8 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 				return "Layer gesture";
 			case EShapeActionValueMiscType.GESTURE:
 				return "Gesture";
+			case EShapeActionValueMiscType.EXECUTE:
+				return "Execute";
 		}
 	}
 

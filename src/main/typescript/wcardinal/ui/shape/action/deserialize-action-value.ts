@@ -15,6 +15,7 @@ import { EShapeActionValueChangeText } from "./e-shape-action-value-change-text"
 import { EShapeActionValueEmitEvent } from "./e-shape-action-value-emit-event";
 import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
 import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
+import { EShapeActionValueMiscExecute } from "./e-shape-action-value-misc-execute";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 import { EShapeActionValueOpenDialog } from "./e-shape-action-value-open-dialog";
@@ -117,6 +118,8 @@ export const deserializeActionValue = (
 					return EShapeActionValueShowHideLayer.deserialize(serialized as any, manager);
 				case EShapeActionValueMiscType.GESTURE_LAYER:
 					return EShapeActionValueGesture.deserialize(serialized as any, manager);
+				case EShapeActionValueMiscType.EXECUTE:
+					return EShapeActionValueMiscExecute.deserialize(serialized as any, manager);
 				default:
 					return EShapeActionValueMisc.deserialize(serialized as any, manager);
 			}
