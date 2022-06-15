@@ -180,7 +180,8 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 				if (edge) {
 					const work = (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL ??= new Point());
 					const size = acceptorShape.size;
-					work.set(size.x * edge.x, size.y * edge.y);
+					const pivot = acceptorShape.transform.pivot;
+					work.set(pivot.x + size.x * edge.x, pivot.y + size.y * edge.y);
 					acceptorShape.toGlobal(work, work);
 					const parent = this._parent;
 					const parentParent = parent.parent;
