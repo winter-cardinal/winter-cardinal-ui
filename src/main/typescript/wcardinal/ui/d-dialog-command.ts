@@ -7,7 +7,6 @@ import { DButton } from "./d-button";
 import { DButtonPrimary } from "./d-button-primary";
 import { DCoordinatePosition, DCoordinateSize } from "./d-coordinate";
 import { DDialog, DDialogEvents, DDialogOptions, DThemeDialog } from "./d-dialog";
-import { DDialogMode } from "./d-dialog-mode";
 import { DLayoutHorizontal } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
 import { DLayoutVertical, DLayoutVerticalOptions } from "./d-layout-vertical";
@@ -201,9 +200,7 @@ export abstract class DDialogCommand<
 	}
 
 	protected onOk(value: VALUE | PromiseLike<VALUE>): void {
-		if (this._mode !== DDialogMode.MODELESS) {
-			this.doResolve(value);
-		}
+		this.doResolve(value);
 		this.emit("ok", value, this);
 	}
 
@@ -212,9 +209,7 @@ export abstract class DDialogCommand<
 	}
 
 	protected onCancel(reason: any): void {
-		if (this._mode !== DDialogMode.MODELESS) {
-			this.doReject(reason);
-		}
+		this.doReject(reason);
 		this.emit("cancel", reason, this);
 	}
 

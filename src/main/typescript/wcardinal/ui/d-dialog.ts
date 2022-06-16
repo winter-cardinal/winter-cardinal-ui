@@ -468,7 +468,7 @@ export class DDialog<
 		const animation = this.getAnimation();
 		if (animation) {
 			animation.start(true);
-		} else if (this._mode === DDialogMode.MENU) {
+		} else {
 			this.visible = false;
 			this.onAnimationEnd(true);
 		}
