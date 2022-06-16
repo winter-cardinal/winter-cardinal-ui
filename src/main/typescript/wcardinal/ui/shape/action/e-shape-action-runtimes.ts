@@ -73,7 +73,7 @@ export class EShapeActionRuntimes {
 	): void {
 		const opener = EShapeActionOpenOpeners[type];
 		if (opener != null) {
-			opener(target, inNewWindow);
+			opener(target, inNewWindow, shape);
 		} else {
 			switch (type) {
 				case DDiagramBaseControllerOpenType.DIAGRAM:
