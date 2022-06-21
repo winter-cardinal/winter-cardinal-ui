@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.186.0
+ Winter Cardinal UI v0.191.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -17645,7 +17645,8 @@
                     if (edge) {
                         var work = ((_a = EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL) !== null && _a !== void 0 ? _a : (EShapeConnectorEdgeImpl.WORK_UPDATE_LOCAL = new pixi_js.Point()));
                         var size = acceptorShape.size;
-                        work.set(size.x * edge.x, size.y * edge.y);
+                        var pivot = acceptorShape.transform.pivot;
+                        work.set(pivot.x + size.x * edge.x, pivot.y + size.y * edge.y);
                         acceptorShape.toGlobal(work, work);
                         var parent_1 = this._parent;
                         var parentParent = parent_1.parent;
@@ -21567,7 +21568,8 @@
         /** @deprecated in favor of {@link EShapeActionValueType.GESTURE} */
         GESTURE_LAYER: 10,
         /** @deprecated in favor of {@link EShapeActionValueType.GESTURE} */
-        GESTURE: 11
+        GESTURE: 11,
+        EXECUTE: 12
     };
 
     /*
@@ -21930,7 +21932,7 @@
         EShapeActionRuntimes.open = function (shape, type, target, inNewWindow) {
             var opener = EShapeActionOpenOpeners[type];
             if (opener != null) {
-                opener(target, inNewWindow);
+                opener(target, inNewWindow, shape);
             }
             else {
                 switch (type) {
@@ -23390,6 +23392,53 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeActionRuntimeMiscExecute = /** @class */ (function (_super) {
+        __extends(EShapeActionRuntimeMiscExecute, _super);
+        function EShapeActionRuntimeMiscExecute(value) {
+            var _this = _super.call(this, value, EShapeRuntimeReset.NONE) || this;
+            _this.target = EShapeActionExpressions.ofUnknown(value.target);
+            return _this;
+        }
+        EShapeActionRuntimeMiscExecute.prototype.execute = function (shape, runtime, time) {
+            if (this.condition(shape, time)) {
+                this.target(shape, time);
+            }
+        };
+        return EShapeActionRuntimeMiscExecute;
+    }(EShapeActionRuntimeConditional));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeActionValueMiscExecute = /** @class */ (function (_super) {
+        __extends(EShapeActionValueMiscExecute, _super);
+        function EShapeActionValueMiscExecute(condition, target) {
+            var _this = _super.call(this, EShapeActionValueType.MISC, condition, EShapeActionValueMiscType.EXECUTE) || this;
+            _this.target = target;
+            return _this;
+        }
+        EShapeActionValueMiscExecute.prototype.toRuntime = function () {
+            return new EShapeActionRuntimeMiscExecute(this);
+        };
+        EShapeActionValueMiscExecute.prototype.serialize = function (manager) {
+            var conditionId = manager.addResource(this.condition);
+            var targetId = manager.addResource(this.target);
+            return manager.addResource("[".concat(this.type, ",").concat(conditionId, ",").concat(this.subtype, ",").concat(targetId, "]"));
+        };
+        EShapeActionValueMiscExecute.deserialize = function (serialized, manager) {
+            var resources = manager.resources;
+            var condition = EShapeActionValues.toResource(1, serialized, resources);
+            var target = EShapeActionValues.toResource(3, serialized, resources);
+            return new EShapeActionValueMiscExecute(condition, target);
+        };
+        return EShapeActionValueMiscExecute;
+    }(EShapeActionValueSubtyped));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionRuntimeOpen = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeOpen, _super);
         function EShapeActionRuntimeOpen(value, subtype) {
@@ -23510,6 +23559,1515 @@
         };
         return EShapeActionValueOpen;
     }(EShapeActionValueSubtyped));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilAttachAlign = {
+        TOP: 0,
+        TOP_LEFT: 1,
+        TOP_CENTER: 2,
+        TOP_RIGHT: 3,
+        LEFT: 4,
+        LEFT_TOP: 5,
+        LEFT_MIDDLE: 6,
+        LEFT_BOTTOM: 7,
+        RIGHT: 8,
+        RIGHT_TOP: 9,
+        RIGHT_MIDDLE: 10,
+        RIGHT_BOTTOM: 11,
+        BOTTOM: 12,
+        BOTTOM_LEFT: 13,
+        BOTTOM_CENTER: 14,
+        BOTTOM_RIGHT: 15,
+        OVER: 16
+    };
+    var UtilAttach = /** @class */ (function () {
+        function UtilAttach() {
+        }
+        UtilAttach.attach = function (target, bounds, offsetX, offsetY, clippingWidth, clippingHeight, align) {
+            var width = target.width;
+            var height = target.height;
+            var x = 0;
+            switch (align) {
+                case UtilAttachAlign.LEFT:
+                case UtilAttachAlign.LEFT_TOP:
+                case UtilAttachAlign.LEFT_MIDDLE:
+                case UtilAttachAlign.LEFT_BOTTOM:
+                    x = bounds.left - width - offsetX;
+                    if (x < offsetX) {
+                        x = bounds.right + offsetX;
+                        if (clippingWidth - offsetX < x + width) {
+                            x = offsetX;
+                        }
+                    }
+                    break;
+                case UtilAttachAlign.RIGHT:
+                case UtilAttachAlign.RIGHT_TOP:
+                case UtilAttachAlign.RIGHT_MIDDLE:
+                case UtilAttachAlign.RIGHT_BOTTOM:
+                    x = bounds.right + offsetX;
+                    if (clippingWidth - offsetX < x + width) {
+                        x = bounds.left - width - offsetX;
+                        if (x < offsetX) {
+                            x = clippingWidth - width - offsetX;
+                        }
+                    }
+                    break;
+                case UtilAttachAlign.TOP:
+                case UtilAttachAlign.TOP_LEFT:
+                case UtilAttachAlign.BOTTOM:
+                case UtilAttachAlign.BOTTOM_LEFT:
+                    x = this.adjust(bounds.left, width, offsetX, clippingWidth);
+                    break;
+                case UtilAttachAlign.TOP_RIGHT:
+                case UtilAttachAlign.BOTTOM_RIGHT:
+                    x = this.adjust(bounds.right - width, width, offsetX, clippingWidth);
+                    break;
+                case UtilAttachAlign.TOP_CENTER:
+                case UtilAttachAlign.BOTTOM_CENTER:
+                case UtilAttachAlign.OVER:
+                    x = this.adjust((bounds.left + bounds.right - width) * 0.5, width, offsetX, clippingWidth);
+                    break;
+            }
+            var y = 0;
+            switch (align) {
+                case UtilAttachAlign.LEFT:
+                case UtilAttachAlign.LEFT_TOP:
+                case UtilAttachAlign.RIGHT:
+                case UtilAttachAlign.RIGHT_TOP:
+                    y = this.adjust(bounds.top, height, offsetY, clippingHeight);
+                    break;
+                case UtilAttachAlign.LEFT_MIDDLE:
+                case UtilAttachAlign.RIGHT_MIDDLE:
+                case UtilAttachAlign.OVER:
+                    y = this.adjust((bounds.top + bounds.bottom - height) * 0.5, height, offsetY, clippingHeight);
+                    break;
+                case UtilAttachAlign.LEFT_BOTTOM:
+                case UtilAttachAlign.RIGHT_BOTTOM:
+                    y = this.adjust(bounds.bottom, height, offsetY, clippingHeight);
+                    break;
+                case UtilAttachAlign.TOP:
+                case UtilAttachAlign.TOP_LEFT:
+                case UtilAttachAlign.TOP_RIGHT:
+                case UtilAttachAlign.TOP_CENTER:
+                    y = bounds.top - height - offsetY;
+                    if (y < offsetY) {
+                        y = bounds.bottom + offsetY;
+                        if (clippingHeight < y + height) {
+                            y = offsetY;
+                        }
+                    }
+                    break;
+                case UtilAttachAlign.BOTTOM:
+                case UtilAttachAlign.BOTTOM_LEFT:
+                case UtilAttachAlign.BOTTOM_RIGHT:
+                case UtilAttachAlign.BOTTOM_CENTER:
+                    y = bounds.bottom + offsetY;
+                    if (clippingHeight - offsetY < y + height) {
+                        y = bounds.top - height - offsetY;
+                        if (y < offsetY) {
+                            y = clippingHeight - height - offsetY;
+                        }
+                    }
+                    break;
+            }
+            target.position.set(x, y);
+        };
+        UtilAttach.adjust = function (position, size, offset, clippingSize) {
+            if (position < offset) {
+                if (clippingSize - offset < position + size) {
+                    return (clippingSize - size) * 0.5;
+                }
+                else {
+                    return offset;
+                }
+            }
+            else if (clippingSize - offset < position + size) {
+                if (clippingSize < size) {
+                    return (clippingSize - size) * 0.5;
+                }
+                else {
+                    return clippingSize - size - offset;
+                }
+            }
+            return position;
+        };
+        return UtilAttach;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogCloseOn = {
+        NONE: 0,
+        ESC: 1,
+        CLICK_OUTSIDE: 2
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogGestureMode = {
+        DIRTY: 0,
+        CLEAN: 1
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogGestureImpl = /** @class */ (function () {
+        function DDialogGestureImpl(parent, options) {
+            var _a;
+            this._parent = parent;
+            this._options = options;
+            if (options.enable) {
+                this._util = this.newUtil();
+            }
+            this._mode = toEnum((_a = options.mode) !== null && _a !== void 0 ? _a : DDialogGestureMode.DIRTY, DDialogGestureMode);
+            this._isEnabled = true;
+            this._isDirty = false;
+        }
+        Object.defineProperty(DDialogGestureImpl.prototype, "parent", {
+            get: function () {
+                return this._parent;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialogGestureImpl.prototype, "mode", {
+            get: function () {
+                return this._mode;
+            },
+            set: function (mode) {
+                this._mode = mode;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialogGestureImpl.prototype, "constraint", {
+            get: function () {
+                var _a, _b;
+                var result = this._constraint;
+                if (result == null) {
+                    result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.constraint) !== null && _b !== void 0 ? _b : this.newConstraint();
+                    this._constraint = result;
+                }
+                return result;
+            },
+            set: function (constraint) {
+                this._constraint = constraint;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogGestureImpl.prototype.newConstraint = function () {
+            var _this = this;
+            return function (target, layer, x, y) {
+                _this.toConstrained(target, layer, x, y);
+            };
+        };
+        DDialogGestureImpl.prototype.isDirty = function () {
+            return this._isDirty;
+        };
+        DDialogGestureImpl.prototype.isClean = function () {
+            return !this._isDirty;
+        };
+        DDialogGestureImpl.prototype.toClean = function () {
+            if (this._isDirty) {
+                this._isDirty = false;
+            }
+        };
+        DDialogGestureImpl.prototype.newUtil = function () {
+            var _this = this;
+            var p = new pixi_js.Point();
+            var parent = this._parent;
+            var position = parent.position;
+            return new UtilGesture({
+                bind: parent,
+                checker: {
+                    start: function (e) {
+                        // Are children clicked?
+                        if (e.target !== parent) {
+                            return false;
+                        }
+                        // Is clicked outside?
+                        p.copyFrom(e.data.global);
+                        parent.toLocal(p, undefined, p, true);
+                        var x = p.x;
+                        var y = p.y;
+                        if (x < 0 || y < 0 || parent.width < x || parent.height < y) {
+                            return false;
+                        }
+                        // Ok
+                        return true;
+                    }
+                },
+                on: {
+                    start: function () {
+                        p.copyFrom(position);
+                    },
+                    move: function (target, dx, dy) {
+                        p.set(p.x + dx, p.y + dy);
+                        if (!_this._isDirty) {
+                            _this._isDirty = true;
+                            parent.setX(position.x);
+                            parent.setY(position.y);
+                        }
+                        var layer = parent.layer;
+                        if (layer != null) {
+                            _this.constraint(parent, layer, p.x, p.y);
+                        }
+                    }
+                }
+            });
+        };
+        DDialogGestureImpl.prototype.toConstrained = function (target, layer, x, y) {
+            var _a;
+            var position = target.position;
+            if (layer) {
+                var bounds = target.getBounds(false, ((_a = DDialogGestureImpl.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialogGestureImpl.WORK_BOUNDS = new pixi_js.Rectangle())));
+                var obx = bounds.x + x - position.x;
+                var oby = bounds.y + y - position.y;
+                var nbx = Math.min(Math.max(0, obx), layer.width - bounds.width);
+                var nby = Math.min(Math.max(0, oby), layer.height - bounds.height);
+                position.set(x + nbx - obx, y + nby - oby);
+            }
+            else {
+                position.set(x, y);
+            }
+        };
+        return DDialogGestureImpl;
+    }());
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * {@link DDialog} mode options.
+     */
+    var DDialogMode = {
+        MODAL: 0,
+        MODELESS: 1,
+        MENU: 2
+    };
+
+    /*
+     * Copyright (C) 2021 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogState = {
+        MODAL: "MODAL",
+        MODELESS: "MODELESS",
+        MENU: "MENU"
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilClickOutside = /** @class */ (function () {
+        function UtilClickOutside() {
+        }
+        UtilClickOutside.apply = function (target, onClick) {
+            var _this = this;
+            target.on(UtilPointerEvent.down, function (e) {
+                if (e.target === target) {
+                    var point = _this.point;
+                    point.copyFrom(e.data.global);
+                    target.toLocal(point, undefined, point, true);
+                    var x = point.x;
+                    var y = point.y;
+                    if (x < 0 || y < 0 || target.width < x || target.height < y) {
+                        // If dialogs / menus are being rendered on the overlay layer, closing them before
+                        // the default pointerdown event handler causes the base layer to lose its focus.
+                        // Therefore, onClick needed to be delayed.
+                        setTimeout(function () {
+                            onClick(e);
+                        }, 0);
+                    }
+                }
+            });
+        };
+        UtilClickOutside.point = new pixi_js.Point();
+        return UtilClickOutside;
+    }());
+
+    var UtilOverlay = /** @class */ (function () {
+        function UtilOverlay(options) {
+            this._layer = null;
+            this._application = (options === null || options === void 0 ? void 0 : options.parent) == null ? DApplications.last() : null;
+        }
+        Object.defineProperty(UtilOverlay.prototype, "picked", {
+            get: function () {
+                return this._layer;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilOverlay.prototype.pick = function (target) {
+            var layer = this._layer;
+            if (layer == null) {
+                layer = DApplications.getLayerOverlay(target);
+                if (!layer) {
+                    var application = this._application;
+                    if (application) {
+                        layer = application.getLayerOverlay();
+                    }
+                    else {
+                        layer = DApplications.last().getLayerOverlay();
+                    }
+                }
+                this._layer = layer;
+            }
+            return layer;
+        };
+        return UtilOverlay;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * A dialog class.
+     *
+     * If multiple application instances are there, better to set the constructor
+     * option `parent` to an `application.stage` so that the dialog picks a right
+     * application. By default, the dialog assumes the last created application is
+     * the one it belongs to at the time when it is created.
+     */
+    var DDialog = /** @class */ (function (_super) {
+        __extends(DDialog, _super);
+        function DDialog() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DDialog.prototype.init = function (options) {
+            var _this = this;
+            var _a, _b;
+            _super.prototype.init.call(this, options);
+            this._onPrerenderBound = function () {
+                _this.onPrerender();
+            };
+            this._layer = null;
+            // Mode
+            var theme = this.theme;
+            var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getMode(), DDialogMode);
+            this._mode = mode;
+            // Sticky
+            this._sticky = (_b = options === null || options === void 0 ? void 0 : options.sticky) !== null && _b !== void 0 ? _b : theme.isSticky(mode);
+            // Close On
+            var closeOn = this.toCloseOn(mode, theme, options);
+            this._closeOn = closeOn;
+            // Align
+            this._align = this.toAlign(mode, theme, options);
+            // Overlay
+            this._overlay = new UtilOverlay();
+            // Gesture
+            this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
+            // State
+            switch (mode) {
+                case DDialogMode.MODAL:
+                    this.visible = false;
+                    this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MODAL);
+                    break;
+                case DDialogMode.MODELESS:
+                    this.state.add(DDialogState.MODELESS);
+                    break;
+                case DDialogMode.MENU:
+                    this.visible = false;
+                    this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MENU);
+                    break;
+            }
+            // Outside-click handling
+            if (closeOn & DDialogCloseOn.CLICK_OUTSIDE) {
+                UtilClickOutside.apply(this, function () {
+                    _this.onCloseOn();
+                });
+            }
+        };
+        DDialog.prototype.toCloseOn = function (mode, theme, options) {
+            var closeOn = options === null || options === void 0 ? void 0 : options.closeOn;
+            if (closeOn == null) {
+                return theme.closeOn(mode);
+            }
+            else if (isArray(closeOn)) {
+                var result = DDialogCloseOn.NONE;
+                for (var i = 0, imax = closeOn.length; i < imax; ++i) {
+                    result |= DDialogCloseOn[closeOn[i]];
+                }
+                return result;
+            }
+            else if (isString(closeOn)) {
+                return DDialogCloseOn[closeOn];
+            }
+            return closeOn;
+        };
+        DDialog.prototype.toAlign = function (mode, theme, options) {
+            var align = options === null || options === void 0 ? void 0 : options.align;
+            if (align === null) {
+                return null;
+            }
+            else if (align === undefined) {
+                return theme.getAlign(mode);
+            }
+            else {
+                return toEnum(align, UtilAttachAlign);
+            }
+        };
+        Object.defineProperty(DDialog.prototype, "mode", {
+            get: function () {
+                return this._mode;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "align", {
+            get: function () {
+                return this._align;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "algin", {
+            set: function (align) {
+                this._align = align;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "gesture", {
+            get: function () {
+                return this._gesture;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDialog.prototype, "layer", {
+            get: function () {
+                return this._layer;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialog.prototype.toGestureOptions = function (mode, theme, options) {
+            var gesture = options === null || options === void 0 ? void 0 : options.gesture;
+            if (gesture === true) {
+                return {
+                    enable: true,
+                    mode: theme.getGestureMode(mode)
+                };
+            }
+            else if (gesture === false) {
+                return {
+                    enable: false,
+                    mode: theme.getGestureMode(mode)
+                };
+            }
+            else if (gesture != null) {
+                if (gesture.enable === undefined) {
+                    gesture.enable = theme.isGestureEnabled(mode);
+                }
+                if (gesture.mode === undefined) {
+                    gesture.mode = theme.getGestureMode(mode);
+                }
+                return gesture;
+            }
+            return {
+                enable: theme.isGestureEnabled(mode),
+                mode: theme.getGestureMode(mode)
+            };
+        };
+        DDialog.prototype.onParentResize = function (parentWidth, parentHeight, parentPadding) {
+            if (this.isOpened()) {
+                var layer = this._layer;
+                if (layer != null) {
+                    var gesture = this._gesture;
+                    if (gesture.isDirty()) {
+                        var position = this.position;
+                        gesture.constraint(this, layer, position.x, position.y);
+                    }
+                }
+            }
+            _super.prototype.onParentResize.call(this, parentWidth, parentHeight, parentPadding);
+        };
+        DDialog.prototype.getAnimation = function () {
+            var _this = this;
+            var _a, _b;
+            var result = this._animation;
+            if (result === undefined) {
+                result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.animation) !== null && _b !== void 0 ? _b : this.theme.newAnimation(this._mode);
+                if (result) {
+                    result.target = this;
+                    result.on("end", function (isReverse) {
+                        _this.onAnimationEnd(isReverse);
+                    });
+                }
+                this._animation = result;
+            }
+            return result;
+        };
+        DDialog.prototype.onAnimationEnd = function (isReverse) {
+            if (isReverse) {
+                var parent_1 = this.parent;
+                if (parent_1) {
+                    parent_1.removeChild(this);
+                }
+            }
+            else {
+                var layer = DApplications.getLayer(this);
+                if (layer) {
+                    var focusController = layer.getFocusController();
+                    this._focused = focusController.get();
+                    focusController.focus(this.findFirstFocusable(focusController) || this);
+                }
+            }
+        };
+        DDialog.prototype.findFirstFocusable = function (focusController) {
+            return focusController.find(this, false, true, true);
+        };
+        /**
+         * Opens a dialog.
+         *
+         * @param opener An opener of a dialog.
+         * The dialog position is determined based on a position and a size of the opener.
+         * If the opener is undefined, the dialog is placed at the center of the screen.
+         *
+         * @returns a value of this dialog
+         */
+        DDialog.prototype.open = function (opener) {
+            var _this = this;
+            var result = this._promise;
+            if (result == null) {
+                result = new Promise(function (resolve, reject) {
+                    _this._resolve = resolve;
+                    _this._reject = reject;
+                });
+                this._promise = result;
+                this._opener = opener;
+                // Attach to a layer
+                var layer = null;
+                switch (this._mode) {
+                    case DDialogMode.MODAL:
+                    case DDialogMode.MENU:
+                        layer = this._overlay.pick(this);
+                        layer.stage.addChild(this);
+                        break;
+                    case DDialogMode.MODELESS:
+                        layer = DApplications.getLayer(this);
+                        break;
+                }
+                this._layer = layer;
+                // Position & size
+                var gesture = this._gesture;
+                if (gesture.mode === DDialogGestureMode.CLEAN) {
+                    gesture.toClean();
+                }
+                if (layer != null) {
+                    if (gesture.isClean()) {
+                        var renderer = layer.renderer;
+                        var onPrerenderBound = this._onPrerenderBound;
+                        if (this._sticky) {
+                            renderer.on("prerender", onPrerenderBound);
+                        }
+                        else {
+                            renderer.once("prerender", onPrerenderBound);
+                        }
+                    }
+                    else {
+                        var position = this.position;
+                        gesture.constraint(this, layer, position.x, position.y);
+                    }
+                }
+                // Done
+                this.onOpen();
+            }
+            return result;
+        };
+        DDialog.prototype.onPrerender = function () {
+            var _a;
+            var layer = this._layer;
+            if (layer == null) {
+                return;
+            }
+            var align = this._align;
+            var opener = this._opener;
+            if (align != null && opener != null) {
+                var mode = this._mode;
+                var bounds = opener.getBounds(false, ((_a = DDialog.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialog.WORK_BOUNDS = new pixi_js.Rectangle())));
+                var theme = this.theme;
+                UtilAttach.attach(this, bounds, theme.getOffsetX(mode), theme.getOffsetY(mode), layer.width, layer.height, align);
+            }
+            else {
+                this.position.set((layer.width - this.width) * 0.5, (layer.height - this.height) * 0.5);
+            }
+        };
+        DDialog.prototype.onOpen = function () {
+            this.emit("open", this);
+            // Animation
+            var animation = this.getAnimation();
+            if (animation) {
+                animation.start();
+            }
+            else if (this._mode === DDialogMode.MENU) {
+                this.visible = true;
+                this.onAnimationEnd(false);
+            }
+        };
+        DDialog.prototype.isOpened = function () {
+            return this._promise != null;
+        };
+        DDialog.prototype.close = function () {
+            this.doReject();
+        };
+        DDialog.prototype.doResolve = function (value) {
+            var resolve = this._resolve;
+            if (resolve) {
+                this._promise = undefined;
+                this._resolve = undefined;
+                this._reject = undefined;
+                this.onClose();
+                resolve(value);
+            }
+        };
+        DDialog.prototype.doReject = function (reason) {
+            var reject = this._reject;
+            if (reject) {
+                this._promise = undefined;
+                this._resolve = undefined;
+                this._reject = undefined;
+                this.onClose();
+                reject(reason);
+            }
+        };
+        DDialog.prototype.onClose = function () {
+            // Focus
+            var layer = this._layer;
+            var focused = this._focused;
+            if (focused != null) {
+                this._focused = null;
+                if (layer) {
+                    var focusedLayer = DApplications.getLayer(focused);
+                    if (focusedLayer != null && layer !== focusedLayer) {
+                        focusedLayer.view.focus();
+                    }
+                    layer.getFocusController().focus(focused);
+                }
+                else {
+                    this.blur(true);
+                }
+            }
+            else {
+                this.blur(true);
+            }
+            // Remove the prerender event handler and forget the layer
+            if (layer) {
+                layer.renderer.off("prerender", this._onPrerenderBound);
+                this._layer = null;
+            }
+            // Forget the opener
+            this._opener = null;
+            // Animation
+            var animation = this.getAnimation();
+            if (animation) {
+                animation.start(true);
+            }
+            else {
+                this.visible = false;
+                this.onAnimationEnd(true);
+            }
+            this.emit("close", this);
+        };
+        DDialog.prototype.onKeyDown = function (e) {
+            if (this._closeOn & DDialogCloseOn.ESC) {
+                if (UtilKeyboardEvent.isCancelKey(e)) {
+                    this.onCloseOn();
+                }
+            }
+            return _super.prototype.onKeyDown.call(this, e);
+        };
+        DDialog.prototype.onCloseOn = function () {
+            this.close();
+        };
+        DDialog.prototype.containsGlobalPoint = function (point) {
+            switch (this._mode) {
+                case DDialogMode.MODAL:
+                case DDialogMode.MENU:
+                    return true;
+                case DDialogMode.MODELESS:
+                    return _super.prototype.containsGlobalPoint.call(this, point);
+            }
+        };
+        DDialog.prototype.getType = function () {
+            return "DDialog";
+        };
+        return DDialog;
+    }(DBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DLayoutDirection = {
+        VERTICAL: 0,
+        HORIZONTAL: 1
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DLayoutSpace = /** @class */ (function (_super) {
+        __extends(DLayoutSpace, _super);
+        function DLayoutSpace(options) {
+            var _this = _super.call(this, options) || this;
+            _this.visible = false;
+            return _this;
+        }
+        DLayoutSpace.prototype.getType = function () {
+            return "DLayoutSpace";
+        };
+        return DLayoutSpace;
+    }(DBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var isVisible = function (child) {
+        return child instanceof DBase && (child.visible || child instanceof DLayoutSpace);
+    };
+    var toMultiplicity = function (theme, options) {
+        if (options) {
+            var row = options.row;
+            if (row != null) {
+                return row;
+            }
+            var column = options.column;
+            if (column != null) {
+                return column;
+            }
+        }
+        return theme.getMultiplicity();
+    };
+    var toMargin = function (theme, options) {
+        var _a, _b;
+        var margin = options === null || options === void 0 ? void 0 : options.margin;
+        if (margin != null) {
+            if (isNumber(margin)) {
+                return {
+                    horizontal: margin,
+                    vertical: margin
+                };
+            }
+            else {
+                var themeMargin = theme.getMargin();
+                return {
+                    horizontal: (_a = margin.horizontal) !== null && _a !== void 0 ? _a : themeMargin,
+                    vertical: (_b = margin.vertical) !== null && _b !== void 0 ? _b : themeMargin
+                };
+            }
+        }
+        else {
+            var themeMargin = theme.getMargin();
+            return {
+                horizontal: themeMargin,
+                vertical: themeMargin
+            };
+        }
+    };
+    var toDirection = function (theme, options) {
+        var direction = options === null || options === void 0 ? void 0 : options.direction;
+        if (direction != null) {
+            if (isString(direction)) {
+                return DLayoutDirection[direction];
+            }
+            else {
+                return direction;
+            }
+        }
+        return theme.getDirection();
+    };
+    var toCornerAdjust = function (theme, options) {
+        var corner = options === null || options === void 0 ? void 0 : options.corner;
+        if (corner != null && !isNumber(corner)) {
+            var adjust = corner.adjust;
+            if (adjust != null) {
+                return adjust;
+            }
+        }
+        return theme.getCornerAdjust();
+    };
+    var toReverse = function (theme, options) {
+        var _a;
+        return (_a = options === null || options === void 0 ? void 0 : options.reverse) !== null && _a !== void 0 ? _a : theme.getReverse();
+    };
+    var DLayout = /** @class */ (function (_super) {
+        __extends(DLayout, _super);
+        function DLayout() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DLayout.prototype.init = function (options) {
+            _super.prototype.init.call(this, options);
+            var theme = this.theme;
+            this._margin = toMargin(theme, options);
+            this._direction = toDirection(theme, options);
+            this._cornerAdjust = toCornerAdjust(theme, options);
+            this._multiplicity = toMultiplicity(theme, options);
+            this._reverse = toReverse(theme, options);
+        };
+        Object.defineProperty(DLayout.prototype, "margin", {
+            get: function () {
+                return this._margin;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DLayout.prototype, "multiplicity", {
+            get: function () {
+                return this._multiplicity;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DLayout.prototype.getWeightTotal = function () {
+            var children = this.children;
+            var result = 0;
+            var multiplicity = this._multiplicity;
+            var reverse = this._reverse;
+            for (var i = 0, imax = children.length; i < imax;) {
+                var weight = -1;
+                var j = 0;
+                for (; j < multiplicity && i + j < imax; ++j) {
+                    var child = children[reverse ? imax - 1 - (i + j) : i + j];
+                    if (isVisible(child)) {
+                        var clearType = child.getClearType();
+                        if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
+                            break;
+                        }
+                        else {
+                            weight = Math.max(weight, child.weight);
+                            if (clearType && DLayoutClearType.AFTER) {
+                                j += 1;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        i += 1;
+                        j -= 1;
+                    }
+                }
+                i += j;
+                if (0 <= weight) {
+                    result += weight;
+                }
+            }
+            return result;
+        };
+        DLayout.prototype.getSpaceLeft = function (baseSize, margin) {
+            var children = this.children;
+            var multiplicity = this._multiplicity;
+            var reverse = this._reverse;
+            if (this._direction === DLayoutDirection.VERTICAL) {
+                var result = baseSize;
+                var marginNext = 0;
+                for (var i = 0, imax = children.length; i < imax;) {
+                    var height = 0;
+                    var weight = -1;
+                    var j = 0;
+                    for (; j < multiplicity && i + j < imax; ++j) {
+                        var child = children[reverse ? imax - 1 - (i + j) : i + j];
+                        if (isVisible(child)) {
+                            var clearType = child.getClearType();
+                            if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
+                                break;
+                            }
+                            else {
+                                weight = Math.max(weight, child.weight);
+                                if (weight < 0) {
+                                    height = Math.max(height, child.height + marginNext);
+                                }
+                                else {
+                                    height = marginNext;
+                                }
+                                if (clearType & DLayoutClearType.AFTER) {
+                                    j += 1;
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            i += 1;
+                            j -= 1;
+                        }
+                    }
+                    i += j;
+                    result -= height;
+                    marginNext = margin;
+                }
+                return Math.max(0, result);
+            }
+            else {
+                var result = baseSize;
+                var marginNext = 0;
+                for (var i = 0, imax = children.length; i < imax;) {
+                    var width = 0;
+                    var weight = -1;
+                    var j = 0;
+                    for (; j < multiplicity && i + j < imax; ++j) {
+                        var child = children[reverse ? imax - 1 - (i + j) : i + j];
+                        if (isVisible(child)) {
+                            var clearType = child.getClearType();
+                            if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
+                                break;
+                            }
+                            else {
+                                weight = Math.max(weight, child.weight);
+                                if (weight < 0) {
+                                    width = Math.max(width, child.width + marginNext);
+                                }
+                                else {
+                                    width = marginNext;
+                                }
+                                if (clearType & DLayoutClearType.AFTER) {
+                                    j += 1;
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            i += 1;
+                            j -= 1;
+                        }
+                    }
+                    i += j;
+                    result -= width;
+                    marginNext = margin;
+                }
+                return Math.max(0, result);
+            }
+        };
+        DLayout.prototype.calcSpaceLeft = function (isOn, size, padding, margin) {
+            return isOn ? 0 : this.getSpaceLeft(size - padding, margin);
+        };
+        DLayout.prototype.onRefit = function () {
+            var children = this.children;
+            var padding = this._padding;
+            var paddingTop = padding.getTop();
+            var paddingBottom = padding.getBottom();
+            var paddingLeft = padding.getLeft();
+            var paddingRight = padding.getRight();
+            var margin = this._margin;
+            var marginVertical = margin.vertical;
+            var marginHorizontal = margin.horizontal;
+            var weightTotal = this.getWeightTotal();
+            var multiplicity = this._multiplicity;
+            var reverse = this._reverse;
+            var auto = this._auto;
+            var cornerAdjustWork = null;
+            if (this._cornerAdjust) {
+                var requiredSize = 4 + (children.length << 1);
+                if (DLayout.CORNER_ADJUST_WORK == null ||
+                    DLayout.CORNER_ADJUST_WORK.length < requiredSize) {
+                    DLayout.CORNER_ADJUST_WORK = new Float32Array(requiredSize);
+                }
+                cornerAdjustWork = DLayout.CORNER_ADJUST_WORK;
+                cornerAdjustWork[0] = -2;
+                cornerAdjustWork[1] = -2;
+                cornerAdjustWork[requiredSize - 2] = -3;
+                cornerAdjustWork[requiredSize - 1] = -3;
+            }
+            if (this._direction === DLayoutDirection.VERTICAL) {
+                var irow = 0;
+                var y = paddingTop - marginVertical;
+                if (0 < weightTotal) {
+                    var weightTotalInverse = 1 / weightTotal;
+                    var spaceLeft = this.calcSpaceLeft(auto.height.isOn, this.height, paddingTop + paddingBottom, marginVertical);
+                    for (var i = 0, imax = children.length; i < imax;) {
+                        var x = paddingLeft - marginHorizontal;
+                        var height = 0;
+                        var j = 0;
+                        for (; j < multiplicity && i + j < imax; ++j) {
+                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
+                            if (isVisible(child)) {
+                                var clearType = child.getClearType();
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
+                                    break;
+                                }
+                                else {
+                                    child.position.set(marginHorizontal + x, marginVertical + y);
+                                    var weight = child.weight;
+                                    if (0 <= weight) {
+                                        child.height = spaceLeft * (weight * weightTotalInverse);
+                                    }
+                                    x += marginHorizontal + child.width;
+                                    height = Math.max(height, child.height);
+                                    if (clearType & DLayoutClearType.AFTER) {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = j;
+                                            cornerAdjustWork[k + 1] = irow;
+                                        }
+                                        j += 1;
+                                        break;
+                                    }
+                                    else {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = j;
+                                            cornerAdjustWork[k + 1] = irow;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                if (cornerAdjustWork != null) {
+                                    var k = (i + j + 1) << 1;
+                                    cornerAdjustWork[k + 0] = j - 1;
+                                    cornerAdjustWork[k + 1] = irow;
+                                }
+                                i += 1;
+                                j -= 1;
+                            }
+                        }
+                        y += marginVertical + height;
+                        i += j;
+                        irow += 1;
+                    }
+                    if (cornerAdjustWork != null) {
+                        for (var i = 0, imax = children.length; i < imax; ++i) {
+                            var child = children[reverse ? imax - 1 - i : i];
+                            if (isVisible(child)) {
+                                var i1 = 2 + (i << 1);
+                                var icolumn1 = cornerAdjustWork[i1 + 0];
+                                var irow1 = cornerAdjustWork[i1 + 1];
+                                var clearType = child.getClearType();
+                                var icolumn0 = -2;
+                                if (!(clearType & DLayoutClearType.BEFORE)) {
+                                    var i0 = this.findRowIndexPrevious(i1, irow1, cornerAdjustWork);
+                                    if (!this.hasClearTypeAfter(children, i0)) {
+                                        icolumn0 = cornerAdjustWork[i0];
+                                    }
+                                }
+                                var icolumn2 = -2;
+                                if (!(clearType & DLayoutClearType.AFTER)) {
+                                    var i2 = this.findRowIndexNext(i1, irow1, cornerAdjustWork);
+                                    if (!this.hasClearTypeBefore(children, i2)) {
+                                        icolumn2 = cornerAdjustWork[i2];
+                                    }
+                                }
+                                var ncolumn = this.countColumn(i1, irow1, cornerAdjustWork);
+                                child.corner.mask = this.toCornerMaskColumn(icolumn0, icolumn1, icolumn2, ncolumn);
+                            }
+                        }
+                    }
+                }
+                else {
+                    for (var i = 0, imax = children.length; i < imax;) {
+                        var x = paddingLeft - marginHorizontal;
+                        var height = 0;
+                        var j = 0;
+                        for (; j < multiplicity && i + j < imax; ++j) {
+                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
+                            if (isVisible(child)) {
+                                var clearType = child.getClearType();
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
+                                    break;
+                                }
+                                else {
+                                    child.position.set(marginHorizontal + x, marginVertical + y);
+                                    var weight = child.weight;
+                                    if (0 <= weight) {
+                                        child.height = 0;
+                                    }
+                                    x += marginHorizontal + child.width;
+                                    height = Math.max(height, child.height);
+                                    if (clearType & DLayoutClearType.AFTER) {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = j;
+                                            cornerAdjustWork[k + 1] = irow;
+                                        }
+                                        j += 1;
+                                        break;
+                                    }
+                                    else {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = j;
+                                            cornerAdjustWork[k + 1] = irow;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                if (cornerAdjustWork != null) {
+                                    var k = (i + j + 1) << 1;
+                                    cornerAdjustWork[k + 0] = j - 1;
+                                    cornerAdjustWork[k + 1] = irow;
+                                }
+                                i += 1;
+                                j -= 1;
+                            }
+                        }
+                        y += marginVertical + height;
+                        i += j;
+                        irow += 1;
+                    }
+                    if (cornerAdjustWork != null) {
+                        for (var i = 0, imax = children.length; i < imax; ++i) {
+                            var child = children[reverse ? imax - 1 - i : i];
+                            if (isVisible(child)) {
+                                var i1 = 2 + (i << 1);
+                                var icolumn1 = cornerAdjustWork[i1 + 0];
+                                var irow1 = cornerAdjustWork[i1 + 1];
+                                var clearType = child.getClearType();
+                                var icolumn0 = -2;
+                                if (!(clearType & DLayoutClearType.BEFORE)) {
+                                    var i0 = this.findRowIndexPrevious(i1, irow1, cornerAdjustWork);
+                                    if (!this.hasClearTypeAfter(children, i0)) {
+                                        icolumn0 = cornerAdjustWork[i0];
+                                    }
+                                }
+                                var icolumn2 = -2;
+                                if (!(clearType & DLayoutClearType.AFTER)) {
+                                    var i2 = this.findRowIndexNext(i1, irow1, cornerAdjustWork);
+                                    if (!this.hasClearTypeBefore(children, i2)) {
+                                        icolumn2 = cornerAdjustWork[i2];
+                                    }
+                                }
+                                var ncolumn = this.countColumn(i1, irow1, cornerAdjustWork);
+                                child.corner.mask = this.toCornerMaskColumn(icolumn0, icolumn1, icolumn2, ncolumn);
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                var icolumn = 0;
+                var x = paddingLeft - marginHorizontal;
+                if (0 < weightTotal) {
+                    var weightTotalInverse = 1 / weightTotal;
+                    var spaceLeft = this.calcSpaceLeft(auto.width.isOn, this.width, paddingLeft + paddingRight, marginHorizontal);
+                    for (var i = 0, imax = children.length; i < imax;) {
+                        var y = paddingTop - marginVertical;
+                        var width = 0;
+                        var j = 0;
+                        for (; j < multiplicity && i + j < imax; ++j) {
+                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
+                            if (isVisible(child)) {
+                                var clearType = child.getClearType();
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
+                                    break;
+                                }
+                                else {
+                                    child.position.set(marginHorizontal + x, marginVertical + y);
+                                    var weight = child.weight;
+                                    if (0 <= weight) {
+                                        child.width = spaceLeft * (weight * weightTotalInverse);
+                                    }
+                                    width = Math.max(width, child.width);
+                                    y += marginVertical + child.height;
+                                    if (clearType & DLayoutClearType.AFTER) {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = icolumn;
+                                            cornerAdjustWork[k + 1] = j;
+                                        }
+                                        j += 1;
+                                        break;
+                                    }
+                                    else {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = icolumn;
+                                            cornerAdjustWork[k + 1] = j;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                if (cornerAdjustWork != null) {
+                                    var k = (i + j + 1) << 1;
+                                    cornerAdjustWork[k + 0] = icolumn;
+                                    cornerAdjustWork[k + 1] = j - 1;
+                                }
+                                i += 1;
+                                j -= 1;
+                            }
+                        }
+                        x += marginHorizontal + width;
+                        i += j;
+                        icolumn += 1;
+                    }
+                    if (cornerAdjustWork != null) {
+                        for (var i = 0, imax = children.length; i < imax; ++i) {
+                            var child = children[reverse ? imax - 1 - i : i];
+                            if (isVisible(child)) {
+                                var i1 = 2 + (i << 1);
+                                var icolumn1 = cornerAdjustWork[i1 + 0];
+                                var irow1 = cornerAdjustWork[i1 + 1];
+                                var clearType = child.getClearType();
+                                var irow0 = -2;
+                                if (!(clearType & DLayoutClearType.BEFORE)) {
+                                    var i0 = this.findColumnIndexPrevious(i1, icolumn1, cornerAdjustWork);
+                                    if (!this.hasClearTypeAfter(children, i0)) {
+                                        irow0 = cornerAdjustWork[i0 + 1];
+                                    }
+                                }
+                                var irow2 = -2;
+                                if (!(clearType & DLayoutClearType.AFTER)) {
+                                    var i2 = this.findColumnIndexNext(i1, icolumn1, cornerAdjustWork);
+                                    if (!this.hasClearTypeBefore(children, i2)) {
+                                        irow2 = cornerAdjustWork[i2 + 1];
+                                    }
+                                }
+                                var nrow = this.countRow(i1, icolumn1, cornerAdjustWork);
+                                child.corner.mask = this.toCornerMaskRow(irow0, irow1, irow2, nrow);
+                            }
+                        }
+                    }
+                }
+                else {
+                    for (var i = 0, imax = children.length; i < imax;) {
+                        var y = paddingTop - marginVertical;
+                        var width = 0;
+                        var j = 0;
+                        for (; j < multiplicity && i + j < imax; ++j) {
+                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
+                            if (isVisible(child)) {
+                                var clearType = child.getClearType();
+                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
+                                    break;
+                                }
+                                else {
+                                    child.position.set(marginHorizontal + x, marginVertical + y);
+                                    var weight = child.weight;
+                                    if (0 <= weight) {
+                                        child.width = 0;
+                                    }
+                                    width = Math.max(width, child.width);
+                                    y += marginVertical + child.height;
+                                    if (clearType & DLayoutClearType.AFTER) {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = icolumn;
+                                            cornerAdjustWork[k + 1] = j;
+                                        }
+                                        j += 1;
+                                        break;
+                                    }
+                                    else {
+                                        if (cornerAdjustWork != null) {
+                                            var k = (i + j + 1) << 1;
+                                            cornerAdjustWork[k + 0] = icolumn;
+                                            cornerAdjustWork[k + 1] = j;
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                if (cornerAdjustWork != null) {
+                                    var k = (i + j + 1) << 1;
+                                    cornerAdjustWork[k + 0] = icolumn;
+                                    cornerAdjustWork[k + 1] = j - 1;
+                                }
+                                i += 1;
+                                j -= 1;
+                            }
+                        }
+                        x += marginHorizontal + width;
+                        i += j;
+                        icolumn += 1;
+                    }
+                    if (cornerAdjustWork != null) {
+                        for (var i = 0, imax = children.length; i < imax; ++i) {
+                            var child = children[reverse ? imax - 1 - i : i];
+                            if (isVisible(child)) {
+                                var i1 = 2 + (i << 1);
+                                var icolumn1 = cornerAdjustWork[i1 + 0];
+                                var irow1 = cornerAdjustWork[i1 + 1];
+                                var clearType = child.getClearType();
+                                var irow0 = -2;
+                                if (!(clearType & DLayoutClearType.BEFORE)) {
+                                    var i0 = this.findColumnIndexPrevious(i1, icolumn1, cornerAdjustWork);
+                                    if (!this.hasClearTypeAfter(children, i0)) {
+                                        irow0 = cornerAdjustWork[i0 + 1];
+                                    }
+                                }
+                                var irow2 = -2;
+                                if (!(clearType & DLayoutClearType.AFTER)) {
+                                    var i2 = this.findColumnIndexNext(i1, icolumn1, cornerAdjustWork);
+                                    if (!this.hasClearTypeBefore(children, i2)) {
+                                        irow2 = cornerAdjustWork[i2 + 1];
+                                    }
+                                }
+                                var nrow = this.countRow(i1, icolumn1, cornerAdjustWork);
+                                child.corner.mask = this.toCornerMaskRow(irow0, irow1, irow2, nrow);
+                            }
+                        }
+                    }
+                }
+            }
+            _super.prototype.onRefit.call(this);
+        };
+        DLayout.prototype.hasClearTypeBefore = function (children, index) {
+            return this.hasClearType(children, index, DLayoutClearType.BEFORE);
+        };
+        DLayout.prototype.hasClearTypeAfter = function (children, index) {
+            return this.hasClearType(children, index, DLayoutClearType.AFTER);
+        };
+        DLayout.prototype.hasClearType = function (children, index, clearType) {
+            if (2 <= index) {
+                var i = (index - 2) >> 1;
+                if (0 <= i && i < children.length) {
+                    var child = children[i];
+                    if (child instanceof DBase) {
+                        return !!(child.getClearType() & clearType);
+                    }
+                }
+            }
+            return false;
+        };
+        DLayout.prototype.findColumnIndexPrevious = function (istart, icolumn, cornerAdjustWork) {
+            for (var i = istart - 2; 0 <= i; i -= 2) {
+                if (cornerAdjustWork[i] !== icolumn) {
+                    return i;
+                }
+            }
+            return 0;
+        };
+        DLayout.prototype.findColumnIndexNext = function (istart, icolumn, cornerAdjustWork) {
+            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
+                var icolumn2 = cornerAdjustWork[i];
+                if (icolumn2 !== icolumn) {
+                    for (var j = i + 2; j < imax; j += 2) {
+                        if (cornerAdjustWork[j] !== icolumn2) {
+                            return j - 2;
+                        }
+                    }
+                    return i;
+                }
+            }
+            return cornerAdjustWork.length - 2;
+        };
+        DLayout.prototype.countRow = function (istart, icolumn, cornerAdjustWork) {
+            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
+                var icolumn2 = cornerAdjustWork[i];
+                if (icolumn2 !== icolumn) {
+                    return cornerAdjustWork[i - 2 + 1] + 1;
+                }
+            }
+            return 0;
+        };
+        DLayout.prototype.findRowIndexPrevious = function (istart, irow, cornerAdjustWork) {
+            for (var i = istart - 2; 0 <= i; i -= 2) {
+                if (cornerAdjustWork[i + 1] !== irow) {
+                    return i;
+                }
+            }
+            return 0;
+        };
+        DLayout.prototype.findRowIndexNext = function (istart, irow, cornerAdjustWork) {
+            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
+                var irow2 = cornerAdjustWork[i + 1];
+                if (irow2 !== irow) {
+                    for (var j = i + 2; j < imax; j += 2) {
+                        if (cornerAdjustWork[j + 1] !== irow2) {
+                            return j - 2;
+                        }
+                    }
+                    return i;
+                }
+            }
+            return cornerAdjustWork.length - 2;
+        };
+        DLayout.prototype.countColumn = function (istart, irow, cornerAdjustWork) {
+            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
+                var irow2 = cornerAdjustWork[i + 1];
+                if (irow2 !== irow) {
+                    return cornerAdjustWork[i - 2 + 0] + 1;
+                }
+            }
+            return 0;
+        };
+        DLayout.prototype.toCornerMaskColumn = function (i0, i1, i2, n) {
+            var result = DCornerMask.NONE;
+            if (i0 + 1 < i1 && i1 === 0) {
+                result |= DCornerMask.TOP_LEFT;
+            }
+            if (i2 + 1 < i1 && i1 === 0) {
+                result |= DCornerMask.BOTTOM_LEFT;
+            }
+            if (i0 < i1 && i1 + 1 === n) {
+                result |= DCornerMask.TOP_RIGHT;
+            }
+            if (i2 < i1 && i1 + 1 === n) {
+                result |= DCornerMask.BOTTOM_RIGHT;
+            }
+            return DCornerMask.ALL & ~result;
+        };
+        DLayout.prototype.toCornerMaskRow = function (i0, i1, i2, n) {
+            var result = DCornerMask.NONE;
+            if (i0 + 1 < i1 && i1 === 0) {
+                result |= DCornerMask.TOP_LEFT;
+            }
+            if (i2 + 1 < i1 && i1 === 0) {
+                result |= DCornerMask.TOP_RIGHT;
+            }
+            if (i0 < i1 && i1 + 1 === n) {
+                result |= DCornerMask.BOTTOM_LEFT;
+            }
+            if (i2 < i1 && i1 + 1 === n) {
+                result |= DCornerMask.BOTTOM_RIGHT;
+            }
+            return DCornerMask.ALL & ~result;
+        };
+        DLayout.prototype.addSpace = function (options) {
+            return this.addChild(new DLayoutSpace(options));
+        };
+        DLayout.prototype.getType = function () {
+            return "DLayout";
+        };
+        DLayout.CORNER_ADJUST_WORK = null;
+        return DLayout;
+    }(DBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DLayoutVertical = /** @class */ (function (_super) {
+        __extends(DLayoutVertical, _super);
+        function DLayoutVertical() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DLayoutVertical.prototype.getType = function () {
+            return "DLayoutVertical";
+        };
+        return DLayoutVertical;
+    }(DLayout));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogLayeredContent = /** @class */ (function (_super) {
+        __extends(DDialogLayeredContent, _super);
+        function DDialogLayeredContent() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DDialogLayeredContent.prototype.getType = function () {
+            return "DDialogLayeredContent";
+        };
+        return DDialogLayeredContent;
+    }(DLayoutVertical));
 
     /*
      * Copyright (C) 2021 Toshiba Corporation
@@ -26000,1483 +27558,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var UtilAttachAlign = {
-        TOP: 0,
-        TOP_LEFT: 1,
-        TOP_CENTER: 2,
-        TOP_RIGHT: 3,
-        LEFT: 4,
-        LEFT_TOP: 5,
-        LEFT_MIDDLE: 6,
-        LEFT_BOTTOM: 7,
-        RIGHT: 8,
-        RIGHT_TOP: 9,
-        RIGHT_MIDDLE: 10,
-        RIGHT_BOTTOM: 11,
-        BOTTOM: 12,
-        BOTTOM_LEFT: 13,
-        BOTTOM_CENTER: 14,
-        BOTTOM_RIGHT: 15,
-        OVER: 16
-    };
-    var UtilAttach = /** @class */ (function () {
-        function UtilAttach() {
-        }
-        UtilAttach.attach = function (target, bounds, offsetX, offsetY, clippingWidth, clippingHeight, align) {
-            var width = target.width;
-            var height = target.height;
-            var x = 0;
-            switch (align) {
-                case UtilAttachAlign.LEFT:
-                case UtilAttachAlign.LEFT_TOP:
-                case UtilAttachAlign.LEFT_MIDDLE:
-                case UtilAttachAlign.LEFT_BOTTOM:
-                    x = bounds.left - width - offsetX;
-                    if (x < offsetX) {
-                        x = bounds.right + offsetX;
-                        if (clippingWidth - offsetX < x + width) {
-                            x = offsetX;
-                        }
-                    }
-                    break;
-                case UtilAttachAlign.RIGHT:
-                case UtilAttachAlign.RIGHT_TOP:
-                case UtilAttachAlign.RIGHT_MIDDLE:
-                case UtilAttachAlign.RIGHT_BOTTOM:
-                    x = bounds.right + offsetX;
-                    if (clippingWidth - offsetX < x + width) {
-                        x = bounds.left - width - offsetX;
-                        if (x < offsetX) {
-                            x = clippingWidth - width - offsetX;
-                        }
-                    }
-                    break;
-                case UtilAttachAlign.TOP:
-                case UtilAttachAlign.TOP_LEFT:
-                case UtilAttachAlign.BOTTOM:
-                case UtilAttachAlign.BOTTOM_LEFT:
-                    x = this.adjust(bounds.left, width, offsetX, clippingWidth);
-                    break;
-                case UtilAttachAlign.TOP_RIGHT:
-                case UtilAttachAlign.BOTTOM_RIGHT:
-                    x = this.adjust(bounds.right - width, width, offsetX, clippingWidth);
-                    break;
-                case UtilAttachAlign.TOP_CENTER:
-                case UtilAttachAlign.BOTTOM_CENTER:
-                case UtilAttachAlign.OVER:
-                    x = this.adjust((bounds.left + bounds.right - width) * 0.5, width, offsetX, clippingWidth);
-                    break;
-            }
-            var y = 0;
-            switch (align) {
-                case UtilAttachAlign.LEFT:
-                case UtilAttachAlign.LEFT_TOP:
-                case UtilAttachAlign.RIGHT:
-                case UtilAttachAlign.RIGHT_TOP:
-                    y = this.adjust(bounds.top, height, offsetY, clippingHeight);
-                    break;
-                case UtilAttachAlign.LEFT_MIDDLE:
-                case UtilAttachAlign.RIGHT_MIDDLE:
-                case UtilAttachAlign.OVER:
-                    y = this.adjust((bounds.top + bounds.bottom - height) * 0.5, height, offsetY, clippingHeight);
-                    break;
-                case UtilAttachAlign.LEFT_BOTTOM:
-                case UtilAttachAlign.RIGHT_BOTTOM:
-                    y = this.adjust(bounds.bottom, height, offsetY, clippingHeight);
-                    break;
-                case UtilAttachAlign.TOP:
-                case UtilAttachAlign.TOP_LEFT:
-                case UtilAttachAlign.TOP_RIGHT:
-                case UtilAttachAlign.TOP_CENTER:
-                    y = bounds.top - height - offsetY;
-                    if (y < offsetY) {
-                        y = bounds.bottom + offsetY;
-                        if (clippingHeight < y + height) {
-                            y = offsetY;
-                        }
-                    }
-                    break;
-                case UtilAttachAlign.BOTTOM:
-                case UtilAttachAlign.BOTTOM_LEFT:
-                case UtilAttachAlign.BOTTOM_RIGHT:
-                case UtilAttachAlign.BOTTOM_CENTER:
-                    y = bounds.bottom + offsetY;
-                    if (clippingHeight - offsetY < y + height) {
-                        y = bounds.top - height - offsetY;
-                        if (y < offsetY) {
-                            y = clippingHeight - height - offsetY;
-                        }
-                    }
-                    break;
-            }
-            target.position.set(x, y);
-        };
-        UtilAttach.adjust = function (position, size, offset, clippingSize) {
-            if (position < offset) {
-                if (clippingSize - offset < position + size) {
-                    return (clippingSize - size) * 0.5;
-                }
-                else {
-                    return offset;
-                }
-            }
-            else if (clippingSize - offset < position + size) {
-                if (clippingSize < size) {
-                    return (clippingSize - size) * 0.5;
-                }
-                else {
-                    return clippingSize - size - offset;
-                }
-            }
-            return position;
-        };
-        return UtilAttach;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDialogCloseOn = {
-        NONE: 0,
-        ESC: 1,
-        CLICK_OUTSIDE: 2
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDialogGestureMode = {
-        DIRTY: 0,
-        CLEAN: 1
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDialogGestureImpl = /** @class */ (function () {
-        function DDialogGestureImpl(parent, options) {
-            var _a;
-            this._parent = parent;
-            this._options = options;
-            if (options.enable) {
-                this._util = this.newUtil();
-            }
-            this._mode = toEnum((_a = options.mode) !== null && _a !== void 0 ? _a : DDialogGestureMode.DIRTY, DDialogGestureMode);
-            this._isEnabled = true;
-            this._isDirty = false;
-        }
-        Object.defineProperty(DDialogGestureImpl.prototype, "parent", {
-            get: function () {
-                return this._parent;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDialogGestureImpl.prototype, "mode", {
-            get: function () {
-                return this._mode;
-            },
-            set: function (mode) {
-                this._mode = mode;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDialogGestureImpl.prototype, "constraint", {
-            get: function () {
-                var _a, _b;
-                var result = this._constraint;
-                if (result == null) {
-                    result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.constraint) !== null && _b !== void 0 ? _b : this.newConstraint();
-                    this._constraint = result;
-                }
-                return result;
-            },
-            set: function (constraint) {
-                this._constraint = constraint;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDialogGestureImpl.prototype.newConstraint = function () {
-            var _this = this;
-            return function (target, layer, x, y) {
-                _this.toConstrained(target, layer, x, y);
-            };
-        };
-        DDialogGestureImpl.prototype.isDirty = function () {
-            return this._isDirty;
-        };
-        DDialogGestureImpl.prototype.isClean = function () {
-            return !this._isDirty;
-        };
-        DDialogGestureImpl.prototype.toClean = function () {
-            if (this._isDirty) {
-                this._isDirty = false;
-            }
-        };
-        DDialogGestureImpl.prototype.newUtil = function () {
-            var _this = this;
-            var p = new pixi_js.Point();
-            var parent = this._parent;
-            var position = parent.position;
-            return new UtilGesture({
-                bind: parent,
-                checker: {
-                    start: function (e) {
-                        // Are children clicked?
-                        if (e.target !== parent) {
-                            return false;
-                        }
-                        // Is clicked outside?
-                        p.copyFrom(e.data.global);
-                        parent.toLocal(p, undefined, p, true);
-                        var x = p.x;
-                        var y = p.y;
-                        if (x < 0 || y < 0 || parent.width < x || parent.height < y) {
-                            return false;
-                        }
-                        // Ok
-                        return true;
-                    }
-                },
-                on: {
-                    start: function () {
-                        p.copyFrom(position);
-                    },
-                    move: function (target, dx, dy) {
-                        p.set(p.x + dx, p.y + dy);
-                        if (!_this._isDirty) {
-                            _this._isDirty = true;
-                            parent.setX(position.x);
-                            parent.setY(position.y);
-                        }
-                        var layer = parent.layer;
-                        if (layer != null) {
-                            _this.constraint(parent, layer, p.x, p.y);
-                        }
-                    }
-                }
-            });
-        };
-        DDialogGestureImpl.prototype.toConstrained = function (target, layer, x, y) {
-            var _a;
-            var position = target.position;
-            if (layer) {
-                var bounds = target.getBounds(false, ((_a = DDialogGestureImpl.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialogGestureImpl.WORK_BOUNDS = new pixi_js.Rectangle())));
-                var obx = bounds.x + x - position.x;
-                var oby = bounds.y + y - position.y;
-                var nbx = Math.min(Math.max(0, obx), layer.width - bounds.width);
-                var nby = Math.min(Math.max(0, oby), layer.height - bounds.height);
-                position.set(x + nbx - obx, y + nby - oby);
-            }
-            else {
-                position.set(x, y);
-            }
-        };
-        return DDialogGestureImpl;
-    }());
-
-    /*
-     * Copyright (C) 2021 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * {@link DDialog} mode options.
-     */
-    var DDialogMode = {
-        MODAL: 0,
-        MODELESS: 1,
-        MENU: 2
-    };
-
-    /*
-     * Copyright (C) 2021 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DDialogState = {
-        MODAL: "MODAL",
-        MODELESS: "MODELESS",
-        MENU: "MENU"
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var UtilClickOutside = /** @class */ (function () {
-        function UtilClickOutside() {
-        }
-        UtilClickOutside.apply = function (target, onClick) {
-            var _this = this;
-            target.on(UtilPointerEvent.down, function (e) {
-                if (e.target === target) {
-                    var point = _this.point;
-                    point.copyFrom(e.data.global);
-                    target.toLocal(point, undefined, point, true);
-                    var x = point.x;
-                    var y = point.y;
-                    if (x < 0 || y < 0 || target.width < x || target.height < y) {
-                        // If dialogs / menus are being rendered on the overlay layer, closing them before
-                        // the default pointerdown event handler causes the base layer to lose its focus.
-                        // Therefore, onClick needed to be delayed.
-                        setTimeout(function () {
-                            onClick(e);
-                        }, 0);
-                    }
-                }
-            });
-        };
-        UtilClickOutside.point = new pixi_js.Point();
-        return UtilClickOutside;
-    }());
-
-    var UtilOverlay = /** @class */ (function () {
-        function UtilOverlay(options) {
-            this._layer = null;
-            this._application = (options === null || options === void 0 ? void 0 : options.parent) == null ? DApplications.last() : null;
-        }
-        Object.defineProperty(UtilOverlay.prototype, "picked", {
-            get: function () {
-                return this._layer;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        UtilOverlay.prototype.pick = function (target) {
-            var layer = this._layer;
-            if (layer == null) {
-                layer = DApplications.getLayerOverlay(target);
-                if (!layer) {
-                    var application = this._application;
-                    if (application) {
-                        layer = application.getLayerOverlay();
-                    }
-                    else {
-                        layer = DApplications.last().getLayerOverlay();
-                    }
-                }
-                this._layer = layer;
-            }
-            return layer;
-        };
-        return UtilOverlay;
-    }());
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    /**
-     * A dialog class.
-     *
-     * If multiple application instances are there, better to set the constructor
-     * option `parent` to an `application.stage` so that the dialog picks a right
-     * application. By default, the dialog assumes the last created application is
-     * the one it belongs to at the time when it is created.
-     */
-    var DDialog = /** @class */ (function (_super) {
-        __extends(DDialog, _super);
-        function DDialog() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DDialog.prototype.init = function (options) {
-            var _this = this;
-            var _a, _b;
-            _super.prototype.init.call(this, options);
-            this._onPrerenderBound = function () {
-                _this.onPrerender();
-            };
-            this._layer = null;
-            // Mode
-            var theme = this.theme;
-            var mode = toEnum((_a = options === null || options === void 0 ? void 0 : options.mode) !== null && _a !== void 0 ? _a : theme.getMode(), DDialogMode);
-            this._mode = mode;
-            // Sticky
-            this._sticky = (_b = options === null || options === void 0 ? void 0 : options.sticky) !== null && _b !== void 0 ? _b : theme.isSticky(mode);
-            // Close On
-            var closeOn = this.toCloseOn(mode, theme, options);
-            this._closeOn = closeOn;
-            // Align
-            this._align = this.toAlign(mode, theme, options);
-            // Overlay
-            this._overlay = new UtilOverlay();
-            // Gesture
-            this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
-            // State
-            switch (mode) {
-                case DDialogMode.MODAL:
-                    this.visible = false;
-                    this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MODAL);
-                    break;
-                case DDialogMode.MODELESS:
-                    this.state.add(DDialogState.MODELESS);
-                    break;
-                case DDialogMode.MENU:
-                    this.visible = false;
-                    this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MENU);
-                    break;
-            }
-            // Outside-click handling
-            if (closeOn & DDialogCloseOn.CLICK_OUTSIDE) {
-                UtilClickOutside.apply(this, function () {
-                    _this.onCloseOn();
-                });
-            }
-        };
-        DDialog.prototype.toCloseOn = function (mode, theme, options) {
-            var closeOn = options === null || options === void 0 ? void 0 : options.closeOn;
-            if (closeOn == null) {
-                return theme.closeOn(mode);
-            }
-            else if (isArray(closeOn)) {
-                var result = DDialogCloseOn.NONE;
-                for (var i = 0, imax = closeOn.length; i < imax; ++i) {
-                    result |= DDialogCloseOn[closeOn[i]];
-                }
-                return result;
-            }
-            else if (isString(closeOn)) {
-                return DDialogCloseOn[closeOn];
-            }
-            return closeOn;
-        };
-        DDialog.prototype.toAlign = function (mode, theme, options) {
-            var align = options === null || options === void 0 ? void 0 : options.align;
-            if (align === null) {
-                return null;
-            }
-            else if (align === undefined) {
-                return theme.getAlign(mode);
-            }
-            else {
-                return toEnum(align, UtilAttachAlign);
-            }
-        };
-        Object.defineProperty(DDialog.prototype, "mode", {
-            get: function () {
-                return this._mode;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDialog.prototype, "align", {
-            get: function () {
-                return this._align;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDialog.prototype, "algin", {
-            set: function (align) {
-                this._align = align;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDialog.prototype, "gesture", {
-            get: function () {
-                return this._gesture;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDialog.prototype, "layer", {
-            get: function () {
-                return this._layer;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDialog.prototype.toGestureOptions = function (mode, theme, options) {
-            var gesture = options === null || options === void 0 ? void 0 : options.gesture;
-            if (gesture === true) {
-                return {
-                    enable: true,
-                    mode: theme.getGestureMode(mode)
-                };
-            }
-            else if (gesture === false) {
-                return {
-                    enable: false,
-                    mode: theme.getGestureMode(mode)
-                };
-            }
-            else if (gesture != null) {
-                if (gesture.enable === undefined) {
-                    gesture.enable = theme.isGestureEnabled(mode);
-                }
-                if (gesture.mode === undefined) {
-                    gesture.mode = theme.getGestureMode(mode);
-                }
-                return gesture;
-            }
-            return {
-                enable: theme.isGestureEnabled(mode),
-                mode: theme.getGestureMode(mode)
-            };
-        };
-        DDialog.prototype.onParentResize = function (parentWidth, parentHeight, parentPadding) {
-            if (this.isOpened()) {
-                var layer = this._layer;
-                if (layer != null) {
-                    var gesture = this._gesture;
-                    if (gesture.isDirty()) {
-                        var position = this.position;
-                        gesture.constraint(this, layer, position.x, position.y);
-                    }
-                }
-            }
-            _super.prototype.onParentResize.call(this, parentWidth, parentHeight, parentPadding);
-        };
-        DDialog.prototype.getAnimation = function () {
-            var _this = this;
-            var _a, _b;
-            var result = this._animation;
-            if (result === undefined) {
-                result = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.animation) !== null && _b !== void 0 ? _b : this.theme.newAnimation(this._mode);
-                if (result) {
-                    result.target = this;
-                    result.on("end", function (isReverse) {
-                        _this.onAnimationEnd(isReverse);
-                    });
-                }
-                this._animation = result;
-            }
-            return result;
-        };
-        DDialog.prototype.onAnimationEnd = function (isReverse) {
-            if (isReverse) {
-                var parent_1 = this.parent;
-                if (parent_1) {
-                    parent_1.removeChild(this);
-                }
-            }
-            else {
-                var layer = DApplications.getLayer(this);
-                if (layer) {
-                    var focusController = layer.getFocusController();
-                    this._focused = focusController.get();
-                    var firstFocusable = focusController.find(this, false, true, true);
-                    focusController.focus(firstFocusable || this);
-                }
-            }
-        };
-        /**
-         * Opens a dialog.
-         *
-         * @param opener An opener of a dialog.
-         * The dialog position is determined based on a position and a size of the opener.
-         * If the opener is undefined, the dialog is placed at the center of the screen.
-         *
-         * @returns a value of this dialog
-         */
-        DDialog.prototype.open = function (opener) {
-            var _this = this;
-            var result = this._promise;
-            if (result == null) {
-                result = new Promise(function (resolve, reject) {
-                    _this._resolve = resolve;
-                    _this._reject = reject;
-                });
-                this._promise = result;
-                this._opener = opener;
-                // Attach to a layer
-                var layer = null;
-                switch (this._mode) {
-                    case DDialogMode.MODAL:
-                    case DDialogMode.MENU:
-                        layer = this._overlay.pick(this);
-                        layer.stage.addChild(this);
-                        break;
-                    case DDialogMode.MODELESS:
-                        layer = DApplications.getLayer(this);
-                        break;
-                }
-                this._layer = layer;
-                // Position & size
-                var gesture = this._gesture;
-                if (gesture.mode === DDialogGestureMode.CLEAN) {
-                    gesture.toClean();
-                }
-                if (layer != null) {
-                    if (gesture.isClean()) {
-                        var renderer = layer.renderer;
-                        var onPrerenderBound = this._onPrerenderBound;
-                        if (this._sticky) {
-                            renderer.on("prerender", onPrerenderBound);
-                        }
-                        else {
-                            renderer.once("prerender", onPrerenderBound);
-                        }
-                    }
-                    else {
-                        var position = this.position;
-                        gesture.constraint(this, layer, position.x, position.y);
-                    }
-                }
-                // Done
-                this.onOpen();
-            }
-            return result;
-        };
-        DDialog.prototype.onPrerender = function () {
-            var _a;
-            var layer = this._layer;
-            if (layer == null) {
-                return;
-            }
-            var align = this._align;
-            var opener = this._opener;
-            if (align != null && opener != null) {
-                var mode = this._mode;
-                var bounds = opener.getBounds(false, ((_a = DDialog.WORK_BOUNDS) !== null && _a !== void 0 ? _a : (DDialog.WORK_BOUNDS = new pixi_js.Rectangle())));
-                var theme = this.theme;
-                UtilAttach.attach(this, bounds, theme.getOffsetX(mode), theme.getOffsetY(mode), layer.width, layer.height, align);
-            }
-            else {
-                this.position.set((layer.width - this.width) * 0.5, (layer.height - this.height) * 0.5);
-            }
-        };
-        DDialog.prototype.onOpen = function () {
-            this.emit("open", this);
-            // Animation
-            var animation = this.getAnimation();
-            if (animation) {
-                animation.start();
-            }
-            else if (this._mode === DDialogMode.MENU) {
-                this.visible = true;
-                this.onAnimationEnd(false);
-            }
-        };
-        DDialog.prototype.isOpened = function () {
-            return this._promise != null;
-        };
-        DDialog.prototype.close = function () {
-            this.doReject();
-        };
-        DDialog.prototype.doResolve = function (value) {
-            var resolve = this._resolve;
-            if (resolve) {
-                this._promise = undefined;
-                this._resolve = undefined;
-                this._reject = undefined;
-                this.onClose();
-                resolve(value);
-            }
-        };
-        DDialog.prototype.doReject = function (reason) {
-            var reject = this._reject;
-            if (reject) {
-                this._promise = undefined;
-                this._resolve = undefined;
-                this._reject = undefined;
-                this.onClose();
-                reject(reason);
-            }
-        };
-        DDialog.prototype.onClose = function () {
-            // Focus
-            var layer = this._layer;
-            var focused = this._focused;
-            if (focused != null) {
-                this._focused = null;
-                if (layer) {
-                    var focusedLayer = DApplications.getLayer(focused);
-                    if (focusedLayer != null && layer !== focusedLayer) {
-                        focusedLayer.view.focus();
-                    }
-                    layer.getFocusController().focus(focused);
-                }
-                else {
-                    this.blur(true);
-                }
-            }
-            else {
-                this.blur(true);
-            }
-            // Remove the prerender event handler and forget the layer
-            if (layer) {
-                layer.renderer.off("prerender", this._onPrerenderBound);
-                this._layer = null;
-            }
-            // Forget the opener
-            this._opener = null;
-            // Animation
-            var animation = this.getAnimation();
-            if (animation) {
-                animation.start(true);
-            }
-            else if (this._mode === DDialogMode.MENU) {
-                this.visible = false;
-                this.onAnimationEnd(true);
-            }
-            this.emit("close", this);
-        };
-        DDialog.prototype.onKeyDown = function (e) {
-            if (this._closeOn & DDialogCloseOn.ESC) {
-                if (UtilKeyboardEvent.isCancelKey(e)) {
-                    this.onCloseOn();
-                }
-            }
-            return _super.prototype.onKeyDown.call(this, e);
-        };
-        DDialog.prototype.onCloseOn = function () {
-            this.close();
-        };
-        DDialog.prototype.containsGlobalPoint = function (point) {
-            switch (this._mode) {
-                case DDialogMode.MODAL:
-                case DDialogMode.MENU:
-                    return true;
-                case DDialogMode.MODELESS:
-                    return _super.prototype.containsGlobalPoint.call(this, point);
-            }
-        };
-        DDialog.prototype.getType = function () {
-            return "DDialog";
-        };
-        return DDialog;
-    }(DBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DLayoutDirection = {
-        VERTICAL: 0,
-        HORIZONTAL: 1
-    };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DLayoutSpace = /** @class */ (function (_super) {
-        __extends(DLayoutSpace, _super);
-        function DLayoutSpace(options) {
-            var _this = _super.call(this, options) || this;
-            _this.visible = false;
-            return _this;
-        }
-        DLayoutSpace.prototype.getType = function () {
-            return "DLayoutSpace";
-        };
-        return DLayoutSpace;
-    }(DBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var isVisible = function (child) {
-        return child instanceof DBase && (child.visible || child instanceof DLayoutSpace);
-    };
-    var toMultiplicity = function (theme, options) {
-        if (options) {
-            var row = options.row;
-            if (row != null) {
-                return row;
-            }
-            var column = options.column;
-            if (column != null) {
-                return column;
-            }
-        }
-        return theme.getMultiplicity();
-    };
-    var toMargin = function (theme, options) {
-        var _a, _b;
-        var margin = options === null || options === void 0 ? void 0 : options.margin;
-        if (margin != null) {
-            if (isNumber(margin)) {
-                return {
-                    horizontal: margin,
-                    vertical: margin
-                };
-            }
-            else {
-                var themeMargin = theme.getMargin();
-                return {
-                    horizontal: (_a = margin.horizontal) !== null && _a !== void 0 ? _a : themeMargin,
-                    vertical: (_b = margin.vertical) !== null && _b !== void 0 ? _b : themeMargin
-                };
-            }
-        }
-        else {
-            var themeMargin = theme.getMargin();
-            return {
-                horizontal: themeMargin,
-                vertical: themeMargin
-            };
-        }
-    };
-    var toDirection = function (theme, options) {
-        var direction = options === null || options === void 0 ? void 0 : options.direction;
-        if (direction != null) {
-            if (isString(direction)) {
-                return DLayoutDirection[direction];
-            }
-            else {
-                return direction;
-            }
-        }
-        return theme.getDirection();
-    };
-    var toCornerAdjust = function (theme, options) {
-        var corner = options === null || options === void 0 ? void 0 : options.corner;
-        if (corner != null && !isNumber(corner)) {
-            var adjust = corner.adjust;
-            if (adjust != null) {
-                return adjust;
-            }
-        }
-        return theme.getCornerAdjust();
-    };
-    var toReverse = function (theme, options) {
-        var _a;
-        return (_a = options === null || options === void 0 ? void 0 : options.reverse) !== null && _a !== void 0 ? _a : theme.getReverse();
-    };
-    var DLayout = /** @class */ (function (_super) {
-        __extends(DLayout, _super);
-        function DLayout() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DLayout.prototype.init = function (options) {
-            _super.prototype.init.call(this, options);
-            var theme = this.theme;
-            this._margin = toMargin(theme, options);
-            this._direction = toDirection(theme, options);
-            this._cornerAdjust = toCornerAdjust(theme, options);
-            this._multiplicity = toMultiplicity(theme, options);
-            this._reverse = toReverse(theme, options);
-        };
-        Object.defineProperty(DLayout.prototype, "margin", {
-            get: function () {
-                return this._margin;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DLayout.prototype, "multiplicity", {
-            get: function () {
-                return this._multiplicity;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DLayout.prototype.getWeightTotal = function () {
-            var children = this.children;
-            var result = 0;
-            var multiplicity = this._multiplicity;
-            var reverse = this._reverse;
-            for (var i = 0, imax = children.length; i < imax;) {
-                var weight = -1;
-                var j = 0;
-                for (; j < multiplicity && i + j < imax; ++j) {
-                    var child = children[reverse ? imax - 1 - (i + j) : i + j];
-                    if (isVisible(child)) {
-                        var clearType = child.getClearType();
-                        if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
-                            break;
-                        }
-                        else {
-                            weight = Math.max(weight, child.weight);
-                            if (clearType && DLayoutClearType.AFTER) {
-                                j += 1;
-                                break;
-                            }
-                        }
-                    }
-                    else {
-                        i += 1;
-                        j -= 1;
-                    }
-                }
-                i += j;
-                if (0 <= weight) {
-                    result += weight;
-                }
-            }
-            return result;
-        };
-        DLayout.prototype.getSpaceLeft = function (baseSize, margin) {
-            var children = this.children;
-            var multiplicity = this._multiplicity;
-            var reverse = this._reverse;
-            if (this._direction === DLayoutDirection.VERTICAL) {
-                var result = baseSize;
-                var marginNext = 0;
-                for (var i = 0, imax = children.length; i < imax;) {
-                    var height = 0;
-                    var weight = -1;
-                    var j = 0;
-                    for (; j < multiplicity && i + j < imax; ++j) {
-                        var child = children[reverse ? imax - 1 - (i + j) : i + j];
-                        if (isVisible(child)) {
-                            var clearType = child.getClearType();
-                            if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
-                                break;
-                            }
-                            else {
-                                weight = Math.max(weight, child.weight);
-                                if (weight < 0) {
-                                    height = Math.max(height, child.height + marginNext);
-                                }
-                                else {
-                                    height = marginNext;
-                                }
-                                if (clearType & DLayoutClearType.AFTER) {
-                                    j += 1;
-                                    break;
-                                }
-                            }
-                        }
-                        else {
-                            i += 1;
-                            j -= 1;
-                        }
-                    }
-                    i += j;
-                    result -= height;
-                    marginNext = margin;
-                }
-                return Math.max(0, result);
-            }
-            else {
-                var result = baseSize;
-                var marginNext = 0;
-                for (var i = 0, imax = children.length; i < imax;) {
-                    var width = 0;
-                    var weight = -1;
-                    var j = 0;
-                    for (; j < multiplicity && i + j < imax; ++j) {
-                        var child = children[reverse ? imax - 1 - (i + j) : i + j];
-                        if (isVisible(child)) {
-                            var clearType = child.getClearType();
-                            if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
-                                break;
-                            }
-                            else {
-                                weight = Math.max(weight, child.weight);
-                                if (weight < 0) {
-                                    width = Math.max(width, child.width + marginNext);
-                                }
-                                else {
-                                    width = marginNext;
-                                }
-                                if (clearType & DLayoutClearType.AFTER) {
-                                    j += 1;
-                                    break;
-                                }
-                            }
-                        }
-                        else {
-                            i += 1;
-                            j -= 1;
-                        }
-                    }
-                    i += j;
-                    result -= width;
-                    marginNext = margin;
-                }
-                return Math.max(0, result);
-            }
-        };
-        DLayout.prototype.calcSpaceLeft = function (isOn, size, padding, margin) {
-            return isOn ? 0 : this.getSpaceLeft(size - padding, margin);
-        };
-        DLayout.prototype.onRefit = function () {
-            var children = this.children;
-            var padding = this._padding;
-            var paddingTop = padding.getTop();
-            var paddingBottom = padding.getBottom();
-            var paddingLeft = padding.getLeft();
-            var paddingRight = padding.getRight();
-            var margin = this._margin;
-            var marginVertical = margin.vertical;
-            var marginHorizontal = margin.horizontal;
-            var weightTotal = this.getWeightTotal();
-            var multiplicity = this._multiplicity;
-            var reverse = this._reverse;
-            var auto = this._auto;
-            var cornerAdjustWork = null;
-            if (this._cornerAdjust) {
-                var requiredSize = 4 + (children.length << 1);
-                if (DLayout.CORNER_ADJUST_WORK == null ||
-                    DLayout.CORNER_ADJUST_WORK.length < requiredSize) {
-                    DLayout.CORNER_ADJUST_WORK = new Float32Array(requiredSize);
-                }
-                cornerAdjustWork = DLayout.CORNER_ADJUST_WORK;
-                cornerAdjustWork[0] = -2;
-                cornerAdjustWork[1] = -2;
-                cornerAdjustWork[requiredSize - 2] = -3;
-                cornerAdjustWork[requiredSize - 1] = -3;
-            }
-            if (this._direction === DLayoutDirection.VERTICAL) {
-                var irow = 0;
-                var y = paddingTop - marginVertical;
-                if (0 < weightTotal) {
-                    var weightTotalInverse = 1 / weightTotal;
-                    var spaceLeft = this.calcSpaceLeft(auto.height.isOn, this.height, paddingTop + paddingBottom, marginVertical);
-                    for (var i = 0, imax = children.length; i < imax;) {
-                        var x = paddingLeft - marginHorizontal;
-                        var height = 0;
-                        var j = 0;
-                        for (; j < multiplicity && i + j < imax; ++j) {
-                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
-                            if (isVisible(child)) {
-                                var clearType = child.getClearType();
-                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
-                                    break;
-                                }
-                                else {
-                                    child.position.set(marginHorizontal + x, marginVertical + y);
-                                    var weight = child.weight;
-                                    if (0 <= weight) {
-                                        child.height = spaceLeft * (weight * weightTotalInverse);
-                                    }
-                                    x += marginHorizontal + child.width;
-                                    height = Math.max(height, child.height);
-                                    if (clearType & DLayoutClearType.AFTER) {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = j;
-                                            cornerAdjustWork[k + 1] = irow;
-                                        }
-                                        j += 1;
-                                        break;
-                                    }
-                                    else {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = j;
-                                            cornerAdjustWork[k + 1] = irow;
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                if (cornerAdjustWork != null) {
-                                    var k = (i + j + 1) << 1;
-                                    cornerAdjustWork[k + 0] = j - 1;
-                                    cornerAdjustWork[k + 1] = irow;
-                                }
-                                i += 1;
-                                j -= 1;
-                            }
-                        }
-                        y += marginVertical + height;
-                        i += j;
-                        irow += 1;
-                    }
-                    if (cornerAdjustWork != null) {
-                        for (var i = 0, imax = children.length; i < imax; ++i) {
-                            var child = children[reverse ? imax - 1 - i : i];
-                            if (isVisible(child)) {
-                                var i1 = 2 + (i << 1);
-                                var icolumn1 = cornerAdjustWork[i1 + 0];
-                                var irow1 = cornerAdjustWork[i1 + 1];
-                                var clearType = child.getClearType();
-                                var icolumn0 = -2;
-                                if (!(clearType & DLayoutClearType.BEFORE)) {
-                                    var i0 = this.findRowIndexPrevious(i1, irow1, cornerAdjustWork);
-                                    if (!this.hasClearTypeAfter(children, i0)) {
-                                        icolumn0 = cornerAdjustWork[i0];
-                                    }
-                                }
-                                var icolumn2 = -2;
-                                if (!(clearType & DLayoutClearType.AFTER)) {
-                                    var i2 = this.findRowIndexNext(i1, irow1, cornerAdjustWork);
-                                    if (!this.hasClearTypeBefore(children, i2)) {
-                                        icolumn2 = cornerAdjustWork[i2];
-                                    }
-                                }
-                                var ncolumn = this.countColumn(i1, irow1, cornerAdjustWork);
-                                child.corner.mask = this.toCornerMaskColumn(icolumn0, icolumn1, icolumn2, ncolumn);
-                            }
-                        }
-                    }
-                }
-                else {
-                    for (var i = 0, imax = children.length; i < imax;) {
-                        var x = paddingLeft - marginHorizontal;
-                        var height = 0;
-                        var j = 0;
-                        for (; j < multiplicity && i + j < imax; ++j) {
-                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
-                            if (isVisible(child)) {
-                                var clearType = child.getClearType();
-                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
-                                    break;
-                                }
-                                else {
-                                    child.position.set(marginHorizontal + x, marginVertical + y);
-                                    var weight = child.weight;
-                                    if (0 <= weight) {
-                                        child.height = 0;
-                                    }
-                                    x += marginHorizontal + child.width;
-                                    height = Math.max(height, child.height);
-                                    if (clearType & DLayoutClearType.AFTER) {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = j;
-                                            cornerAdjustWork[k + 1] = irow;
-                                        }
-                                        j += 1;
-                                        break;
-                                    }
-                                    else {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = j;
-                                            cornerAdjustWork[k + 1] = irow;
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                if (cornerAdjustWork != null) {
-                                    var k = (i + j + 1) << 1;
-                                    cornerAdjustWork[k + 0] = j - 1;
-                                    cornerAdjustWork[k + 1] = irow;
-                                }
-                                i += 1;
-                                j -= 1;
-                            }
-                        }
-                        y += marginVertical + height;
-                        i += j;
-                        irow += 1;
-                    }
-                    if (cornerAdjustWork != null) {
-                        for (var i = 0, imax = children.length; i < imax; ++i) {
-                            var child = children[reverse ? imax - 1 - i : i];
-                            if (isVisible(child)) {
-                                var i1 = 2 + (i << 1);
-                                var icolumn1 = cornerAdjustWork[i1 + 0];
-                                var irow1 = cornerAdjustWork[i1 + 1];
-                                var clearType = child.getClearType();
-                                var icolumn0 = -2;
-                                if (!(clearType & DLayoutClearType.BEFORE)) {
-                                    var i0 = this.findRowIndexPrevious(i1, irow1, cornerAdjustWork);
-                                    if (!this.hasClearTypeAfter(children, i0)) {
-                                        icolumn0 = cornerAdjustWork[i0];
-                                    }
-                                }
-                                var icolumn2 = -2;
-                                if (!(clearType & DLayoutClearType.AFTER)) {
-                                    var i2 = this.findRowIndexNext(i1, irow1, cornerAdjustWork);
-                                    if (!this.hasClearTypeBefore(children, i2)) {
-                                        icolumn2 = cornerAdjustWork[i2];
-                                    }
-                                }
-                                var ncolumn = this.countColumn(i1, irow1, cornerAdjustWork);
-                                child.corner.mask = this.toCornerMaskColumn(icolumn0, icolumn1, icolumn2, ncolumn);
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                var icolumn = 0;
-                var x = paddingLeft - marginHorizontal;
-                if (0 < weightTotal) {
-                    var weightTotalInverse = 1 / weightTotal;
-                    var spaceLeft = this.calcSpaceLeft(auto.width.isOn, this.width, paddingLeft + paddingRight, marginHorizontal);
-                    for (var i = 0, imax = children.length; i < imax;) {
-                        var y = paddingTop - marginVertical;
-                        var width = 0;
-                        var j = 0;
-                        for (; j < multiplicity && i + j < imax; ++j) {
-                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
-                            if (isVisible(child)) {
-                                var clearType = child.getClearType();
-                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
-                                    break;
-                                }
-                                else {
-                                    child.position.set(marginHorizontal + x, marginVertical + y);
-                                    var weight = child.weight;
-                                    if (0 <= weight) {
-                                        child.width = spaceLeft * (weight * weightTotalInverse);
-                                    }
-                                    width = Math.max(width, child.width);
-                                    y += marginVertical + child.height;
-                                    if (clearType & DLayoutClearType.AFTER) {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = icolumn;
-                                            cornerAdjustWork[k + 1] = j;
-                                        }
-                                        j += 1;
-                                        break;
-                                    }
-                                    else {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = icolumn;
-                                            cornerAdjustWork[k + 1] = j;
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                if (cornerAdjustWork != null) {
-                                    var k = (i + j + 1) << 1;
-                                    cornerAdjustWork[k + 0] = icolumn;
-                                    cornerAdjustWork[k + 1] = j - 1;
-                                }
-                                i += 1;
-                                j -= 1;
-                            }
-                        }
-                        x += marginHorizontal + width;
-                        i += j;
-                        icolumn += 1;
-                    }
-                    if (cornerAdjustWork != null) {
-                        for (var i = 0, imax = children.length; i < imax; ++i) {
-                            var child = children[reverse ? imax - 1 - i : i];
-                            if (isVisible(child)) {
-                                var i1 = 2 + (i << 1);
-                                var icolumn1 = cornerAdjustWork[i1 + 0];
-                                var irow1 = cornerAdjustWork[i1 + 1];
-                                var clearType = child.getClearType();
-                                var irow0 = -2;
-                                if (!(clearType & DLayoutClearType.BEFORE)) {
-                                    var i0 = this.findColumnIndexPrevious(i1, icolumn1, cornerAdjustWork);
-                                    if (!this.hasClearTypeAfter(children, i0)) {
-                                        irow0 = cornerAdjustWork[i0 + 1];
-                                    }
-                                }
-                                var irow2 = -2;
-                                if (!(clearType & DLayoutClearType.AFTER)) {
-                                    var i2 = this.findColumnIndexNext(i1, icolumn1, cornerAdjustWork);
-                                    if (!this.hasClearTypeBefore(children, i2)) {
-                                        irow2 = cornerAdjustWork[i2 + 1];
-                                    }
-                                }
-                                var nrow = this.countRow(i1, icolumn1, cornerAdjustWork);
-                                child.corner.mask = this.toCornerMaskRow(irow0, irow1, irow2, nrow);
-                            }
-                        }
-                    }
-                }
-                else {
-                    for (var i = 0, imax = children.length; i < imax;) {
-                        var y = paddingTop - marginVertical;
-                        var width = 0;
-                        var j = 0;
-                        for (; j < multiplicity && i + j < imax; ++j) {
-                            var child = children[reverse ? imax - 1 - (i + j) : i + j];
-                            if (isVisible(child)) {
-                                var clearType = child.getClearType();
-                                if (j !== 0 && clearType & DLayoutClearType.BEFORE) {
-                                    break;
-                                }
-                                else {
-                                    child.position.set(marginHorizontal + x, marginVertical + y);
-                                    var weight = child.weight;
-                                    if (0 <= weight) {
-                                        child.width = 0;
-                                    }
-                                    width = Math.max(width, child.width);
-                                    y += marginVertical + child.height;
-                                    if (clearType & DLayoutClearType.AFTER) {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = icolumn;
-                                            cornerAdjustWork[k + 1] = j;
-                                        }
-                                        j += 1;
-                                        break;
-                                    }
-                                    else {
-                                        if (cornerAdjustWork != null) {
-                                            var k = (i + j + 1) << 1;
-                                            cornerAdjustWork[k + 0] = icolumn;
-                                            cornerAdjustWork[k + 1] = j;
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                if (cornerAdjustWork != null) {
-                                    var k = (i + j + 1) << 1;
-                                    cornerAdjustWork[k + 0] = icolumn;
-                                    cornerAdjustWork[k + 1] = j - 1;
-                                }
-                                i += 1;
-                                j -= 1;
-                            }
-                        }
-                        x += marginHorizontal + width;
-                        i += j;
-                        icolumn += 1;
-                    }
-                    if (cornerAdjustWork != null) {
-                        for (var i = 0, imax = children.length; i < imax; ++i) {
-                            var child = children[reverse ? imax - 1 - i : i];
-                            if (isVisible(child)) {
-                                var i1 = 2 + (i << 1);
-                                var icolumn1 = cornerAdjustWork[i1 + 0];
-                                var irow1 = cornerAdjustWork[i1 + 1];
-                                var clearType = child.getClearType();
-                                var irow0 = -2;
-                                if (!(clearType & DLayoutClearType.BEFORE)) {
-                                    var i0 = this.findColumnIndexPrevious(i1, icolumn1, cornerAdjustWork);
-                                    if (!this.hasClearTypeAfter(children, i0)) {
-                                        irow0 = cornerAdjustWork[i0 + 1];
-                                    }
-                                }
-                                var irow2 = -2;
-                                if (!(clearType & DLayoutClearType.AFTER)) {
-                                    var i2 = this.findColumnIndexNext(i1, icolumn1, cornerAdjustWork);
-                                    if (!this.hasClearTypeBefore(children, i2)) {
-                                        irow2 = cornerAdjustWork[i2 + 1];
-                                    }
-                                }
-                                var nrow = this.countRow(i1, icolumn1, cornerAdjustWork);
-                                child.corner.mask = this.toCornerMaskRow(irow0, irow1, irow2, nrow);
-                            }
-                        }
-                    }
-                }
-            }
-            _super.prototype.onRefit.call(this);
-        };
-        DLayout.prototype.hasClearTypeBefore = function (children, index) {
-            return this.hasClearType(children, index, DLayoutClearType.BEFORE);
-        };
-        DLayout.prototype.hasClearTypeAfter = function (children, index) {
-            return this.hasClearType(children, index, DLayoutClearType.AFTER);
-        };
-        DLayout.prototype.hasClearType = function (children, index, clearType) {
-            if (2 <= index) {
-                var i = (index - 2) >> 1;
-                if (0 <= i && i < children.length) {
-                    var child = children[i];
-                    if (child instanceof DBase) {
-                        return !!(child.getClearType() & clearType);
-                    }
-                }
-            }
-            return false;
-        };
-        DLayout.prototype.findColumnIndexPrevious = function (istart, icolumn, cornerAdjustWork) {
-            for (var i = istart - 2; 0 <= i; i -= 2) {
-                if (cornerAdjustWork[i] !== icolumn) {
-                    return i;
-                }
-            }
-            return 0;
-        };
-        DLayout.prototype.findColumnIndexNext = function (istart, icolumn, cornerAdjustWork) {
-            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
-                var icolumn2 = cornerAdjustWork[i];
-                if (icolumn2 !== icolumn) {
-                    for (var j = i + 2; j < imax; j += 2) {
-                        if (cornerAdjustWork[j] !== icolumn2) {
-                            return j - 2;
-                        }
-                    }
-                    return i;
-                }
-            }
-            return cornerAdjustWork.length - 2;
-        };
-        DLayout.prototype.countRow = function (istart, icolumn, cornerAdjustWork) {
-            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
-                var icolumn2 = cornerAdjustWork[i];
-                if (icolumn2 !== icolumn) {
-                    return cornerAdjustWork[i - 2 + 1] + 1;
-                }
-            }
-            return 0;
-        };
-        DLayout.prototype.findRowIndexPrevious = function (istart, irow, cornerAdjustWork) {
-            for (var i = istart - 2; 0 <= i; i -= 2) {
-                if (cornerAdjustWork[i + 1] !== irow) {
-                    return i;
-                }
-            }
-            return 0;
-        };
-        DLayout.prototype.findRowIndexNext = function (istart, irow, cornerAdjustWork) {
-            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
-                var irow2 = cornerAdjustWork[i + 1];
-                if (irow2 !== irow) {
-                    for (var j = i + 2; j < imax; j += 2) {
-                        if (cornerAdjustWork[j + 1] !== irow2) {
-                            return j - 2;
-                        }
-                    }
-                    return i;
-                }
-            }
-            return cornerAdjustWork.length - 2;
-        };
-        DLayout.prototype.countColumn = function (istart, irow, cornerAdjustWork) {
-            for (var i = istart + 2, imax = cornerAdjustWork.length; i < imax; i += 2) {
-                var irow2 = cornerAdjustWork[i + 1];
-                if (irow2 !== irow) {
-                    return cornerAdjustWork[i - 2 + 0] + 1;
-                }
-            }
-            return 0;
-        };
-        DLayout.prototype.toCornerMaskColumn = function (i0, i1, i2, n) {
-            var result = DCornerMask.NONE;
-            if (i0 + 1 < i1 && i1 === 0) {
-                result |= DCornerMask.TOP_LEFT;
-            }
-            if (i2 + 1 < i1 && i1 === 0) {
-                result |= DCornerMask.BOTTOM_LEFT;
-            }
-            if (i0 < i1 && i1 + 1 === n) {
-                result |= DCornerMask.TOP_RIGHT;
-            }
-            if (i2 < i1 && i1 + 1 === n) {
-                result |= DCornerMask.BOTTOM_RIGHT;
-            }
-            return DCornerMask.ALL & ~result;
-        };
-        DLayout.prototype.toCornerMaskRow = function (i0, i1, i2, n) {
-            var result = DCornerMask.NONE;
-            if (i0 + 1 < i1 && i1 === 0) {
-                result |= DCornerMask.TOP_LEFT;
-            }
-            if (i2 + 1 < i1 && i1 === 0) {
-                result |= DCornerMask.TOP_RIGHT;
-            }
-            if (i0 < i1 && i1 + 1 === n) {
-                result |= DCornerMask.BOTTOM_LEFT;
-            }
-            if (i2 < i1 && i1 + 1 === n) {
-                result |= DCornerMask.BOTTOM_RIGHT;
-            }
-            return DCornerMask.ALL & ~result;
-        };
-        DLayout.prototype.addSpace = function (options) {
-            return this.addChild(new DLayoutSpace(options));
-        };
-        DLayout.prototype.getType = function () {
-            return "DLayout";
-        };
-        DLayout.CORNER_ADJUST_WORK = null;
-        return DLayout;
-    }(DBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DLayoutHorizontal = /** @class */ (function (_super) {
         __extends(DLayoutHorizontal, _super);
         function DLayoutHorizontal() {
@@ -27492,167 +27573,345 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DLayoutVertical = /** @class */ (function (_super) {
-        __extends(DLayoutVertical, _super);
-        function DLayoutVertical() {
+    var DDialogLayeredFooter = /** @class */ (function (_super) {
+        __extends(DDialogLayeredFooter, _super);
+        function DDialogLayeredFooter(parent, options) {
+            var _this = _super.call(this, options) || this;
+            _this._parent = parent;
+            var buttonOk = _this.buttonOk;
+            var buttonCancel = _this.buttonCancel;
+            if (buttonOk != null || buttonCancel != null) {
+                _this.addChild(_this.newButtonSpace());
+                if (buttonCancel) {
+                    _this.addChild(buttonCancel);
+                }
+                if (buttonOk) {
+                    _this.addChild(buttonOk);
+                }
+                _this.addChild(_this.newButtonSpace());
+            }
+            return _this;
+        }
+        Object.defineProperty(DDialogLayeredFooter.prototype, "buttonCancel", {
+            get: function () {
+                var result = this._buttonCancel;
+                if (result === undefined) {
+                    result = this.newButtonCancel();
+                    this._buttonCancel = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogLayeredFooter.prototype.newButtonCancel = function () {
+            var _this = this;
+            var _a, _b;
+            var cancel = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.cancel;
+            if (cancel === undefined) {
+                cancel = this.theme.getButtonCancel();
+            }
+            if (cancel != null) {
+                return new DButtonPrimary({
+                    text: {
+                        value: cancel
+                    },
+                    on: {
+                        active: function () {
+                            _this._parent.cancel();
+                        }
+                    }
+                });
+            }
+            return null;
+        };
+        Object.defineProperty(DDialogLayeredFooter.prototype, "buttonOk", {
+            get: function () {
+                var result = this._buttonOk;
+                if (result === undefined) {
+                    result = this.newButtonOk();
+                    this._buttonOk = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogLayeredFooter.prototype.newButtonOk = function () {
+            var _this = this;
+            var _a, _b;
+            var ok = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.ok;
+            if (ok === undefined) {
+                ok = this.theme.getButtonOk();
+            }
+            if (ok != null) {
+                if (this.buttonCancel != null) {
+                    return new DButton({
+                        text: {
+                            value: ok
+                        },
+                        on: {
+                            active: function () {
+                                _this._parent.ok();
+                            }
+                        }
+                    });
+                }
+                else {
+                    return new DButtonPrimary({
+                        text: {
+                            value: ok
+                        },
+                        on: {
+                            active: function () {
+                                _this._parent.ok();
+                            }
+                        }
+                    });
+                }
+            }
+            return null;
+        };
+        DDialogLayeredFooter.prototype.newButtonSpace = function () {
+            return new DLayoutSpace({
+                weight: 1
+            });
+        };
+        DDialogLayeredFooter.prototype.getType = function () {
+            return "DDialogLayeredFooter";
+        };
+        return DDialogLayeredFooter;
+    }(DLayoutHorizontal));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DButtonAmbient = /** @class */ (function (_super) {
+        __extends(DButtonAmbient, _super);
+        function DButtonAmbient() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DLayoutVertical.prototype.getType = function () {
-            return "DLayoutVertical";
+        DButtonAmbient.prototype.getType = function () {
+            return "DButtonAmbient";
         };
-        return DLayoutVertical;
-    }(DLayout));
+        return DButtonAmbient;
+    }(DButton));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogLayeredHeaderButtonClose = /** @class */ (function (_super) {
+        __extends(DDialogLayeredHeaderButtonClose, _super);
+        function DDialogLayeredHeaderButtonClose() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DDialogLayeredHeaderButtonClose.prototype.getType = function () {
+            return "DDialogLayeredHeaderButtonClose";
+        };
+        return DDialogLayeredHeaderButtonClose;
+    }(DButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDialogLayeredHeader = /** @class */ (function (_super) {
+        __extends(DDialogLayeredHeader, _super);
+        function DDialogLayeredHeader(parent, options) {
+            var _this = _super.call(this, options) || this;
+            _this._parent = parent;
+            var buttonClose = _this.buttonClose;
+            if (buttonClose) {
+                _this.addChild(buttonClose);
+                buttonClose.on("active", function () {
+                    _this._parent.cancel();
+                });
+            }
+            return _this;
+        }
+        Object.defineProperty(DDialogLayeredHeader.prototype, "buttonClose", {
+            get: function () {
+                var result = this._buttonClose;
+                if (result === undefined) {
+                    result = this.newButtonClose();
+                    this._buttonClose = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogLayeredHeader.prototype.newButtonClose = function () {
+            var _a, _b;
+            if (((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.button) === null || _b === void 0 ? void 0 : _b.close) !== false) {
+                return new DDialogLayeredHeaderButtonClose();
+            }
+            return null;
+        };
+        DDialogLayeredHeader.prototype.getType = function () {
+            return "DDialogLayeredHeader";
+        };
+        return DDialogLayeredHeader;
+    }(DImageBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
     /**
-     * A dialog with "ok" and "cancel" buttons.
+     * A dialog with a header, a content and a footer.
      */
-    var DDialogCommand = /** @class */ (function (_super) {
-        __extends(DDialogCommand, _super);
-        function DDialogCommand() {
+    var DDialogLayered = /** @class */ (function (_super) {
+        __extends(DDialogLayered, _super);
+        function DDialogLayered() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogCommand.prototype.init = function (options) {
-            var _this = this;
-            var _a, _b;
+        DDialogLayered.prototype.init = function (options) {
             _super.prototype.init.call(this, options);
-            var theme = this.theme;
-            var layout = this.newLayout(theme, options);
-            this.onInit(layout, options);
-            // Buttons
-            var ok = (_a = options === null || options === void 0 ? void 0 : options.ok) !== null && _a !== void 0 ? _a : theme.getOk();
-            var cancel = (_b = options === null || options === void 0 ? void 0 : options.cancel) !== null && _b !== void 0 ? _b : theme.getCancel();
-            if (ok != null || cancel != null) {
-                var buttonLayout = new DLayoutHorizontal({
-                    parent: layout,
-                    width: "padding",
-                    height: "auto",
-                    padding: {
-                        top: Math.max(0, this.padding.getTop() - layout.margin.vertical)
-                    }
-                });
-                this._buttonLayout = buttonLayout;
-                new DLayoutSpace({
-                    parent: buttonLayout,
-                    weight: 1
-                });
-                if (ok != null && cancel != null) {
-                    this._buttonCancel = new DButtonPrimary({
-                        parent: buttonLayout,
-                        text: {
-                            value: cancel
-                        },
-                        on: {
-                            active: function () {
-                                _this.cancel();
-                            }
-                        }
-                    });
-                    this._buttonOk = new DButton({
-                        parent: buttonLayout,
-                        text: {
-                            value: ok
-                        },
-                        on: {
-                            active: function () {
-                                _this.ok();
-                            }
-                        }
-                    });
+            this.addChild(this.layout);
+        };
+        Object.defineProperty(DDialogLayered.prototype, "layout", {
+            get: function () {
+                var result = this._layout;
+                if (result == null) {
+                    result = this.newLayout();
+                    this._layout = result;
                 }
-                else if (ok != null) {
-                    this._buttonOk = new DButtonPrimary({
-                        parent: buttonLayout,
-                        text: {
-                            value: ok
-                        },
-                        on: {
-                            active: function () {
-                                _this.ok();
-                            }
-                        }
-                    });
-                }
-                else if (cancel != null) {
-                    this._buttonCancel = new DButtonPrimary({
-                        parent: buttonLayout,
-                        text: {
-                            value: cancel
-                        },
-                        on: {
-                            active: function () {
-                                _this.cancel();
-                            }
-                        }
-                    });
-                }
-                new DLayoutSpace({
-                    parent: buttonLayout,
-                    weight: 1
-                });
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogLayered.prototype.newLayout = function () {
+            return new DLayoutVertical(this.toLayoutOptions(this.theme, this._options));
+        };
+        DDialogLayered.prototype.toLayoutOptions = function (theme, options) {
+            var _a, _b;
+            var result = (_b = (_a = options === null || options === void 0 ? void 0 : options.layout) !== null && _a !== void 0 ? _a : theme.getLayout()) !== null && _b !== void 0 ? _b : this.newLayoutOptions(theme, options);
+            if (result.children === undefined) {
+                result.children = this.newLayoutChildren(theme, options);
             }
+            return result;
         };
-        DDialogCommand.prototype.newLayout = function (theme, options) {
-            return new DLayoutVertical(this.toLayoutOptions(theme, options === null || options === void 0 ? void 0 : options.layout));
+        DDialogLayered.prototype.newLayoutOptions = function (theme, options) {
+            return {
+                width: "padding",
+                height: "auto",
+                margin: 0
+            };
         };
-        DDialogCommand.prototype.toLayoutOptions = function (theme, options) {
-            var _a, _b, _c, _d, _e;
-            options !== null && options !== void 0 ? options : (options = {});
-            options.parent = this;
-            (_a = options.x) !== null && _a !== void 0 ? _a : (options.x = theme.getLayoutX());
-            (_b = options.y) !== null && _b !== void 0 ? _b : (options.y = theme.getLayoutY());
-            (_c = options.width) !== null && _c !== void 0 ? _c : (options.width = theme.getLayoutWidth());
-            (_d = options.height) !== null && _d !== void 0 ? _d : (options.height = theme.getLayoutHeight());
-            (_e = options.margin) !== null && _e !== void 0 ? _e : (options.margin = theme.getLayoutMargin());
-            return options;
+        DDialogLayered.prototype.newLayoutChildren = function (theme, options) {
+            return [this.header, this.content, this.footer];
         };
-        DDialogCommand.prototype.onInit = function (layout, options) {
-            // OVERRIDE THIS
+        Object.defineProperty(DDialogLayered.prototype, "header", {
+            get: function () {
+                var result = this._header;
+                if (result === undefined) {
+                    result = this.newHeader();
+                    this._header = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogLayered.prototype.newHeader = function () {
+            var options = this.toHeaderOptions(this.theme, this._options);
+            if (options !== null) {
+                return new DDialogLayeredHeader(this, options);
+            }
+            return null;
         };
-        DDialogCommand.prototype.ok = function () {
+        DDialogLayered.prototype.toHeaderOptions = function (theme, options) {
+            if (options) {
+                var result = options.header;
+                if (result !== undefined) {
+                    return result;
+                }
+            }
+            return theme.getHeader();
+        };
+        Object.defineProperty(DDialogLayered.prototype, "content", {
+            get: function () {
+                var result = this._content;
+                if (result == null) {
+                    result = this.newContent();
+                    this._content = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogLayered.prototype.newContent = function () {
+            return new DDialogLayeredContent(this.toContentOptions(this.theme, this._options));
+        };
+        DDialogLayered.prototype.toContentOptions = function (theme, options) {
+            var _a, _b;
+            var result = (_b = (_a = options === null || options === void 0 ? void 0 : options.content) !== null && _a !== void 0 ? _a : theme.getContent()) !== null && _b !== void 0 ? _b : {};
+            if (result.children === undefined) {
+                result.children = this.newContentChildren(theme, options);
+            }
+            return result;
+        };
+        DDialogLayered.prototype.newContentChildren = function (theme, options) {
+            return [];
+        };
+        Object.defineProperty(DDialogLayered.prototype, "footer", {
+            get: function () {
+                var result = this._footer;
+                if (result === undefined) {
+                    result = this.newFooter();
+                    this._footer = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogLayered.prototype.newFooter = function () {
+            var options = this.toFooterOptions(this.theme, this._options);
+            if (options !== null) {
+                return new DDialogLayeredFooter(this, options);
+            }
+            return null;
+        };
+        DDialogLayered.prototype.toFooterOptions = function (theme, options) {
+            if (options) {
+                var result = options.footer;
+                if (result !== undefined) {
+                    return result;
+                }
+            }
+            return theme.getFooter();
+        };
+        DDialogLayered.prototype.findFirstFocusable = function (focusController) {
+            return focusController.find(this.content, false, true, true);
+        };
+        DDialogLayered.prototype.ok = function () {
             this.onOk(this.getResolvedValue());
         };
-        DDialogCommand.prototype.onOk = function (value) {
-            if (this._mode !== DDialogMode.MODELESS) {
-                this.doResolve(value);
-            }
+        DDialogLayered.prototype.onOk = function (value) {
+            this.doResolve(value);
             this.emit("ok", value, this);
         };
-        DDialogCommand.prototype.cancel = function () {
+        DDialogLayered.prototype.cancel = function () {
             this.onCancel(this.getRejectReason());
         };
-        DDialogCommand.prototype.onCancel = function (reason) {
-            if (this._mode !== DDialogMode.MODELESS) {
-                this.doReject(reason);
-            }
+        DDialogLayered.prototype.onCancel = function (reason) {
+            this.doReject(reason);
             this.emit("cancel", reason, this);
         };
-        DDialogCommand.prototype.getRejectReason = function () {
+        DDialogLayered.prototype.getRejectReason = function () {
             return undefined;
         };
-        DDialogCommand.prototype.getType = function () {
-            return "DDialogCommand";
+        DDialogLayered.prototype.getType = function () {
+            return "DDialogLayered";
         };
-        return DDialogCommand;
+        return DDialogLayered;
     }(DDialog));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DText = /** @class */ (function (_super) {
-        __extends(DText, _super);
-        function DText() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DText.prototype.getType = function () {
-            return "DText";
-        };
-        return DText;
-    }(DTextBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -27663,98 +27922,40 @@
         function DDialogInput() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogInput.prototype.onInit = function (layout, options) {
-            _super.prototype.onInit.call(this, layout, options);
-            var theme = this.theme;
-            var margin = this.toMargin(theme, options);
-            var marginHorizontal = margin.horizontal;
-            var marginVertical = margin.vertical;
-            var labelOptions = this.toLabelOptions(theme, options);
-            if (labelOptions) {
-                this._label = new DText(labelOptions);
-                new DLayoutHorizontal({
-                    parent: layout,
-                    width: "padding",
-                    height: "auto",
-                    margin: 0,
-                    children: [new DLayoutSpace({ width: marginHorizontal }), this._label]
-                });
-            }
-            new DLayoutHorizontal({
-                parent: layout,
-                width: "padding",
-                height: "auto",
-                margin: 0,
-                padding: labelOptions ? { top: marginVertical } : undefined,
-                children: [
-                    new DLayoutSpace({ width: marginHorizontal }),
-                    this.input,
-                    new DLayoutSpace({ width: marginHorizontal })
-                ]
-            });
+        DDialogInput.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.inputLayout);
+            return result;
         };
-        DDialogInput.prototype.toMargin = function (theme, options) {
-            var margin = options === null || options === void 0 ? void 0 : options.margin;
-            if (margin != null) {
-                if (isNumber(margin)) {
-                    return {
-                        horizontal: margin,
-                        vertical: margin
-                    };
-                }
-                else {
-                    var horizontal = margin.horizontal;
-                    var vertical = margin.vertical;
-                    return {
-                        horizontal: horizontal !== null && horizontal !== void 0 ? horizontal : theme.getMarginHorizontal(),
-                        vertical: vertical !== null && vertical !== void 0 ? vertical : theme.getMarginVertical()
-                    };
-                }
-            }
-            return {
-                horizontal: theme.getMarginHorizontal(),
-                vertical: theme.getMarginVertical()
-            };
+        DDialogInput.prototype.toInputMargin = function (theme, options) {
+            var _a, _b;
+            return (_b = (_a = options === null || options === void 0 ? void 0 : options.input) === null || _a === void 0 ? void 0 : _a.margin) !== null && _b !== void 0 ? _b : theme.getInputMargin();
         };
-        DDialogInput.prototype.toLabelOptions = function (theme, options) {
-            var label = options === null || options === void 0 ? void 0 : options.label;
-            if (label == null) {
-                return null;
-            }
-            if (isString(label)) {
-                return {
-                    weight: 1,
-                    interactive: DBaseInteractive.NONE,
-                    text: {
-                        value: label
-                    }
-                };
-            }
-            else {
-                // Text
-                var text = label.text || {};
-                label.text = text;
-                if (text.value === undefined) {
-                    text.value = theme.getLabel();
-                }
-                // Weight
-                if (label.width === undefined && label.weight === undefined) {
-                    label.weight = 1;
-                }
-                // Interactive
-                if (label.interactive === undefined) {
-                    label.interactive = DBaseInteractive.NONE;
-                }
-                return label;
-            }
-        };
-        Object.defineProperty(DDialogInput.prototype, "label", {
+        Object.defineProperty(DDialogInput.prototype, "inputLayout", {
             get: function () {
-                return this._label;
+                var result = this._inputLayout;
+                if (result == null) {
+                    result = this.newInputLayout();
+                    this._inputLayout = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
         });
+        DDialogInput.prototype.newInputLayout = function () {
+            var margin = this.toInputMargin(this.theme, this._options);
+            return new DLayoutHorizontal({
+                width: "padding",
+                height: "auto",
+                margin: 0,
+                children: [
+                    new DLayoutSpace({ width: margin }),
+                    this.input,
+                    new DLayoutSpace({ width: margin })
+                ]
+            });
+        };
         Object.defineProperty(DDialogInput.prototype, "input", {
             get: function () {
                 var result = this._input;
@@ -27785,7 +27986,7 @@
             return "DDialogInput";
         };
         return DDialogInput;
-    }(DDialogCommand));
+    }(DDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -28095,14 +28296,21 @@
             var dialog = EShapeActionRuntimeOpenDialogBoolean.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputBoolean({
-                    label: target
+                    header: {
+                        text: {
+                            value: target
+                        },
+                        button: {
+                            close: false
+                        }
+                    }
                 });
                 EShapeActionRuntimeOpenDialogBoolean.DIALOG = dialog;
             }
             else {
-                var label = dialog.label;
-                if (label) {
-                    label.text = target;
+                var header = dialog.header;
+                if (header) {
+                    header.text = target;
                 }
             }
             dialog.value = initial;
@@ -28467,14 +28675,21 @@
             var dialog = EShapeActionRuntimeOpenDialogInteger.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputInteger({
-                    label: target
+                    header: {
+                        text: {
+                            value: target
+                        },
+                        button: {
+                            close: false
+                        }
+                    }
                 });
                 EShapeActionRuntimeOpenDialogInteger.DIALOG = dialog;
             }
             else {
-                var label = dialog.label;
-                if (label) {
-                    label.text = target;
+                var header = dialog.header;
+                if (header) {
+                    header.text = target;
                 }
             }
             dialog.value = initial;
@@ -28547,14 +28762,21 @@
             var dialog = EShapeActionRuntimeOpenDialogReal.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputReal({
-                    label: target
+                    header: {
+                        text: {
+                            value: target
+                        },
+                        button: {
+                            close: false
+                        }
+                    }
                 });
                 EShapeActionRuntimeOpenDialogReal.DIALOG = dialog;
             }
             else {
-                var label = dialog.label;
-                if (label) {
-                    label.text = target;
+                var header = dialog.header;
+                if (header) {
+                    header.text = target;
                 }
             }
             dialog.value = initial;
@@ -28630,14 +28852,21 @@
             var dialog = EShapeActionRuntimeOpenDialogText.DIALOG;
             if (dialog == null) {
                 dialog = new DDialogInputText({
-                    label: target
+                    header: {
+                        text: {
+                            value: target
+                        },
+                        button: {
+                            close: false
+                        }
+                    }
                 });
                 EShapeActionRuntimeOpenDialogText.DIALOG = dialog;
             }
             else {
-                var label = dialog.label;
-                if (label) {
-                    label.text = target;
+                var header = dialog.header;
+                if (header) {
+                    header.text = target;
                 }
             }
             dialog.value = initial;
@@ -28650,16 +28879,45 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DButtonAmbient = /** @class */ (function (_super) {
-        __extends(DButtonAmbient, _super);
-        function DButtonAmbient() {
+    var DDialogFittedContent = /** @class */ (function (_super) {
+        __extends(DDialogFittedContent, _super);
+        function DDialogFittedContent() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DButtonAmbient.prototype.getType = function () {
-            return "DButtonAmbient";
+        DDialogFittedContent.prototype.getType = function () {
+            return "DDialogFittedContent";
         };
-        return DButtonAmbient;
-    }(DButton));
+        return DDialogFittedContent;
+    }(DDialogLayeredContent));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /**
+     * A dialog with a header, a content and a footer.
+     * Unlike {@link DDialogLayered}, the width is determined by the content width.
+     */
+    var DDialogFitted = /** @class */ (function (_super) {
+        __extends(DDialogFitted, _super);
+        function DDialogFitted() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DDialogFitted.prototype.newLayoutOptions = function (theme, options) {
+            return {
+                width: "auto",
+                height: "auto",
+                margin: 0
+            };
+        };
+        DDialogFitted.prototype.newContent = function () {
+            return new DDialogFittedContent(this.toContentOptions(this.theme, this._options));
+        };
+        DDialogFitted.prototype.getType = function () {
+            return "DDialogFitted";
+        };
+        return DDialogFitted;
+    }(DDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -28705,6 +28963,21 @@
         };
         return DPickerDatetimeButtonNext;
     }(DButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DText = /** @class */ (function (_super) {
+        __extends(DText, _super);
+        function DText() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DText.prototype.getType = function () {
+            return "DText";
+        };
+        return DText;
+    }(DTextBase));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -29769,9 +30042,10 @@
         function DDialogDatetime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogDatetime.prototype.onInit = function (layout, options) {
-            _super.prototype.onInit.call(this, layout, options);
-            layout.addChild(this.picker);
+        DDialogDatetime.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.picker);
+            return result;
         };
         Object.defineProperty(DDialogDatetime.prototype, "current", {
             get: function () {
@@ -29823,7 +30097,7 @@
             return "DDialogDatetime";
         };
         return DDialogDatetime;
-    }(DDialogCommand));
+    }(DDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -29870,9 +30144,10 @@
         function DDialogTime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogTime.prototype.onInit = function (layout, options) {
-            _super.prototype.onInit.call(this, layout, options);
-            layout.addChild(this.picker);
+        DDialogTime.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.picker);
+            return result;
         };
         Object.defineProperty(DDialogTime.prototype, "current", {
             get: function () {
@@ -29914,7 +30189,7 @@
             return "DDialogTime";
         };
         return DDialogTime;
-    }(DDialogCommand));
+    }(DDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -30065,9 +30340,10 @@
         function DDialogDate() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogDate.prototype.onInit = function (layout, options) {
-            _super.prototype.onInit.call(this, layout, options);
-            layout.addChild(this.picker);
+        DDialogDate.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.picker);
+            return result;
         };
         Object.defineProperty(DDialogDate.prototype, "current", {
             get: function () {
@@ -30119,7 +30395,7 @@
             return "DDialogDate";
         };
         return DDialogDate;
-    }(DDialogCommand));
+    }(DDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -31285,6 +31561,8 @@
                         return EShapeActionValueShowHideLayer.deserialize(serialized, manager);
                     case EShapeActionValueMiscType.GESTURE_LAYER:
                         return EShapeActionValueGesture.deserialize(serialized, manager);
+                    case EShapeActionValueMiscType.EXECUTE:
+                        return EShapeActionValueMiscExecute.deserialize(serialized, manager);
                     default:
                         return EShapeActionValueMisc.deserialize(serialized, manager);
                 }
@@ -47769,9 +48047,10 @@
         function DDialogColorGradient() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogColorGradient.prototype.onInit = function (layout, options) {
-            _super.prototype.onInit.call(this, layout, options);
-            layout.addChild(this.picker);
+        DDialogColorGradient.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.picker);
+            return result;
         };
         DDialogColorGradient.prototype.onOk = function (value) {
             _super.prototype.onOk.call(this, value);
@@ -47820,7 +48099,7 @@
             return "DDialogColorGradient";
         };
         return DDialogColorGradient;
-    }(DDialogCommand));
+    }(DDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -47932,9 +48211,10 @@
         function DDialogColor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogColor.prototype.onInit = function (layout, options) {
-            _super.prototype.onInit.call(this, layout, options);
-            layout.addChild(this.picker);
+        DDialogColor.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.picker);
+            return result;
         };
         DDialogColor.prototype.onOk = function (value) {
             _super.prototype.onOk.call(this, value);
@@ -47985,7 +48265,7 @@
             return "DDialogColor";
         };
         return DDialogColor;
-    }(DDialogCommand));
+    }(DDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -50988,69 +51268,93 @@
      */
     var DDialogSelect = /** @class */ (function (_super) {
         __extends(DDialogSelect, _super);
-        function DDialogSelect() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DDialogSelect.prototype.onInit = function (layout, options) {
-            var _this = this;
-            this._value = null;
-            var theme = this.theme;
-            // Search box
-            var input = this.newInput(theme, options);
-            this._input = input;
-            layout.addChild(this.newInputLayout(layout, input, theme, options));
-            // List
-            var list = this.newList(theme, options);
-            this._list = list;
-            layout.addChild(list);
-            // Error note
-            var noteOptions = options === null || options === void 0 ? void 0 : options.note;
-            var noteError = this.newNoteError(list, noteOptions);
-            this._noteError = noteError;
-            // No items found note
-            var noteNoItemsFound = this.newNoteNoItemsFound(list, noteOptions);
-            this._noteNoItemsFound = noteNoItemsFound;
-            // Searching note
-            var noteSearching = this.newNoteSearching(list, noteOptions);
-            this._noteSearching = noteSearching;
+        function DDialogSelect(options) {
+            var _this = _super.call(this, options) || this;
+            _this._value = null;
             // Controller binding
-            var search = this.toSearch(options === null || options === void 0 ? void 0 : options.controller);
-            this._search = search;
-            input.on("input", function (value) {
-                search.create([value]);
-            });
+            var search = _this.search;
             search.on("success", function (e, results) {
                 _this.onSearched(results);
             });
             search.on("fail", function () {
                 _this.onSearched([]);
             });
-            // Visibility
             var transition = new UtilTransition();
             search.on("change", function () {
                 if (search.isDone()) {
-                    var result = search.getResult();
-                    if (result != null) {
-                        if (0 < result.length) {
+                    var searchResult = search.getResult();
+                    if (searchResult != null) {
+                        if (0 < searchResult.length) {
                             transition.hide();
                         }
                         else {
-                            transition.show(noteNoItemsFound);
+                            transition.show(_this.noteNoItemsFound);
                         }
                     }
                     else {
-                        transition.show(noteError);
+                        transition.show(_this.noteError);
                     }
                 }
                 else {
+                    var noteSearching = _this.noteSearching;
                     if (noteSearching) {
                         transition.show(noteSearching);
                     }
                 }
             });
+            return _this;
+        }
+        DDialogSelect.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.inputLayout, this.list);
+            return result;
         };
-        DDialogSelect.prototype.newInput = function (theme, options) {
-            return new DInputSearch(this.toInputOptions(theme, options));
+        Object.defineProperty(DDialogSelect.prototype, "inputLayout", {
+            get: function () {
+                var result = this._inputLayout;
+                if (result == null) {
+                    result = this.newInputLayout(this.input, this.theme, this._options);
+                    this._inputLayout = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogSelect.prototype.newInputLayout = function (input, theme, options) {
+            return new DLayoutHorizontal(this.toInputLayoutOptions(input, theme, options));
+        };
+        DDialogSelect.prototype.toInputLayoutOptions = function (input, theme, options) {
+            var margin = this.toInputMargin(theme, options);
+            return {
+                width: "padding",
+                height: "auto",
+                children: [
+                    new DLayoutSpace({ width: margin }),
+                    input,
+                    new DLayoutSpace({ width: margin })
+                ]
+            };
+        };
+        Object.defineProperty(DDialogSelect.prototype, "input", {
+            get: function () {
+                var result = this._input;
+                if (result == null) {
+                    result = this.newInput();
+                    this._input = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogSelect.prototype.newInput = function () {
+            var _this = this;
+            var result = new DInputSearch(this.toInputOptions(this.theme, this._options));
+            result.on("input", function (value) {
+                _this.search.create([value]);
+            });
+            return result;
         };
         DDialogSelect.prototype.toInputOptions = function (theme, options) {
             var result = (options === null || options === void 0 ? void 0 : options.input) || {};
@@ -51059,60 +51363,25 @@
             }
             return result;
         };
-        DDialogSelect.prototype.newInputLayout = function (layout, input, theme, options) {
-            return new DLayoutHorizontal(this.toInputLayoutOptions(layout, input, theme, options));
-        };
-        DDialogSelect.prototype.toInputLayoutOptions = function (layout, input, theme, options) {
-            var margin = this.toInputMargin(theme, options);
-            var marginHorizontal = margin.horizontal;
-            var marginVertical = margin.vertical + this.padding.getTop() - layout.margin.vertical;
-            return {
-                width: "padding",
-                height: "auto",
-                padding: {
-                    bottom: Math.max(0, marginVertical)
-                },
-                children: [
-                    new DLayoutSpace({ width: marginHorizontal }),
-                    input,
-                    new DLayoutSpace({ width: marginHorizontal })
-                ]
-            };
-        };
         DDialogSelect.prototype.toInputMargin = function (theme, options) {
-            var _a;
-            var margin = (_a = options === null || options === void 0 ? void 0 : options.input) === null || _a === void 0 ? void 0 : _a.margin;
-            if (margin != null) {
-                if (isNumber(margin)) {
-                    return {
-                        horizontal: margin,
-                        vertical: margin
-                    };
-                }
-                else {
-                    var horizontal = margin.horizontal;
-                    var vertical = margin.vertical;
-                    return {
-                        horizontal: horizontal !== null && horizontal !== void 0 ? horizontal : theme.getInputMarginHorizontal(),
-                        vertical: vertical !== null && vertical !== void 0 ? vertical : theme.getInputMarginVertical()
-                    };
-                }
-            }
-            return {
-                horizontal: theme.getInputMarginHorizontal(),
-                vertical: theme.getInputMarginVertical()
-            };
+            var _a, _b;
+            return (_b = (_a = options === null || options === void 0 ? void 0 : options.input) === null || _a === void 0 ? void 0 : _a.margin) !== null && _b !== void 0 ? _b : theme.getInputMargin();
         };
-        DDialogSelect.prototype.toListOptions = function (theme, options) {
-            var result = (options === null || options === void 0 ? void 0 : options.list) || {};
-            if (result.width === undefined) {
-                result.width = "padding";
-            }
-            return result;
-        };
-        DDialogSelect.prototype.newList = function (theme, options) {
+        Object.defineProperty(DDialogSelect.prototype, "list", {
+            get: function () {
+                var result = this._list;
+                if (result == null) {
+                    result = this.newList();
+                    this._list = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogSelect.prototype.newList = function () {
             var _this = this;
-            var result = new DDialogSelectList(this.toListOptions(theme, options));
+            var result = new DDialogSelectList(this.toListOptions(this.theme, this._options));
             result.selection.on("change", function (selection) {
                 var first = selection.first;
                 if (first != null) {
@@ -51121,6 +51390,76 @@
                 }
             });
             return result;
+        };
+        DDialogSelect.prototype.toListOptions = function (theme, options) {
+            var result = (options === null || options === void 0 ? void 0 : options.list) || {};
+            if (result.width === undefined) {
+                result.width = "padding";
+            }
+            return result;
+        };
+        Object.defineProperty(DDialogSelect.prototype, "noteError", {
+            get: function () {
+                var result = this._noteError;
+                if (result == null) {
+                    result = this.newNoteError();
+                    this._noteError = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogSelect.prototype.newNoteError = function () {
+            var _a, _b;
+            var error = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.note) === null || _b === void 0 ? void 0 : _b.error;
+            if (error !== null) {
+                return new DNoteSmallError(this.toNoteOptions(this.list, error));
+            }
+            return null;
+        };
+        Object.defineProperty(DDialogSelect.prototype, "noteNoItemsFound", {
+            get: function () {
+                var result = this._noteNoItemsFound;
+                if (result == null) {
+                    result = this.newNoteNoItemsFound();
+                    this._noteNoItemsFound = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogSelect.prototype.newNoteNoItemsFound = function () {
+            var _a, _b;
+            var noItemsFound = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.note) === null || _b === void 0 ? void 0 : _b.noItemsFound;
+            if (noItemsFound !== null) {
+                return new DNoteSmallNoItemsFound(this.toNoteOptions(this.list, noItemsFound));
+            }
+            return null;
+        };
+        Object.defineProperty(DDialogSelect.prototype, "noteSearching", {
+            get: function () {
+                var result = this._noteSearching;
+                if (result == null) {
+                    result = this.newNoteSearching();
+                    this._noteSearching = result;
+                }
+                return result;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDialogSelect.prototype.newNoteSearching = function () {
+            var _a, _b;
+            var searching = (_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.note) === null || _b === void 0 ? void 0 : _b.searching;
+            // Because the `searcing` note is disabled by default,
+            // if options.searching is missing, i.e., if its value is undefined,
+            // this method returns null. This is why `!=` is used here instead of `!==`.
+            if (searching != null) {
+                return new DNoteSmallSearching(this.toNoteOptions(this.list, searching));
+            }
+            return null;
         };
         DDialogSelect.prototype.toNoteOptions = function (parent, options) {
             if (options != null) {
@@ -51137,58 +51476,34 @@
                 visible: false
             };
         };
-        DDialogSelect.prototype.newNoteError = function (list, options) {
-            var error = options === null || options === void 0 ? void 0 : options.error;
-            if (error !== null) {
-                return new DNoteSmallError(this.toNoteOptions(list, error));
-            }
-            return null;
-        };
-        DDialogSelect.prototype.newNoteNoItemsFound = function (list, options) {
-            var noItemsFound = options === null || options === void 0 ? void 0 : options.noItemsFound;
-            if (noItemsFound !== null) {
-                return new DNoteSmallNoItemsFound(this.toNoteOptions(list, noItemsFound));
-            }
-            return null;
-        };
-        DDialogSelect.prototype.newNoteSearching = function (list, options) {
-            var searching = options === null || options === void 0 ? void 0 : options.searching;
-            // Because the `searcing` note is disabled by default,
-            // if options.searching is missing, i.e., if its value is undefined,
-            // this method returns null. This is why `!=` is used here instead of `!==`.
-            if (searching != null) {
-                return new DNoteSmallSearching(this.toNoteOptions(list, searching));
-            }
-            return null;
-        };
-        DDialogSelect.prototype.toSearch = function (controller) {
-            if (controller) {
-                var search = controller.search;
-                if ("create" in search) {
-                    return search;
-                }
-                else {
-                    return new DDialogSelectSearh(search);
-                }
-            }
-            else {
-                return new DDialogSelectSearh();
-            }
-        };
-        Object.defineProperty(DDialogSelect.prototype, "input", {
+        Object.defineProperty(DDialogSelect.prototype, "search", {
             get: function () {
-                return this._input;
+                var result = this._search;
+                if (result == null) {
+                    result = this.newSearch();
+                    this._search = result;
+                }
+                return result;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(DDialogSelect.prototype, "list", {
-            get: function () {
-                return this._list;
-            },
-            enumerable: false,
-            configurable: true
-        });
+        DDialogSelect.prototype.newSearch = function () {
+            var options = this._options;
+            if (options) {
+                var controller = options.controller;
+                if (controller) {
+                    var search = controller.search;
+                    if ("create" in search) {
+                        return search;
+                    }
+                    else {
+                        return new DDialogSelectSearh(search);
+                    }
+                }
+            }
+            return new DDialogSelectSearh();
+        };
         Object.defineProperty(DDialogSelect.prototype, "value", {
             get: function () {
                 return this._value;
@@ -51197,7 +51512,7 @@
             configurable: true
         });
         DDialogSelect.prototype.onSearched = function (results) {
-            this._list.data.items = results;
+            this.list.data.items = results;
         };
         DDialogSelect.prototype.getResolvedValue = function () {
             return this._value;
@@ -51207,24 +51522,38 @@
         };
         DDialogSelect.prototype.onOpen = function () {
             _super.prototype.onOpen.call(this);
-            this._list.selection.clear();
-            this._search.create([this._input.value]);
+            this.list.selection.clear();
+            this.search.create([this.input.value]);
         };
         DDialogSelect.prototype.onOk = function (value) {
             this.emit("select", value, this);
             _super.prototype.onOk.call(this, value);
         };
         DDialogSelect.prototype.destroy = function () {
-            var _a, _b, _c;
-            this._input.destroy();
-            (_a = this._noteError) === null || _a === void 0 ? void 0 : _a.destroy();
-            (_b = this._noteNoItemsFound) === null || _b === void 0 ? void 0 : _b.destroy();
-            (_c = this._noteSearching) === null || _c === void 0 ? void 0 : _c.destroy();
-            this._list.destroy();
+            var input = this._input;
+            if (input) {
+                input.destroy();
+            }
+            var noteError = this._noteError;
+            if (noteError) {
+                noteError.destroy();
+            }
+            var noteNoItemsFound = this._noteNoItemsFound;
+            if (noteNoItemsFound) {
+                noteNoItemsFound === null || noteNoItemsFound === void 0 ? void 0 : noteNoItemsFound.destroy();
+            }
+            var noteSearching = this._noteSearching;
+            if (noteSearching) {
+                noteSearching === null || noteSearching === void 0 ? void 0 : noteSearching.destroy();
+            }
+            var list = this._list;
+            if (list) {
+                list.destroy();
+            }
             _super.prototype.destroy.call(this);
         };
         return DDialogSelect;
-    }(DDialogCommand));
+    }(DDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -58925,9 +59254,10 @@
         function DDialogConfirm() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DDialogConfirm.prototype.onInit = function (layout, options) {
-            _super.prototype.onInit.call(this, layout, options);
-            layout.addChild(this.message);
+        DDialogConfirm.prototype.newContentChildren = function (theme, options) {
+            var result = _super.prototype.newContentChildren.call(this, theme, options);
+            result.push(this.message);
+            return result;
         };
         DDialogConfirm.prototype.toMessage = function (theme, options) {
             var message = options === null || options === void 0 ? void 0 : options.message;
@@ -58984,7 +59314,7 @@
             return "DDialogConfirm";
         };
         return DDialogConfirm;
-    }(DDialogCommand));
+    }(DDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -59082,9 +59412,9 @@
             var message = this.message;
             message.text = this._messageText;
             message.state.removeAll(DBaseState.SUCCEEDED, DBaseState.FAILED);
-            var buttonLayout = this._buttonLayout;
-            if (buttonLayout != null) {
-                buttonLayout.hide();
+            var footer = this._footer;
+            if (footer != null) {
+                footer.hide();
             }
             _super.prototype.onOpen.call(this);
         };
@@ -59109,9 +59439,9 @@
                 this.onDone(delayClose);
             }
             else {
-                var buttonLayout = this._buttonLayout;
-                if (buttonLayout != null) {
-                    buttonLayout.show();
+                var footer = this._footer;
+                if (footer != null) {
+                    footer.show();
                 }
                 else {
                     this.close();
@@ -59123,9 +59453,9 @@
                 this.message.text = message;
             }
             this.message.state.set(DBaseState.FAILED, DBaseState.SUCCEEDED);
-            var buttonLayout = this._buttonLayout;
-            if (buttonLayout != null) {
-                buttonLayout.show();
+            var footer = this._footer;
+            if (footer != null) {
+                footer.show();
             }
             else {
                 this.onDone(this._delayClose);
@@ -69576,6 +69906,7 @@
         EShapeActionRuntimeGestureLayer: EShapeActionRuntimeGestureLayer,
         EShapeActionRuntimeGestureShape: EShapeActionRuntimeGestureShape,
         EShapeActionRuntimeMiscEmitEvent: EShapeActionRuntimeMiscEmitEvent,
+        EShapeActionRuntimeMiscExecute: EShapeActionRuntimeMiscExecute,
         EShapeActionRuntimeMiscHtmlElement: EShapeActionRuntimeMiscHtmlElement,
         EShapeActionRuntimeMiscInputInput: EShapeActionRuntimeMiscInputInput,
         EShapeActionRuntimeMiscInputInteger: EShapeActionRuntimeMiscInputInteger,
@@ -69637,6 +69968,7 @@
         EShapeActionValueGestureType: EShapeActionValueGestureType,
         EShapeActionValueGesture: EShapeActionValueGesture,
         EShapeActionValueMiscEmitEvent: EShapeActionValueMiscEmitEvent,
+        EShapeActionValueMiscExecute: EShapeActionValueMiscExecute,
         EShapeActionValueMiscHtmlElement: EShapeActionValueMiscHtmlElement,
         EShapeActionValueMiscInput: EShapeActionValueMiscInput,
         EShapeActionValueMiscType: EShapeActionValueMiscType,
@@ -70285,13 +70617,14 @@
         DDialogCloseOn: DDialogCloseOn,
         DDialogColorGradient: DDialogColorGradient,
         DDialogColor: DDialogColor,
-        DDialogCommand: DDialogCommand,
         DDialogConfirmDelete: DDialogConfirmDelete,
         DDialogConfirmDiscard: DDialogConfirmDiscard,
         DDialogConfirmMessage: DDialogConfirmMessage,
         DDialogConfirm: DDialogConfirm,
         DDialogDate: DDialogDate,
         DDialogDatetime: DDialogDatetime,
+        DDialogFittedContent: DDialogFittedContent,
+        DDialogFitted: DDialogFitted,
         DDialogGestureImpl: DDialogGestureImpl,
         DDialogGestureMode: DDialogGestureMode,
         DDialogInputBoolean: DDialogInputBoolean,
@@ -70299,6 +70632,11 @@
         DDialogInputReal: DDialogInputReal,
         DDialogInputText: DDialogInputText,
         DDialogInput: DDialogInput,
+        DDialogLayeredContent: DDialogLayeredContent,
+        DDialogLayeredFooter: DDialogLayeredFooter,
+        DDialogLayeredHeaderButtonClose: DDialogLayeredHeaderButtonClose,
+        DDialogLayeredHeader: DDialogLayeredHeader,
+        DDialogLayered: DDialogLayered,
         DDialogMessage: DDialogMessage,
         DDialogMode: DDialogMode,
         DDialogProcessingMessage: DDialogProcessingMessage,

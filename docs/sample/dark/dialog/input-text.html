@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Text input dialog</title>
+	<title>Input dialog (Text)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.186.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.186.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.191.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.191.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -31,9 +31,12 @@
 		var application = new wcardinal.ui.DApplication();
 
 		var dialog = new wcardinal.ui.DDialogInputText({
-			label: {
+			header: {
 				text: {
-					value: "Fruit:"
+					value: "Your favorite fruit"
+				},
+				button: {
+					close: false
 				}
 			}
 		});

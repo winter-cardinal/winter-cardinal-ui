@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.186.0
+ Winter Cardinal UI v0.191.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -900,16 +900,16 @@
             return null;
         };
         DThemeDarkDialog.prototype.getPaddingLeft = function () {
-            return 16;
+            return 0;
         };
         DThemeDarkDialog.prototype.getPaddingTop = function () {
-            return 16;
+            return 0;
         };
         DThemeDarkDialog.prototype.getPaddingRight = function () {
-            return 16;
+            return 0;
         };
         DThemeDarkDialog.prototype.getPaddingBottom = function () {
-            return 16;
+            return 0;
         };
         DThemeDarkDialog.prototype.getX = function () {
             return 0;
@@ -936,34 +936,40 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeDarkDialogCommand = /** @class */ (function (_super) {
-        __extends(DThemeDarkDialogCommand, _super);
-        function DThemeDarkDialogCommand() {
+    var DThemeDarkDialogLayered = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogLayered, _super);
+        function DThemeDarkDialogLayered() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogCommand.prototype.getOk = function () {
-            return "OK";
-        };
-        DThemeDarkDialogCommand.prototype.getCancel = function () {
-            return "Cancel";
-        };
-        DThemeDarkDialogCommand.prototype.getLayoutX = function () {
-            return "padding";
-        };
-        DThemeDarkDialogCommand.prototype.getLayoutY = function () {
-            return "padding";
-        };
-        DThemeDarkDialogCommand.prototype.getLayoutWidth = function () {
-            return "padding";
-        };
-        DThemeDarkDialogCommand.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
-        DThemeDarkDialogCommand.prototype.getLayoutMargin = function () {
+        DThemeDarkDialogLayered.prototype.getLayout = function () {
             return undefined;
         };
-        return DThemeDarkDialogCommand;
+        DThemeDarkDialogLayered.prototype.getHeader = function () {
+            return null;
+        };
+        DThemeDarkDialogLayered.prototype.getContent = function () {
+            return undefined;
+        };
+        DThemeDarkDialogLayered.prototype.getFooter = function () {
+            return undefined;
+        };
+        return DThemeDarkDialogLayered;
     }(DThemeDarkDialog));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkDialogFitted = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogFitted, _super);
+        function DThemeDarkDialogFitted() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkDialogFitted.prototype.getWidth = function () {
+            return "auto";
+        };
+        return DThemeDarkDialogFitted;
+    }(DThemeDarkDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -974,20 +980,8 @@
         function DThemeDarkDialogColor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogColor.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogColor.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeDarkDialogColor.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogColor.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeDarkDialogColor;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1247,20 +1241,8 @@
         function DThemeDarkDialogColorGradient() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogColorGradient.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogColorGradient.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeDarkDialogColorGradient.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogColorGradient.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeDarkDialogColorGradient;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1433,20 +1415,8 @@
         function DThemeDarkDialogDate() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogDate.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogDate.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeDarkDialogDate.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogDate.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeDarkDialogDate;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogFitted));
 
     const DPickerDatetimeMask = wcardinal.ui.DPickerDatetimeMask;
 
@@ -1885,20 +1855,8 @@
         function DThemeDarkDialogDatetime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogDatetime.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogDatetime.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeDarkDialogDatetime.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogDatetime.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeDarkDialogDatetime;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2190,20 +2148,14 @@
         DThemeDarkDialogSelect.prototype.getWidth = function () {
             return 480;
         };
-        DThemeDarkDialogSelect.prototype.getOk = function () {
+        DThemeDarkDialogSelect.prototype.getFooter = function () {
             return null;
         };
-        DThemeDarkDialogSelect.prototype.getCancel = function () {
-            return null;
-        };
-        DThemeDarkDialogSelect.prototype.getInputMarginVertical = function () {
-            return 0;
-        };
-        DThemeDarkDialogSelect.prototype.getInputMarginHorizontal = function () {
+        DThemeDarkDialogSelect.prototype.getInputMargin = function () {
             return 32;
         };
         return DThemeDarkDialogSelect;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogLayered));
 
     const UtilGestureMode = wcardinal.ui.UtilGestureMode;
 
@@ -2587,20 +2539,8 @@
         function DThemeDarkDialogTime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogTime.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogTime.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeDarkDialogTime.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeDarkDialogTime.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeDarkDialogTime;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -3857,6 +3797,8 @@
                     return "Layer gesture";
                 case EShapeActionValueMiscType.GESTURE:
                     return "Gesture";
+                case EShapeActionValueMiscType.EXECUTE:
+                    return "Execute";
             }
         };
         EThemeDarkShapeActionValue.prototype.toHtmlElementWhenLabel = function (when) {
@@ -3915,12 +3857,265 @@
         DThemeDark.set("DDialog", DThemeDarkDialog);
     };
 
+    const DLayoutDirection = wcardinal.ui.DLayoutDirection;
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeDarkDialogCommand = function () {
-        DThemeDark.set("DDialogCommand", DThemeDarkDialogCommand);
+    var DThemeDarkLayout = /** @class */ (function (_super) {
+        __extends(DThemeDarkLayout, _super);
+        function DThemeDarkLayout() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkLayout.prototype.getBackgroundColor = function (state) {
+            return null;
+        };
+        DThemeDarkLayout.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeDarkLayout.prototype.getMargin = function () {
+            return 5;
+        };
+        DThemeDarkLayout.prototype.getInteractive = function () {
+            return DBaseInteractive.CHILDREN;
+        };
+        DThemeDarkLayout.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
+        DThemeDarkLayout.prototype.getDirection = function () {
+            return DLayoutDirection.VERTICAL;
+        };
+        DThemeDarkLayout.prototype.getCornerAdjust = function () {
+            return false;
+        };
+        DThemeDarkLayout.prototype.getMultiplicity = function () {
+            return 1;
+        };
+        DThemeDarkLayout.prototype.getReverse = function () {
+            return false;
+        };
+        return DThemeDarkLayout;
+    }(DThemeDarkBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkLayoutVertical = /** @class */ (function (_super) {
+        __extends(DThemeDarkLayoutVertical, _super);
+        function DThemeDarkLayoutVertical() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkLayoutVertical.prototype.getDirection = function () {
+            return DLayoutDirection.VERTICAL;
+        };
+        DThemeDarkLayoutVertical.prototype.getWidth = function () {
+            return "auto";
+        };
+        return DThemeDarkLayoutVertical;
+    }(DThemeDarkLayout));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkDialogLayeredContent = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogLayeredContent, _super);
+        function DThemeDarkDialogLayeredContent() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkDialogLayeredContent.prototype.getX = function () {
+            return "padding";
+        };
+        DThemeDarkDialogLayeredContent.prototype.getY = function () {
+            return "padding";
+        };
+        DThemeDarkDialogLayeredContent.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeDarkDialogLayeredContent.prototype.getHeight = function () {
+            return "auto";
+        };
+        DThemeDarkDialogLayeredContent.prototype.getPaddingTop = function () {
+            return 16;
+        };
+        DThemeDarkDialogLayeredContent.prototype.getPaddingRight = function () {
+            return 16;
+        };
+        DThemeDarkDialogLayeredContent.prototype.getPaddingBottom = function () {
+            return 16;
+        };
+        DThemeDarkDialogLayeredContent.prototype.getPaddingLeft = function () {
+            return 16;
+        };
+        return DThemeDarkDialogLayeredContent;
+    }(DThemeDarkLayoutVertical));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkLayoutHorizontal = /** @class */ (function (_super) {
+        __extends(DThemeDarkLayoutHorizontal, _super);
+        function DThemeDarkLayoutHorizontal() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkLayoutHorizontal.prototype.getDirection = function () {
+            return DLayoutDirection.HORIZONTAL;
+        };
+        DThemeDarkLayoutHorizontal.prototype.getHeight = function () {
+            return "auto";
+        };
+        return DThemeDarkLayoutHorizontal;
+    }(DThemeDarkLayout));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkDialogLayeredFooter = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogLayeredFooter, _super);
+        function DThemeDarkDialogLayeredFooter() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkDialogLayeredFooter.prototype.getButtonOk = function () {
+            return "OK";
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getButtonCancel = function () {
+            return "Cacnel";
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getX = function () {
+            return "padding";
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getY = function () {
+            return "padding";
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getHeight = function () {
+            return "auto";
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getPaddingTop = function () {
+            return 0;
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getPaddingRight = function () {
+            return 16;
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getPaddingBottom = function () {
+            return 16;
+        };
+        DThemeDarkDialogLayeredFooter.prototype.getPaddingLeft = function () {
+            return 16;
+        };
+        return DThemeDarkDialogLayeredFooter;
+    }(DThemeDarkLayoutHorizontal));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeDarkDialogLayeredHeader = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogLayeredHeader, _super);
+        function DThemeDarkDialogLayeredHeader() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkDialogLayeredHeader.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getHeight = function () {
+            return 38;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getPaddingLeft = function () {
+            return 16;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getPaddingRight = function () {
+            return 16;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getBackgroundColor = function () {
+            return 0;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getBackgroundAlpha = function () {
+            return 0.05;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getCornerMask = function () {
+            return DCornerMask.BOTTOM;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getBorderColor = function (state) {
+            return 0;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getBorderAlpha = function (state) {
+            return 0.1;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getBorderMask = function (state) {
+            return DBorderMask.NOT_BOTTOM;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.getInteractive = function () {
+            return DBaseInteractive.CHILDREN;
+        };
+        DThemeDarkDialogLayeredHeader.prototype.newState = function (state) {
+            state.isFocusable = false;
+        };
+        return DThemeDarkDialogLayeredHeader;
+    }(DThemeDarkImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    DThemeDarkAtlas.add("dialog_layered_header_button_close", 20, 14, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"16 1 4 13\"></polyline>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"4 1 16 13\"></polyline>" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var X = function (p, s) {
+        return p - 38;
+    };
+    var DThemeDarkDialogLayeredHeaderButtonClose = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogLayeredHeaderButtonClose, _super);
+        function DThemeDarkDialogLayeredHeaderButtonClose() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getX = function () {
+            return X;
+        };
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getY = function () {
+            return "center";
+        };
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getSecondaryImageAlignHorizontal = function () {
+            return DAlignHorizontal.CENTER;
+        };
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getSecondaryImageAlignVertical = function () {
+            return DAlignVertical.MIDDLE;
+        };
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getSecondaryImageAlignWith = function () {
+            return DAlignWith.PADDING;
+        };
+        DThemeDarkDialogLayeredHeaderButtonClose.prototype.getSecondaryImageSource = function (state) {
+            return DThemeDarkAtlas.mappings.dialog_layered_header_button_close;
+        };
+        return DThemeDarkDialogLayeredHeaderButtonClose;
+    }(DThemeDarkButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkDialogLayered = function () {
+        DThemeDark.set("DDialogLayeredContent", DThemeDarkDialogLayeredContent);
+        DThemeDark.set("DDialogLayeredFooter", DThemeDarkDialogLayeredFooter);
+        DThemeDark.set("DDialogLayeredHeaderButtonClose", DThemeDarkDialogLayeredHeaderButtonClose);
+        DThemeDark.set("DDialogLayeredHeader", DThemeDarkDialogLayeredHeader);
+        DThemeDark.set("DDialogLayered", DThemeDarkDialogLayered);
     };
 
     /*
@@ -3932,17 +4127,19 @@
         function DThemeDarkDialogConfirm() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogConfirm.prototype.getOk = function () {
-            return "Yes";
-        };
-        DThemeDarkDialogConfirm.prototype.getCancel = function () {
-            return "No";
+        DThemeDarkDialogConfirm.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "Yes",
+                    cancel: "No"
+                }
+            };
         };
         DThemeDarkDialogConfirm.prototype.getMessage = function () {
             return "";
         };
         return DThemeDarkDialogConfirm;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4049,14 +4246,11 @@
         DThemeDarkDialogInput.prototype.getLabel = function () {
             return "";
         };
-        DThemeDarkDialogInput.prototype.getMarginVertical = function () {
-            return 0;
-        };
-        DThemeDarkDialogInput.prototype.getMarginHorizontal = function () {
+        DThemeDarkDialogInput.prototype.getInputMargin = function () {
             return 32;
         };
         return DThemeDarkDialogInput;
-    }(DThemeDarkDialogCommand));
+    }(DThemeDarkDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4147,11 +4341,13 @@
         function DThemeDarkDialogMessage() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogMessage.prototype.getOk = function () {
-            return "OK";
-        };
-        DThemeDarkDialogMessage.prototype.getCancel = function () {
-            return null;
+        DThemeDarkDialogMessage.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "OK",
+                    cancel: null
+                }
+            };
         };
         return DThemeDarkDialogMessage;
     }(DThemeDarkDialogConfirm));
@@ -4182,11 +4378,13 @@
         function DThemeDarkDialogProcessing() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogProcessing.prototype.getOk = function () {
-            return "OK";
-        };
-        DThemeDarkDialogProcessing.prototype.getCancel = function () {
-            return null;
+        DThemeDarkDialogProcessing.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "OK",
+                    cancel: null
+                }
+            };
         };
         DThemeDarkDialogProcessing.prototype.getMessage = function () {
             return message;
@@ -4257,8 +4455,13 @@
         function DThemeDarkDialogSaveAs() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeDarkDialogSaveAs.prototype.getOk = function () {
-            return "Save";
+        DThemeDarkDialogSaveAs.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "Save",
+                    cancel: null
+                }
+            };
         };
         return DThemeDarkDialogSaveAs;
     }(DThemeDarkDialogInputText));
@@ -4275,19 +4478,44 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemeDarkDialogFittedContent = /** @class */ (function (_super) {
+        __extends(DThemeDarkDialogFittedContent, _super);
+        function DThemeDarkDialogFittedContent() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeDarkDialogFittedContent.prototype.getWidth = function () {
+            return "auto";
+        };
+        return DThemeDarkDialogFittedContent;
+    }(DThemeDarkDialogLayeredContent));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeDarkDialogFitted = function () {
+        DThemeDark.set("DDialogFittedContent", DThemeDarkDialogFittedContent);
+        DThemeDark.set("DDialogFitted", DThemeDarkDialogFitted);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var loadThemeDarkDialogAll = function () {
         loadThemeDarkDialogColorGradient();
         loadThemeDarkDialogColor();
-        loadThemeDarkDialogCommand();
         loadThemeDarkDialogConfirm();
         loadThemeDarkDialogConfirmDelete();
         loadThemeDarkDialogConfirmDiscard();
         loadThemeDarkDialogDate();
         loadThemeDarkDialogDatetime();
+        loadThemeDarkDialogFitted();
         loadThemeDarkDialogInputBoolean();
         loadThemeDarkDialogInputInteger();
         loadThemeDarkDialogInputReal();
         loadThemeDarkDialogInputText();
+        loadThemeDarkDialogLayered();
         loadThemeDarkDialogMessage();
         loadThemeDarkDialogProcessing();
         loadThemeDarkDialogSaveAs();
@@ -4295,66 +4523,6 @@
         loadThemeDarkDialogTime();
         loadThemeDarkDialog();
     };
-
-    const DLayoutDirection = wcardinal.ui.DLayoutDirection;
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemeDarkLayout = /** @class */ (function (_super) {
-        __extends(DThemeDarkLayout, _super);
-        function DThemeDarkLayout() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeDarkLayout.prototype.getBackgroundColor = function (state) {
-            return null;
-        };
-        DThemeDarkLayout.prototype.getBorderColor = function (state) {
-            return null;
-        };
-        DThemeDarkLayout.prototype.getMargin = function () {
-            return 5;
-        };
-        DThemeDarkLayout.prototype.getInteractive = function () {
-            return DBaseInteractive.CHILDREN;
-        };
-        DThemeDarkLayout.prototype.newState = function (state) {
-            _super.prototype.newState.call(this, state);
-            state.isFocusable = false;
-        };
-        DThemeDarkLayout.prototype.getDirection = function () {
-            return DLayoutDirection.VERTICAL;
-        };
-        DThemeDarkLayout.prototype.getCornerAdjust = function () {
-            return false;
-        };
-        DThemeDarkLayout.prototype.getMultiplicity = function () {
-            return 1;
-        };
-        DThemeDarkLayout.prototype.getReverse = function () {
-            return false;
-        };
-        return DThemeDarkLayout;
-    }(DThemeDarkBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemeDarkLayoutVertical = /** @class */ (function (_super) {
-        __extends(DThemeDarkLayoutVertical, _super);
-        function DThemeDarkLayoutVertical() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeDarkLayoutVertical.prototype.getDirection = function () {
-            return DLayoutDirection.VERTICAL;
-        };
-        DThemeDarkLayoutVertical.prototype.getWidth = function () {
-            return "auto";
-        };
-        return DThemeDarkLayoutVertical;
-    }(DThemeDarkLayout));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4631,24 +4799,6 @@
     var loadThemeDarkImage = function () {
         DThemeDark.set("DImage", DThemeDarkImage);
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemeDarkLayoutHorizontal = /** @class */ (function (_super) {
-        __extends(DThemeDarkLayoutHorizontal, _super);
-        function DThemeDarkLayoutHorizontal() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeDarkLayoutHorizontal.prototype.getDirection = function () {
-            return DLayoutDirection.HORIZONTAL;
-        };
-        DThemeDarkLayoutHorizontal.prototype.getHeight = function () {
-            return "auto";
-        };
-        return DThemeDarkLayoutHorizontal;
-    }(DThemeDarkLayout));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -8868,16 +9018,17 @@
         loadThemeDarkDialogAll: loadThemeDarkDialogAll,
         loadThemeDarkDialogColorGradient: loadThemeDarkDialogColorGradient,
         loadThemeDarkDialogColor: loadThemeDarkDialogColor,
-        loadThemeDarkDialogCommand: loadThemeDarkDialogCommand,
         loadThemeDarkDialogConfirm: loadThemeDarkDialogConfirm,
         loadThemeDarkDialogConfirmDelete: loadThemeDarkDialogConfirmDelete,
         loadThemeDarkDialogConfirmDiscard: loadThemeDarkDialogConfirmDiscard,
         loadThemeDarkDialogDate: loadThemeDarkDialogDate,
         loadThemeDarkDialogDatetime: loadThemeDarkDialogDatetime,
+        loadThemeDarkDialogFitted: loadThemeDarkDialogFitted,
         loadThemeDarkDialogInputBoolean: loadThemeDarkDialogInputBoolean,
         loadThemeDarkDialogInputInteger: loadThemeDarkDialogInputInteger,
         loadThemeDarkDialogInputReal: loadThemeDarkDialogInputReal,
         loadThemeDarkDialogInputText: loadThemeDarkDialogInputText,
+        loadThemeDarkDialogLayered: loadThemeDarkDialogLayered,
         loadThemeDarkDialogMessage: loadThemeDarkDialogMessage,
         loadThemeDarkDialogProcessing: loadThemeDarkDialogProcessing,
         loadThemeDarkDialogSaveAs: loadThemeDarkDialogSaveAs,
@@ -8965,18 +9116,24 @@
         DThemeDarkDialog: DThemeDarkDialog,
         DThemeDarkDialogColor: DThemeDarkDialogColor,
         DThemeDarkDialogColorGradient: DThemeDarkDialogColorGradient,
-        DThemeDarkDialogCommand: DThemeDarkDialogCommand,
         DThemeDarkDialogConfirm: DThemeDarkDialogConfirm,
         DThemeDarkDialogConfirmDelete: DThemeDarkDialogConfirmDelete,
         DThemeDarkDialogConfirmDiscard: DThemeDarkDialogConfirmDiscard,
         DThemeDarkDialogConfirmMessage: DThemeDarkDialogConfirmMessage,
         DThemeDarkDialogDate: DThemeDarkDialogDate,
         DThemeDarkDialogDatetime: DThemeDarkDialogDatetime,
+        DThemeDarkDialogFittedContent: DThemeDarkDialogFittedContent,
+        DThemeDarkDialogFitted: DThemeDarkDialogFitted,
         DThemeDarkDialogInputBoolean: DThemeDarkDialogInputBoolean,
         DThemeDarkDialogInputInteger: DThemeDarkDialogInputInteger,
         DThemeDarkDialogInputReal: DThemeDarkDialogInputReal,
         DThemeDarkDialogInputText: DThemeDarkDialogInputText,
         DThemeDarkDialogInput: DThemeDarkDialogInput,
+        DThemeDarkDialogLayeredContent: DThemeDarkDialogLayeredContent,
+        DThemeDarkDialogLayeredFooter: DThemeDarkDialogLayeredFooter,
+        DThemeDarkDialogLayeredHeaderButtonClose: DThemeDarkDialogLayeredHeaderButtonClose,
+        DThemeDarkDialogLayeredHeader: DThemeDarkDialogLayeredHeader,
+        DThemeDarkDialogLayered: DThemeDarkDialogLayered,
         DThemeDarkDialogMessage: DThemeDarkDialogMessage,
         DThemeDarkDialogProcessing: DThemeDarkDialogProcessing,
         DThemeDarkDialogProcessingMessage: DThemeDarkDialogProcessingMessage,

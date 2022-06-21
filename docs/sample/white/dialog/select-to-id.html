@@ -22,17 +22,15 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.186.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.186.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.191.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.191.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DDialogSelect({
-			parent: application.stage,
-			mode: "MODELESS",
+		var dialog = new wcardinal.ui.DDialogSelect({
 			list: {
 				data: {
 					toId: function (item) {
@@ -56,8 +54,26 @@
 					console.log(selected, dialog);
 				}
 			}
-		})
-		.open();
+		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 300,
+			text: {
+				value: "Open"
+			},
+			on: {
+				active: function (emitter) {
+					dialog.open(emitter).then(function(value){
+						console.log(value);
+					})
+					.catch(function() {
+						console.log("Canceled");
+					});
+				}
+			}
+		});
 	}());
 	</script>
 </body>

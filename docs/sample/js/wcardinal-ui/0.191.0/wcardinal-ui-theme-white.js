@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.186.0
+ Winter Cardinal UI v0.191.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -910,16 +910,16 @@
             return null;
         };
         DThemeWhiteDialog.prototype.getPaddingLeft = function () {
-            return 16;
+            return 0;
         };
         DThemeWhiteDialog.prototype.getPaddingTop = function () {
-            return 16;
+            return 0;
         };
         DThemeWhiteDialog.prototype.getPaddingRight = function () {
-            return 16;
+            return 0;
         };
         DThemeWhiteDialog.prototype.getPaddingBottom = function () {
-            return 16;
+            return 0;
         };
         DThemeWhiteDialog.prototype.getX = function () {
             return 0;
@@ -946,34 +946,40 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DThemeWhiteDialogCommand = /** @class */ (function (_super) {
-        __extends(DThemeWhiteDialogCommand, _super);
-        function DThemeWhiteDialogCommand() {
+    var DThemeWhiteDialogLayered = /** @class */ (function (_super) {
+        __extends(DThemeWhiteDialogLayered, _super);
+        function DThemeWhiteDialogLayered() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogCommand.prototype.getOk = function () {
-            return "OK";
-        };
-        DThemeWhiteDialogCommand.prototype.getCancel = function () {
-            return "Cacnel";
-        };
-        DThemeWhiteDialogCommand.prototype.getLayoutX = function () {
-            return "padding";
-        };
-        DThemeWhiteDialogCommand.prototype.getLayoutY = function () {
-            return "padding";
-        };
-        DThemeWhiteDialogCommand.prototype.getLayoutWidth = function () {
-            return "padding";
-        };
-        DThemeWhiteDialogCommand.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogCommand.prototype.getLayoutMargin = function () {
+        DThemeWhiteDialogLayered.prototype.getLayout = function () {
             return undefined;
         };
-        return DThemeWhiteDialogCommand;
+        DThemeWhiteDialogLayered.prototype.getHeader = function () {
+            return null;
+        };
+        DThemeWhiteDialogLayered.prototype.getContent = function () {
+            return undefined;
+        };
+        DThemeWhiteDialogLayered.prototype.getFooter = function () {
+            return undefined;
+        };
+        return DThemeWhiteDialogLayered;
     }(DThemeWhiteDialog));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhiteDialogFitted = /** @class */ (function (_super) {
+        __extends(DThemeWhiteDialogFitted, _super);
+        function DThemeWhiteDialogFitted() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteDialogFitted.prototype.getWidth = function () {
+            return "auto";
+        };
+        return DThemeWhiteDialogFitted;
+    }(DThemeWhiteDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -984,20 +990,8 @@
         function DThemeWhiteDialogColor() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogColor.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogColor.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogColor.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogColor.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeWhiteDialogColor;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1257,20 +1251,8 @@
         function DThemeWhiteDialogColorGradient() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogColorGradient.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogColorGradient.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogColorGradient.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogColorGradient.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeWhiteDialogColorGradient;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -1451,20 +1433,8 @@
         function DThemeWhiteDialogDate() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogDate.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogDate.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogDate.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogDate.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeWhiteDialogDate;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogFitted));
 
     const DPickerDatetimeMask = wcardinal.ui.DPickerDatetimeMask;
 
@@ -1903,20 +1873,8 @@
         function DThemeWhiteDialogDatetime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogDatetime.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogDatetime.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogDatetime.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogDatetime.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeWhiteDialogDatetime;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -2188,20 +2146,14 @@
         DThemeWhiteDialogSelect.prototype.getWidth = function () {
             return 480;
         };
-        DThemeWhiteDialogSelect.prototype.getOk = function () {
+        DThemeWhiteDialogSelect.prototype.getFooter = function () {
             return null;
         };
-        DThemeWhiteDialogSelect.prototype.getCancel = function () {
-            return null;
-        };
-        DThemeWhiteDialogSelect.prototype.getInputMarginVertical = function () {
-            return 0;
-        };
-        DThemeWhiteDialogSelect.prototype.getInputMarginHorizontal = function () {
+        DThemeWhiteDialogSelect.prototype.getInputMargin = function () {
             return 32;
         };
         return DThemeWhiteDialogSelect;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogLayered));
 
     const UtilGestureMode = wcardinal.ui.UtilGestureMode;
 
@@ -2585,20 +2537,8 @@
         function DThemeWhiteDialogTime() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogTime.prototype.getWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogTime.prototype.getHeight = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogTime.prototype.getLayoutWidth = function () {
-            return "auto";
-        };
-        DThemeWhiteDialogTime.prototype.getLayoutHeight = function () {
-            return "auto";
-        };
         return DThemeWhiteDialogTime;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogFitted));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -3854,6 +3794,8 @@
                     return "Layer gesture";
                 case EShapeActionValueMiscType.GESTURE:
                     return "Gesture";
+                case EShapeActionValueMiscType.EXECUTE:
+                    return "Execute";
             }
         };
         EThemeWhiteShapeActionValue.prototype.toHtmlElementWhenLabel = function (when) {
@@ -3910,12 +3852,265 @@
         DThemeWhite.set("DDialog", DThemeWhiteDialog);
     };
 
+    const DLayoutDirection = wcardinal.ui.DLayoutDirection;
+
     /*
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var loadThemeWhiteDialogCommand = function () {
-        DThemeWhite.set("DDialogCommand", DThemeWhiteDialogCommand);
+    var DThemeWhiteLayout = /** @class */ (function (_super) {
+        __extends(DThemeWhiteLayout, _super);
+        function DThemeWhiteLayout() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteLayout.prototype.getBackgroundColor = function (state) {
+            return null;
+        };
+        DThemeWhiteLayout.prototype.getBorderColor = function (state) {
+            return null;
+        };
+        DThemeWhiteLayout.prototype.getMargin = function () {
+            return 5;
+        };
+        DThemeWhiteLayout.prototype.getInteractive = function () {
+            return DBaseInteractive.CHILDREN;
+        };
+        DThemeWhiteLayout.prototype.newState = function (state) {
+            _super.prototype.newState.call(this, state);
+            state.isFocusable = false;
+        };
+        DThemeWhiteLayout.prototype.getDirection = function () {
+            return DLayoutDirection.VERTICAL;
+        };
+        DThemeWhiteLayout.prototype.getCornerAdjust = function () {
+            return false;
+        };
+        DThemeWhiteLayout.prototype.getMultiplicity = function () {
+            return 1;
+        };
+        DThemeWhiteLayout.prototype.getReverse = function () {
+            return false;
+        };
+        return DThemeWhiteLayout;
+    }(DThemeWhiteBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhiteLayoutVertical = /** @class */ (function (_super) {
+        __extends(DThemeWhiteLayoutVertical, _super);
+        function DThemeWhiteLayoutVertical() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteLayoutVertical.prototype.getDirection = function () {
+            return DLayoutDirection.VERTICAL;
+        };
+        DThemeWhiteLayoutVertical.prototype.getWidth = function () {
+            return "auto";
+        };
+        return DThemeWhiteLayoutVertical;
+    }(DThemeWhiteLayout));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhiteDialogLayeredContent = /** @class */ (function (_super) {
+        __extends(DThemeWhiteDialogLayeredContent, _super);
+        function DThemeWhiteDialogLayeredContent() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteDialogLayeredContent.prototype.getX = function () {
+            return "padding";
+        };
+        DThemeWhiteDialogLayeredContent.prototype.getY = function () {
+            return "padding";
+        };
+        DThemeWhiteDialogLayeredContent.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeWhiteDialogLayeredContent.prototype.getHeight = function () {
+            return "auto";
+        };
+        DThemeWhiteDialogLayeredContent.prototype.getPaddingTop = function () {
+            return 16;
+        };
+        DThemeWhiteDialogLayeredContent.prototype.getPaddingRight = function () {
+            return 16;
+        };
+        DThemeWhiteDialogLayeredContent.prototype.getPaddingBottom = function () {
+            return 16;
+        };
+        DThemeWhiteDialogLayeredContent.prototype.getPaddingLeft = function () {
+            return 16;
+        };
+        return DThemeWhiteDialogLayeredContent;
+    }(DThemeWhiteLayoutVertical));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhiteLayoutHorizontal = /** @class */ (function (_super) {
+        __extends(DThemeWhiteLayoutHorizontal, _super);
+        function DThemeWhiteLayoutHorizontal() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteLayoutHorizontal.prototype.getDirection = function () {
+            return DLayoutDirection.HORIZONTAL;
+        };
+        DThemeWhiteLayoutHorizontal.prototype.getHeight = function () {
+            return "auto";
+        };
+        return DThemeWhiteLayoutHorizontal;
+    }(DThemeWhiteLayout));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhiteDialogLayeredFooter = /** @class */ (function (_super) {
+        __extends(DThemeWhiteDialogLayeredFooter, _super);
+        function DThemeWhiteDialogLayeredFooter() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteDialogLayeredFooter.prototype.getButtonOk = function () {
+            return "OK";
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getButtonCancel = function () {
+            return "Cacnel";
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getX = function () {
+            return "padding";
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getY = function () {
+            return "padding";
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getHeight = function () {
+            return "auto";
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getPaddingTop = function () {
+            return 0;
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getPaddingRight = function () {
+            return 16;
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getPaddingBottom = function () {
+            return 16;
+        };
+        DThemeWhiteDialogLayeredFooter.prototype.getPaddingLeft = function () {
+            return 16;
+        };
+        return DThemeWhiteDialogLayeredFooter;
+    }(DThemeWhiteLayoutHorizontal));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DThemeWhiteDialogLayeredHeader = /** @class */ (function (_super) {
+        __extends(DThemeWhiteDialogLayeredHeader, _super);
+        function DThemeWhiteDialogLayeredHeader() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteDialogLayeredHeader.prototype.getWidth = function () {
+            return "padding";
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getHeight = function () {
+            return 38;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getPaddingLeft = function () {
+            return 16;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getPaddingRight = function () {
+            return 16;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getBackgroundColor = function () {
+            return 0;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getBackgroundAlpha = function () {
+            return 0.025;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getCornerMask = function () {
+            return DCornerMask.BOTTOM;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getBorderColor = function (state) {
+            return 0;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getBorderAlpha = function (state) {
+            return 0.05;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getBorderMask = function (state) {
+            return DBorderMask.NOT_BOTTOM;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.getInteractive = function () {
+            return DBaseInteractive.CHILDREN;
+        };
+        DThemeWhiteDialogLayeredHeader.prototype.newState = function (state) {
+            state.isFocusable = false;
+        };
+        return DThemeWhiteDialogLayeredHeader;
+    }(DThemeWhiteImageBase));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    /* eslint-disable prettier/prettier */
+    DThemeWhiteAtlas.add("dialog_layered_header_button_close", 20, 14, "<g>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"16 1 4 13\"></polyline>" +
+        "<polyline fill=\"none\" stroke=\"#fff\" stroke-width=\"1\" points=\"4 1 16 13\"></polyline>" +
+        "</g>");
+    /* eslint-enable prettier/prettier */
+    var X = function (p, s) {
+        return p - 38;
+    };
+    var DThemeWhiteDialogLayeredHeaderButtonClose = /** @class */ (function (_super) {
+        __extends(DThemeWhiteDialogLayeredHeaderButtonClose, _super);
+        function DThemeWhiteDialogLayeredHeaderButtonClose() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getX = function () {
+            return X;
+        };
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getY = function () {
+            return "center";
+        };
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getWidth = function () {
+            return 30;
+        };
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getHeight = function () {
+            return 30;
+        };
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getSecondaryImageAlignHorizontal = function () {
+            return DAlignHorizontal.CENTER;
+        };
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getSecondaryImageAlignVertical = function () {
+            return DAlignVertical.MIDDLE;
+        };
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getSecondaryImageAlignWith = function () {
+            return DAlignWith.PADDING;
+        };
+        DThemeWhiteDialogLayeredHeaderButtonClose.prototype.getSecondaryImageSource = function (state) {
+            return DThemeWhiteAtlas.mappings.dialog_layered_header_button_close;
+        };
+        return DThemeWhiteDialogLayeredHeaderButtonClose;
+    }(DThemeWhiteButtonAmbient));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeWhiteDialogLayered = function () {
+        DThemeWhite.set("DDialogLayeredContent", DThemeWhiteDialogLayeredContent);
+        DThemeWhite.set("DDialogLayeredFooter", DThemeWhiteDialogLayeredFooter);
+        DThemeWhite.set("DDialogLayeredHeaderButtonClose", DThemeWhiteDialogLayeredHeaderButtonClose);
+        DThemeWhite.set("DDialogLayeredHeader", DThemeWhiteDialogLayeredHeader);
+        DThemeWhite.set("DDialogLayered", DThemeWhiteDialogLayered);
     };
 
     /*
@@ -3927,17 +4122,19 @@
         function DThemeWhiteDialogConfirm() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogConfirm.prototype.getOk = function () {
-            return "Yes";
-        };
-        DThemeWhiteDialogConfirm.prototype.getCancel = function () {
-            return "No";
+        DThemeWhiteDialogConfirm.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "Yes",
+                    cancel: "No"
+                }
+            };
         };
         DThemeWhiteDialogConfirm.prototype.getMessage = function () {
             return "";
         };
         return DThemeWhiteDialogConfirm;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4044,14 +4241,11 @@
         DThemeWhiteDialogInput.prototype.getLabel = function () {
             return "";
         };
-        DThemeWhiteDialogInput.prototype.getMarginVertical = function () {
-            return 0;
-        };
-        DThemeWhiteDialogInput.prototype.getMarginHorizontal = function () {
+        DThemeWhiteDialogInput.prototype.getInputMargin = function () {
             return 32;
         };
         return DThemeWhiteDialogInput;
-    }(DThemeWhiteDialogCommand));
+    }(DThemeWhiteDialogLayered));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4142,11 +4336,13 @@
         function DThemeWhiteDialogMessage() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogMessage.prototype.getOk = function () {
-            return "OK";
-        };
-        DThemeWhiteDialogMessage.prototype.getCancel = function () {
-            return null;
+        DThemeWhiteDialogMessage.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "OK",
+                    cancel: null
+                }
+            };
         };
         return DThemeWhiteDialogMessage;
     }(DThemeWhiteDialogConfirm));
@@ -4179,11 +4375,13 @@
         function DThemeWhiteDialogProcessing() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogProcessing.prototype.getOk = function () {
-            return "OK";
-        };
-        DThemeWhiteDialogProcessing.prototype.getCancel = function () {
-            return null;
+        DThemeWhiteDialogProcessing.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "Save",
+                    cancel: null
+                }
+            };
         };
         DThemeWhiteDialogProcessing.prototype.getMessage = function () {
             return message;
@@ -4254,8 +4452,13 @@
         function DThemeWhiteDialogSaveAs() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        DThemeWhiteDialogSaveAs.prototype.getOk = function () {
-            return "Save";
+        DThemeWhiteDialogSaveAs.prototype.getFooter = function () {
+            return {
+                button: {
+                    ok: "Save",
+                    cancel: null
+                }
+            };
         };
         return DThemeWhiteDialogSaveAs;
     }(DThemeWhiteDialogInputText));
@@ -4272,19 +4475,44 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var DThemeWhiteDialogFittedContent = /** @class */ (function (_super) {
+        __extends(DThemeWhiteDialogFittedContent, _super);
+        function DThemeWhiteDialogFittedContent() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DThemeWhiteDialogFittedContent.prototype.getWidth = function () {
+            return "auto";
+        };
+        return DThemeWhiteDialogFittedContent;
+    }(DThemeWhiteDialogLayeredContent));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var loadThemeWhiteDialogFitted = function () {
+        DThemeWhite.set("DDialogFittedContent", DThemeWhiteDialogFittedContent);
+        DThemeWhite.set("DDialogFitted", DThemeWhiteDialogFitted);
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var loadThemeWhiteDialogAll = function () {
         loadThemeWhiteDialogColorGradient();
         loadThemeWhiteDialogColor();
-        loadThemeWhiteDialogCommand();
         loadThemeWhiteDialogConfirmDelete();
         loadThemeWhiteDialogConfirmDiscard();
         loadThemeWhiteDialogConfirm();
         loadThemeWhiteDialogDate();
         loadThemeWhiteDialogDatetime();
+        loadThemeWhiteDialogFitted();
         loadThemeWhiteDialogInputBoolean();
         loadThemeWhiteDialogInputInteger();
         loadThemeWhiteDialogInputReal();
         loadThemeWhiteDialogInputText();
+        loadThemeWhiteDialogLayered();
         loadThemeWhiteDialogMessage();
         loadThemeWhiteDialogProcessing();
         loadThemeWhiteDialogSaveAs();
@@ -4292,66 +4520,6 @@
         loadThemeWhiteDialogTime();
         loadThemeWhiteDialog();
     };
-
-    const DLayoutDirection = wcardinal.ui.DLayoutDirection;
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemeWhiteLayout = /** @class */ (function (_super) {
-        __extends(DThemeWhiteLayout, _super);
-        function DThemeWhiteLayout() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeWhiteLayout.prototype.getBackgroundColor = function (state) {
-            return null;
-        };
-        DThemeWhiteLayout.prototype.getBorderColor = function (state) {
-            return null;
-        };
-        DThemeWhiteLayout.prototype.getMargin = function () {
-            return 5;
-        };
-        DThemeWhiteLayout.prototype.getInteractive = function () {
-            return DBaseInteractive.CHILDREN;
-        };
-        DThemeWhiteLayout.prototype.newState = function (state) {
-            _super.prototype.newState.call(this, state);
-            state.isFocusable = false;
-        };
-        DThemeWhiteLayout.prototype.getDirection = function () {
-            return DLayoutDirection.VERTICAL;
-        };
-        DThemeWhiteLayout.prototype.getCornerAdjust = function () {
-            return false;
-        };
-        DThemeWhiteLayout.prototype.getMultiplicity = function () {
-            return 1;
-        };
-        DThemeWhiteLayout.prototype.getReverse = function () {
-            return false;
-        };
-        return DThemeWhiteLayout;
-    }(DThemeWhiteBase));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemeWhiteLayoutVertical = /** @class */ (function (_super) {
-        __extends(DThemeWhiteLayoutVertical, _super);
-        function DThemeWhiteLayoutVertical() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeWhiteLayoutVertical.prototype.getDirection = function () {
-            return DLayoutDirection.VERTICAL;
-        };
-        DThemeWhiteLayoutVertical.prototype.getWidth = function () {
-            return "auto";
-        };
-        return DThemeWhiteLayoutVertical;
-    }(DThemeWhiteLayout));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -4628,24 +4796,6 @@
     var loadThemeWhiteImage = function () {
         DThemeWhite.set("DImage", DThemeWhiteImage);
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var DThemeWhiteLayoutHorizontal = /** @class */ (function (_super) {
-        __extends(DThemeWhiteLayoutHorizontal, _super);
-        function DThemeWhiteLayoutHorizontal() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        DThemeWhiteLayoutHorizontal.prototype.getDirection = function () {
-            return DLayoutDirection.HORIZONTAL;
-        };
-        DThemeWhiteLayoutHorizontal.prototype.getHeight = function () {
-            return "auto";
-        };
-        return DThemeWhiteLayoutHorizontal;
-    }(DThemeWhiteLayout));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -8863,16 +9013,17 @@
         loadThemeWhiteDialogAll: loadThemeWhiteDialogAll,
         loadThemeWhiteDialogColorGradient: loadThemeWhiteDialogColorGradient,
         loadThemeWhiteDialogColor: loadThemeWhiteDialogColor,
-        loadThemeWhiteDialogCommand: loadThemeWhiteDialogCommand,
         loadThemeWhiteDialogConfirmDelete: loadThemeWhiteDialogConfirmDelete,
         loadThemeWhiteDialogConfirmDiscard: loadThemeWhiteDialogConfirmDiscard,
         loadThemeWhiteDialogConfirm: loadThemeWhiteDialogConfirm,
         loadThemeWhiteDialogDate: loadThemeWhiteDialogDate,
         loadThemeWhiteDialogDatetime: loadThemeWhiteDialogDatetime,
+        loadThemeWhiteDialogFitted: loadThemeWhiteDialogFitted,
         loadThemeWhiteDialogInputBoolean: loadThemeWhiteDialogInputBoolean,
         loadThemeWhiteDialogInputInteger: loadThemeWhiteDialogInputInteger,
         loadThemeWhiteDialogInputReal: loadThemeWhiteDialogInputReal,
         loadThemeWhiteDialogInputText: loadThemeWhiteDialogInputText,
+        loadThemeWhiteDialogLayered: loadThemeWhiteDialogLayered,
         loadThemeWhiteDialogMessage: loadThemeWhiteDialogMessage,
         loadThemeWhiteDialogProcessing: loadThemeWhiteDialogProcessing,
         loadThemeWhiteDialogSaveAs: loadThemeWhiteDialogSaveAs,
@@ -8958,18 +9109,24 @@
         DThemeWhiteDiagram: DThemeWhiteDiagram,
         DThemeWhiteDialogColorGradient: DThemeWhiteDialogColorGradient,
         DThemeWhiteDialogColor: DThemeWhiteDialogColor,
-        DThemeWhiteDialogCommand: DThemeWhiteDialogCommand,
         DThemeWhiteDialogConfirmDelete: DThemeWhiteDialogConfirmDelete,
         DThemeWhiteDialogConfirmDiscard: DThemeWhiteDialogConfirmDiscard,
         DThemeWhiteDialogConfirmMessage: DThemeWhiteDialogConfirmMessage,
         DThemeWhiteDialogConfirm: DThemeWhiteDialogConfirm,
         DThemeWhiteDialogDate: DThemeWhiteDialogDate,
         DThemeWhiteDialogDatetime: DThemeWhiteDialogDatetime,
+        DThemeWhiteDialogFittedContent: DThemeWhiteDialogFittedContent,
+        DThemeWhiteDialogFitted: DThemeWhiteDialogFitted,
         DThemeWhiteDialogInputBoolean: DThemeWhiteDialogInputBoolean,
         DThemeWhiteDialogInputInteger: DThemeWhiteDialogInputInteger,
         DThemeWhiteDialogInputReal: DThemeWhiteDialogInputReal,
         DThemeWhiteDialogInputText: DThemeWhiteDialogInputText,
         DThemeWhiteDialogInput: DThemeWhiteDialogInput,
+        DThemeWhiteDialogLayeredContent: DThemeWhiteDialogLayeredContent,
+        DThemeWhiteDialogLayeredFooter: DThemeWhiteDialogLayeredFooter,
+        DThemeWhiteDialogLayeredHeaderButtonClose: DThemeWhiteDialogLayeredHeaderButtonClose,
+        DThemeWhiteDialogLayeredHeader: DThemeWhiteDialogLayeredHeader,
+        DThemeWhiteDialogLayered: DThemeWhiteDialogLayered,
         DThemeWhiteDialogMessage: DThemeWhiteDialogMessage,
         DThemeWhiteDialogProcessingMessage: DThemeWhiteDialogProcessingMessage,
         DThemeWhiteDialogProcessing: DThemeWhiteDialogProcessing,
