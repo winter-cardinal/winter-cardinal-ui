@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select dialog with predefined items</title>
+	<title>Header</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,25 +30,13 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogSelect({
-			list: {
-				data: {
-					before: [{
-						name: "Melon"
-					}]
+		var dialog = new wcardinal.ui.DDialogMessage({
+			header: {
+				text: {
+					value: "Apple"
 				}
 			},
-			controller: {
-				search: function (word) {
-					return Promise.resolve([
-						{ name: "Apple" },
-						{ name: "Orange" },
-						{ name: "Pineapple" }
-					].filter(function (item) {
-						return word.length <= 0 || 0 <= item.name.indexOf( word );
-					}));
-				}
-			}
+			message: "Orange"
 		});
 
 		new wcardinal.ui.DButton({
@@ -58,17 +46,20 @@
 			text: {
 				value: "Open"
 			},
+			header: {
+				enable: true
+			},
 			on: {
 				active: function (emitter) {
-					dialog.open(emitter).then(function(value){
-						console.log(value);
+					dialog.open(emitter).then(function (date) {
+						console.log(date);
 					})
 					.catch(function() {
 						console.log("Canceled");
 					});
 				}
 			}
-		});
+		})
 	}());
 	</script>
 </body>

@@ -3,19 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject } from "pixi.js";
 import { DBase } from "./d-base";
 import {
-	DDialogCommand,
-	DDialogCommandEvents,
-	DDialogCommandOptions,
-	DThemeDialogCommand
-} from "./d-dialog-command";
+	DDialogLayered,
+	DDialogLayeredEvents,
+	DDialogLayeredOptions,
+	DThemeDialogLayered
+} from "./d-dialog-layered";
 import { DDialogSelectList, DDialogSelectListOptions } from "./d-dialog-select-list";
 import { DDialogSelectSearh } from "./d-dialog-select-search";
 import { DInputSearch, DInputSearchOptions } from "./d-input-search";
 import { DLayoutHorizontal, DLayoutHorizontalOptions } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
-import { DLayoutVertical } from "./d-layout-vertical";
 import { DListOptions } from "./d-list";
 import { DListDataSelection } from "./d-list-data-selection";
 import { DNote, DNoteOptions } from "./d-note";
@@ -23,18 +23,10 @@ import { DNoteSmallError } from "./d-note-small-error";
 import { DNoteSmallNoItemsFound } from "./d-note-small-no-items-found";
 import { DNoteSmallSearching } from "./d-note-small-searching";
 import { DOnOptions } from "./d-on-options";
-import { isNumber } from "./util/is-number";
 import { UtilTransition } from "./util/util-transition";
 
-export interface DDialogSelectInputMargin {
-	horizontal: number;
-	vertical: number;
-}
-
-export interface DDialogSelectInputMarginOptions extends Partial<DDialogSelectInputMargin> {}
-
 export interface DDialogSelectInputOpitons extends DInputSearchOptions {
-	margin?: DDialogSelectInputMarginOptions;
+	margin?: number;
 }
 
 /**
@@ -77,7 +69,7 @@ export type DDialogSelectItemIsEqual<VALUE> = (a: VALUE, b: VALUE, caller: any) 
 /**
  * {@link DDialogSelect} events.
  */
-export interface DDialogSelectEvents<VALUE, EMITTER> extends DDialogCommandEvents<VALUE, EMITTER> {
+export interface DDialogSelectEvents<VALUE, EMITTER> extends DDialogLayeredEvents<VALUE, EMITTER> {
 	select(value: VALUE, self: EMITTER): void;
 }
 
@@ -95,7 +87,7 @@ export interface DDialogSelectOptions<
 	VALUE,
 	THEME extends DThemeDialogSelect<VALUE> = DThemeDialogSelect<VALUE>,
 	EMITTER = any
-> extends DDialogCommandOptions<VALUE, THEME> {
+> extends DDialogLayeredOptions<VALUE, THEME> {
 	controller?: DDialogSelectController<VALUE>;
 	input?: DDialogSelectInputOpitons;
 	list?: DListOptions<VALUE>;
@@ -106,80 +98,52 @@ export interface DDialogSelectOptions<
 /**
  * {@link DDialogSelect} theme.
  */
-export interface DThemeDialogSelect<VALUE = unknown> extends DThemeDialogCommand {
-	getInputMarginVertical(): number;
-	getInputMarginHorizontal(): number;
+export interface DThemeDialogSelect<VALUE = unknown> extends DThemeDialogLayered {
+	getInputMargin(): number;
 }
 
 export class DDialogSelect<
 	VALUE = unknown,
 	THEME extends DThemeDialogSelect<VALUE> = DThemeDialogSelect<VALUE>,
 	OPTIONS extends DDialogSelectOptions<VALUE, THEME> = DDialogSelectOptions<VALUE, THEME>
-> extends DDialogCommand<VALUE | null, THEME, OPTIONS> {
-	protected _value!: VALUE | null;
-	protected _input!: DInputSearch;
-	protected _list!: DDialogSelectList<VALUE>;
-	protected _search!: DDialogSelectSearch<VALUE>;
+> extends DDialogLayered<VALUE | null, THEME, OPTIONS> {
+	protected _value: VALUE | null;
+	protected _input?: DInputSearch;
+	protected _inputLayout?: DLayoutHorizontal;
+	protected _list?: DDialogSelectList<VALUE>;
+	protected _search?: DDialogSelectSearch<VALUE>;
 	protected _noteError?: DNote | null;
 	protected _noteNoItemsFound?: DNote | null;
 	protected _noteSearching?: DNote | null;
 
-	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
+	constructor(options?: OPTIONS) {
+		super(options);
+
 		this._value = null;
-		const theme = this.theme;
-
-		// Search box
-		const input = this.newInput(theme, options);
-		this._input = input;
-		layout.addChild(this.newInputLayout(layout, input, theme, options));
-
-		// List
-		const list = this.newList(theme, options);
-		this._list = list;
-		layout.addChild(list);
-
-		// Error note
-		const noteOptions = options?.note;
-		const noteError = this.newNoteError(list, noteOptions);
-		this._noteError = noteError;
-
-		// No items found note
-		const noteNoItemsFound = this.newNoteNoItemsFound(list, noteOptions);
-		this._noteNoItemsFound = noteNoItemsFound;
-
-		// Searching note
-		const noteSearching = this.newNoteSearching(list, noteOptions);
-		this._noteSearching = noteSearching;
 
 		// Controller binding
-		const search = this.toSearch(options?.controller);
-		this._search = search;
-		input.on("input", (value: string): void => {
-			search.create([value]);
-		});
-
+		const search = this.search;
 		search.on("success", (e: unknown, results: VALUE[]): void => {
 			this.onSearched(results);
 		});
 		search.on("fail", (): void => {
 			this.onSearched([]);
 		});
-
-		// Visibility
 		const transition = new UtilTransition();
 		search.on("change", (): void => {
 			if (search.isDone()) {
-				const result = search.getResult();
-				if (result != null) {
-					if (0 < result.length) {
+				const searchResult = search.getResult();
+				if (searchResult != null) {
+					if (0 < searchResult.length) {
 						transition.hide();
 					} else {
-						transition.show(noteNoItemsFound);
+						transition.show(this.noteNoItemsFound);
 					}
 				} else {
-					transition.show(noteError);
+					transition.show(this.noteError);
 				}
 			} else {
+				const noteSearching = this.noteSearching;
 				if (noteSearching) {
 					transition.show(noteSearching);
 				}
@@ -187,8 +151,61 @@ export class DDialogSelect<
 		});
 	}
 
-	protected newInput(theme: THEME, options?: OPTIONS): DInputSearch {
-		return new DInputSearch(this.toInputOptions(theme, options));
+	protected newContentChildren(theme: THEME, options?: OPTIONS): Array<DisplayObject | null> {
+		const result = super.newContentChildren(theme, options);
+		result.push(this.inputLayout, this.list);
+		return result;
+	}
+
+	protected get inputLayout(): DLayoutHorizontal {
+		let result = this._inputLayout;
+		if (result == null) {
+			result = this.newInputLayout(this.input, this.theme, this._options);
+			this._inputLayout = result;
+		}
+		return result;
+	}
+
+	protected newInputLayout(
+		input: DInputSearch,
+		theme: THEME,
+		options: OPTIONS | undefined
+	): DLayoutHorizontal {
+		return new DLayoutHorizontal(this.toInputLayoutOptions(input, theme, options));
+	}
+
+	protected toInputLayoutOptions(
+		input: DInputSearch,
+		theme: THEME,
+		options: OPTIONS | undefined
+	): DLayoutHorizontalOptions {
+		const margin = this.toInputMargin(theme, options);
+		return {
+			width: "padding",
+			height: "auto",
+			children: [
+				new DLayoutSpace({ width: margin }),
+				input,
+				new DLayoutSpace({ width: margin })
+			]
+		};
+	}
+
+	get input(): DInputSearch {
+		let result = this._input;
+		if (result == null) {
+			result = this.newInput();
+			this._input = result;
+		}
+		return result;
+	}
+
+	protected newInput(): DInputSearch {
+		const result = new DInputSearch(this.toInputOptions(this.theme, this._options));
+		result.on("input", (value: string): void => {
+			this.search.create([value]);
+		});
+		return result;
 	}
 
 	protected toInputOptions(theme: THEME, options?: OPTIONS): DInputSearchOptions {
@@ -199,59 +216,29 @@ export class DDialogSelect<
 		return result;
 	}
 
-	protected newInputLayout(
-		layout: DLayoutHorizontal | DLayoutVertical,
-		input: DInputSearch,
-		theme: THEME,
-		options: OPTIONS | undefined
-	): DLayoutHorizontal {
-		return new DLayoutHorizontal(this.toInputLayoutOptions(layout, input, theme, options));
+	protected toInputMargin(theme: THEME, options?: OPTIONS): number {
+		return options?.input?.margin ?? theme.getInputMargin();
 	}
 
-	protected toInputLayoutOptions(
-		layout: DLayoutHorizontal | DLayoutVertical,
-		input: DInputSearch,
-		theme: THEME,
-		options: OPTIONS | undefined
-	): DLayoutHorizontalOptions {
-		const margin = this.toInputMargin(theme, options);
-		const marginHorizontal = margin.horizontal;
-		const marginVertical = margin.vertical + this.padding.getTop() - layout.margin.vertical;
-		return {
-			width: "padding",
-			height: "auto",
-			padding: {
-				bottom: Math.max(0, marginVertical)
-			},
-			children: [
-				new DLayoutSpace({ width: marginHorizontal }),
-				input,
-				new DLayoutSpace({ width: marginHorizontal })
-			]
-		};
-	}
-
-	protected toInputMargin(theme: THEME, options?: OPTIONS): DDialogSelectInputMargin {
-		const margin = options?.input?.margin;
-		if (margin != null) {
-			if (isNumber(margin)) {
-				return {
-					horizontal: margin,
-					vertical: margin
-				};
-			} else {
-				const horizontal = margin.horizontal;
-				const vertical = margin.vertical;
-				return {
-					horizontal: horizontal ?? theme.getInputMarginHorizontal(),
-					vertical: vertical ?? theme.getInputMarginVertical()
-				};
-			}
+	get list(): DDialogSelectList<VALUE> {
+		let result = this._list;
+		if (result == null) {
+			result = this.newList();
+			this._list = result;
 		}
-		return {
-			horizontal: theme.getInputMarginHorizontal(),
-			vertical: theme.getInputMarginVertical()
-		};
+		return result;
+	}
+
+	protected newList(): DDialogSelectList<VALUE> {
+		const result = new DDialogSelectList<VALUE>(this.toListOptions(this.theme, this._options));
+		result.selection.on("change", (selection: DListDataSelection<VALUE>): void => {
+			const first = selection.first;
+			if (first != null) {
+				this._value = first;
+				this.onOk(first);
+			}
+		});
+		return result;
 	}
 
 	protected toListOptions(theme: THEME, options?: OPTIONS): DDialogSelectListOptions<VALUE> {
@@ -262,16 +249,58 @@ export class DDialogSelect<
 		return result;
 	}
 
-	protected newList(theme: THEME, options?: OPTIONS): DDialogSelectList<VALUE> {
-		const result = new DDialogSelectList<VALUE>(this.toListOptions(theme, options));
-		result.selection.on("change", (selection: DListDataSelection<VALUE>): void => {
-			const first = selection.first;
-			if (first != null) {
-				this._value = first;
-				this.onOk(first);
-			}
-		});
+	protected get noteError(): DNote | null {
+		let result = this._noteError;
+		if (result == null) {
+			result = this.newNoteError();
+			this._noteError = result;
+		}
 		return result;
+	}
+
+	protected newNoteError(): DNote | null {
+		const error = this._options?.note?.error;
+		if (error !== null) {
+			return new DNoteSmallError(this.toNoteOptions(this.list, error));
+		}
+		return null;
+	}
+
+	protected get noteNoItemsFound(): DNote | null {
+		let result = this._noteNoItemsFound;
+		if (result == null) {
+			result = this.newNoteNoItemsFound();
+			this._noteNoItemsFound = result;
+		}
+		return result;
+	}
+
+	protected newNoteNoItemsFound(): DNote | null {
+		const noItemsFound = this._options?.note?.noItemsFound;
+		if (noItemsFound !== null) {
+			return new DNoteSmallNoItemsFound(this.toNoteOptions(this.list, noItemsFound));
+		}
+		return null;
+	}
+
+	protected get noteSearching(): DNote | null {
+		let result = this._noteSearching;
+		if (result == null) {
+			result = this.newNoteSearching();
+			this._noteSearching = result;
+		}
+		return result;
+	}
+
+	protected newNoteSearching(): DNote | null {
+		const searching = this._options?.note?.searching;
+		// Because the `searcing` note is disabled by default,
+		// if options.searching is missing, i.e., if its value is undefined,
+		// this method returns null. This is why `!=` is used here instead of `!==`.
+		if (searching != null) {
+			return new DNoteSmallSearching(this.toNoteOptions(this.list, searching));
+		}
+		return null;
 	}
 
 	protected toNoteOptions(parent: DBase, options?: DNoteOptions): DNoteOptions {
@@ -290,61 +319,29 @@ export class DDialogSelect<
 		};
 	}
 
-	protected newNoteError(
-		list: DDialogSelectList<VALUE>,
-		options?: DDialogSelectNoteOptions
-	): DNote | null | undefined {
-		const error = options?.error;
-		if (error !== null) {
-			return new DNoteSmallError(this.toNoteOptions(list, error));
+	protected get search(): DDialogSelectSearch<VALUE> {
+		let result = this._search;
+		if (result == null) {
+			result = this.newSearch();
+			this._search = result;
 		}
-		return null;
+		return result;
 	}
 
-	protected newNoteNoItemsFound(
-		list: DDialogSelectList<VALUE>,
-		options?: DDialogSelectNoteOptions
-	): DNote | null | undefined {
-		const noItemsFound = options?.noItemsFound;
-		if (noItemsFound !== null) {
-			return new DNoteSmallNoItemsFound(this.toNoteOptions(list, noItemsFound));
-		}
-		return null;
-	}
-
-	protected newNoteSearching(
-		list: DDialogSelectList<VALUE>,
-		options?: DDialogSelectNoteOptions
-	): DNote | null | undefined {
-		const searching = options?.searching;
-		// Because the `searcing` note is disabled by default,
-		// if options.searching is missing, i.e., if its value is undefined,
-		// this method returns null. This is why `!=` is used here instead of `!==`.
-		if (searching != null) {
-			return new DNoteSmallSearching(this.toNoteOptions(list, searching));
-		}
-		return null;
-	}
-
-	protected toSearch(controller?: DDialogSelectController<VALUE>): DDialogSelectSearch<VALUE> {
-		if (controller) {
-			const search = controller.search;
-			if ("create" in search) {
-				return search;
-			} else {
-				return new DDialogSelectSearh(search);
+	protected newSearch(): DDialogSelectSearch<VALUE> {
+		const options = this._options;
+		if (options) {
+			const controller = options.controller;
+			if (controller) {
+				const search = controller.search;
+				if ("create" in search) {
+					return search;
+				} else {
+					return new DDialogSelectSearh(search);
+				}
 			}
-		} else {
-			return new DDialogSelectSearh();
 		}
-	}
-
-	get input(): DInputSearch {
-		return this._input;
-	}
-
-	get list(): DDialogSelectList<VALUE> {
-		return this._list;
+		return new DDialogSelectSearh();
 	}
 
 	get value(): VALUE | null {
@@ -352,7 +349,7 @@ export class DDialogSelect<
 	}
 
 	protected onSearched(results: VALUE[]): void {
-		this._list.data.items = results;
+		this.list.data.items = results;
 	}
 
 	protected getResolvedValue(): VALUE | null | PromiseLike<VALUE | null> {
@@ -365,8 +362,8 @@ export class DDialogSelect<
 
 	protected onOpen(): void {
 		super.onOpen();
-		this._list.selection.clear();
-		this._search.create([this._input.value]);
+		this.list.selection.clear();
+		this.search.create([this.input.value]);
 	}
 
 	protected onOk(value: VALUE | null | PromiseLike<VALUE | null>): void {
@@ -375,11 +372,26 @@ export class DDialogSelect<
 	}
 
 	destroy(): void {
-		this._input.destroy();
-		this._noteError?.destroy();
-		this._noteNoItemsFound?.destroy();
-		this._noteSearching?.destroy();
-		this._list.destroy();
+		const input = this._input;
+		if (input) {
+			input.destroy();
+		}
+		const noteError = this._noteError;
+		if (noteError) {
+			noteError.destroy();
+		}
+		const noteNoItemsFound = this._noteNoItemsFound;
+		if (noteNoItemsFound) {
+			noteNoItemsFound?.destroy();
+		}
+		const noteSearching = this._noteSearching;
+		if (noteSearching) {
+			noteSearching?.destroy();
+		}
+		const list = this._list;
+		if (list) {
+			list.destroy();
+		}
 		super.destroy();
 	}
 }

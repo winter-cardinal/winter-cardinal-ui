@@ -6,7 +6,7 @@
 import { loadThemeWhiteDialog } from "./load-theme-white-dialog";
 import { loadThemeWhiteDialogColor } from "./load-theme-white-dialog-color";
 import { loadThemeWhiteDialogColorGradient } from "./load-theme-white-dialog-color-gradient";
-import { loadThemeWhiteDialogCommand } from "./load-theme-white-dialog-command";
+import { loadThemeWhiteDialogLayered } from "./load-theme-white-dialog-layered";
 import { loadThemeWhiteDialogConfirm } from "./load-theme-white-dialog-confirm";
 import { loadThemeWhiteDialogConfirmDelete } from "./load-theme-white-dialog-confirm-delete";
 import { loadThemeWhiteDialogConfirmDiscard } from "./load-theme-white-dialog-confirm-discard";
@@ -21,20 +21,22 @@ import { loadThemeWhiteDialogProcessing } from "./load-theme-white-dialog-proces
 import { loadThemeWhiteDialogSaveAs } from "./load-theme-white-dialog-save-as";
 import { loadThemeWhiteDialogSelect } from "./load-theme-white-dialog-select";
 import { loadThemeWhiteDialogTime } from "./load-theme-white-dialog-time";
+import { loadThemeWhiteDialogFitted } from "./load-theme-white-dialog-fitted";
 
 export const loadThemeWhiteDialogAll = (): void => {
 	loadThemeWhiteDialogColorGradient();
 	loadThemeWhiteDialogColor();
-	loadThemeWhiteDialogCommand();
 	loadThemeWhiteDialogConfirmDelete();
 	loadThemeWhiteDialogConfirmDiscard();
 	loadThemeWhiteDialogConfirm();
 	loadThemeWhiteDialogDate();
 	loadThemeWhiteDialogDatetime();
+	loadThemeWhiteDialogFitted();
 	loadThemeWhiteDialogInputBoolean();
 	loadThemeWhiteDialogInputInteger();
 	loadThemeWhiteDialogInputReal();
 	loadThemeWhiteDialogInputText();
+	loadThemeWhiteDialogLayered();
 	loadThemeWhiteDialogMessage();
 	loadThemeWhiteDialogProcessing();
 	loadThemeWhiteDialogSaveAs();

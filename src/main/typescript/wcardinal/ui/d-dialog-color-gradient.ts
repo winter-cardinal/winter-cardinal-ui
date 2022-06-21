@@ -3,30 +3,31 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject } from "pixi.js";
 import { DColorGradient } from "./d-color-gradient";
 import { DColorGradientObservable } from "./d-color-gradient-observable";
-import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
-import { DLayoutVertical } from "./d-layout-vertical";
+import { DDialogFitted, DDialogFittedOptions, DThemeDialogFitted } from "./d-dialog-fitted";
 import { DPickerColorGradient, DPickerColorGradientOptions } from "./d-picker-color-gradient";
 import { DPickerColorGradientRecent } from "./d-picker-color-gradient-recent";
 
 export interface DDialogColorGradientOptions<
 	THEME extends DThemeDialogColorGradient = DThemeDialogColorGradient
-> extends DDialogCommandOptions<DColorGradient, THEME> {
+> extends DDialogFittedOptions<DColorGradient, THEME> {
 	picker?: DPickerColorGradientOptions;
 }
 
-export interface DThemeDialogColorGradient extends DThemeDialogCommand {}
+export interface DThemeDialogColorGradient extends DThemeDialogFitted {}
 
 export class DDialogColorGradient<
 	THEME extends DThemeDialogColorGradient = DThemeDialogColorGradient,
 	OPTIONS extends DDialogColorGradientOptions<THEME> = DDialogColorGradientOptions<THEME>
-> extends DDialogCommand<DColorGradient, THEME, OPTIONS> {
+> extends DDialogFitted<DColorGradient, THEME, OPTIONS> {
 	protected _picker?: DPickerColorGradient;
 
-	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
-		super.onInit(layout, options);
-		layout.addChild(this.picker);
+	protected newContentChildren(theme: THEME, options?: OPTIONS): Array<DisplayObject | null> {
+		const result = super.newContentChildren(theme, options);
+		result.push(this.picker);
+		return result;
 	}
 
 	protected onOk(value: DColorGradient | PromiseLike<DColorGradient>): void {

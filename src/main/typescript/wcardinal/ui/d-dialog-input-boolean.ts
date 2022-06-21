@@ -6,20 +6,26 @@
 import { DDialogInput, DDialogInputOptions, DThemeDialogInput } from "./d-dialog-input";
 import { DInputBoolean, DInputBooleanOptions } from "./d-input-boolean";
 
+export interface DDialogInputBooleanInputOptions extends DInputBooleanOptions {
+	margin?: number;
+}
+
 export interface DDialogInputBooleanOptions<THEME extends DThemeDialogInputBoolean>
-	extends DDialogInputOptions<boolean, DInputBooleanOptions, THEME> {}
+	extends DDialogInputOptions<boolean, DDialogInputBooleanInputOptions, THEME> {}
 
 export interface DThemeDialogInputBoolean extends DThemeDialogInput {}
 
 export class DDialogInputBoolean<
 	THEME extends DThemeDialogInputBoolean = DThemeDialogInputBoolean,
 	OPTIONS extends DDialogInputBooleanOptions<THEME> = DDialogInputBooleanOptions<THEME>
-> extends DDialogInput<boolean, DInputBoolean, DInputBooleanOptions, THEME, OPTIONS> {
-	protected newInput(options?: DInputBooleanOptions): DInputBoolean {
+> extends DDialogInput<boolean, DInputBoolean, DDialogInputBooleanInputOptions, THEME, OPTIONS> {
+	protected newInput(options?: DDialogInputBooleanInputOptions): DInputBoolean {
 		return new DInputBoolean(this.toInputOptions(options));
 	}
 
-	protected toInputOptions(options?: DInputBooleanOptions): DInputBooleanOptions {
+	protected toInputOptions(
+		options?: DDialogInputBooleanInputOptions
+	): DDialogInputBooleanInputOptions {
 		if (options) {
 			if (options.weight === undefined) {
 				options.weight = 1;

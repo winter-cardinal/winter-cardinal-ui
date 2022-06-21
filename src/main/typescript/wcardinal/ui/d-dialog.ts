@@ -9,7 +9,7 @@ import { DApplicationLayerLike } from "./d-application-layer-like";
 import { DApplications } from "./d-applications";
 import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
-import { DFocusable } from "./d-controller-focus";
+import { DControllerFocus, DFocusable } from "./d-controller-focus";
 import { DDialogAlign } from "./d-dialog-align";
 import { DDialogCloseOn } from "./d-dialog-close-on";
 import { DDialogGesture, DDialogGestureOptions } from "./d-dialog-gesture";
@@ -298,10 +298,13 @@ export class DDialog<
 			if (layer) {
 				const focusController = layer.getFocusController();
 				this._focused = focusController.get();
-				const firstFocusable = focusController.find(this, false, true, true);
-				focusController.focus(firstFocusable || this);
+				focusController.focus(this.findFirstFocusable(focusController) || this);
 			}
 		}
+	}
+
+	protected findFirstFocusable(focusController: DControllerFocus): DFocusable | null {
+		return focusController.find(this, false, true, true);
 	}
 
 	/**

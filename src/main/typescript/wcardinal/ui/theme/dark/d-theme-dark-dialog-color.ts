@@ -3,24 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCoordinateSize } from "../../d-coordinate";
 import { DThemeDialogColor } from "../../d-dialog-color";
-import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
+import { DThemeDarkDialogFitted } from "./d-theme-dark-dialog-fitted";
 
-export class DThemeDarkDialogColor extends DThemeDarkDialogCommand implements DThemeDialogColor {
-	getWidth(): DCoordinateSize {
-		return "auto";
-	}
-
-	getHeight(): DCoordinateSize {
-		return "auto";
-	}
-
-	getLayoutWidth(): DCoordinateSize {
-		return "auto";
-	}
-
-	getLayoutHeight(): DCoordinateSize {
-		return "auto";
-	}
-}
+export class DThemeDarkDialogColor extends DThemeDarkDialogFitted implements DThemeDialogColor {}

@@ -3,28 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject } from "pixi.js";
 import { DColorAndAlpha } from "./d-color-and-alpha";
-import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
-import { DLayoutVertical } from "./d-layout-vertical";
+import { DDialogFitted, DDialogFittedOptions, DThemeDialogFitted } from "./d-dialog-fitted";
 import { DPickerColor, DPickerColorOptions } from "./d-picker-color";
 import { DPickerColorRecent } from "./d-picker-color-recent";
 
 export interface DDialogColorOptions<THEME extends DThemeDialogColor = DThemeDialogColor>
-	extends DDialogCommandOptions<DColorAndAlpha, THEME> {
+	extends DDialogFittedOptions<DColorAndAlpha, THEME> {
 	picker?: DPickerColorOptions;
 }
 
-export interface DThemeDialogColor extends DThemeDialogCommand {}
+export interface DThemeDialogColor extends DThemeDialogFitted {}
 
 export class DDialogColor<
 	THEME extends DThemeDialogColor = DThemeDialogColor,
 	OPTIONS extends DDialogColorOptions<THEME> = DDialogColorOptions<THEME>
-> extends DDialogCommand<DColorAndAlpha, THEME, OPTIONS> {
+> extends DDialogFitted<DColorAndAlpha, THEME, OPTIONS> {
 	protected _picker?: DPickerColor;
 
-	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
-		super.onInit(layout, options);
-		layout.addChild(this.picker);
+	protected newContentChildren(theme: THEME, options?: OPTIONS): Array<DisplayObject | null> {
+		const result = super.newContentChildren(theme, options);
+		result.push(this.picker);
+		return result;
 	}
 
 	protected onOk(value: DColorAndAlpha | PromiseLike<DColorAndAlpha>): void {

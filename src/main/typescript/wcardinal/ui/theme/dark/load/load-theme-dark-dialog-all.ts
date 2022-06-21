@@ -6,7 +6,7 @@
 import { loadThemeDarkDialog } from "./load-theme-dark-dialog";
 import { loadThemeDarkDialogColor } from "./load-theme-dark-dialog-color";
 import { loadThemeDarkDialogColorGradient } from "./load-theme-dark-dialog-color-gradient";
-import { loadThemeDarkDialogCommand } from "./load-theme-dark-dialog-command";
+import { loadThemeDarkDialogLayered } from "./load-theme-dark-dialog-layered";
 import { loadThemeDarkDialogConfirm } from "./load-theme-dark-dialog-confirm";
 import { loadThemeDarkDialogConfirmDelete } from "./load-theme-dark-dialog-confirm-delete";
 import { loadThemeDarkDialogConfirmDiscard } from "./load-theme-dark-dialog-confirm-discard";
@@ -21,20 +21,22 @@ import { loadThemeDarkDialogProcessing } from "./load-theme-dark-dialog-processi
 import { loadThemeDarkDialogSaveAs } from "./load-theme-dark-dialog-save-as";
 import { loadThemeDarkDialogSelect } from "./load-theme-dark-dialog-select";
 import { loadThemeDarkDialogTime } from "./load-theme-dark-dialog-time";
+import { loadThemeDarkDialogFitted } from "./load-theme-dark-dialog-fitted";
 
 export const loadThemeDarkDialogAll = (): void => {
 	loadThemeDarkDialogColorGradient();
 	loadThemeDarkDialogColor();
-	loadThemeDarkDialogCommand();
 	loadThemeDarkDialogConfirm();
 	loadThemeDarkDialogConfirmDelete();
 	loadThemeDarkDialogConfirmDiscard();
 	loadThemeDarkDialogDate();
 	loadThemeDarkDialogDatetime();
+	loadThemeDarkDialogFitted();
 	loadThemeDarkDialogInputBoolean();
 	loadThemeDarkDialogInputInteger();
 	loadThemeDarkDialogInputReal();
 	loadThemeDarkDialogInputText();
+	loadThemeDarkDialogLayered();
 	loadThemeDarkDialogMessage();
 	loadThemeDarkDialogProcessing();
 	loadThemeDarkDialogSaveAs();

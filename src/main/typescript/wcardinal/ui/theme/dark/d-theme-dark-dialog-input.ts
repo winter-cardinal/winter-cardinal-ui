@@ -4,18 +4,14 @@
  */
 
 import { DThemeDialogInput } from "../../d-dialog-input";
-import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
+import { DThemeDarkDialogLayered } from "./d-theme-dark-dialog-layered";
 
-export class DThemeDarkDialogInput extends DThemeDarkDialogCommand implements DThemeDialogInput {
+export class DThemeDarkDialogInput extends DThemeDarkDialogLayered implements DThemeDialogInput {
 	getLabel(): string {
 		return "";
 	}
 
-	getMarginVertical(): number {
-		return 0;
-	}
-
-	getMarginHorizontal(): number {
+	getInputMargin(): number {
 		return 32;
 	}
 }

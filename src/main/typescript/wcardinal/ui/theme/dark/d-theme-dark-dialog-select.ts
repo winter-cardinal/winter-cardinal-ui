@@ -4,30 +4,23 @@
  */
 
 import { DCoordinateSize } from "../../d-coordinate";
+import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogSelect } from "../../d-dialog-select";
-import { DThemeDarkDialogCommand } from "./d-theme-dark-dialog-command";
+import { DThemeDarkDialogLayered } from "./d-theme-dark-dialog-layered";
 
 export class DThemeDarkDialogSelect<VALUE>
-	extends DThemeDarkDialogCommand
+	extends DThemeDarkDialogLayered
 	implements DThemeDialogSelect<VALUE>
 {
 	getWidth(): DCoordinateSize {
 		return 480;
 	}
 
-	getOk(): string | null {
+	getFooter(): DDialogLayeredFooterOptions | undefined | null {
 		return null;
 	}
 
-	getCancel(): string | null {
-		return null;
-	}
-
-	getInputMarginVertical(): number {
-		return 0;
-	}
-
-	getInputMarginHorizontal(): number {
+	getInputMargin(): number {
 		return 32;
 	}
 }

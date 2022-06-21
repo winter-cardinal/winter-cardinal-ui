@@ -23,13 +23,20 @@ export class EShapeActionRuntimeOpenDialogText extends EShapeActionRuntimeOpenDi
 		let dialog = EShapeActionRuntimeOpenDialogText.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogInputText({
-				label: target
+				header: {
+					text: {
+						value: target
+					},
+					button: {
+						close: false
+					}
+				}
 			});
 			EShapeActionRuntimeOpenDialogText.DIALOG = dialog;
 		} else {
-			const label = dialog.label;
-			if (label) {
-				label.text = target;
+			const header = dialog.header;
+			if (header) {
+				header.text = target;
 			}
 		}
 		dialog.value = initial;

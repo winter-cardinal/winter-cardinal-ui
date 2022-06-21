@@ -65,9 +65,9 @@ export class DDialogProcessing<
 		const message = this.message;
 		message.text = this._messageText;
 		message.state.removeAll(DBaseState.SUCCEEDED, DBaseState.FAILED);
-		const buttonLayout = this._buttonLayout;
-		if (buttonLayout != null) {
-			buttonLayout.hide();
+		const footer = this._footer;
+		if (footer != null) {
+			footer.hide();
 		}
 		super.onOpen();
 	}
@@ -91,9 +91,9 @@ export class DDialogProcessing<
 		if (delayClose != null) {
 			this.onDone(delayClose);
 		} else {
-			const buttonLayout = this._buttonLayout;
-			if (buttonLayout != null) {
-				buttonLayout.show();
+			const footer = this._footer;
+			if (footer != null) {
+				footer.show();
 			} else {
 				this.close();
 			}
@@ -105,9 +105,9 @@ export class DDialogProcessing<
 			this.message.text = message;
 		}
 		this.message.state.set(DBaseState.FAILED, DBaseState.SUCCEEDED);
-		const buttonLayout = this._buttonLayout;
-		if (buttonLayout != null) {
-			buttonLayout.show();
+		const footer = this._footer;
+		if (footer != null) {
+			footer.show();
 		} else {
 			this.onDone(this._delayClose);
 		}

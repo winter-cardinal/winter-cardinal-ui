@@ -97,19 +97,19 @@ export class DThemeWhiteDialog extends DThemeWhiteBase implements DThemeDialog {
 	}
 
 	getPaddingLeft(): number {
-		return 16;
+		return 0;
 	}
 
 	getPaddingTop(): number {
-		return 16;
+		return 0;
 	}
 
 	getPaddingRight(): number {
-		return 16;
+		return 0;
 	}
 
 	getPaddingBottom(): number {
-		return 16;
+		return 0;
 	}
 
 	getX(): DCoordinatePosition {

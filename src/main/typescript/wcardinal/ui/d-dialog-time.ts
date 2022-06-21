@@ -3,26 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
-import { DLayoutVertical } from "./d-layout-vertical";
+import { DisplayObject } from "pixi.js";
+import { DDialogFitted, DDialogFittedOptions, DThemeDialogFitted } from "./d-dialog-fitted";
 import { DPickerTime, DPickerTimeOptions } from "./d-picker-time";
 
 export interface DDialogTimeOptions<THEME extends DThemeDialogTime = DThemeDialogTime>
-	extends DDialogCommandOptions<Date, THEME> {
+	extends DDialogFittedOptions<Date, THEME> {
 	picker?: DPickerTimeOptions;
 }
 
-export interface DThemeDialogTime extends DThemeDialogCommand {}
+export interface DThemeDialogTime extends DThemeDialogFitted {}
 
 export class DDialogTime<
 	THEME extends DThemeDialogTime = DThemeDialogTime,
 	OPTIONS extends DDialogTimeOptions<THEME> = DDialogTimeOptions<THEME>
-> extends DDialogCommand<Date, THEME, OPTIONS> {
+> extends DDialogFitted<Date, THEME, OPTIONS> {
 	protected _picker?: DPickerTime;
 
-	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
-		super.onInit(layout, options);
-		layout.addChild(this.picker);
+	protected newContentChildren(theme: THEME, options?: OPTIONS): Array<DisplayObject | null> {
+		const result = super.newContentChildren(theme, options);
+		result.push(this.picker);
+		return result;
 	}
 
 	get current(): Date {

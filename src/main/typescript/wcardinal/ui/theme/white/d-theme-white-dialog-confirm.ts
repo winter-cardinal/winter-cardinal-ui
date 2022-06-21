@@ -3,20 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogConfirm } from "../../d-dialog-confirm";
 import { DStateAwareOrValue } from "../../d-state-aware";
-import { DThemeWhiteDialogCommand } from "./d-theme-white-dialog-command";
+import { DThemeWhiteDialogLayered } from "./d-theme-white-dialog-layered";
 
 export class DThemeWhiteDialogConfirm
-	extends DThemeWhiteDialogCommand
+	extends DThemeWhiteDialogLayered
 	implements DThemeDialogConfirm
 {
-	getOk(): string | null {
-		return "Yes";
-	}
-
-	getCancel(): string | null {
-		return "No";
+	getFooter(): DDialogLayeredFooterOptions | undefined | null {
+		return {
+			button: {
+				ok: "Yes",
+				cancel: "No"
+			}
+		};
 	}
 
 	getMessage(): DStateAwareOrValue<string> {

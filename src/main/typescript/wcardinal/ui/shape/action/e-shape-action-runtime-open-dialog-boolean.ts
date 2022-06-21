@@ -23,13 +23,20 @@ export class EShapeActionRuntimeOpenDialogBoolean extends EShapeActionRuntimeOpe
 		let dialog = EShapeActionRuntimeOpenDialogBoolean.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogInputBoolean({
-				label: target
+				header: {
+					text: {
+						value: target
+					},
+					button: {
+						close: false
+					}
+				}
 			});
 			EShapeActionRuntimeOpenDialogBoolean.DIALOG = dialog;
 		} else {
-			const label = dialog.label;
-			if (label) {
-				label.text = target;
+			const header = dialog.header;
+			if (header) {
+				header.text = target;
 			}
 		}
 		dialog.value = initial;

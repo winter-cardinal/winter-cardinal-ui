@@ -30,9 +30,7 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DDialogSelect({
-			parent: application.stage,
-			mode: "MODELESS",
+		var dialog = new wcardinal.ui.DDialogSelect({
 			list: {
 				data: {
 					toId: function (item) {
@@ -56,8 +54,26 @@
 					console.log(selected, dialog);
 				}
 			}
-		})
-		.open();
+		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 300,
+			text: {
+				value: "Open"
+			},
+			on: {
+				active: function (emitter) {
+					dialog.open(emitter).then(function(value){
+						console.log(value);
+					})
+					.catch(function() {
+						console.log("Canceled");
+					});
+				}
+			}
+		});
 	}());
 	</script>
 </body>

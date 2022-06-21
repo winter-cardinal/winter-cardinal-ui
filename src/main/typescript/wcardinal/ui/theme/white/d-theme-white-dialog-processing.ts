@@ -4,6 +4,7 @@
  */
 
 import { DBaseStateSet } from "../../d-base-state-set";
+import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogProcessing } from "../../d-dialog-processing";
 import { DStateAwareOrValue } from "../../d-state-aware";
 import { DThemeWhiteDialogConfirm } from "./d-theme-white-dialog-confirm";
@@ -22,12 +23,13 @@ export class DThemeWhiteDialogProcessing
 	extends DThemeWhiteDialogConfirm
 	implements DThemeDialogProcessing
 {
-	getOk(): string | null {
-		return "OK";
-	}
-
-	getCancel(): string | null {
-		return null;
+	getFooter(): DDialogLayeredFooterOptions | undefined | null {
+		return {
+			button: {
+				ok: "Save",
+				cancel: null
+			}
+		};
 	}
 
 	getMessage(): DStateAwareOrValue<string> {

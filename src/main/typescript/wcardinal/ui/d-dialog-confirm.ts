@@ -3,32 +3,33 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DisplayObject } from "pixi.js";
 import { DBase } from "./d-base";
-import { DDialogCommand, DDialogCommandOptions, DThemeDialogCommand } from "./d-dialog-command";
+import { DDialogLayered, DDialogLayeredOptions, DThemeDialogLayered } from "./d-dialog-layered";
 import { DDialogConfirmMessage, DDialogConfirmMessageOptions } from "./d-dialog-confirm-message";
-import { DLayoutVertical } from "./d-layout-vertical";
 import { DStateAwareOrValue } from "./d-state-aware";
 import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
 
 export interface DDialogConfirmOptions<THEME extends DThemeDialogConfirm = DThemeDialogConfirm>
-	extends DDialogCommandOptions<void, THEME> {
+	extends DDialogLayeredOptions<void, THEME> {
 	message?: DStateAwareOrValue<string> | DDialogConfirmMessageOptions | DDialogConfirmMessage;
 }
 
-export interface DThemeDialogConfirm extends DThemeDialogCommand {
+export interface DThemeDialogConfirm extends DThemeDialogLayered {
 	getMessage(): DStateAwareOrValue<string>;
 }
 
 export class DDialogConfirm<
 	THEME extends DThemeDialogConfirm = DThemeDialogConfirm,
 	OPTIONS extends DDialogConfirmOptions<THEME> = DDialogConfirmOptions<THEME>
-> extends DDialogCommand<void, THEME, OPTIONS> {
+> extends DDialogLayered<void, THEME, OPTIONS> {
 	protected _message?: DDialogConfirmMessage;
 
-	protected onInit(layout: DLayoutVertical, options?: OPTIONS): void {
-		super.onInit(layout, options);
-		layout.addChild(this.message);
+	protected newContentChildren(theme: THEME, options?: OPTIONS): Array<DisplayObject | null> {
+		const result = super.newContentChildren(theme, options);
+		result.push(this.message);
+		return result;
 	}
 
 	protected toMessage(theme: THEME, options?: OPTIONS): DDialogConfirmMessage {
