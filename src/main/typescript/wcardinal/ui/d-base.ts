@@ -1566,6 +1566,10 @@ export class DBase<
 		return this._state;
 	}
 
+	get options(): OPTIONS | undefined {
+		return this._options;
+	}
+
 	get theme(): THEME {
 		return this._theme;
 	}
