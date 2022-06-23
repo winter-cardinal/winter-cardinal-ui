@@ -157,17 +157,18 @@ export class DDialog<
 		// Gesture
 		this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
 
+		// Visibility
+		this.visible = false;
+
 		// State
 		switch (mode) {
 			case DDialogMode.MODAL:
-				this.visible = false;
 				this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MODAL);
 				break;
 			case DDialogMode.MODELESS:
 				this.state.add(DDialogState.MODELESS);
 				break;
 			case DDialogMode.MENU:
-				this.visible = false;
 				this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MENU);
 				break;
 		}
@@ -289,9 +290,13 @@ export class DDialog<
 
 	protected onAnimationEnd(isReverse: boolean): void {
 		if (isReverse) {
-			const parent = this.parent;
-			if (parent) {
-				parent.removeChild(this);
+			if (this._mode === DDialogMode.MODELESS) {
+				this.hide();
+			} else {
+				const parent = this.parent;
+				if (parent) {
+					parent.removeChild(this);
+				}
 			}
 		} else {
 			const layer = DApplications.getLayer(this);
@@ -337,6 +342,7 @@ export class DDialog<
 					break;
 				case DDialogMode.MODELESS:
 					layer = DApplications.getLayer(this);
+					this.show();
 					break;
 			}
 			this._layer = layer;
