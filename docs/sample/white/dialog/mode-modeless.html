@@ -22,15 +22,36 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.191.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.191.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.193.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.193.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
 		var application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DDialogInputInteger({
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 300,
+			text: {
+				value: "Open"
+			},
+			on: {
+				active: function (emitter) {
+					if (!dialog.isOpened()) {
+						dialog.open(emitter).then(function(value){
+							console.log( value );
+						})
+						.catch(function() {
+							console.log("Canceled");
+						});
+					}
+				}
+			}
+		});
+
+		var dialog = new wcardinal.ui.DDialogInputInteger({
 			parent: application.stage,
 			mode: "MODELESS",
 			on: {
@@ -42,12 +63,12 @@
 					console.log(reason, input);
 				}
 			}
-		})
+		});
 
 		// Even for modeless dialogs, we need to open it explicitly.
 		// This is because some dialogs do their initializations when
 		// they are opened.
-		.open();
+		dialog.open();
 	}());
 	</script>
 </body>

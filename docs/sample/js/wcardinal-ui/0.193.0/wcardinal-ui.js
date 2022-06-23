@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.191.0
+ Winter Cardinal UI v0.193.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -13241,6 +13241,13 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(DBase.prototype, "options", {
+            get: function () {
+                return this._options;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(DBase.prototype, "theme", {
             get: function () {
                 return this._theme;
@@ -23970,17 +23977,17 @@
             this._overlay = new UtilOverlay();
             // Gesture
             this._gesture = new DDialogGestureImpl(this, this.toGestureOptions(mode, theme, options));
+            // Visibility
+            this.visible = false;
             // State
             switch (mode) {
                 case DDialogMode.MODAL:
-                    this.visible = false;
                     this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MODAL);
                     break;
                 case DDialogMode.MODELESS:
                     this.state.add(DDialogState.MODELESS);
                     break;
                 case DDialogMode.MENU:
-                    this.visible = false;
                     this.state.addAll(DBaseState.FOCUS_ROOT, DDialogState.MENU);
                     break;
             }
@@ -24114,9 +24121,14 @@
         };
         DDialog.prototype.onAnimationEnd = function (isReverse) {
             if (isReverse) {
-                var parent_1 = this.parent;
-                if (parent_1) {
-                    parent_1.removeChild(this);
+                if (this._mode === DDialogMode.MODELESS) {
+                    this.hide();
+                }
+                else {
+                    var parent_1 = this.parent;
+                    if (parent_1) {
+                        parent_1.removeChild(this);
+                    }
                 }
             }
             else {
@@ -24160,6 +24172,7 @@
                         break;
                     case DDialogMode.MODELESS:
                         layer = DApplications.getLayer(this);
+                        this.show();
                         break;
                 }
                 this._layer = layer;
