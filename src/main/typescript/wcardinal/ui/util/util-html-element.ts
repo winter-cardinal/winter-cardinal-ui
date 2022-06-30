@@ -9,6 +9,10 @@ import { DBase } from "../d-base";
 import { DBaseStateSet } from "../d-base-state-set";
 import { DFocusableMightBe } from "../d-controller-focus";
 import { toEnum } from "./to-enum";
+import { UtilHtmlElementOverlapper } from "./util-html-element-overlapper";
+import { UtilHtmlElementOverlapperImpl } from "./util-html-element-overlapper-impl";
+import { UtilHtmlElementOverlapperRects } from "./util-html-element-overlapper-rects";
+import { UtilHtmlElementOverlapperRectsImpl } from "./util-html-element-overlapper-rects-impl";
 import { UtilHtmlElementWhen } from "./util-html-element-when";
 
 export interface UtilHtmlElementPaddingLTRB {
@@ -32,7 +36,8 @@ export type UtilHtmlElementStyler<T extends HTMLElement> = (
 	padding: UtilHtmlElementPadding | null,
 	elementRect: Rectangle | null,
 	elementMatrix: Matrix | null,
-	clipperRect: Rectangle | null
+	clipperRect: Rectangle | null,
+	overlapper: UtilHtmlElementOverlapper | null | undefined
 ) => void;
 
 export type UtilHtmlElementStylerBefore = (target: HTMLDivElement) => void;
@@ -81,7 +86,8 @@ export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
 		padding: UtilHtmlElementPadding | null,
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		clipperRect: Rectangle | null
+		clipperRect: Rectangle | null,
+		overlapper: UtilHtmlElementOverlapper | null | undefined
 	): void;
 	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 	setClipperStyle(
@@ -90,7 +96,8 @@ export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
 		padding: UtilHtmlElementPadding | null,
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		clipperRect: Rectangle | null
+		clipperRect: Rectangle | null,
+		overlapper: UtilHtmlElementOverlapper | null | undefined
 	): void;
 	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 	setBeforeStyle(target: HTMLDivElement): void;
@@ -141,6 +148,7 @@ export interface UtilHtmlElementOperation<ELEMENT extends HTMLElement> {
 	getElementRect(resolution: number, work: Point, result: Rectangle): Rectangle | null;
 	getElementMatrix(): Matrix | null;
 	getClipperRect(resolution: number, work: Point, result: Rectangle): Rectangle | null;
+	getOverlappingRect?(result: UtilHtmlElementOverlapperRects): void;
 	getPadding(): UtilHtmlElementPadding | null;
 	containsPoint(point: Point): boolean;
 	onStart(): void;
@@ -168,6 +176,9 @@ export class UtilHtmlElement<
 	protected _elementRectResult?: Rectangle;
 	protected _isElementShown: boolean;
 	protected _onElementFocusBound: (e: FocusEvent) => void;
+
+	protected _overlapper?: UtilHtmlElementOverlapper | null;
+	protected _overlapperRects?: UtilHtmlElementOverlapperRects;
 
 	protected _before?: HTMLDivElement | null;
 	protected _onBeforeFocusBound: (e: FocusEvent) => void;
@@ -201,6 +212,10 @@ export class UtilHtmlElement<
 		this._onAfterFocusBound = (e: FocusEvent): void => {
 			this.onAfterFocus(e);
 		};
+
+		if (operation.getOverlappingRect != null) {
+			this._overlapperRects = new UtilHtmlElementOverlapperRectsImpl();
+		}
 
 		this._isStarted = false;
 		this._wasStarted = false;
@@ -241,7 +256,8 @@ export class UtilHtmlElement<
 			padding: UtilHtmlElementPadding | null,
 			elementRect: Rectangle | null,
 			elementMatrix: Matrix | null,
-			clipperRect: Rectangle | null
+			clipperRect: Rectangle | null,
+			overlapper: UtilHtmlElementOverlapper | null | undefined
 		): void => {
 			return theme.setElementStyle(
 				target,
@@ -249,7 +265,8 @@ export class UtilHtmlElement<
 				padding,
 				elementRect,
 				elementMatrix,
-				clipperRect
+				clipperRect,
+				overlapper
 			);
 		};
 	}
@@ -271,7 +288,8 @@ export class UtilHtmlElement<
 			padding: UtilHtmlElementPadding | null,
 			elementRect: Rectangle | null,
 			elementMatrix: Matrix | null,
-			clipperRect: Rectangle | null
+			clipperRect: Rectangle | null,
+			overlapper: UtilHtmlElementOverlapper | null | undefined
 		): void => {
 			return theme.setClipperStyle(
 				target,
@@ -279,7 +297,8 @@ export class UtilHtmlElement<
 				padding,
 				elementRect,
 				elementMatrix,
-				clipperRect
+				clipperRect,
+				overlapper
 			);
 		};
 	}
@@ -438,6 +457,18 @@ export class UtilHtmlElement<
 		return this._operation.getClipperRect(resolution, point, result);
 	}
 
+	protected getOverlapperRects(
+		resolution: number,
+		result: UtilHtmlElementOverlapperRects
+	): boolean {
+		const operation = this._operation;
+		if (operation.getOverlappingRect) {
+			operation.getOverlappingRect(result);
+			return result.isDirty();
+		}
+		return false;
+	}
+
 	protected doStart(renderer?: Renderer): void {
 		if (!this._isElementShown) {
 			this._isElementShown = true;
@@ -464,6 +495,7 @@ export class UtilHtmlElement<
 				const before = this.getBefore(clipper);
 				const element = this.getElement(clipper);
 				const after = this.getAfter(clipper);
+				const overlapper = this.getOverlapper(clipper);
 				if (element) {
 					const resolution = renderer?.resolution ?? DApplications.getResolution(target);
 					const elementRect = this.getElementRect(resolution);
@@ -482,7 +514,8 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						overlapper
 					);
 					options.element.styler(
 						element,
@@ -490,7 +523,8 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						overlapper
 					);
 					if (before) {
 						options.before.styler(before);
@@ -499,6 +533,15 @@ export class UtilHtmlElement<
 						options.after.styler(after);
 					}
 					this.onElementAttached(element, before, after);
+					if (overlapper) {
+						const overlapperRects = this._overlapperRects;
+						if (overlapperRects) {
+							if (this.getOverlapperRects(resolution, overlapperRects)) {
+								overlapper.update(elementRect, elementMatrix, overlapperRects);
+								overlapperRects.toClean();
+							}
+						}
+					}
 
 					// Show HTML elements
 					clipper.style.display = "";
@@ -652,6 +695,19 @@ export class UtilHtmlElement<
 		return result;
 	}
 
+	protected getOverlapper(clipper: HTMLDivElement): UtilHtmlElementOverlapper | null {
+		let result = this._overlapper;
+		if (result === undefined) {
+			if (this._overlapperRects != null) {
+				result = new UtilHtmlElementOverlapperImpl(clipper);
+			} else {
+				result = null;
+			}
+			this._overlapper = result;
+		}
+		return result;
+	}
+
 	protected onBeforeFocus(e: FocusEvent): void {
 		const target = this._target;
 		const layer = DApplications.getLayer(target);
@@ -739,6 +795,7 @@ export class UtilHtmlElement<
 			if (target.worldVisible) {
 				const element = this._element;
 				const clipper = this._clipper;
+				const overlapper = this._overlapper;
 				if (element && clipper) {
 					const resolution = renderer.resolution;
 					const elementRect = this.getElementRect(resolution);
@@ -757,7 +814,8 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						overlapper
 					);
 					options.element.styler(
 						element,
@@ -765,8 +823,18 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						overlapper
 					);
+					if (overlapper) {
+						const overlapperRects = this._overlapperRects;
+						if (overlapperRects) {
+							if (this.getOverlapperRects(resolution, overlapperRects)) {
+								overlapper.update(elementRect, elementMatrix, overlapperRects);
+								overlapperRects.toClean();
+							}
+						}
+					}
 				}
 			} else {
 				switch (this.when) {
