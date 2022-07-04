@@ -11,7 +11,7 @@ import { TEXT_INDEX_COUNT, TEXT_VERTEX_COUNT, toTextBufferCount } from "./build-
 import { BuilderCircle } from "./builder-circle";
 import { BuilderText } from "./builder-text";
 
-export const createCircle = (
+export const createCircleUploaded = (
 	buffer: EShapeBuffer,
 	shape: EShape,
 	voffset: number,
