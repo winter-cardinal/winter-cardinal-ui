@@ -9,6 +9,10 @@ import { DBase } from "../d-base";
 import { DBaseStateSet } from "../d-base-state-set";
 import { DFocusableMightBe } from "../d-controller-focus";
 import { toEnum } from "./to-enum";
+import { UtilHtmlElementClipperEx } from "./util-html-element-clipper-ex";
+import { UtilHtmlElementClipperExImpl } from "./util-html-element-clipper-ex-impl";
+import { UtilHtmlElementClipperExRects } from "./util-html-element-clipper-ex-rects";
+import { UtilHtmlElementClipperExRectsImpl } from "./util-html-element-clipper-ex-rects-impl";
 import { UtilHtmlElementWhen } from "./util-html-element-when";
 
 export interface UtilHtmlElementPaddingLTRB {
@@ -32,7 +36,8 @@ export type UtilHtmlElementStyler<T extends HTMLElement> = (
 	padding: UtilHtmlElementPadding | null,
 	elementRect: Rectangle | null,
 	elementMatrix: Matrix | null,
-	clipperRect: Rectangle | null
+	clipperRect: Rectangle | null,
+	clipperEx: UtilHtmlElementClipperEx | null | undefined
 ) => void;
 
 export type UtilHtmlElementStylerBefore = (target: HTMLDivElement) => void;
@@ -52,6 +57,7 @@ export interface UtilHtmlElementElementOptions<ELEMENT extends HTMLElement> {
 export interface UtilHtmlElementClipperOptions {
 	creator?: UtilHtmlElementCreator<HTMLDivElement>;
 	styler?: UtilHtmlElementStyler<HTMLDivElement>;
+	extended?: boolean;
 }
 
 export interface UtilHtmlElementBeforeOptions {
@@ -81,7 +87,8 @@ export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
 		padding: UtilHtmlElementPadding | null,
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		clipperRect: Rectangle | null
+		clipperRect: Rectangle | null,
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void;
 	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 	setClipperStyle(
@@ -90,8 +97,10 @@ export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
 		padding: UtilHtmlElementPadding | null,
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		clipperRect: Rectangle | null
+		clipperRect: Rectangle | null,
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void;
+	isClipperExEnabled(): boolean;
 	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 	setBeforeStyle(target: HTMLDivElement): void;
 	getAfterCreator(): UtilHtmlElementCreator<HTMLDivElement>;
@@ -108,6 +117,7 @@ export interface UtilHtmlElementElementData<ELEMENT extends HTMLElement> {
 export interface UtilHtmlElementClipperData {
 	creator: UtilHtmlElementCreator<HTMLDivElement>;
 	styler: UtilHtmlElementStyler<HTMLDivElement>;
+	extended: boolean;
 }
 
 export interface UtilHtmlElementBeforeData {
@@ -141,6 +151,7 @@ export interface UtilHtmlElementOperation<ELEMENT extends HTMLElement> {
 	getElementRect(resolution: number, work: Point, result: Rectangle): Rectangle | null;
 	getElementMatrix(): Matrix | null;
 	getClipperRect(resolution: number, work: Point, result: Rectangle): Rectangle | null;
+	getClipperExRects?(result: UtilHtmlElementClipperExRects): void;
 	getPadding(): UtilHtmlElementPadding | null;
 	containsPoint(point: Point): boolean;
 	onStart(): void;
@@ -163,6 +174,9 @@ export class UtilHtmlElement<
 
 	protected _clipper?: HTMLDivElement | null;
 	protected _clipperRectResult?: Rectangle;
+
+	protected _clipperEx?: UtilHtmlElementClipperEx | null;
+	protected _clipperExRects?: UtilHtmlElementClipperExRects | null;
 
 	protected _element?: ELEMENT | null;
 	protected _elementRectResult?: Rectangle;
@@ -241,7 +255,8 @@ export class UtilHtmlElement<
 			padding: UtilHtmlElementPadding | null,
 			elementRect: Rectangle | null,
 			elementMatrix: Matrix | null,
-			clipperRect: Rectangle | null
+			clipperRect: Rectangle | null,
+			clipperEx: UtilHtmlElementClipperEx | null | undefined
 		): void => {
 			return theme.setElementStyle(
 				target,
@@ -249,7 +264,8 @@ export class UtilHtmlElement<
 				padding,
 				elementRect,
 				elementMatrix,
-				clipperRect
+				clipperRect,
+				clipperEx
 			);
 		};
 	}
@@ -260,7 +276,8 @@ export class UtilHtmlElement<
 	): UtilHtmlElementClipperData {
 		return {
 			creator: options?.creator ?? theme.getClipperCreator(),
-			styler: options?.styler ?? this.newClipperStyler(theme)
+			styler: options?.styler ?? this.newClipperStyler(theme),
+			extended: options?.extended ?? theme.isClipperExEnabled()
 		};
 	}
 
@@ -271,7 +288,8 @@ export class UtilHtmlElement<
 			padding: UtilHtmlElementPadding | null,
 			elementRect: Rectangle | null,
 			elementMatrix: Matrix | null,
-			clipperRect: Rectangle | null
+			clipperRect: Rectangle | null,
+			clipperEx: UtilHtmlElementClipperEx | null | undefined
 		): void => {
 			return theme.setClipperStyle(
 				target,
@@ -279,7 +297,8 @@ export class UtilHtmlElement<
 				padding,
 				elementRect,
 				elementMatrix,
-				clipperRect
+				clipperRect,
+				clipperEx
 			);
 		};
 	}
@@ -438,6 +457,17 @@ export class UtilHtmlElement<
 		return this._operation.getClipperRect(resolution, point, result);
 	}
 
+	protected fillClipperExRects(
+		resolution: number,
+		result: UtilHtmlElementClipperExRects
+	): boolean {
+		const operation = this._operation;
+		if (operation.getClipperExRects) {
+			operation.getClipperExRects(result);
+		}
+		return result.isDirty();
+	}
+
 	protected doStart(renderer?: Renderer): void {
 		if (!this._isElementShown) {
 			this._isElementShown = true;
@@ -464,6 +494,7 @@ export class UtilHtmlElement<
 				const before = this.getBefore(clipper);
 				const element = this.getElement(clipper);
 				const after = this.getAfter(clipper);
+				const clipperEx = this.getClipperEx(clipper);
 				if (element) {
 					const resolution = renderer?.resolution ?? DApplications.getResolution(target);
 					const elementRect = this.getElementRect(resolution);
@@ -482,7 +513,8 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						clipperEx
 					);
 					options.element.styler(
 						element,
@@ -490,7 +522,8 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						clipperEx
 					);
 					if (before) {
 						options.before.styler(before);
@@ -499,6 +532,15 @@ export class UtilHtmlElement<
 						options.after.styler(after);
 					}
 					this.onElementAttached(element, before, after);
+					if (clipperEx) {
+						const clipperExRects = this.getClipperExRects();
+						if (clipperExRects) {
+							if (this.fillClipperExRects(resolution, clipperExRects)) {
+								clipperEx.update(elementRect, elementMatrix, clipperExRects);
+								clipperExRects.toClean();
+							}
+						}
+					}
 
 					// Show HTML elements
 					clipper.style.display = "";
@@ -625,6 +667,33 @@ export class UtilHtmlElement<
 		return result;
 	}
 
+	protected getClipperEx(clipper: HTMLDivElement): UtilHtmlElementClipperEx | null {
+		let result = this._clipperEx;
+		if (result === undefined) {
+			const clipperExRects = this.getClipperExRects();
+			if (clipperExRects != null) {
+				result = new UtilHtmlElementClipperExImpl(clipper);
+			} else {
+				result = null;
+			}
+			this._clipperEx = result;
+		}
+		return result;
+	}
+
+	protected getClipperExRects(): UtilHtmlElementClipperExRects | null {
+		let result = this._clipperExRects;
+		if (result === undefined) {
+			if (this._data.clipper.extended) {
+				result = new UtilHtmlElementClipperExRectsImpl();
+			} else {
+				result = null;
+			}
+			this._clipperExRects = result;
+		}
+		return result;
+	}
+
 	protected getElement(clipper: HTMLDivElement): ELEMENT | null {
 		let result = this._element;
 		if (result == null) {
@@ -739,6 +808,7 @@ export class UtilHtmlElement<
 			if (target.worldVisible) {
 				const element = this._element;
 				const clipper = this._clipper;
+				const clipperEx = this._clipperEx;
 				if (element && clipper) {
 					const resolution = renderer.resolution;
 					const elementRect = this.getElementRect(resolution);
@@ -757,7 +827,8 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						clipperEx
 					);
 					options.element.styler(
 						element,
@@ -765,8 +836,18 @@ export class UtilHtmlElement<
 						padding,
 						elementRect,
 						elementMatrix,
-						clipperRect
+						clipperRect,
+						clipperEx
 					);
+					if (clipperEx) {
+						const clipperExRects = this.getClipperExRects();
+						if (clipperExRects) {
+							if (this.fillClipperExRects(resolution, clipperExRects)) {
+								clipperEx.update(elementRect, elementMatrix, clipperExRects);
+								clipperExRects.toClean();
+							}
+						}
+					}
 				}
 			} else {
 				switch (this.when) {

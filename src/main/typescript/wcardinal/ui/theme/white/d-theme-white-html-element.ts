@@ -3,6 +3,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeHtmlElement } from "../../d-html-element";
 import { DHtmlElementState } from "../../d-html-element-state";
 import { UtilHtmlElementCreator, UtilHtmlElementPadding } from "../../util/util-html-element";
+import { UtilHtmlElementClipperEx } from "../../util/util-html-element-clipper-ex";
 import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
@@ -30,7 +31,8 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 		padding: UtilHtmlElementPadding | null,
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		clipperRect: Rectangle | null
+		clipperRect: Rectangle | null,
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void {
 		// Style
 		const style =
@@ -41,7 +43,8 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 			this.getElementStyleBackground(state) +
 			this.getElementStyleBorder(state) +
 			this.getElementStylePadding(state, padding) +
-			this.getElementStyleOutline(state);
+			this.getElementStyleOutline(state) +
+			this.getElementStyleClipPath(state, clipperEx);
 		target.setAttribute("style", style);
 
 		// ReadOnly
@@ -152,6 +155,17 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 		return "margin: 0;";
 	}
 
+	protected getElementStyleClipPath(
+		state: DBaseStateSet,
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
+	): string {
+		if (clipperEx != null) {
+			const id = clipperEx.id;
+			return `-webkit-clip-path: url(#${id}); clip-path: url(#${id});`;
+		}
+		return "";
+	}
+
 	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement> {
 		return divCreator;
 	}
@@ -162,7 +176,8 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 		padding: UtilHtmlElementPadding | null,
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		clipperRect: Rectangle | null
+		clipperRect: Rectangle | null,
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void {
 		const style =
 			`outline: none; padding: 0; margin: 0; border: none;` +
@@ -202,6 +217,10 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 			this.getClipperStylePositionPosition(rect) +
 			this.getClipperStylePositionSize(rect)
 		);
+	}
+
+	isClipperExEnabled(): boolean {
+		return false;
 	}
 
 	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement> {

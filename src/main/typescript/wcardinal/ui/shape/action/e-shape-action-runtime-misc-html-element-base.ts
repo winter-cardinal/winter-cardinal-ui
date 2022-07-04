@@ -22,6 +22,10 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
+import { UtilHtmlElementClipperExRects } from "../../util/util-html-element-clipper-ex-rects";
+import { EShapeContainer } from "../e-shape-container";
+import { DDiagramLayer } from "../../d-diagram-layer";
+import { isShapeClipperExLoaded } from "../load/load-shape-clipper-ex";
 
 export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 	ELEMENT extends HTMLElement = HTMLElement,
@@ -81,6 +85,10 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 				return this.getClipperToRect(shape, runtime, resolution, work, result);
 			},
 
+			getClipperExRects: (result: UtilHtmlElementClipperExRects): void => {
+				this.getClipperExRects(shape, result);
+			},
+
 			getPadding: (): UtilHtmlElementPadding | null => {
 				return this.getPadding(shape, runtime);
 			},
@@ -111,7 +119,10 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 			element: {
 				creator: this.newElementCreator(shape, runtime)
 			},
-			when: this.toWhen(shape, runtime)
+			when: this.toWhen(shape, runtime),
+			clipper: {
+				extended: isShapeClipperExLoaded()
+			}
 		};
 	}
 
@@ -130,8 +141,7 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 
 	protected containsPoint(shape: EShape, runtime: EShapeRuntime, point: Point): boolean {
 		if (shape.visible) {
-			const local = EShapeActionRuntimeMiscHtmlElementBase.WORK || new Point();
-			EShapeActionRuntimeMiscHtmlElementBase.WORK = local;
+			const local = (EShapeActionRuntimeMiscHtmlElementBase.WORK ??= new Point());
 			shape.toLocal(point, undefined, local);
 			return shape.contains(local.x, local.y) != null;
 		}
@@ -174,6 +184,36 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 	): Rectangle | null {
 		const container = EShapeActionRuntimes.toContainer(shape);
 		return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
+	}
+
+	protected getClipperExRects(shape: EShape, result: UtilHtmlElementClipperExRects): void {
+		result.begin();
+		const target = shape.root.parent as EShapeContainer | null;
+		if (target instanceof DDiagramLayer) {
+			const layerContainer = target.parent;
+			if (layerContainer != null) {
+				const layers = layerContainer.children as DDiagramLayer[];
+				const index = layers.indexOf(target);
+				if (0 <= index) {
+					for (let i = index + 1, imax = layers.length; i < imax; ++i) {
+						const layer = layers[i];
+						if (layer.visible) {
+							const w = layer.width;
+							const h = layer.height;
+							const t = layer.transform.worldTransform;
+							const a = t.a;
+							const b = t.b;
+							const c = t.c;
+							const d = t.d;
+							const tx = t.tx;
+							const ty = t.ty;
+							result.add(tx, ty, a * w + c * h + tx, b * w + d * h + ty);
+						}
+					}
+				}
+			}
+		}
+		result.end();
 	}
 
 	onRender(shape: EShape, runtime: EShapeRuntime, time: number, renderer: Renderer): void {
