@@ -93,6 +93,7 @@ export * from "./deserialize-line-of-triangle-roundeds";
 export * from "./deserialize-line-of-triangles";
 export * from "./deserialize-line";
 export * from "./deserialize-null";
+export * from "./deserialize-rectangle-pivoted";
 export * from "./deserialize-rectangle-rounded";
 export * from "./deserialize-rectangle";
 export * from "./deserialize-triangle-rounded";
