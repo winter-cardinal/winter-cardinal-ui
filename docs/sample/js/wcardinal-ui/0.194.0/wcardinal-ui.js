@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.193.0
+ Winter Cardinal UI v0.194.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -15962,9 +15962,9 @@
     var HEIGHT = 0x8;
     var ROTATION = 0x10;
     var SKEW = 0x20;
-    var ALIGN = 0x40;
-    var REPLACING = 0x80;
-    var GROUPING = 0x100;
+    var REPLACING = 0x40;
+    var GROUPING = 0x80;
+    var UNGROUPING = 0x100;
     var FILL = 0x200;
     var STROKE = 0x400;
     var STROKE_SIDE = 0x800;
@@ -15977,42 +15977,109 @@
     var ORDER_IN_LAYER = 0x40000;
     var CHILDREN = 0x80000;
     var DATA_MAPPING = 0x100000;
-    var COORDINATE = ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW | ALIGN;
+    var COORDINATE = ID | POSITION | WIDTH | HEIGHT | ROTATION | SKEW;
     var SHAPE = REPLACING | GROUPING | FILL | STROKE;
     var LAYER = ORDER_IN_LAYER;
     var PRIMITIVE = COORDINATE | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
+    var GROUP = PRIMITIVE | UNGROUPING;
     var EMBEDDED = COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER | DATA_MAPPING;
     var CONNECTOR = ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
-    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING;
+    var ALL = PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING | UNGROUPING;
     var EShapeCapability = {
         NONE: NONE,
+        /**
+         * Allows shape IDs to be modified.
+         */
         ID: ID,
+        /**
+         * Allows shape positions to be modified.
+         */
         POSITION: POSITION,
+        /**
+         * Allows shape widths to be modified.
+         */
         WIDTH: WIDTH,
+        /**
+         * Allows shape heights to be modified.
+         */
         HEIGHT: HEIGHT,
+        /**
+         * Allows shape rotations to be modified.
+         */
         ROTATION: ROTATION,
+        /**
+         * Allows shape skews to be modified.
+         */
         SKEW: SKEW,
-        ALIGN: ALIGN,
+        /** @deprecated */
+        ALIGN: NONE,
+        /**
+         * Allows shapes to be replaced with other shapes.
+         */
         REPLACING: REPLACING,
+        /**
+         * Allows shapes to be grouped.
+         */
         GROUPING: GROUPING,
+        /**
+         * Allows grouped shapes to be ungrouped.
+         */
+        UNGROUPING: UNGROUPING,
+        /**
+         * Allows shape fills to be modified.
+         */
         FILL: FILL,
+        /**
+         * Allows shape strokes to be modified.
+         */
         STROKE: STROKE,
+        /**
+         * Allows shape stroke sides to be modified.
+         */
         STROKE_SIDE: STROKE_SIDE,
+        /**
+         * Allows shape border radiuses to be modified.
+         */
         BORDER_RADIUS: BORDER_RADIUS,
+        /**
+         * Allows shape texts to be modified.
+         */
         TEXT: TEXT,
+        /**
+         * Allows shape textures to be modified.
+         */
         TEXTURE: TEXTURE,
         /** @deprecated in favor of {@link DATA} */
         TAG: DATA,
+        /**
+         * Allows shape data to be modified.
+         */
         DATA: DATA,
+        /**
+         * Allows shape data mapping to be modified.
+         */
         DATA_MAPPING: DATA_MAPPING,
+        /**
+         * Allows shape actions to be modified.
+         */
         ACTION: ACTION,
+        /**
+         * Allows shape cursors to be modified.
+         */
         CURSOR: CURSOR,
+        /**
+         * Allows shape orders in layer to be modified.
+         */
         ORDER_IN_LAYER: ORDER_IN_LAYER,
+        /**
+         * Allows shape children to be modified.
+         */
         CHILDREN: CHILDREN,
         COORDINATE: COORDINATE,
         SHAPE: SHAPE,
         LAYER: LAYER,
         PRIMITIVE: PRIMITIVE,
+        GROUP: GROUP,
         EMBEDDED: EMBEDDED,
         CONNECTOR: CONNECTOR,
         ALL: ALL
@@ -22110,6 +22177,595 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var UtilHtmlElementClipperExImpl = /** @class */ (function () {
+        function UtilHtmlElementClipperExImpl(container) {
+            var SVG_XMLNS = "http://www.w3.org/2000/svg";
+            var element = document.createElementNS(SVG_XMLNS, "svg");
+            element.setAttribute("style", "position: absolute;");
+            element.setAttribute("width", "0px");
+            element.setAttribute("height", "0px");
+            var defs = document.createElementNS(SVG_XMLNS, "defs");
+            var clipPath = document.createElementNS(SVG_XMLNS, "clipPath");
+            var clipPathId = "clipper_ex_".concat(Math.random().toString(32).substring(2));
+            clipPath.setAttribute("id", clipPathId);
+            clipPath.setAttribute("clipPathUnits", "objectBoundingBox");
+            var path = document.createElementNS(SVG_XMLNS, "path");
+            this._path = path;
+            this._pathD = "";
+            path.setAttribute("clip-rule", "evenodd");
+            clipPath.appendChild(path);
+            defs.appendChild(clipPath);
+            element.appendChild(defs);
+            this._id = clipPathId;
+            container.appendChild(element);
+        }
+        Object.defineProperty(UtilHtmlElementClipperExImpl.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilHtmlElementClipperExImpl.prototype.update = function (elementRect, elementMatrix, clipperExRects) {
+            var d = this.toD(elementRect, elementMatrix, clipperExRects);
+            if (this._pathD != d) {
+                this._path.setAttribute("d", d);
+                this._pathD = d;
+            }
+        };
+        UtilHtmlElementClipperExImpl.prototype.toD = function (elementRect, elementMatrix, clipperExRects) {
+            var _a, _b;
+            if (elementRect == null) {
+                return "";
+            }
+            var w = elementRect.width;
+            var h = elementRect.height;
+            var threshold = 0.0001;
+            if (w < threshold || h < threshold) {
+                return "";
+            }
+            var clipperExRectsSize = clipperExRects.size;
+            if (clipperExRectsSize <= 0) {
+                return "M0,0 h1 v1 h-1z";
+            }
+            var matrix = ((_a = UtilHtmlElementClipperExImpl.WORK_MATRIX) !== null && _a !== void 0 ? _a : (UtilHtmlElementClipperExImpl.WORK_MATRIX = new pixi_js.Matrix()));
+            if (elementMatrix != null) {
+                matrix.copyFrom(elementMatrix);
+                matrix.invert();
+            }
+            else {
+                matrix.identity();
+            }
+            matrix.translate(-elementRect.x, -elementRect.y);
+            matrix.scale(1 / w, 1 / h);
+            var xmin = -1;
+            var xmax = +2;
+            var ymin = -1;
+            var ymax = +2;
+            var result = "";
+            var a = matrix.a;
+            var b = matrix.b;
+            var c = matrix.c;
+            var d = matrix.d;
+            var tx = matrix.tx;
+            var ty = matrix.ty;
+            var rects = ((_b = UtilHtmlElementClipperExImpl.WORK_RECTS) !== null && _b !== void 0 ? _b : (UtilHtmlElementClipperExImpl.WORK_RECTS = []));
+            var rectsLength = this.toRects(clipperExRects, rects);
+            var precision = 5;
+            for (var i = 0; i < rectsLength; i += 4) {
+                var x0 = rects[i + 0];
+                var y0 = rects[i + 1];
+                var x1 = rects[i + 2];
+                var y1 = rects[i + 3];
+                var x2 = a * x0 + c * y0 + tx;
+                var y2 = b * x0 + d * y0 + ty;
+                var x3 = a * x1 + c * y0 + tx;
+                var y3 = b * x1 + d * y0 + ty;
+                var x4 = a * x1 + c * y1 + tx;
+                var y4 = b * x1 + d * y1 + ty;
+                var x5 = a * x0 + c * y1 + tx;
+                var y5 = b * x0 + d * y1 + ty;
+                xmin = Math.min(xmin, x2, x3, x4, x5);
+                xmax = Math.max(xmax, x2, x3, x4, x5);
+                ymin = Math.min(ymin, y2, y3, y4, y5);
+                ymax = Math.max(ymax, y2, y3, y4, y5);
+                var x2s = x2.toFixed(precision);
+                var y2s = y2.toFixed(precision);
+                var x3s = x3.toFixed(precision);
+                var y3s = y3.toFixed(precision);
+                var x4s = x4.toFixed(precision);
+                var y4s = y4.toFixed(precision);
+                var x5s = x5.toFixed(precision);
+                var y5s = y5.toFixed(precision);
+                result += " M".concat(x2s, ",").concat(y2s, " L").concat(x3s, ",").concat(y3s, " L").concat(x4s, ",").concat(y4s, " L").concat(x5s, ",").concat(y5s, "Z");
+            }
+            return "M".concat(xmin, ",").concat(ymin, " L").concat(xmax, ",").concat(ymin, " L").concat(xmax, ",").concat(ymax, " L").concat(xmin, ",").concat(ymax, "Z") + result;
+        };
+        UtilHtmlElementClipperExImpl.prototype.toRects = function (clipperExRects, result) {
+            var data = clipperExRects.data;
+            var size = clipperExRects.size;
+            // Copy all rectangles
+            var imax = size << 2;
+            for (var i = 0; i < imax; i += 4) {
+                var x0 = data[i + 0];
+                var y0 = data[i + 1];
+                var x1 = data[i + 2];
+                var y1 = data[i + 3];
+                if (x0 < x1) {
+                    result[i + 0] = x0;
+                    result[i + 2] = x1;
+                }
+                else {
+                    result[i + 0] = x1;
+                    result[i + 2] = x0;
+                }
+                if (y0 < y1) {
+                    result[i + 1] = y0;
+                    result[i + 3] = y1;
+                }
+                else {
+                    result[i + 1] = y1;
+                    result[i + 3] = y0;
+                }
+            }
+            // Subdivide all rectangles if they have intersections
+            for (var i = 4; i < imax; i += 4) {
+                var x0 = result[i + 0];
+                var y0 = result[i + 1];
+                var x1 = result[i + 2];
+                var y1 = result[i + 3];
+                for (var j = 0; j < i; j += 4) {
+                    var x2 = result[j + 0];
+                    var y2 = result[j + 1];
+                    var x3 = result[j + 2];
+                    var y3 = result[j + 3];
+                    // Check if there are intersections along the X axis.
+                    // Here, ix represents which edges of the i-th rectangle are in the j-th rectangle as follows:
+                    //
+                    // * 0: No edge is in the j-th rectangle,
+                    // * 1: The left edge is in the j-th rectangle,
+                    // * 2: The right edge is in the j-th rectangle, and
+                    // * 3: Both edges are in the j-th rectangle.
+                    //
+                    // The same spplies to the variable jx.
+                    var ix = 0;
+                    var jx = 0;
+                    if (x0 <= x2) {
+                        if (x1 <= x3) {
+                            if (x1 <= x2) {
+                                // x0--x1
+                                //         x2--x3
+                                // In this case, there is no intersection.
+                                continue;
+                            }
+                            else {
+                                // x0----x1
+                                //    x2----x3
+                                ix = 2;
+                                jx = 1;
+                            }
+                        }
+                        else {
+                            // x0--------x1
+                            //    x2--x3
+                            jx = 3;
+                        }
+                    }
+                    else {
+                        if (x1 <= x3) {
+                            //    x0--x1
+                            // x2--------x3
+                            ix = 3;
+                        }
+                        else {
+                            if (x3 <= x0) {
+                                //         x0--x1
+                                // x2--x3
+                                // In this case, there is no intersection.
+                                continue;
+                            }
+                            else {
+                                //    x0----x1
+                                // x2----x3
+                                ix = 1;
+                                jx = 2;
+                            }
+                        }
+                    }
+                    // Check if there are intersections along the Y axis.
+                    //
+                    // * 0: No edge is in a rectangle,
+                    // * 1: The bottom edge is in a rectangle,
+                    // * 2: The top edge is in a rectangle, and
+                    // * 3: Both edges are in a rectangle.
+                    var iy = 0;
+                    var jy = 0;
+                    if (y0 <= y2) {
+                        if (y1 <= y3) {
+                            if (y1 <= y2) {
+                                // y0--y1
+                                //         y2--y3
+                                // In this case, there is no intersection.
+                                continue;
+                            }
+                            else {
+                                // y0----y1
+                                //    y2----y3
+                                iy = 2;
+                                jy = 1;
+                            }
+                        }
+                        else {
+                            // y0--------y1
+                            //    y2--y3
+                            jy = 3;
+                        }
+                    }
+                    else {
+                        if (y1 <= y3) {
+                            //    y0--y1
+                            // y2--------y3
+                            iy = 3;
+                        }
+                        else {
+                            if (y3 <= y0) {
+                                //         y0--y1
+                                // y2--y3
+                                // In this case, there is no intersection.
+                                continue;
+                            }
+                            else {
+                                //    y0----y1
+                                // y2----y3
+                                iy = 1;
+                                jy = 2;
+                            }
+                        }
+                    }
+                    // Count number of i-th rectangle vertices in j-th rectangle.
+                    var ic = 0;
+                    if (ix === 0 || iy === 0) {
+                        ic = 0;
+                    }
+                    else if (ix === 1 || ix === 2) {
+                        if (iy === 3) {
+                            ic = 2;
+                        }
+                        else {
+                            ic = 1;
+                        }
+                    }
+                    else {
+                        if (iy === 3) {
+                            ic = 4;
+                        }
+                        else {
+                            ic = 2;
+                        }
+                    }
+                    // If all the vertices of the i-th rectangle are in j-th rectangle, remove the i-th rectangle.
+                    if (ic === 4) {
+                        if (i + 4 < imax) {
+                            result[i + 0] = result[imax + 0];
+                            result[i + 1] = result[imax + 1];
+                            result[i + 2] = result[imax + 2];
+                            result[i + 3] = result[imax + 3];
+                        }
+                        i -= 4;
+                        imax -= 4;
+                        break;
+                    }
+                    // Count number of j-th rectangle vertices in i-th rectangle.
+                    var jc = 0;
+                    if (jx === 0 || jy === 0) {
+                        jc = 0;
+                    }
+                    else if (jx === 1 || jx === 2) {
+                        if (jy === 3) {
+                            jc = 2;
+                        }
+                        else {
+                            jc = 1;
+                        }
+                    }
+                    else {
+                        if (jy === 3) {
+                            jc = 4;
+                        }
+                        else {
+                            jc = 2;
+                        }
+                    }
+                    // If all the vertices of the j-th rectangle are in the i-th rectangle, remove the j-th rectangle.
+                    if (jc === 4) {
+                        for (var k = j + 4; k < imax; k += 4) {
+                            result[k - 4] = result[k + 0];
+                            result[k - 3] = result[k + 1];
+                            result[k - 2] = result[k + 2];
+                            result[k - 1] = result[k + 3];
+                        }
+                        i -= 4;
+                        imax -= 4;
+                        j -= 4;
+                        continue;
+                    }
+                    // Other cases
+                    if (ic === 0) {
+                        if (jc === 0) {
+                            for (var k = imax - 4; j < k; k -= 4) {
+                                result[k + 4] = result[k + 0];
+                                result[k + 5] = result[k + 1];
+                                result[k + 6] = result[k + 2];
+                                result[k + 7] = result[k + 3];
+                            }
+                            if (jx === 0) {
+                                //      +-----+      y1
+                                // +----|     |----+ y3
+                                // | i  |  j  |    |
+                                // +----|     |----+ y2
+                                //      +-----+      y0
+                                // x0   x2    x3   x1
+                                result[j + 3] = y0;
+                                result[j + 4] = x2;
+                                result[j + 5] = y1;
+                                result[j + 6] = x3;
+                                result[j + 7] = y3;
+                            }
+                            else {
+                                //      +-----+      y1
+                                // +----|     |----+ y3
+                                // | j  |  i  |    |
+                                // +----|     |----+ y2
+                                //      +-----+      y0
+                                // x2   x0    x1   x3
+                                result[j + 2] = x0;
+                                result[j + 4] = x1;
+                                result[j + 5] = y2;
+                                result[j + 6] = x3;
+                                result[j + 7] = y3;
+                            }
+                            i += 4;
+                            imax += 4;
+                            j += 4;
+                        }
+                        else if (jc === 2) {
+                            if (jx === 1) {
+                                // +---------+
+                                // |         |-----+
+                                // |    i    |  j  |
+                                // |         |-----+
+                                // +---------+
+                                result[j + 0] = x1;
+                            }
+                            else if (jx === 2) {
+                                //       +---------+
+                                // +-----|         |
+                                // |  j  |    i    |
+                                // +-----|         |
+                                //       +---------+
+                                result[j + 2] = x0;
+                            }
+                            else if (jy === 1) {
+                                //   +-----+
+                                //   |  j  |
+                                // +---------+
+                                // |         |
+                                // |    i    |
+                                // |         |
+                                // +---------+
+                                result[j + 1] = y1;
+                            }
+                            else if (jy === 2) {
+                                // +---------+
+                                // |         |
+                                // |    i    |
+                                // |         |
+                                // +---------+
+                                //   |  j  |
+                                //   +-----+
+                                result[j + 3] = y0;
+                            }
+                        }
+                    }
+                    else if (ic === 1) {
+                        for (var k = imax - 4; j < k; k -= 4) {
+                            result[k + 4] = result[k + 0];
+                            result[k + 5] = result[k + 1];
+                            result[k + 6] = result[k + 2];
+                            result[k + 7] = result[k + 3];
+                        }
+                        if (jx === 1) {
+                            if (jy === 1) {
+                                //         +---------+
+                                //         |         |
+                                //         |    j    |
+                                // +---------+       |
+                                // |         |-------+
+                                // |    i    |
+                                // |         |
+                                // +---------+
+                                result[j + 0] = x1;
+                                result[j + 4] = x2;
+                                result[j + 5] = y1;
+                                result[j + 6] = x1;
+                                result[j + 7] = y3;
+                            }
+                            else {
+                                // +---------+
+                                // |         |
+                                // |    i    |
+                                // |       +---------+
+                                // +-------|         |
+                                //         |    j    |
+                                //         |         |
+                                //         +---------+
+                                result[j + 0] = x1;
+                                result[j + 4] = x2;
+                                result[j + 5] = y2;
+                                result[j + 6] = x1;
+                                result[j + 7] = y0;
+                            }
+                        }
+                        else {
+                            if (jy === 1) {
+                                // +---------+
+                                // |         |
+                                // |    j    |
+                                // |         |-------+
+                                // +---------+       |
+                                //         |    i    |
+                                //         |         |
+                                //         +---------+
+                                result[j + 2] = x0;
+                                result[j + 4] = x0;
+                                result[j + 5] = y1;
+                                result[j + 6] = x3;
+                                result[j + 7] = y3;
+                            }
+                            else {
+                                //         +---------+
+                                //         |         |
+                                //         |    i    |
+                                // +---------+       |
+                                // |         |-------+
+                                // |    j    |
+                                // |         |
+                                // +---------+
+                                result[j + 2] = x0;
+                                result[j + 4] = x0;
+                                result[j + 5] = y2;
+                                result[j + 6] = x3;
+                                result[j + 7] = y0;
+                            }
+                        }
+                        i += 4;
+                        imax += 4;
+                        j += 4;
+                    }
+                    else if (ic === 2) {
+                        if (ix === 1) {
+                            // +---------+
+                            // |         |-----+
+                            // |    j    |  i  |
+                            // |         |-----+
+                            // +---------+
+                            result[i + 0] = x3;
+                            x0 = x3;
+                        }
+                        else if (ix === 2) {
+                            //       +---------+
+                            // +-----|         |
+                            // |  i  |    j    |
+                            // +-----|         |
+                            //       +---------+
+                            result[i + 2] = x2;
+                            x1 = x2;
+                        }
+                        else if (iy === 1) {
+                            //   +-----+
+                            //   |  i  |
+                            // +---------+
+                            // |         |
+                            // |    j    |
+                            // |         |
+                            // +---------+
+                            result[i + 1] = y3;
+                            y0 = y3;
+                        }
+                        else if (iy === 2) {
+                            // +---------+
+                            // |         |
+                            // |    j    |
+                            // |         |
+                            // +---------+
+                            //   |  i  |
+                            //   +-----+
+                            result[i + 3] = y2;
+                            y1 = y2;
+                        }
+                    }
+                }
+            }
+            return imax;
+        };
+        return UtilHtmlElementClipperExImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var UtilHtmlElementClipperExRectsImpl = /** @class */ (function () {
+        function UtilHtmlElementClipperExRectsImpl() {
+            this._data = [];
+            this._size = 0;
+            this._index = 0;
+            this._isDirty = true;
+        }
+        Object.defineProperty(UtilHtmlElementClipperExRectsImpl.prototype, "data", {
+            get: function () {
+                return this._data;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(UtilHtmlElementClipperExRectsImpl.prototype, "size", {
+            get: function () {
+                return this._size;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        UtilHtmlElementClipperExRectsImpl.prototype.isDirty = function () {
+            return this._isDirty;
+        };
+        UtilHtmlElementClipperExRectsImpl.prototype.toClean = function () {
+            this._isDirty = false;
+        };
+        UtilHtmlElementClipperExRectsImpl.prototype.begin = function () {
+            this._index = 0;
+            return this;
+        };
+        UtilHtmlElementClipperExRectsImpl.prototype.end = function () {
+            var index = this._index;
+            this._size = index;
+            var data = this._data;
+            var newDataLength = index << 2;
+            if (data.length !== newDataLength) {
+                data.length = newDataLength;
+                this._isDirty = true;
+            }
+            return this;
+        };
+        UtilHtmlElementClipperExRectsImpl.prototype.add = function (x0, y0, x1, y1) {
+            var index = this._index << 2;
+            this._index += 1;
+            var data = this._data;
+            if (index < data.length) {
+                if (data[index + 0] !== x0 ||
+                    data[index + 1] !== y0 ||
+                    data[index + 2] !== x1 ||
+                    data[index + 3] !== y1) {
+                    data[index + 0] = x0;
+                    data[index + 1] = y0;
+                    data[index + 2] = x1;
+                    data[index + 3] = y1;
+                    this._isDirty = true;
+                }
+            }
+            else {
+                data.push(x0, y0, x1, y1);
+                this._isDirty = true;
+            }
+            return this;
+        };
+        return UtilHtmlElementClipperExRectsImpl;
+    }());
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     /**
      * {@link DHtmlElement} option when to show a HTML element
      */
@@ -22183,20 +22839,21 @@
             };
         };
         UtilHtmlElement.prototype.newElementStyler = function (theme) {
-            return function (target, state, padding, elementRect, elementMatrix, clipperRect) {
-                return theme.setElementStyle(target, state, padding, elementRect, elementMatrix, clipperRect);
+            return function (target, state, padding, elementRect, elementMatrix, clipperRect, clipperEx) {
+                return theme.setElementStyle(target, state, padding, elementRect, elementMatrix, clipperRect, clipperEx);
             };
         };
         UtilHtmlElement.prototype.toClipperData = function (theme, options) {
-            var _a, _b;
+            var _a, _b, _c;
             return {
                 creator: (_a = options === null || options === void 0 ? void 0 : options.creator) !== null && _a !== void 0 ? _a : theme.getClipperCreator(),
-                styler: (_b = options === null || options === void 0 ? void 0 : options.styler) !== null && _b !== void 0 ? _b : this.newClipperStyler(theme)
+                styler: (_b = options === null || options === void 0 ? void 0 : options.styler) !== null && _b !== void 0 ? _b : this.newClipperStyler(theme),
+                extended: (_c = options === null || options === void 0 ? void 0 : options.extended) !== null && _c !== void 0 ? _c : theme.isClipperExEnabled()
             };
         };
         UtilHtmlElement.prototype.newClipperStyler = function (theme) {
-            return function (target, state, padding, elementRect, elementMatrix, clipperRect) {
-                return theme.setClipperStyle(target, state, padding, elementRect, elementMatrix, clipperRect);
+            return function (target, state, padding, elementRect, elementMatrix, clipperRect, clipperEx) {
+                return theme.setClipperStyle(target, state, padding, elementRect, elementMatrix, clipperRect, clipperEx);
             };
         };
         UtilHtmlElement.prototype.toBeforeData = function (theme, options) {
@@ -22345,6 +23002,13 @@
             this._clipperRectResult = result;
             return this._operation.getClipperRect(resolution, point, result);
         };
+        UtilHtmlElement.prototype.fillClipperExRects = function (resolution, result) {
+            var operation = this._operation;
+            if (operation.getClipperExRects) {
+                operation.getClipperExRects(result);
+            }
+            return result.isDirty();
+        };
         UtilHtmlElement.prototype.doStart = function (renderer) {
             var _a, _b;
             if (!this._isElementShown) {
@@ -22368,6 +23032,7 @@
                     var before = this.getBefore(clipper);
                     var element = this.getElement(clipper);
                     var after = this.getAfter(clipper);
+                    var clipperEx = this.getClipperEx(clipper);
                     if (element) {
                         var resolution = (_b = renderer === null || renderer === void 0 ? void 0 : renderer.resolution) !== null && _b !== void 0 ? _b : DApplications.getResolution(target);
                         var elementRect = this.getElementRect(resolution);
@@ -22376,8 +23041,8 @@
                         var state = target.state;
                         var padding = this._operation.getPadding();
                         var options = this._data;
-                        options.clipper.styler(clipper, state, padding, elementRect, elementMatrix, clipperRect);
-                        options.element.styler(element, state, padding, elementRect, elementMatrix, clipperRect);
+                        options.clipper.styler(clipper, state, padding, elementRect, elementMatrix, clipperRect, clipperEx);
+                        options.element.styler(element, state, padding, elementRect, elementMatrix, clipperRect, clipperEx);
                         if (before) {
                             options.before.styler(before);
                         }
@@ -22385,6 +23050,15 @@
                             options.after.styler(after);
                         }
                         this.onElementAttached(element, before, after);
+                        if (clipperEx) {
+                            var clipperExRects = this.getClipperExRects();
+                            if (clipperExRects) {
+                                if (this.fillClipperExRects(resolution, clipperExRects)) {
+                                    clipperEx.update(elementRect, elementMatrix, clipperExRects);
+                                    clipperExRects.toClean();
+                                }
+                            }
+                        }
                         // Show HTML elements
                         clipper.style.display = "";
                         if (state.isFocused) {
@@ -22480,6 +23154,33 @@
                 var layer = DApplications.getLayer(this._target);
                 result = layer ? this._data.clipper.creator(layer.getElementContainer()) : null;
                 this._clipper = result;
+            }
+            return result;
+        };
+        UtilHtmlElement.prototype.getClipperEx = function (clipper) {
+            var result = this._clipperEx;
+            if (result === undefined) {
+                var clipperExRects = this.getClipperExRects();
+                if (clipperExRects != null) {
+                    result = new UtilHtmlElementClipperExImpl(clipper);
+                }
+                else {
+                    result = null;
+                }
+                this._clipperEx = result;
+            }
+            return result;
+        };
+        UtilHtmlElement.prototype.getClipperExRects = function () {
+            var result = this._clipperExRects;
+            if (result === undefined) {
+                if (this._data.clipper.extended) {
+                    result = new UtilHtmlElementClipperExRectsImpl();
+                }
+                else {
+                    result = null;
+                }
+                this._clipperExRects = result;
             }
             return result;
         };
@@ -22582,6 +23283,7 @@
                 if (target.worldVisible) {
                     var element = this._element;
                     var clipper = this._clipper;
+                    var clipperEx = this._clipperEx;
                     if (element && clipper) {
                         var resolution = renderer.resolution;
                         var elementRect = this.getElementRect(resolution);
@@ -22590,8 +23292,17 @@
                         var state = target.state;
                         var padding = this._operation.getPadding();
                         var options = this._data;
-                        options.clipper.styler(clipper, state, padding, elementRect, elementMatrix, clipperRect);
-                        options.element.styler(element, state, padding, elementRect, elementMatrix, clipperRect);
+                        options.clipper.styler(clipper, state, padding, elementRect, elementMatrix, clipperRect, clipperEx);
+                        options.element.styler(element, state, padding, elementRect, elementMatrix, clipperRect, clipperEx);
+                        if (clipperEx) {
+                            var clipperExRects = this.getClipperExRects();
+                            if (clipperExRects) {
+                                if (this.fillClipperExRects(resolution, clipperExRects)) {
+                                    clipperEx.update(elementRect, elementMatrix, clipperExRects);
+                                    clipperExRects.toClean();
+                                }
+                            }
+                        }
                     }
                 }
                 else {
@@ -22661,6 +23372,270 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
+    var EShapeRectangle = /** @class */ (function (_super) {
+        __extends(EShapeRectangle, _super);
+        function EShapeRectangle(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE; }
+            return _super.call(this, type) || this;
+        }
+        EShapeRectangle.prototype.clone = function () {
+            return new EShapeRectangle(this.type).copy(this);
+        };
+        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
+            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
+                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
+            }
+            return false;
+        };
+        return EShapeRectangle;
+    }(EShapePrimitive));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var EShapeRectanglePivoted = /** @class */ (function (_super) {
+        __extends(EShapeRectanglePivoted, _super);
+        function EShapeRectanglePivoted(type) {
+            if (type === void 0) { type = EShapeType.RECTANGLE_PIVOTED; }
+            return _super.call(this, type) || this;
+        }
+        EShapeRectanglePivoted.prototype.toHitTestData = function (x, y) {
+            var result = _super.prototype.toHitTestData.call(this, x, y);
+            result.x -= result.width;
+            result.y -= result.height;
+            return result;
+        };
+        return EShapeRectanglePivoted;
+    }(EShapeRectangle));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var DDiagramLayer = /** @class */ (function (_super) {
+        __extends(DDiagramLayer, _super);
+        function DDiagramLayer(name) {
+            var _this = _super.call(this) || this;
+            _this.name = name;
+            _this.interactive = false;
+            _this.reference = 0;
+            var shape = _this.newShape();
+            shape.parent = _this;
+            _this._shape = shape;
+            _this.interactives = [];
+            return _this;
+        }
+        Object.defineProperty(DDiagramLayer.prototype, "width", {
+            get: function () {
+                return this._shape.size.x;
+            },
+            set: function (width) {
+                this._shape.size.x = width;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramLayer.prototype, "height", {
+            get: function () {
+                return this._shape.size.y;
+            },
+            set: function (height) {
+                this._shape.size.y = height;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramLayer.prototype, "background", {
+            get: function () {
+                return this._shape.fill;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(DDiagramLayer.prototype, "state", {
+            get: function () {
+                return this._shape.state;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        DDiagramLayer.prototype.newShape = function () {
+            var result = new EShapeRectanglePivoted();
+            result.fill.set(false, 0xffffff, 1);
+            result.stroke.set(false);
+            result.state.add(EShapeLayerState.INTERACTIVE);
+            return result;
+        };
+        DDiagramLayer.prototype.initialize = function (actionables) {
+            var interactives = this.interactives;
+            var shape = this._shape;
+            var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
+            var isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE);
+            var isPinchable = shape.state.is(EShapeLayerState.PINCHABLE);
+            if (isDraggable || isPinchable) {
+                var runtime = new EShapeRuntime(shape);
+                shape.runtime = runtime;
+                var gestureType = (isDraggable
+                    ? EShapeActionValueGestureOperationType.DRAG
+                    : EShapeActionValueGestureOperationType.NONE) |
+                    (isPinchable
+                        ? EShapeActionValueGestureOperationType.PINCH
+                        : EShapeActionValueGestureOperationType.NONE);
+                runtime.actions.push(new EShapeActionValueGesture("", EShapeActionValueGestureType.LAYER, gestureType).toRuntime());
+                actionables.push(shape);
+                runtime.initialize(shape);
+            }
+            if (isInteractive || isDraggable || isPinchable) {
+                shape.interactive = true;
+                interactives.push(shape);
+            }
+            this.doInitialize(this.children, interactives);
+        };
+        DDiagramLayer.prototype.doInitialize = function (shapes, interactives) {
+            for (var i = 0, imax = shapes.length; i < imax; ++i) {
+                var shape = shapes[i];
+                var runtime = shape.runtime;
+                if (runtime) {
+                    // Interactives
+                    if (shape.interactive || 0 < shape.cursor.length || runtime.interactive) {
+                        interactives.push(shape);
+                    }
+                }
+                // Children
+                var children = shape.children;
+                if (0 < children.length) {
+                    this.doInitialize(children, interactives);
+                }
+            }
+        };
+        DDiagramLayer.prototype.hitTestInteractives = function (global) {
+            var local = this._work;
+            var interactives = this.interactives;
+            for (var i = interactives.length - 1; 0 <= i; --i) {
+                var interactive = interactives[i];
+                if (interactive.visible) {
+                    interactive.toLocal(global, undefined, local);
+                    if (interactive.contains(local.x, local.y) != null) {
+                        return interactive;
+                    }
+                }
+            }
+            return null;
+        };
+        DDiagramLayer.prototype.addUuid = function (manager) {
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].addUuid(manager);
+            }
+        };
+        DDiagramLayer.prototype.updateUuid = function (manager) {
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                children[i].updateUuid(manager);
+            }
+        };
+        DDiagramLayer.prototype.destroy = function () {
+            if (!this._destroyed) {
+                var children = this.children;
+                for (var i = children.length - 1; 0 <= i; --i) {
+                    children[i].destroy();
+                }
+                children.length = 0;
+                _super.prototype.destroy.call(this);
+            }
+        };
+        DDiagramLayer.prototype.serialize = function (layer, manager, items) {
+            var children = this.children;
+            for (var i = 0, imax = children.length; i < imax; ++i) {
+                var shape_1 = children[i];
+                var item = shape_1.serialize(manager);
+                item[16] = layer;
+                items.push(item);
+            }
+            var shape = this._shape;
+            var nameId = manager.addResource(this.name || "");
+            var visible = (this.visible ? 1 : 0) | (shape.state.is(EShapeLayerState.INVISIBLE) ? 0 : 2);
+            var position = this.position;
+            var size = shape.size;
+            var fill = shape.fill.serialize(manager);
+            var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE) ? 1 : 0;
+            var isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE) ? 2 : 0;
+            var isPinchable = shape.state.is(EShapeLayerState.PINCHABLE) ? 4 : 0;
+            return [
+                nameId,
+                visible,
+                position.x,
+                position.y,
+                size.x,
+                size.y,
+                fill,
+                isInteractive | isDraggable | isPinchable
+            ];
+        };
+        DDiagramLayer.deserialize = function (serialized, manager, width, height) {
+            var _a, _b, _c;
+            var result = new DDiagramLayer(this.deserializeName(serialized[0], manager));
+            var shape = result._shape;
+            var visibility = serialized[1];
+            if (visibility != null) {
+                if (manager.isEditMode && !(visibility & 0x1)) {
+                    result.visible = false;
+                }
+                if (!(visibility & 0x2)) {
+                    shape.state.add(EShapeLayerState.INVISIBLE);
+                    if (!manager.isEditMode) {
+                        result.visible = false;
+                    }
+                }
+            }
+            var positionX = serialized[2];
+            var positionY = serialized[3];
+            result.position.set(positionX, positionY);
+            var sizeX = (_a = serialized[4]) !== null && _a !== void 0 ? _a : width;
+            var sizeY = (_b = serialized[5]) !== null && _b !== void 0 ? _b : height;
+            shape.size.set(sizeX, sizeY);
+            var fillId = serialized[6];
+            if (fillId != null) {
+                shape.fill.deserialize(fillId, manager);
+            }
+            var state = (_c = serialized[7]) !== null && _c !== void 0 ? _c : 1;
+            shape.state.set(EShapeLayerState.INTERACTIVE, !!(state & 0x1));
+            shape.state.set(EShapeLayerState.DRAGGABLE, !!(state & 0x2));
+            shape.state.set(EShapeLayerState.PINCHABLE, !!(state & 0x4));
+            return result;
+        };
+        DDiagramLayer.deserializeName = function (target, manager) {
+            if (isString(target)) {
+                return target;
+            }
+            else {
+                var resources = manager.resources;
+                if (0 <= target && target <= resources.length) {
+                    return resources[target];
+                }
+                return "";
+            }
+        };
+        return DDiagramLayer;
+    }(EShapeContainer));
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
+    var _isShapeClipperExLoaded = false;
+    var loadShapeClipperEx = function () {
+        _isShapeClipperExLoaded = true;
+    };
+    var isShapeClipperExLoaded = function () {
+        return _isShapeClipperExLoaded;
+    };
+
+    /*
+     * Copyright (C) 2019 Toshiba Corporation
+     * SPDX-License-Identifier: Apache-2.0
+     */
     var EShapeActionRuntimeMiscHtmlElementBase = /** @class */ (function (_super) {
         __extends(EShapeActionRuntimeMiscHtmlElementBase, _super);
         function EShapeActionRuntimeMiscHtmlElementBase(value) {
@@ -22693,6 +23668,9 @@
                 getClipperRect: function (resolution, work, result) {
                     return _this.getClipperToRect(shape, runtime, resolution, work, result);
                 },
+                getClipperExRects: function (result) {
+                    _this.getClipperExRects(shape, result);
+                },
                 getPadding: function () {
                     return _this.getPadding(shape, runtime);
                 },
@@ -22715,7 +23693,10 @@
                 element: {
                     creator: this.newElementCreator(shape, runtime)
                 },
-                when: this.toWhen(shape, runtime)
+                when: this.toWhen(shape, runtime),
+                clipper: {
+                    extended: isShapeClipperExLoaded()
+                }
             };
         };
         EShapeActionRuntimeMiscHtmlElementBase.prototype.toWhen = function (shape, runtime) {
@@ -22726,9 +23707,9 @@
             return undefined;
         };
         EShapeActionRuntimeMiscHtmlElementBase.prototype.containsPoint = function (shape, runtime, point) {
+            var _a;
             if (shape.visible) {
-                var local = EShapeActionRuntimeMiscHtmlElementBase.WORK || new pixi_js.Point();
-                EShapeActionRuntimeMiscHtmlElementBase.WORK = local;
+                var local = ((_a = EShapeActionRuntimeMiscHtmlElementBase.WORK) !== null && _a !== void 0 ? _a : (EShapeActionRuntimeMiscHtmlElementBase.WORK = new pixi_js.Point()));
                 shape.toLocal(point, undefined, local);
                 return shape.contains(local.x, local.y) != null;
             }
@@ -22755,6 +23736,35 @@
         EShapeActionRuntimeMiscHtmlElementBase.prototype.getClipperToRect = function (shape, runtime, resolution, point, result) {
             var container = EShapeActionRuntimes.toContainer(shape);
             return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
+        };
+        EShapeActionRuntimeMiscHtmlElementBase.prototype.getClipperExRects = function (shape, result) {
+            result.begin();
+            var target = shape.root.parent;
+            if (target instanceof DDiagramLayer) {
+                var layerContainer = target.parent;
+                if (layerContainer != null) {
+                    var layers = layerContainer.children;
+                    var index = layers.indexOf(target);
+                    if (0 <= index) {
+                        for (var i = index + 1, imax = layers.length; i < imax; ++i) {
+                            var layer = layers[i];
+                            if (layer.visible) {
+                                var w = layer.width;
+                                var h = layer.height;
+                                var t = layer.transform.worldTransform;
+                                var a = t.a;
+                                var b = t.b;
+                                var c = t.c;
+                                var d = t.d;
+                                var tx = t.tx;
+                                var ty = t.ty;
+                                result.add(tx, ty, a * w + c * h + tx, b * w + d * h + ty);
+                            }
+                        }
+                    }
+                }
+            }
+            result.end();
         };
         EShapeActionRuntimeMiscHtmlElementBase.prototype.onRender = function (shape, runtime, time, renderer) {
             this.getUtil(shape, runtime).onRender(renderer);
@@ -23141,6 +24151,9 @@
                 },
                 getClipperRect: function (resolution, work, result) {
                     return _this.getClipperToRect(shape, runtime, resolution, work, result);
+                },
+                getClipperExRects: function (result) {
+                    _this.getClipperExRects(shape, result);
                 },
                 getPadding: function () {
                     return _this.getPadding(shape, runtime);
@@ -33816,7 +34829,7 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var createCircle = function (buffer, shape, voffset, ioffset, antialiasWeight) {
+    var createCircleUploaded = function (buffer, shape, voffset, ioffset, antialiasWeight) {
         var tcount = toTextBufferCount(shape);
         var tvcount = tcount * TEXT_VERTEX_COUNT;
         var ticount = tcount * TEXT_INDEX_COUNT;
@@ -33866,7 +34879,7 @@
      * SPDX-License-Identifier: Apache-2.0
      */
     var loadShapeCircle = function () {
-        EShapeUploadeds[EShapeType.CIRCLE] = createCircle;
+        EShapeUploadeds[EShapeType.CIRCLE] = createCircleUploaded;
         EShapeDeserializers[EShapeType.CIRCLE] = deserializeCircle;
     };
 
@@ -35617,28 +36630,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var EShapeRectangle = /** @class */ (function (_super) {
-        __extends(EShapeRectangle, _super);
-        function EShapeRectangle(type) {
-            if (type === void 0) { type = EShapeType.RECTANGLE; }
-            return _super.call(this, type) || this;
-        }
-        EShapeRectangle.prototype.clone = function () {
-            return new EShapeRectangle(this.type).copy(this);
-        };
-        EShapeRectangle.prototype.containsAbs = function (x, y, ax, ay, sw, ss, sa) {
-            if (_super.prototype.containsAbsBBox.call(this, x, y, ax, ay)) {
-                return hitTestRectangle(this, x, y, ax, ay, sw, ss);
-            }
-            return false;
-        };
-        return EShapeRectangle;
-    }(EShapePrimitive));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var create = function (name, width, height, container, manager, item, shape) {
         shape = shape || new EShapeEmbedded(name, manager.isEditMode);
         var result = deserializeBase(item, manager, shape);
@@ -36428,6 +37419,7 @@
     var loadShapeGroup = function () {
         EShapeUploadeds[EShapeType.GROUP] = createGroupUploaded;
         EShapeDeserializers[EShapeType.GROUP] = deserializeGroup;
+        EShapeCapabilities.set(EShapeType.GROUP, EShapeCapability.GROUP);
     };
 
     /*
@@ -36564,6 +37556,7 @@
     var loadShapeGroupShadowed = function () {
         EShapeUploadeds[EShapeType.GROUP_SHADOWED] = createGroupUploaded;
         EShapeDeserializers[EShapeType.GROUP_SHADOWED] = deserializeGroupShadowed;
+        EShapeCapabilities.set(EShapeType.GROUP_SHADOWED, EShapeCapability.GROUP);
     };
 
     /*
@@ -39692,25 +40685,6 @@
         EShapeDeserializers[EShapeType.RECTANGLE] = deserializeRectangle;
         EShapeCapabilities.set(EShapeType.RECTANGLE, EShapeCapability.PRIMITIVE | EShapeCapability.STROKE_SIDE);
     };
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
-    var EShapeRectanglePivoted = /** @class */ (function (_super) {
-        __extends(EShapeRectanglePivoted, _super);
-        function EShapeRectanglePivoted(type) {
-            if (type === void 0) { type = EShapeType.RECTANGLE_PIVOTED; }
-            return _super.call(this, type) || this;
-        }
-        EShapeRectanglePivoted.prototype.toHitTestData = function (x, y) {
-            var result = _super.prototype.toHitTestData.call(this, x, y);
-            result.x -= result.width;
-            result.y -= result.height;
-            return result;
-        };
-        return EShapeRectanglePivoted;
-    }(EShapeRectangle));
 
     /*
      * Copyright (C) 2019 Toshiba Corporation
@@ -57037,217 +58011,6 @@
      * Copyright (C) 2019 Toshiba Corporation
      * SPDX-License-Identifier: Apache-2.0
      */
-    var DDiagramLayer = /** @class */ (function (_super) {
-        __extends(DDiagramLayer, _super);
-        function DDiagramLayer(name) {
-            var _this = _super.call(this) || this;
-            _this.name = name;
-            _this.interactive = false;
-            _this.reference = 0;
-            var shape = _this.newShape();
-            shape.parent = _this;
-            _this._shape = shape;
-            _this.interactives = [];
-            return _this;
-        }
-        Object.defineProperty(DDiagramLayer.prototype, "width", {
-            get: function () {
-                return this._shape.size.x;
-            },
-            set: function (width) {
-                this._shape.size.x = width;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDiagramLayer.prototype, "height", {
-            get: function () {
-                return this._shape.size.y;
-            },
-            set: function (height) {
-                this._shape.size.y = height;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDiagramLayer.prototype, "background", {
-            get: function () {
-                return this._shape.fill;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(DDiagramLayer.prototype, "state", {
-            get: function () {
-                return this._shape.state;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        DDiagramLayer.prototype.newShape = function () {
-            var result = new EShapeRectanglePivoted();
-            result.fill.set(false, 0xffffff, 1);
-            result.stroke.set(false);
-            result.state.add(EShapeLayerState.INTERACTIVE);
-            return result;
-        };
-        DDiagramLayer.prototype.initialize = function (actionables) {
-            var interactives = this.interactives;
-            var shape = this._shape;
-            var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE);
-            var isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE);
-            var isPinchable = shape.state.is(EShapeLayerState.PINCHABLE);
-            if (isDraggable || isPinchable) {
-                var runtime = new EShapeRuntime(shape);
-                shape.runtime = runtime;
-                var gestureType = (isDraggable
-                    ? EShapeActionValueGestureOperationType.DRAG
-                    : EShapeActionValueGestureOperationType.NONE) |
-                    (isPinchable
-                        ? EShapeActionValueGestureOperationType.PINCH
-                        : EShapeActionValueGestureOperationType.NONE);
-                runtime.actions.push(new EShapeActionValueGesture("", EShapeActionValueGestureType.LAYER, gestureType).toRuntime());
-                actionables.push(shape);
-                runtime.initialize(shape);
-            }
-            if (isInteractive || isDraggable || isPinchable) {
-                shape.interactive = true;
-                interactives.push(shape);
-            }
-            this.doInitialize(this.children, interactives);
-        };
-        DDiagramLayer.prototype.doInitialize = function (shapes, interactives) {
-            for (var i = 0, imax = shapes.length; i < imax; ++i) {
-                var shape = shapes[i];
-                var runtime = shape.runtime;
-                if (runtime) {
-                    // Interactives
-                    if (shape.interactive || 0 < shape.cursor.length || runtime.interactive) {
-                        interactives.push(shape);
-                    }
-                }
-                // Children
-                var children = shape.children;
-                if (0 < children.length) {
-                    this.doInitialize(children, interactives);
-                }
-            }
-        };
-        DDiagramLayer.prototype.hitTestInteractives = function (global) {
-            var local = this._work;
-            var interactives = this.interactives;
-            for (var i = interactives.length - 1; 0 <= i; --i) {
-                var interactive = interactives[i];
-                if (interactive.visible) {
-                    interactive.toLocal(global, undefined, local);
-                    if (interactive.contains(local.x, local.y) != null) {
-                        return interactive;
-                    }
-                }
-            }
-            return null;
-        };
-        DDiagramLayer.prototype.addUuid = function (manager) {
-            var children = this.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                children[i].addUuid(manager);
-            }
-        };
-        DDiagramLayer.prototype.updateUuid = function (manager) {
-            var children = this.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                children[i].updateUuid(manager);
-            }
-        };
-        DDiagramLayer.prototype.destroy = function () {
-            if (!this._destroyed) {
-                var children = this.children;
-                for (var i = children.length - 1; 0 <= i; --i) {
-                    children[i].destroy();
-                }
-                children.length = 0;
-                _super.prototype.destroy.call(this);
-            }
-        };
-        DDiagramLayer.prototype.serialize = function (layer, manager, items) {
-            var children = this.children;
-            for (var i = 0, imax = children.length; i < imax; ++i) {
-                var shape_1 = children[i];
-                var item = shape_1.serialize(manager);
-                item[16] = layer;
-                items.push(item);
-            }
-            var shape = this._shape;
-            var nameId = manager.addResource(this.name || "");
-            var visible = (this.visible ? 1 : 0) | (shape.state.is(EShapeLayerState.INVISIBLE) ? 0 : 2);
-            var position = this.position;
-            var size = shape.size;
-            var fill = shape.fill.serialize(manager);
-            var isInteractive = shape.state.is(EShapeLayerState.INTERACTIVE) ? 1 : 0;
-            var isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE) ? 2 : 0;
-            var isPinchable = shape.state.is(EShapeLayerState.PINCHABLE) ? 4 : 0;
-            return [
-                nameId,
-                visible,
-                position.x,
-                position.y,
-                size.x,
-                size.y,
-                fill,
-                isInteractive | isDraggable | isPinchable
-            ];
-        };
-        DDiagramLayer.deserialize = function (serialized, manager, width, height) {
-            var _a, _b, _c;
-            var result = new DDiagramLayer(this.deserializeName(serialized[0], manager));
-            var shape = result._shape;
-            var visibility = serialized[1];
-            if (visibility != null) {
-                if (manager.isEditMode && !(visibility & 0x1)) {
-                    result.visible = false;
-                }
-                if (!(visibility & 0x2)) {
-                    shape.state.add(EShapeLayerState.INVISIBLE);
-                    if (!manager.isEditMode) {
-                        result.visible = false;
-                    }
-                }
-            }
-            var positionX = serialized[2];
-            var positionY = serialized[3];
-            result.position.set(positionX, positionY);
-            var sizeX = (_a = serialized[4]) !== null && _a !== void 0 ? _a : width;
-            var sizeY = (_b = serialized[5]) !== null && _b !== void 0 ? _b : height;
-            shape.size.set(sizeX, sizeY);
-            var fillId = serialized[6];
-            if (fillId != null) {
-                shape.fill.deserialize(fillId, manager);
-            }
-            var state = (_c = serialized[7]) !== null && _c !== void 0 ? _c : 1;
-            shape.state.set(EShapeLayerState.INTERACTIVE, !!(state & 0x1));
-            shape.state.set(EShapeLayerState.DRAGGABLE, !!(state & 0x2));
-            shape.state.set(EShapeLayerState.PINCHABLE, !!(state & 0x4));
-            return result;
-        };
-        DDiagramLayer.deserializeName = function (target, manager) {
-            if (isString(target)) {
-                return target;
-            }
-            else {
-                var resources = manager.resources;
-                if (0 <= target && target <= resources.length) {
-                    return resources[target];
-                }
-                return "";
-            }
-        };
-        return DDiagramLayer;
-    }(EShapeContainer));
-
-    /*
-     * Copyright (C) 2019 Toshiba Corporation
-     * SPDX-License-Identifier: Apache-2.0
-     */
     var DDiagramLayerContainer = /** @class */ (function (_super) {
         __extends(DDiagramLayerContainer, _super);
         function DDiagramLayerContainer(width, height) {
@@ -70014,6 +70777,8 @@
         loadShapeBar: loadShapeBar,
         loadShapeButton: loadShapeButton,
         loadShapeCircle: loadShapeCircle,
+        loadShapeClipperEx: loadShapeClipperEx,
+        isShapeClipperExLoaded: isShapeClipperExLoaded,
         loadShapeConnectorLine: loadShapeConnectorLine,
         loadShapeEmbedded: loadShapeEmbedded,
         loadShapeGroupShadowed: loadShapeGroupShadowed,
@@ -70147,7 +70912,7 @@
         copyVertex: copyVertex,
         createBarUploaded: createBarUploaded,
         createButtonUploaded: createButtonUploaded,
-        createCircle: createCircle,
+        createCircleUploaded: createCircleUploaded,
         createRectanglePivotedUploaded: createRectanglePivotedUploaded,
         createGroupUploaded: createGroupUploaded,
         createImageSdfUploaded: createImageSdfUploaded,
@@ -70189,6 +70954,7 @@
         deserializeLineOfTriangles: deserializeLineOfTriangles,
         deserializeLine: deserializeLine,
         deserializeNull: deserializeNull,
+        deserializeRectanglePivoted: deserializeRectanglePivoted,
         deserializeRectangleRounded: deserializeRectangleRounded,
         deserializeRectangle: deserializeRectangle,
         deserializeTriangleRounded: deserializeTriangleRounded,
@@ -70443,6 +71209,8 @@
         UtilFileOpener: UtilFileOpener,
         UtilFont: UtilFont,
         UtilHsv: UtilHsv,
+        UtilHtmlElementClipperExImpl: UtilHtmlElementClipperExImpl,
+        UtilHtmlElementClipperExRectsImpl: UtilHtmlElementClipperExRectsImpl,
         UtilHtmlElementWhen: UtilHtmlElementWhen,
         UtilHtmlElement: UtilHtmlElement,
         UtilInputInput: UtilInputInput,

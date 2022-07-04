@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.193.0
+ Winter Cardinal UI v0.194.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -4633,7 +4633,7 @@
         DThemeDarkHtmlElement.prototype.getElementCreator = function () {
             return nullCreator;
         };
-        DThemeDarkHtmlElement.prototype.setElementStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect) {
+        DThemeDarkHtmlElement.prototype.setElementStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect, clipperEx) {
             // Style
             var style = this.getElementStylePointerEvent(state) +
                 this.getElementStylePosition(state, elementRect, elementMatrix, clipperRect) +
@@ -4642,7 +4642,8 @@
                 this.getElementStyleBackground(state) +
                 this.getElementStyleBorder(state) +
                 this.getElementStylePadding(state, padding) +
-                this.getElementStyleOutline(state);
+                this.getElementStyleOutline(state) +
+                this.getElementStyleClipPath(state, clipperEx);
             target.setAttribute("style", style);
             // ReadOnly
             if (state.inReadOnly) {
@@ -4725,10 +4726,17 @@
         DThemeDarkHtmlElement.prototype.getElementStyleMargin = function (state) {
             return "margin: 0;";
         };
+        DThemeDarkHtmlElement.prototype.getElementStyleClipPath = function (state, clipperEx) {
+            if (clipperEx != null) {
+                var id = clipperEx.id;
+                return "-webkit-clip-path: url(#".concat(id, "); clip-path: url(#").concat(id, ");");
+            }
+            return "";
+        };
         DThemeDarkHtmlElement.prototype.getClipperCreator = function () {
             return divCreator$2;
         };
-        DThemeDarkHtmlElement.prototype.setClipperStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect) {
+        DThemeDarkHtmlElement.prototype.setClipperStyle = function (target, state, padding, elementRect, elementMatrix, clipperRect, clipperEx) {
             var style = "outline: none; padding: 0; margin: 0; border: none;" +
                 "background-color: transparent; pointer-events: none;" +
                 this.getClipperStyleOverflow(clipperRect) +
@@ -4758,6 +4766,9 @@
             return ("position: absolute;" +
                 this.getClipperStylePositionPosition(rect) +
                 this.getClipperStylePositionSize(rect));
+        };
+        DThemeDarkHtmlElement.prototype.isClipperExEnabled = function () {
+            return false;
         };
         DThemeDarkHtmlElement.prototype.getBeforeCreator = function () {
             return divCreator$2;
