@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / UtilFontMetrics
+[Winter Cardinal UI - v0.194.0](../index.md) / UtilFontMetrics
 
 # Interface: UtilFontMetrics
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-font.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-font.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L7)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-font.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L8)
+[src/main/typescript/wcardinal/ui/util/util-font.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L8)

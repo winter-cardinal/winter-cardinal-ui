@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / EShapeTextAlignImpl
+[Winter Cardinal UI - v0.194.0](../index.md) / EShapeTextAlignImpl
 
 # Class: EShapeTextAlignImpl
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L18)
 
 ## Properties
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L15)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L14)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L16)
 
 ## Accessors
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L28)
 
 • `set` **horizontal**(`horizontal`): `void`
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L32)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L39)
 
 • `set` **vertical**(`vertical`): `void`
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L43)
 
 ## Methods
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L50)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L85)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L85)
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L81)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L81)
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L56)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L56)
 
 ___
 
@@ -269,4 +269,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L74)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-align-impl.ts#L74)

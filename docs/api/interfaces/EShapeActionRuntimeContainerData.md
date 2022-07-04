@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / EShapeActionRuntimeContainerData
+[Winter Cardinal UI - v0.194.0](../index.md) / EShapeActionRuntimeContainerData
 
 # Interface: EShapeActionRuntimeContainerData
 
@@ -6,6 +6,7 @@
 
 ### Properties
 
+- [private](EShapeActionRuntimeContainerData.md#private)
 - [protected](EShapeActionRuntimeContainerData.md#protected)
 - [remote](EShapeActionRuntimeContainerData.md#remote)
 
@@ -15,13 +16,23 @@
 
 ## Properties
 
+### private
+
+• `Readonly` **private**: [`EShapeActionRuntimeContainerDataScoped`](EShapeActionRuntimeContainerDataScoped.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L24)
+
+___
+
 ### protected
 
 • `Readonly` **protected**: [`EShapeActionRuntimeContainerDataScoped`](EShapeActionRuntimeContainerDataScoped.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L25)
 
 ___
 
@@ -31,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L23)
 
 ## Methods
 
@@ -55,4 +66,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtimes.ts#L27)

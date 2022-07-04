@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DDialogSelectEvents
+[Winter Cardinal UI - v0.194.0](../index.md) / DDialogSelectEvents
 
 # Interface: DDialogSelectEvents<VALUE, EMITTER\>
 
@@ -13,7 +13,7 @@
 
 ## Hierarchy
 
-- [`DDialogCommandEvents`](DDialogCommandEvents.md)<`VALUE`, `EMITTER`\>
+- [`DDialogLayeredEvents`](DDialogLayeredEvents.md)<`VALUE`, `EMITTER`\>
 
   ↳ **`DDialogSelectEvents`**
 
@@ -63,11 +63,11 @@ Triggered when added to a container.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[added](DDialogCommandEvents.md#added)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[added](DDialogLayeredEvents.md#added)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L102)
+[src/main/typescript/wcardinal/ui/d-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L102)
 
 ___
 
@@ -90,11 +90,11 @@ Triggered when a dialog is canceled.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[cancel](DDialogCommandEvents.md#cancel)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[cancel](DDialogLayeredEvents.md#cancel)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-command.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-command.ts#L34)
+[src/main/typescript/wcardinal/ui/d-dialog-layered.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-layered.ts#L33)
 
 ___
 
@@ -116,11 +116,11 @@ Triggered when a dialog is closed.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[close](DDialogCommandEvents.md#close)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[close](DDialogLayeredEvents.md#close)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L46)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L46)
 
 ___
 
@@ -144,11 +144,11 @@ Triggered when an emitter is double clicked.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[dblclick](DDialogCommandEvents.md#dblclick)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[dblclick](DDialogLayeredEvents.md#dblclick)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L235)
+[src/main/typescript/wcardinal/ui/d-base.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L235)
 
 ___
 
@@ -171,11 +171,11 @@ Triggered when a pointer gets down on an emitter.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[down](DDialogCommandEvents.md#down)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[down](DDialogLayeredEvents.md#down)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L218)
+[src/main/typescript/wcardinal/ui/d-base.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L218)
 
 ___
 
@@ -199,11 +199,11 @@ Triggered when an initialization is finished.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[init](DDialogCommandEvents.md#init)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[init](DDialogLayeredEvents.md#init)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L95)
+[src/main/typescript/wcardinal/ui/d-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L95)
 
 ___
 
@@ -226,11 +226,11 @@ Triggered when a key gets down.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[keydown](DDialogCommandEvents.md#keydown)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[keydown](DDialogLayeredEvents.md#keydown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L186)
+[src/main/typescript/wcardinal/ui/d-base.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L186)
 
 ___
 
@@ -253,11 +253,11 @@ Triggered when a key gets up.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[keyup](DDialogCommandEvents.md#keyup)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[keyup](DDialogLayeredEvents.md#keyup)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L194)
+[src/main/typescript/wcardinal/ui/d-base.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L194)
 
 ___
 
@@ -283,11 +283,11 @@ Triggered when moved.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[move](DDialogCommandEvents.md#move)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[move](DDialogLayeredEvents.md#move)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L120)
+[src/main/typescript/wcardinal/ui/d-base.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L120)
 
 ___
 
@@ -310,11 +310,11 @@ Triggered when a dialog is successfully finished.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[ok](DDialogCommandEvents.md#ok)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[ok](DDialogLayeredEvents.md#ok)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-command.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-command.ts#L26)
+[src/main/typescript/wcardinal/ui/d-dialog-layered.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-layered.ts#L25)
 
 ___
 
@@ -336,11 +336,11 @@ Triggered when a dialog is opened.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[open](DDialogCommandEvents.md#open)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[open](DDialogLayeredEvents.md#open)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L39)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L39)
 
 ___
 
@@ -363,11 +363,11 @@ Triggered when a pointer gets out of an emitter.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[out](DDialogCommandEvents.md#out)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[out](DDialogLayeredEvents.md#out)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L210)
+[src/main/typescript/wcardinal/ui/d-base.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L210)
 
 ___
 
@@ -390,11 +390,11 @@ Triggered when a pointer gets on an emitter.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[over](DDialogCommandEvents.md#over)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[over](DDialogLayeredEvents.md#over)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L202)
+[src/main/typescript/wcardinal/ui/d-base.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L202)
 
 ___
 
@@ -416,11 +416,11 @@ Triggered when removed from a container.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[removed](DDialogCommandEvents.md#removed)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[removed](DDialogLayeredEvents.md#removed)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L109)
+[src/main/typescript/wcardinal/ui/d-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L109)
 
 ___
 
@@ -446,11 +446,11 @@ Triggered when resized.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[resize](DDialogCommandEvents.md#resize)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[resize](DDialogLayeredEvents.md#resize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L131)
+[src/main/typescript/wcardinal/ui/d-base.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L131)
 
 ___
 
@@ -476,11 +476,11 @@ Triggered when scaled.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[scale](DDialogCommandEvents.md#scale)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[scale](DDialogLayeredEvents.md#scale)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L148)
+[src/main/typescript/wcardinal/ui/d-base.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L148)
 
 ___
 
@@ -501,7 +501,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L81)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L73)
 
 ___
 
@@ -527,11 +527,11 @@ Triggered when skewed.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[skew](DDialogCommandEvents.md#skew)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[skew](DDialogLayeredEvents.md#skew)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L159)
+[src/main/typescript/wcardinal/ui/d-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L159)
 
 ___
 
@@ -555,11 +555,11 @@ Triggered when a state is changed.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[statechange](DDialogCommandEvents.md#statechange)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[statechange](DDialogLayeredEvents.md#statechange)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L168)
+[src/main/typescript/wcardinal/ui/d-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L168)
 
 ___
 
@@ -582,11 +582,11 @@ Triggered when a pointer gets up on an emitter.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[up](DDialogCommandEvents.md#up)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[up](DDialogLayeredEvents.md#up)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L226)
+[src/main/typescript/wcardinal/ui/d-base.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L226)
 
 ___
 
@@ -611,8 +611,8 @@ Triggered when a wheel moves.
 
 #### Inherited from
 
-[DDialogCommandEvents](DDialogCommandEvents.md).[wheel](DDialogCommandEvents.md#wheel)
+[DDialogLayeredEvents](DDialogLayeredEvents.md).[wheel](DDialogLayeredEvents.md#wheel)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L178)
+[src/main/typescript/wcardinal/ui/d-base.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L178)

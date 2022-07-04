@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / UtilFont
+[Winter Cardinal UI - v0.194.0](../index.md) / UtilFont
 
 # Class: UtilFont
 
@@ -36,4 +36,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-font.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L17)
+[src/main/typescript/wcardinal/ui/util/util-font.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L17)

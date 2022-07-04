@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DMenuSidedSelectionOnOptions
+[Winter Cardinal UI - v0.194.0](../index.md) / DMenuSidedSelectionOnOptions
 
 # Interface: DMenuSidedSelectionOnOptions<EMITTER\>
 
@@ -48,4 +48,4 @@ Partial.change
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L32)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L32)

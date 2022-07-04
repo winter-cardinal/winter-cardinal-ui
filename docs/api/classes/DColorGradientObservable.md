@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DColorGradientObservable
+[Winter Cardinal UI - v0.194.0](../index.md) / DColorGradientObservable
 
 # Class: DColorGradientObservable
 
@@ -66,7 +66,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L22)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L22)
 
 ## Properties
 
@@ -76,7 +76,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L16)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L16)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L19)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L19)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L15)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L15)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L17)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L17)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L20)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L20)
 
 ## Accessors
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L58)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L58)
 
 • `set` **direction**(`direction`): `void`
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L62)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L62)
 
 ___
 
@@ -186,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L54)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L54)
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L70)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L70)
 
 ## Methods
 
@@ -223,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L132)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L132)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L86)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L86)
 
 ___
 
@@ -340,7 +340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L223)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L223)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L78)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L78)
 
 ___
 
@@ -491,7 +491,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L38)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L38)
 
 ___
 
@@ -541,7 +541,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L151)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L151)
 
 ___
 
@@ -614,7 +614,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L176)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L176)
 
 ___
 
@@ -628,7 +628,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L74)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L74)
 
 ___
 
@@ -642,4 +642,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L211)
+[src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-color-gradient-observable.ts#L211)

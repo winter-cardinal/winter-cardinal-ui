@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / EShapeDataScopedImpl
+[Winter Cardinal UI - v0.194.0](../index.md) / EShapeDataScopedImpl
 
 # Class: EShapeDataScopedImpl
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts#L5)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts#L5)
 
 ## Methods
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts#L7)
 
 ___
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped-impl.ts#L17)

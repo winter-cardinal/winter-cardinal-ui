@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DTableDataTreeNode
+[Winter Cardinal UI - v0.194.0](../index.md) / DTableDataTreeNode
 
 # Interface: DTableDataTreeNode<PARENT, CHILD\>
 

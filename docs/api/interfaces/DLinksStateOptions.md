@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DLinksStateOptions
+[Winter Cardinal UI - v0.194.0](../index.md) / DLinksStateOptions
 
 # Interface: DLinksStateOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-links.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-links.ts#L11)
+[src/main/typescript/wcardinal/ui/d-links.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-links.ts#L11)

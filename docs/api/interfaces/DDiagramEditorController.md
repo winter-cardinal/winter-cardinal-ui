@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DDiagramEditorController
+[Winter Cardinal UI - v0.194.0](../index.md) / DDiagramEditorController
 
 # Interface: DDiagramEditorController
 
@@ -21,7 +21,6 @@
 - [delete](DDiagramEditorController.md#delete)
 - [get](DDiagramEditorController.md#get)
 - [getByName](DDiagramEditorController.md#getbyname)
-- [open](DDiagramEditorController.md#open)
 - [save](DDiagramEditorController.md#save)
 
 ## Properties
@@ -36,7 +35,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L33)
+[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L33)
 
 ## Methods
 
@@ -56,7 +55,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts#L20)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts#L20)
 
 ___
 
@@ -76,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts#L18)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts#L18)
 
 ___
 
@@ -100,35 +99,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L34)
-
-___
-
-### open
-
-▸ `Optional` **open**(`type`, `id`, `inNewWindow`): `void`
-
-Opens a diagram or a page.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `type` | `number` | a diagram or a page |
-| `id` | `string` | an id to identify a diagram or a page |
-| `inNewWindow` | `boolean` | true to open in a new window |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[DDiagramBaseController](DDiagramBaseController.md).[open](DDiagramBaseController.md#open)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L43)
+[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L34)
 
 ___
 
@@ -148,4 +119,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts#L19)
+[src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-editor-controller.ts#L19)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DMapCoordinate
+[Winter Cardinal UI - v0.194.0](../index.md) / DMapCoordinate
 
 # Interface: DMapCoordinate
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L12)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L12)
 
 ___
 
@@ -68,7 +68,7 @@ The `meters` can be the same instance that is passed in as the `lonlat`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L25)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L25)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L64)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L64)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L62)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L62)
 
 ___
 
@@ -136,7 +136,7 @@ The `lonlat` can be the same instance that is passed in as the `meters`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L33)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L33)
 
 ___
 
@@ -163,7 +163,7 @@ The `pixels` can be the same instance that is passed in as the `meters`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L47)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L47)
 
 ___
 
@@ -188,7 +188,7 @@ The `tile` can be the same instance that is passed in as the `meters`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L60)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L60)
 
 ___
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L66)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L66)
 
 ___
 
@@ -238,7 +238,7 @@ The `meters` can be the same instance that is passed in as the `pixels`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L40)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L40)
 
 ___
 
@@ -264,7 +264,7 @@ The `tile` can be the same instance that is passed in as the `pixels`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L54)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L54)
 
 ___
 
@@ -289,7 +289,7 @@ The `meters` can be the same instance that is passed in as the `tile`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L77)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L77)
 
 ___
 
@@ -313,7 +313,7 @@ The `pixels` can be the same instance that is passed in as the `tile`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L71)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L71)
 
 ___
 
@@ -335,7 +335,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L81)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L81)
 
 ___
 
@@ -355,4 +355,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L79)
+[src/main/typescript/wcardinal/ui/d-map-coordinate.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-coordinate.ts#L79)

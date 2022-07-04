@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DThemeWhiteDialogMessage
+[Winter Cardinal UI - v0.194.0](../index.md) / DThemeWhiteDialogMessage
 
 # Class: DThemeWhiteDialogMessage
 
@@ -32,9 +32,9 @@
 - [getBorderMask](DThemeWhiteDialogMessage.md#getbordermask)
 - [getBorderTexture](DThemeWhiteDialogMessage.md#getbordertexture)
 - [getBorderWidth](DThemeWhiteDialogMessage.md#getborderwidth)
-- [getCancel](DThemeWhiteDialogMessage.md#getcancel)
 - [getClearType](DThemeWhiteDialogMessage.md#getcleartype)
 - [getColor](DThemeWhiteDialogMessage.md#getcolor)
+- [getContent](DThemeWhiteDialogMessage.md#getcontent)
 - [getCornerMask](DThemeWhiteDialogMessage.md#getcornermask)
 - [getCornerRadius](DThemeWhiteDialogMessage.md#getcornerradius)
 - [getCursor](DThemeWhiteDialogMessage.md#getcursor)
@@ -43,20 +43,17 @@
 - [getFontStyle](DThemeWhiteDialogMessage.md#getfontstyle)
 - [getFontVariant](DThemeWhiteDialogMessage.md#getfontvariant)
 - [getFontWeight](DThemeWhiteDialogMessage.md#getfontweight)
+- [getFooter](DThemeWhiteDialogMessage.md#getfooter)
 - [getGestureMode](DThemeWhiteDialogMessage.md#getgesturemode)
+- [getHeader](DThemeWhiteDialogMessage.md#getheader)
 - [getHeight](DThemeWhiteDialogMessage.md#getheight)
 - [getInteractive](DThemeWhiteDialogMessage.md#getinteractive)
-- [getLayoutHeight](DThemeWhiteDialogMessage.md#getlayoutheight)
-- [getLayoutMargin](DThemeWhiteDialogMessage.md#getlayoutmargin)
-- [getLayoutWidth](DThemeWhiteDialogMessage.md#getlayoutwidth)
-- [getLayoutX](DThemeWhiteDialogMessage.md#getlayoutx)
-- [getLayoutY](DThemeWhiteDialogMessage.md#getlayouty)
+- [getLayout](DThemeWhiteDialogMessage.md#getlayout)
 - [getLineHeight](DThemeWhiteDialogMessage.md#getlineheight)
 - [getMessage](DThemeWhiteDialogMessage.md#getmessage)
 - [getMode](DThemeWhiteDialogMessage.md#getmode)
 - [getOffsetX](DThemeWhiteDialogMessage.md#getoffsetx)
 - [getOffsetY](DThemeWhiteDialogMessage.md#getoffsety)
-- [getOk](DThemeWhiteDialogMessage.md#getok)
 - [getOutlineAlign](DThemeWhiteDialogMessage.md#getoutlinealign)
 - [getOutlineAlpha](DThemeWhiteDialogMessage.md#getoutlinealpha)
 - [getOutlineColor](DThemeWhiteDialogMessage.md#getoutlinecolor)
@@ -116,7 +113,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L27)
 
 ___
 
@@ -144,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L64)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L64)
 
 ___
 
@@ -172,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L35)
 
 ___
 
@@ -202,7 +199,7 @@ Returns a background alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L74)
 
 ___
 
@@ -233,7 +230,7 @@ If the color is null, backgrounds are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L79)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L79)
 
 ___
 
@@ -257,7 +254,7 @@ Returns a background texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L78)
 
 ___
 
@@ -287,7 +284,7 @@ Returns a border align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L94)
 
 ___
 
@@ -317,7 +314,7 @@ Returns a border alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L86)
 
 ___
 
@@ -348,7 +345,7 @@ If the color is null, borders are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L87)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L87)
 
 ___
 
@@ -378,7 +375,7 @@ Returns a border mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L98)
 
 ___
 
@@ -402,7 +399,7 @@ Returns a border texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L102)
 
 ___
 
@@ -432,29 +429,7 @@ Returns a border width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L90)
-
-___
-
-### getCancel
-
-▸ **getCancel**(): ``null`` \| `string`
-
-#### Returns
-
-``null`` \| `string`
-
-#### Implementation of
-
-[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getCancel](../interfaces/DThemeDialogMessage.md#getcancel)
-
-#### Overrides
-
-[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getCancel](DThemeWhiteDialogConfirm.md#getcancel)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-message.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-message.ts#L17)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L90)
 
 ___
 
@@ -479,7 +454,7 @@ A clear type is for layout classes including [DLayoutVertical](DLayoutVertical.m
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L157)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L157)
 
 ___
 
@@ -507,7 +482,29 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L19)
+
+___
+
+### getContent
+
+▸ **getContent**(): `undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+
+#### Returns
+
+`undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+
+#### Implementation of
+
+[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getContent](../interfaces/DThemeDialogMessage.md#getcontent)
+
+#### Inherited from
+
+[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getContent](DThemeWhiteDialogConfirm.md#getcontent)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-layered.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-layered.ts#L22)
 
 ___
 
@@ -531,7 +528,7 @@ Returns a corner mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L126)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L126)
 
 ___
 
@@ -555,7 +552,7 @@ Returns a corner radius.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L122)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L122)
 
 ___
 
@@ -585,7 +582,7 @@ Returns a cursor.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L189)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L189)
 
 ___
 
@@ -607,7 +604,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L11)
 
 ___
 
@@ -629,7 +626,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L15)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L15)
 
 ___
 
@@ -651,7 +648,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L27)
 
 ___
 
@@ -673,7 +670,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L31)
 
 ___
 
@@ -695,7 +692,29 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L23)
+
+___
+
+### getFooter
+
+▸ **getFooter**(): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+
+#### Returns
+
+`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+
+#### Implementation of
+
+[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getFooter](../interfaces/DThemeDialogMessage.md#getfooter)
+
+#### Overrides
+
+[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getFooter](DThemeWhiteDialogConfirm.md#getfooter)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-message.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-message.ts#L14)
 
 ___
 
@@ -723,7 +742,29 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L52)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L52)
+
+___
+
+### getHeader
+
+▸ **getHeader**(): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+
+#### Returns
+
+`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+
+#### Implementation of
+
+[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getHeader](../interfaces/DThemeDialogMessage.md#getheader)
+
+#### Inherited from
+
+[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getHeader](DThemeWhiteDialogConfirm.md#getheader)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-layered.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-layered.ts#L18)
 
 ___
 
@@ -747,7 +788,7 @@ Returns a height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L127)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L127)
 
 ___
 
@@ -771,117 +812,29 @@ Returns an interactivity.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L135)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L135)
 
 ___
 
-### getLayoutHeight
+### getLayout
 
-▸ **getLayoutHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Returns
-
-[`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Implementation of
-
-[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getLayoutHeight](../interfaces/DThemeDialogMessage.md#getlayoutheight)
-
-#### Inherited from
-
-[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getLayoutHeight](DThemeWhiteDialogConfirm.md#getlayoutheight)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts#L31)
-
-___
-
-### getLayoutMargin
-
-▸ **getLayoutMargin**(): `undefined` \| `number`
+▸ **getLayout**(): `undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Returns
 
-`undefined` \| `number`
+`undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Implementation of
 
-[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getLayoutMargin](../interfaces/DThemeDialogMessage.md#getlayoutmargin)
+[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getLayout](../interfaces/DThemeDialogMessage.md#getlayout)
 
 #### Inherited from
 
-[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getLayoutMargin](DThemeWhiteDialogConfirm.md#getlayoutmargin)
+[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getLayout](DThemeWhiteDialogConfirm.md#getlayout)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts#L35)
-
-___
-
-### getLayoutWidth
-
-▸ **getLayoutWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Returns
-
-[`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Implementation of
-
-[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getLayoutWidth](../interfaces/DThemeDialogMessage.md#getlayoutwidth)
-
-#### Inherited from
-
-[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getLayoutWidth](DThemeWhiteDialogConfirm.md#getlayoutwidth)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts#L27)
-
-___
-
-### getLayoutX
-
-▸ **getLayoutX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Returns
-
-[`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Implementation of
-
-[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getLayoutX](../interfaces/DThemeDialogMessage.md#getlayoutx)
-
-#### Inherited from
-
-[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getLayoutX](DThemeWhiteDialogConfirm.md#getlayoutx)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts#L19)
-
-___
-
-### getLayoutY
-
-▸ **getLayoutY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Returns
-
-[`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Implementation of
-
-[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getLayoutY](../interfaces/DThemeDialogMessage.md#getlayouty)
-
-#### Inherited from
-
-[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getLayoutY](DThemeWhiteDialogConfirm.md#getlayouty)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-command.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-layered.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-layered.ts#L14)
 
 ___
 
@@ -903,7 +856,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L42)
 
 ___
 
@@ -925,7 +878,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-confirm.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-confirm.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-confirm.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-confirm.ts#L24)
 
 ___
 
@@ -947,7 +900,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L23)
 
 ___
 
@@ -975,7 +928,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L56)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L56)
 
 ___
 
@@ -1003,29 +956,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L60)
-
-___
-
-### getOk
-
-▸ **getOk**(): ``null`` \| `string`
-
-#### Returns
-
-``null`` \| `string`
-
-#### Implementation of
-
-[DThemeDialogMessage](../interfaces/DThemeDialogMessage.md).[getOk](../interfaces/DThemeDialogMessage.md#getok)
-
-#### Overrides
-
-[DThemeWhiteDialogConfirm](DThemeWhiteDialogConfirm.md).[getOk](DThemeWhiteDialogConfirm.md#getok)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-message.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog-message.ts#L13)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L60)
 
 ___
 
@@ -1055,7 +986,7 @@ Returns an outline align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L149)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L149)
 
 ___
 
@@ -1085,7 +1016,7 @@ Returns an outline alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L134)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L134)
 
 ___
 
@@ -1116,7 +1047,7 @@ If the color is null, outlines are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L95)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L95)
 
 ___
 
@@ -1146,7 +1077,7 @@ Returns an outline mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L153)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L153)
 
 ___
 
@@ -1176,7 +1107,7 @@ Returns an outline offset.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L145)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L145)
 
 ___
 
@@ -1206,7 +1137,7 @@ Returns an outline width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L141)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L141)
 
 ___
 
@@ -1230,7 +1161,7 @@ Returns a bottom padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L111)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L111)
 
 ___
 
@@ -1254,7 +1185,7 @@ Returns a left padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L99)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L99)
 
 ___
 
@@ -1278,7 +1209,7 @@ Returns a right padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L107)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L107)
 
 ___
 
@@ -1302,7 +1233,7 @@ Returns a top padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L103)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L103)
 
 ___
 
@@ -1327,7 +1258,7 @@ If a shadow is null, no shadow is rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L131)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L131)
 
 ___
 
@@ -1351,7 +1282,7 @@ Returns a tooltip text.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L173)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L173)
 
 ___
 
@@ -1377,7 +1308,7 @@ If a weight is less than or equals to zero, layout classes are supposed not to c
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L177)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L177)
 
 ___
 
@@ -1401,7 +1332,7 @@ Returns a width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L123)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L123)
 
 ___
 
@@ -1425,7 +1356,7 @@ Returns a X coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L115)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L115)
 
 ___
 
@@ -1449,7 +1380,7 @@ Returns a Y coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L119)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L119)
 
 ___
 
@@ -1477,7 +1408,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L42)
 
 ___
 
@@ -1505,7 +1436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L38)
 
 ___
 
@@ -1533,7 +1464,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L68)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dialog.ts#L68)
 
 ___
 
@@ -1557,7 +1488,7 @@ Creates a new shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L181)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L181)
 
 ___
 
@@ -1581,7 +1512,7 @@ Creates a new weak shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L185)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L185)
 
 ___
 
@@ -1611,4 +1542,4 @@ Returns true if focusable.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L169)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L169)

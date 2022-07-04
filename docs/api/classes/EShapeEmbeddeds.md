@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / EShapeEmbeddeds
+[Winter Cardinal UI - v0.194.0](../index.md) / EShapeEmbeddeds
 
 # Class: EShapeEmbeddeds
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L48)
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L16)

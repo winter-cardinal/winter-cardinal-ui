@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / EThemeWhiteShapeActionValue
+[Winter Cardinal UI - v0.194.0](../index.md) / EThemeWhiteShapeActionValue
 
 # Class: EThemeWhiteShapeActionValue
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L138)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L138)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L246)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L246)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L222)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L222)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L261)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L261)
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L129)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L129)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:326](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L326)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:326](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L326)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:364](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L364)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:366](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L366)
 
 ___
 
@@ -228,7 +228,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L27)
 
 ___
 
@@ -252,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L335)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L335)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:377](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L377)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:379](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L379)
 
 ___
 
@@ -300,7 +300,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L307)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L307)
 
 ___
 
@@ -312,7 +312,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueOpenType`](../index.md#eshapeactionvalueopentype) |
+| `type` | `number` |
 
 #### Returns
 
@@ -324,7 +324,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L270)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L270)
 
 ___
 
@@ -336,7 +336,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueType`](../index.md#eshapeactionvaluetype) |
+| `type` | `number` |
 | `subtype` | [`EShapeActionValueTransformType`](../index.md#eshapeactionvaluetransformtype) |
 | `opetype` | [`EShapeActionValueTransformRotateType`](../index.md#eshapeactionvaluetransformrotatetype) |
 | `value` | [`EShapeActionValueOpetyped`](EShapeActionValueOpetyped.md)<`any`, `any`\> |
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L76)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L76)
 
 ___
 
@@ -371,7 +371,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L155)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L155)
 
 ___
 
@@ -383,7 +383,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueType`](../index.md#eshapeactionvaluetype) |
+| `type` | `number` |
 | `subtype` | `any` |
 | `value` | [`EShapeActionValueSubtyped`](EShapeActionValueSubtyped.md)<`any`\> |
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L50)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L50)
 
 ___
 
@@ -417,7 +417,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L188)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L188)
 
 ___
 
@@ -441,7 +441,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L205)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:205](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L205)
 
 ___
 
@@ -465,7 +465,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L179)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L179)
 
 ___
 
@@ -489,7 +489,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L168)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L168)
 
 ___
 
@@ -501,7 +501,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueType`](../index.md#eshapeactionvaluetype) |
+| `type` | `number` |
 
 #### Returns
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L97)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L97)
 
 ___
 
@@ -525,7 +525,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`EShapeActionValueType`](../index.md#eshapeactionvaluetype) |
+| `type` | `number` |
 | `value` | [`EShapeActionValue`](../interfaces/EShapeActionValue.md) |
 
 #### Returns
@@ -534,4 +534,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L46)
+[src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/white/e-theme-white-shape-action-value.ts#L46)

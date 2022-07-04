@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / UtilKeyboardEvent
+[Winter Cardinal UI - v0.194.0](../index.md) / UtilKeyboardEvent
 
 # Class: UtilKeyboardEvent
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L199)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L199)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L143)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L143)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L151)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L151)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L155)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L155)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L159)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L159)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L147)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L147)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L163)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L163)
 
 ___
 
@@ -196,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L187)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L187)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L167)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L167)
 
 ___
 
@@ -236,7 +236,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L195)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L195)
 
 ___
 
@@ -256,7 +256,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L175)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L175)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L183)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L183)
 
 ___
 
@@ -296,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L179)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L179)
 
 ___
 
@@ -316,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L191)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L191)
 
 ___
 
@@ -336,7 +336,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L171)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L171)
 
 ___
 
@@ -358,7 +358,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:305](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L305)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:305](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L305)
 
 ___
 
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:290](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L290)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:290](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L290)
 
 ___
 
@@ -402,7 +402,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L275)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L275)
 
 ___
 
@@ -424,7 +424,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L250)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:250](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L250)
 
 ___
 
@@ -444,7 +444,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L203)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L203)
 
 ___
 
@@ -464,4 +464,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L235)
+[src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-keyboard-event.ts#L235)

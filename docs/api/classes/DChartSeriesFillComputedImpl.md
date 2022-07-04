@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DChartSeriesFillComputedImpl
+[Winter Cardinal UI - v0.194.0](../index.md) / DChartSeriesFillComputedImpl
 
 # Class: DChartSeriesFillComputedImpl
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L17)
 
 ## Properties
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L15)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L14)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L13)
 
 ## Methods
 
@@ -102,4 +102,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-fill-computed-impl.ts#L23)

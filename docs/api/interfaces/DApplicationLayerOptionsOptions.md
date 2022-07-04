@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DApplicationLayerOptionsOptions
+[Winter Cardinal UI - v0.194.0](../index.md) / DApplicationLayerOptionsOptions
 
 # Interface: DApplicationLayerOptionsOptions
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L33)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L33)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L31)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L31)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L30)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L30)
 
 ___
 
@@ -55,7 +55,7 @@ Sets to true if a layer is a overlay layer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L38)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L38)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L28)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L28)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L32)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L32)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L27)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L27)
 
 ___
 
@@ -95,4 +95,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L29)
+[src/main/typescript/wcardinal/ui/d-application-layer-options.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-application-layer-options.ts#L29)

@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DThemeDarkDialogConfirm
+[Winter Cardinal UI - v0.194.0](../index.md) / DThemeDarkDialogConfirm
 
 # Class: DThemeDarkDialogConfirm
 
 ## Hierarchy
 
-- [`DThemeDarkDialogCommand`](DThemeDarkDialogCommand.md)
+- [`DThemeDarkDialogLayered`](DThemeDarkDialogLayered.md)
 
   ↳ **`DThemeDarkDialogConfirm`**
 
@@ -40,9 +40,9 @@
 - [getBorderMask](DThemeDarkDialogConfirm.md#getbordermask)
 - [getBorderTexture](DThemeDarkDialogConfirm.md#getbordertexture)
 - [getBorderWidth](DThemeDarkDialogConfirm.md#getborderwidth)
-- [getCancel](DThemeDarkDialogConfirm.md#getcancel)
 - [getClearType](DThemeDarkDialogConfirm.md#getcleartype)
 - [getColor](DThemeDarkDialogConfirm.md#getcolor)
+- [getContent](DThemeDarkDialogConfirm.md#getcontent)
 - [getCornerMask](DThemeDarkDialogConfirm.md#getcornermask)
 - [getCornerRadius](DThemeDarkDialogConfirm.md#getcornerradius)
 - [getCursor](DThemeDarkDialogConfirm.md#getcursor)
@@ -51,20 +51,17 @@
 - [getFontStyle](DThemeDarkDialogConfirm.md#getfontstyle)
 - [getFontVariant](DThemeDarkDialogConfirm.md#getfontvariant)
 - [getFontWeight](DThemeDarkDialogConfirm.md#getfontweight)
+- [getFooter](DThemeDarkDialogConfirm.md#getfooter)
 - [getGestureMode](DThemeDarkDialogConfirm.md#getgesturemode)
+- [getHeader](DThemeDarkDialogConfirm.md#getheader)
 - [getHeight](DThemeDarkDialogConfirm.md#getheight)
 - [getInteractive](DThemeDarkDialogConfirm.md#getinteractive)
-- [getLayoutHeight](DThemeDarkDialogConfirm.md#getlayoutheight)
-- [getLayoutMargin](DThemeDarkDialogConfirm.md#getlayoutmargin)
-- [getLayoutWidth](DThemeDarkDialogConfirm.md#getlayoutwidth)
-- [getLayoutX](DThemeDarkDialogConfirm.md#getlayoutx)
-- [getLayoutY](DThemeDarkDialogConfirm.md#getlayouty)
+- [getLayout](DThemeDarkDialogConfirm.md#getlayout)
 - [getLineHeight](DThemeDarkDialogConfirm.md#getlineheight)
 - [getMessage](DThemeDarkDialogConfirm.md#getmessage)
 - [getMode](DThemeDarkDialogConfirm.md#getmode)
 - [getOffsetX](DThemeDarkDialogConfirm.md#getoffsetx)
 - [getOffsetY](DThemeDarkDialogConfirm.md#getoffsety)
-- [getOk](DThemeDarkDialogConfirm.md#getok)
 - [getOutlineAlign](DThemeDarkDialogConfirm.md#getoutlinealign)
 - [getOutlineAlpha](DThemeDarkDialogConfirm.md#getoutlinealpha)
 - [getOutlineColor](DThemeDarkDialogConfirm.md#getoutlinecolor)
@@ -96,7 +93,7 @@
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[constructor](DThemeDarkDialogCommand.md#constructor)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[constructor](DThemeDarkDialogLayered.md#constructor)
 
 ## Methods
 
@@ -120,11 +117,11 @@
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[closeOn](DThemeDarkDialogCommand.md#closeon)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[closeOn](DThemeDarkDialogLayered.md#closeon)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L27)
 
 ___
 
@@ -148,11 +145,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getAlign](DThemeDarkDialogCommand.md#getalign)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getAlign](DThemeDarkDialogLayered.md#getalign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L64)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L64)
 
 ___
 
@@ -176,11 +173,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getAlpha](DThemeDarkDialogCommand.md#getalpha)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getAlpha](DThemeDarkDialogLayered.md#getalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L35)
 
 ___
 
@@ -206,11 +203,11 @@ Returns a background alpha.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBackgroundAlpha](DThemeDarkDialogCommand.md#getbackgroundalpha)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBackgroundAlpha](DThemeDarkDialogLayered.md#getbackgroundalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L74)
 
 ___
 
@@ -237,11 +234,11 @@ If the color is null, backgrounds are not be rendered.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBackgroundColor](DThemeDarkDialogCommand.md#getbackgroundcolor)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBackgroundColor](DThemeDarkDialogLayered.md#getbackgroundcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L79)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L79)
 
 ___
 
@@ -261,11 +258,11 @@ Returns a background texture.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBackgroundTexture](DThemeDarkDialogCommand.md#getbackgroundtexture)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBackgroundTexture](DThemeDarkDialogLayered.md#getbackgroundtexture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L78)
 
 ___
 
@@ -291,11 +288,11 @@ Returns a border align.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBorderAlign](DThemeDarkDialogCommand.md#getborderalign)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBorderAlign](DThemeDarkDialogLayered.md#getborderalign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L94)
 
 ___
 
@@ -321,11 +318,11 @@ Returns a border alpha.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBorderAlpha](DThemeDarkDialogCommand.md#getborderalpha)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBorderAlpha](DThemeDarkDialogLayered.md#getborderalpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L86)
 
 ___
 
@@ -352,11 +349,11 @@ If the color is null, borders are not be rendered.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBorderColor](DThemeDarkDialogCommand.md#getbordercolor)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBorderColor](DThemeDarkDialogLayered.md#getbordercolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L87)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L87)
 
 ___
 
@@ -382,11 +379,11 @@ Returns a border mask.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBorderMask](DThemeDarkDialogCommand.md#getbordermask)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBorderMask](DThemeDarkDialogLayered.md#getbordermask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L98)
 
 ___
 
@@ -406,11 +403,11 @@ Returns a border texture.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBorderTexture](DThemeDarkDialogCommand.md#getbordertexture)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBorderTexture](DThemeDarkDialogLayered.md#getbordertexture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L102)
 
 ___
 
@@ -436,33 +433,11 @@ Returns a border width.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getBorderWidth](DThemeDarkDialogCommand.md#getborderwidth)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getBorderWidth](DThemeDarkDialogLayered.md#getborderwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L90)
-
-___
-
-### getCancel
-
-▸ **getCancel**(): ``null`` \| `string`
-
-#### Returns
-
-``null`` \| `string`
-
-#### Implementation of
-
-[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getCancel](../interfaces/DThemeDialogConfirm.md#getcancel)
-
-#### Overrides
-
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getCancel](DThemeDarkDialogCommand.md#getcancel)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L90)
 
 ___
 
@@ -483,11 +458,11 @@ A clear type is for layout classes including [DLayoutVertical](DLayoutVertical.m
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getClearType](DThemeDarkDialogCommand.md#getcleartype)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getClearType](DThemeDarkDialogLayered.md#getcleartype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L157)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L157)
 
 ___
 
@@ -511,11 +486,33 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getColor](DThemeDarkDialogCommand.md#getcolor)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getColor](DThemeDarkDialogLayered.md#getcolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L19)
+
+___
+
+### getContent
+
+▸ **getContent**(): `undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+
+#### Returns
+
+`undefined` \| [`DDialogLayeredContentOptions`](../interfaces/DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](../interfaces/DThemeDialogLayeredContent.md)\>
+
+#### Implementation of
+
+[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getContent](../interfaces/DThemeDialogConfirm.md#getcontent)
+
+#### Inherited from
+
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getContent](DThemeDarkDialogLayered.md#getcontent)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-layered.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-layered.ts#L22)
 
 ___
 
@@ -535,11 +532,11 @@ Returns a corner mask.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getCornerMask](DThemeDarkDialogCommand.md#getcornermask)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getCornerMask](DThemeDarkDialogLayered.md#getcornermask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L126)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L126)
 
 ___
 
@@ -559,11 +556,11 @@ Returns a corner radius.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getCornerRadius](DThemeDarkDialogCommand.md#getcornerradius)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getCornerRadius](DThemeDarkDialogLayered.md#getcornerradius)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L122)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L122)
 
 ___
 
@@ -589,11 +586,11 @@ Returns a cursor.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getCursor](DThemeDarkDialogCommand.md#getcursor)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getCursor](DThemeDarkDialogLayered.md#getcursor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L189)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L189)
 
 ___
 
@@ -611,11 +608,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getFontFamilly](DThemeDarkDialogCommand.md#getfontfamilly)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getFontFamilly](DThemeDarkDialogLayered.md#getfontfamilly)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L11)
 
 ___
 
@@ -633,11 +630,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getFontSize](DThemeDarkDialogCommand.md#getfontsize)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getFontSize](DThemeDarkDialogLayered.md#getfontsize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L15)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L15)
 
 ___
 
@@ -655,11 +652,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getFontStyle](DThemeDarkDialogCommand.md#getfontstyle)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getFontStyle](DThemeDarkDialogLayered.md#getfontstyle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L27)
 
 ___
 
@@ -677,11 +674,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getFontVariant](DThemeDarkDialogCommand.md#getfontvariant)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getFontVariant](DThemeDarkDialogLayered.md#getfontvariant)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L31)
 
 ___
 
@@ -699,11 +696,33 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getFontWeight](DThemeDarkDialogCommand.md#getfontweight)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getFontWeight](DThemeDarkDialogLayered.md#getfontweight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L23)
+
+___
+
+### getFooter
+
+▸ **getFooter**(): `undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+
+#### Returns
+
+`undefined` \| ``null`` \| [`DDialogLayeredFooterOptions`](../interfaces/DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](../interfaces/DThemeDialogLayeredFooter.md)\>
+
+#### Implementation of
+
+[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getFooter](../interfaces/DThemeDialogConfirm.md#getfooter)
+
+#### Overrides
+
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getFooter](DThemeDarkDialogLayered.md#getfooter)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts#L15)
 
 ___
 
@@ -727,11 +746,33 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getGestureMode](DThemeDarkDialogCommand.md#getgesturemode)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getGestureMode](DThemeDarkDialogLayered.md#getgesturemode)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L52)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L52)
+
+___
+
+### getHeader
+
+▸ **getHeader**(): `undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+
+#### Returns
+
+`undefined` \| ``null`` \| [`DDialogLayeredHeaderOptions`](../interfaces/DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](../interfaces/DThemeDialogLayeredHeader.md)\>
+
+#### Implementation of
+
+[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getHeader](../interfaces/DThemeDialogConfirm.md#getheader)
+
+#### Inherited from
+
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getHeader](DThemeDarkDialogLayered.md#getheader)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-layered.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-layered.ts#L18)
 
 ___
 
@@ -751,11 +792,11 @@ Returns a height.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getHeight](DThemeDarkDialogCommand.md#getheight)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getHeight](DThemeDarkDialogLayered.md#getheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L127)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L127)
 
 ___
 
@@ -775,121 +816,33 @@ Returns an interactivity.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getInteractive](DThemeDarkDialogCommand.md#getinteractive)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getInteractive](DThemeDarkDialogLayered.md#getinteractive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L135)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L135)
 
 ___
 
-### getLayoutHeight
+### getLayout
 
-▸ **getLayoutHeight**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Returns
-
-[`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Implementation of
-
-[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getLayoutHeight](../interfaces/DThemeDialogConfirm.md#getlayoutheight)
-
-#### Inherited from
-
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getLayoutHeight](DThemeDarkDialogCommand.md#getlayoutheight)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts#L31)
-
-___
-
-### getLayoutMargin
-
-▸ **getLayoutMargin**(): `undefined` \| `number`
+▸ **getLayout**(): `undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Returns
 
-`undefined` \| `number`
+`undefined` \| [`DLayoutVerticalOptions`](../interfaces/DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](../interfaces/DThemeLayoutVertical.md)\>
 
 #### Implementation of
 
-[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getLayoutMargin](../interfaces/DThemeDialogConfirm.md#getlayoutmargin)
+[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getLayout](../interfaces/DThemeDialogConfirm.md#getlayout)
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getLayoutMargin](DThemeDarkDialogCommand.md#getlayoutmargin)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getLayout](DThemeDarkDialogLayered.md#getlayout)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts#L35)
-
-___
-
-### getLayoutWidth
-
-▸ **getLayoutWidth**(): [`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Returns
-
-[`DCoordinateSize`](../index.md#dcoordinatesize)
-
-#### Implementation of
-
-[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getLayoutWidth](../interfaces/DThemeDialogConfirm.md#getlayoutwidth)
-
-#### Inherited from
-
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getLayoutWidth](DThemeDarkDialogCommand.md#getlayoutwidth)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts#L27)
-
-___
-
-### getLayoutX
-
-▸ **getLayoutX**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Returns
-
-[`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Implementation of
-
-[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getLayoutX](../interfaces/DThemeDialogConfirm.md#getlayoutx)
-
-#### Inherited from
-
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getLayoutX](DThemeDarkDialogCommand.md#getlayoutx)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts#L19)
-
-___
-
-### getLayoutY
-
-▸ **getLayoutY**(): [`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Returns
-
-[`DCoordinatePosition`](../index.md#dcoordinateposition)
-
-#### Implementation of
-
-[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getLayoutY](../interfaces/DThemeDialogConfirm.md#getlayouty)
-
-#### Inherited from
-
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getLayoutY](DThemeDarkDialogCommand.md#getlayouty)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-command.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-layered.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-layered.ts#L14)
 
 ___
 
@@ -907,11 +860,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getLineHeight](DThemeDarkDialogCommand.md#getlineheight)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getLineHeight](DThemeDarkDialogLayered.md#getlineheight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L42)
 
 ___
 
@@ -929,7 +882,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts#L24)
 
 ___
 
@@ -947,11 +900,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getMode](DThemeDarkDialogCommand.md#getmode)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getMode](DThemeDarkDialogLayered.md#getmode)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L23)
 
 ___
 
@@ -975,11 +928,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOffsetX](DThemeDarkDialogCommand.md#getoffsetx)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOffsetX](DThemeDarkDialogLayered.md#getoffsetx)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L56)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L56)
 
 ___
 
@@ -1003,33 +956,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOffsetY](DThemeDarkDialogCommand.md#getoffsety)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOffsetY](DThemeDarkDialogLayered.md#getoffsety)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L60)
-
-___
-
-### getOk
-
-▸ **getOk**(): ``null`` \| `string`
-
-#### Returns
-
-``null`` \| `string`
-
-#### Implementation of
-
-[DThemeDialogConfirm](../interfaces/DThemeDialogConfirm.md).[getOk](../interfaces/DThemeDialogConfirm.md#getok)
-
-#### Overrides
-
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOk](DThemeDarkDialogCommand.md#getok)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog-confirm.ts#L14)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L60)
 
 ___
 
@@ -1055,11 +986,11 @@ Returns an outline align.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOutlineAlign](DThemeDarkDialogCommand.md#getoutlinealign)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOutlineAlign](DThemeDarkDialogLayered.md#getoutlinealign)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L149)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L149)
 
 ___
 
@@ -1085,11 +1016,11 @@ Returns an outline alpha.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOutlineAlpha](DThemeDarkDialogCommand.md#getoutlinealpha)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOutlineAlpha](DThemeDarkDialogLayered.md#getoutlinealpha)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L134)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L134)
 
 ___
 
@@ -1116,11 +1047,11 @@ If the color is null, outlines are not be rendered.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOutlineColor](DThemeDarkDialogCommand.md#getoutlinecolor)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOutlineColor](DThemeDarkDialogLayered.md#getoutlinecolor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L95)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L95)
 
 ___
 
@@ -1146,11 +1077,11 @@ Returns an outline mask.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOutlineMask](DThemeDarkDialogCommand.md#getoutlinemask)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOutlineMask](DThemeDarkDialogLayered.md#getoutlinemask)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L153)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L153)
 
 ___
 
@@ -1176,11 +1107,11 @@ Returns an outline offset.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOutlineOffset](DThemeDarkDialogCommand.md#getoutlineoffset)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOutlineOffset](DThemeDarkDialogLayered.md#getoutlineoffset)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L145)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L145)
 
 ___
 
@@ -1206,11 +1137,11 @@ Returns an outline width.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getOutlineWidth](DThemeDarkDialogCommand.md#getoutlinewidth)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getOutlineWidth](DThemeDarkDialogLayered.md#getoutlinewidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L141)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L141)
 
 ___
 
@@ -1230,11 +1161,11 @@ Returns a bottom padding.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getPaddingBottom](DThemeDarkDialogCommand.md#getpaddingbottom)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getPaddingBottom](DThemeDarkDialogLayered.md#getpaddingbottom)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L111)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L111)
 
 ___
 
@@ -1254,11 +1185,11 @@ Returns a left padding.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getPaddingLeft](DThemeDarkDialogCommand.md#getpaddingleft)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getPaddingLeft](DThemeDarkDialogLayered.md#getpaddingleft)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L99)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L99)
 
 ___
 
@@ -1278,11 +1209,11 @@ Returns a right padding.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getPaddingRight](DThemeDarkDialogCommand.md#getpaddingright)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getPaddingRight](DThemeDarkDialogLayered.md#getpaddingright)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L107)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L107)
 
 ___
 
@@ -1302,11 +1233,11 @@ Returns a top padding.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getPaddingTop](DThemeDarkDialogCommand.md#getpaddingtop)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getPaddingTop](DThemeDarkDialogLayered.md#getpaddingtop)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L103)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L103)
 
 ___
 
@@ -1327,11 +1258,11 @@ If a shadow is null, no shadow is rendered.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getShadow](DThemeDarkDialogCommand.md#getshadow)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getShadow](DThemeDarkDialogLayered.md#getshadow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L131)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L131)
 
 ___
 
@@ -1351,11 +1282,11 @@ Returns a tooltip text.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getTitle](DThemeDarkDialogCommand.md#gettitle)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getTitle](DThemeDarkDialogLayered.md#gettitle)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L173)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L173)
 
 ___
 
@@ -1377,11 +1308,11 @@ If a weight is less than or equals to zero, layout classes are supposed not to c
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getWeight](DThemeDarkDialogCommand.md#getweight)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getWeight](DThemeDarkDialogLayered.md#getweight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L177)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L177)
 
 ___
 
@@ -1401,11 +1332,11 @@ Returns a width.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getWidth](DThemeDarkDialogCommand.md#getwidth)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getWidth](DThemeDarkDialogLayered.md#getwidth)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L123)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L123)
 
 ___
 
@@ -1425,11 +1356,11 @@ Returns a X coordinate.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getX](DThemeDarkDialogCommand.md#getx)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getX](DThemeDarkDialogLayered.md#getx)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L115)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L115)
 
 ___
 
@@ -1449,11 +1380,11 @@ Returns a Y coordinate.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[getY](DThemeDarkDialogCommand.md#gety)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[getY](DThemeDarkDialogLayered.md#gety)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L119)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L119)
 
 ___
 
@@ -1477,11 +1408,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[isGestureEnabled](DThemeDarkDialogCommand.md#isgestureenabled)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[isGestureEnabled](DThemeDarkDialogLayered.md#isgestureenabled)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L42)
 
 ___
 
@@ -1505,11 +1436,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[isSticky](DThemeDarkDialogCommand.md#issticky)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[isSticky](DThemeDarkDialogLayered.md#issticky)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L38)
 
 ___
 
@@ -1533,11 +1464,11 @@ ___
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[newAnimation](DThemeDarkDialogCommand.md#newanimation)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[newAnimation](DThemeDarkDialogLayered.md#newanimation)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L68)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-dialog.ts#L68)
 
 ___
 
@@ -1557,11 +1488,11 @@ Creates a new shadow.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[newShadow](DThemeDarkDialogCommand.md#newshadow)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[newShadow](DThemeDarkDialogLayered.md#newshadow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L181)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L181)
 
 ___
 
@@ -1581,11 +1512,11 @@ Creates a new weak shadow.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[newShadowWeak](DThemeDarkDialogCommand.md#newshadowweak)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[newShadowWeak](DThemeDarkDialogLayered.md#newshadowweak)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L185)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L185)
 
 ___
 
@@ -1611,8 +1542,8 @@ Returns true if focusable.
 
 #### Inherited from
 
-[DThemeDarkDialogCommand](DThemeDarkDialogCommand.md).[newState](DThemeDarkDialogCommand.md#newstate)
+[DThemeDarkDialogLayered](DThemeDarkDialogLayered.md).[newState](DThemeDarkDialogLayered.md#newstate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L169)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L169)

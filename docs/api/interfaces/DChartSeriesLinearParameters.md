@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DChartSeriesLinearParameters
+[Winter Cardinal UI - v0.194.0](../index.md) / DChartSeriesLinearParameters
 
 # Interface: DChartSeriesLinearParameters
 
@@ -25,7 +25,7 @@ A coefficient of the variable x
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L22)
 
 ___
 
@@ -37,7 +37,7 @@ A coefficient of the variable y
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L25)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L25)
 
 ___
 
@@ -49,7 +49,7 @@ X coordinate of the point the line passes through
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L28)
 
 ___
 
@@ -61,4 +61,4 @@ Y coordinate of the point the line passes through
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L31)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-series-linear-parameters.ts#L31)

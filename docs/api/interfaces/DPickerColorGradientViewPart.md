@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DPickerColorGradientViewPart
+[Winter Cardinal UI - v0.194.0](../index.md) / DPickerColorGradientViewPart
 
 # Interface: DPickerColorGradientViewPart
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L55)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L55)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L56)
+[src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-picker-color-gradient-view.ts#L56)

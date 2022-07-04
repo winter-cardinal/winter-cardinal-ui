@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DPickerDates
+[Winter Cardinal UI - v0.194.0](../index.md) / DPickerDates
 
 # Class: DPickerDates
 
@@ -36,4 +36,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-dates.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-picker-dates.ts#L9)
+[src/main/typescript/wcardinal/ui/d-picker-dates.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-picker-dates.ts#L9)

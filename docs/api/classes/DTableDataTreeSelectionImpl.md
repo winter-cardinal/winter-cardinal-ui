@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DTableDataTreeSelectionImpl
+[Winter Cardinal UI - v0.194.0](../index.md) / DTableDataTreeSelectionImpl
 
 # Class: DTableDataTreeSelectionImpl<NODE\>
 
@@ -99,7 +99,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L26)
 
 ## Properties
 
@@ -109,7 +109,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L22)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L24)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L23)
 
 ## Accessors
 
@@ -147,7 +147,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L131)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L131)
 
 ___
 
@@ -168,7 +168,7 @@ The order of indices is an insertion order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L70)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L70)
 
 ___
 
@@ -186,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L139)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L139)
 
 ___
 
@@ -207,7 +207,7 @@ The order is an insertion order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L81)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L81)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L89)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L89)
 
 ## Methods
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L165)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L165)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L210)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L210)
 
 ___
 
@@ -332,7 +332,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L183)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L183)
 
 ___
 
@@ -356,7 +356,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L176)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:176](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L176)
 
 ___
 
@@ -374,7 +374,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L243)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L243)
 
 ___
 
@@ -398,7 +398,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L251)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L251)
 
 ___
 
@@ -422,7 +422,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L269)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L269)
 
 ___
 
@@ -446,7 +446,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L224)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L224)
 
 ___
 
@@ -517,7 +517,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L93)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L93)
 
 ___
 
@@ -531,7 +531,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L107)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L107)
 
 ___
 
@@ -549,7 +549,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:292](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L292)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:292](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L292)
 
 ___
 
@@ -632,7 +632,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L51)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L51)
 
 ___
 
@@ -713,7 +713,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L147)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L147)
 
 ___
 
@@ -737,7 +737,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L33)
 
 ___
 
@@ -795,7 +795,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L232)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L232)
 
 ___
 
@@ -887,7 +887,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L284)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:284](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L284)
 
 ___
 
@@ -905,7 +905,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L288)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L288)
 
 ___
 
@@ -926,7 +926,7 @@ The order of pairs is an insertion order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L296)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L296)
 
 ___
 
@@ -946,7 +946,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L119)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L119)
 
 ___
 
@@ -964,7 +964,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:322](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L322)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:322](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L322)
 
 ___
 
@@ -982,7 +982,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L311)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L311)
 
 ___
 
@@ -1002,7 +1002,7 @@ Returns an sorted array of the (index, row value) pairs of selected rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L307)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L307)
 
 ___
 
@@ -1026,4 +1026,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L152)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-tree-selection-impl.ts#L152)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DChartRegionImmutable
+[Winter Cardinal UI - v0.194.0](../index.md) / DChartRegionImmutable
 
 # Interface: DChartRegionImmutable
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-region.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L15)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-region.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-region.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-region.ts#L16)

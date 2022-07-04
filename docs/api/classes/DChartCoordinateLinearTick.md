@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DChartCoordinateLinearTick
+[Winter Cardinal UI - v0.194.0](../index.md) / DChartCoordinateLinearTick
 
 # Class: DChartCoordinateLinearTick<CHART\>
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L17)
 
 ## Properties
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L15)
 
 ## Methods
 
@@ -82,7 +82,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L39)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L63)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L63)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L67)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L67)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L84)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L84)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L182)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L182)
 
 ___
 
@@ -186,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L186)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L186)
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L21)
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L46)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L46)
 
 ___
 
@@ -251,4 +251,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L178)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear-tick.ts#L178)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / UtilHtmlElementClipperData
+[Winter Cardinal UI - v0.194.0](../index.md) / UtilHtmlElementClipperData
 
 # Interface: UtilHtmlElementClipperData
 
@@ -7,6 +7,7 @@
 ### Properties
 
 - [creator](UtilHtmlElementClipperData.md#creator)
+- [extended](UtilHtmlElementClipperData.md#extended)
 - [styler](UtilHtmlElementClipperData.md#styler)
 
 ## Properties
@@ -17,7 +18,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L109)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L118)
+
+___
+
+### extended
+
+• **extended**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L120)
 
 ___
 
@@ -27,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-html-element.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L110)
+[src/main/typescript/wcardinal/ui/util/util-html-element.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-html-element.ts#L119)

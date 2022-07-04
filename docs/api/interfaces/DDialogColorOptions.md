@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DDialogColorOptions
+[Winter Cardinal UI - v0.194.0](../index.md) / DDialogColorOptions
 
 # Interface: DDialogColorOptions<THEME\>
 
@@ -10,7 +10,7 @@
 
 ## Hierarchy
 
-- [`DDialogCommandOptions`](DDialogCommandOptions.md)<[`DColorAndAlpha`](DColorAndAlpha.md), `THEME`\>
+- [`DDialogFittedOptions`](DDialogFittedOptions.md)<[`DColorAndAlpha`](DColorAndAlpha.md), `THEME`\>
 
   ↳ **`DDialogColorOptions`**
 
@@ -22,19 +22,20 @@
 - [animation](DDialogColorOptions.md#animation)
 - [background](DDialogColorOptions.md#background)
 - [border](DDialogColorOptions.md#border)
-- [cancel](DDialogColorOptions.md#cancel)
 - [children](DDialogColorOptions.md#children)
 - [clear](DDialogColorOptions.md#clear)
 - [closeOn](DDialogColorOptions.md#closeon)
+- [content](DDialogColorOptions.md#content)
 - [corner](DDialogColorOptions.md#corner)
 - [cursor](DDialogColorOptions.md#cursor)
+- [footer](DDialogColorOptions.md#footer)
 - [gesture](DDialogColorOptions.md#gesture)
+- [header](DDialogColorOptions.md#header)
 - [height](DDialogColorOptions.md#height)
 - [interactive](DDialogColorOptions.md#interactive)
 - [layout](DDialogColorOptions.md#layout)
 - [mode](DDialogColorOptions.md#mode)
 - [name](DDialogColorOptions.md#name)
-- [ok](DDialogColorOptions.md#ok)
 - [on](DDialogColorOptions.md#on)
 - [outline](DDialogColorOptions.md#outline)
 - [padding](DDialogColorOptions.md#padding)
@@ -61,11 +62,11 @@
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[align](DDialogCommandOptions.md#align)
+[DDialogFittedOptions](DDialogFittedOptions.md).[align](DDialogFittedOptions.md#align)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L72)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L72)
 
 ___
 
@@ -75,11 +76,11 @@ ___
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[animation](DDialogCommandOptions.md#animation)
+[DDialogFittedOptions](DDialogFittedOptions.md).[animation](DDialogFittedOptions.md#animation)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L61)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L61)
 
 ___
 
@@ -91,11 +92,11 @@ A background options.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[background](DDialogCommandOptions.md#background)
+[DDialogFittedOptions](DDialogFittedOptions.md).[background](DDialogFittedOptions.md#background)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:448](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L448)
+[src/main/typescript/wcardinal/ui/d-base.ts:448](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L448)
 
 ___
 
@@ -107,27 +108,11 @@ A border options.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[border](DDialogCommandOptions.md#border)
+[DDialogFittedOptions](DDialogFittedOptions.md).[border](DDialogFittedOptions.md#border)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L451)
-
-___
-
-### cancel
-
-• `Optional` **cancel**: `string`
-
-A cancel button label.
-
-#### Inherited from
-
-[DDialogCommandOptions](DDialogCommandOptions.md).[cancel](DDialogCommandOptions.md#cancel)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-dialog-command.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-command.ts#L60)
+[src/main/typescript/wcardinal/ui/d-base.ts:451](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L451)
 
 ___
 
@@ -139,11 +124,11 @@ Children.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[children](DDialogCommandOptions.md#children)
+[DDialogFittedOptions](DDialogFittedOptions.md).[children](DDialogFittedOptions.md#children)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:360](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L360)
+[src/main/typescript/wcardinal/ui/d-base.ts:360](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L360)
 
 ___
 
@@ -155,11 +140,11 @@ A clear type used by [DLayoutVertical](../classes/DLayoutVertical.md) and [DLayo
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[clear](DDialogCommandOptions.md#clear)
+[DDialogFittedOptions](DDialogFittedOptions.md).[clear](DDialogFittedOptions.md#clear)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L460)
+[src/main/typescript/wcardinal/ui/d-base.ts:460](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L460)
 
 ___
 
@@ -169,11 +154,27 @@ ___
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[closeOn](DDialogCommandOptions.md#closeon)
+[DDialogFittedOptions](DDialogFittedOptions.md).[closeOn](DDialogFittedOptions.md#closeon)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L59)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L59)
+
+___
+
+### content
+
+• `Optional` **content**: [`DDialogLayeredContentOptions`](DDialogLayeredContentOptions.md)<[`DThemeDialogLayeredContent`](DThemeDialogLayeredContent.md)\>
+
+Content options.
+
+#### Inherited from
+
+[DDialogFittedOptions](DDialogFittedOptions.md).[content](DDialogFittedOptions.md#content)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dialog-layered.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-layered.ts#L64)
 
 ___
 
@@ -185,11 +186,11 @@ A corner options.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[corner](DDialogCommandOptions.md#corner)
+[DDialogFittedOptions](DDialogFittedOptions.md).[corner](DDialogFittedOptions.md#corner)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:423](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L423)
+[src/main/typescript/wcardinal/ui/d-base.ts:423](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L423)
 
 ___
 
@@ -201,11 +202,27 @@ A cursor shape.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[cursor](DDialogCommandOptions.md#cursor)
+[DDialogFittedOptions](DDialogFittedOptions.md).[cursor](DDialogFittedOptions.md#cursor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L463)
+[src/main/typescript/wcardinal/ui/d-base.ts:463](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L463)
+
+___
+
+### footer
+
+• `Optional` **footer**: ``null`` \| [`DDialogLayeredFooterOptions`](DDialogLayeredFooterOptions.md)<[`DThemeDialogLayeredFooter`](DThemeDialogLayeredFooter.md)\>
+
+A footer options.
+
+#### Inherited from
+
+[DDialogFittedOptions](DDialogFittedOptions.md).[footer](DDialogFittedOptions.md#footer)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dialog-layered.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-layered.ts#L69)
 
 ___
 
@@ -215,11 +232,27 @@ ___
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[gesture](DDialogCommandOptions.md#gesture)
+[DDialogFittedOptions](DDialogFittedOptions.md).[gesture](DDialogFittedOptions.md#gesture)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L70)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L70)
+
+___
+
+### header
+
+• `Optional` **header**: ``null`` \| [`DDialogLayeredHeaderOptions`](DDialogLayeredHeaderOptions.md)<[`DThemeDialogLayeredHeader`](DThemeDialogLayeredHeader.md)\>
+
+A header options.
+
+#### Inherited from
+
+[DDialogFittedOptions](DDialogFittedOptions.md).[header](DDialogFittedOptions.md#header)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dialog-layered.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-layered.ts#L59)
 
 ___
 
@@ -236,11 +269,11 @@ One of the followings:
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[height](DDialogCommandOptions.md#height)
+[DDialogFittedOptions](DDialogFittedOptions.md).[height](DDialogFittedOptions.md#height)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:403](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L403)
+[src/main/typescript/wcardinal/ui/d-base.ts:403](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L403)
 
 ___
 
@@ -252,11 +285,11 @@ An interactivity option.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[interactive](DDialogCommandOptions.md#interactive)
+[DDialogFittedOptions](DDialogFittedOptions.md).[interactive](DDialogFittedOptions.md#interactive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:417](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L417)
+[src/main/typescript/wcardinal/ui/d-base.ts:417](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L417)
 
 ___
 
@@ -264,15 +297,15 @@ ___
 
 • `Optional` **layout**: [`DLayoutVerticalOptions`](DLayoutVerticalOptions.md)<[`DThemeLayoutVertical`](DThemeLayoutVertical.md)\>
 
-Layout options.
+A layout options.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[layout](DDialogCommandOptions.md#layout)
+[DDialogFittedOptions](DDialogFittedOptions.md).[layout](DDialogFittedOptions.md#layout)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-command.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-command.ts#L70)
+[src/main/typescript/wcardinal/ui/d-dialog-layered.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-layered.ts#L54)
 
 ___
 
@@ -284,11 +317,11 @@ A dialog mode.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[mode](DDialogCommandOptions.md#mode)
+[DDialogFittedOptions](DDialogFittedOptions.md).[mode](DDialogFittedOptions.md#mode)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L66)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L66)
 
 ___
 
@@ -300,43 +333,27 @@ A name.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[name](DDialogCommandOptions.md#name)
+[DDialogFittedOptions](DDialogFittedOptions.md).[name](DDialogFittedOptions.md#name)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:363](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L363)
-
-___
-
-### ok
-
-• `Optional` **ok**: `string`
-
-A ok button label.
-
-#### Inherited from
-
-[DDialogCommandOptions](DDialogCommandOptions.md).[ok](DDialogCommandOptions.md#ok)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-dialog-command.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-command.ts#L55)
+[src/main/typescript/wcardinal/ui/d-base.ts:363](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L363)
 
 ___
 
 ### on
 
-• `Optional` **on**: [`DDialogCommandOnOptions`](DDialogCommandOnOptions.md)<[`DColorAndAlpha`](DColorAndAlpha.md), `any`\>
+• `Optional` **on**: [`DDialogLayeredOnOptions`](DDialogLayeredOnOptions.md)<[`DColorAndAlpha`](DColorAndAlpha.md), `any`\>
 
 Mappings of event names and handlers.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[on](DDialogCommandOptions.md#on)
+[DDialogFittedOptions](DDialogFittedOptions.md).[on](DDialogFittedOptions.md#on)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-command.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-command.ts#L65)
+[src/main/typescript/wcardinal/ui/d-dialog-layered.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-layered.ts#L74)
 
 ___
 
@@ -348,11 +365,11 @@ An outline options.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[outline](DDialogCommandOptions.md#outline)
+[DDialogFittedOptions](DDialogFittedOptions.md).[outline](DDialogFittedOptions.md#outline)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:454](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L454)
+[src/main/typescript/wcardinal/ui/d-base.ts:454](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L454)
 
 ___
 
@@ -364,11 +381,11 @@ A padding options.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[padding](DDialogCommandOptions.md#padding)
+[DDialogFittedOptions](DDialogFittedOptions.md).[padding](DDialogFittedOptions.md#padding)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:420](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L420)
+[src/main/typescript/wcardinal/ui/d-base.ts:420](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L420)
 
 ___
 
@@ -386,11 +403,11 @@ the one they belong to at the time when they are created.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[parent](DDialogCommandOptions.md#parent)
+[DDialogFittedOptions](DDialogFittedOptions.md).[parent](DDialogFittedOptions.md#parent)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:357](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L357)
+[src/main/typescript/wcardinal/ui/d-base.ts:357](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L357)
 
 ___
 
@@ -400,7 +417,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-color.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-color.ts#L14)
+[src/main/typescript/wcardinal/ui/d-dialog-color.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-color.ts#L14)
 
 ___
 
@@ -412,11 +429,11 @@ A shadow.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[shadow](DDialogCommandOptions.md#shadow)
+[DDialogFittedOptions](DDialogFittedOptions.md).[shadow](DDialogFittedOptions.md#shadow)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:457](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L457)
+[src/main/typescript/wcardinal/ui/d-base.ts:457](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L457)
 
 ___
 
@@ -428,11 +445,11 @@ A shortcut option.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[shortcut](DDialogCommandOptions.md#shortcut)
+[DDialogFittedOptions](DDialogFittedOptions.md).[shortcut](DDialogFittedOptions.md#shortcut)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L442)
+[src/main/typescript/wcardinal/ui/d-base.ts:442](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L442)
 
 ___
 
@@ -444,11 +461,11 @@ A shortcut options.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[shortcuts](DDialogCommandOptions.md#shortcuts)
+[DDialogFittedOptions](DDialogFittedOptions.md).[shortcuts](DDialogFittedOptions.md#shortcuts)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:445](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L445)
+[src/main/typescript/wcardinal/ui/d-base.ts:445](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L445)
 
 ___
 
@@ -460,11 +477,11 @@ A default state.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[state](DDialogCommandOptions.md#state)
+[DDialogFittedOptions](DDialogFittedOptions.md).[state](DDialogFittedOptions.md#state)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:414](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L414)
+[src/main/typescript/wcardinal/ui/d-base.ts:414](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L414)
 
 ___
 
@@ -474,11 +491,11 @@ ___
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[sticky](DDialogCommandOptions.md#sticky)
+[DDialogFittedOptions](DDialogFittedOptions.md).[sticky](DDialogFittedOptions.md#sticky)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L68)
+[src/main/typescript/wcardinal/ui/d-dialog.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog.ts#L68)
 
 ___
 
@@ -490,11 +507,11 @@ A theme or a theme name.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[theme](DDialogCommandOptions.md#theme)
+[DDialogFittedOptions](DDialogFittedOptions.md).[theme](DDialogFittedOptions.md#theme)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:426](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L426)
+[src/main/typescript/wcardinal/ui/d-base.ts:426](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L426)
 
 ___
 
@@ -506,11 +523,11 @@ A tooltip text.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[title](DDialogCommandOptions.md#title)
+[DDialogFittedOptions](DDialogFittedOptions.md).[title](DDialogFittedOptions.md#title)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:439](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L439)
+[src/main/typescript/wcardinal/ui/d-base.ts:439](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L439)
 
 ___
 
@@ -525,11 +542,11 @@ The default values is true.
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[visible](DDialogCommandOptions.md#visible)
+[DDialogFittedOptions](DDialogFittedOptions.md).[visible](DDialogFittedOptions.md#visible)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:411](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L411)
+[src/main/typescript/wcardinal/ui/d-base.ts:411](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L411)
 
 ___
 
@@ -541,11 +558,11 @@ A weight used by [DLayoutVertical](../classes/DLayoutVertical.md) and [DLayoutHo
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[weight](DDialogCommandOptions.md#weight)
+[DDialogFittedOptions](DDialogFittedOptions.md).[weight](DDialogFittedOptions.md#weight)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L436)
+[src/main/typescript/wcardinal/ui/d-base.ts:436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L436)
 
 ___
 
@@ -562,11 +579,11 @@ One of the followings:
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[width](DDialogCommandOptions.md#width)
+[DDialogFittedOptions](DDialogFittedOptions.md).[width](DDialogFittedOptions.md#width)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:393](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L393)
+[src/main/typescript/wcardinal/ui/d-base.ts:393](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L393)
 
 ___
 
@@ -583,11 +600,11 @@ One of the followings:
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[x](DDialogCommandOptions.md#x)
+[DDialogFittedOptions](DDialogFittedOptions.md).[x](DDialogFittedOptions.md#x)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:373](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L373)
+[src/main/typescript/wcardinal/ui/d-base.ts:373](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L373)
 
 ___
 
@@ -604,8 +621,8 @@ One of the followings:
 
 #### Inherited from
 
-[DDialogCommandOptions](DDialogCommandOptions.md).[y](DDialogCommandOptions.md#y)
+[DDialogFittedOptions](DDialogFittedOptions.md).[y](DDialogFittedOptions.md#y)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-base.ts#L383)
+[src/main/typescript/wcardinal/ui/d-base.ts:383](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base.ts#L383)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.179.0](../index.md) / DDialogGesture
+[Winter Cardinal UI - v0.194.0](../index.md) / DDialogGesture
 
 # Interface: DDialogGesture<PARENT\>
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L32)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L32)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L30)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L30)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L28)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L28)
 
 ## Methods
 
@@ -70,7 +70,7 @@ Returns true if the dialog position is not changed by gestures.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L42)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L42)
 
 ___
 
@@ -86,7 +86,7 @@ Returns true if thhe dialog position is changed by gestures.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L37)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L37)
 
 ___
 
@@ -102,4 +102,4 @@ Marks the dialog position is not changed by gestures.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.179.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L47)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L47)
