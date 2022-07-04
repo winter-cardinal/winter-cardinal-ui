@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { UtilHtmlElementOverlapperRects } from "./util-html-element-overlapper-rects";
+import { UtilHtmlElementClipperExRects } from "./util-html-element-clipper-ex-rects";
 
-export class UtilHtmlElementOverlapperRectsImpl implements UtilHtmlElementOverlapperRects {
+export class UtilHtmlElementClipperExRectsImpl implements UtilHtmlElementClipperExRects {
 	private _data: number[];
 	private _size: number;
 	private _index: number;

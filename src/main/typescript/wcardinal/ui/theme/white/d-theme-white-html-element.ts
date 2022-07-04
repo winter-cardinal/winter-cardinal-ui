@@ -3,7 +3,7 @@ import { DBaseStateSet } from "../../d-base-state-set";
 import { DThemeHtmlElement } from "../../d-html-element";
 import { DHtmlElementState } from "../../d-html-element-state";
 import { UtilHtmlElementCreator, UtilHtmlElementPadding } from "../../util/util-html-element";
-import { UtilHtmlElementOverlapper } from "../../util/util-html-element-overlapper";
+import { UtilHtmlElementClipperEx } from "../../util/util-html-element-clipper-ex";
 import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { DThemeWhiteImageBase } from "./d-theme-white-image-base";
 
@@ -32,7 +32,7 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
 		clipperRect: Rectangle | null,
-		overlapper: UtilHtmlElementOverlapper | null | undefined
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void {
 		// Style
 		const style =
@@ -44,7 +44,7 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 			this.getElementStyleBorder(state) +
 			this.getElementStylePadding(state, padding) +
 			this.getElementStyleOutline(state) +
-			this.getElementStyleClipPath(state, overlapper);
+			this.getElementStyleClipPath(state, clipperEx);
 		target.setAttribute("style", style);
 
 		// ReadOnly
@@ -157,10 +157,10 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 
 	protected getElementStyleClipPath(
 		state: DBaseStateSet,
-		overlapper: UtilHtmlElementOverlapper | null | undefined
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): string {
-		if (overlapper != null) {
-			const id = overlapper.id;
+		if (clipperEx != null) {
+			const id = clipperEx.id;
 			return `-webkit-clip-path: url(#${id}); clip-path: url(#${id});`;
 		}
 		return "";
@@ -177,7 +177,7 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
 		clipperRect: Rectangle | null,
-		overlapper: UtilHtmlElementOverlapper | null | undefined
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void {
 		const style =
 			`outline: none; padding: 0; margin: 0; border: none;` +
@@ -217,6 +217,10 @@ export class DThemeWhiteHtmlElement<VALUE = unknown, ELEMENT extends HTMLElement
 			this.getClipperStylePositionPosition(rect) +
 			this.getClipperStylePositionSize(rect)
 		);
+	}
+
+	isClipperExEnabled(): boolean {
+		return false;
 	}
 
 	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement> {

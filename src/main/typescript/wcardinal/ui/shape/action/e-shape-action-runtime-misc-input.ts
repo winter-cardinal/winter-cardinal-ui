@@ -5,7 +5,7 @@
 
 import { Matrix, Point, Rectangle } from "pixi.js";
 import { UtilHtmlElementCreator, UtilHtmlElementPadding } from "../../util/util-html-element";
-import { UtilHtmlElementOverlapperRects } from "../../util/util-html-element-overlapper-rects";
+import { UtilHtmlElementClipperExRects } from "../../util/util-html-element-clipper-ex-rects";
 import { UtilInput, UtilInputOperation } from "../../util/util-input";
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
@@ -55,8 +55,8 @@ export abstract class EShapeActionRuntimeMiscInput<
 				return this.getClipperToRect(shape, runtime, resolution, work, result);
 			},
 
-			getOverlappingRect: (result: UtilHtmlElementOverlapperRects): void => {
-				this.getOverlappingRect(shape, result);
+			getClipperExRects: (result: UtilHtmlElementClipperExRects): void => {
+				this.getClipperExRects(shape, result);
 			},
 
 			getPadding: (): UtilHtmlElementPadding | null => {

@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>HTML element (Clipping)</title>
+	<title>HTML element (Extended clipping)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -29,6 +29,8 @@
 		"use strict";
 
 		var application = new wcardinal.ui.DApplication();
+
+		wcardinal.ui.loadShapeClipperEx();
 
 		var diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,

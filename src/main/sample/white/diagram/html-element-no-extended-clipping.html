@@ -1,0 +1,60 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML element (No extended clipping)</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var diagram = new wcardinal.ui.DDiagram({
+			parent: application.stage,
+			x: 0, y: 0,
+			width: "100%", height: "100%"
+		});
+
+		window.element = {
+			create: function( parent ) {
+				var div = document.createElement( "div" );
+				var p = document.createElement( "p" );
+				p.innerText = "THIS IS A HTML ELEMENT ON TOP OF A SHAPE. RED AND PURPLE RECTANGLES ARE LAYERS. AND THEY ARE PLACED IN FRONT OF THE BASE LAYER WHERE THE SHAPE IS PLACED.";
+				p.setAttribute( "style", "width: 100%; height: 100%; padding: 0; margin: 0; text-align: center;" );
+				div.appendChild( p );
+				parent.appendChild( div );
+				return div;
+			}
+		};
+
+		fetch( "../../resource/diagram/html-element-clipping.json" ).then(function( response ) {
+			response.json().then(function( json ) {
+				diagram.set( json );
+				diagram.view.fit();
+			});
+		});
+	}());
+	</script>
+</body>
+</html>

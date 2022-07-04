@@ -9,10 +9,10 @@ import { DBase } from "../d-base";
 import { DBaseStateSet } from "../d-base-state-set";
 import { DFocusableMightBe } from "../d-controller-focus";
 import { toEnum } from "./to-enum";
-import { UtilHtmlElementOverlapper } from "./util-html-element-overlapper";
-import { UtilHtmlElementOverlapperImpl } from "./util-html-element-overlapper-impl";
-import { UtilHtmlElementOverlapperRects } from "./util-html-element-overlapper-rects";
-import { UtilHtmlElementOverlapperRectsImpl } from "./util-html-element-overlapper-rects-impl";
+import { UtilHtmlElementClipperEx } from "./util-html-element-clipper-ex";
+import { UtilHtmlElementClipperExImpl } from "./util-html-element-clipper-ex-impl";
+import { UtilHtmlElementClipperExRects } from "./util-html-element-clipper-ex-rects";
+import { UtilHtmlElementClipperExRectsImpl } from "./util-html-element-clipper-ex-rects-impl";
 import { UtilHtmlElementWhen } from "./util-html-element-when";
 
 export interface UtilHtmlElementPaddingLTRB {
@@ -37,7 +37,7 @@ export type UtilHtmlElementStyler<T extends HTMLElement> = (
 	elementRect: Rectangle | null,
 	elementMatrix: Matrix | null,
 	clipperRect: Rectangle | null,
-	overlapper: UtilHtmlElementOverlapper | null | undefined
+	clipperEx: UtilHtmlElementClipperEx | null | undefined
 ) => void;
 
 export type UtilHtmlElementStylerBefore = (target: HTMLDivElement) => void;
@@ -57,6 +57,7 @@ export interface UtilHtmlElementElementOptions<ELEMENT extends HTMLElement> {
 export interface UtilHtmlElementClipperOptions {
 	creator?: UtilHtmlElementCreator<HTMLDivElement>;
 	styler?: UtilHtmlElementStyler<HTMLDivElement>;
+	extended?: boolean;
 }
 
 export interface UtilHtmlElementBeforeOptions {
@@ -87,7 +88,7 @@ export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
 		clipperRect: Rectangle | null,
-		overlapper: UtilHtmlElementOverlapper | null | undefined
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void;
 	getClipperCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 	setClipperStyle(
@@ -97,8 +98,9 @@ export interface UtilThemeHtmlElement<ELEMENT extends HTMLElement> {
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
 		clipperRect: Rectangle | null,
-		overlapper: UtilHtmlElementOverlapper | null | undefined
+		clipperEx: UtilHtmlElementClipperEx | null | undefined
 	): void;
+	isClipperExEnabled(): boolean;
 	getBeforeCreator(): UtilHtmlElementCreator<HTMLDivElement>;
 	setBeforeStyle(target: HTMLDivElement): void;
 	getAfterCreator(): UtilHtmlElementCreator<HTMLDivElement>;
@@ -115,6 +117,7 @@ export interface UtilHtmlElementElementData<ELEMENT extends HTMLElement> {
 export interface UtilHtmlElementClipperData {
 	creator: UtilHtmlElementCreator<HTMLDivElement>;
 	styler: UtilHtmlElementStyler<HTMLDivElement>;
+	extended: boolean;
 }
 
 export interface UtilHtmlElementBeforeData {
@@ -148,7 +151,7 @@ export interface UtilHtmlElementOperation<ELEMENT extends HTMLElement> {
 	getElementRect(resolution: number, work: Point, result: Rectangle): Rectangle | null;
 	getElementMatrix(): Matrix | null;
 	getClipperRect(resolution: number, work: Point, result: Rectangle): Rectangle | null;
-	getOverlappingRect?(result: UtilHtmlElementOverlapperRects): void;
+	getClipperExRects?(result: UtilHtmlElementClipperExRects): void;
 	getPadding(): UtilHtmlElementPadding | null;
 	containsPoint(point: Point): boolean;
 	onStart(): void;
@@ -172,13 +175,13 @@ export class UtilHtmlElement<
 	protected _clipper?: HTMLDivElement | null;
 	protected _clipperRectResult?: Rectangle;
 
+	protected _clipperEx?: UtilHtmlElementClipperEx | null;
+	protected _clipperExRects?: UtilHtmlElementClipperExRects | null;
+
 	protected _element?: ELEMENT | null;
 	protected _elementRectResult?: Rectangle;
 	protected _isElementShown: boolean;
 	protected _onElementFocusBound: (e: FocusEvent) => void;
-
-	protected _overlapper?: UtilHtmlElementOverlapper | null;
-	protected _overlapperRects?: UtilHtmlElementOverlapperRects;
 
 	protected _before?: HTMLDivElement | null;
 	protected _onBeforeFocusBound: (e: FocusEvent) => void;
@@ -212,10 +215,6 @@ export class UtilHtmlElement<
 		this._onAfterFocusBound = (e: FocusEvent): void => {
 			this.onAfterFocus(e);
 		};
-
-		if (operation.getOverlappingRect != null) {
-			this._overlapperRects = new UtilHtmlElementOverlapperRectsImpl();
-		}
 
 		this._isStarted = false;
 		this._wasStarted = false;
@@ -257,7 +256,7 @@ export class UtilHtmlElement<
 			elementRect: Rectangle | null,
 			elementMatrix: Matrix | null,
 			clipperRect: Rectangle | null,
-			overlapper: UtilHtmlElementOverlapper | null | undefined
+			clipperEx: UtilHtmlElementClipperEx | null | undefined
 		): void => {
 			return theme.setElementStyle(
 				target,
@@ -266,7 +265,7 @@ export class UtilHtmlElement<
 				elementRect,
 				elementMatrix,
 				clipperRect,
-				overlapper
+				clipperEx
 			);
 		};
 	}
@@ -277,7 +276,8 @@ export class UtilHtmlElement<
 	): UtilHtmlElementClipperData {
 		return {
 			creator: options?.creator ?? theme.getClipperCreator(),
-			styler: options?.styler ?? this.newClipperStyler(theme)
+			styler: options?.styler ?? this.newClipperStyler(theme),
+			extended: options?.extended ?? theme.isClipperExEnabled()
 		};
 	}
 
@@ -289,7 +289,7 @@ export class UtilHtmlElement<
 			elementRect: Rectangle | null,
 			elementMatrix: Matrix | null,
 			clipperRect: Rectangle | null,
-			overlapper: UtilHtmlElementOverlapper | null | undefined
+			clipperEx: UtilHtmlElementClipperEx | null | undefined
 		): void => {
 			return theme.setClipperStyle(
 				target,
@@ -298,7 +298,7 @@ export class UtilHtmlElement<
 				elementRect,
 				elementMatrix,
 				clipperRect,
-				overlapper
+				clipperEx
 			);
 		};
 	}
@@ -457,16 +457,15 @@ export class UtilHtmlElement<
 		return this._operation.getClipperRect(resolution, point, result);
 	}
 
-	protected getOverlapperRects(
+	protected fillClipperExRects(
 		resolution: number,
-		result: UtilHtmlElementOverlapperRects
+		result: UtilHtmlElementClipperExRects
 	): boolean {
 		const operation = this._operation;
-		if (operation.getOverlappingRect) {
-			operation.getOverlappingRect(result);
-			return result.isDirty();
+		if (operation.getClipperExRects) {
+			operation.getClipperExRects(result);
 		}
-		return false;
+		return result.isDirty();
 	}
 
 	protected doStart(renderer?: Renderer): void {
@@ -495,7 +494,7 @@ export class UtilHtmlElement<
 				const before = this.getBefore(clipper);
 				const element = this.getElement(clipper);
 				const after = this.getAfter(clipper);
-				const overlapper = this.getOverlapper(clipper);
+				const clipperEx = this.getClipperEx(clipper);
 				if (element) {
 					const resolution = renderer?.resolution ?? DApplications.getResolution(target);
 					const elementRect = this.getElementRect(resolution);
@@ -515,7 +514,7 @@ export class UtilHtmlElement<
 						elementRect,
 						elementMatrix,
 						clipperRect,
-						overlapper
+						clipperEx
 					);
 					options.element.styler(
 						element,
@@ -524,7 +523,7 @@ export class UtilHtmlElement<
 						elementRect,
 						elementMatrix,
 						clipperRect,
-						overlapper
+						clipperEx
 					);
 					if (before) {
 						options.before.styler(before);
@@ -533,12 +532,12 @@ export class UtilHtmlElement<
 						options.after.styler(after);
 					}
 					this.onElementAttached(element, before, after);
-					if (overlapper) {
-						const overlapperRects = this._overlapperRects;
-						if (overlapperRects) {
-							if (this.getOverlapperRects(resolution, overlapperRects)) {
-								overlapper.update(elementRect, elementMatrix, overlapperRects);
-								overlapperRects.toClean();
+					if (clipperEx) {
+						const clipperExRects = this.getClipperExRects();
+						if (clipperExRects) {
+							if (this.fillClipperExRects(resolution, clipperExRects)) {
+								clipperEx.update(elementRect, elementMatrix, clipperExRects);
+								clipperExRects.toClean();
 							}
 						}
 					}
@@ -668,6 +667,33 @@ export class UtilHtmlElement<
 		return result;
 	}
 
+	protected getClipperEx(clipper: HTMLDivElement): UtilHtmlElementClipperEx | null {
+		let result = this._clipperEx;
+		if (result === undefined) {
+			const clipperExRects = this.getClipperExRects();
+			if (clipperExRects != null) {
+				result = new UtilHtmlElementClipperExImpl(clipper);
+			} else {
+				result = null;
+			}
+			this._clipperEx = result;
+		}
+		return result;
+	}
+
+	protected getClipperExRects(): UtilHtmlElementClipperExRects | null {
+		let result = this._clipperExRects;
+		if (result === undefined) {
+			if (this._data.clipper.extended) {
+				result = new UtilHtmlElementClipperExRectsImpl();
+			} else {
+				result = null;
+			}
+			this._clipperExRects = result;
+		}
+		return result;
+	}
+
 	protected getElement(clipper: HTMLDivElement): ELEMENT | null {
 		let result = this._element;
 		if (result == null) {
@@ -691,19 +717,6 @@ export class UtilHtmlElement<
 		if (result == null) {
 			result = this._data.after.creator(clipper);
 			this._after = result;
-		}
-		return result;
-	}
-
-	protected getOverlapper(clipper: HTMLDivElement): UtilHtmlElementOverlapper | null {
-		let result = this._overlapper;
-		if (result === undefined) {
-			if (this._overlapperRects != null) {
-				result = new UtilHtmlElementOverlapperImpl(clipper);
-			} else {
-				result = null;
-			}
-			this._overlapper = result;
 		}
 		return result;
 	}
@@ -795,7 +808,7 @@ export class UtilHtmlElement<
 			if (target.worldVisible) {
 				const element = this._element;
 				const clipper = this._clipper;
-				const overlapper = this._overlapper;
+				const clipperEx = this._clipperEx;
 				if (element && clipper) {
 					const resolution = renderer.resolution;
 					const elementRect = this.getElementRect(resolution);
@@ -815,7 +828,7 @@ export class UtilHtmlElement<
 						elementRect,
 						elementMatrix,
 						clipperRect,
-						overlapper
+						clipperEx
 					);
 					options.element.styler(
 						element,
@@ -824,14 +837,14 @@ export class UtilHtmlElement<
 						elementRect,
 						elementMatrix,
 						clipperRect,
-						overlapper
+						clipperEx
 					);
-					if (overlapper) {
-						const overlapperRects = this._overlapperRects;
-						if (overlapperRects) {
-							if (this.getOverlapperRects(resolution, overlapperRects)) {
-								overlapper.update(elementRect, elementMatrix, overlapperRects);
-								overlapperRects.toClean();
+					if (clipperEx) {
+						const clipperExRects = this.getClipperExRects();
+						if (clipperExRects) {
+							if (this.fillClipperExRects(resolution, clipperExRects)) {
+								clipperEx.update(elementRect, elementMatrix, clipperExRects);
+								clipperExRects.toClean();
 							}
 						}
 					}

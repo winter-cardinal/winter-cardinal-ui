@@ -4,8 +4,8 @@
  */
 
 import { Matrix, Rectangle } from "pixi.js";
-import { UtilHtmlElementOverlapper } from "./util-html-element-overlapper";
-import { UtilHtmlElementOverlapperRects } from "./util-html-element-overlapper-rects";
+import { UtilHtmlElementClipperEx } from "./util-html-element-clipper-ex";
+import { UtilHtmlElementClipperExRects } from "./util-html-element-clipper-ex-rects";
 
 const SVG_XMLNS = "http://www.w3.org/2000/svg";
 
@@ -13,7 +13,7 @@ const toS = (target: number): string => {
 	return 1 < target ? "1" : target < 0 ? "0" : target.toFixed(5);
 };
 
-export class UtilHtmlElementOverlapperImpl implements UtilHtmlElementOverlapper {
+export class UtilHtmlElementClipperExImpl implements UtilHtmlElementClipperEx {
 	private static WORK_MATRIX?: Matrix;
 	private static WORK_RECTS?: number[];
 
@@ -29,7 +29,7 @@ export class UtilHtmlElementOverlapperImpl implements UtilHtmlElementOverlapper 
 
 		const defs = document.createElementNS(SVG_XMLNS, "defs");
 		const clipPath = document.createElementNS(SVG_XMLNS, "clipPath");
-		const clipPathId = `overlapper_${Math.random().toString(32).substring(2)}`;
+		const clipPathId = `clipper_ex_${Math.random().toString(32).substring(2)}`;
 		clipPath.setAttribute("id", clipPathId);
 		clipPath.setAttribute("clipPathUnits", "objectBoundingBox");
 		const path = document.createElementNS(SVG_XMLNS, "path");
@@ -50,9 +50,9 @@ export class UtilHtmlElementOverlapperImpl implements UtilHtmlElementOverlapper 
 	update(
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		overlappingRects: UtilHtmlElementOverlapperRects
+		clipperExRects: UtilHtmlElementClipperExRects
 	): void {
-		const d = this.toD(elementRect, elementMatrix, overlappingRects);
+		const d = this.toD(elementRect, elementMatrix, clipperExRects);
 		if (this._pathD != d) {
 			this._path.setAttribute("d", d);
 			this._pathD = d;
@@ -62,7 +62,7 @@ export class UtilHtmlElementOverlapperImpl implements UtilHtmlElementOverlapper 
 	protected toD(
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		overlappingRects: UtilHtmlElementOverlapperRects
+		clipperExRects: UtilHtmlElementClipperExRects
 	): string {
 		if (elementRect == null) {
 			return "";
@@ -75,12 +75,12 @@ export class UtilHtmlElementOverlapperImpl implements UtilHtmlElementOverlapper 
 			return "";
 		}
 
-		const overlappingRectsSize = overlappingRects.size;
-		if (overlappingRectsSize <= 0) {
+		const clipperExRectsSize = clipperExRects.size;
+		if (clipperExRectsSize <= 0) {
 			return "M0,0 h1 v1 h-1z";
 		}
 
-		const matrix = (UtilHtmlElementOverlapperImpl.WORK_MATRIX ??= new Matrix());
+		const matrix = (UtilHtmlElementClipperExImpl.WORK_MATRIX ??= new Matrix());
 		if (elementMatrix != null) {
 			matrix.copyFrom(elementMatrix);
 			matrix.invert();
@@ -97,8 +97,8 @@ export class UtilHtmlElementOverlapperImpl implements UtilHtmlElementOverlapper 
 		const d = matrix.d;
 		const tx = matrix.tx;
 		const ty = matrix.ty;
-		const rects = (UtilHtmlElementOverlapperImpl.WORK_RECTS ??= []);
-		const rectsLength = this.toRects(overlappingRects, rects);
+		const rects = (UtilHtmlElementClipperExImpl.WORK_RECTS ??= []);
+		const rectsLength = this.toRects(clipperExRects, rects);
 		for (let i = 0; i < rectsLength; i += 4) {
 			const d0 = rects[i + 0];
 			const d1 = rects[i + 1];
@@ -117,9 +117,9 @@ export class UtilHtmlElementOverlapperImpl implements UtilHtmlElementOverlapper 
 		return result;
 	}
 
-	protected toRects(overlappingRects: UtilHtmlElementOverlapperRects, result: number[]): number {
-		const data = overlappingRects.data;
-		const size = overlappingRects.size;
+	protected toRects(clipperExRects: UtilHtmlElementClipperExRects, result: number[]): number {
+		const data = clipperExRects.data;
+		const size = clipperExRects.size;
 
 		// Copy all rectangles
 		let imax = size << 2;

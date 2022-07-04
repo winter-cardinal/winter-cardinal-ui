@@ -22,9 +22,10 @@ import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
-import { UtilHtmlElementOverlapperRects } from "../../util/util-html-element-overlapper-rects";
+import { UtilHtmlElementClipperExRects } from "../../util/util-html-element-clipper-ex-rects";
 import { EShapeContainer } from "../e-shape-container";
 import { DDiagramLayer } from "../../d-diagram-layer";
+import { isShapeClipperExLoaded } from "../load/load-shape-clipper-ex";
 
 export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 	ELEMENT extends HTMLElement = HTMLElement,
@@ -84,8 +85,8 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 				return this.getClipperToRect(shape, runtime, resolution, work, result);
 			},
 
-			getOverlappingRect: (result: UtilHtmlElementOverlapperRects): void => {
-				this.getOverlappingRect(shape, result);
+			getClipperExRects: (result: UtilHtmlElementClipperExRects): void => {
+				this.getClipperExRects(shape, result);
 			},
 
 			getPadding: (): UtilHtmlElementPadding | null => {
@@ -118,7 +119,10 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 			element: {
 				creator: this.newElementCreator(shape, runtime)
 			},
-			when: this.toWhen(shape, runtime)
+			when: this.toWhen(shape, runtime),
+			clipper: {
+				extended: isShapeClipperExLoaded()
+			}
 		};
 	}
 
@@ -182,7 +186,7 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 		return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
 	}
 
-	protected getOverlappingRect(shape: EShape, result: UtilHtmlElementOverlapperRects): void {
+	protected getClipperExRects(shape: EShape, result: UtilHtmlElementClipperExRects): void {
 		result.begin();
 		const target = shape.root.parent as EShapeContainer | null;
 		if (target instanceof DDiagramLayer) {

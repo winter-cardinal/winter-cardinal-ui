@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface UtilHtmlElementOverlapperRects {
+export interface UtilHtmlElementClipperExRects {
 	readonly data: number[];
 	readonly size: number;
 	isDirty(): boolean;

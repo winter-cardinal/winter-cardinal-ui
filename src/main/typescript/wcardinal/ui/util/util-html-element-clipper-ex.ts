@@ -4,13 +4,13 @@
  */
 
 import { Matrix, Rectangle } from "pixi.js";
-import { UtilHtmlElementOverlapperRects } from "./util-html-element-overlapper-rects";
+import { UtilHtmlElementClipperExRects } from "./util-html-element-clipper-ex-rects";
 
-export interface UtilHtmlElementOverlapper {
+export interface UtilHtmlElementClipperEx {
 	readonly id: string;
 	update(
 		elementRect: Rectangle | null,
 		elementMatrix: Matrix | null,
-		overlappingRects: UtilHtmlElementOverlapperRects
+		clipperExRects: UtilHtmlElementClipperExRects
 	): void;
 }
