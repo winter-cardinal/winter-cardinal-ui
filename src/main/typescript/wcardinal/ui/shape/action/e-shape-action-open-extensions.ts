@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface EShapeActionOpenExtension {
-	type: number;
-	label: string;
-}
+import { EShapeActionOpenExtension } from "./e-shape-action-open-extension";
 
 export class EShapeActionOpenExtensions {
 	protected static _data?: EShapeActionOpenExtension[];

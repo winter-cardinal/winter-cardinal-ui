@@ -7,6 +7,7 @@ export * from "./deserialize-action-value";
 export * from "./e-shape-action-bases";
 export * from "./e-shape-action-expression";
 export * from "./e-shape-action-expressions";
+export * from "./e-shape-action-open-extension";
 export * from "./e-shape-action-open-extensions";
 export * from "./e-shape-action-open-opener";
 export * from "./e-shape-action-runtime-blink-brighten";
