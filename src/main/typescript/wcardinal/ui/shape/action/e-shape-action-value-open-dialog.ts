@@ -38,6 +38,15 @@ export type EShapeActionValueOpenDialogSerializedLegacy = [
 	number
 ];
 
+export type EShapeActionValueOpenDialogTypeNew =
+	| typeof EShapeActionValueOpenDialogType.TEXT
+	| typeof EShapeActionValueOpenDialogType.INTEGER
+	| typeof EShapeActionValueOpenDialogType.REAL
+	| typeof EShapeActionValueOpenDialogType.BOOLEAN
+	| typeof EShapeActionValueOpenDialogType.DATE
+	| typeof EShapeActionValueOpenDialogType.TIME
+	| typeof EShapeActionValueOpenDialogType.DATETIME;
+
 export type EShapeActionValueOpenDialogSerializedNew = [
 	typeof EShapeActionValueType.OPEN,
 	number,
@@ -45,7 +54,7 @@ export type EShapeActionValueOpenDialogSerializedNew = [
 	number,
 	EShapeActionValueOnInputAction,
 	number,
-	EShapeActionValueOpenDialogType
+	EShapeActionValueOpenDialogTypeNew
 ];
 
 export type EShapeActionValueOpenDialogSerialized =
@@ -58,14 +67,14 @@ export class EShapeActionValueOpenDialog extends EShapeActionValueSubtyped<
 	readonly target: string;
 	readonly onInputAction: EShapeActionValueOnInputAction;
 	readonly initial: string;
-	readonly dialogType: EShapeActionValueOpenDialogType;
+	readonly dialogType: EShapeActionValueOpenDialogTypeNew;
 
 	constructor(
 		condition: string,
 		target: string,
 		onInputAction: EShapeActionValueOnInputAction,
 		initial: string,
-		dialogType: EShapeActionValueOpenDialogType
+		dialogType: EShapeActionValueOpenDialogTypeNew
 	) {
 		super(EShapeActionValueType.OPEN, condition, EShapeActionValueOpenType.DIALOG);
 		this.target = target;
@@ -131,7 +140,7 @@ export class EShapeActionValueOpenDialog extends EShapeActionValueSubtyped<
 
 	protected static toDialogType(
 		serialized: EShapeActionValueOpenDialogSerialized
-	): EShapeActionValueOpenDialogType {
+	): EShapeActionValueOpenDialogTypeNew {
 		if (serialized[2] === EShapeActionValueOpenType.DIALOG) {
 			return serialized[6];
 		} else {

@@ -4,6 +4,7 @@
  */
 
 import { EShapeActionOpenExtension } from "./e-shape-action-open-extension";
+import { EShapeActionOpenOpeners } from "./e-shape-action-open-openers";
 
 export class EShapeActionOpenExtensions {
 	protected static _data?: EShapeActionOpenExtension[];
@@ -15,6 +16,7 @@ export class EShapeActionOpenExtensions {
 			extension
 		);
 		(this._data ??= []).push(extension);
+		EShapeActionOpenOpeners[extension.type] = extension.opener;
 	}
 
 	static get(type: number): EShapeActionOpenExtension | undefined {

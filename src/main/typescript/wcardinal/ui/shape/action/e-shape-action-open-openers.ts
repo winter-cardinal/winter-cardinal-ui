@@ -5,8 +5,4 @@
 
 import { EShapeActionOpenOpener } from "./e-shape-action-open-opener";
 
-export interface EShapeActionOpenExtension {
-	type: number;
-	label: string;
-	opener: EShapeActionOpenOpener;
-}
+export const EShapeActionOpenOpeners: Record<number, EShapeActionOpenOpener> = {};

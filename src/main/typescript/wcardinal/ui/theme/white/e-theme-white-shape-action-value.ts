@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeActionOpenDialogExtensions } from "../../shape/action/e-shape-action-open-dialog-extensions";
+import { EShapeActionOpenExtensions } from "../../shape/action/e-shape-action-open-extensions";
 import { EShapeActionValue, EThemeShapeActionValue } from "../../shape/action/e-shape-action-value";
 import { EShapeActionValueBlinkType } from "../../shape/action/e-shape-action-value-blink-type";
 import { EShapeActionValueChangeColorTarget } from "../../shape/action/e-shape-action-value-change-color-target";
@@ -297,6 +299,10 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 				return "Dialog";
 			default:
 				if (EShapeActionValueOpenType.EXTENSION <= type) {
+					const extension = EShapeActionOpenExtensions.get(type);
+					if (extension) {
+						return extension.label;
+					}
 					return "Extension";
 				} else {
 					return "Unknown";
@@ -320,6 +326,16 @@ export class EThemeWhiteShapeActionValue implements EThemeShapeActionValue {
 				return "Time";
 			case EShapeActionValueOpenDialogType.DATETIME:
 				return "Datetime";
+			default:
+				if (EShapeActionValueOpenDialogType.EXTENSION <= type) {
+					const extension = EShapeActionOpenDialogExtensions.get(type);
+					if (extension) {
+						return extension.label;
+					}
+					return "Extension";
+				} else {
+					return "Unknown";
+				}
 		}
 	}
 

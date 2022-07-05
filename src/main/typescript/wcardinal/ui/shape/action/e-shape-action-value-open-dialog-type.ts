@@ -10,8 +10,9 @@ export const EShapeActionValueOpenDialogType = {
 	BOOLEAN: 3,
 	DATE: 4,
 	TIME: 5,
-	DATETIME: 6
+	DATETIME: 6,
+
+	EXTENSION: 1000
 } as const;
 
-export type EShapeActionValueOpenDialogType =
-	typeof EShapeActionValueOpenDialogType[keyof typeof EShapeActionValueOpenDialogType];
+export type EShapeActionValueOpenDialogType = number;
