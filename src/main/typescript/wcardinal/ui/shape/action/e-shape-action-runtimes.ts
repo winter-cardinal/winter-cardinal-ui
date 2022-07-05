@@ -13,7 +13,7 @@ import { DDiagramSerialized } from "../../d-diagram-serialized";
 import { DDiagrams } from "../../d-diagrams";
 import { EShape } from "../e-shape";
 import { EShapeEmbedded } from "../variant/e-shape-embedded";
-import { EShapeActionOpenOpeners } from "./e-shape-action-open-opener";
+import { EShapeActionOpenOpeners } from "./e-shape-action-open-openers";
 
 export interface EShapeActionRuntimeContainerDataScoped {
 	set(id: string, value: unknown, time: number): boolean;
