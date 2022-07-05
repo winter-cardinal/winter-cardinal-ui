@@ -11,7 +11,9 @@ export const EShapeDataValueType = {
 	OBJECT: 4,
 	OBJECT_ARRAY: 5,
 
-	TICKER: 6
+	TICKER: 6,
+
+	EXTENSION: 1000
 } as const;
 
-export type EShapeDataValueType = typeof EShapeDataValueType[keyof typeof EShapeDataValueType];
+export type EShapeDataValueType = number;

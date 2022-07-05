@@ -30,6 +30,7 @@ import { DDiagramCanvasTicker } from "./d-diagram-canvas-ticker";
 import { DDiagramCanvasTickerImpl } from "./d-diagram-canvas-ticker-impl";
 import { EShapeDataValueScope } from "./shape/e-shape-data-value-scope";
 import { EShapeEmbedded } from "./shape/variant/e-shape-embedded";
+import { EShapeDataValueExtensions } from "./shape/e-shape-data-value-extensions";
 
 export interface DDiagramCanvasOptions<THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas>
 	extends DDiagramCanvasBaseOptions<THEME> {}
@@ -193,7 +194,7 @@ export class DDiagramCanvas<
 			const value = data.get(i);
 			if (value) {
 				// Mapping
-				if (value.type !== EShapeDataValueType.TICKER) {
+				if (this.isMappable(value)) {
 					if (value.scope === EShapeDataValueScope.PRIVATE) {
 						const id = value.id;
 						if (0 < id.length) {
@@ -248,6 +249,23 @@ export class DDiagramCanvas<
 				}
 			}
 		}
+	}
+
+	protected isMappable(value: EShapeDataValue): boolean {
+		const valueType = value.type;
+		if (valueType === EShapeDataValueType.TICKER) {
+			return false;
+		} else if (EShapeDataValueType.EXTENSION <= valueType) {
+			const extension = EShapeDataValueExtensions.get(valueType);
+			if (extension) {
+				const extensionId = extension.id;
+				if (extensionId != null) {
+					return extensionId;
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 
 	protected initActions(
@@ -322,7 +340,8 @@ export class DDiagramCanvas<
 	}
 
 	protected toInitial(value: EShapeDataValue): string {
-		switch (value.type) {
+		const valueType = value.type;
+		switch (valueType) {
 			case EShapeDataValueType.NUMBER:
 				return "0";
 			case EShapeDataValueType.NUMBER_ARRAY:
@@ -336,6 +355,17 @@ export class DDiagramCanvas<
 			case EShapeDataValueType.OBJECT_ARRAY:
 				return "[]";
 			case EShapeDataValueType.TICKER:
+				return "0";
+			default:
+				if (EShapeDataValueType.EXTENSION <= valueType) {
+					const extension = EShapeDataValueExtensions.get(valueType);
+					if (extension) {
+						const extensionInitial = extension.initial;
+						if (extensionInitial != null) {
+							return extensionInitial;
+						}
+					}
+				}
 				return "0";
 		}
 	}
