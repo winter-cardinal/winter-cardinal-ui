@@ -491,6 +491,13 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 		}
 	}
 
+	toDirty(): void {
+		const parent = this.parent;
+		if (parent != null) {
+			parent.isChanged = true;
+		}
+	}
+
 	/**
 	 * This method does not copy the `#values` and `#times` for the performance.
 	 *

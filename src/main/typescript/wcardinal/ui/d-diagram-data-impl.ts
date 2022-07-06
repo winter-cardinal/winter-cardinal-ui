@@ -3,23 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDiagramDataDiagram, DDiagramDataOptions } from "./d-diagram-data";
+import { DDiagramData, DDiagramDataDiagram, DDiagramDataOptions } from "./d-diagram-data";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramDataScoped } from "./d-diagram-data-scoped";
 import { DDiagramDataPrivateImpl } from "./d-diagram-data-private-impl";
 import { DDiagramDataProtectedImpl } from "./d-diagram-data-protected-impl";
 import { DDiagramDataRemote } from "./d-diagram-data-remote";
 import { DDiagramDataRemoteImpl } from "./d-diagram-data-remote-impl";
+import { DDiagramDataExtendedImpl } from "./d-diagram-data-extended-impl";
 
 /**
  * A data helper class for diagrams.
  */
-export class DDiagramDataImpl {
+export class DDiagramDataImpl implements DDiagramData {
 	protected _diagram: DDiagramDataDiagram;
 	protected _mapper: DDiagramDataMapper | null;
 	protected _remote: DDiagramDataRemote;
 	protected _private: DDiagramDataScoped;
 	protected _protected: DDiagramDataScoped;
+	protected _extended: DDiagramDataScoped;
 
 	constructor(diagram: DDiagramDataDiagram, options?: DDiagramDataOptions) {
 		this._diagram = diagram;
@@ -27,6 +29,7 @@ export class DDiagramDataImpl {
 		this._remote = new DDiagramDataRemoteImpl(options && options.remote);
 		this._private = new DDiagramDataPrivateImpl(diagram);
 		this._protected = new DDiagramDataProtectedImpl(diagram);
+		this._extended = new DDiagramDataExtendedImpl(diagram);
 	}
 
 	update(): void {
@@ -53,6 +56,10 @@ export class DDiagramDataImpl {
 		return this._protected;
 	}
 
+	get extended(): DDiagramDataScoped {
+		return this._extended;
+	}
+
 	get ids(): string[] {
 		const canvas = this._diagram.canvas;
 		if (canvas) {
@@ -61,10 +68,10 @@ export class DDiagramDataImpl {
 		return [];
 	}
 
-	each(callback: (id: string) => boolean | void): string | null {
+	each(iteratee: (id: string) => boolean | void): string | null {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.each(callback);
+			return canvas.data.each(iteratee);
 		}
 		return null;
 	}
@@ -87,6 +94,14 @@ export class DDiagramDataImpl {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			return canvas.data.clear(id);
+		}
+		return false;
+	}
+
+	toDirty(id: string): boolean {
+		const canvas = this._diagram.canvas;
+		if (canvas != null) {
+			return canvas.data.toDirty(id);
 		}
 		return false;
 	}

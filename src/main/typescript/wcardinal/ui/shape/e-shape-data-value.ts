@@ -39,6 +39,7 @@ export interface EShapeDataValue extends EShapeDataValueLike {
 	formatter?: (value: unknown) => unknown;
 
 	clear(): void;
+	toDirty(): void;
 	remove(index: number): void;
 	removeAll(indices: number[]): void;
 	copy(target: EShapeDataValue): void;

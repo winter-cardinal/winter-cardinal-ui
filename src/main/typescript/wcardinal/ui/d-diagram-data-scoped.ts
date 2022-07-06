@@ -4,6 +4,8 @@
  */
 
 export interface DDiagramDataScoped {
+	readonly ids: string[];
+
 	set(
 		id: string,
 		value: unknown,
@@ -11,4 +13,6 @@ export interface DDiagramDataScoped {
 		from?: number | null,
 		to?: number | null
 	): boolean;
+	toDirty(id: string): boolean;
+	each(iteratee: (id: string) => boolean | void): string | null;
 }

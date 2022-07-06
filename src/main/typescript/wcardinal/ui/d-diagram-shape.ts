@@ -73,7 +73,7 @@ export class DDiagramShape extends utils.EventEmitter {
 		return [];
 	}
 
-	each(callback: (shape: EShape) => boolean | void, reverse = false): EShape | null {
+	each(iteratee: (shape: EShape) => boolean | void, reverse = false): EShape | null {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			const layers = canvas.layer.children;
@@ -83,7 +83,7 @@ export class DDiagramShape extends utils.EventEmitter {
 					const children = layer.children;
 					for (let j = 0, jmax = children.length; j < jmax; ++j) {
 						const child = children[j];
-						if (callback(child) === false) {
+						if (iteratee(child) === false) {
 							return child;
 						}
 					}
@@ -94,7 +94,7 @@ export class DDiagramShape extends utils.EventEmitter {
 					const children = layer.children;
 					for (let j = children.length - 1; 0 <= j; --j) {
 						const child = children[j];
-						if (callback(child) === false) {
+						if (iteratee(child) === false) {
 							return child;
 						}
 					}

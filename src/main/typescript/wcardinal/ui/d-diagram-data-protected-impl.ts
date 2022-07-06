@@ -13,6 +13,14 @@ export class DDiagramDataProtectedImpl implements DDiagramDataScoped {
 		this._diagram = diagram;
 	}
 
+	get ids(): string[] {
+		const canvas = this._diagram.canvas;
+		if (canvas != null) {
+			return canvas.data.protected.ids;
+		}
+		return [];
+	}
+
 	set(
 		id: string,
 		value: unknown,
@@ -25,5 +33,21 @@ export class DDiagramDataProtectedImpl implements DDiagramDataScoped {
 			return canvas.data.protected.set(id, value, time, from, to);
 		}
 		return false;
+	}
+
+	toDirty(id: string): boolean {
+		const canvas = this._diagram.canvas;
+		if (canvas != null) {
+			return canvas.data.protected.toDirty(id);
+		}
+		return false;
+	}
+
+	each(iteratee: (id: string) => boolean | void): string | null {
+		const canvas = this._diagram.canvas;
+		if (canvas != null) {
+			return canvas.data.protected.each(iteratee);
+		}
+		return null;
 	}
 }

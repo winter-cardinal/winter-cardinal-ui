@@ -6,7 +6,7 @@
 import { DDiagramDataDiagram } from "./d-diagram-data";
 import { DDiagramDataScoped } from "./d-diagram-data-scoped";
 
-export class DDiagramDataPrivateImpl implements DDiagramDataScoped {
+export class DDiagramDataExtendedImpl implements DDiagramDataScoped {
 	protected _diagram: DDiagramDataDiagram;
 
 	constructor(diagram: DDiagramDataDiagram) {
@@ -16,7 +16,7 @@ export class DDiagramDataPrivateImpl implements DDiagramDataScoped {
 	get ids(): string[] {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.private.ids;
+			return canvas.data.extended.ids;
 		}
 		return [];
 	}
@@ -30,7 +30,7 @@ export class DDiagramDataPrivateImpl implements DDiagramDataScoped {
 	): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.private.set(id, value, time, from, to);
+			return canvas.data.extended.set(id, value, time, from, to);
 		}
 		return false;
 	}
@@ -38,7 +38,7 @@ export class DDiagramDataPrivateImpl implements DDiagramDataScoped {
 	toDirty(id: string): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.private.toDirty(id);
+			return canvas.data.extended.toDirty(id);
 		}
 		return false;
 	}
@@ -46,7 +46,7 @@ export class DDiagramDataPrivateImpl implements DDiagramDataScoped {
 	each(iteratee: (id: string) => boolean | void): string | null {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.private.each(iteratee);
+			return canvas.data.extended.each(iteratee);
 		}
 		return null;
 	}

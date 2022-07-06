@@ -4,6 +4,18 @@ import { EShapeDataValue } from "./e-shape-data-value";
 export class EShapeDataScopedImpl implements EShapeDataScoped {
 	protected _data?: Map<string, EShapeDataValue[]>;
 
+	get ids(): string[] {
+		const data = this._data;
+		if (data == null) {
+			return [];
+		}
+		const result: string[] = [];
+		data.forEach((value, id): void => {
+			result.push(id);
+		});
+		return result;
+	}
+
 	add(id: string, value: EShapeDataValue): void {
 		const data = (this._data ??= new Map<string, EShapeDataValue[]>());
 		const list = data.get(id);
@@ -49,5 +61,40 @@ export class EShapeDataScopedImpl implements EShapeDataScoped {
 			datumValue.value = value;
 		}
 		return true;
+	}
+
+	toDirty(id: string): boolean {
+		const data = this._data;
+		if (data == null) {
+			return false;
+		}
+		const datum = data.get(id);
+		if (datum == null) {
+			return false;
+		}
+		const size = datum.length;
+		if (size <= 0) {
+			return false;
+		}
+		for (let i = 0; i < size; ++i) {
+			datum[i].toDirty();
+		}
+		return true;
+	}
+
+	each(iteratee: (id: string) => boolean | void): string | null {
+		const data = this._data;
+		if (data == null) {
+			return null;
+		}
+		let result: string | null = null;
+		data.forEach((value, id): void => {
+			if (result == null) {
+				if (iteratee(id) === false) {
+					result = id;
+				}
+			}
+		});
+		return result;
 	}
 }

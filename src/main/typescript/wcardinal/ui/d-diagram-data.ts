@@ -36,9 +36,10 @@ export interface DDiagramData {
 	readonly remote: DDiagramDataRemote;
 	readonly private: DDiagramDataScoped;
 	readonly protected: DDiagramDataScoped;
+	readonly extended: DDiagramDataScoped;
 	readonly ids: string[];
 	mapper: DDiagramDataMapper | null;
-	each(callback: (id: string) => boolean | void): string | null;
+	each(iteratee: (id: string) => boolean | void): string | null;
 	set(
 		id: string,
 		value: unknown,
@@ -47,6 +48,7 @@ export interface DDiagramData {
 		to?: number | null
 	): boolean;
 	clear(id: string): boolean;
+	toDirty(id: string): boolean;
 	setAll(
 		id: string,
 		values: unknown[],

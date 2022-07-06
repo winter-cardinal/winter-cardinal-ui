@@ -4,8 +4,8 @@
  */
 
 export interface EShapeDataValueExtension {
+	id: string;
 	type: number;
 	label: string;
-	initial?: string;
-	id?: boolean;
+	initial: unknown;
 }

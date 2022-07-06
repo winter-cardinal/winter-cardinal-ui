@@ -9,8 +9,9 @@ import { EShapeDataValue } from "./shape/e-shape-data-value";
 export interface DDiagramCanvasData {
 	readonly private: EShapeDataScoped;
 	readonly protected: EShapeDataScoped;
+	readonly extended: EShapeDataScoped;
 	readonly ids: string[];
-	each(callback: (id: string) => boolean | void): string | null;
+	each(iteratee: (id: string) => boolean | void): string | null;
 	add(id: string, value: EShapeDataValue): void;
 	set(
 		id: string,
@@ -20,6 +21,7 @@ export interface DDiagramCanvasData {
 		to?: number | null
 	): boolean;
 	clear(id: string): boolean;
+	toDirty(id: string): boolean;
 	setAll(
 		id: string,
 		values: unknown[],

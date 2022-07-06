@@ -13,6 +13,7 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 	protected _data?: Map<string, EShapeDataValue[]>;
 	protected _private?: EShapeDataScoped;
 	protected _protected?: EShapeDataScoped;
+	protected _extended?: EShapeDataScoped;
 
 	get private(): EShapeDataScoped {
 		let result = this._private;
@@ -40,6 +41,19 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		return new EShapeDataScopedImpl();
 	}
 
+	get extended(): EShapeDataScoped {
+		let result = this._extended;
+		if (result == null) {
+			result = this.newExtended();
+			this._extended = result;
+		}
+		return result;
+	}
+
+	protected newExtended(): EShapeDataScoped {
+		return new EShapeDataScopedImpl();
+	}
+
 	get ids(): string[] {
 		const data = this._data;
 		if (data == null) {
@@ -52,7 +66,7 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		return result;
 	}
 
-	each(callback: (id: string) => boolean | void): string | null {
+	each(iteratee: (id: string) => boolean | void): string | null {
 		const data = this._data;
 		if (data == null) {
 			return null;
@@ -60,7 +74,7 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		let result: string | null = null;
 		data.forEach((value, id): void => {
 			if (result == null) {
-				if (callback(id) === false) {
+				if (iteratee(id) === false) {
 					result = id;
 				}
 			}
@@ -130,6 +144,25 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		}
 		for (let i = 0; i < size; ++i) {
 			datum[i].clear();
+		}
+		return true;
+	}
+
+	toDirty(id: string): boolean {
+		const data = this._data;
+		if (data == null) {
+			return false;
+		}
+		const datum = data.get(id);
+		if (datum == null) {
+			return false;
+		}
+		const size = datum.length;
+		if (size <= 0) {
+			return false;
+		}
+		for (let i = 0; i < size; ++i) {
+			datum[i].toDirty();
 		}
 		return true;
 	}

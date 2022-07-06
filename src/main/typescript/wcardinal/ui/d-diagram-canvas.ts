@@ -193,79 +193,96 @@ export class DDiagramCanvas<
 		for (let i = 0, imax = data.size(); i < imax; ++i) {
 			const value = data.get(i);
 			if (value) {
-				// Mapping
-				if (this.isMappable(value)) {
-					if (value.scope === EShapeDataValueScope.PRIVATE) {
-						const id = value.id;
-						if (0 < id.length) {
-							if (dataShape) {
-								dataShape.data.private.add(id, value);
-							} else {
-								canvasData.private.add(id, value);
-							}
-						}
-					} else if (value.scope === EShapeDataValueScope.PROTECTED) {
-						const id = value.id;
-						if (0 < id.length) {
-							canvasData.protected.add(id, value);
-						}
-					} else {
-						if (mapper) {
-							mapper(value, dataShape || shape);
-						}
-						const id = value.id;
-						if (0 < id.length) {
-							canvasData.add(id, value);
-						}
-					}
-				}
-
-				// Format
+				const type = value.type;
 				const format = value.format;
 				const initial = value.initial;
-				if (formatToFormatter.has(format)) {
-					value.formatter = formatToFormatter.get(format);
-				} else if (0 < format.length) {
-					try {
-						const formatter = this.calcFormatter(value, format, initial);
-						formatToFormatter.set(format, formatter);
-						value.formatter = formatter;
-					} catch (e) {
-						// DO NOTHING
-					}
-				}
+				switch (type) {
+					case EShapeDataValueType.NUMBER:
+					case EShapeDataValueType.NUMBER_ARRAY:
+					case EShapeDataValueType.STRING:
+					case EShapeDataValueType.STRING_ARRAY:
+					case EShapeDataValueType.OBJECT:
+					case EShapeDataValueType.OBJECT_ARRAY:
+						// Mapping
+						if (value.scope === EShapeDataValueScope.PRIVATE) {
+							const id = value.id;
+							if (0 < id.length) {
+								if (dataShape) {
+									dataShape.data.private.add(id, value);
+								} else {
+									canvasData.private.add(id, value);
+								}
+							}
+						} else if (value.scope === EShapeDataValueScope.PROTECTED) {
+							const id = value.id;
+							if (0 < id.length) {
+								canvasData.protected.add(id, value);
+							}
+						} else {
+							if (mapper) {
+								mapper(value, dataShape || shape);
+							}
+							const id = value.id;
+							if (0 < id.length) {
+								canvasData.add(id, value);
+							}
+						}
 
-				// Initial
-				if (initialToInitialValue.has(initial)) {
-					this.setInitial(value, initialToInitialValue.get(initial), canvasTicker);
-				} else if (0 < initial.length) {
-					try {
-						const initialValue = this.calcInitial(value, initial);
-						initialToInitialValue.set(initial, initialValue);
-						this.setInitial(value, initialValue, canvasTicker);
-					} catch (e) {
-						// DO NOTHING
-					}
+						// Format
+						if (formatToFormatter.has(format)) {
+							value.formatter = formatToFormatter.get(format);
+						} else if (0 < format.length) {
+							try {
+								const formatter = this.calcFormatter(value, format, initial);
+								formatToFormatter.set(format, formatter);
+								value.formatter = formatter;
+							} catch (e) {
+								// DO NOTHING
+							}
+						}
+
+						// Initial
+						if (initialToInitialValue.has(initial)) {
+							value.value = initialToInitialValue.get(initial);
+						} else if (0 < initial.length) {
+							try {
+								const initialValue = this.calcInitial(value, initial);
+								initialToInitialValue.set(initial, initialValue);
+								value.value = initialValue;
+							} catch (e) {
+								// DO NOTHING
+							}
+						}
+						break;
+					case EShapeDataValueType.TICKER:
+						// Initial
+						if (initialToInitialValue.has(initial)) {
+							value.value = 0;
+							canvasTicker.add(initialToInitialValue.get(initial)).add(value);
+						} else if (0 < initial.length) {
+							try {
+								const initialValue = this.calcInitial(value, initial);
+								initialToInitialValue.set(initial, initialValue);
+								value.value = 0;
+								canvasTicker.add(initialValue).add(value);
+							} catch (e) {
+								// DO NOTHING
+							}
+						}
+						break;
+					default:
+						const extension = EShapeDataValueExtensions.get(type);
+						if (extension) {
+							// Mapping
+							canvasData.extended.add(extension.id, value);
+
+							// Initial
+							value.value = extension.initial;
+						}
+						break;
 				}
 			}
 		}
-	}
-
-	protected isMappable(value: EShapeDataValue): boolean {
-		const valueType = value.type;
-		if (valueType === EShapeDataValueType.TICKER) {
-			return false;
-		} else if (EShapeDataValueType.EXTENSION <= valueType) {
-			const extension = EShapeDataValueExtensions.get(valueType);
-			if (extension) {
-				const extensionId = extension.id;
-				if (extensionId != null) {
-					return extensionId;
-				}
-			}
-			return false;
-		}
-		return true;
 	}
 
 	protected initActions(
@@ -314,19 +331,6 @@ export class DDiagramCanvas<
 		) as any;
 	}
 
-	protected setInitial(
-		value: EShapeDataValue,
-		initial: unknown,
-		tickers: DDiagramCanvasTicker
-	): void {
-		if (value.type === EShapeDataValueType.TICKER) {
-			tickers.add(initial).add(value);
-			value.value = 0;
-		} else {
-			value.value = initial;
-		}
-	}
-
 	protected calcInitial(value: EShapeDataValue, initial: string): unknown {
 		return Function(
 			/* eslint-disable prettier/prettier */
@@ -357,15 +361,6 @@ export class DDiagramCanvas<
 			case EShapeDataValueType.TICKER:
 				return "0";
 			default:
-				if (EShapeDataValueType.EXTENSION <= valueType) {
-					const extension = EShapeDataValueExtensions.get(valueType);
-					if (extension) {
-						const extensionInitial = extension.initial;
-						if (extensionInitial != null) {
-							return extensionInitial;
-						}
-					}
-				}
 				return "0";
 		}
 	}
