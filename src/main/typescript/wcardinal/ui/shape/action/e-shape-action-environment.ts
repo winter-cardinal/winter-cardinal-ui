@@ -10,4 +10,16 @@
  * For instance, if this object has a property of the name `apple`, the string `apple` is a valid expression
  * and is equivalent to `EShapeActionEnvironment.apple`.
  */
-export const EShapeActionEnvironment: Record<string, unknown> = {};
+export interface EShapeActionEnvironment {
+	[key: string]: unknown;
+
+	/**
+	 * True if evaluating actions for the first time and false otherwise.
+	 * This property is intended to be used to execute actions up to once.
+	 */
+	isInitializing: boolean;
+}
+
+export const EShapeActionEnvironment: EShapeActionEnvironment = {
+	isInitializing: false
+};

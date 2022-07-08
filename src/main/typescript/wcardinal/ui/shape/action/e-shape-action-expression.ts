@@ -4,6 +4,7 @@
  */
 
 import { EShape } from "../e-shape";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 
 /**
  * {@link EShape} action expression.
@@ -14,5 +15,5 @@ import { EShape } from "../e-shape";
 export type EShapeActionExpression<T> = (
 	shape: EShape,
 	time: number,
-	environment: Record<string, unknown>
+	environment: EShapeActionEnvironment
 ) => T;
