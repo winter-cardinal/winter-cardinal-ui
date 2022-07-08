@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {
-	EShapeActionExpression,
-	EShapeActionExpressionWithParameter
-} from "./e-shape-action-expression";
+import { EShapeActionExpression } from "./e-shape-action-expression";
+import { EShapeActionExpressionWithParameter } from "./e-shape-action-expression-with-parameter";
 
+/**
+ * {@link EShape} action expression utility class.
+ */
 export class EShapeActionExpressions {
 	static NULL = (): null => null;
 	static ZERO = (): number => 0;
@@ -47,28 +48,31 @@ export class EShapeActionExpressions {
 		try {
 			/* eslint-disable prettier/prettier */
 			const body = `` +
-				`try{` +
-					`with( shape ) {` +
-						`with( state ) {` +
-							( nullable ?
-								(
-									`var result = (${expression});` +
-									`return (result != null ? ${caster}(result) : null);`
-								) :
-								`return ${caster}(${expression});`
-							) +
+				`try {` +
+					`with (shape) {` +
+						`with (state) {` +
+							`with (environment) {` +
+								( nullable ?
+									(
+										`var result = (${expression});` +
+										`return (result != null ? ${caster}(result) : null);`
+									) :
+									`return ${caster}(${expression});`
+								) +
+							`}` +
 						`}` +
 					`}` +
-				`} catch( e ) {` +
+				`} catch (e) {` +
 					`return ${defLiteral};` +
 				`}`;
 			/* eslint-enable prettier/prettier */
 			if (parameter == null) {
-				return Function("shape", "time", body) as EShapeActionExpression<T>;
+				return Function("shape", "time", "environment", body) as EShapeActionExpression<T>;
 			} else {
 				return Function(
 					"shape",
 					"time",
+					"environment",
 					parameter,
 					body
 				) as EShapeActionExpressionWithParameter<T, P>;

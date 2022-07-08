@@ -9,6 +9,7 @@ import { UtilHtmlElementClipperExRects } from "../../util/util-html-element-clip
 import { UtilInput, UtilInputOperation } from "../../util/util-input";
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeMiscHtmlElementBase } from "./e-shape-action-runtime-misc-html-element-base";
@@ -120,7 +121,7 @@ export abstract class EShapeActionRuntimeMiscInput<
 	): void {
 		shape.text.value = this.getUtil(shape, runtime).fromValue(newValue);
 		const now = Date.now();
-		const target = this.target(shape, now);
+		const target = this.target(shape, now, EShapeActionEnvironment);
 		if (target != null) {
 			EShapeActionValueOnInputActions.execute(
 				shape,

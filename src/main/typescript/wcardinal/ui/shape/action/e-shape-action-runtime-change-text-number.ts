@@ -7,6 +7,7 @@ import { NumberFormatter } from "../../util/number-formatter";
 import { NumberFormatters } from "../../util/number-formatters";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
@@ -43,8 +44,8 @@ export class EShapeActionRuntimeChangeTextNumber extends EShapeActionRuntimeCond
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
-		if (this.condition(shape, time)) {
-			const value = this.number(shape, time);
+		if (this.condition(shape, time, EShapeActionEnvironment)) {
+			const value = this.number(shape, time, EShapeActionEnvironment);
 			const formatter = this.getFormatter(shape, runtime);
 			shape.text.value = formatter != null ? formatter.format(value, 0) : String(value);
 			runtime.written |= this.reset;

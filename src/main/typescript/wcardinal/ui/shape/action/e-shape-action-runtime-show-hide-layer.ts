@@ -6,6 +6,7 @@
 import { DDiagramLayers, DDiagramLayersLayer } from "../../d-diagram-layers";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValueShowHideLayer } from "./e-shape-action-value-show-hide-layer";
 
@@ -41,7 +42,7 @@ export class EShapeActionRuntimeShowHideLayer extends EShapeActionRuntimeConditi
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
 		const data = this._data.get(shape);
 		if (data) {
-			const newCondition = this.condition(shape, time);
+			const newCondition = this.condition(shape, time, EShapeActionEnvironment);
 			if (data.condition !== newCondition) {
 				data.condition = newCondition;
 				const layers = data.layers;

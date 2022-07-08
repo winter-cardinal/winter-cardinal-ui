@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
@@ -30,10 +31,10 @@ export abstract class EShapeActionRuntimeOpenDialog<
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
 		if (!this.isOpened) {
-			if (this.condition(shape, time)) {
-				const target = this.target(shape, time);
+			if (this.condition(shape, time, EShapeActionEnvironment)) {
+				const target = this.target(shape, time, EShapeActionEnvironment);
 				if (target != null) {
-					const initial = this.initial(shape, time);
+					const initial = this.initial(shape, time, EShapeActionEnvironment);
 					this.isOpened = true;
 					setTimeout(() => {
 						this.open(shape, target, initial).then(

@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeChangeColorBase } from "./e-shape-action-runtime-change-color-base";
@@ -23,10 +24,10 @@ export class EShapeActionRuntimeChangeColorCode extends EShapeActionRuntimeChang
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
-		if (this.condition(shape, time)) {
-			const color = this.color(shape, time);
-			const alpha = this.alpha(shape, time);
-			const blend = this.blend(shape, time);
+		if (this.condition(shape, time, EShapeActionEnvironment)) {
+			const color = this.color(shape, time, EShapeActionEnvironment);
+			const alpha = this.alpha(shape, time, EShapeActionEnvironment);
+			const blend = this.blend(shape, time, EShapeActionEnvironment);
 			this.set(shape, runtime, time, color, alpha, blend);
 		}
 	}

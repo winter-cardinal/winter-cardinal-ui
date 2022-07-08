@@ -26,6 +26,7 @@ import { UtilHtmlElementClipperExRects } from "../../util/util-html-element-clip
 import { EShapeContainer } from "../e-shape-container";
 import { DDiagramLayer } from "../../d-diagram-layer";
 import { isShapeClipperExLoaded } from "../load/load-shape-clipper-ex";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 
 export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 	ELEMENT extends HTMLElement = HTMLElement,
@@ -132,7 +133,7 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 	): UtilHtmlElementCreator<ELEMENT> | undefined;
 
 	protected toWhen(shape: EShape, runtime: EShapeRuntime): UtilHtmlElementWhen | undefined {
-		const value = this.condition(shape, Date.now());
+		const value = this.condition(shape, Date.now(), EShapeActionEnvironment);
 		if (value != null && value in UtilHtmlElementWhen) {
 			return UtilHtmlElementWhen[value as keyof typeof UtilHtmlElementWhen];
 		}

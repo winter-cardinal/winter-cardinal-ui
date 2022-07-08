@@ -31,6 +31,7 @@ import { DDiagramCanvasTickerImpl } from "./d-diagram-canvas-ticker-impl";
 import { EShapeDataValueScope } from "./shape/e-shape-data-value-scope";
 import { EShapeEmbedded } from "./shape/variant/e-shape-embedded";
 import { EShapeDataValueExtensions } from "./shape/e-shape-data-value-extensions";
+import { EShapeActionEnvironment } from "./shape/action/e-shape-action-environment";
 
 export interface DDiagramCanvasOptions<THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas>
 	extends DDiagramCanvasBaseOptions<THEME> {}
@@ -97,12 +98,14 @@ export class DDiagramCanvas<
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
 			layers[i].initialize(actionables);
 		}
+		EShapeActionEnvironment.isInitializing = true;
 		for (let i = 0, imax = layers.length; i < imax; ++i) {
 			const layerChildren = layers[i].children;
 			for (let j = 0, jmax = layerChildren.length; j < jmax; ++j) {
 				layerChildren[j].update(time);
 			}
 		}
+		EShapeActionEnvironment.isInitializing = false;
 		this._ticker.start();
 	}
 

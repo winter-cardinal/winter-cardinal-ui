@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
@@ -19,8 +20,8 @@ export class EShapeActionRuntimeChangeCursor extends EShapeActionRuntimeConditio
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
-		if (this.condition(shape, time)) {
-			const name = this.name(shape, time);
+		if (this.condition(shape, time, EShapeActionEnvironment)) {
+			const name = this.name(shape, time, EShapeActionEnvironment);
 			if (name != null) {
 				shape.cursor = name;
 				runtime.written |= this.reset;

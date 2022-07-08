@@ -7,6 +7,7 @@ import { UtilRgb } from "../../util/util-rgb";
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
 import { EShapeActionBases } from "./e-shape-action-bases";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeChangeColorBase } from "./e-shape-action-runtime-change-color-base";
@@ -21,8 +22,8 @@ export class EShapeActionRuntimeChangeColorBrightness extends EShapeActionRuntim
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
-		if (this.condition(shape, time)) {
-			const brightness = this.brightness(shape, time);
+		if (this.condition(shape, time, EShapeActionEnvironment)) {
+			const brightness = this.brightness(shape, time, EShapeActionEnvironment);
 			this.set(shape, runtime, time, brightness);
 		}
 	}

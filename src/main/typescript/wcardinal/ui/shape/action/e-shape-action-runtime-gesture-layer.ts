@@ -13,6 +13,7 @@ import { DApplications } from "../../d-applications";
 import { UtilGesture } from "../../util/util-gesture";
 import { EShapeActionValueGestureOperationType } from "./e-shape-action-value-gesture-operation-type";
 import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 
 export class EShapeActionRuntimeGestureLayer extends EShapeActionRuntimeConditional {
 	protected static GESTURE_UTIL?: UtilGesture<DDiagramLayersLayer>;
@@ -47,7 +48,8 @@ export class EShapeActionRuntimeGestureLayer extends EShapeActionRuntimeConditio
 
 		if (e instanceof InteractionEvent) {
 			const layer = this._layers.get(shape);
-			if (layer && this.condition(shape, e.data.originalEvent.timeStamp)) {
+			const time = e.data.originalEvent.timeStamp;
+			if (layer && this.condition(shape, time, EShapeActionEnvironment)) {
 				this.getGestureUtil().onDown(layer, e);
 			}
 		}

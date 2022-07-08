@@ -5,6 +5,7 @@
 
 import { EShape } from "../e-shape";
 import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionOpenDialogExtensions } from "./e-shape-action-open-dialog-extensions";
@@ -28,8 +29,8 @@ export class EShapeActionRuntimeOpenDialogExtension extends EShapeActionRuntimeC
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
 		const opener = this.opener;
 		if (opener) {
-			if (this.condition(shape, time)) {
-				const target = this.target(shape, time);
+			if (this.condition(shape, time, EShapeActionEnvironment)) {
+				const target = this.target(shape, time, EShapeActionEnvironment);
 				if (target != null) {
 					setTimeout(() => {
 						opener(target, shape);

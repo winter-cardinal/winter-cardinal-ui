@@ -5,6 +5,8 @@
 
 export * from "./deserialize-action-value";
 export * from "./e-shape-action-bases";
+export * from "./e-shape-action-environment";
+export * from "./e-shape-action-expression-with-parameter";
 export * from "./e-shape-action-expression";
 export * from "./e-shape-action-expressions";
 export * from "./e-shape-action-open-dialog-extension";

@@ -12,6 +12,7 @@ import { DApplications } from "../../d-applications";
 import { UtilGesture } from "../../util/util-gesture";
 import { EShapeActionValueGestureOperationType } from "./e-shape-action-value-gesture-operation-type";
 import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
+import { EShapeActionEnvironment } from "./e-shape-action-environment";
 
 export class EShapeActionRuntimeGestureShape extends EShapeActionRuntimeConditional {
 	protected static GESTURE_UTIL?: UtilGesture<EShape>;
@@ -30,7 +31,7 @@ export class EShapeActionRuntimeGestureShape extends EShapeActionRuntimeConditio
 		super.onDown(shape, runtime, e);
 
 		if (e instanceof InteractionEvent) {
-			if (this.condition(shape, e.data.originalEvent.timeStamp)) {
+			if (this.condition(shape, e.data.originalEvent.timeStamp, EShapeActionEnvironment)) {
 				this.getGestureUtil().onDown(shape, e);
 			}
 		}
