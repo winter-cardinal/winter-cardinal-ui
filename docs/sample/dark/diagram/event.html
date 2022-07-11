@@ -1,0 +1,70 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Life-cicle events</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.200.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.200.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var diagram = new wcardinal.ui.DDiagram({
+			parent: application.stage,
+			x: 0, y: 0,
+			width: "100%", height: "100%",
+			on: {
+				set: function( canvas, diagram ) {
+					// Triggered when a canvas is set.
+					console.log( "Set", canvas, diagram );
+				},
+
+				unset: function( canvas, diagram ) {
+					// Triggered when a canvas is removed.
+					console.log( "Unset", canvas, diagram )
+				},
+
+				ready: function( diagram ) {
+					// Triggered immediately after a diagram is loaded and
+					// all the shapes are initialized.
+					console.log( "Ready", diagram );
+				}
+			}
+		});
+
+		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
+			response.json().then(function( json ) {
+				console.log( "Before #set call" );
+				diagram.set( json ).then(function( canvas ) {
+					// Gets fulfilled after a diagram is loaded and all the shapes are initialized.
+					console.log( "Fulfilled", canvas );
+				});
+				console.log( "After #set call" );
+				diagram.view.fit();
+			});
+		});
+	}());
+	</script>
+</body>
+</html>
