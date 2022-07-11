@@ -94,8 +94,8 @@ export class DDiagram<
 		canvas: DDiagramCanvas,
 		shapes: EShape[],
 		mapper?: DDiagramDataMapper | null
-	): void {
-		super.initLayer(canvas, shapes, mapper || this.data.mapper);
+	): DDiagramCanvas {
+		return super.initLayer(canvas, shapes, mapper || this.data.mapper);
 	}
 
 	protected isEditMode(): boolean {

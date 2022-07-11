@@ -120,29 +120,43 @@ export abstract class DDiagramBase<
 		return this._controller || null;
 	}
 
-	set(serialized: DDiagramSerialized | null): void {
+	set(serialized: null): Promise<null>;
+	set(serialized: DDiagramSerialized): Promise<CANVAS>;
+	set(serialized: DDiagramSerialized | null): Promise<CANVAS | null> {
 		const oldSerialized = this._serialized;
 		if (oldSerialized !== serialized) {
 			if (oldSerialized) {
 				this._serialized = null;
+				const canvas = this.canvas;
+				if (canvas) {
+					this.canvas = null;
+				}
 				this.onUnset();
 			}
 
 			this._serialized = serialized;
 			if (serialized) {
-				this.onSet(serialized);
+				const canvas = this.newCanvas(serialized);
+				const pieces = serialized.pieces;
+				const isEditMode = this.isEditMode();
+				const result = DDiagrams.toPieceData(this._controller, pieces, isEditMode).then(
+					(pieceData): Promise<CANVAS> => {
+						return this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
+					}
+				);
+				this.onSet(serialized, canvas);
+				this.canvas = canvas;
+				return result;
+			} else {
+				return Promise.resolve(null);
 			}
+		} else {
+			return Promise.resolve(this.canvas);
 		}
 	}
 
-	protected onSet(serialized: DDiagramSerialized): void {
-		const canvas = this.newCanvas(serialized);
-		const pieces = serialized.pieces;
-		const isEditMode = this.isEditMode();
-		DDiagrams.toPieceData(this._controller, pieces, isEditMode).then((pieceData): void => {
-			this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
-		});
-		this.canvas = canvas;
+	protected onSet(serialized: DDiagramSerialized, canvas: CANVAS): void {
+		// DO NOTHING
 	}
 
 	protected abstract isEditMode(): boolean;
@@ -153,32 +167,36 @@ export abstract class DDiagramBase<
 		isEditMode: boolean,
 		pieces?: string[],
 		pieceData?: Map<string, EShapeEmbeddedDatum | null>
-	): void {
+	): Promise<CANVAS> {
 		const manager = new EShapeResourceManagerDeserialization(
 			serialized,
 			pieces,
 			pieceData,
 			isEditMode
 		);
-		DDiagrams.newLayer(serialized, canvas.layer, manager).then((shapes: EShape[]): void => {
-			this.initLayer(canvas, shapes);
-		});
+		const result = DDiagrams.newLayer(serialized, canvas.layer, manager).then(
+			(shapes: EShape[]): CANVAS => {
+				return this.initLayer(canvas, shapes);
+			}
+		);
 		if (this._isAmbient) {
 			const background = this.toCanvasBaseBackgroundOptions(serialized, this.theme, false);
 			this.background.color = background.color;
 			this.background.alpha = background.alpha;
 		}
+		return result;
 	}
 
 	protected initLayer(
 		canvas: CANVAS,
 		shapes: EShape[],
 		mapper?: DDiagramDataMapper | null
-	): void {
+	): CANVAS {
 		canvas.layer.init();
 		canvas.initialize(shapes, mapper);
 		DApplications.update(this);
 		this.emit("ready", this);
+		return canvas;
 	}
 
 	protected toCanvasBaseOptions(serialized: DDiagramSerialized): DDiagramCanvasBaseOptions<any> {
@@ -220,10 +238,7 @@ export abstract class DDiagramBase<
 	protected abstract newCanvas(serialized: DDiagramSerialized): CANVAS;
 
 	protected onUnset(): void {
-		const canvas = this.canvas;
-		if (canvas) {
-			this.canvas = null;
-		}
+		// DO NOTHING
 	}
 
 	get(): DDiagramSerialized | null {

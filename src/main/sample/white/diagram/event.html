@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Event triggered when a diagram is loaded</title>
+	<title>Life-cicle events</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -35,17 +35,32 @@
 			x: 0, y: 0,
 			width: "100%", height: "100%",
 			on: {
-				ready: function() {
-					// Called immediately after a diagram is loaded and
-					// shapes are all created.
-					console.log( "Ready" );
+				set: function( canvas, diagram ) {
+					// Triggered when a canvas is set.
+					console.log( "Set", canvas, diagram );
+				},
+
+				unset: function( canvas, diagram ) {
+					// Triggered when a canvas is removed.
+					console.log( "Unset", canvas, diagram )
+				},
+
+				ready: function( diagram ) {
+					// Triggered immediately after a diagram is loaded and
+					// all the shapes are initialized.
+					console.log( "Ready", diagram );
 				}
 			}
 		});
 
 		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
 			response.json().then(function( json ) {
-				diagram.set( json );
+				console.log( "Before #set call" );
+				diagram.set( json ).then(function( canvas ) {
+					// Gets fulfilled after a diagram is loaded and all the shapes are initialized.
+					console.log( "Fulfilled", canvas );
+				});
+				console.log( "After #set call" );
 				diagram.view.fit();
 			});
 		});

@@ -321,8 +321,8 @@ export class DDiagramEditor<
 		});
 	}
 
-	protected onSet(serialized: DDiagramSerialized): void {
-		super.onSet(serialized);
+	protected onSet(serialized: DDiagramSerialized, canvas: DDiagramCanvasEditor): void {
+		super.onSet(serialized, canvas);
 
 		// Snap settings
 		const snap = serialized.snap;
