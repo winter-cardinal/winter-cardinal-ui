@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramSerializedFill
+[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramSerializedFill
 
 # Interface: DDiagramSerializedFill
 
@@ -22,7 +22,7 @@ A serialized fill.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L114)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L114)
 
 ___
 
@@ -34,7 +34,7 @@ A color.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L117)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L117)
 
 ___
 
@@ -46,4 +46,4 @@ An alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L120)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L120)

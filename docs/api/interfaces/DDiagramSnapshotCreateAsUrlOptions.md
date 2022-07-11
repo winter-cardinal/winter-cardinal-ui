@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramSnapshotCreateAsUrlOptions
+[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramSnapshotCreateAsUrlOptions
 
 # Interface: DDiagramSnapshotCreateAsUrlOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L64)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L64)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L63)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L63)

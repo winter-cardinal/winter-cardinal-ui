@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DDialogInputInputOptions
+[Winter Cardinal UI - v0.200.0](../index.md) / DDialogInputInputOptions
 
 # Interface: DDialogInputInputOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-input.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-input.ts#L13)
+[src/main/typescript/wcardinal/ui/d-dialog-input.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-dialog-input.ts#L13)

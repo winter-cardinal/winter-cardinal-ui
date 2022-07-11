@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DTreeItemTextEvents
+[Winter Cardinal UI - v0.200.0](../index.md) / DTreeItemTextEvents
 
 # Interface: DTreeItemTextEvents<NODE, EMITTER\>
 
@@ -64,7 +64,7 @@ Triggered when added to a container.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L102)
+[src/main/typescript/wcardinal/ui/d-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L102)
 
 ___
 
@@ -92,7 +92,7 @@ Triggered when an emitter is double clicked.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L235)
+[src/main/typescript/wcardinal/ui/d-base.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L235)
 
 ___
 
@@ -119,7 +119,7 @@ Triggered when a pointer gets down on an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L218)
+[src/main/typescript/wcardinal/ui/d-base.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L218)
 
 ___
 
@@ -147,7 +147,7 @@ Triggered when an initialization is finished.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L95)
+[src/main/typescript/wcardinal/ui/d-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L95)
 
 ___
 
@@ -174,7 +174,7 @@ Triggered when a key gets down.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L186)
+[src/main/typescript/wcardinal/ui/d-base.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L186)
 
 ___
 
@@ -201,7 +201,7 @@ Triggered when a key gets up.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L194)
+[src/main/typescript/wcardinal/ui/d-base.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L194)
 
 ___
 
@@ -231,7 +231,7 @@ Triggered when moved.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L120)
+[src/main/typescript/wcardinal/ui/d-base.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L120)
 
 ___
 
@@ -258,7 +258,7 @@ Triggered when a pointer gets out of an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L210)
+[src/main/typescript/wcardinal/ui/d-base.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L210)
 
 ___
 
@@ -285,7 +285,7 @@ Triggered when a pointer gets on an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L202)
+[src/main/typescript/wcardinal/ui/d-base.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L202)
 
 ___
 
@@ -311,7 +311,7 @@ Triggered when removed from a container.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L109)
+[src/main/typescript/wcardinal/ui/d-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L109)
 
 ___
 
@@ -341,7 +341,7 @@ Triggered when resized.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L131)
+[src/main/typescript/wcardinal/ui/d-base.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L131)
 
 ___
 
@@ -371,7 +371,7 @@ Triggered when scaled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L148)
+[src/main/typescript/wcardinal/ui/d-base.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L148)
 
 ___
 
@@ -397,7 +397,7 @@ Triggered when a node is set.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-item-text.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-tree-item-text.ts#L29)
+[src/main/typescript/wcardinal/ui/d-tree-item-text.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-tree-item-text.ts#L29)
 
 ___
 
@@ -427,7 +427,7 @@ Triggered when skewed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L159)
+[src/main/typescript/wcardinal/ui/d-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L159)
 
 ___
 
@@ -455,7 +455,7 @@ Triggered when a state is changed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L168)
+[src/main/typescript/wcardinal/ui/d-base.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L168)
 
 ___
 
@@ -479,7 +479,7 @@ Triggered when set to undefined.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-item-text.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-tree-item-text.ts#L38)
+[src/main/typescript/wcardinal/ui/d-tree-item-text.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-tree-item-text.ts#L38)
 
 ___
 
@@ -506,7 +506,7 @@ Triggered when a pointer gets up on an emitter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L226)
+[src/main/typescript/wcardinal/ui/d-base.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L226)
 
 ___
 
@@ -535,4 +535,4 @@ Triggered when a wheel moves.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base.ts#L178)
+[src/main/typescript/wcardinal/ui/d-base.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base.ts#L178)

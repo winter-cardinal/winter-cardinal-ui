@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / NumberFormatter
+[Winter Cardinal UI - v0.200.0](../index.md) / NumberFormatter
 
 # Interface: NumberFormatter
 
@@ -110,4 +110,4 @@ Formats the given number `target`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/number-formatter.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/number-formatter.ts#L91)
+[src/main/typescript/wcardinal/ui/util/number-formatter.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/number-formatter.ts#L91)

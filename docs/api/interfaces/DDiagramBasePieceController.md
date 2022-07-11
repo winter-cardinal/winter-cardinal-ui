@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramBasePieceController
+[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramBasePieceController
 
 # Interface: DDiagramBasePieceController
 
@@ -36,4 +36,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L12)
+[src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-base-controller.ts#L12)

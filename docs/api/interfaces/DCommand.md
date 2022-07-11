@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DCommand
+[Winter Cardinal UI - v0.200.0](../index.md) / DCommand
 
 # Interface: DCommand
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command.ts#L16)
+[src/main/typescript/wcardinal/ui/d-command.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-command.ts#L16)
 
 ___
 
@@ -50,7 +50,7 @@ Called to executed this command.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command.ts#L12)
+[src/main/typescript/wcardinal/ui/d-command.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-command.ts#L12)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command.ts#L17)
+[src/main/typescript/wcardinal/ui/d-command.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-command.ts#L17)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command.ts#L14)
+[src/main/typescript/wcardinal/ui/d-command.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-command.ts#L14)
 
 ___
 
@@ -92,4 +92,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command.ts#L15)
+[src/main/typescript/wcardinal/ui/d-command.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-command.ts#L15)

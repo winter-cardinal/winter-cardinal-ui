@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / EShapeGroupStrokeViewer
+[Winter Cardinal UI - v0.200.0](../index.md) / EShapeGroupStrokeViewer
 
 # Class: EShapeGroupStrokeViewer
 
@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L13)
 
 ## Accessors
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L49)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L49)
 
 • `set` **align**(`width`): `void`
 
@@ -77,7 +77,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L53)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L53)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L33)
 
 • `set` **alpha**(`alpha`): `void`
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L37)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L25)
 
 • `set` **color**(`color`): `void`
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L29)
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L17)
 
 • `set` **enable**(`enable`): `void`
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L21)
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L57)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L57)
 
 • `set` **side**(`side`): `void`
 
@@ -229,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L61)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L61)
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L65)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L65)
 
 • `set` **style**(`style`): `void`
 
@@ -267,7 +267,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L69)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L69)
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L41)
 
 • `set` **width**(`width`): `void`
 
@@ -305,7 +305,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L45)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L45)
 
 ## Methods
 
@@ -323,7 +323,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L89)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L89)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L73)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L73)
 
 ___
 
@@ -372,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L109)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L109)
 
 ___
 
@@ -396,7 +396,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L105)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L105)
 
 ___
 
@@ -426,7 +426,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L77)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L77)
 
 ___
 
@@ -444,4 +444,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L93)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-stroke-viewer.ts#L93)

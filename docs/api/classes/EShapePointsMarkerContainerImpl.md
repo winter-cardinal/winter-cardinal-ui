@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / EShapePointsMarkerContainerImpl
+[Winter Cardinal UI - v0.200.0](../index.md) / EShapePointsMarkerContainerImpl
 
 # Class: EShapePointsMarkerContainerImpl
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L32)
 
 ## Properties
 
@@ -63,7 +63,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L29)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L28)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L27)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L26)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L25)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L24)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L30)
 
 ## Accessors
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L73)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L73)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L69)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L69)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L77)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L77)
 
 ## Methods
 
@@ -197,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L105)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L105)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L119)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L119)
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L42)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L42)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L97)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L97)
 
 ___
 
@@ -268,7 +268,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L89)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L89)
 
 ___
 
@@ -282,7 +282,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L81)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L81)
 
 ___
 
@@ -306,7 +306,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L113)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L113)
 
 ___
 
@@ -324,4 +324,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L52)
+[src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-points-marker-container-impl.ts#L52)

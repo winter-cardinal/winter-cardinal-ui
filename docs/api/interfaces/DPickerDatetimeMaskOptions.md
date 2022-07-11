@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DPickerDatetimeMaskOptions
+[Winter Cardinal UI - v0.200.0](../index.md) / DPickerDatetimeMaskOptions
 
 # Interface: DPickerDatetimeMaskOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts#L12)
+[src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-picker-datetime-masks.ts#L12)

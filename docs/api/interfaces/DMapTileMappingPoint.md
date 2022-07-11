@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DMapTileMappingPoint
+[Winter Cardinal UI - v0.200.0](../index.md) / DMapTileMappingPoint
 
 # Interface: DMapTileMappingPoint
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts#L8)
+[src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts#L8)
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts#L7)
+[src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-map-tile-mapping.ts#L7)

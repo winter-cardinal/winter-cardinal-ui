@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DChartSeriesBaseCoordinateContainer
+[Winter Cardinal UI - v0.200.0](../index.md) / DChartSeriesBaseCoordinateContainer
 
 # Class: DChartSeriesBaseCoordinateContainer<CHART\>
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L29)
 
 ## Properties
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L24)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L24)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L25)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L25)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L22)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L23)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L26)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L27)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L21)
 
 ## Accessors
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L42)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L42)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L50)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L50)
 
 ## Methods
 
@@ -181,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L88)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L88)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L58)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L58)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L68)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L68)
 
 ___
 
@@ -237,4 +237,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L83)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L83)

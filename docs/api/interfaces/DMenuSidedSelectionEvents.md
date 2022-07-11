@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DMenuSidedSelectionEvents
+[Winter Cardinal UI - v0.200.0](../index.md) / DMenuSidedSelectionEvents
 
 # Interface: DMenuSidedSelectionEvents<EMITTER\>
 
@@ -36,4 +36,4 @@ Triggered when a selection is changed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L32)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L32)

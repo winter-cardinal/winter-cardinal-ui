@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / UtilWheelEventDeltas
+[Winter Cardinal UI - v0.200.0](../index.md) / UtilWheelEventDeltas
 
 # Interface: UtilWheelEventDeltas
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L15)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L15)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L16)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L16)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L17)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L17)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L18)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L18)
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L14)
+[src/main/typescript/wcardinal/ui/util/util-wheel-event.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-wheel-event.ts#L14)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DThemeWhiteSelectMultiple
+[Winter Cardinal UI - v0.200.0](../index.md) / DThemeWhiteSelectMultiple
 
 # Class: DThemeWhiteSelectMultiple<VALUE\>
 
@@ -131,7 +131,7 @@ DThemeWhiteDropdownBase<Array<DMenuItem<VALUE\>\>\>.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L27)
 
 ## Properties
 
@@ -145,7 +145,7 @@ DThemeWhiteDropdownBase.BACKGROUND\_COLOR
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L19)
 
 ___
 
@@ -159,7 +159,7 @@ DThemeWhiteDropdownBase.BACKGROUND\_COLOR\_HOVERED
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L20)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L20)
 
 ___
 
@@ -173,7 +173,7 @@ DThemeWhiteDropdownBase.BACKGROUND\_COLOR\_PRESSED
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L21)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L21)
 
 ___
 
@@ -187,7 +187,7 @@ DThemeWhiteDropdownBase.OUTLINE\_COLOR
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L23)
 
 ## Methods
 
@@ -215,7 +215,7 @@ DThemeWhiteDropdownBase.getAlpha
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L35)
 
 ___
 
@@ -245,7 +245,7 @@ DThemeWhiteDropdownBase.getBackgroundAlpha
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L74)
 
 ___
 
@@ -276,7 +276,7 @@ DThemeWhiteDropdownBase.getBackgroundColor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L38)
 
 ___
 
@@ -300,7 +300,7 @@ DThemeWhiteDropdownBase.getBackgroundTexture
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L78)
 
 ___
 
@@ -330,7 +330,7 @@ DThemeWhiteDropdownBase.getBorderAlign
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L94)
 
 ___
 
@@ -360,7 +360,7 @@ DThemeWhiteDropdownBase.getBorderAlpha
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L86)
 
 ___
 
@@ -391,7 +391,7 @@ DThemeWhiteDropdownBase.getBorderColor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L60)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L60)
 
 ___
 
@@ -421,7 +421,7 @@ DThemeWhiteDropdownBase.getBorderMask
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L98)
 
 ___
 
@@ -445,7 +445,7 @@ DThemeWhiteDropdownBase.getBorderTexture
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L102)
 
 ___
 
@@ -475,7 +475,7 @@ DThemeWhiteDropdownBase.getBorderWidth
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L90)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L90)
 
 ___
 
@@ -500,7 +500,7 @@ DThemeWhiteDropdownBase.getClearType
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L157)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L157)
 
 ___
 
@@ -528,7 +528,7 @@ DThemeWhiteDropdownBase.getColor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L52)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L52)
 
 ___
 
@@ -552,7 +552,7 @@ DThemeWhiteDropdownBase.getCornerMask
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L126)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L126)
 
 ___
 
@@ -576,7 +576,7 @@ DThemeWhiteDropdownBase.getCornerRadius
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L122)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L122)
 
 ___
 
@@ -606,7 +606,7 @@ DThemeWhiteDropdownBase.getCursor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L126)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L126)
 
 ___
 
@@ -628,7 +628,7 @@ DThemeWhiteDropdownBase.getFontFamilly
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L11)
 
 ___
 
@@ -650,7 +650,7 @@ DThemeWhiteDropdownBase.getFontSize
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L15)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L15)
 
 ___
 
@@ -672,7 +672,7 @@ DThemeWhiteDropdownBase.getFontStyle
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L27)
 
 ___
 
@@ -694,7 +694,7 @@ DThemeWhiteDropdownBase.getFontVariant
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L31)
 
 ___
 
@@ -716,7 +716,7 @@ DThemeWhiteDropdownBase.getFontWeight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L23)
 
 ___
 
@@ -740,7 +740,7 @@ DThemeWhiteDropdownBase.getHeight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L98)
 
 ___
 
@@ -762,7 +762,7 @@ DThemeWhiteDropdownBase.getImageAlignHorizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L18)
 
 ___
 
@@ -784,7 +784,7 @@ DThemeWhiteDropdownBase.getImageAlignVertical
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L22)
 
 ___
 
@@ -806,7 +806,7 @@ DThemeWhiteDropdownBase.getImageAlignWith
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L26)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L26)
 
 ___
 
@@ -828,7 +828,7 @@ DThemeWhiteDropdownBase.getImageMarginHorizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L30)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L30)
 
 ___
 
@@ -850,7 +850,7 @@ DThemeWhiteDropdownBase.getImageMarginVertial
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L34)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L34)
 
 ___
 
@@ -878,7 +878,7 @@ DThemeWhiteDropdownBase.getImageSource
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L46)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L46)
 
 ___
 
@@ -906,7 +906,7 @@ DThemeWhiteDropdownBase.getImageTintAlpha
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L42)
 
 ___
 
@@ -934,7 +934,7 @@ DThemeWhiteDropdownBase.getImageTintColor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L38)
 
 ___
 
@@ -958,7 +958,7 @@ DThemeWhiteDropdownBase.getInteractive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L165)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L165)
 
 ___
 
@@ -980,7 +980,7 @@ DThemeWhiteDropdownBase.getLineHeight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-font.ts#L42)
 
 ___
 
@@ -1010,7 +1010,7 @@ DThemeWhiteDropdownBase.getOutlineAlign
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L149)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L149)
 
 ___
 
@@ -1040,7 +1040,7 @@ DThemeWhiteDropdownBase.getOutlineAlpha
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L134)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L134)
 
 ___
 
@@ -1071,7 +1071,7 @@ DThemeWhiteDropdownBase.getOutlineColor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L68)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L68)
 
 ___
 
@@ -1095,7 +1095,7 @@ DThemeWhiteDropdownBase.getOutlineColorActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L75)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L75)
 
 ___
 
@@ -1119,7 +1119,7 @@ DThemeWhiteDropdownBase.getOutlineColorNonActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L79)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L79)
 
 ___
 
@@ -1149,7 +1149,7 @@ DThemeWhiteDropdownBase.getOutlineMask
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L153)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L153)
 
 ___
 
@@ -1179,7 +1179,7 @@ DThemeWhiteDropdownBase.getOutlineOffset
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L83)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L83)
 
 ___
 
@@ -1203,7 +1203,7 @@ DThemeWhiteDropdownBase.getOutlineOffsetActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L90)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L90)
 
 ___
 
@@ -1227,7 +1227,7 @@ DThemeWhiteDropdownBase.getOutlineOffsetNonActive
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L94)
 
 ___
 
@@ -1257,7 +1257,7 @@ DThemeWhiteDropdownBase.getOutlineWidth
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L141)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L141)
 
 ___
 
@@ -1281,7 +1281,7 @@ DThemeWhiteDropdownBase.getPaddingBottom
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L118)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L118)
 
 ___
 
@@ -1305,7 +1305,7 @@ DThemeWhiteDropdownBase.getPaddingLeft
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L43)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L43)
 
 ___
 
@@ -1329,7 +1329,7 @@ DThemeWhiteDropdownBase.getPaddingRight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L47)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L47)
 
 ___
 
@@ -1353,7 +1353,7 @@ DThemeWhiteDropdownBase.getPaddingTop
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L114)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L114)
 
 ___
 
@@ -1375,7 +1375,7 @@ DThemeWhiteDropdownBase.getSecondaryImageAlignHorizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L31)
 
 ___
 
@@ -1397,7 +1397,7 @@ DThemeWhiteDropdownBase.getSecondaryImageAlignVertical
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L54)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L54)
 
 ___
 
@@ -1419,7 +1419,7 @@ DThemeWhiteDropdownBase.getSecondaryImageAlignWith
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L35)
 
 ___
 
@@ -1441,7 +1441,7 @@ DThemeWhiteDropdownBase.getSecondaryImageMarginHorizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L39)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L39)
 
 ___
 
@@ -1463,7 +1463,7 @@ DThemeWhiteDropdownBase.getSecondaryImageMarginVertial
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L66)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L66)
 
 ___
 
@@ -1491,7 +1491,7 @@ DThemeWhiteDropdownBase.getSecondaryImageSource
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L51)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-dropdown-base.ts#L51)
 
 ___
 
@@ -1519,7 +1519,7 @@ DThemeWhiteDropdownBase.getSecondaryImageTintAlpha
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L74)
 
 ___
 
@@ -1547,7 +1547,7 @@ DThemeWhiteDropdownBase.getSecondaryImageTintColor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L70)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L70)
 
 ___
 
@@ -1572,7 +1572,7 @@ DThemeWhiteDropdownBase.getShadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L161)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L161)
 
 ___
 
@@ -1594,7 +1594,7 @@ DThemeWhiteDropdownBase.getTertiaryImageAlignHorizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L78)
 
 ___
 
@@ -1616,7 +1616,7 @@ DThemeWhiteDropdownBase.getTertiaryImageAlignVertical
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L82)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L82)
 
 ___
 
@@ -1638,7 +1638,7 @@ DThemeWhiteDropdownBase.getTertiaryImageAlignWith
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L86)
 
 ___
 
@@ -1660,7 +1660,7 @@ DThemeWhiteDropdownBase.getTertiaryImageMarginHorizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L90)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L90)
 
 ___
 
@@ -1682,7 +1682,7 @@ DThemeWhiteDropdownBase.getTertiaryImageMarginVertial
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L94)
 
 ___
 
@@ -1710,7 +1710,7 @@ DThemeWhiteDropdownBase.getTertiaryImageTintAlpha
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L102)
 
 ___
 
@@ -1738,7 +1738,7 @@ DThemeWhiteDropdownBase.getTertiaryImageTintColor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-image-base.ts#L98)
 
 ___
 
@@ -1760,7 +1760,7 @@ DThemeWhiteDropdownBase.getTextAlignHorizontal
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L106)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L106)
 
 ___
 
@@ -1782,7 +1782,7 @@ DThemeWhiteDropdownBase.getTextAlignVertical
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L19)
 
 ___
 
@@ -1817,7 +1817,7 @@ DThemeWhiteDropdownBase.getTextFormatter
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts#L39)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts#L39)
 
 ___
 
@@ -1839,7 +1839,7 @@ DThemeWhiteDropdownBase.getTextStyleClipping
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L31)
 
 ___
 
@@ -1861,7 +1861,7 @@ DThemeWhiteDropdownBase.getTextStyleWordWrap
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L35)
 
 ___
 
@@ -1892,7 +1892,7 @@ DThemeWhiteDropdownBase.getTextValue
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L43)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L43)
 
 ___
 
@@ -1916,7 +1916,7 @@ DThemeWhiteDropdownBase.getTitle
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L173)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L173)
 
 ___
 
@@ -1942,7 +1942,7 @@ DThemeWhiteDropdownBase.getWeight
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L177)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L177)
 
 ___
 
@@ -1966,7 +1966,7 @@ DThemeWhiteDropdownBase.getWhen
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L122)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L122)
 
 ___
 
@@ -1990,7 +1990,7 @@ DThemeWhiteDropdownBase.getWidth
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L102)
 
 ___
 
@@ -2014,7 +2014,7 @@ DThemeWhiteDropdownBase.getX
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L54)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L54)
 
 ___
 
@@ -2038,7 +2038,7 @@ DThemeWhiteDropdownBase.getY
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L58)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L58)
 
 ___
 
@@ -2060,7 +2060,7 @@ DThemeWhiteDropdownBase.isOverflowMaskEnabled
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-text-base.ts#L27)
 
 ___
 
@@ -2084,7 +2084,7 @@ DThemeWhiteDropdownBase.isToggle
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L118)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-base.ts#L118)
 
 ___
 
@@ -2108,7 +2108,7 @@ DThemeWhiteDropdownBase.newShadow
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L181)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L181)
 
 ___
 
@@ -2132,7 +2132,7 @@ DThemeWhiteDropdownBase.newShadowWeak
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L185)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L185)
 
 ___
 
@@ -2162,7 +2162,7 @@ DThemeWhiteDropdownBase.newState
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L169)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-base.ts#L169)
 
 ___
 
@@ -2187,4 +2187,4 @@ DThemeWhiteDropdownBase.newTextValue
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts#L43)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-select-multiple.ts#L43)

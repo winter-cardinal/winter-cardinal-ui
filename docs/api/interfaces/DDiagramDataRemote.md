@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramDataRemote
+[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramDataRemote
 
 # Interface: DDiagramDataRemote
 
@@ -32,4 +32,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L15)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote.ts#L15)

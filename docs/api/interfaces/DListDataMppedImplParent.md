@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DListDataMppedImplParent
+[Winter Cardinal UI - v0.200.0](../index.md) / DListDataMppedImplParent
 
 # Interface: DListDataMppedImplParent<NODE\>
 
@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L11)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L9)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L9)
 
 ___
 
@@ -44,4 +44,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-data-mapped-impl.ts#L10)

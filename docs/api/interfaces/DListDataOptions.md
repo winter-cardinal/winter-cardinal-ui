@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / DListDataOptions
+[Winter Cardinal UI - v0.200.0](../index.md) / DListDataOptions
 
 # Interface: DListDataOptions<ITEM\>
 
@@ -40,7 +40,7 @@ Items inserted after the items spacified by the option [items](DListDataOptions.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L29)
+[src/main/typescript/wcardinal/ui/d-list-data.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L29)
 
 ___
 
@@ -52,7 +52,7 @@ Items inserted before the items specified by the option [items](DListDataOptions
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L19)
+[src/main/typescript/wcardinal/ui/d-list-data.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L19)
 
 ___
 
@@ -64,7 +64,7 @@ List of items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L24)
+[src/main/typescript/wcardinal/ui/d-list-data.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L24)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L38)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L38)
 
 ___
 
@@ -90,7 +90,7 @@ A selection options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L34)
+[src/main/typescript/wcardinal/ui/d-list-data.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-data.ts#L34)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L37)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L37)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L36)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L36)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L34)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L34)
 
 ___
 
@@ -146,4 +146,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L35)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L35)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.199.0](../index.md) / EShapeActionValueChangeColorTypesSerializedLegacy
+[Winter Cardinal UI - v0.200.0](../index.md) / EShapeActionValueChangeColorTypesSerializedLegacy
 
 # Interface: EShapeActionValueChangeColorTypesSerializedLegacy
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts#L16)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-color-types.ts#L17)
