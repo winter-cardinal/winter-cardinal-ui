@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / ESnapperTargetValue
+[Winter Cardinal UI - v0.199.0](../index.md) / ESnapperTargetValue
 
 # Class: ESnapperTargetValue
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L20)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L20)
 
 ## Properties
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L18)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L18)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L17)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L17)
 
 ## Methods
 
@@ -66,4 +66,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L25)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L25)

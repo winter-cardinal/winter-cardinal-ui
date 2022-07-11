@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DPickerTimeBoundsOptions
+[Winter Cardinal UI - v0.199.0](../index.md) / DPickerTimeBoundsOptions
 
 # Interface: DPickerTimeBoundsOptions
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts#L14)
+[src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts#L14)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts#L15)
+[src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-picker-time-bounds.ts#L15)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / Closeable
+[Winter Cardinal UI - v0.199.0](../index.md) / Closeable
 
 # Interface: Closeable
 
@@ -1082,7 +1082,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-context.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-menu-context.ts#L17)
+[src/main/typescript/wcardinal/ui/d-menu-context.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-menu-context.ts#L17)
 
 ___
 

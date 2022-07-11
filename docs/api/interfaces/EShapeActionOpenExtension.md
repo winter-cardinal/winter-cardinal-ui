@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / EShapeActionOpenExtension
+[Winter Cardinal UI - v0.199.0](../index.md) / EShapeActionOpenExtension
 
 # Interface: EShapeActionOpenExtension
 
@@ -7,6 +7,7 @@
 ### Properties
 
 - [label](EShapeActionOpenExtension.md#label)
+- [opener](EShapeActionOpenExtension.md#opener)
 - [type](EShapeActionOpenExtension.md#type)
 
 ## Properties
@@ -17,7 +18,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extensions.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extensions.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L10)
+
+___
+
+### opener
+
+• **opener**: [`EShapeActionOpenOpener`](../index.md#eshapeactionopenopener)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L11)
 
 ___
 
@@ -27,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extensions.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extensions.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-open-extension.ts#L9)

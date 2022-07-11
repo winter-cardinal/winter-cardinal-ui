@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DBorder
+[Winter Cardinal UI - v0.199.0](../index.md) / DBorder
 
 # Interface: DBorder
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-border.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-border.ts#L15)
+[src/main/typescript/wcardinal/ui/d-border.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-border.ts#L15)
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-border.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-border.ts#L13)
+[src/main/typescript/wcardinal/ui/d-border.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-border.ts#L13)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-border.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-border.ts#L12)
+[src/main/typescript/wcardinal/ui/d-border.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-border.ts#L12)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-border.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-border.ts#L16)
+[src/main/typescript/wcardinal/ui/d-border.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-border.ts#L16)
 
 ___
 
@@ -66,4 +66,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-border.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-border.ts#L14)
+[src/main/typescript/wcardinal/ui/d-border.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-border.ts#L14)

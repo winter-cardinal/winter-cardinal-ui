@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DViewStopper
+[Winter Cardinal UI - v0.199.0](../index.md) / DViewStopper
 
 # Interface: DViewStopper
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-stopper.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-view-stopper.ts#L7)
+[src/main/typescript/wcardinal/ui/d-view-stopper.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-view-stopper.ts#L7)
 
 ___
 
@@ -41,4 +41,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view-stopper.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-view-stopper.ts#L8)
+[src/main/typescript/wcardinal/ui/d-view-stopper.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-view-stopper.ts#L8)

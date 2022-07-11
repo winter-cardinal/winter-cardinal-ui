@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DDiagramDataDiagram
+[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramDataDiagram
 
 # Interface: DDiagramDataDiagram
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-data.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-data.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data.ts#L17)

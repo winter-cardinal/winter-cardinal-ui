@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DMapTilePlane
+[Winter Cardinal UI - v0.199.0](../index.md) / DMapTilePlane
 
 # Class: DMapTilePlane
 
@@ -82,7 +82,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L49)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L49)
 
 ## Properties
 
@@ -92,7 +92,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L17)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L17)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L41)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L41)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L30)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L30)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L35)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L35)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L42)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L42)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L47)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L47)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L46)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L46)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L20)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L20)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L22)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L22)
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L19)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L19)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L21)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L21)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L40)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L40)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L44)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L44)
 
 ___
 
@@ -268,7 +268,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L45)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L45)
 
 ___
 
@@ -278,7 +278,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L16)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L16)
 
 ___
 
@@ -302,7 +302,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L25)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L25)
 
 ___
 
@@ -312,7 +312,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L24)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L24)
 
 ___
 
@@ -322,7 +322,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L36)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L36)
 
 ___
 
@@ -332,7 +332,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L37)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L37)
 
 ___
 
@@ -342,7 +342,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L38)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L38)
 
 ___
 
@@ -352,7 +352,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L39)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L39)
 
 ___
 
@@ -362,7 +362,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L23)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L23)
 
 ___
 
@@ -372,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L27)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L27)
 
 ___
 
@@ -382,7 +382,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L26)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L26)
 
 ___
 
@@ -392,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L29)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L29)
 
 ___
 
@@ -402,7 +402,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L28)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L28)
 
 ___
 
@@ -412,7 +412,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L18)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L18)
 
 ___
 
@@ -436,7 +436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L43)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L43)
 
 ___
 
@@ -446,7 +446,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L14)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L14)
 
 ## Accessors
 
@@ -460,7 +460,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L343)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L343)
 
 ___
 
@@ -474,7 +474,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:350](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L350)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:350](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L350)
 
 • `set` **mapping**(`mapping`): `void`
 
@@ -490,7 +490,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L354)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L354)
 
 ___
 
@@ -504,7 +504,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L110)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L110)
 
 ## Methods
 
@@ -526,7 +526,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L311)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L311)
 
 ___
 
@@ -540,7 +540,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:320](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L320)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:320](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L320)
 
 ___
 
@@ -560,7 +560,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:326](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L326)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:326](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L326)
 
 ___
 
@@ -585,7 +585,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L270)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L270)
 
 ___
 
@@ -613,7 +613,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L222)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L222)
 
 ___
 
@@ -641,7 +641,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L246)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:246](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L246)
 
 ___
 
@@ -664,7 +664,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L119)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L119)
 
 ___
 
@@ -688,7 +688,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L102)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L102)
 
 ___
 
@@ -702,7 +702,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L335)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L335)
 
 ___
 
@@ -722,7 +722,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L114)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L114)
 
 ___
 
@@ -742,7 +742,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L106)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L106)
 
 ___
 
@@ -762,7 +762,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:300](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L300)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:300](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L300)
 
 ___
 
@@ -786,7 +786,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L291)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L291)
 
 ___
 
@@ -800,4 +800,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:330](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L330)
+[src/main/typescript/wcardinal/ui/d-map-tile-plane.ts:330](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-map-tile-plane.ts#L330)

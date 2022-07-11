@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DDiagramDataPrivateImpl
+[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramDataPrivateImpl
 
 # Class: DDiagramDataPrivateImpl
 
@@ -16,9 +16,15 @@
 
 - [\_diagram](DDiagramDataPrivateImpl.md#_diagram)
 
+### Accessors
+
+- [ids](DDiagramDataPrivateImpl.md#ids)
+
 ### Methods
 
+- [each](DDiagramDataPrivateImpl.md#each)
 - [set](DDiagramDataPrivateImpl.md#set)
+- [toDirty](DDiagramDataPrivateImpl.md#todirty)
 
 ## Constructors
 
@@ -34,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L12)
 
 ## Properties
 
@@ -44,9 +50,51 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L10)
+
+## Accessors
+
+### ids
+
+• `get` **ids**(): `string`[]
+
+#### Returns
+
+`string`[]
+
+#### Implementation of
+
+[DDiagramDataScoped](../interfaces/DDiagramDataScoped.md).[ids](../interfaces/DDiagramDataScoped.md#ids)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L16)
 
 ## Methods
+
+### each
+
+▸ **each**(`iteratee`): ``null`` \| `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `iteratee` | (`id`: `string`) => `boolean` \| `void` |
+
+#### Returns
+
+``null`` \| `string`
+
+#### Implementation of
+
+[DDiagramDataScoped](../interfaces/DDiagramDataScoped.md).[each](../interfaces/DDiagramDataScoped.md#each)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L46)
+
+___
 
 ### set
 
@@ -72,4 +120,28 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L24)
+
+___
+
+### toDirty
+
+▸ **toDirty**(`id`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[DDiagramDataScoped](../interfaces/DDiagramDataScoped.md).[toDirty](../interfaces/DDiagramDataScoped.md#todirty)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-private-impl.ts#L38)

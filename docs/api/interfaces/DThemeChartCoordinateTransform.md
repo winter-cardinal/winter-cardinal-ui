@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DThemeChartCoordinateTransform
+[Winter Cardinal UI - v0.199.0](../index.md) / DThemeChartCoordinateTransform
 
 # Interface: DThemeChartCoordinateTransform
 
@@ -33,4 +33,4 @@ Returns true if the specified value is too close to zero.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform.ts#L12)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-transform.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-transform.ts#L12)

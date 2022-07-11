@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / EShapeActionValueChangeCursor
+[Winter Cardinal UI - v0.199.0](../index.md) / EShapeActionValueChangeCursor
 
 # Class: EShapeActionValueChangeCursor
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L23)
 
 ## Properties
 
@@ -63,7 +63,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L16)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L21)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L15)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L13)
 
 ## Methods
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L31)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L28)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L40)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-base.ts#L27)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L36)
 
 ___
 
@@ -224,4 +224,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-change-cursor.ts#L46)

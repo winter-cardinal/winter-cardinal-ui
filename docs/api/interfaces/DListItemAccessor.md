@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DListItemAccessor
+[Winter Cardinal UI - v0.199.0](../index.md) / DListItemAccessor
 
 # Interface: DListItemAccessor<VALUE\>
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L46)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L46)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L45)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L45)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L44)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L44)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L42)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L42)
 
 ___
 
@@ -70,4 +70,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L43)
+[src/main/typescript/wcardinal/ui/d-list-item-accessor.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-list-item-accessor.ts#L43)

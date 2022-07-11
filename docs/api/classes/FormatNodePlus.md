@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / FormatNodePlus
+[Winter Cardinal UI - v0.199.0](../index.md) / FormatNodePlus
 
 # Class: FormatNodePlus
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts#L11)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts#L11)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts#L9)
 
 ## Methods
 
@@ -70,4 +70,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts#L15)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-plus.ts#L15)

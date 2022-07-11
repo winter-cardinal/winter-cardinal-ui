@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / EShapeDataScoped
+[Winter Cardinal UI - v0.199.0](../index.md) / EShapeDataScoped
 
 # Interface: EShapeDataScoped
 
@@ -8,10 +8,26 @@
 
 ## Table of contents
 
+### Properties
+
+- [ids](EShapeDataScoped.md#ids)
+
 ### Methods
 
 - [add](EShapeDataScoped.md#add)
+- [each](EShapeDataScoped.md#each)
 - [set](EShapeDataScoped.md#set)
+- [toDirty](EShapeDataScoped.md#todirty)
+
+## Properties
+
+### ids
+
+• `Readonly` **ids**: `string`[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L4)
 
 ## Methods
 
@@ -32,7 +48,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L4)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L6)
+
+___
+
+### each
+
+▸ **each**(`iteratee`): ``null`` \| `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `iteratee` | (`id`: `string`) => `boolean` \| `void` |
+
+#### Returns
+
+``null`` \| `string`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L15)
 
 ___
 
@@ -56,4 +92,24 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L5)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L7)
+
+___
+
+### toDirty
+
+▸ **toDirty**(`id`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L14)

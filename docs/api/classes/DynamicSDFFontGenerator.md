@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DynamicSDFFontGenerator
+[Winter Cardinal UI - v0.199.0](../index.md) / DynamicSDFFontGenerator
 
 # Class: DynamicSDFFontGenerator
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L90)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L90)
 
 ## Properties
 
@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L76)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L76)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L80)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L80)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L77)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L77)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L78)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L78)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L79)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L79)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L85)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L85)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L82)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L82)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L86)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L86)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L81)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L81)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L84)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L84)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L88)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L88)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L87)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L87)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L83)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L83)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L74)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L74)
 
 ## Methods
 
@@ -206,7 +206,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:375](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L375)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:375](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L375)
 
 ___
 
@@ -220,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L215)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L215)
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L259)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L259)
 
 ___
 
@@ -248,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L307)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L307)
 
 ___
 
@@ -262,7 +262,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L283)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L283)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L147)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L147)
 
 ___
 
@@ -298,7 +298,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L151)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L151)
 
 ___
 
@@ -312,7 +312,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L118)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L118)
 
 ___
 
@@ -326,7 +326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L167)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L167)
 
 ___
 
@@ -340,7 +340,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:293](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L293)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:293](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L293)
 
 ___
 
@@ -354,7 +354,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L269)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:269](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L269)
 
 ___
 
@@ -374,7 +374,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:360](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L360)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:360](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L360)
 
 ___
 
@@ -388,7 +388,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:317](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L317)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:317](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L317)
 
 ___
 
@@ -402,7 +402,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L143)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L143)
 
 ___
 
@@ -422,7 +422,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L227)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L227)
 
 ___
 
@@ -436,4 +436,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:398](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L398)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts:398](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-generator.ts#L398)

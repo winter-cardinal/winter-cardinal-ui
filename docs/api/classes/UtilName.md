@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / UtilName
+[Winter Cardinal UI - v0.199.0](../index.md) / UtilName
 
 # Class: UtilName
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-name.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-name.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L7)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-name.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-name.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-name.ts#L9)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DTableColumnOptions
+[Winter Cardinal UI - v0.199.0](../index.md) / DTableColumnOptions
 
 # Interface: DTableColumnOptions<ROW_VALUE, CELL_VALUE, DIALOG_VALUE, DIALOG\>
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L160)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L160)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L187)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L187)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L191)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L191)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L158)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L158)
 
 ___
 
@@ -92,7 +92,7 @@ If the editable is
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L180)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L180)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L181)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L181)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L159)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L159)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L192)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:192](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L192)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L155)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L155)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L186)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L186)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L154)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L154)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L194)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L194)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L157)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L157)
 
 ___
 
@@ -189,7 +189,7 @@ If the renderable is
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L170)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L170)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L189)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L189)
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L156)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L156)
 
 ___
 
@@ -219,7 +219,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L183)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L183)
 
 ___
 
@@ -229,17 +229,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L184)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L184)
 
 ___
 
 ### type
 
-• `Optional` **type**: ``"COLOR"`` \| ``"TEXT"`` \| ``"INTEGER"`` \| ``"REAL"`` \| ``"DATE"`` \| ``"TIME"`` \| ``"DATETIME"`` \| ``"ACTION"`` \| ``"INDEX"`` \| ``"CHECK"`` \| ``"CHECK_SINGLE"`` \| ``"BUTTON"`` \| ``"SELECT"`` \| ``"LINK"`` \| ``"TREE"`` \| [`DTableColumnType`](../index.md#dtablecolumntype)
+• `Optional` **type**: ``"COLOR"`` \| ``"TEXT"`` \| ``"ACTION"`` \| ``"DATE"`` \| ``"TIME"`` \| ``"INDEX"`` \| ``"INTEGER"`` \| ``"REAL"`` \| ``"CHECK"`` \| ``"CHECK_SINGLE"`` \| ``"BUTTON"`` \| ``"SELECT"`` \| ``"DATETIME"`` \| ``"LINK"`` \| ``"TREE"`` \| [`DTableColumnType`](../index.md#dtablecolumntype)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L153)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L153)
 
 ___
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L150)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L150)
 
 ___
 
@@ -259,4 +259,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L151)
+[src/main/typescript/wcardinal/ui/d-table-column.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L151)

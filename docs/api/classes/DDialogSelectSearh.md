@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DDialogSelectSearh
+[Winter Cardinal UI - v0.199.0](../index.md) / DDialogSelectSearh
 
 # Class: DDialogSelectSearh<SEARCH_RESULT\>
 
@@ -67,7 +67,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L14)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L14)
 
 ## Properties
 
@@ -77,7 +77,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L10)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L10)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L11)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L11)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L12)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L12)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L9)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L9)
 
 ## Methods
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L23)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L23)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L50)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L50)
 
 ___
 
@@ -246,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L46)
+[src/main/typescript/wcardinal/ui/d-dialog-select-search.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-dialog-select-search.ts#L46)
 
 ___
 

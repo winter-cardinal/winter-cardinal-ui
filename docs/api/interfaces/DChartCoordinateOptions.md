@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DChartCoordinateOptions
+[Winter Cardinal UI - v0.199.0](../index.md) / DChartCoordinateOptions
 
 # Interface: DChartCoordinateOptions
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L24)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L24)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L26)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L23)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L25)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L25)
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L22)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L22)

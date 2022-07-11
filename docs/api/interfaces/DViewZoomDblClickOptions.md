@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DViewZoomDblClickOptions
+[Winter Cardinal UI - v0.199.0](../index.md) / DViewZoomDblClickOptions
 
 # Interface: DViewZoomDblClickOptions
 
@@ -24,7 +24,7 @@ Zoom amount
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-view.ts#L47)
+[src/main/typescript/wcardinal/ui/d-view.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-view.ts#L47)
 
 ___
 
@@ -37,7 +37,7 @@ If a checker returns false, double click zooms will be canceled.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-view.ts#L56)
+[src/main/typescript/wcardinal/ui/d-view.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-view.ts#L56)
 
 ___
 
@@ -49,7 +49,7 @@ Zoom duration
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-view.ts#L59)
+[src/main/typescript/wcardinal/ui/d-view.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-view.ts#L59)
 
 ___
 
@@ -61,7 +61,7 @@ True to enable double click zoom
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-view.ts#L44)
+[src/main/typescript/wcardinal/ui/d-view.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-view.ts#L44)
 
 ___
 
@@ -73,4 +73,4 @@ Mouse modifiers
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-view.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-view.ts#L50)
+[src/main/typescript/wcardinal/ui/d-view.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-view.ts#L50)

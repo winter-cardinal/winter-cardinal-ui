@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DBaseSnippet
+[Winter Cardinal UI - v0.199.0](../index.md) / DBaseSnippet
 
 # Interface: DBaseSnippet
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base-snippet.ts#L9)
+[src/main/typescript/wcardinal/ui/d-base-snippet.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base-snippet.ts#L9)
 
 ## Methods
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base-snippet.ts#L10)
+[src/main/typescript/wcardinal/ui/d-base-snippet.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base-snippet.ts#L10)
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-snippet.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-base-snippet.ts#L11)
+[src/main/typescript/wcardinal/ui/d-base-snippet.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-base-snippet.ts#L11)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / Builder
+[Winter Cardinal UI - v0.199.0](../index.md) / Builder
 
 # Interface: Builder
 
@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L14)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L12)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L13)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L11)
 
 ## Methods
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L19)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L16)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L17)
 
 ___
 
@@ -144,4 +144,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/builder.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder.ts#L18)

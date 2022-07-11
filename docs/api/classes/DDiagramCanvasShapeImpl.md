@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DDiagramCanvasShapeImpl
+[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramCanvasShapeImpl
 
 # Class: DDiagramCanvasShapeImpl
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L12)
 
 ## Properties
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L10)
 
 ## Methods
 
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L16)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L26)
 
 ___
 
@@ -113,4 +113,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L34)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L34)

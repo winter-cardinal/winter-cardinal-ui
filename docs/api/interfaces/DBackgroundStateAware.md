@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DBackgroundStateAware
+[Winter Cardinal UI - v0.199.0](../index.md) / DBackgroundStateAware
 
 # Interface: DBackgroundStateAware
 
@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-background.ts#L12)
+[src/main/typescript/wcardinal/ui/d-background.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-background.ts#L12)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-background.ts#L11)
+[src/main/typescript/wcardinal/ui/d-background.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-background.ts#L11)
 
 ## Methods
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-background.ts#L19)
+[src/main/typescript/wcardinal/ui/d-background.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-background.ts#L19)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-background.ts#L18)
+[src/main/typescript/wcardinal/ui/d-background.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-background.ts#L18)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-background.ts#L16)
+[src/main/typescript/wcardinal/ui/d-background.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-background.ts#L16)
 
 ___
 
@@ -127,4 +127,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-background.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-background.ts#L17)
+[src/main/typescript/wcardinal/ui/d-background.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-background.ts#L17)

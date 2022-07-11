@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / BuilderMarkerTriangle
+[Winter Cardinal UI - v0.199.0](../index.md) / BuilderMarkerTriangle
 
 # Class: BuilderMarkerTriangle
 
@@ -70,7 +70,7 @@ BuilderMarkerBase.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L26)
 
 ## Properties
 
@@ -84,7 +84,7 @@ BuilderMarkerBase.alphaFill
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L32)
 
 ___
 
@@ -98,7 +98,7 @@ BuilderMarkerBase.alphaStroke
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L34)
 
 ___
 
@@ -112,7 +112,7 @@ BuilderMarkerBase.colorFill
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L31)
 
 ___
 
@@ -126,7 +126,7 @@ BuilderMarkerBase.colorStroke
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L33)
 
 ___
 
@@ -140,7 +140,7 @@ BuilderMarkerBase.indexCount
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L19)
 
 ___
 
@@ -154,7 +154,7 @@ BuilderMarkerBase.indexOffset
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L18)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L24)
 
 ___
 
@@ -178,7 +178,7 @@ BuilderMarkerBase.sizeX
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L21)
 
 ___
 
@@ -192,7 +192,7 @@ BuilderMarkerBase.sizeY
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L22)
 
 ___
 
@@ -206,7 +206,7 @@ BuilderMarkerBase.strokeAlign
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L26)
 
 ___
 
@@ -220,7 +220,7 @@ BuilderMarkerBase.strokeSide
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L28)
 
 ___
 
@@ -234,7 +234,7 @@ BuilderMarkerBase.strokeStyle
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L29)
 
 ___
 
@@ -248,7 +248,7 @@ BuilderMarkerBase.strokeWidth
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L27)
 
 ___
 
@@ -262,7 +262,7 @@ BuilderMarkerBase.texture
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L36)
 
 ___
 
@@ -276,7 +276,7 @@ BuilderMarkerBase.textureTransformId
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L37)
 
 ___
 
@@ -290,7 +290,7 @@ BuilderMarkerBase.transformLocalId
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L24)
 
 ___
 
@@ -304,7 +304,7 @@ BuilderMarkerBase.vertexCount
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L17)
 
 ___
 
@@ -318,7 +318,7 @@ BuilderMarkerBase.vertexOffset
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L16)
 
 ___
 
@@ -328,7 +328,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L23)
 
 ## Methods
 
@@ -352,7 +352,7 @@ BuilderMarkerBase.buildUnit
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L105)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L105)
 
 ___
 
@@ -376,7 +376,7 @@ BuilderMarkerBase.init
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L31)
 
 ___
 
@@ -400,7 +400,7 @@ BuilderMarkerBase.isCompatible
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L71)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L71)
 
 ___
 
@@ -424,7 +424,7 @@ BuilderMarkerBase.toMarker
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts#L37)
 
 ___
 
@@ -449,7 +449,7 @@ BuilderMarkerBase.update
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L38)
 
 ___
 
@@ -474,7 +474,7 @@ BuilderMarkerBase.updateColorFill
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-base.ts#L14)
 
 ___
 
@@ -499,7 +499,7 @@ BuilderMarkerBase.updateColorStroke
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L91)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-base.ts#L91)
 
 ___
 
@@ -520,4 +520,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L44)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/builder-marker-triangle.ts#L44)

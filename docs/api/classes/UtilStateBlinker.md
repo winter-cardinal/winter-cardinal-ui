@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / UtilStateBlinker
+[Winter Cardinal UI - v0.199.0](../index.md) / UtilStateBlinker
 
 # Class: UtilStateBlinker
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L12)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L12)
 
 ## Properties
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L7)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L8)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L8)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L4)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:4](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L4)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L6)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L6)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L5)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L5)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L9)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L10)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L10)
 
 ## Methods
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L44)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L44)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L75)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L75)
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L62)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L62)
 
 ___
 
@@ -193,7 +193,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L58)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L58)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L71)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L71)
 
 ___
 
@@ -221,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L67)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L67)
 
 ___
 
@@ -241,7 +241,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L50)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L50)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L28)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L28)
 
 ___
 
@@ -269,7 +269,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L35)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L35)
 
 ___
 
@@ -283,4 +283,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L80)
+[src/main/typescript/wcardinal/ui/util/util-state-blinker.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/util/util-state-blinker.ts#L80)

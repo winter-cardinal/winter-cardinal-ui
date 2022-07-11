@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DTableDataListSorter
+[Winter Cardinal UI - v0.199.0](../index.md) / DTableDataListSorter
 
 # Class: DTableDataListSorter<ROW\>
 
@@ -88,7 +88,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L24)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L24)
 
 ## Properties
 
@@ -98,7 +98,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L20)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L20)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L16)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L16)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L17)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L17)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L18)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L18)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L22)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L22)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L19)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L19)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L21)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L21)
 
 ## Accessors
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L36)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L36)
 
 ___
 
@@ -197,7 +197,7 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L137)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L137)
 
 ___
 
@@ -217,7 +217,7 @@ A sort order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L40)
 
 • `set` **order**(`order`): `void`
 
@@ -239,7 +239,7 @@ A sort order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L44)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L44)
 
 ## Methods
 
@@ -291,7 +291,7 @@ Applys a sorting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L48)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L48)
 
 ___
 
@@ -368,7 +368,7 @@ Returns a current comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L110)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L110)
 
 ___
 
@@ -388,7 +388,7 @@ Returns true if a sorting is applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L62)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L62)
 
 ___
 
@@ -474,7 +474,7 @@ Returns a sorted index of the specified unmapped index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L142)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L142)
 
 ___
 
@@ -488,7 +488,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L66)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L66)
 
 ___
 
@@ -682,7 +682,7 @@ Sets to the given comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L114)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L114)
 
 ___
 
@@ -716,7 +716,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L82)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L82)
 
 ___
 
@@ -730,7 +730,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L120)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L120)
 
 ___
 
@@ -750,7 +750,7 @@ Unapplys a sorting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L54)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L54)
 
 ___
 
@@ -776,7 +776,7 @@ Returns an unmapped index of the specified sorted index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L158)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L158)
 
 ___
 
@@ -790,4 +790,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L124)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L124)

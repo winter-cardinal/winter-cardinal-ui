@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / EShapeBufferUnitBuilder
+[Winter Cardinal UI - v0.199.0](../index.md) / EShapeBufferUnitBuilder
 
 # Class: EShapeBufferUnitBuilder
 
@@ -29,7 +29,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L14)
 
 ## Properties
 
@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L11)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L10)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L12)
 
 ## Methods
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L20)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L42)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L42)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L36)
 
 ___
 
@@ -122,4 +122,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/e-shape-buffer-unit-builder.ts#L25)

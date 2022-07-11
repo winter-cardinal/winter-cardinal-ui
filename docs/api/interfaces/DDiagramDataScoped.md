@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DDiagramDataScoped
+[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramDataScoped
 
 # Interface: DDiagramDataScoped
 
@@ -8,11 +8,47 @@
 
 ## Table of contents
 
+### Properties
+
+- [ids](DDiagramDataScoped.md#ids)
+
 ### Methods
 
+- [each](DDiagramDataScoped.md#each)
 - [set](DDiagramDataScoped.md#set)
+- [toDirty](DDiagramDataScoped.md#todirty)
+
+## Properties
+
+### ids
+
+• `Readonly` **ids**: `string`[]
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L7)
 
 ## Methods
+
+### each
+
+▸ **each**(`iteratee`): ``null`` \| `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `iteratee` | (`id`: `string`) => `boolean` \| `void` |
+
+#### Returns
+
+``null`` \| `string`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L17)
+
+___
 
 ### set
 
@@ -34,4 +70,24 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L7)
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L9)
+
+___
+
+### toDirty
+
+▸ **toDirty**(`id`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L16)

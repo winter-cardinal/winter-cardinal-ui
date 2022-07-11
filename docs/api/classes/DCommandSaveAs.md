@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DCommandSaveAs
+[Winter Cardinal UI - v0.199.0](../index.md) / DCommandSaveAs
 
 # Class: DCommandSaveAs
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L13)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L13)
 
 ## Properties
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L11)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L11)
 
 ## Methods
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L29)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L29)
 
 ___
 
@@ -86,7 +86,7 @@ Called to executed this command.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L17)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L17)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L33)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L33)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L21)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L21)
 
 ___
 
@@ -140,4 +140,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L25)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L25)

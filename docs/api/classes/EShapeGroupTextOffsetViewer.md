@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / EShapeGroupTextOffsetViewer
+[Winter Cardinal UI - v0.199.0](../index.md) / EShapeGroupTextOffsetViewer
 
 # Class: EShapeGroupTextOffsetViewer
 
@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L11)
 
 ## Accessors
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L15)
 
 • `set` **horizontal**(`horizontal`): `void`
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L19)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L23)
 
 • `set` **vertical**(`vertical`): `void`
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L27)
 
 ## Methods
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L31)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L50)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L46)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L35)
 
 ___
 
@@ -225,4 +225,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-group-text-offset-viewer.ts#L39)

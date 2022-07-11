@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DDiagramSerializedName
+[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramSerializedName
 
 # Interface: DDiagramSerializedName
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L568)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:568](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L568)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L569)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L569)

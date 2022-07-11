@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.194.0](../index.md) / DDiagramCanvasEditorSnapGridMinor
+[Winter Cardinal UI - v0.199.0](../index.md) / DDiagramCanvasEditorSnapGridMinor
 
 # Interface: DDiagramCanvasEditorSnapGridMinor
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L92)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L92)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L91)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L91)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L94)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L94)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.194.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L93)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.199.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-editor-snap.ts#L93)
