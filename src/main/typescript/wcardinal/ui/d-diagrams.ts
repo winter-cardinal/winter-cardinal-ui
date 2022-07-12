@@ -120,11 +120,12 @@ export class DDiagrams {
 		pieces: string[] | null | undefined,
 		isEditMode: boolean
 	): Promise<Map<string, EShapeEmbeddedDatum | null>> {
-		const result = new Map<string, EShapeEmbeddedDatum | null>();
+		const pieceToDatum = new Map<string, EShapeEmbeddedDatum | null>();
+		const pieceToPromise = new Map<string, Promise<EShape[] | null>>();
 		const onFulfilled = () => {
-			return result;
+			return pieceToDatum;
 		};
-		return this.toPieceData_(controller, pieces, result, isEditMode).then(
+		return this.toPieceData_(controller, pieces, pieceToDatum, pieceToPromise, isEditMode).then(
 			onFulfilled,
 			onFulfilled
 		);
@@ -133,31 +134,35 @@ export class DDiagrams {
 	private static toPieceData_(
 		controller: DDiagramBaseController | null | undefined,
 		pieces: string[] | null | undefined,
-		pieceData: Map<string, EShapeEmbeddedDatum | null>,
+		pieceToDatum: Map<string, EShapeEmbeddedDatum | null>,
+		pieceToPromise: Map<string, Promise<EShape[] | null>>,
 		isEditMode: boolean
 	): Promise<Array<EShape[] | null>> {
 		const promises: Array<Promise<EShape[] | null>> = [];
 		if (pieces && 0 < pieces.length && controller) {
 			for (let i = 0, imax = pieces.length; i < imax; ++i) {
 				const piece = pieces[i];
-				if (!pieceData.has(piece)) {
-					pieceData.set(piece, null);
-					promises.push(
-						controller.piece.getByName(piece).then(
-							(found) => {
-								return this.toPieceData__(
-									controller,
-									piece,
-									found,
-									isEditMode,
-									pieceData
-								);
-							},
-							() => {
-								return null;
-							}
-						)
+				const promise = pieceToPromise.get(piece);
+				if (promise != null) {
+					promises.push(promise);
+				} else {
+					const newPromise = controller.piece.getByName(piece).then(
+						(found) => {
+							return this.toPieceData__(
+								controller,
+								piece,
+								found,
+								isEditMode,
+								pieceToDatum,
+								pieceToPromise
+							);
+						},
+						() => {
+							return null;
+						}
 					);
+					pieceToPromise.set(piece, newPromise);
+					promises.push(newPromise);
 				}
 			}
 		}
@@ -169,22 +174,30 @@ export class DDiagrams {
 		name: string,
 		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
 		isEditMode: boolean,
-		pieceData: Map<string, EShapeEmbeddedDatum | null>
+		pieceToDatum: Map<string, EShapeEmbeddedDatum | null>,
+		pieceToPromise: Map<string, Promise<EShape[] | null>>
 	): Promise<EShape[]> {
 		const serialized = this.toSerialized(serializedOrSimple);
 		const width = serialized.width;
 		const height = serialized.height;
 		const container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
 
-		pieceData.set(name, new EShapeEmbeddedDatum(name, width, height, container));
+		pieceToDatum.set(name, new EShapeEmbeddedDatum(name, width, height, container));
 
 		const pieces = serialized.pieces;
-		return this.toPieceData_(controller, pieces, pieceData, isEditMode).then(() => {
-			return this.newLayer(
-				serialized,
-				container,
-				new EShapeResourceManagerDeserialization(serialized, pieces, pieceData, isEditMode)
-			);
-		});
+		return this.toPieceData_(controller, pieces, pieceToDatum, pieceToPromise, isEditMode).then(
+			() => {
+				return this.newLayer(
+					serialized,
+					container,
+					new EShapeResourceManagerDeserialization(
+						serialized,
+						pieces,
+						pieceToDatum,
+						isEditMode
+					)
+				);
+			}
+		);
 	}
 }
