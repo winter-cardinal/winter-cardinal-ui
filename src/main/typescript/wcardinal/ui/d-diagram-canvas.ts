@@ -85,6 +85,7 @@ export class DDiagramCanvas<
 		this.initialize_(
 			shapes,
 			null,
+			null,
 			mapper,
 			new Map<string, (value: unknown) => unknown>(),
 			new Map<string, unknown>(),
@@ -112,6 +113,7 @@ export class DDiagramCanvas<
 	protected initialize_(
 		shapes: EShape[],
 		dataShape: EShape | null,
+		containerShape: EShape | null,
 		mapper: DDiagramDataMapper | null | undefined,
 		formatToFormatter: Map<string, (value: unknown) => unknown>,
 		initialToInitialValue: Map<string, unknown>,
@@ -134,6 +136,7 @@ export class DDiagramCanvas<
 			this.initData(
 				shape,
 				dataShape,
+				containerShape,
 				mapper,
 				formatToFormatter,
 				initialToInitialValue,
@@ -167,9 +170,16 @@ export class DDiagramCanvas<
 			// Children
 			const children = shape.children;
 			if (0 < children.length) {
+				if (shape instanceof EShapeEmbedded) {
+					if (dataShape == null) {
+						dataShape = shape;
+					}
+					containerShape = shape;
+				}
 				this.initialize_(
 					children,
-					this.toDataShape(dataShape, shape),
+					dataShape,
+					containerShape,
 					mapper,
 					formatToFormatter,
 					initialToInitialValue,
@@ -186,6 +196,7 @@ export class DDiagramCanvas<
 	protected initData(
 		shape: EShape,
 		dataShape: EShape | null,
+		containerShape: EShape | null,
 		mapper: DDiagramDataMapper | null | undefined,
 		formatToFormatter: Map<string, (value: unknown) => unknown>,
 		initialToInitialValue: Map<string, unknown>,
@@ -209,8 +220,8 @@ export class DDiagramCanvas<
 					if (value.scope === EShapeDataValueScope.PRIVATE) {
 						const id = value.id;
 						if (0 < id.length) {
-							if (dataShape) {
-								dataShape.data.private.add(id, value);
+							if (containerShape) {
+								containerShape.data.private.add(id, value);
 							} else {
 								canvasData.private.add(id, value);
 							}
@@ -367,16 +378,6 @@ export class DDiagramCanvas<
 			default:
 				return "0";
 		}
-	}
-
-	protected toDataShape(dataShape: EShape | null, shape: EShape): EShape | null {
-		if (dataShape != null) {
-			return dataShape;
-		}
-		if (shape instanceof EShapeEmbedded) {
-			return shape;
-		}
-		return null;
 	}
 
 	protected onDestroy(): void {
