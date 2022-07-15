@@ -101,6 +101,8 @@
     * [Snapshot](./diagram/snapshot.html)
     * [Text](./diagram/text.html)
     * [Ticker](./diagram/ticker.html)
+    * [Write (Local)](./diagram/write-local.html)
+    * [Write (Local, Embedded)](./diagram/write-local-embedding.html)
 * Dialog
     * [Align (Bottom)](./dialog/align-bottom.html)
     * [Align (Left)](./dialog/align-left.html)
