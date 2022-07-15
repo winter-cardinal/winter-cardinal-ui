@@ -10,18 +10,20 @@ import {
 	DFocusableMightBe
 } from "./d-controller-focus";
 
-export class DControllerDefaultFocus implements DControllerFocus {
+export class DControllerFocusImpl implements DControllerFocus {
 	private _focused: DFocusable | null = null;
 
 	focus(focusable: DFocusable | null): DFocusable | null {
 		const previous = this._focused;
 		if (previous !== focusable) {
 			if (previous != null) {
+				console.log("previous", previous.constructor.name);
 				previous.state.isFocused = false;
 			}
 
 			this._focused = focusable;
 			if (this.isFocusable(focusable)) {
+				console.log("previous", focusable.constructor.name);
 				focusable.state.isFocused = true;
 			}
 			return previous;

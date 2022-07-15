@@ -8,7 +8,7 @@ import { DApplicationLayer } from "./d-application-layer";
 import { DApplicationLayerOptions } from "./d-application-layer-options";
 import { DApplicationLike } from "./d-application-like";
 import { DApplications } from "./d-applications";
-import { DControllerDefaultFocus } from "./d-controller-default-focus";
+import { DControllerFocusImpl } from "./d-controller-focus-impl";
 import { DControllerFocus } from "./d-controller-focus";
 import { DPaddingLike } from "./d-padding";
 import { isString } from "./util/is-string";
@@ -157,7 +157,7 @@ export class DApplication implements DApplicationLike {
 
 	getFocusController(): DControllerFocus {
 		if (this._focus == null) {
-			this._focus = new DControllerDefaultFocus();
+			this._focus = new DControllerFocusImpl();
 		}
 		return this._focus;
 	}

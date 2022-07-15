@@ -23,7 +23,7 @@ const isCommandClean = (command: DCommand): boolean => {
 	return !!(command.getFlag() & DCommandFlag.CLEAN);
 };
 
-export class DControllerDefaultCommand extends utils.EventEmitter implements DControllerCommand {
+export class DControllerCommandImpl extends utils.EventEmitter implements DControllerCommand {
 	protected _position: number;
 	protected _done: DCommand[];
 	protected _waiting: DCommand[];

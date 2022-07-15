@@ -4,7 +4,7 @@
  */
 
 import { DControllerCommand } from "./d-controller-command";
-import { DControllerDefaultCommand } from "./d-controller-default-command";
+import { DControllerCommandImpl } from "./d-controller-command-impl";
 import { DControllerDocument } from "./d-controller-document";
 import { DControllerKeyboard } from "./d-controller-keyboard";
 import { DDocument } from "./d-document";
@@ -31,7 +31,7 @@ export class DControllers {
 	// Command
 	static getCommandController(): DControllerCommand {
 		if (this.COMMAND == null) {
-			this.COMMAND = new DControllerDefaultCommand();
+			this.COMMAND = new DControllerCommandImpl();
 		}
 		return this.COMMAND;
 	}
