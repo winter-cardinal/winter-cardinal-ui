@@ -231,12 +231,15 @@ export class EShapeRuntime {
 		const data = shape.data;
 		const isEffectTimeUp = this.effect <= time;
 		if (data.isChanged || this.isStateChanged || isEffectTimeUp) {
+			this.isStateChanged = false;
+			data.isChanged = false;
 			if (isEffectTimeUp) {
 				this.effect = NaN;
 			}
 			shape.disallowUploadedUpdate();
 			this.onUpdate(shape, time);
 			shape.allowUploadedUpdate();
+			const wasStateChanged = this.isStateChanged;
 			shape.state.removeAll(
 				EShapeState.CLICKED,
 				EShapeState.DOWN,
@@ -244,8 +247,7 @@ export class EShapeRuntime {
 				EShapeState.ACTIVATED,
 				EShapeState.DEACTIVATED
 			);
-			this.isStateChanged = false;
-			data.isChanged = false;
+			this.isStateChanged = wasStateChanged;
 		}
 	}
 
