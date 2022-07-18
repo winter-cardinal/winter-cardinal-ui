@@ -122,6 +122,7 @@ export abstract class DDiagramBase<
 
 	set(serialized: null): Promise<null>;
 	set(serialized: DDiagramSerialized): Promise<CANVAS>;
+	set(serialized: DDiagramSerialized | null): Promise<CANVAS | null>;
 	set(serialized: DDiagramSerialized | null): Promise<CANVAS | null> {
 		const oldSerialized = this._serialized;
 		if (oldSerialized !== serialized) {
