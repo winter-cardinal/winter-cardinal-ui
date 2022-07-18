@@ -4,15 +4,16 @@
  */
 
 import { DBaseStateSet } from "./d-base-state-set";
-import { DTableEditable, DTableRenderable } from "./d-table-column";
+import { DTableColumnEditable } from "./d-table-column-editing";
+import { DTableColumnRenderable } from "./d-table-column-renderable";
 
 export interface DTableBodyCellsColumnEditing<ROW> {
-	enable: boolean | DTableEditable<ROW>;
+	enable: boolean | DTableColumnEditable<ROW>;
 }
 
 export interface DTableBodyCellsColumn<ROW> {
 	editing: DTableBodyCellsColumnEditing<ROW>;
-	renderable: boolean | DTableRenderable<ROW>;
+	renderable: boolean | DTableColumnRenderable<ROW>;
 }
 
 export interface DTableBodyCellsTarget {

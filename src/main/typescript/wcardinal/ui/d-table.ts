@@ -18,20 +18,7 @@ import { DMenu, DMenuOptions } from "./d-menu";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { DTableBody, DTableBodyOptions } from "./d-table-body";
 import { DTableCategory, DTableCategoryColumn, DTableCategoryOptions } from "./d-table-category";
-import {
-	DTableColumn,
-	DTableColumnEditing,
-	DTableColumnOptions,
-	DTableColumnSelecting,
-	DTableColumnSelectingDialog,
-	DTableColumnSelectingOptions,
-	DTableColumnSorting,
-	DTableColumnType,
-	DTableEditable,
-	DTableGetter,
-	DTableRenderable,
-	DTableSetter
-} from "./d-table-column";
+import { DTableColumn, DTableColumnOptions } from "./d-table-column";
 import { DTableData, DTableDataOptions } from "./d-table-data";
 import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelectionType } from "./d-table-data-selection";
@@ -45,6 +32,17 @@ import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { DTableScrollBar } from "./d-table-scrollbar";
 import { DPaneScrollBarOptions } from "./d-pane-scrollbar";
+import { DTableColumnType } from "./d-table-column-type";
+import { DTableColumnEditing, DTableColumnEditable } from "./d-table-column-editing";
+import { DTableColumnSorting } from "./d-table-column-sorting";
+import {
+	DTableColumnSelecting,
+	DTableColumnSelectingDialog,
+	DTableColumnSelectingOptions
+} from "./d-table-column-selecting";
+import { DTableColumnGetter } from "./d-table-column-getter";
+import { DTableColumnSetter } from "./d-table-column-setter";
+import { DTableColumnRenderable } from "./d-table-column-renderable";
 
 export interface DTableOptions<
 	ROW,
@@ -75,7 +73,7 @@ const defaultSetterEmpty = (): void => {
 	// DO NOTHING
 };
 
-const toPathGetter = <ROW, CELL>(path: string[], def?: CELL): DTableGetter<ROW, CELL> => {
+const toPathGetter = <ROW, CELL>(path: string[], def?: CELL): DTableColumnGetter<ROW, CELL> => {
 	if (path.length <= 1) {
 		const key = path[0];
 		if (def === undefined) {
@@ -107,7 +105,7 @@ const toPathGetter = <ROW, CELL>(path: string[], def?: CELL): DTableGetter<ROW, 
 	}
 };
 
-const toPathSetter = <ROW, CELL>(path: string[]): DTableSetter<ROW, CELL> => {
+const toPathSetter = <ROW, CELL>(path: string[]): DTableColumnSetter<ROW, CELL> => {
 	if (path.length <= 1) {
 		const key = path[0];
 		return (row: ROW, columnIndex: number, cell: CELL): void => {
@@ -155,7 +153,7 @@ const toColumnAlign = <ROW, CELL>(
 	}
 };
 
-const toColumnDataChecker = <ROW>(path: string[] | null): DTableEditable<ROW> => {
+const toColumnDataChecker = <ROW>(path: string[] | null): DTableColumnEditable<ROW> => {
 	if (path != null) {
 		const pathLength = path.length;
 		if (pathLength <= 1) {
@@ -183,9 +181,9 @@ const toColumnDataChecker = <ROW>(path: string[] | null): DTableEditable<ROW> =>
 };
 
 const toColumnEditingEnable = <ROW>(
-	enable: boolean | DTableEditable<ROW> | "auto" | "AUTO" | undefined,
+	enable: boolean | DTableColumnEditable<ROW> | "auto" | "AUTO" | undefined,
 	path: string[] | null
-): boolean | DTableEditable<ROW> => {
+): boolean | DTableColumnEditable<ROW> => {
 	if (isString(enable)) {
 		return toColumnDataChecker(path);
 	} else if (enable != null) {
@@ -215,7 +213,7 @@ const toColumnEditing = <ROW, CELL>(
 };
 
 const toComparator = <ROW, CELL>(
-	getter: DTableGetter<ROW, CELL>,
+	getter: DTableColumnGetter<ROW, CELL>,
 	index: number
 ): DTableDataComparatorFunction<ROW> => {
 	return (rowA: ROW, rowB: ROW): number => {
@@ -226,7 +224,7 @@ const toComparator = <ROW, CELL>(
 };
 
 const toColumnSorting = <ROW, CELL>(
-	getter: DTableGetter<ROW, CELL>,
+	getter: DTableColumnGetter<ROW, CELL>,
 	index: number,
 	options: DTableColumnOptions<ROW, CELL>
 ): DTableColumnSorting<ROW> => {
@@ -309,7 +307,7 @@ const toColumnGetter = <ROW, CELL>(
 	options: DTableColumnOptions<ROW, CELL>,
 	type: DTableColumnType,
 	parts: string[] | null
-): DTableGetter<ROW, CELL> => {
+): DTableColumnGetter<ROW, CELL> => {
 	const getter = options.getter;
 	if (getter) {
 		return getter;
@@ -331,7 +329,7 @@ const toColumnSetter = <ROW, CELL>(
 	options: DTableColumnOptions<ROW, CELL>,
 	type: DTableColumnType,
 	path: string[] | null
-): DTableSetter<ROW, CELL> => {
+): DTableColumnSetter<ROW, CELL> => {
 	const setter = options.setter;
 	if (setter) {
 		return setter;
@@ -357,7 +355,7 @@ const toColumnPath = <ROW, CELL>(options: DTableColumnOptions<ROW, CELL>): strin
 const toColumnRenderable = <ROW, CELL>(
 	options: DTableColumnOptions<ROW, CELL>,
 	path: string[] | null
-): boolean | DTableRenderable<ROW> => {
+): boolean | DTableColumnRenderable<ROW> => {
 	const renderable = options.renderable;
 	if (isString(renderable)) {
 		return toColumnDataChecker(path);

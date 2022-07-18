@@ -20,6 +20,7 @@ import { DTableBodyCellInputReal } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputText } from "./d-table-body-cell-input-text";
 import { DTableBodyCellInputTree } from "./d-table-body-cell-input-tree";
 import { DTableBodyCellLink } from "./d-table-body-cell-link";
+import { DTableBodyCellOptions } from "./d-table-body-cell-options";
 import { DTableBodyCellSelectDialog } from "./d-table-body-cell-select-dialog";
 import { DTableBodyCellSelectMenu } from "./d-table-body-cell-select-menu";
 import { DTableBodyCellSelectMultiple } from "./d-table-body-cell-select-multiple";
@@ -27,7 +28,8 @@ import { DTableBodyCellSelectPromise } from "./d-table-body-cell-select-promise"
 import { DTableBodyCellText } from "./d-table-body-cell-text";
 import { DTableBodyCellTime } from "./d-table-body-cell-time";
 import { DTableBodyCellTree } from "./d-table-body-cell-tree";
-import { DTableBodyCellOptionsUnion, DTableColumn, DTableColumnType } from "./d-table-column";
+import { DTableColumn } from "./d-table-column";
+import { DTableColumnType } from "./d-table-column-type";
 import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 import { DTableState } from "./d-table-state";
@@ -39,7 +41,7 @@ export interface DTableBodyRowSelectionOptions {
 export interface DTableBodyRowOptions<ROW, THEME extends DThemeTableBodyRow = DThemeTableBodyRow>
 	extends DTableRowOptions<ROW, DTableColumn<ROW, unknown>, THEME> {
 	height?: number;
-	cell?: DTableBodyCellOptionsUnion<ROW>;
+	cell?: DTableBodyCellOptions<ROW>;
 	selection?: DTableBodyRowSelectionOptions;
 }
 
@@ -218,7 +220,7 @@ export class DTableBodyRow<
 		columnIndex: number,
 		column: DTableColumn<ROW, unknown>,
 		options: OPTIONS
-	): DTableBodyCellOptionsUnion<ROW> {
+	): DTableBodyCellOptions<ROW> {
 		let result: any = column.body || options.cell;
 		const columnWeight = column.weight;
 		const columnWidth = column.width;

@@ -7,7 +7,8 @@ import { interaction } from "pixi.js";
 import { DButtonCheck, DButtonCheckOptions, DThemeButtonCheck } from "./d-button-check";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
-import { DTableColumn, DTableColumnType } from "./d-table-column";
+import { DTableColumn } from "./d-table-column";
+import { DTableColumnType } from "./d-table-column-type";
 import { DTableData } from "./d-table-data";
 
 export interface DTableBodyCellCheckOptions<
