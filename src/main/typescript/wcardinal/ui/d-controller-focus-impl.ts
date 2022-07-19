@@ -17,13 +17,11 @@ export class DControllerFocusImpl implements DControllerFocus {
 		const previous = this._focused;
 		if (previous !== focusable) {
 			if (previous != null) {
-				console.log("previous", previous.constructor.name);
 				previous.state.isFocused = false;
 			}
 
 			this._focused = focusable;
 			if (this.isFocusable(focusable)) {
-				console.log("previous", focusable.constructor.name);
 				focusable.state.isFocused = true;
 			}
 			return previous;
