@@ -199,9 +199,7 @@ export class DTableBodyCellInputTree<
 			input.padding.adjLeft(0);
 		}
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this._input, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this._input, row, columnIndex, this._column);
 	}
 
 	unset(): void {

@@ -98,9 +98,7 @@ export class DTableBodyCellSelectMultiple<
 		this._rowIndex = rowIndex;
 		this.values = value as VALUE[];
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
 	unset(): void {

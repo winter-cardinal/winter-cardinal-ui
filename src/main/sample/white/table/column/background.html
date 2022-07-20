@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Frozen</title>
+	<title>Background</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -35,18 +35,43 @@
 			x: "center", y: "center",
 			width: 500, height: 500,
 			columns: [{
-				label: "Frozen Text",
+				label: "Text",
 				type: "TEXT",
-				width: 200,
-				frozen: true
-			}, {
+				header: {
+					background: {
+						color: 0x3388ff,
+						alpha: 0.1
+					}
+				},
+				body: {
+					background: {
+						color: 0x3388ff,
+						alpha: 0.1
+					}
+				}
+			},{
 				label: "Integer",
-				type: "INTEGER",
-				width: 200
-			}, {
+				type: "INTEGER"
+			},{
 				label: "Real",
 				type: "REAL",
-				width: 200
+				body: {
+					background: {
+						color: function (state) {
+							if (state.is("low")) {
+								return 0x3388ff;
+							} else if (state.is("high")){
+								return 0xff3388
+							}
+						},
+						alpha: 0.1
+					}
+				},
+				state: function (row, columnIndex, state) {
+					const value = row[columnIndex];
+					state.set("low", value <= 0.2);
+					state.set("high", 0.3 <= value);
+				}
 			}],
 			data: [
 				[ "Apple", 2000, 0.123 ],

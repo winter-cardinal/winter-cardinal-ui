@@ -137,9 +137,7 @@ export class DTableBodyCellCheck<
 		this._rowIndex = rowIndex;
 		this.state.isActive = !!value;
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
 	unset(): void {

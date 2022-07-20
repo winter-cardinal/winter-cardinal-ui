@@ -513,6 +513,7 @@ export * from "./d-table-column-renderable";
 export * from "./d-table-column-selecting";
 export * from "./d-table-column-setter";
 export * from "./d-table-column-sorting";
+export * from "./d-table-column-state";
 export * from "./d-table-column-type";
 export * from "./d-table-column";
 export * from "./d-table-data-filter";

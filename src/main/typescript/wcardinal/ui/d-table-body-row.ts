@@ -33,6 +33,7 @@ import { DTableColumnType } from "./d-table-column-type";
 import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 import { DTableState } from "./d-table-state";
+import { toMerged } from "./util/to-merged";
 
 export interface DTableBodyRowSelectionOptions {
 	type?: DTableDataSelectionType;
@@ -64,8 +65,14 @@ export class DTableBodyRow<
 	protected _value?: ROW;
 	protected _index: number;
 	protected _onCellChangeBound: DTableBodyCellOnChange<ROW, unknown>;
+	protected _columnIndexToCellOptions: Map<number, DTableBodyCellOptions<ROW>>;
 
-	constructor(onChange: DTableBodyRowOnChange<ROW, unknown>, isEven: boolean, options: OPTIONS) {
+	constructor(
+		onChange: DTableBodyRowOnChange<ROW, unknown>,
+		isEven: boolean,
+		columnIndexToCellOptions: Map<number, DTableBodyCellOptions<ROW>>,
+		options: OPTIONS
+	) {
 		super(options);
 
 		this._index = -1;
@@ -73,6 +80,7 @@ export class DTableBodyRow<
 			this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, this);
 			onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
 		};
+		this._columnIndexToCellOptions = columnIndexToCellOptions;
 		this.state.isAlternated = !isEven;
 		this.initCells(options, this._columns, this._frozen);
 	}
@@ -84,7 +92,12 @@ export class DTableBodyRow<
 		options: OPTIONS
 	): DBase {
 		const onChange = this._onCellChangeBound;
-		const cellOptions = this.toCellOptions(columnIndex, column, options);
+		const columnIndexToCellOptions = this._columnIndexToCellOptions;
+		let cellOptions = columnIndexToCellOptions.get(columnIndex);
+		if (cellOptions == null) {
+			cellOptions = this.toCellOptions(columnIndex, column, options);
+			columnIndexToCellOptions.set(columnIndex, cellOptions);
+		}
 		if (column.editing.enable !== false) {
 			return this.newCellEditable(columnIndex, column, onChange, cellOptions);
 		} else {
@@ -221,57 +234,57 @@ export class DTableBodyRow<
 		column: DTableColumn<ROW, unknown>,
 		options: OPTIONS
 	): DTableBodyCellOptions<ROW> {
-		let result: any = column.body || options.cell;
-		const columnWeight = column.weight;
-		const columnWidth = column.width;
+		const result = toMerged(column.body, options.cell);
+
+		// Weight
+		result.weight = column.weight;
+
+		// Width
+		result.width = column.width;
+
+		// State
+		result.state ??= column.state.initial;
+
+		// Text formatter
 		const columnFormatter = column.formatter;
-		const columnAlign = column.align;
-		const columnSelecting = column.selecting;
-		const columnSelectingMenu = columnSelecting.menu || columnSelecting.multiple;
-		if (result != null) {
-			result.weight = columnWeight;
-			result.width = columnWidth;
-
-			const text = result.text || {};
-			result.text = text;
-			text.formatter ||= columnFormatter;
-
-			const textAlign = text.align || {};
-			text.align = textAlign;
-			textAlign.horizontal = columnAlign;
-
-			result.menu ||= columnSelectingMenu;
-		} else {
-			result = {
-				weight: columnWeight,
-				width: columnWidth,
-				text: {
-					formatter: columnFormatter,
-					align: {
-						horizontal: columnAlign
-					}
-				},
-				menu: columnSelectingMenu
-			};
+		if (columnFormatter != null) {
+			const text = (result.text ??= {});
+			text.formatter ??= columnFormatter;
 		}
 
+		// Text align horizontal
+		const columnAlign = column.align;
+		if (columnAlign != null) {
+			const text = (result.text ??= {});
+			const textAlign = (text.align ??= {});
+			textAlign.horizontal ??= columnAlign;
+		}
+
+		// Editing
 		const columnEditing = column.editing;
 		if (columnEditing.enable !== false) {
-			const editing = result.editing || {};
-			result.editing = editing;
-			editing.formatter ||= columnEditing.formatter;
-			editing.unformatter ||= columnEditing.unformatter;
-			editing.validator ||= columnEditing.validator;
+			const editing = ((result as any).editing ??= {});
+			editing.formatter ??= columnEditing.formatter;
+			editing.unformatter ??= columnEditing.unformatter;
+			editing.validator ??= columnEditing.validator;
 		}
 
+		// Link
 		const columnLink = column.link;
-		if (columnLink) {
-			result.link = columnLink;
+		if (columnLink !== undefined) {
+			(result as any).link = columnLink;
+		}
+
+		// Selecting
+		const columnSelecting = column.selecting;
+		const columnSelectingMenu = columnSelecting.menu ?? columnSelecting.multiple;
+		if (columnSelectingMenu !== undefined) {
+			(result as any).menu = columnSelectingMenu;
 		}
 
 		const selectionType = options?.selection?.type ?? DTableDataSelectionType.NONE;
 		if (selectionType !== DTableDataSelectionType.NONE) {
-			result.when = "DOUBLE_CLICKED";
+			(result as any).when = "DOUBLE_CLICKED";
 			result.cursor = (state: DBaseStateSet): string | undefined => {
 				if (state.in(DTableState.SELECTABLE)) {
 					return "pointer";

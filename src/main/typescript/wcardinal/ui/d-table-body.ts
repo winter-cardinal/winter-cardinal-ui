@@ -14,6 +14,7 @@ import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelection, DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableState } from "./d-table-state";
+import { DTableBodyCellOptions } from "./d-table-body-cell-options";
 
 export interface DTableBodyOptions<
 	ROW,
@@ -86,6 +87,7 @@ export class DTableBody<
 	protected _isUpdateRowsCalledForcibly: boolean;
 	protected _workRows: Array<DTableBodyRow<ROW>>;
 	protected _onRowChangeBound: DTableBodyRowOnChange<ROW, unknown>;
+	protected _columnIndexToCellOptions: Map<number, DTableBodyCellOptions<ROW>>;
 	protected _data: DATA;
 
 	constructor(options: OPTIONS) {
@@ -109,6 +111,7 @@ export class DTableBody<
 		this._onRowChangeBound = (newValue, oldValue, row, rowIndex, columnIndex): void => {
 			data.emit("change", newValue, oldValue, row, rowIndex, columnIndex, data);
 		};
+		this._columnIndexToCellOptions = new Map<number, DTableBodyCellOptions<ROW>>();
 		this._data.emit("init", this._data);
 	}
 
@@ -337,7 +340,12 @@ export class DTableBody<
 	}
 
 	protected newRow(isEven: boolean): DTableBodyRow<ROW> {
-		return new DTableBodyRow<ROW>(this._onRowChangeBound, isEven, this._rowOptions);
+		return new DTableBodyRow<ROW>(
+			this._onRowChangeBound,
+			isEven,
+			this._columnIndexToCellOptions,
+			this._rowOptions
+		);
 	}
 
 	protected onParentMove(newX: number, newY: number, oldX: number, oldY: number): void {

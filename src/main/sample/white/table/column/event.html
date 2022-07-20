@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Frozen</title>
+	<title>Event</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -35,24 +35,29 @@
 			x: "center", y: "center",
 			width: 500, height: 500,
 			columns: [{
-				label: "Frozen Text",
-				type: "TEXT",
-				width: 200,
-				frozen: true
-			}, {
-				label: "Integer",
-				type: "INTEGER",
-				width: 200
-			}, {
-				label: "Real",
-				type: "REAL",
-				width: 200
+				label: "Button",
+				type: "BUTTON",
+				editable: true,
+				body: {
+					on: {
+						active: function(cell) {
+							console.log("Activated", cell);
+						}
+					}
+				}
 			}],
-			data: [
-				[ "Apple", 2000, 0.123 ],
-				[ "Orange", 2001, 0.250 ],
-				[ "Pineapple", 2002, 0.500 ]
-			]
+			data: {
+				rows: [
+					[ "Apple" ],
+					[ "Orange" ],
+					[ "Pineapple" ]
+				],
+				on: {
+					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
+						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					}
+				}
+			}
 		});
 	}());
 	</script>

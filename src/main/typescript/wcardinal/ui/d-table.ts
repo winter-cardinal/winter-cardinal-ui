@@ -43,6 +43,7 @@ import {
 import { DTableColumnGetter } from "./d-table-column-getter";
 import { DTableColumnSetter } from "./d-table-column-setter";
 import { DTableColumnRenderable } from "./d-table-column-renderable";
+import { DTableColumnState } from "./d-table-column-state";
 
 export interface DTableOptions<
 	ROW,
@@ -348,6 +349,29 @@ const toColumnSetter = <ROW, CELL>(
 	}
 };
 
+const toColumnState = <ROW, CELL>(
+	options: DTableColumnOptions<ROW, CELL>
+): DTableColumnState<ROW> => {
+	const state = options.state;
+	if (state != null) {
+		if (isString(state) || isArray(state)) {
+			return {
+				initial: state,
+				modifier: undefined
+			};
+		} else {
+			return {
+				initial: undefined,
+				modifier: state
+			};
+		}
+	}
+	return {
+		initial: undefined,
+		modifier: undefined
+	};
+};
+
 const toColumnPath = <ROW, CELL>(options: DTableColumnOptions<ROW, CELL>): string[] | null => {
 	return options.path != null ? options.path.split(".") : null;
 };
@@ -394,6 +418,7 @@ const toColumn = <ROW, CELL>(
 		formatter: options.formatter,
 		renderable: toColumnRenderable(options, path),
 		align,
+		state: toColumnState(options),
 
 		editing: toColumnEditing(options, path),
 		sorting: toColumnSorting(getter, index, options),

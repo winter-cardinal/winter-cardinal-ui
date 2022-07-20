@@ -97,7 +97,7 @@ export class DTableBodyCellDatetime<
 			}
 		} else if (isNumber(value)) {
 			const textValueComputed = this._textValueComputed;
-			if (textValueComputed === undefined) {
+			if (textValueComputed == null) {
 				this.text = new Date(value);
 			} else if (textValueComputed.getTime() !== value) {
 				textValueComputed.setTime(value);
@@ -106,9 +106,7 @@ export class DTableBodyCellDatetime<
 			}
 		}
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
 	unset(): void {

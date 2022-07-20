@@ -21,6 +21,7 @@ import {
 } from "./d-table-column-selecting";
 import { DTableColumnSetter } from "./d-table-column-setter";
 import { DTableColumnSorting, DTableColumnSortingOptions } from "./d-table-column-sorting";
+import { DTableColumnState, DTableColumnStateModifier } from "./d-table-column-state";
 import { DTableColumnType } from "./d-table-column-type";
 import { DTableHeaderCellOptions } from "./d-table-header-cell";
 
@@ -39,8 +40,21 @@ export interface DTableColumnOptions<
 	setter?: DTableColumnSetter<ROW_VALUE, CELL_VALUE>;
 	path?: string;
 	default?: CELL_VALUE;
+
+	/**
+	 * A shortcut of body#text#formatter.
+	 */
 	formatter?: DTableColumnFormatter<CELL_VALUE>;
+
+	/**
+	 * A shortcut of body#text#align#horizontal.
+	 */
 	align?: keyof typeof DAlignHorizontal | DAlignHorizontal;
+
+	/**
+	 * A state option.
+	 */
+	state?: string | string[] | DTableColumnStateModifier<ROW_VALUE>;
 
 	/**
 	 * If the renderable is
@@ -92,6 +106,7 @@ export interface DTableColumn<
 	setter: DTableColumnSetter<ROW_VALUE, CELL_VALUE>;
 	formatter?: DTableColumnFormatter<CELL_VALUE>;
 	align: DAlignHorizontal;
+	state: DTableColumnState<ROW_VALUE>;
 	renderable: boolean | DTableColumnRenderable<ROW_VALUE>;
 
 	editing: DTableColumnEditing<ROW_VALUE, CELL_VALUE>;

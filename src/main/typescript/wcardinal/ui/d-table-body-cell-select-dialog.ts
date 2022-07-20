@@ -123,7 +123,7 @@ export class DTableBodyCellSelectDialog<
 	}
 
 	set(
-		value: VALUE | null,
+		value: unknown,
 		row: ROW,
 		supplimental: unknown,
 		rowIndex: number,
@@ -133,17 +133,15 @@ export class DTableBodyCellSelectDialog<
 		this._row = row;
 		this._rowIndex = rowIndex;
 		if (forcibly) {
-			this._textValue = value as VALUE;
-			this._textValueComputed = value as VALUE;
+			this._textValue = value as VALUE | null;
+			this._textValueComputed = value as VALUE | null;
 			this.onTextChange();
 			this.createOrUpdateText();
 		} else {
-			this.text = value as VALUE;
+			this.text = value as VALUE | null;
 		}
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
 	unset(): void {

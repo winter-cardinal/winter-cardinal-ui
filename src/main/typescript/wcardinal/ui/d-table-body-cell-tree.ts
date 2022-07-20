@@ -19,7 +19,6 @@ import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
 import { isNumber } from "./util/is-number";
 import { DTableBodyCellOnChange } from "./d-table-body-cell";
-import { DStateAwareOrValue } from "./d-state-aware";
 
 export interface DTableBodyCellTreeOptions<
 	ROW,
@@ -134,10 +133,9 @@ export class DTableBodyCellTree<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.text = value as DStateAwareOrValue<VALUE | null>;
+		this.text = value as VALUE | null;
 
-		const column = this._column;
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column, false);
 
 		const link = this.link;
 		const padding = this._padding;

@@ -6,6 +6,7 @@
 import { DBaseStateSet } from "./d-base-state-set";
 import { DTableColumnEditable } from "./d-table-column-editing";
 import { DTableColumnRenderable } from "./d-table-column-renderable";
+import { DTableColumnState } from "./d-table-column-state";
 
 export interface DTableBodyCellsColumnEditing<ROW> {
 	enable: boolean | DTableColumnEditable<ROW>;
@@ -14,6 +15,7 @@ export interface DTableBodyCellsColumnEditing<ROW> {
 export interface DTableBodyCellsColumn<ROW> {
 	editing: DTableBodyCellsColumnEditing<ROW>;
 	renderable: boolean | DTableColumnRenderable<ROW>;
+	state: DTableColumnState<ROW>;
 }
 
 export interface DTableBodyCellsTarget {
@@ -22,24 +24,27 @@ export interface DTableBodyCellsTarget {
 }
 
 export class DTableBodyCells {
-	static setReadOnly<ROW>(
+	static set<ROW>(
 		target: DTableBodyCellsTarget,
 		row: ROW,
 		columnIndex: number,
-		column: DTableBodyCellsColumn<ROW>
-	): void {
-		target.state.isReadOnly = this.toReadOnly(row, columnIndex, column);
-	}
-
-	static setRenderable<ROW>(
-		target: DTableBodyCellsTarget,
-		row: ROW,
-		columnIndex: number,
-		column: DTableBodyCellsColumn<ROW>
+		column: DTableBodyCellsColumn<ROW>,
+		readOnly?: boolean
 	): void {
 		const renderable = this.toRenderable(row, columnIndex, column);
 		target.renderable = renderable;
-		target.state.isDisabled = !renderable;
+
+		const state = target.state;
+		state.lock();
+		state.isDisabled = !renderable;
+		if (readOnly !== false) {
+			state.isReadOnly = this.toReadOnly(row, columnIndex, column);
+		}
+		const columnStateModifier = column.state?.modifier;
+		if (columnStateModifier) {
+			columnStateModifier(row, columnIndex, target.state);
+		}
+		state.unlock();
 	}
 
 	static toReadOnly<ROW>(
@@ -56,6 +61,7 @@ export class DTableBodyCells {
 			return !enable(row, columnIndex);
 		}
 	}
+
 	static toRenderable<ROW>(
 		row: ROW,
 		columnIndex: number,

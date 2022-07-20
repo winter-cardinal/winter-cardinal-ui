@@ -4,7 +4,6 @@
  */
 
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
-import { DStateAwareOrValue } from "./d-state-aware";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
@@ -76,11 +75,9 @@ export class DTableBodyCellText<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		this.text = value as DStateAwareOrValue<VALUE>;
+		this.text = value as VALUE;
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
 	unset(): void {

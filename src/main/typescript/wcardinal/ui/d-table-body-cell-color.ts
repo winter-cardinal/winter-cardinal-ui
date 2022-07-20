@@ -79,7 +79,7 @@ export class DTableBodyCellColor<
 	}
 
 	set(
-		newValue: unknown,
+		value: unknown,
 		row: ROW,
 		supplimental: unknown,
 		rowIndex: number,
@@ -88,27 +88,25 @@ export class DTableBodyCellColor<
 	): void {
 		this._row = row;
 		this._rowIndex = rowIndex;
-		const value = this.value;
-		if (isNumber(newValue)) {
-			value.color = newValue;
-			value.alpha = 1;
-		} else if (isString(newValue)) {
-			const parsed = Number(newValue);
-			value.color = parsed === parsed ? parsed : 0xffffff;
-			value.alpha = 1;
-		} else if (newValue != null) {
-			const color = (newValue as any).color;
-			const alpha = (newValue as any).alpha;
-			value.color = isNumber(color) ? color : 0xffffff;
-			value.alpha = isNumber(alpha) ? alpha : 1;
+		const cell = this.value;
+		if (isNumber(value)) {
+			cell.color = value;
+			cell.alpha = 1;
+		} else if (isString(value)) {
+			const parsed = Number(value);
+			cell.color = parsed === parsed ? parsed : 0xffffff;
+			cell.alpha = 1;
+		} else if (value != null) {
+			const color = (value as any).color;
+			const alpha = (value as any).alpha;
+			cell.color = isNumber(color) ? color : 0xffffff;
+			cell.alpha = isNumber(alpha) ? alpha : 1;
 		} else {
-			value.color = 0xffffff;
-			value.alpha = 1;
+			cell.color = 0xffffff;
+			cell.alpha = 1;
 		}
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
 	unset(): void {

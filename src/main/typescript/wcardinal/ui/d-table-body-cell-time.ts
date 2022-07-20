@@ -77,7 +77,7 @@ export class DTableBodyCellTime<
 	}
 
 	set(
-		value: Date,
+		value: unknown,
 		row: ROW,
 		supplimental: unknown,
 		rowIndex: number,
@@ -106,9 +106,7 @@ export class DTableBodyCellTime<
 			}
 		}
 
-		const column = this._column;
-		DTableBodyCells.setReadOnly(this, row, columnIndex, column);
-		DTableBodyCells.setRenderable(this, row, columnIndex, column);
+		DTableBodyCells.set(this, row, columnIndex, this._column);
 	}
 
 	unset(): void {

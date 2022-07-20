@@ -108,6 +108,14 @@ export class DThemeDarkTableHeaderCell
 		return null;
 	}
 
+	getImageTintColor(state: DBaseStateSet, isActive?: boolean): number | null {
+		if (state.inDisabled || state.inReadOnly || !(state.isActive || isActive)) {
+			return DThemeDarkConstants.WEAK_HIGHLIGHT_COLOR;
+		} else {
+			return DThemeDarkConstants.HIGHLIGHT_COLOR;
+		}
+	}
+
 	getSecondaryImageTintColor(state: DBaseStateSet): number | null {
 		if (state.is(DTableState.CHECKABLE)) {
 			return DThemeDarkButtonChecks.getImageTintColor(state);
@@ -142,6 +150,10 @@ export class DThemeDarkTableHeaderCell
 		} else {
 			return null;
 		}
+	}
+
+	getTertiaryImageTintColor(state: DBaseStateSet): number | null {
+		return super.getImageTintColor(state);
 	}
 
 	getTertiaryImageAlignHorizontal(): DAlignHorizontal {
