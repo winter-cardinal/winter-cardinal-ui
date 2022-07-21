@@ -11,6 +11,7 @@ import { DDiagramDataProtectedImpl } from "./d-diagram-data-protected-impl";
 import { DDiagramDataRemote } from "./d-diagram-data-remote";
 import { DDiagramDataRemoteImpl } from "./d-diagram-data-remote-impl";
 import { DDiagramDataExtendedImpl } from "./d-diagram-data-extended-impl";
+import { EShapeDataValueState } from "./shape/e-shape-data-value-state";
 
 /**
  * A data helper class for diagrams.
@@ -80,12 +81,13 @@ export class DDiagramDataImpl implements DDiagramData {
 		id: string,
 		value: unknown,
 		time?: number,
+		state?: EShapeDataValueState,
 		from?: number | null,
 		to?: number | null
 	): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.set(id, value, time, from, to);
+			return canvas.data.set(id, value, time, state, from, to);
 		}
 		return false;
 	}
@@ -110,28 +112,29 @@ export class DDiagramDataImpl implements DDiagramData {
 		id: string,
 		values: unknown[],
 		times?: number[],
+		states?: EShapeDataValueState[],
 		from?: number | null,
 		to?: number | null
 	): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.setAll(id, values, times, from, to);
+			return canvas.data.setAll(id, values, times, states, from, to);
 		}
 		return false;
 	}
 
-	setValue(id: string, value: unknown, time?: number): boolean {
+	setValue(id: string, value: unknown): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.setValue(id, value, time);
+			return canvas.data.setValue(id, value);
 		}
 		return false;
 	}
 
-	setValues(id: string, values: unknown[], times?: number[]): boolean {
+	setValues(id: string, values: unknown[]): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.setValues(id, values, times);
+			return canvas.data.setValues(id, values);
 		}
 		return false;
 	}
@@ -148,6 +151,22 @@ export class DDiagramDataImpl implements DDiagramData {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
 			return canvas.data.setTimes(id, times);
+		}
+		return false;
+	}
+
+	setState(id: string, state: EShapeDataValueState): boolean {
+		const canvas = this._diagram.canvas;
+		if (canvas != null) {
+			return canvas.data.setState(id, state);
+		}
+		return false;
+	}
+
+	setStates(id: string, states: EShapeDataValueState[]): boolean {
+		const canvas = this._diagram.canvas;
+		if (canvas != null) {
+			return canvas.data.setStates(id, states);
 		}
 		return false;
 	}

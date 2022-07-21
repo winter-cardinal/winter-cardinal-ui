@@ -21,14 +21,14 @@ export class EShapeActionValueOnInputActions {
 				EShapeActionRuntimes.emit(shape, target, value, time);
 				break;
 			case EShapeActionValueOnInputAction.WRITE_LOCAL:
-				EShapeActionRuntimes.write(shape, target, value, time, false);
+				EShapeActionRuntimes.writeLocal(shape, target, value, time);
 				break;
 			case EShapeActionValueOnInputAction.WRITE_REMOTE:
-				EShapeActionRuntimes.write(shape, target, value, time, true);
+				EShapeActionRuntimes.writeRemote(shape, target, value);
 				break;
 			case EShapeActionValueOnInputAction.WRITE_BOTH:
-				EShapeActionRuntimes.write(shape, target, value, time, false);
-				EShapeActionRuntimes.write(shape, target, value, time, true);
+				EShapeActionRuntimes.writeLocal(shape, target, value, time);
+				EShapeActionRuntimes.writeRemote(shape, target, value);
 				break;
 		}
 	}

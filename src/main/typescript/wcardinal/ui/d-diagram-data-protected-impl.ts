@@ -5,6 +5,7 @@
 
 import { DDiagramDataDiagram } from "./d-diagram-data";
 import { DDiagramDataScoped } from "./d-diagram-data-scoped";
+import { EShapeDataValueState } from "./shape/e-shape-data-value-state";
 
 export class DDiagramDataProtectedImpl implements DDiagramDataScoped {
 	protected _diagram: DDiagramDataDiagram;
@@ -25,12 +26,13 @@ export class DDiagramDataProtectedImpl implements DDiagramDataScoped {
 		id: string,
 		value: unknown,
 		time?: number,
+		state?: EShapeDataValueState,
 		from?: number | null,
 		to?: number | null
 	): boolean {
 		const canvas = this._diagram.canvas;
 		if (canvas != null) {
-			return canvas.data.protected.set(id, value, time, from, to);
+			return canvas.data.protected.set(id, value, time, state, from, to);
 		}
 		return false;
 	}

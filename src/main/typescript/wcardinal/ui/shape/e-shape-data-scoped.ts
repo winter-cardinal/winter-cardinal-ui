@@ -1,4 +1,5 @@
 import { EShapeDataValue } from "./e-shape-data-value";
+import { EShapeDataValueState } from "./e-shape-data-value-state";
 
 export interface EShapeDataScoped {
 	readonly ids: string[];
@@ -8,6 +9,7 @@ export interface EShapeDataScoped {
 		id: string,
 		value: unknown,
 		time?: number,
+		state?: EShapeDataValueState,
 		from?: number | null,
 		to?: number | null
 	): boolean;

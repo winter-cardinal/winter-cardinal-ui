@@ -12,5 +12,5 @@ export interface DDiagramDataRemoteOptions {
 }
 
 export interface DDiagramDataRemote {
-	set(id: string, value: unknown, time: number): boolean;
+	set(id: string, value: unknown): boolean;
 }

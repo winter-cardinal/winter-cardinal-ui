@@ -16,7 +16,7 @@ export class DDiagramDataRemoteImpl implements DDiagramDataRemote {
 		this._controller = options && options.controller;
 	}
 
-	set(id: string, value: unknown, time: number): boolean {
+	set(id: string, value: unknown): boolean {
 		const controller = this._controller;
 		if (controller) {
 			controller.write(id, value);

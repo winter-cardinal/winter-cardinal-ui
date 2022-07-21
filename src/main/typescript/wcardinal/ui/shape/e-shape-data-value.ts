@@ -9,6 +9,8 @@ import { EShapeDataValueRange, EShapeDataValueRangeLike } from "./e-shape-data-v
 import { EShapeDataValueOrder } from "./e-shape-data-value-order";
 import { EShapeDataValueScope } from "./e-shape-data-value-scope";
 import { EShapeDataValueType } from "./e-shape-data-value-type";
+import { EShapeDataValueState } from "./e-shape-data-value-state";
+import { EShapeDataValueFormatter } from "./e-shape-data-value-formatter";
 
 export interface EShapeDataValueLike {
 	id: string;
@@ -29,14 +31,16 @@ export interface EShapeDataValue extends EShapeDataValueLike {
 	value: unknown;
 	readonly nvalue: number;
 	time: number;
+	state: EShapeDataValueState;
 
 	values: unknown[];
 	times: number[];
+	states: EShapeDataValueState[];
 
 	range: EShapeDataValueRange;
 	parent?: EShapeDataValueParent;
 
-	formatter?: (value: unknown) => unknown;
+	formatter?: EShapeDataValueFormatter;
 
 	clear(): void;
 	toDirty(): void;

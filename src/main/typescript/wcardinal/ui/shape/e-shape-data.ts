@@ -11,6 +11,7 @@ import { EShapeDataMapping } from "./e-shape-data-mapping";
 import { EShapeDataValueType } from "./e-shape-data-value-type";
 import { EShapeDataValueScope } from "./e-shape-data-value-scope";
 import { EShapeDataScoped } from "./e-shape-data-scoped";
+import { EShapeDataValueState } from "./e-shape-data-value-state";
 
 export interface EShapeData {
 	readonly values: EShapeDataValue[];
@@ -26,6 +27,7 @@ export interface EShapeData {
 	value: unknown;
 	readonly nvalue: number;
 	time: number;
+	state: EShapeDataValueState;
 	capacity: number;
 
 	// Mapping

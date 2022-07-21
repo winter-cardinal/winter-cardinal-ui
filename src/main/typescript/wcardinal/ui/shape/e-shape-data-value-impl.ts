@@ -12,6 +12,8 @@ import { EShapeDataValueRangeImpl } from "./e-shape-data-value-range-impl";
 import { EShapeDataValueOrder } from "./e-shape-data-value-order";
 import { EShapeDataValueType } from "./e-shape-data-value-type";
 import { EShapeDataValueScope } from "./e-shape-data-value-scope";
+import { EShapeDataValueFormatter } from "./e-shape-data-value-formatter";
+import { EShapeDataValueState } from "./e-shape-data-value-state";
 
 const INDEX_COMPARATOR = (a: number, b: number): number => {
 	return a - b;
@@ -24,17 +26,21 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	initial: string;
 	format: string;
 	range: EShapeDataValueRange;
+
 	protected _value: unknown;
 	protected _time: number;
+	protected _state: EShapeDataValueState;
 
 	protected _values: unknown[] | undefined;
 	protected _times: number[] | undefined;
+	protected _states: EShapeDataValueState[] | undefined;
+
 	protected _capacity: number;
 	protected _order: EShapeDataValueOrder;
 
 	protected _parent?: EShapeDataValueParent;
 
-	formatter?: (value: unknown) => unknown;
+	formatter?: EShapeDataValueFormatter;
 
 	constructor() {
 		this.id = "";
@@ -45,6 +51,7 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 		this.range = new EShapeDataValueRangeImpl();
 		this._value = 0;
 		this._time = 0;
+		this._state = EShapeDataValueState.UNKOWN;
 		this._capacity = 0;
 		this._order = EShapeDataValueOrder.ASCENDING;
 	}
@@ -131,10 +138,11 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	}
 
 	set values(newValues: unknown[]) {
-		if (0 < newValues.length) {
+		const newValuesLength = newValues.length;
+		if (0 < newValuesLength) {
 			const capacity = this._capacity;
 			if (capacity <= 0) {
-				let newValue = newValues[newValues.length - 1];
+				let newValue = newValues[newValuesLength - 1];
 				const formatter = this.formatter;
 				if (formatter != null) {
 					newValue = formatter(newValue);
@@ -157,29 +165,29 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 				const formatter = this.formatter;
 				if (formatter != null) {
 					// Update the value
-					this._value = formatter(newValues[newValues.length - 1]);
+					this._value = formatter(newValues[newValuesLength - 1]);
 
 					// Update the values
 					if (order === EShapeDataValueOrder.ASCENDING) {
-						for (let i = 0, imax = newValues.length; i < imax; ++i) {
+						for (let i = 0; i < newValuesLength; ++i) {
 							values.push(formatter(newValues[i]));
 						}
 					} else {
-						for (let i = 0, imax = newValues.length; i < imax; ++i) {
+						for (let i = 0; i < newValuesLength; ++i) {
 							values.unshift(formatter(newValues[i]));
 						}
 					}
 				} else {
 					// Update the value
-					this._value = newValues[newValues.length - 1];
+					this._value = newValues[newValuesLength - 1];
 
 					// Update the values
 					if (order === EShapeDataValueOrder.ASCENDING) {
-						for (let i = 0, imax = newValues.length; i < imax; ++i) {
+						for (let i = 0; i < newValuesLength; ++i) {
 							values.push(newValues[i]);
 						}
 					} else {
-						for (let i = 0, imax = newValues.length; i < imax; ++i) {
+						for (let i = 0; i < newValuesLength; ++i) {
 							values.unshift(newValues[i]);
 						}
 					}
@@ -269,10 +277,11 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	}
 
 	set times(newTimes: number[]) {
-		if (0 < newTimes.length) {
+		const newTimesLength = newTimes.length;
+		if (0 < newTimesLength) {
 			const capacity = this._capacity;
 			if (capacity <= 0) {
-				const newTime = newTimes[newTimes.length - 1];
+				const newTime = newTimes[newTimesLength - 1];
 				if (this._time !== newTime) {
 					this._time = newTime;
 					const parent = this.parent;
@@ -289,16 +298,16 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 				}
 
 				// Update the value
-				this._time = newTimes[newTimes.length - 1];
+				this._time = newTimes[newTimesLength - 1];
 
 				//
 				const order = this._order;
 				if (order === EShapeDataValueOrder.ASCENDING) {
-					for (let i = 0, imax = newTimes.length; i < imax; ++i) {
+					for (let i = 0; i < newTimesLength; ++i) {
 						times.push(newTimes[i]);
 					}
 				} else {
-					for (let i = 0, imax = newTimes.length; i < imax; ++i) {
+					for (let i = 0; i < newTimesLength; ++i) {
 						times.unshift(newTimes[i]);
 					}
 				}
@@ -312,6 +321,125 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 						}
 					} else {
 						times.length = capacity;
+					}
+				}
+
+				// Tell the parent it's changed
+				const parent = this.parent;
+				if (parent != null) {
+					parent.isChanged = true;
+				}
+			}
+		}
+	}
+
+	get state(): EShapeDataValueState {
+		return this._state;
+	}
+
+	set state(newState: number) {
+		const capacity = this._capacity;
+		if (capacity <= 0) {
+			if (this._state !== newState) {
+				this._state = newState;
+				const parent = this.parent;
+				if (parent != null) {
+					parent.isChanged = true;
+				}
+			}
+		} else {
+			// Update the states
+			let states = this._states;
+			if (states == null) {
+				states = [];
+				this._states = states;
+			}
+
+			// Update the state
+			this._state = newState;
+
+			// Update the states
+			const order = this._order;
+			if (order === EShapeDataValueOrder.ASCENDING) {
+				states.push(newState);
+			} else {
+				states.unshift(newState);
+			}
+
+			// Remove the unnecessary states
+			const count = states.length - capacity;
+			if (0 < count) {
+				if (order === EShapeDataValueOrder.ASCENDING) {
+					for (let i = 0; i < count; ++i) {
+						states.shift();
+					}
+				} else {
+					states.length = capacity;
+				}
+			}
+
+			// Tell the parent it's changed
+			const parent = this.parent;
+			if (parent != null) {
+				parent.isChanged = true;
+			}
+		}
+	}
+
+	get states(): EShapeDataValueState[] {
+		let result = this._states;
+		if (result == null) {
+			result = [];
+			this._states = result;
+		}
+		return result;
+	}
+
+	set states(newStates: number[]) {
+		const newStatesLength = newStates.length;
+		if (0 < newStatesLength) {
+			const capacity = this._capacity;
+			if (capacity <= 0) {
+				const newState = newStates[newStatesLength - 1];
+				if (this._state !== newState) {
+					this._state = newState;
+					const parent = this.parent;
+					if (parent != null) {
+						parent.isChanged = true;
+					}
+				}
+			} else {
+				// Update the states
+				let states = this._states;
+				if (states == null) {
+					states = [];
+					this._states = states;
+				}
+
+				// Update the value
+				this._state = newStates[newStatesLength - 1];
+
+				//
+				const order = this._order;
+				if (order === EShapeDataValueOrder.ASCENDING) {
+					for (let i = 0; i < newStatesLength; ++i) {
+						states.push(newStates[i]);
+					}
+				} else {
+					for (let i = 0; i < newStatesLength; ++i) {
+						states.unshift(newStates[i]);
+					}
+				}
+
+				//
+				const count = states.length - capacity;
+				if (0 < count) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
+						for (let i = 0; i < count; ++i) {
+							states.shift();
+						}
+					} else {
+						states.length = capacity;
 					}
 				}
 
@@ -369,6 +497,22 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 				}
 			}
 
+			// States
+			const states = this._states;
+			if (states != null) {
+				const count = states.length - capacity;
+				if (0 < count) {
+					if (order === EShapeDataValueOrder.ASCENDING) {
+						for (let i = 0; i < count; ++i) {
+							states.shift();
+						}
+					} else {
+						states.length = capacity;
+					}
+					isChanged = true;
+				}
+			}
+
 			if (isChanged) {
 				const parent = this.parent;
 				if (parent != null) {
@@ -407,6 +551,15 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 			}
 		}
 
+		// States
+		const states = this._states;
+		if (states != null) {
+			if (0 <= index && index < states.length) {
+				states.splice(index, 1);
+				isChanged = true;
+			}
+		}
+
 		if (isChanged) {
 			const parent = this.parent;
 			if (parent != null) {
@@ -418,41 +571,41 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	removeAll(indices: number[]): void {
 		let isChanged = false;
 
-		const values = this._values;
-		const times = this._times;
 		const sorted = indices.slice(0).sort(INDEX_COMPARATOR);
+		const sortedLength = sorted.length;
+
+		// Values
+		const values = this._values;
 		if (values != null) {
-			if (times != null) {
-				for (let i = sorted.length - 1; 0 <= i; --i) {
-					const index = sorted[i];
-					if (0 <= index) {
-						if (index < values.length) {
-							values.splice(index, 1);
-							isChanged = true;
-						}
-						if (index < times.length) {
-							times.splice(index, 1);
-							isChanged = true;
-						}
-					}
-				}
-			} else {
-				for (let i = sorted.length - 1; 0 <= i; --i) {
-					const index = sorted[i];
-					if (0 <= index && index < values.length) {
-						values.splice(index, 1);
-						isChanged = true;
-					}
+			for (let i = sortedLength - 1; 0 <= i; --i) {
+				const index = sorted[i];
+				if (0 <= index && index < values.length) {
+					values.splice(index, 1);
+					isChanged = true;
 				}
 			}
-		} else {
-			if (times != null) {
-				for (let i = sorted.length - 1; 0 <= i; --i) {
-					const index = sorted[i];
-					if (0 <= index && index < times.length) {
-						times.splice(index, 1);
-						isChanged = true;
-					}
+		}
+
+		// Times
+		const times = this._times;
+		if (times != null) {
+			for (let i = sortedLength - 1; 0 <= i; --i) {
+				const index = sorted[i];
+				if (0 <= index && index < times.length) {
+					times.splice(index, 1);
+					isChanged = true;
+				}
+			}
+		}
+
+		// States
+		const states = this._states;
+		if (states != null) {
+			for (let i = sortedLength - 1; 0 <= i; --i) {
+				const index = sorted[i];
+				if (0 <= index && index < states.length) {
+					states.splice(index, 1);
+					isChanged = true;
 				}
 			}
 		}
@@ -479,6 +632,13 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 		const times = this._times;
 		if (times != null) {
 			times.length = 0;
+			isChanged = true;
+		}
+
+		// States
+		const states = this._states;
+		if (states != null) {
+			states.length = 0;
 			isChanged = true;
 		}
 
@@ -513,6 +673,7 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 		this.range.copy(target.range);
 		this._value = target.value;
 		this._time = target.time;
+		this._state = target.state;
 		this._capacity = target.capacity;
 		return this;
 	}

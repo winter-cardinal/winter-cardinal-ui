@@ -8,6 +8,7 @@ import { EShapeDataScoped } from "./shape/e-shape-data-scoped";
 import { EShapeDataScopedImpl } from "./shape/e-shape-data-scoped-impl";
 import { EShapeDataValue } from "./shape/e-shape-data-value";
 import { EShapeDataValueRangeType } from "./shape/e-shape-data-value-range";
+import { EShapeDataValueState } from "./shape/e-shape-data-value-state";
 
 export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 	protected _data?: Map<string, EShapeDataValue[]>;
@@ -96,6 +97,7 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		id: string,
 		value: unknown,
 		time?: number,
+		state?: EShapeDataValueState,
 		from?: number | null,
 		to?: number | null
 	): boolean {
@@ -121,6 +123,11 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 			// Time
 			if (time !== undefined) {
 				datumValue.time = time;
+			}
+
+			// State
+			if (state !== undefined) {
+				datumValue.state = state;
 			}
 
 			// Value
@@ -171,6 +178,7 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		id: string,
 		values: unknown[],
 		times?: number[],
+		states?: EShapeDataValueState[],
 		from?: number | null,
 		to?: number | null
 	): boolean {
@@ -198,13 +206,18 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 				datumValue.times = times;
 			}
 
+			// State
+			if (states !== undefined) {
+				datumValue.states = states;
+			}
+
 			// Value
 			datumValue.values = values;
 		}
 		return true;
 	}
 
-	setValue(id: string, value: unknown, time?: number): boolean {
+	setValue(id: string, value: unknown): boolean {
 		const data = this._data;
 		if (data == null) {
 			return false;
@@ -218,19 +231,12 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 			return false;
 		}
 		for (let i = 0; i < size; ++i) {
-			const datumValue = datum[i];
-
-			if (time !== undefined) {
-				datumValue.time = time;
-			}
-
-			datumValue.value = value;
+			datum[i].value = value;
 		}
 		return true;
-		return false;
 	}
 
-	setValues(id: string, values: unknown[], times?: number[]): boolean {
+	setValues(id: string, values: unknown[]): boolean {
 		const data = this._data;
 		if (data == null) {
 			return false;
@@ -244,16 +250,9 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 			return false;
 		}
 		for (let i = 0; i < size; ++i) {
-			const datumValue = datum[i];
-
-			if (times !== undefined) {
-				datumValue.times = times;
-			}
-
-			datumValue.values = values;
+			datum[i].values = values;
 		}
 		return true;
-		return false;
 	}
 
 	setTime(id: string, time: number): boolean {
@@ -290,6 +289,44 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		}
 		for (let i = 0; i < size; ++i) {
 			datum[i].times = times;
+		}
+		return true;
+	}
+
+	setState(id: string, state: EShapeDataValueState): boolean {
+		const data = this._data;
+		if (data == null) {
+			return false;
+		}
+		const datum = data.get(id);
+		if (datum == null) {
+			return false;
+		}
+		const size = datum.length;
+		if (size <= 0) {
+			return false;
+		}
+		for (let i = 0; i < size; ++i) {
+			datum[i].state = state;
+		}
+		return true;
+	}
+
+	setStates(id: string, states: EShapeDataValueState[]): boolean {
+		const data = this._data;
+		if (data == null) {
+			return false;
+		}
+		const datum = data.get(id);
+		if (datum == null) {
+			return false;
+		}
+		const size = datum.length;
+		if (size <= 0) {
+			return false;
+		}
+		for (let i = 0; i < size; ++i) {
+			datum[i].states = states;
 		}
 		return true;
 	}

@@ -8,6 +8,7 @@ import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramDataScoped } from "./d-diagram-data-scoped";
 import { DDiagramDataRemote } from "./d-diagram-data-remote";
 import { DDiagramDataRemoteOptions } from "./d-diagram-data-remote";
+import { EShapeDataValueState } from "./shape/e-shape-data-value-state";
 
 export interface DDiagramDataCanvas {
 	data: DDiagramCanvasData;
@@ -44,6 +45,7 @@ export interface DDiagramData {
 		id: string,
 		value: unknown,
 		time?: number,
+		state?: EShapeDataValueState,
 		from?: number | null,
 		to?: number | null
 	): boolean;
@@ -53,6 +55,7 @@ export interface DDiagramData {
 		id: string,
 		values: unknown[],
 		times?: number[],
+		states?: EShapeDataValueState[],
 		from?: number | null,
 		to?: number | null
 	): boolean;
@@ -60,6 +63,8 @@ export interface DDiagramData {
 	setValues(id: string, values: unknown[], times?: number[]): boolean;
 	setTime(id: string, time: number): boolean;
 	setTimes(id: string, times: number[]): boolean;
+	setState(id: string, state: unknown): boolean;
+	setStates(id: string, states: unknown[]): boolean;
 	setRange(id: string, from?: number | null, to?: number | null): boolean;
 	update(): void;
 }

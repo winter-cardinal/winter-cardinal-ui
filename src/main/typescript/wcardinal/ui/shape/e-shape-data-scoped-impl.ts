@@ -1,5 +1,6 @@
 import { EShapeDataScoped } from "./e-shape-data-scoped";
 import { EShapeDataValue } from "./e-shape-data-value";
+import { EShapeDataValueState } from "./e-shape-data-value-state";
 
 export class EShapeDataScopedImpl implements EShapeDataScoped {
 	protected _data?: Map<string, EShapeDataValue[]>;
@@ -30,6 +31,7 @@ export class EShapeDataScopedImpl implements EShapeDataScoped {
 		id: string,
 		value: unknown,
 		time?: number,
+		state?: EShapeDataValueState,
 		from?: number | null,
 		to?: number | null
 	): boolean {
@@ -55,6 +57,11 @@ export class EShapeDataScopedImpl implements EShapeDataScoped {
 			// Time
 			if (time !== undefined) {
 				datumValue.time = time;
+			}
+
+			// State
+			if (state !== undefined) {
+				datumValue.state = state;
 			}
 
 			// Value

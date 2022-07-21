@@ -9,7 +9,7 @@ import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
 
 export class EShapeActionRuntimeMiscWriteBoth extends EShapeActionRuntimeMiscWrite {
 	protected write(shape: EShape, target: string, value: unknown, time: number): void {
-		EShapeActionRuntimes.write(shape, target, value, time, false);
-		EShapeActionRuntimes.write(shape, target, value, time, true);
+		EShapeActionRuntimes.writeLocal(shape, target, value, time);
+		EShapeActionRuntimes.writeRemote(shape, target, value);
 	}
 }

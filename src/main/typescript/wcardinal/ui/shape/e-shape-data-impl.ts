@@ -18,6 +18,7 @@ import { DDiagramSerializedData, DDiagramSerializedDataWithMapping } from "../d-
 import { isArray } from "../util/is-array";
 import { EShapeDataScoped } from "./e-shape-data-scoped";
 import { EShapeDataScopedImpl } from "./e-shape-data-scoped-impl";
+import { EShapeDataValueState } from "./e-shape-data-value-state";
 
 let RANGE_DUMMY: EShapeDataValueRange | undefined;
 
@@ -127,6 +128,21 @@ export class EShapeDataImpl implements EShapeData {
 		const values = this._values;
 		if (0 < values.length) {
 			values[0].time = time;
+		}
+	}
+
+	get state(): EShapeDataValueState {
+		const values = this._values;
+		if (0 < values.length) {
+			return values[0].state;
+		}
+		return EShapeDataValueState.UNKOWN;
+	}
+
+	set state(state: EShapeDataValueState) {
+		const values = this._values;
+		if (0 < values.length) {
+			values[0].state = state;
 		}
 	}
 

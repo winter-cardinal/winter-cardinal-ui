@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeDataValueState } from "./shape/e-shape-data-value-state";
+
 export interface DDiagramDataScoped {
 	readonly ids: string[];
 
@@ -10,6 +12,7 @@ export interface DDiagramDataScoped {
 		id: string,
 		value: unknown,
 		time?: number,
+		state?: EShapeDataValueState,
 		from?: number | null,
 		to?: number | null
 	): boolean;
