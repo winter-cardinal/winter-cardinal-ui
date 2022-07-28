@@ -77,6 +77,11 @@ export interface DDiagramSerializedDataValue {
 	 * A scope.
 	 */
 	[7]: EShapeDataValueScope | undefined;
+
+	/**
+	 * A resource index number of an alias.
+	 */
+	[8]: number | undefined;
 }
 
 /**

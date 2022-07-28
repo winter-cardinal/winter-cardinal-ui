@@ -21,6 +21,7 @@ const INDEX_COMPARATOR = (a: number, b: number): number => {
 
 export class EShapeDataValueImpl implements EShapeDataValue {
 	id: string;
+	as: string;
 	type: EShapeDataValueType;
 	scope: EShapeDataValueScope;
 	initial: string;
@@ -44,6 +45,7 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 
 	constructor() {
 		this.id = "";
+		this.as = "";
 		this.type = EShapeDataValueType.NUMBER;
 		this.scope = EShapeDataValueScope.PUBLIC;
 		this.initial = "";
@@ -694,8 +696,9 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 		const initial = manager.addResource(this.initial);
 		const format = manager.addResource(this.format.trim());
 		const range = this.range.serialize(manager);
+		const as = manager.addResource(this.as);
 		return manager.addResource(
-			`[${id},${initial},${format},${range},${this._capacity},${this._order},${this.type},${this.scope}]`
+			`[${id},${initial},${format},${range},${this._capacity},${this._order},${this.type},${this.scope},${as}]`
 		);
 	}
 
@@ -708,6 +711,8 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 				manager.setDataValue(target, parsed);
 			}
 			this.id = manager.data[parsed[0]] || "";
+			const as = parsed[8];
+			this.as = as != null ? resources[as] || "" : "";
 			this.type = parsed[6] ?? EShapeDataValueType.NUMBER;
 			this.scope = parsed[7] ?? EShapeDataValueScope.PUBLIC;
 			this.initial = resources[parsed[1]] || "";

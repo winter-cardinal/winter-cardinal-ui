@@ -51,14 +51,16 @@ export class EShapeActionExpressions {
 				`try {` +
 					`with (shape) {` +
 						`with (state) {` +
-							`with (environment) {` +
-								( nullable ?
-									(
-										`var result = (${expression});` +
-										`return (result != null ? ${caster}(result) : null);`
-									) :
-									`return ${caster}(${expression});`
-								) +
+							`with (data.alias) {` +
+								`with (environment) {` +
+									( nullable ?
+										(
+											`var result = (${expression});` +
+											`return (result != null ? ${caster}(result) : null);`
+										) :
+										`return ${caster}(${expression});`
+									) +
+								`}` +
 							`}` +
 						`}` +
 					`}` +

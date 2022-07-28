@@ -19,6 +19,7 @@ export interface EShapeData {
 
 	// Shortcuts
 	readonly id: string;
+	readonly as: string;
 	readonly type: EShapeDataValueType;
 	readonly scope: EShapeDataValueScope;
 	readonly initial: string;
@@ -29,6 +30,9 @@ export interface EShapeData {
 	time: number;
 	state: EShapeDataValueState;
 	capacity: number;
+
+	// Alias
+	readonly alias: Record<string, EShapeDataValue>;
 
 	// Mapping
 	readonly mapping: EShapeDataMapping;

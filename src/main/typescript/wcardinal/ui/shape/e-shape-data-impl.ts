@@ -21,12 +21,14 @@ import { EShapeDataScopedImpl } from "./e-shape-data-scoped-impl";
 import { EShapeDataValueState } from "./e-shape-data-value-state";
 
 let RANGE_DUMMY: EShapeDataValueRange | undefined;
+let ALIAS_DUMMY: Record<string, EShapeDataValue> | undefined;
 
 export class EShapeDataImpl implements EShapeData {
 	protected _values: EShapeDataValue[];
 	protected _isChanged: boolean;
 	protected _mapping?: EShapeDataMapping;
 	protected _private?: EShapeDataScoped;
+	protected _alias?: Record<string, EShapeDataValue>;
 
 	constructor() {
 		this._values = [];
@@ -49,6 +51,14 @@ export class EShapeDataImpl implements EShapeData {
 		const values = this._values;
 		if (0 < values.length) {
 			return values[0].id;
+		}
+		return "";
+	}
+
+	get as(): string {
+		const values = this._values;
+		if (0 < values.length) {
+			return values[0].as;
 		}
 		return "";
 	}
@@ -158,6 +168,30 @@ export class EShapeDataImpl implements EShapeData {
 		const values = this._values;
 		if (0 < values.length) {
 			values[0].capacity = capacity;
+		}
+	}
+
+	get alias(): Record<string, EShapeDataValue> {
+		let result = this._alias;
+		if (result == null) {
+			result = this.newAlias();
+			this._alias = result;
+		}
+		return result;
+	}
+
+	protected newAlias(): Record<string, EShapeDataValue> {
+		const values = this._values;
+		const valuesLength = values.length;
+		if (0 < valuesLength) {
+			const result: Record<string, EShapeDataValue> = {};
+			for (let i = 0; i < valuesLength; ++i) {
+				const value = values[i];
+				result[value.as || value.id] = value;
+			}
+			return result;
+		} else {
+			return (ALIAS_DUMMY ??= {});
 		}
 	}
 

@@ -14,6 +14,7 @@ import { EShapeDataValueFormatter } from "./e-shape-data-value-formatter";
 
 export interface EShapeDataValueLike {
 	id: string;
+	as: string;
 	type: EShapeDataValueType;
 	scope: EShapeDataValueScope;
 	initial: string;
