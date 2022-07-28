@@ -52,7 +52,7 @@ export class EShapeEmbeddeds {
 		container: EShapeLayerContainer,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeEmbedded {
-		const shape = new EShapeEmbedded(name, manager.isEditMode);
+		const shape = new EShapeEmbedded(name);
 		shape.size.set(width, height);
 		container.copyTo(shape);
 		shape.size.init();

@@ -8,8 +8,8 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbedded extends EShapeGroupViewer {
 	protected _name: string;
 
-	constructor(name: string, isEditMode: boolean, type: EShapeType = EShapeType.EMBEDDED) {
-		super(isEditMode, type);
+	constructor(name: string, type: EShapeType = EShapeType.EMBEDDED) {
+		super(type);
 		this._name = name;
 	}
 
@@ -40,7 +40,7 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 
 	protected newClone(): EShapeEmbedded {
 		const constructor = this.constructor as typeof EShapeEmbedded;
-		return new constructor(this._name, this._isEditMode, this.type);
+		return new constructor(this._name, this.type);
 	}
 
 	serializeChildren(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem[] {

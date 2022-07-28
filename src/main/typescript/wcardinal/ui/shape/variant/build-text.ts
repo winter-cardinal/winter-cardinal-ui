@@ -16,7 +16,7 @@ import { toScaleInvariant } from "./to-scale-invariant";
 
 export const TEXT_VERTEX_COUNT = 4;
 export const TEXT_INDEX_COUNT = 2;
-const TEXT_FMIN: number = 0.00001;
+export const TEXT_FMIN: number = 0.00001;
 const TEXT_WORK_POINT: Point = new Point();
 
 export const toTextBufferCount = (shape: EShape): number => {
@@ -65,13 +65,15 @@ export const buildTextStep = (
 	textAtlas: EShapeTextAtlas | undefined,
 	textSize: number,
 	textOutlineWidth: number,
-	textWeight: EShapeTextWeight
+	textWeight: EShapeTextWeight,
+	scaleX: number,
+	scaleY: number
 ): void => {
 	let is = voffset * 6 - 1;
 	const ismax = (voffset + vcount) * 6 - 1;
 	const scaleInvariant = toScaleInvariant(EShapeStrokeStyle.NONE);
 	if (textAtlas != null) {
-		const scale = textAtlas.font.size / textSize;
+		const scale = textAtlas.font.size / (textSize * (scaleX + scaleY) * 0.5);
 		const position = textWeight === EShapeTextWeight.NORMAL ? 0.0 : 0.05;
 		for (; is < ismax; ) {
 			steps[++is] = textOutlineWidth;
@@ -326,25 +328,6 @@ const getTextBBox = (
 	}
 };
 
-const toNormalized = (
-	dx: number,
-	dy: number,
-	defx: number,
-	defy: number,
-	result: Point
-): number => {
-	const d = dx * dx + dy * dy;
-	if (TEXT_FMIN < d) {
-		const l = Math.sqrt(d);
-		const li = 1 / l;
-		result.set(dx * li, dy * li);
-		return l;
-	} else {
-		result.set(defx, defy);
-		return 0;
-	}
-};
-
 const rotateAlignHorizontalRight = (align: EShapeTextAlignHorizontal): EShapeTextAlignVertical => {
 	switch (align) {
 		case EShapeTextAlignHorizontal.LEFT:
@@ -442,39 +425,86 @@ export const buildTextVertex = (
 	//
 	const sx = sizeX * 0.5;
 	const sy = sizeY * 0.5;
-	const work = TEXT_WORK_POINT;
-	work.set(originX - sx, originY - sy);
-	internalTransform.apply(work, work);
-	const x0 = work.x;
-	const y0 = work.y;
-	work.set(originX + sx, originY - sy);
-	internalTransform.apply(work, work);
-	const x1 = work.x;
-	const y1 = work.y;
-	work.set(originX + sx, originY + sy);
-	internalTransform.apply(work, work);
-	const x2 = work.x;
-	const y2 = work.y;
+
+	const a = internalTransform.a;
+	const b = internalTransform.b;
+	const c = internalTransform.c;
+	const d = internalTransform.d;
+	const tx = internalTransform.tx;
+	const ty = internalTransform.ty;
+
+	const ltx = originX - sx;
+	const lty = originY - sy;
+	const rtx = originX + sx;
+	const rty = originY - sy;
+	const rbx = originX + sx;
+	const rby = originY + sy;
+	const x0 = a * ltx + c * lty + tx;
+	const y0 = b * ltx + d * lty + ty;
+	const x1 = a * rtx + c * rty + tx;
+	const y1 = b * rtx + d * rty + ty;
+	const x2 = a * rbx + c * rby + tx;
+	const y2 = b * rbx + d * rby + ty;
 	const x3 = x0 + (x2 - x1);
 	const y3 = y0 + (y2 - y1);
 
 	// Horizontal normal
 	const hl = toLength(x0, y0, x1, y1);
-	toNormalized(internalTransform.a, internalTransform.b, 1, 0, work);
-	let hnx = work.x;
-	let hny = work.y;
+	let hnl = toLength(0, 0, a, b);
+	let hnx = 1;
+	let hny = 0;
+	if (TEXT_FMIN < hnl) {
+		const hnli = 1 / hnl;
+		hnx = a * hnli;
+		hny = b * hnli;
+	}
 
 	// Vertical normal
 	const vl = toLength(x0, y0, x3, y3);
-	toNormalized(internalTransform.c, internalTransform.d, 0, 1, work);
-	let vnx = work.x;
-	let vny = work.y;
+	let vnl = toLength(0, 0, c, d);
+	let vnx = 0;
+	let vny = 1;
+	if (TEXT_FMIN < hnl) {
+		const vnli = 1 / vnl;
+		vnx = c * vnli;
+		vny = d * vnli;
+	}
+
+	const work = TEXT_WORK_POINT;
+	switch (textDirection) {
+		case EShapeTextDirection.LEFT_TO_RIGHT:
+			// DO NOTHING
+			break;
+		case EShapeTextDirection.TOP_TO_BOTTOM:
+			work.set(vnx, vny);
+			vnx = -hnx;
+			vny = -hny;
+			hnx = work.x;
+			hny = work.y;
+
+			work.x = vnl;
+			vnl = hnl;
+			hnl = work.x;
+			break;
+		case EShapeTextDirection.BOTTOM_TO_TOP:
+			work.set(vnx, vny);
+			vnx = hnx;
+			vny = hny;
+			hnx = -work.x;
+			hny = -work.y;
+
+			work.x = vnl;
+			vnl = hnl;
+			hnl = work.x;
+			break;
+	}
 
 	// Calculate the width / height
 	let width = 0;
 	let height = 0;
 	let heightChar = 0;
-	const lineHeight = Math.max(0, textSize + textSpacingVertical);
+	const textSizeY = textSize * vnl;
+	const lineHeight = Math.max(0, textSize + textSpacingVertical) * vnl;
 	let lineWidth = 0;
 	const textAtlasCharacters = textAtlas.characters;
 	const iterator = UtilCharacterIterator.from(textValue);
@@ -501,12 +531,14 @@ export const buildTextVertex = (
 		}
 	}
 
-	const scale = textSize / textAtlas.font.size;
+	const scaleZ = textSize / textAtlas.font.size;
+	const scaleX = hnl * scaleZ;
+	const scaleY = vnl * scaleZ;
 	lineWidth += advancePrevious;
-	width = Math.max(width, lineWidth) * scale;
+	width = Math.max(width, lineWidth) * scaleX;
 	lineWidth = 0;
-	heightChar *= scale;
-	height += textSize;
+	heightChar *= scaleY;
+	height += textSizeY;
 
 	//
 	let tx0 = 0;
@@ -556,14 +588,6 @@ export const buildTextVertex = (
 			}
 			break;
 		case EShapeTextDirection.TOP_TO_BOTTOM:
-			// Swap normals
-			work.set(vnx, vny);
-			vnx = -hnx;
-			vny = -hny;
-			hnx = work.x;
-			hny = work.y;
-
-			// Get text bbox
 			getTextBBox(
 				rotateAlignVerticalRight(textAlignVertical),
 				rotateAlignHorizontalRight(textAlignHorizontal),
@@ -606,14 +630,6 @@ export const buildTextVertex = (
 			}
 			break;
 		case EShapeTextDirection.BOTTOM_TO_TOP:
-			// Swap normals
-			work.set(vnx, vny);
-			vnx = hnx;
-			vny = hny;
-			hnx = -work.x;
-			hny = -work.y;
-
-			// Get text bbox
 			getTextBBox(
 				rotateAlignVerticalLeft(textAlignVertical),
 				rotateAlignHorizontalLeft(textAlignHorizontal),
@@ -668,6 +684,8 @@ export const buildTextVertex = (
 		textWorld[5] = vny;
 		textWorld[6] = lineWidthMaximum;
 		textWorld[7] = height;
+		textWorld[8] = hnl;
+		textWorld[9] = vnl;
 	} else {
 		textWorld[0] = tx0;
 		textWorld[1] = ty0;
@@ -677,6 +695,8 @@ export const buildTextVertex = (
 		textWorld[5] = vny;
 		textWorld[6] = width;
 		textWorld[7] = height;
+		textWorld[8] = hnl;
+		textWorld[9] = vnl;
 	}
 
 	// Texture
@@ -696,18 +716,18 @@ export const buildTextVertex = (
 	const lhx = lineHeight * vnx;
 	const lhy = lineHeight * vny;
 
-	const snx = scale * hnx;
-	const sny = scale * hny;
+	const snx = scaleX * hnx;
+	const sny = scaleX * hny;
 
-	const offsetY = (heightChar - textSize) * 0.5;
+	const offsetY = (heightChar - textSizeY) * 0.5;
 	const oyx = offsetY * vnx;
 	const oyy = offsetY * vny;
 
 	const offsetItalic = textStyle === EShapeTextStyle.NORMAL ? 0 : textSize * 0.25;
 	let bx0 = tx0 - oyx + offsetItalic * snx;
 	let by0 = ty0 - oyy + offsetItalic * sny;
-	let bx3 = tx0 + oyx + textSize * vnx;
-	let by3 = ty0 + oyy + textSize * vny;
+	let bx3 = tx0 + oyx + textSizeY * vnx;
+	let by3 = ty0 + oyy + textSizeY * vny;
 	let cx0 = bx0;
 	let cy0 = by0;
 	let cx3 = bx3;
@@ -737,12 +757,12 @@ export const buildTextVertex = (
 			lineCount += 1;
 			if (data) {
 				const advance = data.advance;
-				if (lineWidthMaximum < (lineWidth + advance) * scale) {
+				if (lineWidthMaximum < (lineWidth + advance) * scaleX) {
 					const dots = textAtlasCharacters["..."];
 					if (dots) {
 						if (
 							1 < lineCount &&
-							lineWidthMaximum < (lineWidth + dots.advance) * scale
+							lineWidthMaximum < (lineWidth + dots.advance) * scaleX
 						) {
 							lineWidth = lineWidthPrevious;
 							iv -= 8;
@@ -864,7 +884,7 @@ export const buildTextVertex = (
 				hny,
 				lineCount,
 				iv,
-				width - lineWidth * scale,
+				width - lineWidth * scaleX,
 				textDirection,
 				textAlignHorizontal,
 				textAlignVertical
@@ -881,7 +901,7 @@ export const buildTextVertex = (
 		hny,
 		lineCount,
 		iv,
-		width - lineWidth * scale,
+		width - lineWidth * scaleX,
 		textDirection,
 		textAlignHorizontal,
 		textAlignVertical

@@ -554,7 +554,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				const ty = transform.b * x + transform.d * y + transform.ty - textWorld[1];
 				const th = textWorld[2] * tx + textWorld[3] * ty;
 				const tv = textWorld[4] * tx + textWorld[5] * ty;
-				if (0 <= th && th <= textWorld[6] && 0 <= tv && tv <= textWorld[7]) {
+				const w = textWorld[6];
+				const h = textWorld[7];
+				if (0 <= th && th <= w && 0 <= tv && tv <= h) {
 					return this;
 				}
 			}

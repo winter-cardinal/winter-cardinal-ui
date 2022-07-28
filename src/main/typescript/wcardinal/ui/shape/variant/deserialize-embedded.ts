@@ -23,7 +23,7 @@ const create = (
 	item: DDiagramSerializedItem,
 	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	shape = shape || new EShapeEmbedded(name, manager.isEditMode);
+	shape = shape || new EShapeEmbedded(name);
 	const result = deserializeBase(item, manager, shape);
 	const shapeSize = shape.size;
 	const sizeX = shapeSize.x;
@@ -42,7 +42,7 @@ const createMissing = (
 	item: DDiagramSerializedItem,
 	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	shape = shape || new EShapeEmbedded(name, manager.isEditMode);
+	shape = shape || new EShapeEmbedded(name);
 	const result = deserializeBase(item, manager, shape);
 
 	const size = shape.size;
@@ -50,7 +50,7 @@ const createMissing = (
 	const sizeY = size.y;
 
 	const children = shape.children;
-	const layer = new EShapeEmbeddedLayer("missing", manager.isEditMode);
+	const layer = new EShapeEmbeddedLayer("missing");
 	const px = 0.5 * sizeX;
 	const py = 0.5 * sizeX;
 	layer.transform.position.set(-px, -py);

@@ -16,7 +16,6 @@ import { EShapeType } from "../e-shape-type";
 import { EShapeBase } from "./e-shape-base";
 import { EShapeGroupFillViewer } from "./e-shape-group-fill-viewer";
 import { EShapeGroupSize } from "./e-shape-group-size";
-import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeViewer } from "./e-shape-group-stroke-viewer";
 import { EShapeGroupTextViewer } from "./e-shape-group-text-viewer";
@@ -31,32 +30,21 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 	data: EShapeData;
 	text: EShapeText;
 
-	protected _isEditMode: boolean;
-
-	constructor(isEditMode: boolean, type: EShapeType) {
+	constructor(type: EShapeType) {
 		super(type);
-		this._isEditMode = isEditMode;
 		const data = this.newData();
 		this.data = data;
 		this.tag = data;
-		this.size = this.newGroupSize(isEditMode);
+		this.size = this.newGroupSize();
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
 	}
 
-	get isEditMode(): boolean {
-		return this._isEditMode;
-	}
-
-	protected newGroupSize(isEditMode: boolean): EShapeGroupSize {
+	protected newGroupSize(): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
-		if (isEditMode) {
-			return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
-		} else {
-			return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
-		}
+		return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
 	}
 
 	protected isGroupSizeFittable(): boolean {

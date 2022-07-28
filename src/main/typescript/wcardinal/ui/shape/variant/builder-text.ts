@@ -14,6 +14,7 @@ import {
 	buildTextIndex,
 	buildTextStep,
 	buildTextVertex,
+	TEXT_FMIN,
 	TEXT_VERTEX_COUNT,
 	toTextBufferCount
 } from "./build-text";
@@ -29,6 +30,8 @@ export class BuilderText implements Builder {
 	protected sizeX: number;
 	protected sizeY: number;
 	protected transformLocalId: number;
+	protected scaleX: number;
+	protected scaleY: number;
 
 	protected texture: Texture | null;
 	protected textureTransformId: number;
@@ -68,6 +71,9 @@ export class BuilderText implements Builder {
 		this.sizeY = NaN;
 
 		this.transformLocalId = NaN;
+
+		this.scaleX = 1;
+		this.scaleY = 1;
 
 		this.size = NaN;
 		this.family = "auto";
@@ -273,12 +279,30 @@ export class BuilderText implements Builder {
 
 	protected updateStep(buffer: EShapeBuffer, shape: EShape): void {
 		const text = shape.text;
+
 		const textOutline = text.outline;
 		const textOutlineWidth = textOutline.enable ? textOutline.width : 0;
+		const isOutlineWidthChanged = textOutlineWidth !== this.outlineWidth;
+
 		const textWeight = text.weight;
-		if (textWeight !== this.weight || textOutlineWidth !== this.outlineWidth) {
+		const isWeightChanged = textWeight !== this.weight;
+
+		let scaleX = 1;
+		let scaleY = 1;
+		const textWorld = text.world;
+		if (textWorld != null) {
+			scaleX = textWorld[8];
+			scaleY = textWorld[9];
+		}
+		const isScaleChanged =
+			TEXT_FMIN < Math.abs(this.scaleX - scaleX) ||
+			TEXT_FMIN < Math.abs(this.scaleY - scaleY);
+
+		if (isWeightChanged || isOutlineWidthChanged || isScaleChanged) {
 			this.weight = textWeight;
 			this.outlineWidth = textOutlineWidth;
+			this.scaleX = scaleX;
+			this.scaleY = scaleY;
 
 			buffer.updateSteps();
 			buildTextStep(
@@ -288,7 +312,9 @@ export class BuilderText implements Builder {
 				text.atlas,
 				text.size,
 				textOutlineWidth,
-				textWeight
+				textWeight,
+				this.scaleX,
+				this.scaleY
 			);
 		}
 	}
