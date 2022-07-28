@@ -31,17 +31,21 @@ float calcDistance( float x, float y, float dx, float dy ) {
 	float m = texture2D(uSampler, vec2(u , v )).a;
 	float l = texture2D(uSampler, vec2(ul, v )).a;
 	float t = texture2D(uSampler, vec2(u , vt)).a;
-
-	float xl = mix( xd - 1.0, xd, (0.5 - l) / (m - l) );
-	float yt = mix( yd - 1.0, yd, (0.5 - t) / (m - t) );
-
-	bool bl = ( min(l, m) < 0.5 && 0.5 <= max(l, m) );
-	bool bt = ( min(t, m) < 0.5 && 0.5 <= max(t, m) );
-
-	float ll = (bl ? length( vec2( xl - x, yd - y ) ) : 100.0);
-	float lt = (bt ? length( vec2( xd - x, yt - y ) ) : 100.0);
-
-	return min( ll, lt );
+	float ddx = -(0.5 - m) / (l - m);
+	float ddy = -(0.5 - m) / (t - m);
+	bool bl = min(l,m) < 0.5 && 0.5 <= max(l,m);
+	bool bt = min(t,m) < 0.5 && 0.5 <= max(t,m);
+	return (
+		bl ?
+		(bt ?
+			length(vec2(dx + ddx * 0.5, dy + ddy * 0.5)) :
+			length(vec2(dx + ddx, dy))
+		) :
+		(bt ?
+			length(vec2(dx, dy + ddy)) :
+			100.0
+		)
+	);
 }
 
 float calcDistancesY( float x, float y, float dx ) {
