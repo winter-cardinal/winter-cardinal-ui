@@ -51,6 +51,7 @@ export const deserializeEmbeddedLayer = (
 	const sizeX = serialized[4] ?? width;
 	const sizeY = serialized[5] ?? height;
 	result.size.set(sizeX, sizeY);
+	result.size.init();
 
 	const fillId = serialized[6];
 	if (fillId != null) {

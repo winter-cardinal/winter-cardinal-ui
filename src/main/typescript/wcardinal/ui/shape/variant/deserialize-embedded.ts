@@ -55,6 +55,7 @@ const createMissing = (
 	const py = 0.5 * sizeX;
 	layer.transform.position.set(-px, -py);
 	layer.size.set(sizeX, sizeY);
+	layer.size.init();
 	layer.parent = shape;
 
 	const rectangle = new EShapeRectangle();
