@@ -14,8 +14,8 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLayer {
 	protected _name: string;
 
-	constructor(name: string, type: EShapeType = EShapeType.EMBEDDED_LAYER) {
-		super(type);
+	constructor(name: string, isEditMode: boolean, type: EShapeType = EShapeType.EMBEDDED_LAYER) {
+		super(isEditMode, type);
 		this._name = name;
 	}
 
@@ -47,7 +47,7 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 
 	protected newClone(): EShapeEmbeddedLayer {
 		const constructor = this.constructor as typeof EShapeEmbeddedLayer;
-		return new constructor(this._name, this.type);
+		return new constructor(this._name, this._isEditMode, this.type);
 	}
 
 	serializeChildren(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem[] {

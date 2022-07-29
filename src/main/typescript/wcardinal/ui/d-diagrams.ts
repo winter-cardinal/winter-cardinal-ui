@@ -125,7 +125,7 @@ export class DDiagrams {
 		const onFulfilled = () => {
 			return pieceToDatum;
 		};
-		return this.toPieceData_(controller, pieces, pieceToDatum, pieceToPromise, isEditMode).then(
+		return this.toPieceData_(controller, pieces, pieceToDatum, pieceToPromise, false).then(
 			onFulfilled,
 			onFulfilled
 		);
