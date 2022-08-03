@@ -170,16 +170,18 @@ export class DDiagramCanvas<
 			// Children
 			const children = shape.children;
 			if (0 < children.length) {
+				let newDataShape = dataShape;
+				let newContainerShape = containerShape;
 				if (shape instanceof EShapeEmbedded) {
-					if (dataShape == null) {
-						dataShape = shape;
+					if (newDataShape == null) {
+						newDataShape = shape;
 					}
-					containerShape = shape;
+					newContainerShape = shape;
 				}
 				this.initialize_(
 					children,
-					dataShape,
-					containerShape,
+					newDataShape,
+					newContainerShape,
 					mapper,
 					formatToFormatter,
 					initialToInitialValue,
