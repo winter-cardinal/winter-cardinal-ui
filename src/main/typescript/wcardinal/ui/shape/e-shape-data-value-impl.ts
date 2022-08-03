@@ -667,6 +667,7 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	 */
 	copy(target: EShapeDataValue): this {
 		this.id = target.id;
+		this.as = target.as;
 		this.type = target.type;
 		this.scope = target.scope;
 		this.initial = target.initial;
@@ -683,6 +684,7 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 	isEquals(target: EShapeDataValue): boolean {
 		return (
 			this.id === target.id &&
+			this.as === target.as &&
 			this.type === target.type &&
 			this.scope === target.scope &&
 			this.initial === target.initial &&
@@ -693,10 +695,10 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const id = manager.addData(this.id);
+		const as = manager.addResource(this.as);
 		const initial = manager.addResource(this.initial);
 		const format = manager.addResource(this.format.trim());
 		const range = this.range.serialize(manager);
-		const as = manager.addResource(this.as);
 		return manager.addResource(
 			`[${id},${initial},${format},${range},${this._capacity},${this._order},${this.type},${this.scope},${as}]`
 		);
