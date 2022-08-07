@@ -160,7 +160,7 @@ export abstract class EShapePointsMarkerBase implements EShapePointsMarker {
 			const ny = dy * f;
 			result.set(ny, -nx, -nx, -ny, x0, y0);
 		} else {
-			result.identity();
+			result.set(1, 0, 0, 1, x0, y0);
 		}
 		return result;
 	}
