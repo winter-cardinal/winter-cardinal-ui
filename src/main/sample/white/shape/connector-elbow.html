@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Connector</title>
+	<title>Connector (Elbow)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -41,13 +41,12 @@
 		circleB.transform.position.set(400, 250);
 		circleB.attach( container );
 
-		var connector = new wcardinal.ui.EShapeConnectorLine();
+		var connector = new wcardinal.ui.EShapeConnectorElbow();
 		connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
 		connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
 		connector.points.marker.head.fill.color = 0x909090;
 		connector.edge.tail.set(circleA, "RIGHT");
 		connector.edge.head.set(circleB, "CENTER", 20);
-		connector.body.set([-0.1, -0.1, +0.1, +0.1]);
 		connector.attach( container );
 
 		application.stage.addChild( container );

@@ -17,6 +17,7 @@ import { EShape } from "../e-shape";
 import { toPointsBoundary } from "../e-shape-points-formatted";
 import { EShapeConnectorBody } from "../e-shape-connector-body";
 import { EShapeConnectorBodyImpl } from "../e-shape-connector-body-impl";
+import { EShapeConnectorEdge } from "../e-shape-connector-edge";
 
 export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnector {
 	protected static WORK_BOUNDARY: [number, number, number, number];
@@ -24,8 +25,10 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	protected _body: EShapeConnectorBody;
 	protected declare _points: EShapeLinePoints;
 	protected _tailLocalId: number;
+	protected _tailNormalId: number;
 	protected _tailMargin: number;
 	protected _headLocalId: number;
+	protected _headNormalId: number;
 	protected _headMargin: number;
 	protected _bodyId: number;
 	protected _lockCount: number;
@@ -34,8 +37,10 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	constructor(type: EShapeType = EShapeType.CONNECTOR_LINE) {
 		super(type);
 		this._tailLocalId = 0;
+		this._tailNormalId = 0;
 		this._tailMargin = 0;
 		this._headLocalId = 0;
+		this._headNormalId = 0;
 		this._headMargin = 0;
 		this._bodyId = 0;
 		this._lockCount = 0;
@@ -100,105 +105,40 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		const edge = this._edge;
 		const tail = edge.tail;
 		const tailLocalId = tail.localId;
+		const tailNormalId = tail.normalId;
 		const tailMargin = tail.margin;
 		const head = edge.head;
 		const headLocalId = head.localId;
+		const headNormalId = head.normalId;
 		const headMargin = head.margin;
 		const body = this._body;
 		const bodyId = body.id;
 		if (
 			this._tailLocalId !== tailLocalId ||
+			this._tailNormalId !== tailNormalId ||
 			this._tailMargin !== tailMargin ||
 			this._headLocalId !== headLocalId ||
+			this._headNormalId !== headNormalId ||
 			this._headMargin !== headMargin ||
 			this._bodyId !== bodyId
 		) {
 			this._tailLocalId = tailLocalId;
+			this._tailNormalId = tailNormalId;
 			this._tailMargin = tailMargin;
 			this._headLocalId = headLocalId;
+			this._headNormalId = headNormalId;
 			this._headMargin = headMargin;
 			this._bodyId !== bodyId;
 
-			// Tail
-			const tailLocal = tail.local;
-			const tailLocalX = tailLocal.x;
-			const tailLocalY = tailLocal.y;
-
-			// Head
-			const headLocal = head.local;
-			const headLocalX = headLocal.x;
-			const headLocalY = headLocal.y;
-
-			// Body
-			const bodyValues = body.values;
-			const bodyValuesLength = bodyValues.length;
-
-			// Values
 			const transform = this.transform;
 			const transformPosition = transform.position;
 			const px = transformPosition.x;
 			const py = transformPosition.y;
 			const points = this._points;
 			const values = points.values;
-			if (values.length < 4) {
-				values[0] = 0;
-				values[1] = 0;
-			}
 
-			const threshold = 0.000001;
-			const x0 = tailLocalX - px;
-			const y0 = tailLocalY - py;
-			const x1 = headLocalX - px;
-			const y1 = headLocalY - py;
-
-			// Body
-			if (0 < bodyValuesLength) {
-				const cx = (x1 + x0) * 0.5;
-				const cy = (y1 + y0) * 0.5;
-				const dx = x1 - x0;
-				const dy = y1 - y0;
-				const a = Math.atan2(dy, dx);
-				const c = Math.cos(a);
-				const s = Math.sin(a);
-				const l = Math.sqrt(dx * dx + dy * dy);
-				for (let i = 0; i < bodyValuesLength; i += 2) {
-					const x = bodyValues[i + 0];
-					const y = bodyValues[i + 1];
-					values[i + 2] = cx + (c * x - s * y) * l;
-					values[i + 3] = cy + (c * y + s * x) * l;
-				}
-			}
-
-			// Tail
-			values[0] = x0;
-			values[1] = y0;
-			if (tailMargin !== 0) {
-				const dx = values[2] - x0;
-				const dy = values[3] - y0;
-				const d = dx * dx + dy * dy;
-				if (threshold < d) {
-					const f = tailMargin / Math.sqrt(dx * dx + dy * dy);
-					values[0] = x0 + dx * f;
-					values[1] = y0 + dy * f;
-				}
-			}
-
-			// Head
-			values[2 + bodyValuesLength] = x1;
-			values[3 + bodyValuesLength] = y1;
-			if (headMargin !== 0) {
-				const dx = values[0 + bodyValuesLength] - x1;
-				const dy = values[1 + bodyValuesLength] - y1;
-				const d = dx * dx + dy * dy;
-				if (threshold < d) {
-					const f = headMargin / Math.sqrt(dx * dx + dy * dy);
-					values[2 + bodyValuesLength] = x1 + dx * f;
-					values[3 + bodyValuesLength] = y1 + dy * f;
-				}
-			}
-
-			// Remove the rest
-			values.length = bodyValuesLength + 4;
+			// Fill points
+			this.fillPoints(tail, tailMargin, head, headMargin, body, px, py, values);
 
 			// Center & size
 			const boundary = (EShapeConnectorLine.WORK_BOUNDARY ??= [0, 0, 0, 0]);
@@ -226,6 +166,89 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		}
 	}
 
+	protected fillPoints(
+		tail: EShapeConnectorEdge,
+		tailMargin: number,
+		head: EShapeConnectorEdge,
+		headMargin: number,
+		body: EShapeConnectorBody,
+		px: number,
+		py: number,
+		values: number[]
+	): void {
+		// Tail
+		const threshold = 0.000001;
+		const tailLocal = tail.local;
+		const tailLocalX = tailLocal.x;
+		const tailLocalY = tailLocal.y;
+		const x0 = tailLocalX - px;
+		const y0 = tailLocalY - py;
+
+		// Head
+		const headLocal = head.local;
+		const headLocalX = headLocal.x;
+		const headLocalY = headLocal.y;
+		const x1 = headLocalX - px;
+		const y1 = headLocalY - py;
+
+		// Body
+		const bodyValues = body.values;
+		const bodyValuesLength = bodyValues.length;
+
+		// Tail points
+		values[0] = x0;
+		values[1] = y0;
+
+		// Body points
+		if (0 < bodyValuesLength) {
+			const cx = (x1 + x0) * 0.5;
+			const cy = (y1 + y0) * 0.5;
+			const dx = x1 - x0;
+			const dy = y1 - y0;
+			const a = Math.atan2(dy, dx);
+			const c = Math.cos(a);
+			const s = Math.sin(a);
+			const l = Math.sqrt(dx * dx + dy * dy);
+			for (let i = 0; i < bodyValuesLength; i += 2) {
+				const x = bodyValues[i + 0];
+				const y = bodyValues[i + 1];
+				values[i + 2] = cx + (c * x - s * y) * l;
+				values[i + 3] = cy + (c * y + s * x) * l;
+			}
+		}
+
+		// Head points
+		values[2 + bodyValuesLength] = x1;
+		values[3 + bodyValuesLength] = y1;
+
+		// Tail margin
+		if (tailMargin !== 0) {
+			const dx = values[2] - x0;
+			const dy = values[3] - y0;
+			const d = dx * dx + dy * dy;
+			if (threshold < d) {
+				const f = tailMargin / Math.sqrt(dx * dx + dy * dy);
+				values[0] = x0 + dx * f;
+				values[1] = y0 + dy * f;
+			}
+		}
+
+		// Head margin
+		if (headMargin !== 0) {
+			const dx = values[0 + bodyValuesLength] - x1;
+			const dy = values[1 + bodyValuesLength] - y1;
+			const d = dx * dx + dy * dy;
+			if (threshold < d) {
+				const f = headMargin / Math.sqrt(dx * dx + dy * dy);
+				values[2 + bodyValuesLength] = x1 + dx * f;
+				values[3 + bodyValuesLength] = y1 + dy * f;
+			}
+		}
+
+		// Remove the rest
+		values.length = bodyValuesLength + 4;
+	}
+
 	copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
 		super.copy(source, part);
 		if (source instanceof EShapeConnectorLine) {
@@ -236,7 +259,8 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	}
 
 	clone(): EShapeConnectorLine {
-		return new EShapeConnectorLine(this.type).copy(this);
+		const constructor = this.constructor as typeof EShapeConnectorLine;
+		return new constructor(this.type).copy(this);
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {

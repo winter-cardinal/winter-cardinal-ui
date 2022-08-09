@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { EShapeAcceptor, EShapeAcceptorEdge } from "./e-shape-acceptor";
+import { EShapeAcceptor, EShapeAcceptorEdge, EShapeAcceptorEdgeNormal } from "./e-shape-acceptor";
 import { EShapeAcceptorType } from "./e-shape-acceptor-type";
 
 export class EShapeAcceptorImpl implements EShapeAcceptor {
@@ -13,13 +13,53 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 		this._edges = new Map<string, EShapeAcceptorEdge>();
 	}
 
-	add(id: string, type: EShapeAcceptorType, x: number, y: number): boolean {
+	add(id: string, type: EShapeAcceptorType, x: number, y: number): boolean;
+	add(
+		id: string,
+		type: EShapeAcceptorType,
+		x: number,
+		y: number,
+		nx: number,
+		ny: number
+	): boolean;
+	add(
+		id: string,
+		type: EShapeAcceptorType,
+		x: number,
+		y: number,
+		nx?: number,
+		ny?: number
+	): boolean {
 		this._edges.set(id, {
 			type,
 			x,
-			y
+			y,
+			normal: this.toNormal(x, y, nx, ny)
 		});
 		return true;
+	}
+
+	protected toNormal(x: number, y: number, nx?: number, ny?: number): EShapeAcceptorEdgeNormal {
+		if (nx != null && ny != null) {
+			return {
+				x: nx,
+				y: ny
+			};
+		} else {
+			const d = x * x + y * y;
+			if (0.00001 < d) {
+				const m = 1 / Math.sqrt(d);
+				return {
+					x: x * m,
+					y: y * m
+				};
+			} else {
+				return {
+					x: 1,
+					y: 0
+				};
+			}
+		}
 	}
 
 	remove(id: string): EShapeAcceptorEdge | null {

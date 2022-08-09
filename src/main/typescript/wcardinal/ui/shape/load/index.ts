@@ -8,6 +8,7 @@ export * from "./load-shape-bar";
 export * from "./load-shape-button";
 export * from "./load-shape-circle";
 export * from "./load-shape-clipper-ex";
+export * from "./load-shape-connector-elbow";
 export * from "./load-shape-connector-line";
 export * from "./load-shape-embedded";
 export * from "./load-shape-group-shadowed";

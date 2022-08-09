@@ -36,15 +36,15 @@ export class EShapeAcceptors {
 
 	protected static newDefault(): EShapeAcceptor {
 		const result = new EShapeAcceptorImpl();
-		result.add("TOP", EShapeAcceptorType.ALL, 0, -0.5);
-		result.add("LEFT", EShapeAcceptorType.ALL, -0.5, 0);
-		result.add("RIGHT", EShapeAcceptorType.ALL, 0.5, 0);
-		result.add("BOTTOM", EShapeAcceptorType.ALL, 0, 0.5);
-		result.add("CENTER", EShapeAcceptorType.ALL, 0, 0);
-		result.add("TOP_LEFT", EShapeAcceptorType.ALL, -0.5, -0.5);
-		result.add("TOP_RIGHT", EShapeAcceptorType.ALL, 0.5, -0.5);
-		result.add("BOTTOM_LEFT", EShapeAcceptorType.ALL, -0.5, 0.5);
-		result.add("BOTTOM_RIGHT", EShapeAcceptorType.ALL, 0.5, 0.5);
+		result.add("TOP", EShapeAcceptorType.ALL, 0, -0.5, 0, -1);
+		result.add("LEFT", EShapeAcceptorType.ALL, -0.5, 0, -1, 0);
+		result.add("RIGHT", EShapeAcceptorType.ALL, 0.5, 0, 1, 0);
+		result.add("BOTTOM", EShapeAcceptorType.ALL, 0, 0.5, 0, 1);
+		result.add("CENTER", EShapeAcceptorType.ALL, 0, 0, -1, 0);
+		result.add("TOP_LEFT", EShapeAcceptorType.ALL, -0.5, -0.5, -1, 0);
+		result.add("TOP_RIGHT", EShapeAcceptorType.ALL, 0.5, -0.5, 0, 1);
+		result.add("BOTTOM_LEFT", EShapeAcceptorType.ALL, -0.5, 0.5, -1, 0);
+		result.add("BOTTOM_RIGHT", EShapeAcceptorType.ALL, 0.5, 0.5, 0, 1);
 		return result;
 	}
 }
