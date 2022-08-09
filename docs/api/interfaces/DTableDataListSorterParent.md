@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DTableDataListSorterParent
+[Winter Cardinal UI - v0.205.1](../index.md) / DTableDataListSorterParent
 
 # Interface: DTableDataListSorterParent<ROW\>
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L11)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L11)
 
 ## Methods
 
@@ -40,4 +40,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L12)
+[src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-sorter.ts#L12)

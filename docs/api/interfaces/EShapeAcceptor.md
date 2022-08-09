@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / EShapeAcceptor
+[Winter Cardinal UI - v0.205.1](../index.md) / EShapeAcceptor
 
 # Interface: EShapeAcceptor
 
@@ -39,7 +39,28 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L22)
+
+▸ **add**(`id`, `type`, `x`, `y`, `nx`, `ny`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `type` | [`EShapeAcceptorType`](../index.md#eshapeacceptortype) |
+| `x` | `number` |
+| `y` | `number` |
+| `nx` | `number` |
+| `ny` | `number` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L23)
 
 ___
 
@@ -53,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L35)
 
 ___
 
@@ -73,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L34)
 
 ___
 
@@ -93,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L33)
 
 ___
 
@@ -113,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L32)
 
 ___
 
@@ -133,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L31)
 
 ___
 
@@ -147,4 +168,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L21)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramCanvasDataImpl
+[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramCanvasDataImpl
 
 # Class: DDiagramCanvasDataImpl
 
@@ -37,6 +37,8 @@
 - [set](DDiagramCanvasDataImpl.md#set)
 - [setAll](DDiagramCanvasDataImpl.md#setall)
 - [setRange](DDiagramCanvasDataImpl.md#setrange)
+- [setState](DDiagramCanvasDataImpl.md#setstate)
+- [setStates](DDiagramCanvasDataImpl.md#setstates)
 - [setTime](DDiagramCanvasDataImpl.md#settime)
 - [setTimes](DDiagramCanvasDataImpl.md#settimes)
 - [setValue](DDiagramCanvasDataImpl.md#setvalue)
@@ -57,7 +59,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L14)
 
 ___
 
@@ -67,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L17)
 
 ___
 
@@ -77,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L15)
 
 ___
 
@@ -87,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L16)
 
 ## Accessors
 
@@ -105,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L44)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L45)
 
 ___
 
@@ -123,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L57)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L58)
 
 ___
 
@@ -141,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L19)
 
 ___
 
@@ -159,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L32)
 
 ## Methods
 
@@ -184,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L85)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L86)
 
 ___
 
@@ -208,7 +210,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L132)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L139)
 
 ___
 
@@ -232,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L69)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L70)
 
 ___
 
@@ -246,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L53)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L54)
 
 ___
 
@@ -260,7 +262,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L28)
 
 ___
 
@@ -274,13 +276,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L40)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L41)
 
 ___
 
 ### set
 
-▸ **set**(`id`, `value`, `time?`, `from?`, `to?`): `boolean`
+▸ **set**(`id`, `value`, `time?`, `state?`, `from?`, `to?`): `boolean`
 
 #### Parameters
 
@@ -289,6 +291,7 @@ ___
 | `id` | `string` |
 | `value` | `unknown` |
 | `time?` | `number` |
+| `state?` | `number` |
 | `from?` | ``null`` \| `number` |
 | `to?` | ``null`` \| `number` |
 
@@ -302,13 +305,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L95)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L96)
 
 ___
 
 ### setAll
 
-▸ **setAll**(`id`, `values`, `times?`, `from?`, `to?`): `boolean`
+▸ **setAll**(`id`, `values`, `times?`, `states?`, `from?`, `to?`): `boolean`
 
 #### Parameters
 
@@ -317,6 +320,7 @@ ___
 | `id` | `string` |
 | `values` | `unknown`[] |
 | `times?` | `number`[] |
+| `states?` | `number`[] |
 | `from?` | ``null`` \| `number` |
 | `to?` | ``null`` \| `number` |
 
@@ -330,7 +334,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L170)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L177)
 
 ___
 
@@ -356,7 +360,57 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:297](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L297)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:334](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L334)
+
+___
+
+### setState
+
+▸ **setState**(`id`, `state`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `state` | `number` |
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[DDiagramCanvasData](../interfaces/DDiagramCanvasData.md).[setState](../interfaces/DDiagramCanvasData.md#setstate)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L296)
+
+___
+
+### setStates
+
+▸ **setStates**(`id`, `states`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `states` | `number`[] |
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[DDiagramCanvasData](../interfaces/DDiagramCanvasData.md).[setStates](../interfaces/DDiagramCanvasData.md#setstates)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L315)
 
 ___
 
@@ -381,7 +435,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L259)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L258)
 
 ___
 
@@ -406,13 +460,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L278)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:277](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L277)
 
 ___
 
 ### setValue
 
-▸ **setValue**(`id`, `value`, `time?`): `boolean`
+▸ **setValue**(`id`, `value`): `boolean`
 
 #### Parameters
 
@@ -420,7 +474,6 @@ ___
 | :------ | :------ |
 | `id` | `string` |
 | `value` | `unknown` |
-| `time?` | `number` |
 
 #### Returns
 
@@ -432,13 +485,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L207)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L220)
 
 ___
 
 ### setValues
 
-▸ **setValues**(`id`, `values`, `times?`): `boolean`
+▸ **setValues**(`id`, `values`): `boolean`
 
 #### Parameters
 
@@ -446,7 +499,6 @@ ___
 | :------ | :------ |
 | `id` | `string` |
 | `values` | `unknown`[] |
-| `times?` | `number`[] |
 
 #### Returns
 
@@ -458,7 +510,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L233)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L239)
 
 ___
 
@@ -482,4 +534,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L151)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-data-impl.ts#L158)

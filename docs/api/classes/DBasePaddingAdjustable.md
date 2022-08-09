@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DBasePaddingAdjustable
+[Winter Cardinal UI - v0.205.1](../index.md) / DBasePaddingAdjustable
 
 # Class: DBasePaddingAdjustable
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L25)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L25)
 
 ## Properties
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L21)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L21)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L23)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L23)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L22)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L22)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L20)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L20)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L18)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L18)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L19)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L19)
 
 ## Accessors
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L124)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L124)
 
 • `set` **bottom**(`bottom`): `void`
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L128)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L128)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L58)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L58)
 
 • `set` **left**(`left`): `void`
 
@@ -200,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L62)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L62)
 
 ___
 
@@ -218,7 +218,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L102)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L102)
 
 • `set` **right**(`right`): `void`
 
@@ -238,7 +238,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L106)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L106)
 
 ___
 
@@ -256,7 +256,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L80)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L80)
 
 • `set` **top**(`top`): `void`
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L84)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L84)
 
 ## Methods
 
@@ -296,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L114)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L114)
 
 ___
 
@@ -316,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L48)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L48)
 
 ___
 
@@ -336,7 +336,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L92)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L92)
 
 ___
 
@@ -356,7 +356,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L70)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L70)
 
 ___
 
@@ -374,7 +374,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L110)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L110)
 
 ___
 
@@ -392,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L44)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L44)
 
 ___
 
@@ -410,7 +410,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L88)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L88)
 
 ___
 
@@ -428,7 +428,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L36)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L36)
 
 ___
 
@@ -446,7 +446,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L66)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L66)
 
 ___
 
@@ -470,7 +470,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L132)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L132)
 
 ▸ **set**(`topAndBottom`, `leftAndRight`): `void`
 
@@ -491,7 +491,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L133)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L133)
 
 ▸ **set**(`top`, `leftAndRight`, `bottom`): `void`
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L134)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L134)
 
 ▸ **set**(`top`, `right`, `bottom`, `left`): `void`
 
@@ -536,7 +536,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L135)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L135)
 
 ___
 
@@ -560,4 +560,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L40)
+[src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base-padding-adjustable.ts#L40)

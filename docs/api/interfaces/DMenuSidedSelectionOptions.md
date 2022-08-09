@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DMenuSidedSelectionOptions
+[Winter Cardinal UI - v0.205.1](../index.md) / DMenuSidedSelectionOptions
 
 # Interface: DMenuSidedSelectionOptions<EMITTER\>
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L49)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L49)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L56)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L56)
 
 ___
 
@@ -54,7 +54,7 @@ A selection type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L54)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L54)
 
 ## Methods
 
@@ -74,4 +74,4 @@ A selection type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L58)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L58)

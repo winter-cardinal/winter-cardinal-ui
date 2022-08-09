@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / EShapeSearch
+[Winter Cardinal UI - v0.205.1](../index.md) / EShapeSearch
 
 # Class: EShapeSearch
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L15)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L175)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L175)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L133)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L133)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L154)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L154)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L216)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L216)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L196)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L196)
 
 ___
 
@@ -192,7 +192,7 @@ true if the given target is on the path to the given shape
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L104)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:104](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L104)
 
 ___
 
@@ -216,7 +216,7 @@ a depth
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L39)
 
 ___
 
@@ -240,7 +240,7 @@ indices
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L25)
 
 ___
 
@@ -266,7 +266,7 @@ a found shape
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L88)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L88)
 
 ___
 
@@ -291,7 +291,7 @@ a found selected shape or null
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L122)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L122)
 
 ___
 
@@ -316,4 +316,4 @@ a found shape
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L56)
+[src/main/typescript/wcardinal/ui/shape/e-shape-search.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-search.ts#L56)

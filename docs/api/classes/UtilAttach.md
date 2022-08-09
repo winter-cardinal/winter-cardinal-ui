@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / UtilAttach
+[Winter Cardinal UI - v0.205.1](../index.md) / UtilAttach
 
 # Class: UtilAttach
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-attach.ts#L152)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L152)
 
 ___
 
@@ -66,4 +66,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-attach.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-attach.ts#L41)
+[src/main/typescript/wcardinal/ui/util/util-attach.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-attach.ts#L41)

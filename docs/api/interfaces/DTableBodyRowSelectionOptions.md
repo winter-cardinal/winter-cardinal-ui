@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DTableBodyRowSelectionOptions
+[Winter Cardinal UI - v0.205.1](../index.md) / DTableBodyRowSelectionOptions
 
 # Interface: DTableBodyRowSelectionOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-row.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-body-row.ts#L36)
+[src/main/typescript/wcardinal/ui/d-table-body-row.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-body-row.ts#L39)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDialogLayeredFooterParent
+[Winter Cardinal UI - v0.205.1](../index.md) / DDialogLayeredFooterParent
 
 # Interface: DDialogLayeredFooterParent
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L40)
+[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L40)
 
 ___
 
@@ -35,4 +35,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L39)
+[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L39)

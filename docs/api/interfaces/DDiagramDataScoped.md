@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramDataScoped
+[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramDataScoped
 
 # Interface: DDiagramDataScoped
 
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L7)
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L9)
 
 ## Methods
 
@@ -46,13 +46,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L20)
 
 ___
 
 ### set
 
-▸ **set**(`id`, `value`, `time?`, `from?`, `to?`): `boolean`
+▸ **set**(`id`, `value`, `time?`, `state?`, `from?`, `to?`): `boolean`
 
 #### Parameters
 
@@ -61,6 +61,7 @@ ___
 | `id` | `string` |
 | `value` | `unknown` |
 | `time?` | `number` |
+| `state?` | `number` |
 | `from?` | ``null`` \| `number` |
 | `to?` | ``null`` \| `number` |
 
@@ -70,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L9)
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L11)
 
 ___
 
@@ -90,4 +91,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-scoped.ts#L19)

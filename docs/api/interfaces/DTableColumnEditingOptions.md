@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DTableColumnEditingOptions
+[Winter Cardinal UI - v0.205.1](../index.md) / DTableColumnEditingOptions
 
 # Interface: DTableColumnEditingOptions<ROW_VALUE, CELL_VALUE\>
 
@@ -22,38 +22,38 @@
 
 ### enable
 
-• `Optional` **enable**: `boolean` \| ``"auto"`` \| ``"AUTO"`` \| [`DTableEditable`](../index.md#dtableeditable)<`ROW_VALUE`\>
+• `Optional` **enable**: `boolean` \| ``"auto"`` \| ``"AUTO"`` \| [`DTableColumnEditable`](../index.md#dtablecolumneditable)<`ROW_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L88)
+[src/main/typescript/wcardinal/ui/d-table-column-editing.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-column-editing.ts#L12)
 
 ___
 
 ### formatter
 
-• `Optional` **formatter**: [`DTableEditingFormatter`](../index.md#dtableeditingformatter)<`CELL_VALUE`\>
+• `Optional` **formatter**: [`DTableColumnEditingFormatter`](../index.md#dtablecolumneditingformatter)<`CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L89)
+[src/main/typescript/wcardinal/ui/d-table-column-editing.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-column-editing.ts#L13)
 
 ___
 
 ### unformatter
 
-• `Optional` **unformatter**: [`DTableEditingUnformatter`](../index.md#dtableeditingunformatter)<`CELL_VALUE`\>
+• `Optional` **unformatter**: [`DTableColumnEditingUnformatter`](../index.md#dtablecolumneditingunformatter)<`CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L90)
+[src/main/typescript/wcardinal/ui/d-table-column-editing.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-column-editing.ts#L14)
 
 ___
 
 ### validator
 
-• `Optional` **validator**: [`DTableEditingValidator`](../index.md#dtableeditingvalidator)<`CELL_VALUE`\>
+• `Optional` **validator**: [`DTableColumnEditingValidator`](../index.md#dtablecolumneditingvalidator)<`CELL_VALUE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-column.ts#L91)
+[src/main/typescript/wcardinal/ui/d-table-column-editing.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-column-editing.ts#L15)

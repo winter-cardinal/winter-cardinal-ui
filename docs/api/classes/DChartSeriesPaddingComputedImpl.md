@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DChartSeriesPaddingComputedImpl
+[Winter Cardinal UI - v0.205.1](../index.md) / DChartSeriesPaddingComputedImpl
 
 # Class: DChartSeriesPaddingComputedImpl
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L16)
 
 ## Properties
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L14)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L13)
 
 ## Methods
 
@@ -86,4 +86,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-series-padding-computed-impl.ts#L21)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / UtilAlpha
+[Winter Cardinal UI - v0.205.1](../index.md) / UtilAlpha
 
 # Class: UtilAlpha
 
@@ -38,4 +38,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-alpha.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/util-alpha.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-alpha.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-alpha.ts#L7)

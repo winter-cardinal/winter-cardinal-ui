@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDialogLayeredFooterButtonOptions
+[Winter Cardinal UI - v0.205.1](../index.md) / DDialogLayeredFooterButtonOptions
 
 # Interface: DDialogLayeredFooterButtonOptions
 
@@ -19,7 +19,7 @@ A cancel button label.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L24)
+[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L24)
 
 ___
 
@@ -31,4 +31,4 @@ A ok button label.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L19)
+[src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-layered-footer.ts#L19)

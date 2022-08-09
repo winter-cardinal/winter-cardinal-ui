@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramDataRemoteImpl
+[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramDataRemoteImpl
 
 # Class: DDiagramDataRemoteImpl
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts#L15)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts#L15)
 
 ## Properties
 
@@ -44,13 +44,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts#L13)
 
 ## Methods
 
 ### set
 
-▸ **set**(`id`, `value`, `time`): `boolean`
+▸ **set**(`id`, `value`): `boolean`
 
 #### Parameters
 
@@ -58,7 +58,6 @@
 | :------ | :------ |
 | `id` | `string` |
 | `value` | `unknown` |
-| `time` | `number` |
 
 #### Returns
 
@@ -70,4 +69,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-remote-impl.ts#L19)

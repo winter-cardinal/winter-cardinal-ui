@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DThemeWhiteButtonChecks
+[Winter Cardinal UI - v0.205.1](../index.md) / DThemeWhiteButtonChecks
 
 # Class: DThemeWhiteButtonChecks
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts#L33)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts#L33)
 
 ___
 
@@ -57,4 +57,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts#L25)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-button-checks.ts#L25)

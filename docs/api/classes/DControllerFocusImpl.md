@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DControllerDefaultFocus
+[Winter Cardinal UI - v0.205.1](../index.md) / DControllerFocusImpl
 
-# Class: DControllerDefaultFocus
+# Class: DControllerFocusImpl
 
 ## Implements
 
@@ -10,29 +10,29 @@
 
 ### Constructors
 
-- [constructor](DControllerDefaultFocus.md#constructor)
+- [constructor](DControllerFocusImpl.md#constructor)
 
 ### Methods
 
-- [blur](DControllerDefaultFocus.md#blur)
-- [clear](DControllerDefaultFocus.md#clear)
-- [find](DControllerDefaultFocus.md#find)
-- [findNext](DControllerDefaultFocus.md#findnext)
-- [findParent](DControllerDefaultFocus.md#findparent)
-- [findPrevious](DControllerDefaultFocus.md#findprevious)
-- [focus](DControllerDefaultFocus.md#focus)
-- [get](DControllerDefaultFocus.md#get)
-- [isFocusReverse](DControllerDefaultFocus.md#isfocusreverse)
-- [isFocusRoot](DControllerDefaultFocus.md#isfocusroot)
-- [isFocusable](DControllerDefaultFocus.md#isfocusable)
-- [isFocusableContainer](DControllerDefaultFocus.md#isfocusablecontainer)
-- [set](DControllerDefaultFocus.md#set)
+- [blur](DControllerFocusImpl.md#blur)
+- [clear](DControllerFocusImpl.md#clear)
+- [find](DControllerFocusImpl.md#find)
+- [findNext](DControllerFocusImpl.md#findnext)
+- [findParent](DControllerFocusImpl.md#findparent)
+- [findPrevious](DControllerFocusImpl.md#findprevious)
+- [focus](DControllerFocusImpl.md#focus)
+- [get](DControllerFocusImpl.md#get)
+- [isFocusReverse](DControllerFocusImpl.md#isfocusreverse)
+- [isFocusRoot](DControllerFocusImpl.md#isfocusroot)
+- [isFocusable](DControllerFocusImpl.md#isfocusable)
+- [isFocusableContainer](DControllerFocusImpl.md#isfocusablecontainer)
+- [set](DControllerFocusImpl.md#set)
 
 ## Constructors
 
 ### constructor
 
-• **new DControllerDefaultFocus**()
+• **new DControllerFocusImpl**()
 
 ## Methods
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L32)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L32)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L41)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L41)
 
 ___
 
@@ -109,7 +109,7 @@ This method assumes the root is the one of the parents of the given target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L69)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L69)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L188)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L188)
 
 ___
 
@@ -158,7 +158,7 @@ If the specified target is focusable, returns the specified target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L57)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L57)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L225)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L225)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L16)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L16)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L53)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L53)
 
 ___
 
@@ -242,7 +242,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L283)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L283)
 
 ___
 
@@ -263,7 +263,7 @@ target is DFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L276)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L276)
 
 ___
 
@@ -283,7 +283,7 @@ target is DFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L262)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L262)
 
 ___
 
@@ -303,7 +303,7 @@ target is DFocusableContainer
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:272](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L272)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:272](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L272)
 
 ___
 
@@ -328,4 +328,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-default-focus.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-controller-default-focus.ts#L45)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L45)

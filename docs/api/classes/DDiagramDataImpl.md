@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDiagramDataImpl
+[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramDataImpl
 
 # Class: DDiagramDataImpl
 
@@ -39,6 +39,8 @@ A data helper class for diagrams.
 - [set](DDiagramDataImpl.md#set)
 - [setAll](DDiagramDataImpl.md#setall)
 - [setRange](DDiagramDataImpl.md#setrange)
+- [setState](DDiagramDataImpl.md#setstate)
+- [setStates](DDiagramDataImpl.md#setstates)
 - [setTime](DDiagramDataImpl.md#settime)
 - [setTimes](DDiagramDataImpl.md#settimes)
 - [setValue](DDiagramDataImpl.md#setvalue)
@@ -61,7 +63,7 @@ A data helper class for diagrams.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L27)
 
 ## Properties
 
@@ -71,7 +73,7 @@ A data helper class for diagrams.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L20)
 
 ___
 
@@ -81,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L24)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L25)
 
 ___
 
@@ -91,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L21)
 
 ___
 
@@ -101,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L23)
 
 ___
 
@@ -111,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L23)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L24)
 
 ___
 
@@ -121,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L22)
 
 ## Accessors
 
@@ -139,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L59)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L60)
 
 ___
 
@@ -157,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L63)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L64)
 
 ___
 
@@ -175,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L39)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L40)
 
 • `set` **mapper**(`mapper`): `void`
 
@@ -195,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L43)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L44)
 
 ___
 
@@ -213,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L51)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L52)
 
 ___
 
@@ -231,7 +233,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L55)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L56)
 
 ___
 
@@ -249,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L47)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L48)
 
 ## Methods
 
@@ -273,7 +275,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L93)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L95)
 
 ___
 
@@ -297,13 +299,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L71)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L72)
 
 ___
 
 ### set
 
-▸ **set**(`id`, `value`, `time?`, `from?`, `to?`): `boolean`
+▸ **set**(`id`, `value`, `time?`, `state?`, `from?`, `to?`): `boolean`
 
 #### Parameters
 
@@ -312,6 +314,7 @@ ___
 | `id` | `string` |
 | `value` | `unknown` |
 | `time?` | `number` |
+| `state?` | `number` |
 | `from?` | ``null`` \| `number` |
 | `to?` | ``null`` \| `number` |
 
@@ -325,13 +328,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L79)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L80)
 
 ___
 
 ### setAll
 
-▸ **setAll**(`id`, `values`, `times?`, `from?`, `to?`): `boolean`
+▸ **setAll**(`id`, `values`, `times?`, `states?`, `from?`, `to?`): `boolean`
 
 #### Parameters
 
@@ -340,6 +343,7 @@ ___
 | `id` | `string` |
 | `values` | `unknown`[] |
 | `times?` | `number`[] |
+| `states?` | `number`[] |
 | `from?` | ``null`` \| `number` |
 | `to?` | ``null`` \| `number` |
 
@@ -353,7 +357,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L109)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L111)
 
 ___
 
@@ -379,7 +383,57 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L155)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L174)
+
+___
+
+### setState
+
+▸ **setState**(`id`, `state`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `state` | `number` |
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[DDiagramData](../interfaces/DDiagramData.md).[setState](../interfaces/DDiagramData.md#setstate)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L158)
+
+___
+
+### setStates
+
+▸ **setStates**(`id`, `states`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `string` |
+| `states` | `number`[] |
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[DDiagramData](../interfaces/DDiagramData.md).[setStates](../interfaces/DDiagramData.md#setstates)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L166)
 
 ___
 
@@ -404,7 +458,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L139)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L142)
 
 ___
 
@@ -429,13 +483,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L147)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:150](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L150)
 
 ___
 
 ### setValue
 
-▸ **setValue**(`id`, `value`, `time?`): `boolean`
+▸ **setValue**(`id`, `value`): `boolean`
 
 #### Parameters
 
@@ -443,7 +497,6 @@ ___
 | :------ | :------ |
 | `id` | `string` |
 | `value` | `unknown` |
-| `time?` | `number` |
 
 #### Returns
 
@@ -455,13 +508,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L123)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L126)
 
 ___
 
 ### setValues
 
-▸ **setValues**(`id`, `values`, `times?`): `boolean`
+▸ **setValues**(`id`, `values`): `boolean`
 
 #### Parameters
 
@@ -469,7 +522,6 @@ ___
 | :------ | :------ |
 | `id` | `string` |
 | `values` | `unknown`[] |
-| `times?` | `number`[] |
 
 #### Returns
 
@@ -481,7 +533,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L131)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L134)
 
 ___
 
@@ -505,7 +557,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L101)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L103)
 
 ___
 
@@ -523,4 +575,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L35)
+[src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-data-impl.ts#L36)

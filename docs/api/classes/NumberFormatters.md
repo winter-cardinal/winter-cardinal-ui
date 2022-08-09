@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / NumberFormatters
+[Winter Cardinal UI - v0.205.1](../index.md) / NumberFormatters
 
 # Class: NumberFormatters
 
@@ -43,4 +43,4 @@ A created number formatter
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/number-formatters.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/util/number-formatters.ts#L19)
+[src/main/typescript/wcardinal/ui/util/number-formatters.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/number-formatters.ts#L19)

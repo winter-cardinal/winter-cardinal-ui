@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DTableBodyCellsColumnEditing
+[Winter Cardinal UI - v0.205.1](../index.md) / DTableBodyCellsColumnEditing
 
 # Interface: DTableBodyCellsColumnEditing<ROW\>
 
@@ -18,8 +18,8 @@
 
 ### enable
 
-• **enable**: `boolean` \| [`DTableEditable`](../index.md#dtableeditable)<`ROW`\>
+• **enable**: `boolean` \| [`DTableColumnEditable`](../index.md#dtablecolumneditable)<`ROW`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cells.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-table-body-cells.ts#L10)
+[src/main/typescript/wcardinal/ui/d-table-body-cells.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-body-cells.ts#L12)

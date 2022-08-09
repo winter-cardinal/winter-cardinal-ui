@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDialogSelectController
+[Winter Cardinal UI - v0.205.1](../index.md) / DDialogSelectController
 
 # Interface: DDialogSelectController<VALUE\>
 
@@ -24,4 +24,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L53)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L53)

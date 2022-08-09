@@ -1,3 +1,3 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / DDocument
+[Winter Cardinal UI - v0.205.1](../index.md) / DDocument
 
 # Interface: DDocument

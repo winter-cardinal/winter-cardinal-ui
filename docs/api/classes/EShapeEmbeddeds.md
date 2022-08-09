@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.200.0](../index.md) / EShapeEmbeddeds
+[Winter Cardinal UI - v0.205.1](../index.md) / EShapeEmbeddeds
 
 # Class: EShapeEmbeddeds
 
@@ -23,7 +23,7 @@
 
 ### create
 
-▸ `Static` **create**(`name`, `width`, `height`, `container`, `manager`): [`EShapeEmbedded`](EShapeEmbedded.md)
+▸ `Static` **create**(`name`, `width`, `height`, `container`, `isEditMode`): [`EShapeEmbedded`](EShapeEmbedded.md)
 
 #### Parameters
 
@@ -33,7 +33,7 @@
 | `width` | `number` |
 | `height` | `number` |
 | `container` | [`EShapeLayerContainer`](../interfaces/EShapeLayerContainer.md) |
-| `manager` | [`EShapeResourceManagerDeserialization`](EShapeResourceManagerDeserialization.md) |
+| `isEditMode` | `boolean` |
 
 #### Returns
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L48)
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.200.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L16)
