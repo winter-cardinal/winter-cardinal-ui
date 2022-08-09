@@ -42,9 +42,9 @@ export class EShapeAcceptors {
 		result.add("BOTTOM", EShapeAcceptorType.ALL, 0, 0.5, 0, 1);
 		result.add("CENTER", EShapeAcceptorType.ALL, 0, 0, -1, 0);
 		result.add("TOP_LEFT", EShapeAcceptorType.ALL, -0.5, -0.5, -1, 0);
-		result.add("TOP_RIGHT", EShapeAcceptorType.ALL, 0.5, -0.5, 0, 1);
+		result.add("TOP_RIGHT", EShapeAcceptorType.ALL, 0.5, -0.5, 1, 0);
 		result.add("BOTTOM_LEFT", EShapeAcceptorType.ALL, -0.5, 0.5, -1, 0);
-		result.add("BOTTOM_RIGHT", EShapeAcceptorType.ALL, 0.5, 0.5, 0, 1);
+		result.add("BOTTOM_RIGHT", EShapeAcceptorType.ALL, 0.5, 0.5, 1, 0);
 		return result;
 	}
 }
