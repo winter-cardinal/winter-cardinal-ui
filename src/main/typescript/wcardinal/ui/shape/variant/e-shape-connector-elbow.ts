@@ -69,10 +69,10 @@ export class EShapeConnectorElbow extends EShapeConnectorLine {
 			const filler = new EShapeConnectorElbowPointsFillter(x0, y0, values);
 			if (0 < bodyValuesLength) {
 				const a = Math.atan2(dy, dx);
-				const c = Math.cos(a);
-				const s = Math.sin(a);
 				const l = Math.sqrt(dx * dx + dy * dy);
-				const x3 = bodyValues[0] * l;
+				const c = Math.cos(a) * l;
+				const s = Math.sin(a) * l;
+				const x3 = bodyValues[0];
 				const y3 = bodyValues[1];
 				const x4 = cx + c * x3 - s * y3;
 				const y4 = cy + c * y3 + s * x3;
@@ -80,8 +80,8 @@ export class EShapeConnectorElbow extends EShapeConnectorLine {
 				for (let i = 2; i < bodyValuesLength; i += 2) {
 					const x = bodyValues[i + 0];
 					const y = bodyValues[i + 1];
-					const x5 = cx + (c * x - s * y) * l;
-					const y5 = cy + (c * y + s * x) * l;
+					const x5 = cx + c * x - s * y;
+					const y5 = cy + c * y + s * x;
 					filler.middle(x5, y5);
 				}
 				filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin);
