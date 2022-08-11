@@ -21,8 +21,8 @@ import { EShapeGroupSize } from "./e-shape-group-size";
 import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeEditor } from "./e-shape-group-stroke-editor";
-import { EShapeGroupTextEditor } from "./e-shape-group-text-editor";
 import { EShapeDataImpl } from "../e-shape-data-impl";
+import { EShapeTextImpl } from "./e-shape-text-impl";
 
 export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent {
 	size: EShapeGroupSize;
@@ -76,7 +76,14 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	}
 
 	protected newGroupText(): EShapeText {
-		return new EShapeGroupTextEditor(this);
+		return new EShapeTextImpl(
+			this,
+			EShapeDefaults.TEXT_VALUE,
+			EShapeDefaults.TEXT_COLOR,
+			EShapeDefaults.TEXT_ALPHA,
+			EShapeDefaults.TEXT_FAMILY,
+			EShapeDefaults.TEXT_SIZE
+		);
 	}
 
 	protected newGroupPoints(): EShapePoints | undefined {

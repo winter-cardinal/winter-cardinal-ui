@@ -7,7 +7,7 @@
 		"color": 16777215,
 		"alpha": 0
 	},
-	"resources": ["auto", "DEF", "auto", "[1,5197647,1,2,28,0]"],
+	"resources": ["auto", "", "auto", "[1,5197647,1,2,28,0]"],
 	"pieces": ["embedded"],
 	"layers": [
 		["Default"]

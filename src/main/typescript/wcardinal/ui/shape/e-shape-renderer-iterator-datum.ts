@@ -8,26 +8,13 @@ import { EShape } from "./e-shape";
 const DUMMY_SHAPES: EShape[] = [];
 
 export class EShapeRendererIteratorDatum {
-	protected index: number;
-	protected shapes: EShape[];
+	public index: number;
+	public shapes: EShape[];
+	public current: EShape | null;
 
 	constructor() {
 		this.index = 0;
 		this.shapes = DUMMY_SHAPES;
-	}
-
-	reset(shapes: EShape[]): void {
-		this.index = -1;
-		this.shapes = shapes;
-	}
-
-	next(): EShape | null {
-		const index = this.index + 1;
-		this.index = index;
-		const shapes = this.shapes;
-		if (index < shapes.length) {
-			return shapes[index];
-		}
-		return null;
+		this.current = null;
 	}
 }

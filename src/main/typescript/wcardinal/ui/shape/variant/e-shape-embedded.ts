@@ -1,8 +1,6 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { EShapeText } from "../e-shape-text";
 import { EShapeType } from "../e-shape-type";
-import { EShapeGroupTextEditor } from "./e-shape-group-text-editor";
 import { EShapeGroupViewer } from "./e-shape-group-viewer";
 
 export class EShapeEmbedded extends EShapeGroupViewer {
@@ -15,10 +13,6 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 
 	get name(): string {
 		return this._name;
-	}
-
-	protected newGroupText(): EShapeText {
-		return new EShapeGroupTextEditor(this);
 	}
 
 	protected isGroupSizeFittable(): boolean {

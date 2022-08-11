@@ -18,9 +18,9 @@ import { EShapeGroupFillViewer } from "./e-shape-group-fill-viewer";
 import { EShapeGroupSize } from "./e-shape-group-size";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeViewer } from "./e-shape-group-stroke-viewer";
-import { EShapeGroupTextViewer } from "./e-shape-group-text-viewer";
 import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
+import { EShapeTextImpl } from "./e-shape-text-impl";
 
 export abstract class EShapeGroupViewer extends EShapeBase {
 	size: EShapeGroupSize;
@@ -76,7 +76,14 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 	}
 
 	protected newGroupText(): EShapeText {
-		return new EShapeGroupTextViewer();
+		return new EShapeTextImpl(
+			this,
+			EShapeDefaults.TEXT_VALUE,
+			EShapeDefaults.TEXT_COLOR,
+			EShapeDefaults.TEXT_ALPHA,
+			EShapeDefaults.TEXT_FAMILY,
+			EShapeDefaults.TEXT_SIZE
+		);
 	}
 
 	protected getBoundsSize(): IPoint {
