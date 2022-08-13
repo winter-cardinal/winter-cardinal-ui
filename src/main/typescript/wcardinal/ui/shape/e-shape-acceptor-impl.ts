@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShape } from "./e-shape";
 import { EShapeAcceptor, EShapeAcceptorEdge, EShapeAcceptorEdgeNormal } from "./e-shape-acceptor";
 import { EShapeAcceptorType } from "./e-shape-acceptor-type";
 
@@ -76,11 +77,11 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 		return this._edges.size;
 	}
 
-	get(id: string): EShapeAcceptorEdge | null {
+	get(shape: EShape, id: string): EShapeAcceptorEdge | null {
 		return this._edges.get(id) || null;
 	}
 
-	each(iteratee: (edge: EShapeAcceptorEdge, id: string) => void): this {
+	each(shape: EShape, iteratee: (edge: EShapeAcceptorEdge, id: string) => void): this {
 		this._edges.forEach(iteratee);
 		return this;
 	}

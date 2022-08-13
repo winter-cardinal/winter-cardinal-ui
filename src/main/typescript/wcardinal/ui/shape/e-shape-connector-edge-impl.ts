@@ -261,7 +261,10 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			const acceptorShape = acceptor.shape;
 			const acceptorEdge = acceptor.edge;
 			if (acceptorShape != null && acceptorEdge != null) {
-				const edge = EShapeAcceptors.get(acceptorShape.type).get(acceptorEdge);
+				const edge = EShapeAcceptors.get(acceptorShape.type).get(
+					acceptorShape,
+					acceptorEdge
+				);
 				if (edge) {
 					const transform = this.toAcceptorTransform(acceptorShape);
 					const a = transform.a;
