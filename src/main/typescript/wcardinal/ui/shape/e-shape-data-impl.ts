@@ -19,6 +19,8 @@ import { isArray } from "../util/is-array";
 import { EShapeDataScoped } from "./e-shape-data-scoped";
 import { EShapeDataScopedImpl } from "./e-shape-data-scoped-impl";
 import { EShapeDataValueState } from "./e-shape-data-value-state";
+import { EShapeDataSystem } from "./e-shape-data-system";
+import { EShapeDataSystemImpl } from "./e-shape-data-system-impl";
 
 let RANGE_DUMMY: EShapeDataValueRange | undefined;
 let ALIAS_DUMMY: Record<string, EShapeDataValue> | undefined;
@@ -28,6 +30,7 @@ export class EShapeDataImpl implements EShapeData {
 	protected _isChanged: boolean;
 	protected _mapping?: EShapeDataMapping;
 	protected _private?: EShapeDataScoped;
+	protected _system?: EShapeDataSystem;
 	protected _alias?: Record<string, EShapeDataValue>;
 
 	constructor() {
@@ -229,6 +232,23 @@ export class EShapeDataImpl implements EShapeData {
 		return this._private;
 	}
 
+	get system(): EShapeDataSystem {
+		let result = this._system;
+		if (result == null) {
+			result = this.newSystem();
+			this._system = result;
+		}
+		return result;
+	}
+
+	protected newSystem(): EShapeDataSystem {
+		return new EShapeDataSystemImpl();
+	}
+
+	getSystem(): EShapeDataSystem | undefined {
+		return this._system;
+	}
+
 	add(value: EShapeDataValue, index?: number): void {
 		const values = this._values;
 		value.parent = this;
@@ -323,6 +343,11 @@ export class EShapeDataImpl implements EShapeData {
 			this.mapping.copy(targetMapping);
 		}
 
+		const targetSystem = target.getSystem();
+		if (targetSystem) {
+			this.system.copy(targetSystem);
+		}
+
 		return this;
 	}
 
@@ -336,9 +361,25 @@ export class EShapeDataImpl implements EShapeData {
 		const mapping = this._mapping;
 		if (mapping != null) {
 			result.push(mapping.serialize(manager));
-			return manager.addResource(`[${JSON.stringify(result)}]`);
+
+			const system = this._system;
+			if (system != null) {
+				return manager.addResource(
+					`[${JSON.stringify(result)},${system.serialize(manager)}]`
+				);
+			} else {
+				return manager.addResource(`[${JSON.stringify(result)}]`);
+			}
 		} else {
-			return manager.addResource(JSON.stringify(result));
+			const system = this._system;
+			if (system != null) {
+				result.push(-1);
+				return manager.addResource(
+					`[${JSON.stringify(result)},${system.serialize(manager)}]`
+				);
+			} else {
+				return manager.addResource(JSON.stringify(result));
+			}
 		}
 	}
 
@@ -363,7 +404,16 @@ export class EShapeDataImpl implements EShapeData {
 					value.deserialize(index, manager);
 					values.push(value);
 				}
-				this.mapping.deserialize(first[firstLength - 1], manager);
+
+				const mappingId = first[firstLength - 1];
+				if (0 <= mappingId) {
+					this.mapping.deserialize(mappingId, manager);
+				}
+
+				const systemId = parsed[1];
+				if (systemId != null && 0 <= systemId) {
+					this.system.deserialize(systemId, manager);
+				}
 			} else {
 				for (let i = 0, imax = parsed.length; i < imax; ++i) {
 					const index = parsed[i];

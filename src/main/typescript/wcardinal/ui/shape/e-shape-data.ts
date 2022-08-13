@@ -12,6 +12,7 @@ import { EShapeDataValueType } from "./e-shape-data-value-type";
 import { EShapeDataValueScope } from "./e-shape-data-value-scope";
 import { EShapeDataScoped } from "./e-shape-data-scoped";
 import { EShapeDataValueState } from "./e-shape-data-value-state";
+import { EShapeDataSystem } from "./e-shape-data-system";
 
 export interface EShapeData {
 	readonly values: EShapeDataValue[];
@@ -31,18 +32,17 @@ export interface EShapeData {
 	state: EShapeDataValueState;
 	capacity: number;
 
-	// Alias
 	readonly alias: Record<string, EShapeDataValue>;
 
-	// Mapping
 	readonly mapping: EShapeDataMapping;
 	getMapping(): EShapeDataMapping | undefined;
 
-	// Private
 	readonly private: EShapeDataScoped;
 	getPrivate(): EShapeDataScoped | undefined;
 
-	// Methods
+	readonly system: EShapeDataSystem;
+	getSystem(): EShapeDataSystem | undefined;
+
 	add(value: EShapeDataValue, index?: number): void;
 	set(index: number, value: EShapeDataValue): EShapeDataValue | null;
 	indexOf(target: EShapeDataValue): number;

@@ -11,7 +11,8 @@ import {
 	DDiagramSerializedText,
 	DDiagramSerializedTextOutline,
 	DDiagramSerializedData,
-	DDiagramSerializedDataMapping
+	DDiagramSerializedDataMapping,
+	DDiagramSerializedDataSystem
 } from "../d-diagram-serialized";
 import { EShapeActionValue } from "./action/e-shape-action-value";
 import { EShapeDataMapper } from "./e-shape-data-mapper";
@@ -41,6 +42,7 @@ export class EShapeResourceManagerDeserialization {
 	protected _dataMapping: Map<number, DDiagramSerializedDataMapping>;
 	protected _dataMappers: Map<string, EShapeDataMapper | null>;
 	protected _dataDestinations: Map<string, string[] | null>;
+	protected _dataSystem: Map<number, DDiagramSerializedDataSystem>;
 	protected _ranges: Map<number, DDiagramSerializedDataRange>;
 	protected _aligns: Map<number, [EShapeTextAlignHorizontal, EShapeTextAlignVertical]>;
 	protected _margins: Map<number, [number, number]>;
@@ -68,6 +70,7 @@ export class EShapeResourceManagerDeserialization {
 		this._dataMapping = new Map<number, DDiagramSerializedDataMapping>();
 		this._dataMappers = new Map<string, EShapeDataMapper | null>();
 		this._dataDestinations = new Map<string, string[] | null>();
+		this._dataSystem = new Map<number, DDiagramSerializedDataSystem>();
 		this._ranges = new Map<number, DDiagramSerializedDataRange>();
 		this._aligns = new Map<number, [EShapeTextAlignHorizontal, EShapeTextAlignVertical]>();
 		this._margins = new Map<number, [number, number]>();
@@ -142,6 +145,14 @@ export class EShapeResourceManagerDeserialization {
 			dataDestinations.set(destination, result);
 		}
 		return result;
+	}
+
+	getDataSystem(id: number): DDiagramSerializedDataSystem | undefined {
+		return this._dataSystem.get(id);
+	}
+
+	setDataSystem(id: number, dataSystem: DDiagramSerializedDataSystem): void {
+		this._dataSystem.set(id, dataSystem);
 	}
 
 	getRange(id: number): DDiagramSerializedDataRange | undefined {

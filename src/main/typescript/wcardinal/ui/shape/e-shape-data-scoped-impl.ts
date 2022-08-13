@@ -95,7 +95,7 @@ export class EShapeDataScopedImpl implements EShapeDataScoped {
 			return null;
 		}
 		let result: string | null = null;
-		data.forEach((value, id): void => {
+		data.forEach((values, id): void => {
 			if (result == null) {
 				if (iteratee(id) === false) {
 					result = id;

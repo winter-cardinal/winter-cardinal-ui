@@ -115,9 +115,13 @@ export class EShapeDataMappingImpl implements EShapeDataMapping {
 	}
 
 	serialize(manager: EShapeResourceManagerSerialization): number {
+		const values = this.values;
+		const valuesLength = values.length;
+		if (valuesLength <= 0) {
+			return -1;
+		}
 		let result: string = "[";
 		let delimiter = "";
-		const values = this.values;
 		for (let i = 0, imax = values.length; i < imax; ++i) {
 			const value = values[i];
 			const s = manager.addResource(value[0]);

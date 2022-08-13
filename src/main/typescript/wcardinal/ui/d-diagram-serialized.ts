@@ -85,6 +85,11 @@ export interface DDiagramSerializedDataValue {
 }
 
 /**
+ * A serialized system data.
+ */
+export type DDiagramSerializedDataSystem = number[];
+
+/**
  * A serialized data mapping.
  * Each number at the index 2N+0 is a resource index number of the N-th mapping source.
  * Each number at the index 2N+1 is a resource index number of the N-th mapping destination.
@@ -93,10 +98,19 @@ export type DDiagramSerializedDataMapping = number[];
 
 /**
  * A serialized data with a mapping data.
- * Each number is a resource index number of JSON.stringify(DDiagramSerializedDataValue).
- * The last number is a resource index number of JSON.stringify(DDiagramSerializedDataMapping).
  */
-export type DDiagramSerializedDataWithMapping = [number[]];
+export interface DDiagramSerializedDataWithMapping extends Array<unknown> {
+	/**
+	 * Each number is a resource index number of JSON.stringify(DDiagramSerializedDataValue).
+	 * The last number is a resource index number of JSON.stringify(DDiagramSerializedDataMapping).
+	 */
+	[0]: number[];
+
+	/**
+	 * A resource index number of JSON.stringify(DDiagramSerializedDataSystem).
+	 */
+	[1]: number | undefined;
+}
 
 /**
  * A serialized data without a mapping data.
