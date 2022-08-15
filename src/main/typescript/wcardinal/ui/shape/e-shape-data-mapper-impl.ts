@@ -7,20 +7,12 @@ import { EShapeDataMapper } from "./e-shape-data-mapper";
 import { EShapeDataValue } from "./e-shape-data-value";
 
 export class EShapeDataMapperImpl implements EShapeDataMapper {
-	protected static SEPARATOR = ".";
 	protected static WILDCARD = "*";
-
+	protected static SPANS: number[] = [];
 	protected _sources: string[] | null;
-	protected _sourceIndices: number[];
-	protected _targetIndices: number[];
-	protected _targetIndicesLength: number;
 
 	constructor(source?: string | null) {
-		const sources = this.newSources(source);
-		this._sources = sources;
-		this._sourceIndices = this.newSourceIndices(sources);
-		this._targetIndices = [];
-		this._targetIndicesLength = 0;
+		this._sources = this.newSources(source);
 	}
 
 	map(value: EShapeDataValue, destinations: string[] | null, initial: string): void {
@@ -28,115 +20,77 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 		if (sources == null) {
 			return;
 		}
+
 		const valueId = value.id;
 		const target = valueId.toLowerCase();
-		this.calcTargetIndices(target);
-		const targetIndices = this._targetIndices;
-		const targetIndicesLength = this._targetIndicesLength;
-		const sourcesLength = sources.length;
-		if (sourcesLength + 1 !== targetIndicesLength) {
+		const first = sources[0];
+		const firstLength = first.length;
+		if (firstLength !== 0 && target.indexOf(first) !== 0) {
 			return;
 		}
 
-		for (let i = 0; i < sourcesLength; ++i) {
+		const spans = EShapeDataMapperImpl.SPANS;
+		spans[0] = 0;
+		spans[1] = firstLength;
+		const sourcesLength = sources.length;
+		const targetLength = target.length;
+		for (let i = 1; i < sourcesLength; ++i) {
+			const ispan = i << 1;
 			const source = sources[i];
-			const targetIndex0 = targetIndices[i];
-			const targetIndex1 = targetIndices[i + 1];
-			if (
-				source !== EShapeDataMapperImpl.WILDCARD &&
-				source !== target.substring(targetIndex0 + 1, targetIndex1)
-			) {
-				return;
+			const sourceLength = source.length;
+			if (sourceLength === 0) {
+				spans[ispan] = targetLength;
+				spans[ispan + 1] = targetLength;
+			} else {
+				const index = target.indexOf(source, spans[ispan - 1]);
+				if (index < 0) {
+					return;
+				}
+				spans[ispan] = index;
+				spans[ispan + 1] = index + sourceLength;
 			}
 		}
 
-		// Destination
+		// Update the ID
 		if (destinations != null) {
-			const id = this.newValueId(destinations, valueId, targetIndices);
-			if (id != null) {
-				value.id = id;
+			const destinationsLength = destinations.length;
+			let id = "";
+			for (let i = 0, imax = sourcesLength; i < imax; ++i) {
+				const id0 = i < destinationsLength ? destinations[i] : sources[i];
+				const ispan = i << 1;
+				const s0 = spans[ispan + 1];
+				const s1 = spans[ispan + 2];
+				const id1 = target.substring(s0, i + 1 < imax ? s1 : targetLength);
+				id += id0 + id1;
 			}
+			value.id = id;
 		}
 
-		// Initial
+		// Update the initial value
 		if (0 < initial.length) {
 			value.initial = initial;
 		}
 	}
 
 	protected newSources(source?: string | null): string[] | null {
-		if (source == null || source.length <= 0) {
+		if (source == null) {
 			return null;
 		}
-		return source.toLowerCase().split(EShapeDataMapperImpl.SEPARATOR);
-	}
-
-	protected newValueId(
-		destinations: string[],
-		target: string,
-		targetIndices: number[]
-	): string | null {
-		let result: string = "";
-		let delimiter = "";
-		const wildcard = EShapeDataMapperImpl.WILDCARD;
-		const separator = EShapeDataMapperImpl.SEPARATOR;
-		const sourceIndices = this._sourceIndices;
-		const sourceIndicesLength = sourceIndices.length;
-		let index = sourceIndicesLength;
-		for (let i = 0, imax = destinations.length; i < imax; ++i) {
-			const d = destinations[imax - 1 - i];
-			if (d === wildcard) {
-				index -= 1;
-				if (0 <= index) {
-					const sourceIndex = sourceIndices[index];
-					const targetIndex0 = targetIndices[sourceIndex];
-					const targetIndex1 = targetIndices[sourceIndex + 1];
-					result = target.substring(targetIndex0 + 1, targetIndex1) + delimiter + result;
-				} else {
-					return null;
-				}
-			} else {
-				result = d + delimiter + result;
-			}
-			delimiter = separator;
+		const trimmed = source.trim();
+		if (trimmed.length <= 0) {
+			return null;
 		}
-		return result;
-	}
-
-	protected calcTargetIndices(target: string): void {
-		const targetIndices = this._targetIndices;
-		let size = 1;
-		targetIndices[0] = -1;
-		let index0 = -1;
-		let index1 = -1;
-		while (0 <= (index1 = target.indexOf(EShapeDataMapperImpl.SEPARATOR, index0 + 1))) {
-			targetIndices[size] = index1;
-			index0 = index1;
-			size += 1;
-		}
-		targetIndices[size] = target.length;
-		size += 1;
-		this._targetIndicesLength = size;
-	}
-
-	protected newSourceIndices(sources: string[] | null): number[] {
-		const result: number[] = [];
-		if (sources != null) {
-			const wildcard = EShapeDataMapperImpl.WILDCARD;
-			for (let i = 0, imax = sources.length; i < imax; ++i) {
-				const s = sources[i];
-				if (s === wildcard) {
-					result.push(i);
-				}
-			}
-		}
-		return result;
+		return trimmed.toLowerCase().split(EShapeDataMapperImpl.WILDCARD);
 	}
 
 	public static split(target?: string | null): string[] | null {
-		if (target == null || target.length <= 0) {
+		if (target == null) {
 			return null;
 		}
-		return target.split(this.SEPARATOR);
+		const trimmed = target.trim();
+		if (trimmed.length <= 0) {
+			return null;
+		}
+		return trimmed.split(this.WILDCARD);
 	}
 }
