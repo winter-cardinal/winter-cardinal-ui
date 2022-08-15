@@ -9,5 +9,5 @@ import { EShapeDataValue } from "./e-shape-data-value";
  * An EShape data mapper.
  */
 export interface EShapeDataMapper {
-	map(target: EShapeDataValue, destination: string[] | null, initial: string): void;
+	map(target: EShapeDataValue, destination: string[] | null, initial: string): boolean;
 }
