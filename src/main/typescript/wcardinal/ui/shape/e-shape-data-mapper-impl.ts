@@ -15,10 +15,10 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 		this._sources = this.newSources(source);
 	}
 
-	map(value: EShapeDataValue, destinations: string[] | null, initial: string): void {
+	map(value: EShapeDataValue, destinations: string[] | null, initial: string): boolean {
 		const sources = this._sources;
 		if (sources == null) {
-			return;
+			return false;
 		}
 
 		const valueId = value.id;
@@ -26,7 +26,7 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 		const first = sources[0];
 		const firstLength = first.length;
 		if (firstLength !== 0 && target.indexOf(first) !== 0) {
-			return;
+			return false;
 		}
 
 		const spans = EShapeDataMapperImpl.SPANS;
@@ -44,7 +44,7 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 			} else {
 				const index = target.indexOf(source, spans[ispan - 1]);
 				if (index < 0) {
-					return;
+					return false;
 				}
 				spans[ispan] = index;
 				spans[ispan + 1] = index + sourceLength;
@@ -70,6 +70,7 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 		if (0 < initial.length) {
 			value.initial = initial;
 		}
+		return true;
 	}
 
 	protected newSources(source?: string | null): string[] | null {
