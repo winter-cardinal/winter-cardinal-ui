@@ -23,6 +23,11 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 
 		const valueId = value.id;
 		const target = valueId.toLowerCase();
+		const targetLength = target.length;
+		if (targetLength !== valueId.length) {
+			return false;
+		}
+
 		const first = sources[0];
 		const firstLength = first.length;
 		if (firstLength !== 0 && target.indexOf(first) !== 0) {
@@ -33,7 +38,6 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 		spans[0] = 0;
 		spans[1] = firstLength;
 		const sourcesLength = sources.length;
-		const targetLength = target.length;
 		for (let i = 1; i < sourcesLength; ++i) {
 			const ispan = i << 1;
 			const source = sources[i];
@@ -60,7 +64,7 @@ export class EShapeDataMapperImpl implements EShapeDataMapper {
 				const ispan = i << 1;
 				const s0 = spans[ispan + 1];
 				const s1 = spans[ispan + 2];
-				const id1 = target.substring(s0, i + 1 < imax ? s1 : targetLength);
+				const id1 = valueId.substring(s0, i + 1 < imax ? s1 : targetLength);
 				id += id0 + id1;
 			}
 			value.id = id;
