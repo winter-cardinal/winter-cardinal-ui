@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.206.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.206.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.208.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.208.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -39,25 +39,32 @@
 			console.log(JSON.stringify(value.id), JSON.stringify(value.initial));
 		};
 
-		test("device.sensor", "device.*", "device1.*", "");
-		test("Device.Sensor", "device.*", "Device1.*", "");
-		test("device.sensor", "device.*", "device1.*", "1");
-		test("Device.Sensor", "device.*", "Device1.*", "1");
-		test("device.sensor", "device.*", "device1.sensor1", "2");
-		test("Device.Sensor", "device.*", "Device1.Sensor1", "2");
-		test("device.sensor", "device1.*", "device2.*", "3");
-		test("Device.Sensor", "device1.*", "Device2.*", "3");
-		test("device.sensor", "*.sensor", "*.sensor1", "4");
-		test("DEVICE.SENSOR", "*.sensor", "*.SENSOR1", "4");
-		test("device.sensor", "*.sensor1", "*.sensor2", "5");
-		test("DEVICE.SENSOR", "*.sensor1", "*.SENSOR2", "5");
+		test("device.sensor", "device", "device1", "1");
+		test("Device.Sensor", "device", "Device1", "1");
 
-		test("device.alarm.alarm1", "device.*.*", "device1.*", "6");
-		test("Device.Alarm.Alarm1", "device.*.*", "Device1.*", "6");
-		test("device.alarm.alarm1", "*.alarm.*", "device1.alarm.*", "7");
-		test("Device.Alarm.Alarm1", "*.alarm.*", "Device1.alarm.*", "7");
-		test("device.alarm.alarm1", "*.alarm.alarm1", "*.alarm.alarm2", "8");
-		test("Device.Alarm.Alarm1", "*.alarm.alarm1", "*.alarm.alarm2", "8");
+		test("device.sensor", "device.*", "device2.", "2");
+		test("Device.Sensor", "device.*", "Device2.", "2");
+
+		test("device.sensor", "device.*", "device3.*", "3");
+		test("Device.Sensor", "device.*", "Device3.*", "3");
+
+		test("device.sensor", "device1", "device4", "4");
+		test("Device.Sensor", "device1", "Device4", "4");
+
+		test("device.sensor", "*.sensor", "*.sensor5", "5");
+		test("DEVICE.SENSOR", "*.sensor", "*.SENSOR5", "5");
+
+		test("device.sensor", "*.sensorX", "*.sensor6", "6");
+		test("DEVICE.SENSOR", "*.sensorX", "*.SENSOR6", "6");
+
+		test("device.alarm.alarm1", "device", "device7", "7");
+		test("Device.Alarm.Alarm1", "device", "Device7", "7");
+
+		test("device.alarm.alarm1", "device.alarm.*", "device8.alarm.*", "8");
+		test("Device.Alarm.Alarm1", "device.alarm.*", "Device8.alarm.*", "8");
+
+		test("device.alarm.alarm1", "*.alarm.alarmX", "*.alarm.alarm9", "9");
+		test("Device.Alarm.Alarm1", "*.alarm.alarmX", "*.alarm.alarm9", "9");
 	}());
 	</script>
 </body>
