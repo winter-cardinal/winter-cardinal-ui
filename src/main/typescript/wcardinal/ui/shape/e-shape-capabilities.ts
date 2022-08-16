@@ -18,7 +18,7 @@ export class EShapeCapabilities {
 		return EShapeCapability.PRIMITIVE;
 	}
 
-	static contains(shape: EShape | null | undefined, target: EShapeCapability): shape is EShape {
+	static contains(shape: EShape | null | undefined, target: EShapeCapability): boolean {
 		if (shape != null) {
 			const capability = this.get(shape.type);
 			if (capability & target) {
