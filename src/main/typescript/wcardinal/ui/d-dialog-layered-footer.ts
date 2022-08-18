@@ -66,7 +66,7 @@ export class DDialogLayeredFooter<
 		}
 	}
 
-	protected get buttonCancel(): DButton<string> | null {
+	get buttonCancel(): DButton<string> | null {
 		let result = this._buttonCancel;
 		if (result === undefined) {
 			result = this.newButtonCancel();
@@ -95,7 +95,7 @@ export class DDialogLayeredFooter<
 		return null;
 	}
 
-	protected get buttonOk(): DButton<string> | null {
+	get buttonOk(): DButton<string> | null {
 		let result = this._buttonOk;
 		if (result === undefined) {
 			result = this.newButtonOk();
