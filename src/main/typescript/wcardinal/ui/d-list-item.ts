@@ -39,6 +39,17 @@ export interface DListItemEvents<VALUE, EMITTER> extends DImageBaseEvents<VALUE,
 	 * @param emitter an emitter
 	 */
 	unset(emitter: EMITTER): void;
+
+	/**
+	 * Triggered when selected.
+	 * Please note that even when selected, {@link DList} selection state may not be changed.
+	 *
+	 *     on( "select", ( value, emitter ) => {} )
+	 *
+	 * @param value a value
+	 * @param emitter an emitter
+	 */
+	select(value: VALUE, emitter: EMITTER): void;
 }
 
 /**
@@ -153,6 +164,7 @@ export class DListItem<
 		e: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent | undefined,
 		value: VALUE
 	): void {
+		this.emit("select", value, this);
 		const data = this._data;
 		const selection = data.selection;
 		if (selection.type !== DListDataSelectionType.MULTIPLE) {
