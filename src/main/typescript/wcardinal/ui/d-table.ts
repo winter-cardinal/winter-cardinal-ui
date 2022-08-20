@@ -484,7 +484,7 @@ export class DTable<
 		const body = this.body;
 		content.addChild(body);
 		if (body.data.selection.type !== DTableDataSelectionType.NONE) {
-			UtilPointerEvent.onClick(this, (e: InteractionEvent): void => {
+			this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
 				body.onRowClick(e);
 			});
 		}
@@ -749,7 +749,10 @@ export class DTable<
 		return result;
 	}
 
-	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
+	protected onDblClick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: InteractionManager
+	): boolean {
 		const result = this.body.onDblClick(e, interactionManager);
 		return super.onDblClick(e, interactionManager) || result;
 	}
@@ -1010,7 +1013,7 @@ export class DTable<
 		return 0;
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		UtilKeyboardEvent.moveFocusHorizontally(e, this);
 		const isArrowUpKey = UtilKeyboardEvent.isArrowUpKey(e);
 		const isArrowDownKey = UtilKeyboardEvent.isArrowDownKey(e);

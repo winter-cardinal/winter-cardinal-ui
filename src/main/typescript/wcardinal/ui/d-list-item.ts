@@ -69,34 +69,45 @@ export class DListItem<
 	protected _data: DListData<VALUE>;
 	protected _value?: VALUE;
 	protected _index?: number;
-	protected _link?: DLink;
+	protected _link?: DLink | null;
 
 	constructor(data: DListData<VALUE>, options?: OPTIONS) {
 		super(options);
 		this._data = data;
-		this.initOnClick(data, options);
+		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+			this.onClick(e);
+		});
 	}
 
-	protected initOnClick(data: DListData<VALUE>, options?: OPTIONS): void {
-		const accessor = data.accessor.link;
-		if (accessor) {
-			const link = new DLink(this.toLinkOptions(accessor));
-			link.add(this, (e): void => {
-				const value = this._value;
-				if (value !== undefined) {
-					this.onSelect(e, value);
-				}
-			});
-			this._link = link;
-		} else {
-			UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
-				if (this.state.isActionable) {
-					const value = this._value;
-					if (value !== undefined) {
-						this.onSelect(e, value);
-					}
-				}
-			});
+	protected get link(): DLink | null {
+		let result = this._link;
+		if (result === undefined) {
+			result = this.newLink();
+			this._link = result;
+		}
+		return result;
+	}
+
+	protected newLink(): DLink | null {
+		const link = this._data.accessor.link;
+		if (link) {
+			return new DLink(this.toLinkOptions(link));
+		}
+		return null;
+	}
+
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (this.link?.onClick(this, e) !== true) {
+			if (this.state.isActionable) {
+				this.activate(e);
+			}
+		}
+	}
+
+	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+		const value = this._value;
+		if (value !== undefined) {
+			this.onSelect(e, value);
 		}
 	}
 
@@ -237,7 +248,7 @@ export class DListItem<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onKeyDownActivate(e);
 		}
@@ -246,10 +257,7 @@ export class DListItem<
 
 	protected onKeyDownActivate(e: KeyboardEvent): boolean {
 		if (this.state.isActionable && this.state.isFocused) {
-			const value = this._value;
-			if (value !== undefined) {
-				this.onSelect(e, value);
-			}
+			this.activate(e);
 			return true;
 		}
 		return false;

@@ -226,6 +226,14 @@ export interface DBaseEvents<EMITTER> {
 	up(e: InteractionEvent, emitter: EMITTER): void;
 
 	/**
+	 * Triggered when an emitter is clicked.
+	 *
+	 * @param e an interaction event
+	 * @param emitter an emitter
+	 */
+	click(e: InteractionEvent, emitter: EMITTER): void;
+
+	/**
 	 * Triggered when an emitter is double clicked.
 	 *
 	 * @param e an event
@@ -237,6 +245,14 @@ export interface DBaseEvents<EMITTER> {
 		interactionManager: InteractionManager,
 		emitter: EMITTER
 	): void;
+
+	/**
+	 * Triggered when a shortcut is pressed.
+	 *
+	 * @param e an event
+	 * @param emitter an emitter
+	 */
+	shortcut(e: KeyboardEvent, emitter: EMITTER): void;
 }
 
 /**
@@ -1023,7 +1039,7 @@ export class DBase<
 	}
 
 	protected onShortcut(e: KeyboardEvent): void {
-		// DO NOTHING
+		this.emit("shortcut", e, this);
 	}
 
 	protected init(options?: OPTIONS): void {
@@ -1774,18 +1790,18 @@ export class DBase<
 	}
 
 	// Wheel
-	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
+	protected onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
 		this.emit("wheel", e, deltas, global, this);
 		return false;
 	}
 
 	// Keydown
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		this.emit("keydown", e, this);
 		return false;
 	}
 
-	onKeyUp(e: KeyboardEvent): boolean {
+	protected onKeyUp(e: KeyboardEvent): boolean {
 		this.emit("keyup", e, this);
 		return false;
 	}
@@ -1878,7 +1894,10 @@ export class DBase<
 	}
 
 	// Double click
-	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
+	protected onDblClick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: InteractionManager
+	): boolean {
 		this.emit("dblclick", e, interactionManager, this);
 		return false;
 	}

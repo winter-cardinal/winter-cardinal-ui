@@ -109,7 +109,9 @@ export class DMenuItemText<
 		return "DMenuItemText";
 	}
 
-	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+	protected onSelect(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
 		super.onSelect(e);
 		const closeable = this.getCloseable();
 		if (closeable != null) {
@@ -119,6 +121,6 @@ export class DMenuItemText<
 
 	protected onShortcut(e: KeyboardEvent): void {
 		super.onShortcut(e);
-		this.onSelect(e);
+		this.activate(e);
 	}
 }

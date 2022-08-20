@@ -159,7 +159,7 @@ export class DMenuItemExpandable<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isArrowRightKey(e)) {
 			if (this.state.isActionable && !this.state.isActive) {
 				const header = this._header;

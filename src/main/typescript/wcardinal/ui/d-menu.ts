@@ -237,7 +237,7 @@ export class DMenu<
 		return this;
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		UtilKeyboardEvent.moveFocusVertically(e, this, this._overlay);
 		if (
 			this.state.isActionable &&

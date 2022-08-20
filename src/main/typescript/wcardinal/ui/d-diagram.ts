@@ -76,7 +76,7 @@ export class DDiagram<
 			}
 		});
 
-		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
+		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
 			const canvas = this.canvas;
 			if (canvas) {
 				canvas.onShapeClick(e);

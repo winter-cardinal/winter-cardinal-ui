@@ -159,13 +159,13 @@ export class DCanvasContainer<
 		return this._view;
 	}
 
-	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
+	protected onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
 		const vresult = this._view.onWheel(e, deltas, global);
 		const sresult = super.onWheel(e, deltas, global);
 		return vresult || sresult;
 	}
 
-	onDblClick(
+	protected onDblClick(
 		e: MouseEvent | TouchEvent,
 		interactionManager: interaction.InteractionManager,
 		skipView?: boolean

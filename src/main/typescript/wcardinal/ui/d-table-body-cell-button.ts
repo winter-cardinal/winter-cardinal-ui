@@ -47,22 +47,15 @@ export class DTableBodyCellButton<
 	) {
 		super(columnIndex, column, onChange, options);
 
-		const when = toEnum(options?.when ?? DButtonBaseWhen.CLICKED, DButtonBaseWhen);
-		this._when = when;
-		this.initOnClick(when, this.theme, options);
-	}
-
-	protected initOnClick(when: DButtonBaseWhen, theme: THEME, options?: OPTIONS): void {
-		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
-			if (when === DButtonBaseWhen.CLICKED) {
-				this.onClick(e);
-			}
+		this._when = toEnum(options?.when ?? DButtonBaseWhen.CLICKED, DButtonBaseWhen);
+		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+			this.onClick(e);
 		});
 	}
 
-	onClick(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
-		if (this.state.isActionable) {
-			this.onActivate(e);
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (this._when === DButtonBaseWhen.CLICKED && this.state.isActionable) {
+			this.activate(e);
 		}
 	}
 
@@ -70,10 +63,14 @@ export class DTableBodyCellButton<
 		e: MouseEvent | TouchEvent,
 		interactionManager: interaction.InteractionManager
 	): boolean {
-		if (this._when === DButtonBaseWhen.DOUBLE_CLICKED) {
-			this.onClick(e);
+		if (this._when === DButtonBaseWhen.DOUBLE_CLICKED && this.state.isActionable) {
+			this.activate(e);
 		}
 		return super.onDblClick(e, interactionManager);
+	}
+
+	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+		this.onActivate(e);
 	}
 
 	protected onActivate(
@@ -104,7 +101,7 @@ export class DTableBodyCellButton<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyDown(e);
 		}
@@ -112,7 +109,7 @@ export class DTableBodyCellButton<
 		return super.onKeyDown(e);
 	}
 
-	onKeyUp(e: KeyboardEvent): boolean {
+	protected onKeyUp(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyUp(e);
 		}

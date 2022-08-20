@@ -32,15 +32,19 @@ export class DMenuItemBase<
 
 	protected init(options?: OPTIONS): void {
 		super.init(options);
-		this.initOnClick(options);
+		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+			this.onClick(e);
+		});
 	}
 
-	protected initOnClick(options?: OPTIONS): void {
-		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
-			if (this.state.isActionable) {
-				this.onSelect(e);
-			}
-		});
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (this.state.isActionable) {
+			this.activate(e);
+		}
+	}
+
+	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+		this.onSelect(e);
 	}
 
 	get value(): VALUE | null {
@@ -66,7 +70,9 @@ export class DMenuItemBase<
 		return null;
 	}
 
-	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+	protected onSelect(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
 		this.emit("select", this);
 		const selection = this.getSelection();
 		if (selection) {
@@ -74,7 +80,7 @@ export class DMenuItemBase<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onKeyDownActivate(e);
 		}
@@ -83,7 +89,7 @@ export class DMenuItemBase<
 
 	protected onKeyDownActivate(e: KeyboardEvent): boolean {
 		if (this.state.isActionable && this.state.isFocused) {
-			this.onSelect(e);
+			this.activate(e);
 			return true;
 		}
 		return false;

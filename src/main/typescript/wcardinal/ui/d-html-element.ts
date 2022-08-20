@@ -197,14 +197,14 @@ export class DHtmlElement<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyDown(e);
 		}
 		return super.onKeyDown(e);
 	}
 
-	onKeyUp(e: KeyboardEvent): boolean {
+	protected onKeyUp(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyUp(e);
 		}

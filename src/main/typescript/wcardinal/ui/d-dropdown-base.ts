@@ -151,7 +151,7 @@ export class DDropdownBase<
 		return "DDropdownBase";
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isArrowDownKey(e)) {
 			this.onKeyDownArrowDown(e);
 		}
@@ -160,7 +160,7 @@ export class DDropdownBase<
 
 	protected onKeyDownArrowDown(e: KeyboardEvent): boolean {
 		if (this.state.isActionable && this.state.isFocused) {
-			this.onClick(e);
+			this.activate(e);
 			return true;
 		}
 		return false;

@@ -492,6 +492,13 @@ export class DTableBody<
 		}
 	}
 
+	onDblClick(
+		e: MouseEvent | TouchEvent,
+		interactionManager: interaction.InteractionManager
+	): boolean {
+		return super.onDblClick(e, interactionManager);
+	}
+
 	protected getType(): string {
 		return "DTableBody";
 	}

@@ -99,7 +99,7 @@ export class DMenuSided<
 		// DO NOTHING
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		UtilKeyboardEvent.moveFocusVertically(e, this);
 		return super.onKeyDown(e);
 	}

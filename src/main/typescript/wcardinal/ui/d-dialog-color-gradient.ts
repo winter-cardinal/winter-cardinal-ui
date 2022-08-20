@@ -62,7 +62,7 @@ export class DDialogColorGradient<
 		return this.picker.value;
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		this.picker.onKeyDown(e);
 		return super.onKeyDown(e);
 	}

@@ -5,7 +5,6 @@
 
 import { interaction, Point } from "pixi.js";
 import { DBasePaddingAdjustable } from "./d-base-padding-adjustable";
-import { DButtonBaseWhen } from "./d-button-base-when";
 import { DLink } from "./d-link";
 import { DLinks } from "./d-links";
 import {
@@ -55,16 +54,9 @@ export class DTableBodyCellTree<
 		this._padding = new DBasePaddingAdjustable(this._padding);
 	}
 
-	protected initOnClick(when: DButtonBaseWhen, theme: THEME, options: OPTIONS): void {
-		const link = this.link;
-		if (link) {
-			link.add(this, (e: interaction.InteractionEvent): void => {
-				if (when === DButtonBaseWhen.CLICKED) {
-					this.onClick(e);
-				}
-			});
-		} else {
-			super.initOnClick(when, theme, options);
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (this.link?.onClick(this, e) !== true) {
+			super.onClick(e);
 		}
 	}
 

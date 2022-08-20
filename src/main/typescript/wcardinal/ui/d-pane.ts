@@ -230,7 +230,7 @@ export class DPane<
 		return result;
 	}
 
-	onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
+	protected onWheel(e: WheelEvent, deltas: UtilWheelEventDeltas, global: Point): boolean {
 		const content = this.content;
 		const x = this.getWheelContentX(content, deltas.deltaX * deltas.lowest);
 		const y = this.getWheelContentY(content, deltas.deltaY * deltas.lowest);

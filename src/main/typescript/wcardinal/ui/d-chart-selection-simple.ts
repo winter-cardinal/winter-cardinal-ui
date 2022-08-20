@@ -114,11 +114,12 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 	protected onClick(e: interaction.InteractionEvent): void {
 		const container = this._container;
 		if (container && e.target === container.plotArea) {
-			const hovered = this._hovered;
-			const series = hovered.series;
+			const result = DChartSelectionSimple.WORK_SELECT;
+			const global = e.data.global;
+			const series = container.calcHitPoint(global.x, global.y, result);
 			const selected = this._selected;
 			if (series) {
-				selected.set(series, hovered);
+				selected.set(series, result);
 			} else {
 				selected.unset();
 			}
@@ -150,7 +151,7 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		this._hovered.bind(container);
 		const plotArea = container.plotArea;
 		plotArea.on(UtilPointerEvent.move, this._onMoveBound);
-		UtilPointerEvent.onClick(plotArea, this._onClickBound);
+		plotArea.on(UtilPointerEvent.tap, this._onClickBound);
 	}
 
 	unbind(): void {

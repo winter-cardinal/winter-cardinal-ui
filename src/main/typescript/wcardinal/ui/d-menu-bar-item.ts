@@ -91,7 +91,7 @@ export class DMenuBarItem<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isArrowDownKey(e)) {
 			this.onKeyDownArrowDown(e);
 		}

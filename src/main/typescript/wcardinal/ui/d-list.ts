@@ -139,7 +139,7 @@ export class DList<
 		this.updater.update(forcibly);
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		this.updater.moveFocus(e, this, true, true);
 		return super.onKeyDown(e);
 	}

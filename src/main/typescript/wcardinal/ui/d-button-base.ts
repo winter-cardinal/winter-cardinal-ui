@@ -100,12 +100,13 @@ export class DButtonBase<
 
 		const theme = this.theme;
 		this._isToggle = options?.toggle ?? theme.isToggle();
-		const when = toEnum(options?.when ?? theme.getWhen(), DButtonBaseWhen);
-		this._when = when;
+		this._when = toEnum(options?.when ?? theme.getWhen(), DButtonBaseWhen);
 
 		// Event handlers
-		this.initOnClick(when, theme, options);
-		this.initOnPress(when, theme, options);
+		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
+			this.onClick(e);
+		});
+		this.initOnPress();
 
 		// Group
 		const group = options?.group;
@@ -115,23 +116,17 @@ export class DButtonBase<
 	}
 
 	protected onShortcut(e: KeyboardEvent): void {
+		if (this.state.isActionable) {
+			this.activate(e);
+		}
 		super.onShortcut(e);
-		this.onClick(e);
 	}
 
 	get isToggle(): boolean {
 		return this._isToggle;
 	}
 
-	protected initOnClick(when: DButtonBaseWhen, theme: THEME, options?: OPTIONS): void {
-		UtilPointerEvent.onClick(this, (e: interaction.InteractionEvent): void => {
-			if (when === DButtonBaseWhen.CLICKED) {
-				this.onClick(e);
-			}
-		});
-	}
-
-	protected initOnPress(when: DButtonBaseWhen, theme: THEME, options?: OPTIONS): void {
+	protected initOnPress(): void {
 		let interactionManager: interaction.InteractionManager | null = null;
 
 		const onUp = (): void => {
@@ -160,25 +155,29 @@ export class DButtonBase<
 		return "DButton";
 	}
 
-	onClick(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
-		if (this.state.isActionable) {
-			if (this.isToggle) {
-				this.onToggleStart(e);
-				this.onToggleEnd(e);
-			} else {
-				this.onActivate(e);
-			}
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (this._when === DButtonBaseWhen.CLICKED && this.state.isActionable) {
+			this.activate(e);
 		}
 	}
 
-	onDblClick(
+	protected onDblClick(
 		e: MouseEvent | TouchEvent,
 		interactionManager: interaction.InteractionManager
 	): boolean {
-		if (this._when === DButtonBaseWhen.DOUBLE_CLICKED) {
-			this.onClick(e);
+		if (this._when === DButtonBaseWhen.DOUBLE_CLICKED && this.state.isActionable) {
+			this.activate(e);
 		}
 		return super.onDblClick(e, interactionManager);
+	}
+
+	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+		if (this.isToggle) {
+			this.onToggleStart(e);
+			this.onToggleEnd(e);
+		} else {
+			this.onActivate(e);
+		}
 	}
 
 	protected onActivate(
@@ -241,7 +240,7 @@ export class DButtonBase<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyDown(e);
 		}
@@ -249,7 +248,7 @@ export class DButtonBase<
 		return super.onKeyDown(e);
 	}
 
-	onKeyUp(e: KeyboardEvent): boolean {
+	protected onKeyUp(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyUp(e);
 		}

@@ -291,7 +291,7 @@ export class DPickerColor<
 			checkerboardSprite.anchor.y = 0.5;
 			checkerboardSprite.buttonMode = true;
 			checkerboardSprite.interactive = true;
-			UtilPointerEvent.onClick(checkerboardSprite, onRecentClick);
+			checkerboardSprite.on(UtilPointerEvent.tap, onRecentClick);
 			this.addChild(checkerboardSprite);
 
 			const sprite = new Sprite(Texture.WHITE);
@@ -402,7 +402,7 @@ export class DPickerColor<
 		sampleCurrentSprite.height = sampleHeight;
 		sampleCurrentSprite.interactive = true;
 		sampleCurrentSprite.buttonMode = true;
-		UtilPointerEvent.onClick(sampleCurrentSprite, (): void => {
+		sampleCurrentSprite.on(UtilPointerEvent.tap, (): void => {
 			this.setColorNew(current.color);
 			this.setAlphaNew(current.alpha);
 		});

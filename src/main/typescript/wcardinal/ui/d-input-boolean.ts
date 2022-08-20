@@ -94,9 +94,9 @@ export class DInputBoolean<
 	set value(value: boolean) {
 		if (this.value !== value) {
 			if (value) {
-				this.getButtonOn().onClick();
+				this.getButtonOn().activate();
 			} else {
-				this.getButtonOff().onClick();
+				this.getButtonOff().activate();
 			}
 		}
 	}

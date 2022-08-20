@@ -206,7 +206,7 @@ export class DTreeItemText<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onKeyDownActivate(e);
 		}

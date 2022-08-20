@@ -166,7 +166,7 @@ export class DPickerColorGradient<
 		recent.on("change", (): void => {
 			this.onRecentUpdate();
 		});
-		UtilPointerEvent.onClick(view, (e: InteractionEvent): void => {
+		view.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
 			const lastHitIndex = view.getLastHitIndex();
 			if (1 <= lastHitIndex) {
 				this.onRecentClick(view.getData(lastHitIndex));

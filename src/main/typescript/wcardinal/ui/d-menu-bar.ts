@@ -60,7 +60,7 @@ export class DMenuBar<
 		return new DMenuBarItem<VALUE>(item);
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		UtilKeyboardEvent.moveFocusHorizontally(e, this);
 		return super.onKeyDown(e);
 	}

@@ -485,7 +485,7 @@ export class DDialog<
 		this.emit("close", this);
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (this._closeOn & DDialogCloseOn.ESC) {
 			if (UtilKeyboardEvent.isCancelKey(e)) {
 				this.onCloseOn();

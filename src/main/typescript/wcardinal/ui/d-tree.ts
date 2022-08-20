@@ -201,7 +201,7 @@ export class DTree<
 		return this.data.each(iteratee);
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		this.updater.moveFocus(e, this, true, false);
 		return super.onKeyDown(e);
 	}

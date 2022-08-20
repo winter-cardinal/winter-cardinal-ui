@@ -31,7 +31,9 @@ export class DMenuItemCheck<
 		return "DMenuItemCheck";
 	}
 
-	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+	protected onSelect(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
 		this.state.isActive = !this.state.isActive;
 		super.onSelect(e);
 	}

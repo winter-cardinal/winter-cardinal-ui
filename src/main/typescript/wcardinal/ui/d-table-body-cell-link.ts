@@ -4,7 +4,6 @@
  */
 
 import { interaction } from "pixi.js";
-import { DButtonBaseWhen } from "./d-button-base-when";
 import { DLink, DLinkChecker, DLinkOptions, DLinkUrlMaker } from "./d-link";
 import { DLinkMenuItemId } from "./d-link-menu-item-id";
 import { DLinkTarget } from "./d-link-target";
@@ -120,12 +119,10 @@ export class DTableBodyCellLink<
 		super(columnIndex, column, onChange, DLinks.toStateOptions(options?.link?.target, options));
 	}
 
-	protected initOnClick(when: DButtonBaseWhen, theme: THEME, options?: OPTIONS): void {
-		this.link.add(this, (e: interaction.InteractionEvent): void => {
-			if (when === DButtonBaseWhen.CLICKED) {
-				this.onClick(e);
-			}
-		});
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (!this.link.onClick(this, e)) {
+			super.onClick(e);
+		}
 	}
 
 	get link(): DLink {

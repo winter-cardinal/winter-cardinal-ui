@@ -34,7 +34,7 @@ export class DExpandableHeader<
 		this.emit("select", this);
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onKeyDownActivate(e);
 		}

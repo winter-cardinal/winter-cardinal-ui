@@ -14,7 +14,6 @@ import { isFunction } from "./util/is-function";
 import { isString } from "./util/is-string";
 import { toEnum } from "./util/to-enum";
 import { UtilClipboard } from "./util/util-clipboard";
-import { UtilPointerEvent } from "./util/util-pointer-event";
 import { DThemes } from "./theme/d-themes";
 import { DBaseStateSet } from "./d-base-state-set";
 
@@ -250,25 +249,20 @@ export class DLink {
 		}
 	}
 
-	add(base: DBase, onSelect: (e: InteractionEvent) => void): void {
-		UtilPointerEvent.onClick(base, (e: InteractionEvent, isSimulated: boolean): void => {
-			if (!this.onClick(base, isSimulated)) {
-				onSelect(e);
-			}
-		});
-	}
-
-	onClick(base: DBase, isSimulated: boolean): boolean {
-		if (this._target === DLinkTarget.AUTO && isSimulated) {
-			const menu = this.menu;
-			if (menu.enable) {
-				if (this._isEnabled && base.state.isActionable) {
-					menu.open(base);
+	onClick(base: DBase, e: InteractionEvent): boolean {
+		if (this._target === DLinkTarget.AUTO) {
+			const oe = e.data.originalEvent;
+			if (("pointerType" in oe && oe.pointerType !== "mouse") || "touches" in oe) {
+				const menu = this.menu;
+				if (menu.enable) {
+					if (this._isEnabled && base.state.isActionable) {
+						menu.open(base);
+					}
+					return true;
 				}
-				return true;
 			}
 		}
-		if (this._isEnabled && base.state.isActionable) {
+		if (this._isEnabled) {
 			return false;
 		}
 		return true;

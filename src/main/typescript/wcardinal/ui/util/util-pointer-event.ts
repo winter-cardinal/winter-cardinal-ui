@@ -6,7 +6,6 @@
 import { DisplayObject, interaction, Point } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DApplicationTarget } from "../d-application-like";
-import { DApplications } from "../d-applications";
 
 export type UtilPointerEventOnClick = (e: InteractionEvent, isSimulated: boolean) => void;
 
@@ -82,79 +81,6 @@ export class UtilPointerEvent {
 			interactionManager.mapPositionToPoint(result, e.clientX, e.clientY);
 		}
 		return result;
-	}
-
-	protected static isValidDistance(e: InteractionEvent, x: number, y: number): boolean {
-		const global = e.data.global;
-		const dx = Math.abs(x - global.x);
-		const dy = Math.abs(y - global.y);
-		const threshold = this.CLICK_DISTANCE_THRESHOLD;
-		return dx < threshold && dy < threshold;
-	}
-
-	static onClick(target: UtilPointerEventClickTarget, onClick: UtilPointerEventOnClick): void {
-		let isDowned = false;
-		let downX = 0;
-		let downY = 0;
-		let interactionManagerBound: interaction.InteractionManager | null = null;
-		const up = this.up;
-		const upoutside = this.upoutside;
-		const cancel = this.cancel;
-		const cleanup = (): void => {
-			isDowned = false;
-			if (interactionManagerBound) {
-				interactionManagerBound.off(up, onUp);
-				interactionManagerBound.off(upoutside, onCancel);
-				interactionManagerBound.off(cancel, onCancel);
-				interactionManagerBound = null;
-			}
-		};
-		target.on("click", (e: InteractionEvent): void => {
-			if (isDowned) {
-				cleanup();
-			}
-			onClick(e, false);
-		});
-		const onUp = (e: InteractionEvent): void => {
-			if (isDowned) {
-				cleanup();
-				if (this.contains(target, e.target)) {
-					if (this.isValidDistance(e, downX, downY)) {
-						onClick(e, true);
-					}
-				}
-			}
-		};
-		const onCancel = (e: InteractionEvent): void => {
-			if (isDowned) {
-				cleanup();
-			}
-		};
-		target.on(this.down, (e: InteractionEvent): void => {
-			if (isDowned) {
-				const global = e.data.global;
-				downX = global.x;
-				downY = global.y;
-			} else {
-				isDowned = true;
-				const global = e.data.global;
-				downX = global.x;
-				downY = global.y;
-				if (interactionManagerBound) {
-					interactionManagerBound.off(up, onUp);
-					interactionManagerBound.off(upoutside, onCancel);
-					interactionManagerBound.off(cancel, onCancel);
-					interactionManagerBound = null;
-				}
-				const layer = DApplications.getLayer(target);
-				if (layer) {
-					interactionManagerBound = layer.renderer.plugins.interaction;
-					interactionManagerBound.once(up, onUp);
-					interactionManagerBound.once(upoutside, onCancel);
-					interactionManagerBound.once(cancel, onCancel);
-				}
-			}
-		});
 	}
 
 	static onDblClick(target: HTMLElement, onDblClick: UtilPointerEventOnDblClick): void {

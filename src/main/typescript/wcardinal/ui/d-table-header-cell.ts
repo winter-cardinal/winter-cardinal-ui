@@ -78,7 +78,7 @@ export class DTableHeaderCell<
 			const sortable = column.sorting.enable;
 			const checkable = this._check.isEnabled;
 			if (checkable || sortable) {
-				UtilPointerEvent.onClick(this, (e: InteractionEvent): void => {
+				this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
 					this.onClick(e);
 				});
 				const state = this.state;
@@ -166,15 +166,14 @@ export class DTableHeaderCell<
 		return false;
 	}
 
-	onClick(e: InteractionEvent): void {
+	protected onClick(e: InteractionEvent): void {
 		if (this.state.isActionable) {
-			if (this.isCheckClicked(e)) {
-				this.onToggleStart();
-				this.onToggleEnd();
-			} else {
-				this.onActivate(e);
-			}
+			this.activate(e);
 		}
+	}
+
+	activate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
+		this.onActivate(e);
 	}
 
 	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
@@ -257,14 +256,14 @@ export class DTableHeaderCell<
 				this.onToggleEnd();
 			} else {
 				if (this.state.isPressed) {
-					this.onActivate(e);
+					this.activate(e);
 				}
 				this.state.isPressed = false;
 			}
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyDown(e);
 		}
@@ -272,7 +271,7 @@ export class DTableHeaderCell<
 		return super.onKeyDown(e);
 	}
 
-	onKeyUp(e: KeyboardEvent): boolean {
+	protected onKeyUp(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isActivateKey(e)) {
 			this.onActivateKeyUp(e);
 		}

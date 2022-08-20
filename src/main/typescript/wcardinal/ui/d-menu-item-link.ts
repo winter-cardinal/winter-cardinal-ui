@@ -32,7 +32,7 @@ export class DMenuItemLink<
 	THEME extends DThemeMenuItemLink = DThemeMenuItemLink,
 	OPTIONS extends DMenuItemLinkOptions<VALUE, THEME> = DMenuItemLinkOptions<VALUE, THEME>
 > extends DMenuItemText<VALUE, THEME, OPTIONS> {
-	protected _link!: DLink;
+	protected _link?: DLink;
 
 	protected toLinkOptions(options?: OPTIONS): DLinkOptions | undefined {
 		if (options) {
@@ -66,33 +66,41 @@ export class DMenuItemLink<
 	}
 
 	protected init(options?: OPTIONS): void {
-		this._link = new DLink(this.toLinkOptions(options));
 		super.init(DLinks.toStateOptions(options?.target, options));
 	}
 
 	get link(): DLink {
-		return this._link;
+		let result = this._link;
+		if (result == null) {
+			result = new DLink(this.toLinkOptions(this._options));
+			this._link = result;
+		}
+		return result;
 	}
 
-	protected initOnClick(options?: OPTIONS): void {
-		this._link.add(this, (e) => this.onSelect(e));
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (!this.link.onClick(this, e)) {
+			super.onClick(e);
+		}
 	}
 
 	protected getType(): string {
 		return "DMenuItemLink";
 	}
 
-	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+	protected onSelect(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
 		super.onSelect(e);
-		this._link.open(e);
+		this.link.open(e);
 	}
 
 	open(inNewWindow: boolean): void {
-		this._link.open(inNewWindow);
+		this.link.open(inNewWindow);
 	}
 
 	protected onShortcut(e: KeyboardEvent): void {
 		super.onShortcut(e);
-		this.onSelect(e);
+		this.activate(e);
 	}
 }

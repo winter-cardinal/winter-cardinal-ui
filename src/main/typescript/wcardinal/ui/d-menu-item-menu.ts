@@ -97,7 +97,9 @@ export class DMenuItemMenu<
 		}
 	}
 
-	protected onSelect(e: KeyboardEvent | interaction.InteractionEvent): void {
+	protected onSelect(
+		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): void {
 		this.open();
 		super.onSelect(e);
 	}
@@ -109,7 +111,7 @@ export class DMenuItemMenu<
 		}
 	}
 
-	onKeyDown(e: KeyboardEvent): boolean {
+	protected onKeyDown(e: KeyboardEvent): boolean {
 		if (UtilKeyboardEvent.isArrowRightKey(e)) {
 			this.onKeyDownArrowRight(e);
 		}

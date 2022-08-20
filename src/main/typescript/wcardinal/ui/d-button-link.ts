@@ -5,7 +5,6 @@
 
 import { interaction } from "pixi.js";
 import { DButtonBase, DButtonBaseOptions, DThemeButtonBase } from "./d-button-base";
-import { DButtonBaseWhen } from "./d-button-base-when";
 import { DLink, DLinkOptions } from "./d-link";
 
 export interface DButtonLinkOptions<
@@ -21,31 +20,32 @@ export class DButtonLink<
 	THEME extends DThemeButtonLink<VALUE> = DThemeButtonLink<VALUE>,
 	OPTIONS extends DButtonLinkOptions<VALUE, THEME> = DButtonLinkOptions<VALUE, THEME>
 > extends DButtonBase<VALUE, THEME, OPTIONS> {
-	protected _link!: DLink;
+	protected _link?: DLink;
 
-	protected initOnClick(when: DButtonBaseWhen, theme: THEME, options?: OPTIONS): void {
-		const link = new DLink(options);
-		this._link = link;
-		link.add(this, (e: interaction.InteractionEvent): void => {
-			if (when === DButtonBaseWhen.CLICKED) {
-				this.onClick(e);
-			}
-		});
+	protected onClick(e: interaction.InteractionEvent): void {
+		if (!this.link.onClick(this, e)) {
+			super.onClick(e);
+		}
 	}
 
 	get link(): DLink {
-		return this._link;
+		let result = this._link;
+		if (result == null) {
+			result = new DLink(this._options);
+			this._link = result;
+		}
+		return result;
 	}
 
 	protected onActivate(
 		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
 	): void {
 		super.onActivate(e);
-		this._link.open(e);
+		this.link.open(e);
 	}
 
 	open(inNewWindow: boolean): void {
-		this._link.open(inNewWindow);
+		this.link.open(inNewWindow);
 	}
 
 	protected getType(): string {
