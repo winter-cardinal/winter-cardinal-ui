@@ -73,7 +73,7 @@ export class DMenuItemBase<
 	protected onSelect(
 		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
 	): void {
-		this.emit("select", this);
+		this.emit("select", this._value, this);
 		const selection = this.getSelection();
 		if (selection) {
 			selection.add(this);
