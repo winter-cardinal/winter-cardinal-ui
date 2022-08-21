@@ -37,7 +37,7 @@ export const deserializeEmbeddedLayer = (
 	const name = deserializeEmbeddedLayerName(serialized[0], manager);
 	const result = creator
 		? creator(name, manager)
-		: new EShapeEmbeddedLayer(name, manager.isEditMode);
+		: new EShapeEmbeddedLayer(name, manager.isEditMode, manager.depth);
 
 	const visibility = serialized[1];
 	const visible = visibility == null || !!(visibility & 0x2);

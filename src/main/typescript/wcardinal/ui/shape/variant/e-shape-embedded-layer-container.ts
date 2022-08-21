@@ -16,14 +16,12 @@ export class EShapeEmbeddedLayerContainer implements EShapeLayerContainer {
 	children: EShapeEmbeddedLayer[];
 	protected _width: number;
 	protected _height: number;
-	protected _isEditMode: boolean;
 	protected _hasConnectors?: Map<EShapeEmbeddedLayer, boolean>;
 
-	constructor(width: number, height: number, isEditMode: boolean) {
+	constructor(width: number, height: number) {
 		this.children = [];
 		this._width = width;
 		this._height = height;
-		this._isEditMode = isEditMode;
 	}
 
 	protected hasConnectors(shapes: EShape[]): boolean {

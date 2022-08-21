@@ -8,6 +8,8 @@ import {
 	DDiagramCanvasBaseOptions,
 	DThemeDiagramCanvasBase
 } from "./d-diagram-canvas-base";
+import { DDiagramCanvasEditorShape } from "./d-diagram-canvas-editor-shape";
+import { DDiagramCanvasEditorShapeImpl } from "./d-diagram-canvas-editor-shape-impl";
 import {
 	DDiagramCanvasEditorSnap,
 	DDiagramCanvasEditorSnapOptions,
@@ -39,6 +41,7 @@ export class DDiagramCanvasEditor<
 	THEME extends DThemeDiagramCanvasEditor = DThemeDiagramCanvasEditor,
 	OPTIONS extends DDiagramCanvasEditorOptions<THEME> = DDiagramCanvasEditorOptions<THEME>
 > extends DDiagramCanvasBase<THEME, OPTIONS> {
+	protected _shape?: DDiagramCanvasEditorShape;
 	protected _snap: DDiagramCanvasEditorSnap | null;
 
 	constructor(options: OPTIONS) {
@@ -58,6 +61,19 @@ export class DDiagramCanvasEditor<
 
 	get snap(): DDiagramCanvasEditorSnap | null {
 		return this._snap;
+	}
+
+	get shape(): DDiagramCanvasEditorShape {
+		let result = this._shape;
+		if (result == null) {
+			result = this.newShape();
+			this._shape = result;
+		}
+		return result;
+	}
+
+	protected newShape(): DDiagramCanvasEditorShape {
+		return new DDiagramCanvasEditorShapeImpl(this);
 	}
 
 	serialize(id?: number, thumbnail?: DDiagramCanvasEditorThumbnail): DDiagramSerialized {

@@ -32,14 +32,16 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 	text: EShapeText;
 
 	protected _isEditMode: boolean;
+	protected _depth: number;
 
-	constructor(isEditMode: boolean, type: EShapeType) {
+	constructor(isEditMode: boolean, depth: number, type: EShapeType) {
 		super(type);
 		this._isEditMode = isEditMode;
+		this._depth = depth;
 		const data = this.newData();
 		this.data = data;
 		this.tag = data;
-		this.size = this.newGroupSize(isEditMode);
+		this.size = this.newGroupSize(isEditMode, depth);
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
@@ -49,7 +51,11 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		return this._isEditMode;
 	}
 
-	protected newGroupSize(isEditMode: boolean): EShapeGroupSize {
+	get depth(): number {
+		return this._depth;
+	}
+
+	protected newGroupSize(isEditMode: boolean, depth: number): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
 		if (isEditMode) {

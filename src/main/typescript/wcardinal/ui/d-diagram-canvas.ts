@@ -58,7 +58,7 @@ export class DDiagramCanvas<
 	constructor(options: OPTIONS) {
 		super(options);
 		this._data = new DDiagramCanvasDataImpl();
-		this._shape = new DDiagramCanvasShapeImpl();
+		this._shape = new DDiagramCanvasShapeImpl(this);
 		this._ticker = new DDiagramCanvasTickerImpl(this);
 		this._actionables = [];
 		this._downeds = new Set<EShape>();

@@ -23,7 +23,9 @@ const create = (
 	item: DDiagramSerializedItem,
 	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	shape = shape || new EShapeEmbedded(name, manager.isEditMode);
+	const isEditMode = manager.isEditMode;
+	const depth = manager.depth;
+	shape = shape || new EShapeEmbedded(name, isEditMode, depth);
 	const result = deserializeBase(item, manager, shape);
 	const shapeSize = shape.size;
 	const sizeX = shapeSize.x;
@@ -32,7 +34,13 @@ const create = (
 	container.copyTo(shape);
 	shape.size.init();
 	shape.size.set(sizeX, sizeY);
-	applyDataMappings(shape, manager);
+	if (isEditMode) {
+		if (0 < depth) {
+			applyDataMappings(shape, manager);
+		}
+	} else {
+		applyDataMappings(shape, manager);
+	}
 	return result;
 };
 
@@ -42,7 +50,9 @@ const createMissing = (
 	item: DDiagramSerializedItem,
 	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	shape = shape || new EShapeEmbedded(name, manager.isEditMode);
+	const isEditMode = manager.isEditMode;
+	const depth = manager.depth;
+	shape = shape || new EShapeEmbedded(name, isEditMode, depth);
 	const result = deserializeBase(item, manager, shape);
 
 	const size = shape.size;
@@ -50,7 +60,7 @@ const createMissing = (
 	const sizeY = size.y;
 
 	const children = shape.children;
-	const layer = new EShapeEmbeddedLayer("missing", manager.isEditMode);
+	const layer = new EShapeEmbeddedLayer("missing", isEditMode, depth);
 	const px = 0.5 * sizeX;
 	const py = 0.5 * sizeX;
 	layer.transform.position.set(-px, -py);
@@ -70,7 +80,13 @@ const createMissing = (
 	shape.onAttach();
 
 	shape.size.init();
-	applyDataMappings(shape, manager);
+	if (isEditMode) {
+		if (0 < depth) {
+			applyDataMappings(shape, manager);
+		}
+	} else {
+		applyDataMappings(shape, manager);
+	}
 	return result;
 };
 

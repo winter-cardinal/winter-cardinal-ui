@@ -125,10 +125,14 @@ export class DDiagrams {
 		const onFulfilled = () => {
 			return pieceToDatum;
 		};
-		return this.toPieceData_(controller, pieces, pieceToDatum, pieceToPromise, false).then(
-			onFulfilled,
-			onFulfilled
-		);
+		return this.toPieceData_(
+			controller,
+			pieces,
+			pieceToDatum,
+			pieceToPromise,
+			isEditMode,
+			0
+		).then(onFulfilled, onFulfilled);
 	}
 
 	private static toPieceData_(
@@ -136,7 +140,8 @@ export class DDiagrams {
 		pieces: string[] | null | undefined,
 		pieceToDatum: Map<string, EShapeEmbeddedDatum | null>,
 		pieceToPromise: Map<string, Promise<EShape[] | null>>,
-		isEditMode: boolean
+		isEditMode: boolean,
+		depth: number
 	): Promise<Array<EShape[] | null>> {
 		const promises: Array<Promise<EShape[] | null>> = [];
 		if (pieces && 0 < pieces.length && controller) {
@@ -153,6 +158,7 @@ export class DDiagrams {
 								piece,
 								found,
 								isEditMode,
+								depth + 1,
 								pieceToDatum,
 								pieceToPromise
 							);
@@ -174,30 +180,37 @@ export class DDiagrams {
 		name: string,
 		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
 		isEditMode: boolean,
+		depth: number,
 		pieceToDatum: Map<string, EShapeEmbeddedDatum | null>,
 		pieceToPromise: Map<string, Promise<EShape[] | null>>
 	): Promise<EShape[]> {
 		const serialized = this.toSerialized(serializedOrSimple);
 		const width = serialized.width;
 		const height = serialized.height;
-		const container = new EShapeEmbeddedLayerContainer(width, height, isEditMode);
+		const container = new EShapeEmbeddedLayerContainer(width, height);
 
 		pieceToDatum.set(name, new EShapeEmbeddedDatum(name, width, height, container));
 
 		const pieces = serialized.pieces;
-		return this.toPieceData_(controller, pieces, pieceToDatum, pieceToPromise, isEditMode).then(
-			() => {
-				return this.newLayer(
+		return this.toPieceData_(
+			controller,
+			pieces,
+			pieceToDatum,
+			pieceToPromise,
+			isEditMode,
+			depth
+		).then(() => {
+			return this.newLayer(
+				serialized,
+				container,
+				new EShapeResourceManagerDeserialization(
 					serialized,
-					container,
-					new EShapeResourceManagerDeserialization(
-						serialized,
-						pieces,
-						pieceToDatum,
-						isEditMode
-					)
-				);
-			}
-		);
+					pieces,
+					pieceToDatum,
+					isEditMode,
+					depth
+				)
+			);
+		});
 	}
 }

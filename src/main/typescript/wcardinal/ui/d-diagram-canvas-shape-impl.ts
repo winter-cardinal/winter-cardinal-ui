@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DDiagramCanvasShape } from "./d-diagram-canvas-shape";
+import { DDiagramCanvasBaseShapeCanvas } from "./d-diagram-canvas-base-shape";
+import { DDiagramCanvasBaseShapeImpl } from "./d-diagram-canvas-base-shape-impl";
 import { EShape } from "./shape/e-shape";
 
-export class DDiagramCanvasShapeImpl implements DDiagramCanvasShape {
+export class DDiagramCanvasShapeImpl extends DDiagramCanvasBaseShapeImpl {
 	protected _data: Map<string, EShape[]>;
 
-	constructor() {
+	constructor(canvas: DDiagramCanvasBaseShapeCanvas) {
+		super(canvas);
 		this._data = new Map<string, EShape[]>();
 	}
 

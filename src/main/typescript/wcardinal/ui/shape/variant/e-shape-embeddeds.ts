@@ -33,15 +33,16 @@ export class EShapeEmbeddeds {
 	): Promise<EShapeEmbedded> {
 		const width = serialized.width;
 		const height = serialized.height;
-		const container = new EShapeEmbeddedLayerContainer(width, height, false);
+		const container = new EShapeEmbeddedLayerContainer(width, height);
 		const manager = new EShapeResourceManagerDeserialization(
 			serialized,
 			pieces,
 			pieceData,
-			false
+			isEditMode,
+			1
 		);
 		return DDiagrams.newLayer(serialized, container, manager).then(() => {
-			return this.create(serialized.name, width, height, container, isEditMode);
+			return this.create(serialized.name, width, height, container, isEditMode, 0);
 		});
 	}
 
@@ -50,9 +51,10 @@ export class EShapeEmbeddeds {
 		width: number,
 		height: number,
 		container: EShapeLayerContainer,
-		isEditMode: boolean
+		isEditMode: boolean,
+		depth: number
 	): EShapeEmbedded {
-		const shape = new EShapeEmbedded(name, isEditMode);
+		const shape = new EShapeEmbedded(name, isEditMode, depth);
 		shape.size.set(width, height);
 		container.copyTo(shape);
 		shape.size.init();

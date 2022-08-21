@@ -173,7 +173,8 @@ export abstract class DDiagramBase<
 			serialized,
 			pieces,
 			pieceData,
-			isEditMode
+			isEditMode,
+			0
 		);
 		const result = DDiagrams.newLayer(serialized, canvas.layer, manager).then(
 			(shapes: EShape[]): CANVAS => {

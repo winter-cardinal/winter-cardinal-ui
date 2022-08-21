@@ -33,6 +33,7 @@ export class EShapeResourceManagerDeserialization {
 	pieces?: string[];
 	pieceData?: Map<string, EShapeEmbeddedDatum | null>;
 	isEditMode: boolean;
+	depth: number;
 
 	protected _actions: Map<number, EShapeActionValue>;
 	protected _fills: Map<number, DDiagramSerializedFill>;
@@ -54,13 +55,15 @@ export class EShapeResourceManagerDeserialization {
 		serialized: EShapeResourceManagerDeserializationSerialized,
 		pieces: string[] | undefined,
 		pieceData: Map<string, EShapeEmbeddedDatum | null> | undefined,
-		isEditMode: boolean
+		isEditMode: boolean,
+		depth: number
 	) {
 		this.resources = serialized.resources;
 		this.data = serialized.data || serialized.tags || serialized.resources;
 		this.pieces = pieces;
 		this.pieceData = pieceData;
 		this.isEditMode = isEditMode;
+		this.depth = depth;
 
 		this._actions = new Map<number, EShapeActionValue>();
 		this._fills = new Map<number, DDiagramSerializedFill>();
