@@ -39,7 +39,7 @@ export class EShapeUuidMappingImpl implements EShapeUuidMapping {
 			const shape = shapes[i];
 			result.set(shape.uuid, shape);
 
-			if (shape instanceof EShapeEmbedded) {
+			if (!(shape instanceof EShapeEmbedded)) {
 				const children = shape.children;
 				if (0 < children.length) {
 					this.fillUuidToShape(children, result);
