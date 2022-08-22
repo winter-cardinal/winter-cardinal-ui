@@ -63,6 +63,85 @@ export class EShapeConnectorElbowPointsFillter {
 		}
 	}
 
+	protected toAxis(dx: number, dy: number, nx: number, ny: number): 0 | 1 | 2 | 3 {
+		const anx = Math.abs(nx);
+		const any = Math.abs(ny);
+		const threshold = this._threshold;
+		if (anx < threshold && any < threshold) {
+			if (Math.abs(dx) < Math.abs(dy)) {
+				if (0 <= dy) {
+					return 2;
+				} else {
+					return 0;
+				}
+			} else {
+				if (0 <= dx) {
+					return 1;
+				} else {
+					return 3;
+				}
+			}
+		}
+		const s = 0.2;
+		if (0 <= nx) {
+			if (0 <= ny) {
+				if (s < anx && s < any) {
+					if (dx < dy) {
+						return 2;
+					} else {
+						return 1;
+					}
+				} else if (s < anx) {
+					return 1;
+				} else {
+					return 2;
+				}
+			} else {
+				if (s < anx && s < any) {
+					if (dx < -dy) {
+						return 0;
+					} else {
+						return 2;
+					}
+				} else if (s < anx) {
+					return 2;
+				} else {
+					return 0;
+				}
+			}
+		} else {
+			if (0 <= ny) {
+				if (s < anx && s < any) {
+					if (-dx < dy) {
+						return 2;
+					} else {
+						return 3;
+					}
+				} else if (s < anx) {
+					return 3;
+				} else {
+					return 2;
+				}
+			} else {
+				if (s < anx && s < any) {
+					if (dy < dx) {
+						return 0;
+					} else {
+						return 3;
+					}
+				} else if (s < anx) {
+					return 3;
+				} else {
+					return 0;
+				}
+			}
+		}
+	}
+
+	protected toTailAxis(x: number, y: number, nx: number, ny: number): 0 | 1 | 2 | 3 {
+		return this.toAxis(x - this.x, y - this.y, nx, ny);
+	}
+
 	tail(
 		x: number,
 		y: number,
@@ -72,38 +151,39 @@ export class EShapeConnectorElbowPointsFillter {
 		syh: number,
 		margin: number
 	): void {
-		if (Math.abs(nx) < Math.abs(ny)) {
-			if (0 < ny) {
-				if (y <= this.y + margin) {
-					this.y += Math.max(margin, sxh);
-					this.x = x;
-				} else {
-					this.y = y;
-				}
-			} else {
+		switch (this.toTailAxis(x, y, nx, ny)) {
+			case 0:
 				if (this.y - margin <= y) {
 					this.y -= Math.max(margin, syh);
 					this.x = x;
 				} else {
 					this.y = y;
 				}
-			}
-		} else {
-			if (0 < nx) {
+				break;
+			case 1:
 				if (x <= this.x + margin) {
 					this.x += Math.max(margin, sxh);
 					this.y = y;
 				} else {
 					this.x = x;
 				}
-			} else {
+				break;
+			case 2:
+				if (y <= this.y + margin) {
+					this.y += Math.max(margin, sxh);
+					this.x = x;
+				} else {
+					this.y = y;
+				}
+				break;
+			case 3:
 				if (this.x - margin <= x) {
 					this.x -= Math.max(margin, sxh);
 					this.y = y;
 				} else {
 					this.x = x;
 				}
-			}
+				break;
 		}
 	}
 
@@ -117,6 +197,10 @@ export class EShapeConnectorElbowPointsFillter {
 		}
 	}
 
+	protected toHeadAxis(x: number, y: number, nx: number, ny: number): 0 | 1 | 2 | 3 {
+		return this.toAxis(this.x - x, this.y - y, nx, ny);
+	}
+
 	head(
 		x: number,
 		y: number,
@@ -126,30 +210,35 @@ export class EShapeConnectorElbowPointsFillter {
 		syh: number,
 		margin: number
 	): void {
-		if (Math.abs(nx) < Math.abs(ny)) {
-			if (0 < ny) {
-				if (this.y <= y + margin) {
-					this.y = y + Math.max(margin, syh);
-				}
-			} else {
+		switch (this.toHeadAxis(x, y, nx, ny)) {
+			case 0:
 				if (y - margin <= this.y) {
 					this.y = y - Math.max(margin, syh);
 				}
-			}
-			this.x = x;
-			this.y = y;
-		} else {
-			if (0 < nx) {
+				this.x = x;
+				this.y = y;
+				break;
+			case 1:
 				if (this.x <= x + margin) {
 					this.x = x + Math.max(margin, sxh);
 				}
-			} else {
+				this.y = y;
+				this.x = x;
+				break;
+			case 2:
+				if (this.y <= y + margin) {
+					this.y = y + Math.max(margin, syh);
+				}
+				this.x = x;
+				this.y = y;
+				break;
+			case 3:
 				if (x - margin <= this.x) {
 					this.x = x - Math.max(margin, sxh);
 				}
-			}
-			this.y = y;
-			this.x = x;
+				this.y = y;
+				this.x = x;
+				break;
 		}
 	}
 

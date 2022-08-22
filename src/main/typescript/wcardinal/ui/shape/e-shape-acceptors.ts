@@ -36,15 +36,16 @@ export class EShapeAcceptors {
 
 	protected static newDefault(): EShapeAcceptor {
 		const result = new EShapeAcceptorImpl();
+		const s = 1 / Math.sqrt(2);
 		result.add("TOP", EShapeAcceptorType.ALL, 0, -0.5, 0, -1);
 		result.add("LEFT", EShapeAcceptorType.ALL, -0.5, 0, -1, 0);
 		result.add("RIGHT", EShapeAcceptorType.ALL, 0.5, 0, 1, 0);
 		result.add("BOTTOM", EShapeAcceptorType.ALL, 0, 0.5, 0, 1);
-		result.add("CENTER", EShapeAcceptorType.ALL, 0, 0, -1, 0);
-		result.add("TOP_LEFT", EShapeAcceptorType.ALL, -0.5, -0.5, -1, 0);
-		result.add("TOP_RIGHT", EShapeAcceptorType.ALL, 0.5, -0.5, 1, 0);
-		result.add("BOTTOM_LEFT", EShapeAcceptorType.ALL, -0.5, 0.5, -1, 0);
-		result.add("BOTTOM_RIGHT", EShapeAcceptorType.ALL, 0.5, 0.5, 1, 0);
+		result.add("CENTER", EShapeAcceptorType.ALL, 0, 0, 0, 0);
+		result.add("TOP_LEFT", EShapeAcceptorType.ALL, -0.5, -0.5, -s, -s);
+		result.add("TOP_RIGHT", EShapeAcceptorType.ALL, 0.5, -0.5, s, -s);
+		result.add("BOTTOM_LEFT", EShapeAcceptorType.ALL, -0.5, 0.5, -s, s);
+		result.add("BOTTOM_RIGHT", EShapeAcceptorType.ALL, 0.5, 0.5, s, s);
 		return result;
 	}
 }

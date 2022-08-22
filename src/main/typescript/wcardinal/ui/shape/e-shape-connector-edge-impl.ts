@@ -286,7 +286,16 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 						const edgeNormal = edge.normal;
 						const nx = edgeNormal.x;
 						const ny = edgeNormal.y;
-						this._normal.set(a * nx + c * ny, b * nx + d * ny);
+						const x = a * nx + c * ny;
+						const y = b * nx + d * ny;
+						const l = x * x + y * y;
+						const normal = this._normal;
+						if (0.000001 < l) {
+							const f = 1 / Math.sqrt(l);
+							normal.set(x * f, y * f);
+						} else {
+							normal.set(nx, ny);
+						}
 					}
 					const result = this._isLocalChanged || this._isNormalChanged;
 					this.unlock();
