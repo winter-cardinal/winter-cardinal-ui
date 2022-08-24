@@ -8,7 +8,7 @@ export const EShapeDataValueState = {
 	 * The data status is not known.
 	 * This is the default state.
 	 */
-	UNKOWN: -1,
+	UNKNOWN: -1,
 
 	/**
 	 * The request succeeded.
