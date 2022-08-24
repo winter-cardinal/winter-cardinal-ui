@@ -53,7 +53,7 @@ export class EShapeDataValueImpl implements EShapeDataValue {
 		this.range = new EShapeDataValueRangeImpl();
 		this._value = 0;
 		this._time = 0;
-		this._state = EShapeDataValueState.UNKOWN;
+		this._state = EShapeDataValueState.UNKNOWN;
 		this._capacity = 0;
 		this._order = EShapeDataValueOrder.ASCENDING;
 	}

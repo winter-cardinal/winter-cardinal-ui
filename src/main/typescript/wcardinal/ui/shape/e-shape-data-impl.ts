@@ -149,7 +149,7 @@ export class EShapeDataImpl implements EShapeData {
 		if (0 < values.length) {
 			return values[0].state;
 		}
-		return EShapeDataValueState.UNKOWN;
+		return EShapeDataValueState.UNKNOWN;
 	}
 
 	set state(state: EShapeDataValueState) {
