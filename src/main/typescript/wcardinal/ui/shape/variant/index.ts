@@ -110,7 +110,7 @@ export * from "./e-shape-button-runtime-action";
 export * from "./e-shape-button-runtime";
 export * from "./e-shape-button";
 export * from "./e-shape-circle";
-export * from "./e-shape-connector-elbow-points-fillter";
+export * from "./e-shape-connector-elbow-points-filler";
 export * from "./e-shape-connector-elbow";
 export * from "./e-shape-connector-line";
 export * from "./e-shape-embedded-datum";

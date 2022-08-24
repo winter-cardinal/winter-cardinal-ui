@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export class EShapeConnectorElbowPointsFillter {
+export class EShapeConnectorElbowPointsFiller {
 	protected _x: number;
 	protected _y: number;
 	protected _z: number;
@@ -101,10 +101,10 @@ export class EShapeConnectorElbowPointsFillter {
 					if (dx < -dy) {
 						return 0;
 					} else {
-						return 2;
+						return 1;
 					}
 				} else if (s < anx) {
-					return 2;
+					return 1;
 				} else {
 					return 0;
 				}

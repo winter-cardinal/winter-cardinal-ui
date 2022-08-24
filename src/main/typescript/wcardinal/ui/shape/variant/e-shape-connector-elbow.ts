@@ -8,7 +8,7 @@ import { EShapeConnectorBody } from "../e-shape-connector-body";
 import { EShapeConnectorLine } from "./e-shape-connector-line";
 import { EShapeConnectorEdge } from "../e-shape-connector-edge";
 import { EShapeDefaults } from "../e-shape-defaults";
-import { EShapeConnectorElbowPointsFillter } from "./e-shape-connector-elbow-points-fillter";
+import { EShapeConnectorElbowPointsFiller } from "./e-shape-connector-elbow-points-filler";
 
 export class EShapeConnectorElbow extends EShapeConnectorLine {
 	constructor(type: EShapeType = EShapeType.CONNECTOR_ELBOW) {
@@ -66,7 +66,7 @@ export class EShapeConnectorElbow extends EShapeConnectorLine {
 			values[3] = y1;
 			values.length = 4;
 		} else {
-			const filler = new EShapeConnectorElbowPointsFillter(x0, y0, values);
+			const filler = new EShapeConnectorElbowPointsFiller(x0, y0, values);
 			if (0 < bodyValuesLength) {
 				const a = Math.atan2(dy, dx);
 				const l = Math.sqrt(dx * dx + dy * dy);
