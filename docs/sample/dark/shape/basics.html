@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.213.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.213.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.217.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.217.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -57,7 +57,7 @@
 				var dx = this.dx;
 				let x = this.x + dx;
 				let y = this.y;
-				if( 4 * dx < x ) {
+				if( 5 * dx < x ) {
 					x = 0;
 					y += this.dy;
 				}
@@ -73,6 +73,7 @@
 		creater.create( "rectangle-rounded-1", wcardinal.ui.EShapeRectangleRounded );
 		creater.create( "triangle-1", wcardinal.ui.EShapeTriangle );
 		creater.create( "triangle-rounded-1", wcardinal.ui.EShapeTriangleRounded );
+		creater.create( "semicircle-1", wcardinal.ui.EShapeSemicircle );
 
 		creater.width = 100;
 		creater.height = 10;
@@ -81,6 +82,7 @@
 		creater.create( "rectangle-rounded-2", wcardinal.ui.EShapeRectangleRounded );
 		creater.create( "triangle-2", wcardinal.ui.EShapeTriangle );
 		creater.create( "triangle-rounded-2", wcardinal.ui.EShapeTriangleRounded );
+		creater.create( "semicircle-2", wcardinal.ui.EShapeSemicircle );
 
 		creater.height = 100;
 		creater.width = 10;
@@ -89,6 +91,7 @@
 		creater.create( "rectangle-rounded-3", wcardinal.ui.EShapeRectangleRounded );
 		creater.create( "triangle-3", wcardinal.ui.EShapeTriangle );
 		creater.create( "triangle-rounded-3", wcardinal.ui.EShapeTriangleRounded );
+		creater.create( "semicircle-3", wcardinal.ui.EShapeSemicircle );
 
 		application.stage.on( "pointermove", function ( e ) {
 			container.hitTest( e.data.global, function ( shape ) {
