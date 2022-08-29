@@ -28,6 +28,7 @@ export const EShapeType = {
 	RECTANGLE_PIVOTED: 21,
 	CONNECTOR_LINE: 22,
 	CONNECTOR_ELBOW: 23,
+	SEMICIRCLE: 24,
 	EXTENSION: 1000
 } as const;
 
