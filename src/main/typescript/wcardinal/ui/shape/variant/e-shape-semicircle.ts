@@ -8,6 +8,11 @@ import { EShapeType } from "../e-shape-type";
 import { EShapePrimitive } from "./e-shape-primitive";
 import { hitTestSemicircle } from "./hit-test-semicircle";
 
+/**
+ * A semicircle shape.
+ *
+ * @beta
+ */
 export class EShapeSemicircle extends EShapePrimitive {
 	constructor(type: EShapeType = EShapeType.SEMICIRCLE) {
 		super(type);
