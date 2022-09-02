@@ -404,19 +404,14 @@ export class DDiagramCanvas<
 	onShapeMove(e: interaction.InteractionEvent): boolean {
 		const found = this.hitTestInteractives(e.data.global);
 
+		// Cursor
+		this.cursor = this._cursor = this.toShapeCursor(found);
+
+		// TItle
 		const layer = DApplications.getLayer(this);
 		if (layer) {
-			const view = layer.view;
-
-			// Cursor
-			const cursor = this.toShapeCursor(found);
-			const style = view.style;
-			if (style.cursor !== cursor) {
-				style.cursor = cursor;
-			}
-
-			// TItle
 			const title = this.toShapeTitle(found);
+			const view = layer.view;
 			if (view.title !== title) {
 				view.title = title;
 			}

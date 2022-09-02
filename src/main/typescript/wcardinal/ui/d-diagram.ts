@@ -4,16 +4,18 @@
  */
 
 import { interaction, Renderer } from "pixi.js";
+import InteractionEvent = interaction.InteractionEvent;
+import InteractionManager = interaction.InteractionManager;
 import { DDiagramBase, DDiagramBaseOptions, DThemeDiagramBase } from "./d-diagram-base";
 import { DDiagramCanvas, DDiagramCanvasOptions } from "./d-diagram-canvas";
 import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramShape } from "./d-diagram-shape";
 import { DDiagramData, DDiagramDataOptions } from "./d-diagram-data";
-import { UtilPointerEvent } from "./util/util-pointer-event";
 import { EShape } from "./shape/e-shape";
 import { DDiagramDataImpl } from "./d-diagram-data-impl";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramController } from "./d-diagram-controller";
+import { UtilPointerEvent } from "./util/util-pointer-event";
 
 /**
  * {@link DDiagram} options.
@@ -48,39 +50,20 @@ export class DDiagram<
 	constructor(options?: OPTIONS) {
 		super(options);
 
-		this.on(UtilPointerEvent.move, (e: interaction.InteractionEvent): void => {
-			const canvas = this.canvas;
-			if (canvas) {
-				canvas.onShapeMove(e);
-			}
+		this.on(UtilPointerEvent.move, (e: InteractionEvent): void => {
+			this.onShapeMove(e);
 		});
-
-		this.on(UtilPointerEvent.up, (e: interaction.InteractionEvent): void => {
-			const canvas = this.canvas;
-			if (canvas) {
-				canvas.onShapeUp(e);
-			}
+		this.on(UtilPointerEvent.up, (e: InteractionEvent): void => {
+			this.onShapeUp(e);
 		});
-
-		this.on(UtilPointerEvent.upoutside, (e: interaction.InteractionEvent): void => {
-			const canvas = this.canvas;
-			if (canvas) {
-				canvas.onShapeCancel(e);
-			}
+		this.on(UtilPointerEvent.upoutside, (e: InteractionEvent): void => {
+			this.onShapeCancel(e);
 		});
-
-		this.on(UtilPointerEvent.cancel, (e: interaction.InteractionEvent): void => {
-			const canvas = this.canvas;
-			if (canvas) {
-				canvas.onShapeCancel(e);
-			}
+		this.on(UtilPointerEvent.cancel, (e: InteractionEvent): void => {
+			this.onShapeCancel(e);
 		});
-
-		this.on(UtilPointerEvent.tap, (e: interaction.InteractionEvent): void => {
-			const canvas = this.canvas;
-			if (canvas) {
-				canvas.onShapeClick(e);
-			}
+		this.on(UtilPointerEvent.tap, (e: InteractionEvent): void => {
+			this.onShapeClick(e);
 		});
 
 		//
@@ -110,14 +93,51 @@ export class DDiagram<
 		return this.toCanvasBaseOptions(serialized);
 	}
 
-	protected onDown(e: interaction.InteractionEvent): void {
+	protected onDown(e: InteractionEvent): void {
 		super.onDown(e, this.canvas?.onShapeDown(e));
 	}
 
-	onDblClick(
-		e: MouseEvent | TouchEvent,
-		interactionManager: interaction.InteractionManager
-	): boolean {
+	protected onShapeMove(e: InteractionEvent): void {
+		const canvas = this.canvas;
+		if (canvas) {
+			const target = e.target;
+			if (target === this || target === canvas) {
+				canvas.onShapeMove(e);
+			}
+		}
+	}
+
+	protected onShapeUp(e: InteractionEvent): void {
+		const canvas = this.canvas;
+		if (canvas) {
+			const target = e.target;
+			if (target === this || target === canvas) {
+				canvas.onShapeUp(e);
+			}
+		}
+	}
+
+	protected onShapeCancel(e: InteractionEvent): void {
+		const canvas = this.canvas;
+		if (canvas) {
+			const target = e.target;
+			if (target === this || target === canvas) {
+				canvas.onShapeCancel(e);
+			}
+		}
+	}
+
+	protected onShapeClick(e: InteractionEvent): void {
+		const canvas = this.canvas;
+		if (canvas) {
+			const target = e.target;
+			if (target === this || target === canvas) {
+				canvas.onShapeClick(e);
+			}
+		}
+	}
+
+	onDblClick(e: MouseEvent | TouchEvent, interactionManager: InteractionManager): boolean {
 		return super.onDblClick(
 			e,
 			interactionManager,
