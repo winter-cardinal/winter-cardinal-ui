@@ -17,6 +17,7 @@ import {
 import { EShapeActionValue } from "./action/e-shape-action-value";
 import { EShapeDataMapper } from "./e-shape-data-mapper";
 import { EShapeDataMapperImpl } from "./e-shape-data-mapper-impl";
+import { EShapeResourceManagerDeserializationMode } from "./e-shape-resource-manager-deserialization-mode";
 import { EShapeTextAlignHorizontal } from "./e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "./e-shape-text-align-vertical";
 import { EShapeEmbeddedDatum } from "./variant/e-shape-embedded-datum";
@@ -32,7 +33,7 @@ export class EShapeResourceManagerDeserialization {
 	data: string[];
 	pieces?: string[];
 	pieceData?: Map<string, EShapeEmbeddedDatum | null>;
-	isEditMode: boolean;
+	mode: EShapeResourceManagerDeserializationMode;
 	depth: number;
 
 	protected _actions: Map<number, EShapeActionValue>;
@@ -55,14 +56,14 @@ export class EShapeResourceManagerDeserialization {
 		serialized: EShapeResourceManagerDeserializationSerialized,
 		pieces: string[] | undefined,
 		pieceData: Map<string, EShapeEmbeddedDatum | null> | undefined,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		depth: number
 	) {
 		this.resources = serialized.resources;
 		this.data = serialized.data || serialized.tags || serialized.resources;
 		this.pieces = pieces;
 		this.pieceData = pieceData;
-		this.isEditMode = isEditMode;
+		this.mode = mode;
 		this.depth = depth;
 
 		this._actions = new Map<number, EShapeActionValue>();

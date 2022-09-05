@@ -24,6 +24,7 @@ import { DDiagramSerialized } from "./d-diagram-serialized";
 import { DDiagramSnapshot, DDiagramSnapshotOptions } from "./d-diagram-snapshot";
 import { DDiagrams } from "./d-diagrams";
 import { DOnOptions } from "./d-on-options";
+import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
 import { EShape } from "./shape/e-shape";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
@@ -102,6 +103,7 @@ export abstract class DDiagramBase<
 	protected _controller?: CONTROLLER;
 	protected _isAmbient: boolean;
 	protected _snapshot: DDiagramSnapshot;
+	protected _mode: EShapeResourceManagerDeserializationMode;
 
 	constructor(options?: OPTIONS) {
 		super(options);
@@ -110,6 +112,7 @@ export abstract class DDiagramBase<
 		this._controller = options?.controller;
 		this._isAmbient = options?.ambient ?? this.theme.isAmbient();
 		this._snapshot = new DDiagramSnapshot(this, options?.snapshot);
+		this._mode = this.toMode(options);
 	}
 
 	get snapshot(): DDiagramSnapshot {
@@ -139,10 +142,10 @@ export abstract class DDiagramBase<
 			if (serialized) {
 				const canvas = this.newCanvas(serialized);
 				const pieces = serialized.pieces;
-				const isEditMode = this.isEditMode();
-				const result = DDiagrams.toPieceData(this._controller, pieces, isEditMode).then(
+				const mode = this._mode;
+				const result = DDiagrams.toPieceData(this._controller, pieces, mode).then(
 					(pieceData): Promise<CANVAS> => {
-						return this.newLayer(serialized, canvas, isEditMode, pieces, pieceData);
+						return this.newLayer(serialized, canvas, mode, pieces, pieceData);
 					}
 				);
 				this.onSet(serialized, canvas);
@@ -160,12 +163,12 @@ export abstract class DDiagramBase<
 		// DO NOTHING
 	}
 
-	protected abstract isEditMode(): boolean;
+	protected abstract toMode(options?: OPTIONS): EShapeResourceManagerDeserializationMode;
 
 	protected newLayer(
 		serialized: DDiagramSerialized,
 		canvas: CANVAS,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		pieces?: string[],
 		pieceData?: Map<string, EShapeEmbeddedDatum | null>
 	): Promise<CANVAS> {
@@ -173,7 +176,7 @@ export abstract class DDiagramBase<
 			serialized,
 			pieces,
 			pieceData,
-			isEditMode,
+			mode,
 			0
 		);
 		const result = DDiagrams.newLayer(serialized, canvas.layer, manager).then(

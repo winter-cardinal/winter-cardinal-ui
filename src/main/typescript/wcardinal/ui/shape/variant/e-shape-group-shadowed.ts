@@ -4,21 +4,25 @@
  */
 
 import { EShapeDefaults } from "../e-shape-defaults";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeType } from "../e-shape-type";
 import { EShapeGroup } from "./e-shape-group";
 import { EShapeGroupSize } from "./e-shape-group-size";
 import { EShapeGroupSizeShadowed } from "./e-shape-group-size-shadowed";
 
 export class EShapeGroupShadowed extends EShapeGroup {
-	constructor(isEditMode: boolean, type: EShapeType = EShapeType.GROUP_SHADOWED) {
-		super(isEditMode, type);
+	constructor(
+		mode: EShapeResourceManagerDeserializationMode,
+		type: EShapeType = EShapeType.GROUP_SHADOWED
+	) {
+		super(mode, type);
 	}
 
-	protected newGroupSize(isEditMode: boolean): EShapeGroupSize {
-		if (isEditMode) {
+	protected newGroupSize(mode: EShapeResourceManagerDeserializationMode): EShapeGroupSize {
+		if (mode !== EShapeResourceManagerDeserializationMode.VIEWER) {
 			return new EShapeGroupSizeShadowed(this, EShapeDefaults.SIZE_X, EShapeDefaults.SIZE_Y);
 		} else {
-			return super.newGroupSize(isEditMode);
+			return super.newGroupSize(mode);
 		}
 	}
 }

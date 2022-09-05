@@ -1,5 +1,6 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeDefaults } from "../e-shape-defaults";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
 import { EShapeGroupSize } from "./e-shape-group-size";
@@ -12,13 +13,12 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 
 	constructor(
 		name: string,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		depth: number,
 		type: EShapeType = EShapeType.EMBEDDED
 	) {
-		super(isEditMode, depth, type);
+		super(mode, depth, type);
 		this._name = name;
-		this._isEditMode = isEditMode;
 		this._depth = depth;
 	}
 
@@ -30,10 +30,13 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 		return false;
 	}
 
-	protected newGroupSize(isEditMode: boolean, depth: number): EShapeGroupSize {
+	protected newGroupSize(
+		mode: EShapeResourceManagerDeserializationMode,
+		depth: number
+	): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
-		if (isEditMode && depth <= 0) {
+		if (mode !== EShapeResourceManagerDeserializationMode.VIEWER && depth <= 0) {
 			return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
 		} else {
 			return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
@@ -55,7 +58,7 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 
 	protected newClone(): EShapeEmbedded {
 		const constructor = this.constructor as typeof EShapeEmbedded;
-		return new constructor(this._name, this._isEditMode, this._depth, this.type);
+		return new constructor(this._name, this._mode, this._depth, this.type);
 	}
 
 	serializeChildren(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem[] {

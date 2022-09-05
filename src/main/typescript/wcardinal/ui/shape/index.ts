@@ -78,6 +78,7 @@ export * from "./e-shape-points";
 export * from "./e-shape-renderer-iterator-datum";
 export * from "./e-shape-renderer-iterator";
 export * from "./e-shape-renderer";
+export * from "./e-shape-resource-manager-deserialization-mode";
 export * from "./e-shape-resource-manager-deserialization";
 export * from "./e-shape-resource-manager-serialization";
 export * from "./e-shape-runtime";

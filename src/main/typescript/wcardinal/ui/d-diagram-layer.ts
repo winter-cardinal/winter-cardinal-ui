@@ -14,6 +14,7 @@ import { EShape } from "./shape/e-shape";
 import { EShapeContainer } from "./shape/e-shape-container";
 import { EShapeLayerState } from "./shape/e-shape-layer-state";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
 import { EShapeRuntime } from "./shape/e-shape-runtime";
 import { EShapeRectanglePivoted } from "./shape/variant/e-shape-rectangle-pivoted";
@@ -207,12 +208,13 @@ export class DDiagramLayer extends EShapeContainer {
 
 		const visibility = serialized[1];
 		if (visibility != null) {
-			if (manager.isEditMode && !(visibility & 0x1)) {
+			const isEditorMode = manager.mode !== EShapeResourceManagerDeserializationMode.VIEWER;
+			if (isEditorMode && !(visibility & 0x1)) {
 				result.visible = false;
 			}
 			if (!(visibility & 0x2)) {
 				shape.state.add(EShapeLayerState.INVISIBLE);
-				if (!manager.isEditMode) {
+				if (!isEditorMode) {
 					result.visible = false;
 				}
 			}

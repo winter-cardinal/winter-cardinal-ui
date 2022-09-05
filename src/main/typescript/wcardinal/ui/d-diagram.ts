@@ -16,6 +16,7 @@ import { DDiagramDataImpl } from "./d-diagram-data-impl";
 import { DDiagramDataMapper } from "./d-diagram-data-mapper";
 import { DDiagramController } from "./d-diagram-controller";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
 
 /**
  * {@link DDiagram} options.
@@ -81,8 +82,8 @@ export class DDiagram<
 		return super.initLayer(canvas, shapes, mapper || this.data.mapper);
 	}
 
-	protected isEditMode(): boolean {
-		return false;
+	protected toMode(options?: OPTIONS): EShapeResourceManagerDeserializationMode {
+		return EShapeResourceManagerDeserializationMode.VIEWER;
 	}
 
 	protected newCanvas(serialized: DDiagramSerialized): DDiagramCanvas {

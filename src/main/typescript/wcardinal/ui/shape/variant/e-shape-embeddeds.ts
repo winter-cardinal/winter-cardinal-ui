@@ -8,6 +8,7 @@ import { DDiagramSerialized, DDiagramSerializedSimple } from "../../d-diagram-se
 import { DDiagrams } from "../../d-diagrams";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeEmbedded } from "./e-shape-embedded";
 import { EShapeEmbeddedDatum } from "./e-shape-embedded-datum";
 import { EShapeEmbeddedLayerContainer } from "./e-shape-embedded-layer-container";
@@ -16,18 +17,18 @@ export class EShapeEmbeddeds {
 	static from(
 		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
 		controller: DDiagramBaseController | null | undefined,
-		isEditMode: boolean
+		mode: EShapeResourceManagerDeserializationMode
 	): Promise<EShapeEmbedded> {
 		const serialized = DDiagrams.toSerialized(serializedOrSimple);
 		const pieces = serialized.pieces;
-		return DDiagrams.toPieceData(controller, pieces, isEditMode).then((pieceData) => {
-			return this.from_(serialized, isEditMode, pieces, pieceData);
+		return DDiagrams.toPieceData(controller, pieces, mode).then((pieceData) => {
+			return this.from_(serialized, mode, pieces, pieceData);
 		});
 	}
 
 	private static from_(
 		serialized: DDiagramSerialized,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		pieces?: string[],
 		pieceData?: Map<string, EShapeEmbeddedDatum | null>
 	): Promise<EShapeEmbedded> {
@@ -38,11 +39,11 @@ export class EShapeEmbeddeds {
 			serialized,
 			pieces,
 			pieceData,
-			isEditMode,
+			mode,
 			1
 		);
 		return DDiagrams.newLayer(serialized, container, manager).then(() => {
-			return this.create(serialized.name, width, height, container, isEditMode, 0);
+			return this.create(serialized.name, width, height, container, mode, 0);
 		});
 	}
 
@@ -51,10 +52,10 @@ export class EShapeEmbeddeds {
 		width: number,
 		height: number,
 		container: EShapeLayerContainer,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		depth: number
 	): EShapeEmbedded {
-		const shape = new EShapeEmbedded(name, isEditMode, depth);
+		const shape = new EShapeEmbedded(name, mode, depth);
 		shape.size.set(width, height);
 		container.copyTo(shape);
 		shape.size.init();

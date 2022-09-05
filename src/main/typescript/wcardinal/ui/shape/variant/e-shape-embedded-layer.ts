@@ -7,6 +7,7 @@ import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeFill } from "../e-shape-fill";
 import { EShapeLayer } from "../e-shape-layer";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
 import { EShapeFillImpl } from "./e-shape-fill-impl";
@@ -19,11 +20,11 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 
 	constructor(
 		name: string,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		depth: number,
 		type: EShapeType = EShapeType.EMBEDDED_LAYER
 	) {
-		super(isEditMode, depth, type);
+		super(mode, depth, type);
 		this._name = name;
 	}
 
@@ -39,7 +40,10 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 		return false;
 	}
 
-	protected newGroupSize(isEditMode: boolean, depth: number): EShapeGroupSize {
+	protected newGroupSize(
+		mode: EShapeResourceManagerDeserializationMode,
+		depth: number
+	): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
 		return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
@@ -61,7 +65,7 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 
 	protected newClone(): EShapeEmbeddedLayer {
 		const constructor = this.constructor as typeof EShapeEmbeddedLayer;
-		return new constructor(this._name, this._isEditMode, this._depth, this.type);
+		return new constructor(this._name, this._mode, this._depth, this.type);
 	}
 
 	serializeChildren(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem[] {

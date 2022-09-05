@@ -13,6 +13,7 @@ import {
 import { EShape } from "./shape/e-shape";
 import { EShapeLayerContainer } from "./shape/e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
 import { deserializeAll } from "./shape/variant/deserialize-all";
 import { EShapeEmbeddedDatum } from "./shape/variant/e-shape-embedded-datum";
 import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-layer-container";
@@ -118,21 +119,17 @@ export class DDiagrams {
 	static toPieceData(
 		controller: DDiagramBaseController | null | undefined,
 		pieces: string[] | null | undefined,
-		isEditMode: boolean
+		mode: EShapeResourceManagerDeserializationMode
 	): Promise<Map<string, EShapeEmbeddedDatum | null>> {
 		const pieceToDatum = new Map<string, EShapeEmbeddedDatum | null>();
 		const pieceToPromise = new Map<string, Promise<EShape[] | null>>();
 		const onFulfilled = () => {
 			return pieceToDatum;
 		};
-		return this.toPieceData_(
-			controller,
-			pieces,
-			pieceToDatum,
-			pieceToPromise,
-			isEditMode,
-			0
-		).then(onFulfilled, onFulfilled);
+		return this.toPieceData_(controller, pieces, pieceToDatum, pieceToPromise, mode, 0).then(
+			onFulfilled,
+			onFulfilled
+		);
 	}
 
 	private static toPieceData_(
@@ -140,7 +137,7 @@ export class DDiagrams {
 		pieces: string[] | null | undefined,
 		pieceToDatum: Map<string, EShapeEmbeddedDatum | null>,
 		pieceToPromise: Map<string, Promise<EShape[] | null>>,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		depth: number
 	): Promise<Array<EShape[] | null>> {
 		const promises: Array<Promise<EShape[] | null>> = [];
@@ -157,7 +154,7 @@ export class DDiagrams {
 								controller,
 								piece,
 								found,
-								isEditMode,
+								mode,
 								depth + 1,
 								pieceToDatum,
 								pieceToPromise
@@ -179,7 +176,7 @@ export class DDiagrams {
 		controller: DDiagramBaseController,
 		name: string,
 		serializedOrSimple: DDiagramSerialized | DDiagramSerializedSimple,
-		isEditMode: boolean,
+		mode: EShapeResourceManagerDeserializationMode,
 		depth: number,
 		pieceToDatum: Map<string, EShapeEmbeddedDatum | null>,
 		pieceToPromise: Map<string, Promise<EShape[] | null>>
@@ -197,7 +194,7 @@ export class DDiagrams {
 			pieces,
 			pieceToDatum,
 			pieceToPromise,
-			isEditMode,
+			mode,
 			depth
 		).then(() => {
 			return this.newLayer(
@@ -207,7 +204,7 @@ export class DDiagrams {
 					serialized,
 					pieces,
 					pieceToDatum,
-					isEditMode,
+					mode,
 					depth
 				)
 			);

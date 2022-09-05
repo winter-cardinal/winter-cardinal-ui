@@ -25,6 +25,7 @@ import {
 } from "./d-diagram-serialized";
 import { DDiagrams } from "./d-diagrams";
 import { DOnOptions } from "./d-on-options";
+import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
 import { ESnapper } from "./snapper/e-snapper";
 
 /**
@@ -125,6 +126,7 @@ export interface DDiagramEditorOptions<
 	controller?: DDiagramEditorController;
 	on?: DDiagramEditorOnOptions<EMITTER>;
 	thumbnail?: DDiagramEditorThumbnailOptions;
+	mapping?: boolean;
 }
 
 /**
@@ -177,8 +179,11 @@ export class DDiagramEditor<
 		return this._snapper;
 	}
 
-	protected isEditMode(): boolean {
-		return true;
+	protected toMode(options?: OPTIONS): EShapeResourceManagerDeserializationMode {
+		if (options?.mapping) {
+			return EShapeResourceManagerDeserializationMode.EDITOR_DATA_MAPPED;
+		}
+		return EShapeResourceManagerDeserializationMode.EDITOR;
 	}
 
 	protected newCanvas(serialized: DDiagramSerialized): DDiagramCanvasEditor {

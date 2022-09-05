@@ -10,6 +10,7 @@ import { EShapeActionValueGestureOperationType } from "../action/e-shape-action-
 import { EShapeActionValueGestureType } from "../action/e-shape-action-value-gesture-type";
 import { EShapeLayerState } from "../e-shape-layer-state";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeEmbeddedLayer } from "./e-shape-embedded-layer";
 
 const deserializeEmbeddedLayerName = (
@@ -37,7 +38,7 @@ export const deserializeEmbeddedLayer = (
 	const name = deserializeEmbeddedLayerName(serialized[0], manager);
 	const result = creator
 		? creator(name, manager)
-		: new EShapeEmbeddedLayer(name, manager.isEditMode, manager.depth);
+		: new EShapeEmbeddedLayer(name, manager.mode, manager.depth);
 
 	const visibility = serialized[1];
 	const visible = visibility == null || !!(visibility & 0x2);
@@ -60,7 +61,7 @@ export const deserializeEmbeddedLayer = (
 		result.fill.deserialize(fillId, manager);
 	}
 
-	if (!manager.isEditMode) {
+	if (manager.mode === EShapeResourceManagerDeserializationMode.VIEWER) {
 		const state = serialized[7] ?? 1;
 		const isInteractive = state & 0x1;
 		const isDraggable = state & 0x2;

@@ -9,6 +9,7 @@ import { EShapeDataMapper } from "../e-shape-data-mapper";
 import { EShapeDataValueScope } from "../e-shape-data-value-scope";
 import { EShapeLayerContainer } from "../e-shape-layer-container";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { deserializeBase } from "./deserialize-base";
 import { EShapeEmbedded } from "./e-shape-embedded";
 import { EShapeEmbeddedLayer } from "./e-shape-embedded-layer";
@@ -23,9 +24,9 @@ const create = (
 	item: DDiagramSerializedItem,
 	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	const isEditMode = manager.isEditMode;
+	const mode = manager.mode;
 	const depth = manager.depth;
-	shape = shape || new EShapeEmbedded(name, isEditMode, depth);
+	shape = shape || new EShapeEmbedded(name, mode, depth);
 	const result = deserializeBase(item, manager, shape);
 	const shapeSize = shape.size;
 	const sizeX = shapeSize.x;
@@ -34,7 +35,7 @@ const create = (
 	container.copyTo(shape);
 	shape.size.init();
 	shape.size.set(sizeX, sizeY);
-	if (isEditMode) {
+	if (mode === EShapeResourceManagerDeserializationMode.EDITOR) {
 		if (0 < depth) {
 			applyDataMappings(shape, manager);
 		}
@@ -50,9 +51,9 @@ const createMissing = (
 	item: DDiagramSerializedItem,
 	shape?: EShapeEmbedded
 ): Promise<EShapeEmbedded> | EShapeEmbedded => {
-	const isEditMode = manager.isEditMode;
+	const mode = manager.mode;
 	const depth = manager.depth;
-	shape = shape || new EShapeEmbedded(name, isEditMode, depth);
+	shape = shape || new EShapeEmbedded(name, mode, depth);
 	const result = deserializeBase(item, manager, shape);
 
 	const size = shape.size;
@@ -60,7 +61,7 @@ const createMissing = (
 	const sizeY = size.y;
 
 	const children = shape.children;
-	const layer = new EShapeEmbeddedLayer("missing", isEditMode, depth);
+	const layer = new EShapeEmbeddedLayer("missing", mode, depth);
 	const px = 0.5 * sizeX;
 	const py = 0.5 * sizeX;
 	layer.transform.position.set(-px, -py);
@@ -80,7 +81,7 @@ const createMissing = (
 	shape.onAttach();
 
 	shape.size.init();
-	if (isEditMode) {
+	if (mode === EShapeResourceManagerDeserializationMode.EDITOR) {
 		if (0 < depth) {
 			applyDataMappings(shape, manager);
 		}

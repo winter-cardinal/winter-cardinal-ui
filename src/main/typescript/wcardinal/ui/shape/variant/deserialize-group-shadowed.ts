@@ -13,7 +13,7 @@ export const deserializeGroupShadowed = (
 	manager: EShapeResourceManagerDeserialization,
 	shape?: EShapeGroupShadowed
 ): Promise<EShapeGroupShadowed> | EShapeGroupShadowed => {
-	shape = shape || new EShapeGroupShadowed(manager.isEditMode);
+	shape = shape || new EShapeGroupShadowed(manager.mode);
 	const result = deserializeBase(item, manager, shape);
 	shape.size.init();
 	return result;

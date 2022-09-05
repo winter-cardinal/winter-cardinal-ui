@@ -23,6 +23,7 @@ import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
 import { EShapeGroupStrokeEditor } from "./e-shape-group-stroke-editor";
 import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeTextImpl } from "./e-shape-text-impl";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 
 export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent {
 	size: EShapeGroupSize;
@@ -33,30 +34,33 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 	data: EShapeData;
 	text: EShapeText;
 
-	protected _isEditMode: boolean;
+	protected _mode: EShapeResourceManagerDeserializationMode;
 	protected _points?: EShapePoints;
 
-	constructor(isEditMode: boolean, type: EShapeType = EShapeType.GROUP) {
+	constructor(
+		mode: EShapeResourceManagerDeserializationMode,
+		type: EShapeType = EShapeType.GROUP
+	) {
 		super(type);
-		this._isEditMode = isEditMode;
+		this._mode = mode;
 		const data = new EShapeDataImpl();
 		this.data = data;
 		this.tag = data;
-		this.size = this.newGroupSize(isEditMode);
+		this.size = this.newGroupSize(mode);
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
 		this._points = this.newGroupPoints();
 	}
 
-	get isEditMode(): boolean {
-		return this._isEditMode;
+	get mode(): EShapeResourceManagerDeserializationMode {
+		return this._mode;
 	}
 
-	protected newGroupSize(isEditMode: boolean): EShapeGroupSize {
+	protected newGroupSize(mode: EShapeResourceManagerDeserializationMode): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
-		if (isEditMode) {
+		if (mode !== EShapeResourceManagerDeserializationMode.VIEWER) {
 			return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
 		} else {
 			return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
@@ -215,7 +219,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 
 	protected newClone(): EShapeGroup {
 		const constructor = this.constructor as typeof EShapeGroup;
-		return new constructor(this._isEditMode, this.type);
+		return new constructor(this._mode, this.type);
 	}
 
 	containsAbs(

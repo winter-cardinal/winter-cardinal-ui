@@ -21,6 +21,7 @@ import { EShapeGroupStrokeViewer } from "./e-shape-group-stroke-viewer";
 import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeTextImpl } from "./e-shape-text-impl";
+import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 
 export abstract class EShapeGroupViewer extends EShapeBase {
 	size: EShapeGroupSize;
@@ -31,34 +32,37 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 	data: EShapeData;
 	text: EShapeText;
 
-	protected _isEditMode: boolean;
+	protected _mode: EShapeResourceManagerDeserializationMode;
 	protected _depth: number;
 
-	constructor(isEditMode: boolean, depth: number, type: EShapeType) {
+	constructor(mode: EShapeResourceManagerDeserializationMode, depth: number, type: EShapeType) {
 		super(type);
-		this._isEditMode = isEditMode;
+		this._mode = mode;
 		this._depth = depth;
 		const data = this.newData();
 		this.data = data;
 		this.tag = data;
-		this.size = this.newGroupSize(isEditMode, depth);
+		this.size = this.newGroupSize(mode, depth);
 		this.fill = this.newGroupFill();
 		this.stroke = this.newGroupStroke();
 		this.text = this.newGroupText();
 	}
 
-	get isEditMode(): boolean {
-		return this._isEditMode;
+	get mode(): EShapeResourceManagerDeserializationMode {
+		return this._mode;
 	}
 
 	get depth(): number {
 		return this._depth;
 	}
 
-	protected newGroupSize(isEditMode: boolean, depth: number): EShapeGroupSize {
+	protected newGroupSize(
+		mode: EShapeResourceManagerDeserializationMode,
+		depth: number
+	): EShapeGroupSize {
 		const sizeX = EShapeDefaults.SIZE_X;
 		const sizeY = EShapeDefaults.SIZE_Y;
-		if (isEditMode) {
+		if (mode !== EShapeResourceManagerDeserializationMode.VIEWER) {
 			return new EShapeGroupSizeEditor(this, sizeX, sizeY, this.isGroupSizeFittable());
 		} else {
 			return new EShapeGroupSizeViewer(this, sizeX, sizeY, sizeX, sizeY);
