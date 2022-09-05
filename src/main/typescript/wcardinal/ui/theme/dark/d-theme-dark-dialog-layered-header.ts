@@ -5,7 +5,6 @@
 
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DBorderMask } from "../../d-border-mask";
 import { DCoordinateSize } from "../../d-coordinate";
 import { DCornerMask } from "../../d-corner-mask";
 import { DThemeDialogLayeredHeader } from "../../d-dialog-layered-header";
@@ -32,11 +31,7 @@ export class DThemeDarkDialogLayeredHeader
 	}
 
 	getBackgroundColor(): number | null {
-		return 0;
-	}
-
-	getBackgroundAlpha(): number {
-		return 0.05;
+		return null;
 	}
 
 	getCornerMask(): DCornerMask {
@@ -44,15 +39,7 @@ export class DThemeDarkDialogLayeredHeader
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
-		return 0;
-	}
-
-	getBorderAlpha(state: DBaseStateSet): number {
-		return 0.1;
-	}
-
-	getBorderMask(state: DBaseStateSet): DBorderMask {
-		return DBorderMask.NOT_BOTTOM;
+		return null;
 	}
 
 	getInteractive(): DBaseInteractive {

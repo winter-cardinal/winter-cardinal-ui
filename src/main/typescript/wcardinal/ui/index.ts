@@ -255,6 +255,7 @@ export * from "./d-dialog-input";
 export * from "./d-dialog-layered-content";
 export * from "./d-dialog-layered-footer";
 export * from "./d-dialog-layered-header-button-close";
+export * from "./d-dialog-layered-header-separator";
 export * from "./d-dialog-layered-header";
 export * from "./d-dialog-layered";
 export * from "./d-dialog-message";

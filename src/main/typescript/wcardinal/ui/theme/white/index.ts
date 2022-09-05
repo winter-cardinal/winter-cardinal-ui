@@ -64,6 +64,7 @@ export * from "./d-theme-white-dialog-input";
 export * from "./d-theme-white-dialog-layered-content";
 export * from "./d-theme-white-dialog-layered-footer";
 export * from "./d-theme-white-dialog-layered-header-button-close";
+export * from "./d-theme-white-dialog-layered-header-separator";
 export * from "./d-theme-white-dialog-layered-header";
 export * from "./d-theme-white-dialog-layered";
 export * from "./d-theme-white-dialog-message";

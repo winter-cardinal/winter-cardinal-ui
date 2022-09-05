@@ -16,14 +16,14 @@ import { DThemeWhiteButtonAmbient } from "./d-theme-white-button-ambient";
 /* eslint-disable prettier/prettier */
 DThemeWhiteAtlas.add("dialog_layered_header_button_close", 20, 14,
 	`<g>` +
-		`<polyline fill="none" stroke="#fff" stroke-width="1" points="16 1 4 13"></polyline>` +
-		`<polyline fill="none" stroke="#fff" stroke-width="1" points="4 1 16 13"></polyline>` +
+		`<polyline fill="none" stroke="#fff" stroke-width="1" points="15 2 5 12"></polyline>` +
+		`<polyline fill="none" stroke="#fff" stroke-width="1" points="5 2 15 12"></polyline>` +
 	`</g>`
 );
 /* eslint-enable prettier/prettier */
 
 const X: DCoordinatePosition = (p, s) => {
-	return p - 38;
+	return p - 34;
 };
 
 export class DThemeWhiteDialogLayeredHeaderButtonClose

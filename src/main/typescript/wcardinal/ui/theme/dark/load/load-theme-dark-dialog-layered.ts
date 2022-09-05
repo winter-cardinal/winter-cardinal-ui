@@ -9,11 +9,13 @@ import { DThemeDarkDialogLayeredContent } from "../d-theme-dark-dialog-layered-c
 import { DThemeDarkDialogLayeredFooter } from "../d-theme-dark-dialog-layered-footer";
 import { DThemeDarkDialogLayeredHeader } from "../d-theme-dark-dialog-layered-header";
 import { DThemeDarkDialogLayeredHeaderButtonClose } from "../d-theme-dark-dialog-layered-header-button-close";
+import { DThemeDarkDialogLayeredHeaderSeparator } from "../d-theme-dark-dialog-layered-header-separator";
 
 export const loadThemeDarkDialogLayered = (): void => {
 	DThemeDark.set("DDialogLayeredContent", DThemeDarkDialogLayeredContent);
 	DThemeDark.set("DDialogLayeredFooter", DThemeDarkDialogLayeredFooter);
 	DThemeDark.set("DDialogLayeredHeaderButtonClose", DThemeDarkDialogLayeredHeaderButtonClose);
+	DThemeDark.set("DDialogLayeredHeaderSeparator", DThemeDarkDialogLayeredHeaderSeparator);
 	DThemeDark.set("DDialogLayeredHeader", DThemeDarkDialogLayeredHeader);
 	DThemeDark.set("DDialogLayered", DThemeDarkDialogLayered);
 };

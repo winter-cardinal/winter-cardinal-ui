@@ -4,6 +4,7 @@
  */
 
 import { DDialogLayeredHeaderButtonClose } from "./d-dialog-layered-header-button-close";
+import { DDialogLayeredHeaderSeparator } from "./d-dialog-layered-header-separator";
 import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 
 export interface DDialogLayeredHeaderButtonOptions {
@@ -14,6 +15,7 @@ export interface DDialogLayeredHeaderOptions<
 	THEME extends DThemeDialogLayeredHeader = DThemeDialogLayeredHeader
 > extends DImageBaseOptions<string, THEME> {
 	button?: DDialogLayeredHeaderButtonOptions;
+	separator?: boolean;
 }
 
 export interface DThemeDialogLayeredHeader extends DThemeImageBase<string> {}
@@ -28,10 +30,16 @@ export class DDialogLayeredHeader<
 > extends DImageBase<string, THEME, OPTIONS> {
 	protected _parent: DDialogLayeredHeaderParent;
 	protected _buttonClose?: DDialogLayeredHeaderButtonClose | null;
+	protected _separator?: DDialogLayeredHeaderSeparator | null;
 
 	constructor(parent: DDialogLayeredHeaderParent, options?: OPTIONS) {
 		super(options);
 		this._parent = parent;
+
+		const separator = this.separator;
+		if (separator) {
+			this.addChild(separator);
+		}
 
 		const buttonClose = this.buttonClose;
 		if (buttonClose) {
@@ -54,6 +62,22 @@ export class DDialogLayeredHeader<
 	protected newButtonClose(): DDialogLayeredHeaderButtonClose | null {
 		if (this._options?.button?.close !== false) {
 			return new DDialogLayeredHeaderButtonClose();
+		}
+		return null;
+	}
+
+	get separator(): DDialogLayeredHeaderSeparator | null {
+		let result = this._separator;
+		if (result === undefined) {
+			result = this.newSeparator();
+			this._separator = result;
+		}
+		return result;
+	}
+
+	protected newSeparator(): DDialogLayeredHeaderSeparator | null {
+		if (this._options?.separator !== false) {
+			return new DDialogLayeredHeaderSeparator();
 		}
 		return null;
 	}
