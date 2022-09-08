@@ -80,7 +80,6 @@ export class DDiagramCanvas<
 	}
 
 	initialize(shapes: EShape[], mapper?: DDiagramDataMapper | null): void {
-		const time = Date.now();
 		const actionables = this._actionables;
 		this.initialize_(
 			shapes,
@@ -96,15 +95,14 @@ export class DDiagramCanvas<
 			actionables
 		);
 		const layers = this._layer.children;
-		for (let i = 0, imax = layers.length; i < imax; ++i) {
+		const layersLength = layers.length;
+		for (let i = 0; i < layersLength; ++i) {
 			layers[i].initialize(actionables);
 		}
 		EShapeActionEnvironment.isInitializing = true;
-		for (let i = 0, imax = layers.length; i < imax; ++i) {
-			const layerChildren = layers[i].children;
-			for (let j = 0, jmax = layerChildren.length; j < jmax; ++j) {
-				layerChildren[j].update(time);
-			}
+		const time = Date.now();
+		for (let i = 0; i < layersLength; ++i) {
+			layers[i].update(time);
 		}
 		EShapeActionEnvironment.isInitializing = false;
 		this._ticker.start();
@@ -604,7 +602,7 @@ export class DDiagramCanvas<
 				const actionable = actionables[i];
 				actionable.update(time);
 				const runtime = actionable.runtime;
-				if (runtime && time < runtime.effect) {
+				if (runtime) {
 					const runtimeEffect = runtime.effect;
 					if (time < runtimeEffect) {
 						effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);
@@ -626,7 +624,7 @@ export class DDiagramCanvas<
 				const actionable = actionables[i];
 				actionable.onRender(time, renderer);
 				const runtime = actionable.runtime;
-				if (runtime && time < runtime.effect) {
+				if (runtime) {
 					const runtimeEffect = runtime.effect;
 					if (time < runtimeEffect) {
 						effect = effect < 0 ? runtimeEffect : Math.min(effect, runtimeEffect);

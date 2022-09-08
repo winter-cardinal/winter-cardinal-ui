@@ -121,6 +121,23 @@ export class DDiagramLayer extends EShapeContainer {
 		}
 	}
 
+	update(time: number): void {
+		this.doUpdate(this.children, time);
+	}
+
+	protected doUpdate(shapes: EShape[], time: number): void {
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			const shape = shapes[i];
+			shape.update(time);
+
+			// Children
+			const children = shape.children;
+			if (0 < children.length) {
+				this.doUpdate(children, time);
+			}
+		}
+	}
+
 	hitTestInteractives(global: IPoint): EShape | null {
 		const local = this._work;
 		const interactives = this.interactives;
