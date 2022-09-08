@@ -16,7 +16,7 @@ export class DThemeDarkDialogLayeredFooter
 	}
 
 	getButtonCancel(): string | null {
-		return "Cacnel";
+		return "Cancel";
 	}
 
 	getX(): DCoordinatePosition {
