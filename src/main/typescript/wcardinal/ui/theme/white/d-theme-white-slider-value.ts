@@ -24,7 +24,7 @@ export class DThemeWhiteSliderValue<VALUE = unknown>
 	}
 
 	getWidth(): DCoordinateSize {
-		return "AUTO";
+		return this.getLineHeight() * 2;
 	}
 
 	getHeight(): DCoordinateSize {

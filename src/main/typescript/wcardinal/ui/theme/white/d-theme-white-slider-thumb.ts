@@ -62,7 +62,7 @@ export class DThemeWhiteSliderThumb<VALUE = unknown>
 		return DAlignHorizontal.CENTER;
 	}
 
-	getOutlineOffset(state: DBaseStateSet): number {
-		return this.getOutlineOffsetNonActive(state) + 2;
+	getOutlineColor(state: DBaseStateSet): number | null {
+		return null;
 	}
 }

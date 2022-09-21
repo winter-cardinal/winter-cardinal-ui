@@ -9,6 +9,7 @@ import { DSliderLabelOptions } from "./d-slider-label";
 import { DSliderTrack } from "./d-slider-track";
 import { DSliderTrackHorizontal } from "./d-slider-track-horizontal";
 import { DSliderValueOptions } from "./d-slider-value";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DSliderHorizontalOptions<THEME extends DThemeSliderHorizontal>
 	extends DSliderOptions<THEME> {}
@@ -86,8 +87,13 @@ export class DSliderHorizontal<
 		this.updateValue();
 	}
 
-	protected toThumbCoordinate(x: number): number {
-		return x - this._thumb.width * 0.5;
+	protected onKeyDown(e: KeyboardEvent): boolean {
+		if (UtilKeyboardEvent.isArrowRightKey(e)) {
+			this.value += this._value.delta;
+		} else if (UtilKeyboardEvent.isArrowLeftKey(e)) {
+			this.value -= this._value.delta;
+		}
+		return super.onKeyDown(e);
 	}
 
 	protected getType(): string {

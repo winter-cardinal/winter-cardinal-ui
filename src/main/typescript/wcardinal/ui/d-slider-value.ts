@@ -12,6 +12,7 @@ export interface DSliderValueOptions<
 	value?: number;
 	precision?: number;
 	rounder?: (value: number) => number;
+	delta?: number;
 }
 
 export interface DThemeSliderValue<VALUE = unknown> extends DThemeTextBase<VALUE> {
@@ -23,13 +24,15 @@ export class DSliderValue<
 	THEME extends DThemeSliderValue<VALUE> = DThemeSliderValue<VALUE>,
 	OPTIONS extends DSliderValueOptions<VALUE, THEME> = DSliderValueOptions<VALUE, THEME>
 > extends DTextBase<VALUE, THEME, OPTIONS> {
-	protected _value!: number;
-	protected _rounder!: (value: number) => number;
+	protected _value: number;
+	protected _rounder: (value: number) => number;
+	protected _delta: number;
 
-	protected init(options?: OPTIONS): void {
-		super.init(options);
+	constructor(options: OPTIONS) {
+		super(options);
 		this._value = options?.value ?? 0;
 		this._rounder = this.toRounder(options);
+		this._delta = options?.delta ?? 1;
 	}
 
 	toRounder(options?: OPTIONS): (value: number) => number {
@@ -39,8 +42,8 @@ export class DSliderValue<
 		}
 
 		const precision = options?.precision ?? this.theme.getPrecision();
+		const base = Math.pow(10, precision);
 		return (value: number) => {
-			const base = Math.pow(10, precision);
 			return Math.round(value * base) / base;
 		};
 	}
@@ -55,6 +58,10 @@ export class DSliderValue<
 
 	get rounder(): (value: number) => number {
 		return this._rounder;
+	}
+
+	get delta(): number {
+		return this._delta;
 	}
 
 	protected getType(): string {

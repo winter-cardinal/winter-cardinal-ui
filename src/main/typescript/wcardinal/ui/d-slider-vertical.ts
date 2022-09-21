@@ -9,6 +9,7 @@ import { DSlider, DSliderOptions, DThemeSlider } from "./d-slider";
 import { DSliderLabelOptions } from "./d-slider-label";
 import { DSliderTrack } from "./d-slider-track";
 import { DSliderTrackVertical } from "./d-slider-track-vertical";
+import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 
 export interface DSliderVerticalOptions<THEME extends DThemeSliderVertical = DThemeSliderVertical>
 	extends DSliderOptions<THEME> {}
@@ -93,6 +94,15 @@ export class DSliderVertical<
 		value.y = y - value.height - this.getValueMargin();
 
 		this.updateValue();
+	}
+
+	protected onKeyDown(e: KeyboardEvent): boolean {
+		if (UtilKeyboardEvent.isArrowUpKey(e)) {
+			this.value += this._value.delta;
+		} else if (UtilKeyboardEvent.isArrowDownKey(e)) {
+			this.value -= this._value.delta;
+		}
+		return super.onKeyDown(e);
 	}
 
 	protected getType(): string {
