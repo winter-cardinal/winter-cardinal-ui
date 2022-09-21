@@ -1543,6 +1543,11 @@ export class DBase<
 			if (!oldState.isFocused) {
 				this.onFocus();
 			}
+			if (newState.inDisabled && !oldState.inDisabled) {
+				setTimeout((): void => {
+					this.blur();
+				}, 0);
+			}
 		} else if (oldState.isFocused) {
 			this.onBlur();
 		}
