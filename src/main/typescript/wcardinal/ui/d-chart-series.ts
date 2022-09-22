@@ -7,7 +7,7 @@ import { DBase } from "./d-base";
 import { DBaseStateSet } from "./d-base-state-set";
 import { DChartRegionImmutable } from "./d-chart-region";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { DChartSeriesCoordinateContainer } from "./d-chart-series-coordinate";
+import { DChartSeriesCoordinateContainer } from "./d-chart-series-coordinate-container";
 import { EShape } from "./shape/e-shape";
 
 export class DChartSeriesHitResult {

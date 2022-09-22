@@ -136,7 +136,7 @@ export * from "./d-chart-series-base-coordinate-container";
 export * from "./d-chart-series-base";
 export * from "./d-chart-series-container-impl";
 export * from "./d-chart-series-container";
-export * from "./d-chart-series-coordinate";
+export * from "./d-chart-series-coordinate-container";
 export * from "./d-chart-series-fill-computed-impl";
 export * from "./d-chart-series-fill-computed";
 export * from "./d-chart-series-fill-impl";

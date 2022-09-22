@@ -15,15 +15,15 @@ import { DChartSeriesBaseCoordinateContainer } from "./d-chart-series-base-coord
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import {
 	DChartSeriesCoordinateContainer,
-	DChartSeriesCoordinateOptions
-} from "./d-chart-series-coordinate";
+	DChartSeriesCoordinateContainerOptions
+} from "./d-chart-series-coordinate-container";
 import { EShape } from "./shape/e-shape";
 
 /**
  * {@link DChartSeriesBase} options.
  */
 export interface DChartSeriesBaseOptions<EMITTER = any> {
-	coordinate?: DChartSeriesCoordinateOptions;
+	coordinate?: DChartSeriesCoordinateContainerOptions;
 	on?: DBaseOnOptions<EMITTER>;
 }
 

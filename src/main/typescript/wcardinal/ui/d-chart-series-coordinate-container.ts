@@ -6,7 +6,7 @@
 import { DBase } from "./d-base";
 import { DChartCoordinate } from "./d-chart-coordinate";
 
-export interface DChartSeriesCoordinateOptions {
+export interface DChartSeriesCoordinateContainerOptions {
 	/**
 	 * An index of a X axis.
 	 */
@@ -19,6 +19,9 @@ export interface DChartSeriesCoordinateOptions {
 }
 
 export interface DChartSeriesCoordinateContainer<CHART extends DBase = DBase> {
-	x: DChartCoordinate<CHART> | null;
-	y: DChartCoordinate<CHART> | null;
+	get x(): DChartCoordinate<CHART> | null;
+	set x(coordinate: number | DChartCoordinate<CHART> | null);
+
+	get y(): DChartCoordinate<CHART> | null;
+	set y(coordinate: number | DChartCoordinate<CHART> | null);
 }
