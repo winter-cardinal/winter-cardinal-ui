@@ -30,6 +30,7 @@
         * [Padding](./chart\axis/padding.html)
         * [Position](./chart\axis/position.html)
         * [Stroke styling](./chart\axis/stroke-styling.html)
+        * [Switching axes](./chart\axis/switch.html)
         * [Tick disabled](./chart\axis/tick-disabled.html)
         * [Tick gridline disabled](./chart\axis/tick-gridline-disabled.html)
         * [Tick gridline stroke styling](./chart\axis/tick-gridline-stroke-styling.html)
