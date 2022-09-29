@@ -320,7 +320,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		} else {
 			children.push(this);
 		}
-		this.uploaded = undefined;
 		parent.onChildTransformChange();
 		parent.toDirty();
 		this.onAttach();
@@ -328,6 +327,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	onAttach(): void {
+		this.uploaded = undefined;
 		const connector = this._connector;
 		if (connector) {
 			connector.attach();
@@ -343,7 +343,6 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const parent = this.parent;
 		if (parent) {
 			this.parent = null;
-			this.uploaded = undefined;
 			const children = parent.children;
 			const index = children.indexOf(this);
 			if (0 <= index) {
@@ -357,6 +356,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	onDetach(): void {
+		this.uploaded = undefined;
 		const connector = this._connector;
 		if (connector) {
 			connector.detach();
