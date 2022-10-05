@@ -1,0 +1,121 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Multi coordinates</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.222.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.222.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../resource/chart/updater.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const chart = new wcardinal.ui.DChart({
+			parent: application.stage,
+			x: 100, y: 50,
+			width: 700, height: 400,
+			padding: {
+				left: 100,
+				right: 100
+			},
+			plotArea: {
+				coordinate: {
+					x: new wcardinal.ui.DChartCoordinateLinear(),
+					y: [
+						new wcardinal.ui.DChartCoordinateLinear(),
+						new wcardinal.ui.DChartCoordinateLinear(),
+						new wcardinal.ui.DChartCoordinateLinear()
+					]
+				},
+				series: {
+					list: [
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								y: 0
+							},
+							stroke: {
+								color: 0x888888
+							}
+						}),
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								y: 1
+							},
+							stroke: {
+								color: 0x3399ff,
+								width: 10
+							}
+						}),
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								y: 2
+							},
+							stroke: {
+								color: 0x888888
+							}
+						})
+					]
+				},
+				axis: {
+					list: [
+						new wcardinal.ui.DChartAxisX({
+							label: {
+								value: "X Axis"
+							}
+						}),
+						new wcardinal.ui.DChartAxisY({
+							label: {
+								value: "Y Axis"
+							}
+						})
+					]
+				}
+			}
+		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: 80, y: 520,
+			width: 300,
+			text: {
+				value: "Change 2nd series' coordinate"
+			},
+			on: {
+				active: () => {
+					const coordinate = chart.plotArea.coordinate.y.get(1);
+					const r = ((coordinate.to || 1) * 2) % 7;
+					coordinate.from = -r;
+					coordinate.to = +r;
+					chart.plotArea.fit();
+				}
+			}
+		});
+
+		new ChartUpdater(application, chart).fitter(() => {
+			chart.plotArea.fit();
+		}).start();
+	}());
+	</script>
+</body>
+</html>

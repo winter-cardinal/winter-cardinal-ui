@@ -44,6 +44,8 @@
     * [Bar chart](./chart/bar.html)
     * [Basics](./chart/basics.html)
     * [Constraint](./chart/constraint.html)
+    * Coordinate
+        * [Multi coordinates](./chart\coordinate/multi-coordinate.html)
     * [Domain](./chart/domain.html)
     * [Fitting](./chart/fit.html)
     * [Fitting with an animation](./chart/fit-animation.html)
