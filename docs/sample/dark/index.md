@@ -288,6 +288,7 @@
     * Row
         * [Adding rows programatically](./table\row/add.html)
         * [Blinking row](./table\row/blink.html)
+        * [Blinking row image](./table\row/blink-image.html)
         * [Bulk row update](./table\row/bulk-update.html)
         * [Row event](./table\row/event.html)
         * [Filtering rows](./table\row/filter.html)
