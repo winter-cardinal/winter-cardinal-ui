@@ -1,0 +1,86 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Grouping</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var group = new wcardinal.ui.DButtonGroup();
+
+		new wcardinal.ui.DLayoutHorizontal({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: "auto",
+			margin: 32,
+			children: [
+				new wcardinal.ui.DButton({
+					width: 200,
+					toggle: true,
+					group: group,
+					state: "ACTIVE",
+					text: {
+						value: "A"
+					},
+					on: {
+						active: function( button ) {
+							console.log( "active", button );
+						}
+					}
+				}),
+				new wcardinal.ui.DButton({
+					width: 200,
+					toggle: true,
+					group: group,
+					text: {
+						value: "B"
+					},
+					on: {
+						active: function( button ) {
+							console.log( "active", button );
+						}
+					}
+				}),
+				new wcardinal.ui.DButton({
+					width: 200,
+					toggle: true,
+					group: group,
+					text: {
+						value: "C"
+					},
+					on: {
+						active: function( button ) {
+							console.log( "active", button );
+						}
+					}
+				})
+			]
+		})
+	}());
+	</script>
+</body>
+</html>
