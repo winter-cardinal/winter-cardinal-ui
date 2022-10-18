@@ -783,7 +783,7 @@ export class DTable<
 		return "100%";
 	}
 
-	get headerOffset(): number {
+	protected getHeaderOffset(): number {
 		let result = this._headerOffset;
 		if (result == null) {
 			result = this.newHeaderOffset();
@@ -804,7 +804,12 @@ export class DTable<
 	get header(): DTableHeader<ROW> | null {
 		let result = this._header;
 		if (result === undefined) {
-			result = this.newHeader(this._options, this.columns, this.frozen, this.headerOffset);
+			result = this.newHeader(
+				this._options,
+				this.columns,
+				this.frozen,
+				this.getHeaderOffset()
+			);
 			this._header = result;
 		}
 		return result;
@@ -865,7 +870,7 @@ export class DTable<
 		};
 	}
 
-	get bodyOffset(): number {
+	protected getBodyOffset(): number {
 		let result = this._bodyOffset;
 		if (result == null) {
 			result = this.newBodyOffset();
@@ -875,13 +880,13 @@ export class DTable<
 	}
 
 	protected newBodyOffset(): number {
-		return this.headerOffset + (this.header?.height ?? 0);
+		return this.getHeaderOffset() + (this.header?.height ?? 0);
 	}
 
 	get body(): DTableBody<ROW, DATA> {
 		let result = this._body;
 		if (result == null) {
-			result = this.newBody(this._options, this.columns, this.frozen, this.bodyOffset);
+			result = this.newBody(this._options, this.columns, this.frozen, this.getBodyOffset());
 			this._body = result;
 		}
 		return result;
@@ -986,7 +991,7 @@ export class DTable<
 
 			// Y
 			if (cell.parent.parent === this.body) {
-				const dy = this.bodyOffset;
+				const dy = this.getBodyOffset();
 				result.y += dy;
 				result.height -= dy;
 			}

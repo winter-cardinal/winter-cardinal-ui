@@ -5,7 +5,7 @@
 
 import { interaction, Point, Rectangle } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
-import { DBase, DBaseOptions, DThemeBase } from "./d-base";
+import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DTableBodyRow, DTableBodyRowOnChange, DTableBodyRowOptions } from "./d-table-body-row";
 import { DTableColumn } from "./d-table-column";
@@ -15,17 +15,48 @@ import { DTableDataSelection, DTableDataSelectionType } from "./d-table-data-sel
 import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableState } from "./d-table-state";
 import { DTableBodyCellOptions } from "./d-table-body-cell-options";
+import { DOnOptions } from "./d-on-options";
+
+/**
+ * {@link DTableBody} events.
+ */
+export interface DTableBodyEvents<EMITTER> extends DBaseEvents<EMITTER> {
+	/**
+	 * Triggered when rows are updated.
+	 * The first and second parameters are an mapped index range of visible data.
+	 * Please note that these parameters are real numbers.
+	 * For instance, An index range of [0.5, 2.5] means:
+	 *
+	 * * The row at index 0 is partially visible.
+	 * * The row at index 1 is fully visible.
+	 * * The row at index 2 is partially visible.
+	 *
+	 * @param from a lowest mapped index of visible data
+	 * @param to a highest mapped index of vislble data
+	 * @param emitter an emitter
+	 */
+	update(from: number, to: number, emitter: EMITTER): void;
+}
+
+/**
+ * {@link DTableBody} "on" options.
+ */
+export interface DTableBodyOnOptions<EMITTER>
+	extends Partial<DTableBodyEvents<EMITTER>>,
+		DOnOptions {}
 
 export interface DTableBodyOptions<
 	ROW,
 	DATA extends DTableData<ROW> = DTableDataList<ROW>,
-	THEME extends DThemeTableBody = DThemeTableBody
-> extends DBaseOptions<THEME> {
+	THEME extends DThemeTableBody = DThemeTableBody,
+	EMITTER = any
+> extends DBaseOptions<THEME, EMITTER> {
 	columns?: Array<DTableColumn<ROW, unknown>>;
 	row?: DTableBodyRowOptions<ROW>;
 	data?: DTableDataListOptions<ROW> | DATA;
 	offset?: number;
 	frozen?: number;
+	on?: DTableBodyOnOptions<EMITTER>;
 }
 
 export interface DThemeTableBody extends DThemeBase {
@@ -196,13 +227,13 @@ export class DTableBody<
 		const newContentHeight = Math.max(height, newHeight);
 		const newContentY = Math.max(height - newContentHeight, content.position.y);
 
-		const newRowIndexMappedLowerBound = Math.floor((0 - (newContentY + y)) / rowHeight);
-		const newRowIndexMappedUpperBound = Math.floor((height - (newContentY + y)) / rowHeight);
-		const newRowIndexMappedStart =
-			newRowIndexMappedLowerBound - (newRowIndexMappedLowerBound % 2 === 0 ? 2 : 1);
-		let newRowIndexMappedEnd =
-			newRowIndexMappedUpperBound +
-			((newRowIndexMappedUpperBound - newRowIndexMappedStart + 1) % 2 === 0 ? 3 : 2);
+		const newRowIndexMappedLowerBound = -newContentY / rowHeight;
+		const newRowIndexMappedUpperBound = (height - (newContentY + y)) / rowHeight;
+		let newRowIndexMappedStart = Math.floor(newRowIndexMappedLowerBound);
+		newRowIndexMappedStart -= newRowIndexMappedStart % 2 === 0 ? 2 : 1;
+		let newRowIndexMappedEnd = Math.floor(newRowIndexMappedUpperBound);
+		newRowIndexMappedEnd +=
+			(newRowIndexMappedUpperBound - newRowIndexMappedStart + 1) % 2 === 0 ? 3 : 2;
 		let newRowCount = newRowIndexMappedEnd - newRowIndexMappedStart;
 		if (newRowCount < oldRowCount && oldRowCount - 2 <= newRowCount) {
 			newRowCount = oldRowCount;
@@ -325,6 +356,7 @@ export class DTableBody<
 		content.height = newContentHeight;
 		this.height = newHeight;
 		this.unlock(false);
+		this.emit("update", newRowIndexMappedLowerBound, newRowIndexMappedUpperBound, this);
 	}
 
 	protected resetRow(row: DTableBodyRow<ROW>): DTableBodyRow<ROW> {
