@@ -149,8 +149,10 @@ export class DTableHeaderCell<
 		return e.data.getLocalPosition(this, checkWork).x;
 	}
 
-	protected isCheckClicked(e: InteractionEvent): boolean {
-		if (this._check.isEnabled) {
+	protected isCheckClicked(
+		e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
+	): boolean {
+		if (e instanceof InteractionEvent && this._check.isEnabled) {
 			if (this.isSortable) {
 				const image = this._images[1];
 				if (image && image.image != null) {
@@ -177,8 +179,13 @@ export class DTableHeaderCell<
 	}
 
 	protected onActivate(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
-		this.doSort(e);
-		this.emit("active", this);
+		if (this.isCheckClicked(e)) {
+			this.onToggleStart();
+			this.onToggleEnd();
+		} else {
+			this.doSort(e);
+			this.emit("active", this);
+		}
 	}
 
 	protected doSort(e?: InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
