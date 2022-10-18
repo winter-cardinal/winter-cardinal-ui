@@ -12,6 +12,7 @@
     * [Date](./button/date.html)
     * [Datetime](./button/datetime.html)
     * [File](./button/file.html)
+    * [Grouping](./button/grouping.html)
     * [Link](./button/link.html)
     * [Radio](./button/radio.html)
     * [Selector](./button/select.html)
@@ -285,6 +286,7 @@
         * [Hierarchical data](./table\data/hierarchical.html)
         * [Hierarchical data (Reverse order)](./table\data/hierarchical-reverse.html)
         * [Object data](./table\data/object.html)
+        * [Visible data](./table\data/visible.html)
     * Row
         * [Adding rows programatically](./table\row/add.html)
         * [Blinking row](./table\row/blink.html)
