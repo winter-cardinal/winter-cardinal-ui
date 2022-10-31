@@ -81,6 +81,7 @@ export class DDiagramCanvas<
 
 	initialize(shapes: EShape[], mapper?: DDiagramDataMapper | null): void {
 		const actionables = this._actionables;
+		const data = this._data;
 		this.initialize_(
 			shapes,
 			null,
@@ -91,7 +92,7 @@ export class DDiagramCanvas<
 			new Map<EShapeActionValue, EShapeActionRuntime>(),
 			this._ticker,
 			this._shape,
-			this._data,
+			data,
 			actionables
 		);
 		const layers = this._layer.children;
@@ -105,6 +106,15 @@ export class DDiagramCanvas<
 			layers[i].update(time);
 		}
 		EShapeActionEnvironment.isInitializing = false;
+		data.extended.each((id): void => {
+			const extension = EShapeDataValueExtensions.getById(id);
+			if (extension) {
+				const start = extension.start;
+				if (start) {
+					start(this);
+				}
+			}
+		});
 		this._ticker.start();
 	}
 
@@ -381,6 +391,15 @@ export class DDiagramCanvas<
 	}
 
 	protected onDestroy(): void {
+		this._data.extended.each((id): void => {
+			const extension = EShapeDataValueExtensions.getById(id);
+			if (extension) {
+				const stop = extension.stop;
+				if (stop) {
+					stop(this);
+				}
+			}
+		});
 		this._ticker.stop();
 		super.onDestroy();
 	}

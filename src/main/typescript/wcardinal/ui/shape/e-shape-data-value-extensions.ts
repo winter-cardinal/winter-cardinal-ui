@@ -8,10 +8,15 @@ import { EShapeDataValueExtension } from "./e-shape-data-value-extension";
 export class EShapeDataValueExtensions {
 	protected static _data?: EShapeDataValueExtension[];
 	protected static _typeToDatum?: Map<number, EShapeDataValueExtension>;
+	protected static _idToDatum?: Map<string, EShapeDataValueExtension>;
 
 	static add(extension: EShapeDataValueExtension): void {
 		(this._typeToDatum ??= new Map<number, EShapeDataValueExtension>()).set(
 			extension.type,
+			extension
+		);
+		(this._idToDatum ??= new Map<string, EShapeDataValueExtension>()).set(
+			extension.id,
 			extension
 		);
 		(this._data ??= []).push(extension);
@@ -21,6 +26,13 @@ export class EShapeDataValueExtensions {
 		const typeToDatum = this._typeToDatum;
 		if (typeToDatum != null) {
 			return typeToDatum.get(type);
+		}
+	}
+
+	static getById(id: string): EShapeDataValueExtension | undefined {
+		const idToDatum = this._idToDatum;
+		if (idToDatum != null) {
+			return idToDatum.get(id);
 		}
 	}
 
