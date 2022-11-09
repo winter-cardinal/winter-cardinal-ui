@@ -4,7 +4,12 @@
  */
 
 import { utils } from "pixi.js";
-import { DTableDataSelectionOptions, DTableDataSelectionType } from "./d-table-data-selection";
+import { DTableData } from "./d-table-data";
+import {
+	DTableDataSelectionEachIteratee,
+	DTableDataSelectionOptions,
+	DTableDataSelectionType
+} from "./d-table-data-selection";
 import {
 	DTableDataTreeSelection,
 	DTableDataTreeSelectionParent
@@ -28,6 +33,21 @@ export class DTableDataTreeSelectionImpl<NODE>
 		this._parent = parent;
 		this._type = toEnum(options?.type ?? DTableDataSelectionType.NONE, DTableDataSelectionType);
 		this._rows = new Set<NODE>();
+
+		// Events
+		const on = options?.on;
+		if (on) {
+			for (const name in on) {
+				const handler = on[name];
+				if (handler) {
+					this.on(name, handler);
+				}
+			}
+		}
+	}
+
+	get parent(): DTableData<NODE> {
+		return this._parent;
 	}
 
 	onNodeChange(nodes?: NODE[]): void {
@@ -291,6 +311,18 @@ export class DTableDataTreeSelectionImpl<NODE>
 
 	isEmpty(): boolean {
 		return this._rows.size <= 0;
+	}
+
+	each(iteratee: DTableDataSelectionEachIteratee): void {
+		const rows = this._rows;
+		this._parent.each((row: NODE, index: number): boolean => {
+			if (rows.has(row)) {
+				if (iteratee(index) === false) {
+					return false;
+				}
+			}
+			return true;
+		});
 	}
 
 	toArray(): Array<[number, NODE]> {

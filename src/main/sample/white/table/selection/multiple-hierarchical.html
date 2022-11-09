@@ -63,7 +63,12 @@
 					]}
 				],
 				selection: {
-					type: "MULTIPLE"
+					type: "MULTIPLE",
+					on: {
+						change: (selection) => {
+							console.log("Selection change", selection.rows);
+						}
+					}
 				},
 				on: {
 					change: function ( newValue, oldValue, node, rowIndex, columnIndex, data ) {

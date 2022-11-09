@@ -51,7 +51,12 @@
 					[ "Pineapple", 2002, 0.500 ]
 				],
 				selection: {
-					type: "SINGLE"
+					type: "SINGLE",
+					on: {
+						change: (selection) => {
+							console.log("Selection change", selection.rows);
+						}
+					}
 				}
 			}
 		});

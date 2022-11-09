@@ -126,7 +126,12 @@
 			}],
 			data: {
 				selection: {
-					type: "MULTIPLE"
+					type: "MULTIPLE",
+					on: {
+						change: (selection) => {
+							console.log("Selection change", selection.rows);
+						}
+					}
 				},
 				rows: [
 					[ "Apple", "Apple", "Apple", "Apple" ],

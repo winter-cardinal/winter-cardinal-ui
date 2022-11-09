@@ -4,6 +4,7 @@
  */
 
 import { utils } from "pixi.js";
+import { DOnOptions } from "./d-on-options";
 import { DTableData } from "./d-table-data";
 
 export const DTableDataSelectionType = {
@@ -15,11 +16,37 @@ export const DTableDataSelectionType = {
 export type DTableDataSelectionType =
 	typeof DTableDataSelectionType[keyof typeof DTableDataSelectionType];
 
-export interface DTableDataSelectionOptions {
-	type?: keyof typeof DTableDataSelectionType | DTableDataSelectionType;
+/**
+ * {@link DTableDataSelection} events.
+ */
+export interface DTableDataSelectionEvents<EMITTER> {
+	/**
+	 * Triggered when s selection is changed.
+	 *
+	 *     on( "change", ( emitter ) => {} )
+	 *
+	 * @param emitter an emitter
+	 */
+	change(emitter: EMITTER): void;
 }
 
+/**
+ * {@link DTableDataSelection} "on" options.
+ */
+export interface DTableDataSelectionOnOptions<EMITTER>
+	extends Partial<DTableDataSelectionEvents<EMITTER>>,
+		DOnOptions {}
+
+export interface DTableDataSelectionOptions<EMITTER = any> {
+	type?: keyof typeof DTableDataSelectionType | DTableDataSelectionType;
+	on?: DTableDataSelectionOnOptions<EMITTER>;
+}
+
+export type DTableDataSelectionEachIteratee = (index: number) => void | boolean;
+
 export interface DTableDataSelection<ROW> extends utils.EventEmitter {
+	readonly parent: DTableData<ROW>;
+
 	/**
 	 * Returns a copy of an index array of selected rows.
 	 * The order of indices is an insertion order.
@@ -50,6 +77,14 @@ export interface DTableDataSelection<ROW> extends utils.EventEmitter {
 	shift(rowIndex: number, amount: number): void;
 	size(): number;
 	isEmpty(): boolean;
+
+	/**
+	 * Calls the specified iteratee on each indices.
+	 * If called iteratee explicitly returns false, stops an iteration.
+	 *
+	 * @param iteratee an function called on each indices
+	 */
+	each(iteratee: DTableDataSelectionEachIteratee): void;
 
 	/**
 	 * Returns an array of the (index, row value) pairs of selected rows.

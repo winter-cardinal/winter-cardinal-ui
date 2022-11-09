@@ -4,8 +4,10 @@
  */
 
 import { utils } from "pixi.js";
+import { DTableData } from "./d-table-data";
 import {
 	DTableDataSelection,
+	DTableDataSelectionEachIteratee,
 	DTableDataSelectionOptions,
 	DTableDataSelectionParent,
 	DTableDataSelectionType
@@ -30,6 +32,21 @@ export class DTableDataListSelection<ROW>
 		this._parent = parent;
 		this._type = toEnum(options?.type ?? DTableDataSelectionType.NONE, DTableDataSelectionType);
 		this._indices = new Set<number>();
+
+		// Events
+		const on = options?.on;
+		if (on) {
+			for (const name in on) {
+				const handler = on[name];
+				if (handler) {
+					this.on(name, handler);
+				}
+			}
+		}
+	}
+
+	get parent(): DTableData<ROW> {
+		return this._parent;
 	}
 
 	get type(): DTableDataSelectionType {
@@ -192,6 +209,17 @@ export class DTableDataListSelection<ROW>
 
 	isEmpty(): boolean {
 		return this._indices.size === 0;
+	}
+
+	each(iteratee: DTableDataSelectionEachIteratee): void {
+		let isCanceled = false;
+		this._indices.forEach((index: number): void => {
+			if (!isCanceled) {
+				if (iteratee(index) === false) {
+					isCanceled = true;
+				}
+			}
+		});
 	}
 
 	/**
