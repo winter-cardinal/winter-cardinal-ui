@@ -87,8 +87,8 @@ export class DDiagramCanvas<
 			null,
 			null,
 			mapper,
-			new Map<string, (value: unknown) => unknown>(),
-			new Map<string, unknown>(),
+			new Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>(),
+			new Map<EShapeDataValueType, Map<string, unknown>>(),
 			new Map<EShapeActionValue, EShapeActionRuntime>(),
 			this._ticker,
 			this._shape,
@@ -123,8 +123,8 @@ export class DDiagramCanvas<
 		dataShape: EShape | null,
 		containerShape: EShape | null,
 		mapper: DDiagramDataMapper | null | undefined,
-		formatToFormatter: Map<string, (value: unknown) => unknown>,
-		initialToInitialValue: Map<string, unknown>,
+		formatters: Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>,
+		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
 		actionValueToRuntime: Map<EShapeActionValue, EShapeActionRuntime>,
 		canvasTicker: DDiagramCanvasTicker,
 		canvasShape: DDiagramCanvasShape,
@@ -146,8 +146,8 @@ export class DDiagramCanvas<
 				dataShape,
 				containerShape,
 				mapper,
-				formatToFormatter,
-				initialToInitialValue,
+				formatters,
+				initialValues,
 				canvasTicker,
 				canvasData
 			);
@@ -191,8 +191,8 @@ export class DDiagramCanvas<
 					newDataShape,
 					newContainerShape,
 					mapper,
-					formatToFormatter,
-					initialToInitialValue,
+					formatters,
+					initialValues,
 					actionValueToRuntime,
 					canvasTicker,
 					canvasShape,
@@ -208,17 +208,17 @@ export class DDiagramCanvas<
 		dataShape: EShape | null,
 		containerShape: EShape | null,
 		mapper: DDiagramDataMapper | null | undefined,
-		formatToFormatter: Map<string, (value: unknown) => unknown>,
-		initialToInitialValue: Map<string, unknown>,
+		formatters: Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>,
+		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
 		canvasTicker: DDiagramCanvasTicker,
 		canvasData: DDiagramCanvasData
 	): void {
 		const data = shape.data;
-		let format: string = "";
-		let initial: string = "";
 		for (let i = 0, imax = data.size(); i < imax; ++i) {
 			const value = data.get(i);
-			if (value == null) continue;
+			if (value == null) {
+				continue;
+			}
 			switch (value.type) {
 				case EShapeDataValueType.NUMBER:
 				case EShapeDataValueType.NUMBER_ARRAY:
@@ -226,87 +226,132 @@ export class DDiagramCanvas<
 				case EShapeDataValueType.STRING_ARRAY:
 				case EShapeDataValueType.OBJECT:
 				case EShapeDataValueType.OBJECT_ARRAY:
-					// Mapping
-					if (value.scope === EShapeDataValueScope.PRIVATE) {
-						const id = value.id;
-						if (0 < id.length) {
-							if (containerShape) {
-								containerShape.data.private.add(id, value);
-							} else {
-								canvasData.private.add(id, value);
-							}
-						}
-					} else if (value.scope === EShapeDataValueScope.PROTECTED) {
-						const id = value.id;
-						if (0 < id.length) {
-							canvasData.protected.add(id, value);
-						}
-					} else {
-						if (mapper) {
-							mapper(value, dataShape || shape);
-						}
-						const id = value.id;
-						if (0 < id.length) {
-							canvasData.add(id, value);
-						}
-					}
-
-					// Format
-					format = value.format;
-					initial = value.initial;
-					if (formatToFormatter.has(format)) {
-						value.formatter = formatToFormatter.get(format);
-					} else if (0 < format.length) {
-						try {
-							const formatter = this.calcFormatter(value, format, initial);
-							formatToFormatter.set(format, formatter);
-							value.formatter = formatter;
-						} catch (e) {
-							// DO NOTHING
-						}
-					}
-
-					// Initial
-					if (initialToInitialValue.has(initial)) {
-						value.value = initialToInitialValue.get(initial);
-					} else if (0 < initial.length) {
-						try {
-							const initialValue = this.calcInitial(value, initial);
-							initialToInitialValue.set(initial, initialValue);
-							value.value = initialValue;
-						} catch (e) {
-							// DO NOTHING
-						}
-					}
+					this.initDataValue(
+						value,
+						shape,
+						dataShape,
+						containerShape,
+						mapper,
+						formatters,
+						initialValues,
+						canvasData
+					);
 					break;
 				case EShapeDataValueType.TICKER:
-					// Initial
-					initial = value.initial;
-					if (initialToInitialValue.has(initial)) {
-						value.value = 0;
-						canvasTicker.add(initialToInitialValue.get(initial)).add(value);
-					} else if (0 < initial.length) {
-						try {
-							const initialValue = this.calcInitial(value, initial);
-							initialToInitialValue.set(initial, initialValue);
-							value.value = 0;
-							canvasTicker.add(initialValue).add(value);
-						} catch (e) {
-							// DO NOTHING
-						}
-					}
+					this.initDataTicker(value, initialValues, canvasTicker);
 					break;
 				default:
-					const extension = EShapeDataValueExtensions.get(value.type);
-					if (extension) {
-						// Mapping
-						canvasData.extended.add(extension.id, value);
-
-						// Initial
-						value.value = extension.initial;
-					}
+					this.initDataExtension(value, canvasData);
 					break;
 			}
+		}
+	}
+
+	protected initDataValue(
+		value: EShapeDataValue,
+		shape: EShape,
+		dataShape: EShape | null,
+		containerShape: EShape | null,
+		mapper: DDiagramDataMapper | null | undefined,
+		formatters: Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>,
+		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
+		canvasData: DDiagramCanvasData
+	): void {
+		// Mapping
+		if (value.scope === EShapeDataValueScope.PRIVATE) {
+			const id = value.id;
+			if (0 < id.length) {
+				if (containerShape) {
+					containerShape.data.private.add(id, value);
+				} else {
+					canvasData.private.add(id, value);
+				}
+			}
+		} else if (value.scope === EShapeDataValueScope.PROTECTED) {
+			const id = value.id;
+			if (0 < id.length) {
+				canvasData.protected.add(id, value);
+			}
+		} else {
+			if (mapper) {
+				mapper(value, dataShape || shape);
+			}
+			const id = value.id;
+			if (0 < id.length) {
+				canvasData.add(id, value);
+			}
+		}
+
+		// Format
+		const format = value.format;
+		const initial = value.initial;
+		let formatToFormatter = formatters.get(value.type);
+		if (formatToFormatter && formatToFormatter.has(format)) {
+			value.formatter = formatToFormatter.get(format);
+		} else if (0 < format.length) {
+			try {
+				const formatter = this.calcFormatter(value, format, initial);
+				if (formatToFormatter == null) {
+					formatToFormatter = new Map<string, (value: unknown) => unknown>();
+					formatters.set(value.type, formatToFormatter);
+				}
+				formatToFormatter.set(format, formatter);
+				value.formatter = formatter;
+			} catch (e) {
+				// DO NOTHING
+			}
+		}
+
+		// Initial
+		let initialToInitialValue = initialValues.get(value.type);
+		if (initialToInitialValue && initialToInitialValue.has(initial)) {
+			value.value = initialToInitialValue.get(initial);
+		} else if (0 < initial.length) {
+			try {
+				const initialValue = this.calcInitial(value, initial);
+				if (initialToInitialValue == null) {
+					initialToInitialValue = new Map<string, unknown>();
+					initialValues.set(value.type, initialToInitialValue);
+				}
+				initialToInitialValue.set(initial, initialValue);
+				value.value = initialValue;
+			} catch (e) {
+				// DO NOTHING
+			}
+		}
+	}
+
+	protected initDataTicker(
+		value: EShapeDataValue,
+		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
+		canvasTicker: DDiagramCanvasTicker
+	): void {
+		const initial = value.initial;
+		let initialToInitialValue = initialValues.get(value.type);
+		if (initialToInitialValue && initialToInitialValue.has(initial)) {
+			value.value = 0;
+			canvasTicker.add(initialToInitialValue.get(initial)).add(value);
+		} else if (0 < initial.length) {
+			try {
+				const initialValue = this.calcInitial(value, initial);
+				if (initialToInitialValue == null) {
+					initialToInitialValue = new Map<string, unknown>();
+					initialValues.set(value.type, initialToInitialValue);
+				}
+				initialToInitialValue.set(initial, initialValue);
+				value.value = 0;
+				canvasTicker.add(initialValue).add(value);
+			} catch (e) {
+				// DO NOTHING
+			}
+		}
+	}
+
+	protected initDataExtension(value: EShapeDataValue, canvasData: DDiagramCanvasData): void {
+		const extension = EShapeDataValueExtensions.get(value.type);
+		if (extension) {
+			canvasData.extended.add(extension.id, value);
+			value.value = extension.initial;
 		}
 	}
 
