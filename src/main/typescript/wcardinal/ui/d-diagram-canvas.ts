@@ -250,6 +250,8 @@ export class DDiagramCanvas<
 				continue;
 			}
 			switch (value.type) {
+				case EShapeDataValueType.BOOLEAN:
+				case EShapeDataValueType.BOOLEAN_ARRAY:
 				case EShapeDataValueType.NUMBER:
 				case EShapeDataValueType.NUMBER_ARRAY:
 				case EShapeDataValueType.STRING:
@@ -448,6 +450,10 @@ export class DDiagramCanvas<
 	protected toInitial(value: EShapeDataValue): string {
 		const valueType = value.type;
 		switch (valueType) {
+			case EShapeDataValueType.BOOLEAN:
+				return INITIAL_FALSE;
+			case EShapeDataValueType.BOOLEAN_ARRAY:
+				return INITIAL_ARRAY;
 			case EShapeDataValueType.NUMBER:
 				return INITIAL_ZERO;
 			case EShapeDataValueType.NUMBER_ARRAY:
@@ -462,10 +468,6 @@ export class DDiagramCanvas<
 				return INITIAL_ARRAY;
 			case EShapeDataValueType.TICKER:
 				return INITIAL_ZERO;
-			case EShapeDataValueType.BOOLEAN:
-				return INITIAL_FALSE;
-			case EShapeDataValueType.BOOLEAN_ARRAY:
-				return INITIAL_ARRAY;
 			default:
 				return INITIAL_ZERO;
 		}
@@ -474,6 +476,10 @@ export class DDiagramCanvas<
 	protected toInitializer(value: EShapeDataValue): () => unknown {
 		const valueType = value.type;
 		switch (valueType) {
+			case EShapeDataValueType.BOOLEAN:
+				return INITIALIZER_FALSE;
+			case EShapeDataValueType.BOOLEAN_ARRAY:
+				return INITIALIZER_ARRAY;
 			case EShapeDataValueType.NUMBER:
 				return INITIALIZER_ZERO;
 			case EShapeDataValueType.NUMBER_ARRAY:
@@ -488,10 +494,6 @@ export class DDiagramCanvas<
 				return INITIALIZER_ARRAY;
 			case EShapeDataValueType.TICKER:
 				return INITIALIZER_ZERO;
-			case EShapeDataValueType.BOOLEAN:
-				return INITIALIZER_FALSE;
-			case EShapeDataValueType.BOOLEAN_ARRAY:
-				return INITIALIZER_ARRAY;
 			default:
 				return INITIALIZER_ZERO;
 		}

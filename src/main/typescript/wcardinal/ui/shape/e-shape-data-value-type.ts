@@ -4,6 +4,8 @@
  */
 
 export const EShapeDataValueType = {
+	BOOLEAN: 7,
+	BOOLEAN_ARRAY: 8,
 	NUMBER: 0,
 	NUMBER_ARRAY: 1,
 	STRING: 2,
@@ -12,9 +14,6 @@ export const EShapeDataValueType = {
 	OBJECT_ARRAY: 5,
 
 	TICKER: 6,
-
-	BOOLEAN: 7,
-	BOOLEAN_ARRAY: 8,
 
 	EXTENSION: 1000
 } as const;
