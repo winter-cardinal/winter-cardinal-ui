@@ -56,11 +56,11 @@ new DButtonCheck({
 </script>
 ```
 
-All the classes are in the `wcardinal.ui`.
-Please note that the `loadAll` and the `loadThemeWhiteALl` is not required in this case.
-Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call the `loadAll` and the `loadThemeWhiteAll` for you.
+All the classes are in `wcardinal.ui`.
+Please note that `loadAll` and `loadThemeWhiteALl` is not required in this case.
+Prebuild files `wcardinal-ui.min.js` and `wcardinal-ui-theme-white.min.js` call `loadAll` and `loadThemeWhiteAll` for you.
 
-See [sample/cdn](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/other/cdn.html) for complete example.
+See [sample/cdn](https://winter-cardinal.github.io/winter-cardinal-ui/sample/white/other/cdn.html) for a complete example.
 
 ### Tree shaking
 
@@ -68,15 +68,15 @@ The NPM package `@wcardinal/wcardinal-ui` is large in its size
 because all the UI classes and their themes are included.
 This is why the tree shaking is important for this library.
 
-The `loadAll` loads all the optional modules (e.g., `DMenuItemCheck`).
-And the `loadThemeWhiteAll` loads the white theme (e.g., `DThemeWhite`).
+`loadAll` loads all the optional modules (e.g., `DMenuItemCheck`).
+And `loadThemeWhiteAll` loads the white theme (e.g., `DThemeWhite`).
 To remove unnecessary modules from your build, pick `load*` functions you need.
 
 ```javascript
 import { loadThemeWhiteAll } from '@wcardinal/wcardinal-ui';
 
 // Loads the white theme only.
-// `DMenuItemCheck` will not be in your compiled package.
+// `DMenuItemCheck` will not be in your compiled package, for instance.
 loadThemeWhiteAll();
 ```
 
@@ -126,7 +126,7 @@ npm start
 
 #### API document
 
-Update the `gitRevision` in the `typedoc.json` and then do
+Update `gitRevision` in `typedoc.json` and then do
 
 ```shell
 npm run build:api
@@ -174,7 +174,6 @@ npm run lint:fix
 
 Apache License Version 2.0.
 
-The default theme uses Material Design icons by Google
-licensed under Apache license version 2.0.\
+The default theme uses Material design icons developed by Google and licensed under Apache license version 2.0.\
 https://github.com/google/material-design-icons
 
