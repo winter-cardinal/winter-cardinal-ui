@@ -69,6 +69,7 @@
     * [Connector (Line)](./diagram/connector-line.html)
     * [Connector (Line, Embedded)](./diagram/connector-line-embedded.html)
     * [Connector (Line, Programatically)](./diagram/connector-line-programatically.html)
+    * [Data](./diagram/data.html)
     * [Editor mode](./diagram/editor.html)
     * [Editor mode (Ambient)](./diagram/editor-ambient.html)
     * [Editor mode (Snap enabled)](./diagram/editor-snap.html)
