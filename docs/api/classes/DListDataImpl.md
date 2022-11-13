@@ -1,6 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DListDataImpl
+[Winter Cardinal UI - v0.227.0](../index.md) / DListDataImpl
 
 # Class: DListDataImpl<ITEM\>
+
+[DList](DList.md) data.
 
 ## Type parameters
 
@@ -74,7 +76,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L33)
 
 ## Properties
 
@@ -84,7 +86,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L29)
 
 ___
 
@@ -94,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L28)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L28)
 
 ___
 
@@ -104,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L26)
 
 ___
 
@@ -114,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L27)
 
 ___
 
@@ -124,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L31)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L31)
 
 ___
 
@@ -134,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L25)
 
 ___
 
@@ -144,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L30)
 
 ## Accessors
 
@@ -162,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L101)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L101)
 
 ___
 
@@ -180,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L87)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L87)
 
 • `set` **after**(`after`): `void`
 
@@ -200,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L91)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L91)
 
 ___
 
@@ -218,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L67)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L67)
 
 • `set` **before**(`before`): `void`
 
@@ -238,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L71)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L71)
 
 ___
 
@@ -256,7 +258,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L77)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L77)
 
 • `set` **items**(`items`): `void`
 
@@ -276,7 +278,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L81)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L81)
 
 ___
 
@@ -294,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L97)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L97)
 
 ___
 
@@ -312,7 +314,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L105)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L105)
 
 ## Methods
 
@@ -325,14 +327,16 @@ If the index is given, inserts the given item at that index.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `item` | `ITEM` |
-| `index?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `item` | `ITEM` | an item |
+| `index?` | `number` | an index |
 
 #### Returns
 
 `boolean`
+
+true if the data is changed
 
 #### Implementation of
 
@@ -340,7 +344,7 @@ If the index is given, inserts the given item at that index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L166)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L166)
 
 ___
 
@@ -353,14 +357,16 @@ If the index is given, inserts all the given items at that index.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `newItems` | `ITEM`[] |
-| `index?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `newItems` | `ITEM`[] | items |
+| `index?` | `number` | an index |
 
 #### Returns
 
 `boolean`
+
+true if the data is changed
 
 #### Implementation of
 
@@ -368,7 +374,7 @@ If the index is given, inserts all the given items at that index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L180)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:180](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L180)
 
 ___
 
@@ -382,13 +388,15 @@ Removes all the items.
 
 `boolean`
 
+true if the data is changed
+
 #### Implementation of
 
 [DListData](../interfaces/DListData.md).[clear](../interfaces/DListData.md#clear)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L117)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L117)
 
 ___
 
@@ -400,13 +408,15 @@ Removes all the existing items and adds the given item.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `item` | `ITEM` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `item` | `ITEM` | an item |
 
 #### Returns
 
 `boolean`
+
+true if the data is changed
 
 #### Implementation of
 
@@ -414,7 +424,7 @@ Removes all the existing items and adds the given item.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L127)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L127)
 
 ___
 
@@ -426,13 +436,15 @@ Removes all the existing items and adds all the given items.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `newItems` | `ITEM`[] |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `newItems` | `ITEM`[] | items to be inserted |
 
 #### Returns
 
 `boolean`
+
+true if the data is changed.
 
 #### Implementation of
 
@@ -440,7 +452,7 @@ Removes all the existing items and adds all the given items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L146)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L146)
 
 ___
 
@@ -453,11 +465,11 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)<`ITEM`\> |
-| `from?` | `number` |
-| `to?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `iteratee` | [`DListDataIteratee`](../index.md#dlistdataiteratee)<`ITEM`\> | an function called on each datum |
+| `from?` | `number` | an index to start an iteration |
+| `to?` | `number` | an index before which an interation stops |
 
 #### Returns
 
@@ -469,7 +481,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L230)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L230)
 
 ___
 
@@ -482,9 +494,9 @@ The index is an index on itemsrows filters and sorters are not applied.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | an index on rows filters and sorters are not applied |
 
 #### Returns
 
@@ -496,7 +508,7 @@ The index is an index on itemsrows filters and sorters are not applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L201)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L201)
 
 ___
 
@@ -510,7 +522,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L242)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:242](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L242)
 
 ___
 
@@ -522,13 +534,15 @@ Removes an item at the given index.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | an index of the item to be removed. |
 
 #### Returns
 
 ``null`` \| `ITEM`
+
+a removed item or null
 
 #### Implementation of
 
@@ -536,7 +550,7 @@ Removes an item at the given index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L220)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L220)
 
 ___
 
@@ -548,14 +562,16 @@ Replaces an item at the specified index with the given item.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
-| `item` | `ITEM` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | an index of the item to be replaced. |
+| `item` | `ITEM` | an item |
 
 #### Returns
 
 ``null`` \| `ITEM`
+
+a replaced item or null
 
 #### Implementation of
 
@@ -563,7 +579,7 @@ Replaces an item at the specified index with the given item.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L209)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L209)
 
 ___
 
@@ -583,7 +599,7 @@ Returns a size of data.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L113)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L113)
 
 ___
 
@@ -604,7 +620,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L50)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L50)
 
 ___
 
@@ -624,4 +640,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L109)
+[src/main/typescript/wcardinal/ui/d-list-data-impl.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-impl.ts#L109)

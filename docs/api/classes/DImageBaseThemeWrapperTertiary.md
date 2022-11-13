@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DImageBaseThemeWrapperTertiary
+[Winter Cardinal UI - v0.227.0](../index.md) / DImageBaseThemeWrapperTertiary
 
 # Class: DImageBaseThemeWrapperTertiary
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L22)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L22)
 
 ## Properties
 
@@ -51,17 +51,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L20)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L20)
 
 ## Methods
 
 ### getImageAlignHorizontal
 
-▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
+▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Returns
 
-[`DAlignHorizontal`](../index.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Implementation of
 
@@ -69,17 +69,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L26)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L26)
 
 ___
 
 ### getImageAlignVertical
 
-▸ **getImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
+▸ **getImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Returns
 
-[`DAlignVertical`](../index.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Implementation of
 
@@ -87,17 +87,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L30)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L30)
 
 ___
 
 ### getImageAlignWith
 
-▸ **getImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
+▸ **getImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith-1)
 
 #### Returns
 
-[`DAlignWith`](../index.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith-1)
 
 #### Implementation of
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L34)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L34)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L38)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L38)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L42)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L42)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L54)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L54)
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L50)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L50)
 
 ___
 
@@ -213,4 +213,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L46)
+[src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-base-theme-wrapper-tertiary.ts#L46)

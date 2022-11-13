@@ -1,6 +1,9 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeButtonRuntimeActionToggle
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeButtonRuntimeActionToggle
 
 # Class: EShapeButtonRuntimeActionToggle
+
+An action runtime.
+Please note that all the action runtimes are shared across shapes.
 
 ## Hierarchy
 
@@ -83,7 +86,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L46)
 
 ## Properties
 
@@ -93,7 +96,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L20)
 
 ___
 
@@ -103,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L21)
 
 ___
 
@@ -113,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L16)
 
 ___
 
@@ -123,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L13)
 
 ___
 
@@ -133,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L15)
 
 ___
 
@@ -143,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L14)
 
 ___
 
@@ -153,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L18)
 
 ___
 
@@ -163,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L17)
 
 ___
 
@@ -173,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L30)
 
 ___
 
@@ -183,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L31)
 
 ___
 
@@ -193,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L26)
 
 ___
 
@@ -203,7 +206,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L23)
 
 ___
 
@@ -213,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L25)
 
 ___
 
@@ -223,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L24)
 
 ___
 
@@ -233,7 +236,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L28)
 
 ___
 
@@ -243,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L27)
 
 ___
 
@@ -253,7 +256,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L37)
 
 ___
 
@@ -263,7 +266,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L38)
 
 ___
 
@@ -273,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L34)
 
 ___
 
@@ -283,7 +286,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L33)
 
 ___
 
@@ -293,7 +296,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L35)
 
 ___
 
@@ -303,7 +306,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L43)
 
 ___
 
@@ -313,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L44)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L44)
 
 ___
 
@@ -323,7 +326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L40)
 
 ___
 
@@ -333,7 +336,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L41)
 
 ___
 
@@ -347,7 +350,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
 
 ## Methods
 
@@ -373,7 +376,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L127)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L127)
 
 ___
 
@@ -393,7 +396,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L235)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L235)
 
 ___
 
@@ -413,7 +416,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L163)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L163)
 
 ___
 
@@ -433,7 +436,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L141)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L141)
 
 ___
 
@@ -453,7 +456,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L193)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L193)
 
 ___
 
@@ -473,7 +476,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L171)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L171)
 
 ___
 
@@ -493,7 +496,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L211)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L211)
 
 ___
 
@@ -513,7 +516,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L201)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:201](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L201)
 
 ___
 
@@ -533,7 +536,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L227)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L227)
 
 ___
 
@@ -553,7 +556,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L219)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L219)
 
 ___
 
@@ -578,7 +581,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
 
 ___
 
@@ -603,7 +606,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
 
 ___
 
@@ -630,7 +633,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
 
 ___
 
@@ -656,7 +659,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L43)
 
 ___
 
@@ -682,7 +685,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
 
 ___
 
@@ -707,7 +710,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
 
 ___
 
@@ -733,7 +736,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
 
 ___
 
@@ -760,7 +763,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)
 
 ___
 
@@ -780,4 +783,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L116)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime-action-toggle.ts#L116)

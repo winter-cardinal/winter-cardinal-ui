@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeTextLike
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeTextLike
 
 # Interface: EShapeTextLike
 
@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L36)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L32)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L43)
 
 ___
 
@@ -65,17 +65,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L31)
 
 ___
 
 ### direction
 
-• **direction**: [`EShapeTextDirection`](../index.md#eshapetextdirection)
+• **direction**: [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L41)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L33)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L37)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L39)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L42)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L42)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L34)
 
 ___
 
@@ -135,17 +135,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L40)
 
 ___
 
 ### style
 
-• **style**: [`EShapeTextStyle`](../index.md#eshapetextstyle)
+• **style**: [`EShapeTextStyle`](../index.md#eshapetextstyle-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L38)
 
 ___
 
@@ -155,14 +155,14 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L30)
 
 ___
 
 ### weight
 
-• **weight**: [`EShapeTextWeight`](../index.md#eshapetextweight)
+• **weight**: [`EShapeTextWeight`](../index.md#eshapetextweight-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/e-shape-text.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-text.ts#L35)

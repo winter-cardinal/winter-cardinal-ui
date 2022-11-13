@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DRefitable
+[Winter Cardinal UI - v0.227.0](../index.md) / DRefitable
 
 # Interface: DRefitable
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:686](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base.ts#L686)
+[src/main/typescript/wcardinal/ui/d-base.ts:700](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L700)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:685](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base.ts#L685)
+[src/main/typescript/wcardinal/ui/d-base.ts:699](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L699)

@@ -1,10 +1,12 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramCanvasShapeImpl
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramCanvasShapeImpl
 
 # Class: DDiagramCanvasShapeImpl
 
-## Implements
+## Hierarchy
 
-- [`DDiagramCanvasShape`](../interfaces/DDiagramCanvasShape.md)
+- [`DDiagramCanvasBaseShapeImpl`](DDiagramCanvasBaseShapeImpl.md)
+
+  ↳ **`DDiagramCanvasShapeImpl`**
 
 ## Table of contents
 
@@ -14,11 +16,14 @@
 
 ### Properties
 
+- [\_canvas](DDiagramCanvasShapeImpl.md#_canvas)
 - [\_data](DDiagramCanvasShapeImpl.md#_data)
 
 ### Methods
 
 - [add](DDiagramCanvasShapeImpl.md#add)
+- [each](DDiagramCanvasShapeImpl.md#each)
+- [each\_](DDiagramCanvasShapeImpl.md#each_)
 - [get](DDiagramCanvasShapeImpl.md#get)
 - [getAll](DDiagramCanvasShapeImpl.md#getall)
 
@@ -26,13 +31,37 @@
 
 ### constructor
 
-• **new DDiagramCanvasShapeImpl**()
+• **new DDiagramCanvasShapeImpl**(`canvas`)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `canvas` | [`DDiagramCanvasBaseShapeCanvas`](../interfaces/DDiagramCanvasBaseShapeCanvas.md) |
+
+#### Overrides
+
+[DDiagramCanvasBaseShapeImpl](DDiagramCanvasBaseShapeImpl.md).[constructor](DDiagramCanvasBaseShapeImpl.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L13)
 
 ## Properties
+
+### \_canvas
+
+• `Protected` **\_canvas**: [`DDiagramCanvasBaseShapeCanvas`](../interfaces/DDiagramCanvasBaseShapeCanvas.md)
+
+#### Inherited from
+
+[DDiagramCanvasBaseShapeImpl](DDiagramCanvasBaseShapeImpl.md).[_canvas](DDiagramCanvasBaseShapeImpl.md#_canvas)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape-impl.ts#L15)
+
+___
 
 ### \_data
 
@@ -40,7 +69,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L11)
 
 ## Methods
 
@@ -59,13 +88,60 @@
 
 `void`
 
-#### Implementation of
+#### Defined in
 
-[DDiagramCanvasShape](../interfaces/DDiagramCanvasShape.md).[add](../interfaces/DDiagramCanvasShape.md#add)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L18)
+
+___
+
+### each
+
+▸ **each**(`iteratee`, `ignoreCapability?`): [`DDiagramCanvasShapeImpl`](DDiagramCanvasShapeImpl.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `iteratee` | (`shape`: [`EShape`](../interfaces/EShape.md)) => `boolean` \| `void` |
+| `ignoreCapability?` | `boolean` |
+
+#### Returns
+
+[`DDiagramCanvasShapeImpl`](DDiagramCanvasShapeImpl.md)
+
+#### Inherited from
+
+[DDiagramCanvasBaseShapeImpl](DDiagramCanvasBaseShapeImpl.md).[each](DDiagramCanvasBaseShapeImpl.md#each)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape-impl.ts#L21)
+
+___
+
+### each\_
+
+▸ `Protected` **each_**(`shapes`, `iteratee`, `ignoreCapability?`): `undefined` \| `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shapes` | [`EShape`](../interfaces/EShape.md)[] |
+| `iteratee` | (`shape`: [`EShape`](../interfaces/EShape.md)) => `boolean` \| `void` |
+| `ignoreCapability?` | `boolean` |
+
+#### Returns
+
+`undefined` \| `boolean`
+
+#### Inherited from
+
+[DDiagramCanvasBaseShapeImpl](DDiagramCanvasBaseShapeImpl.md).[each_](DDiagramCanvasBaseShapeImpl.md#each_)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape-impl.ts#L32)
 
 ___
 
@@ -83,13 +159,9 @@ ___
 
 ``null`` \| [`EShape`](../interfaces/EShape.md)
 
-#### Implementation of
-
-[DDiagramCanvasShape](../interfaces/DDiagramCanvasShape.md).[get](../interfaces/DDiagramCanvasShape.md#get)
-
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L28)
 
 ___
 
@@ -107,10 +179,6 @@ ___
 
 [`EShape`](../interfaces/EShape.md)[]
 
-#### Implementation of
-
-[DDiagramCanvasShape](../interfaces/DDiagramCanvasShape.md).[getAll](../interfaces/DDiagramCanvasShape.md#getall)
-
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L34)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape-impl.ts#L36)

@@ -88,8 +88,6 @@ export interface DBaseEvents<EMITTER> {
 	/**
 	 * Triggered when an initialization is finished.
 	 *
-	 *     on( "init", ( emitter ) => {} )
-	 *
 	 * @param emitter an emitter
 	 */
 	init(emitter: EMITTER): void;

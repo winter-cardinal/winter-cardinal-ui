@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DynamicSDFFontAtlasFont
+[Winter Cardinal UI - v0.227.0](../index.md) / DynamicSDFFontAtlasFont
 
 # Interface: DynamicSDFFontAtlasFont
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L15)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L15)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L17)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L17)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L16)
+[src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/dynamic-sdf-font-atlas.ts#L16)

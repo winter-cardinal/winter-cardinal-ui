@@ -1,16 +1,19 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramCanvasShape
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramCanvasShape
 
 # Interface: DDiagramCanvasShape
 
-## Implemented by
+## Hierarchy
 
-- [`DDiagramCanvasShapeImpl`](../classes/DDiagramCanvasShapeImpl.md)
+- [`DDiagramCanvasBaseShape`](DDiagramCanvasBaseShape.md)
+
+  ↳ **`DDiagramCanvasShape`**
 
 ## Table of contents
 
 ### Methods
 
 - [add](DDiagramCanvasShape.md#add)
+- [each](DDiagramCanvasShape.md#each)
 - [get](DDiagramCanvasShape.md#get)
 - [getAll](DDiagramCanvasShape.md#getall)
 
@@ -33,7 +36,32 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts#L9)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts#L10)
+
+___
+
+### each
+
+▸ **each**(`iteratee`, `ignoreCapability?`): [`DDiagramCanvasShape`](DDiagramCanvasShape.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `iteratee` | (`shape`: [`EShape`](EShape.md)) => `boolean` |
+| `ignoreCapability?` | `boolean` |
+
+#### Returns
+
+[`DDiagramCanvasShape`](DDiagramCanvasShape.md)
+
+#### Inherited from
+
+[DDiagramCanvasBaseShape](DDiagramCanvasBaseShape.md).[each](DDiagramCanvasBaseShape.md#each)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts#L21)
 
 ___
 
@@ -53,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts#L10)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts#L11)
 
 ___
 
@@ -73,4 +101,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts#L11)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-shape.ts#L12)

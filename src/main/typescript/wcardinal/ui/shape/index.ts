@@ -38,6 +38,8 @@ export * from "./e-shape-data-mapping-impl";
 export * from "./e-shape-data-mapping";
 export * from "./e-shape-data-scoped-impl";
 export * from "./e-shape-data-scoped";
+export * from "./e-shape-data-system-impl";
+export * from "./e-shape-data-system";
 export * from "./e-shape-data-value-extension";
 export * from "./e-shape-data-value-extensions";
 export * from "./e-shape-data-value-formatter";

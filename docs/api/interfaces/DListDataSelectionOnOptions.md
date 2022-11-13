@@ -1,8 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DListDataSelectionOnOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DListDataSelectionOnOptions
 
 # Interface: DListDataSelectionOnOptions<EMITTER\>
 
-{@link DListSelection} "on" options.
+[DListDataSelection](DListDataSelection.md) "on" options.
 
 ## Type parameters
 
@@ -48,4 +48,4 @@ Partial.change
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L27)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L30)

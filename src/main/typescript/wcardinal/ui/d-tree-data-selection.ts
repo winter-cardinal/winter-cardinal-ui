@@ -7,6 +7,9 @@ import { utils } from "pixi.js";
 import { DOnOptions } from "./d-on-options";
 import { DTreeNode } from "./d-tree-node";
 
+/**
+ * {@link DTreeDataSelection} type.
+ */
 export const DTreeDataSelectionType = {
 	NONE: 0,
 	SINGLE: 1,
@@ -17,7 +20,7 @@ export type DTreeDataSelectionType =
 	typeof DTreeDataSelectionType[keyof typeof DTreeDataSelectionType];
 
 /**
- * {@link DListSelection} events.
+ * {@link DTreeDataSelection} events.
  */
 export interface DTreeDataSelectionEvents<EMITTER> {
 	/**
@@ -29,14 +32,14 @@ export interface DTreeDataSelectionEvents<EMITTER> {
 }
 
 /**
- * {@link DListSelection} "on" options.
+ * {@link DTreeDataSelection} "on" options.
  */
 export interface DTreeDataSelectionOnOptions<EMITTER>
 	extends Partial<DTreeDataSelectionEvents<EMITTER>>,
 		DOnOptions {}
 
 /**
- * {@link DListSelection} options.
+ * {@link DTreeDataSelection} options.
  */
 export interface DTreeDataSelectionOptions<ITEM, EMITTER = any> {
 	/**

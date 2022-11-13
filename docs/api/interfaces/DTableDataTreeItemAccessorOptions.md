@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTableDataTreeItemAccessorOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataTreeItemAccessorOptions
 
 # Interface: DTableDataTreeItemAccessorOptions<NODE\>
 
@@ -16,47 +16,55 @@
 
 ## Table of contents
 
-### Methods
+### Properties
 
 - [toChildren](DTableDataTreeItemAccessorOptions.md#tochildren)
 - [toParent](DTableDataTreeItemAccessorOptions.md#toparent)
 
-## Methods
+## Properties
 
 ### toChildren
 
-▸ `Optional` **toChildren**(`node`): `undefined` \| ``null`` \| `NODE`[]
+• `Optional` **toChildren**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`[]
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `NODE`[]
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| ``null`` \| `NODE`[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L8)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L8)
 
 ___
 
 ### toParent
 
-▸ `Optional` **toParent**(`node`): `undefined` \| ``null`` \| `NODE`
+• `Optional` **toParent**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `NODE`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| ``null`` \| `NODE`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L7)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L7)

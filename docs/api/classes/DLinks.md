@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DLinks
+[Winter Cardinal UI - v0.227.0](../index.md) / DLinks
 
 # Class: DLinks
 
@@ -34,7 +34,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `target?` | ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget) |
+| `target?` | ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget-1) |
 | `options?` | `OPTIONS` |
 
 #### Returns
@@ -43,4 +43,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-links.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-links.ts#L15)
+[src/main/typescript/wcardinal/ui/d-links.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-links.ts#L15)

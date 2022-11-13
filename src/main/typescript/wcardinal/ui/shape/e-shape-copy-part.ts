@@ -23,7 +23,7 @@ export const EShapeCopyPart = {
 	STATE,
 	IMAGE,
 	DATA,
-	/** @deprecated in favor of {@link data} */
+	/** @deprecated in favor of {@link DATA} */
 	TAG: DATA,
 	CONNECTOR,
 	ALL: TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE | IMAGE | DATA | CONNECTOR

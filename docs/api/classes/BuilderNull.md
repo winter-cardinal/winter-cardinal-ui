@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / BuilderNull
+[Winter Cardinal UI - v0.227.0](../index.md) / BuilderNull
 
 # Class: BuilderNull
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L21)
 
 ## Properties
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L17)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L16)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L19)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L15)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L14)
 
 ## Methods
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L42)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L42)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L30)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L34)
 
 ___
 
@@ -205,4 +205,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/builder-null.ts#L38)

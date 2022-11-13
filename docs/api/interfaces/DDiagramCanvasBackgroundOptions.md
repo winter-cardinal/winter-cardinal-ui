@@ -1,6 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramCanvasBackgroundOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramCanvasBackgroundOptions
 
 # Interface: DDiagramCanvasBackgroundOptions
+
+[DBase](../classes/DBase.md) background options.
 
 ## Hierarchy
 
@@ -31,7 +33,7 @@ If a computed value is undefined, falls back to an background alpha of a theme.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base.ts#L262)
+[src/main/typescript/wcardinal/ui/d-base.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L276)
 
 ___
 
@@ -41,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L16)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base.ts#L16)
 
 ___
 
@@ -59,4 +61,4 @@ If a computed value is null, a background is not rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:256](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-base.ts#L256)
+[src/main/typescript/wcardinal/ui/d-base.ts:270](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L270)

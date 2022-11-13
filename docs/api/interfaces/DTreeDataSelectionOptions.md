@@ -1,8 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTreeDataSelectionOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DTreeDataSelectionOptions
 
 # Interface: DTreeDataSelectionOptions<ITEM, EMITTER\>
 
-{@link DListSelection} options.
+[DTreeDataSelection](DTreeDataSelection.md) options.
 
 ## Type parameters
 
@@ -28,16 +28,16 @@ Mappings of event names and handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L50)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L53)
 
 ___
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTreeDataSelectionType`](../index.md#dtreedataselectiontype)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTreeDataSelectionType`](../index.md#dtreedataselectiontype-1)
 
 A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L45)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection.ts#L48)

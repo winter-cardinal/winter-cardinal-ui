@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / FormatNoderp
+[Winter Cardinal UI - v0.227.0](../index.md) / FormatNodeRP
 
-# Class: FormatNoderp
+# Class: FormatNodeRP
 
 ## Implements
 
@@ -10,17 +10,17 @@
 
 ### Constructors
 
-- [constructor](FormatNoderp.md#constructor)
+- [constructor](FormatNodeRP.md#constructor)
 
 ### Methods
 
-- [format](FormatNoderp.md#format)
+- [format](FormatNodeRP.md#format)
 
 ## Constructors
 
 ### constructor
 
-• **new FormatNoderp**()
+• **new FormatNodeRP**()
 
 ## Methods
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-rp-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/format-node/format-node-rp-small.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-rp-large.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-rp-large.ts#L9)

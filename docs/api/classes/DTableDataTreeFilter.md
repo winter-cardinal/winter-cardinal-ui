@@ -1,6 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTableDataTreeFilter
+[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataTreeFilter
 
 # Class: DTableDataTreeFilter<NODE\>
+
+Table data filter.
 
 ## Type parameters
 
@@ -89,7 +91,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L30)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L30)
 
 ## Properties
 
@@ -99,7 +101,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L27)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L27)
 
 ___
 
@@ -109,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L28)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L28)
 
 ___
 
@@ -119,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L23)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L23)
 
 ___
 
@@ -129,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L24)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L24)
 
 ___
 
@@ -139,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L25)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L25)
 
 ___
 
@@ -149,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L26)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L26)
 
 ## Accessors
 
@@ -167,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L42)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L42)
 
 ___
 
@@ -188,7 +190,7 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L195)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L195)
 
 ## Methods
 
@@ -211,7 +213,7 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L95)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L95)
 
 ___
 
@@ -263,7 +265,7 @@ Applys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L46)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L46)
 
 ___
 
@@ -340,7 +342,7 @@ Returns a current filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L168)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L168)
 
 ___
 
@@ -362,7 +364,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L72)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L72)
 
 ___
 
@@ -382,7 +384,7 @@ Returns true if a filter is applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L60)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L60)
 
 ___
 
@@ -404,7 +406,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L64)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L64)
 
 ___
 
@@ -476,9 +478,9 @@ Returns a mapped index of the specified sorted index.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sortedIndex` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `sortedIndex` | `number` | an sorted index |
 
 #### Returns
 
@@ -490,7 +492,7 @@ Returns a mapped index of the specified sorted index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L200)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:200](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L200)
 
 ___
 
@@ -504,7 +506,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L153)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L153)
 
 ___
 
@@ -528,7 +530,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L113)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L113)
 
 ___
 
@@ -577,7 +579,7 @@ Add a listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -611,7 +613,7 @@ Add a one-time listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -708,9 +710,9 @@ Sets to the given filter.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `filter` | ``null`` \| [`DTableDataFilterer`](../index.md#dtabledatafilterer)<`NODE`\> | A filter |
 
 #### Returns
 
@@ -722,7 +724,7 @@ Sets to the given filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L172)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L172)
 
 ___
 
@@ -736,7 +738,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L178)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L178)
 
 ___
 
@@ -756,7 +758,7 @@ Unapplys a filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L52)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L52)
 
 ___
 
@@ -769,9 +771,9 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | a mapped index |
 
 #### Returns
 
@@ -783,7 +785,7 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L216)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L216)
 
 ___
 
@@ -797,4 +799,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L182)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-filter.ts#L182)

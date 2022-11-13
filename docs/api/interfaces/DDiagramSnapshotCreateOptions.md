@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramSnapshotCreateOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramSnapshotCreateOptions
 
 # Interface: DDiagramSnapshotCreateOptions<CANVAS, DATA\>
 
@@ -14,11 +14,8 @@
 ### Properties
 
 - [cleanup](DDiagramSnapshotCreateOptions.md#cleanup)
-- [size](DDiagramSnapshotCreateOptions.md#size)
-
-### Methods
-
 - [extractor](DDiagramSnapshotCreateOptions.md#extractor)
+- [size](DDiagramSnapshotCreateOptions.md#size)
 
 ## Properties
 
@@ -28,7 +25,31 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L75)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L75)
+
+___
+
+### extractor
+
+• **extractor**: (`canvas`: `CANVAS`) => `DATA`
+
+#### Type declaration
+
+▸ (`canvas`): `DATA`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `canvas` | `CANVAS` |
+
+##### Returns
+
+`DATA`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L76)
 
 ___
 
@@ -38,24 +59,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L74)
-
-## Methods
-
-### extractor
-
-▸ **extractor**(`canvas`): `DATA`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `canvas` | `CANVAS` |
-
-#### Returns
-
-`DATA`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L76)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L74)

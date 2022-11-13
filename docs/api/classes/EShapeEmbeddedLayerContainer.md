@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeEmbeddedLayerContainer
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeEmbeddedLayerContainer
 
 # Class: EShapeEmbeddedLayerContainer
 
@@ -16,7 +16,6 @@
 
 - [\_hasConnectors](EShapeEmbeddedLayerContainer.md#_hasconnectors)
 - [\_height](EShapeEmbeddedLayerContainer.md#_height)
-- [\_isEditMode](EShapeEmbeddedLayerContainer.md#_iseditmode)
 - [\_width](EShapeEmbeddedLayerContainer.md#_width)
 - [children](EShapeEmbeddedLayerContainer.md#children)
 
@@ -31,7 +30,7 @@
 
 ### constructor
 
-• **new EShapeEmbeddedLayerContainer**(`width`, `height`, `isEditMode`)
+• **new EShapeEmbeddedLayerContainer**(`width`, `height`)
 
 #### Parameters
 
@@ -39,11 +38,10 @@
 | :------ | :------ |
 | `width` | `number` |
 | `height` | `number` |
-| `isEditMode` | `boolean` |
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L21)
 
 ## Properties
 
@@ -53,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L20)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L19)
 
 ___
 
@@ -63,17 +61,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L18)
-
-___
-
-### \_isEditMode
-
-• `Protected` **\_isEditMode**: `boolean`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L18)
 
 ___
 
@@ -83,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L17)
 
 ___
 
@@ -97,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L16)
 
 ## Methods
 
@@ -121,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L55)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L53)
 
 ___
 
@@ -146,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L73)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L71)
 
 ___
 
@@ -166,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L29)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L27)
 
 ___
 
@@ -180,4 +168,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L45)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embedded-layer-container.ts#L43)

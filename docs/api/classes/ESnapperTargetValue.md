@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / ESnapperTargetValue
+[Winter Cardinal UI - v0.227.0](../index.md) / ESnapperTargetValue
 
 # Class: ESnapperTargetValue
 
@@ -27,12 +27,12 @@
 
 | Name | Type |
 | :------ | :------ |
-| `type` | [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype) |
+| `type` | [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype-1) |
 | `position` | `number` |
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L20)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L20)
 
 ## Properties
 
@@ -42,17 +42,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L18)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L18)
 
 ___
 
 ### type
 
-• **type**: [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype)
+• **type**: [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L17)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L17)
 
 ## Methods
 
@@ -66,4 +66,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L25)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/snapper/e-snapper-target-value.ts#L25)

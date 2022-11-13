@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeResourceManagerDeserialization
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeResourceManagerDeserialization
 
 # Class: EShapeResourceManagerDeserialization
 
@@ -16,6 +16,7 @@
 - [\_dataDestinations](EShapeResourceManagerDeserialization.md#_datadestinations)
 - [\_dataMappers](EShapeResourceManagerDeserialization.md#_datamappers)
 - [\_dataMapping](EShapeResourceManagerDeserialization.md#_datamapping)
+- [\_dataSystem](EShapeResourceManagerDeserialization.md#_datasystem)
 - [\_dataValues](EShapeResourceManagerDeserialization.md#_datavalues)
 - [\_extensions](EShapeResourceManagerDeserialization.md#_extensions)
 - [\_fills](EShapeResourceManagerDeserialization.md#_fills)
@@ -25,7 +26,8 @@
 - [\_textOutlines](EShapeResourceManagerDeserialization.md#_textoutlines)
 - [\_texts](EShapeResourceManagerDeserialization.md#_texts)
 - [data](EShapeResourceManagerDeserialization.md#data)
-- [isEditMode](EShapeResourceManagerDeserialization.md#iseditmode)
+- [depth](EShapeResourceManagerDeserialization.md#depth)
+- [mode](EShapeResourceManagerDeserialization.md#mode)
 - [pieceData](EShapeResourceManagerDeserialization.md#piecedata)
 - [pieces](EShapeResourceManagerDeserialization.md#pieces)
 - [resources](EShapeResourceManagerDeserialization.md#resources)
@@ -38,6 +40,7 @@
 - [getDataDestination](EShapeResourceManagerDeserialization.md#getdatadestination)
 - [getDataMapper](EShapeResourceManagerDeserialization.md#getdatamapper)
 - [getDataMapping](EShapeResourceManagerDeserialization.md#getdatamapping)
+- [getDataSystem](EShapeResourceManagerDeserialization.md#getdatasystem)
 - [getDataValue](EShapeResourceManagerDeserialization.md#getdatavalue)
 - [getExtension](EShapeResourceManagerDeserialization.md#getextension)
 - [getFill](EShapeResourceManagerDeserialization.md#getfill)
@@ -50,6 +53,7 @@
 - [setAlign](EShapeResourceManagerDeserialization.md#setalign)
 - [setData](EShapeResourceManagerDeserialization.md#setdata)
 - [setDataMapping](EShapeResourceManagerDeserialization.md#setdatamapping)
+- [setDataSystem](EShapeResourceManagerDeserialization.md#setdatasystem)
 - [setDataValue](EShapeResourceManagerDeserialization.md#setdatavalue)
 - [setExtension](EShapeResourceManagerDeserialization.md#setextension)
 - [setFill](EShapeResourceManagerDeserialization.md#setfill)
@@ -63,7 +67,7 @@
 
 ### constructor
 
-• **new EShapeResourceManagerDeserialization**(`serialized`, `pieces`, `pieceData`, `isEditMode`)
+• **new EShapeResourceManagerDeserialization**(`serialized`, `pieces`, `pieceData`, `mode`, `depth`)
 
 #### Parameters
 
@@ -72,11 +76,12 @@
 | `serialized` | [`EShapeResourceManagerDeserializationSerialized`](../interfaces/EShapeResourceManagerDeserializationSerialized.md) |
 | `pieces` | `undefined` \| `string`[] |
 | `pieceData` | `undefined` \| `Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\> |
-| `isEditMode` | `boolean` |
+| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
+| `depth` | `number` |
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L51)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L55)
 
 ## Properties
 
@@ -86,17 +91,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L39)
 
 ___
 
 ### \_aligns
 
-• `Protected` **\_aligns**: `Map`<`number`, [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)]\>
+• `Protected` **\_aligns**: `Map`<`number`, [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)]\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L45)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L49)
 
 ___
 
@@ -106,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L42)
 
 ___
 
@@ -116,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L46)
 
 ___
 
@@ -126,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L42)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L45)
 
 ___
 
@@ -136,7 +141,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L41)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L44)
+
+___
+
+### \_dataSystem
+
+• `Protected` **\_dataSystem**: `Map`<`number`, [`DDiagramSerializedDataSystem`](../index.md#ddiagramserializeddatasystem)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L47)
 
 ___
 
@@ -146,7 +161,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L43)
 
 ___
 
@@ -156,7 +171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L49)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L53)
 
 ___
 
@@ -166,7 +181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L40)
 
 ___
 
@@ -176,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L46)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L50)
 
 ___
 
@@ -186,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L44)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L48)
 
 ___
 
@@ -196,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L41)
 
 ___
 
@@ -206,7 +221,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L52)
 
 ___
 
@@ -216,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L51)
 
 ___
 
@@ -226,17 +241,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L33)
 
 ___
 
-### isEditMode
+### depth
 
-• **isEditMode**: `boolean`
+• **depth**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L37)
+
+___
+
+### mode
+
+• **mode**: [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L36)
 
 ___
 
@@ -246,7 +271,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L35)
 
 ___
 
@@ -256,7 +281,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L32)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L34)
 
 ___
 
@@ -266,7 +291,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L30)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L32)
 
 ## Methods
 
@@ -286,13 +311,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L79)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L86)
 
 ___
 
 ### getAlign
 
-▸ **getAlign**(`id`): `undefined` \| [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)]
+▸ **getAlign**(`id`): `undefined` \| [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)]
 
 #### Parameters
 
@@ -302,11 +327,11 @@ ___
 
 #### Returns
 
-`undefined` \| [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)]
+`undefined` \| [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L155)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:170](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L170)
 
 ___
 
@@ -326,7 +351,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L103)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L110)
 
 ___
 
@@ -346,7 +371,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L137)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L144)
 
 ___
 
@@ -366,7 +391,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L127)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L134)
 
 ___
 
@@ -386,7 +411,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L119)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L126)
+
+___
+
+### getDataSystem
+
+▸ **getDataSystem**(`id`): `undefined` \| [`DDiagramSerializedDataSystem`](../index.md#ddiagramserializeddatasystem)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `number` |
+
+#### Returns
+
+`undefined` \| [`DDiagramSerializedDataSystem`](../index.md#ddiagramserializeddatasystem)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L154)
 
 ___
 
@@ -406,7 +451,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L111)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L118)
 
 ___
 
@@ -432,7 +477,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L187)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L202)
 
 ___
 
@@ -452,7 +497,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L87)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L94)
 
 ___
 
@@ -472,7 +517,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L163)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L178)
 
 ___
 
@@ -492,7 +537,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L147)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:162](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L162)
 
 ___
 
@@ -512,7 +557,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L95)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L102)
 
 ___
 
@@ -532,7 +577,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L171)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:186](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L186)
 
 ___
 
@@ -552,7 +597,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L179)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:194](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L194)
 
 ___
 
@@ -573,7 +618,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L83)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L90)
 
 ___
 
@@ -586,7 +631,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `id` | `number` |
-| `align` | [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical)] |
+| `align` | [[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1), [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)] |
 
 #### Returns
 
@@ -594,7 +639,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L159)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L174)
 
 ___
 
@@ -615,7 +660,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L107)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L114)
 
 ___
 
@@ -636,7 +681,28 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L123)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L130)
+
+___
+
+### setDataSystem
+
+▸ **setDataSystem**(`id`, `dataSystem`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `id` | `number` |
+| `dataSystem` | [`DDiagramSerializedDataSystem`](../index.md#ddiagramserializeddatasystem) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L158)
 
 ___
 
@@ -657,7 +723,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L115)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L122)
 
 ___
 
@@ -678,7 +744,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L191)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L206)
 
 ___
 
@@ -699,7 +765,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L91)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L98)
 
 ___
 
@@ -720,7 +786,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L167)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L182)
 
 ___
 
@@ -741,7 +807,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L151)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:166](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L166)
 
 ___
 
@@ -762,7 +828,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L99)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L106)
 
 ___
 
@@ -783,7 +849,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L175)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L190)
 
 ___
 
@@ -804,4 +870,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L183)
+[src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts:198](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-resource-manager-deserialization.ts#L198)

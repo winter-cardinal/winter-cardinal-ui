@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeDataScoped
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeDataScoped
 
 # Interface: EShapeDataScoped
 
@@ -27,7 +27,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L5)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:5](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L5)
 
 ## Methods
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L7)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L17)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L8)
 
 ___
 
@@ -113,4 +113,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-scoped.ts#L16)

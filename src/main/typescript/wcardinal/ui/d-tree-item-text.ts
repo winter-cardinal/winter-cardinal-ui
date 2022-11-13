@@ -22,16 +22,14 @@ export interface DTreeItemTextEvents<NODE, EMITTER> extends DImageBaseEvents<NOD
 	/**
 	 * Triggered when a node is set.
 	 *
-	 *     on( "set", ( node, index, emitter ) => {} )
-	 *
+	 * @param node a node
+	 * @param index an index number of a node
 	 * @param emitter an emitter
 	 */
 	set(node: NODE, index: number, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when set to undefined.
-	 *
-	 *     on( "unset", ( emitter ) => {} )
 	 *
 	 * @param emitter an emitter
 	 */

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeDataMapper
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeDataMapper
 
 # Interface: EShapeDataMapper
 
@@ -18,7 +18,7 @@ An EShape data mapper.
 
 ### map
 
-▸ **map**(`target`, `destination`, `initial`): `void`
+▸ **map**(`target`, `destination`, `initial`): `boolean`
 
 #### Parameters
 
@@ -30,8 +30,8 @@ An EShape data mapper.
 
 #### Returns
 
-`void`
+`boolean`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper.ts#L12)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeCapabilities
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeCapabilities
 
 # Class: EShapeCapabilities
 
@@ -32,13 +32,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L11)
 
 ## Methods
 
 ### contains
 
-▸ `Static` **contains**(`shape`, `target`): shape is EShape
+▸ `Static` **contains**(`shape`, `target`): `boolean`
 
 #### Parameters
 
@@ -49,11 +49,11 @@
 
 #### Returns
 
-shape is EShape
+`boolean`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L21)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L13)
 
 ___
 
@@ -94,4 +94,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-capabilities.ts#L40)

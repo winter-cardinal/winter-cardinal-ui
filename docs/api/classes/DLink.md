@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DLink
+[Winter Cardinal UI - v0.227.0](../index.md) / DLink
 
 # Class: DLink
 
@@ -23,13 +23,12 @@
 
 - [checker](DLink.md#checker)
 - [enable](DLink.md#enable)
-- [menu](DLink.md#menu)
+- [menu](DLink.md#menu-1)
 - [target](DLink.md#target)
 - [url](DLink.md#url)
 
 ### Methods
 
-- [add](DLink.md#add)
 - [check](DLink.md#check)
 - [copy](DLink.md#copy)
 - [exec](DLink.md#exec)
@@ -55,7 +54,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L53)
+[src/main/typescript/wcardinal/ui/d-link.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L52)
 
 ## Properties
 
@@ -65,7 +64,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L49)
+[src/main/typescript/wcardinal/ui/d-link.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L48)
 
 ___
 
@@ -75,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L51)
+[src/main/typescript/wcardinal/ui/d-link.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L50)
 
 ___
 
@@ -85,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L50)
+[src/main/typescript/wcardinal/ui/d-link.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L49)
 
 ___
 
@@ -95,17 +94,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L45)
+[src/main/typescript/wcardinal/ui/d-link.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L44)
 
 ___
 
 ### \_target
 
-• `Protected` **\_target**: [`DLinkTarget`](../index.md#dlinktarget)
+• `Protected` **\_target**: [`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L48)
+[src/main/typescript/wcardinal/ui/d-link.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L47)
 
 ___
 
@@ -115,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L47)
+[src/main/typescript/wcardinal/ui/d-link.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L46)
 
 ___
 
@@ -125,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L42)
+[src/main/typescript/wcardinal/ui/d-link.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L41)
 
 ___
 
@@ -135,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L43)
+[src/main/typescript/wcardinal/ui/d-link.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L42)
 
 ## Accessors
 
@@ -149,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L86)
+[src/main/typescript/wcardinal/ui/d-link.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L85)
 
 • `set` **checker**(`checker`): `void`
 
@@ -165,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L90)
+[src/main/typescript/wcardinal/ui/d-link.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L89)
 
 ___
 
@@ -179,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L62)
+[src/main/typescript/wcardinal/ui/d-link.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L61)
 
 • `set` **enable**(`enable`): `void`
 
@@ -195,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L66)
+[src/main/typescript/wcardinal/ui/d-link.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L65)
 
 ___
 
@@ -209,21 +208,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L94)
+[src/main/typescript/wcardinal/ui/d-link.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L93)
 
 ___
 
 ### target
 
-• `get` **target**(): [`DLinkTarget`](../index.md#dlinktarget)
+• `get` **target**(): [`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Returns
 
-[`DLinkTarget`](../index.md#dlinktarget)
+[`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L78)
+[src/main/typescript/wcardinal/ui/d-link.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L77)
 
 • `set` **target**(`target`): `void`
 
@@ -239,7 +238,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L82)
+[src/main/typescript/wcardinal/ui/d-link.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L81)
 
 ___
 
@@ -253,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L70)
+[src/main/typescript/wcardinal/ui/d-link.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L69)
 
 • `set` **url**(`url`): `void`
 
@@ -269,30 +268,9 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L74)
+[src/main/typescript/wcardinal/ui/d-link.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L73)
 
 ## Methods
-
-### add
-
-▸ **add**(`base`, `onSelect`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `onSelect` | (`e`: `InteractionEvent`) => `void` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-link.ts:253](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L253)
-
-___
 
 ### check
 
@@ -312,7 +290,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:184](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L184)
+[src/main/typescript/wcardinal/ui/d-link.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L183)
 
 ___
 
@@ -328,7 +306,7 @@ Copys the URL to the clipboard.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L154)
+[src/main/typescript/wcardinal/ui/d-link.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L153)
 
 ___
 
@@ -351,7 +329,7 @@ Opens the given URL.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L210)
+[src/main/typescript/wcardinal/ui/d-link.ts:209](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L209)
 
 ___
 
@@ -373,7 +351,7 @@ Returns true if the URL need to be opened in a new window.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L232)
+[src/main/typescript/wcardinal/ui/d-link.ts:231](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L231)
 
 ___
 
@@ -387,20 +365,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L103)
+[src/main/typescript/wcardinal/ui/d-link.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L102)
 
 ___
 
 ### onClick
 
-▸ **onClick**(`base`, `isSimulated`): `boolean`
+▸ **onClick**(`base`, `e`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `base` | [`DBase`](DBase.md)<[`DThemeBase`](../interfaces/DThemeBase.md), [`DBaseOptions`](../interfaces/DBaseOptions.md)<[`DThemeBase`](../interfaces/DThemeBase.md), `any`\>\> |
-| `isSimulated` | `boolean` |
+| `e` | `InteractionEvent` |
 
 #### Returns
 
@@ -408,7 +386,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L261)
+[src/main/typescript/wcardinal/ui/d-link.ts:252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L252)
 
 ___
 
@@ -430,7 +408,7 @@ Checks and opens the URL.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L165)
+[src/main/typescript/wcardinal/ui/d-link.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L164)
 
 ▸ **open**(`inNewWindow`): `void`
 
@@ -448,13 +426,13 @@ Checks and opens the URL.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:172](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L172)
+[src/main/typescript/wcardinal/ui/d-link.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L171)
 
 ___
 
 ### toNormalizedTarget
 
-▸ `Protected` **toNormalizedTarget**(`target`): [`DLinkTarget`](../index.md#dlinktarget)
+▸ `Protected` **toNormalizedTarget**(`target`): [`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Parameters
 
@@ -464,11 +442,11 @@ ___
 
 #### Returns
 
-[`DLinkTarget`](../index.md#dlinktarget)
+[`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L147)
+[src/main/typescript/wcardinal/ui/d-link.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L146)
 
 ___
 
@@ -488,7 +466,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L140)
+[src/main/typescript/wcardinal/ui/d-link.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L139)
 
 ___
 
@@ -509,4 +487,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L122)
+[src/main/typescript/wcardinal/ui/d-link.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L121)

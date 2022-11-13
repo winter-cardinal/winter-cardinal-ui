@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DImagePieceAlignOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DImagePieceAlignOptions
 
 # Interface: DImagePieceAlignOptions
 
@@ -14,28 +14,28 @@
 
 ### horizontal
 
-• `Optional` **horizontal**: ``"CENTER"`` \| ``"RIGHT"`` \| ``"LEFT"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal)
+• `Optional` **horizontal**: ``"CENTER"`` \| ``"RIGHT"`` \| ``"LEFT"`` \| [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L20)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L20)
 
 ___
 
 ### vertical
 
-• `Optional` **vertical**: ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical)
+• `Optional` **vertical**: ``"TOP"`` \| ``"BOTTOM"`` \| ``"MIDDLE"`` \| [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L19)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L19)
 
 ___
 
 ### with
 
-• `Optional` **with**: ``"TEXT"`` \| ``"PADDING"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith)
+• `Optional` **with**: ``"TEXT"`` \| ``"PADDING"`` \| ``"BORDER"`` \| [`DAlignWith`](../index.md#dalignwith-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L18)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L18)

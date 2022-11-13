@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramSerializedBackground
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramSerializedBackground
 
 # Interface: DDiagramSerializedBackground
 
@@ -19,7 +19,7 @@ Serialized background settings.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:502](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L502)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:516](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L516)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:501](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L501)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:515](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L515)

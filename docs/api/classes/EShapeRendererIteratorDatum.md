@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeRendererIteratorDatum
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeRendererIteratorDatum
 
 # Class: EShapeRendererIteratorDatum
 
@@ -10,13 +10,9 @@
 
 ### Properties
 
+- [current](EShapeRendererIteratorDatum.md#current)
 - [index](EShapeRendererIteratorDatum.md#index)
 - [shapes](EShapeRendererIteratorDatum.md#shapes)
-
-### Methods
-
-- [next](EShapeRendererIteratorDatum.md#next)
-- [reset](EShapeRendererIteratorDatum.md#reset)
 
 ## Constructors
 
@@ -26,58 +22,34 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L15)
 
 ## Properties
 
-### index
+### current
 
-• `Protected` **index**: `number`
+• **current**: ``null`` \| [`EShape`](../interfaces/EShape.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L13)
+
+___
+
+### index
+
+• **index**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L11)
 
 ___
 
 ### shapes
 
-• `Protected` **shapes**: [`EShape`](../interfaces/EShape.md)[]
+• **shapes**: [`EShape`](../interfaces/EShape.md)[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L12)
-
-## Methods
-
-### next
-
-▸ **next**(): ``null`` \| [`EShape`](../interfaces/EShape.md)
-
-#### Returns
-
-``null`` \| [`EShape`](../interfaces/EShape.md)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L24)
-
-___
-
-### reset
-
-▸ **reset**(`shapes`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `shapes` | [`EShape`](../interfaces/EShape.md)[] |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer-iterator-datum.ts#L12)

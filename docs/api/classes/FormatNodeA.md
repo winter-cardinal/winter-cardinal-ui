@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / FormatNodea
+[Winter Cardinal UI - v0.227.0](../index.md) / FormatNodeA
 
-# Class: FormatNodea
+# Class: FormatNodeA
 
 ## Implements
 
@@ -10,17 +10,17 @@
 
 ### Constructors
 
-- [constructor](FormatNodea.md#constructor)
+- [constructor](FormatNodeA.md#constructor)
 
 ### Methods
 
-- [format](FormatNodea.md#format)
+- [format](FormatNodeA.md#format)
 
 ## Constructors
 
 ### constructor
 
-• **new FormatNodea**()
+• **new FormatNodeA**()
 
 ## Methods
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-a-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/format-node/format-node-a-small.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-a-large.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-a-large.ts#L9)

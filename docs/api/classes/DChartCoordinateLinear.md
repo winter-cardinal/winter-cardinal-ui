@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DChartCoordinateLinear
+[Winter Cardinal UI - v0.227.0](../index.md) / DChartCoordinateLinear
 
 # Class: DChartCoordinateLinear<CHART\>
 
@@ -78,7 +78,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L44)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L44)
 
 ## Properties
 
@@ -88,17 +88,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L35)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L35)
 
 ___
 
 ### \_direction
 
-• `Protected` **\_direction**: [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection)
+• `Protected` **\_direction**: [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L36)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L41)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L41)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L33)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L40)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L40)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L37)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L39)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L42)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L42)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L34)
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L38)
 
 ## Accessors
 
@@ -196,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L56)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L56)
 
 • `set` **from**(`from`): `void`
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L60)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L60)
 
 ___
 
@@ -236,7 +236,7 @@ Monotonic increasing ID for change detection.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L202)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:202](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L202)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L64)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L64)
 
 • `set` **to**(`to`): `void`
 
@@ -274,7 +274,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L68)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L68)
 
 ___
 
@@ -292,7 +292,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L206)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:206](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L206)
 
 ## Methods
 
@@ -305,7 +305,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `container` | [`DChartCoordinateContainerSub`](../interfaces/DChartCoordinateContainerSub.md)<`CHART`\> |
-| `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection) |
+| `direction` | [`DChartCoordinateDirection`](../index.md#dchartcoordinatedirection-1) |
 
 #### Returns
 
@@ -317,7 +317,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L72)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L72)
 
 ___
 
@@ -341,7 +341,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L98)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L98)
 
 ___
 
@@ -363,7 +363,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L102)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L102)
 
 ___
 
@@ -386,7 +386,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L175)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L175)
 
 ___
 
@@ -399,10 +399,10 @@ if the plot area container's localTransform is an identity matrix.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `from?` | `number` |
-| `to?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `from?` | `number` | a lower end of the range |
+| `to?` | `number` | an upper end of the range |
 
 #### Returns
 
@@ -414,7 +414,7 @@ if the plot area container's localTransform is an identity matrix.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L86)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L86)
 
 ___
 
@@ -428,7 +428,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L255)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L255)
 
 ___
 
@@ -442,7 +442,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L259)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L259)
 
 ___
 
@@ -454,9 +454,9 @@ Transforms the given raw value to the untransformed value.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `number` | a raw value |
 
 #### Returns
 
@@ -468,7 +468,7 @@ Transforms the given raw value to the untransformed value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L210)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:210](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L210)
 
 ___
 
@@ -482,13 +482,13 @@ Here, i is a non-negative integer.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `values` | `number`[] |
-| `ifrom` | `number` |
-| `iend` | `number` |
-| `stride` | `number` |
-| `offset` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `values` | `number`[] | raw values to be transformed |
+| `ifrom` | `number` | an index on raw values at which to begin a transformation |
+| `iend` | `number` | an index on raw values before which to end a transformation |
+| `stride` | `number` | a stride of indices |
+| `offset` | `number` | an offset of indices |
 
 #### Returns
 
@@ -500,7 +500,7 @@ Here, i is a non-negative integer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L214)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L214)
 
 ___
 
@@ -525,7 +525,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L90)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L90)
 
 ___
 
@@ -537,17 +537,17 @@ Returns major / minor tick positions.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `domainFrom` | `number` |
-| `domainTo` | `number` |
-| `majorCount` | `number` |
-| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) |
-| `minorCountPerMajor` | `number` |
-| `minorCount` | `number` |
-| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
-| `majorResult` | `Float64Array` |
-| `minorResult` | `Float64Array` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `domainFrom` | `number` | minimum domain |
+| `domainTo` | `number` | maximum domain |
+| `majorCount` | `number` | Expected major tick count |
+| `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) | - |
+| `minorCountPerMajor` | `number` | Expected minor tick count per major ticks |
+| `minorCount` | `number` | Expected total minor tick count |
+| `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) | - |
+| `majorResult` | `Float64Array` | `majorResult.length` must be larger than `majorCount * 3`. |
+| `minorResult` | `Float64Array` | `minorResult.length` must be larger than `minorCount * 3`. |
 
 #### Returns
 
@@ -559,7 +559,7 @@ Returns major / minor tick positions.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L226)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L226)
 
 ___
 
@@ -582,7 +582,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L133)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L133)
 
 ___
 
@@ -605,7 +605,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L154)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L154)
 
 ___
 
@@ -625,7 +625,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L251)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L251)
 
 ___
 
@@ -643,7 +643,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L81)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L81)
 
 ___
 
@@ -655,9 +655,9 @@ Transforms the given untransformed value to the raw value.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `number` | an untransformed value |
 
 #### Returns
 
@@ -669,7 +669,7 @@ Transforms the given untransformed value to the raw value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L218)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:218](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L218)
 
 ___
 
@@ -683,13 +683,13 @@ Here, i is a non-negative integer.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `values` | `number`[] |
-| `ifrom` | `number` |
-| `iend` | `number` |
-| `stride` | `number` |
-| `offset` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `values` | `number`[] | untrasformed values to be transformed |
+| `ifrom` | `number` | an index on raw values at which to begin a transformation |
+| `iend` | `number` | an index on raw values at which to begin a transformation |
+| `stride` | `number` | a stride of indices |
+| `offset` | `number` | an offset of indices |
 
 #### Returns
 
@@ -701,4 +701,4 @@ Here, i is a non-negative integer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L222)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-linear.ts#L222)

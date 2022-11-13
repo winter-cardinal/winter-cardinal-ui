@@ -54,7 +54,7 @@ export interface DTableBodyCell<ROW, VALUE> extends DBase {
 	unset(): void;
 
 	/**
-	 * Called when the selection type is not {@link DTableDataSelectionType.NONE}
+	 * Called when the selection type is not {@link DTableDataSelectionType}'s NONE
 	 * and a cell is clicked. Returning true will prevent the row selection.
 	 * Otherwise, a clicked row will be selected.
 	 *

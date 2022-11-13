@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / UtilGestureCheckerOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / UtilGestureCheckerOptions
 
 # Interface: UtilGestureCheckerOptions<TARGET\>
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L38)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L38)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L37)
+[src/main/typescript/wcardinal/ui/util/util-gesture.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture.ts#L37)

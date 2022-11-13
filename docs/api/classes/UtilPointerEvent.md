@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / UtilPointerEvent
+[Winter Cardinal UI - v0.227.0](../index.md) / UtilPointerEvent
 
 # Class: UtilPointerEvent
 
@@ -31,8 +31,6 @@
 ### Methods
 
 - [contains](UtilPointerEvent.md#contains)
-- [isValidDistance](UtilPointerEvent.md#isvaliddistance)
-- [onClick](UtilPointerEvent.md#onclick)
 - [onDblClick](UtilPointerEvent.md#ondblclick)
 - [toGlobal](UtilPointerEvent.md#toglobal)
 
@@ -50,7 +48,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L20)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L19)
 
 ___
 
@@ -60,7 +58,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L21)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L20)
 
 ___
 
@@ -70,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L22)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L21)
 
 ## Accessors
 
@@ -84,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L64)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L63)
 
 ___
 
@@ -98,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L32)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L31)
 
 ___
 
@@ -112,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L36)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L35)
 
 ___
 
@@ -126,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L40)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L39)
 
 ___
 
@@ -140,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L44)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L43)
 
 ___
 
@@ -154,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L48)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L47)
 
 ___
 
@@ -168,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L52)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L51)
 
 ___
 
@@ -182,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L28)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L27)
 
 ___
 
@@ -196,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L24)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L23)
 
 ___
 
@@ -210,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L56)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L55)
 
 ___
 
@@ -224,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L60)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L59)
 
 ## Methods
 
@@ -245,50 +243,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:233](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L233)
-
-___
-
-### isValidDistance
-
-▸ `Static` `Protected` **isValidDistance**(`e`, `x`, `y`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `e` | `InteractionEvent` |
-| `x` | `number` |
-| `y` | `number` |
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L87)
-
-___
-
-### onClick
-
-▸ `Static` **onClick**(`target`, `onClick`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `target` | [`UtilPointerEventClickTarget`](../interfaces/UtilPointerEventClickTarget.md) |
-| `onClick` | [`UtilPointerEventOnClick`](../index.md#utilpointereventonclick) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L95)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L159)
 
 ___
 
@@ -309,7 +264,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L160)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L86)
 
 ___
 
@@ -331,4 +286,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L68)
+[src/main/typescript/wcardinal/ui/util/util-pointer-event.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-pointer-event.ts#L67)

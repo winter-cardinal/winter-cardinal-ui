@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramSerializedSimple
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramSerializedSimple
 
 # Interface: DDiagramSerializedSimple
 
@@ -26,7 +26,7 @@ A stringified [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpl
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L569)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:583](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L583)
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:544](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L544)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:558](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L558)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L545)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:559](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L559)
 
 ___
 
@@ -54,13 +54,15 @@ ___
 
 • `Optional` **pieces**: `string`
 
-A stringified {@link DDiagramSerialized#pieces}.
+A stringified [pieces](DDiagramSerialized.md#pieces).
 
-**`deprecated`** in favor of [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpledata).
+**`Deprecated`**
+
+in favor of [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpledata).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:559](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L559)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:573](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L573)
 
 ___
 
@@ -68,13 +70,15 @@ ___
 
 • `Optional` **tags**: `string`
 
-A stringified {@link DDiagramSerialized#data}.
+A stringified [data](DDiagramSerialized.md#data).
 
-**`deprecated`** in favor of [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpledata).
+**`Deprecated`**
+
+in favor of [DDiagramSerializedSimpleData](../index.md#ddiagramserializedsimpledata).
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:552](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L552)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:566](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L566)
 
 ___
 
@@ -86,7 +90,7 @@ Thumbnail data URL.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:564](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L564)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:578](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L578)
 
 ___
 
@@ -96,4 +100,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:543](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L543)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:557](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L557)

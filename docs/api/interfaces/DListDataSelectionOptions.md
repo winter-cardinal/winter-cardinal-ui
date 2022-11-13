@@ -1,8 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DListDataSelectionOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DListDataSelectionOptions
 
 # Interface: DListDataSelectionOptions<ITEM, EMITTER\>
 
-{@link DListSelection} options.
+[DListDataSelection](DListDataSelection.md) options.
 
 ## Type parameters
 
@@ -23,13 +23,15 @@
 
 ### mode
 
-• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
+• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../index.md#dlistdataselectiontype-1)
 
-**`deprecated`** in favor of [type](DListDataSelectionOptions.md#type)
+**`Deprecated`**
+
+in favor of [type](DListDataSelectionOptions.md#type)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L44)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L47)
 
 ___
 
@@ -41,16 +43,16 @@ Mappings of event names and handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L54)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L57)
 
 ___
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DListDataSelectionType`](../index.md#dlistdataselectiontype-1)
 
 A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L49)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L52)

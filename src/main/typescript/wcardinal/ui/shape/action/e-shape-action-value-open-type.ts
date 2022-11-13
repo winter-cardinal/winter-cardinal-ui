@@ -10,7 +10,7 @@ export const EShapeActionValueOpenType = {
 	DIAGRAM_LEGACY: 0,
 	/** @deprecated in favor of {@link PAGE} */
 	PAGE_LEGACY: 1,
-	/** @deprecated in favor of {@link PAGE */
+	/** @deprecated in favor of {@link PAGE} */
 	PAGE_INPLACE_LEGACY: 2,
 	/** @deprecated in favor of {@link DIALOG} */
 	DIALOG_TEXT: 3,

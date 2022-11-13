@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DApplicationLayerLike
+[Winter Cardinal UI - v0.227.0](../index.md) / DApplicationLayerLike
 
 # Interface: DApplicationLayerLike
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L8)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L8)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L10)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L10)
 
 ___
 
@@ -72,9 +72,9 @@ ___
 
 Loader instance to help with asset loading.
 
-**`name`** PIXI.Application#loader
+**`Name`**
 
-**`readonly`**
+PIXI.Application#loader
 
 #### Inherited from
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L11)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L11)
 
 ___
 
@@ -102,7 +102,9 @@ ___
 
 WebGL renderer if available, otherwise CanvasRenderer.
 
-**`member`** {PIXI.Renderer|PIXI.CanvasRenderer} PIXI.Application#renderer
+**`Member`**
+
+PIXI.Application#renderer
 
 #### Inherited from
 
@@ -120,9 +122,13 @@ ___
 
 The element or window to resize the application to.
 
-**`name`** resizeTo
+**`Name`**
 
-**`memberof`** PIXI.Application#
+resizeTo
+
+**`Memberof`**
+
+PIXI.Application#
 
 #### Inherited from
 
@@ -140,9 +146,7 @@ ___
 
 Reference to the renderer's screen rectangle. Its safe to use as `filterArea` or `hitArea` for the whole screen.
 
-**`member`** {PIXI.Rectangle}
-
-**`readonly`**
+**`Member`**
 
 #### Inherited from
 
@@ -160,7 +164,9 @@ ___
 
 The root display container that's rendered.
 
-**`member`** {PIXI.Container} PIXI.Application#stage
+**`Member`**
+
+PIXI.Application#stage
 
 #### Inherited from
 
@@ -178,11 +184,17 @@ ___
 
 Ticker for doing render updates.
 
-**`name`** ticker
+**`Name`**
 
-**`memberof`** PIXI.Application#
+ticker
 
-**`default`** PIXI.Ticker.shared
+**`Memberof`**
+
+PIXI.Application#
+
+**`Default`**
+
+PIXI.Ticker.shared
 
 #### Inherited from
 
@@ -200,9 +212,7 @@ ___
 
 Reference to the renderer's canvas element.
 
-**`member`** {HTMLCanvasElement}
-
-**`readonly`**
+**`Member`**
 
 #### Inherited from
 
@@ -220,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L9)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L9)
 
 ## Methods
 
@@ -232,13 +242,13 @@ Destroy and don't use after this.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `removeView?` | `boolean` |
-| `stageOptions?` | `Object` |
-| `stageOptions.baseTexture?` | `boolean` |
-| `stageOptions.children?` | `boolean` |
-| `stageOptions.texture?` | `boolean` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `removeView?` | `boolean` | Automatically remove canvas from DOM. |
+| `stageOptions?` | `Object` | Options parameter. A boolean will act as if all options  have been set to that value |
+| `stageOptions.baseTexture?` | `boolean` | Only used for child Sprites if stageOptions.children is set  to true. Should it destroy the base texture of the child sprite |
+| `stageOptions.children?` | `boolean` | if set to true, all the children will have their destroy  method called as well. 'stageOptions' will be passed on to those calls. |
+| `stageOptions.texture?` | `boolean` | Only used for child Sprites if stageOptions.children is set  to true. Should it destroy the texture of the child sprite |
 
 #### Returns
 
@@ -264,7 +274,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L21)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L21)
 
 ___
 
@@ -278,7 +288,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L23)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L23)
 
 ___
 
@@ -292,7 +302,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L20)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L20)
 
 ___
 
@@ -306,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L22)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L22)
 
 ___
 
@@ -320,7 +330,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L14)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L14)
 
 ___
 
@@ -334,7 +344,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L18)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L18)
 
 ___
 
@@ -352,7 +362,7 @@ Application.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L17)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L17)
 
 ___
 
@@ -363,7 +373,9 @@ ___
 If `resizeTo` is set, calling this function
 will resize to the width and height of that element.
 
-**`method`** PIXI.Application#resize
+**`Method`**
+
+PIXI.Application#resize
 
 #### Returns
 
@@ -385,7 +397,9 @@ ___
 
 Convenience method for starting the render.
 
-**`method`** PIXI.Application#start
+**`Method`**
+
+PIXI.Application#start
 
 #### Returns
 
@@ -407,7 +421,9 @@ ___
 
 Convenience method for stopping the render.
 
-**`method`** PIXI.Application#stop
+**`Method`**
+
+PIXI.Application#stop
 
 #### Returns
 
@@ -433,7 +449,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L13)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L13)
 
 ___
 
@@ -447,4 +463,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L16)
+[src/main/typescript/wcardinal/ui/d-application-layer-like.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-application-layer-like.ts#L16)

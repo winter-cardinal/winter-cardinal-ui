@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DThemes
+[Winter Cardinal UI - v0.227.0](../index.md) / DThemes
 
 # Class: DThemes
 
@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-themes.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L16)
+[src/main/typescript/wcardinal/ui/theme/d-themes.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L16)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-themes.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L20)
+[src/main/typescript/wcardinal/ui/theme/d-themes.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L20)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-themes.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L12)
+[src/main/typescript/wcardinal/ui/theme/d-themes.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L12)
 
 ___
 
@@ -87,4 +87,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/d-themes.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/d-themes.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/d-themes.ts#L31)

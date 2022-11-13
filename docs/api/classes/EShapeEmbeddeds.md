@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeEmbeddeds
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeEmbeddeds
 
 # Class: EShapeEmbeddeds
 
@@ -23,7 +23,7 @@
 
 ### create
 
-▸ `Static` **create**(`name`, `width`, `height`, `container`, `isEditMode`): [`EShapeEmbedded`](EShapeEmbedded.md)
+▸ `Static` **create**(`name`, `width`, `height`, `container`, `mode`, `depth`): [`EShapeEmbedded`](EShapeEmbedded.md)
 
 #### Parameters
 
@@ -33,7 +33,8 @@
 | `width` | `number` |
 | `height` | `number` |
 | `container` | [`EShapeLayerContainer`](../interfaces/EShapeLayerContainer.md) |
-| `isEditMode` | `boolean` |
+| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
+| `depth` | `number` |
 
 #### Returns
 
@@ -41,13 +42,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L50)
 
 ___
 
 ### from
 
-▸ `Static` **from**(`serializedOrSimple`, `controller`, `isEditMode`): `Promise`<[`EShapeEmbedded`](EShapeEmbedded.md)\>
+▸ `Static` **from**(`serializedOrSimple`, `controller`, `mode`): `Promise`<[`EShapeEmbedded`](EShapeEmbedded.md)\>
 
 #### Parameters
 
@@ -55,7 +56,7 @@ ___
 | :------ | :------ |
 | `serializedOrSimple` | [`DDiagramSerialized`](../interfaces/DDiagramSerialized.md) \| [`DDiagramSerializedSimple`](../interfaces/DDiagramSerializedSimple.md) |
 | `controller` | `undefined` \| ``null`` \| [`DDiagramBaseController`](../interfaces/DDiagramBaseController.md) |
-| `isEditMode` | `boolean` |
+| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
 
 #### Returns
 
@@ -63,4 +64,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-embeddeds.ts#L17)

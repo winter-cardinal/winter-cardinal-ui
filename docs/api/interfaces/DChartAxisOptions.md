@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DChartAxisOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DChartAxisOptions
 
 # Interface: DChartAxisOptions
 
@@ -18,8 +18,8 @@
 
 ### position
 
-• `Optional` **position**: ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../index.md#dchartaxisposition)
+• `Optional` **position**: ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../index.md#dchartaxisposition-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-axis.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis.ts#L11)

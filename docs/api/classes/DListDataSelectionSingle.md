@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DListDataSelectionSingle
+[Winter Cardinal UI - v0.227.0](../index.md) / DListDataSelectionSingle
 
 # Class: DListDataSelectionSingle<ITEM\>
 
@@ -91,7 +91,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L23)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L23)
 
 ## Properties
 
@@ -101,7 +101,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L20)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L20)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L21)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L21)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L19)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L19)
 
 ## Accessors
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L50)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L50)
 
 ___
 
@@ -157,17 +157,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L54)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L54)
 
 ___
 
 ### type
 
-• `get` **type**(): [`DListDataSelectionType`](../index.md#dlistdataselectiontype)
+• `get` **type**(): [`DListDataSelectionType`](../index.md#dlistdataselectiontype-1)
 
 #### Returns
 
-[`DListDataSelectionType`](../index.md#dlistdataselectiontype)
+[`DListDataSelectionType`](../index.md#dlistdataselectiontype-1)
 
 #### Implementation of
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L46)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L46)
 
 ## Methods
 
@@ -187,13 +187,15 @@ Adds the given item
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `ITEM` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `ITEM` | an item |
 
 #### Returns
 
 `boolean`
+
+true if succeeded.
 
 #### Implementation of
 
@@ -201,7 +203,7 @@ Adds the given item
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L65)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L65)
 
 ___
 
@@ -253,7 +255,7 @@ Clears all the items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L93)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L93)
 
 ___
 
@@ -265,13 +267,15 @@ Clears all the existing items and adds the given item.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `ITEM` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `ITEM` | an item to be added |
 
 #### Returns
 
 `boolean`
+
+true if the selection is changed
 
 #### Implementation of
 
@@ -279,7 +283,7 @@ Clears all the existing items and adds the given item.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L100)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L100)
 
 ___
 
@@ -291,13 +295,15 @@ Clears the existing items and add all the given items.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targets` | `ITEM`[] |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `targets` | `ITEM`[] | items to be added |
 
 #### Returns
 
 `boolean`
+
+true if the selection is changed
 
 #### Implementation of
 
@@ -305,7 +311,7 @@ Clears the existing items and add all the given items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L109)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L109)
 
 ___
 
@@ -317,13 +323,15 @@ Returns true if the given item is selected.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `ITEM` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `ITEM` | an item to be checked |
 
 #### Returns
 
 `boolean`
+
+true if the given item is selected
 
 #### Implementation of
 
@@ -331,7 +339,7 @@ Returns true if the given item is selected.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L128)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:128](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L128)
 
 ___
 
@@ -343,9 +351,9 @@ Iterates over selected items.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `iteratee` | (`item`: `ITEM`) => `boolean` \| `void` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `iteratee` | (`item`: `ITEM`) => `boolean` \| `void` | an iteratee |
 
 #### Returns
 
@@ -357,7 +365,7 @@ Iterates over selected items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L140)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:140](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L140)
 
 ___
 
@@ -435,7 +443,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L171)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L171)
 
 ___
 
@@ -457,7 +465,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L160)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:160](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L160)
 
 ___
 
@@ -469,13 +477,15 @@ Returns an item at the given index or null.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | an index |
 
 #### Returns
 
 ``null`` \| `ITEM`
+
+an item at the given index or null
 
 #### Implementation of
 
@@ -483,7 +493,7 @@ Returns an item at the given index or null.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L58)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L58)
 
 ___
 
@@ -497,13 +507,15 @@ Returns true if the selection is empty.
 
 `boolean`
 
+true if the selection is empty
+
 #### Implementation of
 
 [DListDataSelection](../interfaces/DListDataSelection.md).[isEmpty](../interfaces/DListDataSelection.md#isempty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L136)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L136)
 
 ___
 
@@ -612,7 +624,7 @@ Add a listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -644,7 +656,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L155)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L155)
 
 ___
 
@@ -666,7 +678,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L181)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L181)
 
 ___
 
@@ -682,7 +694,7 @@ Add a one-time listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -712,13 +724,15 @@ Removes the given item.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `ITEM` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `ITEM` | an item |
 
 #### Returns
 
 `boolean`
+
+true if succeeded
 
 #### Implementation of
 
@@ -726,7 +740,7 @@ Removes the given item.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L74)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L74)
 
 ___
 
@@ -807,13 +821,15 @@ Returns the number of selected items.
 
 `number`
 
+the number of selected items
+
 #### Implementation of
 
 [DListDataSelection](../interfaces/DListDataSelection.md).[size](../interfaces/DListDataSelection.md#size)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L132)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L132)
 
 ___
 
@@ -833,7 +849,7 @@ Returns an array of selected items.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L147)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L147)
 
 ___
 
@@ -845,13 +861,15 @@ Toggles the given item.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `ITEM` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `ITEM` | an item |
 
 #### Returns
 
 `boolean`
+
+true if succeeded.
 
 #### Implementation of
 
@@ -859,4 +877,4 @@ Toggles the given item.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L83)
+[src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection-single.ts#L83)

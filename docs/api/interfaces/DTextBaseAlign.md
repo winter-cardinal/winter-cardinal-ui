@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTextBaseAlign
+[Winter Cardinal UI - v0.227.0](../index.md) / DTextBaseAlign
 
 # Interface: DTextBaseAlign
 
@@ -13,18 +13,18 @@
 
 ### horizontal
 
-• **horizontal**: [`DAlignHorizontal`](../index.md#dalignhorizontal)
+• **horizontal**: [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L95)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L95)
 
 ___
 
 ### vertical
 
-• **vertical**: [`DAlignVertical`](../index.md#dalignvertical)
+• **vertical**: [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-text-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-text-base.ts#L94)
+[src/main/typescript/wcardinal/ui/d-text-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-text-base.ts#L94)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeActionValueOnInputActions
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeActionValueOnInputActions
 
 # Class: EShapeActionValueOnInputActions
 
@@ -35,7 +35,7 @@
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `action` | [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction) |
+| `action` | [`EShapeActionValueOnInputAction`](../index.md#eshapeactionvalueoninputaction-1) |
 | `target` | `string` |
 | `value` | `VALUE` |
 | `time` | `number` |
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-on-input-actions.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-on-input-actions.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-on-input-actions.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-value-on-input-actions.ts#L11)

@@ -8,9 +8,9 @@ export const EShapeActionValueType = {
 	BLINK: 1,
 	TRANSFORM: 2,
 	OPEN: 3,
-	/** @deprecated in favor of {@link EShapeActionValueMiscType.MISC} */
+	/** @deprecated in favor of {@link EShapeActionValueMiscType}'s MISC */
 	EMIT_EVENT: 4,
-	/** @deprecated in favor of {@link EShapeActionValueType.CHANGE_COLOR} */
+	/** @deprecated in favor of {@link EShapeActionValueType}'s CHANGE_COLOR */
 	CHANGE_COLOR_LEGACY: 5,
 	CHANGE_TEXT: 6,
 	CHANGE_CURSOR: 7,

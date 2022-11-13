@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / FormatNoded
+[Winter Cardinal UI - v0.227.0](../index.md) / FormatNodeD
 
-# Class: FormatNoded
+# Class: FormatNodeD
 
 ## Implements
 
@@ -10,17 +10,17 @@
 
 ### Constructors
 
-- [constructor](FormatNoded.md#constructor)
+- [constructor](FormatNodeD.md#constructor)
 
 ### Methods
 
-- [format](FormatNoded.md#format)
+- [format](FormatNodeD.md#format)
 
 ## Constructors
 
 ### constructor
 
-• **new FormatNoded**()
+• **new FormatNodeD**()
 
 ## Methods
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-d-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/format-node/format-node-d-small.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-d-large.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-d-large.ts#L9)

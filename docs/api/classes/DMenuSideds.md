@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DMenuSideds
+[Winter Cardinal UI - v0.227.0](../index.md) / DMenuSideds
 
 # Class: DMenuSideds
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L11)
+[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L11)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L12)
+[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L12)
 
 ## Methods
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L14)
+[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L14)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L22)
+[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L22)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L32)
+[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L32)
 
 ___
 
@@ -139,4 +139,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L18)
+[src/main/typescript/wcardinal/ui/d-menu-sideds.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sideds.ts#L18)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTableBodyCellLinkLinkOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DTableBodyCellLinkLinkOptions
 
 # Interface: DTableBodyCellLinkLinkOptions<ROW, VALUE\>
 
@@ -26,27 +26,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L39)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L38)
 
 ___
 
 ### menu
 
-• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>\>
+• `Optional` **menu**: [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\> \| [`DMenu`](../classes/DMenu.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md), [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\>\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L39)
 
 ___
 
 ### target
 
-• `Optional` **target**: ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget)
+• `Optional` **target**: ``"AUTO"`` \| ``"NEW_WINDOW"`` \| ``"THIS_WINDOW"`` \| [`DLinkTarget`](../index.md#dlinktarget-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L38)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L37)
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L37)
+[src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-body-cell-link.ts#L36)

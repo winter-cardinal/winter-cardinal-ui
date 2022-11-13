@@ -1,6 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DAnimationFadeInOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DAnimationFadeInOptions
 
 # Interface: DAnimationFadeInOptions<TARGET\>
+
+[DAnimation](DAnimation.md) options.
 
 ## Type parameters
 
@@ -41,7 +43,7 @@ An animation duration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation.ts#L115)
+[src/main/typescript/wcardinal/ui/d-animation.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation.ts#L115)
 
 ___
 
@@ -57,7 +59,7 @@ Event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation.ts#L120)
+[src/main/typescript/wcardinal/ui/d-animation.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation.ts#L120)
 
 ___
 
@@ -73,7 +75,7 @@ Triggered when an animation stops.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation.ts#L108)
+[src/main/typescript/wcardinal/ui/d-animation.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation.ts#L108)
 
 ___
 
@@ -89,7 +91,7 @@ A function called when an animation starts.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation.ts#L98)
+[src/main/typescript/wcardinal/ui/d-animation.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation.ts#L98)
 
 ___
 
@@ -105,7 +107,7 @@ A function called constantly when an animation is on a run.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation.ts#L103)
+[src/main/typescript/wcardinal/ui/d-animation.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation.ts#L103)
 
 ___
 
@@ -115,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L18)
+[src/main/typescript/wcardinal/ui/d-animation-fade-in.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation-fade-in.ts#L18)
 
 ___
 
@@ -131,7 +133,7 @@ An animation target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation.ts#L93)
+[src/main/typescript/wcardinal/ui/d-animation.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation.ts#L93)
 
 ___
 
@@ -145,4 +147,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-animation.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-animation.ts#L110)
+[src/main/typescript/wcardinal/ui/d-animation.ts:110](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-animation.ts#L110)

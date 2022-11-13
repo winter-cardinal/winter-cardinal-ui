@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DMenuSidedSelectionOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DMenuSidedSelectionOptions
 
 # Interface: DMenuSidedSelectionOptions<EMITTER\>
 
@@ -14,25 +14,48 @@
 
 ### Properties
 
+- [filter](DMenuSidedSelectionOptions.md#filter)
 - [mode](DMenuSidedSelectionOptions.md#mode)
 - [on](DMenuSidedSelectionOptions.md#on)
 - [type](DMenuSidedSelectionOptions.md#type)
 
-### Methods
-
-- [filter](DMenuSidedSelectionOptions.md#filter)
-
 ## Properties
 
-### mode
+### filter
 
-• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype)
+• `Optional` **filter**: (`item`: ``null`` \| [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\>) => `boolean`
 
-**`deprecated`** in favor of [type](DMenuSidedSelectionOptions.md#type)
+#### Type declaration
+
+▸ (`item`): `boolean`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `item` | ``null`` \| [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> |
+
+##### Returns
+
+`boolean`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L49)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L58)
+
+___
+
+### mode
+
+• `Optional` **mode**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype-1)
+
+**`Deprecated`**
+
+in favor of [type](DMenuSidedSelectionOptions.md#type)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L49)
 
 ___
 
@@ -42,36 +65,16 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L56)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L56)
 
 ___
 
 ### type
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype)
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"SINGLE_ONCE"`` \| [`DMenuSidedSelectionType`](../index.md#dmenusidedselectiontype-1)
 
 A selection type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L54)
-
-## Methods
-
-### filter
-
-▸ `Optional` **filter**(`item`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `item` | ``null`` \| [`DBase`](../classes/DBase.md)<[`DThemeBase`](DThemeBase.md), [`DBaseOptions`](DBaseOptions.md)<[`DThemeBase`](DThemeBase.md), `any`\>\> |
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L58)
+[src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-menu-sided-selection.ts#L54)

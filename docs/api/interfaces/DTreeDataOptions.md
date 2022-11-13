@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTreeDataOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DTreeDataOptions
 
 # Interface: DTreeDataOptions<NODE\>
 
@@ -18,13 +18,10 @@
 
 ### Properties
 
+- [newChildren](DTreeDataOptions.md#newchildren)
 - [nodes](DTreeDataOptions.md#nodes)
 - [reverse](DTreeDataOptions.md#reverse)
 - [selection](DTreeDataOptions.md#selection)
-
-### Methods
-
-- [newChildren](DTreeDataOptions.md#newchildren)
 - [toChildren](DTreeDataOptions.md#tochildren)
 - [toImage](DTreeDataOptions.md#toimage)
 - [toLabel](DTreeDataOptions.md#tolabel)
@@ -32,13 +29,41 @@
 
 ## Properties
 
+### newChildren
+
+• `Optional` **newChildren**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`[]
+
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `NODE`[]
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `node` | `NODE` |
+
+##### Returns
+
+`undefined` \| ``null`` \| `NODE`[]
+
+#### Inherited from
+
+[DTreeNodeAccessorOptions](DTreeNodeAccessorOptions.md).[newChildren](DTreeNodeAccessorOptions.md#newchildren)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L14)
+
+___
+
 ### nodes
 
 • `Optional` **nodes**: `NODE`[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data.ts#L13)
+[src/main/typescript/wcardinal/ui/d-tree-data.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data.ts#L13)
 
 ___
 
@@ -50,7 +75,7 @@ True to list up nodes in the given node array in the reverse order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data.ts#L23)
+[src/main/typescript/wcardinal/ui/d-tree-data.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data.ts#L23)
 
 ___
 
@@ -62,45 +87,25 @@ Selection options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data.ts#L18)
-
-## Methods
-
-### newChildren
-
-▸ `Optional` **newChildren**(`node`): `undefined` \| ``null`` \| `NODE`[]
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `NODE` |
-
-#### Returns
-
-`undefined` \| ``null`` \| `NODE`[]
-
-#### Inherited from
-
-[DTreeNodeAccessorOptions](DTreeNodeAccessorOptions.md).[newChildren](DTreeNodeAccessorOptions.md#newchildren)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L14)
+[src/main/typescript/wcardinal/ui/d-tree-data.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data.ts#L18)
 
 ___
 
 ### toChildren
 
-▸ `Optional` **toChildren**(`node`): `undefined` \| ``null`` \| `NODE`[]
+• `Optional` **toChildren**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`[]
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `NODE`[]
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| ``null`` \| `NODE`[]
 
@@ -110,21 +115,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L13)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L13)
 
 ___
 
 ### toImage
 
-▸ `Optional` **toImage**(`node`): `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
+• `Optional` **toImage**: (`node`: `NODE`) => `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
 
@@ -134,21 +143,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L12)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L12)
 
 ___
 
 ### toLabel
 
-▸ `Optional` **toLabel**(`node`): `undefined` \| `string`
+• `Optional` **toLabel**: (`node`: `NODE`) => `undefined` \| `string`
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| `string`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| `string`
 
@@ -158,21 +171,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L10)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L10)
 
 ___
 
 ### toTitle
 
-▸ `Optional` **toTitle**(`node`): `undefined` \| `string`
+• `Optional` **toTitle**: (`node`: `NODE`) => `undefined` \| `string`
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| `string`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| `string`
 
@@ -182,4 +199,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L11)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L11)

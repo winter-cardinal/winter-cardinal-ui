@@ -6,6 +6,9 @@
 import { utils } from "pixi.js";
 import { DOnOptions } from "./d-on-options";
 
+/**
+ * {@link DListDataSelection} type.
+ */
 export const DListDataSelectionType = {
 	NONE: 0,
 	SINGLE: 1,
@@ -16,7 +19,7 @@ export type DListDataSelectionType =
 	typeof DListDataSelectionType[keyof typeof DListDataSelectionType];
 
 /**
- * {@link DListSelection} events.
+ * {@link DListDataSelection} events.
  */
 export interface DListDataSelectionEvents<EMITTER> {
 	/**
@@ -28,14 +31,14 @@ export interface DListDataSelectionEvents<EMITTER> {
 }
 
 /**
- * {@link DListSelection} "on" options.
+ * {@link DListDataSelection} "on" options.
  */
 export interface DListDataSelectionOnOptions<EMITTER>
 	extends Partial<DListDataSelectionEvents<EMITTER>>,
 		DOnOptions {}
 
 /**
- * {@link DListSelection} options.
+ * {@link DListDataSelection} options.
  */
 export interface DListDataSelectionOptions<ITEM, EMITTER = any> {
 	/**

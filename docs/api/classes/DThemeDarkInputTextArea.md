@@ -1,6 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DThemeDarkInputTextArea
+[Winter Cardinal UI - v0.227.0](../index.md) / DThemeDarkInputTextArea
 
 # Class: DThemeDarkInputTextArea
+
+[DImageBase](DImageBase.md) theme.
 
 ## Hierarchy
 
@@ -153,7 +155,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L31)
 
 ___
 
@@ -167,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L32)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L32)
 
 ## Methods
 
@@ -189,7 +191,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L78)
 
 ___
 
@@ -217,7 +219,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L35)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L35)
 
 ___
 
@@ -229,9 +231,9 @@ Returns a background alpha.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -247,7 +249,7 @@ Returns a background alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L74)
 
 ___
 
@@ -260,9 +262,9 @@ If the color is null, backgrounds are not be rendered.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -278,7 +280,7 @@ If the color is null, backgrounds are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L34)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L34)
 
 ___
 
@@ -302,7 +304,7 @@ Returns a background texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L78)
 
 ___
 
@@ -324,7 +326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L74)
 
 ___
 
@@ -336,9 +338,9 @@ Returns a border align.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -354,7 +356,7 @@ Returns a border align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L94)
 
 ___
 
@@ -366,9 +368,9 @@ Returns a border alpha.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -384,7 +386,7 @@ Returns a border alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L86)
 
 ___
 
@@ -397,9 +399,9 @@ If the color is null, borders are not be rendered.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -415,7 +417,7 @@ If the color is null, borders are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L44)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L44)
 
 ___
 
@@ -427,9 +429,9 @@ Returns a border mask.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a mask |
 
 #### Returns
 
@@ -445,7 +447,7 @@ Returns a border mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L98)
 
 ___
 
@@ -469,7 +471,7 @@ Returns a border texture.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L102)
 
 ___
 
@@ -481,9 +483,9 @@ Returns a border width.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -499,7 +501,7 @@ Returns a border width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L90)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L90)
 
 ___
 
@@ -524,7 +526,7 @@ A clear type is for layout classes including [DLayoutVertical](DLayoutVertical.m
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L157)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:157](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L157)
 
 ___
 
@@ -546,7 +548,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L70)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L70)
 
 ___
 
@@ -570,7 +572,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L190)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L190)
 
 ___
 
@@ -594,7 +596,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L214)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:214](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L214)
 
 ___
 
@@ -618,7 +620,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L197)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L197)
 
 ___
 
@@ -642,7 +644,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L204)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:204](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L204)
 
 ___
 
@@ -670,7 +672,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L19)
 
 ___
 
@@ -694,7 +696,7 @@ Returns a corner mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L126)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L126)
 
 ___
 
@@ -718,7 +720,7 @@ Returns a corner radius.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L122)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L122)
 
 ___
 
@@ -748,7 +750,7 @@ Returns a cursor.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L71)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L71)
 
 ___
 
@@ -783,7 +785,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L78)
 
 ___
 
@@ -818,7 +820,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L82)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L82)
 
 ___
 
@@ -853,7 +855,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L86)
 
 ___
 
@@ -875,7 +877,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L66)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L66)
 
 ___
 
@@ -899,7 +901,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L72)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L72)
 
 ___
 
@@ -923,7 +925,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L102)
 
 ___
 
@@ -948,7 +950,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L158)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L158)
 
 ___
 
@@ -972,7 +974,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L154)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L154)
 
 ___
 
@@ -996,7 +998,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L97)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L97)
 
 ___
 
@@ -1021,7 +1023,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L80)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L80)
 
 ___
 
@@ -1045,7 +1047,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L65)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L65)
 
 ___
 
@@ -1072,7 +1074,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L130)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L130)
 
 ___
 
@@ -1097,7 +1099,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L101)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L101)
 
 ___
 
@@ -1121,7 +1123,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L116)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L116)
 
 ___
 
@@ -1145,7 +1147,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L123)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:123](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L123)
 
 ___
 
@@ -1169,7 +1171,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L86)
 
 ___
 
@@ -1189,7 +1191,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L94)
 
 ___
 
@@ -1209,7 +1211,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L98)
 
 ___
 
@@ -1231,7 +1233,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L11)
 
 ___
 
@@ -1253,7 +1255,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L15)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L15)
 
 ___
 
@@ -1275,7 +1277,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L27)
 
 ___
 
@@ -1297,7 +1299,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L31)
 
 ___
 
@@ -1319,7 +1321,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L23)
 
 ___
 
@@ -1343,17 +1345,17 @@ Returns a height.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L51)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L51)
 
 ___
 
 ### getImageAlignHorizontal
 
-▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
+▸ **getImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Returns
 
-[`DAlignHorizontal`](../index.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Implementation of
 
@@ -1365,17 +1367,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L18)
 
 ___
 
 ### getImageAlignVertical
 
-▸ **getImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
+▸ **getImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Returns
 
-[`DAlignVertical`](../index.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Implementation of
 
@@ -1387,17 +1389,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L22)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L22)
 
 ___
 
 ### getImageAlignWith
 
-▸ **getImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
+▸ **getImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith-1)
 
 #### Returns
 
-[`DAlignWith`](../index.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith-1)
 
 #### Implementation of
 
@@ -1409,7 +1411,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L26)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L26)
 
 ___
 
@@ -1431,7 +1433,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L30)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L30)
 
 ___
 
@@ -1453,7 +1455,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L34)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L34)
 
 ___
 
@@ -1481,7 +1483,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L46)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L46)
 
 ___
 
@@ -1509,7 +1511,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L42)
 
 ___
 
@@ -1537,7 +1539,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L38)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L38)
 
 ___
 
@@ -1561,7 +1563,7 @@ Returns an interactivity.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L165)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:165](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L165)
 
 ___
 
@@ -1583,7 +1585,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L42)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-font.ts#L42)
 
 ___
 
@@ -1595,9 +1597,9 @@ Returns an outline align.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -1613,7 +1615,7 @@ Returns an outline align.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L149)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:149](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L149)
 
 ___
 
@@ -1625,9 +1627,9 @@ Returns an outline alpha.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -1643,7 +1645,7 @@ Returns an outline alpha.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L134)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L134)
 
 ___
 
@@ -1656,9 +1658,9 @@ If the color is null, outlines are not be rendered.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -1674,7 +1676,7 @@ If the color is null, outlines are not be rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L130)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L130)
 
 ___
 
@@ -1686,9 +1688,9 @@ Returns an outline mask.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -1704,7 +1706,7 @@ Returns an outline mask.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L153)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:153](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L153)
 
 ___
 
@@ -1716,9 +1718,9 @@ Returns an outline offset.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -1734,7 +1736,7 @@ Returns an outline offset.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L145)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:145](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L145)
 
 ___
 
@@ -1746,9 +1748,9 @@ Returns an outline width.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -1764,7 +1766,7 @@ Returns an outline width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L141)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L141)
 
 ___
 
@@ -1788,7 +1790,7 @@ Returns a bottom padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L118)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L118)
 
 ___
 
@@ -1812,7 +1814,7 @@ Returns a left padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L63)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L63)
 
 ___
 
@@ -1836,7 +1838,7 @@ Returns a right padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L67)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L67)
 
 ___
 
@@ -1860,7 +1862,7 @@ Returns a top padding.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L114)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L114)
 
 ___
 
@@ -1878,17 +1880,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L59)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L59)
 
 ___
 
 ### getSecondaryImageAlignHorizontal
 
-▸ **getSecondaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
+▸ **getSecondaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Returns
 
-[`DAlignHorizontal`](../index.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Implementation of
 
@@ -1900,17 +1902,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L50)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L50)
 
 ___
 
 ### getSecondaryImageAlignVertical
 
-▸ **getSecondaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
+▸ **getSecondaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Returns
 
-[`DAlignVertical`](../index.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Implementation of
 
@@ -1922,17 +1924,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L54)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L54)
 
 ___
 
 ### getSecondaryImageAlignWith
 
-▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
+▸ **getSecondaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith-1)
 
 #### Returns
 
-[`DAlignWith`](../index.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith-1)
 
 #### Implementation of
 
@@ -1944,7 +1946,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L58)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L58)
 
 ___
 
@@ -1966,7 +1968,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L62)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L62)
 
 ___
 
@@ -1988,7 +1990,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L66)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L66)
 
 ___
 
@@ -2016,7 +2018,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L74)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L74)
 
 ___
 
@@ -2044,7 +2046,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L70)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L70)
 
 ___
 
@@ -2066,7 +2068,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L98)
 
 ___
 
@@ -2091,17 +2093,17 @@ If a shadow is null, no shadow is rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L161)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L161)
 
 ___
 
 ### getTertiaryImageAlignHorizontal
 
-▸ **getTertiaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
+▸ **getTertiaryImageAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Returns
 
-[`DAlignHorizontal`](../index.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Implementation of
 
@@ -2113,17 +2115,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L78)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L78)
 
 ___
 
 ### getTertiaryImageAlignVertical
 
-▸ **getTertiaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
+▸ **getTertiaryImageAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Returns
 
-[`DAlignVertical`](../index.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Implementation of
 
@@ -2135,17 +2137,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L82)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L82)
 
 ___
 
 ### getTertiaryImageAlignWith
 
-▸ **getTertiaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith)
+▸ **getTertiaryImageAlignWith**(): [`DAlignWith`](../index.md#dalignwith-1)
 
 #### Returns
 
-[`DAlignWith`](../index.md#dalignwith)
+[`DAlignWith`](../index.md#dalignwith-1)
 
 #### Implementation of
 
@@ -2157,7 +2159,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L86)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L86)
 
 ___
 
@@ -2179,7 +2181,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L90)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L90)
 
 ___
 
@@ -2201,7 +2203,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L94)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L94)
 
 ___
 
@@ -2229,7 +2231,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L102)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L102)
 
 ___
 
@@ -2257,17 +2259,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L98)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-image-base.ts#L98)
 
 ___
 
 ### getTextAlignHorizontal
 
-▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal)
+▸ **getTextAlignHorizontal**(): [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Returns
 
-[`DAlignHorizontal`](../index.md#dalignhorizontal)
+[`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Implementation of
 
@@ -2279,17 +2281,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L23)
 
 ___
 
 ### getTextAlignVertical
 
-▸ **getTextAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical)
+▸ **getTextAlignVertical**(): [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Returns
 
-[`DAlignVertical`](../index.md#dalignvertical)
+[`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Implementation of
 
@@ -2301,7 +2303,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L58)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L58)
 
 ___
 
@@ -2336,7 +2338,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L39)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L39)
 
 ___
 
@@ -2358,17 +2360,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L31)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L31)
 
 ___
 
 ### getTextStyleWordWrap
 
-▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
+▸ **getTextStyleWordWrap**(): [`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap-1)
 
 #### Returns
 
-[`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap)
+[`DDynamicTextStyleWordWrap`](../index.md#ddynamictextstylewordwrap-1)
 
 #### Implementation of
 
@@ -2380,7 +2382,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L62)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L62)
 
 ___
 
@@ -2393,9 +2395,9 @@ Called to get a text vale if there is no text value.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) | a state |
 
 #### Returns
 
@@ -2411,7 +2413,7 @@ Called to get a text vale if there is no text value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L43)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L43)
 
 ___
 
@@ -2435,7 +2437,7 @@ Returns a tooltip text.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L173)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L173)
 
 ___
 
@@ -2461,17 +2463,17 @@ If a weight is less than or equals to zero, layout classes are supposed not to c
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L177)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:177](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L177)
 
 ___
 
 ### getWhen
 
-▸ **getWhen**(): [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
+▸ **getWhen**(): [`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Returns
 
-[`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen)
+[`UtilHtmlElementWhen`](../index.md#utilhtmlelementwhen-1)
 
 #### Implementation of
 
@@ -2483,7 +2485,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L247)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L247)
 
 ___
 
@@ -2507,7 +2509,7 @@ Returns a width.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L55)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input.ts#L55)
 
 ___
 
@@ -2531,7 +2533,7 @@ Returns a X coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L54)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L54)
 
 ___
 
@@ -2555,7 +2557,7 @@ Returns a Y coordinate.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L58)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L58)
 
 ___
 
@@ -2577,7 +2579,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L222)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:222](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L222)
 
 ___
 
@@ -2599,7 +2601,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-text-base.ts#L27)
 
 ___
 
@@ -2623,7 +2625,7 @@ Creates a new shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L181)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L181)
 
 ___
 
@@ -2647,7 +2649,7 @@ Creates a new weak shadow.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L185)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:185](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L185)
 
 ___
 
@@ -2677,7 +2679,7 @@ Returns true if focusable.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L169)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts:169](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-base.ts#L169)
 
 ___
 
@@ -2702,7 +2704,7 @@ Called to initialize a text value if a text value is not given.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L82)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-input-text-area.ts#L82)
 
 ___
 
@@ -2730,7 +2732,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L243)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L243)
 
 ___
 
@@ -2758,7 +2760,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L230)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L230)
 
 ___
 
@@ -2792,7 +2794,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L173)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:173](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L173)
 
 ___
 
@@ -2826,4 +2828,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L28)
+[src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/dark/d-theme-dark-html-element.ts#L28)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDialogSelectSearch
+[Winter Cardinal UI - v0.227.0](../index.md) / DDialogSelectSearch
 
 # Interface: DDialogSelectSearch<VALUE\>
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L36)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L36)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L41)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L41)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L40)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L40)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L37)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L37)
 
 ▸ **on**(`event`, `handler`): `void`
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L38)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L38)
 
 ▸ **on**(`event`, `handler`): `void`
 
@@ -120,4 +120,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-select.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L39)
+[src/main/typescript/wcardinal/ui/d-dialog-select.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-select.ts#L39)

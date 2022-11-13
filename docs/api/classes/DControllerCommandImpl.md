@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DControllerCommandImpl
+[Winter Cardinal UI - v0.227.0](../index.md) / DControllerCommandImpl
 
 # Class: DControllerCommandImpl
 
@@ -68,7 +68,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L32)
 
 ## Properties
 
@@ -78,7 +78,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L28)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L28)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L30)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L30)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L27)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L27)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L29)
 
 ## Methods
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L168)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:168](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L168)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L241)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L241)
 
 ___
 
@@ -249,7 +249,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L139)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L139)
 
 ___
 
@@ -269,7 +269,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L115)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L115)
 
 ___
 
@@ -289,7 +289,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L91)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L91)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L259)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L259)
 
 ___
 
@@ -325,7 +325,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L263)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L263)
 
 ___
 
@@ -343,7 +343,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L41)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L41)
 
 ___
 
@@ -417,7 +417,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L61)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L61)
 
 ___
 
@@ -466,7 +466,7 @@ Add a listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -504,7 +504,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L226)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:226](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L226)
 
 ___
 
@@ -524,7 +524,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L196)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:196](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L196)
 
 ___
 
@@ -544,7 +544,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L217)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:217](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L217)
 
 ___
 
@@ -564,7 +564,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L208)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:208](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L208)
 
 ___
 
@@ -580,7 +580,7 @@ Add a one-time listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -622,7 +622,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L56)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L56)
 
 ___
 
@@ -640,7 +640,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:245](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L245)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:245](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L245)
 
 ___
 
@@ -660,7 +660,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L179)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L179)
 
 ___
 
@@ -745,7 +745,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L237)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L237)
 
 ___
 
@@ -763,4 +763,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L252)
+[src/main/typescript/wcardinal/ui/d-controller-command-impl.ts:252](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-command-impl.ts#L252)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDynamicTextGeometry
+[Winter Cardinal UI - v0.227.0](../index.md) / DDynamicTextGeometry
 
 # Class: DDynamicTextGeometry
 
@@ -51,7 +51,7 @@ MeshGeometry.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L25)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L25)
 
 ## Properties
 
@@ -61,7 +61,7 @@ MeshGeometry.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L23)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L23)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L22)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L22)
 
 ___
 
@@ -97,9 +97,13 @@ ___
 
 Number of instances in this geometry, pass it to `GeometrySystem.draw()`
 
-**`member`** {number} PIXI.Geometry#instanceCount
+**`Member`**
 
-**`default`** 1
+PIXI.Geometry#instanceCount
+
+**`Default`**
+
+1
 
 #### Inherited from
 
@@ -117,7 +121,9 @@ ___
 
 Count of existing (not destroyed) meshes that reference this geometry
 
-**`member`** {number} PIXI.Geometry#refCount
+**`Member`**
+
+PIXI.Geometry#refCount
 
 #### Inherited from
 
@@ -135,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L21)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L21)
 
 ## Methods
 
@@ -150,12 +156,12 @@ Adds an attribute to the geometry
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `id` | `string` | the name of the attribute (matching up to a shader) |
-| `buffer?` | `number`[] \| `Buffer` | - |
-| `size?` | `number` | - |
-| `normalized?` | `boolean` | - |
-| `type?` | `number` | - |
-| `stride?` | `number` | - |
-| `start?` | `number` | - |
+| `buffer?` | `number`[] \| `Buffer` | the buffer that holds the data of the attribute . You can also provide an Array and a buffer will be created from it. |
+| `size?` | `number` | the size of the attribute. If you have 2 floats per vertex (eg position x and y) this would be 2 |
+| `normalized?` | `boolean` | should the data be normalized. |
+| `type?` | `number` | what type of number is the attribute. Check {PIXI.TYPES} to see the ones available |
+| `stride?` | `number` | How far apart (in floats) the start of each value is. (used for interleaving data) |
+| `start?` | `number` | How far into the array to start reading values (used for interleaving data) |
 
 #### Returns
 
@@ -182,9 +188,9 @@ The index buffer contains integers, three for each triangle in the geometry, whi
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `buffer?` | `number`[] \| `Buffer` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `buffer?` | `number`[] \| `Buffer` | the buffer that holds the data of the index buffer. You can also provide an Array and a buffer will be created from it. |
 
 #### Returns
 
@@ -383,7 +389,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L32)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L32)
 
 ___
 
@@ -411,7 +417,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L89)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L89)
 
 ___
 
@@ -434,7 +440,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L144)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L144)
 
 ___
 

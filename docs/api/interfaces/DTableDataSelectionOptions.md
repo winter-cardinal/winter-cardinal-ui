@@ -1,6 +1,12 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTableDataSelectionOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataSelectionOptions
 
-# Interface: DTableDataSelectionOptions
+# Interface: DTableDataSelectionOptions<EMITTER\>
+
+## Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `EMITTER` | `any` |
 
 ## Hierarchy
 
@@ -12,14 +18,25 @@
 
 ### Properties
 
+- [on](DTableDataSelectionOptions.md#on)
 - [type](DTableDataSelectionOptions.md#type)
 
 ## Properties
 
-### type
+### on
 
-• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTableDataSelectionType`](../index.md#dtabledataselectiontype)
+• `Optional` **on**: [`DTableDataSelectionOnOptions`](DTableDataSelectionOnOptions.md)<`EMITTER`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-selection.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-selection.ts#L19)
+[src/main/typescript/wcardinal/ui/d-table-data-selection.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-selection.ts#L43)
+
+___
+
+### type
+
+• `Optional` **type**: ``"NONE"`` \| ``"SINGLE"`` \| ``"MULTIPLE"`` \| [`DTableDataSelectionType`](../index.md#dtabledataselectiontype-1)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data-selection.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-selection.ts#L42)

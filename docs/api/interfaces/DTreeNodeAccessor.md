@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTreeNodeAccessor
+[Winter Cardinal UI - v0.227.0](../index.md) / DTreeNodeAccessor
 
 # Interface: DTreeNodeAccessor<NODE\>
 
@@ -14,7 +14,7 @@
 
 ## Table of contents
 
-### Methods
+### Properties
 
 - [newChildren](DTreeNodeAccessor.md#newchildren)
 - [toChildren](DTreeNodeAccessor.md#tochildren)
@@ -22,102 +22,122 @@
 - [toLabel](DTreeNodeAccessor.md#tolabel)
 - [toTitle](DTreeNodeAccessor.md#totitle)
 
-## Methods
+## Properties
 
 ### newChildren
 
-▸ **newChildren**(`node`): `undefined` \| ``null`` \| `NODE`[]
+• **newChildren**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`[]
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `NODE`[]
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| ``null`` \| `NODE`[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L22)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L22)
 
 ___
 
 ### toChildren
 
-▸ **toChildren**(`node`): `undefined` \| ``null`` \| `NODE`[]
+• **toChildren**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`[]
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `NODE`[]
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| ``null`` \| `NODE`[]
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L21)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L21)
 
 ___
 
 ### toImage
 
-▸ **toImage**(`node`): `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
+• **toImage**: (`node`: `NODE`) => `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| ``null`` \| `DisplayObject` \| `Texture`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L20)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L20)
 
 ___
 
 ### toLabel
 
-▸ **toLabel**(`node`): `undefined` \| `string`
+• **toLabel**: (`node`: `NODE`) => `undefined` \| `string`
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| `string`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| `string`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L18)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L18)
 
 ___
 
 ### toTitle
 
-▸ **toTitle**(`node`): `undefined` \| `string`
+• **toTitle**: (`node`: `NODE`) => `undefined` \| `string`
 
-#### Parameters
+#### Type declaration
+
+▸ (`node`): `undefined` \| `string`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `node` | `NODE` |
 
-#### Returns
+##### Returns
 
 `undefined` \| `string`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L19)
+[src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-node-accessor.ts#L19)

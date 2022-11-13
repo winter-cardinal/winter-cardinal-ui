@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeTransformImpl
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeTransformImpl
 
 # Class: EShapeTransformImpl
 
@@ -70,7 +70,7 @@ Transform.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L28)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L28)
 
 ## Properties
 
@@ -81,7 +81,9 @@ Transform.constructor
 The locally unique ID of the local transform
 used to calculate the current local transformation matrix.
 
-**`member`** {number} PIXI.Transform#_currentLocalID
+**`Member`**
+
+PIXI.Transform#_currentLocalID
 
 #### Implementation of
 
@@ -104,7 +106,9 @@ ___
 The X-coordinate value of the normalized local X axis,
 the first column of the local transformation matrix without a scale.
 
-**`member`** {number} PIXI.Transform#_cx
+**`Member`**
+
+PIXI.Transform#_cx
 
 #### Implementation of
 
@@ -127,7 +131,9 @@ ___
 The X-coordinate value of the normalized local Y axis,
 the second column of the local transformation matrix without a scale.
 
-**`member`** {number} PIXI.Transform#_cy
+**`Member`**
+
+PIXI.Transform#_cy
 
 #### Implementation of
 
@@ -149,7 +155,9 @@ ___
 
 The locally unique ID of the local transform.
 
-**`member`** {number} PIXI.Transform#_localID
+**`Member`**
+
+PIXI.Transform#_localID
 
 #### Implementation of
 
@@ -171,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L25)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L25)
 
 ___
 
@@ -182,7 +190,9 @@ ___
 The locally unique ID of the parent's world transform
 used to calculate the current world transformation matrix.
 
-**`member`** {number} PIXI.Transform#_parentID
+**`Member`**
+
+PIXI.Transform#_parentID
 
 #### Implementation of
 
@@ -204,7 +214,9 @@ ___
 
 The rotation amount.
 
-**`member`** {number} PIXI.Transform#_rotation
+**`Member`**
+
+PIXI.Transform#_rotation
 
 #### Implementation of
 
@@ -227,7 +239,9 @@ ___
 The Y-coordinate value of the normalized local X axis,
 the first column of the local transformation matrix without a scale.
 
-**`member`** {number} PIXI.Transform#_sx
+**`Member`**
+
+PIXI.Transform#_sx
 
 #### Implementation of
 
@@ -250,7 +264,9 @@ ___
 The Y-coordinate value of the normalized local Y axis,
 the second column of the local transformation matrix without a scale.
 
-**`member`** {number} PIXI.Transform#_sy
+**`Member`**
+
+PIXI.Transform#_sy
 
 #### Implementation of
 
@@ -272,7 +288,9 @@ ___
 
 The locally unique ID of the world transform.
 
-**`member`** {number} PIXI.Transform#_worldID
+**`Member`**
+
+PIXI.Transform#_worldID
 
 #### Implementation of
 
@@ -298,7 +316,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L26)
 
 ___
 
@@ -308,7 +326,9 @@ ___
 
 The local transformation matrix.
 
-**`member`** {PIXI.Matrix} PIXI.Transform#localTransform
+**`Member`**
+
+PIXI.Transform#localTransform
 
 #### Implementation of
 
@@ -330,7 +350,9 @@ ___
 
 The pivot point of the displayObject that it rotates around.
 
-**`member`** {PIXI.ObservablePoint} PIXI.Transform#pivot
+**`Member`**
+
+PIXI.Transform#pivot
 
 #### Implementation of
 
@@ -352,7 +374,9 @@ ___
 
 The coordinate of the object relative to the local coordinates of the parent.
 
-**`member`** {PIXI.ObservablePoint} PIXI.Transform#position
+**`Member`**
+
+PIXI.Transform#position
 
 #### Implementation of
 
@@ -374,7 +398,7 @@ ___
 
 The rotation of the object in radians.
 
-**`member`** {number}
+**`Member`**
 
 #### Implementation of
 
@@ -396,7 +420,9 @@ ___
 
 The scale factor of the object.
 
-**`member`** {PIXI.ObservablePoint} PIXI.Transform#scale
+**`Member`**
+
+PIXI.Transform#scale
 
 #### Implementation of
 
@@ -418,7 +444,9 @@ ___
 
 The skew amount, on the x and y axis.
 
-**`member`** {PIXI.ObservablePoint} PIXI.Transform#skew
+**`Member`**
+
+PIXI.Transform#skew
 
 #### Implementation of
 
@@ -440,7 +468,9 @@ ___
 
 The world transformation matrix.
 
-**`member`** {PIXI.Matrix} PIXI.Transform#worldTransform
+**`Member`**
+
+PIXI.Transform#worldTransform
 
 #### Implementation of
 
@@ -462,11 +492,11 @@ ___
 
 A default (identity) transform
 
-**`static`**
+**`Static`**
 
-**`constant`**
+**`Constant`**
 
-**`member`** {PIXI.Transform}
+**`Member`**
 
 #### Inherited from
 
@@ -492,7 +522,7 @@ node_modules/pixi.js/pixi.js.d.ts:12330
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L48)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L48)
 
 ___
 
@@ -510,7 +540,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L44)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L44)
 
 ___
 
@@ -528,7 +558,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L52)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L52)
 
 ___
 
@@ -546,7 +576,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L56)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L56)
 
 ___
 
@@ -570,7 +600,7 @@ Transform.onChange
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L34)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L34)
 
 ___
 
@@ -648,7 +678,7 @@ Transform.updateSkew
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L39)
 
 ___
 
@@ -660,9 +690,9 @@ Updates the local and the world transformation matrices.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `parentTransform` | `Transform` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `parentTransform` | `Transform` | The parent transform |
 
 #### Returns
 
@@ -678,4 +708,4 @@ Transform.updateTransform
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-transform.ts#L60)

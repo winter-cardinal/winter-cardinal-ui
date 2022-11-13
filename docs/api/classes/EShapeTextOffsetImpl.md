@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeTextOffsetImpl
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeTextOffsetImpl
 
 # Class: EShapeTextOffsetImpl
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L16)
 
 ## Properties
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L13)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L12)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L14)
 
 ## Accessors
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L22)
 
 • `set` **horizontal**(`horizontal`): `void`
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L26)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L33)
 
 • `set` **vertical**(`vertical`): `void`
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L37)
 
 ## Methods
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L44)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L44)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L79)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L79)
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L75)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L75)
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L50)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L50)
 
 ___
 
@@ -269,4 +269,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L68)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-text-offset-impl.ts#L68)

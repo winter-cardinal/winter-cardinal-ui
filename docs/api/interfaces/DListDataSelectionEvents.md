@@ -1,8 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DListDataSelectionEvents
+[Winter Cardinal UI - v0.227.0](../index.md) / DListDataSelectionEvents
 
 # Interface: DListDataSelectionEvents<EMITTER\>
 
-{@link DListSelection} events.
+[DListDataSelection](DListDataSelection.md) events.
 
 ## Type parameters
 
@@ -36,4 +36,4 @@ Triggered when a selection is changed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L27)
+[src/main/typescript/wcardinal/ui/d-list-data-selection.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-list-data-selection.ts#L30)

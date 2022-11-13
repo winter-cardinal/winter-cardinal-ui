@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeDataValueExtension
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeDataValueExtension
 
 # Interface: EShapeDataValueExtension
 
@@ -9,6 +9,8 @@
 - [id](EShapeDataValueExtension.md#id)
 - [initial](EShapeDataValueExtension.md#initial)
 - [label](EShapeDataValueExtension.md#label)
+- [start](EShapeDataValueExtension.md#start)
+- [stop](EShapeDataValueExtension.md#stop)
 - [type](EShapeDataValueExtension.md#type)
 
 ## Properties
@@ -19,7 +21,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L7)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L9)
 
 ___
 
@@ -29,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L12)
 
 ___
 
@@ -39,7 +41,55 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L9)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L11)
+
+___
+
+### start
+
+• `Optional` **start**: (`canvas`: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>) => `void`
+
+#### Type declaration
+
+▸ (`canvas`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `canvas` | [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\> |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L13)
+
+___
+
+### stop
+
+• `Optional` **stop**: (`canvas`: [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\>) => `void`
+
+#### Type declaration
+
+▸ (`canvas`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `canvas` | [`DDiagramCanvas`](../classes/DDiagramCanvas.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md), [`DDiagramCanvasOptions`](DDiagramCanvasOptions.md)<[`DThemeDiagramCanvas`](DThemeDiagramCanvas.md)\>\> |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L14)
 
 ___
 
@@ -49,4 +99,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L8)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-value-extension.ts#L10)

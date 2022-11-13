@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTableDataSorter
+[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataSorter
 
 # Interface: DTableDataSorter<ROW\>
 
@@ -57,7 +57,7 @@ Table data sorter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L46)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L46)
 
 ___
 
@@ -70,19 +70,19 @@ Must not change this indices directly.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L52)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L52)
 
 ___
 
 ### order
 
-• **order**: [`DTableDataOrder`](../index.md#dtabledataorder)
+• **order**: [`DTableDataOrder`](../index.md#dtabledataorder-1)
 
 A sort order.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L57)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L57)
 
 ## Methods
 
@@ -126,7 +126,7 @@ Applys a sorting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L62)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L62)
 
 ___
 
@@ -191,7 +191,7 @@ Returns a current comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L77)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L77)
 
 ___
 
@@ -207,7 +207,7 @@ Returns true if a sorting is applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L72)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L72)
 
 ___
 
@@ -281,7 +281,7 @@ Returns a sorted index of the specified unmapped index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L91)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L91)
 
 ___
 
@@ -326,7 +326,7 @@ Add a listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -356,7 +356,7 @@ Add a one-time listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -451,7 +451,7 @@ Sets to the given comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L84)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L84)
 
 ___
 
@@ -467,7 +467,7 @@ Unapplys a sorting.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L67)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L67)
 
 ___
 
@@ -489,4 +489,4 @@ Returns an unmapped index of the specified sorted index.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L98)
+[src/main/typescript/wcardinal/ui/d-table-data-sorter.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-sorter.ts#L98)

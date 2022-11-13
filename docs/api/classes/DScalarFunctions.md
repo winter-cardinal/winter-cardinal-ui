@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DScalarFunctions
+[Winter Cardinal UI - v0.227.0](../index.md) / DScalarFunctions
 
 # Class: DScalarFunctions
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-functions.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-scalar-functions.ts#L19)
+[src/main/typescript/wcardinal/ui/d-scalar-functions.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-scalar-functions.ts#L19)
 
 ___
 
@@ -57,4 +57,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar-functions.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-scalar-functions.ts#L46)
+[src/main/typescript/wcardinal/ui/d-scalar-functions.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-scalar-functions.ts#L46)

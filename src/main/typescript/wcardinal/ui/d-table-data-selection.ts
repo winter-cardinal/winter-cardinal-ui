@@ -7,6 +7,9 @@ import { utils } from "pixi.js";
 import { DOnOptions } from "./d-on-options";
 import { DTableData } from "./d-table-data";
 
+/**
+ * {@link DTableDataSelection} type.
+ */
 export const DTableDataSelectionType = {
 	NONE: 0,
 	SINGLE: 1,
@@ -22,8 +25,6 @@ export type DTableDataSelectionType =
 export interface DTableDataSelectionEvents<EMITTER> {
 	/**
 	 * Triggered when s selection is changed.
-	 *
-	 *     on( "change", ( emitter ) => {} )
 	 *
 	 * @param emitter an emitter
 	 */

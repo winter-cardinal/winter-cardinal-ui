@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDialogGestureOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DDialogGestureOptions
 
 # Interface: DDialogGestureOptions
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L20)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L20)
 
 ___
 
@@ -28,14 +28,14 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L18)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L18)
 
 ___
 
 ### mode
 
-• `Optional` **mode**: ``"DIRTY"`` \| ``"CLEAN"`` \| [`DDialogGestureMode`](../index.md#ddialoggesturemode)
+• `Optional` **mode**: ``"DIRTY"`` \| ``"CLEAN"`` \| [`DDialogGestureMode`](../index.md#ddialoggesturemode-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L19)
+[src/main/typescript/wcardinal/ui/d-dialog-gesture.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dialog-gesture.ts#L19)

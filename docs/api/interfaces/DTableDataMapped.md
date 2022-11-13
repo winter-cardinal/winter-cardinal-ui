@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTableDataMapped
+[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataMapped
 
 # Interface: DTableDataMapped<ROW\>
 
@@ -45,7 +45,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L56)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L56)
 
 ___
 
@@ -68,7 +68,7 @@ The index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L46)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L46)
 
 ___
 
@@ -91,7 +91,7 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L25)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L25)
 
 ___
 
@@ -107,7 +107,7 @@ Returns a size of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L38)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L38)
 
 ___
 
@@ -130,4 +130,4 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L33)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L33)

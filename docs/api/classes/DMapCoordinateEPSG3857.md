@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DMapCoordinateEPSG3857
+[Winter Cardinal UI - v0.227.0](../index.md) / DMapCoordinateEPSG3857
 
 # Class: DMapCoordinateEPSG3857
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L13)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L13)
 
 ## Properties
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L11)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L11)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L9)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L9)
 
 ## Methods
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L17)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L17)
 
 ___
 
@@ -100,9 +100,10 @@ Converts the given (lon, lat) point in WGS84 to (x, y) in EPSG:900913.
 The origin of the converted point (x, y) is at the middle-left corner.
 The `meters` can be the same instance that is passed in as the `lonlat`.
 
-**`see`** https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/
+**`See`**
 
-**`see`** https://qiita.com/MALORGIS/items/1a9114dd090e5b891bf7
+ - https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection/
+ - https://qiita.com/MALORGIS/items/1a9114dd090e5b891bf7
 
 #### Parameters
 
@@ -123,7 +124,7 @@ The `meters` can be the same instance that is passed in as the `lonlat`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L32)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L32)
 
 ___
 
@@ -150,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L105)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L105)
 
 ___
 
@@ -176,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L101)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L101)
 
 ___
 
@@ -203,7 +204,7 @@ The `lonlat` can be the same instance that is passed in as the `meters`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L45)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L45)
 
 ___
 
@@ -234,7 +235,7 @@ The `pixels` can be the same instance that is passed in as the `meters`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L70)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L70)
 
 ___
 
@@ -263,7 +264,7 @@ The `tile` can be the same instance that is passed in as the `meters`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L93)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L93)
 
 ___
 
@@ -290,7 +291,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L109)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L109)
 
 ___
 
@@ -321,7 +322,7 @@ The `meters` can be the same instance that is passed in as the `pixels`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L57)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L57)
 
 ___
 
@@ -351,7 +352,7 @@ The `tile` can be the same instance that is passed in as the `pixels`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L83)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L83)
 
 ___
 
@@ -380,7 +381,7 @@ The `meters` can be the same instance that is passed in as the `tile`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L126)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:126](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L126)
 
 ___
 
@@ -408,7 +409,7 @@ The `pixels` can be the same instance that is passed in as the `tile`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L116)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L116)
 
 ___
 
@@ -429,7 +430,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L138)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L138)
 
 ___
 
@@ -449,7 +450,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L134)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L134)
 
 ___
 
@@ -475,7 +476,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L146)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:146](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L146)
 
 ___
 
@@ -499,4 +500,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L142)
+[src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-map-coordinate-epsg3857.ts#L142)

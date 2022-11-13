@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DThemeLink
+[Winter Cardinal UI - v0.227.0](../index.md) / DThemeLink
 
 # Interface: DThemeLink
 
@@ -32,18 +32,18 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L37)
+[src/main/typescript/wcardinal/ui/d-link.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L36)
 
 ___
 
 ### getMenuOptions
 
-▸ **getMenuOptions**(): [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>
+▸ **getMenuOptions**(): [`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\>
 
 #### Returns
 
-[`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid), [`DThemeMenu`](DThemeMenu.md)\>
+[`DMenuOptions`](DMenuOptions.md)<[`DLinkMenuItemId`](../index.md#dlinkmenuitemid-1), [`DThemeMenu`](DThemeMenu.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-link.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-link.ts#L38)
+[src/main/typescript/wcardinal/ui/d-link.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-link.ts#L37)

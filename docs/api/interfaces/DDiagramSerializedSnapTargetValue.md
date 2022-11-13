@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramSerializedSnapTargetValue
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramSerializedSnapTargetValue
 
 # Interface: DDiagramSerializedSnapTargetValue
 
@@ -15,13 +15,13 @@ A serialized snap target.
 
 ### 0
 
-• **0**: [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype)
+• **0**: [`ESnapperTargetValueType`](../index.md#esnappertargetvaluetype-1)
 
 A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:431](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L431)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:445](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L445)
 
 ___
 
@@ -33,4 +33,4 @@ A position.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:434](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L434)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:448](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L448)

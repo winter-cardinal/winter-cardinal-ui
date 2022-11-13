@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTableDataListMapped
+[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataListMapped
 
 # Class: DTableDataListMapped<ROW\>
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L11)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L11)
 
 ## Properties
 
@@ -60,7 +60,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L9)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L9)
 
 ## Methods
 
@@ -73,11 +73,11 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `iteratee` | [`DTableDataMappedEachIteratee`](../index.md#dtabledatamappedeachiteratee)<`ROW`\> |
-| `ifrom?` | `number` |
-| `ito?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `iteratee` | [`DTableDataMappedEachIteratee`](../index.md#dtabledatamappedeachiteratee)<`ROW`\> | an function called on each mapped datum |
+| `ifrom?` | `number` | an index to start an iteration |
+| `ito?` | `number` | - |
 
 #### Returns
 
@@ -89,7 +89,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L40)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L40)
 
 ___
 
@@ -102,9 +102,9 @@ The index is an index on rows filters and sorters are applied.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | a mapped index |
 
 #### Returns
 
@@ -116,7 +116,7 @@ The index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L35)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L35)
 
 ___
 
@@ -129,9 +129,9 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `unmappedIndex` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `unmappedIndex` | `number` | a unmapped index |
 
 #### Returns
 
@@ -143,7 +143,7 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L15)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L15)
 
 ___
 
@@ -163,7 +163,7 @@ Returns a size of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L29)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L29)
 
 ___
 
@@ -176,9 +176,9 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | a mapped index |
 
 #### Returns
 
@@ -190,4 +190,4 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L24)
+[src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list-mapped.ts#L24)

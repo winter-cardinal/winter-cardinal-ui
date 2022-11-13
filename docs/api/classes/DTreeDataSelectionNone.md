@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DTreeDataSelectionNone
+[Winter Cardinal UI - v0.227.0](../index.md) / DTreeDataSelectionNone
 
 # Class: DTreeDataSelectionNone<NODE\>
 
@@ -85,7 +85,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L21)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L21)
 
 ## Properties
 
@@ -95,7 +95,7 @@ utils.EventEmitter.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L19)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L19)
 
 ## Accessors
 
@@ -115,7 +115,7 @@ A first selected node or null.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L41)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L41)
 
 ___
 
@@ -135,19 +135,19 @@ A last selected node or null.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L45)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L45)
 
 ___
 
 ### type
 
-• `get` **type**(): [`DTreeDataSelectionType`](../index.md#dtreedataselectiontype)
+• `get` **type**(): [`DTreeDataSelectionType`](../index.md#dtreedataselectiontype-1)
 
 A type.
 
 #### Returns
 
-[`DTreeDataSelectionType`](../index.md#dtreedataselectiontype)
+[`DTreeDataSelectionType`](../index.md#dtreedataselectiontype-1)
 
 #### Implementation of
 
@@ -155,7 +155,7 @@ A type.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L37)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L37)
 
 ## Methods
 
@@ -167,13 +167,15 @@ Adds the given node
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `NODE` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `NODE` | a node |
 
 #### Returns
 
 `boolean`
+
+true if succeeded.
 
 #### Implementation of
 
@@ -181,7 +183,7 @@ Adds the given node
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L53)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L53)
 
 ___
 
@@ -233,7 +235,7 @@ Clears all the nodes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L65)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L65)
 
 ___
 
@@ -245,13 +247,15 @@ Clears all the exisint nodes and adds the given node.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `NODE` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `NODE` | a node to be added |
 
 #### Returns
 
 `boolean`
+
+true if the selection is changed
 
 #### Implementation of
 
@@ -259,7 +263,7 @@ Clears all the exisint nodes and adds the given node.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L69)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L69)
 
 ___
 
@@ -271,13 +275,15 @@ Clears the exising nodes and add all the given nodes.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targets` | `NODE`[] |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `targets` | `NODE`[] | nodes to be added |
 
 #### Returns
 
 `boolean`
+
+true if the selection is changed
 
 #### Implementation of
 
@@ -285,7 +291,7 @@ Clears the exising nodes and add all the given nodes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L73)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L73)
 
 ___
 
@@ -297,13 +303,15 @@ Returns true if the given node is selected.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `NODE` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `NODE` | a node to be checked |
 
 #### Returns
 
 `boolean`
+
+true if the given node is selected
 
 #### Implementation of
 
@@ -311,7 +319,7 @@ Returns true if the given node is selected.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L77)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L77)
 
 ___
 
@@ -323,9 +331,9 @@ Iterates over selected nodes.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `iteratee` | (`node`: `NODE`) => `boolean` \| `void` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `iteratee` | (`node`: `NODE`) => `boolean` \| `void` | an iteratee |
 
 #### Returns
 
@@ -337,7 +345,7 @@ Iterates over selected nodes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L89)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L89)
 
 ___
 
@@ -406,13 +414,15 @@ Returns a node at the given index or null.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `index` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `index` | `number` | an index |
 
 #### Returns
 
 ``null`` \| `NODE`
+
+a node at the given index or null
 
 #### Implementation of
 
@@ -420,7 +430,7 @@ Returns a node at the given index or null.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L49)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L49)
 
 ___
 
@@ -434,13 +444,15 @@ Returns true if the selection is empty.
 
 `boolean`
 
+true if the selection is empty
+
 #### Implementation of
 
 [DTreeDataSelection](../interfaces/DTreeDataSelection.md).[isEmpty](../interfaces/DTreeDataSelection.md#isempty)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L85)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L85)
 
 ___
 
@@ -549,7 +561,7 @@ Add a listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -587,7 +599,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L97)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L97)
 
 ___
 
@@ -603,7 +615,7 @@ Add a one-time listener for a given event.
 | :------ | :------ | :------ |
 | `event` | `string` \| `symbol` | The event name. |
 | `fn` | `Function` | The listener function. |
-| `context?` | `any` | - |
+| `context?` | `any` | The context to invoke the listener with. |
 
 #### Returns
 
@@ -633,13 +645,15 @@ Removes the given node.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `NODE` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `NODE` | a node |
 
 #### Returns
 
 `boolean`
+
+true if succeeded
 
 #### Implementation of
 
@@ -647,7 +661,7 @@ Removes the given node.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L57)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L57)
 
 ___
 
@@ -728,13 +742,15 @@ Returns the number of selected nodes.
 
 `number`
 
+the number of selected nodes
+
 #### Implementation of
 
 [DTreeDataSelection](../interfaces/DTreeDataSelection.md).[size](../interfaces/DTreeDataSelection.md#size)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L81)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L81)
 
 ___
 
@@ -748,13 +764,15 @@ Returns an array of selected nodes.
 
 `NODE`[]
 
+an array of selected nodes.
+
 #### Implementation of
 
 [DTreeDataSelection](../interfaces/DTreeDataSelection.md).[toArray](../interfaces/DTreeDataSelection.md#toarray)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L93)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L93)
 
 ___
 
@@ -766,13 +784,15 @@ Toggles the given node.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `NODE` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | `NODE` | a node |
 
 #### Returns
 
 `boolean`
+
+true if succeeded.
 
 #### Implementation of
 
@@ -780,4 +800,4 @@ Toggles the given node.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L61)
+[src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-selection-none.ts#L61)

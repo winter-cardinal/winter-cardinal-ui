@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DImagePieceTextAlign
+[Winter Cardinal UI - v0.227.0](../index.md) / DImagePieceTextAlign
 
 # Interface: DImagePieceTextAlign
 
@@ -13,18 +13,18 @@
 
 ### horizontal
 
-• **horizontal**: [`DAlignHorizontal`](../index.md#dalignhorizontal)
+• **horizontal**: [`DAlignHorizontal`](../index.md#dalignhorizontal-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L48)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L48)
 
 ___
 
 ### vertical
 
-• **vertical**: [`DAlignVertical`](../index.md#dalignvertical)
+• **vertical**: [`DAlignVertical`](../index.md#dalignvertical-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L47)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L47)

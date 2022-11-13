@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DChartAxisBaseTickMajorTextOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / DChartAxisBaseTickMajorTextOptions
 
 # Interface: DChartAxisBaseTickMajorTextOptions
 
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L38)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L34)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L45)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L45)
 
 ___
 
@@ -60,17 +60,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L33)
 
 ___
 
 ### direction
 
-• `Optional` **direction**: [`EShapeTextDirection`](../index.md#eshapetextdirection)
+• `Optional` **direction**: [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L43)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L43)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L35)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L35)
 
 ___
 
@@ -92,7 +92,7 @@ A format. Please refer to [NumberFormatter](NumberFormatter.md) for format detai
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L28)
 
 ___
 
@@ -104,7 +104,7 @@ A formatter function.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L31)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L31)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L39)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L41)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L41)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L44)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L44)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L36)
 
 ___
 
@@ -154,24 +154,24 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L42)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L42)
 
 ___
 
 ### style
 
-• `Optional` **style**: [`EShapeTextStyle`](../index.md#eshapetextstyle)
+• `Optional` **style**: [`EShapeTextStyle`](../index.md#eshapetextstyle-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L40)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L40)
 
 ___
 
 ### weight
 
-• `Optional` **weight**: [`EShapeTextWeight`](../index.md#eshapetextweight)
+• `Optional` **weight**: [`EShapeTextWeight`](../index.md#eshapetextweight-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L37)

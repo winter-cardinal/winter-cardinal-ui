@@ -1,6 +1,8 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeDataMapperImpl
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeDataMapperImpl
 
 # Class: EShapeDataMapperImpl
+
+An EShape data mapper.
 
 ## Implements
 
@@ -14,20 +16,14 @@
 
 ### Properties
 
-- [\_sourceIndices](EShapeDataMapperImpl.md#_sourceindices)
 - [\_sources](EShapeDataMapperImpl.md#_sources)
-- [\_targetIndices](EShapeDataMapperImpl.md#_targetindices)
-- [\_targetIndicesLength](EShapeDataMapperImpl.md#_targetindiceslength)
-- [SEPARATOR](EShapeDataMapperImpl.md#separator)
+- [SPANS](EShapeDataMapperImpl.md#spans)
 - [WILDCARD](EShapeDataMapperImpl.md#wildcard)
 
 ### Methods
 
-- [calcTargetIndices](EShapeDataMapperImpl.md#calctargetindices)
 - [map](EShapeDataMapperImpl.md#map)
-- [newSourceIndices](EShapeDataMapperImpl.md#newsourceindices)
 - [newSources](EShapeDataMapperImpl.md#newsources)
-- [newValueId](EShapeDataMapperImpl.md#newvalueid)
 - [split](EShapeDataMapperImpl.md#split)
 
 ## Constructors
@@ -44,19 +40,9 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L14)
 
 ## Properties
-
-### \_sourceIndices
-
-• `Protected` **\_sourceIndices**: `number`[]
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L14)
-
-___
 
 ### \_sources
 
@@ -64,37 +50,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L12)
 
 ___
 
-### \_targetIndices
+### SPANS
 
-• `Protected` **\_targetIndices**: `number`[]
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L15)
-
-___
-
-### \_targetIndicesLength
-
-• `Protected` **\_targetIndicesLength**: `number`
+▪ `Static` `Protected` **SPANS**: `number`[] = `[]`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L16)
-
-___
-
-### SEPARATOR
-
-▪ `Static` `Protected` **SEPARATOR**: `string` = `"."`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L11)
 
 ___
 
@@ -104,33 +70,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L10)
 
 ## Methods
 
-### calcTargetIndices
-
-▸ `Protected` **calcTargetIndices**(`target`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `target` | `string` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L106)
-
-___
-
 ### map
 
-▸ **map**(`value`, `destinations`, `initial`): `void`
+▸ **map**(`value`, `destinations`, `initial`): `boolean`
 
 #### Parameters
 
@@ -142,7 +88,7 @@ ___
 
 #### Returns
 
-`void`
+`boolean`
 
 #### Implementation of
 
@@ -150,27 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L26)
-
-___
-
-### newSourceIndices
-
-▸ `Protected` **newSourceIndices**(`sources`): `number`[]
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `sources` | ``null`` \| `string`[] |
-
-#### Returns
-
-`number`[]
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:122](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L122)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L18)
 
 ___
 
@@ -190,29 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L67)
-
-___
-
-### newValueId
-
-▸ `Protected` **newValueId**(`destinations`, `target`, `targetIndices`): ``null`` \| `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `destinations` | `string`[] |
-| `target` | `string` |
-| `targetIndices` | `number`[] |
-
-#### Returns
-
-``null`` \| `string`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L74)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L80)
 
 ___
 
@@ -232,4 +136,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L136)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L91)

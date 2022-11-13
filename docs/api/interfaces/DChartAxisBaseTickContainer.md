@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DChartAxisBaseTickContainer
+[Winter Cardinal UI - v0.227.0](../index.md) / DChartAxisBaseTickContainer
 
 # Interface: DChartAxisBaseTickContainer
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L73)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L73)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L74)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L74)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L75)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L75)

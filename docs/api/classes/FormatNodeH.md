@@ -1,6 +1,6 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / FormatNodeh
+[Winter Cardinal UI - v0.227.0](../index.md) / FormatNodeH
 
-# Class: FormatNodeh
+# Class: FormatNodeH
 
 ## Implements
 
@@ -10,17 +10,17 @@
 
 ### Constructors
 
-- [constructor](FormatNodeh.md#constructor)
+- [constructor](FormatNodeH.md#constructor)
 
 ### Methods
 
-- [format](FormatNodeh.md#format)
+- [format](FormatNodeH.md#format)
 
 ## Constructors
 
 ### constructor
 
-• **new FormatNodeh**()
+• **new FormatNodeH**()
 
 ## Methods
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/format-node/format-node-h-small.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/format-node/format-node-h-small.ts#L9)
+[src/main/typescript/wcardinal/ui/util/format-node/format-node-h-large.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/format-node/format-node-h-large.ts#L9)

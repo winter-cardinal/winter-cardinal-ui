@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagrams
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagrams
 
 # Class: DDiagrams
 
@@ -41,13 +41,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L78)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L79)
 
 ___
 
 ### toPieceData
 
-▸ `Static` **toPieceData**(`controller`, `pieces`, `isEditMode`): `Promise`<`Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>\>
+▸ `Static` **toPieceData**(`controller`, `pieces`, `mode`): `Promise`<`Map`<`string`, ``null`` \| [`EShapeEmbeddedDatum`](EShapeEmbeddedDatum.md)\>\>
 
 #### Parameters
 
@@ -55,7 +55,7 @@ ___
 | :------ | :------ |
 | `controller` | `undefined` \| ``null`` \| [`DDiagramBaseController`](../interfaces/DDiagramBaseController.md) |
 | `pieces` | `undefined` \| ``null`` \| `string`[] |
-| `isEditMode` | `boolean` |
+| `mode` | [`EShapeResourceManagerDeserializationMode`](../index.md#eshaperesourcemanagerdeserializationmode-1) |
 
 #### Returns
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L118)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L119)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L42)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L43)
 
 ___
 
@@ -103,4 +103,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagrams.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagrams.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagrams.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagrams.ts#L22)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DDiagramCanvasTileMappingPointImpl
+[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramCanvasTileMappingPointImpl
 
 # Class: DDiagramCanvasTileMappingPointImpl
 
@@ -68,7 +68,7 @@ node_modules/pixi.js/pixi.js.d.ts:12062
 
 The position of the displayObject on the x axis relative to the local coordinates of the parent.
 
-**`member`** {number}
+**`Member`**
 
 #### Inherited from
 
@@ -86,7 +86,7 @@ ___
 
 The position of the displayObject on the x axis relative to the local coordinates of the parent.
 
-**`member`** {number}
+**`Member`**
 
 #### Inherited from
 
@@ -112,7 +112,7 @@ node_modules/pixi.js/pixi.js.d.ts:12115
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L21)
 
 • `set` **lat**(`lat`): `void`
 
@@ -132,7 +132,7 @@ node_modules/pixi.js/pixi.js.d.ts:12115
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L25)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L25)
 
 ___
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L13)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L13)
 
 • `set` **lon**(`lon`): `void`
 
@@ -170,7 +170,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L17)
 
 ## Methods
 
@@ -182,14 +182,12 @@ Creates a clone of this point.
 The callback and scope params can be overidden otherwise they will default
 to the clone object's values.
 
-**`override`**
-
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `cb?` | (...`params`: `any`[]) => `any` |
-| `scope?` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cb?` | (...`params`: `any`[]) => `any` | callback when changed |
+| `scope?` | `any` | owner of callback |
 
 #### Returns
 
@@ -300,10 +298,10 @@ If y is omitted, both x and y will be set to x.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x?` | `number` |
-| `y?` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `x?` | `number` | position of the point on the x axis |
+| `y?` | `number` | position of the point on the y axis |
 
 #### Returns
 
@@ -336,4 +334,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L29)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-mapping-point-impl.ts#L29)

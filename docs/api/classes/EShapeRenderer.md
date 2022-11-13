@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / EShapeRenderer
+[Winter Cardinal UI - v0.227.0](../index.md) / EShapeRenderer
 
 # Class: EShapeRenderer
 
@@ -55,7 +55,7 @@ ObjectRenderer.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L240)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L240)
 
 ## Properties
 
@@ -65,7 +65,7 @@ ObjectRenderer.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L238)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:238](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L238)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L237)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:237](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L237)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L236)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L236)
 
 ___
 
@@ -95,7 +95,9 @@ ___
 
 The renderer this manager works for.
 
-**`member`** {PIXI.Renderer} PIXI.ObjectRenderer#renderer
+**`Member`**
+
+PIXI.ObjectRenderer#renderer
 
 #### Inherited from
 
@@ -113,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L234)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L234)
 
 ## Methods
 
@@ -175,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L249)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:249](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L249)
 
 ___
 
@@ -225,7 +227,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:355](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L355)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:355](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L355)
 
 ___
 
@@ -293,7 +295,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L258)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:258](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L258)
 
 ___
 
@@ -317,7 +319,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L295)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L295)
 
 ___
 
@@ -341,7 +343,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:408](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L408)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:408](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L408)
 
 ___
 
@@ -364,7 +366,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:314](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L314)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:314](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L314)
 
 ___
 
@@ -387,4 +389,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:337](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L337)
+[src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts:337](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-renderer.ts#L337)

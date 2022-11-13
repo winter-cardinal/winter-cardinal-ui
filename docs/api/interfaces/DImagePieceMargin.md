@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / DImagePieceMargin
+[Winter Cardinal UI - v0.227.0](../index.md) / DImagePieceMargin
 
 # Interface: DImagePieceMargin
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L43)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L43)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-image-piece.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/d-image-piece.ts#L42)
+[src/main/typescript/wcardinal/ui/d-image-piece.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-image-piece.ts#L42)

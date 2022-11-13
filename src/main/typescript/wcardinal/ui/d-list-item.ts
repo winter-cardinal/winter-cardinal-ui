@@ -25,16 +25,14 @@ export interface DListItemEvents<VALUE, EMITTER> extends DImageBaseEvents<VALUE,
 	/**
 	 * Triggered when a value is set.
 	 *
-	 *     on( "set", ( node, index, emitter ) => {} )
-	 *
+	 * @param value a value set
+	 * @param index an index number of a value
 	 * @param emitter an emitter
 	 */
-	set(node: VALUE, index: number, emitter: EMITTER): void;
+	set(value: VALUE, index: number, emitter: EMITTER): void;
 
 	/**
 	 * Triggered when set to undefined.
-	 *
-	 *     on( "unset", ( emitter ) => {} )
 	 *
 	 * @param emitter an emitter
 	 */
@@ -43,8 +41,6 @@ export interface DListItemEvents<VALUE, EMITTER> extends DImageBaseEvents<VALUE,
 	/**
 	 * Triggered when selected.
 	 * Please note that even when selected, {@link DList} selection state may not be changed.
-	 *
-	 *     on( "select", ( value, emitter ) => {} )
 	 *
 	 * @param value a value
 	 * @param emitter an emitter

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.205.1](../index.md) / UtilInputEditingOptions
+[Winter Cardinal UI - v0.227.0](../index.md) / UtilInputEditingOptions
 
 # Interface: UtilInputEditingOptions<VALUE\>
 
@@ -10,68 +10,80 @@
 
 ## Table of contents
 
-### Methods
+### Properties
 
 - [formatter](UtilInputEditingOptions.md#formatter)
 - [unformatter](UtilInputEditingOptions.md#unformatter)
 - [validator](UtilInputEditingOptions.md#validator)
 
-## Methods
+## Properties
 
 ### formatter
 
-▸ `Optional` **formatter**(`value`): `string`
+• `Optional` **formatter**: (`value`: `VALUE`) => `string`
 
-#### Parameters
+#### Type declaration
+
+▸ (`value`): `string`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | `VALUE` |
 
-#### Returns
+##### Returns
 
 `string`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-input.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-input.ts#L30)
+[src/main/typescript/wcardinal/ui/util/util-input.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-input.ts#L30)
 
 ___
 
 ### unformatter
 
-▸ `Optional` **unformatter**(`text`): `VALUE`
+• `Optional` **unformatter**: (`text`: `string`) => `VALUE`
 
-#### Parameters
+#### Type declaration
+
+▸ (`text`): `VALUE`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `text` | `string` |
 
-#### Returns
+##### Returns
 
 `VALUE`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-input.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-input.ts#L31)
+[src/main/typescript/wcardinal/ui/util/util-input.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-input.ts#L31)
 
 ___
 
 ### validator
 
-▸ `Optional` **validator**(`value`): ``null`` \| `string`
+• `Optional` **validator**: (`value`: `VALUE`) => ``null`` \| `string`
 
-#### Parameters
+#### Type declaration
+
+▸ (`value`): ``null`` \| `string`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `value` | `VALUE` |
 
-#### Returns
+##### Returns
 
 ``null`` \| `string`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-input.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.205.1/src/main/typescript/wcardinal/ui/util/util-input.ts#L32)
+[src/main/typescript/wcardinal/ui/util/util-input.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-input.ts#L32)
