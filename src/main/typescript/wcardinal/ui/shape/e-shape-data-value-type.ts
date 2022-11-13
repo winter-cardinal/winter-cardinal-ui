@@ -13,6 +13,9 @@ export const EShapeDataValueType = {
 
 	TICKER: 6,
 
+	BOOLEAN: 7,
+	BOOLEAN_ARRAY: 8,
+
 	EXTENSION: 1000
 } as const;
 

@@ -38,6 +38,36 @@ export interface DDiagramCanvasOptions<THEME extends DThemeDiagramCanvas = DThem
 
 export interface DThemeDiagramCanvas extends DThemeDiagramCanvasBase {}
 
+const INITIAL_ZERO = "0";
+
+const INITIAL_ARRAY = "[]";
+
+const INITIAL_STRING = '""';
+
+const INITIAL_OBJECT = "{}";
+
+const INITIAL_FALSE = "false";
+
+const INITIALIZER_ZERO = () => {
+	return 0;
+};
+
+const INITIALIZER_ARRAY = () => {
+	return [];
+};
+
+const INITIALIZER_STRING = () => {
+	return "";
+};
+
+const INITIALIZER_OBJECT = () => {
+	return {};
+};
+
+const INITIALIZER_FALSE = () => {
+	return false;
+};
+
 export class DDiagramCanvas<
 	THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas,
 	OPTIONS extends DDiagramCanvasOptions<THEME> = DDiagramCanvasOptions<THEME>
@@ -88,7 +118,7 @@ export class DDiagramCanvas<
 			null,
 			mapper,
 			new Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>(),
-			new Map<EShapeDataValueType, Map<string, unknown>>(),
+			new Map<EShapeDataValueType, Map<string, () => unknown>>(),
 			new Map<EShapeActionValue, EShapeActionRuntime>(),
 			this._ticker,
 			this._shape,
@@ -124,7 +154,7 @@ export class DDiagramCanvas<
 		containerShape: EShape | null,
 		mapper: DDiagramDataMapper | null | undefined,
 		formatters: Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>,
-		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
+		initializers: Map<EShapeDataValueType, Map<string, () => unknown>>,
 		actionValueToRuntime: Map<EShapeActionValue, EShapeActionRuntime>,
 		canvasTicker: DDiagramCanvasTicker,
 		canvasShape: DDiagramCanvasShape,
@@ -147,7 +177,7 @@ export class DDiagramCanvas<
 				containerShape,
 				mapper,
 				formatters,
-				initialValues,
+				initializers,
 				canvasTicker,
 				canvasData
 			);
@@ -192,7 +222,7 @@ export class DDiagramCanvas<
 					newContainerShape,
 					mapper,
 					formatters,
-					initialValues,
+					initializers,
 					actionValueToRuntime,
 					canvasTicker,
 					canvasShape,
@@ -209,7 +239,7 @@ export class DDiagramCanvas<
 		containerShape: EShape | null,
 		mapper: DDiagramDataMapper | null | undefined,
 		formatters: Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>,
-		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
+		initializers: Map<EShapeDataValueType, Map<string, () => unknown>>,
 		canvasTicker: DDiagramCanvasTicker,
 		canvasData: DDiagramCanvasData
 	): void {
@@ -233,12 +263,12 @@ export class DDiagramCanvas<
 						containerShape,
 						mapper,
 						formatters,
-						initialValues,
+						initializers,
 						canvasData
 					);
 					break;
 				case EShapeDataValueType.TICKER:
-					this.initDataTicker(value, initialValues, canvasTicker);
+					this.initDataTicker(value, initializers, canvasTicker);
 					break;
 				default:
 					this.initDataExtension(value, canvasData);
@@ -254,7 +284,7 @@ export class DDiagramCanvas<
 		containerShape: EShape | null,
 		mapper: DDiagramDataMapper | null | undefined,
 		formatters: Map<EShapeDataValueType, Map<string, (value: unknown) => unknown>>,
-		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
+		initializers: Map<EShapeDataValueType, Map<string, () => unknown>>,
 		canvasData: DDiagramCanvasData
 	): void {
 		// Mapping
@@ -286,64 +316,55 @@ export class DDiagramCanvas<
 		const format = value.format;
 		const initial = value.initial;
 		let formatToFormatter = formatters.get(value.type);
-		if (formatToFormatter && formatToFormatter.has(format)) {
-			value.formatter = formatToFormatter.get(format);
+		if (formatToFormatter == null) {
+			formatToFormatter = new Map<string, (value: unknown) => unknown>();
+			formatters.set(value.type, formatToFormatter);
+		}
+		const oldFormatter = formatToFormatter.get(format);
+		if (oldFormatter != null) {
+			value.formatter = oldFormatter;
 		} else if (0 < format.length) {
-			try {
-				const formatter = this.calcFormatter(value, format, initial);
-				if (formatToFormatter == null) {
-					formatToFormatter = new Map<string, (value: unknown) => unknown>();
-					formatters.set(value.type, formatToFormatter);
-				}
-				formatToFormatter.set(format, formatter);
-				value.formatter = formatter;
-			} catch (e) {
-				// DO NOTHING
-			}
+			const newFormatter = this.calcFormatter(value, format, initial);
+			formatToFormatter.set(format, newFormatter);
+			value.formatter = newFormatter;
 		}
 
 		// Initial
-		let initialToInitialValue = initialValues.get(value.type);
-		if (initialToInitialValue && initialToInitialValue.has(initial)) {
-			value.value = initialToInitialValue.get(initial);
-		} else if (0 < initial.length) {
-			try {
-				const initialValue = this.calcInitial(value, initial);
-				if (initialToInitialValue == null) {
-					initialToInitialValue = new Map<string, unknown>();
-					initialValues.set(value.type, initialToInitialValue);
-				}
-				initialToInitialValue.set(initial, initialValue);
-				value.value = initialValue;
-			} catch (e) {
-				// DO NOTHING
-			}
+		let initialToInitializer = initializers.get(value.type);
+		if (initialToInitializer == null) {
+			initialToInitializer = new Map<string, () => unknown>();
+			initializers.set(value.type, initialToInitializer);
+		}
+		const oldInitializer = initialToInitializer.get(initial);
+		if (oldInitializer != null) {
+			value.value = oldInitializer();
+		} else {
+			const newInitializer = this.calcInitial(value, initial);
+			initialToInitializer.set(initial, newInitializer);
+			value.value = newInitializer();
 		}
 	}
 
 	protected initDataTicker(
 		value: EShapeDataValue,
-		initialValues: Map<EShapeDataValueType, Map<string, unknown>>,
+		initializers: Map<EShapeDataValueType, Map<string, () => unknown>>,
 		canvasTicker: DDiagramCanvasTicker
 	): void {
 		const initial = value.initial;
-		let initialToInitialValue = initialValues.get(value.type);
-		if (initialToInitialValue && initialToInitialValue.has(initial)) {
+		let initialToInitializer = initializers.get(value.type);
+		if (initialToInitializer == null) {
+			initialToInitializer = new Map<string, () => unknown>();
+			initializers.set(value.type, initialToInitializer);
+		}
+		const oldInitializer = initialToInitializer.get(initial);
+		if (oldInitializer !== undefined) {
 			value.value = 0;
-			canvasTicker.add(initialToInitialValue.get(initial)).add(value);
-		} else if (0 < initial.length) {
-			try {
-				const initialValue = this.calcInitial(value, initial);
-				if (initialToInitialValue == null) {
-					initialToInitialValue = new Map<string, unknown>();
-					initialValues.set(value.type, initialToInitialValue);
-				}
-				initialToInitialValue.set(initial, initialValue);
-				value.value = 0;
-				canvasTicker.add(initialValue).add(value);
-			} catch (e) {
-				// DO NOTHING
-			}
+			canvasTicker.add(oldInitializer()).add(value);
+		} else {
+			const newInitializer = this.calcInitial(value, initial);
+			initialToInitializer.set(initial, newInitializer);
+			value.value = 0;
+			canvasTicker.add(newInitializer()).add(value);
 		}
 	}
 
@@ -385,53 +406,94 @@ export class DDiagramCanvas<
 		initial: string
 	): (value: unknown) => unknown {
 		const def = this.toInitial(value);
-		return Function(
-			"value",
-			/* eslint-disable prettier/prettier */
-			`try {` +
-				`return (${format});` +
-			`} catch( e1 ) {` +
+		try {
+			return Function(
+				"value",
+				/* eslint-disable prettier/prettier */
 				`try {` +
-					`return (${0 < initial.length ? initial : def});` +
-				`} catch( e2 ) {` +
-					`return ${def};` +
-				`}` +
-			`}`
-			/* eslint-enable prettier/prettier */
-		) as any;
+					`return (${format});` +
+				`} catch( e1 ) {` +
+					`try {` +
+						`return (${0 < initial.length ? initial : def});` +
+					`} catch( e2 ) {` +
+						`return ${def};` +
+					`}` +
+				`}`
+				/* eslint-enable prettier/prettier */
+			) as any;
+		} catch (e) {
+			return this.toInitializer(value);
+		}
 	}
 
-	protected calcInitial(value: EShapeDataValue, initial: string): unknown {
-		return Function(
-			/* eslint-disable prettier/prettier */
-			`try {` +
-				`return (${initial});` +
-			`} catch( e ) {` +
-				`return ${this.toInitial(value)};` +
-			`}`
-			/* eslint-enable prettier/prettier */
-		)();
+	protected calcInitial(value: EShapeDataValue, initial: string): () => unknown {
+		if (initial.length <= 0) {
+			return this.toInitializer(value);
+		}
+		try {
+			return Function(
+				/* eslint-disable prettier/prettier */
+				`try {` +
+					`return (${initial});` +
+				`} catch( e ) {` +
+					`return ${this.toInitial(value)};` +
+				`}`
+				/* eslint-enable prettier/prettier */
+			) as any;
+		} catch (e) {
+			return this.toInitializer(value);
+		}
 	}
 
 	protected toInitial(value: EShapeDataValue): string {
 		const valueType = value.type;
 		switch (valueType) {
 			case EShapeDataValueType.NUMBER:
-				return "0";
+				return INITIAL_ZERO;
 			case EShapeDataValueType.NUMBER_ARRAY:
-				return "[]";
+				return INITIAL_ARRAY;
 			case EShapeDataValueType.STRING:
-				return '""';
+				return INITIAL_STRING;
 			case EShapeDataValueType.STRING_ARRAY:
-				return "[]";
+				return INITIAL_ARRAY;
 			case EShapeDataValueType.OBJECT:
-				return "{}";
+				return INITIAL_OBJECT;
 			case EShapeDataValueType.OBJECT_ARRAY:
-				return "[]";
+				return INITIAL_ARRAY;
 			case EShapeDataValueType.TICKER:
-				return "0";
+				return INITIAL_ZERO;
+			case EShapeDataValueType.BOOLEAN:
+				return INITIAL_FALSE;
+			case EShapeDataValueType.BOOLEAN_ARRAY:
+				return INITIAL_ARRAY;
 			default:
-				return "0";
+				return INITIAL_ZERO;
+		}
+	}
+
+	protected toInitializer(value: EShapeDataValue): () => unknown {
+		const valueType = value.type;
+		switch (valueType) {
+			case EShapeDataValueType.NUMBER:
+				return INITIALIZER_ZERO;
+			case EShapeDataValueType.NUMBER_ARRAY:
+				return INITIALIZER_ARRAY;
+			case EShapeDataValueType.STRING:
+				return INITIALIZER_STRING;
+			case EShapeDataValueType.STRING_ARRAY:
+				return INITIALIZER_ARRAY;
+			case EShapeDataValueType.OBJECT:
+				return INITIALIZER_OBJECT;
+			case EShapeDataValueType.OBJECT_ARRAY:
+				return INITIALIZER_ARRAY;
+			case EShapeDataValueType.TICKER:
+				return INITIALIZER_ZERO;
+			case EShapeDataValueType.BOOLEAN:
+				return INITIALIZER_FALSE;
+			case EShapeDataValueType.BOOLEAN_ARRAY:
+				return INITIALIZER_ARRAY;
+			default:
+				return INITIALIZER_ZERO;
 		}
 	}
 
