@@ -26,7 +26,7 @@ export class DThemeWhiteDialogProcessing
 	getFooter(): DDialogLayeredFooterOptions | undefined | null {
 		return {
 			button: {
-				ok: "Save",
+				ok: "OK",
 				cancel: null
 			}
 		};
