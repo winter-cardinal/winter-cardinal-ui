@@ -156,6 +156,7 @@
     * [Align with text](./image/align-with-text.html)
 * Input
     * [Basics](./input/basics.html)
+    * [Fixed point number](./input/fixed-point-number.html)
     * [Formatter](./input/formatter.html)
     * [Step, min and max](./input/step-min-max.html)
     * [Validation](./input/validation.html)
