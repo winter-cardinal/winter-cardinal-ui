@@ -28,6 +28,11 @@ export interface DDropdownBaseEvents<VALUE, TEXT_VALUE, EMITTER>
 	 * @param emitter an emitter
 	 */
 	select(value: VALUE, item: DMenuItem<VALUE>, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a menu is opened.
+	 */
+	open(menu: DMenu<VALUE>, emitter: EMITTER): void;
 }
 
 /**
@@ -79,10 +84,6 @@ export class DDropdownBase<
 		menu: DMenu<VALUE>
 	) => void;
 	protected _onMenuCloseBound?: () => void;
-
-	constructor(options?: OPTIONS) {
-		super(options);
-	}
 
 	protected onMenuSelect(value: VALUE, item: DMenuItem<VALUE>, menu: DMenu<VALUE>): void {
 		this.emit("select", value, item, this);
@@ -170,10 +171,10 @@ export class DDropdownBase<
 		e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent
 	): void {
 		super.onActivate(e);
-		this.start();
+		this.open();
 	}
 
-	start(): void {
+	open(): void {
 		const menu = this.menu;
 		if (menu.isHidden()) {
 			// In the case that the menu is created elsewhere,
@@ -203,6 +204,7 @@ export class DDropdownBase<
 			menu.on("select", onMenuSelectBound);
 			menu.on("close", onMenuCloseBound);
 			menu.open(this);
+			this.emit("open", menu, this);
 		}
 	}
 
