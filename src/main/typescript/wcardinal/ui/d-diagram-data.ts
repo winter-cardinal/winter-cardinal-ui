@@ -9,6 +9,7 @@ import { DDiagramDataScoped } from "./d-diagram-data-scoped";
 import { DDiagramDataRemote } from "./d-diagram-data-remote";
 import { DDiagramDataRemoteOptions } from "./d-diagram-data-remote";
 import { EShapeDataValueState } from "./shape/e-shape-data-value-state";
+import { EShapeDataValue } from "./shape/e-shape-data-value";
 
 export interface DDiagramDataCanvas {
 	data: DDiagramCanvasData;
@@ -49,6 +50,7 @@ export interface DDiagramData {
 		from?: number | null,
 		to?: number | null
 	): boolean;
+	get(id: string): EShapeDataValue[] | null;
 	clear(id: string): boolean;
 	toDirty(id: string): boolean;
 	setAll(

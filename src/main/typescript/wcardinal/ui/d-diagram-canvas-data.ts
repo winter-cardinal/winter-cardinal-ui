@@ -22,6 +22,7 @@ export interface DDiagramCanvasData {
 		from?: number | null,
 		to?: number | null
 	): boolean;
+	get(id: string): EShapeDataValue[] | null;
 	clear(id: string): boolean;
 	toDirty(id: string): boolean;
 	setAll(

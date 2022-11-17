@@ -136,6 +136,18 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 		return true;
 	}
 
+	get(id: string): EShapeDataValue[] | null {
+		const data = this._data;
+		if (data == null) {
+			return null;
+		}
+		const datum = data.get(id);
+		if (datum == null) {
+			return null;
+		}
+		return datum;
+	}
+
 	clear(id: string): boolean {
 		const data = this._data;
 		if (data == null) {

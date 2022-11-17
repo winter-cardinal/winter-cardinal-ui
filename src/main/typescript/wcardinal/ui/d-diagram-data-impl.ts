@@ -12,6 +12,7 @@ import { DDiagramDataRemote } from "./d-diagram-data-remote";
 import { DDiagramDataRemoteImpl } from "./d-diagram-data-remote-impl";
 import { DDiagramDataExtendedImpl } from "./d-diagram-data-extended-impl";
 import { EShapeDataValueState } from "./shape/e-shape-data-value-state";
+import { EShapeDataValue } from "./shape/e-shape-data-value";
 
 /**
  * A data helper class for diagrams.
@@ -90,6 +91,14 @@ export class DDiagramDataImpl implements DDiagramData {
 			return canvas.data.set(id, value, time, state, from, to);
 		}
 		return false;
+	}
+
+	get(id: string): EShapeDataValue[] | null {
+		const canvas = this._diagram.canvas;
+		if (canvas != null) {
+			return canvas.data.get(id);
+		}
+		return null;
 	}
 
 	clear(id: string): boolean {
