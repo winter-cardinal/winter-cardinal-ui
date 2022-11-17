@@ -8,7 +8,7 @@ import {
 import { DChartPlotAreaContainer } from "./d-chart-plot-area-container";
 import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-container";
 import { Rectangle } from "pixi.js";
-import { DViewOptions } from "./d-view";
+import { DView, DViewOptions } from "./d-view";
 
 export interface DChartPlotAreaOptions<
 	CHART extends DBase = DBase,
@@ -26,12 +26,12 @@ export interface DThemeChartPlotArea extends DThemeBase {
 }
 
 export interface DChartPlotArea<CHART extends DBase = DBase> extends DBase {
+	readonly chart: CHART;
+	readonly coordinate: DChartCoordinateContainer<CHART>;
 	readonly series: DChartSeriesContainer<CHART>;
 	readonly container: DChartPlotAreaContainer;
 	readonly axis: DChartAxisContainer<CHART>;
-
-	readonly chart: CHART;
-	readonly coordinate: DChartCoordinateContainer<CHART>;
+	readonly view: DView;
 
 	fit(
 		duration?: number,

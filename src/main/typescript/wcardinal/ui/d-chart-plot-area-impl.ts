@@ -106,12 +106,12 @@ export class DChartPlotAreaImpl<
 		return this._overflowMask;
 	}
 
-	get coordinate(): DChartCoordinateContainer<CHART> {
-		return this._coordinate;
-	}
-
 	get chart(): CHART {
 		return this._chart;
+	}
+
+	get coordinate(): DChartCoordinateContainer<CHART> {
+		return this._coordinate;
 	}
 
 	get series(): DChartSeriesContainer<CHART> {
