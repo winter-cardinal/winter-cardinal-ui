@@ -1,7 +1,6 @@
 import { DBase } from "../d-base";
 
 export class UtilStateBlinker {
-	protected _isOn: boolean;
 	protected _targets: Set<DBase>;
 	protected _state: string;
 	protected _delay: number;
@@ -10,19 +9,14 @@ export class UtilStateBlinker {
 	protected _updateBound: () => void;
 
 	constructor(state: string, delay: number, interval: number) {
-		this._isOn = true;
 		this._targets = new Set();
 		this._state = state;
 		this._delay = delay;
 		this._interval = interval;
 		this._timeout = null;
-
-		const updateBound = (): void => {
-			this.advance();
+		this._updateBound = (): void => {
 			this.update();
-			this._timeout = window.setTimeout(updateBound, interval);
 		};
-		this._updateBound = updateBound;
 	}
 
 	start(): this {
@@ -43,7 +37,7 @@ export class UtilStateBlinker {
 
 	add(target: DBase): this {
 		this._targets.add(target);
-		target.state.set(this._state, this.isOn());
+		target.state.set(this._state, this.isOn(Date.now()));
 		return this;
 	}
 
@@ -64,25 +58,19 @@ export class UtilStateBlinker {
 		return this;
 	}
 
-	isOn(): boolean {
-		return this._isOn;
-	}
-
-	isOff(): boolean {
-		return !this._isOn;
-	}
-
-	advance(): this {
-		this._isOn = !this._isOn;
-		return this;
+	isOn(time: number): boolean {
+		return Math.floor(time / this._interval) % 2 === 0;
 	}
 
 	update(): this {
-		const isOn = this.isOn();
+		const now = Date.now();
+		const isOn = this.isOn(now);
 		const state = this._state;
 		this._targets.forEach((target: DBase): void => {
 			target.state.set(state, isOn);
 		});
+		const interval = this._interval;
+		this._timeout = window.setTimeout(this._updateBound, interval - (now % interval));
 		return this;
 	}
 }
