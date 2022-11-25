@@ -95,7 +95,7 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 
 	set(
 		id: string,
-		value: unknown,
+		value?: unknown,
 		time?: number,
 		state?: EShapeDataValueState,
 		from?: number | null,
@@ -131,7 +131,9 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 			}
 
 			// Value
-			datumValue.value = value;
+			if (value !== undefined) {
+				datumValue.value = value;
+			}
 		}
 		return true;
 	}
@@ -188,7 +190,7 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 
 	setAll(
 		id: string,
-		values: unknown[],
+		values?: unknown[],
 		times?: number[],
 		states?: EShapeDataValueState[],
 		from?: number | null,
@@ -224,7 +226,9 @@ export class DDiagramCanvasDataImpl implements DDiagramCanvasData {
 			}
 
 			// Value
-			datumValue.values = values;
+			if (values !== undefined) {
+				datumValue.values = values;
+			}
 		}
 		return true;
 	}

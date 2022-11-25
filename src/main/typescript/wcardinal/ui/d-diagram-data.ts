@@ -44,7 +44,7 @@ export interface DDiagramData {
 	each(iteratee: (id: string) => boolean | void): string | null;
 	set(
 		id: string,
-		value: unknown,
+		value?: unknown,
 		time?: number,
 		state?: EShapeDataValueState,
 		from?: number | null,
@@ -55,7 +55,7 @@ export interface DDiagramData {
 	toDirty(id: string): boolean;
 	setAll(
 		id: string,
-		values: unknown[],
+		values?: unknown[],
 		times?: number[],
 		states?: EShapeDataValueState[],
 		from?: number | null,

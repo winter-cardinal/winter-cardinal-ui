@@ -16,7 +16,7 @@ export interface DDiagramCanvasData {
 	add(id: string, value: EShapeDataValue): void;
 	set(
 		id: string,
-		value: unknown,
+		value?: unknown,
 		time?: number,
 		state?: EShapeDataValueState,
 		from?: number | null,
@@ -27,7 +27,7 @@ export interface DDiagramCanvasData {
 	toDirty(id: string): boolean;
 	setAll(
 		id: string,
-		values: unknown[],
+		values?: unknown[],
 		times?: number[],
 		states?: EShapeDataValueState[],
 		from?: number | null,

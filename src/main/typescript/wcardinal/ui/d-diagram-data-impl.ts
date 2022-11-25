@@ -80,7 +80,7 @@ export class DDiagramDataImpl implements DDiagramData {
 
 	set(
 		id: string,
-		value: unknown,
+		value?: unknown,
 		time?: number,
 		state?: EShapeDataValueState,
 		from?: number | null,
@@ -119,7 +119,7 @@ export class DDiagramDataImpl implements DDiagramData {
 
 	setAll(
 		id: string,
-		values: unknown[],
+		values?: unknown[],
 		times?: number[],
 		states?: EShapeDataValueState[],
 		from?: number | null,
