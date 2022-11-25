@@ -38,7 +38,12 @@ export const EShapeDataValueState = {
 	/**
 	 * A client is not allowed to access this data.
 	 */
-	FORBIDDEN: 5
+	FORBIDDEN: 5,
+
+	/**
+	 * The server can not find the definition of the requested data.
+	 */
+	NOT_DEFINED: 6
 } as const;
 
 export type EShapeDataValueState = number;
