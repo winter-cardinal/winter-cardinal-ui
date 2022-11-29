@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Select dialog (Errors)</title>
+	<title>Select dialog (Dismissable)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -33,7 +33,19 @@
 		var dialog = new wcardinal.ui.DDialogSelect({
 			controller: {
 				search: function (word) {
-					return Promise.reject();
+					return Promise.resolve([
+						{ name: "Apple" },
+						{ name: "Orange" },
+						{ name: "Pineapple" }
+					].filter(function (item) {
+						return word.length <= 0 || 0 <= item.name.indexOf(word);
+					}));
+				}
+			},
+			dismiss: {
+				value: { name: "None" },
+				filter: (value, word) => {
+					return 0 <= value.name.indexOf(word);
 				}
 			}
 		});
@@ -47,7 +59,7 @@
 			},
 			on: {
 				active: function (emitter) {
-					dialog.open().then(function(value){
+					dialog.open(emitter).then(function(value){
 						console.log(value);
 					})
 					.catch(function() {

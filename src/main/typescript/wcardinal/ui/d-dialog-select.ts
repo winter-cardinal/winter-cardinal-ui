@@ -12,7 +12,7 @@ import {
 	DThemeDialogLayered
 } from "./d-dialog-layered";
 import { DDialogSelectList, DDialogSelectListOptions } from "./d-dialog-select-list";
-import { DDialogSelectSearh } from "./d-dialog-select-search";
+import { DDialogSelectSearhImpl } from "./d-dialog-select-search-impl";
 import { DInputSearch, DInputSearchOptions } from "./d-input-search";
 import { DLayoutHorizontal, DLayoutHorizontalOptions } from "./d-layout-horizontal";
 import { DLayoutSpace } from "./d-layout-space";
@@ -24,21 +24,12 @@ import { DNoteSmallNoItemsFound } from "./d-note-small-no-items-found";
 import { DNoteSmallSearching } from "./d-note-small-searching";
 import { DOnOptions } from "./d-on-options";
 import { UtilTransition } from "./util/util-transition";
+import { DDialogSelectSearch } from "./d-dialog-select-search";
+import { DDialogSelectSearhDismissableOptions } from "./d-dialog-select-search-dismissable";
+import { DDialogSelectSearhDismissableImpl } from "./d-dialog-select-search-dismissable-impl";
 
 export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 	margin?: number;
-}
-
-/**
- * {@link DDialogSelect} search object.
- */
-export interface DDialogSelectSearch<VALUE> {
-	create(args: [string]): void;
-	on(event: "success", handler: (e: unknown, searchResults: VALUE[]) => void): void;
-	on(event: "fail", handler: () => void): void;
-	on(event: "change", handler: () => void): void;
-	isDone(): boolean;
-	getResult(): VALUE[] | null;
 }
 
 /**
@@ -89,6 +80,7 @@ export interface DDialogSelectOptions<
 	EMITTER = any
 > extends DDialogLayeredOptions<VALUE, THEME> {
 	controller?: DDialogSelectController<VALUE>;
+	dismiss?: DDialogSelectSearhDismissableOptions<VALUE>;
 	input?: DDialogSelectInputOpitons;
 	list?: DListOptions<VALUE>;
 	note?: DDialogSelectNoteOptions;
@@ -122,27 +114,22 @@ export class DDialogSelect<
 		this._value = null;
 
 		// Controller binding
+		const transition = new UtilTransition();
 		const search = this.search;
 		search.on("success", (e: unknown, results: VALUE[]): void => {
+			if (0 < results.length) {
+				transition.hide();
+			} else {
+				transition.show(this.noteNoItemsFound);
+			}
 			this.onSearched(results);
 		});
 		search.on("fail", (): void => {
+			transition.show(this.noteError);
 			this.onSearched([]);
 		});
-		const transition = new UtilTransition();
 		search.on("change", (): void => {
-			if (search.isDone()) {
-				const searchResult = search.getResult();
-				if (searchResult != null) {
-					if (0 < searchResult.length) {
-						transition.hide();
-					} else {
-						transition.show(this.noteNoItemsFound);
-					}
-				} else {
-					transition.show(this.noteError);
-				}
-			} else {
+			if (!search.isDone()) {
 				const noteSearching = this.noteSearching;
 				if (noteSearching) {
 					transition.show(noteSearching);
@@ -294,7 +281,7 @@ export class DDialogSelect<
 
 	protected newNoteSearching(): DNote | null {
 		const searching = this._options?.note?.searching;
-		// Because the `searcing` note is disabled by default,
+		// Because the `searching` note is disabled by default,
 		// if options.searching is missing, i.e., if its value is undefined,
 		// this method returns null. This is why `!=` is used here instead of `!==`.
 		if (searching != null) {
@@ -333,15 +320,27 @@ export class DDialogSelect<
 		if (options) {
 			const controller = options.controller;
 			if (controller) {
+				const dismiss = options.dismiss;
 				const search = controller.search;
 				if ("create" in search) {
-					return search;
+					if (dismiss != null) {
+						return new DDialogSelectSearhDismissableImpl(search, dismiss);
+					} else {
+						return search;
+					}
 				} else {
-					return new DDialogSelectSearh(search);
+					if (dismiss != null) {
+						return new DDialogSelectSearhDismissableImpl(
+							new DDialogSelectSearhImpl(search),
+							dismiss
+						);
+					} else {
+						return new DDialogSelectSearhImpl(search);
+					}
 				}
 			}
 		}
-		return new DDialogSelectSearh();
+		return new DDialogSelectSearhImpl();
 	}
 
 	get value(): VALUE | null {
