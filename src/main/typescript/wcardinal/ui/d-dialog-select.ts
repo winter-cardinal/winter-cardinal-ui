@@ -219,13 +219,27 @@ export class DDialogSelect<
 	protected newList(): DDialogSelectList<VALUE> {
 		const result = new DDialogSelectList<VALUE>(this.toListOptions(this.theme, this._options));
 		result.selection.on("change", (selection: DListDataSelection<VALUE>): void => {
-			const first = selection.first;
-			if (first != null) {
-				this._value = first;
-				this.onOk(first);
-			}
+			this.onListSelectionChange(selection);
 		});
 		return result;
+	}
+
+	protected onListSelectionChange(selection: DListDataSelection<VALUE>): void {
+		let selected = selection.first;
+		if (selected == null) {
+			return;
+		}
+		const options = this._options;
+		if (options) {
+			const dismiss = options.dismiss;
+			if (dismiss) {
+				if (selected === dismiss.value) {
+					selected = null;
+				}
+			}
+		}
+		this._value = selected;
+		this.onOk(selected);
 	}
 
 	protected toListOptions(theme: THEME, options?: OPTIONS): DDialogSelectListOptions<VALUE> {
