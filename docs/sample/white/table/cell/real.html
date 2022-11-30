@@ -41,12 +41,21 @@
 				label: "Editable",
 				type: "REAL",
 				editable: true
+			}, {
+				label: "Step, Min, Max",
+				type: "REAL",
+				editable: true,
+				body: {
+					step: 0.01,
+					min: 0,
+					max: 1
+				}
 			}],
 			data: {
 				rows: [
-					[ 0.123, 0.123 ],
-					[ 0.250, 0.250 ],
-					[ 0.500, 0.500 ]
+					[ 0.123, 0.123, 0.120 ],
+					[ 0.250, 0.250, 0.250 ],
+					[ 0.500, 0.500, 0.510 ]
 				],
 				on: {
 					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {

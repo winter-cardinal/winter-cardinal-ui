@@ -41,12 +41,21 @@
 				label: "Editable",
 				type: "INTEGER",
 				editable: true
+			}, {
+				label: "Step, Min, Max",
+				type: "INTEGER",
+				editable: true,
+				body: {
+					step: 10,
+					min: 1500,
+					max: 2500
+				}
 			}],
 			data: {
 				rows: [
-					[ 2000, 2000 ],
-					[ 2001, 2001 ],
-					[ 2002, 2002 ]
+					[ 2000, 2000, 2000 ],
+					[ 2001, 2001, 2010 ],
+					[ 2002, 2002, 2020 ]
 				],
 				on: {
 					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
