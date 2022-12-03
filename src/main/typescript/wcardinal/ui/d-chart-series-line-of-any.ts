@@ -85,16 +85,18 @@ export abstract class DChartSeriesLineOfAny<
 		return 0;
 	}
 
-	bind(container: DChartSeriesContainer<CHART>, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): this {
 		let line = this._line;
 		if (!line) {
 			line = this._line = this.newLineOfAny();
+			line.visible = this._isShown;
 			const options = this._options;
 			this.initLine(line, options, container, index);
 		}
 		line.attach(container.plotArea.container, index);
 		this._pointIdUpdated = NaN;
 		super.bind(container, index);
+		return this;
 	}
 
 	protected initLine(
@@ -129,12 +131,13 @@ export abstract class DChartSeriesLineOfAny<
 
 	protected abstract newLineOfAny(): EShapeLineOfAny;
 
-	unbind(): void {
+	unbind(): this {
 		const line = this._line;
 		if (line) {
 			line.detach();
 		}
 		super.unbind();
+		return this;
 	}
 
 	get shape(): EShapeLineOfAny | null {
@@ -150,11 +153,12 @@ export abstract class DChartSeriesLineOfAny<
 		this._pointId += 1;
 	}
 
-	toDirty(): void {
+	toDirty(): this {
 		this._pointId += 1;
+		return this;
 	}
 
-	update(): void {
+	update(): this {
 		const line = this._line;
 		if (line) {
 			const coordinate = this._coordinate;
@@ -174,6 +178,7 @@ export abstract class DChartSeriesLineOfAny<
 				}
 			}
 		}
+		return this;
 	}
 
 	protected updateLine(
@@ -315,7 +320,7 @@ export abstract class DChartSeriesLineOfAny<
 		}
 	}
 
-	destroy(): void {
+	destroy(): this {
 		const line = this._line;
 		if (line) {
 			this._line = null;
@@ -327,6 +332,7 @@ export abstract class DChartSeriesLineOfAny<
 		this._pointId = 0;
 		this._pointIdUpdated = NaN;
 		super.destroy();
+		return this;
 	}
 
 	hitTest(x: number, y: number): boolean {

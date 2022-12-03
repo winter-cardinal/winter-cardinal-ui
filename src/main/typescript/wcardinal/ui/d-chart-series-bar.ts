@@ -47,12 +47,13 @@ export class DChartSeriesBar<CHART extends DBase = DBase> extends DChartSeriesLi
 		this._isSizeAutomatic = (options && options.size && options.size.auto) !== false;
 	}
 
-	bind(container: DChartSeriesContainer<CHART>, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): this {
 		this._barCount = -1;
 		this._barIndex = -1;
 		this._xcoordinateId = -1;
 		this._xcoordinateTransformId = -1;
 		super.bind(container, index);
+		return this;
 	}
 
 	protected initLine(

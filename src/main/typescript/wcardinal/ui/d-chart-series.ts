@@ -59,13 +59,18 @@ export interface DChartSeries<CHART extends DBase = DBase> {
 	readonly index: number;
 	readonly state: DBaseStateSet;
 
-	bind(container: DChartSeriesContainer<CHART>, index: number): void;
-	unbind(): void;
+	bind(container: DChartSeriesContainer<CHART>, index: number): this;
+	unbind(): this;
 
-	toDirty(): void;
+	toDirty(): this;
 
-	update(): void;
-	destroy(): void;
+	show(): this;
+	isShown(): boolean;
+	hide(): this;
+	isHidden(): boolean;
+
+	update(): this;
+	destroy(): this;
 
 	hitTest(x: number, y: number): boolean;
 	calcHitPoint(x: number, y: number, result: DChartSeriesHitResult): boolean;

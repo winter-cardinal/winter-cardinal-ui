@@ -51,13 +51,14 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		this._parameters = DChartSeriesExpressionParametersImpl.from(options);
 	}
 
-	bind(container: DChartSeriesContainer<CHART>, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): this {
 		let line = this._line;
 		if (!line) {
 			const stroke = container.newStroke(index, this._options?.stroke);
 			this._stroke = stroke;
 			line = new EShapeLine();
 			line.stroke.copy(stroke);
+			line.visible = this._isShown;
 			this._line = line;
 		}
 		line.attach(container.plotArea.container, index);
@@ -65,14 +66,16 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		this._plotAreaSizeXUpdated = NaN;
 		this._plotAreaSizeYUpdated = NaN;
 		super.bind(container, index);
+		return this;
 	}
 
-	unbind(): void {
+	unbind(): this {
 		const line = this._line;
 		if (line) {
 			line.detach();
 		}
 		super.unbind();
+		return this;
 	}
 
 	get shape(): EShapeLine | null {
@@ -83,11 +86,12 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		return this._parameters;
 	}
 
-	toDirty(): void {
+	toDirty(): this {
 		this._parameters.toDirty();
+		return this;
 	}
 
-	update(): void {
+	update(): this {
 		const line = this._line;
 		const container = this._container;
 		if (line && container) {
@@ -122,6 +126,7 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 				}
 			}
 		}
+		return this;
 	}
 
 	protected updateLine(
@@ -242,7 +247,7 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		// DO NOTHING
 	}
 
-	destroy(): void {
+	destroy(): this {
 		const line = this._line;
 		if (line) {
 			this._line = null;
@@ -250,6 +255,7 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 			line.destroy();
 		}
 		super.destroy();
+		return this;
 	}
 
 	hitTest(x: number, y: number): boolean {

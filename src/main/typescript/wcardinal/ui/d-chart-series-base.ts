@@ -44,6 +44,7 @@ export abstract class DChartSeriesBase<CHART extends DBase = DBase>
 	protected _regionPointId: number;
 
 	protected _state: DBaseStateSet;
+	protected _isShown: boolean;
 
 	abstract readonly shape: EShape | null;
 
@@ -55,6 +56,7 @@ export abstract class DChartSeriesBase<CHART extends DBase = DBase>
 		this._domain = new DChartRegionImpl(NaN, NaN);
 		this._range = new DChartRegionImpl(NaN, NaN);
 		this._regionPointId = NaN;
+		this._isShown = true;
 
 		this._state = new DBaseStateSetImplObservable((newState, oldState): void => {
 			this.onStateChange(newState, oldState);
@@ -72,7 +74,7 @@ export abstract class DChartSeriesBase<CHART extends DBase = DBase>
 		}
 	}
 
-	bind(container: DChartSeriesContainer<CHART>, index: number): void {
+	bind(container: DChartSeriesContainer<CHART>, index: number): this {
 		this._container = container;
 		this._coordinate.reset();
 		this._index = index;
@@ -81,14 +83,16 @@ export abstract class DChartSeriesBase<CHART extends DBase = DBase>
 		if (chart) {
 			this._state.parent = chart.state;
 		}
+		return this;
 	}
 
-	unbind(): void {
+	unbind(): this {
 		this._container = undefined;
+		return this;
 	}
 
-	abstract toDirty(): void;
-	abstract update(): void;
+	abstract toDirty(): this;
+	abstract update(): this;
 
 	get domain(): DChartRegionImmutable {
 		this.updateRegion();
@@ -116,11 +120,50 @@ export abstract class DChartSeriesBase<CHART extends DBase = DBase>
 		return this._state;
 	}
 
+	show(): this {
+		if (this._isShown !== true) {
+			this._isShown = true;
+			this.onShow();
+		}
+		return this;
+	}
+
+	protected onShow(): void {
+		const shape = this.shape;
+		if (shape != null) {
+			shape.visible = false;
+		}
+	}
+
+	isShown(): boolean {
+		return this._isShown;
+	}
+
+	hide(): this {
+		if (this._isShown !== false) {
+			this._isShown = false;
+			this.onHide();
+		}
+		return this;
+	}
+
+	protected onHide(): void {
+		const shape = this.shape;
+		if (shape != null) {
+			shape.visible = false;
+		}
+	}
+
+	isHidden(): boolean {
+		return !this._isShown;
+	}
+
 	protected abstract updateRegion(): void;
 
-	destroy(): void {
+	destroy(): this {
 		this._container = undefined;
 		this._coordinate.destroy();
+		return this;
 	}
 
 	hitTest(x: number, y: number): boolean {
