@@ -131,7 +131,7 @@ export abstract class DChartSeriesBase<CHART extends DBase = DBase>
 	protected onShow(): void {
 		const shape = this.shape;
 		if (shape != null) {
-			shape.visible = false;
+			shape.visible = true;
 		}
 	}
 
