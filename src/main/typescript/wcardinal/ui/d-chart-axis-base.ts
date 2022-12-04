@@ -4,6 +4,7 @@
  */
 
 import { Matrix } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DChartAxis } from "./d-chart-axis";
 import { DChartAxisBaseOptions, DThemeChartAxisBase } from "./d-chart-axis-base-options";
@@ -93,10 +94,11 @@ export class DChartAxisBase<
 					break;
 			}
 			shape.allowUploadedUpdate();
+			DApplications.update(plotArea);
 		}
 	}
 
-	updateTicksX(
+	protected updateTicksX(
 		domainMin: number,
 		domainMax: number,
 		coordinate: DChartCoordinate<CHART>,
@@ -182,7 +184,7 @@ export class DChartAxisBase<
 		}
 	}
 
-	updateTicksY(
+	protected updateTicksY(
 		domainMin: number,
 		domainMax: number,
 		coordinate: DChartCoordinate<CHART>,
@@ -301,6 +303,7 @@ export class DChartAxisBase<
 							transform,
 							plotAreaHeight
 						);
+						DApplications.update(plotArea);
 					}
 					break;
 				case DChartAxisPosition.BOTTOM:
@@ -322,6 +325,7 @@ export class DChartAxisBase<
 							transform,
 							plotAreaHeight
 						);
+						DApplications.update(plotArea);
 					}
 					break;
 				case DChartAxisPosition.LEFT:
@@ -343,6 +347,7 @@ export class DChartAxisBase<
 							transform,
 							plotAreaWidth
 						);
+						DApplications.update(plotArea);
 					}
 					break;
 				case DChartAxisPosition.RIGHT:
@@ -364,6 +369,7 @@ export class DChartAxisBase<
 							transform,
 							plotAreaWidth
 						);
+						DApplications.update(plotArea);
 					}
 					break;
 			}
