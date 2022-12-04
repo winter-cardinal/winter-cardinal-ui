@@ -41,6 +41,7 @@
         * [Tick step function](./chart\axis/tick-step-function.html)
         * [Tick stroke styling](./chart\axis/tick-stroke-styling.html)
         * [Tick text format](./chart\axis/tick-text-format.html)
+        * [Tick text formatter](./chart\axis/tick-text-formatter.html)
         * [Tick text styling](./chart\axis/tick-text-styling.html)
     * [Bar chart](./chart/bar.html)
     * [Basics](./chart/basics.html)
