@@ -35,5 +35,5 @@ export interface DChartSelectionSub<CHART extends DBase = DBase> extends utils.E
 		result: DChartSeriesHitResult | DChartSelectionSub<CHART>
 	): void;
 	unset(): void;
-	update(): void;
+	update(): boolean;
 }

@@ -16,5 +16,6 @@ export interface DChartAxis<CHART extends DBase = DBase> {
 	bind(container: DChartAxisContainer<CHART>, index: number): void;
 	unbind(): void;
 	update(): void;
+	onRender(): void;
 	destroy(): void;
 }

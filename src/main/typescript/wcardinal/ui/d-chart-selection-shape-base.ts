@@ -86,7 +86,7 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 		}
 	}
 
-	abstract update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): void;
+	abstract update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean;
 
 	protected toTheme(options?: DChartSelectionShapeOptions<CHART>): DThemeChartSelectionShape {
 		const theme = options?.theme;

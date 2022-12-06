@@ -183,7 +183,7 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 		}
 	}
 
-	update(): void {
+	update(): boolean {
 		const container = this._container;
 		const coordinateX = this._coordinateX;
 		const coordinateY = this._coordinateY;
@@ -196,8 +196,10 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 			);
 			container.plotArea.container.localTransform.apply(work, work);
 
-			this._gridline.update(container, work);
-			this._marker.update(container, work);
+			const isGridlineUpdated = this._gridline.update(container, work);
+			const isMarkerUpdated = this._marker.update(container, work);
+			return isGridlineUpdated || isMarkerUpdated;
 		}
+		return false;
 	}
 }

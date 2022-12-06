@@ -154,11 +154,11 @@ export class DChartPlotAreaImpl<
 		if (this._isViewDirty) {
 			this._isViewDirty = false;
 
-			this._axis.update();
+			this._axis.onRender();
 
 			const selection = this._series.selection;
 			if (selection) {
-				selection.update();
+				selection.onRender();
 			}
 		}
 		super.render(renderer);

@@ -11,12 +11,14 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 export class DChartSelectionMarker<
 	CHART extends DBase = DBase
 > extends DChartSelectionShapeBase<CHART> {
-	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): void {
+	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean {
 		const shape = this._shape;
 		if (shape) {
 			shape.transform.position.copyFrom(mappedPosition);
 			shape.visible = this.isVisible(container, mappedPosition);
+			return true;
 		}
+		return false;
 	}
 
 	protected isVisible(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean {

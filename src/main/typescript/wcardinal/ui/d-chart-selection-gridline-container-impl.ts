@@ -58,8 +58,9 @@ export class DChartSelectionGridlineContainerImpl<CHART extends DBase = DBase>
 		this._y.unset();
 	}
 
-	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): void {
-		this._x.update(container, mappedPosition);
-		this._y.update(container, mappedPosition);
+	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean {
+		const isXUpdated = this._x.update(container, mappedPosition);
+		const isYUpdated = this._y.update(container, mappedPosition);
+		return isXUpdated || isYUpdated;
 	}
 }

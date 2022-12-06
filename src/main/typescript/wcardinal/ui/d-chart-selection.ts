@@ -27,4 +27,5 @@ export interface DChartSelection<CHART extends DBase = DBase> extends utils.Even
 	bind(container: DChartSeriesContainer<CHART>): void;
 	unbind(): void;
 	update(): void;
+	onRender(): void;
 }

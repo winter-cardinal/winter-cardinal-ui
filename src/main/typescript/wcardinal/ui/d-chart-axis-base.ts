@@ -64,7 +64,7 @@ export class DChartAxisBase<
 		return this._position;
 	}
 
-	protected updateBar(container: DChartAxisContainer<CHART>): void {
+	protected updateBar(container: DChartAxisContainer<CHART>): boolean {
 		const bar = this._bar;
 		const shape = bar.shape;
 		if (shape) {
@@ -94,8 +94,9 @@ export class DChartAxisBase<
 					break;
 			}
 			shape.allowUploadedUpdate();
-			DApplications.update(plotArea);
+			return true;
 		}
+		return false;
 	}
 
 	protected updateTicksX(
@@ -108,7 +109,7 @@ export class DChartAxisBase<
 		shapePositionY: number,
 		transform: Matrix,
 		plotAreaHeight: number
-	): void {
+	): boolean {
 		const tick = this._tick;
 		const majorTick = tick.major;
 		const majorCount = majorTick.count;
@@ -182,6 +183,7 @@ export class DChartAxisBase<
 				minorShape.visible = false;
 			}
 		}
+		return true;
 	}
 
 	protected updateTicksY(
@@ -194,7 +196,7 @@ export class DChartAxisBase<
 		shapePositionX: number,
 		transform: Matrix,
 		plotAreaWidth: number
-	): void {
+	): boolean {
 		const tick = this._tick;
 		const majorTick = tick.major;
 		const majorCount = majorTick.count;
@@ -268,9 +270,10 @@ export class DChartAxisBase<
 				minorShape.visible = false;
 			}
 		}
+		return true;
 	}
 
-	protected updateTicks(container: DChartAxisContainer<CHART>): void {
+	protected updateTicks(container: DChartAxisContainer<CHART>): boolean {
 		const tick = this._tick;
 		const majorShapes = tick.major.shapes;
 		const minorShapes = tick.minor.shapes;
@@ -292,7 +295,7 @@ export class DChartAxisBase<
 							coordinate.transform.unmap(bounds.x + bounds.width)
 						);
 						const plotAreaHeight = plotArea.height;
-						this.updateTicksX(
+						return this.updateTicksX(
 							domainFrom,
 							domainTo,
 							coordinate,
@@ -303,7 +306,6 @@ export class DChartAxisBase<
 							transform,
 							plotAreaHeight
 						);
-						DApplications.update(plotArea);
 					}
 					break;
 				case DChartAxisPosition.BOTTOM:
@@ -314,7 +316,7 @@ export class DChartAxisBase<
 							coordinate.transform.unmap(bounds.x + bounds.width)
 						);
 						const plotAreaHeight = plotArea.height;
-						this.updateTicksX(
+						return this.updateTicksX(
 							domainFrom,
 							domainTo,
 							coordinate,
@@ -325,7 +327,6 @@ export class DChartAxisBase<
 							transform,
 							plotAreaHeight
 						);
-						DApplications.update(plotArea);
 					}
 					break;
 				case DChartAxisPosition.LEFT:
@@ -336,7 +337,7 @@ export class DChartAxisBase<
 							coordinate.transform.unmap(bounds.y + bounds.height)
 						);
 						const plotAreaWidth = plotArea.width;
-						this.updateTicksY(
+						return this.updateTicksY(
 							domainFrom,
 							domainTo,
 							coordinate,
@@ -347,7 +348,6 @@ export class DChartAxisBase<
 							transform,
 							plotAreaWidth
 						);
-						DApplications.update(plotArea);
 					}
 					break;
 				case DChartAxisPosition.RIGHT:
@@ -358,7 +358,7 @@ export class DChartAxisBase<
 							coordinate.transform.unmap(bounds.y + bounds.height)
 						);
 						const plotAreaWidth = plotArea.width;
-						this.updateTicksY(
+						return this.updateTicksY(
 							domainFrom,
 							domainTo,
 							coordinate,
@@ -369,11 +369,11 @@ export class DChartAxisBase<
 							transform,
 							plotAreaWidth
 						);
-						DApplications.update(plotArea);
 					}
 					break;
 			}
 		}
+		return false;
 	}
 
 	bind(container: DChartAxisContainer<CHART>, index: number): void {
@@ -519,6 +519,17 @@ export class DChartAxisBase<
 	}
 
 	update(): void {
+		const container = this._container;
+		if (container) {
+			const isBarUpdated = this.updateBar(container);
+			const isTicksUpdated = this.updateTicks(container);
+			if (isBarUpdated || isTicksUpdated) {
+				DApplications.update(container.plotArea);
+			}
+		}
+	}
+
+	onRender(): void {
 		const container = this._container;
 		if (container) {
 			this.updateBar(container);

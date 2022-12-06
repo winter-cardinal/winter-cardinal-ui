@@ -98,6 +98,14 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 		});
 	}
 
+	onRender(): void {
+		this._list.forEach((axes: DChartAxis<CHART>[]): void => {
+			for (let i = 0, imax = axes.length; i < imax; ++i) {
+				axes[i].onRender();
+			}
+		});
+	}
+
 	destroy(): void {
 		this._list.forEach((axes: DChartAxis<CHART>[]): void => {
 			for (let i = 0, imax = axes.length; i < imax; ++i) {

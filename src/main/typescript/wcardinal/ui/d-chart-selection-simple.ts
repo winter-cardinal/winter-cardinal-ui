@@ -4,6 +4,7 @@
  */
 
 import { interaction, utils } from "pixi.js";
+import { DApplications } from "./d-applications";
 import { DBase, DBaseOnOptions } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DChartSelection, DChartSelectionPoint } from "./d-chart-selection";
@@ -175,6 +176,17 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 	}
 
 	update(): void {
+		const isSelectedUpdated = this._selected.update();
+		const isHoveredUpdated = this._hovered.update();
+		if (isSelectedUpdated || isHoveredUpdated) {
+			const container = this._container;
+			if (container != null) {
+				DApplications.update(container.plotArea);
+			}
+		}
+	}
+
+	onRender(): void {
 		this._selected.update();
 		this._hovered.update();
 	}

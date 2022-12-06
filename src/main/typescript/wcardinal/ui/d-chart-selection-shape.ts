@@ -33,5 +33,5 @@ export interface DChartSelectionShape<CHART extends DBase = DBase> {
 		series: DChartSeries<CHART>
 	): void;
 	unset(): void;
-	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): void;
+	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean;
 }

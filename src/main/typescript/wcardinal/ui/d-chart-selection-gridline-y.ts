@@ -11,7 +11,7 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 export class DChartSelectionGridlineY<
 	CHART extends DBase = DBase
 > extends DChartSelectionShapeBase<CHART> {
-	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): void {
+	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean {
 		const shape = this._shape;
 		if (shape) {
 			const mappedY = mappedPosition.y;
@@ -19,7 +19,9 @@ export class DChartSelectionGridlineY<
 			shape.transform.position.set(width * 0.5, mappedY);
 			shape.size.set(width, 0);
 			shape.visible = this.isVisible(container, mappedY);
+			return true;
 		}
+		return false;
 	}
 
 	protected isVisible(container: DChartSeriesContainer<CHART>, mappedY: number): boolean {

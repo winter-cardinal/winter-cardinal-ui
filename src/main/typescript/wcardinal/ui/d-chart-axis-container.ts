@@ -23,5 +23,6 @@ export interface DChartAxisContainer<CHART extends DBase = DBase> {
 	clear(position: DChartAxisPosition): this;
 	size(position: DChartAxisPosition): number;
 	update(): void;
+	onRender(): void;
 	destroy(): void;
 }
