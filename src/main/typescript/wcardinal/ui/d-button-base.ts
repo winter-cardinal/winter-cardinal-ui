@@ -92,8 +92,9 @@ export class DButtonBase<
 	THEME extends DThemeButtonBase<VALUE> = DThemeButtonBase<VALUE>,
 	OPTIONS extends DButtonBaseOptions<VALUE, THEME> = DButtonBaseOptions<VALUE, THEME>
 > extends DImageBase<VALUE, THEME, OPTIONS> {
-	protected _isToggle!: boolean;
-	protected _when!: DButtonBaseWhen;
+	protected _isToggle?: boolean;
+	protected _isGrouped?: boolean;
+	protected _when?: DButtonBaseWhen;
 
 	protected init(options?: OPTIONS): void {
 		super.init(options);
@@ -123,7 +124,15 @@ export class DButtonBase<
 	}
 
 	get isToggle(): boolean {
-		return this._isToggle;
+		return !!this._isToggle;
+	}
+
+	get isGrouped(): boolean {
+		return !!this._isGrouped;
+	}
+
+	set isGrouped(isGrouped: boolean) {
+		this._isGrouped = isGrouped;
 	}
 
 	protected initOnPress(): void {
@@ -172,9 +181,16 @@ export class DButtonBase<
 	}
 
 	activate(e?: interaction.InteractionEvent | KeyboardEvent | MouseEvent | TouchEvent): void {
-		if (this.isToggle) {
-			this.onToggleStart(e);
-			this.onToggleEnd(e);
+		if (this._isToggle) {
+			if (this._isGrouped) {
+				if (!this.state.isActive) {
+					this.onToggleStart(e);
+					this.onToggleEnd(e);
+				}
+			} else {
+				this.onToggleStart(e);
+				this.onToggleEnd(e);
+			}
 		} else {
 			this.onActivate(e);
 		}
@@ -194,7 +210,7 @@ export class DButtonBase<
 
 	toggle(): void {
 		if (this.state.isActionable) {
-			if (this.isToggle) {
+			if (this._isToggle) {
 				this.onToggleStart();
 				this.onToggleEnd();
 			}
@@ -219,7 +235,7 @@ export class DButtonBase<
 
 	protected onActivateKeyDown(e: KeyboardEvent): void {
 		if (this.state.isActionable) {
-			if (this.isToggle) {
+			if (this._isToggle) {
 				this.onToggleStart(e);
 			} else {
 				this.state.isPressed = true;
@@ -229,7 +245,7 @@ export class DButtonBase<
 
 	protected onActivateKeyUp(e: KeyboardEvent): void {
 		if (this.state.isActionable) {
-			if (this.isToggle) {
+			if (this._isToggle) {
 				this.onToggleEnd(e);
 			} else {
 				if (this.state.isPressed) {

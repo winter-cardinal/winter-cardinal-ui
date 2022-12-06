@@ -71,6 +71,7 @@ export class DButtonGroup<
 		const index = buttons.indexOf(button);
 		if (index < 0) {
 			this._buttons.push(button);
+			button.isGrouped = true;
 			const isEnabled = this._isEnabled;
 			if (isEnabled != null) {
 				button.state.isEnabled = isEnabled;
@@ -106,6 +107,7 @@ export class DButtonGroup<
 		const index = buttons.indexOf(button);
 		if (0 <= index) {
 			buttons.splice(index, 1);
+			button.isGrouped = false;
 			button.off("active", this._onActiveBound);
 			if (this._active === button) {
 				this.active = null;
@@ -120,7 +122,11 @@ export class DButtonGroup<
 	}
 
 	clear(): void {
-		this._buttons.length = 0;
+		const buttons = this._buttons;
+		for (let i = 0, imax = buttons.length; i < imax; ++i) {
+			buttons[i].isGrouped = false;
+		}
+		buttons.length = 0;
 		this.active = null;
 	}
 
