@@ -6,14 +6,18 @@
 import { DThemeChartCoordinateTick } from "../../d-chart-coordinate-tick";
 
 export class DThemeWhiteChartCoordinateTick implements DThemeChartCoordinateTick {
-	toStepScale(scale: number): number {
-		if (5.5 <= scale) {
-			return 10;
-		} else if (2.2 <= scale) {
-			return 5;
-		} else if (1.1 <= scale) {
-			return 2;
+	toStep(domainMin: number, domainMax: number, majorCount: number): number {
+		const span = Math.abs(domainMax - domainMin) / majorCount;
+		const power = Math.floor(Math.log(span) / Math.LN10);
+		const base = Math.pow(10, power);
+		const scale = span / base;
+		if (7.5 <= scale) {
+			return 10 * base;
+		} else if (3.5 <= scale) {
+			return 5 * base;
+		} else if (1.5 <= scale) {
+			return 2 * base;
 		}
-		return 1;
+		return base;
 	}
 }

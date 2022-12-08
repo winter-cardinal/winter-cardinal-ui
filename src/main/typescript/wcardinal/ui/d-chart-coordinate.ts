@@ -110,11 +110,12 @@ export interface DChartCoordinate<CHART extends DBase = DBase> {
 		domainMin: number,
 		domainMax: number,
 		majorCount: number,
+		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
 		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
-		majorResult: Float64Array,
-		minorResult: Float64Array
+		majorResult: number[],
+		minorResult: number[]
 	): void;
 }

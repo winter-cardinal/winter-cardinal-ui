@@ -36,8 +36,8 @@ export class DChartAxisBase<
 	protected _bar: DChartAxisBaseBar;
 	protected _index: number;
 	protected _tick: DChartAxisBaseTickContainer;
-	protected _majorTicks: Float64Array;
-	protected _minorTicks: Float64Array;
+	protected _majorTicks: number[];
+	protected _minorTicks: number[];
 	protected _label?: DeepPartial<EShapeTextLike>;
 	protected _theme: DThemeChartAxisBase;
 
@@ -54,10 +54,8 @@ export class DChartAxisBase<
 		this._tick = tick;
 		this._label = parser.label;
 		this._bar = parser.bar;
-		const tickMajorCount = tick.major.count;
-		const tickMinorCount = tick.minor.count;
-		this._majorTicks = new Float64Array(tickMajorCount * 3);
-		this._minorTicks = new Float64Array((tickMajorCount + 1) * tickMinorCount * 3);
+		this._majorTicks = [];
+		this._minorTicks = [];
 	}
 
 	get position(): DChartAxisPosition {
@@ -113,11 +111,12 @@ export class DChartAxisBase<
 		const tick = this._tick;
 		const majorTick = tick.major;
 		const majorCount = majorTick.count;
+		const majorCapacity = majorTick.capacity;
 		const majorStep = majorTick.step;
 		const majorFormatter = majorTick.formatter;
 		const minorTick = tick.minor;
 		const minorCountPerMajor = minorTick.count;
-		const minorCount = (majorCount + 1) * minorCountPerMajor;
+		const minorCount = (majorCapacity + 1) * minorCountPerMajor;
 		const minorStep = minorTick.step;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
@@ -125,6 +124,7 @@ export class DChartAxisBase<
 			domainMin,
 			domainMax,
 			majorCount,
+			majorCapacity,
 			majorStep,
 			minorCountPerMajor,
 			minorCount,
@@ -135,7 +135,7 @@ export class DChartAxisBase<
 
 		const a = transform.a;
 		const tx = transform.tx;
-		for (let i = 0; i < majorCount; ++i) {
+		for (let i = 0; i < majorCapacity; ++i) {
 			const majorShape = majorShapes[i];
 			const imajorTick = i * 3;
 			const majorTickPosition = majorTicks[imajorTick + 0];
@@ -200,11 +200,12 @@ export class DChartAxisBase<
 		const tick = this._tick;
 		const majorTick = tick.major;
 		const majorCount = majorTick.count;
+		const majorCapacity = majorTick.capacity;
 		const majorStep = majorTick.step;
 		const majorFormatter = majorTick.formatter;
 		const minorTick = tick.minor;
 		const minorCountPerMajor = minorTick.count;
-		const minorCount = (majorCount + 1) * minorCountPerMajor;
+		const minorCount = (majorCapacity + 1) * minorCountPerMajor;
 		const minorStep = minorTick.step;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
@@ -212,6 +213,7 @@ export class DChartAxisBase<
 			domainMin,
 			domainMax,
 			majorCount,
+			majorCapacity,
 			majorStep,
 			minorCountPerMajor,
 			minorCount,
@@ -222,7 +224,7 @@ export class DChartAxisBase<
 
 		const d = transform.d;
 		const ty = transform.ty;
-		for (let i = 0; i < majorCount; ++i) {
+		for (let i = 0; i < majorCapacity; ++i) {
 			const majorShape = majorShapes[i];
 			const imajorTick = i * 3;
 			const majorTickPosition = majorTicks[imajorTick + 0];
@@ -413,9 +415,9 @@ export class DChartAxisBase<
 				position === DChartAxisPosition.LEFT || position === DChartAxisPosition.RIGHT
 					? EShapeBarPosition.LEFT
 					: EShapeBarPosition.TOP;
-			const gridlineCount = tickMajor.count;
+			const gridlineCapacity = tickMajor.capacity;
 			const gridlineStyle = gridline.style || EShapePointsStyle.NONE;
-			for (let i = 0; i < gridlineCount; ++i) {
+			for (let i = 0; i < gridlineCapacity; ++i) {
 				const gridlineShape = new EShapeBar();
 				gridlineShape.points.position = gridlinePosition;
 				gridlineShape.points.style = gridlineStyle;
@@ -434,11 +436,11 @@ export class DChartAxisBase<
 		if (!tickMajorShapes && tick.enable) {
 			tickMajorShapes = [];
 			tickMajor.shapes = tickMajorShapes;
-			const tickMajorCount = tickMajor.count;
+			const tickMajorCapacity = tickMajor.capacity;
 			const tickMajorSize = tickMajor.size;
 			const tickMajorPosition = tickMajor.position;
 			const tickMajorStyle = tickMajor.style || EShapePointsStyle.NONE;
-			for (let i = 0; i < tickMajorCount; ++i) {
+			for (let i = 0; i < tickMajorCapacity; ++i) {
 				const tickMajorShape = new EShapeBar();
 				tickMajorShape.points.position = tickMajorPosition;
 				tickMajorShape.points.size = tickMajorSize;
@@ -465,7 +467,7 @@ export class DChartAxisBase<
 			const tickMinorSize = tickMinor.size;
 			const tickMinorPosition = tickMinor.position;
 			const tickMinorStyle = tickMinor.style || EShapePointsStyle.NONE;
-			for (let i = 0, imax = (tickMajor.count + 1) * tickMinorCount; i < imax; ++i) {
+			for (let i = 0, imax = (tickMajor.capacity + 1) * tickMinorCount; i < imax; ++i) {
 				const tickMinorShape = new EShapeBar();
 				tickMinorShape.points.position = tickMinorPosition;
 				tickMinorShape.points.size = tickMinorSize;

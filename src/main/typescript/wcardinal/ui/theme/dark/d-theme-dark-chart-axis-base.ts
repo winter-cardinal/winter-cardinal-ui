@@ -106,6 +106,10 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 		return 3;
 	}
 
+	getMajorTickCapacity(count: number): number {
+		return count * 2;
+	}
+
 	getMajorTickStep(): number | DChartCoordinateTickMajorStepFunction | undefined {
 		return undefined;
 	}
@@ -157,7 +161,7 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 	}
 
 	getMajorTickTextFormat(): string {
-		return "%fsi";
+		return "%.2f";
 	}
 
 	getMajorTickTextPaddingHorizontal(): number {

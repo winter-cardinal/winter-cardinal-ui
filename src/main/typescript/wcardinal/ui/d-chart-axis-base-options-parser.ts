@@ -40,6 +40,7 @@ export interface DChartAxisBaseGridline {
 }
 
 export interface DChartAxisBaseTickMajor {
+	capacity: number;
 	count: number;
 	step: number | DChartCoordinateTickMajorStepFunction | undefined;
 	size: number;
@@ -164,8 +165,11 @@ export class DChartAxisBaseOptionParser {
 		);
 		const optionsStroke = options?.stroke;
 		const stroke = this.toTickMajorStroke(theme, major?.stroke, optionsStroke);
+		const count = major?.count ?? theme.getMajorTickCount();
+		const capacity = major?.capacity ?? theme.getMajorTickCapacity(count);
 		return {
-			count: major?.count ?? theme.getMajorTickCount(),
+			count,
+			capacity,
 			step: major?.step ?? theme.getMajorTickStep(),
 			size: major?.size ?? theme.getMajorTickSize(),
 			position: this.toTickPosition(position),

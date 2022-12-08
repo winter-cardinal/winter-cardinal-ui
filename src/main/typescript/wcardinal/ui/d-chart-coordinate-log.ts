@@ -231,17 +231,19 @@ export class DChartCoordinateLog<CHART extends DBase = DBase> implements DChartC
 		domainFrom: number,
 		domainTo: number,
 		majorCount: number,
+		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
 		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
-		majorResult: Float64Array,
-		minorResult: Float64Array
+		majorResult: number[],
+		minorResult: number[]
 	): void {
 		this._tick.calculate(
 			domainFrom,
 			domainTo,
 			majorCount,
+			majorCapacity,
 			majorStep,
 			minorCountPerMajor,
 			minorCount,

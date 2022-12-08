@@ -57,6 +57,7 @@ export type DChartAxisTickPositionOption =
 
 export interface DChartAxisBaseTickMajorOptions {
 	count?: number;
+	capacity?: number;
 	step?: number | DChartCoordinateTickMajorStepFunction;
 	size?: number;
 	position?: DChartAxisTickPositionOption;
@@ -118,6 +119,7 @@ export interface DThemeChartAxisBase {
 	getTickEnable(): boolean;
 
 	getMajorTickCount(): number;
+	getMajorTickCapacity(count: number): number;
 	getMajorTickStep(): number | DChartCoordinateTickMajorStepFunction | undefined;
 	getMajorTickSize(): number;
 	getMajorTickPosition(): DChartAxisTickPosition;

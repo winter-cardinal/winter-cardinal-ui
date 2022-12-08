@@ -9,7 +9,7 @@ import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick
 import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
 
 export interface DThemeChartCoordinateTick {
-	toStepScale(scale: number): number;
+	toStep(domainMin: number, domainMax: number, majorCount: number): number;
 }
 
 export interface DChartCoordinateTickOptions {
@@ -21,12 +21,13 @@ export interface DChartCoordinateTick<CHART extends DBase = DBase> {
 		domainFrom: number,
 		domainTo: number,
 		majorCount: number,
+		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
 		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
-		majorResult: Float64Array,
-		minorResult: Float64Array,
+		majorResult: number[],
+		minorResult: number[],
 		coordinate: DChartCoordinate<CHART>
 	): void;
 }
