@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.241.0
+ Winter Cardinal UI v0.242.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -2940,97 +2940,101 @@
     var STEP_FUNCTION = function (domainMin, domainMax, majorCount) {
         var span = Math.abs(domainMax - domainMin) / majorCount;
         if (span <= 10) {
-            if (span <= 1.5) {
+            // The threshold x is calculated as follows:
+            // (1 - x/a)^2 = (1 - x/b)^2
+            // 1 - x/a = x/b - 1
+            // x = 2ab/(a + b)
+            if (span <= 1.33) {
                 return 1;
             }
-            else if (span <= 3.5) {
+            else if (span <= 2.86) {
                 return 2;
             }
-            else if (span <= 7.5) {
+            else if (span <= 6.67) {
                 return 5;
             }
             return 10;
         }
         else if (span <= 100) {
-            if (span <= 15) {
+            if (span <= 13.33) {
                 return 10;
             }
-            else if (span <= 35) {
+            else if (span <= 28.57) {
                 return 20;
             }
-            else if (span <= 75) {
+            else if (span <= 66.67) {
                 return 50;
             }
             return 100;
         }
         else if (span <= 1000) {
-            if (span <= 150) {
+            if (span <= 133.33) {
                 return 100;
             }
-            else if (span <= 350) {
+            else if (span <= 285.71) {
                 return 200;
             }
-            else if (span <= 750) {
+            else if (span <= 666.67) {
                 return 500;
             }
             return 1000;
         }
         else if (span <= 10000) {
-            if (span <= 1500) {
+            if (span <= 1333.33) {
                 return 1000;
             }
-            else if (span <= 3500) {
+            else if (span <= 2857.14) {
                 return 2000;
             }
-            else if (span <= 7500) {
+            else if (span <= 6666.66) {
                 return 5000;
             }
             return 10000;
         }
         else if (span <= 120000) {
-            if (span <= 15000) {
+            if (span <= 13333.33) {
                 return 10000;
             }
-            else if (span <= 25000) {
+            else if (span <= 24000) {
                 return 20000;
             }
-            else if (span <= 45000) {
+            else if (span <= 40000) {
                 return 30000;
             }
-            else if (span <= 75000) {
+            else if (span <= 72000) {
                 return 60000;
             }
-            else if (span <= 105000) {
+            else if (span <= 102857.14) {
                 return 90000;
             }
             return 120000;
         }
         else if (span <= 10800000) {
-            if (span <= 210000) {
+            if (span <= 171428.57) {
                 return 120000;
             }
-            else if (span <= 450000) {
+            else if (span <= 400000) {
                 return 300000;
             }
-            else if (span <= 900000) {
+            else if (span <= 800000) {
                 return 600000;
             }
-            else if (span <= 1500000) {
+            else if (span <= 1440000) {
                 return 1200000;
             }
-            else if (span <= 2700000) {
+            else if (span <= 2400000) {
                 return 1800000;
             }
-            else if (span <= 4500000) {
+            else if (span <= 4320000) {
                 return 3600000;
             }
-            else if (span <= 6300000) {
+            else if (span <= 6171428.57) {
                 return 5400000;
             }
-            else if (span <= 8100000) {
+            else if (span <= 8000000) {
                 return 7200000;
             }
-            else if (span <= 9900000) {
+            else if (span <= 9818181.82) {
                 return 9000000;
             }
             return 10800000;
@@ -3039,28 +3043,28 @@
             var minutes = 3600000;
             var hours = span / minutes;
             if (hours <= 24) {
-                if (hours <= 1.5) {
+                if (hours <= 1.33) {
                     return minutes;
                 }
-                else if (hours <= 2.5) {
+                else if (hours <= 2.4) {
                     return 2 * minutes;
                 }
-                else if (hours <= 3.5) {
+                else if (hours <= 3.43) {
                     return 3 * minutes;
                 }
-                else if (hours <= 5) {
+                else if (hours <= 4.8) {
                     return 4 * minutes;
                 }
-                else if (hours <= 7) {
+                else if (hours <= 6.86) {
                     return 6 * minutes;
                 }
-                else if (hours <= 10) {
+                else if (hours <= 9.6) {
                     return 8 * minutes;
                 }
-                else if (hours <= 15) {
+                else if (hours <= 14.4) {
                     return 12 * minutes;
                 }
-                else if (hours <= 21) {
+                else if (hours <= 20.57) {
                     return 18 * minutes;
                 }
                 return 24 * minutes;
@@ -3069,13 +3073,13 @@
                 var days = hours / 24;
                 var base = Math.pow(10, Math.floor(Math.log(days) / Math.LN10));
                 var scale = span / base;
-                if (scale <= 1.5) {
+                if (scale <= 1.33) {
                     return base;
                 }
-                else if (scale <= 3.5) {
+                else if (scale <= 2.86) {
                     return 2 * base;
                 }
-                else if (scale <= 7.5) {
+                else if (scale <= 6.67) {
                     return 5 * base;
                 }
                 return 10 * base;
@@ -3139,16 +3143,20 @@
             var power = Math.floor(Math.log(span) / Math.LN10);
             var base = Math.pow(10, power);
             var scale = span / base;
-            if (7.5 <= scale) {
-                return 10 * base;
+            // The threshold x is calculated as follows:
+            // (1 - x/a)^2 = (1 - x/b)^2
+            // 1 - x/a = x/b - 1
+            // x = 2ab/(a + b)
+            if (scale <= 1.33) {
+                return base;
             }
-            else if (3.5 <= scale) {
-                return 5 * base;
-            }
-            else if (1.5 <= scale) {
+            else if (scale <= 2.86) {
                 return 2 * base;
             }
-            return base;
+            else if (scale <= 6.67) {
+                return 5 * base;
+            }
+            return 10 * base;
         };
         return DThemeWhiteChartCoordinateTick;
     }());
