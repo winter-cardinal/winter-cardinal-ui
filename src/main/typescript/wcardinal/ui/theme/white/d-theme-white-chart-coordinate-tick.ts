@@ -11,13 +11,17 @@ export class DThemeWhiteChartCoordinateTick implements DThemeChartCoordinateTick
 		const power = Math.floor(Math.log(span) / Math.LN10);
 		const base = Math.pow(10, power);
 		const scale = span / base;
-		if (7.5 <= scale) {
-			return 10 * base;
-		} else if (3.5 <= scale) {
-			return 5 * base;
-		} else if (1.5 <= scale) {
+		// The threshold x is calculated as follows:
+		// (1 - x/a)^2 = (1 - x/b)^2
+		// 1 - x/a = x/b - 1
+		// x = 2ab/(a + b)
+		if (scale <= 1.33) {
+			return base;
+		} else if (scale <= 2.86) {
 			return 2 * base;
+		} else if (scale <= 6.67) {
+			return 5 * base;
 		}
-		return base;
+		return 10 * base;
 	}
 }
