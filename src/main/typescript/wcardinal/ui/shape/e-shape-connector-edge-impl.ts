@@ -108,6 +108,10 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		}
 	}
 
+	get parent(): EShapeConnector {
+		return this._parent;
+	}
+
 	get acceptor(): EShapeConnectorEdgeAcceptor {
 		return this._acceptor;
 	}

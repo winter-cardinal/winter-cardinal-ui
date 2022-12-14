@@ -5,6 +5,7 @@
 
 import { IPoint } from "pixi.js";
 import { EShape } from "./e-shape";
+import { EShapeConnector } from "./e-shape-connector";
 import { EShapeConnectorEdgeAcceptor } from "./e-shape-connector-edge-acceptor";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
@@ -21,6 +22,7 @@ export type EShapeConnectorEdgeSerialized = [
 ];
 
 export interface EShapeConnectorEdge {
+	readonly parent: EShapeConnector;
 	readonly acceptor: EShapeConnectorEdgeAcceptor;
 	readonly local: IPoint;
 	readonly localId: number;
