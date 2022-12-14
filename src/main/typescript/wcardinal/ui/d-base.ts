@@ -420,9 +420,18 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase, EMITTER = a
 	 * A visibility.
 	 * Set to true to make {@link DBase} visible.
 	 * Set to false to make {@link DBase} invisible.
-	 * The default values is true.
+	 * The default value is true.
 	 */
 	visible?: boolean;
+
+	/**
+	 * A renderability.
+	 * Unlike {@link visible}, non-renderable element occupies a space.
+	 * Set to true to make {@link DBase} renderable.
+	 * Set to false to make {@link DBase} not renderable.
+	 * The default value is true.
+	 */
+	renderable?: boolean;
 
 	/** A default state. */
 	state?: string | string[];
@@ -850,9 +859,19 @@ export class DBase<
 		}
 
 		// Visibility
-		const visible = options?.visible;
-		if (visible != null) {
-			this.visible = visible;
+		if (options != null) {
+			const visible = options.visible;
+			if (visible != null) {
+				this.visible = visible;
+			}
+		}
+
+		// Renderability
+		if (options != null) {
+			const renderable = options.renderable;
+			if (renderable != null) {
+				this.renderable = renderable;
+			}
 		}
 
 		// State
@@ -869,12 +888,14 @@ export class DBase<
 		this.interactiveChildren = !!(interactive & DBaseInteractive.CHILDREN);
 
 		// Events
-		const on = options?.on;
-		if (on) {
-			for (const name in on) {
-				const handler = on[name];
-				if (handler) {
-					this.on(name, handler);
+		if (options != null) {
+			const on = options.on;
+			if (on != null) {
+				for (const name in on) {
+					const handler = on[name];
+					if (handler) {
+						this.on(name, handler);
+					}
 				}
 			}
 		}
@@ -892,9 +913,12 @@ export class DBase<
 		this._onShadowUpdateBound = (): void => {
 			DApplications.update(this);
 		};
-		let shadow = options?.shadow;
-		if (shadow === undefined) {
-			shadow = theme.getShadow();
+		let shadow: DBaseShadow | null | undefined;
+		if (options != null) {
+			shadow = options.shadow;
+			if (shadow === undefined) {
+				shadow = theme.getShadow();
+			}
 		}
 		if (shadow) {
 			if (isString(shadow)) {
@@ -967,35 +991,44 @@ export class DBase<
 
 		// State Override
 		theme.newState(this._state);
-		const state = options?.state;
-		if (state != null) {
-			if (isString(state)) {
-				this._state.add(state);
-			} else {
-				this._state.addAll(state);
+		if (options != null) {
+			const state = options.state;
+			if (state != null) {
+				if (isString(state)) {
+					this._state.add(state);
+				} else {
+					this._state.addAll(state);
+				}
 			}
 		}
 
 		// Parent
-		const parent = options?.parent;
-		if (parent != null) {
-			parent.addChild(this);
+		if (options != null) {
+			const parent = options.parent;
+			if (parent != null) {
+				parent.addChild(this);
+			}
 		}
 
 		// Children
-		const children = options?.children;
-		if (children != null) {
-			for (let i = 0, imax = children.length; i < imax; ++i) {
-				const child = children[i];
-				if (child != null) {
-					this.addChild(child);
+		if (options != null) {
+			const children = options.children;
+			if (children != null) {
+				for (let i = 0, imax = children.length; i < imax; ++i) {
+					const child = children[i];
+					if (child != null) {
+						this.addChild(child);
+					}
 				}
 			}
 		}
 
 		// Cursor
-		const cursor = options?.cursor;
-		this._cursor = cursor;
+		let cursor: DStateAwareOrValueMightBe<string> | undefined;
+		if (options != null) {
+			cursor = options.cursor;
+			this._cursor = cursor;
+		}
 		this.cursor = this.toCursor(cursor, this._state);
 
 		// Done
