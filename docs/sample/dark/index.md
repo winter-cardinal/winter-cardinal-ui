@@ -173,6 +173,8 @@
 * List
     * [Add items programatically](./list/add.html)
     * [Basics](./list/basics.html)
+    * [Blinking item](./list/blink.html)
+    * [Blinking item image](./list/blink-image.html)
     * [Bulk item replacement](./list/bulk-replace.html)
     * [Bulk item update](./list/bulk-update.html)
     * [Fully custom data](./list/custom.html)
