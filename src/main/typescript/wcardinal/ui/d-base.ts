@@ -916,9 +916,9 @@ export class DBase<
 		let shadow: DBaseShadow | null | undefined;
 		if (options != null) {
 			shadow = options.shadow;
-			if (shadow === undefined) {
-				shadow = theme.getShadow();
-			}
+		}
+		if (shadow === undefined) {
+			shadow = theme.getShadow();
 		}
 		if (shadow) {
 			if (isString(shadow)) {
