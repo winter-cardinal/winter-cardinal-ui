@@ -179,6 +179,7 @@
     * [Bulk item update](./list/bulk-update.html)
     * [Fully custom data](./list/custom.html)
     * [Image](./list/image.html)
+    * [Image (Tint)](./list/image-tint.html)
     * [Insert predefined items](./list/insert.html)
     * [Link](./list/link.html)
     * [Link checker](./list/link-checker.html)
