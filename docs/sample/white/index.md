@@ -265,6 +265,7 @@
         * [Checkable cell (Single)](./table\cell/checkable-single.html)
         * [Color cell](./table\cell/color.html)
         * [Datetime cell](./table\cell/datetime.html)
+        * [Index cell](./table\cell/indices.html)
         * [Integral number cell](./table\cell/integer.html)
         * [Link cell](./table\cell/link.html)
         * [Hierarchical link cell](./table\cell/link-hierarchical.html)
