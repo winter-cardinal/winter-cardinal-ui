@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { UtilSvgAtlasBuilder } from "../util/util-svg-atlas-builder";
 import { DTheme } from "./d-theme";
 
 export class DThemes {
@@ -32,5 +33,17 @@ export class DThemes {
 		const result = this.INSTANCE;
 		this.INSTANCE = instance;
 		return result;
+	}
+
+	public static get<THEME>(type: string): THEME {
+		return this.getInstance().get<THEME>(type);
+	}
+
+	public static getClass<THEME>(type: string): new () => THEME {
+		return this.getInstance().getClass<THEME>(type);
+	}
+
+	public static getAtlas(): UtilSvgAtlasBuilder {
+		return this.getInstance().getAtlas();
 	}
 }
