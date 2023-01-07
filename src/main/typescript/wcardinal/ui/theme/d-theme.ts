@@ -7,5 +7,6 @@ import { UtilSvgAtlasBuilder } from "../util/util-svg-atlas-builder";
 
 export interface DTheme {
 	get<THEME>(type: string): THEME;
+	getClass<THEME>(type: string): new () => THEME;
 	getAtlas(): UtilSvgAtlasBuilder;
 }

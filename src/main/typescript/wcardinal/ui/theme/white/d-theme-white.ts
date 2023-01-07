@@ -30,6 +30,15 @@ export class DThemeWhite implements DTheme {
 		}
 	}
 
+	getClass<THEME>(type: string): new () => THEME {
+		const result = DThemeWhite._classes[type];
+		if (result != null) {
+			return result;
+		} else {
+			throw new Error(`No theme for the type '${type}'`);
+		}
+	}
+
 	getAtlas(): UtilSvgAtlasBuilder {
 		return DThemeWhiteAtlas;
 	}
