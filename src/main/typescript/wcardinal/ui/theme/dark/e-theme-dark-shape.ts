@@ -13,7 +13,7 @@ export class EThemeDarkShape implements EThemeShape {
 	}
 
 	getFillAlpha(): number {
-		return 0.5;
+		return 0.2;
 	}
 
 	getStrokeColor(): number {

@@ -9,7 +9,7 @@ import { DThemeDarkCanvasContainer } from "./d-theme-dark-canvas-container";
 
 export class DThemeDarkDiagramBase extends DThemeDarkCanvasContainer implements DThemeDiagramBase {
 	getCanvasBackgroundColor(): number {
-		return 0xffffff;
+		return 0x2e2e2e;
 	}
 
 	getCanvasBackgroundAlpha(): number {
