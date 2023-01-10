@@ -97,6 +97,10 @@ export abstract class DScrollBar<
 		}
 	}
 
+	touch(silently?: boolean): void {
+		this.onChange(silently);
+	}
+
 	isRegionVisible(): boolean {
 		return 0 < this._start || this._end < 1;
 	}
@@ -140,23 +144,23 @@ export abstract class DScrollBar<
 	protected onFadeOutTimeout(): void {
 		this._fadeOutTimeoutId = null;
 
-		const fadeOutInterval = this._fadeOutDelay;
+		const fadeOutDelay = this._fadeOutDelay;
 		const onTouchTimeoutBound = this._onFadeOutTimeoutBound;
 
 		const state = this.state;
-		if (state.isGesturing || state.isHovered || state.isPressed) {
-			this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, fadeOutInterval);
+		if (state.isGesturing || state.onHovered || state.isHovered || state.isPressed) {
+			this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, fadeOutDelay);
 			return;
 		}
 
 		const thumbState = this._thumb.state;
 		if (thumbState.isGesturing || thumbState.isHovered || thumbState.isPressed) {
-			this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, fadeOutInterval);
+			this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, fadeOutDelay);
 			return;
 		}
 
 		const now = Date.now();
-		const remainingTime = fadeOutInterval - (now - this._touchedAt);
+		const remainingTime = fadeOutDelay - (now - this._touchedAt);
 		if (0 < remainingTime) {
 			this._fadeOutTimeoutId = window.setTimeout(onTouchTimeoutBound, remainingTime);
 			return;

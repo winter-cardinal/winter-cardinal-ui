@@ -98,6 +98,11 @@ export class DPaneScrollBar<PARENT extends DPaneScrollBarParent = DPaneScrollBar
 		this._onUpdate(vertical.isRegionVisible() || horizontal.isRegionVisible());
 	}
 
+	touch(silently?: boolean): void {
+		this.vertical.touch(silently);
+		this.horizontal.touch(silently);
+	}
+
 	protected getOffsetHorizontalStart(size: number): number {
 		return size * 0.5;
 	}
