@@ -67,6 +67,8 @@ export class EShapeActionValueOpenDialog extends EShapeActionValueSubtyped<
 	readonly target: string;
 	readonly onInputAction: EShapeActionValueOnInputAction;
 	readonly initial: string;
+	readonly min: string;
+	readonly max: string;
 	readonly dialogType: EShapeActionValueOpenDialogTypeNew;
 
 	constructor(
@@ -74,12 +76,16 @@ export class EShapeActionValueOpenDialog extends EShapeActionValueSubtyped<
 		target: string,
 		onInputAction: EShapeActionValueOnInputAction,
 		initial: string,
+		min: string,
+		max: string,
 		dialogType: EShapeActionValueOpenDialogTypeNew
 	) {
 		super(EShapeActionValueType.OPEN, condition, EShapeActionValueOpenType.DIALOG);
 		this.target = target;
 		this.onInputAction = onInputAction;
 		this.initial = initial;
+		this.min = min;
+		this.max = max;
 		this.dialogType = dialogType;
 	}
 
@@ -90,7 +96,9 @@ export class EShapeActionValueOpenDialog extends EShapeActionValueSubtyped<
 			this.target === value.target &&
 			this.dialogType === value.dialogType &&
 			this.onInputAction === value.onInputAction &&
-			this.initial === value.initial
+			this.initial === value.initial &&
+			this.min === value.min &&
+			this.max === value.max
 		);
 	}
 
@@ -117,8 +125,10 @@ export class EShapeActionValueOpenDialog extends EShapeActionValueSubtyped<
 		const conditionId = manager.addResource(this.condition);
 		const targetId = manager.addResource(this.target);
 		const initialId = manager.addResource(this.initial);
+		const minId = manager.addResource(this.min);
+		const maxId = manager.addResource(this.max);
 		return manager.addResource(
-			`[${this.type},${conditionId},${this.subtype},${targetId},${this.onInputAction},${initialId},${this.dialogType}]`
+			`[${this.type},${conditionId},${this.subtype},${targetId},${this.onInputAction},${initialId},${this.dialogType},${minId},${maxId}]`
 		);
 	}
 
@@ -129,11 +139,15 @@ export class EShapeActionValueOpenDialog extends EShapeActionValueSubtyped<
 		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
 		const target = EShapeActionValues.toResource(3, serialized, manager.resources);
 		const initial = EShapeActionValues.toResource(5, serialized, manager.resources);
+		const min = EShapeActionValues.toResource(7, serialized, manager.resources);
+		const max = EShapeActionValues.toResource(8, serialized, manager.resources);
 		return new EShapeActionValueOpenDialog(
 			condition,
 			target,
 			serialized[4],
 			initial,
+			min,
+			max,
 			this.toDialogType(serialized)
 		);
 	}

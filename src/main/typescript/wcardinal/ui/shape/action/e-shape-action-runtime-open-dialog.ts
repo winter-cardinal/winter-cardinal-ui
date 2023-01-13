@@ -15,7 +15,9 @@ import { EShapeActionValueOpenDialog } from "./e-shape-action-value-open-dialog"
 
 export abstract class EShapeActionRuntimeOpenDialog<
 	VALUE = unknown,
-	INITIAL = VALUE
+	INITIAL = VALUE,
+	MIN = VALUE,
+	MAX = VALUE
 > extends EShapeActionRuntimeConditional {
 	protected readonly target: EShapeActionExpression<string | null>;
 	protected onInputAction: EShapeActionValueOnInputAction;
@@ -58,5 +60,11 @@ export abstract class EShapeActionRuntimeOpenDialog<
 		}
 	}
 
-	protected abstract open(shape: EShape, target: string, initial: INITIAL): Promise<VALUE>;
+	protected abstract open(
+		shape: EShape,
+		target: string,
+		initial: INITIAL,
+		min?: MIN,
+		max?: MAX
+	): Promise<VALUE>;
 }

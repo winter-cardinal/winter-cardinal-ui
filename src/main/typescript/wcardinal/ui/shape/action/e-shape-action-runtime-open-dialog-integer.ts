@@ -13,13 +13,23 @@ import { EShapeActionValueOpenDialog } from "./e-shape-action-value-open-dialog"
 export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpenDialog<number> {
 	protected static DIALOG?: DDialogInputInteger;
 	protected initial: EShapeActionExpression<number>;
+	protected min: EShapeActionExpression<number | null>;
+	protected max: EShapeActionExpression<number | null>;
 
 	constructor(value: EShapeActionValueOpenDialog) {
 		super(value);
 		this.initial = EShapeActionExpressions.ofNumber(value.initial);
+		this.min = EShapeActionExpressions.ofNumberOrNull(value.min);
+		this.max = EShapeActionExpressions.ofNumberOrNull(value.max);
 	}
 
-	protected override open(shape: EShape, target: string, initial: number): Promise<number> {
+	protected override open(
+		shape: EShape,
+		target: string,
+		initial: number,
+		min: number,
+		max: number
+	): Promise<number> {
 		let dialog = EShapeActionRuntimeOpenDialogInteger.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogInputInteger({
@@ -30,7 +40,9 @@ export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpe
 					button: {
 						close: false
 					}
-				}
+				},
+				min: min,
+				max: max
 			});
 			EShapeActionRuntimeOpenDialogInteger.DIALOG = dialog;
 		} else {

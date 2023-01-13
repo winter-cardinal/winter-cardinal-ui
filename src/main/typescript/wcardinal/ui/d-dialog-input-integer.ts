@@ -21,6 +21,12 @@ export class DDialogInputInteger<
 > extends DDialogInput<number, DInputInteger, DDialogInputIntegerInputOptions, THEME, OPTIONS> {
 	protected newInput(options?: DDialogInputIntegerInputOptions): DInputInteger {
 		const result = new DInputInteger(this.toInputOptions(options));
+		if (options && options.min) {
+			result.min = options.min;
+		}
+		if (options && options.max) {
+			result.max = options.max;
+		}
 		result.on("enter", () => {
 			this.ok();
 		});
