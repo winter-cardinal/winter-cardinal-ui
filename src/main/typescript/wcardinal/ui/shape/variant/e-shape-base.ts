@@ -65,7 +65,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	abstract readonly tag: EShapeData;
 	abstract readonly data: EShapeData;
 	readonly action: EShapeAction;
-	abstract cursor: string;
+	cursor?: string;
 	interactive: boolean;
 	shortcut?: string;
 	title?: string;
@@ -419,6 +419,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const size = this.size;
 		const shortcut = this.shortcut;
 		const shortcutId = shortcut != null ? manager.addResource(shortcut) : -1;
+		const cursor = this.cursor;
+		const cursorId = cursor != null ? manager.addResource(cursor) : -1;
 		const title = this.title;
 		const titleId = title != null ? manager.addResource(title) : -1;
 		return [
@@ -432,7 +434,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			transform.skew.x,
 			this.fill.serialize(manager),
 			this.stroke.serialize(manager),
-			manager.addResource(this.cursor.trim()),
+			cursorId,
 			this.text.serialize(manager),
 			this.data.serialize(manager),
 			this.radius,

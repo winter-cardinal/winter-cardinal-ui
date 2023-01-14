@@ -45,7 +45,7 @@ export interface EShape extends utils.EventEmitter {
 	readonly tag: EShapeData;
 	readonly data: EShapeData;
 	readonly action: EShapeAction;
-	cursor: string;
+	cursor?: string;
 	visible: boolean;
 	readonly worldVisible: boolean;
 	interactive: boolean;

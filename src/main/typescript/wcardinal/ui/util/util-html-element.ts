@@ -141,7 +141,7 @@ export interface UtilHtmlElementData<ELEMENT extends HTMLElement = HTMLElement> 
 
 export interface UtilHtmlElementTarget extends DFocusableMightBe {
 	readonly state: DBaseStateSet;
-	readonly cursor: string;
+	readonly cursor?: string;
 	readonly worldVisible: boolean;
 
 	focus(): void;
@@ -615,7 +615,7 @@ export class UtilHtmlElement<
 					!state.isHovered
 				) {
 					state.isHovered = true;
-					view.style.cursor = target.cursor;
+					view.style.cursor = target.cursor ?? "";
 				}
 
 				layer.update();

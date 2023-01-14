@@ -561,9 +561,18 @@ export class DDiagramCanvas<
 
 	protected toShapeCursor(target: EShape | null): string {
 		if (target != null) {
-			const result = target.cursor;
-			if (0 < result.length) {
-				return result;
+			let current = target;
+			while (true) {
+				const cursor = current.cursor;
+				if (cursor != null && 0 < cursor.length) {
+					return cursor;
+				}
+				const parent = current.parent;
+				if (parent instanceof EShapeBase) {
+					current = parent;
+				} else {
+					break;
+				}
 			}
 		}
 		return "auto";
@@ -571,7 +580,19 @@ export class DDiagramCanvas<
 
 	protected toShapeTitle(target: EShape | null): string {
 		if (target != null) {
-			return target.title || "";
+			let current = target;
+			while (true) {
+				const title = current.title;
+				if (title != null && 0 < title.length) {
+					return title;
+				}
+				const parent = current.parent;
+				if (parent instanceof EShapeBase) {
+					current = parent;
+				} else {
+					break;
+				}
+			}
 		}
 		return "";
 	}

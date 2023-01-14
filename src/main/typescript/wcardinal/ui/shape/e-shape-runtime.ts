@@ -61,7 +61,7 @@ export class EShapeRuntime {
 	fill: EShapeFillLike;
 	stroke: EShapeStrokeLike;
 	text: EShapeTextLike;
-	cursor: string;
+	cursor?: string;
 
 	reset: EShapeRuntimeReset;
 	written: EShapeRuntimeReset;

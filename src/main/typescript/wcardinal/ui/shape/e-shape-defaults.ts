@@ -21,7 +21,6 @@ export interface EThemeShape {
 	getTextAlpha(): number;
 	getTextFamily(): string;
 	getTextSize(): number;
-	getCursor(): string;
 	getRadius(): number;
 	getSizeX(): number;
 	getSizeY(): number;
@@ -92,10 +91,6 @@ export class EShapeDefaults {
 
 	static get TEXT_SIZE(): number {
 		return this.THEME.getTextSize();
-	}
-
-	static get CURSOR(): string {
-		return this.THEME.getCursor();
 	}
 
 	static get RADIUS(): number {

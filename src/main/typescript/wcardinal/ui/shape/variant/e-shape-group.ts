@@ -123,21 +123,6 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 		}
 	}
 
-	get cursor(): string {
-		const children = this.children;
-		if (0 < children.length) {
-			return children[children.length - 1].cursor;
-		}
-		return "";
-	}
-
-	set cursor(cursor: string) {
-		const children = this.children;
-		for (let i = 0, imax = children.length; i < imax; ++i) {
-			children[i].cursor = cursor;
-		}
-	}
-
 	get gradient(): EShapeGradientLike | undefined {
 		const children = this.children;
 		for (let i = children.length - 1; 0 <= i; --i) {

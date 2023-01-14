@@ -31,7 +31,6 @@ export abstract class EShapePrimitive extends EShapeBase {
 	/** @deprecated in favor of {@link data} */
 	readonly tag: EShapeData;
 	readonly data: EShapeData;
-	cursor: string;
 
 	constructor(type: EShapeType) {
 		super(type);
@@ -44,7 +43,6 @@ export abstract class EShapePrimitive extends EShapeBase {
 		this.data = data;
 		this.tag = data;
 		this.text = this.newText();
-		this.cursor = EShapeDefaults.CURSOR;
 	}
 
 	protected newSize(): IPoint {

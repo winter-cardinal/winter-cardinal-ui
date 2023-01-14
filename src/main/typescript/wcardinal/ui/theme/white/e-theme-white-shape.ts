@@ -55,10 +55,6 @@ export class EThemeWhiteShape implements EThemeShape {
 		return 14;
 	}
 
-	getCursor(): string {
-		return "";
-	}
-
 	getRadius(): number {
 		return 0.25;
 	}

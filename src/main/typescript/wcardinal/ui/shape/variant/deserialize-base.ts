@@ -69,7 +69,8 @@ export const deserializeBase = <SHAPE extends EShape>(
 	result.size.set(toSizeNormalized(item[4]), toSizeNormalized(item[5]));
 	result.fill.deserialize(item[8], manager);
 	result.stroke.deserialize(item[9], manager);
-	result.cursor = manager.resources[item[10]] || "";
+	const item10 = item[10];
+	result.cursor = 0 <= item10 ? resources[item10] : undefined;
 	result.text.deserialize(item[11], manager);
 	result.data.deserialize(item[12], manager);
 	result.radius = item[13];

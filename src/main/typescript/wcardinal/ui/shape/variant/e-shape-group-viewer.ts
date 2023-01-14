@@ -118,14 +118,6 @@ export abstract class EShapeGroupViewer extends EShapeBase {
 		// DO NOTHING
 	}
 
-	get cursor(): string {
-		return "";
-	}
-
-	set cursor(cursor: string) {
-		// DO NOTHING
-	}
-
 	get gradient(): EShapeGradientLike | undefined {
 		return undefined;
 	}
