@@ -30,7 +30,14 @@ export class EShapeActionRuntimeOpenDialogTime extends EShapeActionRuntimeOpenDi
 		this.initial = EShapeActionExpressions.ofUnknown(value.initial);
 	}
 
-	protected override open(shape: EShape, target: string, initial: unknown): Promise<string> {
+	protected override open(
+		shape: EShape,
+		target: string,
+		initial: unknown,
+		step: number | null,
+		min: number | null,
+		max: number | null
+	): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogTime.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogTime();

@@ -19,7 +19,14 @@ export class EShapeActionRuntimeOpenDialogText extends EShapeActionRuntimeOpenDi
 		this.initial = EShapeActionExpressions.ofString(value.initial);
 	}
 
-	protected open(shape: EShape, target: string, initial: string): Promise<string> {
+	protected open(
+		shape: EShape,
+		target: string,
+		initial: string,
+		step: number | null,
+		min: number | null,
+		max: number | null
+	): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogText.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogInputText({

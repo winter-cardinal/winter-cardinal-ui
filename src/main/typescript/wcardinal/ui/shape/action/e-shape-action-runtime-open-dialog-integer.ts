@@ -19,7 +19,14 @@ export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpe
 		this.initial = EShapeActionExpressions.ofNumber(value.initial);
 	}
 
-	protected override open(shape: EShape, target: string, initial: number): Promise<number> {
+	protected override open(
+		shape: EShape,
+		target: string,
+		initial: number,
+		step: number | null,
+		min: number | null,
+		max: number | null
+	): Promise<number> {
 		let dialog = EShapeActionRuntimeOpenDialogInteger.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogInputInteger({
@@ -30,6 +37,14 @@ export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpe
 					button: {
 						close: false
 					}
+				},
+				input: {
+					step,
+					min,
+					max,
+					text: {
+						value: initial
+					}
 				}
 			});
 			EShapeActionRuntimeOpenDialogInteger.DIALOG = dialog;
@@ -38,8 +53,12 @@ export class EShapeActionRuntimeOpenDialogInteger extends EShapeActionRuntimeOpe
 			if (header) {
 				header.text = target;
 			}
+			const input = dialog.input;
+			input.step = step;
+			input.min = min;
+			input.max = max;
+			dialog.value = initial;
 		}
-		dialog.value = initial;
 		return dialog.open(shape);
 	}
 }

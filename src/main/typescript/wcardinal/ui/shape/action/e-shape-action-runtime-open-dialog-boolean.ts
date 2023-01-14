@@ -19,7 +19,14 @@ export class EShapeActionRuntimeOpenDialogBoolean extends EShapeActionRuntimeOpe
 		this.initial = EShapeActionExpressions.ofBooleanOrFalse(value.initial);
 	}
 
-	protected open(shape: EShape, target: string, initial: boolean): Promise<boolean> {
+	protected open(
+		shape: EShape,
+		target: string,
+		initial: boolean,
+		step: number | null,
+		min: number | null,
+		max: number | null
+	): Promise<boolean> {
 		let dialog = EShapeActionRuntimeOpenDialogBoolean.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogInputBoolean({

@@ -28,7 +28,14 @@ export class EShapeActionRuntimeOpenDialogDate extends EShapeActionRuntimeOpenDi
 		this.initial = EShapeActionExpressions.ofUnknown(value.initial);
 	}
 
-	protected open(shape: EShape, target: string, initial: unknown): Promise<string> {
+	protected open(
+		shape: EShape,
+		target: string,
+		initial: unknown,
+		step: number | null,
+		min: number | null,
+		max: number | null
+	): Promise<string> {
 		let dialog = EShapeActionRuntimeOpenDialogDate.DIALOG;
 		if (dialog == null) {
 			dialog = new DDialogDate();

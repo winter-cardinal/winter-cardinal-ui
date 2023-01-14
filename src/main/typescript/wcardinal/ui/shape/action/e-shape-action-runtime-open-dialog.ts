@@ -21,12 +21,18 @@ export abstract class EShapeActionRuntimeOpenDialog<
 	protected onInputAction: EShapeActionValueOnInputAction;
 	protected isOpened: boolean;
 	protected abstract initial: EShapeActionExpression<INITIAL>;
+	protected step: EShapeActionExpression<number | null>;
+	protected min: EShapeActionExpression<number | null>;
+	protected max: EShapeActionExpression<number | null>;
 
 	constructor(value: EShapeActionValueOpenDialog) {
 		super(value, EShapeRuntimeReset.NONE);
 		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
 		this.onInputAction = value.onInputAction;
 		this.isOpened = false;
+		this.step = EShapeActionExpressions.ofNumberOrNull(value.step);
+		this.min = EShapeActionExpressions.ofNumberOrNull(value.min);
+		this.max = EShapeActionExpressions.ofNumberOrNull(value.max);
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
@@ -35,9 +41,12 @@ export abstract class EShapeActionRuntimeOpenDialog<
 				const target = this.target(shape, time, EShapeActionEnvironment);
 				if (target != null) {
 					const initial = this.initial(shape, time, EShapeActionEnvironment);
+					const step = this.step(shape, time, EShapeActionEnvironment);
+					const min = this.min(shape, time, EShapeActionEnvironment);
+					const max = this.max(shape, time, EShapeActionEnvironment);
 					this.isOpened = true;
 					setTimeout(() => {
-						this.open(shape, target, initial).then(
+						this.open(shape, target, initial, step, min, max).then(
 							(value) => {
 								this.isOpened = false;
 								EShapeActionValueOnInputActions.execute(
@@ -58,5 +67,12 @@ export abstract class EShapeActionRuntimeOpenDialog<
 		}
 	}
 
-	protected abstract open(shape: EShape, target: string, initial: INITIAL): Promise<VALUE>;
+	protected abstract open(
+		shape: EShape,
+		target: string,
+		initial: INITIAL,
+		step: number | null,
+		min: number | null,
+		max: number | null
+	): Promise<VALUE>;
 }
