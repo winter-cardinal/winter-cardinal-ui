@@ -388,6 +388,36 @@ const rotateAlignVerticalLeft = (align: EShapeTextAlignVertical): EShapeTextAlig
 	}
 };
 
+const invertAlignHorizontal = (align: EShapeTextAlignHorizontal): EShapeTextAlignHorizontal => {
+	switch (align) {
+		case EShapeTextAlignHorizontal.LEFT:
+			return EShapeTextAlignHorizontal.RIGHT;
+		case EShapeTextAlignHorizontal.CENTER:
+			return EShapeTextAlignHorizontal.CENTER;
+		case EShapeTextAlignHorizontal.RIGHT:
+			return EShapeTextAlignHorizontal.LEFT;
+		case EShapeTextAlignHorizontal.OUTSIDE_LEFT:
+			return EShapeTextAlignHorizontal.OUTSIDE_RIGHT;
+		case EShapeTextAlignHorizontal.OUTSIDE_RIGHT:
+			return EShapeTextAlignHorizontal.OUTSIDE_LEFT;
+	}
+};
+
+const invertAlignVertical = (align: EShapeTextAlignVertical): EShapeTextAlignVertical => {
+	switch (align) {
+		case EShapeTextAlignVertical.TOP:
+			return EShapeTextAlignVertical.BOTTOM;
+		case EShapeTextAlignVertical.MIDDLE:
+			return EShapeTextAlignVertical.MIDDLE;
+		case EShapeTextAlignVertical.BOTTOM:
+			return EShapeTextAlignVertical.TOP;
+		case EShapeTextAlignVertical.OUTSIDE_TOP:
+			return EShapeTextAlignVertical.OUTSIDE_BOTTOM;
+		case EShapeTextAlignVertical.OUTSIDE_BOTTOM:
+			return EShapeTextAlignVertical.OUTSIDE_TOP;
+	}
+};
+
 export const buildTextVertex = (
 	vertices: Float32Array,
 	uvs: Float32Array,
@@ -496,6 +526,12 @@ export const buildTextVertex = (
 			work.x = vnl;
 			vnl = hnl;
 			hnl = work.x;
+			break;
+		case EShapeTextDirection.RIGHT_TO_LEFT:
+			hnx = -hnx;
+			hny = -hny;
+			vnx = -vnx;
+			vny = -vny;
 			break;
 	}
 
@@ -665,6 +701,48 @@ export const buildTextVertex = (
 							case EShapeTextAlignHorizontal.CENTER:
 							case EShapeTextAlignHorizontal.RIGHT:
 								lineWidthMaximum = vl - textPaddingVertical * 2;
+								break;
+						}
+						break;
+				}
+			}
+			break;
+		case EShapeTextDirection.RIGHT_TO_LEFT:
+			getTextBBox(
+				invertAlignHorizontal(textAlignHorizontal),
+				invertAlignVertical(textAlignVertical),
+				textOffsetHorizontal,
+				textOffsetVertical,
+				textPaddingHorizontal,
+				textPaddingVertical,
+				width,
+				height,
+				x2,
+				y2,
+				x3,
+				y3,
+				x0,
+				y0,
+				x1,
+				y1,
+				hnx,
+				hny,
+				vnx,
+				vny,
+				work
+			);
+			tx0 = work.x;
+			ty0 = work.y;
+			if (textClipping) {
+				switch (textAlignHorizontal) {
+					case EShapeTextAlignHorizontal.LEFT:
+					case EShapeTextAlignHorizontal.CENTER:
+					case EShapeTextAlignHorizontal.RIGHT:
+						switch (textAlignVertical) {
+							case EShapeTextAlignVertical.TOP:
+							case EShapeTextAlignVertical.MIDDLE:
+							case EShapeTextAlignVertical.BOTTOM:
+								lineWidthMaximum = hl - textPaddingHorizontal * 2;
 								break;
 						}
 						break;
@@ -1104,6 +1182,21 @@ const adjustTextAlignment = (
 						break;
 					case EShapeTextAlignVertical.OUTSIDE_TOP:
 					case EShapeTextAlignVertical.BOTTOM:
+						// DO NOTHING
+						break;
+				}
+				break;
+			case EShapeTextDirection.RIGHT_TO_LEFT:
+				switch (textAlignHorizontal) {
+					case EShapeTextAlignHorizontal.OUTSIDE_RIGHT:
+					case EShapeTextAlignHorizontal.LEFT:
+						moveTextFull(vertices, vertexIndex, lineCount, offset, nx, ny);
+						break;
+					case EShapeTextAlignHorizontal.CENTER:
+						moveTextHalf(vertices, vertexIndex, lineCount, offset, nx, ny);
+						break;
+					case EShapeTextAlignHorizontal.OUTSIDE_LEFT:
+					case EShapeTextAlignHorizontal.RIGHT:
 						// DO NOTHING
 						break;
 				}

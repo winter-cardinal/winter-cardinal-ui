@@ -1,0 +1,135 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text align</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set( 200, 100 );
+		application.stage.addChild( container );
+
+		const toMenuItems = function (array) {
+			const result = [];
+			for (let i = 0, imax = array.length; i < imax; ++i) {
+				const item = array[i];
+				result.push({
+					value: item.value,
+					text: {
+						value: item.name
+					}
+				});
+			}
+			return result;
+		};
+
+		const haligns = [
+			{ name: "Horizontal: Left", value: wcardinal.ui.EShapeTextAlignHorizontal.LEFT },
+			{ name: "Horizontal: Center", value: wcardinal.ui.EShapeTextAlignHorizontal.CENTER },
+			{ name: "Horizontal: Right", value: wcardinal.ui.EShapeTextAlignHorizontal.RIGHT },
+			{ name: "Horizontal: Outside left", value: wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT },
+			{ name: "Horizontal: Outside right", value: wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_RIGHT }
+		];
+		let halign = haligns[0].value;
+		new wcardinal.ui.DSelect({
+			parent: application.stage,
+			x: 110, y: 30,
+			width: 300,
+			value: halign,
+			menu: {
+				items: toMenuItems(haligns)
+			},
+			on: {
+				change: function (newValue) {
+					for (let i = 0, imax = rectangles.length; i < imax; ++i) {
+						rectangles[i].text.align.horizontal = newValue;
+					}
+					application.update();
+				}
+			}
+		});
+
+
+		const valigns = [
+			{ name: "Vertical: Top", value: wcardinal.ui.EShapeTextAlignVertical.TOP },
+			{ name: "Vertical: Middle", value: wcardinal.ui.EShapeTextAlignVertical.MIDDLE },
+			{ name: "Vertical: Bottom", value: wcardinal.ui.EShapeTextAlignVertical.BOTTOM },
+			{ name: "Vertical: Outside top", value: wcardinal.ui.EShapeTextAlignVertical.OUTSIDE_TOP },
+			{ name: "Vertical: Outside bottom", value: wcardinal.ui.EShapeTextAlignVertical.OUTSIDE_BOTTOM }
+		];
+		let valign = valigns[0].value;
+		new wcardinal.ui.DSelect({
+			parent: application.stage,
+			x: 110 + 300 + 10, y: 30,
+			width: 300,
+			value: valign,
+			menu: {
+				items: toMenuItems(valigns)
+			},
+			on: {
+				change: function (newValue) {
+					for (let i = 0, imax = rectangles.length; i < imax; ++i) {
+						rectangles[i].text.align.vertical = newValue;
+					}
+					application.update();
+				}
+			}
+		});
+
+		const rectangles = [];
+		const texts = [
+			"Apple Orange Pineapple",
+			"Apple\nOrange Pineapple",
+			"Apple\nOrange\nPineapple",
+		];
+		const directions = [
+			wcardinal.ui.EShapeTextDirection.LEFT_TO_RIGHT,
+			wcardinal.ui.EShapeTextDirection.TOP_TO_BOTTOM,
+			wcardinal.ui.EShapeTextDirection.BOTTOM_TO_TOP,
+			wcardinal.ui.EShapeTextDirection.RIGHT_TO_LEFT
+		];
+		let ix = 0;
+		let iy = 0;
+		for (let id = 0; id < directions.length; id += 1, ix = 0, iy += 1) {
+			for (let it = 0; it < texts.length; it += 1, ix += 1) {
+				const rectangle = new wcardinal.ui.EShapeRectangle();
+				rectangle.transform.position.set(10 + ix * 200, 40 + iy * 200);
+				rectangle.text.value = texts[it];
+				rectangle.text.direction = directions[id];
+				rectangle.text.align.horizontal = halign;
+				rectangle.text.align.vertical = valign;
+				rectangle.attach(container);
+				rectangles.push(rectangle);
+			}
+		}
+
+		application.update();
+	}());
+	</script>
+</body>
+</html>
