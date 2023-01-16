@@ -15,11 +15,13 @@ import { EShapeActionValueOpenDialogExtension } from "./e-shape-action-value-ope
 
 export class EShapeActionRuntimeOpenDialogExtension extends EShapeActionRuntimeConditional {
 	protected readonly target: EShapeActionExpression<string | null>;
+	protected readonly argument: EShapeActionExpression<string | null>;
 	protected readonly opener?: EShapeActionOpenDialogOpener;
 
 	constructor(value: EShapeActionValueOpenDialogExtension) {
 		super(value, EShapeRuntimeReset.NONE);
 		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
+		this.argument = EShapeActionExpressions.ofStringOrNull(value.argument);
 		const extension = EShapeActionOpenDialogExtensions.get(value.dialogType);
 		if (extension) {
 			this.opener = extension.opener;
@@ -31,9 +33,10 @@ export class EShapeActionRuntimeOpenDialogExtension extends EShapeActionRuntimeC
 		if (opener) {
 			if (this.condition(shape, time, EShapeActionEnvironment)) {
 				const target = this.target(shape, time, EShapeActionEnvironment);
-				if (target != null) {
+				const argument = this.argument(shape, time, EShapeActionEnvironment);
+				if (target != null && argument != null) {
 					setTimeout(() => {
-						opener(target, shape);
+						opener(target, argument, shape);
 					}, 0);
 				}
 			}
