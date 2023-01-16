@@ -5,4 +5,8 @@
 
 import { EShape } from "../e-shape";
 
-export type EShapeActionOpenDialogOpener = (target: string, shape: EShape) => void;
+export type EShapeActionOpenDialogOpener = (
+	target: string,
+	argument: unknown,
+	shape: EShape
+) => void;

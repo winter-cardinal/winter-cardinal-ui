@@ -14,7 +14,7 @@ import { EShapeActionValueOpenDialogType } from "./e-shape-action-value-open-dia
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeOpenDialogExtension } from "./e-shape-action-runtime-open-dialog-extension";
 
-export type EShapeActionValueOpenDialogExtensionSerialized = [
+export type EShapeActionValueOpenDialogExtensionSerialized1 = [
 	typeof EShapeActionValueType.OPEN,
 	number,
 	typeof EShapeActionValueOpenType.DIALOG,
@@ -24,15 +24,37 @@ export type EShapeActionValueOpenDialogExtensionSerialized = [
 	EShapeActionValueOpenDialogType
 ];
 
+export type EShapeActionValueOpenDialogExtensionSerialized2 = [
+	typeof EShapeActionValueType.OPEN,
+	number,
+	typeof EShapeActionValueOpenType.DIALOG,
+	number,
+	0,
+	-1,
+	EShapeActionValueOpenDialogType,
+	number
+];
+
+export type EShapeActionValueOpenDialogExtensionSerialized =
+	| EShapeActionValueOpenDialogExtensionSerialized1
+	| EShapeActionValueOpenDialogExtensionSerialized2;
+
 export class EShapeActionValueOpenDialogExtension extends EShapeActionValueSubtyped<
 	typeof EShapeActionValueOpenType.DIALOG
 > {
 	readonly target: string;
+	readonly argument: string;
 	readonly dialogType: EShapeActionValueOpenDialogType;
 
-	constructor(condition: string, target: string, dialogType: EShapeActionValueOpenDialogType) {
+	constructor(
+		condition: string,
+		target: string,
+		argument: string,
+		dialogType: EShapeActionValueOpenDialogType
+	) {
 		super(EShapeActionValueType.OPEN, condition, EShapeActionValueOpenType.DIALOG);
 		this.target = target;
+		this.argument = argument;
 		this.dialogType = dialogType;
 	}
 
@@ -41,6 +63,7 @@ export class EShapeActionValueOpenDialogExtension extends EShapeActionValueSubty
 			super.isEquals(value) &&
 			value instanceof EShapeActionValueOpenDialogExtension &&
 			this.target === value.target &&
+			this.argument === value.argument &&
 			this.dialogType === value.dialogType
 		);
 	}
@@ -52,8 +75,9 @@ export class EShapeActionValueOpenDialogExtension extends EShapeActionValueSubty
 	serialize(manager: EShapeResourceManagerSerialization): number {
 		const conditionId = manager.addResource(this.condition);
 		const targetId = manager.addResource(this.target);
+		const argumentId = manager.addResource(this.argument);
 		return manager.addResource(
-			`[${this.type},${conditionId},${this.subtype},${targetId},0,-1,${this.dialogType}]`
+			`[${this.type},${conditionId},${this.subtype},${targetId},0,-1,${this.dialogType},${argumentId}]`
 		);
 	}
 
@@ -63,6 +87,7 @@ export class EShapeActionValueOpenDialogExtension extends EShapeActionValueSubty
 	): EShapeActionValueOpenDialogExtension {
 		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
 		const target = EShapeActionValues.toResource(3, serialized, manager.resources);
-		return new EShapeActionValueOpenDialogExtension(condition, target, serialized[6]);
+		const argument = EShapeActionValues.toResource(7, serialized, manager.resources);
+		return new EShapeActionValueOpenDialogExtension(condition, target, argument, serialized[6]);
 	}
 }
