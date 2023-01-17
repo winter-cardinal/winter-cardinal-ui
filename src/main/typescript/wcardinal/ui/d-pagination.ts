@@ -21,6 +21,7 @@ import { DPaginationButtonTop, DPaginationButtonTopOptions } from "./d-paginatio
 import { isNumber } from "./util/is-number";
 import { DPaginationPage, DPaginationPageOptions } from "./d-pagination-page";
 import { DLayoutSpace } from "./d-layout-space";
+import { DImageBase } from "./d-image-base";
 
 export interface DPaginationButtonOptions {
 	/**
@@ -469,21 +470,21 @@ export class DPagination<
 				buttonPrevious.state.isEnabled = false;
 			}
 
-			this.dots0.hide();
+			this.hideDots(this.dots0);
 
 			const buttonPages0 = this.buttonPages0;
 			for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
-				buttonPages0[i].hide();
+				this.hidePage(buttonPages0[i]);
 			}
 
-			this.page.hide();
+			this.hidePage(this.page);
 
 			const buttonPages1 = this.buttonPages1;
 			for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
-				buttonPages1[i].hide();
+				this.hidePage(buttonPages1[i]);
 			}
 
-			this.dots1.hide();
+			this.hideDots(this.dots1);
 
 			const buttonNext = this.buttonNext;
 			if (buttonNext != null) {
@@ -525,51 +526,47 @@ export class DPagination<
 			}
 
 			if (top) {
-				this.dots0.show();
+				this.showDots(this.dots0, 1, from - 1);
 			} else {
-				this.dots0.hide();
+				this.hideDots(this.dots0);
 			}
 
 			const buttonPages0 = this.buttonPages0;
 			for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
 				const index = value - i - 1;
 				const buttonPage = buttonPages0[i];
-				if (from <= index && index <= to) {
-					buttonPage.text = index + 1;
-					buttonPage.show();
+				if (from <= index && index <= to && 0 <= index) {
+					this.showPage(buttonPage, index);
 				} else {
 					if (top && i === imax - 1) {
-						buttonPage.text = 1;
-						buttonPage.show();
+						this.showPage(buttonPage, 0);
 					} else {
-						buttonPage.hide();
+						this.hidePage(buttonPage);
 					}
 				}
 			}
 
-			this.page.text = value + 1;
+			this.showPage(this.page, value);
 
 			const buttonPages1 = this.buttonPages1;
 			for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
 				const index = value + i + 1;
 				const buttonPage = buttonPages1[i];
-				if (from <= index && index <= to) {
-					buttonPage.text = index + 1;
-					buttonPage.show();
+				if (from <= index && index <= to && index < size) {
+					this.showPage(buttonPage, index);
 				} else {
 					if (last && i === imax - 1) {
-						buttonPage.text = size;
-						buttonPage.show();
+						this.showPage(buttonPage, size - 1);
 					} else {
-						buttonPage.hide();
+						this.hidePage(buttonPage);
 					}
 				}
 			}
 
 			if (last) {
-				this.dots1.show();
+				this.showDots(this.dots1, to + 1, size - 2);
 			} else {
-				this.dots1.hide();
+				this.hideDots(this.dots1);
 			}
 
 			const buttonNext = this.buttonNext;
@@ -581,6 +578,23 @@ export class DPagination<
 				buttonLast.state.isEnabled = value < size - 1;
 			}
 		}
+	}
+
+	protected showPage(button: DImageBase<number>, index: number): void {
+		button.text = index + 1;
+		button.show();
+	}
+
+	protected hidePage(button: DImageBase<number>): void {
+		button.hide();
+	}
+
+	protected showDots(dots: DPaginationDots, from: number, to: number): void {
+		dots.show();
+	}
+
+	protected hideDots(dots: DPaginationDots): void {
+		dots.hide();
 	}
 
 	protected getType(): string {
