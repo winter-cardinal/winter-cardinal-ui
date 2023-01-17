@@ -110,6 +110,11 @@ export class DDiagramLayer extends EShapeContainer {
 				// Interactives
 				if (shape.interactive || runtime.interactive) {
 					interactives.push(shape);
+				} else {
+					const cursor = shape.cursor;
+					if (cursor != null && 0 < cursor.length) {
+						interactives.push(shape);
+					}
 				}
 			}
 
