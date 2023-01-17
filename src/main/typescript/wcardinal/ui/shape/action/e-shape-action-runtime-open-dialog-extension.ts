@@ -21,7 +21,7 @@ export class EShapeActionRuntimeOpenDialogExtension extends EShapeActionRuntimeC
 	constructor(value: EShapeActionValueOpenDialogExtension) {
 		super(value, EShapeRuntimeReset.NONE);
 		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
-		this.argument = EShapeActionExpressions.ofUnknown(value.target);
+		this.argument = EShapeActionExpressions.ofUnknown(value.argument);
 		const extension = EShapeActionOpenDialogExtensions.get(value.dialogType);
 		if (extension) {
 			this.opener = extension.opener;
