@@ -202,6 +202,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			}
 		}
 		this.emit("change", this);
+		this.emit("execute", command, this);
 		this.next();
 	}
 
@@ -211,6 +212,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			this.emit("dirty", this);
 		}
 		this.emit("change", this);
+		this.emit("undo", undoed, this);
 		this.next();
 	}
 
@@ -220,6 +222,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			this.emit("dirty", this);
 		}
 		this.emit("change", this);
+		this.emit("redo", redoed, this);
 		this.next();
 	}
 

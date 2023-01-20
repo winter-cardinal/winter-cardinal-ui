@@ -14,6 +14,10 @@ export class DCommandSaveAs implements DCommand {
 		this._name = name;
 	}
 
+	get name(): string {
+		return this._name;
+	}
+
 	execute(): Promise<unknown> | boolean {
 		return DControllers.getDocumentController().saveAs(this._name);
 	}
