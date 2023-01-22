@@ -54,6 +54,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 	}
 
 	push(command: DCommand): void {
+		this.emit("push", command, this);
 		this._waiting.push(command);
 		this.next();
 	}
@@ -94,6 +95,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			const current = done[done.length - 1 - this._position];
 			this._position += 1;
 			this.emit("change", this);
+			this.emit("undoing", current, this);
 			const result = current.undo();
 			if (result === true) {
 				this.onSuccessUndo(current);
@@ -118,6 +120,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			const current = done[done.length - this._position];
 			this._position -= 1;
 			this.emit("change", this);
+			this.emit("redoing", current, this);
 			const result = current.redo();
 			if (result === true) {
 				this.onSuccessRedo(current);
@@ -148,6 +151,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			}
 			this.cleanup();
 		}
+		this.emit("executing", command, this);
 		const result = command.execute();
 		if (result === true) {
 			this.onSuccess(command);
@@ -202,7 +206,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			}
 		}
 		this.emit("change", this);
-		this.emit("execute", command, this);
+		this.emit("executed", command, this);
 		this.next();
 	}
 
@@ -212,7 +216,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			this.emit("dirty", this);
 		}
 		this.emit("change", this);
-		this.emit("undo", undoed, this);
+		this.emit("undoed", undoed, this);
 		this.next();
 	}
 
@@ -222,7 +226,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			this.emit("dirty", this);
 		}
 		this.emit("change", this);
-		this.emit("redo", redoed, this);
+		this.emit("redoed", redoed, this);
 		this.next();
 	}
 
