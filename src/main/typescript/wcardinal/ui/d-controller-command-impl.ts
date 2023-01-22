@@ -53,6 +53,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			if (0 < size) {
 				this.remove(size);
 				this._position = 0;
+				this.emit("change", this);
 			}
 			this.cleanup();
 		}
@@ -71,11 +72,13 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 				this.emit("dirty", this);
 			}
 		}
+		this.emit("change", this);
 		this.emit("executed", command, this);
 	}
 
 	protected onFail(command: DCommand): void {
 		command.destroy();
+		this.emit("change", this);
 	}
 
 	protected cleanup(): void {
@@ -125,6 +128,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 		if (0 < this._position) {
 			const current = done[done.length - this._position];
 			this._position -= 1;
+			this.emit("change", this);
 			this.emit("redoing", current, this);
 			const result = current.redo();
 			if (result === true) {
@@ -139,11 +143,12 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 		if (!isCommandClean(redoed)) {
 			this.emit("dirty", this);
 		}
+		this.emit("change", this);
 		this.emit("redoed", redoed, this);
 	}
 
 	protected onRedoFail(command: DCommand): void {
-		// DO NOTHING
+		this.emit("change", this);
 	}
 
 	isRedoable(): boolean {
@@ -161,6 +166,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 		if (this._position < done.length) {
 			const current = done[done.length - 1 - this._position];
 			this._position += 1;
+			this.emit("change", this);
 			this.emit("undoing", current, this);
 			const result = current.undo();
 			if (result === true) {
@@ -175,11 +181,12 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 		if (!isCommandClean(undoed)) {
 			this.emit("dirty", this);
 		}
+		this.emit("change", this);
 		this.emit("undoed", undoed, this);
 	}
 
 	protected onUndoFail(command: DCommand): void {
-		// DO NOTHING
+		this.emit("change", this);
 	}
 
 	isUndoable(): boolean {
