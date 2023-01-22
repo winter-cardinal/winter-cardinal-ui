@@ -7,15 +7,15 @@ import { DCommand } from "./d-command";
 import { DCommandFlag } from "./d-command-flag";
 
 export class DCommandClear implements DCommand {
-	execute(): Promise<unknown> | boolean {
+	execute(): boolean {
 		return true;
 	}
 
-	redo(): Promise<unknown> | boolean {
+	redo(): boolean {
 		throw new Error("Method not implemented.");
 	}
 
-	undo(): Promise<unknown> | boolean {
+	undo(): boolean {
 		throw new Error("Method not implemented.");
 	}
 

@@ -7,13 +7,13 @@ import { DCommand } from "./d-command";
 import { DCommandFlag } from "./d-command-flag";
 
 export abstract class DCommandCreate implements DCommand {
-	abstract execute(): Promise<unknown> | boolean;
+	abstract execute(): boolean;
 
-	redo(): Promise<unknown> | boolean {
+	redo(): boolean {
 		throw new Error("Method not implemented.");
 	}
 
-	undo(): Promise<unknown> | boolean {
+	undo(): boolean {
 		throw new Error("Method not implemented.");
 	}
 

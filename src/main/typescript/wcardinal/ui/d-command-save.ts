@@ -8,15 +8,16 @@ import { DCommandFlag } from "./d-command-flag";
 import { DControllers } from "./d-controllers";
 
 export class DCommandSave implements DCommand {
-	execute(): Promise<unknown> | boolean {
-		return DControllers.getDocumentController().save();
-	}
-
-	redo(): Promise<unknown> | boolean {
+	execute(): boolean {
+		DControllers.getDocumentController().save();
 		return true;
 	}
 
-	undo(): Promise<unknown> | boolean {
+	redo(): boolean {
+		return true;
+	}
+
+	undo(): boolean {
 		return true;
 	}
 

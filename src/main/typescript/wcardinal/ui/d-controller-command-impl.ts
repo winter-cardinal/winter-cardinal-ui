@@ -7,8 +7,6 @@ import { utils } from "pixi.js";
 import { DCommand } from "./d-command";
 import { DCommandClear } from "./d-command-clear";
 import { DCommandFlag } from "./d-command-flag";
-import { DCommandRedo } from "./d-command-redo";
-import { DCommandUndo } from "./d-command-undo";
 import { DControllerCommand } from "./d-controller-command";
 
 const isCommandStorable = (command: DCommand): boolean => {
@@ -26,120 +24,28 @@ const isCommandClean = (command: DCommand): boolean => {
 export class DControllerCommandImpl extends utils.EventEmitter implements DControllerCommand {
 	protected _position: number;
 	protected _done: DCommand[];
-	protected _waiting: DCommand[];
-	protected _executing: Promise<void> | null;
 
 	constructor() {
 		super();
-
 		this._position = 0;
 		this._done = [];
-		this._waiting = [];
-		this._executing = null;
 	}
 
 	last(): DCommand | null {
 		const done = this._done;
-		const waiting = this._waiting;
-
-		if (waiting.length <= 0) {
-			if (0 < done.length) {
-				return done[done.length - 1];
-			} else {
-				return null;
-			}
+		if (0 < done.length) {
+			return done[done.length - 1];
 		} else {
-			return waiting[waiting.length - 1];
+			return null;
 		}
 	}
 
 	push(command: DCommand): void {
-		this.emit("push", command, this);
-		this._waiting.push(command);
-		this.next();
-	}
-
-	next(): void {
-		if (this._executing != null) {
-			// Still executing a command.
-			// So do nothing.
-			return;
-		}
-
-		const waiting = this._waiting;
-		if (waiting.length <= 0) {
-			// There is no waiting commands.
-			// So do nothing.
-			return;
-		}
-
-		const command = waiting.shift();
-		if (command == null) {
-			// There is no waiting commands.
-			// So do nothing.
-			return;
-		}
-
-		if (command instanceof DCommandUndo) {
-			this.executeUndo(command);
-		} else if (command instanceof DCommandRedo) {
-			this.executeRedo(command);
-		} else {
-			this.execute(command);
-		}
-	}
-
-	protected executeUndo(command: DCommandUndo): void {
-		const done = this._done;
-		if (this._position < done.length) {
-			const current = done[done.length - 1 - this._position];
-			this._position += 1;
-			this.emit("change", this);
-			this.emit("undoing", current, this);
-			const result = current.undo();
-			if (result === true) {
-				this.onSuccessUndo(current);
-			} else if (result === false) {
-				this.onFail(command);
-			} else {
-				this._executing = result.then(
-					() => {
-						this.onSuccessUndo(current);
-					},
-					() => {
-						this.onFail(command);
-					}
-				);
-			}
-		}
-	}
-
-	protected executeRedo(command: DCommandRedo): void {
-		const done = this._done;
-		if (0 < this._position) {
-			const current = done[done.length - this._position];
-			this._position -= 1;
-			this.emit("change", this);
-			this.emit("redoing", current, this);
-			const result = current.redo();
-			if (result === true) {
-				this.onSuccessRedo(current);
-			} else if (result === false) {
-				this.onFail(command);
-			} else {
-				this._executing = result.then(
-					() => {
-						this.onSuccessRedo(current);
-					},
-					() => {
-						this.onFail(command);
-					}
-				);
-			}
-		}
+		this.execute(command);
 	}
 
 	protected execute(command: DCommand): void {
+		this.emit("executing", command, this);
 		const isClear = isCommandClear(command);
 		const isStorable = isCommandStorable(command);
 		if (isClear || isStorable) {
@@ -147,26 +53,29 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			if (0 < size) {
 				this.remove(size);
 				this._position = 0;
-				this.emit("change", this);
 			}
 			this.cleanup();
 		}
-		this.emit("executing", command, this);
 		const result = command.execute();
 		if (result === true) {
 			this.onSuccess(command);
-		} else if (result === false) {
-			this.onFail(command);
 		} else {
-			this._executing = result.then(
-				() => {
-					this.onSuccess(command);
-				},
-				() => {
-					this.onFail(command);
-				}
-			);
+			this.onFail(command);
 		}
+	}
+
+	protected onSuccess(command: DCommand): void {
+		if (isCommandStorable(command)) {
+			this._done.push(command);
+			if (!isCommandClean(command)) {
+				this.emit("dirty", this);
+			}
+		}
+		this.emit("executed", command, this);
+	}
+
+	protected onFail(command: DCommand): void {
+		command.destroy();
 	}
 
 	protected cleanup(): void {
@@ -197,50 +106,6 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 		return false;
 	}
 
-	protected onSuccess(command: DCommand): void {
-		this._executing = null;
-		if (isCommandStorable(command)) {
-			this._done.push(command);
-			if (!isCommandClean(command)) {
-				this.emit("dirty", this);
-			}
-		}
-		this.emit("change", this);
-		this.emit("executed", command, this);
-		this.next();
-	}
-
-	protected onSuccessUndo(undoed: DCommand): void {
-		this._executing = null;
-		if (!isCommandClean(undoed)) {
-			this.emit("dirty", this);
-		}
-		this.emit("change", this);
-		this.emit("undoed", undoed, this);
-		this.next();
-	}
-
-	protected onSuccessRedo(redoed: DCommand): void {
-		this._executing = null;
-		if (!isCommandClean(redoed)) {
-			this.emit("dirty", this);
-		}
-		this.emit("change", this);
-		this.emit("redoed", redoed, this);
-		this.next();
-	}
-
-	protected onFail(command: DCommand): void {
-		this._executing = null;
-		const waiting = this._waiting;
-		command.destroy();
-		for (let i = 0, imax = waiting.length; i < imax; ++i) {
-			waiting[i].destroy();
-		}
-		waiting.length = 0;
-		this.emit("change", this);
-	}
-
 	size(): number {
 		return this._done.length;
 	}
@@ -251,23 +116,73 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 
 	redo(): void {
 		if (this.isRedoable()) {
-			this._waiting.push(new DCommandRedo());
-			this.next();
+			this.doRedo();
 		}
+	}
+
+	protected doRedo(): void {
+		const done = this._done;
+		if (0 < this._position) {
+			const current = done[done.length - this._position];
+			this._position -= 1;
+			this.emit("redoing", current, this);
+			const result = current.redo();
+			if (result === true) {
+				this.onRedoSuccess(current);
+			} else {
+				this.onRedoFail(current);
+			}
+		}
+	}
+
+	protected onRedoSuccess(redoed: DCommand): void {
+		if (!isCommandClean(redoed)) {
+			this.emit("dirty", this);
+		}
+		this.emit("redoed", redoed, this);
+	}
+
+	protected onRedoFail(command: DCommand): void {
+		// DO NOTHING
+	}
+
+	isRedoable(): boolean {
+		return 0 < this._position;
 	}
 
 	undo(): void {
 		if (this.isUndoable()) {
-			this._waiting.push(new DCommandUndo());
-			this.next();
+			this.doUndo();
 		}
 	}
 
-	isRedoable(): boolean {
-		return 0 < this._position && this._executing == null;
+	protected doUndo(): void {
+		const done = this._done;
+		if (this._position < done.length) {
+			const current = done[done.length - 1 - this._position];
+			this._position += 1;
+			this.emit("undoing", current, this);
+			const result = current.undo();
+			if (result === true) {
+				this.onUndoSuccess(current);
+			} else {
+				this.onUndoFail(current);
+			}
+		}
+	}
+
+	protected onUndoSuccess(undoed: DCommand): void {
+		if (!isCommandClean(undoed)) {
+			this.emit("dirty", this);
+		}
+		this.emit("undoed", undoed, this);
+	}
+
+	protected onUndoFail(command: DCommand): void {
+		// DO NOTHING
 	}
 
 	isUndoable(): boolean {
-		return this._position < this._done.length && this._executing == null;
+		return this._position < this._done.length;
 	}
 }

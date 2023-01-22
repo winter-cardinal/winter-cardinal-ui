@@ -9,10 +9,10 @@ export interface DCommand {
 	/**
 	 * Called to executed this command.
 	 */
-	execute(): Promise<unknown> | boolean;
+	execute(): boolean;
 
-	redo(): Promise<unknown> | boolean;
-	undo(): Promise<unknown> | boolean;
+	redo(): boolean;
+	undo(): boolean;
 	destroy(): void;
 	getFlag(): DCommandFlag;
 }

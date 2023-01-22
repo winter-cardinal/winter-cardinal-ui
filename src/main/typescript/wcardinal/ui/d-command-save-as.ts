@@ -18,15 +18,16 @@ export class DCommandSaveAs implements DCommand {
 		return this._name;
 	}
 
-	execute(): Promise<unknown> | boolean {
-		return DControllers.getDocumentController().saveAs(this._name);
-	}
-
-	redo(): Promise<unknown> | boolean {
+	execute(): boolean {
+		DControllers.getDocumentController().saveAs(this._name);
 		return true;
 	}
 
-	undo(): Promise<unknown> | boolean {
+	redo(): boolean {
+		return true;
+	}
+
+	undo(): boolean {
 		return true;
 	}
 
