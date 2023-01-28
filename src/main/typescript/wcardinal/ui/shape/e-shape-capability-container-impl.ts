@@ -1,63 +1,46 @@
 import { EShapeCapability } from "./e-shape-capability";
 import { EShapeCapabilityContainer } from "./e-shape-capability-container";
-import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
-import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 
 export class EShapeCapabilityContainerImpl implements EShapeCapabilityContainer {
-	protected _added: EShapeCapability;
-	protected _removed: EShapeCapability;
+	added: EShapeCapability;
+	removed: EShapeCapability;
 
 	constructor() {
-		this._added = EShapeCapability.NONE;
-		this._removed = EShapeCapability.NONE;
+		this.added = EShapeCapability.NONE;
+		this.removed = EShapeCapability.NONE;
 	}
 
-	contains(target: EShapeCapability): boolean | undefined {
-		if (this._removed & target) {
-			return false;
+	add(target: EShapeCapability): this {
+		this.removed &= ~target;
+		this.added |= target;
+		return this;
+	}
+
+	remove(target: EShapeCapability): this {
+		this.added &= ~target;
+		this.removed |= target;
+		return this;
+	}
+
+	clear(): this {
+		this.added = EShapeCapability.NONE;
+		this.removed = EShapeCapability.NONE;
+		return this;
+	}
+
+	set(added?: EShapeCapability, removed?: EShapeCapability): this {
+		if (added != null) {
+			this.added = added;
 		}
-		if (this._added & target) {
-			return true;
-		}
-	}
-
-	add(target: EShapeCapability): void {
-		this._removed &= ~target;
-		this._added |= target;
-	}
-
-	remove(target: EShapeCapability): void {
-		this._added &= ~target;
-		this._removed |= target;
-	}
-
-	copy(target: EShapeCapabilityContainer): this {
-		if (target instanceof EShapeCapabilityContainerImpl) {
-			this._added = target._added;
-			this._removed = target._removed;
+		if (removed != null) {
+			this.removed = removed;
 		}
 		return this;
 	}
 
-	serialize(manager: EShapeResourceManagerSerialization): number {
-		const added = this._added;
-		const removed = this._removed;
-		if (added !== EShapeCapability.NONE && removed !== EShapeCapability.NONE) {
-			return manager.addResource(JSON.stringify([added, removed]));
-		}
-		return -1;
-	}
-
-	deserialize(target: number, manager: EShapeResourceManagerDeserialization): void {
-		const resources = manager.resources;
-		if (0 <= target && target < resources.length) {
-			let parsed = manager.getCapability(target);
-			if (parsed == null) {
-				parsed = JSON.parse(resources[target]) as [number, number];
-				manager.setCapability(target, parsed);
-			}
-			this._added = parsed[0];
-			this._removed = parsed[1];
-		}
+	copy(target: EShapeCapabilityContainer): this {
+		this.added = target.added;
+		this.removed = target.removed;
+		return this;
 	}
 }

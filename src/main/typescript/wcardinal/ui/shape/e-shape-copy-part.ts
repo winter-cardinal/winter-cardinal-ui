@@ -12,6 +12,7 @@ const STATE = 32;
 const IMAGE = 64;
 const DATA = 128;
 const CONNECTOR = 256;
+const CAPABILITY = 512;
 
 export const EShapeCopyPart = {
 	NONE: 0,
@@ -26,7 +27,8 @@ export const EShapeCopyPart = {
 	/** @deprecated in favor of {@link DATA} */
 	TAG: DATA,
 	CONNECTOR,
-	ALL: TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE | IMAGE | DATA | CONNECTOR
+	CAPABILITY,
+	ALL: TRANSFORM | SIZE | STYLE | ACTION | POINTS | STATE | IMAGE | DATA | CONNECTOR | CAPABILITY
 } as const;
 
 export type EShapeCopyPart = number;

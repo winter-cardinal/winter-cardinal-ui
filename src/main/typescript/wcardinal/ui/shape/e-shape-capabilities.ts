@@ -20,20 +20,18 @@ export class EShapeCapabilities {
 
 	static contains(shape: EShape | null | undefined, target: EShapeCapability): boolean {
 		if (shape != null) {
+			let capability = this.get(shape.type);
+
 			const shapeCapability = shape.getCapability();
 			if (shapeCapability != null) {
-				const contains = shapeCapability.contains(target);
-				if (contains != null) {
-					return contains;
-				}
+				capability = (capability & ~shapeCapability.removed) | shapeCapability.added;
 			}
 
-			const typeCapability = this.get(shape.type);
-			if (typeCapability & target) {
+			if (capability & target) {
 				return true;
 			}
 
-			if (typeCapability & EShapeCapability.CHILDREN) {
+			if (capability & EShapeCapability.CHILDREN) {
 				const children = shape.children;
 				for (let i = 0, imax = children.length; i < imax; ++i) {
 					if (this.contains(children[i], target)) {

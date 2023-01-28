@@ -45,6 +45,7 @@ import { hitTestBBox } from "./hit-test-bbox";
 import { toGradientSerialized } from "./to-gradient-serialized";
 import { EShapeCapabilityContainer } from "../e-shape-capability-container";
 import { EShapeCapabilityContainerImpl } from "../e-shape-capability-container-impl";
+import { EShapeCapability } from "../e-shape-capability";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected static WORK_HIT_TEST_DATA?: EShapeBaseHitTestData;
@@ -426,8 +427,13 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const cursorId = cursor != null ? manager.addResource(cursor) : -1;
 		const title = this.title;
 		const titleId = title != null ? manager.addResource(title) : -1;
+		let capabilitiesAdded: EShapeCapability = EShapeCapability.NONE;
+		let capabilitiesRemoved: EShapeCapability = EShapeCapability.NONE;
 		const capability = this._capability;
-		const capabilityId = capability != null ? capability.serialize(manager) : -1;
+		if (capability != null) {
+			capabilitiesAdded = capability.added;
+			capabilitiesRemoved = capability.removed;
+		}
 		return [
 			this.type,
 			manager.addResource(this.id),
@@ -456,7 +462,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			shortcutId,
 			titleId,
 			this.uuid,
-			capabilityId
+			capabilitiesAdded,
+			capabilitiesRemoved
 		];
 	}
 
@@ -901,6 +908,17 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				const connector = this._connector;
 				if (connector) {
 					connector.clear();
+				}
+			}
+		}
+		if (part & EShapeCopyPart.CAPABILITY) {
+			const sourceCapability = source.getCapability();
+			if (sourceCapability != null) {
+				this.capability.copy(sourceCapability);
+			} else {
+				const capability = this._capability;
+				if (capability != null) {
+					capability.clear();
 				}
 			}
 		}

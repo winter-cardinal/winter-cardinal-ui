@@ -7,6 +7,7 @@ import { DDiagramSerializedItem } from "../../d-diagram-serialized";
 import { isString } from "../../util/is-string";
 import { deserializeActionValues } from "../action/deserialize-action-values";
 import { EShape } from "../e-shape";
+import { EShapeCapability } from "../e-shape-capability";
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { deserialize } from "./deserialize";
 import { deserializeGradient } from "./deserialize-gradient";
@@ -87,8 +88,19 @@ export const deserializeBase = <SHAPE extends EShape>(
 	const item26 = item[26];
 	result.uuid = item26 != null ? item26 : 0;
 	const item27 = item[27];
-	if (item27 != null && 0 <= item27) {
-		result.capability.deserialize(item27, manager);
+	const item28 = item[28];
+	if (item27 != null && EShapeCapability.NONE !== item27) {
+		if (item28 != null && EShapeCapability.NONE !== item28) {
+			const capability = result.capability;
+			capability.added = item27;
+			capability.removed = item28;
+		} else {
+			result.capability.added = item27;
+		}
+	} else {
+		if (item28 != null && EShapeCapability.NONE !== item28) {
+			result.capability.removed = item28;
+		}
 	}
 
 	const children = deserializeChildren(item[20], manager, result);
