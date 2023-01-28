@@ -50,6 +50,7 @@ export class EShapeResourceManagerDeserialization {
 	protected _margins: Map<number, [number, number]>;
 	protected _texts: Map<number, DDiagramSerializedText>;
 	protected _textOutlines: Map<number, DDiagramSerializedTextOutline>;
+	protected _capabilities: Map<number, [number, number]>;
 	protected _extensions: Map<number, unknown>;
 
 	constructor(
@@ -80,6 +81,7 @@ export class EShapeResourceManagerDeserialization {
 		this._margins = new Map<number, [number, number]>();
 		this._texts = new Map<number, DDiagramSerializedText>();
 		this._textOutlines = new Map<number, DDiagramSerializedTextOutline>();
+		this._capabilities = new Map<number, [number, number]>();
 		this._extensions = new Map<number, unknown>();
 	}
 
@@ -197,6 +199,14 @@ export class EShapeResourceManagerDeserialization {
 
 	setTextOutline(id: number, textOutline: DDiagramSerializedTextOutline): void {
 		this._textOutlines.set(id, textOutline);
+	}
+
+	getCapability(id: number): [number, number] | undefined {
+		return this._capabilities.get(id);
+	}
+
+	setCapability(id: number, capability: [number, number]): void {
+		this._capabilities.set(id, capability);
 	}
 
 	getExtension<T>(id: number): T | undefined {

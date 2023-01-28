@@ -24,6 +24,7 @@ import { EShapeTransform } from "./e-shape-transform";
 import { EShapeType } from "./e-shape-type";
 import { EShapeUploaded } from "./e-shape-uploaded";
 import { EShapeConnectorContainer } from "./e-shape-connector-container";
+import { EShapeCapabilityContainer } from "./e-shape-capability-container";
 
 export interface EShape extends utils.EventEmitter {
 	id: string; // Used to identity a shape by users
@@ -73,8 +74,12 @@ export interface EShape extends utils.EventEmitter {
 	// Working space for the renderer
 	uploaded?: EShapeUploaded;
 
-	//
+	// State
 	readonly state: EShapeStateSet;
+
+	// Capability
+	readonly capability: EShapeCapabilityContainer;
+	getCapability(): EShapeCapabilityContainer | undefined;
 
 	//
 	toDirty(): void;

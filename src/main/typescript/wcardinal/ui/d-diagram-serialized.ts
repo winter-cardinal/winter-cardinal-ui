@@ -384,6 +384,9 @@ export interface DDiagramSerializedItem {
 
 	/** UUID */
 	[26]: number;
+
+	/** Capability */
+	[27]: number;
 }
 
 /**

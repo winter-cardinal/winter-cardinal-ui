@@ -86,6 +86,10 @@ export const deserializeBase = <SHAPE extends EShape>(
 	result.title = 0 <= item25 ? resources[item25] : undefined;
 	const item26 = item[26];
 	result.uuid = item26 != null ? item26 : 0;
+	const item27 = item[27];
+	if (item27 != null && 0 <= item27) {
+		result.capability.deserialize(item27, manager);
+	}
 
 	const children = deserializeChildren(item[20], manager, result);
 	deserializeActionValues(item[17], manager, result);

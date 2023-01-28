@@ -43,6 +43,8 @@ import { EShapeUploaded } from "../e-shape-uploaded";
 import { EShapeBaseHitTestData } from "./e-shape-base-hit-test-data";
 import { hitTestBBox } from "./hit-test-bbox";
 import { toGradientSerialized } from "./to-gradient-serialized";
+import { EShapeCapabilityContainer } from "../e-shape-capability-container";
+import { EShapeCapabilityContainerImpl } from "../e-shape-capability-container-impl";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected static WORK_HIT_TEST_DATA?: EShapeBaseHitTestData;
@@ -87,6 +89,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected _boundsLocalTransformId: number;
 
 	protected _state?: EShapeStateSet;
+	protected _capability?: EShapeCapabilityContainer;
 
 	// Hierarchy
 	parent: EShapeContainer | EShape | null;
@@ -423,6 +426,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const cursorId = cursor != null ? manager.addResource(cursor) : -1;
 		const title = this.title;
 		const titleId = title != null ? manager.addResource(title) : -1;
+		const capability = this._capability;
+		const capabilityId = capability != null ? capability.serialize(manager) : -1;
 		return [
 			this.type,
 			manager.addResource(this.id),
@@ -450,7 +455,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this.serializeState(manager),
 			shortcutId,
 			titleId,
-			this.uuid
+			this.uuid,
+			capabilityId
 		];
 	}
 
@@ -760,6 +766,19 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this._state = result;
 		}
 		return result;
+	}
+
+	get capability(): EShapeCapabilityContainer {
+		let result = this._capability;
+		if (result == null) {
+			result = new EShapeCapabilityContainerImpl();
+			this._capability = result;
+		}
+		return result;
+	}
+
+	getCapability(): EShapeCapabilityContainer | undefined {
+		return this._capability;
 	}
 
 	focus(): this {
