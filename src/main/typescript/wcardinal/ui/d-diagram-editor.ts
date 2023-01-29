@@ -26,7 +26,7 @@ import {
 import { DDiagrams } from "./d-diagrams";
 import { DOnOptions } from "./d-on-options";
 import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
-import { ESnapper } from "./snapper/e-snapper";
+import { ESnapper, ESnapperOptions, EThemeSnapper } from "./snapper/e-snapper";
 
 /**
  * {@link DDiagramEditor} events.
@@ -127,12 +127,16 @@ export interface DDiagramEditorOptions<
 	on?: DDiagramEditorOnOptions<EMITTER>;
 	thumbnail?: DDiagramEditorThumbnailOptions;
 	mapping?: boolean;
+	snapper?: ESnapperOptions;
 }
 
 /**
  * {@link DDiagramEditor} theme.
  */
-export interface DThemeDiagramEditor extends DThemeDiagramBase, DThemeDiagramEditorThumbnail {}
+export interface DThemeDiagramEditor
+	extends DThemeDiagramBase,
+		DThemeDiagramEditorThumbnail,
+		EThemeSnapper {}
 
 export class DDiagramEditor<
 		THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
@@ -163,12 +167,9 @@ export class DDiagramEditor<
 			}
 		});
 
-		this._snapper = new ESnapper(this);
-		this._thumbnail = new DDiagramEditorThumbnail(
-			this._snapshot,
-			this.theme,
-			options?.thumbnail
-		);
+		const theme = this.theme;
+		this._snapper = new ESnapper(this, theme, options?.snapper);
+		this._thumbnail = new DDiagramEditorThumbnail(this._snapshot, theme, options?.thumbnail);
 	}
 
 	get thumbnail(): DDiagramEditorThumbnail {

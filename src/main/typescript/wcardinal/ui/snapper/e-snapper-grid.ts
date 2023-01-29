@@ -7,16 +7,27 @@ import { utils } from "pixi.js";
 import { DDiagramSerializedSnapGrid } from "../d-diagram-serialized";
 import { ESnapperResult } from "./e-snapper-result";
 
+export interface ESnapperGridOptions {
+	visible?: boolean;
+	enable?: boolean;
+	size?: number;
+}
+export interface EThemeSnapperGrid {
+	isSnapperGridVisible(): boolean;
+	isSnapperGridEnabled(): boolean;
+	getSnapperGridSize(): number;
+}
+
 export class ESnapperGrid extends utils.EventEmitter {
 	protected _isEnabled: boolean;
 	protected _size: number;
 	protected _isVisible: boolean;
 
-	constructor() {
+	constructor(theme: EThemeSnapperGrid, options?: ESnapperGridOptions) {
 		super();
-		this._isVisible = true;
-		this._isEnabled = true;
-		this._size = 10;
+		this._isVisible = options?.visible ?? theme.isSnapperGridVisible();
+		this._isEnabled = options?.enable ?? theme.isSnapperGridEnabled();
+		this._size = options?.size ?? theme.getSnapperGridSize();
 	}
 
 	get visible(): boolean {

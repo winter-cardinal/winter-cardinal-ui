@@ -11,16 +11,26 @@ import {
 import { ESnapperResult } from "./e-snapper-result";
 import { ESnapperTargetValue, ESnapperTargetValueType } from "./e-snapper-target-value";
 
+export interface ESnapperTargetOptions {
+	visible?: boolean;
+	enable?: boolean;
+}
+
+export interface EThemeSnapperTarget {
+	isSnapperTargetVisible(): boolean;
+	isSnapperTargetEnabled(): boolean;
+}
+
 export class ESnapperTarget extends utils.EventEmitter {
 	values: ESnapperTargetValue[];
 	protected _isVisible: boolean;
 	protected _isEnabled: boolean;
 
-	constructor() {
+	constructor(theme: EThemeSnapperTarget, options?: ESnapperTargetOptions) {
 		super();
 		this.values = [];
-		this._isVisible = true;
-		this._isEnabled = true;
+		this._isVisible = options?.visible ?? theme.isSnapperTargetVisible();
+		this._isEnabled = options?.enable ?? theme.isSnapperTargetEnabled();
 	}
 
 	get enable(): boolean {

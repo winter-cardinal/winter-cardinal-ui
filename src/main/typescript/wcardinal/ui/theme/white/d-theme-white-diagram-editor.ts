@@ -21,4 +21,28 @@ export class DThemeWhiteDiagramEditor
 	getThumbnailSize(): number | null {
 		return null;
 	}
+
+	isSnapperEnabled(): boolean {
+		return true;
+	}
+
+	isSnapperGridVisible(): boolean {
+		return true;
+	}
+
+	isSnapperGridEnabled(): boolean {
+		return true;
+	}
+
+	getSnapperGridSize(): number {
+		return 10;
+	}
+
+	isSnapperTargetVisible(): boolean {
+		return true;
+	}
+
+	isSnapperTargetEnabled(): boolean {
+		return true;
+	}
 }

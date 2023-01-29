@@ -6,10 +6,10 @@
 import { DisplayObject, IPoint, Matrix, Point, Rectangle, utils } from "pixi.js";
 import { DDiagramSerializedSnap } from "../d-diagram-serialized";
 import { isNaN } from "../util/is-nan";
-import { ESnapperGrid } from "./e-snapper-grid";
+import { ESnapperGrid, ESnapperGridOptions, EThemeSnapperGrid } from "./e-snapper-grid";
 import { ESnapperResult } from "./e-snapper-result";
 import { ESnapperResultScale } from "./e-snapper-result-scale";
-import { ESnapperTarget } from "./e-snapper-target";
+import { ESnapperTarget, ESnapperTargetOptions, EThemeSnapperTarget } from "./e-snapper-target";
 
 const EPSILON = 0.00001;
 
@@ -47,6 +47,16 @@ export interface ESnapperParent {
 	canvas: ESnapperParentCanvas | null;
 }
 
+export interface ESnapperOptions {
+	enable?: boolean;
+	grid?: ESnapperGridOptions;
+	target?: ESnapperTargetOptions;
+}
+
+export interface EThemeSnapper extends EThemeSnapperGrid, EThemeSnapperTarget {
+	isSnapperEnabled(): boolean;
+}
+
 export class ESnapper extends utils.EventEmitter {
 	protected _points: Point[];
 	protected _normals: Point[];
@@ -70,7 +80,7 @@ export class ESnapper extends utils.EventEmitter {
 
 	target: ESnapperTarget;
 
-	constructor(parent: ESnapperParent) {
+	constructor(parent: ESnapperParent, theme: EThemeSnapper, options?: ESnapperOptions) {
 		super();
 
 		this._points = [
@@ -98,15 +108,12 @@ export class ESnapper extends utils.EventEmitter {
 		this._workSnapRectangle = new Rectangle();
 		this._workSnap = new Point();
 
-		// Grid
-		this.grid = new ESnapperGrid();
+		this.grid = new ESnapperGrid(theme, options?.grid);
 
-		// Target
-		this.target = new ESnapperTarget();
+		this.target = new ESnapperTarget(theme, options?.target);
 
-		//
 		this._parent = parent;
-		this._isEnabled = true;
+		this._isEnabled = options?.enable ?? theme.isSnapperEnabled();
 	}
 
 	get enable(): boolean {
