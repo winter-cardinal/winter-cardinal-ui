@@ -23,7 +23,9 @@ export class EShapeCapabilities {
 			let capability = this.get(shape.type);
 			const shapeCapability = shape.getCapability();
 			if (shapeCapability != null) {
-				capability = (capability & ~shapeCapability.removed) | shapeCapability.added;
+				capability &= ~shapeCapability.removed;
+				capability |= shapeCapability.added;
+				capability &= ~shapeCapability.locked;
 			}
 			return (capability & target) === target;
 		}
