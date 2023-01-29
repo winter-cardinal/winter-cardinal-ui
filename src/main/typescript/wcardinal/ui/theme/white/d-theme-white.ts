@@ -9,7 +9,7 @@ import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 
 export class DThemeWhite implements DTheme {
 	protected static _classes: Record<string, new () => any> = {};
-	protected _instances: Record<string, DTheme>;
+	protected _instances: Record<string, unknown>;
 
 	constructor() {
 		this._instances = {};
@@ -30,6 +30,11 @@ export class DThemeWhite implements DTheme {
 		}
 	}
 
+	set<THEME>(type: string, instance: THEME): this {
+		this._instances[type] = instance;
+		return this;
+	}
+
 	getClass<THEME>(type: string): new () => THEME {
 		const result = DThemeWhite._classes[type];
 		if (result != null) {
@@ -37,6 +42,11 @@ export class DThemeWhite implements DTheme {
 		} else {
 			throw new Error(`No theme for the type '${type}'`);
 		}
+	}
+
+	setClass<THEME>(type: string, themeClass: new () => THEME): this {
+		DThemeWhite._classes[type] = themeClass;
+		return this;
 	}
 
 	getAtlas(): UtilSvgAtlasBuilder {

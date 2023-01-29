@@ -39,8 +39,16 @@ export class DThemes {
 		return this.getInstance().get<THEME>(type);
 	}
 
+	public static set<THEME>(type: string, instance: THEME): void {
+		this.getInstance().set<THEME>(type, instance);
+	}
+
 	public static getClass<THEME>(type: string): new () => THEME {
 		return this.getInstance().getClass<THEME>(type);
+	}
+
+	public static setClass<THEME>(type: string, themeClass: new () => THEME): void {
+		this.getInstance().setClass<THEME>(type, themeClass);
 	}
 
 	public static getAtlas(): UtilSvgAtlasBuilder {
