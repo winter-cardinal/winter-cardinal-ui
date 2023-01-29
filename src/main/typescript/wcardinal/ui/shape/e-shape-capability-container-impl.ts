@@ -4,10 +4,12 @@ import { EShapeCapabilityContainer } from "./e-shape-capability-container";
 export class EShapeCapabilityContainerImpl implements EShapeCapabilityContainer {
 	added: EShapeCapability;
 	removed: EShapeCapability;
+	locked: EShapeCapability;
 
 	constructor() {
 		this.added = EShapeCapability.NONE;
 		this.removed = EShapeCapability.NONE;
+		this.locked = EShapeCapability.NONE;
 	}
 
 	add(target: EShapeCapability): this {
@@ -22,18 +24,32 @@ export class EShapeCapabilityContainerImpl implements EShapeCapabilityContainer 
 		return this;
 	}
 
-	clear(): this {
-		this.added = EShapeCapability.NONE;
-		this.removed = EShapeCapability.NONE;
+	lock(target: EShapeCapability): this {
+		this.locked |= target;
 		return this;
 	}
 
-	set(added?: EShapeCapability, removed?: EShapeCapability): this {
+	unlock(target: EShapeCapability): this {
+		this.locked &= ~target;
+		return this;
+	}
+
+	clear(): this {
+		this.added = EShapeCapability.NONE;
+		this.removed = EShapeCapability.NONE;
+		this.locked = EShapeCapability.NONE;
+		return this;
+	}
+
+	set(added?: EShapeCapability, removed?: EShapeCapability, locked?: EShapeCapability): this {
 		if (added != null) {
 			this.added = added;
 		}
 		if (removed != null) {
 			this.removed = removed;
+		}
+		if (locked != null) {
+			this.locked = locked;
 		}
 		return this;
 	}
@@ -41,6 +57,7 @@ export class EShapeCapabilityContainerImpl implements EShapeCapabilityContainer 
 	copy(target: EShapeCapabilityContainer): this {
 		this.added = target.added;
 		this.removed = target.removed;
+		this.locked = target.locked;
 		return this;
 	}
 }

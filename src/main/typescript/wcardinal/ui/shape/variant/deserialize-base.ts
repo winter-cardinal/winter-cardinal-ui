@@ -89,18 +89,12 @@ export const deserializeBase = <SHAPE extends EShape>(
 	result.uuid = item26 != null ? item26 : 0;
 	const item27 = item[27];
 	const item28 = item[28];
-	if (item27 != null && EShapeCapability.NONE !== item27) {
-		if (item28 != null && EShapeCapability.NONE !== item28) {
-			const capability = result.capability;
-			capability.added = item27;
-			capability.removed = item28;
-		} else {
-			result.capability.added = item27;
-		}
-	} else {
-		if (item28 != null && EShapeCapability.NONE !== item28) {
-			result.capability.removed = item28;
-		}
+	const item29 = item[29];
+	const hasItem27 = item27 != null && item27 !== EShapeCapability.NONE;
+	const hasItem28 = item28 != null && item28 !== EShapeCapability.NONE;
+	const hasItem29 = item29 != null && item29 !== EShapeCapability.NONE;
+	if (hasItem27 || hasItem28 || hasItem29) {
+		result.capability.set(item27, item28, item29);
 	}
 
 	const children = deserializeChildren(item[20], manager, result);

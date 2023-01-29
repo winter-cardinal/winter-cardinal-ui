@@ -390,6 +390,9 @@ export interface DDiagramSerializedItem {
 
 	/** Removed capabilities */
 	[28]: number;
+
+	/** Locked capabilities */
+	[29]: number;
 }
 
 /**

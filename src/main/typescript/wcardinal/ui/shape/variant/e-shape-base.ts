@@ -429,10 +429,12 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		const titleId = title != null ? manager.addResource(title) : -1;
 		let capabilitiesAdded: EShapeCapability = EShapeCapability.NONE;
 		let capabilitiesRemoved: EShapeCapability = EShapeCapability.NONE;
+		let capabilitiesLocked: EShapeCapability = EShapeCapability.NONE;
 		const capability = this._capability;
 		if (capability != null) {
 			capabilitiesAdded = capability.added;
 			capabilitiesRemoved = capability.removed;
+			capabilitiesLocked = capability.locked;
 		}
 		return [
 			this.type,
@@ -463,7 +465,8 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			titleId,
 			this.uuid,
 			capabilitiesAdded,
-			capabilitiesRemoved
+			capabilitiesRemoved,
+			capabilitiesLocked
 		];
 	}
 

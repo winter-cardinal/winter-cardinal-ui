@@ -21,24 +21,11 @@ export class EShapeCapabilities {
 	static contains(shape: EShape | null | undefined, target: EShapeCapability): boolean {
 		if (shape != null) {
 			let capability = this.get(shape.type);
-
 			const shapeCapability = shape.getCapability();
 			if (shapeCapability != null) {
 				capability = (capability & ~shapeCapability.removed) | shapeCapability.added;
 			}
-
-			if (capability & target) {
-				return true;
-			}
-
-			if (capability & EShapeCapability.CHILDREN) {
-				const children = shape.children;
-				for (let i = 0, imax = children.length; i < imax; ++i) {
-					if (this.contains(children[i], target)) {
-						return true;
-					}
-				}
-			}
+			return (capability & target) === target;
 		}
 		return false;
 	}
