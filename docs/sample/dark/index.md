@@ -101,6 +101,7 @@
     * [Opening a date dialog](./diagram/open-date.html)
     * [Opening a datetime dialog](./diagram/open-datetime.html)
     * [Opening an integer input dialog](./diagram/open-integer.html)
+    * [Opening an integer input dialog (Step, Min, Max)](./diagram/open-integer-step-min-max.html)
     * [Opening a time dialog](./diagram/open-time.html)
     * [Shape gesture](./diagram/shape-gesture.html)
     * [Shape gesture (No drag)](./diagram/shape-gesture-no-drag.html)
@@ -251,9 +252,10 @@
     * [Line](./shape/line.html)
     * [Line (Curve)](./shape/line-curve.html)
     * [Line (Marker)](./shape/line-marker.html)
+    * [Text align](./shape/text-align.html)
     * [Text clipping](./shape/text-clipping.html)
     * [Text spacing](./shape/text-spacing.html)
-    * [Surrogate pair](./shape/text-surrogate-pair.html)
+    * [Text surrogate pair](./shape/text-surrogate-pair.html)
 * Slider
     * [Basics](./slider/basics.html)
 * Table
