@@ -293,12 +293,14 @@ export class DDiagramEditor<
 			if (controller) {
 				this.emit("deleting", this);
 				return controller.delete(serialized.id).then(
-					(): void => {
-						this.set(null);
-						this.emit("deleted", this);
+					() => {
+						const result = this.set(null);
+						this.emit("deleted", null, this);
+						return result;
 					},
-					(reason: string): void => {
+					(reason: string) => {
 						this.emit("deleted", reason, this);
+						return Promise.reject(reason);
 					}
 				);
 			} else {
@@ -308,11 +310,11 @@ export class DDiagramEditor<
 		}
 		this.set(null);
 		this.emit("deleted", null, this);
-		return Promise.resolve();
+		return Promise.resolve(null);
 	}
 
-	create(name: string, width: number, height: number): void {
-		this.set({
+	create(name: string, width: number, height: number): Promise<DDiagramCanvasEditor> {
+		return this.set({
 			version: DDiagramSerializedVersion,
 			id: undefined,
 			name,
@@ -355,17 +357,19 @@ export class DDiagramEditor<
 		this.emit("change", this);
 	}
 
-	open(id: number): Promise<unknown> {
+	open(id: number): Promise<DDiagramCanvasEditor> {
 		const controller = this._controller;
 		if (controller) {
 			this.emit("opening", this);
 			return controller.get(id).then(
-				(serialized: DDiagramSerializedSimple | DDiagramSerialized): void => {
-					this.set(DDiagrams.toSerialized(serialized));
+				(serialized: DDiagramSerializedSimple | DDiagramSerialized) => {
+					const result = this.set(DDiagrams.toSerialized(serialized));
 					this.emit("opened", null, this);
+					return result;
 				},
-				(reason: string): void => {
+				(reason: string) => {
 					this.emit("opened", reason, this);
+					return Promise.reject(reason);
 				}
 			);
 		}
@@ -373,8 +377,8 @@ export class DDiagramEditor<
 		return Promise.reject("no-controller");
 	}
 
-	close(): void {
-		this.set(null);
+	close(): Promise<unknown> {
+		return this.set(null);
 	}
 
 	isChanged(): boolean {
