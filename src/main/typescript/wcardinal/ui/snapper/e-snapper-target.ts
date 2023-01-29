@@ -24,13 +24,17 @@ export interface EThemeSnapperTarget {
 export class ESnapperTarget extends utils.EventEmitter {
 	values: ESnapperTargetValue[];
 	protected _isVisible: boolean;
+	protected _isVisibleDefault: boolean;
 	protected _isEnabled: boolean;
+	protected _isEnabledDefault: boolean;
 
 	constructor(theme: EThemeSnapperTarget, options?: ESnapperTargetOptions) {
 		super();
 		this.values = [];
-		this._isVisible = options?.visible ?? theme.isSnapperTargetVisible();
-		this._isEnabled = options?.enable ?? theme.isSnapperTargetEnabled();
+		this._isVisibleDefault = options?.visible ?? theme.isSnapperTargetVisible();
+		this._isVisible = this._isVisibleDefault;
+		this._isEnabledDefault = options?.enable ?? theme.isSnapperTargetEnabled();
+		this._isEnabled = this._isEnabledDefault;
 	}
 
 	get enable(): boolean {
@@ -112,8 +116,8 @@ export class ESnapperTarget extends utils.EventEmitter {
 	}
 
 	reset(): void {
-		this._isEnabled = true;
-		this._isVisible = true;
+		this._isEnabled = this._isEnabledDefault;
+		this._isVisible = this._isVisibleDefault;
 		this.values.length = 0;
 		this.emit("change", this);
 	}

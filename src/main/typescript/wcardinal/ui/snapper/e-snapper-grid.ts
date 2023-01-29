@@ -20,14 +20,20 @@ export interface EThemeSnapperGrid {
 
 export class ESnapperGrid extends utils.EventEmitter {
 	protected _isEnabled: boolean;
+	protected _isEnabledDefault: boolean;
 	protected _size: number;
+	protected _sizeDefault: number;
 	protected _isVisible: boolean;
+	protected _isVisibleDefault: boolean;
 
 	constructor(theme: EThemeSnapperGrid, options?: ESnapperGridOptions) {
 		super();
-		this._isVisible = options?.visible ?? theme.isSnapperGridVisible();
-		this._isEnabled = options?.enable ?? theme.isSnapperGridEnabled();
-		this._size = options?.size ?? theme.getSnapperGridSize();
+		this._isVisibleDefault = options?.visible ?? theme.isSnapperGridVisible();
+		this._isVisible = this._isVisibleDefault;
+		this._isEnabledDefault = options?.enable ?? theme.isSnapperGridEnabled();
+		this._isEnabled = this._isEnabledDefault;
+		this._sizeDefault = options?.size ?? theme.getSnapperGridSize();
+		this._size = this._sizeDefault;
 	}
 
 	get visible(): boolean {
@@ -71,8 +77,9 @@ export class ESnapperGrid extends utils.EventEmitter {
 	}
 
 	reset(): void {
-		this._isEnabled = true;
-		this._size = 10;
+		this._isVisible = this._isVisibleDefault;
+		this._isEnabled = this._isEnabledDefault;
+		this._size = this._sizeDefault;
 		this.emit("change", this);
 	}
 

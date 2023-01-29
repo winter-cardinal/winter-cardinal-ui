@@ -75,6 +75,7 @@ export class ESnapper extends utils.EventEmitter {
 	protected _parent: ESnapperParent;
 
 	protected _isEnabled: boolean;
+	protected _isEnabledDefault: boolean;
 
 	grid: ESnapperGrid;
 
@@ -113,7 +114,8 @@ export class ESnapper extends utils.EventEmitter {
 		this.target = new ESnapperTarget(theme, options?.target);
 
 		this._parent = parent;
-		this._isEnabled = options?.enable ?? theme.isSnapperEnabled();
+		this._isEnabledDefault = options?.enable ?? theme.isSnapperEnabled();
+		this._isEnabled = this._isEnabledDefault;
 	}
 
 	get enable(): boolean {
@@ -591,7 +593,7 @@ export class ESnapper extends utils.EventEmitter {
 	}
 
 	reset(): void {
-		this.enable = true;
+		this.enable = this._isEnabledDefault;
 		this.target.reset();
 		this.grid.reset();
 	}
