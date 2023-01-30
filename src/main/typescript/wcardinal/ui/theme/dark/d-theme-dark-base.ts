@@ -24,9 +24,11 @@ const newShadow = (id: string, radius: number, opacity: number): void => {
 		`<g>` +
 			`<defs>` +
 				`<radialGradient id="${id}_filter">` +
-					`<stop offset="25%" stop-color="black" stop-opacity="${opacity * Math.exp(-1)}" />` +
-					`<stop offset="50%" stop-color="black" stop-opacity="${opacity * Math.exp(-2)}" />` +
-					`<stop offset="75%" stop-color="black" stop-opacity="${opacity * Math.exp(-3)}" />` +
+					`<stop offset="0%" stop-color="black" stop-opacity="${opacity}" />` +
+					`<stop offset="20%" stop-color="black" stop-opacity="${opacity}" />` +
+					`<stop offset="40%" stop-color="black" stop-opacity="${opacity * 0.368}" />` +
+					`<stop offset="60%" stop-color="black" stop-opacity="${opacity * 0.135}" />` +
+					`<stop offset="80%" stop-color="black" stop-opacity="${opacity * 0.050}" />` +
 					`<stop offset="100%" stop-color="black" stop-opacity="0" />` +
 				`</radialGradient>` +
 			`</defs>` +
@@ -35,8 +37,8 @@ const newShadow = (id: string, radius: number, opacity: number): void => {
 	);
 	/* eslint-enable prettier/prettier */
 };
-newShadow("shadow_weak", 12, 1);
-newShadow("shadow", 24, 1);
+newShadow("shadow_weak", 12, 0.36);
+newShadow("shadow", 24, 0.36);
 
 /* eslint-disable prettier/prettier */
 DThemeDarkAtlas.add("background", 16, 16,

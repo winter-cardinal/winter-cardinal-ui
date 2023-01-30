@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { NineSlicePlane, Texture } from "pixi.js";
+import { NineSlicePlane, Renderer, Texture } from "pixi.js";
 import { DBase } from "./d-base";
 import { DShadow } from "./d-shadow";
 
@@ -40,5 +40,14 @@ export class DShadowImpl extends NineSlicePlane implements DShadow {
 		this.y = -sy + this._offsetY;
 		this.width = sx + width + sx;
 		this.height = sy + height + sy;
+	}
+
+	render(renderer: Renderer): void {
+		const parent = this.parent;
+		if (parent) {
+			const alpha = parent.alpha;
+			this.alpha = alpha * alpha * alpha;
+		}
+		super.render(renderer);
 	}
 }
