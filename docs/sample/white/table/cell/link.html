@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.268.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.268.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.269.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.269.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -47,11 +47,34 @@
 						return "../../";
 					}
 				}
+			}, {
+				label: "Partially editable",
+				type: "LINK",
+				editable: function (row, columnIndex) {
+					return row[0] === "Apple";
+				},
+				state: function (row, columnIndex, state) {
+					state.set("available", row[columnIndex] !== "Pineapple");
+				},
+				link: {
+					url: function (row, rowIndex, columnIndex, cell) {
+						return "../../";
+					}
+				},
+				body: {
+					image: {
+						source: function (state) {
+							if (!state.is("available")) {
+								return null;
+							}
+						}
+					}
+				}
 			}],
 			data: [
-				[ "Apple", "Apple" ],
-				[ "Orange", "Orange" ],
-				[ "Pineapple", "Pineapple" ]
+				[ "Apple", "Apple", "Apple" ],
+				[ "Orange", "Orange", "Orange" ],
+				[ "Pineapple", "Pineapple", "Pineapple" ]
 			]
 		});
 	}());

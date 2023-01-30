@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.268.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.268.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.269.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.269.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -38,16 +38,20 @@
 				label: "Index",
 				type: "INDEX"
 			}, {
-				label: "Text",
+				label: "Index by formatter",
 				type: "TEXT",
+				align: "CENTER",
 				getter: function( row ) {
-					return row[ 0 ];
+					return row;
+				},
+				formatter: function(cell, emitter) {
+					return String(emitter.rowIndex + 1);
 				}
 			}],
 			data: [
-				[ "Apple" ],
-				[ "Orange" ],
-				[ "Pineapple" ]
+				[ "Apple", "Apple" ],
+				[ "Orange", "Orange" ],
+				[ "Pineapple", "Pineapple" ]
 			]
 		});
 	}());
