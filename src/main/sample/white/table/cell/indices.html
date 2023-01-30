@@ -38,16 +38,20 @@
 				label: "Index",
 				type: "INDEX"
 			}, {
-				label: "Text",
+				label: "Index by formatter",
 				type: "TEXT",
+				align: "CENTER",
 				getter: function( row ) {
-					return row[ 0 ];
+					return row;
+				},
+				formatter: function(cell, emitter) {
+					return String(emitter.rowIndex + 1);
 				}
 			}],
 			data: [
-				[ "Apple" ],
-				[ "Orange" ],
-				[ "Pineapple" ]
+				[ "Apple", "Apple" ],
+				[ "Orange", "Orange" ],
+				[ "Pineapple", "Pineapple" ]
 			]
 		});
 	}());
