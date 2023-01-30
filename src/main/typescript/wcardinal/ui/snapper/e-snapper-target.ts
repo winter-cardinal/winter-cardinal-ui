@@ -17,8 +17,8 @@ export interface ESnapperTargetOptions {
 }
 
 export interface EThemeSnapperTarget {
-	isSnapperTargetVisible(): boolean;
-	isSnapperTargetEnabled(): boolean;
+	isSnapTargetVisible(): boolean;
+	isSnapTargetEnabled(): boolean;
 }
 
 export class ESnapperTarget extends utils.EventEmitter {
@@ -31,9 +31,9 @@ export class ESnapperTarget extends utils.EventEmitter {
 	constructor(theme: EThemeSnapperTarget, options?: ESnapperTargetOptions) {
 		super();
 		this.values = [];
-		this._isVisibleDefault = options?.visible ?? theme.isSnapperTargetVisible();
+		this._isVisibleDefault = options?.visible ?? theme.isSnapTargetVisible();
 		this._isVisible = this._isVisibleDefault;
-		this._isEnabledDefault = options?.enable ?? theme.isSnapperTargetEnabled();
+		this._isEnabledDefault = options?.enable ?? theme.isSnapTargetEnabled();
 		this._isEnabled = this._isEnabledDefault;
 	}
 

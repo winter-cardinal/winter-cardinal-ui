@@ -13,9 +13,9 @@ export interface ESnapperGridOptions {
 	size?: number;
 }
 export interface EThemeSnapperGrid {
-	isSnapperGridVisible(): boolean;
-	isSnapperGridEnabled(): boolean;
-	getSnapperGridSize(): number;
+	isSnapGridVisible(): boolean;
+	isSnapGridEnabled(): boolean;
+	getSnapGridSize(): number;
 }
 
 export class ESnapperGrid extends utils.EventEmitter {
@@ -28,11 +28,11 @@ export class ESnapperGrid extends utils.EventEmitter {
 
 	constructor(theme: EThemeSnapperGrid, options?: ESnapperGridOptions) {
 		super();
-		this._isVisibleDefault = options?.visible ?? theme.isSnapperGridVisible();
+		this._isVisibleDefault = options?.visible ?? theme.isSnapGridVisible();
 		this._isVisible = this._isVisibleDefault;
-		this._isEnabledDefault = options?.enable ?? theme.isSnapperGridEnabled();
+		this._isEnabledDefault = options?.enable ?? theme.isSnapGridEnabled();
 		this._isEnabled = this._isEnabledDefault;
-		this._sizeDefault = options?.size ?? theme.getSnapperGridSize();
+		this._sizeDefault = options?.size ?? theme.getSnapGridSize();
 		this._size = this._sizeDefault;
 	}
 

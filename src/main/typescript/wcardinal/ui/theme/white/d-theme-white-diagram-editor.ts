@@ -22,27 +22,27 @@ export class DThemeWhiteDiagramEditor
 		return null;
 	}
 
-	isSnapperEnabled(): boolean {
+	isSnapEnabled(): boolean {
 		return true;
 	}
 
-	isSnapperGridVisible(): boolean {
+	isSnapGridVisible(): boolean {
 		return true;
 	}
 
-	isSnapperGridEnabled(): boolean {
+	isSnapGridEnabled(): boolean {
 		return true;
 	}
 
-	getSnapperGridSize(): number {
+	getSnapGridSize(): number {
 		return 10;
 	}
 
-	isSnapperTargetVisible(): boolean {
+	isSnapTargetVisible(): boolean {
 		return true;
 	}
 
-	isSnapperTargetEnabled(): boolean {
+	isSnapTargetEnabled(): boolean {
 		return true;
 	}
 }

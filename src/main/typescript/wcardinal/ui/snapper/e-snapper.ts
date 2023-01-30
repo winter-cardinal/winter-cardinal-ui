@@ -54,7 +54,7 @@ export interface ESnapperOptions {
 }
 
 export interface EThemeSnapper extends EThemeSnapperGrid, EThemeSnapperTarget {
-	isSnapperEnabled(): boolean;
+	isSnapEnabled(): boolean;
 }
 
 export class ESnapper extends utils.EventEmitter {
@@ -114,7 +114,7 @@ export class ESnapper extends utils.EventEmitter {
 		this.target = new ESnapperTarget(theme, options?.target);
 
 		this._parent = parent;
-		this._isEnabledDefault = options?.enable ?? theme.isSnapperEnabled();
+		this._isEnabledDefault = options?.enable ?? theme.isSnapEnabled();
 		this._isEnabled = this._isEnabledDefault;
 	}
 
