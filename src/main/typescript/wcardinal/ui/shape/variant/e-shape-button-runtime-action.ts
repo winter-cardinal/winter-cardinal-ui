@@ -4,12 +4,13 @@
  */
 
 import { UtilRgb } from "../../util/util-rgb";
-import { EShapeActionRuntime } from "../action/e-shape-action-runtime";
+import { EShapeActionRuntimeBase } from "../action/e-shape-action-runtime-base";
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeStateSet } from "../e-shape-state-set";
 
-export class EShapeButtonRuntimeAction extends EShapeActionRuntime {
+export class EShapeButtonRuntimeAction extends EShapeActionRuntimeBase {
 	protected readonly _fillColor: number;
 	protected readonly _fillColorDisabled: number;
 	protected readonly _fillColorPressed: number;

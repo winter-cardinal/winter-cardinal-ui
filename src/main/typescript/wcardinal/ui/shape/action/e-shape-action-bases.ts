@@ -5,7 +5,8 @@
 
 import { EShape } from "../e-shape";
 import { EShapeFillLike } from "../e-shape-fill";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeStrokeLike } from "../e-shape-stroke";
 import { EShapeTextLike } from "../e-shape-text";
 import { EShapeTextOutlineLike } from "../e-shape-text-outline";

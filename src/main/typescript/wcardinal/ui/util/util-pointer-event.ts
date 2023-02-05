@@ -64,6 +64,22 @@ export class UtilPointerEvent {
 		return "pointercancel";
 	}
 
+	static get righttap(): string {
+		return "rightclick";
+	}
+
+	static get rightdown(): string {
+		return "rightdown";
+	}
+
+	static get rightup(): string {
+		return "rightup";
+	}
+
+	static get rightupoutside(): string {
+		return "rightupoutside";
+	}
+
 	static toGlobal(
 		e: MouseEvent | TouchEvent,
 		interactionManager: interaction.InteractionManager,

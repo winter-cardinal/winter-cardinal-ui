@@ -152,7 +152,16 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 		this.onTransformChange_();
 		this.updateUploaded();
-		this._connector?.fit(true);
+
+		const connector = this._connector;
+		if (connector != null) {
+			connector.fit(true);
+		}
+
+		const runtime = this.runtime;
+		if (runtime != null) {
+			runtime.onResize(this);
+		}
 	}
 
 	onTransformChange(): void {
@@ -162,7 +171,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	onParentTransformChange(): void {
 		this.updateUploaded();
-		this._connector?.fit(true);
+		const connector = this._connector;
+		if (connector != null) {
+			connector.fit(true);
+		}
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
 			children[i].onParentTransformChange();
@@ -311,7 +323,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	toDirty(): void {
-		this.parent?.toDirty();
+		const parent = this.parent;
+		if (parent != null) {
+			parent.toDirty();
+		}
 	}
 
 	// Hierarchy
@@ -756,7 +771,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 
 	//
 	protected onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
-		this.runtime?.onStateChange(this, newState, oldState);
+		const runtime = this.runtime;
+		if (runtime != null) {
+			runtime.onStateChange(this, newState, oldState);
+		}
 
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {

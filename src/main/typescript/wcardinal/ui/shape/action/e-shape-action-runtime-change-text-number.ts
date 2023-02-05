@@ -6,7 +6,8 @@
 import { NumberFormatter } from "../../util/number-formatter";
 import { NumberFormatters } from "../../util/number-formatters";
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";

@@ -4,7 +4,8 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { toSizeNormalized } from "../variant/to-size-normalized";
 import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionRuntimeTransformResize } from "./e-shape-action-runtime-transform-resize";
@@ -15,10 +16,9 @@ export class EShapeActionRuntimeTransformResizeSizeAbsolute extends EShapeAction
 	protected originY: number;
 
 	constructor(value: EShapeActionValueTransformResize) {
-		super(value, EShapeRuntimeReset.SIZE);
+		super(value, EShapeRuntimeReset.SIZE | EShapeRuntimeReset.POSITION);
 		this.originX = value.originX;
 		this.originY = value.originY;
-		this.reset |= EShapeRuntimeReset.POSITION;
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {
@@ -27,8 +27,8 @@ export class EShapeActionRuntimeTransformResizeSizeAbsolute extends EShapeAction
 			const size = shape.size;
 			const writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
 			const writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
-			const oldSizeX = writtenWidth ? size.x : runtime.size.x;
-			const oldSizeY = writtenHeight ? size.y : runtime.size.y;
+			const oldSizeX = writtenWidth ? size.x : runtime.sizeX;
+			const oldSizeY = writtenHeight ? size.y : runtime.sizeY;
 			size.set(sizeAbsolute, sizeAbsolute);
 			runtime.written |= EShapeRuntimeReset.SIZE;
 			this.adjustPosition(

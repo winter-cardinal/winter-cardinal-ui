@@ -4,7 +4,8 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
@@ -32,8 +33,8 @@ export class EShapeActionRuntimeTransformRotate extends EShapeActionRuntimeCondi
 	): void {
 		const writtenWidth = !!(runtime.written & EShapeRuntimeReset.WIDTH);
 		const writtenHeight = !!(runtime.written & EShapeRuntimeReset.HEIGHT);
-		const dx = (-0.5 + originX) * (writtenWidth ? shape.size.x : runtime.size.x);
-		const dy = (-0.5 + originY) * (writtenHeight ? shape.size.y : runtime.size.y);
+		const dx = (-0.5 + originX) * (writtenWidth ? shape.size.x : runtime.sizeX);
+		const dy = (-0.5 + originY) * (writtenHeight ? shape.size.y : runtime.sizeY);
 		const s = Math.sin(oldRotation) - Math.sin(newRotation);
 		const c = Math.cos(oldRotation) - Math.cos(newRotation);
 		const position = shape.transform.position;

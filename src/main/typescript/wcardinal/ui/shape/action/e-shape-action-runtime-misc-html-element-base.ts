@@ -19,19 +19,19 @@ import { EShape } from "../e-shape";
 import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
-import { EShapeActionRuntime } from "./e-shape-action-runtime";
-import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
+import { EShapeActions } from "./e-shape-actions";
 import { EShapeActionValueMisc } from "./e-shape-action-value-misc";
 import { UtilHtmlElementClipperExRects } from "../../util/util-html-element-clipper-ex-rects";
 import { EShapeContainer } from "../e-shape-container";
 import { DDiagramLayer } from "../../d-diagram-layer";
 import { isShapeClipperExLoaded } from "../load/load-shape-clipper-ex";
 import { EShapeActionEnvironment } from "./e-shape-action-environment";
+import { EShapeActionRuntimeBase } from "./e-shape-action-runtime-base";
 
 export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 	ELEMENT extends HTMLElement = HTMLElement,
 	UTIL extends UtilHtmlElement<ELEMENT> = UtilHtmlElement<ELEMENT>
-> extends EShapeActionRuntime {
+> extends EShapeActionRuntimeBase {
 	protected static WORK?: Point;
 	protected readonly condition: EShapeActionExpression<string | null>;
 	protected utils: Map<EShape, UTIL>;
@@ -183,7 +183,7 @@ export abstract class EShapeActionRuntimeMiscHtmlElementBase<
 		point: Point,
 		result: Rectangle
 	): Rectangle | null {
-		const container = EShapeActionRuntimes.toContainer(shape);
+		const container = EShapeActions.toContainer(shape);
 		return UtilHtmlElement.getClipperRect(container, shape, resolution, point, result);
 	}
 

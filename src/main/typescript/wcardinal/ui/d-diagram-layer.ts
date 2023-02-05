@@ -16,7 +16,7 @@ import { EShapeLayerState } from "./shape/e-shape-layer-state";
 import { EShapeResourceManagerDeserialization } from "./shape/e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerDeserializationMode } from "./shape/e-shape-resource-manager-deserialization-mode";
 import { EShapeResourceManagerSerialization } from "./shape/e-shape-resource-manager-serialization";
-import { EShapeRuntime } from "./shape/e-shape-runtime";
+import { EShapeRuntimeImpl } from "./shape/e-shape-runtime-impl";
 import { EShapeRectanglePivoted } from "./shape/variant/e-shape-rectangle-pivoted";
 import { isString } from "./util/is-string";
 
@@ -75,7 +75,7 @@ export class DDiagramLayer extends EShapeContainer {
 		const isDraggable = shape.state.is(EShapeLayerState.DRAGGABLE);
 		const isPinchable = shape.state.is(EShapeLayerState.PINCHABLE);
 		if (isDraggable || isPinchable) {
-			const runtime = new EShapeRuntime(shape);
+			const runtime = new EShapeRuntimeImpl(shape);
 			shape.runtime = runtime;
 			const gestureType =
 				(isDraggable

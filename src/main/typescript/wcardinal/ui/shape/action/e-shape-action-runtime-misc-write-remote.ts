@@ -5,10 +5,10 @@
 
 import { EShape } from "../e-shape";
 import { EShapeActionRuntimeMiscWrite } from "./e-shape-action-runtime-misc-write";
-import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
+import { EShapeActions } from "./e-shape-actions";
 
 export class EShapeActionRuntimeMiscWriteRemote extends EShapeActionRuntimeMiscWrite {
 	protected write(shape: EShape, target: string, value: unknown, time: number): void {
-		EShapeActionRuntimes.writeRemote(shape, target, value);
+		EShapeActions.writeRemote(shape, target, value);
 	}
 }

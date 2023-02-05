@@ -4,7 +4,8 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionRuntimeTransformMove } from "./e-shape-action-runtime-transform-move";
 import { EShapeActionValueTransformMove } from "./e-shape-action-value-transform-move";

@@ -6,7 +6,8 @@
 import { UtilAlpha } from "../../util/util-alpha";
 import { UtilRgb } from "../../util/util-rgb";
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActionValue } from "./e-shape-action-value";

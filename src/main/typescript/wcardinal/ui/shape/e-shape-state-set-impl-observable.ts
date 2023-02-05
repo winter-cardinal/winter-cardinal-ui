@@ -45,6 +45,26 @@ export class EShapeStateSetImplObservable
 		return this.under(EShapeState.CLICKED);
 	}
 
+	get isDblClicked(): boolean {
+		return this.is(EShapeState.DBL_CLICKED);
+	}
+
+	set isDblClicked(isDblClicked: boolean) {
+		this.set(EShapeState.DBL_CLICKED, isDblClicked);
+	}
+
+	get inDblClicked(): boolean {
+		return this.in(EShapeState.DBL_CLICKED);
+	}
+
+	get onDblClicked(): boolean {
+		return this.on(EShapeState.DBL_CLICKED);
+	}
+
+	get underDblClicked(): boolean {
+		return this.under(EShapeState.DBL_CLICKED);
+	}
+
 	get isDown(): boolean {
 		return this.is(EShapeState.DOWN);
 	}
@@ -83,6 +103,126 @@ export class EShapeStateSetImplObservable
 
 	get underUp(): boolean {
 		return this.under(EShapeState.UP);
+	}
+
+	get isUpOutside(): boolean {
+		return this.is(EShapeState.UP_OUTSIDE);
+	}
+
+	set isUpOutside(isUpOutside: boolean) {
+		this.set(EShapeState.UP_OUTSIDE, isUpOutside);
+	}
+
+	get inUpOutside(): boolean {
+		return this.in(EShapeState.UP_OUTSIDE);
+	}
+
+	get onUpOutside(): boolean {
+		return this.on(EShapeState.UP_OUTSIDE);
+	}
+
+	get underUpOutside(): boolean {
+		return this.under(EShapeState.UP_OUTSIDE);
+	}
+
+	get isRightClicked(): boolean {
+		return this.is(EShapeState.RIGHT_CLICKED);
+	}
+
+	set isRightClicked(isRightClicked: boolean) {
+		this.set(EShapeState.RIGHT_CLICKED, isRightClicked);
+	}
+
+	get inRightClicked(): boolean {
+		return this.in(EShapeState.RIGHT_CLICKED);
+	}
+
+	get onRightClicked(): boolean {
+		return this.on(EShapeState.RIGHT_CLICKED);
+	}
+
+	get underRightClicked(): boolean {
+		return this.under(EShapeState.RIGHT_CLICKED);
+	}
+
+	get isRightDown(): boolean {
+		return this.is(EShapeState.RIGHT_DOWN);
+	}
+
+	set isRightDown(isRightDown: boolean) {
+		this.set(EShapeState.RIGHT_DOWN, isRightDown);
+	}
+
+	get inRightDown(): boolean {
+		return this.in(EShapeState.RIGHT_DOWN);
+	}
+
+	get onRightDown(): boolean {
+		return this.on(EShapeState.RIGHT_DOWN);
+	}
+
+	get underRightDown(): boolean {
+		return this.under(EShapeState.RIGHT_DOWN);
+	}
+
+	get isRightUp(): boolean {
+		return this.is(EShapeState.RIGHT_UP);
+	}
+
+	set isRightUp(isRightUp: boolean) {
+		this.set(EShapeState.RIGHT_UP, isRightUp);
+	}
+
+	get inRightUp(): boolean {
+		return this.in(EShapeState.RIGHT_UP);
+	}
+
+	get onRightUp(): boolean {
+		return this.on(EShapeState.RIGHT_UP);
+	}
+
+	get underRightUp(): boolean {
+		return this.under(EShapeState.RIGHT_UP);
+	}
+
+	get isRightUpOutside(): boolean {
+		return this.is(EShapeState.RIGHT_UP_OUTSIDE);
+	}
+
+	set isRightUpOutside(isRightUpOutside: boolean) {
+		this.set(EShapeState.RIGHT_UP_OUTSIDE, isRightUpOutside);
+	}
+
+	get inRightUpOutside(): boolean {
+		return this.in(EShapeState.RIGHT_UP_OUTSIDE);
+	}
+
+	get onRightUpOutside(): boolean {
+		return this.on(EShapeState.RIGHT_UP_OUTSIDE);
+	}
+
+	get underRightUpOutside(): boolean {
+		return this.under(EShapeState.RIGHT_UP_OUTSIDE);
+	}
+
+	get isRightPressed(): boolean {
+		return this.is(EShapeState.RIGHT_PRESSED);
+	}
+
+	set isRightPressed(isRightPressed: boolean) {
+		this.set(EShapeState.RIGHT_PRESSED, isRightPressed);
+	}
+
+	get inRightPressed(): boolean {
+		return this.in(EShapeState.RIGHT_PRESSED);
+	}
+
+	get onRightPressed(): boolean {
+		return this.on(EShapeState.RIGHT_PRESSED);
+	}
+
+	get underRightPressed(): boolean {
+		return this.under(EShapeState.RIGHT_PRESSED);
 	}
 
 	get isActivated(): boolean {

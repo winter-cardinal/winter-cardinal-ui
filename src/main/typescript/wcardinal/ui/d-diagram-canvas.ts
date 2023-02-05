@@ -32,6 +32,8 @@ import { EShapeDataValueScope } from "./shape/e-shape-data-value-scope";
 import { EShapeEmbedded } from "./shape/variant/e-shape-embedded";
 import { EShapeDataValueExtensions } from "./shape/e-shape-data-value-extensions";
 import { EShapeActionEnvironment } from "./shape/action/e-shape-action-environment";
+import { EShapeRuntimeImpl } from "./shape/e-shape-runtime-impl";
+import { EShapeActionRuntimes } from "./shape/action/e-shape-action-runtimes";
 
 export interface DDiagramCanvasOptions<THEME extends DThemeDiagramCanvas = DThemeDiagramCanvas>
 	extends DDiagramCanvasBaseOptions<THEME> {}
@@ -183,16 +185,14 @@ export class DDiagramCanvas<
 			);
 
 			// Runtime
-			const runtime = new (EShapeRuntimes[shape.type] || EShapeRuntime)(shape);
+			const runtime = new (EShapeRuntimes[shape.type] || EShapeRuntimeImpl)(shape);
 			shape.runtime = runtime;
 
 			// Action
 			this.initActions(shape, runtime, actionValueToRuntime);
 
-			// Actionables
-			if (runtime.isActionable()) {
-				actionables.push(shape);
-			}
+			// Init the runtime
+			runtime.initialize(shape);
 
 			// Shortcut
 			const shortcut = shape.shortcut;
@@ -202,8 +202,10 @@ export class DDiagramCanvas<
 				});
 			}
 
-			// Init the runtime
-			runtime.initialize(shape);
+			// Actionables
+			if (runtime.isActionable()) {
+				actionables.push(shape);
+			}
 
 			// Children
 			const children = shape.children;
@@ -385,6 +387,14 @@ export class DDiagramCanvas<
 	): void {
 		const values = shape.action.values;
 		const runtimes = shapeRuntime.actions;
+		const typeRuntimes = EShapeActionRuntimes.get(shape.type);
+		if (typeRuntimes != null) {
+			for (let i = 0, imax = typeRuntimes.length; i < imax; ++i) {
+				const typeRuntime = typeRuntimes[i];
+				runtimes.push(typeRuntime);
+				shapeRuntime.reset |= typeRuntime.reset;
+			}
+		}
 		for (let i = 0, imax = values.length; i < imax; ++i) {
 			const value = values[i];
 			let runtime = valueToRuntime.get(value);
@@ -737,6 +747,97 @@ export class DDiagramCanvas<
 					break;
 				}
 			}
+			return true;
+		}
+		return false;
+	}
+
+	onShapeRightClick(e: interaction.InteractionEvent): boolean {
+		const found = this.hitTestInteractives(e.data.global);
+		if (found && this._downed === found) {
+			let target = found;
+			while (true) {
+				const runtime = target.runtime;
+				if (runtime) {
+					runtime.onRightClick(target, e);
+				}
+				const parent = target.parent;
+				if (parent instanceof EShapeBase) {
+					target = parent;
+				} else {
+					break;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	onShapeRightDown(e: interaction.InteractionEvent): boolean {
+		const found = this.hitTestInteractives(e.data.global);
+		this._downed = found;
+		if (found) {
+			this._downeds.add(found);
+			let target = found;
+			while (true) {
+				const runtime = target.runtime;
+				if (runtime) {
+					runtime.onRightDown(target, e);
+				}
+				const parent = target.parent;
+				if (parent instanceof EShapeBase) {
+					target = parent;
+				} else {
+					break;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	onShapeRightUp(e: interaction.InteractionEvent): boolean {
+		const downeds = this._downeds;
+		const found = this.hitTestInteractives(e.data.global);
+		if (found) {
+			downeds.delete(found);
+			let target = found;
+			while (true) {
+				const runtime = target.runtime;
+				if (runtime) {
+					runtime.onRightUp(target, e);
+				}
+				const parent = target.parent;
+				if (parent instanceof EShapeBase) {
+					target = parent;
+				} else {
+					break;
+				}
+			}
+		}
+		this.onShapeRightCancel(e);
+		return found != null;
+	}
+
+	onShapeRightCancel(e: interaction.InteractionEvent): boolean {
+		const downeds = this._downeds;
+		if (0 < downeds.size) {
+			downeds.forEach((downed: EShape): void => {
+				let target = downed;
+				while (true) {
+					const runtime = target.runtime;
+					if (runtime) {
+						runtime.onRightUpOutside(target, e);
+					}
+					const parent = target.parent;
+					if (parent instanceof EShapeBase) {
+						target = parent;
+					} else {
+						break;
+					}
+				}
+			});
+			downeds.clear();
 			return true;
 		}
 		return false;

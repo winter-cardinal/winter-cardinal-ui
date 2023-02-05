@@ -4,7 +4,7 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeActionRuntimes } from "./e-shape-action-runtimes";
+import { EShapeActions } from "./e-shape-actions";
 import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
 
 export class EShapeActionValueOnInputActions {
@@ -18,17 +18,17 @@ export class EShapeActionValueOnInputActions {
 		switch (action) {
 			case EShapeActionValueOnInputAction.EMIT_EVENT:
 				shape.emit(target, shape, value);
-				EShapeActionRuntimes.emit(shape, target, value, time);
+				EShapeActions.emit(shape, target, value, time);
 				break;
 			case EShapeActionValueOnInputAction.WRITE_LOCAL:
-				EShapeActionRuntimes.writeLocal(shape, target, value, time);
+				EShapeActions.writeLocal(shape, target, value, time);
 				break;
 			case EShapeActionValueOnInputAction.WRITE_REMOTE:
-				EShapeActionRuntimes.writeRemote(shape, target, value);
+				EShapeActions.writeRemote(shape, target, value);
 				break;
 			case EShapeActionValueOnInputAction.WRITE_BOTH:
-				EShapeActionRuntimes.writeLocal(shape, target, value, time);
-				EShapeActionRuntimes.writeRemote(shape, target, value);
+				EShapeActions.writeLocal(shape, target, value, time);
+				EShapeActions.writeRemote(shape, target, value);
 				break;
 		}
 	}

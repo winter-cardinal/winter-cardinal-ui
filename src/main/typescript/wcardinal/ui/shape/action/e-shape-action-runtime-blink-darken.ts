@@ -5,7 +5,8 @@
 
 import { UtilRgb } from "../../util/util-rgb";
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeActionBases } from "./e-shape-action-bases";
 import { EShapeActionRuntimeBlink } from "./e-shape-action-runtime-blink";
 import { EShapeActionValueBlink } from "./e-shape-action-value-blink";

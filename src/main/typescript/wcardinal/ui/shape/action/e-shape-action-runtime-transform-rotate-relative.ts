@@ -4,15 +4,15 @@
  */
 
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 import { EShapeActionEnvironment } from "./e-shape-action-environment";
 import { EShapeActionRuntimeTransformRotate } from "./e-shape-action-runtime-transform-rotate";
 import { EShapeActionValueTransformRotate } from "./e-shape-action-value-transform-rotate";
 
 export class EShapeActionRuntimeTransformRotateRelative extends EShapeActionRuntimeTransformRotate {
 	constructor(value: EShapeActionValueTransformRotate) {
-		super(value, EShapeRuntimeReset.ROTATION);
-		this.reset |= EShapeRuntimeReset.POSITION;
+		super(value, EShapeRuntimeReset.ROTATION | EShapeRuntimeReset.POSITION);
 	}
 
 	execute(shape: EShape, runtime: EShapeRuntime, time: number): void {

@@ -6,13 +6,13 @@
 import { interaction } from "pixi.js";
 import { DBaseStateSet } from "../../d-base-state-set";
 import { EShape } from "../e-shape";
-import { EShapeRuntime } from "../e-shape-runtime";
+import { EShapeRuntimeImpl } from "../e-shape-runtime-impl";
 import { EShapeState } from "../e-shape-state";
 import { EShapeButton } from "./e-shape-button";
 import { EShapeButtonRuntimeAction } from "./e-shape-button-runtime-action";
 import { EShapeButtonRuntimeActionToggle } from "./e-shape-button-runtime-action-toggle";
 
-export class EShapeButtonRuntime extends EShapeRuntime {
+export class EShapeButtonRuntime extends EShapeRuntimeImpl {
 	protected _isToggle?: boolean;
 	protected _isGrouped?: boolean;
 

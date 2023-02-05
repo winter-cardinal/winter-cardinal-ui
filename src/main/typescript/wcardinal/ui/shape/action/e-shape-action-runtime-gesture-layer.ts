@@ -7,13 +7,14 @@ import { interaction, Point } from "pixi.js";
 import InteractionEvent = interaction.InteractionEvent;
 import { DDiagramLayers, DDiagramLayersLayer } from "../../d-diagram-layers";
 import { EShape } from "../e-shape";
-import { EShapeRuntime, EShapeRuntimeReset } from "../e-shape-runtime";
+import { EShapeRuntime } from "../e-shape-runtime";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { DApplications } from "../../d-applications";
 import { UtilGesture } from "../../util/util-gesture";
 import { EShapeActionValueGestureOperationType } from "./e-shape-action-value-gesture-operation-type";
 import { EShapeActionValueGesture } from "./e-shape-action-value-gesture";
 import { EShapeActionEnvironment } from "./e-shape-action-environment";
+import { EShapeRuntimeReset } from "../e-shape-runtime-reset";
 
 export class EShapeActionRuntimeGestureLayer extends EShapeActionRuntimeConditional {
 	protected static GESTURE_UTIL?: UtilGesture<DDiagramLayersLayer>;
