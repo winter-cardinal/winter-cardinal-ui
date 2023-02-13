@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Bulk node update</title>
+	<title>Expanding/collapsing nodes (2)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -27,7 +27,6 @@
 	<script>
 	(function(){
 		"use strict";
-
 		var application = new wcardinal.ui.DApplication();
 
 		var tree = new wcardinal.ui.DTree({
@@ -62,35 +61,14 @@
 			]
 		});
 
-		tree.data.each(function (node) {
-			tree.data.expand(node);
-		});
-
-		var counter = 0;
+		var apple = tree.data.nodes[0];
 		var update = function() {
-			// Update nodes
-			counter += 1;
-			var node = tree.data.nodes[counter % 3];
-			var name = ["Apple", "Orange", "Pineapple", "Melon", "Cherry"][counter % 5];
-			node.name = name;
-			if (0.5 < Math.random()) {
-				node.children.push({
-					name: name + " leaf"
-				});
-			} else {
-				node.children.shift();
-			}
-
-			// Update DTree forcibly.
-			// Because the data are changed outside of DTree,
-			// DTree has no idea the data are changed.
-			// Please note that this operation is relatively expensive.
-			tree.data.update(true);
-
+			tree.data.toggle(apple);
 			setTimeout(update, 1000);
 		};
 		update();
-	}());
+	}() );
 	</script>
 </body>
+
 </html>

@@ -206,10 +206,12 @@ export class DTreeDataSelectionMultiple<NODE extends DTreeNode>
 
 	onNodeChange(nodes: NODE[]): void {
 		const oldNodes = this._nodes;
-		const newNodes = this.newNodes(nodes, oldNodes, new Set<NODE>());
-		if (oldNodes.size !== newNodes.size) {
-			this._nodes = newNodes;
-			this.onChange();
+		if (0 < oldNodes.size) {
+			const newNodes = this.newNodes(nodes, oldNodes, new Set<NODE>());
+			if (oldNodes.size !== newNodes.size) {
+				this._nodes = newNodes;
+				this.onChange();
+			}
 		}
 	}
 

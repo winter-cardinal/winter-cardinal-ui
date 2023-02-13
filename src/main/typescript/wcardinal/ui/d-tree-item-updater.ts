@@ -10,7 +10,7 @@ import { DTreeItem } from "./d-tree-item";
 import { DTreeItemNonEditable } from "./d-tree-item-non-editable";
 import { DTreeNode } from "./d-tree-node";
 
-export interface DTreeItemUpdaterOptions<NODE>
+export interface DTreeItemUpdaterOptions<NODE extends DTreeNode>
 	extends DItemUpdaterOptions<NODE, DTreeData<NODE>, DTreeItem<NODE>> {}
 
 export class DTreeItemUpdater<NODE extends DTreeNode = DTreeNode> extends DItemUpdater<

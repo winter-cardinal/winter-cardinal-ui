@@ -31,7 +31,7 @@ export interface DTreeDataLike<NODE extends DTreeNode> {
 	 */
 	readonly selection: DTreeDataSelection<NODE>;
 
-	update(): void;
+	update(forcibly?: boolean): void;
 
 	/**
 	 * Toggles the given node,

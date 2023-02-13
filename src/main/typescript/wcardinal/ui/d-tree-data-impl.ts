@@ -16,7 +16,7 @@ import { DTreeDataSelectionSingle } from "./d-tree-data-selection-single";
 import { DTreeDataSelectionNone } from "./d-tree-data-selection-none";
 
 export interface DTreeDataImplParent {
-	update(): void;
+	update(forcibly?: boolean): void;
 }
 
 export interface DTreeDataImplSelection<NODE extends DTreeNode> extends DTreeDataSelection<NODE> {
@@ -68,9 +68,7 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 
 	set nodes(nodes: NODE[]) {
 		this._nodes = nodes;
-		this._mapped.toDirty();
-		this._selection.onNodeChange(nodes);
-		this.update();
+		this.update(true);
 	}
 
 	get mapped(): DTreeDataMapped<NODE> {
@@ -85,8 +83,12 @@ export class DTreeDataImpl<NODE extends DTreeNode> implements DTreeData<NODE> {
 		return this._selection;
 	}
 
-	update(): void {
-		this._parent.update();
+	update(forcibly?: boolean): void {
+		if (forcibly) {
+			this._mapped.toDirty();
+			this._selection.onNodeChange(this._nodes);
+		}
+		this._parent.update(forcibly);
 	}
 
 	toggle(target: NODE): boolean {

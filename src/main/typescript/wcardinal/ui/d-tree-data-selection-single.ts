@@ -145,10 +145,12 @@ export class DTreeDataSelectionSingle<NODE extends DTreeNode>
 
 	onNodeChange(nodes: NODE[]): void {
 		const oldNode = this._node;
-		const newNode = this.newNode(nodes, oldNode);
-		if (oldNode !== newNode) {
-			this._node = newNode;
-			this.onChange();
+		if (oldNode != null) {
+			const newNode = this.newNode(nodes, oldNode);
+			if (oldNode !== newNode) {
+				this._node = newNode;
+				this.onChange();
+			}
 		}
 	}
 
