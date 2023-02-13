@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.271.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.271.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.272.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.272.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -62,19 +62,32 @@
 			]
 		});
 
+		tree.data.each(function (node) {
+			tree.data.expand(node);
+		});
+
 		var counter = 0;
 		var update = function() {
-			tree.data.each( function ( node ) {
-				counter += 1;
-				node.name = "Node " + counter;
-			});
+			// Update nodes
+			counter += 1;
+			var node = tree.data.nodes[counter % 3];
+			var name = ["Apple", "Orange", "Pineapple", "Melon", "Cherry"][counter % 5];
+			node.name = name;
+			if (0.5 < Math.random()) {
+				node.children.push({
+					name: name + " leaf"
+				});
+			} else {
+				node.children.shift();
+			}
 
 			// Update DTree forcibly.
 			// Because the data are changed outside of DTree,
 			// DTree has no idea the data are changed.
-			tree.data.update( true );
+			// Please note that this operation is relatively expensive.
+			tree.data.update(true);
 
-			setTimeout( update, 1000 );
+			setTimeout(update, 1000);
 		};
 		update();
 	}());

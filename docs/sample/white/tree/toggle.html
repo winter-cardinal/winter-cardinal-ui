@@ -1,0 +1,74 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Expanding/collapsing nodes (2)</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.272.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.272.0/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+		var application = new wcardinal.ui.DApplication();
+
+		var tree = new wcardinal.ui.DTree({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 500, height: 500,
+			nodes: [
+				{
+					name: "Apple",
+					children: [
+						{
+							name: "Apple leaf"
+						}
+					]
+				},
+				{
+					name: "Orange",
+					children: [
+						{
+							name: "Orange leaf"
+						}
+					]
+				},
+				{
+					name: "Pineapple",
+					children: [
+						{
+							name: "Pineapple leaf"
+						}
+					]
+				}
+			]
+		});
+
+		var apple = tree.data.nodes[0];
+		var update = function() {
+			tree.data.toggle(apple);
+			setTimeout(update, 1000);
+		};
+		update();
+	}() );
+	</script>
+</body>
+
+</html>
