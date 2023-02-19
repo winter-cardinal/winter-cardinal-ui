@@ -23,7 +23,7 @@ export class DCommandSaveAs implements DCommand {
 		return true;
 	}
 
-	marge(target: DCommand): boolean {
+	merge(target: DCommand): boolean {
 		return false;
 	}
 

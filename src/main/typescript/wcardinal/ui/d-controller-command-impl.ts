@@ -72,7 +72,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			const doneLength = done.length;
 			if (0 < doneLength) {
 				const last = done[doneLength - 1];
-				if (!last.marge(command)) {
+				if (!last.merge(command)) {
 					done.push(command);
 				}
 			} else {

@@ -9,7 +9,7 @@ import { DCommandFlag } from "./d-command-flag";
 export abstract class DCommandCreate implements DCommand {
 	abstract execute(): boolean;
 
-	marge(target: DCommand): boolean {
+	merge(target: DCommand): boolean {
 		return false;
 	}
 

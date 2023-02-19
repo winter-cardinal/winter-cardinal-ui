@@ -11,7 +11,7 @@ export interface DCommand {
 	 */
 	execute(): boolean;
 
-	marge(target: DCommand): boolean;
+	merge(target: DCommand): boolean;
 
 	redo(): boolean;
 	undo(): boolean;

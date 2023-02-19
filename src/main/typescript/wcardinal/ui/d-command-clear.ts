@@ -11,7 +11,7 @@ export class DCommandClear implements DCommand {
 		return true;
 	}
 
-	marge(target: DCommand): boolean {
+	merge(target: DCommand): boolean {
 		return false;
 	}
 
