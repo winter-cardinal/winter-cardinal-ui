@@ -9,6 +9,10 @@ import { DCommandFlag } from "./d-command-flag";
 export abstract class DCommandCreate implements DCommand {
 	abstract execute(): boolean;
 
+	marge(target: DCommand): boolean {
+		return false;
+	}
+
 	redo(): boolean {
 		throw new Error("Method not implemented.");
 	}

@@ -11,6 +11,10 @@ export class DCommandClear implements DCommand {
 		return true;
 	}
 
+	marge(target: DCommand): boolean {
+		return false;
+	}
+
 	redo(): boolean {
 		throw new Error("Method not implemented.");
 	}

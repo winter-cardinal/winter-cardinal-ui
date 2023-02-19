@@ -33,8 +33,9 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 
 	last(): DCommand | null {
 		const done = this._done;
-		if (0 < done.length) {
-			return done[done.length - 1];
+		const doneLength = done.length;
+		if (0 < doneLength) {
+			return done[doneLength - 1];
 		} else {
 			return null;
 		}
@@ -67,7 +68,16 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 
 	protected onSuccess(command: DCommand): void {
 		if (isCommandStorable(command)) {
-			this._done.push(command);
+			const done = this._done;
+			const doneLength = done.length;
+			if (0 < doneLength) {
+				const last = done[doneLength - 1];
+				if (!last.marge(command)) {
+					done.push(command);
+				}
+			} else {
+				done.push(command);
+			}
 			if (!isCommandClean(command)) {
 				this.emit("dirty", this);
 			}

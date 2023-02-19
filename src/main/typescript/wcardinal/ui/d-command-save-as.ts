@@ -23,6 +23,10 @@ export class DCommandSaveAs implements DCommand {
 		return true;
 	}
 
+	marge(target: DCommand): boolean {
+		return false;
+	}
+
 	redo(): boolean {
 		return true;
 	}

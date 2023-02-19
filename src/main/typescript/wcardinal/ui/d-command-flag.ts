@@ -7,17 +7,17 @@ export const DCommandFlag = {
 	NONE: 0,
 
 	/**
-	 * Commands with a `UNSTORABLE` flag will not be queued to the `done` queue.
+	 * Commands with this flag will not be queued to the `done` queue.
 	 */
 	UNSTORABLE: 1,
 
 	/**
-	 * Commands with a `CLEAR` flag clear the command queue.
+	 * Commands with this flag clear the command queue.
 	 */
 	CLEAR: 2,
 
 	/**
-	 * Commands with a `CLEAN` flag are not considered as modifications to documents
+	 * Commands with this flag are not considered as modifications to documents
 	 */
 	CLEAN: 4
 } as const;
