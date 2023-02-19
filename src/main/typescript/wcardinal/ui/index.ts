@@ -170,6 +170,7 @@ export * from "./d-color-and-alpha";
 export * from "./d-color-gradient-observable";
 export * from "./d-color-gradient-point-observable";
 export * from "./d-color-gradient";
+export * from "./d-command-base";
 export * from "./d-command-clear";
 export * from "./d-command-create";
 export * from "./d-command-flag";
