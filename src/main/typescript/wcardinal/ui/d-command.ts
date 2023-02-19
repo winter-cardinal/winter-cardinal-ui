@@ -8,9 +8,18 @@ import { DCommandFlag } from "./d-command-flag";
 export interface DCommand {
 	/**
 	 * Called to executed this command.
+	 *
+	 * @return true if executed successfully
 	 */
 	execute(): boolean;
 
+	/**
+	 * Called to merge the target command and this command.
+	 * Returns true if merged successfully.
+	 *
+	 * @param target a command to be merged
+	 * @return true if merged successfully
+	 */
 	merge(target: DCommand): boolean;
 
 	redo(): boolean;

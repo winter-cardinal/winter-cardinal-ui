@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCommand } from "./d-command";
+import { DCommandBase } from "./d-command-base";
 import { DCommandFlag } from "./d-command-flag";
 import { DControllers } from "./d-controllers";
 
-export class DCommandSaveAs implements DCommand {
+export class DCommandSaveAs extends DCommandBase {
 	protected _name: string;
 
 	constructor(name: string) {
+		super();
 		this._name = name;
 	}
 
@@ -21,22 +22,6 @@ export class DCommandSaveAs implements DCommand {
 	execute(): boolean {
 		DControllers.getDocumentController().saveAs(this._name);
 		return true;
-	}
-
-	merge(target: DCommand): boolean {
-		return false;
-	}
-
-	redo(): boolean {
-		return true;
-	}
-
-	undo(): boolean {
-		return true;
-	}
-
-	destroy(): void {
-		// DO NOTHING
 	}
 
 	getFlag(): DCommandFlag {
