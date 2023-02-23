@@ -58,12 +58,32 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			}
 			this.cleanup();
 		}
+
+		const done = this._done;
+		const doneLength = done.length;
+		if (0 < doneLength) {
+			const last = done[doneLength - 1];
+			if (command.merge(last)) {
+				return this.onMerged(command);
+			}
+		}
+
 		const result = command.execute();
 		if (result === true) {
-			this.onSuccess(command);
+			return this.onSuccess(command);
 		} else {
-			this.onFail(command);
+			return this.onFail(command);
 		}
+	}
+
+	protected onMerged(command: DCommand): void {
+		if (isCommandStorable(command)) {
+			if (!isCommandClean(command)) {
+				this.emit("dirty", this);
+			}
+		}
+		this.emit("change", this);
+		this.emit("executed", command, this);
 	}
 
 	protected onSuccess(command: DCommand): void {
