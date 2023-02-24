@@ -10,7 +10,7 @@ import { DCommandFlag } from "./d-command-flag";
 import { DControllerCommand } from "./d-controller-command";
 
 const isCommandStorable = (command: DCommand): boolean => {
-	return !(command.getFlag() & DCommandFlag.UNSTORABLE) && !command.isMerged();
+	return !(command.getFlag() & DCommandFlag.UNSTORABLE);
 };
 
 const isCommandClear = (command: DCommand): boolean => {
@@ -48,6 +48,17 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 
 	protected merge(command: DCommand): void {
 		const done = this._done;
+		const isClear = isCommandClear(command);
+		const isStorable = isCommandStorable(command);
+		if (isClear || isStorable) {
+			const size = isClear ? done.length : this._position;
+			if (0 < size) {
+				this.remove(size);
+				this._position = 0;
+				this.emit("change", this);
+			}
+			this.cleanup();
+		}
 		const doneLength = done.length;
 		if (0 < doneLength) {
 			command.merge(done[doneLength - 1]);
@@ -56,19 +67,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 
 	protected execute(command: DCommand): void {
 		this.emit("executing", command, this);
-		const isClear = isCommandClear(command);
-		const isStorable = isCommandStorable(command);
-		if (isClear || isStorable) {
-			const size = isClear ? this._done.length : this._position;
-			if (0 < size) {
-				this.remove(size);
-				this._position = 0;
-				this.emit("change", this);
-			}
-			this.cleanup();
-		}
-		const result = command.execute();
-		if (result === true) {
+		if (command.execute()) {
 			return this.onSuccess(command);
 		} else {
 			return this.onFail(command);
@@ -76,17 +75,8 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 	}
 
 	protected onSuccess(command: DCommand): void {
-		if (isCommandStorable(command)) {
-			const done = this._done;
-			const doneLength = done.length;
-			if (0 < doneLength) {
-				const last = done[doneLength - 1];
-				if (!last.merge(command)) {
-					done.push(command);
-				}
-			} else {
-				done.push(command);
-			}
+		if (isCommandStorable(command) && !command.isMerged()) {
+			this._done.push(command);
 			if (!isCommandClean(command)) {
 				this.emit("dirty", this);
 			}
