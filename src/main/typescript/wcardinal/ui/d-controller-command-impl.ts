@@ -10,7 +10,7 @@ import { DCommandFlag } from "./d-command-flag";
 import { DControllerCommand } from "./d-controller-command";
 
 const isCommandStorable = (command: DCommand): boolean => {
-	return !(command.getFlag() & DCommandFlag.UNSTORABLE);
+	return !(command.getFlag() & DCommandFlag.UNSTORABLE) && !command.isMerged();
 };
 
 const isCommandClear = (command: DCommand): boolean => {
@@ -42,7 +42,16 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 	}
 
 	push(command: DCommand): void {
+		this.merge(command);
 		this.execute(command);
+	}
+
+	protected merge(command: DCommand): void {
+		const done = this._done;
+		const doneLength = done.length;
+		if (0 < doneLength) {
+			command.merge(done[doneLength - 1]);
+		}
 	}
 
 	protected execute(command: DCommand): void {
@@ -58,32 +67,12 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 			}
 			this.cleanup();
 		}
-
-		const done = this._done;
-		const doneLength = done.length;
-		if (0 < doneLength) {
-			const last = done[doneLength - 1];
-			if (command.merge(last)) {
-				return this.onMerged(command);
-			}
-		}
-
 		const result = command.execute();
 		if (result === true) {
 			return this.onSuccess(command);
 		} else {
 			return this.onFail(command);
 		}
-	}
-
-	protected onMerged(command: DCommand): void {
-		if (isCommandStorable(command)) {
-			if (!isCommandClean(command)) {
-				this.emit("dirty", this);
-			}
-		}
-		this.emit("change", this);
-		this.emit("executed", command, this);
 	}
 
 	protected onSuccess(command: DCommand): void {

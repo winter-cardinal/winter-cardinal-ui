@@ -15,6 +15,10 @@ export class DCommandBase implements DCommand {
 		return false;
 	}
 
+	isMerged(): boolean {
+		return false;
+	}
+
 	redo(): boolean {
 		return true;
 	}

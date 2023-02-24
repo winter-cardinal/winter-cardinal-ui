@@ -22,6 +22,8 @@ export interface DCommand {
 	 */
 	merge(target: DCommand): boolean;
 
+	isMerged(): boolean;
+
 	redo(): boolean;
 	undo(): boolean;
 	destroy(): void;
