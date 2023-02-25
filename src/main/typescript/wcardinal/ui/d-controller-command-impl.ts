@@ -6,20 +6,7 @@
 import { utils } from "pixi.js";
 import { DCommand } from "./d-command";
 import { DCommandClear } from "./d-command-clear";
-import { DCommandFlag } from "./d-command-flag";
 import { DControllerCommand } from "./d-controller-command";
-
-const isCommandStorable = (command: DCommand): boolean => {
-	return !(command.getFlag() & DCommandFlag.UNSTORABLE);
-};
-
-const isCommandClear = (command: DCommand): boolean => {
-	return !!(command.getFlag() & DCommandFlag.CLEAR);
-};
-
-const isCommandClean = (command: DCommand): boolean => {
-	return !!(command.getFlag() & DCommandFlag.CLEAN);
-};
 
 export class DControllerCommandImpl extends utils.EventEmitter implements DControllerCommand {
 	protected _position: number;
@@ -48,8 +35,8 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 
 	protected merge(command: DCommand): void {
 		const done = this._done;
-		const isClear = isCommandClear(command);
-		const isStorable = isCommandStorable(command);
+		const isClear = command.isClear();
+		const isStorable = command.isStorable();
 		if (isClear || isStorable) {
 			const size = isClear ? done.length : this._position;
 			if (0 < size) {
@@ -75,9 +62,9 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 	}
 
 	protected onSuccess(command: DCommand): void {
-		if (isCommandStorable(command) && !command.isMerged()) {
+		if (command.isStorable() && !command.isMerged()) {
 			this._done.push(command);
-			if (!isCommandClean(command)) {
+			if (!command.isClean()) {
 				this.emit("dirty", this);
 			}
 		}
@@ -149,7 +136,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 	}
 
 	protected onRedoSuccess(redoed: DCommand): void {
-		if (!isCommandClean(redoed)) {
+		if (!redoed.isClean()) {
 			this.emit("dirty", this);
 		}
 		this.emit("change", this);
@@ -187,7 +174,7 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 	}
 
 	protected onUndoSuccess(undoed: DCommand): void {
-		if (!isCommandClean(undoed)) {
+		if (!undoed.isClean()) {
 			this.emit("dirty", this);
 		}
 		this.emit("change", this);
