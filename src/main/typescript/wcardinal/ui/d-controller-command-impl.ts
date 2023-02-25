@@ -62,8 +62,10 @@ export class DControllerCommandImpl extends utils.EventEmitter implements DContr
 	}
 
 	protected onSuccess(command: DCommand): void {
-		if (command.isStorable() && !command.isMerged()) {
-			this._done.push(command);
+		if (command.isStorable()) {
+			if (!command.isMerged()) {
+				this._done.push(command);
+			}
 			if (!command.isClean()) {
 				this.emit("dirty", this);
 			}
