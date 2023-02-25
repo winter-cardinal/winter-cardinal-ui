@@ -4,7 +4,6 @@
  */
 
 import { DCommandBase } from "./d-command-base";
-import { DCommandFlag } from "./d-command-flag";
 import { DControllers } from "./d-controllers";
 
 export class DCommandSaveAs extends DCommandBase {
@@ -19,12 +18,12 @@ export class DCommandSaveAs extends DCommandBase {
 		return this._name;
 	}
 
-	execute(): boolean {
-		DControllers.getDocumentController().saveAs(this._name);
-		return true;
+	override isStorable(): boolean {
+		return false;
 	}
 
-	getFlag(): DCommandFlag {
-		return DCommandFlag.UNSTORABLE;
+	override execute(): boolean {
+		DControllers.getDocumentController().saveAs(this._name);
+		return true;
 	}
 }

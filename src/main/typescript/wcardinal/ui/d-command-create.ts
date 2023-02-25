@@ -4,12 +4,15 @@
  */
 
 import { DCommandBase } from "./d-command-base";
-import { DCommandFlag } from "./d-command-flag";
 
 export abstract class DCommandCreate extends DCommandBase {
-	abstract execute(): boolean;
+	abstract override execute(): boolean;
 
-	override getFlag(): DCommandFlag {
-		return DCommandFlag.UNSTORABLE | DCommandFlag.CLEAR;
+	override isStorable(): boolean {
+		return false;
+	}
+
+	override isClear(): boolean {
+		return true;
 	}
 }

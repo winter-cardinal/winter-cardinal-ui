@@ -3,9 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DCommandFlag } from "./d-command-flag";
-
 export interface DCommand {
+	isStorable(): boolean;
+
+	isClear(): boolean;
+
+	isClean(): boolean;
+
 	/**
 	 * Called to executed this command.
 	 *
@@ -27,5 +31,4 @@ export interface DCommand {
 	redo(): boolean;
 	undo(): boolean;
 	destroy(): void;
-	getFlag(): DCommandFlag;
 }

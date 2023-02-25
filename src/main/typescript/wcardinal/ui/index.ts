@@ -173,7 +173,6 @@ export * from "./d-color-gradient";
 export * from "./d-command-base";
 export * from "./d-command-clear";
 export * from "./d-command-create";
-export * from "./d-command-flag";
 export * from "./d-command-save-as";
 export * from "./d-command-save";
 export * from "./d-command";

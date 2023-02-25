@@ -4,16 +4,15 @@
  */
 
 import { DCommandBase } from "./d-command-base";
-import { DCommandFlag } from "./d-command-flag";
 import { DControllers } from "./d-controllers";
 
 export class DCommandSave extends DCommandBase {
-	execute(): boolean {
-		DControllers.getDocumentController().save();
-		return true;
+	override isStorable(): boolean {
+		return false;
 	}
 
-	getFlag(): DCommandFlag {
-		return DCommandFlag.UNSTORABLE;
+	override execute(): boolean {
+		DControllers.getDocumentController().save();
+		return true;
 	}
 }

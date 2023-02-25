@@ -4,9 +4,20 @@
  */
 
 import { DCommand } from "./d-command";
-import { DCommandFlag } from "./d-command-flag";
 
 export class DCommandBase implements DCommand {
+	isStorable(): boolean {
+		return true;
+	}
+
+	isClear(): boolean {
+		return false;
+	}
+
+	isClean(): boolean {
+		return false;
+	}
+
 	execute(): boolean {
 		return true;
 	}
@@ -29,9 +40,5 @@ export class DCommandBase implements DCommand {
 
 	destroy(): void {
 		// DO NOTHING
-	}
-
-	getFlag(): DCommandFlag {
-		return DCommandFlag.NONE;
 	}
 }
