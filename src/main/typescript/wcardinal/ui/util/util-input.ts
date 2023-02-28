@@ -156,7 +156,7 @@ export abstract class UtilInput<
 
 	protected onInputInput(e: Event): void {
 		const target = e.target;
-		if (target instanceof HTMLInputElement) {
+		if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
 			this._operation.onValueInput(this.toValue(target.value));
 		}
 	}
