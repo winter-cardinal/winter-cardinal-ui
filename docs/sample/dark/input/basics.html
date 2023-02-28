@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.272.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.272.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.282.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.282.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -43,8 +43,12 @@
 						value: "Apple"
 					},
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						input: function (newValue, input) {
+							console.log("input", newValue, input)
+						},
+
+						change: function (newValue, oldValue, input) {
+							console.log("change", newValue, oldValue, input);
 						}
 					}
 				}),
@@ -56,8 +60,12 @@
 						value: 123
 					},
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						input: function (newValue, input) {
+							console.log("input", newValue, input)
+						},
+
+						change: function (newValue, oldValue, input) {
+							console.log("change", newValue, oldValue, input);
 						}
 					}
 				}),
@@ -69,8 +77,12 @@
 						value: 1.23
 					},
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						input: function (newValue, input) {
+							console.log("input", newValue, input)
+						},
+
+						change: function (newValue, oldValue, input) {
+							console.log("change", newValue, oldValue, input);
 						}
 					}
 				}),
@@ -80,8 +92,8 @@
 					width: "100%",
 					value: true,
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						change: function (newValue, oldValue, input) {
+							console.log("change", newValue, oldValue, input);
 						}
 					}
 				}),
@@ -93,8 +105,12 @@
 						value: "Apple Orange Pineapple Melon Strawberry"
 					},
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						input: function (newValue, input) {
+							console.log("input", newValue, input)
+						},
+
+						change: function (newValue, oldValue, input) {
+							console.log("change", newValue, oldValue, input);
 						}
 					}
 				}),
@@ -106,8 +122,12 @@
 						value: "Apple"
 					},
 					on: {
-						change: function ( newValue, oldValue, input ) {
-							console.log( newValue, oldValue, input );
+						input: function (newValue, input) {
+							console.log("input", newValue, input)
+						},
+
+						change: function (newValue, oldValue, input) {
+							console.log("change", newValue, oldValue, input);
 						}
 					}
 				})

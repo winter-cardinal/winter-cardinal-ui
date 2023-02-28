@@ -47,7 +47,9 @@
     * [Basics](./chart/basics.html)
     * [Constraint](./chart/constraint.html)
     * Coordinate
+        * [Domain](./chart\coordinate/domain.html)
         * [Multi coordinates](./chart\coordinate/multi-coordinate.html)
+        * [Range](./chart\coordinate/range.html)
     * [Domain](./chart/domain.html)
     * [Fitting](./chart/fit.html)
     * [Fitting with an animation](./chart/fit-animation.html)
