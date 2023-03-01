@@ -9,6 +9,7 @@ import { DChartAxisContainer, DChartAxisContainerOptions } from "./d-chart-axis-
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartPlotArea } from "./d-chart-plot-area";
 import { EShapeContainer } from "./shape/e-shape-container";
+import { toEnum } from "./util/to-enum";
 
 export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 	implements DChartAxisContainer<CHART>
@@ -49,9 +50,12 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 		axis.bind(this, axes.length - 1);
 	}
 
-	get(position: DChartAxisPosition, index: number): DChartAxis<CHART> | null {
+	get(
+		position: DChartAxisPosition | keyof typeof DChartAxisPosition,
+		index: number
+	): DChartAxis<CHART> | null {
 		const list = this._list;
-		const axes = list.get(position);
+		const axes = list.get(toEnum(position, DChartAxisPosition));
 		if (axes) {
 			if (0 <= index && index < axes.length) {
 				return axes[index];
@@ -69,9 +73,9 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 		return -1;
 	}
 
-	clear(position: DChartAxisPosition): this {
+	clear(position: DChartAxisPosition | keyof typeof DChartAxisPosition): this {
 		const list = this._list;
-		const axes = list.get(position);
+		const axes = list.get(toEnum(position, DChartAxisPosition));
 		if (axes) {
 			for (let i = 0, imax = axes.length; i < imax; ++i) {
 				axes[i].destroy();
@@ -81,9 +85,9 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 		return this;
 	}
 
-	size(position: DChartAxisPosition): number {
+	size(position: DChartAxisPosition | keyof typeof DChartAxisPosition): number {
 		const list = this._list;
-		const axes = list.get(position);
+		const axes = list.get(toEnum(position, DChartAxisPosition));
 		if (axes) {
 			return axes.length;
 		}

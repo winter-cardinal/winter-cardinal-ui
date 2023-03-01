@@ -25,21 +25,19 @@ import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextDirection } from "./shape/e-shape-text-direction";
 import { EShapeTextOffsetLike } from "./shape/e-shape-text-offset";
 import { EShapeTextOutlineLike } from "./shape/e-shape-text-outline";
-import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { DeepPartial } from "./util/deep-partial";
 import { isString } from "./util/is-string";
 import { NumberFormatter } from "./util/number-formatter";
 import { NumberFormatters } from "./util/number-formatters";
 
-export interface DChartAxisBaseGridline {
+export interface DChartAxisBaseOptionParserGridline {
 	enable: boolean;
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	shapes?: EShapeBar[];
 }
 
-export interface DChartAxisBaseTickMajor {
+export interface DChartAxisBaseOptionParserTickMajor {
 	capacity: number;
 	count: number;
 	step: number | DChartCoordinateTickMajorStepFunction | undefined;
@@ -49,40 +47,37 @@ export interface DChartAxisBaseTickMajor {
 	stroke?: Partial<EShapeStrokeLike>;
 	text?: DChartAxisBaseTickMajorTextOptions;
 	formatter: NumberFormatter;
-	shapes?: EShapeBar[];
 
-	gridline: DChartAxisBaseGridline;
+	gridline: DChartAxisBaseOptionParserGridline;
 }
 
-export interface DChartAxisBaseTickMinor {
+export interface DChartAxisBaseOptionParserTickMinor {
 	count: number;
 	step: number | DChartCoordinateTickMinorStepFunction | undefined;
 	size: number;
 	position: EShapeBarPosition;
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	shapes?: EShapeBar[];
 }
 
-export interface DChartAxisBaseBar {
+export interface DChartAxisBaseOptionParserTickContainer {
+	enable: boolean;
+	major: DChartAxisBaseOptionParserTickMajor;
+	minor: DChartAxisBaseOptionParserTickMinor;
+}
+
+export interface DChartAxisBaseOptionParserBar {
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	shape?: EShapeBar;
-}
-
-export interface DChartAxisBaseTickContainer {
-	enable: boolean;
-	major: DChartAxisBaseTickMajor;
-	minor: DChartAxisBaseTickMinor;
 }
 
 export class DChartAxisBaseOptionParser {
 	protected _coordinateIndex: number;
 	protected _position: DChartAxisPosition;
-	protected _tick: DChartAxisBaseTickContainer;
+	protected _tick: DChartAxisBaseOptionParserTickContainer;
 	protected _label: DeepPartial<EShapeTextLike> | undefined;
 	protected _padding: number;
-	protected _bar: DChartAxisBaseBar;
+	protected _bar: DChartAxisBaseOptionParserBar;
 
 	constructor(theme: DThemeChartAxisBase, options?: DChartAxisBaseOptions) {
 		this._coordinateIndex = options?.coordinate ?? 0;
@@ -105,11 +100,11 @@ export class DChartAxisBaseOptionParser {
 		return this._position;
 	}
 
-	get bar(): DChartAxisBaseBar {
+	get bar(): DChartAxisBaseOptionParserBar {
 		return this._bar;
 	}
 
-	get tick(): DChartAxisBaseTickContainer {
+	get tick(): DChartAxisBaseOptionParserTickContainer {
 		return this._tick;
 	}
 
@@ -133,18 +128,17 @@ export class DChartAxisBaseOptionParser {
 	protected toBar(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseOptions
-	): DChartAxisBaseBar {
+	): DChartAxisBaseOptionParserBar {
 		return {
 			style: options?.style ?? theme.getStyle(),
-			stroke: this.toBarStroke(theme, options?.stroke),
-			shape: undefined
+			stroke: this.toBarStroke(theme, options?.stroke)
 		};
 	}
 
 	protected toTickContainer(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseOptions
-	): DChartAxisBaseTickContainer {
+	): DChartAxisBaseOptionParserTickContainer {
 		const tick = options?.tick;
 		return {
 			enable: tick?.enable ?? theme.getTickEnable(),
@@ -156,7 +150,7 @@ export class DChartAxisBaseOptionParser {
 	protected toTickMajor(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickContainerOptions
-	): DChartAxisBaseTickMajor {
+	): DChartAxisBaseOptionParserTickMajor {
 		const major = options?.major;
 		const position = major?.position ?? options?.position ?? theme.getMajorTickPosition();
 		const optionsStyle = options?.style;
@@ -177,7 +171,6 @@ export class DChartAxisBaseOptionParser {
 			stroke,
 			text: this.toMajorTickText(theme, major?.text),
 			formatter: this.toMajorTickFormatter(theme, major),
-			shapes: undefined,
 			gridline: this.toTickMajorGridline(theme, major?.gridline, optionsStyle, optionsStroke)
 		};
 	}
@@ -187,15 +180,14 @@ export class DChartAxisBaseOptionParser {
 		options: DChartAxisBaseTickMajorGridlineOptions | undefined,
 		optionsStyle: EShapePointsStyleOption | undefined,
 		optionsStroke: Partial<EShapeStrokeLike> | undefined
-	): DChartAxisBaseGridline {
+	): DChartAxisBaseOptionParserGridline {
 		const style = EShapePointsStyles.from(
 			options?.style ?? optionsStyle ?? theme.getMajorTickGridlineStyle()
 		);
 		return {
 			enable: options?.enable ?? theme.getMajorTickGridlineEnable(),
 			style,
-			stroke: this.toTickMajorGridlineStroke(theme, options?.stroke, optionsStroke),
-			shapes: undefined
+			stroke: this.toTickMajorGridlineStroke(theme, options?.stroke, optionsStroke)
 		};
 	}
 
@@ -235,7 +227,7 @@ export class DChartAxisBaseOptionParser {
 	protected toMinorTick(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickContainerOptions
-	): DChartAxisBaseTickMinor {
+	): DChartAxisBaseOptionParserTickMinor {
 		const minor = options?.minor;
 		const position = minor?.position ?? options?.position ?? theme.getMinorTickPosition();
 		const style = EShapePointsStyles.from(
@@ -247,8 +239,7 @@ export class DChartAxisBaseOptionParser {
 			size: minor?.size ?? theme.getMinorTickSize(),
 			position: this.toTickPosition(position),
 			style,
-			stroke: this.toTickMinorStroke(theme, minor?.stroke, options?.stroke),
-			shapes: undefined
+			stroke: this.toTickMinorStroke(theme, minor?.stroke, options?.stroke)
 		};
 	}
 

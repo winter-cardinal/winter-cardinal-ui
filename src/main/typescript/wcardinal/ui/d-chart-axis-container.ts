@@ -18,10 +18,13 @@ export interface DChartAxisContainer<CHART extends DBase = DBase> {
 	readonly plotArea: DChartPlotArea<CHART>;
 
 	add(axis: DChartAxis<CHART>): void;
-	get(position: DChartAxisPosition, index: number): DChartAxis<CHART> | null;
+	get(
+		position: DChartAxisPosition | keyof typeof DChartAxisPosition,
+		index: number
+	): DChartAxis<CHART> | null;
 	indexOf(axis: DChartAxis<CHART>): number;
-	clear(position: DChartAxisPosition): this;
-	size(position: DChartAxisPosition): number;
+	clear(position: DChartAxisPosition | keyof typeof DChartAxisPosition): this;
+	size(position: DChartAxisPosition | keyof typeof DChartAxisPosition): number;
 	update(): void;
 	onRender(): void;
 	destroy(): void;
