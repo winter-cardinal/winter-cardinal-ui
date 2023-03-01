@@ -25,6 +25,7 @@
         * [Datetime axis](./chart\axis/datetime.html)
         * [Label padding](./chart\axis/label-padding.html)
         * [Label styling](./chart\axis/label-styling.html)
+        * [Label update](./chart\axis/label-update.html)
         * [Logarithmic axis](./chart\axis/logarithmic.html)
         * [Multi X axes](./chart\axis/multi-x.html)
         * [Multi Y axes](./chart\axis/multi-y.html)
