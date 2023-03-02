@@ -316,6 +316,7 @@
         * [Multi selection with selectable cells](./table\selection/multiple-selectable.html)
         * [No selection](./table\selection/none.html)
         * [Single selection](./table\selection/single.html)
+        * [Single selection with hierarchical data](./table\selection/single-hierarchical.html)
 * Text
     * [Align](./text/align.html)
     * [Basics](./text/basics.html)
