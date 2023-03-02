@@ -306,7 +306,6 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 			this._isRowsDirty = true;
 			this._filter.toDirty();
 			this.update(true);
-			this.emit("expand", node, this);
 			return true;
 		}
 		return false;
@@ -319,7 +318,6 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 			this._isRowsDirty = true;
 			this._filter.toDirty();
 			this.update(true);
-			this.emit("collapse", node, this);
 			return true;
 		}
 		return false;

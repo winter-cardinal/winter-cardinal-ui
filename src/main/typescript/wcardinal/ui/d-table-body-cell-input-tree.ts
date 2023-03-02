@@ -150,7 +150,17 @@ export class DTableBodyCellInputTree<
 		}
 		const data = (body as any).data;
 		if (data && data.toggle) {
-			data.toggle(row);
+			if (data.isExpanded(row)) {
+				if (data.collapse(row)) {
+					this.emit("collapse", this);
+					data.emit("collapse", row, this);
+				}
+			} else {
+				if (data.expand(row)) {
+					this.emit("expand", this);
+					data.emit("expand", row, this);
+				}
+			}
 		}
 	}
 
