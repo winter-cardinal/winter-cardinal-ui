@@ -115,25 +115,7 @@ export class DTableBodyCellInputTree<
 
 	protected onMarkerActive(): void {
 		if (this._marker.state.is(DTableState.HAS_CHILDREN)) {
-			const row = this.parent;
-			if (row) {
-				const body = row.parent as any;
-				if (body) {
-					const data = body.data;
-					if (data && data.toggle) {
-						data.toggle(this._row);
-						this.emit(
-							"cellchange",
-							null,
-							null,
-							this._row,
-							this._rowIndex,
-							this._columnIndex,
-							this
-						);
-					}
-				}
-			}
+			this.toggle();
 		}
 	}
 
@@ -151,6 +133,25 @@ export class DTableBodyCellInputTree<
 
 	get column(): DTableColumn<ROW, string> {
 		return this._column;
+	}
+
+	protected toggle(): void {
+		const row = this._row;
+		if (row === undefined) {
+			return;
+		}
+		const parent = this.parent;
+		if (parent == null) {
+			return;
+		}
+		const body = parent.parent;
+		if (body == null) {
+			return;
+		}
+		const data = (body as any).data;
+		if (data && data.toggle) {
+			data.toggle(row);
+		}
 	}
 
 	onRowSelect(e: interaction.InteractionEvent, local: Point): boolean {

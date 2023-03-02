@@ -23,8 +23,40 @@ import {
 } from "./d-table-data-tree-selection";
 import { DTableDataTreeSelectionImpl } from "./d-table-data-tree-selection-impl";
 import { isFunction } from "./util/is-function";
-import { DBaseOnOptions } from "./d-base";
+import { DBaseEvents } from "./d-base";
+import { DOnOptions } from "./d-on-options";
 
+/**
+ * {@link DTableDataTree} events.
+ */
+export interface DTableDataTreeEvents<NODE, EMITTER> extends DBaseEvents<EMITTER> {
+	/**
+	 * Triggered when a node is expanded.
+	 *
+	 * @param node a node
+	 * @param emitter an emitter
+	 */
+	expand(node: NODE, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a node is collapsed.
+	 *
+	 * @param node a node
+	 * @param emitter an emitter
+	 */
+	collapse(node: NODE, emitter: EMITTER): void;
+}
+
+/**
+ * {@link DTableDataTree} "on" options.
+ */
+export interface DTableDataTreeOnOptions<NODE, EMITTER>
+	extends Partial<DTableDataTreeEvents<NODE, EMITTER>>,
+		DOnOptions {}
+
+/**
+ * {@link DTableDataTree} options.
+ */
 export interface DTableDataTreeOptions<NODE, EMITTER = any>
 	extends DTableDataTreeItemAccessorOptions<NODE> {
 	nodes?: NODE[];
@@ -55,7 +87,7 @@ export interface DTableDataTreeOptions<NODE, EMITTER = any>
 	/**
 	 * Mappings of event names and event handlers.
 	 */
-	on?: DBaseOnOptions<EMITTER>;
+	on?: DTableDataTreeOnOptions<NODE, EMITTER>;
 }
 
 /**
@@ -267,40 +299,61 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		return null;
 	}
 
-	open(node: NODE): void {
+	expand(node: NODE): boolean {
 		const flags = this._flags;
 		if (!flags.has(node)) {
 			flags.set(node, 1);
 			this._isRowsDirty = true;
 			this._filter.toDirty();
 			this.update(true);
+			this.emit("expand", node, this);
+			return true;
 		}
+		return false;
 	}
 
-	close(node: NODE): void {
+	collapse(node: NODE): boolean {
 		const flags = this._flags;
 		if (flags.has(node)) {
 			flags.delete(node);
 			this._isRowsDirty = true;
 			this._filter.toDirty();
 			this.update(true);
+			this.emit("collapse", node, this);
+			return true;
 		}
+		return false;
 	}
 
-	isOpened(node: NODE): boolean {
+	isCollapsed(node: NODE): boolean {
+		return !this._flags.has(node);
+	}
+
+	isExpanded(node: NODE): boolean {
 		return this._flags.has(node);
 	}
 
-	toggle(node: NODE): void {
-		const flags = this._flags;
-		if (flags.has(node)) {
-			flags.delete(node);
+	toggle(node: NODE): boolean {
+		if (this.isExpanded(node)) {
+			return this.collapse(node);
 		} else {
-			flags.set(node, 1);
+			return this.expand(node);
 		}
-		this._isRowsDirty = true;
-		this._filter.toDirty();
-		this.update(true);
+	}
+
+	/** @deprecated in favor of {@link expand}. */
+	open(node: NODE): boolean {
+		return this.expand(node);
+	}
+
+	/** @deprecated in favor of {@link collapse}. */
+	close(node: NODE): boolean {
+		return this.collapse(node);
+	}
+
+	/** @deprecated in favor of {@link isExpanded}. */
+	isOpened(node: NODE): boolean {
+		return this.isExpanded(node);
 	}
 
 	each(

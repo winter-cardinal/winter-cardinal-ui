@@ -67,8 +67,16 @@
 					]}
 				],
 				on: {
-					change: function ( newValue, oldValue, node, rowIndex, columnIndex, data ) {
-						console.log( newValue, oldValue, node, rowIndex, columnIndex, data );
+					change: function (newValue, oldValue, node, rowIndex, columnIndex, data) {
+						console.log("change", newValue, oldValue, node, rowIndex, columnIndex, data);
+					},
+
+					expand: function (node, data) {
+						console.log("expand", node, data);
+					},
+					
+					collapse: function (node, data) {
+						console.log("collapse", node, data);
 					}
 				}
 			})

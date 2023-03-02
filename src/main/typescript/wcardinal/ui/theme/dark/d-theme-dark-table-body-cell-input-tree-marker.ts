@@ -32,11 +32,11 @@ export class DThemeDarkTableBodyCellInputTreeMarker<VALUE = unknown>
 	}
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
-		return DThemeDarkTableBodyCells.getBackgroundColor(state);
+		return null;
 	}
 
 	getBackgroundAlpha(state: DBaseStateSet): number {
-		return DThemeDarkTableBodyCells.getBackgroundAlpha(state);
+		return 1;
 	}
 
 	getBorderColor(state: DBaseStateSet): number | null {
