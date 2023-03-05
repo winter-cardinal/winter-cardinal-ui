@@ -1,0 +1,66 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Shortcut expression</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.286.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.286.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const tests = [
+			[ "A", {key: "a"} ],
+			[ "b", {key: "b"} ],
+			[ "c", {key: "c"} ],
+			[ "-", {key: "-"} ],
+			[ "+", {key: "+"} ],
+			[ ">", {key: ">"} ],
+
+			[ "Ctrl+A", {ctrl: true, key: "a"} ],
+			[ "Alt+b", {alt: true, key: "b"} ],
+			[ "Shift+c", {shift: true, key: "C"} ],
+			[ "Ctrl+-", {ctrl: true, key: "-"} ],
+			[ "Alt++", {alt: true, key: "+"} ],
+			[ "Shift+>", {shift: true, key: ">"} ],
+
+			[ "ctrl+alt+A", {ctrl: true, alt: true, key: "a"} ],
+			[ "alt+shift+b", {alt: true, shift: true, key: "B"} ],
+			[ "shift+ctrl+c", {shift: true, ctrl: true, key: "C"} ],
+			[ "ctrl+shift+-", {ctrl: true, shift: true, key: "-"} ],
+			[ "alt+ctrl++", {alt: true, ctrl: true, key: "+"} ],
+			[ "shift+alt+>", {shift: true, alt: true, key: ">"} ]
+		];
+		const UtilKeyboardEvent = wcardinal.ui.UtilKeyboardEvent;
+		for (let i = 0, imax = tests.length; i < imax; ++i) {
+			const test = tests[ i ];
+			const result = new UtilKeyboardEvent.toShortcut(test[0]);
+			if (!!result.ctrl === !!test[1].ctrl && !!result.alt === !!test[1].alt && !!result.shift === !!test[1].shift && result.key === test[1].key) {
+				console.log("OK", test[0]);
+			} else {
+				console.error("NG", test[0], UtilKeyboardEvent.toString(test[1]), UtilKeyboardEvent.toString(result));
+			}
+		}
+	}());
+	</script>
+</body>
+</html>

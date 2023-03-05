@@ -347,5 +347,6 @@
     * [Custom updater](./tree/updater.html)
 * Utility
     * [Downloading a file](./utility/download.html)
-    * [Scalar expression](./utility/scalar-expression.html)
+    * [Scalar expression](./utility/scalar.html)
+    * [Shortcut expression](./utility/shortcut.html)
 
