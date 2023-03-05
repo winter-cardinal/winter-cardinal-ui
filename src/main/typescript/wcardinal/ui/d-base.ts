@@ -722,7 +722,7 @@ const toShortcuts = <THEME extends DThemeBase>(
 			}
 			if (shortcuts != null) {
 				for (let i = 0, imax = shortcuts.length; i < imax; ++i) {
-					UtilKeyboardEvent.toShortcut(shortcuts[i]);
+					result.push(UtilKeyboardEvent.toShortcut(shortcuts[i]));
 				}
 			}
 			return result;
