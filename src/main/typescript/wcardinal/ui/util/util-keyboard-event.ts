@@ -211,16 +211,43 @@ export class UtilKeyboardEvent {
 			let keyExpression: string;
 			let event: string | undefined;
 			if (0 <= arrowIndex) {
-				keyExpression = expression.substring(0, arrowIndex).trim();
+				keyExpression = expression.substring(0, arrowIndex).trim().toLowerCase();
 				event = expression.substring(arrowIndex + 2).trim();
 			} else {
-				keyExpression = expression.trim();
+				keyExpression = expression.trim().toLowerCase();
 			}
-			const keys = keyExpression.toLowerCase().split("+");
-			const alt: boolean = 0 <= keys.indexOf("alt");
-			const ctrl: boolean = 0 <= keys.indexOf("ctrl");
-			const shift: boolean = 0 <= keys.indexOf("shift");
-			const key: string = keys[keys.length - 1];
+			let alt = false;
+			let ctrl = false;
+			let shift = false;
+			let key = "a";
+			const length = keyExpression.length;
+			let i = 0;
+			let j = 1;
+			for (; j < length; ++j) {
+				const c = keyExpression.charAt(j);
+				if (c === "+") {
+					const part = keyExpression.substring(i, j);
+					switch (part) {
+						case "alt":
+							alt = true;
+							break;
+						case "ctrl":
+							ctrl = true;
+							break;
+						case "shift":
+							shift = true;
+							break;
+						default:
+							key = part;
+							break;
+					}
+					j += 1;
+					i = j;
+				}
+			}
+			if (i !== j) {
+				key = keyExpression.substring(i, j);
+			}
 			return setShortcutKeyAndWhich({
 				alt,
 				ctrl,
