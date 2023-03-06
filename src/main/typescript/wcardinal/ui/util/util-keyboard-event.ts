@@ -34,105 +34,140 @@ const setShortcutKeyAndWhich = (shortcut: UtilKeyboardEventShortcut): UtilKeyboa
 			shortcut.key = key.toUpperCase();
 		}
 		const code = key.charCodeAt(0);
-		if (97 <= code && code <= 122) {
-			// a ... z
-			shortcut.which = code - 32;
-		} else {
-			shortcut.which = code;
-		}
+		shortcut.which = 97 <= code && code <= 122 ? code - 32 : code;
 	} else {
 		switch (key) {
-			case "Enter":
+			case "enter":
+				shortcut.key = "Enter";
 				shortcut.which = 13;
 				break;
-			case "Space":
+			case "space":
 				shortcut.key = " ";
 				shortcut.which = 32;
 				break;
-			case "Escape":
+			case "escape":
+				shortcut.key = "Escape";
 				shortcut.which = 27;
 				break;
-			case "F1":
+			case "f1":
+				shortcut.key = "F1";
 				shortcut.which = 112;
 				break;
-			case "F2":
+			case "f2":
+				shortcut.key = "F2";
 				shortcut.which = 113;
 				break;
-			case "F3":
+			case "f3":
+				shortcut.key = "F3";
 				shortcut.which = 114;
 				break;
-			case "F4":
+			case "f4":
+				shortcut.key = "F4";
 				shortcut.which = 115;
 				break;
-			case "F5":
+			case "f5":
+				shortcut.key = "F5";
 				shortcut.which = 116;
 				break;
-			case "F6":
+			case "f6":
+				shortcut.key = "F6";
 				shortcut.which = 117;
 				break;
-			case "F7":
+			case "f7":
+				shortcut.key = "F7";
 				shortcut.which = 118;
 				break;
-			case "F8":
+			case "f8":
+				shortcut.key = "F8";
 				shortcut.which = 119;
 				break;
-			case "F9":
+			case "f9":
+				shortcut.key = "F9";
 				shortcut.which = 120;
 				break;
-			case "F10":
+			case "f10":
+				shortcut.key = "F10";
 				shortcut.which = 121;
 				break;
-			case "F11":
+			case "f11":
+				shortcut.key = "F11";
 				shortcut.which = 122;
 				break;
-			case "F12":
+			case "f12":
+				shortcut.key = "F12";
 				shortcut.which = 123;
 				break;
-			case "CapsLock":
+			case "capslock":
+				shortcut.key = "CapsLock";
 				if (shortcut.shift) {
 					shortcut.which = 20;
 				} else {
 					shortcut.which = 240;
 				}
 				break;
-			case "ArrowUp":
+			case "arrowup":
+				shortcut.key = "ArrowUp";
 				shortcut.which = 38;
 				break;
-			case "ArrowDown":
+			case "arrowdown":
+				shortcut.key = "ArrowDown";
 				shortcut.which = 40;
 				break;
-			case "ArrowLeft":
+			case "arrowleft":
+				shortcut.key = "ArrowLeft";
 				shortcut.which = 37;
 				break;
-			case "ArrowRight":
+			case "arrowright":
+				shortcut.key = "ArrowRight";
 				shortcut.which = 39;
 				break;
-			case "Insert":
+			case "insert":
+				shortcut.key = "Insert";
 				shortcut.which = 45;
 				break;
-			case "Delete":
+			case "delete":
+				shortcut.key = "Delete";
 				shortcut.which = 46;
 				break;
-			case "PageUp":
+			case "pageup":
+				shortcut.key = "PageUp";
 				shortcut.which = 33;
 				break;
-			case "PageDown":
+			case "pagedown":
+				shortcut.key = "PageDown";
 				shortcut.which = 34;
 				break;
-			case "Backspace":
+			case "backspace":
+				shortcut.key = "Backspace";
 				shortcut.which = 8;
 				break;
-			case ";":
+			case "colon":
+				shortcut.key = ":";
+				shortcut.which = 186;
+				break;
+			case "semicolon":
+				shortcut.key = ";";
 				shortcut.which = 187;
 				break;
-			case "Pause":
+			case "pause":
+				shortcut.key = "Pause";
 				shortcut.which = 19;
 				break;
-			case "ScrollLock":
+			case "scrolllock":
+				shortcut.key = "ScrollLock";
 				shortcut.which = 145;
 				break;
-			case "Tab":
+			case "tab":
+				shortcut.key = "Tab";
 				shortcut.which = 9;
+				break;
+			case "plus":
+				shortcut.key = "+";
+				shortcut.which = 187;
+				break;
+			case "minus":
+				shortcut.key = "-";
+				shortcut.which = 189;
 				break;
 		}
 	}
