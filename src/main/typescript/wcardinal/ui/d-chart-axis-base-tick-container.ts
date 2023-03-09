@@ -219,7 +219,7 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 				}
 			} else {
 				majorShape.visible = false;
-				if (gridlineShapes) {
+				if (i < gridlineShapes.length) {
 					gridlineShapes[i].visible = false;
 				}
 			}
@@ -308,7 +308,7 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 				}
 			} else {
 				majorShape.visible = false;
-				if (gridlineShapes) {
+				if (i < gridlineShapes.length) {
 					gridlineShapes[i].visible = false;
 				}
 			}
