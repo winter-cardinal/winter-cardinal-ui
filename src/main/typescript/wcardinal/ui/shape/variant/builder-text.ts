@@ -55,6 +55,7 @@ export class BuilderText implements Builder {
 	protected paddingHorizontal: number;
 	protected paddingVertical: number;
 	protected clipping: boolean;
+	protected fitting: boolean;
 
 	constructor(
 		vertexOffset: number,
@@ -97,6 +98,7 @@ export class BuilderText implements Builder {
 		this.paddingHorizontal = NaN;
 		this.paddingVertical = NaN;
 		this.clipping = false;
+		this.fitting = false;
 	}
 
 	init(buffer: EShapeBuffer): void {
@@ -154,6 +156,7 @@ export class BuilderText implements Builder {
 		const textPaddingHorizontal = text.padding.horizontal;
 		const textPaddingVertical = text.padding.vertical;
 		const textClipping = text.clipping;
+		const textFitting = text.fitting;
 		const textTexture = text.texture || Texture.WHITE;
 		const textTextureTransformId = toTextureTransformId(textTexture);
 
@@ -173,6 +176,7 @@ export class BuilderText implements Builder {
 			textPaddingVertical !== this.paddingVertical;
 		const isCharDirectionChanged = textDirection !== this.direction;
 		const isClippingChanged = this.clipping !== textClipping;
+		const isFittingChanged = this.fitting !== textFitting;
 		const isTextureChanged =
 			textTexture !== this.texture || textTextureTransformId !== this.textureTransformId;
 
@@ -187,6 +191,7 @@ export class BuilderText implements Builder {
 			isCharSpacingChanged ||
 			isCharDirectionChanged ||
 			isClippingChanged ||
+			isFittingChanged ||
 			isTextureChanged
 		) {
 			this.size = textSize;
@@ -203,6 +208,7 @@ export class BuilderText implements Builder {
 			this.paddingHorizontal = textPaddingHorizontal;
 			this.paddingVertical = textPaddingVertical;
 			this.clipping = textClipping;
+			this.fitting = textFitting;
 			this.texture = textTexture;
 			this.textureTransformId = textTextureTransformId;
 
@@ -243,6 +249,7 @@ export class BuilderText implements Builder {
 				textPaddingHorizontal,
 				textPaddingVertical,
 				textClipping,
+				textFitting,
 				textWorld,
 				toTextureUvs(textTexture),
 				shape.transform.internalTransform

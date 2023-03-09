@@ -43,6 +43,7 @@ export class EShapeTextImpl implements EShapeText {
 	protected _direction: EShapeTextDirection;
 	readonly padding: EShapeTextOffset;
 	protected _clipping: boolean;
+	protected _fitting: boolean;
 
 	texture?: Texture; // Used for rendering and updated when rendered
 	atlas?: EShapeTextAtlas; // Used for rendering and updated when rendered
@@ -76,6 +77,7 @@ export class EShapeTextImpl implements EShapeText {
 		this._direction = EShapeTextDirection.LEFT_TO_RIGHT;
 		this.padding = new EShapeTextOffsetImpl(parent, 10, 10);
 		this._clipping = false;
+		this._fitting = false;
 	}
 
 	get enable(): boolean {
@@ -217,6 +219,17 @@ export class EShapeTextImpl implements EShapeText {
 		}
 	}
 
+	get fitting(): boolean {
+		return this._fitting;
+	}
+
+	set fitting(fitting: boolean) {
+		if (this._fitting !== fitting) {
+			this._fitting = fitting;
+			this._parent.updateUploaded();
+		}
+	}
+
 	copy(target?: DeepPartial<EShapeTextLike>): this {
 		if (target) {
 			this.set(
@@ -248,7 +261,8 @@ export class EShapeTextImpl implements EShapeText {
 		weight?: EShapeTextWeight,
 		style?: EShapeTextStyle,
 		direction?: EShapeTextDirection,
-		clipping?: boolean
+		clipping?: boolean,
+		fitting?: boolean
 	): this {
 		let isChangedDirty = false;
 		let isChangedUploaded = false;
@@ -298,6 +312,11 @@ export class EShapeTextImpl implements EShapeText {
 			isChangedUploaded = true;
 		}
 
+		if (fitting != null && this._fitting !== fitting) {
+			this._fitting = fitting;
+			isChangedUploaded = true;
+		}
+
 		if (isChangedDirty) {
 			this._parent.toDirty();
 		} else if (isChangedUploaded) {
@@ -322,7 +341,8 @@ export class EShapeTextImpl implements EShapeText {
 			direction: this._direction,
 			spacing: this.spacing.toObject(),
 			padding: this.padding.toObject(),
-			clipping: this._clipping
+			clipping: this._clipping,
+			fitting: this._fitting
 		};
 	}
 
@@ -337,7 +357,9 @@ export class EShapeTextImpl implements EShapeText {
 		const serialized =
 			`[${valueId},${this._color},${this._alpha},${familyId},${this._size},` +
 			`${this._weight},${alignId},${offsetId},${this._style},${outlineId},` +
-			`${spacingId},${this._direction},${paddingId},${this._clipping ? 1 : 0}]`;
+			`${spacingId},${this._direction},${paddingId},${this._clipping ? 1 : 0},${
+				this._fitting ? 1 : 0
+			}]`;
 		return manager.addResource(serialized);
 	}
 
@@ -358,7 +380,8 @@ export class EShapeTextImpl implements EShapeText {
 				parsed[5],
 				parsed[8],
 				parsed[11],
-				!!parsed[13]
+				!!parsed[13],
+				!!parsed[14]
 			);
 			this.align.deserialize(parsed[6], manager);
 			this.offset.deserialize(parsed[7], manager);

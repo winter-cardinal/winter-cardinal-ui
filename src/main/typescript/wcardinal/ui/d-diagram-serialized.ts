@@ -281,6 +281,9 @@ export interface DDiagramSerializedText {
 
 	/** A clipping. (0: Off, 1: On) */
 	[13]: number;
+
+	/** A fitting. (0: Off, 1: On) */
+	[14]: number;
 }
 
 /**

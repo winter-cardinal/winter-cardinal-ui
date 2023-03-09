@@ -441,6 +441,7 @@ export const buildTextVertex = (
 	textPaddingHorizontal: number,
 	textPaddingVertical: number,
 	textClipping: boolean,
+	textFitting: boolean,
 	textWorld: number[],
 	textureUvs: TextureUvs,
 	internalTransform: Matrix
@@ -539,9 +540,10 @@ export const buildTextVertex = (
 	let width = 0;
 	let height = 0;
 	let heightChar = 0;
-	const textSizeY = textSize * vnl;
-	const lineHeight = Math.max(0, textSize + textSpacingVertical) * vnl;
+	let textSizeY = textSize * vnl;
+	let lineHeight = Math.max(0, textSize + textSpacingVertical) * vnl;
 	let lineWidth = 0;
+	let lineCount = 1;
 	const textAtlasCharacters = textAtlas.characters;
 	const iterator = UtilCharacterIterator.from(textValue);
 	let advancePrevious = 0;
@@ -564,17 +566,54 @@ export const buildTextVertex = (
 			width = Math.max(width, lineWidth);
 			lineWidth = 0;
 			height += lineHeight;
+			lineCount += 1;
 		}
 	}
 
-	const scaleZ = textSize / textAtlas.font.size;
-	const scaleX = hnl * scaleZ;
-	const scaleY = vnl * scaleZ;
-	lineWidth += advancePrevious;
-	width = Math.max(width, lineWidth) * scaleX;
-	lineWidth = 0;
-	heightChar *= scaleY;
-	height += textSizeY;
+	let scaleZ = 1;
+	let scaleX = 1;
+	let scaleY = 1;
+	if (textFitting) {
+		let fittingWidth = 0;
+		let fittingHeight = 0;
+		switch (textDirection) {
+			case EShapeTextDirection.LEFT_TO_RIGHT:
+			case EShapeTextDirection.RIGHT_TO_LEFT:
+				fittingWidth = hl - textPaddingVertical * 2;
+				fittingHeight = vl - textPaddingHorizontal * 2;
+				break;
+			case EShapeTextDirection.TOP_TO_BOTTOM:
+			case EShapeTextDirection.BOTTOM_TO_TOP:
+				fittingWidth = vl - textPaddingVertical * 2;
+				fittingHeight = hl - textPaddingHorizontal * 2;
+				break;
+		}
+		const atlasFontSize = textAtlas.font.size;
+		const atlasLineHeight = Math.max(0, atlasFontSize + textSpacingVertical) * vnl;
+		lineWidth += advancePrevious;
+		const defaultWidth = Math.max(width, lineWidth);
+		lineWidth = 0;
+		const defaultHeight = atlasLineHeight * lineCount;
+		const scaleZX = fittingWidth / defaultWidth;
+		const scaleZY = fittingHeight / defaultHeight;
+		scaleZ = Math.min(scaleZX, scaleZY);
+		scaleX = hnl * scaleZ;
+		scaleY = vnl * scaleZ;
+		width = defaultWidth * scaleX;
+		heightChar *= scaleY;
+		lineHeight = atlasLineHeight * scaleY;
+		textSizeY = atlasFontSize * scaleY;
+		height = defaultHeight * scaleY;
+	} else {
+		scaleZ = textSize / textAtlas.font.size;
+		scaleX = hnl * scaleZ;
+		scaleY = vnl * scaleZ;
+		lineWidth += advancePrevious;
+		width = Math.max(width, lineWidth) * scaleX;
+		lineWidth = 0;
+		heightChar *= scaleY;
+		height += textSizeY;
+	}
 
 	//
 	let tx0 = 0;
@@ -814,7 +853,7 @@ export const buildTextVertex = (
 	lineWidth = 0;
 	advancePrevious = 0;
 	iterator.position = 0;
-	let lineCount = 0;
+	lineCount = 0;
 	let iv = voffset * 2;
 	for (; iterator.hasNext(); iv += 8) {
 		const character = iterator.next();

@@ -41,6 +41,7 @@ export interface EShapeTextLike {
 	direction: EShapeTextDirection;
 	padding: EShapeTextOffsetLike;
 	clipping: boolean;
+	fitting: boolean;
 }
 
 export interface EShapeTextAtlasCharacter {
@@ -89,7 +90,8 @@ export interface EShapeText extends EShapeTextLike {
 		weight?: EShapeTextWeight,
 		style?: EShapeTextStyle,
 		direction?: EShapeTextDirection,
-		clipping?: boolean
+		clipping?: boolean,
+		fitting?: boolean
 	): this;
 	toObject(): EShapeTextLike;
 	serialize(manager: EShapeResourceManagerSerialization): number;
