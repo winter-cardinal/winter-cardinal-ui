@@ -162,7 +162,7 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 		coordinate: DChartCoordinate<CHART>,
 		majorShapes: EShape[],
 		minorShapes: EShape[],
-		gridlineShapes: EShape[] | null,
+		gridlineShapes: EShape[],
 		shapePositionY: number,
 		transform: Matrix,
 		plotAreaHeight: number
@@ -209,7 +209,7 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 				majorShape.text.value = majorFormatter.format(majorTickPosition, majorTickStep);
 				majorShape.allowUploadedUpdate();
 
-				if (gridlineShapes) {
+				if (i < gridlineShapes.length) {
 					const gridlineShape = gridlineShapes[i];
 					gridlineShape.disallowUploadedUpdate();
 					gridlineShape.visible = true;
@@ -251,7 +251,7 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 		coordinate: DChartCoordinate<CHART>,
 		majorShapes: EShape[],
 		minorShapes: EShape[],
-		gridlineShapes: EShape[] | null,
+		gridlineShapes: EShape[],
 		shapePositionX: number,
 		transform: Matrix,
 		plotAreaWidth: number
@@ -298,7 +298,7 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 				majorShape.text.value = majorFormatter.format(majorTickPosition, majorTickStep);
 				majorShape.allowUploadedUpdate();
 
-				if (gridlineShapes) {
+				if (i < gridlineShapes.length) {
 					const gridlineShape = gridlineShapes[i];
 					gridlineShape.disallowUploadedUpdate();
 					gridlineShape.visible = true;
