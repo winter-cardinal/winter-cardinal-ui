@@ -95,6 +95,7 @@ export * from "./d-chart-axis-x";
 export * from "./d-chart-axis-y";
 export * from "./d-chart-axis";
 export * from "./d-chart-color-set";
+export * from "./d-chart-coordinate-base";
 export * from "./d-chart-coordinate-container-impl";
 export * from "./d-chart-coordinate-container-sub-impl";
 export * from "./d-chart-coordinate-container-sub";

@@ -72,7 +72,7 @@ export abstract class DChartSeriesLineOfAny<
 		super(options);
 		this._line = null;
 		this._options = options;
-		this._points = (options && options.points) || [];
+		this._points = options?.points ?? [];
 		this._pointId = 0;
 		this._pointIdUpdated = NaN;
 	}
