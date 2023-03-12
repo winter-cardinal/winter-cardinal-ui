@@ -8,7 +8,8 @@ import {
 	DChartAxisBaseTickContainerOptions,
 	DChartAxisBaseTickMajorGridlineOptions,
 	DChartAxisBaseTickMajorOptions,
-	DChartAxisBaseTickMajorTextOptions,
+	DChartAxisBaseTickMinorOptions,
+	DChartAxisBaseTickTextOptions,
 	DThemeChartAxisBase
 } from "./d-chart-axis-base-options";
 import { DChartAxisPosition } from "./d-chart-axis-position";
@@ -45,8 +46,8 @@ export interface DChartAxisBaseOptionParserTickMajor {
 	position: EShapeBarPosition;
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	text?: DChartAxisBaseTickMajorTextOptions;
-	formatter: NumberFormatter;
+	text?: DChartAxisBaseTickTextOptions;
+	formatter?: NumberFormatter;
 
 	gridline: DChartAxisBaseOptionParserGridline;
 }
@@ -58,6 +59,8 @@ export interface DChartAxisBaseOptionParserTickMinor {
 	position: EShapeBarPosition;
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
+	text?: DChartAxisBaseTickTextOptions;
+	formatter?: NumberFormatter;
 }
 
 export interface DChartAxisBaseOptionParserTickContainer {
@@ -143,7 +146,7 @@ export class DChartAxisBaseOptionParser {
 		return {
 			enable: tick?.enable ?? theme.getTickEnable(),
 			major: this.toTickMajor(theme, tick),
-			minor: this.toMinorTick(theme, tick)
+			minor: this.toTickMinor(theme, tick)
 		};
 	}
 
@@ -169,8 +172,8 @@ export class DChartAxisBaseOptionParser {
 			position: this.toTickPosition(position),
 			style,
 			stroke,
-			text: this.toMajorTickText(theme, major?.text),
-			formatter: this.toMajorTickFormatter(theme, major),
+			text: this.toTickMajorText(theme, major?.text),
+			formatter: this.toTickMajorFormatter(theme, major),
 			gridline: this.toTickMajorGridline(theme, major?.gridline, optionsStyle, optionsStroke)
 		};
 	}
@@ -224,7 +227,7 @@ export class DChartAxisBaseOptionParser {
 		}
 	}
 
-	protected toMinorTick(
+	protected toTickMinor(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickContainerOptions
 	): DChartAxisBaseOptionParserTickMinor {
@@ -239,7 +242,9 @@ export class DChartAxisBaseOptionParser {
 			size: minor?.size ?? theme.getMinorTickSize(),
 			position: this.toTickPosition(position),
 			style,
-			stroke: this.toTickMinorStroke(theme, minor?.stroke, options?.stroke)
+			stroke: this.toTickMinorStroke(theme, minor?.stroke, options?.stroke),
+			text: this.toTickMinorText(theme, minor?.text),
+			formatter: this.toTickMinorFormatter(theme, minor)
 		};
 	}
 
@@ -370,14 +375,16 @@ export class DChartAxisBaseOptionParser {
 		}
 	}
 
-	protected toMajorTickFormatter(
+	protected toTickMajorFormatter(
 		theme: DThemeChartAxisBase,
 		options?: DChartAxisBaseTickMajorOptions
-	): NumberFormatter {
+	): NumberFormatter | undefined {
 		const text = options?.text;
 		if (text) {
 			const format = text.format;
-			if (format != null) {
+			if (format === null) {
+				return undefined;
+			} else if (format != null) {
 				return NumberFormatters.create(format);
 			} else {
 				const formatter = text.formatter;
@@ -388,33 +395,37 @@ export class DChartAxisBaseOptionParser {
 				}
 			}
 		}
-		return NumberFormatters.create(theme.getMajorTickTextFormat());
+		const format = theme.getMajorTickTextFormat();
+		if (format != null) {
+			return NumberFormatters.create(format);
+		}
+		return undefined;
 	}
 
-	protected toMajorTickText(
+	protected toTickMajorText(
 		theme: DThemeChartAxisBase,
-		options?: DChartAxisBaseTickMajorTextOptions
-	): DChartAxisBaseTickMajorTextOptions | undefined {
+		options?: DChartAxisBaseTickTextOptions
+	): DChartAxisBaseTickTextOptions | undefined {
 		options = options || {};
 		return {
 			format: options.format,
-			color: this.toMajorTickTextColor(theme, options.color),
+			color: this.toTickMajorTextColor(theme, options.color),
 			alpha: options.alpha,
 			family: options.family,
 			size: options.size,
 			weight: options.weight,
-			align: this.toMajorTickTextAlign(theme, options.align),
-			offset: this.toMajorTickTextOffset(theme, options.offset),
+			align: this.toTickMajorTextAlign(theme, options.align),
+			offset: this.toTickMajorTextOffset(theme, options.offset),
 			style: options.style,
-			outline: this.toMajorTickTextOutline(theme, options.outline),
-			spacing: this.toMajorTickTextSpacing(theme, options.spacing),
+			outline: this.toTickMajorTextOutline(theme, options.outline),
+			spacing: this.toTickMajorTextSpacing(theme, options.spacing),
 			direction: this.toTickMajorTextDirection(theme, options.direction),
-			padding: this.toMajorTickTextPadding(theme, options.padding),
+			padding: this.toTickMajorTextPadding(theme, options.padding),
 			clipping: options.clipping
 		};
 	}
 
-	protected toMajorTickTextOutline(
+	protected toTickMajorTextOutline(
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOutlineLike>
 	): Partial<EShapeTextOutlineLike> | undefined {
@@ -428,7 +439,7 @@ export class DChartAxisBaseOptionParser {
 		}
 	}
 
-	protected toMajorTickTextAlign(
+	protected toTickMajorTextAlign(
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
@@ -439,7 +450,7 @@ export class DChartAxisBaseOptionParser {
 		};
 	}
 
-	protected toMajorTickTextOffset(
+	protected toTickMajorTextOffset(
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
@@ -451,7 +462,7 @@ export class DChartAxisBaseOptionParser {
 		}
 	}
 
-	protected toMajorTickTextSpacing(
+	protected toTickMajorTextSpacing(
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
@@ -463,7 +474,7 @@ export class DChartAxisBaseOptionParser {
 		}
 	}
 
-	protected toMajorTickTextPadding(
+	protected toTickMajorTextPadding(
 		theme: DThemeChartAxisBase,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> {
@@ -480,11 +491,134 @@ export class DChartAxisBaseOptionParser {
 		return options ?? theme.getMajorTickTextDirection();
 	}
 
-	protected toMajorTickTextColor(
+	protected toTickMajorTextColor(
 		theme: DThemeChartAxisBase,
 		options?: number
 	): number | undefined {
 		return options ?? theme.getMajorTickTextColor();
+	}
+
+	protected toTickMinorFormatter(
+		theme: DThemeChartAxisBase,
+		options?: DChartAxisBaseTickMinorOptions
+	): NumberFormatter | undefined {
+		const text = options?.text;
+		if (text) {
+			const format = text.format;
+			if (format === null) {
+				return undefined;
+			} else if (format != null) {
+				return NumberFormatters.create(format);
+			} else {
+				const formatter = text.formatter;
+				if (formatter) {
+					return {
+						format: formatter
+					};
+				}
+			}
+		}
+		const format = theme.getMinorTickTextFormat();
+		if (format != null) {
+			return NumberFormatters.create(format);
+		}
+		return undefined;
+	}
+
+	protected toTickMinorText(
+		theme: DThemeChartAxisBase,
+		options?: DChartAxisBaseTickTextOptions
+	): DChartAxisBaseTickTextOptions | undefined {
+		options = options || {};
+		return {
+			format: options.format,
+			color: this.toTickMinorTextColor(theme, options.color),
+			alpha: options.alpha,
+			family: options.family,
+			size: options.size,
+			weight: options.weight,
+			align: this.toTickMinorTextAlign(theme, options.align),
+			offset: this.toTickMinorTextOffset(theme, options.offset),
+			style: options.style,
+			outline: this.toTickMinorTextOutline(theme, options.outline),
+			spacing: this.toTickMinorTextSpacing(theme, options.spacing),
+			direction: this.toTickMinorTextDirection(theme, options.direction),
+			padding: this.toTickMinorTextPadding(theme, options.padding),
+			clipping: options.clipping
+		};
+	}
+
+	protected toTickMinorTextOutline(
+		theme: DThemeChartAxisBase,
+		options?: Partial<EShapeTextOutlineLike>
+	): Partial<EShapeTextOutlineLike> | undefined {
+		if (options) {
+			return {
+				enable: options.enable,
+				color: options.color,
+				alpha: options.alpha,
+				width: options.width
+			};
+		}
+	}
+
+	protected toTickMinorTextAlign(
+		theme: DThemeChartAxisBase,
+		options?: Partial<EShapeTextAlignLike>
+	): Partial<EShapeTextAlignLike> | undefined {
+		const position = this._position;
+		return {
+			horizontal: options?.horizontal ?? theme.getMinorTickTextAlignHorizontal(position),
+			vertical: options?.vertical ?? theme.getMinorTickTextAlignVertical(position)
+		};
+	}
+
+	protected toTickMinorTextOffset(
+		theme: DThemeChartAxisBase,
+		options?: Partial<EShapeTextOffsetLike>
+	): Partial<EShapeTextOffsetLike> | undefined {
+		if (options) {
+			return {
+				horizontal: options.horizontal,
+				vertical: options.vertical
+			};
+		}
+	}
+
+	protected toTickMinorTextSpacing(
+		theme: DThemeChartAxisBase,
+		options?: Partial<EShapeTextOffsetLike>
+	): Partial<EShapeTextOffsetLike> | undefined {
+		if (options) {
+			return {
+				horizontal: options.horizontal,
+				vertical: options.vertical
+			};
+		}
+	}
+
+	protected toTickMinorTextPadding(
+		theme: DThemeChartAxisBase,
+		options?: Partial<EShapeTextOffsetLike>
+	): Partial<EShapeTextOffsetLike> {
+		return {
+			horizontal: options?.horizontal ?? theme.getMinorTickTextPaddingHorizontal(),
+			vertical: options?.vertical ?? theme.getMinorTickTextPaddingVertical()
+		};
+	}
+
+	protected toTickMinorTextDirection(
+		theme: DThemeChartAxisBase,
+		options?: EShapeTextDirection
+	): EShapeTextDirection {
+		return options ?? theme.getMinorTickTextDirection();
+	}
+
+	protected toTickMinorTextColor(
+		theme: DThemeChartAxisBase,
+		options?: number
+	): number | undefined {
+		return options ?? theme.getMinorTickTextColor();
 	}
 
 	protected toLabel(

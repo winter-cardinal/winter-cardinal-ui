@@ -42,6 +42,7 @@ export class DChartAxisBaseTickMinor<CHART extends DBase> implements DChartAxisT
 				shape.points.size = size;
 				shape.points.style = style;
 				shape.stroke.copy(minor.stroke);
+				shape.text.copy(minor.text);
 				shape.size.set(0, 0);
 				result.push(shape);
 			}

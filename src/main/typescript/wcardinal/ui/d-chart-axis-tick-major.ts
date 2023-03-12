@@ -4,10 +4,15 @@
  */
 
 import { DBase } from "./d-base";
+import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisTickMajorGridline } from "./d-chart-axis-tick-major-gridline";
 import { EShape } from "./shape/e-shape";
 
 export interface DChartAxisTickMajor<CHART extends DBase> {
 	readonly shapes: EShape[];
 	readonly gridline: DChartAxisTickMajorGridline<CHART>;
+
+	bind(container: DChartAxisContainer<CHART>, index: number): void;
+	unbind(): void;
+	destroy(): void;
 }

@@ -23,9 +23,9 @@ import { EShapeTextOutlineLike } from "./shape/e-shape-text-outline";
 import { DeepPartial } from "./util/deep-partial";
 import { NumberFormatterFunction } from "./util/number-formatter-function";
 
-export interface DChartAxisBaseTickMajorTextOptions {
+export interface DChartAxisBaseTickTextOptions {
 	/** A format. Please refer to {@link NumberFormatter} for format details. */
-	format?: string;
+	format?: string | null;
 
 	/** A formatter function. */
 	formatter?: NumberFormatterFunction;
@@ -63,7 +63,7 @@ export interface DChartAxisBaseTickMajorOptions {
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;
 	stroke?: Partial<EShapeStrokeLike>;
-	text?: DChartAxisBaseTickMajorTextOptions;
+	text?: DChartAxisBaseTickTextOptions;
 	gridline?: DChartAxisBaseTickMajorGridlineOptions;
 }
 
@@ -74,6 +74,7 @@ export interface DChartAxisBaseTickMinorOptions {
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;
 	stroke?: Partial<EShapeStrokeLike>;
+	text?: DChartAxisBaseTickTextOptions;
 }
 
 export interface DChartAxisBaseTickContainerOptions {
@@ -127,7 +128,7 @@ export interface DThemeChartAxisBase {
 	getMajorTickTextAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal;
 	getMajorTickTextAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical;
 	getMajorTickTextDirection(): EShapeTextDirection;
-	getMajorTickTextFormat(): string;
+	getMajorTickTextFormat(): string | undefined;
 	getMajorTickTextColor(): number | undefined;
 	getMajorTickTextPaddingHorizontal(): number;
 	getMajorTickTextPaddingVertical(): number;
@@ -154,6 +155,13 @@ export interface DThemeChartAxisBase {
 	getMinorTickSize(): number;
 	getMinorTickPosition(): DChartAxisTickPosition;
 	getMinorTickStyle(): EShapePointsStyle | undefined;
+	getMinorTickTextAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal;
+	getMinorTickTextAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical;
+	getMinorTickTextDirection(): EShapeTextDirection;
+	getMinorTickTextFormat(): string | undefined;
+	getMinorTickTextColor(): number | undefined;
+	getMinorTickTextPaddingHorizontal(): number;
+	getMinorTickTextPaddingVertical(): number;
 	getMinorTickStrokeEnable(): boolean | undefined;
 	getMinorTickStrokeColor(): number | undefined;
 	getMinorTickStrokeAlpha(): number | undefined;

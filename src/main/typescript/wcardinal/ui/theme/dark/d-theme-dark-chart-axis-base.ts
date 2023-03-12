@@ -256,6 +256,34 @@ export class DThemeDarkChartAxisBase implements DThemeChartAxisBase {
 		return undefined;
 	}
 
+	getMinorTickTextAlignHorizontal(position: DChartAxisPosition): EShapeTextAlignHorizontal {
+		return this.getMajorTickTextAlignHorizontal(position);
+	}
+
+	getMinorTickTextAlignVertical(position: DChartAxisPosition): EShapeTextAlignVertical {
+		return this.getMajorTickTextAlignVertical(position);
+	}
+
+	getMinorTickTextDirection(): EShapeTextDirection {
+		return this.getMajorTickTextDirection();
+	}
+
+	getMinorTickTextColor(): number | undefined {
+		return this.getStrokeColor();
+	}
+
+	getMinorTickTextFormat(): string | undefined {
+		return undefined;
+	}
+
+	getMinorTickTextPaddingHorizontal(): number {
+		return this.getMajorTickTextPaddingHorizontal();
+	}
+
+	getMinorTickTextPaddingVertical(): number {
+		return this.getMajorTickTextPaddingVertical();
+	}
+
 	getMinorTickStrokeEnable(): boolean | undefined {
 		return true;
 	}

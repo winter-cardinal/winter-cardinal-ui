@@ -187,7 +187,7 @@ export class DChartCoordinateLogTick<CHART extends DBase = DBase>
 	}
 
 	protected toTheme(options?: DChartCoordinateTickOptions): DThemeChartCoordinateTick {
-		return (options && options.theme) || this.getThemeDefault();
+		return options?.theme ?? this.getThemeDefault();
 	}
 
 	protected getThemeDefault(): DThemeChartCoordinateTick {

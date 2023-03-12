@@ -66,6 +66,13 @@
 											return target.toFixed(precision);
 										}
 									}
+								},
+								minor: {
+									text: {
+										formatter: (target, step) => {
+											return target.toFixed(Math.max(0, precision - 1));
+										}
+									}
 								}
 							}
 						})

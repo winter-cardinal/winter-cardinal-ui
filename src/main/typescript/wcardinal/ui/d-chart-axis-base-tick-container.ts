@@ -9,6 +9,8 @@ import { DChartAxisTickContainer } from "./d-chart-axis-tick-container";
 import { DChartAxisTickMajor } from "./d-chart-axis-tick-major";
 import { DChartAxisTickMinor } from "./d-chart-axis-tick-minor";
 import { DChartCoordinate } from "./d-chart-coordinate";
+import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
+import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
 import { EShape } from "./shape/e-shape";
 
 export class DChartAxisBaseTickContainer<CHART extends DBase>
@@ -17,16 +19,16 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 	protected _parser: DChartAxisBaseOptionParser;
 	protected _container?: DChartAxisContainer<CHART>;
 	protected _index: number;
-	protected _major: DChartAxisBaseTickMajor<CHART>;
-	protected _minor: DChartAxisBaseTickMinor<CHART>;
+	protected _major: DChartAxisTickMajor<CHART>;
+	protected _minor: DChartAxisTickMinor<CHART>;
 	protected _majorTicks: number[];
 	protected _minorTicks: number[];
 
 	constructor(parser: DChartAxisBaseOptionParser) {
 		this._parser = parser;
 		this._index = 0;
-		this._major = new DChartAxisBaseTickMajor(parser);
-		this._minor = new DChartAxisBaseTickMinor(parser);
+		this._major = this.newMajor(parser);
+		this._minor = this.newMinor(parser);
 		this._majorTicks = [];
 		this._minorTicks = [];
 	}
@@ -35,8 +37,16 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 		return this._major;
 	}
 
+	protected newMajor(parser: DChartAxisBaseOptionParser): DChartAxisTickMajor<CHART> {
+		return new DChartAxisBaseTickMajor(parser);
+	}
+
 	get minor(): DChartAxisTickMinor<CHART> {
 		return this._minor;
+	}
+
+	protected newMinor(parser: DChartAxisBaseOptionParser): DChartAxisTickMinor<CHART> {
+		return new DChartAxisBaseTickMinor(parser);
 	}
 
 	bind(container: DChartAxisContainer<CHART>, index: number): void {
@@ -177,9 +187,11 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 		const minorCountPerMajor = minorTick.count;
 		const minorCount = (majorCapacity + 1) * minorCountPerMajor;
 		const minorStep = minorTick.step;
+		const minorFormatter = minorTick.formatter;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
-		coordinate.ticks(
+		this.newTicks(
+			coordinate,
 			domainMin,
 			domainMax,
 			majorCount,
@@ -202,25 +214,26 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 				const majorTickProjectedPosition = majorTicks[imajorTick + 1];
 				const majotTickPositionX = a * majorTickProjectedPosition + tx;
 				const majorTickStep = majorTicks[imajorTick + 2];
-
-				majorShape.disallowUploadedUpdate();
-				majorShape.visible = true;
-				majorShape.transform.position.set(majotTickPositionX, shapePositionY);
-				majorShape.text.value = majorFormatter.format(majorTickPosition, majorTickStep);
-				majorShape.allowUploadedUpdate();
-
+				this.showMajor(
+					majorShape,
+					majotTickPositionX,
+					shapePositionY,
+					majorFormatter?.format(majorTickPosition, majorTickStep)
+				);
 				if (i < gridlineShapes.length) {
-					const gridlineShape = gridlineShapes[i];
-					gridlineShape.disallowUploadedUpdate();
-					gridlineShape.visible = true;
-					gridlineShape.transform.position.set(majotTickPositionX, plotAreaHeight * 0.5);
-					gridlineShape.size.set(0, plotAreaHeight);
-					gridlineShape.allowUploadedUpdate();
+					this.showMajorGridline(
+						gridlineShapes[i],
+						majorTickPosition,
+						majotTickPositionX,
+						plotAreaHeight * 0.5,
+						0,
+						plotAreaHeight
+					);
 				}
 			} else {
-				majorShape.visible = false;
+				this.hideMajor(majorShape);
 				if (i < gridlineShapes.length) {
-					gridlineShapes[i].visible = false;
+					this.hideMajorGridline(gridlineShapes[i]);
 				}
 			}
 		}
@@ -229,17 +242,18 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 			const minorShape = minorShapes[i];
 			const iminorTick = i * 3;
 			const minorTickPosition = minorTicks[iminorTick + 0];
-			const minorTickProjectedPosition = minorTicks[iminorTick + 1];
 			if (!isNaN(minorTickPosition)) {
-				minorShape.disallowUploadedUpdate();
-				minorShape.visible = true;
-				minorShape.transform.position.set(
-					a * minorTickProjectedPosition + tx,
-					shapePositionY
+				const minorTickProjectedPosition = minorTicks[iminorTick + 1];
+				const minorTickPositionX = a * minorTickProjectedPosition + tx;
+				const minorTickStep = minorTicks[iminorTick + 2];
+				this.showMinor(
+					minorShape,
+					minorTickPositionX,
+					shapePositionY,
+					minorFormatter?.format(minorTickPosition, minorTickStep)
 				);
-				minorShape.allowUploadedUpdate();
 			} else {
-				minorShape.visible = false;
+				this.hideMinor(minorShape);
 			}
 		}
 		return true;
@@ -266,9 +280,11 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 		const minorCountPerMajor = minorTick.count;
 		const minorCount = (majorCapacity + 1) * minorCountPerMajor;
 		const minorStep = minorTick.step;
+		const minorFormatter = minorTick.formatter;
 		const majorTicks = this._majorTicks;
 		const minorTicks = this._minorTicks;
-		coordinate.ticks(
+		this.newTicks(
+			coordinate,
 			domainMin,
 			domainMax,
 			majorCount,
@@ -291,25 +307,26 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 				const majorTickProjectedPosition = majorTicks[imajorTick + 1];
 				const majotTickPositionY = d * majorTickProjectedPosition + ty;
 				const majorTickStep = majorTicks[imajorTick + 2];
-
-				majorShape.disallowUploadedUpdate();
-				majorShape.visible = true;
-				majorShape.transform.position.set(shapePositionX, majotTickPositionY);
-				majorShape.text.value = majorFormatter.format(majorTickPosition, majorTickStep);
-				majorShape.allowUploadedUpdate();
-
+				this.showMajor(
+					majorShape,
+					shapePositionX,
+					majotTickPositionY,
+					majorFormatter?.format(majorTickPosition, majorTickStep)
+				);
 				if (i < gridlineShapes.length) {
-					const gridlineShape = gridlineShapes[i];
-					gridlineShape.disallowUploadedUpdate();
-					gridlineShape.visible = true;
-					gridlineShape.transform.position.set(plotAreaWidth * 0.5, majotTickPositionY);
-					gridlineShape.size.set(plotAreaWidth, 0);
-					gridlineShape.allowUploadedUpdate();
+					this.showMajorGridline(
+						gridlineShapes[i],
+						majorTickPosition,
+						plotAreaWidth * 0.5,
+						majotTickPositionY,
+						plotAreaWidth,
+						0
+					);
 				}
 			} else {
-				majorShape.visible = false;
+				this.hideMajor(majorShape);
 				if (i < gridlineShapes.length) {
-					gridlineShapes[i].visible = false;
+					this.hideMajorGridline(gridlineShapes[i]);
 				}
 			}
 		}
@@ -318,20 +335,91 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 			const minorShape = minorShapes[i];
 			const iminorTick = i * 3;
 			const minorTickPosition = minorTicks[iminorTick + 0];
-			const minorTickProjectedPosition = minorTicks[iminorTick + 1];
 			if (!isNaN(minorTickPosition)) {
-				minorShape.disallowUploadedUpdate();
-				minorShape.visible = true;
-				minorShape.transform.position.set(
+				const minorTickProjectedPosition = minorTicks[iminorTick + 1];
+				const minorTickPositionY = d * minorTickProjectedPosition + ty;
+				const minorTickStep = minorTicks[iminorTick + 2];
+				this.showMinor(
+					minorShape,
 					shapePositionX,
-					d * minorTickProjectedPosition + ty
+					minorTickPositionY,
+					minorFormatter?.format(minorTickPosition, minorTickStep)
 				);
-				minorShape.allowUploadedUpdate();
 			} else {
-				minorShape.visible = false;
+				this.hideMinor(minorShape);
 			}
 		}
 		return true;
+	}
+
+	protected showMajor(shape: EShape, x: number, y: number, text?: string): void {
+		shape.disallowUploadedUpdate();
+		shape.visible = true;
+		shape.transform.position.set(x, y);
+		shape.text.value = text != null ? text : "";
+		shape.allowUploadedUpdate();
+	}
+
+	protected showMajorGridline(
+		shape: EShape,
+		value: number,
+		x: number,
+		y: number,
+		sx: number,
+		sy: number
+	): void {
+		shape.disallowUploadedUpdate();
+		shape.visible = true;
+		shape.transform.position.set(x, y);
+		shape.size.set(sx, sy);
+		shape.allowUploadedUpdate();
+	}
+
+	protected hideMajor(shape: EShape): void {
+		shape.visible = false;
+	}
+
+	protected hideMajorGridline(shape: EShape): void {
+		shape.visible = false;
+	}
+
+	protected showMinor(shape: EShape, x: number, y: number, text?: string): void {
+		shape.disallowUploadedUpdate();
+		shape.visible = true;
+		shape.transform.position.set(x, y);
+		shape.text.value = text != null ? text : "";
+		shape.allowUploadedUpdate();
+	}
+
+	protected hideMinor(shape: EShape): void {
+		shape.visible = false;
+	}
+
+	protected newTicks(
+		coordinate: DChartCoordinate<CHART>,
+		domainMin: number,
+		domainMax: number,
+		majorCount: number,
+		majorCapacity: number,
+		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
+		minorCountPerMajor: number,
+		minorCount: number,
+		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
+		majorResult: number[],
+		minorResult: number[]
+	): void {
+		coordinate.ticks(
+			domainMin,
+			domainMax,
+			majorCount,
+			majorCapacity,
+			majorStep,
+			minorCountPerMajor,
+			minorCount,
+			minorStep,
+			majorResult,
+			minorResult
+		);
 	}
 
 	destroy(): void {
