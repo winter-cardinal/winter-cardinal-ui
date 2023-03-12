@@ -83,7 +83,7 @@ const toPathGetter = <ROW, CELL>(path: string[], def?: CELL): DTableColumnGetter
 			};
 		} else {
 			return (row: ROW): CELL => {
-				return key in row ? (row as any)[key] : def;
+				return Object.prototype.hasOwnProperty.call(row, key) ? (row as any)[key] : def;
 			};
 		}
 	} else {
@@ -100,7 +100,7 @@ const toPathGetter = <ROW, CELL>(path: string[], def?: CELL): DTableColumnGetter
 					row = (row as any)[path[i]];
 				}
 				const key = path[path.length - 1];
-				return key in row ? (row as any)[key] : def;
+				return Object.prototype.hasOwnProperty.call(row, key) ? (row as any)[key] : def;
 			};
 		}
 	}
@@ -160,7 +160,7 @@ const toColumnDataChecker = <ROW>(path: string[] | null): DTableColumnEditable<R
 		if (pathLength <= 1) {
 			const key = path[0];
 			return (row: ROW): boolean => {
-				return key in row;
+				return Object.prototype.hasOwnProperty.call(row, key);
 			};
 		} else {
 			return (row: any): boolean => {

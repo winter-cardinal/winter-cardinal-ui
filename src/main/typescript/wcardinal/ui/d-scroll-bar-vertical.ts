@@ -58,5 +58,6 @@ export class DScrollBarVertical<
 
 		thumb.position.set(0, barStart);
 		thumb.resize(width, barLength);
+		thumb.updateTransform();
 	}
 }

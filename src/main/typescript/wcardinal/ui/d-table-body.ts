@@ -16,6 +16,8 @@ import { DTableBodyCell } from "./d-table-body-cell";
 import { DTableState } from "./d-table-state";
 import { DTableBodyCellOptions } from "./d-table-body-cell-options";
 import { DOnOptions } from "./d-on-options";
+import { DApplications } from "./d-applications";
+import { isNumber } from "./util/is-number";
 
 /**
  * {@link DTableBody} events.
@@ -403,6 +405,46 @@ export class DTableBody<
 			result.y += dy;
 			result.height -= dy;
 		}
+	}
+
+	/**
+	 * Scroll to the given row or row index.
+	 *
+	 * @param target a row or an row index to which the body scrolls to.
+	 * @returns true if succeeded
+	 */
+	scrollTo(target: ROW | number): boolean {
+		const parent = this.parent;
+		if (parent == null) {
+			return false;
+		}
+		const parentParent = parent.parent;
+		if (parentParent == null) {
+			return false;
+		}
+		let rowIndexMapped = -1;
+		if (isNumber(target)) {
+			if (0 <= target && target < this.data.mapped.size()) {
+				rowIndexMapped = target;
+			}
+		} else {
+			this.data.mapped.each((row: ROW, _: unknown, index: number): boolean => {
+				if (row === target) {
+					rowIndexMapped = index;
+					return false;
+				}
+				return true;
+			});
+		}
+		if (rowIndexMapped < 0) {
+			return false;
+		}
+		parent.position.y = Math.max(
+			Math.min(0, parentParent.height - parent.height),
+			-rowIndexMapped * this._rowHeight
+		);
+		DApplications.update(this);
+		return true;
 	}
 
 	protected toRowIndexMapped(local: Point): number {
