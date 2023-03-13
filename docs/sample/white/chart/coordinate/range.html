@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.288.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.288.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.292.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.292.0/wcardinal-ui-theme-white.min.js"></script>
 	<script src="../../../resource/chart/updater.js"></script>
 	<script>
 	(function(){
@@ -34,18 +34,21 @@
 		const chart = new wcardinal.ui.DChart({
 			parent: application.stage,
 			x: 100, y: 50,
-			width: 700, height: 400,
-			padding: {
-				left: 100,
-				right: 100
-			},
+			width: 500, height: 400,
 			plotArea: {
+				padding: 0,
 				coordinate: {
 					x: new wcardinal.ui.DChartCoordinateLinear(),
-					y: new wcardinal.ui.DChartCoordinateLinear()
+					y: new wcardinal.ui.DChartCoordinateLinear({
+						// Explicitly set a range
+						from: 0,
+						to: 1
+					})
 				},
 				series: {
 					list: [
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine()
 					]
 				},
@@ -62,24 +65,6 @@
 							}
 						})
 					]
-				}
-			}
-		});
-
-		new wcardinal.ui.DButton({
-			parent: application.stage,
-			x: 80, y: 520,
-			width: 300,
-			text: {
-				value: "Calculate range"
-			},
-			on: {
-				active: () => {
-					const bounds = chart.plotArea.getBoundsInContainer();
-					const coordinate = chart.plotArea.coordinate.y.get(0);
-					const from = coordinate.unmap(coordinate.transform.unmap(bounds.y + bounds.height));
-					const to = coordinate.unmap(coordinate.transform.unmap(bounds.y));
-					console.log("range", from, to);
 				}
 			}
 		});

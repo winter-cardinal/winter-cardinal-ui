@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.288.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.288.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.292.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.292.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script src="../../../resource/chart/updater.js"></script>
 	<script>
 	(function(){
@@ -64,15 +64,16 @@
 										color: 0x3388ff,
 										alpha: 1,
 										size: 14,
-										weight: wcardinal.ui.EShapeTextWeight.BOLD
+										weight: "BOLD"
 									}
 								},
 								minor: {
 									text: {
 										color: 0x3388ff,
-										alpha: 1,
+										alpha: 0.5,
 										size: 14,
-										weight: wcardinal.ui.EShapeTextWeight.BOLD
+										weight: "BOLD",
+										format: "%.1f"
 									}
 								}
 							}

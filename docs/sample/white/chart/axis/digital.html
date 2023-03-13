@@ -1,0 +1,207 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Digital</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.292.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.292.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../resource/chart/updater.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		class DChartAxisDigitalTickContainer extends wcardinal.ui.DChartAxisBaseTickContainer {
+			newTicks(
+				coordinate,
+				domainFrom,
+				domainTo,
+				majorCount,
+				majorCapacity,
+				majorStep,
+				minorCountPerMajor,
+				minorCount,
+				minorStep,
+				majorResult,
+				minorResult
+			) {
+				const transform = coordinate.transform;
+				const domainMin = Math.min(domainFrom, domainTo);
+				const domainMax = Math.max(domainFrom, domainTo);
+
+				// Major tick start position
+				const majorStepMapped = 1.5;
+				const minorStepMapped = 0.5;
+				const idomainStart = Math.floor(domainMin / majorStepMapped) - 1;
+				const idomainEnd = Math.ceil(domainMax / majorStepMapped) + 1;
+				const domainMinMapped = transform.map(coordinate.map(domainMin));
+				const domainMaxMapped = transform.map(coordinate.map(domainMax));
+				const from = Math.min(domainMinMapped, domainMaxMapped) - 0.5;
+				const to = Math.max(domainMinMapped, domainMaxMapped) + 0.5;
+
+				// Major / minor tick positions
+				let imajor = 0;
+				let iminor = 0;
+				for (let i = idomainStart; i <= idomainEnd; ++i) {
+					const majorPosition1 = i * majorStepMapped;
+					if (imajor < majorCapacity) {
+						const majorPositionMapped = transform.map(coordinate.map(majorPosition1));
+						if (from <= majorPositionMapped && majorPositionMapped <= to) {
+							const imajorResult = imajor * 3;
+							majorResult[imajorResult + 0] = 0;
+							majorResult[imajorResult + 1] = majorPositionMapped;
+							majorResult[imajorResult + 2] = majorStepMapped;
+							imajor += 1;
+						}
+					}
+
+					const majorPosition2 = i * majorStepMapped + 1;
+					if (imajor < majorCapacity) {
+						const majorPositionMapped = transform.map(coordinate.map(majorPosition2));
+						if (from <= majorPositionMapped && majorPositionMapped <= to) {
+							const imajorResult = imajor * 3;
+							majorResult[imajorResult + 0] = 1;
+							majorResult[imajorResult + 1] = majorPositionMapped;
+							majorResult[imajorResult + 2] = majorStepMapped;
+							imajor += 1;
+						}
+					}
+
+					for (let j = 0; j < minorCountPerMajor && j < 1; j += 1) {
+						if (iminor < minorCount) {
+							const minorPosition = majorPosition1 + (j + 1) * minorStepMapped;
+							const minorPositionMapped = transform.map(coordinate.map(minorPosition));
+							if (from <= minorPositionMapped && minorPositionMapped <= to) {
+								const iminorResult = iminor * 3;
+								minorResult[iminorResult + 0] = i;
+								minorResult[iminorResult + 1] = minorPositionMapped;
+								minorResult[iminorResult + 2] = minorStepMapped;
+								iminor += 1;
+							}
+						}
+					}
+				}
+				for (let i = imajor; i < majorCapacity; ++i) {
+					const imajorResult = i * 3;
+					majorResult[imajorResult + 0] = NaN;
+					majorResult[imajorResult + 1] = NaN;
+					majorResult[imajorResult + 2] = NaN;
+				}
+				for (let i = iminor; i < minorCount; ++i) {
+					const iminorResult = i * 3;
+					minorResult[iminorResult + 0] = NaN;
+					minorResult[iminorResult + 1] = NaN;
+					minorResult[iminorResult + 2] = NaN;
+				}
+			}
+		}
+
+		class DChartAxisDigital extends wcardinal.ui.DChartAxisY {
+			newTick(parser, theme, options) {
+				return new DChartAxisDigitalTickContainer(parser);
+			}
+		}
+
+		const series = [{
+			name: "Apple"
+		}, {
+			name: "Orange"
+		}, {
+			name: "Pineapple"
+		}];
+
+		const chart = new wcardinal.ui.DChart({
+			parent: application.stage,
+			x: 100, y: 50,
+			width: 500, height: 400,
+			padding: {
+				top: 0,
+				right: 80,
+				bottom: 0,
+				left: 80
+			},
+			plotArea: {
+				coordinate: {
+					x: new wcardinal.ui.DChartCoordinateLinear(),
+					y: new wcardinal.ui.DChartCoordinateLinear({
+						from: 0,
+						to: (series.length - 1) * 1.5 + 1
+					})
+				},
+				series: {
+					list: [
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine()
+					]
+				},
+				axis: {
+					list: [
+						new wcardinal.ui.DChartAxisX({
+							label: {
+								value: "X Axis"
+							}
+						}),
+						new DChartAxisDigital({
+							tick: {
+								major: {
+									text: {
+										format: "%.0f"
+									}
+								},
+								minor: {
+									text: {
+										direction: "BOTTOM_TO_TOP",
+										offset: {
+											horizontal: -20
+										},
+										formatter: (target, step) => {
+											if (0 <= target && target < series.length) {
+												return series[target].name;
+											}
+											return "";
+										}
+									}
+								}
+							}
+						}),
+						new DChartAxisDigital({
+							tick: {
+								major: {
+									text: {
+										format: "%.0f"
+									}
+								}
+							},
+							position: "RIGHT"
+						})
+					]
+				}
+			}
+		});
+
+		new ChartUpdater(application, chart).offset(0, 1.5).modifier((v) => 0 < v ? 1 : 0).start();
+	}());
+	</script>
+</body>
+</html>
