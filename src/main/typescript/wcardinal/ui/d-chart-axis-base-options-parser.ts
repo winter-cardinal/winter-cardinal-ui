@@ -5,12 +5,14 @@
 
 import {
 	DChartAxisBaseOptions,
-	DChartAxisBaseTickContainerOptions,
+	DChartAxisBaseTickOptions,
 	DChartAxisBaseTickMajorGridlineOptions,
 	DChartAxisBaseTickMajorOptions,
 	DChartAxisBaseTickMinorOptions,
+	DChartAxisBaseTextDirectionOption,
 	DChartAxisBaseTickTextOptions,
-	DThemeChartAxisBase
+	DThemeChartAxisBase,
+	DChartAxisBaseStrokeOptions
 } from "./d-chart-axis-base-options";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
@@ -21,16 +23,41 @@ import { EShapePointsStyleOption, EShapePointsStyles } from "./shape/e-shape-poi
 import { EShapeStrokeLike } from "./shape/e-shape-stroke";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
-import { EShapeTextLike } from "./shape/e-shape-text";
+import { EShapeTextLike, EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
 import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextDirection } from "./shape/e-shape-text-direction";
 import { EShapeTextOffsetLike } from "./shape/e-shape-text-offset";
 import { EShapeTextOutlineLike } from "./shape/e-shape-text-outline";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { DeepPartial } from "./util/deep-partial";
+import { isArray } from "./util/is-array";
 import { isString } from "./util/is-string";
 import { NumberFormatter } from "./util/number-formatter";
+import { NumberFormatterFunction } from "./util/number-formatter-function";
 import { NumberFormatters } from "./util/number-formatters";
+import { toEnum } from "./util/to-enum";
+
+export interface DChartAxisBaseOptionParserText {
+	/** A format. Please refer to {@link NumberFormatter} for format details. */
+	format?: string | null;
+
+	/** A formatter function. */
+	formatter?: NumberFormatterFunction;
+
+	color?: number;
+	alpha?: number;
+	family?: string;
+	size?: number;
+	weight?: EShapeTextWeight;
+	align?: Partial<EShapeTextAlignLike>;
+	offset?: Partial<EShapeTextOffsetLike>;
+	style?: EShapeTextStyle;
+	outline?: Partial<EShapeTextOutlineLike>;
+	spacing?: Partial<EShapeTextOffsetLike>;
+	direction?: EShapeTextDirection;
+	padding?: Partial<EShapeTextOffsetLike>;
+	clipping?: boolean;
+}
 
 export interface DChartAxisBaseOptionParserGridline {
 	enable: boolean;
@@ -46,7 +73,7 @@ export interface DChartAxisBaseOptionParserTickMajor {
 	position: EShapeBarPosition;
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	text?: DChartAxisBaseTickTextOptions;
+	text?: DChartAxisBaseOptionParserText;
 	formatter?: NumberFormatter;
 
 	gridline: DChartAxisBaseOptionParserGridline;
@@ -59,11 +86,11 @@ export interface DChartAxisBaseOptionParserTickMinor {
 	position: EShapeBarPosition;
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
-	text?: DChartAxisBaseTickTextOptions;
+	text?: DChartAxisBaseOptionParserText;
 	formatter?: NumberFormatter;
 }
 
-export interface DChartAxisBaseOptionParserTickContainer {
+export interface DChartAxisBaseOptionParserTick {
 	enable: boolean;
 	major: DChartAxisBaseOptionParserTickMajor;
 	minor: DChartAxisBaseOptionParserTickMinor;
@@ -74,18 +101,21 @@ export interface DChartAxisBaseOptionParserBar {
 	stroke?: Partial<EShapeStrokeLike>;
 }
 
-export class DChartAxisBaseOptionParser {
+export class DChartAxisBaseOptionParser<
+	THEME extends DThemeChartAxisBase = DThemeChartAxisBase,
+	OPTIONS extends DChartAxisBaseOptions<THEME> = DChartAxisBaseOptions<THEME>
+> {
 	protected _coordinateIndex: number;
 	protected _position: DChartAxisPosition;
-	protected _tick: DChartAxisBaseOptionParserTickContainer;
+	protected _tick: DChartAxisBaseOptionParserTick;
 	protected _label: DeepPartial<EShapeTextLike> | undefined;
 	protected _padding: number;
 	protected _bar: DChartAxisBaseOptionParserBar;
 
-	constructor(theme: DThemeChartAxisBase, options?: DChartAxisBaseOptions) {
+	constructor(theme: THEME, options?: OPTIONS) {
 		this._coordinateIndex = options?.coordinate ?? 0;
 		this._position = this.toPosition(theme, options);
-		this._tick = this.toTickContainer(theme, options);
+		this._tick = this.toTick(theme, options);
 		this._label = this.toLabel(theme, options);
 		this._padding = options?.padding ?? theme.getPadding();
 		this._bar = this.toBar(theme, options);
@@ -107,7 +137,7 @@ export class DChartAxisBaseOptionParser {
 		return this._bar;
 	}
 
-	get tick(): DChartAxisBaseOptionParserTickContainer {
+	get tick(): DChartAxisBaseOptionParserTick {
 		return this._tick;
 	}
 
@@ -115,10 +145,7 @@ export class DChartAxisBaseOptionParser {
 		return this._label;
 	}
 
-	protected toPosition(
-		theme: DThemeChartAxisBase,
-		options?: DChartAxisBaseOptions
-	): DChartAxisPosition {
+	protected toPosition(theme: THEME, options?: OPTIONS): DChartAxisPosition {
 		const position = options?.position;
 		if (isString(position)) {
 			return DChartAxisPosition[position];
@@ -128,20 +155,14 @@ export class DChartAxisBaseOptionParser {
 		return theme.getPosition();
 	}
 
-	protected toBar(
-		theme: DThemeChartAxisBase,
-		options?: DChartAxisBaseOptions
-	): DChartAxisBaseOptionParserBar {
+	protected toBar(theme: THEME, options?: OPTIONS): DChartAxisBaseOptionParserBar {
 		return {
 			style: options?.style ?? theme.getStyle(),
 			stroke: this.toBarStroke(theme, options?.stroke)
 		};
 	}
 
-	protected toTickContainer(
-		theme: DThemeChartAxisBase,
-		options?: DChartAxisBaseOptions
-	): DChartAxisBaseOptionParserTickContainer {
+	protected toTick(theme: THEME, options?: OPTIONS): DChartAxisBaseOptionParserTick {
 		const tick = options?.tick;
 		return {
 			enable: tick?.enable ?? theme.getTickEnable(),
@@ -151,8 +172,8 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajor(
-		theme: DThemeChartAxisBase,
-		options?: DChartAxisBaseTickContainerOptions
+		theme: THEME,
+		options?: DChartAxisBaseTickOptions
 	): DChartAxisBaseOptionParserTickMajor {
 		const major = options?.major;
 		const position = major?.position ?? options?.position ?? theme.getMajorTickPosition();
@@ -179,10 +200,10 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorGridline(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options: DChartAxisBaseTickMajorGridlineOptions | undefined,
 		optionsStyle: EShapePointsStyleOption | undefined,
-		optionsStroke: Partial<EShapeStrokeLike> | undefined
+		optionsStroke: DChartAxisBaseStrokeOptions | undefined
 	): DChartAxisBaseOptionParserGridline {
 		const style = EShapePointsStyles.from(
 			options?.style ?? optionsStyle ?? theme.getMajorTickGridlineStyle()
@@ -228,8 +249,8 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinor(
-		theme: DThemeChartAxisBase,
-		options?: DChartAxisBaseTickContainerOptions
+		theme: THEME,
+		options?: DChartAxisBaseTickOptions
 	): DChartAxisBaseOptionParserTickMinor {
 		const minor = options?.minor;
 		const position = minor?.position ?? options?.position ?? theme.getMinorTickPosition();
@@ -249,8 +270,8 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toBarStroke(
-		theme: DThemeChartAxisBase,
-		options?: Partial<EShapeStrokeLike>
+		theme: THEME,
+		options?: DChartAxisBaseStrokeOptions
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			options,
@@ -266,9 +287,9 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorStroke(
-		theme: DThemeChartAxisBase,
-		optionsA?: Partial<EShapeStrokeLike>,
-		optionsB?: Partial<EShapeStrokeLike>
+		theme: THEME,
+		optionsA?: DChartAxisBaseStrokeOptions,
+		optionsB?: DChartAxisBaseStrokeOptions
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			optionsA,
@@ -284,9 +305,9 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorGridlineStroke(
-		theme: DThemeChartAxisBase,
-		optionsA?: Partial<EShapeStrokeLike>,
-		optionsB?: Partial<EShapeStrokeLike>
+		theme: THEME,
+		optionsA?: DChartAxisBaseStrokeOptions,
+		optionsB?: DChartAxisBaseStrokeOptions
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			optionsA,
@@ -302,9 +323,9 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorStroke(
-		theme: DThemeChartAxisBase,
-		optionsA?: Partial<EShapeStrokeLike>,
-		optionsB?: Partial<EShapeStrokeLike>
+		theme: THEME,
+		optionsA?: DChartAxisBaseStrokeOptions,
+		optionsB?: DChartAxisBaseStrokeOptions
 	): Partial<EShapeStrokeLike> {
 		return this.toStroke(
 			optionsA,
@@ -320,8 +341,8 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toStroke(
-		optionsA: Partial<EShapeStrokeLike> | undefined,
-		optionsB: Partial<EShapeStrokeLike> | undefined,
+		optionsA: DChartAxisBaseStrokeOptions | undefined,
+		optionsB: DChartAxisBaseStrokeOptions | undefined,
 		enable: boolean | undefined,
 		color: number | undefined,
 		alpha: number | undefined,
@@ -339,7 +360,7 @@ export class DChartAxisBaseOptionParser {
 					width: optionsA.width ?? optionsB.width ?? width,
 					align: optionsA.align ?? optionsB.align ?? align,
 					side: optionsA.side ?? optionsB.side ?? side,
-					style: optionsA.style ?? optionsB.style ?? style
+					style: this.toStrokeStyle(optionsA.style ?? optionsB.style ?? style)
 				};
 			} else {
 				return {
@@ -349,7 +370,7 @@ export class DChartAxisBaseOptionParser {
 					width: optionsA.width ?? width,
 					align: optionsA.align ?? align,
 					side: optionsA.side ?? side,
-					style: optionsA.style ?? style
+					style: this.toStrokeStyle(optionsA.style ?? style)
 				};
 			}
 		} else if (optionsB) {
@@ -360,7 +381,7 @@ export class DChartAxisBaseOptionParser {
 				width: optionsB.width ?? width,
 				align: optionsB.align ?? align,
 				side: optionsB.side ?? side,
-				style: optionsB.style ?? style
+				style: this.toStrokeStyle(optionsB.style ?? style)
 			};
 		} else {
 			return {
@@ -375,8 +396,26 @@ export class DChartAxisBaseOptionParser {
 		}
 	}
 
+	protected toStrokeStyle(
+		target?:
+			| EShapeStrokeStyle
+			| keyof typeof EShapeStrokeStyle
+			| Array<keyof typeof EShapeStrokeStyle>
+	): EShapeStrokeStyle | undefined {
+		if (isString(target)) {
+			return EShapeStrokeStyle[target];
+		} else if (isArray(target)) {
+			let result = EShapeStrokeStyle.NONE;
+			for (let i = 0, imax = target.length; i < imax; ++i) {
+				result |= EShapeStrokeStyle[target[i]];
+			}
+			return result;
+		}
+		return target;
+	}
+
 	protected toTickMajorFormatter(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: DChartAxisBaseTickMajorOptions
 	): NumberFormatter | undefined {
 		const text = options?.text;
@@ -403,9 +442,9 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorText(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: DChartAxisBaseTickTextOptions
-	): DChartAxisBaseTickTextOptions | undefined {
+	): DChartAxisBaseOptionParserText | undefined {
 		options = options || {};
 		return {
 			format: options.format,
@@ -413,10 +452,10 @@ export class DChartAxisBaseOptionParser {
 			alpha: options.alpha,
 			family: options.family,
 			size: options.size,
-			weight: options.weight,
+			weight: toEnum(options.weight, EShapeTextWeight),
 			align: this.toTickMajorTextAlign(theme, options.align),
 			offset: this.toTickMajorTextOffset(theme, options.offset),
-			style: options.style,
+			style: toEnum(options.style, EShapeTextStyle),
 			outline: this.toTickMajorTextOutline(theme, options.outline),
 			spacing: this.toTickMajorTextSpacing(theme, options.spacing),
 			direction: this.toTickMajorTextDirection(theme, options.direction),
@@ -426,7 +465,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorTextOutline(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOutlineLike>
 	): Partial<EShapeTextOutlineLike> | undefined {
 		if (options) {
@@ -440,7 +479,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorTextAlign(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
 		const position = this._position;
@@ -451,7 +490,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorTextOffset(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
 		if (options) {
@@ -463,7 +502,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorTextSpacing(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
 		if (options) {
@@ -475,7 +514,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorTextPadding(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> {
 		return {
@@ -485,21 +524,18 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMajorTextDirection(
-		theme: DThemeChartAxisBase,
-		options?: EShapeTextDirection
+		theme: THEME,
+		options?: DChartAxisBaseTextDirectionOption
 	): EShapeTextDirection {
-		return options ?? theme.getMajorTickTextDirection();
+		return toEnum(options ?? theme.getMajorTickTextDirection(), EShapeTextDirection);
 	}
 
-	protected toTickMajorTextColor(
-		theme: DThemeChartAxisBase,
-		options?: number
-	): number | undefined {
+	protected toTickMajorTextColor(theme: THEME, options?: number): number | undefined {
 		return options ?? theme.getMajorTickTextColor();
 	}
 
 	protected toTickMinorFormatter(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: DChartAxisBaseTickMinorOptions
 	): NumberFormatter | undefined {
 		const text = options?.text;
@@ -526,9 +562,9 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorText(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: DChartAxisBaseTickTextOptions
-	): DChartAxisBaseTickTextOptions | undefined {
+	): DChartAxisBaseOptionParserText | undefined {
 		options = options || {};
 		return {
 			format: options.format,
@@ -536,10 +572,10 @@ export class DChartAxisBaseOptionParser {
 			alpha: options.alpha,
 			family: options.family,
 			size: options.size,
-			weight: options.weight,
+			weight: toEnum(options.weight, EShapeTextWeight),
 			align: this.toTickMinorTextAlign(theme, options.align),
 			offset: this.toTickMinorTextOffset(theme, options.offset),
-			style: options.style,
+			style: toEnum(options.style, EShapeTextStyle),
 			outline: this.toTickMinorTextOutline(theme, options.outline),
 			spacing: this.toTickMinorTextSpacing(theme, options.spacing),
 			direction: this.toTickMinorTextDirection(theme, options.direction),
@@ -549,7 +585,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorTextOutline(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOutlineLike>
 	): Partial<EShapeTextOutlineLike> | undefined {
 		if (options) {
@@ -563,7 +599,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorTextAlign(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
 		const position = this._position;
@@ -574,7 +610,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorTextOffset(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
 		if (options) {
@@ -586,7 +622,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorTextSpacing(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
 		if (options) {
@@ -598,7 +634,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorTextPadding(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> {
 		return {
@@ -608,23 +644,17 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toTickMinorTextDirection(
-		theme: DThemeChartAxisBase,
-		options?: EShapeTextDirection
+		theme: THEME,
+		options?: DChartAxisBaseTextDirectionOption
 	): EShapeTextDirection {
-		return options ?? theme.getMinorTickTextDirection();
+		return toEnum(options ?? theme.getMinorTickTextDirection(), EShapeTextDirection);
 	}
 
-	protected toTickMinorTextColor(
-		theme: DThemeChartAxisBase,
-		options?: number
-	): number | undefined {
+	protected toTickMinorTextColor(theme: THEME, options?: number): number | undefined {
 		return options ?? theme.getMinorTickTextColor();
 	}
 
-	protected toLabel(
-		theme: DThemeChartAxisBase,
-		options?: DChartAxisBaseOptions
-	): DeepPartial<EShapeTextLike> | undefined {
+	protected toLabel(theme: THEME, options?: OPTIONS): DeepPartial<EShapeTextLike> | undefined {
 		const label = options?.label;
 		if (label) {
 			return {
@@ -633,10 +663,10 @@ export class DChartAxisBaseOptionParser {
 				alpha: label.alpha,
 				family: label.family,
 				size: label.size,
-				weight: label.weight,
+				weight: toEnum(label.weight, EShapeTextWeight),
 				align: this.toLabelAlign(theme, label.align),
 				offset: this.toLabelOffset(theme, label.offset),
-				style: label.style,
+				style: toEnum(label.style, EShapeTextStyle),
 				outline: this.toLabelOutline(theme, label.outline),
 				spacing: this.toLabelSpacing(theme, label.spacing),
 				direction: this.toLabelDirection(theme, label.direction),
@@ -647,7 +677,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toLabelOutline(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOutlineLike>
 	): Partial<EShapeTextOutlineLike> | undefined {
 		if (options) {
@@ -661,7 +691,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toLabelAlign(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
 		const position = this._position;
@@ -672,7 +702,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toLabelOffset(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
 		if (options) {
@@ -684,7 +714,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toLabelSpacing(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> | undefined {
 		if (options) {
@@ -696,7 +726,7 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toLabelPadding(
-		theme: DThemeChartAxisBase,
+		theme: THEME,
 		options?: Partial<EShapeTextOffsetLike>
 	): Partial<EShapeTextOffsetLike> {
 		return {
@@ -706,13 +736,13 @@ export class DChartAxisBaseOptionParser {
 	}
 
 	protected toLabelDirection(
-		theme: DThemeChartAxisBase,
-		options?: EShapeTextDirection
+		theme: THEME,
+		options?: DChartAxisBaseTextDirectionOption
 	): EShapeTextDirection {
-		return options ?? theme.getLabelDirection();
+		return toEnum(options ?? theme.getLabelDirection(), EShapeTextDirection);
 	}
 
-	protected toLabelColor(theme: DThemeChartAxisBase, options?: number): number | undefined {
+	protected toLabelColor(theme: THEME, options?: number): number | undefined {
 		return options ?? theme.getLabelColor();
 	}
 }

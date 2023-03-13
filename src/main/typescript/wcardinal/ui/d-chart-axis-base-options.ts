@@ -10,18 +10,24 @@ import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick
 import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapePointsStyleOption } from "./shape/e-shape-points-styles";
-import { EShapeStrokeLike } from "./shape/e-shape-stroke";
 import { EShapeStrokeSide } from "./shape/e-shape-stroke-side";
 import { EShapeStrokeStyle } from "./shape/e-shape-stroke-style";
-import { EShapeTextLike, EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
+import { EShapeTextStyle, EShapeTextWeight } from "./shape/e-shape-text";
 import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "./shape/e-shape-text-align-vertical";
 import { EShapeTextDirection } from "./shape/e-shape-text-direction";
 import { EShapeTextOffsetLike } from "./shape/e-shape-text-offset";
 import { EShapeTextOutlineLike } from "./shape/e-shape-text-outline";
-import { DeepPartial } from "./util/deep-partial";
 import { NumberFormatterFunction } from "./util/number-formatter-function";
+
+export type DChartAxisBaseTextWeightOption = EShapeTextWeight | keyof typeof EShapeTextWeight;
+
+export type DChartAxisBaseTextStyleOption = EShapeTextStyle | keyof typeof EShapeTextStyle;
+
+export type DChartAxisBaseTextDirectionOption =
+	| EShapeTextDirection
+	| keyof typeof EShapeTextDirection;
 
 export interface DChartAxisBaseTickTextOptions {
 	/** A format. Please refer to {@link NumberFormatter} for format details. */
@@ -34,21 +40,34 @@ export interface DChartAxisBaseTickTextOptions {
 	alpha?: number;
 	family?: string;
 	size?: number;
-	weight?: EShapeTextWeight;
+	weight?: DChartAxisBaseTextWeightOption;
 	align?: Partial<EShapeTextAlignLike>;
 	offset?: Partial<EShapeTextOffsetLike>;
-	style?: EShapeTextStyle;
+	style?: DChartAxisBaseTextStyleOption;
 	outline?: Partial<EShapeTextOutlineLike>;
 	spacing?: Partial<EShapeTextOffsetLike>;
-	direction?: EShapeTextDirection;
+	direction?: DChartAxisBaseTextDirectionOption;
 	padding?: Partial<EShapeTextOffsetLike>;
 	clipping?: boolean;
+}
+
+export interface DChartAxisBaseStrokeOptions {
+	enable?: boolean;
+	color?: number;
+	alpha?: number;
+	width?: number;
+	align?: number;
+	side?: EShapeStrokeSide;
+	style?:
+		| EShapeStrokeStyle
+		| keyof typeof EShapeStrokeStyle
+		| Array<keyof typeof EShapeStrokeStyle>;
 }
 
 export interface DChartAxisBaseTickMajorGridlineOptions {
 	enable?: boolean;
 	style?: EShapePointsStyleOption;
-	stroke?: Partial<EShapeStrokeLike>;
+	stroke?: DChartAxisBaseStrokeOptions;
 }
 
 export type DChartAxisTickPositionOption =
@@ -62,7 +81,7 @@ export interface DChartAxisBaseTickMajorOptions {
 	size?: number;
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;
-	stroke?: Partial<EShapeStrokeLike>;
+	stroke?: DChartAxisBaseStrokeOptions;
 	text?: DChartAxisBaseTickTextOptions;
 	gridline?: DChartAxisBaseTickMajorGridlineOptions;
 }
@@ -73,27 +92,45 @@ export interface DChartAxisBaseTickMinorOptions {
 	size?: number;
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;
-	stroke?: Partial<EShapeStrokeLike>;
+	stroke?: DChartAxisBaseStrokeOptions;
 	text?: DChartAxisBaseTickTextOptions;
 }
 
-export interface DChartAxisBaseTickContainerOptions {
+export interface DChartAxisBaseTickOptions {
 	enable?: boolean;
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;
-	stroke?: Partial<EShapeStrokeLike>;
+	stroke?: DChartAxisBaseStrokeOptions;
 	major?: DChartAxisBaseTickMajorOptions;
 	minor?: DChartAxisBaseTickMinorOptions;
 }
 
-export interface DChartAxisBaseOptions extends DChartAxisOptions {
-	tick?: DChartAxisBaseTickContainerOptions;
-	label?: DeepPartial<EShapeTextLike>;
+export interface DChartAxisBaseLabelOptions {
+	value?: string;
+	color?: number;
+	alpha?: number;
+	family?: string;
+	size?: number;
+	weight?: DChartAxisBaseTextWeightOption;
+	align?: Partial<EShapeTextAlignLike>;
+	offset?: Partial<EShapeTextOffsetLike>;
+	style?: DChartAxisBaseTextStyleOption;
+	outline?: Partial<EShapeTextOutlineLike>;
+	spacing?: Partial<EShapeTextOffsetLike>;
+	direction?: DChartAxisBaseTextDirectionOption;
+	padding?: Partial<EShapeTextOffsetLike>;
+	clipping?: boolean;
+}
+
+export interface DChartAxisBaseOptions<THEME extends DThemeChartAxisBase>
+	extends DChartAxisOptions {
+	tick?: DChartAxisBaseTickOptions;
+	label?: DChartAxisBaseLabelOptions;
 	style?: EShapePointsStyle;
-	stroke?: Partial<EShapeStrokeLike>;
+	stroke?: DChartAxisBaseStrokeOptions;
 	coordinate?: number;
 	padding?: number;
-	theme?: DThemeChartAxisBase;
+	theme?: THEME;
 }
 
 export interface DThemeChartAxisBase {

@@ -13,8 +13,12 @@ import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick
 import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
 import { EShape } from "./shape/e-shape";
 
-export class DChartAxisBaseTickContainer<CHART extends DBase>
-	implements DChartAxisTickContainer<CHART>
+export interface DChartAxisBaseTickContainerOptions {}
+
+export class DChartAxisBaseTickContainer<
+	CHART extends DBase,
+	OPTIONS extends DChartAxisBaseTickContainerOptions
+> implements DChartAxisTickContainer<CHART>
 {
 	protected _parser: DChartAxisBaseOptionParser;
 	protected _container?: DChartAxisContainer<CHART>;
@@ -24,11 +28,11 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 	protected _majorTicks: number[];
 	protected _minorTicks: number[];
 
-	constructor(parser: DChartAxisBaseOptionParser) {
+	constructor(parser: DChartAxisBaseOptionParser, options?: OPTIONS) {
 		this._parser = parser;
 		this._index = 0;
-		this._major = this.newMajor(parser);
-		this._minor = this.newMinor(parser);
+		this._major = this.newMajor(parser, options);
+		this._minor = this.newMinor(parser, options);
 		this._majorTicks = [];
 		this._minorTicks = [];
 	}
@@ -37,7 +41,10 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 		return this._major;
 	}
 
-	protected newMajor(parser: DChartAxisBaseOptionParser): DChartAxisTickMajor<CHART> {
+	protected newMajor(
+		parser: DChartAxisBaseOptionParser,
+		options?: OPTIONS
+	): DChartAxisTickMajor<CHART> {
 		return new DChartAxisBaseTickMajor(parser);
 	}
 
@@ -45,7 +52,10 @@ export class DChartAxisBaseTickContainer<CHART extends DBase>
 		return this._minor;
 	}
 
-	protected newMinor(parser: DChartAxisBaseOptionParser): DChartAxisTickMinor<CHART> {
+	protected newMinor(
+		parser: DChartAxisBaseOptionParser,
+		options?: OPTIONS
+	): DChartAxisTickMinor<CHART> {
 		return new DChartAxisBaseTickMinor(parser);
 	}
 

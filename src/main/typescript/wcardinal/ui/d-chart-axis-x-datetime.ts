@@ -4,17 +4,20 @@
  */
 
 import { DBase } from "./d-base";
+import { DThemeChartAxisBase } from "./d-chart-axis-base-options";
 import { DChartAxisX, DChartAxisXOptions } from "./d-chart-axis-x";
 
-export interface DChartAxisXDatetimeOptions extends DChartAxisXOptions {}
+export interface DChartAxisXDatetimeOptions<THEME extends DThemeChartAxisBase>
+	extends DChartAxisXOptions<THEME> {}
 
 /**
  * An X axis for datetimes.
  */
 export class DChartAxisXDatetime<
 	CHART extends DBase = DBase,
-	OPTIONS extends DChartAxisXDatetimeOptions = DChartAxisXDatetimeOptions
-> extends DChartAxisX<CHART, OPTIONS> {
+	THEME extends DThemeChartAxisBase = DThemeChartAxisBase,
+	OPTIONS extends DChartAxisXDatetimeOptions<THEME> = DChartAxisXDatetimeOptions<THEME>
+> extends DChartAxisX<CHART, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DChartAxisXDatetime";
 	}

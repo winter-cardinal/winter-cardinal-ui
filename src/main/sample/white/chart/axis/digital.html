@@ -31,16 +31,6 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		const series = [{
-			name: "Apple"
-		}, {
-			name: "Orange"
-		}, {
-			name: "Pineapple"
-		}];
-
-		const margin = 0.5;
-
 		class DChartAxisDigitalTickContainer extends wcardinal.ui.DChartAxisBaseTickContainer {
 			newTicks(
 				coordinate,
@@ -60,10 +50,10 @@
 				const domainMax = Math.max(domainFrom, domainTo);
 
 				// Major tick start position
-				const majorStepMapped = 1 + margin;
+				const majorStepMapped = 1.5;
 				const minorStepMapped = 0.5;
-				const idomainStart = 0;
-				const idomainEnd = series.length - 1;
+				const idomainStart = Math.floor(domainMin / majorStepMapped) - 1;
+				const idomainEnd = Math.ceil(domainMax / majorStepMapped) + 1;
 				const domainMinMapped = transform.map(coordinate.map(domainMin));
 				const domainMaxMapped = transform.map(coordinate.map(domainMax));
 				const from = Math.min(domainMinMapped, domainMaxMapped) - 0.5;
@@ -127,10 +117,18 @@
 		}
 
 		class DChartAxisDigital extends wcardinal.ui.DChartAxisY {
-			newTick(parser) {
+			newTick(parser, theme, options) {
 				return new DChartAxisDigitalTickContainer(parser);
 			}
 		}
+
+		const series = [{
+			name: "Apple"
+		}, {
+			name: "Orange"
+		}, {
+			name: "Pineapple"
+		}];
 
 		const chart = new wcardinal.ui.DChart({
 			parent: application.stage,
@@ -147,7 +145,7 @@
 					x: new wcardinal.ui.DChartCoordinateLinear(),
 					y: new wcardinal.ui.DChartCoordinateLinear({
 						from: 0,
-						to: (series.length - 1) * (1 + margin) + 1
+						to: (series.length - 1) * 1.5 + 1
 					})
 				},
 				series: {
@@ -173,7 +171,7 @@
 								},
 								minor: {
 									text: {
-										direction: wcardinal.ui.EShapeTextDirection.BOTTOM_TO_TOP,
+										direction: "BOTTOM_TO_TOP",
 										offset: {
 											horizontal: -20
 										},
@@ -202,7 +200,7 @@
 			}
 		});
 
-		new ChartUpdater(application, chart).offset(0, 1 + margin).modifier((v) => 0 < v ? 1 : 0).start();
+		new ChartUpdater(application, chart).offset(0, 1.5).modifier((v) => 0 < v ? 1 : 0).start();
 	}());
 	</script>
 </body>

@@ -18,11 +18,12 @@ import { DThemes } from "./theme/d-themes";
 
 export class DChartAxisBase<
 	CHART extends DBase = DBase,
-	OPTIONS extends DChartAxisBaseOptions = DChartAxisBaseOptions
+	THEME extends DThemeChartAxisBase = DThemeChartAxisBase,
+	OPTIONS extends DChartAxisBaseOptions<THEME> = DChartAxisBaseOptions<THEME>
 > implements DChartAxis<CHART>
 {
 	protected _theme: DThemeChartAxisBase;
-	protected _parser: DChartAxisBaseOptionParser;
+	protected _parser: DChartAxisBaseOptionParser<THEME>;
 	protected _container?: DChartAxisContainer<CHART>;
 	protected _index: number;
 	protected _bar: DChartAxisBar<CHART>;
@@ -31,15 +32,19 @@ export class DChartAxisBase<
 	constructor(options?: OPTIONS) {
 		const theme = this.toTheme(options);
 		this._theme = theme;
-		const parser = new DChartAxisBaseOptionParser(theme, options);
+		const parser = this.newParser(theme, options);
 		this._parser = parser;
 		this._index = 0;
-		this._bar = this.newBar(parser);
-		this._tick = this.newTick(parser);
+		this._bar = this.newBar(parser, theme, options);
+		this._tick = this.newTick(parser, theme, options);
 	}
 
-	get parser(): DChartAxisBaseOptionParser {
+	get parser(): DChartAxisBaseOptionParser<THEME> {
 		return this._parser;
+	}
+
+	protected newParser(theme: THEME, options?: OPTIONS): DChartAxisBaseOptionParser<THEME> {
+		return new DChartAxisBaseOptionParser(theme, options);
 	}
 
 	get position(): DChartAxisPosition {
@@ -50,7 +55,11 @@ export class DChartAxisBase<
 		return this._bar;
 	}
 
-	protected newBar(parser: DChartAxisBaseOptionParser): DChartAxisBar<CHART> {
+	protected newBar(
+		parser: DChartAxisBaseOptionParser<THEME>,
+		theme: THEME,
+		options?: OPTIONS
+	): DChartAxisBar<CHART> {
 		return new DChartAxisBaseBar(parser);
 	}
 
@@ -58,7 +67,11 @@ export class DChartAxisBase<
 		return this._tick;
 	}
 
-	protected newTick(parser: DChartAxisBaseOptionParser): DChartAxisTickContainer<CHART> {
+	protected newTick(
+		parser: DChartAxisBaseOptionParser<THEME>,
+		theme: THEME,
+		options?: OPTIONS
+	): DChartAxisTickContainer<CHART> {
 		return new DChartAxisBaseTickContainer(parser);
 	}
 
@@ -98,11 +111,11 @@ export class DChartAxisBase<
 		this._container = undefined;
 	}
 
-	protected toTheme(options?: DChartAxisBaseOptions): DThemeChartAxisBase {
+	protected toTheme(options?: DChartAxisBaseOptions<THEME>): THEME {
 		return options?.theme ?? this.getThemeDefault();
 	}
 
-	protected getThemeDefault(): DThemeChartAxisBase {
+	protected getThemeDefault(): THEME {
 		return DThemes.getInstance().get(this.getType());
 	}
 

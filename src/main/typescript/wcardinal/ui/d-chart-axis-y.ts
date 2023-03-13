@@ -5,17 +5,19 @@
 
 import { DBase } from "./d-base";
 import { DChartAxisBase } from "./d-chart-axis-base";
-import { DChartAxisBaseOptions } from "./d-chart-axis-base-options";
+import { DChartAxisBaseOptions, DThemeChartAxisBase } from "./d-chart-axis-base-options";
 
-export interface DChartAxisYOptions extends DChartAxisBaseOptions {}
+export interface DChartAxisYOptions<THEME extends DThemeChartAxisBase>
+	extends DChartAxisBaseOptions<THEME> {}
 
 /**
  * An Y axis.
  */
 export class DChartAxisY<
 	CHART extends DBase = DBase,
-	OPTIONS extends DChartAxisYOptions = DChartAxisYOptions
-> extends DChartAxisBase<CHART, OPTIONS> {
+	THEME extends DThemeChartAxisBase = DThemeChartAxisBase,
+	OPTIONS extends DChartAxisYOptions<THEME> = DChartAxisYOptions<THEME>
+> extends DChartAxisBase<CHART, THEME, OPTIONS> {
 	protected getType(): string {
 		return "DChartAxisY";
 	}
