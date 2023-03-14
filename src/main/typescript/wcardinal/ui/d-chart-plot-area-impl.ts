@@ -153,13 +153,9 @@ export class DChartPlotAreaImpl<
 	render(renderer: Renderer): void {
 		if (this._isViewDirty) {
 			this._isViewDirty = false;
-
+			this._coordinate.fit();
 			this._axis.onRender();
-
-			const selection = this._series.selection;
-			if (selection) {
-				selection.onRender();
-			}
+			this._series.onRender();
 		}
 		super.render(renderer);
 	}

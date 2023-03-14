@@ -93,6 +93,7 @@ export abstract class DChartSeriesBase<CHART extends DBase = DBase>
 
 	abstract toDirty(): this;
 	abstract update(): this;
+	abstract onRender(): this;
 
 	get domain(): DChartRegionImmutable {
 		this.updateRegion();

@@ -70,6 +70,7 @@ export interface DChartSeries<CHART extends DBase = DBase> {
 	isHidden(): boolean;
 
 	update(): this;
+	onRender(): this;
 	destroy(): this;
 
 	hitTest(x: number, y: number): boolean;

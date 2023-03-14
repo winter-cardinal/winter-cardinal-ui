@@ -159,6 +159,16 @@ export abstract class DChartSeriesLineOfAny<
 	}
 
 	update(): this {
+		this.doUpdate(true);
+		return this;
+	}
+
+	onRender(): this {
+		this.doUpdate(false);
+		return this;
+	}
+
+	protected doUpdate(render: boolean): boolean {
 		const line = this._line;
 		if (line) {
 			const coordinate = this._coordinate;
@@ -174,14 +184,18 @@ export abstract class DChartSeriesLineOfAny<
 				);
 				if (isPointChanged || isCoordinateChanged || isCoordinateTransformChanged) {
 					this._pointIdUpdated = pointId;
-					this.updateLine(line, coordinateX, coordinateY);
+					this.doUpdateLine(line, coordinateX, coordinateY);
+					if (render) {
+						DApplications.update(line);
+					}
+					return true;
 				}
 			}
 		}
-		return this;
+		return false;
 	}
 
-	protected updateLine(
+	protected doUpdateLine(
 		line: EShapeLineOfAny,
 		xcoordinate: DChartCoordinate<CHART>,
 		ycoordinate: DChartCoordinate<CHART>
@@ -258,7 +272,6 @@ export abstract class DChartSeriesLineOfAny<
 		line.disallowUploadedUpdate();
 		this.applyLine(line, xcoordinate, ycoordinate, sx, sy, cx, cy, values);
 		line.allowUploadedUpdate();
-		DApplications.update(line);
 	}
 
 	protected adjustLineRegion(

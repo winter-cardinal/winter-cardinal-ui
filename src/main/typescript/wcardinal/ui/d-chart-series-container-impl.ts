@@ -136,6 +136,17 @@ export class DChartSeriesContainerImpl<CHART extends DBase = DBase>
 		}
 	}
 
+	onRender(): void {
+		const list = this._list;
+		for (let i = 0, imax = list.length; i < imax; ++i) {
+			list[i].onRender();
+		}
+		const selection = this._selection;
+		if (selection) {
+			selection.onRender();
+		}
+	}
+
 	add(series: DChartSeries<CHART>): void {
 		const list = this._list;
 		series.bind(this, list.length);

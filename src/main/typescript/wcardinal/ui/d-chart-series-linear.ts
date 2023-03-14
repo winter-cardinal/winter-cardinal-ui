@@ -92,6 +92,16 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 	}
 
 	update(): this {
+		this.doUpdate(true);
+		return this;
+	}
+
+	onRender(): this {
+		this.doUpdate(false);
+		return this;
+	}
+
+	protected doUpdate(render: boolean): boolean {
 		const line = this._line;
 		const container = this._container;
 		if (line && container) {
@@ -122,14 +132,24 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 					parameters.toClean();
 					this._plotAreaSizeXUpdated = plotAreaWidth;
 					this._plotAreaSizeYUpdated = plotAreaHeight;
-					this.updateLine(line, coordinateX, coordinateY, plotAreaWidth, plotAreaHeight);
+					this.doUpdateLine(
+						line,
+						coordinateX,
+						coordinateY,
+						plotAreaWidth,
+						plotAreaHeight
+					);
+					if (render) {
+						DApplications.update(line);
+					}
+					return true;
 				}
 			}
 		}
-		return this;
+		return false;
 	}
 
-	protected updateLine(
+	protected doUpdateLine(
 		line: EShapeLine,
 		xcoordinate: DChartCoordinate<CHART>,
 		ycoordinate: DChartCoordinate<CHART>,
@@ -240,7 +260,6 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		line.points.toFitted();
 		line.transform.position.set(cx, cy);
 		line.allowUploadedUpdate();
-		DApplications.update(line);
 	}
 
 	protected updateRegion(): void {

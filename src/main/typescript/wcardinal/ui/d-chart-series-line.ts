@@ -95,6 +95,16 @@ export class DChartSeriesLine<CHART extends DBase = DBase> extends DChartSeriesB
 	}
 
 	update(): this {
+		this.doUpdate(true);
+		return this;
+	}
+
+	onRender(): this {
+		this.doUpdate(false);
+		return this;
+	}
+
+	protected doUpdate(render: boolean): boolean {
 		const line = this._line;
 		if (line) {
 			const coordinate = this._coordinate;
@@ -110,19 +120,23 @@ export class DChartSeriesLine<CHART extends DBase = DBase> extends DChartSeriesB
 				);
 				if (isPointChanged || isCoordinateChanged || isCoordinateTransformChanged) {
 					this._pointIdUpdated = pointId;
-					this.updateLine(
+					this.doUpdateLine(
 						line,
 						coordinateX,
 						coordinateY,
 						isPointChanged || isCoordinateChanged
 					);
+					if (render) {
+						DApplications.update(line);
+					}
+					return true;
 				}
 			}
 		}
-		return this;
+		return false;
 	}
 
-	protected updateLine(
+	protected doUpdateLine(
 		line: EShapeLine,
 		xcoordinate: DChartCoordinate<CHART>,
 		ycoordinate: DChartCoordinate<CHART>,
@@ -217,7 +231,6 @@ export class DChartSeriesLine<CHART extends DBase = DBase> extends DChartSeriesB
 		line.transform.scale.set(xcoordinate.transform.scale, ycoordinate.transform.scale);
 
 		line.allowUploadedUpdate();
-		DApplications.update(line);
 	}
 
 	protected updateRegion(): void {
