@@ -8,7 +8,7 @@ import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisTickMajorGridline } from "./d-chart-axis-tick-major-gridline";
 import { EShape } from "./shape/e-shape";
 
-export interface DChartAxisTickMajor<CHART extends DBase> {
+export interface DChartAxisTickMajor<CHART extends DBase = DBase> {
 	readonly shapes: EShape[];
 	readonly gridline: DChartAxisTickMajorGridline<CHART>;
 

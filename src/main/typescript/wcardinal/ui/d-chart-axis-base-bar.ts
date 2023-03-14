@@ -13,7 +13,7 @@ import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 
-export class DChartAxisBaseBar<CHART extends DBase> implements DChartAxisBar<CHART> {
+export class DChartAxisBaseBar<CHART extends DBase = DBase> implements DChartAxisBar<CHART> {
 	protected _parser: DChartAxisBaseOptionParser;
 	protected _container?: DChartAxisContainer<CHART>;
 	protected _index: number;

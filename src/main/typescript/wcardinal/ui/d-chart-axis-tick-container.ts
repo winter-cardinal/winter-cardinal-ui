@@ -8,7 +8,7 @@ import { DChartAxisContainer } from "./d-chart-axis-container";
 import { DChartAxisTickMajor } from "./d-chart-axis-tick-major";
 import { DChartAxisTickMinor } from "./d-chart-axis-tick-minor";
 
-export interface DChartAxisTickContainer<CHART extends DBase> {
+export interface DChartAxisTickContainer<CHART extends DBase = DBase> {
 	readonly major: DChartAxisTickMajor<CHART>;
 	readonly minor: DChartAxisTickMinor<CHART>;
 

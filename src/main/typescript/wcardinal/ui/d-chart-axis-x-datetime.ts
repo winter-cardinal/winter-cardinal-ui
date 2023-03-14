@@ -7,7 +7,7 @@ import { DBase } from "./d-base";
 import { DThemeChartAxisBase } from "./d-chart-axis-base-options";
 import { DChartAxisX, DChartAxisXOptions } from "./d-chart-axis-x";
 
-export interface DChartAxisXDatetimeOptions<THEME extends DThemeChartAxisBase>
+export interface DChartAxisXDatetimeOptions<THEME extends DThemeChartAxisBase = DThemeChartAxisBase>
 	extends DChartAxisXOptions<THEME> {}
 
 /**

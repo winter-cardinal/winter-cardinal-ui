@@ -122,7 +122,7 @@ export interface DChartAxisBaseLabelOptions {
 	clipping?: boolean;
 }
 
-export interface DChartAxisBaseOptions<THEME extends DThemeChartAxisBase>
+export interface DChartAxisBaseOptions<THEME extends DThemeChartAxisBase = DThemeChartAxisBase>
 	extends DChartAxisOptions {
 	tick?: DChartAxisBaseTickOptions;
 	label?: DChartAxisBaseLabelOptions;

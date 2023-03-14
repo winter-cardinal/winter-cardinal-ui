@@ -8,7 +8,7 @@ import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 
-export class DChartAxisBaseTickMajorGridline<CHART extends DBase>
+export class DChartAxisBaseTickMajorGridline<CHART extends DBase = DBase>
 	implements DChartAxisTickMajorGridline<CHART>
 {
 	protected _parser: DChartAxisBaseOptionParser;

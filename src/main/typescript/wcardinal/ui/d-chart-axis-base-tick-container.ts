@@ -16,8 +16,8 @@ import { EShape } from "./shape/e-shape";
 export interface DChartAxisBaseTickContainerOptions {}
 
 export class DChartAxisBaseTickContainer<
-	CHART extends DBase,
-	OPTIONS extends DChartAxisBaseTickContainerOptions
+	CHART extends DBase = DBase,
+	OPTIONS extends DChartAxisBaseTickContainerOptions = DChartAxisBaseTickContainerOptions
 > implements DChartAxisTickContainer<CHART>
 {
 	protected _parser: DChartAxisBaseOptionParser;

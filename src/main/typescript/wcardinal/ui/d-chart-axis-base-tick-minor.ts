@@ -6,7 +6,9 @@ import { EShape } from "./shape/e-shape";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 
-export class DChartAxisBaseTickMinor<CHART extends DBase> implements DChartAxisTickMinor<CHART> {
+export class DChartAxisBaseTickMinor<CHART extends DBase = DBase>
+	implements DChartAxisTickMinor<CHART>
+{
 	protected _parser: DChartAxisBaseOptionParser;
 	protected _container?: DChartAxisContainer<CHART>;
 	protected _index: number;

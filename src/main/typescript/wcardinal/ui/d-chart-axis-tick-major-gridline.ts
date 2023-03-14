@@ -6,6 +6,6 @@
 import { DBase } from "./d-base";
 import { EShape } from "./shape/e-shape";
 
-export interface DChartAxisTickMajorGridline<CHART extends DBase> {
+export interface DChartAxisTickMajorGridline<CHART extends DBase = DBase> {
 	readonly shapes: EShape[];
 }

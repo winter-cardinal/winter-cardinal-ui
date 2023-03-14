@@ -7,7 +7,7 @@ import { DBase } from "./d-base";
 import { DChartAxisContainer } from "./d-chart-axis-container";
 import { EShape } from "./shape/e-shape";
 
-export interface DChartAxisTickMinor<CHART extends DBase> {
+export interface DChartAxisTickMinor<CHART extends DBase = DBase> {
 	readonly shapes: EShape[];
 
 	bind(container: DChartAxisContainer<CHART>, index: number): void;
