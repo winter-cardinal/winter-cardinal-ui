@@ -35,6 +35,7 @@
         * [Stroke styling](./chart\axis/stroke-styling.html)
         * [Switching axes](./chart\axis/switch.html)
         * [Tick disabled](./chart\axis/tick-disabled.html)
+        * [Tick fixed](./chart\axis/tick-fixed.html)
         * [Tick gridline disabled](./chart\axis/tick-gridline-disabled.html)
         * [Tick gridline stroke styling](./chart\axis/tick-gridline-stroke-styling.html)
         * [Tick position](./chart\axis/tick-position.html)

@@ -23,6 +23,7 @@ export interface DChartCoordinateTick<CHART extends DBase = DBase> {
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
+		majorFixed: number[] | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
 		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,

@@ -78,6 +78,7 @@ export interface DChartAxisBaseTickMajorOptions {
 	count?: number;
 	capacity?: number;
 	step?: number | DChartCoordinateTickMajorStepFunction;
+	fixed?: number[] | undefined;
 	size?: number;
 	position?: DChartAxisTickPositionOption;
 	style?: EShapePointsStyleOption;

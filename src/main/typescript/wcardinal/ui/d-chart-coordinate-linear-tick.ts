@@ -86,6 +86,7 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase>
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
+		majorFixed: number[] | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
 		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
@@ -159,6 +160,35 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase>
 						iminor += 1;
 					}
 				}
+			}
+		}
+		// Add fixed major ticks
+		const startIMajor = 0;
+		const endIMajor = imajor - 1;
+		majorFixed = majorFixed ?? [];
+		for (let i = 0; i < majorFixed.length; i++) {
+			const imajorResult = imajor * 3;
+			const fixedPossition = majorFixed[i];
+			if (domainMin <= fixedPossition && fixedPossition <= domainMax) {
+				if (fixedPossition % majorStepMapped === 0) {
+					majorResult[imajorResult + 0] = NaN;
+					majorResult[imajorResult + 1] = NaN;
+					majorResult[imajorResult + 2] = NaN;
+				} else {
+					const startMajorPossition = majorResult[startIMajor * 3 + 0];
+					const startMajorPossitionMapped = majorResult[startIMajor * 3 + 1];
+					const endMajorPossition = majorResult[endIMajor * 3 + 0];
+					const endMajorPossitionMapped = majorResult[endIMajor * 3 + 1];
+					const d =
+						(endMajorPossitionMapped - startMajorPossitionMapped) /
+						(endMajorPossition - startMajorPossition);
+					const fixMajorPossitionMapped =
+						(fixedPossition - startMajorPossition) * d + startMajorPossitionMapped;
+					majorResult[imajorResult + 0] = fixedPossition;
+					majorResult[imajorResult + 1] = fixMajorPossitionMapped;
+					majorResult[imajorResult + 2] = fixedPossition % majorStepMapped;
+				}
+				imajor += 1;
 			}
 		}
 		for (let i = imajor; i < majorCapacity; ++i) {

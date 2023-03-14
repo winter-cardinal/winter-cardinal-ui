@@ -74,6 +74,7 @@ export interface DChartAxisBaseOptionParserTickMajor {
 	style?: EShapePointsStyle;
 	stroke?: Partial<EShapeStrokeLike>;
 	text?: DChartAxisBaseOptionParserText;
+	fixed?: number[];
 	formatter?: NumberFormatter;
 
 	gridline: DChartAxisBaseOptionParserGridline;
@@ -189,6 +190,7 @@ export class DChartAxisBaseOptionParser<
 			count,
 			capacity,
 			step: major?.step ?? theme.getMajorTickStep(),
+			fixed: major?.fixed,
 			size: major?.size ?? theme.getMajorTickSize(),
 			position: this.toTickPosition(position),
 			style,

@@ -193,6 +193,7 @@ export class DChartAxisBaseTickContainer<
 		const majorCapacity = majorTick.capacity;
 		const majorStep = majorTick.step;
 		const majorFormatter = majorTick.formatter;
+		const majorFixed = majorTick.fixed;
 		const minorTick = tick.minor;
 		const minorCountPerMajor = minorTick.count;
 		const minorCount = (majorCapacity + 1) * minorCountPerMajor;
@@ -207,6 +208,7 @@ export class DChartAxisBaseTickContainer<
 			majorCount,
 			majorCapacity,
 			majorStep,
+			majorFixed,
 			minorCountPerMajor,
 			minorCount,
 			minorStep,
@@ -285,6 +287,7 @@ export class DChartAxisBaseTickContainer<
 		const majorCount = majorTick.count;
 		const majorCapacity = majorTick.capacity;
 		const majorStep = majorTick.step;
+		const majorFixed = majorTick.fixed;
 		const majorFormatter = majorTick.formatter;
 		const minorTick = tick.minor;
 		const minorCountPerMajor = minorTick.count;
@@ -300,6 +303,7 @@ export class DChartAxisBaseTickContainer<
 			majorCount,
 			majorCapacity,
 			majorStep,
+			majorFixed,
 			minorCountPerMajor,
 			minorCount,
 			minorStep,
@@ -412,6 +416,7 @@ export class DChartAxisBaseTickContainer<
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
+		majorFix: number[] | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
 		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
@@ -424,6 +429,7 @@ export class DChartAxisBaseTickContainer<
 			majorCount,
 			majorCapacity,
 			majorStep,
+			majorFix,
 			minorCountPerMajor,
 			minorCount,
 			minorStep,

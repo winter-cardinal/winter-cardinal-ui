@@ -38,7 +38,8 @@ export class DChartAxisBaseTickMajor<CHART extends DBase> implements DChartAxisT
 			const size = major.size;
 			const position = major.position;
 			const style = major.style ?? EShapePointsStyle.NONE;
-			for (let i = 0; i < capacity; ++i) {
+			const nFixed = major.fixed?.length ?? 0;
+			for (let i = 0; i < capacity + nFixed; ++i) {
 				const shape = new EShapeBar();
 				shape.points.position = position;
 				shape.points.size = size;
@@ -54,6 +55,14 @@ export class DChartAxisBaseTickMajor<CHART extends DBase> implements DChartAxisT
 
 	get gridline(): DChartAxisBaseTickMajorGridline<CHART> {
 		return this._gridline;
+	}
+
+	set fixed(fixed: number[] | undefined) {
+		this._parser.tick.major.fixed = fixed;
+	}
+
+	get fixed(): number[] | undefined {
+		return this._parser.tick.major.fixed;
 	}
 
 	bind(container: DChartAxisContainer<CHART>, index: number): void {

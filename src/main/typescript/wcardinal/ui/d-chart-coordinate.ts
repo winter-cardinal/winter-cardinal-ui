@@ -112,6 +112,7 @@ export interface DChartCoordinate<CHART extends DBase = DBase> {
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
+		majorFix: number[] | undefined,
 		minorCountPerMajor: number,
 		minorCount: number,
 		minorStep: number | DChartCoordinateTickMinorStepFunction | undefined,
