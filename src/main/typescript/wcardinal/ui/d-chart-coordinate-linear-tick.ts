@@ -179,11 +179,11 @@ export class DChartCoordinateLinearTick<CHART extends DBase = DBase>
 					const startMajorPossitionMapped = majorResult[startIMajor * 3 + 1];
 					const endMajorPossition = majorResult[endIMajor * 3 + 0];
 					const endMajorPossitionMapped = majorResult[endIMajor * 3 + 1];
-					const d =
+					const r =
 						(endMajorPossitionMapped - startMajorPossitionMapped) /
 						(endMajorPossition - startMajorPossition);
 					const fixMajorPossitionMapped =
-						(fixedPossition - startMajorPossition) * d + startMajorPossitionMapped;
+						(fixedPossition - startMajorPossition) * r + startMajorPossitionMapped;
 					majorResult[imajorResult + 0] = fixedPossition;
 					majorResult[imajorResult + 1] = fixMajorPossitionMapped;
 					majorResult[imajorResult + 2] = fixedPossition % majorStepMapped;
