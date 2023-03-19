@@ -11,6 +11,10 @@ import {
 	DTableDataSelectionType
 } from "./d-table-data-selection";
 import {
+	DTableDataTreeItemAccessorHasChildren,
+	DTableDataTreeItemAccessorToChildren
+} from "./d-table-data-tree-item-accessor";
+import {
 	DTableDataTreeSelection,
 	DTableDataTreeSelectionParent
 } from "./d-table-data-tree-selection";
@@ -52,9 +56,11 @@ export class DTableDataTreeSelectionImpl<NODE>
 
 	onNodeChange(nodes?: NODE[]): void {
 		if (nodes != null) {
-			const toChildren = this._parent.accessor.toChildren;
+			const accessor = this._parent.accessor;
+			const toChildren = accessor.toChildren;
+			const hasChildren = accessor.hasChildren;
 			const oldRows = this._rows;
-			const newRows = this.newRows(nodes, toChildren, oldRows, new Set<NODE>());
+			const newRows = this.newRows(nodes, toChildren, hasChildren, oldRows, new Set<NODE>());
 			if (oldRows.size !== newRows.size) {
 				this._rows = newRows;
 				this.onChange();
@@ -70,7 +76,8 @@ export class DTableDataTreeSelectionImpl<NODE>
 
 	protected newRows(
 		nodes: NODE[],
-		toChildren: (node: NODE) => NODE[] | null | undefined,
+		toChildren: DTableDataTreeItemAccessorToChildren<NODE>,
+		hasChildren: DTableDataTreeItemAccessorHasChildren<NODE>,
 		rows: Set<NODE>,
 		result: Set<NODE>
 	): Set<NODE> {
@@ -80,8 +87,8 @@ export class DTableDataTreeSelectionImpl<NODE>
 				result.add(node);
 			}
 			const children = toChildren(node);
-			if (children != null) {
-				this.newRows(children, toChildren, rows, result);
+			if (hasChildren(node, children)) {
+				this.newRows(children, toChildren, hasChildren, rows, result);
 			}
 		}
 		return result;

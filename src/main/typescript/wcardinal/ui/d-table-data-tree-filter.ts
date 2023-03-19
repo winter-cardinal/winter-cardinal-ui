@@ -74,18 +74,16 @@ export class DTableDataTreeFilter<NODE extends DTableDataTreeNode<NODE, NODE>>
 		nodes: NODE[],
 		filter: DTableDataFilterer<NODE>
 	): boolean {
-		const toChildren = this._parent.accessor.toChildren;
+		const accessor = this._parent.accessor;
+		const toChildren = accessor.toChildren;
+		const hasChildren = accessor.hasChildren;
 		for (let i = 0, imax = nodes.length; i < imax; ++i) {
 			const node = nodes[i];
 			if (this.isFiltered(node, -1, filter)) {
 				return true;
 			}
 			const children = toChildren(node);
-			if (
-				children != null &&
-				0 < children.length &&
-				this.hasFiltered(parent, children, filter)
-			) {
+			if (hasChildren(node, children) && this.hasFiltered(parent, children, filter)) {
 				return true;
 			}
 		}
@@ -98,13 +96,15 @@ export class DTableDataTreeFilter<NODE extends DTableDataTreeNode<NODE, NODE>>
 		filtered: number[],
 		cursor: [number]
 	): void {
-		const toChildren = this._parent.accessor.toChildren;
+		const accessor = this._parent.accessor;
+		const toChildren = accessor.toChildren;
+		const hasChildren = accessor.hasChildren;
 		for (let i = 0, imax = nodes.length; i < imax; ++i) {
 			const node = nodes[i];
 			filtered.push(cursor[0]);
 			cursor[0] += 1;
 			const children = toChildren(node);
-			if (children != null && 0 < children.length && parent.isOpened(node)) {
+			if (hasChildren(node, children) && parent.isOpened(node)) {
 				this.addAllToFiltered(parent, children, filtered, cursor);
 			}
 		}
@@ -118,14 +118,16 @@ export class DTableDataTreeFilter<NODE extends DTableDataTreeNode<NODE, NODE>>
 		cursor: [number]
 	): boolean {
 		let result = false;
-		const toChildren = this._parent.accessor.toChildren;
+		const accessor = this._parent.accessor;
+		const toChildren = accessor.toChildren;
+		const hasChildren = accessor.hasChildren;
 		for (let i = 0, imax = nodes.length; i < imax; ++i) {
 			const node = nodes[i];
 			const index = cursor[0];
 			cursor[0] += 1;
 			const isFiltered = this.isFiltered(node, index, filter);
 			const children = toChildren(node);
-			if (children != null && 0 < children.length) {
+			if (hasChildren(node, children)) {
 				if (parent.isOpened(node)) {
 					if (isFiltered) {
 						filtered.push(index);

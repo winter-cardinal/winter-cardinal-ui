@@ -14,7 +14,9 @@ import { DTableDataTreeSorter } from "./d-table-data-tree-sorter";
 import { DTableDataTreeNode } from "./d-table-data-tree-item";
 import {
 	DTableDataTreeItemAccessor,
-	DTableDataTreeItemAccessorOptions
+	DTableDataTreeItemAccessorHasChildren,
+	DTableDataTreeItemAccessorOptions,
+	DTableDataTreeItemAccessorToChildren
 } from "./d-table-data-tree-item-accessor";
 import {
 	DTableDataTreeSelection,
@@ -209,6 +211,7 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		const supplimentals = this._supplimentals;
 		const flags = this._flags;
 		if (nodes != null) {
+			const accessor = this._accessor;
 			const irows = this.newRows(
 				nodes,
 				0,
@@ -217,7 +220,8 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 				supplimentals,
 				flags,
 				this._reverse,
-				this._accessor.toChildren
+				accessor.toChildren,
+				accessor.hasChildren
 			);
 			if (irows !== rows.length) {
 				rows.length = irows;
@@ -241,7 +245,8 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		supplimentals: number[],
 		flags: WeakMap<NODE, number>,
 		reverse: boolean,
-		toChildren: (node: NODE) => NODE[] | null | undefined
+		toChildren: DTableDataTreeItemAccessorToChildren<NODE>,
+		hasChildren: DTableDataTreeItemAccessorHasChildren<NODE>
 	): number {
 		const nodesLength = nodes.length;
 		const istart = reverse ? nodesLength - 1 : 0;
@@ -250,11 +255,7 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 			const node = nodes[i];
 			const children = toChildren(node);
 			const isOpened = flags.has(node);
-			const supplimental = this.toSupplimental(
-				ilevel,
-				!!(children && 0 < children.length),
-				isOpened
-			);
+			const supplimental = this.toSupplimental(ilevel, hasChildren(node, children), isOpened);
 			if (irows < rows.length) {
 				rows[irows] = node;
 				supplimentals[irows] = supplimental;
@@ -273,7 +274,8 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 					supplimentals,
 					flags,
 					reverse,
-					toChildren
+					toChildren,
+					hasChildren
 				);
 			}
 		}
