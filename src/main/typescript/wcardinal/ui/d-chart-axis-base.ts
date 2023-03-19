@@ -39,16 +39,32 @@ export class DChartAxisBase<
 		this._tick = this.newTick(parser, theme, options);
 	}
 
-	get parser(): DChartAxisBaseOptionParser<THEME> {
-		return this._parser;
-	}
-
 	protected newParser(theme: THEME, options?: OPTIONS): DChartAxisBaseOptionParser<THEME> {
 		return new DChartAxisBaseOptionParser(theme, options);
 	}
 
 	get position(): DChartAxisPosition {
 		return this._parser.position;
+	}
+
+	set position(position: DChartAxisPosition) {
+		this._parser.position = position;
+	}
+
+	get coordinate(): number {
+		return this._parser.coordinate;
+	}
+
+	set coordinate(coordinate: number) {
+		this._parser.coordinate = coordinate;
+	}
+
+	get padding(): number {
+		return this._parser.padding;
+	}
+
+	set padding(padding: number) {
+		this._parser.padding = padding;
 	}
 
 	get bar(): DChartAxisBar<CHART> {

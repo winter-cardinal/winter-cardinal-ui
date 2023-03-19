@@ -88,7 +88,7 @@ export class DChartAxisBaseTickContainer<
 			let coordinate: DChartCoordinate<CHART> | null;
 			switch (parser.position) {
 				case DChartAxisPosition.TOP:
-					coordinate = plotArea.coordinate.x.get(parser.coordinateIndex);
+					coordinate = plotArea.coordinate.x.get(parser.coordinate);
 					if (coordinate) {
 						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.x));
 						const domainTo = coordinate.unmap(
@@ -109,7 +109,7 @@ export class DChartAxisBaseTickContainer<
 					}
 					break;
 				case DChartAxisPosition.BOTTOM:
-					coordinate = plotArea.coordinate.x.get(parser.coordinateIndex);
+					coordinate = plotArea.coordinate.x.get(parser.coordinate);
 					if (coordinate) {
 						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.x));
 						const domainTo = coordinate.unmap(
@@ -130,7 +130,7 @@ export class DChartAxisBaseTickContainer<
 					}
 					break;
 				case DChartAxisPosition.LEFT:
-					coordinate = plotArea.coordinate.y.get(parser.coordinateIndex);
+					coordinate = plotArea.coordinate.y.get(parser.coordinate);
 					if (coordinate) {
 						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.y));
 						const domainTo = coordinate.unmap(
@@ -151,7 +151,7 @@ export class DChartAxisBaseTickContainer<
 					}
 					break;
 				case DChartAxisPosition.RIGHT:
-					coordinate = plotArea.coordinate.y.get(parser.coordinateIndex);
+					coordinate = plotArea.coordinate.y.get(parser.coordinate);
 					if (coordinate) {
 						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.y));
 						const domainTo = coordinate.unmap(

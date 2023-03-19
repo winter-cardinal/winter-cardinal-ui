@@ -14,7 +14,9 @@ export interface DChartAxisOptions {
 }
 
 export interface DChartAxis<CHART extends DBase = DBase> {
-	readonly position: DChartAxisPosition;
+	position: DChartAxisPosition;
+	coordinate: number;
+	padding: number;
 	readonly bar: DChartAxisBar<CHART>;
 	readonly tick: DChartAxisTickContainer<CHART>;
 

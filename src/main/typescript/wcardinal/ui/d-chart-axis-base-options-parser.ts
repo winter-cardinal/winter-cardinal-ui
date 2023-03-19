@@ -105,44 +105,20 @@ export class DChartAxisBaseOptionParser<
 	THEME extends DThemeChartAxisBase = DThemeChartAxisBase,
 	OPTIONS extends DChartAxisBaseOptions<THEME> = DChartAxisBaseOptions<THEME>
 > {
-	protected _coordinateIndex: number;
-	protected _position: DChartAxisPosition;
-	protected _tick: DChartAxisBaseOptionParserTick;
-	protected _label: DeepPartial<EShapeTextLike> | undefined;
-	protected _padding: number;
-	protected _bar: DChartAxisBaseOptionParserBar;
+	coordinate: number;
+	position: DChartAxisPosition;
+	tick: DChartAxisBaseOptionParserTick;
+	label: DeepPartial<EShapeTextLike> | undefined;
+	padding: number;
+	bar: DChartAxisBaseOptionParserBar;
 
 	constructor(theme: THEME, options?: OPTIONS) {
-		this._coordinateIndex = options?.coordinate ?? 0;
-		this._position = this.toPosition(theme, options);
-		this._tick = this.toTick(theme, options);
-		this._label = this.toLabel(theme, options);
-		this._padding = options?.padding ?? theme.getPadding();
-		this._bar = this.toBar(theme, options);
-	}
-
-	get coordinateIndex(): number {
-		return this._coordinateIndex;
-	}
-
-	get padding(): number {
-		return this._padding;
-	}
-
-	get position(): DChartAxisPosition {
-		return this._position;
-	}
-
-	get bar(): DChartAxisBaseOptionParserBar {
-		return this._bar;
-	}
-
-	get tick(): DChartAxisBaseOptionParserTick {
-		return this._tick;
-	}
-
-	get label(): DeepPartial<EShapeTextLike> | undefined {
-		return this._label;
+		this.coordinate = options?.coordinate ?? 0;
+		this.position = this.toPosition(theme, options);
+		this.tick = this.toTick(theme, options);
+		this.label = this.toLabel(theme, options);
+		this.padding = options?.padding ?? theme.getPadding();
+		this.bar = this.toBar(theme, options);
 	}
 
 	protected toPosition(theme: THEME, options?: OPTIONS): DChartAxisPosition {
@@ -218,7 +194,7 @@ export class DChartAxisBaseOptionParser<
 	protected toTickPosition(
 		tickPosition: DChartAxisTickPosition | keyof typeof DChartAxisTickPosition
 	): EShapeBarPosition {
-		const position = this._position;
+		const position = this.position;
 		if (tickPosition === DChartAxisTickPosition.OUTSIDE || tickPosition === "OUTSIDE") {
 			switch (position) {
 				case DChartAxisPosition.TOP:
@@ -482,7 +458,7 @@ export class DChartAxisBaseOptionParser<
 		theme: THEME,
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
-		const position = this._position;
+		const position = this.position;
 		return {
 			horizontal: options?.horizontal ?? theme.getMajorTickTextAlignHorizontal(position),
 			vertical: options?.vertical ?? theme.getMajorTickTextAlignVertical(position)
@@ -602,7 +578,7 @@ export class DChartAxisBaseOptionParser<
 		theme: THEME,
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
-		const position = this._position;
+		const position = this.position;
 		return {
 			horizontal: options?.horizontal ?? theme.getMinorTickTextAlignHorizontal(position),
 			vertical: options?.vertical ?? theme.getMinorTickTextAlignVertical(position)
@@ -694,7 +670,7 @@ export class DChartAxisBaseOptionParser<
 		theme: THEME,
 		options?: Partial<EShapeTextAlignLike>
 	): Partial<EShapeTextAlignLike> | undefined {
-		const position = this._position;
+		const position = this.position;
 		return {
 			horizontal: options?.horizontal ?? theme.getLabelAlignHorizontal(position),
 			vertical: options?.vertical ?? theme.getLabelAlignVertical(position)
