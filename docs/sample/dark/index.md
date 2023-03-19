@@ -33,7 +33,7 @@
         * [Padding](./chart\axis/padding.html)
         * [Position](./chart\axis/position.html)
         * [Stroke styling](./chart\axis/stroke-styling.html)
-        * [Switching axes](./chart\axis/switch.html)
+        * [Switching coordinates](./chart\axis/switching-coordinates.html)
         * [Tick disabled](./chart\axis/tick-disabled.html)
         * [Tick gridline disabled](./chart\axis/tick-gridline-disabled.html)
         * [Tick gridline stroke styling](./chart\axis/tick-gridline-stroke-styling.html)
@@ -63,6 +63,7 @@
         * [Rectangle](./chart\series/rectangle.html)
         * [Rounded rectangle](./chart\series/rounded-rectangle.html)
         * [Rounded triangle](./chart\series/rounded-triangle.html)
+        * [Switching coordinates](./chart\series/switching-coordinates.html)
         * [Triangle](./chart\series/triangle.html)
     * View
         * [Constraint](./chart\view/constraint.html)
