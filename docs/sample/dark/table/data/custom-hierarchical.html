@@ -1,0 +1,87 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hierarchical custom data</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.295.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.295.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 500, height: 500,
+			columns: [{
+				label: "ID",
+				type: "TREE",
+				path: "id"
+			},{
+				label: "Name",
+				type: "TREE",
+				path: "name",
+				editable: true
+			},{
+				label: "Data",
+				type: "INTEGER",
+				path: "data",
+				editable: true,
+				renderable: "AUTO"
+			}],
+			data: new wcardinal.ui.DTableDataTree({
+				nodes: [
+					{ id: "APPLE", name: "Apple", items: [
+						{ id: "APPLE_LEAF", name: "Apple leaf", data: 100 }
+					]},
+					{ id: "ORANGE", name: "Orange", items: [
+						{ id: "ORANGE_LEAF", name: "Orange leaf", data: 200 }
+					]},
+					{ id: "PINEAPPLE", name: "Pineapple", items: []}
+				],
+				on: {
+					change: function (newValue, oldValue, node, rowIndex, columnIndex, data) {
+						console.log("change", newValue, oldValue, node, rowIndex, columnIndex, data);
+					},
+
+					expand: function (node, data) {
+						console.log("expand", node, data);
+					},
+					
+					collapse: function (node, data) {
+						console.log("collapse", node, data);
+					}
+				},
+				toChildren: (node) => {
+					return node.items;
+				},
+				hasChildren: (node, children) => {
+					return children != null;
+				}
+			})
+		});
+	}());
+	</script>
+</body>
+</html>

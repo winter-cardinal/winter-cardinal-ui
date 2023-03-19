@@ -300,7 +300,8 @@
         * [Width (Weight)](./table\column/width-weight.html)
     * Data
         * [Array data](./table\data/array.html)
-        * [Fully custom data](./table\data/custom.html)
+        * [Custom data](./table\data/custom.html)
+        * [Hierarchical custom data](./table\data/custom-hierarchical.html)
         * [Data formatter](./table\data/formatter.html)
         * [Hierarchical data](./table\data/hierarchical.html)
         * [Hierarchical data (Reverse order)](./table\data/hierarchical-reverse.html)
