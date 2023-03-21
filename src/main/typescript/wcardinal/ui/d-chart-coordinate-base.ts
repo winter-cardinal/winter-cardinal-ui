@@ -125,27 +125,38 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 		const container = this._container;
 		if (container) {
 			const plotArea = container.container.plotArea;
-			const padding = plotArea.padding;
 			const work = this._work;
 			switch (this._direction) {
 				case DChartCoordinateDirection.X:
+					this.getPixelDomain(plotArea, work);
 					this.doFit_(
-						padding.getLeft(),
-						plotArea.width - padding.getRight(),
+						work.from,
+						work.to,
 						this.toFitDomain(from, to, plotArea, work),
 						result
 					);
 					break;
 				case DChartCoordinateDirection.Y:
+					this.getPixelRange(plotArea, work);
 					this.doFit_(
-						plotArea.height - padding.getBottom(),
-						padding.getTop(),
+						work.from,
+						work.to,
 						this.toFitRange(from, to, plotArea, work),
 						result
 					);
 					break;
 			}
 		}
+	}
+
+	protected getPixelDomain(plotArea: DChartPlotArea<CHART>, result: DChartRegion): DChartRegion {
+		const padding = plotArea.padding;
+		return result.set(padding.getLeft(), plotArea.width - padding.getRight());
+	}
+
+	protected getPixelRange(plotArea: DChartPlotArea<CHART>, result: DChartRegion): DChartRegion {
+		const padding = plotArea.padding;
+		return result.set(plotArea.height - padding.getBottom(), padding.getTop());
 	}
 
 	protected toFitDomain(

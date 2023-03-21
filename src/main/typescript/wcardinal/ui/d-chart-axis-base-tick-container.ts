@@ -11,6 +11,9 @@ import { DChartAxisTickMinor } from "./d-chart-axis-tick-minor";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
 import { DChartCoordinateTickMinorStepFunction } from "./d-chart-coordinate-tick-minor-step-function";
+import { DChartPlotArea } from "./d-chart-plot-area";
+import { DChartRegion } from "./d-chart-region";
+import { DChartRegionImpl } from "./d-chart-region-impl";
 import { EShape } from "./shape/e-shape";
 
 export interface DChartAxisBaseTickContainerOptions {}
@@ -27,6 +30,7 @@ export class DChartAxisBaseTickContainer<
 	protected _minor: DChartAxisTickMinor<CHART>;
 	protected _majorTicks: number[];
 	protected _minorTicks: number[];
+	protected _work: DChartRegion;
 
 	constructor(parser: DChartAxisBaseOptionParser, options?: OPTIONS) {
 		this._parser = parser;
@@ -35,6 +39,7 @@ export class DChartAxisBaseTickContainer<
 		this._minor = this.newMinor(parser, options);
 		this._majorTicks = [];
 		this._minorTicks = [];
+		this._work = new DChartRegionImpl(0, 0);
 	}
 
 	get major(): DChartAxisTickMajor<CHART> {
@@ -79,7 +84,6 @@ export class DChartAxisBaseTickContainer<
 		const minorShapes = this._minor.shapes;
 		if (container != null && majorShapes && minorShapes) {
 			const plotArea = container.plotArea;
-			const bounds = plotArea.getBoundsInContainer();
 			const transform = plotArea.container.transform.localTransform;
 			const gridlineShapes = this._major.gridline.shapes;
 
@@ -90,14 +94,11 @@ export class DChartAxisBaseTickContainer<
 				case DChartAxisPosition.TOP:
 					coordinate = plotArea.coordinate.x.get(parser.coordinate);
 					if (coordinate) {
-						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.x));
-						const domainTo = coordinate.unmap(
-							coordinate.transform.unmap(bounds.x + bounds.width)
-						);
+						const domain = this.getDomain(plotArea, coordinate, this._work);
 						const plotAreaHeight = plotArea.height;
 						return this.updateX(
-							domainFrom,
-							domainTo,
+							domain.from,
+							domain.to,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -111,14 +112,11 @@ export class DChartAxisBaseTickContainer<
 				case DChartAxisPosition.BOTTOM:
 					coordinate = plotArea.coordinate.x.get(parser.coordinate);
 					if (coordinate) {
-						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.x));
-						const domainTo = coordinate.unmap(
-							coordinate.transform.unmap(bounds.x + bounds.width)
-						);
+						const domain = this.getDomain(plotArea, coordinate, this._work);
 						const plotAreaHeight = plotArea.height;
 						return this.updateX(
-							domainFrom,
-							domainTo,
+							domain.from,
+							domain.to,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -132,14 +130,11 @@ export class DChartAxisBaseTickContainer<
 				case DChartAxisPosition.LEFT:
 					coordinate = plotArea.coordinate.y.get(parser.coordinate);
 					if (coordinate) {
-						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.y));
-						const domainTo = coordinate.unmap(
-							coordinate.transform.unmap(bounds.y + bounds.height)
-						);
+						const range = this.getRange(plotArea, coordinate, this._work);
 						const plotAreaWidth = plotArea.width;
 						return this.updateY(
-							domainFrom,
-							domainTo,
+							range.from,
+							range.to,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -153,14 +148,11 @@ export class DChartAxisBaseTickContainer<
 				case DChartAxisPosition.RIGHT:
 					coordinate = plotArea.coordinate.y.get(parser.coordinate);
 					if (coordinate) {
-						const domainFrom = coordinate.unmap(coordinate.transform.unmap(bounds.y));
-						const domainTo = coordinate.unmap(
-							coordinate.transform.unmap(bounds.y + bounds.height)
-						);
+						const range = this.getRange(plotArea, coordinate, this._work);
 						const plotAreaWidth = plotArea.width;
 						return this.updateY(
-							domainFrom,
-							domainTo,
+							range.from,
+							range.to,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -174,6 +166,32 @@ export class DChartAxisBaseTickContainer<
 			}
 		}
 		return false;
+	}
+
+	protected getDomain(
+		plotArea: DChartPlotArea<CHART>,
+		coordinate: DChartCoordinate<CHART>,
+		result: DChartRegion
+	): DChartRegion {
+		const bounds = plotArea.getBoundsInContainer();
+		const transform = coordinate.transform;
+		return result.set(
+			coordinate.unmap(transform.unmap(bounds.x)),
+			coordinate.unmap(transform.unmap(bounds.x + bounds.width))
+		);
+	}
+
+	protected getRange(
+		plotArea: DChartPlotArea<CHART>,
+		coordinate: DChartCoordinate<CHART>,
+		result: DChartRegion
+	): DChartRegion {
+		const bounds = plotArea.getBoundsInContainer();
+		const transform = coordinate.transform;
+		return result.set(
+			coordinate.unmap(transform.unmap(bounds.y)),
+			coordinate.unmap(transform.unmap(bounds.y + bounds.height))
+		);
 	}
 
 	protected updateX(
@@ -270,8 +288,8 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected updateY(
-		domainMin: number,
-		domainMax: number,
+		rangeMin: number,
+		rangeMax: number,
 		coordinate: DChartCoordinate<CHART>,
 		majorShapes: EShape[],
 		minorShapes: EShape[],
@@ -295,8 +313,8 @@ export class DChartAxisBaseTickContainer<
 		const minorTicks = this._minorTicks;
 		this.newTicks(
 			coordinate,
-			domainMin,
-			domainMax,
+			rangeMin,
+			rangeMax,
 			majorCount,
 			majorCapacity,
 			majorStep,

@@ -32,6 +32,13 @@
 		const application = new wcardinal.ui.DApplication();
 
 		class DChartAxisDigitalTickContainer extends wcardinal.ui.DChartAxisBaseTickContainer {
+			getRange(plotArea, coordinate, result) {
+				return result.set(
+					coordinate.from ?? 0,
+					coordinate.to ?? 1
+				);
+			}
+
 			newTicks(
 				coordinate,
 				domainFrom,
@@ -122,6 +129,41 @@
 			}
 		}
 
+		class DChartCoordinateDigital extends wcardinal.ui.DChartCoordinateLinear {
+			getPixelRange(plotArea, result) {
+				const top = plotArea.padding.getTop();
+				const from = plotArea.height * 0.5 - top;
+				const to = top;
+				return result.set(Math.max(to, from), to);
+			}
+		}
+
+		class DChartCoordinateAnalog extends wcardinal.ui.DChartCoordinateLinear {
+			getPixelRange(plotArea, result) {
+				const bottom = plotArea.padding.getBottom();
+				const height = plotArea.height;
+				const from = height - bottom;
+				const to = height * 0.5 + bottom;
+				return result.set(Math.max(from, to), to);
+			}
+		}
+
+		class DChartAxisAnalogTickContainer extends wcardinal.ui.DChartAxisBaseTickContainer {
+			getRange(plotArea, coordinate, result) {
+				return result.set(
+					coordinate.from ?? 0,
+					coordinate.to ?? 1
+				);
+			}
+		}
+
+		class DChartAxisAnalog extends wcardinal.ui.DChartAxisY {
+			newTick(parser, theme) {
+				return new DChartAxisAnalogTickContainer(parser);
+			}
+		}
+
+
 		const series = [{
 			name: "Apple"
 		}, {
@@ -143,16 +185,37 @@
 			plotArea: {
 				coordinate: {
 					x: new wcardinal.ui.DChartCoordinateLinear(),
-					y: new wcardinal.ui.DChartCoordinateLinear({
-						from: 0,
-						to: (series.length - 1) * 1.5 + 1
-					})
+					y: [
+						new DChartCoordinateDigital({
+							from: 0,
+							to: (series.length - 1) * 1.5 + 1
+						}),
+						new DChartCoordinateAnalog({
+							from: -1,
+							to: +1
+						})
+					]
 				},
 				series: {
 					list: [
 						new wcardinal.ui.DChartSeriesLine(),
 						new wcardinal.ui.DChartSeriesLine(),
-						new wcardinal.ui.DChartSeriesLine()
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								y: 1
+							}
+						}),
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								y: 1
+							}
+						}),
+						new wcardinal.ui.DChartSeriesLine({
+							coordinate: {
+								y: 1
+							}
+						})
 					]
 				},
 				axis: {
@@ -170,6 +233,7 @@
 									}
 								},
 								minor: {
+									count: 1,
 									text: {
 										direction: "BOTTOM_TO_TOP",
 										offset: {
@@ -194,13 +258,36 @@
 								}
 							},
 							position: "RIGHT"
+						}),
+						new DChartAxisAnalog({
+							stroke: {
+								enable: false
+							},
+							padding: 0,
+							tick: {
+								major: {
+									text: {
+										format: "%.1f"
+									}
+								}
+							},
+							coordinate: 1
 						})
 					]
 				}
 			}
 		});
 
-		new ChartUpdater(application, chart).offset(0, 1.5).modifier((v) => 0 < v ? 1 : 0).start();
+		new ChartUpdater(application, chart)
+			.offset(0, 0)
+			.modifier((v, i) => {
+				if (i < 3) {
+					return (0 < v ? 1 : 0) + 1.5 * i;
+				} else {
+					return v;
+				}
+			})
+			.start();
 	}());
 	</script>
 </body>

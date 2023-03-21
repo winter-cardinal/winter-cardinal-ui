@@ -111,7 +111,7 @@
 				const points = series.points;
 				if (points != null) {
 					const dy = this._modifier(
-						Math.sin( dx * 0.025 * (1 + i) + 0.5 * Math.PI * i )
+						Math.sin( dx * 0.025 * (1 + i) + 0.5 * Math.PI * i ), i
 					);
 					points.push( dx + i * this._offsetX, dy + i * this._offsetY );
 					if( this._capacity < series.points.length ) {
