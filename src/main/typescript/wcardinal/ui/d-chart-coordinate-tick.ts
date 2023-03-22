@@ -20,6 +20,8 @@ export interface DChartCoordinateTick<CHART extends DBase = DBase> {
 	calculate(
 		domainFrom: number,
 		domainTo: number,
+		domainVisibleFrom: number,
+		domainVisibleTo: number,
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,

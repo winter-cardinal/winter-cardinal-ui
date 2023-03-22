@@ -89,16 +89,24 @@ export class DChartAxisBaseTickContainer<
 
 			const parser = this._parser;
 			const offset = parser.padding * this._index;
+			const work = this._work;
 			let coordinate: DChartCoordinate<CHART> | null;
 			switch (parser.position) {
 				case DChartAxisPosition.TOP:
 					coordinate = plotArea.coordinate.x.get(parser.coordinate);
 					if (coordinate) {
-						const domain = this.getDomain(plotArea, coordinate, this._work);
+						const domain = this.getDomain(plotArea, coordinate, work);
+						const domainFrom = domain.from;
+						const domainTo = domain.to;
+						const domainVisible = this.getDomainVisible(plotArea, coordinate, work);
+						const domainVisibleFrom = domainVisible.from;
+						const domainVisibleTo = domainVisible.to;
 						const plotAreaHeight = plotArea.height;
 						return this.updateX(
-							domain.from,
-							domain.to,
+							domainFrom,
+							domainTo,
+							domainVisibleFrom,
+							domainVisibleTo,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -112,11 +120,18 @@ export class DChartAxisBaseTickContainer<
 				case DChartAxisPosition.BOTTOM:
 					coordinate = plotArea.coordinate.x.get(parser.coordinate);
 					if (coordinate) {
-						const domain = this.getDomain(plotArea, coordinate, this._work);
+						const domain = this.getDomain(plotArea, coordinate, work);
+						const domainFrom = domain.from;
+						const domainTo = domain.to;
+						const domainVisible = this.getDomainVisible(plotArea, coordinate, work);
+						const domainVisibleFrom = domainVisible.from;
+						const domainVisibleTo = domainVisible.to;
 						const plotAreaHeight = plotArea.height;
 						return this.updateX(
-							domain.from,
-							domain.to,
+							domainFrom,
+							domainTo,
+							domainVisibleFrom,
+							domainVisibleTo,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -130,11 +145,18 @@ export class DChartAxisBaseTickContainer<
 				case DChartAxisPosition.LEFT:
 					coordinate = plotArea.coordinate.y.get(parser.coordinate);
 					if (coordinate) {
-						const range = this.getRange(plotArea, coordinate, this._work);
+						const range = this.getRange(plotArea, coordinate, work);
+						const rangeFrom = range.from;
+						const rangeTo = range.to;
+						const rangeVisible = this.getRangeVisible(plotArea, coordinate, work);
+						const rangeVisibleFrom = rangeVisible.from;
+						const rangeVisibleTo = rangeVisible.to;
 						const plotAreaWidth = plotArea.width;
 						return this.updateY(
-							range.from,
-							range.to,
+							rangeFrom,
+							rangeTo,
+							rangeVisibleFrom,
+							rangeVisibleTo,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -148,11 +170,18 @@ export class DChartAxisBaseTickContainer<
 				case DChartAxisPosition.RIGHT:
 					coordinate = plotArea.coordinate.y.get(parser.coordinate);
 					if (coordinate) {
-						const range = this.getRange(plotArea, coordinate, this._work);
+						const range = this.getRange(plotArea, coordinate, work);
+						const rangeFrom = range.from;
+						const rangeTo = range.to;
+						const rangeVisible = this.getRangeVisible(plotArea, coordinate, work);
+						const rangeVisibleFrom = rangeVisible.from;
+						const rangeVisibleTo = rangeVisible.to;
 						const plotAreaWidth = plotArea.width;
 						return this.updateY(
-							range.from,
-							range.to,
+							rangeFrom,
+							rangeTo,
+							rangeVisibleFrom,
+							rangeVisibleTo,
 							coordinate,
 							majorShapes,
 							minorShapes,
@@ -181,6 +210,14 @@ export class DChartAxisBaseTickContainer<
 		);
 	}
 
+	protected getDomainVisible(
+		plotArea: DChartPlotArea<CHART>,
+		coordinate: DChartCoordinate<CHART>,
+		result: DChartRegion
+	): DChartRegion {
+		return result;
+	}
+
 	protected getRange(
 		plotArea: DChartPlotArea<CHART>,
 		coordinate: DChartCoordinate<CHART>,
@@ -194,9 +231,19 @@ export class DChartAxisBaseTickContainer<
 		);
 	}
 
+	protected getRangeVisible(
+		plotArea: DChartPlotArea<CHART>,
+		coordinate: DChartCoordinate<CHART>,
+		result: DChartRegion
+	): DChartRegion {
+		return result;
+	}
+
 	protected updateX(
-		domainMin: number,
-		domainMax: number,
+		domainFrom: number,
+		domainTo: number,
+		domainVisibleFrom: number,
+		domainVisibleTo: number,
 		coordinate: DChartCoordinate<CHART>,
 		majorShapes: EShape[],
 		minorShapes: EShape[],
@@ -220,8 +267,10 @@ export class DChartAxisBaseTickContainer<
 		const minorTicks = this._minorTicks;
 		this.newTicks(
 			coordinate,
-			domainMin,
-			domainMax,
+			domainFrom,
+			domainTo,
+			domainVisibleFrom,
+			domainVisibleTo,
 			majorCount,
 			majorCapacity,
 			majorStep,
@@ -288,8 +337,10 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected updateY(
-		rangeMin: number,
-		rangeMax: number,
+		rangeFrom: number,
+		rangeTo: number,
+		rangeVisibleFrom: number,
+		rangeVisibleTo: number,
 		coordinate: DChartCoordinate<CHART>,
 		majorShapes: EShape[],
 		minorShapes: EShape[],
@@ -313,8 +364,10 @@ export class DChartAxisBaseTickContainer<
 		const minorTicks = this._minorTicks;
 		this.newTicks(
 			coordinate,
-			rangeMin,
-			rangeMax,
+			rangeFrom,
+			rangeTo,
+			rangeVisibleFrom,
+			rangeVisibleTo,
 			majorCount,
 			majorCapacity,
 			majorStep,
@@ -425,8 +478,10 @@ export class DChartAxisBaseTickContainer<
 
 	protected newTicks(
 		coordinate: DChartCoordinate<CHART>,
-		domainMin: number,
-		domainMax: number,
+		domainFrom: number,
+		domainTo: number,
+		domainVisibleFrom: number,
+		domainVisibleTo: number,
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
@@ -437,8 +492,10 @@ export class DChartAxisBaseTickContainer<
 		minorResult: number[]
 	): void {
 		coordinate.ticks(
-			domainMin,
-			domainMax,
+			domainFrom,
+			domainTo,
+			domainVisibleFrom,
+			domainVisibleTo,
 			majorCount,
 			majorCapacity,
 			majorStep,

@@ -257,6 +257,8 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 	ticks(
 		domainFrom: number,
 		domainTo: number,
+		domainVisibleFrom: number,
+		domainVisibleTo: number,
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
@@ -269,6 +271,8 @@ export abstract class DChartCoordinateBase<CHART extends DBase = DBase>
 		this._tick.calculate(
 			domainFrom,
 			domainTo,
+			domainVisibleFrom,
+			domainVisibleTo,
 			majorCount,
 			majorCapacity,
 			majorStep,

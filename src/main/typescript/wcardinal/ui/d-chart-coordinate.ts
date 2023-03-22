@@ -98,8 +98,10 @@ export interface DChartCoordinate<CHART extends DBase = DBase> {
 	/**
 	 * Returns major / minor tick positions.
 	 *
-	 * @param domainMin minimum domain
-	 * @param domainMax maximum domain
+	 * @param domainMin domain lower bound
+	 * @param domainMax domain upper bound
+	 * @param domainVisibleMin visible domain lower bound
+	 * @param domainVisibleMax visible domain upper bound
 	 * @param majorCount Expected major tick count
 	 * @param minorCountPerMajor Expected minor tick count per major ticks
 	 * @param minorCount Expected total minor tick count
@@ -109,6 +111,8 @@ export interface DChartCoordinate<CHART extends DBase = DBase> {
 	ticks(
 		domainMin: number,
 		domainMax: number,
+		domainVisibleMin: number,
+		domainVisibleMax: number,
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,

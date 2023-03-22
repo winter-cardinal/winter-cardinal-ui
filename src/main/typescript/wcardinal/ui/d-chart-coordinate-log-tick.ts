@@ -85,6 +85,8 @@ export class DChartCoordinateLogTick<CHART extends DBase = DBase>
 	calculate(
 		domainFrom: number,
 		domainTo: number,
+		domainVisibleFrom: number,
+		domainVisibleTo: number,
 		majorCount: number,
 		majorCapacity: number,
 		majorStep: number | DChartCoordinateTickMajorStepFunction | undefined,
@@ -101,12 +103,23 @@ export class DChartCoordinateLogTick<CHART extends DBase = DBase>
 
 		const transform = coordinate.transform;
 
-		const domainFromMapped = coordinate.map(domainFrom);
-		const domainToMapped = coordinate.map(domainTo);
+		const domainMin = Math.min(domainFrom, domainTo);
+		const domainMax = Math.max(domainFrom, domainTo);
+		const domainVisibleMin = Math.min(domainVisibleFrom, domainVisibleTo);
+		const domainVisibleMax = Math.max(domainVisibleFrom, domainVisibleTo);
+		const domainVisibleMinMapped = coordinate.map(domainVisibleMin);
+		const domainVisibleMaxMapped = coordinate.map(domainVisibleMax);
+		const from0 = Math.min(domainVisibleMinMapped, domainVisibleMaxMapped);
+		const to0 = Math.max(domainVisibleMinMapped, domainVisibleMaxMapped);
+		const domainMinMapped = coordinate.map(domainMin);
+		const domainMaxMapped = coordinate.map(domainMax);
+		const from1 = Math.min(domainMinMapped, domainMaxMapped);
+		const to1 = Math.max(domainMinMapped, domainMaxMapped);
+		const from = Math.max(from0, from1);
+		const to = Math.min(to0, to1);
 
-		const domainMinMapped = Math.min(domainFromMapped, domainToMapped);
-		const domainMaxMapped = Math.max(domainFromMapped, domainToMapped);
-
+		let imajor = 0;
+		let iminor = 0;
 		const majorStepMapped = this.toMajorStep(
 			domainMinMapped,
 			domainMaxMapped,
@@ -114,60 +127,47 @@ export class DChartCoordinateLogTick<CHART extends DBase = DBase>
 			majorStep
 		);
 		if (majorStepMapped <= 0) {
-			const domainMin = Math.min(domainFrom, domainTo);
-			majorResult[0] = domainMin;
-			majorResult[1] = transform.map(coordinate.map(domainMin));
-			majorResult[2] = 0;
-			for (let i = 1; i < majorCount; ++i) {
-				const imajorResult = i * 3;
-				majorResult[imajorResult + 0] = NaN;
-				majorResult[imajorResult + 1] = NaN;
-				majorResult[imajorResult + 2] = NaN;
+			if (from <= domainMinMapped && domainMinMapped <= to) {
+				majorResult[0] = domainMin;
+				majorResult[1] = transform.map(domainMinMapped);
+				majorResult[2] = 0;
+				imajor += 1;
 			}
-			for (let i = 0; i < minorCount; ++i) {
-				const iminorResult = i * 3;
-				minorResult[iminorResult + 0] = NaN;
-				minorResult[iminorResult + 1] = NaN;
-				minorResult[iminorResult + 2] = NaN;
-			}
-			return;
-		}
+		} else {
+			// Major tick start position
+			const idomainStartMapped = Math.floor(domainMinMapped / majorStepMapped) - 1;
+			const idomainEndMapped = Math.ceil(domainMaxMapped / majorStepMapped) + 1;
 
-		// Major tick start position
-		const idomainStartMapped = Math.floor(domainMinMapped / majorStepMapped) - 1;
-		const idomainEndMapped = Math.ceil(domainMaxMapped / majorStepMapped) + 1;
-
-		// Major / minor tick positions
-		const minorStepMapped = this.toMinorStep(majorStepMapped, minorCountPerMajor, minorStep);
-		let imajor = 0;
-		let iminor = 0;
-		for (let i = idomainStartMapped; i <= idomainEndMapped; ++i) {
-			const majorPositionMapped = i * majorStepMapped;
-			if (imajor < majorCapacity) {
-				if (
-					domainMinMapped <= majorPositionMapped &&
-					majorPositionMapped <= domainMaxMapped
-				) {
-					const imajorResult = imajor * 3;
-					majorResult[imajorResult + 0] = coordinate.unmap(majorPositionMapped);
-					majorResult[imajorResult + 1] = transform.map(majorPositionMapped);
-					majorResult[imajorResult + 2] = coordinate.unmap(majorPositionMapped - 1);
-					imajor += 1;
+			// Major / minor tick positions
+			const minorStepMapped = this.toMinorStep(
+				majorStepMapped,
+				minorCountPerMajor,
+				minorStep
+			);
+			for (let i = idomainStartMapped; i <= idomainEndMapped; ++i) {
+				const majorPositionMapped = i * majorStepMapped;
+				if (imajor < majorCapacity) {
+					if (from <= majorPositionMapped && majorPositionMapped <= to) {
+						const imajorResult = imajor * 3;
+						majorResult[imajorResult + 0] = coordinate.unmap(majorPositionMapped);
+						majorResult[imajorResult + 1] = transform.map(majorPositionMapped);
+						majorResult[imajorResult + 2] = coordinate.unmap(majorPositionMapped - 1);
+						imajor += 1;
+					}
 				}
-			}
 
-			for (let j = 0; j < minorCountPerMajor; j += 1) {
-				if (iminor < minorCount) {
-					const minorPositionMapped = majorPositionMapped + (j + 1) * minorStepMapped;
-					if (
-						domainMinMapped <= minorPositionMapped &&
-						minorPositionMapped <= domainMaxMapped
-					) {
-						const iminorResult = iminor * 3;
-						minorResult[iminorResult + 0] = coordinate.unmap(minorPositionMapped);
-						minorResult[iminorResult + 1] = transform.map(minorPositionMapped);
-						minorResult[iminorResult + 2] = coordinate.unmap(minorPositionMapped - 1);
-						iminor += 1;
+				for (let j = 0; j < minorCountPerMajor; j += 1) {
+					if (iminor < minorCount) {
+						const minorPositionMapped = majorPositionMapped + (j + 1) * minorStepMapped;
+						if (from <= minorPositionMapped && minorPositionMapped <= to) {
+							const iminorResult = iminor * 3;
+							minorResult[iminorResult + 0] = coordinate.unmap(minorPositionMapped);
+							minorResult[iminorResult + 1] = transform.map(minorPositionMapped);
+							minorResult[iminorResult + 2] = coordinate.unmap(
+								minorPositionMapped - 1
+							);
+							iminor += 1;
+						}
 					}
 				}
 			}
