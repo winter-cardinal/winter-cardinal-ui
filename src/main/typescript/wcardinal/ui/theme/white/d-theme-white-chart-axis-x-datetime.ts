@@ -107,15 +107,15 @@ const STEP_FUNCTION = (domainMin: number, domainMax: number, majorCount: number)
 		} else {
 			const days = hours / 24;
 			const base = Math.pow(10, Math.floor(Math.log(days) / Math.LN10));
-			const scale = span / base;
+			const scale = days / base;
 			if (scale <= 1.33) {
-				return base;
+				return base * 86_400_000;
 			} else if (scale <= 2.86) {
-				return 2 * base;
+				return base * 172_800_000;
 			} else if (scale <= 6.67) {
-				return 5 * base;
+				return base * 432_000_000;
 			}
-			return 10 * base;
+			return base * 864_000_000;
 		}
 	}
 };

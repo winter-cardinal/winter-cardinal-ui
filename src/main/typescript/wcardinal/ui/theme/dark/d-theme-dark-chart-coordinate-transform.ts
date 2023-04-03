@@ -7,6 +7,6 @@ import { DThemeChartCoordinateTransform } from "../../d-chart-coordinate-transfo
 
 export class DThemeDarkChartCoordinateTransform implements DThemeChartCoordinateTransform {
 	isZero(value: number): boolean {
-		return Math.abs(value) < 0.00001;
+		return Math.abs(value) < Number.EPSILON;
 	}
 }

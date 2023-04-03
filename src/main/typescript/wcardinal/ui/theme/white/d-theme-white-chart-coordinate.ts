@@ -7,6 +7,6 @@ import { DThemeChartCoordinate } from "../../d-chart-coordinate";
 
 export class DThemeWhiteChartCoordinate implements DThemeChartCoordinate {
 	isZero(value: number): boolean {
-		return Math.abs(value) < 0.00001;
+		return Math.abs(value) < Number.EPSILON;
 	}
 }
