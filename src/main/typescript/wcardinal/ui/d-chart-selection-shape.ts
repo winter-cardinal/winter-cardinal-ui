@@ -11,9 +11,11 @@ import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 import { EShape } from "./shape/e-shape";
 
+export type DChartSelectionShapeNewShape = (state: DBaseStateSet) => EShape;
+
 export interface DChartSelectionShapeOptions<CHART extends DBase = DBase> {
 	enable?: boolean;
-	shape?: EShape;
+	shape?: EShape | DChartSelectionShapeNewShape;
 	style?: DChartSelectionStyle<CHART>;
 	state?: string;
 	theme?: string | DThemeChartSelectionShape;
@@ -29,9 +31,14 @@ export interface DChartSelectionShape<CHART extends DBase = DBase> {
 	unbind(): void;
 	set(
 		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
 		mappedPosition: IPoint,
 		series: DChartSeries<CHART>
 	): void;
 	unset(): void;
-	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean;
+	update(
+		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
+		mappedPosition: IPoint
+	): boolean;
 }

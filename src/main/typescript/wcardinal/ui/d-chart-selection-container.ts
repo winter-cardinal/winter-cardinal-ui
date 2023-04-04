@@ -9,12 +9,12 @@ import { DChartSelectionShape, DChartSelectionShapeOptions } from "./d-chart-sel
 import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 
-export interface DChartSelectionGridlineContainerOptions<CHART extends DBase = DBase> {
+export interface DChartSelectionContainerOptions<CHART extends DBase = DBase> {
 	x?: DChartSelectionShapeOptions<CHART>;
 	y?: DChartSelectionShapeOptions<CHART>;
 }
 
-export interface DChartSelectionGridlineContainer<CHART extends DBase = DBase> {
+export interface DChartSelectionContainer<CHART extends DBase = DBase> {
 	readonly x: DChartSelectionShape<CHART>;
 	readonly y: DChartSelectionShape<CHART>;
 
@@ -22,9 +22,14 @@ export interface DChartSelectionGridlineContainer<CHART extends DBase = DBase> {
 	unbind(): void;
 	set(
 		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
 		mappedPosition: IPoint,
 		series: DChartSeries<CHART>
 	): void;
 	unset(): void;
-	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean;
+	update(
+		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
+		mappedPosition: IPoint
+	): boolean;
 }

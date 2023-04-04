@@ -6,15 +6,16 @@
 import { Point, utils } from "pixi.js";
 import { DBase, DBaseOnOptions } from "./d-base";
 import { DChartSelectionPoint } from "./d-chart-selection";
-import { DChartSelectionGridlineContainerOptions } from "./d-chart-selection-gridline-container";
+import { DChartSelectionContainerOptions } from "./d-chart-selection-container";
 import { DChartSelectionShapeOptions } from "./d-chart-selection-shape";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 
 export interface DChartSelectionSubOptions<CHART extends DBase = DBase, EMITTER = any> {
 	enable?: boolean;
-	gridline?: DChartSelectionGridlineContainerOptions<CHART>;
+	gridline?: DChartSelectionContainerOptions<CHART>;
 	marker?: DChartSelectionShapeOptions<CHART>;
+	label?: DChartSelectionContainerOptions<CHART>;
 	state?: string;
 	on?: DBaseOnOptions<EMITTER>;
 	point?: DChartSelectionPoint;

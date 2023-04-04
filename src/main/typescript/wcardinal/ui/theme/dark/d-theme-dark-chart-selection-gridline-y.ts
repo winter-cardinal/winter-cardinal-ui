@@ -5,15 +5,20 @@
 
 import { DBaseStateSet } from "../../d-base-state-set";
 import { EShape } from "../../shape/e-shape";
+import { EShapeStrokeStyle } from "../../shape/e-shape-stroke-style";
 import { EShapeBar } from "../../shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "../../shape/variant/e-shape-bar-position";
-import { DThemeDarkChartSelectionGridline } from "./d-theme-dark-chart-selection-gridline";
+import { DThemeDarkChartSelectionShape } from "./d-theme-dark-chart-selection-shape";
 
-export class DThemeDarkChartSelectionGridlineY extends DThemeDarkChartSelectionGridline {
-	newShape(state: DBaseStateSet): EShape {
+export class DThemeDarkChartSelectionGridlineY extends DThemeDarkChartSelectionShape {
+	override isEnabled(state: DBaseStateSet): boolean {
+		return state.isHovered;
+	}
+
+	override newShape(state: DBaseStateSet): EShape {
 		const result = new EShapeBar();
 		result.points.position = EShapeBarPosition.LEFT;
-		result.stroke.alpha = 0.5;
+		result.stroke.style = EShapeStrokeStyle.DASHED;
 		return result;
 	}
 }

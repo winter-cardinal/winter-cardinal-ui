@@ -68,14 +68,28 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 		point: DChartSelectionPoint,
 		options?: DChartSelectionSubOptions<CHART>
 	): DChartSelectionSub<CHART> {
-		return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.ACTIVE));
+		return new DChartSelectionSubImpl(this.toSelectedOptions(point, options));
 	}
 
 	protected newHovered(
 		point: DChartSelectionPoint,
 		options?: DChartSelectionSubOptions<CHART>
 	): DChartSelectionSub<CHART> {
-		return new DChartSelectionSubImpl(this.toSubOptions(point, options, DBaseState.HOVERED));
+		return new DChartSelectionSubImpl(this.toHoveredOptions(point, options));
+	}
+
+	protected toSelectedOptions(
+		point: DChartSelectionPoint,
+		options?: DChartSelectionSubOptions<CHART>
+	): DChartSelectionSubOptions<CHART> {
+		return this.toSubOptions(point, options, DBaseState.ACTIVE);
+	}
+
+	protected toHoveredOptions(
+		point: DChartSelectionPoint,
+		options?: DChartSelectionSubOptions<CHART>
+	): DChartSelectionSubOptions<CHART> {
+		return this.toSubOptions(point, options, DBaseState.HOVERED);
 	}
 
 	protected toSubOptions(
@@ -93,20 +107,31 @@ export class DChartSelectionSimple<CHART extends DBase = DBase>
 			options.state = state;
 		}
 
-		const gridline = options.gridline || {};
-		const gridlineX = gridline.x || {};
+		const gridline = (options.gridline ??= {});
+		const gridlineX = (gridline.x ??= {});
 		if (gridlineX.state == null) {
 			gridlineX.state = state;
 		}
 
-		const gridlineY = gridline.y || {};
+		const gridlineY = (gridline.y ??= {});
 		if (gridlineY.state == null) {
 			gridlineY.state = state;
 		}
 
-		const marker = options.marker || {};
+		const marker = (options.marker ??= {});
 		if (marker.state == null) {
 			marker.state = state;
+		}
+
+		const label = (options.label ??= {});
+		const labelX = (label.x ??= {});
+		if (labelX.state == null) {
+			labelX.state = state;
+		}
+
+		const labelY = (label.y ??= {});
+		if (labelY.state == null) {
+			labelY.state = state;
 		}
 
 		return options;

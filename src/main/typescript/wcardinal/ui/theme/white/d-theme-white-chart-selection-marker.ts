@@ -4,22 +4,18 @@
  */
 
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DThemeChartSelectionShape } from "../../d-chart-selection-shape";
 import { EShape } from "../../shape/e-shape";
 import { EShapeCircle } from "../../shape/variant/e-shape-circle";
+import { DThemeWhiteChartSelectionShape } from "./d-theme-white-chart-selection-shape";
 
-export class DThemeWhiteChartSelectionMarker implements DThemeChartSelectionShape {
+export class DThemeWhiteChartSelectionMarker extends DThemeWhiteChartSelectionShape {
 	isEnabled(state: DBaseStateSet): boolean {
-		return false;
+		return state.isActive;
 	}
 
 	newShape(state: DBaseStateSet): EShape {
 		const result = new EShapeCircle();
-		if (state.isHovered) {
-			result.size.set(14, 14);
-		} else {
-			result.size.set(20, 20);
-		}
+		result.size.set(14, 14);
 		return result;
 	}
 }

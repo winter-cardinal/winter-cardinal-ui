@@ -9,13 +9,14 @@ import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DChartCoordinate } from "./d-chart-coordinate";
 import { DChartSelectionPoint } from "./d-chart-selection";
-import { DChartSelectionGridlineContainer } from "./d-chart-selection-gridline-container";
-import { DChartSelectionGridlineContainerImpl } from "./d-chart-selection-gridline-container-impl";
+import { DChartSelectionContainer } from "./d-chart-selection-container";
+import { DChartSelectionContainerImpl } from "./d-chart-selection-container-impl";
 import { DChartSelectionMarker } from "./d-chart-selection-marker";
 import { DChartSelectionSub, DChartSelectionSubOptions } from "./d-chart-selection-sub";
 import { DChartSeries, DChartSeriesHitResult } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
-import { EShape } from "./shape/e-shape";
+import { DChartSelectionGridlineX } from "./d-chart-selection-gridline-x";
+import { DChartSelectionGridlineY } from "./d-chart-selection-gridline-y";
 
 export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 	extends utils.EventEmitter
@@ -29,7 +30,7 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 	protected _position: Point;
 	protected _point: DChartSelectionPoint;
 	protected _work: Point;
-	protected _gridline: DChartSelectionGridlineContainer<CHART>;
+	protected _gridline: DChartSelectionContainer<CHART>;
 	protected _marker: DChartSelectionMarker<CHART>;
 	protected _state: string;
 
@@ -39,7 +40,10 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 		this._container = null;
 		this._series = null;
 		this._isEnabled = options.enable ?? true;
-		this._gridline = new DChartSelectionGridlineContainerImpl(options.gridline);
+		this._gridline = new DChartSelectionContainerImpl(
+			new DChartSelectionGridlineX(options.gridline?.x),
+			new DChartSelectionGridlineY(options.gridline?.y)
+		);
 		this._marker = new DChartSelectionMarker(options.marker);
 		this._state = options.state ?? DBaseState.HOVERED;
 		this._coordinateX = null;
@@ -84,7 +88,7 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 		return this._position;
 	}
 
-	get gridline(): DChartSelectionGridlineContainer<CHART> {
+	get gridline(): DChartSelectionContainer<CHART> {
 		return this._gridline;
 	}
 
@@ -140,8 +144,8 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 				transform.apply(work, work);
 			}
 
-			this._gridline.set(container, work, series);
-			this._marker.set(container, work, series);
+			this._gridline.set(container, position, work, series);
+			this._marker.set(container, position, work, series);
 
 			DApplications.update(container.plotArea);
 		}
@@ -158,13 +162,6 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 		}
 
 		this.emit("change", this);
-	}
-
-	protected setStyle(this: unknown, shape: EShape, series: DChartSeries<CHART>): void {
-		const seriesShape = series.shape;
-		if (seriesShape) {
-			shape.stroke.color = seriesShape.stroke.color;
-		}
 	}
 
 	unset(): void {
@@ -196,8 +193,8 @@ export class DChartSelectionSubImpl<CHART extends DBase = DBase>
 			);
 			container.plotArea.container.localTransform.apply(work, work);
 
-			const isGridlineUpdated = this._gridline.update(container, work);
-			const isMarkerUpdated = this._marker.update(container, work);
+			const isGridlineUpdated = this._gridline.update(container, position, work);
+			const isMarkerUpdated = this._marker.update(container, position, work);
 			return isGridlineUpdated || isMarkerUpdated;
 		}
 		return false;

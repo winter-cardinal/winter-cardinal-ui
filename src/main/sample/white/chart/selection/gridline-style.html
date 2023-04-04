@@ -31,13 +31,6 @@
 
 		var application = new wcardinal.ui.DApplication();
 
-		var style = (shape, series) => {
-			const seriesShape = series.shape;
-			if (seriesShape) {
-				shape.stroke.color = seriesShape.stroke.color;
-			}
-		};
-
 		var chart = new wcardinal.ui.DChart({
 			parent: application.stage,
 			x: 100, y: 50,
@@ -55,22 +48,27 @@
 					],
 					selection: new wcardinal.ui.DChartSelectionSimple({
 						selected: {
-							gridline: {
-								x: {
-									style: style
-								},
-								y: {
-									style: style
-								}
-							}
+							enable: false
 						},
 						hovered: {
 							gridline: {
 								x: {
-									style: style
+									style: (shape, series) => {
+										const seriesShape = series.shape;
+										if (seriesShape) {
+											shape.stroke.color = seriesShape.stroke.color;
+											shape.stroke.alpha = 0.75;
+										}
+									}
 								},
 								y: {
-									style: style
+									style: (shape, series) => {
+										const seriesShape = series.shape;
+										if (seriesShape) {
+											shape.stroke.color = seriesShape.stroke.color;
+											shape.stroke.alpha = 0.75;
+										}
+									}
 								}
 							}
 						}

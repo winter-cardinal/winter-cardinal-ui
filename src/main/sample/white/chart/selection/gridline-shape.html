@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Marker style</title>
+	<title>Gridline shape</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,13 +30,6 @@
 		"use strict";
 
 		var application = new wcardinal.ui.DApplication();
-
-		var style = (shape, series) => {
-			const seriesShape = series.shape;
-			if (seriesShape) {
-				shape.stroke.color = seriesShape.stroke.color;
-			}
-		};
 
 		var chart = new wcardinal.ui.DChart({
 			parent: application.stage,
@@ -60,18 +53,23 @@
 						hovered: {
 							gridline: {
 								x: {
-									enable: false
+									shape: (state) => {
+										const result = new wcardinal.ui.EShapeBar();
+										result.points.position = wcardinal.ui.EShapeBarPosition.TOP;
+										result.stroke.color = 0xff0000;
+										result.stroke.style = wcardinal.ui.EShapeStrokeStyle.DASHED;
+										result.stroke.alpha = 0.25;
+										return result;
+									}
 								},
 								y: {
-									enable: false
-								}
-							},
-							marker: {
-								enable: true,
-								style: (shape, series) => {
-									const seriesShape = series.shape;
-									if (seriesShape) {
-										shape.stroke.color = seriesShape.stroke.color;
+									shape: (state) => {
+										const result = new wcardinal.ui.EShapeBar();
+										result.points.position = wcardinal.ui.EShapeBarPosition.LEFT;
+										result.stroke.color = 0xff0000;
+										result.stroke.style = wcardinal.ui.EShapeStrokeStyle.DASHED;
+										result.stroke.alpha = 0.25;
+										return result;
 									}
 								}
 							}

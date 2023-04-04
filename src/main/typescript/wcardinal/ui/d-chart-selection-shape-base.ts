@@ -19,12 +19,15 @@ import { DChartSeriesContainer } from "./d-chart-series-container";
 import { EShape } from "./shape/e-shape";
 import { DThemes } from "./theme/d-themes";
 import { isString } from "./util/is-string";
+import { isFunction } from "./util/is-function";
 
 export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 	implements DChartSelectionShape<CHART>
 {
+	protected _options?: DChartSelectionShapeOptions<CHART>;
 	protected _isEnabled: boolean;
 	protected _shape?: EShape;
+	protected _newShape?: (state: DBaseStateSet) => EShape;
 	protected _style: DChartSelectionStyle<CHART>;
 	protected _state: DBaseStateSet;
 	protected _theme: DThemeChartSelectionShape;
@@ -35,13 +38,31 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 		const state = new DBaseStateSetImpl().add(options?.state ?? DBaseState.HOVERED);
 		this._state = state;
 		this._isEnabled = options?.enable ?? theme.isEnabled(state);
-		this._shape = options?.shape;
+		if (options != null) {
+			const shape = options.shape;
+			if (shape != null) {
+				if (isFunction(shape)) {
+					this._newShape = shape;
+				} else {
+					this._shape = shape;
+				}
+			}
+		}
 		this._style = options?.style ?? this.setStyle;
 	}
 
 	bind(container: DChartSeriesContainer<CHART>): void {
 		if (this._isEnabled) {
-			const shape = this._shape || this.newShape(this._theme);
+			let shape = this._shape;
+			if (shape == null) {
+				const state = this._state;
+				const newShape = this._newShape;
+				if (newShape != null) {
+					shape = newShape(state);
+				} else {
+					shape = this.newShape(state, this._theme);
+				}
+			}
 			this._shape = shape;
 			shape.attach(container.plotArea.axis.container);
 			shape.visible = false;
@@ -55,16 +76,17 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 		}
 	}
 
-	protected newShape(theme: DThemeChartSelectionShape): EShape {
-		return theme.newShape(this._state);
+	protected newShape(state: DBaseStateSet, theme: DThemeChartSelectionShape): EShape {
+		return theme.newShape(state);
 	}
 
 	set(
 		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
 		mappedPosition: IPoint,
 		series: DChartSeries<CHART>
 	): void {
-		this.update(container, mappedPosition);
+		this.update(container, position, mappedPosition);
 
 		const shape = this._shape;
 		if (shape) {
@@ -73,10 +95,7 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 	}
 
 	protected setStyle(this: unknown, shape: EShape, series: DChartSeries<CHART>): void {
-		const seriesShape = series.shape;
-		if (seriesShape) {
-			shape.stroke.color = seriesShape.stroke.color;
-		}
+		// DO NOTHING
 	}
 
 	unset(): void {
@@ -86,7 +105,11 @@ export abstract class DChartSelectionShapeBase<CHART extends DBase = DBase>
 		}
 	}
 
-	abstract update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean;
+	abstract update(
+		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
+		mappedPosition: IPoint
+	): boolean;
 
 	protected toTheme(options?: DChartSelectionShapeOptions<CHART>): DThemeChartSelectionShape {
 		const theme = options?.theme;

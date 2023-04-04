@@ -5,25 +5,20 @@
 
 import { IPoint } from "pixi.js";
 import { DBase } from "./d-base";
-import {
-	DChartSelectionGridlineContainer,
-	DChartSelectionGridlineContainerOptions
-} from "./d-chart-selection-gridline-container";
-import { DChartSelectionGridlineX } from "./d-chart-selection-gridline-x";
-import { DChartSelectionGridlineY } from "./d-chart-selection-gridline-y";
+import { DChartSelectionContainer } from "./d-chart-selection-container";
 import { DChartSelectionShape } from "./d-chart-selection-shape";
 import { DChartSeries } from "./d-chart-series";
 import { DChartSeriesContainer } from "./d-chart-series-container";
 
-export class DChartSelectionGridlineContainerImpl<CHART extends DBase = DBase>
-	implements DChartSelectionGridlineContainer<CHART>
+export class DChartSelectionContainerImpl<CHART extends DBase = DBase>
+	implements DChartSelectionContainer<CHART>
 {
 	protected _x: DChartSelectionShape<CHART>;
 	protected _y: DChartSelectionShape<CHART>;
 
-	constructor(options?: DChartSelectionGridlineContainerOptions<CHART>) {
-		this._x = new DChartSelectionGridlineX<CHART>(options?.x);
-		this._y = new DChartSelectionGridlineY<CHART>(options?.y);
+	constructor(x: DChartSelectionShape<CHART>, y: DChartSelectionShape<CHART>) {
+		this._x = x;
+		this._y = y;
 	}
 
 	get x(): DChartSelectionShape<CHART> {
@@ -46,11 +41,12 @@ export class DChartSelectionGridlineContainerImpl<CHART extends DBase = DBase>
 
 	set(
 		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
 		mappedPosition: IPoint,
 		series: DChartSeries<CHART>
 	): void {
-		this._x.set(container, mappedPosition, series);
-		this._y.set(container, mappedPosition, series);
+		this._x.set(container, position, mappedPosition, series);
+		this._y.set(container, position, mappedPosition, series);
 	}
 
 	unset(): void {
@@ -58,9 +54,13 @@ export class DChartSelectionGridlineContainerImpl<CHART extends DBase = DBase>
 		this._y.unset();
 	}
 
-	update(container: DChartSeriesContainer<CHART>, mappedPosition: IPoint): boolean {
-		const isXUpdated = this._x.update(container, mappedPosition);
-		const isYUpdated = this._y.update(container, mappedPosition);
+	update(
+		container: DChartSeriesContainer<CHART>,
+		position: IPoint,
+		mappedPosition: IPoint
+	): boolean {
+		const isXUpdated = this._x.update(container, position, mappedPosition);
+		const isYUpdated = this._y.update(container, position, mappedPosition);
 		return isXUpdated || isYUpdated;
 	}
 }
