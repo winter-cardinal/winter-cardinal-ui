@@ -54,7 +54,16 @@
     * [Fitting with an animation](./chart/fit-animation.html)
     * [Padding](./chart/padding.html)
     * [Resizing](./chart/resize.html)
-    * [Selection](./chart/selection.html)
+    * Selection
+        * [Basics](./chart\selection/basics.html)
+        * [Gridline shape](./chart\selection/gridline-shape.html)
+        * [Gridline style](./chart\selection/gridline-style.html)
+        * [Hovering only](./chart\selection/hovering-only.html)
+        * [Marker](./chart\selection/marker.html)
+        * [Marker shape](./chart\selection/marker-shape.html)
+        * [Marker style](./chart\selection/marker-style.html)
+        * [No gridline](./chart\selection/no-gridline.html)
+        * [No hovering](./chart\selection/no-horvering.html)
     * Series
         * [Bar](./chart\series/bar.html)
         * [Circle](./chart\series/circle.html)
