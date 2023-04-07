@@ -17,6 +17,11 @@ export type DTableDataMappedEachIteratee<ROW> = (
 
 export interface DTableDataMapped<ROW> {
 	/**
+	 * Mapped rows.
+	 */
+	readonly rows: ROW[];
+
+	/**
 	 * Returns an mapped index of the specified unmapped index.
 	 * A mapped index is an index on rows filters and sorters are applied.
 	 *

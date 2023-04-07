@@ -12,6 +12,14 @@ export class DTableDataListMapped<ROW> implements DTableDataMapped<ROW> {
 		this._parent = parent;
 	}
 
+	get rows(): ROW[] {
+		const result: ROW[] = [];
+		this.each((row: ROW): void => {
+			result.push(row);
+		});
+		return result;
+	}
+
 	map(unmappedIndex: number): number | null {
 		const parent = this._parent;
 		const sortedIndex = parent.sorter.map(unmappedIndex);
