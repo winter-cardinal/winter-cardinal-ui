@@ -212,7 +212,7 @@ export class BuilderText implements Builder {
 			this.texture = textTexture;
 			this.textureTransformId = textTextureTransformId;
 
-			if (isCharSizeChanged) {
+			if (isCharSizeChanged || isFittingChanged || (textFitting && isSizeChanged)) {
 				// Invalidate the text weight to update the text steps.
 				this.weight = NaN;
 			}
