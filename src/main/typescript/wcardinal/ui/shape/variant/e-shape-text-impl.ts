@@ -241,7 +241,8 @@ export class EShapeTextImpl implements EShapeText {
 				target.weight,
 				target.style,
 				target.direction,
-				target.clipping
+				target.clipping,
+				target.fitting
 			);
 			this.align.copy(target.align);
 			this.offset.copy(target.offset);
@@ -354,12 +355,12 @@ export class EShapeTextImpl implements EShapeText {
 		const outlineId = this.outline.serialize(manager);
 		const spacingId = this.spacing.serialize(manager);
 		const paddingId = this.padding.serialize(manager);
+		const clipping = this._clipping ? 1 : 0;
+		const fitting = this._fitting ? 1 : 0;
 		const serialized =
 			`[${valueId},${this._color},${this._alpha},${familyId},${this._size},` +
 			`${this._weight},${alignId},${offsetId},${this._style},${outlineId},` +
-			`${spacingId},${this._direction},${paddingId},${this._clipping ? 1 : 0},${
-				this._fitting ? 1 : 0
-			}]`;
+			`${spacingId},${this._direction},${paddingId},${clipping},${fitting}]`;
 		return manager.addResource(serialized);
 	}
 
