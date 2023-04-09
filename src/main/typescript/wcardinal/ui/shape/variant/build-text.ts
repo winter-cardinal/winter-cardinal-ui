@@ -441,6 +441,7 @@ export const buildTextVertex = (
 	textPaddingHorizontal: number,
 	textPaddingVertical: number,
 	textClipping: boolean,
+	textFitting: boolean,
 	textWorld: number[],
 	textureUvs: TextureUvs,
 	internalTransform: Matrix
@@ -539,9 +540,10 @@ export const buildTextVertex = (
 	let width = 0;
 	let height = 0;
 	let heightChar = 0;
-	const textSizeY = textSize * vnl;
-	const lineHeight = Math.max(0, textSize + textSpacingVertical) * vnl;
+	let textSizeY = textSize * vnl;
+	let lineHeight = Math.max(0, textSize + textSpacingVertical) * vnl;
 	let lineWidth = 0;
+	let lineCount = 1;
 	const textAtlasCharacters = textAtlas.characters;
 	const iterator = UtilCharacterIterator.from(textValue);
 	let advancePrevious = 0;
@@ -564,17 +566,43 @@ export const buildTextVertex = (
 			width = Math.max(width, lineWidth);
 			lineWidth = 0;
 			height += lineHeight;
+			lineCount += 1;
 		}
+	}
+	lineWidth += advancePrevious;
+	width = Math.max(width, lineWidth);
+	height += textSizeY;
+	lineWidth = 0;
+
+	if (textFitting && isIn(textAlignHorizontal, textAlignVertical)) {
+		let w0 = 0;
+		let h0 = 0;
+		switch (textDirection) {
+			case EShapeTextDirection.LEFT_TO_RIGHT:
+			case EShapeTextDirection.RIGHT_TO_LEFT:
+				w0 = Math.max(0, hl - textPaddingHorizontal * 2);
+				h0 = Math.max(0, vl - textPaddingVertical * 2);
+				break;
+			case EShapeTextDirection.TOP_TO_BOTTOM:
+			case EShapeTextDirection.BOTTOM_TO_TOP:
+				w0 = Math.max(0, vl - textPaddingVertical * 2);
+				h0 = Math.max(0, hl - textPaddingHorizontal * 2);
+				break;
+		}
+		const w1 = width * hnl * (textSize / textAtlas.font.size);
+		const h1 = height;
+		const s = Math.min(1, Math.min(w0 / w1, h0 / h1));
+		textSize *= s;
+		textSizeY *= s;
+		lineHeight *= s;
+		height *= s;
 	}
 
 	const scaleZ = textSize / textAtlas.font.size;
 	const scaleX = hnl * scaleZ;
 	const scaleY = vnl * scaleZ;
-	lineWidth += advancePrevious;
-	width = Math.max(width, lineWidth) * scaleX;
-	lineWidth = 0;
+	width *= scaleX;
 	heightChar *= scaleY;
-	height += textSizeY;
 
 	//
 	let tx0 = 0;
@@ -607,20 +635,8 @@ export const buildTextVertex = (
 			);
 			tx0 = work.x;
 			ty0 = work.y;
-			if (textClipping) {
-				switch (textAlignHorizontal) {
-					case EShapeTextAlignHorizontal.LEFT:
-					case EShapeTextAlignHorizontal.CENTER:
-					case EShapeTextAlignHorizontal.RIGHT:
-						switch (textAlignVertical) {
-							case EShapeTextAlignVertical.TOP:
-							case EShapeTextAlignVertical.MIDDLE:
-							case EShapeTextAlignVertical.BOTTOM:
-								lineWidthMaximum = hl - textPaddingHorizontal * 2;
-								break;
-						}
-						break;
-				}
+			if (textClipping && isIn(textAlignHorizontal, textAlignVertical)) {
+				lineWidthMaximum = hl - textPaddingHorizontal * 2;
 			}
 			break;
 		case EShapeTextDirection.TOP_TO_BOTTOM:
@@ -649,20 +665,8 @@ export const buildTextVertex = (
 			);
 			tx0 = work.x;
 			ty0 = work.y;
-			if (textClipping) {
-				switch (textAlignVertical) {
-					case EShapeTextAlignVertical.TOP:
-					case EShapeTextAlignVertical.MIDDLE:
-					case EShapeTextAlignVertical.BOTTOM:
-						switch (textAlignHorizontal) {
-							case EShapeTextAlignHorizontal.LEFT:
-							case EShapeTextAlignHorizontal.CENTER:
-							case EShapeTextAlignHorizontal.RIGHT:
-								lineWidthMaximum = vl - textPaddingVertical * 2;
-								break;
-						}
-						break;
-				}
+			if (textClipping && isIn(textAlignHorizontal, textAlignVertical)) {
+				lineWidthMaximum = vl - textPaddingVertical * 2;
 			}
 			break;
 		case EShapeTextDirection.BOTTOM_TO_TOP:
@@ -691,20 +695,8 @@ export const buildTextVertex = (
 			);
 			tx0 = work.x;
 			ty0 = work.y;
-			if (textClipping) {
-				switch (textAlignVertical) {
-					case EShapeTextAlignVertical.TOP:
-					case EShapeTextAlignVertical.MIDDLE:
-					case EShapeTextAlignVertical.BOTTOM:
-						switch (textAlignHorizontal) {
-							case EShapeTextAlignHorizontal.LEFT:
-							case EShapeTextAlignHorizontal.CENTER:
-							case EShapeTextAlignHorizontal.RIGHT:
-								lineWidthMaximum = vl - textPaddingVertical * 2;
-								break;
-						}
-						break;
-				}
+			if (textClipping && isIn(textAlignHorizontal, textAlignVertical)) {
+				lineWidthMaximum = vl - textPaddingVertical * 2;
 			}
 			break;
 		case EShapeTextDirection.RIGHT_TO_LEFT:
@@ -733,20 +725,8 @@ export const buildTextVertex = (
 			);
 			tx0 = work.x;
 			ty0 = work.y;
-			if (textClipping) {
-				switch (textAlignHorizontal) {
-					case EShapeTextAlignHorizontal.LEFT:
-					case EShapeTextAlignHorizontal.CENTER:
-					case EShapeTextAlignHorizontal.RIGHT:
-						switch (textAlignVertical) {
-							case EShapeTextAlignVertical.TOP:
-							case EShapeTextAlignVertical.MIDDLE:
-							case EShapeTextAlignVertical.BOTTOM:
-								lineWidthMaximum = hl - textPaddingHorizontal * 2;
-								break;
-						}
-						break;
-				}
+			if (textClipping && isIn(textAlignHorizontal, textAlignVertical)) {
+				lineWidthMaximum = hl - textPaddingHorizontal * 2;
 			}
 			break;
 	}
@@ -814,7 +794,7 @@ export const buildTextVertex = (
 	lineWidth = 0;
 	advancePrevious = 0;
 	iterator.position = 0;
-	let lineCount = 0;
+	lineCount = 0;
 	let iv = voffset * 2;
 	for (; iterator.hasNext(); iv += 8) {
 		const character = iterator.next();
@@ -991,6 +971,26 @@ export const buildTextVertex = (
 		uvs[iv + 0] = uvx0;
 		uvs[iv + 1] = uvy0;
 	}
+};
+
+const isIn = (
+	textAlignHorizontal: EShapeTextAlignHorizontal,
+	textAlignVertical: EShapeTextAlignVertical
+): boolean => {
+	switch (textAlignHorizontal) {
+		case EShapeTextAlignHorizontal.LEFT:
+		case EShapeTextAlignHorizontal.CENTER:
+		case EShapeTextAlignHorizontal.RIGHT:
+			switch (textAlignVertical) {
+				case EShapeTextAlignVertical.TOP:
+				case EShapeTextAlignVertical.MIDDLE:
+				case EShapeTextAlignVertical.BOTTOM:
+					return true;
+					break;
+			}
+			break;
+	}
+	return false;
 };
 
 const writeCharacterEmpty = (

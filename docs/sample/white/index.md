@@ -272,6 +272,7 @@
     * [Line (Marker)](./shape/line-marker.html)
     * [Text align](./shape/text-align.html)
     * [Text clipping](./shape/text-clipping.html)
+    * [Text fitting](./shape/text-fitting.html)
     * [Text spacing](./shape/text-spacing.html)
     * [Text surrogate pair](./shape/text-surrogate-pair.html)
 * Slider
