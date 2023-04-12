@@ -11,6 +11,7 @@
     * [Gradient color](./button/color-gradient.html)
     * [Date](./button/date.html)
     * [Datetime](./button/datetime.html)
+    * [Event](./button/event.html)
     * [File](./button/file.html)
     * [Grouping](./button/grouping.html)
     * [Link](./button/link.html)
