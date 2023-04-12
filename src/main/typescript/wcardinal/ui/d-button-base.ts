@@ -12,6 +12,7 @@ import { DOnOptions } from "./d-on-options";
 import { toEnum } from "./util/to-enum";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilPointerEvent } from "./util/util-pointer-event";
+import { DBaseStateSet } from "./d-base-state-set";
 
 /**
  * {@link DButtonBase} events.
@@ -30,6 +31,20 @@ export interface DButtonBaseEvents<VALUE, EMITTER> extends DImageBaseEvents<VALU
 	 * @param emitter an emitter
 	 */
 	inactive(emitter: EMITTER): void;
+
+	/**
+	 * Triggered when the button is pressed.
+	 *
+	 * @param emitter an emitter
+	 */
+	press(emitter: EMITTER): void;
+
+	/**
+	 * Triggered when the button is released.
+	 *
+	 * @param emitter an emitter
+	 */
+	unpress(emitter: EMITTER): void;
 }
 
 /**
@@ -149,13 +164,15 @@ export class DButtonBase<
 		};
 
 		this.on(UtilPointerEvent.down, (): void => {
-			this.state.isPressed = true;
-			const layer = DApplications.getLayer(this);
-			if (layer) {
-				interactionManager = layer.renderer.plugins.interaction;
-				interactionManager.on(UtilPointerEvent.up, onUp);
-				interactionManager.on(UtilPointerEvent.upoutside, onUp);
-				interactionManager.on(UtilPointerEvent.cancel, onUp);
+			if (this.state.isActionable) {
+				this.state.isPressed = true;
+				const layer = DApplications.getLayer(this);
+				if (layer) {
+					interactionManager = layer.renderer.plugins.interaction;
+					interactionManager.on(UtilPointerEvent.up, onUp);
+					interactionManager.on(UtilPointerEvent.upoutside, onUp);
+					interactionManager.on(UtilPointerEvent.cancel, onUp);
+				}
 			}
 		});
 	}
@@ -270,6 +287,26 @@ export class DButtonBase<
 		}
 
 		return super.onKeyUp(e);
+	}
+
+	protected onStateChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
+		super.onStateChange(newState, oldState);
+
+		if (newState.isPressed) {
+			if (!oldState.isPressed) {
+				this.onPress();
+			}
+		} else if (oldState.isPressed) {
+			this.onUnpress();
+		}
+	}
+
+	protected onPress(): void {
+		this.emit("press", this);
+	}
+
+	protected onUnpress(): void {
+		this.emit("unpress", this);
 	}
 
 	destroy(): void {
