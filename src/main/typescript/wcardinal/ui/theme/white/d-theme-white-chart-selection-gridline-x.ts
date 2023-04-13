@@ -19,7 +19,7 @@ export class DThemeWhiteChartSelectionGridlineX extends DThemeWhiteChartSelectio
 		const result = new EShapeBar();
 		result.points.position = EShapeBarPosition.TOP;
 		result.stroke.style = EShapeStrokeStyle.DASHED;
-		result.stroke.alpha = 0.25;
+		result.stroke.alpha = 0.75;
 		return result;
 	}
 }

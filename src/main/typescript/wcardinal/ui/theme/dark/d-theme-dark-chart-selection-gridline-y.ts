@@ -19,6 +19,7 @@ export class DThemeDarkChartSelectionGridlineY extends DThemeDarkChartSelectionS
 		const result = new EShapeBar();
 		result.points.position = EShapeBarPosition.LEFT;
 		result.stroke.style = EShapeStrokeStyle.DASHED;
+		result.stroke.alpha = 0.75;
 		return result;
 	}
 }

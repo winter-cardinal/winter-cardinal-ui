@@ -16,6 +16,8 @@ export class DThemeWhiteChartSelectionMarker extends DThemeWhiteChartSelectionSh
 	newShape(state: DBaseStateSet): EShape {
 		const result = new EShapeCircle();
 		result.size.set(14, 14);
+		result.fill.enable = false;
+		result.stroke.alpha = 0.75;
 		return result;
 	}
 }
