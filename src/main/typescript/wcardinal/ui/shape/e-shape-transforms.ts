@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Matrix, Point } from "pixi.js";
+import { IPoint, Matrix } from "pixi.js";
 import { EShape } from "./e-shape";
 import { EShapeEditor } from "./e-shape-editor";
 import { EShapeBase } from "./variant/e-shape-base";
@@ -57,7 +57,7 @@ export class EShapeTransforms {
 		shape: EShape,
 		localTransform: Matrix,
 		capability: EShapeCapability,
-		size: Point
+		size?: IPoint
 	): void {
 		shape.disallowUploadedUpdate();
 
@@ -111,7 +111,7 @@ export class EShapeTransforms {
 		}
 
 		// Scale
-		if (cwidth || cheight) {
+		if (size != null && (cwidth || cheight)) {
 			const w = toSizeNormalized(size.x * Math.sqrt(a * a + b * b));
 			const h = toSizeNormalized(size.y * Math.sqrt(c * c + d * d));
 			const s = shape.size;
