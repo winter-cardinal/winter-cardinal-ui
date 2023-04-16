@@ -14,7 +14,7 @@ import { DThemeDarkTableRow } from "./d-theme-dark-table-row";
 export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeTableHeader {
 	protected readonly BACKGROUND_COLOR = UtilRgb.brighten(
 		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
-		0.02
+		0.03
 	);
 	protected readonly BORDER_COLOR = UtilRgb.darken(
 		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
@@ -42,6 +42,6 @@ export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeT
 	}
 
 	getHeight(): DCoordinateSize {
-		return 30;
+		return 40;
 	}
 }

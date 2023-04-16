@@ -42,7 +42,7 @@ export class DThemeWhiteTableHeaderCell
 {
 	protected readonly BACKGROUND_COLOR = UtilRgb.darken(
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
-		0.02
+		0.03
 	);
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.darken(this.BACKGROUND_COLOR, 0.017);
 	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.darken(this.BACKGROUND_COLOR, 0.034);

@@ -42,7 +42,7 @@ export class DThemeDarkTableHeaderCell
 {
 	protected readonly BACKGROUND_COLOR = UtilRgb.brighten(
 		DThemeDarkConstants.BACKGROUND_COLOR_ON_BOARD,
-		0.02
+		0.03
 	);
 	protected readonly BACKGROUND_COLOR_HOVERED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.08);
 	protected readonly BACKGROUND_COLOR_PRESSED = UtilRgb.brighten(this.BACKGROUND_COLOR, 0.32);

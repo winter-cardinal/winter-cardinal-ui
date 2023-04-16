@@ -15,11 +15,11 @@ export class DThemeWhiteTableBodyCells {
 	protected static readonly BACKGROUND_COLOR = DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD;
 	protected static readonly BACKGROUND_COLOR_FROZEN_EVEN = UtilRgb.darken(
 		this.BACKGROUND_COLOR,
-		0.01
+		0.015
 	);
 	protected static readonly BACKGROUND_COLOR_FROZEN_ODD = UtilRgb.darken(
 		this.BACKGROUND_COLOR_FROZEN_EVEN,
-		0.01
+		0.015
 	);
 	protected static readonly BORDER_COLOR = UtilRgb.darken(this.BACKGROUND_COLOR, 0.035);
 	protected static readonly BORDER_COLOR_FROZEN = UtilRgb.darken(this.BORDER_COLOR, 0.035);

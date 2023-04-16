@@ -14,7 +14,7 @@ import { DThemeWhiteTableRow } from "./d-theme-white-table-row";
 export class DThemeWhiteTableHeader extends DThemeWhiteTableRow implements DThemeTableHeader {
 	protected readonly BACKGROUND_COLOR = UtilRgb.darken(
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
-		0.02
+		0.03
 	);
 	protected readonly BORDER_COLOR = UtilRgb.darken(
 		DThemeWhiteConstants.BACKGROUND_COLOR_ON_BOARD,
@@ -42,6 +42,6 @@ export class DThemeWhiteTableHeader extends DThemeWhiteTableRow implements DThem
 	}
 
 	getHeight(): DCoordinateSize {
-		return 30;
+		return 40;
 	}
 }

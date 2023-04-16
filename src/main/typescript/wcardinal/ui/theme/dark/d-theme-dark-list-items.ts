@@ -39,7 +39,7 @@ export class DThemeDarkListItems {
 			this._backgroundColorEven = baseColor;
 			this._backgroundAlphaEven = 1;
 
-			this._backgroundColorOdd = UtilRgb.blend(baseColor, 0xffffff, 0.02);
+			this._backgroundColorOdd = UtilRgb.blend(baseColor, 0xffffff, 0.025);
 			this._backgroundAlphaOdd = 1;
 
 			this._invalidColor = UtilRgb.blend(
@@ -67,11 +67,11 @@ export class DThemeDarkListItems {
 			);
 			this._weakHighlightAlpha = 1;
 		} else {
-			this._backgroundColorEven = 0x000000;
+			this._backgroundColorEven = 0xffffff;
 			this._backgroundAlphaEven = 0;
 
-			this._backgroundColorOdd = 0x000000;
-			this._backgroundAlphaOdd = 0.02;
+			this._backgroundColorOdd = 0xffffff;
+			this._backgroundAlphaOdd = 0.025;
 
 			this._invalidColor = DThemeDarkConstants.INVALID_COLOR;
 			this._invalidAlpha = DThemeDarkConstants.INVALID_ALPHA;
@@ -194,7 +194,7 @@ export class DThemeDarkListItems {
 	}
 
 	getHeight(): number {
-		return 30;
+		return 40;
 	}
 
 	getCornerMask(): DCornerMask {
