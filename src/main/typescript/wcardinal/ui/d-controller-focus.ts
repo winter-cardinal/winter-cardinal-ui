@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { utils } from "pixi.js";
 import { DBaseStateSet } from "./d-base-state-set";
 
 export interface DFocusableMightBe {
@@ -18,7 +19,7 @@ export interface DFocusable extends DFocusableMightBe {
 	readonly state: DBaseStateSet;
 }
 
-export interface DControllerFocus {
+export interface DControllerFocus extends utils.EventEmitter {
 	focus(focusable: DFocusable | null): DFocusable | null;
 	blur(focusable: DFocusable): DFocusable | null;
 	clear(): DFocusable | null;

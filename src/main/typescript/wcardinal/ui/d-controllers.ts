@@ -7,6 +7,7 @@ import { DControllerCommand } from "./d-controller-command";
 import { DControllerCommandImpl } from "./d-controller-command-impl";
 import { DControllerDocument } from "./d-controller-document";
 import { DControllerKeyboard } from "./d-controller-keyboard";
+import { DControllerKeyboardImpl } from "./d-controller-keyboard-impl";
 import { DDocument } from "./d-document";
 
 export class DControllers {
@@ -17,7 +18,7 @@ export class DControllers {
 	// Keyboard
 	static getKeyboardController(): DControllerKeyboard {
 		if (this.KEYBOARD == null) {
-			this.KEYBOARD = new DControllerKeyboard();
+			this.KEYBOARD = new DControllerKeyboardImpl();
 		}
 		return this.KEYBOARD;
 	}

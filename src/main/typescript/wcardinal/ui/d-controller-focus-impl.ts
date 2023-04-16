@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { utils } from "pixi.js";
 import {
 	DControllerFocus,
 	DFocusable,
@@ -10,7 +11,7 @@ import {
 	DFocusableMightBe
 } from "./d-controller-focus";
 
-export class DControllerFocusImpl implements DControllerFocus {
+export class DControllerFocusImpl extends utils.EventEmitter implements DControllerFocus {
 	private _focused: DFocusable | null = null;
 
 	focus(focusable: DFocusable | null): DFocusable | null {
@@ -24,6 +25,9 @@ export class DControllerFocusImpl implements DControllerFocus {
 			if (this.isFocusable(focusable)) {
 				focusable.state.isFocused = true;
 			}
+
+			this.emit("change", focusable, previous, this);
+
 			return previous;
 		}
 		return null;
@@ -33,6 +37,7 @@ export class DControllerFocusImpl implements DControllerFocus {
 		if (focusable != null && this._focused === focusable) {
 			this._focused = null;
 			focusable.state.isFocused = false;
+			this.emit("change", null, focusable, this);
 			return focusable;
 		}
 		return null;

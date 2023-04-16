@@ -193,6 +193,7 @@ export * from "./d-controller-command";
 export * from "./d-controller-document";
 export * from "./d-controller-focus-impl";
 export * from "./d-controller-focus";
+export * from "./d-controller-keyboard-impl";
 export * from "./d-controller-keyboard";
 export * from "./d-controllers";
 export * from "./d-coordinate";
