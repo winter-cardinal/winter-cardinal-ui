@@ -74,7 +74,7 @@ export class EShapeGroupSizeLayout implements EShapeLayout {
 			.scale(sx, sy)
 			.translate(+pivotX, +pivotY);
 		shape.disallowOnTransformChange();
-		EShapeTransforms.applyLocal(shape, transform, childBase.x, childBase.y);
+		EShapeTransforms.applyLocal(shape, transform, EShapeCapability.ALL, childBase);
 		shape.allowOnTransformChange(false);
 	}
 }
