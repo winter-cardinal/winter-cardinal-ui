@@ -1,5 +1,5 @@
 /*
- Winter Cardinal UI v0.306.0
+ Winter Cardinal UI v0.307.0
  Copyright (C) 2019 Toshiba Corporation
  SPDX-License-Identifier: Apache-2.0
 
@@ -7639,7 +7639,7 @@
             return null;
         };
         DThemeWhiteTableBody.prototype.getRowHeight = function () {
-            return 40;
+            return 35;
         };
         DThemeWhiteTableBody.prototype.getInteractive = function () {
             return DBaseInteractive.BOTH;
@@ -8778,7 +8778,7 @@
             return "100%";
         };
         DThemeWhiteTableHeader.prototype.getHeight = function () {
-            return 40;
+            return 35;
         };
         return DThemeWhiteTableHeader;
     }(DThemeWhiteTableRow));
