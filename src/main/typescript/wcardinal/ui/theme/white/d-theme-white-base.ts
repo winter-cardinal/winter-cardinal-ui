@@ -24,11 +24,17 @@ const newShadow = (id: string, radius: number, opacity: number): void => {
 		`<g>` +
 			`<defs>` +
 				`<radialGradient id="${id}_filter">` +
-					`<stop offset="0%" stop-color="black" stop-opacity="${opacity}" />` +
-					`<stop offset="20%" stop-color="black" stop-opacity="${opacity}" />` +
-					`<stop offset="40%" stop-color="black" stop-opacity="${opacity * 0.368}" />` +
-					`<stop offset="60%" stop-color="black" stop-opacity="${opacity * 0.135}" />` +
-					`<stop offset="80%" stop-color="black" stop-opacity="${opacity * 0.050}" />` +
+					`<stop   offset="0%" stop-color="black" stop-opacity="${opacity * 0.368}" />` +
+					`<stop  offset="30%" stop-color="black" stop-opacity="${opacity * 0.368}" />` +
+					`<stop  offset="37%" stop-color="black" stop-opacity="${opacity * 0.368}" />` +
+					`<stop  offset="44%" stop-color="black" stop-opacity="${opacity * 0.368}" />` + // Math.exp(-(p-30)/14)
+					`<stop  offset="51%" stop-color="black" stop-opacity="${opacity * 0.223}" />` +
+					`<stop  offset="58%" stop-color="black" stop-opacity="${opacity * 0.135}" />` +
+					`<stop  offset="65%" stop-color="black" stop-opacity="${opacity * 0.082}" />` +
+					`<stop  offset="72%" stop-color="black" stop-opacity="${opacity * 0.050}" />` +
+					`<stop  offset="79%" stop-color="black" stop-opacity="${opacity * 0.030}" />` +
+					`<stop  offset="86%" stop-color="black" stop-opacity="${opacity * 0.018}" />` +
+					`<stop  offset="93%" stop-color="black" stop-opacity="${opacity * 0.011}" />` +
 					`<stop offset="100%" stop-color="black" stop-opacity="0" />` +
 				`</radialGradient>` +
 			`</defs>` +
@@ -37,8 +43,8 @@ const newShadow = (id: string, radius: number, opacity: number): void => {
 	);
 	/* eslint-enable prettier/prettier */
 };
-newShadow("shadow_weak", 12, 0.15);
-newShadow("shadow", 24, 0.15);
+newShadow("shadow_weak", 24, 0.3);
+newShadow("shadow", 48, 0.3);
 
 /* eslint-disable prettier/prettier */
 DThemeWhiteAtlas.add("background", 16, 16,
@@ -183,11 +189,11 @@ export class DThemeWhiteBase extends DThemeWhiteFont implements DThemeBase {
 	}
 
 	newShadow(): DShadow | null {
-		return new DShadowImpl(DThemeWhiteAtlas.mappings.shadow, 24, 24, 0, 9.6);
+		return new DShadowImpl(DThemeWhiteAtlas.mappings.shadow, 48, 48, 0, 4.8);
 	}
 
 	newShadowWeak(): DShadow | null {
-		return new DShadowImpl(DThemeWhiteAtlas.mappings.shadow_weak, 12, 12, 0, 4.8);
+		return new DShadowImpl(DThemeWhiteAtlas.mappings.shadow_weak, 24, 24, 0, 2.4);
 	}
 
 	getCursor(state: DBaseStateSet): string {
