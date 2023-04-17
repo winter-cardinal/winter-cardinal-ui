@@ -194,7 +194,7 @@ export class DThemeWhiteListItems {
 	}
 
 	getHeight(): number {
-		return 40;
+		return 30;
 	}
 
 	getCornerMask(): DCornerMask {

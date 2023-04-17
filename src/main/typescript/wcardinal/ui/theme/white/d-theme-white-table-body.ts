@@ -24,7 +24,7 @@ export class DThemeWhiteTableBody extends DThemeWhiteBase implements DThemeTable
 	}
 
 	getRowHeight(): number {
-		return 35;
+		return 30;
 	}
 
 	getInteractive(): DBaseInteractive {
