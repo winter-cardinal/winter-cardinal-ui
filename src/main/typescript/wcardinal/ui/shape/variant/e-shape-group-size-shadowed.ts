@@ -16,8 +16,8 @@ export class EShapeGroupSizeShadowed implements EShapeGroupSize {
 		this._size = new Point(x, y);
 	}
 
-	init(): void {
-		// DO NOTHING
+	init(): this {
+		return this;
 	}
 
 	get x(): number {
@@ -96,8 +96,8 @@ export class EShapeGroupSizeShadowed implements EShapeGroupSize {
 		return this._size.equals(point);
 	}
 
-	fit(): void {
-		// DO NOTHING
+	fit(): this {
+		return this;
 	}
 
 	protected onChange(ox: number, oy: number): void {

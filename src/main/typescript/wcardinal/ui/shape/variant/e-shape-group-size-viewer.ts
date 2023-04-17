@@ -53,9 +53,10 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 		return this._base;
 	}
 
-	init(): void {
+	init(): this {
 		this._base.copyFrom(this);
 		this.onChange();
+		return this;
 	}
 
 	clone(): EShapeGroupSizeViewer {
@@ -103,8 +104,8 @@ export class EShapeGroupSizeViewer implements EShapeGroupSize {
 		return p.x === this._x && p.y === this._y;
 	}
 
-	fit(): void {
-		// DO NOTHING
+	fit(): this {
+		return this;
 	}
 
 	protected onChange(): void {

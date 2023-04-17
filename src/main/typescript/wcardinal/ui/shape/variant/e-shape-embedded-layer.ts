@@ -59,7 +59,13 @@ export class EShapeEmbeddedLayer extends EShapeGroupViewer implements EShapeLaye
 		}
 		result.onChildTransformChange();
 		result.toDirty();
-		result.size.init();
+		const size = this.size;
+		if (size instanceof EShapeGroupSizeViewer) {
+			const base = size.base;
+			result.size.set(base.x, base.y).init().set(size.x, size.y);
+		} else {
+			result.size.init();
+		}
 		return result;
 	}
 

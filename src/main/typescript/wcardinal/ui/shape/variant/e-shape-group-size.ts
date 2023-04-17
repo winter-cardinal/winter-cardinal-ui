@@ -9,8 +9,8 @@ export interface EShapeGroupSize {
 	x: number;
 	y: number;
 
-	init(): void;
-	fit(): void;
+	init(): this;
+	fit(): this;
 	clone(): ObservablePoint;
 	copyFrom(p: IPoint): this;
 	copyTo(p: IPoint): IPoint;

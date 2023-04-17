@@ -25,8 +25,8 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		this._isFittable = isFittable;
 	}
 
-	init(): void {
-		// DO NOTHING
+	init(): this {
+		return this;
 	}
 
 	get x(): number {
@@ -105,10 +105,11 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		return this._size.equals(point);
 	}
 
-	fit(): void {
+	fit(): this {
 		if (this._isFittable) {
 			this.doFit();
 		}
+		return this;
 	}
 
 	protected doFit(): void {
