@@ -42,6 +42,6 @@ export class DThemeDarkTableHeader extends DThemeDarkTableRow implements DThemeT
 	}
 
 	getHeight(): DCoordinateSize {
-		return 40;
+		return 35;
 	}
 }

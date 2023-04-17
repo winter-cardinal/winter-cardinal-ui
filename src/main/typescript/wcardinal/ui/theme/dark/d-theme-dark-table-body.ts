@@ -24,7 +24,7 @@ export class DThemeDarkTableBody extends DThemeDarkBase implements DThemeTableBo
 	}
 
 	getRowHeight(): number {
-		return 40;
+		return 35;
 	}
 
 	getInteractive(): DBaseInteractive {
