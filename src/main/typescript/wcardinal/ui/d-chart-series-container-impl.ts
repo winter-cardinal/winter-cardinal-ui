@@ -66,16 +66,6 @@ export class DChartSeriesContainerImpl<CHART extends DBase = DBase>
 		this._padding = new DChartSeriesPaddingImpl(options?.padding);
 
 		this._list = [];
-		const list = options && options.list;
-		if (list) {
-			const listLength = list.length;
-			if (0 < listLength) {
-				for (let i = 0; i < listLength; ++i) {
-					this.add(list[i]);
-				}
-				this.update();
-			}
-		}
 	}
 
 	newFill(

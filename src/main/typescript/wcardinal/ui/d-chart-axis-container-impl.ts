@@ -21,14 +21,7 @@ export class DChartAxisContainerImpl<CHART extends DBase = DBase>
 	constructor(plotArea: DChartPlotArea<CHART>, options?: DChartAxisContainerOptions<CHART>) {
 		this._plotArea = plotArea;
 		this._container = new EShapeContainer();
-
 		this._list = new Map<DChartAxisPosition, DChartAxis<CHART>[]>();
-		const list = options && options.list;
-		if (list) {
-			for (let i = 0, imax = list.length; i < imax; ++i) {
-				this.add(list[i]);
-			}
-		}
 	}
 
 	get container(): EShapeContainer {

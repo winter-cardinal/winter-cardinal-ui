@@ -58,27 +58,36 @@ export class DChartPlotAreaImpl<
 	protected init(options?: OPTIONS): void {
 		super.init(options);
 
+		this._isBoundsInContainerDirty = true;
+		this._boundsInContainer = new Rectangle();
+		this._workPoint = new Point();
+
+		// Container
 		const container = new DChartPlotAreaContainer((): void => {
 			this._isViewDirty = true;
 			this._isBoundsInContainerDirty = true;
 			DApplications.update(this);
 		});
 		this._container = container;
-		this._coordinate = new DChartCoordinateContainerImpl(this, options?.coordinate);
-		const series = new DChartSeriesContainerImpl(this, options?.series);
-		this._series = series;
-		const axis = new DChartAxisContainerImpl(this, options?.axis);
-		this._axis = axis;
-		this._isViewDirty = true;
-		this._isBoundsInContainerDirty = true;
-		this._boundsInContainer = new Rectangle();
-		this._workPoint = new Point();
-
 		this.addChild(container);
-		this.addChild(axis.container);
 
+		// View
+		this._isViewDirty = true;
 		this._view = new DViewImpl(this, () => container, options?.view);
 
+		// Coordinate container
+		this._coordinate = new DChartCoordinateContainerImpl(this, options?.coordinate);
+
+		// Series container
+		const series = new DChartSeriesContainerImpl(this, options?.series);
+		this._series = series;
+
+		// Axis container
+		const axis = new DChartAxisContainerImpl(this, options?.axis);
+		this._axis = axis;
+		this.addChild(axis.container);
+
+		// Selection
 		const selection = series.selection;
 		if (selection) {
 			selection.bind(series);
@@ -88,6 +97,35 @@ export class DChartPlotAreaImpl<
 		const mask = options?.mask ?? this.theme.isOverflowMaskEnabled();
 		if (mask) {
 			container.mask = this.getOverflowMask();
+		}
+
+		// Add series and axes
+		if (options != null) {
+			// Series
+			const s = options.series;
+			if (s != null) {
+				const list = s.list;
+				if (list) {
+					const listLength = list.length;
+					if (0 < listLength) {
+						for (let i = 0; i < listLength; ++i) {
+							series.add(list[i]);
+						}
+						series.update();
+					}
+				}
+			}
+
+			// Axes
+			const a = options.axis;
+			if (a != null) {
+				const list = a.list;
+				if (list) {
+					for (let i = 0, imax = list.length; i < imax; ++i) {
+						axis.add(list[i]);
+					}
+				}
+			}
 		}
 	}
 

@@ -37,8 +37,6 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 	protected static WORK: Point = new Point();
 	protected _line: EShapeLine | null;
 	protected _options?: DChartSeriesLinearOptions;
-	protected _plotAreaSizeXUpdated: number;
-	protected _plotAreaSizeYUpdated: number;
 	protected _parameters: DChartSeriesExpressionParametersImpl;
 	protected _stroke?: DChartSeriesStrokeComputed;
 
@@ -46,8 +44,6 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		super(options);
 		this._line = null;
 		this._options = options;
-		this._plotAreaSizeXUpdated = NaN;
-		this._plotAreaSizeYUpdated = NaN;
 		this._parameters = DChartSeriesExpressionParametersImpl.from(options);
 	}
 
@@ -62,9 +58,6 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 			this._line = line;
 		}
 		line.attach(container.plotArea.container, index);
-		this._parameters.toDirty();
-		this._plotAreaSizeXUpdated = NaN;
-		this._plotAreaSizeYUpdated = NaN;
 		super.bind(container, index);
 		return this;
 	}
@@ -105,45 +98,15 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		const line = this._line;
 		const container = this._container;
 		if (line && container) {
-			const plotArea = container.plotArea;
 			const coordinate = this._coordinate;
 			const coordinateX = coordinate.x;
 			const coordinateY = coordinate.y;
 			if (coordinateX && coordinateY) {
-				const plotAreaWidth = plotArea.width;
-				const plotAreaHeight = plotArea.height;
-
-				const parameters = this._parameters;
-				const isParametersChanged = parameters.isDirty();
-				const isCoordinateChanged = coordinate.isDirty(coordinateX, coordinateY);
-				const isCoordinateTransformChanged = coordinate.isTransformDirty(
-					coordinateX,
-					coordinateY
-				);
-				const isPlotAreaSizeChagned =
-					plotAreaWidth !== this._plotAreaSizeXUpdated ||
-					plotAreaHeight !== this._plotAreaSizeYUpdated;
-				if (
-					isParametersChanged ||
-					isCoordinateChanged ||
-					isCoordinateTransformChanged ||
-					isPlotAreaSizeChagned
-				) {
-					parameters.toClean();
-					this._plotAreaSizeXUpdated = plotAreaWidth;
-					this._plotAreaSizeYUpdated = plotAreaHeight;
-					this.doUpdateLine(
-						line,
-						coordinateX,
-						coordinateY,
-						plotAreaWidth,
-						plotAreaHeight
-					);
-					if (render) {
-						DApplications.update(line);
-					}
-					return true;
+				this.doUpdateLine(line, container, coordinateX, coordinateY);
+				if (render) {
+					DApplications.update(line);
 				}
+				return true;
 			}
 		}
 		return false;
@@ -151,10 +114,9 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 
 	protected doUpdateLine(
 		line: EShapeLine,
+		container: DChartSeriesContainer<CHART>,
 		xcoordinate: DChartCoordinate<CHART>,
-		ycoordinate: DChartCoordinate<CHART>,
-		plotAreaSizeX: number,
-		plotAreaSizeY: number
+		ycoordinate: DChartCoordinate<CHART>
 	): void {
 		const values = line.points.values;
 		const segments = line.points.segments;
@@ -173,14 +135,15 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		let p1y = NaN;
 
 		const threshold = 0.00001;
+		const bounds = container.plotArea.getBoundsInContainer();
 		if (babs <= aabs) {
-			const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
-			const xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
+			const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(bounds.x));
+			const xto = xcoordinate.unmap(xcoordinate.transform.unmap(bounds.x + bounds.width));
 			p0x = Math.min(xfrom, xto);
 			p1x = Math.max(xfrom, xto);
 
-			const yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
-			const yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
+			const yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(bounds.y));
+			const yto = ycoordinate.unmap(ycoordinate.transform.unmap(bounds.y + bounds.height));
 			p0y = Math.min(yfrom, yto);
 			p1y = Math.max(yfrom, yto);
 
@@ -200,13 +163,13 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 				p1x = x0;
 			}
 		} else {
-			const yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(0));
-			const yto = ycoordinate.unmap(ycoordinate.transform.unmap(plotAreaSizeY));
+			const yfrom = ycoordinate.unmap(ycoordinate.transform.unmap(bounds.y));
+			const yto = ycoordinate.unmap(ycoordinate.transform.unmap(bounds.y + bounds.height));
 			p0y = Math.min(yfrom, yto);
 			p1y = Math.max(yfrom, yto);
 
-			const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(0));
-			const xto = xcoordinate.unmap(xcoordinate.transform.unmap(plotAreaSizeX));
+			const xfrom = xcoordinate.unmap(xcoordinate.transform.unmap(bounds.x));
+			const xto = xcoordinate.unmap(xcoordinate.transform.unmap(bounds.x + bounds.width));
 			p0x = Math.min(xfrom, xto);
 			p1x = Math.max(xfrom, xto);
 
