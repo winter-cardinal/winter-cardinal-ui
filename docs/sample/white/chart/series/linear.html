@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.308.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.308.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.309.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.309.0/wcardinal-ui-theme-white.min.js"></script>
 	<script src="../../../resource/chart/updater.js"></script>
 	<script>
 	(function(){
@@ -37,17 +37,36 @@
 			width: 500, height: 400,
 			plotArea: {
 				coordinate: {
-					x: new wcardinal.ui.DChartCoordinateLinear(),
-					y: new wcardinal.ui.DChartCoordinateLinear()
+					x: new wcardinal.ui.DChartCoordinateLinear({
+						from: 0,
+						to: 100
+					}),
+					y: new wcardinal.ui.DChartCoordinateLinear({
+						from: 0,
+						to: 100
+					})
 				},
 				series: {
 					list: [
-						new wcardinal.ui.DChartSeriesLine({
-							points: [ 0, 0, 4, 4 ]
+						// These eries represent the lines of a (x - x0) = b (y - y0)
+						new wcardinal.ui.DChartSeriesLinear({
+							a: 0,
+							y0: 80
 						}),
 						new wcardinal.ui.DChartSeriesLinear({
-							a: 1,
-							y0: 1
+							a: 0,
+							y0: 20
+						}),
+						new wcardinal.ui.DChartSeriesLinear({
+							b: 0,
+							x0: 20
+						}),
+						new wcardinal.ui.DChartSeriesLinear({
+							b: 0,
+							x0: 80
+						}),
+						new wcardinal.ui.DChartSeriesLinear({
+							a: 1
 						})
 					]
 				},
