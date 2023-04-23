@@ -52,6 +52,7 @@ import { toEnum } from "./util/to-enum";
 import { DOnOptions } from "./d-on-options";
 import { DBaseSnippetContainer } from "./d-base-snippet-container";
 import { DBaseReflowableContainer } from "./d-base-reflowable-container";
+import { isArray } from "./util/is-array";
 
 /**
  * {@link DBase} padding options.
@@ -356,6 +357,31 @@ export interface DBaseOutlineOptions {
 export type DBaseShadow = "NONE" | "WEAK" | "DEFAULT" | DShadow;
 
 /**
+ * {@link DBase} state blinker options.
+ */
+export interface DBaseStateBlinkerOptions {
+	state: string;
+	interval: number;
+}
+
+/**
+ * {@link DBase} state ticker options.
+ */
+export interface DBaseStateTickerOptions {
+	state: string;
+	interval: number;
+}
+
+/**
+ * {@link DBase} state options.
+ */
+export interface DBaseStateOptions {
+	values?: string | string[];
+	blinkers?: DBaseStateBlinkerOptions[];
+	tickers?: DBaseStateTickerOptions[];
+}
+
+/**
  * {@link DBase} options.
  */
 export interface DBaseOptions<THEME extends DThemeBase = DThemeBase, EMITTER = any> {
@@ -434,7 +460,7 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase, EMITTER = a
 	renderable?: boolean;
 
 	/** A default state. */
-	state?: string | string[];
+	state?: string | string[] | DBaseStateOptions;
 
 	/** An interactivity option. */
 	interactive?: keyof typeof DBaseInteractive | DBaseInteractive;
@@ -994,10 +1020,41 @@ export class DBase<
 		if (options != null) {
 			const state = options.state;
 			if (state != null) {
+				const s = this._state;
 				if (isString(state)) {
-					this._state.add(state);
+					s.add(state);
+				} else if (isArray(state)) {
+					s.addAll(state);
 				} else {
-					this._state.addAll(state);
+					// Values
+					const values = state.values;
+					if (values != null) {
+						if (isString(values)) {
+							s.add(values);
+						} else {
+							s.addAll(values);
+						}
+					}
+
+					// Blinker
+					const blinkers = state.blinkers;
+					if (blinkers != null) {
+						const b = s.blinker;
+						for (let i = 0, imax = blinkers.length; i < imax; ++i) {
+							const blinker = blinkers[i];
+							b.add(blinker.state, blinker.interval);
+						}
+					}
+
+					// Ticker
+					const tickers = state.tickers;
+					if (tickers != null) {
+						const t = s.ticker;
+						for (let i = 0, imax = tickers.length; i < imax; ++i) {
+							const ticker = tickers[i];
+							t.add(ticker.state, ticker.interval);
+						}
+					}
 				}
 			}
 		}

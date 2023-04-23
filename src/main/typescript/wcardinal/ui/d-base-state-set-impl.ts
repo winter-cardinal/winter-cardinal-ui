@@ -4,255 +4,31 @@
  */
 
 import { DBaseState } from "./d-base-state";
+import { DBaseStateAndValue } from "./d-base-state-and-value";
+import { DBaseStateMatcher } from "./d-base-state-matcher";
 import { DBaseStateSet } from "./d-base-state-set";
+import { DBaseStateSetBlinker } from "./d-base-state-set-blinker";
+import { DBaseStateSetBlinkerImpl } from "./d-base-state-set-blinker-impl";
 import { DBaseStateSetLike } from "./d-base-state-set-like";
+import { DBaseStateSetTicker } from "./d-base-state-set-ticker";
+import { DBaseStateSetTickerImpl } from "./d-base-state-set-ticker-impl";
+import { isArray } from "./util/is-array";
 import { isFunction } from "./util/is-function";
+import { isNumber } from "./util/is-number";
 import { isString } from "./util/is-string";
 
 export class DBaseStateSetImpl implements DBaseStateSet {
-	protected _local: Set<string>;
+	protected _local: Map<string, number | null>;
 	protected _parent: DBaseStateSet | null;
+	protected _blinker?: DBaseStateSetBlinker;
+	protected _ticker?: DBaseStateSetTicker;
 
 	constructor() {
-		this._local = new Set<string>();
+		this._local = new Map<string, number | null>();
 		this._parent = null;
 	}
 
-	is(state: string): boolean {
-		return this._local.has(state);
-	}
-
-	in(state: string): boolean {
-		return this.is(state) || this.under(state);
-	}
-
-	on(state: string): boolean {
-		return this._parent?.is(state) ?? false;
-	}
-
-	under(state: string): boolean {
-		return this._parent?.in(state) ?? false;
-	}
-
-	lock(callOnChange?: boolean): this {
-		return this;
-	}
-
-	unlock(): this {
-		return this;
-	}
-
-	protected begin(): this {
-		return this;
-	}
-
-	protected end(): this {
-		return this;
-	}
-
-	protected checkAdded(added: string): boolean {
-		return !this._local.has(added);
-	}
-
-	add(state: string): this {
-		if (this.checkAdded(state)) {
-			this.begin();
-			this._local.add(state);
-			this.end();
-		}
-		return this;
-	}
-
-	protected checkAddeds(states: string[]): boolean {
-		const local = this._local;
-		for (let i = 0, imax = states.length; i < imax; ++i) {
-			if (!local.has(states[i])) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	addAll(states: string[]): this;
-	addAll(...states: string[]): this;
-	addAll(stateOrStates: string | string[]): this {
-		const states = isString(stateOrStates)
-			? (arguments as any as string[]) // eslint-disable-line prefer-rest-params
-			: stateOrStates;
-		if (this.checkAddeds(states)) {
-			this.begin();
-			const local = this._local;
-			for (let i = 0, imax = states.length; i < imax; ++i) {
-				local.add(states[i]);
-			}
-			this.end();
-		}
-		return this;
-	}
-
-	protected checkRemoved(removed: string): boolean {
-		return this._local.has(removed);
-	}
-
-	remove(state: string): this {
-		if (this.checkRemoved(state)) {
-			this.begin();
-			this._local.delete(state);
-			this.end();
-		}
-		return this;
-	}
-
-	protected checkRemoveds(states: string[]): boolean {
-		const local = this._local;
-		for (let i = 0, imax = states.length; i < imax; ++i) {
-			if (local.has(states[i])) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	removeAll(states: string[]): this;
-	removeAll(...states: string[]): this;
-	removeAll(matcher: (state: string) => void | boolean): this;
-	removeAll(
-		stateOrStatesOrMatcher: string | string[] | ((state: string) => void | boolean)
-	): this {
-		const local = this._local;
-		if (isFunction(stateOrStatesOrMatcher)) {
-			let isDirty = false;
-			local.forEach((state): void => {
-				if (stateOrStatesOrMatcher(state)) {
-					if (!isDirty) {
-						isDirty = true;
-						this.begin();
-					}
-					local.delete(state);
-				}
-			});
-			if (isDirty) {
-				this.end();
-			}
-		} else {
-			const states = isString(stateOrStatesOrMatcher)
-				? (arguments as any as string[]) // eslint-disable-line prefer-rest-params
-				: stateOrStatesOrMatcher;
-			if (this.checkRemoveds(states)) {
-				this.begin();
-				for (let i = 0, imax = states.length; i < imax; ++i) {
-					local.delete(states[i]);
-				}
-				this.end();
-			}
-		}
-		return this;
-	}
-
-	clear(): this {
-		const local = this._local;
-		if (0 < local.size) {
-			this.begin();
-			local.clear();
-			this.end();
-		}
-		return this;
-	}
-
-	set(state: string, isOn: boolean): this;
-	set(added: string | null, removed: string | null): this;
-	set(stateOrAdded: string | null, isOnOrRemoved: string | null | boolean): this {
-		if (isOnOrRemoved === true) {
-			if (stateOrAdded != null) {
-				this.add(stateOrAdded);
-			}
-		} else if (isOnOrRemoved === false) {
-			if (stateOrAdded != null) {
-				this.remove(stateOrAdded);
-			}
-		} else {
-			const added = stateOrAdded;
-			const removed = isOnOrRemoved;
-			if (added != null) {
-				if (removed != null) {
-					if (this.checkAdded(added) || this.checkRemoved(removed)) {
-						this.begin();
-						this._local.add(added).delete(removed);
-						this.end();
-					}
-				} else {
-					this.add(added);
-				}
-			} else if (removed != null) {
-				this.remove(removed);
-			}
-		}
-		return this;
-	}
-
-	setAll(states: string[], isOn: boolean): this;
-	setAll(addeds: string[] | null, removeds: string[] | null): this;
-	setAll(statesOrAddeds: string[] | null, isOnOrRemoveds: string[] | null | boolean): this {
-		if (isOnOrRemoveds === true) {
-			if (statesOrAddeds != null) {
-				this.addAll(statesOrAddeds);
-			}
-		} else if (isOnOrRemoveds === false) {
-			if (statesOrAddeds != null) {
-				this.removeAll(statesOrAddeds);
-			}
-		} else {
-			const addeds = statesOrAddeds;
-			const removeds = isOnOrRemoveds;
-			if (addeds != null) {
-				if (removeds != null) {
-					if (this.checkAddeds(addeds) || this.checkRemoveds(removeds)) {
-						this.begin();
-						const local = this._local;
-						for (let i = 0, imax = addeds.length; i < imax; ++i) {
-							local.add(addeds[i]);
-						}
-						for (let i = 0, imax = removeds.length; i < imax; ++i) {
-							local.delete(removeds[i]);
-						}
-						this.end();
-					}
-				} else {
-					this.addAll(addeds);
-				}
-			} else if (removeds != null) {
-				this.removeAll(removeds);
-			}
-		}
-		return this;
-	}
-
-	each(iteratee: (state: string) => void): this {
-		this._local.forEach((state: string): void => {
-			iteratee(state);
-		});
-		return this;
-	}
-
-	size(): number {
-		return this._local.size;
-	}
-
-	copy(other: DBaseStateSet): this {
-		if (other instanceof DBaseStateSetImpl) {
-			this.begin();
-			const local = this._local;
-			local.clear();
-			other.local.forEach((value: string): void => {
-				local.add(value);
-			});
-			this._parent = other.parent;
-			this.end();
-		}
-		return this;
-	}
-
-	get local(): Set<string> {
+	get local(): Map<string, number | null> {
 		return this._local;
 	}
 
@@ -273,6 +49,428 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 		this.begin();
 		this._parent = newState;
 		this.end();
+	}
+
+	get blinker(): DBaseStateSetBlinker {
+		let result = this._blinker;
+		if (result == null) {
+			result = this.newBlinker();
+			this._blinker = result;
+		}
+		return result;
+	}
+
+	protected newBlinker(): DBaseStateSetBlinker {
+		return new DBaseStateSetBlinkerImpl(this);
+	}
+
+	get ticker(): DBaseStateSetTicker {
+		let result = this._ticker;
+		if (result == null) {
+			result = this.newTicker();
+			this._ticker = result;
+		}
+		return result;
+	}
+
+	protected newTicker(): DBaseStateSetTicker {
+		return new DBaseStateSetTickerImpl(this);
+	}
+
+	is(state: string, value?: number | null): boolean {
+		const v = this._local.get(state);
+		return v !== undefined && (value === undefined || value === v);
+	}
+
+	in(state: string, value?: number | null): boolean {
+		return this.is(state, value) || this.under(state, value);
+	}
+
+	on(state: string, value?: number | null): boolean {
+		const parent = this._parent;
+		return parent != null && parent.is(state, value);
+	}
+
+	under(state: string, value?: number | null): boolean {
+		const parent = this._parent;
+		return parent != null && parent.in(state, value);
+	}
+
+	lock(callOnChange?: boolean): this {
+		return this;
+	}
+
+	unlock(): this {
+		return this;
+	}
+
+	protected begin(): this {
+		return this;
+	}
+
+	protected end(): this {
+		return this;
+	}
+
+	protected checkAdded(added: string, value: number | null): boolean {
+		const v = this._local.get(added);
+		return v === undefined || v !== value;
+	}
+
+	add(state: string, value: number | null = null): this {
+		if (this.checkAdded(state, value)) {
+			this.begin();
+			this._local.set(state, value);
+			this.end();
+		}
+		return this;
+	}
+
+	protected checkAddedsString(states: string[]): boolean {
+		const local = this._local;
+		for (let i = 0, imax = states.length; i < imax; ++i) {
+			const v = local.get(states[i]);
+			if (v === undefined || v !== null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected checkAddedsObject(states: DBaseStateAndValue[]): boolean {
+		const local = this._local;
+		for (let i = 0, imax = states.length; i < imax; ++i) {
+			const state = states[i];
+			const v = local.get(state.state);
+			if (v === undefined || v !== state.value) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	addAll(states: string[]): this;
+	addAll(states: DBaseStateAndValue[]): this;
+	addAll(states: string[] | DBaseStateAndValue[]): this;
+
+	addAll(...states: string[]): this;
+	addAll(...states: DBaseStateAndValue[]): this;
+
+	addAll(first: string | string[] | DBaseStateAndValue | DBaseStateAndValue[]): this {
+		if (isString(first)) {
+			return this.addAllString(arguments as any as string[]); // eslint-disable-line prefer-rest-params
+		} else if (isArray(first)) {
+			if (0 < first.length) {
+				const element = first[0];
+				if (isString(element)) {
+					return this.addAllString(first as string[]);
+				} else {
+					return this.addAllObject(first as DBaseStateAndValue[]);
+				}
+			}
+			return this;
+		} else {
+			return this.addAllObject(arguments as any as DBaseStateAndValue[]); // eslint-disable-line prefer-rest-params
+		}
+	}
+
+	protected addAllString(states: string[]): this {
+		if (this.checkAddedsString(states)) {
+			this.begin();
+			const local = this._local;
+			for (let i = 0, imax = states.length; i < imax; ++i) {
+				local.set(states[i], null);
+			}
+			this.end();
+		}
+		return this;
+	}
+
+	protected addAllObject(states: DBaseStateAndValue[]): this {
+		if (this.checkAddedsObject(states)) {
+			this.begin();
+			const local = this._local;
+			for (let i = 0, imax = states.length; i < imax; ++i) {
+				const state = states[i];
+				local.set(state.state, state.value);
+			}
+			this.end();
+		}
+		return this;
+	}
+
+	protected checkRemoved(removed: string): boolean {
+		return this._local.has(removed);
+	}
+
+	remove(state: string): this {
+		if (this.checkRemoved(state)) {
+			this.begin();
+			this._local.delete(state);
+			this.end();
+		}
+		return this;
+	}
+
+	protected checkRemovedsString(states: string[]): boolean {
+		const local = this._local;
+		for (let i = 0, imax = states.length; i < imax; ++i) {
+			if (local.has(states[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected checkRemovedsObject(states: DBaseStateAndValue[]): boolean {
+		const local = this._local;
+		for (let i = 0, imax = states.length; i < imax; ++i) {
+			if (local.has(states[i].state)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	removeAll(states: string[]): this;
+	removeAll(states: DBaseStateAndValue[]): this;
+	removeAll(states: string[] | DBaseStateAndValue[]): this;
+
+	removeAll(...states: string[]): this;
+	removeAll(...states: DBaseStateAndValue[]): this;
+
+	removeAll(matcher: DBaseStateMatcher): this;
+
+	removeAll(
+		first: string | string[] | DBaseStateAndValue | DBaseStateAndValue[] | DBaseStateMatcher
+	): this {
+		if (isFunction(first)) {
+			return this.removeAllMatcher(first);
+		} else if (isString(first)) {
+			return this.removeAllString(arguments as any as string[]); // eslint-disable-line prefer-rest-params
+		} else if (isArray(first)) {
+			if (0 < first.length) {
+				const element = first[0];
+				if (isString(element)) {
+					return this.removeAllString(first as string[]);
+				} else {
+					return this.removeAllObject(first as DBaseStateAndValue[]);
+				}
+			}
+			return this;
+		} else {
+			return this.removeAllObject(arguments as any as DBaseStateAndValue[]); // eslint-disable-line prefer-rest-params
+		}
+	}
+
+	protected removeAllMatcher(matcher: DBaseStateMatcher): this {
+		let isDirty = false;
+		const local = this._local;
+		local.forEach((value, state): void => {
+			if (matcher(state)) {
+				if (!isDirty) {
+					isDirty = true;
+					this.begin();
+				}
+				local.delete(state);
+			}
+		});
+		if (isDirty) {
+			this.end();
+		}
+		return this;
+	}
+
+	protected removeAllString(states: string[]): this {
+		if (this.checkRemovedsString(states)) {
+			this.begin();
+			const local = this._local;
+			for (let i = 0, imax = states.length; i < imax; ++i) {
+				local.delete(states[i]);
+			}
+			this.end();
+		}
+		return this;
+	}
+
+	protected removeAllObject(states: DBaseStateAndValue[]): this {
+		if (this.checkRemovedsObject(states)) {
+			this.begin();
+			const local = this._local;
+			for (let i = 0, imax = states.length; i < imax; ++i) {
+				local.delete(states[i].state);
+			}
+			this.end();
+		}
+		return this;
+	}
+
+	set(state: string, on: boolean): this;
+	set(state: string, value: number | null, on: boolean): this;
+
+	set(added: string | null, removed: string | null): this;
+	set(added: string | null, value: number | null, removed: string | null): this;
+
+	set(
+		first: string | null,
+		second: string | number | boolean | null,
+		third?: string | boolean | null
+	): this {
+		if (second === true) {
+			if (first != null) {
+				this.add(first);
+			}
+		} else if (second === false) {
+			if (first != null) {
+				this.remove(first);
+			}
+		} else if (second == null || isNumber(second)) {
+			if (third === true) {
+				if (first != null) {
+					this.add(first, second);
+				}
+			} else if (third === false) {
+				if (first != null) {
+					this.remove(first);
+				}
+			} else {
+				return this.doSet(first, second, third);
+			}
+		} else {
+			return this.doSet(first, null, second);
+		}
+		return this;
+	}
+
+	protected doSet(added: string | null, value: number | null, removed?: string | null): this {
+		if (added != null) {
+			if (removed != null) {
+				if (this.checkAdded(added, value) || this.checkRemoved(removed)) {
+					this.begin();
+					this._local.set(added, value).delete(removed);
+					this.end();
+				}
+			} else {
+				this.add(added, value);
+			}
+		} else if (removed != null) {
+			this.remove(removed);
+		}
+		return this;
+	}
+
+	setAll(states: string[], on: boolean): this;
+	setAll(states: DBaseStateAndValue[], on: boolean): this;
+	setAll(states: string[] | DBaseStateAndValue[], on: boolean): this;
+
+	setAll(addeds: string[] | null, removeds: string[] | null): this;
+	setAll(addeds: DBaseStateAndValue[] | null, removeds: string[] | null): this;
+	setAll(addeds: string[] | DBaseStateAndValue[] | null, removeds: string[] | null): this;
+
+	setAll(first: string[] | DBaseStateAndValue[] | null, second: string[] | null | boolean): this {
+		if (second === true) {
+			if (first != null) {
+				this.addAll(first);
+			}
+		} else if (second === false) {
+			if (first != null) {
+				this.removeAll(first);
+			}
+		} else {
+			if (first != null && 0 < first.length) {
+				if (second != null && 0 < second.length) {
+					const added = first[0];
+					if (isString(added)) {
+						return this.setAllString(first as string[], second);
+					} else {
+						return this.setAllObject(first as DBaseStateAndValue[], second);
+					}
+				} else {
+					this.addAll(first);
+				}
+			} else if (second != null) {
+				this.removeAll(second);
+			}
+		}
+		return this;
+	}
+
+	protected setAllString(addeds: string[], removeds: string[]): this {
+		if (this.checkAddedsString(addeds) || this.checkRemovedsString(removeds)) {
+			this.begin();
+			const local = this._local;
+			for (let i = 0, imax = addeds.length; i < imax; ++i) {
+				local.set(addeds[i], null);
+			}
+			for (let i = 0, imax = removeds.length; i < imax; ++i) {
+				local.delete(removeds[i]);
+			}
+			this.end();
+		}
+		return this;
+	}
+
+	protected setAllObject(addeds: DBaseStateAndValue[], removeds: string[]): this {
+		if (this.checkAddedsObject(addeds) || this.checkRemovedsString(removeds)) {
+			this.begin();
+			const local = this._local;
+			for (let i = 0, imax = addeds.length; i < imax; ++i) {
+				const added = addeds[i];
+				local.set(added.state, added.value);
+			}
+			for (let i = 0, imax = removeds.length; i < imax; ++i) {
+				local.delete(removeds[i]);
+			}
+			this.end();
+		}
+		return this;
+	}
+
+	clear(): this {
+		const local = this._local;
+		if (0 < local.size) {
+			this.begin();
+			local.clear();
+			this.end();
+		}
+		return this;
+	}
+
+	valueOf(state: string, def?: number | null): number | null | undefined {
+		const result = this._local.get(state);
+		if (result !== undefined) {
+			return result;
+		}
+		const parent = this._parent;
+		if (parent != null) {
+			return parent.valueOf(state, def);
+		}
+		return def;
+	}
+
+	each(iteratee: (state: string, value: number | null) => void): this {
+		this._local.forEach((value: number | null, state: string): void => {
+			iteratee(state, value);
+		});
+		return this;
+	}
+
+	size(): number {
+		return this._local.size;
+	}
+
+	copy(other: DBaseStateSet): this {
+		if (other instanceof DBaseStateSetImpl) {
+			this.begin();
+			const local = this._local;
+			local.clear();
+			other.local.forEach((value: number | null, state: string): void => {
+				local.set(state, value);
+			});
+			this._parent = other.parent;
+			this.end();
+		}
+		return this;
 	}
 
 	get isHovered(): boolean {
@@ -641,8 +839,8 @@ export class DBaseStateSetImpl implements DBaseStateSet {
 
 	toObject(): DBaseStateSetLike {
 		const states: string[] = [];
-		this._local.forEach((value: string): void => {
-			states.push(value);
+		this._local.forEach((value: number | null, state: string): void => {
+			states.push(state);
 		});
 		return {
 			local: states

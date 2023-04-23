@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blinking row</title>
+	<title>Colorizing row</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -37,7 +37,7 @@
 			columns: [{
 				label: "Text",
 				type: "TEXT",
-				editable: true
+				editable: true,
 			}, {
 				label: "Integer",
 				type: "INTEGER",
@@ -54,33 +54,26 @@
 			],
 			body: {
 				row: {
-					background: {
-						color: (state) => {
-							if (state.in("orange")) {
-								return 0xe0f0ff;
-							}
+					on: {
+						set: (rowData, rowIndex, row) => {
+							row.state.set("year", rowData[1]);
+						},
+						unset: (row) => {
+							row.state.remove("year");
 						}
 					},
 					cell: {
-						background: {
+						text: {
 							color: (state) => {
-								if (state.in("orange")) {
-									if (state.onHovered || state.isHovered) {
-										return 0xe4f4ff;
-									} else {
-										return 0xe0f0ff;
-									}
+								switch (state.valueOf("year")) {
+									case 2000:
+										return 0xff3388;
+									case 2001:
+										return 0x88ff33;
+									case 2002:
+										return 0x3388ff;
 								}
 							}
-						}
-					},
-					on: {
-						set: (rowData, rowIndex, row) => {
-							row.state.blinker.set("orange", 1000, rowData[0] === "Orange");
-						},
-
-						unset: (row) => {
-							row.state.blinker.remove("orange");
 						}
 					}
 				}

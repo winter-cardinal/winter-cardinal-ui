@@ -15,11 +15,11 @@ export class EShapeStateSetImplObservable
 	protected onChange(newState: DBaseStateSet, oldState: DBaseStateSet): void {
 		if (newState.isActive) {
 			if (!oldState.isActive) {
-				this._local.add(EShapeState.ACTIVATED).delete(EShapeState.DEACTIVATED);
+				this._local.set(EShapeState.ACTIVATED, null).delete(EShapeState.DEACTIVATED);
 			}
 		} else {
 			if (oldState.isActive) {
-				this._local.add(EShapeState.DEACTIVATED).delete(EShapeState.ACTIVATED);
+				this._local.set(EShapeState.DEACTIVATED, null).delete(EShapeState.ACTIVATED);
 			}
 		}
 		super.onChange(newState, oldState);

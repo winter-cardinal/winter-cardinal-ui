@@ -23,11 +23,11 @@
 	(function(){
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var resolution = window.devicePixelRatio || 1;
-		var size = 24 * resolution;
-		var tooLow = wcardinal.ui.toSvgTexture(
+		const resolution = window.devicePixelRatio || 1;
+		const size = 24 * resolution;
+		const tooLow = wcardinal.ui.toSvgTexture(
 			'<svg xmlns="http://www.w3.org/2000/svg" height="' + size + 'px" width="' + size + 'px" viewBox="0 0 24 24" fill="#ffffff">' +
 				'<path d="M12 17q.425 0 .713-.288Q13 16.425 13 16t-.287-.713Q12.425 15 12 15t-.712.287Q11 15.575 11 16t.288.712Q11.575' +
 				' 17 12 17Zm-1-4h2V7h-2Zm1 9q-2.075 0-3.9-.788-1.825-.787-3.175-2.137-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.78' +
@@ -37,8 +37,6 @@
 			'</svg>',
 			resolution
 		);
-
-		var blinker = new wcardinal.ui.UtilStateBlinker(wcardinal.ui.DBaseState.WARNED, 0, 1000).start();
 
 		new wcardinal.ui.DList({
 			parent: application.stage,
@@ -59,16 +57,16 @@
 						title: "Pineapple's title"
 					}
 				],
-				toImage: function() {
-					return function (state) {
-						if (state.isWarned) {
+				toImage: () => {
+					return (state) => {
+						if (state.is("orange")) {
 							return tooLow;
 						}
 					}
 				}
 			},
 			updater: {
-				newItem: function(data) {
+				newItem: (data) => {
 					return new wcardinal.ui.DListItem(data, {
 						image: {
 							align: {
@@ -76,16 +74,12 @@
 							}
 						},
 						on: {
-							set: function(value, index, item) {
-								if (value.name === "Orange") {
-									blinker.add(item);
-								} else {
-									blinker.remove(item);
-								}
+							set: (value, index, item) => {
+								item.state.blinker.set("orange", 1000, value.name === "Orange");
 							},
 
-							unset: function() {
-								blinker.remove(item);
+							unset: () => {
+								item.state.blinker.remove("orange");
 							}
 						}
 					});

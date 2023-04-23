@@ -3,10 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DBaseStateAndValue } from "./d-base-state-and-value";
+import { DBaseStateSetBlinker } from "./d-base-state-set-blinker";
 import { DBaseStateSetLike } from "./d-base-state-set-like";
+import { DBaseStateSetTicker } from "./d-base-state-set-ticker";
 
 export interface DBaseStateSet {
 	parent: DBaseStateSet | null;
+	readonly blinker: DBaseStateSetBlinker;
+	readonly ticker: DBaseStateSetTicker;
 
 	isHovered: boolean;
 	readonly inHovered: boolean;
@@ -84,35 +89,47 @@ export interface DBaseStateSet {
 
 	/**
 	 * Returns true if the given state is on.
+	 * If the given value is undefined, values assigned to states are ignored.
+	 * If the given value is not undefined, values assigned to states are taken into account.
 	 *
 	 * @param state a state
+	 * @param value a state value
 	 * @return true if the given state is on
 	 */
-	is(state: string): boolean;
+	is(state: string, value?: number | null): boolean;
 
 	/**
 	 * Returns true if the given state is on or if one of the parents has the given state.
+	 * If the given value is undefined, values assigned to states are ignored.
+	 * If the given value is not undefined, values assigned to states are taken into account.
 	 *
 	 * @param state a state
+	 * @param value a state value
 	 * @return true if the given state is on or if one of the parents has the given state.
 	 */
-	in(state: string): boolean;
+	in(state: string, value?: number | null): boolean;
 
 	/**
 	 * Returns true if the direct parent has the given state.
+	 * If the given value is undefined, values assigned to states are ignored.
+	 * If the given value is not undefined, values assigned to states are taken into account.
 	 *
 	 * @param state a state
+	 * @param value a state value
 	 * @return true if the direct parent has the given state.
 	 */
-	on(state: string): boolean;
+	on(state: string, value?: number | null): boolean;
 
 	/**
 	 * Returns true if one of the parents has the given state.
+	 * If the given value is undefined, values assigned to states are ignored.
+	 * If the given value is not undefined, values assigned to states are taken into account.
 	 *
 	 * @param state a state
+	 * @param value a state value
 	 * @return true if one of the parents has the given state.
 	 */
-	under(state: string): boolean;
+	under(state: string, value?: number | null): boolean;
 
 	/**
 	 * Locks this state set.
@@ -131,20 +148,45 @@ export interface DBaseStateSet {
 	 */
 	unlock(): this;
 
-	add(state: string): this;
+	add(state: string, value?: number | null): this;
+
 	addAll(states: string[]): this;
+	addAll(states: DBaseStateAndValue[]): this;
+	addAll(states: string[] | DBaseStateAndValue[]): this;
+
 	addAll(...states: string[]): this;
+	addAll(...states: DBaseStateAndValue[]): this;
+
 	remove(state: string): this;
+
 	removeAll(states: string[]): this;
+	removeAll(states: DBaseStateAndValue[]): this;
+	removeAll(states: string[] | DBaseStateAndValue[]): this;
+
 	removeAll(...states: string[]): this;
+	removeAll(...states: DBaseStateAndValue[]): this;
+
 	removeAll(matcher: (state: string) => void | boolean): this;
-	set(state: string, isOn: boolean): this;
+
+	set(state: string, on: boolean): this;
+	set(state: string, value: number | null, on: boolean): this;
+
 	set(added: string | null, removed: string | null): this;
-	setAll(state: string[], isOn: boolean): this;
+	set(added: string | null, value: number | null, removed: string | null): this;
+
+	setAll(states: string[], on: boolean): this;
+	setAll(states: DBaseStateAndValue[], on: boolean): this;
+	setAll(states: string[] | DBaseStateAndValue[], on: boolean): this;
+
 	setAll(addeds: string[] | null, removeds: string[] | null): this;
+	setAll(addeds: DBaseStateAndValue[] | null, removeds: string[] | null): this;
+	setAll(addeds: string[] | DBaseStateAndValue[] | null, removeds: string[] | null): this;
+
 	clear(): this;
 
-	each(iteratee: (state: string) => void): this;
+	valueOf(state: string, def?: number | null): number | null | undefined;
+
+	each(iteratee: (state: string, value: number | null) => void): this;
 	size(): number;
 	copy(state: DBaseStateSet): this;
 
