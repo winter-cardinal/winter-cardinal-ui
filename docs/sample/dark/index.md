@@ -63,6 +63,7 @@
         * [Marker](./chart\selection/marker.html)
         * [Marker shape](./chart\selection/marker-shape.html)
         * [Marker style](./chart\selection/marker-style.html)
+        * [Multiple](./chart\selection/multiple.html)
         * [No gridline](./chart\selection/no-gridline.html)
         * [No hovering](./chart\selection/no-horvering.html)
     * Series
@@ -323,6 +324,7 @@
         * [Blinking row](./table\row/blink.html)
         * [Blinking row image](./table\row/blink-image.html)
         * [Bulk row update](./table\row/bulk-update.html)
+        * [Colorizing row](./table\row/color.html)
         * [Row event](./table\row/event.html)
         * [Filtering rows](./table\row/filter.html)
         * [Scroll to row](./table\row/scroll-to.html)

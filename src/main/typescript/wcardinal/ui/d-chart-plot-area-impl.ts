@@ -87,12 +87,6 @@ export class DChartPlotAreaImpl<
 		this._axis = axis;
 		this.addChild(axis.container);
 
-		// Selection
-		const selection = series.selection;
-		if (selection) {
-			selection.bind(series);
-		}
-
 		// Overflow mask
 		const mask = options?.mask ?? this.theme.isOverflowMaskEnabled();
 		if (mask) {
@@ -126,6 +120,12 @@ export class DChartPlotAreaImpl<
 					}
 				}
 			}
+		}
+
+		// Selection
+		const selection = series.selection;
+		if (selection) {
+			selection.bind(series);
 		}
 	}
 

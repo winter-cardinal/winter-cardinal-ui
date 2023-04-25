@@ -151,6 +151,7 @@ export * from "./d-chart-selection-marker";
 export * from "./d-chart-selection-shape-base";
 export * from "./d-chart-selection-shape";
 export * from "./d-chart-selection-simple";
+export * from "./d-chart-selection-multiple";
 export * from "./d-chart-selection-sub-impl";
 export * from "./d-chart-selection-sub";
 export * from "./d-chart-selection";
