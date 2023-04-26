@@ -112,6 +112,8 @@ DThemeDarkAtlas.add("picker_color_direction", 12,30,
 	`<path d="M8.5125 25.8 A 8.475 8.475 0 0 0 4.275 18.4605" stroke="#5f5f5f" stroke-width="1.2" fill="none" />` +
 	`<rect x="0.6" y="24.6" width="11.4375" height="1.2" rx="0.6" ry="0.6" stroke="none" fill="#5f5f5f" />`
 );
+
+DThemeDarkAtlas.add("picker_color_standard_checkerboard", 18, 18, makeCheckerboard(2, 2));
 /* eslint-enable prettier/prettier */
 
 export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePickerColor {
@@ -120,7 +122,7 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 	}
 
 	getMainHeight(): number {
-		return 156;
+		return 162;
 	}
 
 	getMainTexture(): Texture {
@@ -254,5 +256,350 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 	newState(state: DBaseStateSet): void {
 		super.newState(state);
 		state.isFocusable = false;
+	}
+
+	getStandardColorCount(): number {
+		return 80;
+	}
+
+	getStandardColorWidth(): number {
+		return this.getBaseHeight();
+	}
+
+	getStandardColorHeight(): number {
+		return this.getStandardColorWidth();
+	}
+
+	getStandardColorMargin(): number {
+		return this.getBaseMargin();
+	}
+
+	getStandardCheckerboardTexture(): Texture {
+		return DThemeDarkAtlas.mappings.picker_color_standard_checkerboard;
+	}
+
+	getStandardColors(): DColorAndAlpha[] {
+		return [
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			},
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			},
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			},
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			},
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			},
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			},
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			},
+			{
+				color: 16053492,
+				alpha: 1
+			},
+			{
+				color: 15592941,
+				alpha: 1
+			},
+			{
+				color: 13619151,
+				alpha: 1
+			},
+			{
+				color: 16119285,
+				alpha: 1
+			},
+			{
+				color: 3223857,
+				alpha: 1
+			},
+			{
+				color: 8957607,
+				alpha: 1
+			},
+			{
+				color: 10387124,
+				alpha: 1
+			},
+			{
+				color: 16736602,
+				alpha: 1
+			},
+			{
+				color: 13413897,
+				alpha: 1
+			},
+			{
+				color: 6710886,
+				alpha: 1
+			}
+		];
 	}
 }

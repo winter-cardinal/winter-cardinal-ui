@@ -16,6 +16,8 @@ import { UtilHsv } from "./util/util-hsv";
 import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilRgb } from "./util/util-rgb";
 import { DBaseInteractive } from "./d-base-interactive";
+import { DPickerColorStandard } from "./d-picker-color-standard";
+import { DSelect } from "./d-select";
 
 export interface DPickerColorOptions<THEME extends DThemePickerColor = DThemePickerColor>
 	extends DBaseOptions<THEME> {}
@@ -55,6 +57,13 @@ export interface DThemePickerColor extends DThemeBase {
 	getInputLabelWidth(): number;
 
 	getSampleCheckerboardTexture(): Texture;
+
+	getStandardColorCount(): number;
+	getStandardColorWidth(): number;
+	getStandardColorHeight(): number;
+	getStandardColorMargin(): number;
+	getStandardCheckerboardTexture(): Texture;
+	getStandardColors(): DColorAndAlpha[];
 }
 
 export class DPickerColor<
@@ -69,6 +78,9 @@ export class DPickerColor<
 	protected _pointerPoint!: Point;
 	protected _onMainMoveBound!: (e: InteractionEvent) => void;
 	protected _onMainUpBound!: (e: InteractionEvent) => void;
+
+	protected _standardColorSprites!: Sprite[];
+	protected _standardColor!: DPickerColorStandard;
 
 	protected _baseSprite!: Sprite;
 	protected _basePointerSprite!: Sprite;
@@ -98,6 +110,9 @@ export class DPickerColor<
 	protected _new!: DColorAndAlpha;
 	protected _newPicker!: DPickerColorAndAlpha;
 
+	protected _colorMode!: string;
+	protected _changeMode!: DSelect;
+
 	get current(): DColorAndAlpha {
 		return this._currentPicker;
 	}
@@ -108,6 +123,18 @@ export class DPickerColor<
 
 	get recent(): DPickerColorRecent {
 		return this._recent;
+	}
+
+	get standardColor(): DPickerColorStandard {
+		return this._standardColor;
+	}
+
+	get colorMode(): string {
+		return this._colorMode;
+	}
+
+	set colorMode(value: string) {
+		this._colorMode = value;
 	}
 
 	protected init(options?: OPTIONS): void {
@@ -134,6 +161,7 @@ export class DPickerColor<
 				this.setAlphaCurrent(alpha);
 			}
 		);
+		this._colorMode = "custom";
 
 		const theme = this.theme;
 		const padding = this._padding;
@@ -142,14 +170,47 @@ export class DPickerColor<
 		const paddingBottom = padding.getBottom();
 		const paddingLeft = padding.getLeft();
 		this._pointerPoint = new Point();
-
-		// Main
 		const mainWidth = theme.getMainWidth();
 		const mainHeight = theme.getMainHeight();
+
+		const changeMode = new DSelect({
+			parent: this,
+			value: this._colorMode,
+			menu: {
+				items: [
+					{
+						value: "custom",
+						text: {
+							value: "Custom"
+						}
+					},
+					{
+						value: "standard",
+						text: {
+							value: "Standard"
+						}
+					}
+				]
+			},
+			on: {
+				change: (value: string): void => {
+					this.colorMode = value;
+					this.onColorModeChange();
+				}
+			}
+		});
+		this._changeMode = changeMode;
+		changeMode.x = paddingLeft;
+		changeMode.y = paddingTop;
+		changeMode.width = mainWidth;
+		changeMode.interactive = true;
+		this.addChild(changeMode);
+
+		// Main
 		const mainBaseSprite = new Sprite(Texture.WHITE);
 		this._mainBaseSprite = mainBaseSprite;
 		mainBaseSprite.x = paddingLeft;
-		mainBaseSprite.y = paddingTop;
+		mainBaseSprite.y = changeMode.y + changeMode.height + theme.getBaseMargin();
 		mainBaseSprite.width = mainWidth;
 		mainBaseSprite.height = mainHeight;
 		mainBaseSprite.interactive = true;
@@ -158,7 +219,7 @@ export class DPickerColor<
 		const mainSprite = new Sprite(theme.getMainTexture());
 		this._mainSprite = mainSprite;
 		mainSprite.x = paddingLeft;
-		mainSprite.y = paddingTop;
+		mainSprite.y = changeMode.y + changeMode.height + theme.getBaseMargin();
 		mainSprite.tint = this._base;
 		mainSprite.interactive = false;
 		this.addChild(mainSprite);
@@ -193,6 +254,67 @@ export class DPickerColor<
 			this.onBaseDown(e);
 		});
 
+		// Standard main color
+		this._standardColorSprites = [];
+		const standardColorSprites = this._standardColorSprites;
+		const standardColorCount = theme.getStandardColorCount();
+		const standardColorWidth = theme.getStandardColorWidth();
+		const standardColorHeight = theme.getStandardColorHeight();
+		const standardColorWidthHalf = standardColorWidth * 0.5;
+		const standardColorHeightHalf = standardColorHeight * 0.5;
+		const standardColorMargin = theme.getStandardColorMargin();
+		const standardColorY = changeMode.y + changeMode.height + theme.getBaseMargin();
+		const standardCheckerboardTexture = theme.getStandardCheckerboardTexture();
+		if (this._standardColor == null) {
+			this._standardColor = new DPickerColorStandard(
+				theme.getStandardColors().slice(0),
+				standardColorCount
+			);
+		}
+		const onStandardClick = (e: InteractionEvent) => {
+			const checkerboardSprite = e.currentTarget;
+			if (checkerboardSprite instanceof Container) {
+				const sprite = checkerboardSprite.children[0];
+				if (sprite instanceof Sprite) {
+					this.setColorNew(sprite.tint);
+					this.setAlphaNew(sprite.alpha);
+				}
+			}
+		};
+		for (let i = 0; i < standardColorCount; ++i) {
+			const x = paddingLeft + (i % 10) * (standardColorWidth + standardColorMargin);
+			const y =
+				standardColorY + Math.floor(i / 10) * (standardColorHeight + standardColorMargin);
+
+			const checkerboardSprite = new Sprite(standardCheckerboardTexture);
+			checkerboardSprite.x = x + standardColorWidthHalf;
+			checkerboardSprite.y = y + standardColorHeightHalf;
+			checkerboardSprite.anchor.x = 0.5;
+			checkerboardSprite.anchor.y = 0.5;
+			checkerboardSprite.buttonMode = true;
+			checkerboardSprite.interactive = true;
+			checkerboardSprite.on(UtilPointerEvent.tap, onStandardClick);
+			this.addChild(checkerboardSprite);
+
+			const sprite = new Sprite(Texture.WHITE);
+			const standardColorAndAlpha = this.standardColor.get(i);
+			if (standardColorAndAlpha != null) {
+				sprite.tint = standardColorAndAlpha.color;
+				sprite.alpha = standardColorAndAlpha.alpha;
+			} else {
+				sprite.tint = 0xffffff;
+				sprite.alpha = 0;
+			}
+			sprite.width = standardColorWidth;
+			sprite.height = standardColorHeight;
+			sprite.anchor.x = 0.5;
+			sprite.anchor.y = 0.5;
+			sprite.interactive = false;
+			checkerboardSprite.addChild(sprite);
+			checkerboardSprite.visible = false;
+			standardColorSprites.push(checkerboardSprite);
+		}
+
 		// Alpha picker
 		const alphaCheckerboardSprite = new Sprite(theme.getAlphaCheckerboardTexture());
 		this._alphaCheckerboardSprite = alphaCheckerboardSprite;
@@ -221,7 +343,7 @@ export class DPickerColor<
 		const mainPointerSprite = new Sprite(theme.getMainPointerTexture());
 		this._mainPointerSprite = mainPointerSprite;
 		mainPointerSprite.x = paddingLeft;
-		mainPointerSprite.y = paddingTop;
+		mainPointerSprite.y = changeMode.y + changeMode.height + theme.getBaseMargin();
 		mainPointerSprite.anchor.x = 0.5;
 		mainPointerSprite.anchor.y = 0.5;
 		mainPointerSprite.tint = theme.getMainPointerColor();
@@ -491,19 +613,20 @@ export class DPickerColor<
 	}
 
 	protected onMainPick(global: Point): void {
-		const point = this._pointerPoint;
-		const padding = this._padding;
-		const paddingLeft = padding.getLeft();
-		const paddingTop = padding.getTop();
-		const theme = this.theme;
-		const mainWidth = theme.getMainWidth();
-		const mainHeight = theme.getMainHeight();
-		this.toLocal(global, undefined, point);
-		const x = Math.max(0, Math.min(mainWidth, point.x - paddingLeft));
-		const y = Math.max(0, Math.min(mainHeight, point.y - paddingTop));
-		const mainPointerSprite = this._mainPointerSprite;
-		mainPointerSprite.position.set(paddingLeft + x, paddingTop + y);
-		this.onColorNew(this.toMainColor(this._base, x, y, mainWidth, mainHeight));
+		if (this._colorMode === "custom") {
+			const mainBaseSprite = this._mainBaseSprite;
+			const point = this._pointerPoint;
+			const theme = this.theme;
+			const mainWidth = theme.getMainWidth();
+			const mainHeight = theme.getMainHeight();
+			this.toLocal(global, undefined, point);
+			const x = Math.max(0, Math.min(mainWidth, point.x - mainBaseSprite.x));
+			const y = Math.max(0, Math.min(mainHeight, point.y - mainBaseSprite.y));
+			const mainPointerSprite = this._mainPointerSprite;
+			mainPointerSprite.position.set(mainBaseSprite.x + x, mainBaseSprite.y + y);
+			this.onColorNew(this.toMainColor(this._base, x, y, mainWidth, mainHeight));
+		}
+		return;
 	}
 
 	protected setColorCurrent(color: number): void {
@@ -518,7 +641,7 @@ export class DPickerColor<
 		const theme = this.theme;
 		const mainWidth = theme.getMainWidth();
 		const mainHeight = theme.getMainHeight();
-		const padding = this._padding;
+		const mainBaseSprite = this._mainBaseSprite;
 
 		// Base color
 		const hsv = UtilHsv.fromRgb(color);
@@ -534,8 +657,8 @@ export class DPickerColor<
 		const mainPointerSprite = this._mainPointerSprite;
 		mainPointerSprite.tint = nv < 0.45 ? theme.getMainPointerColor() : 0xffffff;
 		mainPointerSprite.position.set(
-			padding.getLeft() + ns * mainWidth,
-			padding.getTop() + nv * mainHeight
+			mainBaseSprite.x + ns * mainWidth,
+			mainBaseSprite.y + nv * mainHeight
 		);
 
 		// New color
@@ -713,6 +836,31 @@ export class DPickerColor<
 				sprite.tint = 0xffffff;
 				sprite.alpha = 0;
 			}
+		}
+	}
+
+	protected onColorModeChange(): void {
+		const colorMode = this._colorMode;
+		switch (colorMode) {
+			case "custom":
+				this._mainSprite.visible = true;
+				this._mainPointerSprite.visible = true;
+				this._baseSprite.visible = true;
+				this._standardColorSprites.forEach((e: Sprite) => {
+					e.visible = false;
+				});
+				// this._alphaCheckerboardSprite.setTransform(10);
+				break;
+			case "standard":
+				this._mainSprite.visible = false;
+				this._mainPointerSprite.visible = false;
+				this._baseSprite.visible = false;
+				this._standardColorSprites.forEach((e: Sprite) => {
+					e.visible = true;
+				});
+				break;
+			default:
+				return;
 		}
 	}
 
