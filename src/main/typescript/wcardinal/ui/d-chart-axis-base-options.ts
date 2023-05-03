@@ -4,6 +4,7 @@
  */
 
 import { DChartAxisOptions } from "./d-chart-axis";
+import { DChartAxisGuide } from "./d-chart-axis-guide";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
 import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
@@ -122,6 +123,10 @@ export interface DChartAxisBaseLabelOptions {
 	clipping?: boolean;
 }
 
+export interface DChartAxisBaseGuideOptions {
+	list?: DChartAxisGuide[];
+}
+
 export interface DChartAxisBaseOptions<THEME extends DThemeChartAxisBase = DThemeChartAxisBase>
 	extends DChartAxisOptions {
 	tick?: DChartAxisBaseTickOptions;
@@ -131,6 +136,7 @@ export interface DChartAxisBaseOptions<THEME extends DThemeChartAxisBase = DThem
 	coordinate?: number;
 	padding?: number;
 	theme?: THEME;
+	guide?: DChartAxisBaseGuideOptions;
 }
 
 export interface DThemeChartAxisBase {

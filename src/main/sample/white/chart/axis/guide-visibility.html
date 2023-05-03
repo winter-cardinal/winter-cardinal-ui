@@ -1,0 +1,105 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Guide visibility</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../resource/chart/updater.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const chart = new wcardinal.ui.DChart({
+			parent: application.stage,
+			x: 100, y: 50,
+			width: 500, height: 400,
+			plotArea: {
+				coordinate: {
+					x: new wcardinal.ui.DChartCoordinateLinear(),
+					y: new wcardinal.ui.DChartCoordinateLinear({
+						from: -2,
+						to: +2
+					})
+				},
+				series: {
+					list: [
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine(),
+						new wcardinal.ui.DChartSeriesLine()
+					]
+				},
+				axis: {
+					list: [
+						new wcardinal.ui.DChartAxisX({
+							label: {
+								value: "X Axis"
+							}
+						}),
+						new wcardinal.ui.DChartAxisY({
+							label: {
+								value: "Y Axis"
+							},
+							guide: {
+								list: [
+									new wcardinal.ui.DChartAxisGuideSimple({
+										position: 1.25,
+										bar: {
+											stroke: {
+												color: 0x3399ff
+											},
+											text: {
+												value: "Upper Bound",
+												color: 0x3399ff,
+												align: {
+													horizontal: "RIGHT",
+													vertical: "OUTSIDE_TOP"
+												}
+											}
+										}
+									})
+								]
+							}
+						})
+					]
+				}
+			}
+		});
+
+		new ChartUpdater(application, chart).start();
+
+		setInterval(() => {
+			const guide = chart.plotArea.axis.get("LEFT", 0).guide.get(0);
+			if (guide.isShown()) {
+				guide.hide();
+			} else {
+				guide.show();
+			}
+			chart.plotArea.axis.update();
+			application.update();
+		}, 1000);
+	}());
+	</script>
+</body>
+</html>

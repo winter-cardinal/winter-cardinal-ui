@@ -14,6 +14,7 @@ import {
 	DThemeChartAxisBase,
 	DChartAxisBaseStrokeOptions
 } from "./d-chart-axis-base-options";
+import { DChartAxisGuide } from "./d-chart-axis-guide";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickPosition } from "./d-chart-axis-tick-position";
 import { DChartCoordinateTickMajorStepFunction } from "./d-chart-coordinate-tick-major-step-function";
@@ -101,6 +102,10 @@ export interface DChartAxisBaseOptionParserBar {
 	stroke?: Partial<EShapeStrokeLike>;
 }
 
+export interface DChartAxisBaseOptionParserGuide {
+	list: DChartAxisGuide[];
+}
+
 export class DChartAxisBaseOptionParser<
 	THEME extends DThemeChartAxisBase = DThemeChartAxisBase,
 	OPTIONS extends DChartAxisBaseOptions<THEME> = DChartAxisBaseOptions<THEME>
@@ -111,6 +116,7 @@ export class DChartAxisBaseOptionParser<
 	label: DeepPartial<EShapeTextLike> | undefined;
 	padding: number;
 	bar: DChartAxisBaseOptionParserBar;
+	guide: DChartAxisBaseOptionParserGuide;
 
 	constructor(theme: THEME, options?: OPTIONS) {
 		this.coordinate = options?.coordinate ?? 0;
@@ -119,6 +125,7 @@ export class DChartAxisBaseOptionParser<
 		this.label = this.toLabel(theme, options);
 		this.padding = options?.padding ?? theme.getPadding();
 		this.bar = this.toBar(theme, options);
+		this.guide = this.toGuide(theme, options);
 	}
 
 	protected toPosition(theme: THEME, options?: OPTIONS): DChartAxisPosition {
@@ -129,6 +136,12 @@ export class DChartAxisBaseOptionParser<
 			return position;
 		}
 		return theme.getPosition();
+	}
+
+	protected toGuide(theme: THEME, options?: OPTIONS): DChartAxisBaseOptionParserGuide {
+		return {
+			list: options?.guide?.list ?? []
+		};
 	}
 
 	protected toBar(theme: THEME, options?: OPTIONS): DChartAxisBaseOptionParserBar {

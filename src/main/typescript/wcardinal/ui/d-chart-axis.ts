@@ -6,6 +6,7 @@
 import { DBase } from "./d-base";
 import { DChartAxisBar } from "./d-chart-axis-bar";
 import { DChartAxisContainer } from "./d-chart-axis-container";
+import { DChartAxisGuideContainer } from "./d-chart-axis-guide-container";
 import { DChartAxisPosition } from "./d-chart-axis-position";
 import { DChartAxisTickContainer } from "./d-chart-axis-tick-container";
 
@@ -19,6 +20,7 @@ export interface DChartAxis<CHART extends DBase = DBase> {
 	padding: number;
 	readonly bar: DChartAxisBar<CHART>;
 	readonly tick: DChartAxisTickContainer<CHART>;
+	readonly guide: DChartAxisGuideContainer<CHART>;
 
 	bind(container: DChartAxisContainer<CHART>, index: number): void;
 	unbind(): void;
