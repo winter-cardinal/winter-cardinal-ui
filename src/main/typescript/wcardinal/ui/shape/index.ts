@@ -14,6 +14,8 @@ export * from "./e-shape-buffer-unit-builder";
 export * from "./e-shape-buffer-unit";
 export * from "./e-shape-buffer";
 export * from "./e-shape-capabilities";
+export * from "./e-shape-capability-container-impl";
+export * from "./e-shape-capability-container";
 export * from "./e-shape-capability";
 export * from "./e-shape-connector-bodies";
 export * from "./e-shape-connector-body-impl";
