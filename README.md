@@ -167,8 +167,8 @@ npm run lint:fix
 
 ### TODO
 
-* Simplify DTableRow blinking.
 * DTable select / action arguments.
+* Provides DText text style accessors.
 
 ### License
 
