@@ -17,15 +17,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.309.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.309.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.310.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.310.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
-
-		var blinker = new wcardinal.ui.UtilStateBlinker(wcardinal.ui.DBaseState.WARNED, 0, 1000).start();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DList({
 			parent: application.stage,
@@ -46,11 +44,11 @@
 				}
 			],
 			updater: {
-				newItem: function(data) {
+				newItem: (data) => {
 					return new wcardinal.ui.DListItem(data, {
 						background: {
-							color: function (state) {
-								if (state.isWarned) {
+							color: (state) => {
+								if (state.in("orange")) {
 									if (state.onHovered || state.isHovered) {
 										return 0xe4f4ff;
 									} else {
@@ -58,23 +56,19 @@
 									}
 								}
 							},
-							alpha: function (state) {
-								if (state.isWarned) {
+							alpha: (state) => {
+								if (state.in("orange")) {
 									return 1;
 								}
 							}
 						},
 						on: {
-							set: function(value, index, item) {
-								if (value.name === "Orange") {
-									blinker.add(item);
-								} else {
-									blinker.remove(item);
-								}
+							set: (value, index, item) => {
+								item.state.blinker.set("orange", 1000, value.name === "Orange");
 							},
 
-							unset: function() {
-								blinker.remove(item);
+							unset: () => {
+								item.state.blinker.remove("orange");
 							}
 						}
 					});
