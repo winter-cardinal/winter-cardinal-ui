@@ -7,8 +7,9 @@ import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
 import { DynamicFontAtlasCharacterType } from "./util/dynamic-font-atlas-character-type";
 
-export interface DDynamicTextMeasureClipping {
-	enable: boolean;
+export interface DDynamicTextMeasureModifier {
+	clipping: boolean;
+	fitting: boolean;
 	wordWrap: DDynamicTextStyleWordWrap;
 	width: number;
 	height: number;
@@ -23,22 +24,23 @@ export class DDynamicTextMeasure {
 	static measure(
 		text: string,
 		atlas: DynamicFontAtlas | null,
-		clipping: DDynamicTextMeasureClipping
+		modifier: DDynamicTextMeasureModifier
 	): DDynamicTextMeasureResult {
 		const result = DDynamicTextMeasure.RESULT || new DDynamicTextMeasureResult();
 		DDynamicTextMeasure.RESULT = result;
 		if (atlas != null) {
 			const itr = UtilCharacterIterator.from(text);
 			const fh = atlas.font.height;
-			const lh = clipping.lineHeight;
-			const ce = clipping.enable;
-			const cw = clipping.width;
-			const ch = clipping.height;
-			const cp = clipping.wordWrap;
+			const lh = modifier.lineHeight;
+			const cf = modifier.fitting;
+			const cc = !cf && modifier.clipping;
+			const cw = modifier.width;
+			const ch = modifier.height;
+			const cp = !cf && modifier.wordWrap;
 			result.start(lh, fh);
 			switch (cp) {
 				case DDynamicTextStyleWordWrap.BREAK_ALL:
-					if (ce) {
+					if (cc) {
 						this.measure1(itr, cw, ch, fh, lh, atlas, result);
 					} else {
 						this.measure2(itr, cw, lh, atlas, result);
@@ -47,13 +49,13 @@ export class DDynamicTextMeasure {
 				case DDynamicTextStyleWordWrap.NORMAL:
 					const lb = this.newLineBreaker(text);
 					if (lb) {
-						if (ce) {
+						if (cc) {
 							this.measure1a(lb, itr, cw, ch, fh, lh, atlas, result);
 						} else {
 							this.measure2a(lb, itr, cw, lh, atlas, result);
 						}
 					} else {
-						if (ce) {
+						if (cc) {
 							this.measure1b(itr, cw, ch, fh, lh, atlas, result);
 						} else {
 							this.measure2b(itr, cw, lh, atlas, result);
@@ -61,7 +63,7 @@ export class DDynamicTextMeasure {
 					}
 					break;
 				default:
-					if (ce) {
+					if (cc) {
 						this.measure3(itr, cw, lh, atlas, result);
 					} else {
 						this.measure4(itr, lh, atlas, result);
@@ -69,6 +71,9 @@ export class DDynamicTextMeasure {
 					break;
 			}
 			result.end(lh, fh);
+			if (cf) {
+				result.fit(cw, ch);
+			}
 		} else {
 			result.start(0, 0);
 			result.end(0, 0);

@@ -1,0 +1,109 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fitting</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const text1 = new wcardinal.ui.DText({
+			width: 100,
+			height: 50,
+			text: {
+				value: "",
+				align: {
+					horizontal: "RIGHT"
+				}
+			},
+			border: {
+				color: 0xcccccc
+			}
+		});
+
+		const text2 = new wcardinal.ui.DText({
+			width: 100,
+			height: 50,
+			text: {
+				value: "",
+				align: {
+					horizontal: "RIGHT"
+				},
+				style: {
+					fitting: true
+				}
+			},
+			border: {
+				color: 0xcccccc
+			}
+		});
+		text2.no_font_resize = true;
+
+		const text3 = new wcardinal.ui.DText({
+			width: 100,
+			height: 50,
+			text: {
+				value: "",
+				align: {
+					horizontal: "RIGHT"
+				},
+				style: {
+					fitting: true
+				}
+			},
+			border: {
+				color: 0xcccccc
+			}
+		});
+
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: "auto", height: "auto",
+			margin: 16,
+			children: [
+				text1,
+				text2,
+				text3
+			]
+		});
+
+		const text0 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		let text = "";
+		setInterval(() => {
+			if (text0.length === text.length) {
+				text = "";
+			} else {
+				text = text0.substring(0, text.length + 1);
+			}
+			text1.text = text;
+			text2.text = text;
+			text3.text = text;
+		}, 1000);
+	}());
+	</script>
+</body>
+</html>
