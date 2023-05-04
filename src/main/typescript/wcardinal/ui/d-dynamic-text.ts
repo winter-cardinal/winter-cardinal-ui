@@ -106,17 +106,7 @@ export class DDynamicText extends Mesh {
 	set text(text: string) {
 		if (this._text !== text) {
 			this._text = text;
-			const style = this._style;
-			if (style.fitting) {
-				style.isFontSizeFitted = false;
-				if (style.fontSizeFitted !== style.fontSize) {
-					style.fontSizeFitted = style.fontSize;
-				} else {
-					this._isDirty = true;
-					this._isGeometryDirty = true;
-					this.update_();
-				}
-			} else {
+			if (!this._style.unfit()) {
 				this._isDirty = true;
 				this._isGeometryDirty = true;
 				this.update_();
@@ -196,24 +186,17 @@ export class DDynamicText extends Mesh {
 			const geometry = this.geometry;
 			geometry.update(this._text, atlas, modifier);
 
-			if (
-				modifier.fitting &&
-				!style.isFontSizeFitted &&
-				geometry.scaled &&
-				(this.parent as any).no_font_resize == null
-			) {
-				console.log("scale", geometry.scale);
-				const newFontId = style.toFontId(
-					Math.ceil(style.fontSize * geometry.scale * 1000) / 1000
-				);
-				const newFontSizeFitted = UtilFont.toSize(newFontId);
-				if (newFontSizeFitted < style.fontSizeFitted) {
-					style.fontSizeFitted = newFontSizeFitted;
+			if (modifier.fitting && !style.isFontFitted && geometry.scaled) {
+				const oldScale = geometry.scale;
+				const oldFontSize = style.fontSize;
+				const newFontId = style.toFontId(Math.ceil(oldFontSize * oldScale * 1000) / 1000);
+				const newFontSize = UtilFont.toSize(newFontId);
+				const newScale = newFontSize / oldFontSize;
+				const newLineHeight = style.lineHeight * newScale;
+				if (style.fit(newFontSize, newLineHeight)) {
 					setTimeout(() => {
 						DApplications.update(this);
 					}, 0);
-				} else {
-					style.isFontSizeFitted = true;
 				}
 			}
 		}
@@ -240,7 +223,7 @@ export class DDynamicText extends Mesh {
 			isChanged = true;
 		}
 
-		const styleLineHeight = style.lineHeight;
+		const styleLineHeight = styleFitting ? style.lineHeightFitted : style.lineHeight;
 		if (modifier.lineHeight !== styleLineHeight) {
 			modifier.lineHeight = styleLineHeight;
 			isChanged = true;

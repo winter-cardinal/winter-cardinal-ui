@@ -38,8 +38,7 @@ export class DDynamicTextStyle {
 	protected _fontFamily: string;
 	protected _fontSize: number;
 	protected _fontSizeFitted: number;
-	protected _isFontSizeFitted: boolean;
-	protected _fontScale: number;
+	protected _isFontFitted: boolean;
 	protected _fontStyle: DFontStyle;
 	protected _fontVariant: DFontVariant;
 	protected _fontWeight: DFontWeight;
@@ -49,6 +48,7 @@ export class DDynamicTextStyle {
 	protected _fitting: boolean;
 	protected _wordWrap: DDynamicTextStyleWordWrap;
 	protected _lineHeight: number;
+	protected _lineHeightFitted: number;
 	protected _onChange: () => void;
 
 	constructor(options: DDynamicTextStyleOptions | undefined, onChange: () => void) {
@@ -86,8 +86,8 @@ export class DDynamicTextStyle {
 		}
 
 		this._fontSizeFitted = this._fontSize;
-		this._isFontSizeFitted = true;
-		this._fontScale = 1;
+		this._lineHeightFitted = this._lineHeight;
+		this._isFontFitted = false;
 		this._fontIdFontSize = this._fontSize;
 		this._fontIdId = -1;
 		this._fontId = "";
@@ -191,7 +191,8 @@ export class DDynamicTextStyle {
 		if (this._fontSize !== fontSize) {
 			this._fontSize = fontSize;
 			this._fontSizeFitted = fontSize;
-			this._isFontSizeFitted = false;
+			this._lineHeightFitted = this._lineHeight;
+			this._isFontFitted = false;
 			this.onChange();
 		}
 	}
@@ -200,19 +201,8 @@ export class DDynamicTextStyle {
 		return this._fontSizeFitted;
 	}
 
-	set fontSizeFitted(fontSizeFitted: number) {
-		if (this._fontSizeFitted !== fontSizeFitted) {
-			this._fontSizeFitted = fontSizeFitted;
-			this.onChange();
-		}
-	}
-
-	get isFontSizeFitted(): boolean {
-		return this._isFontSizeFitted;
-	}
-
-	set isFontSizeFitted(isFontSizeFitted: boolean) {
-		this._isFontSizeFitted = isFontSizeFitted;
+	get isFontFitted(): boolean {
+		return this._isFontFitted;
 	}
 
 	get fontStyle(): DFontStyle {
@@ -301,7 +291,61 @@ export class DDynamicTextStyle {
 	set lineHeight(lineHeight: number) {
 		if (this._lineHeight !== lineHeight) {
 			this._lineHeight = lineHeight;
+			this._fontSizeFitted = this._fontSize;
+			this._lineHeightFitted = lineHeight;
+			this._isFontFitted = false;
 			this.onChange();
 		}
+	}
+
+	get lineHeightFitted(): number {
+		return this._lineHeightFitted;
+	}
+
+	set lineHeightFitted(lineHeightFitted: number) {
+		if (this._lineHeightFitted !== lineHeightFitted) {
+			this._lineHeightFitted = lineHeightFitted;
+			this.onChange();
+		}
+	}
+
+	fit(fontSize: number, lineHeight: number): boolean {
+		let isChanged = false;
+		if (fontSize < this._fontSizeFitted) {
+			this._fontSizeFitted = fontSize;
+			isChanged = true;
+		}
+		if (this._lineHeightFitted !== lineHeight) {
+			this._lineHeightFitted = lineHeight;
+			isChanged = true;
+		}
+		if (this._isFontFitted !== true) {
+			this._isFontFitted = true;
+			isChanged = true;
+		}
+		if (isChanged) {
+			this.onChange();
+		}
+		return isChanged;
+	}
+
+	unfit(): boolean {
+		let isChanged = false;
+		if (this._isFontFitted !== false) {
+			this._isFontFitted = false;
+			isChanged = true;
+		}
+		if (this._fontSizeFitted !== this._fontSize) {
+			this._fontSizeFitted = this._fontSize;
+			isChanged = true;
+		}
+		if (this._lineHeightFitted !== this._lineHeight) {
+			this._lineHeightFitted = this._lineHeight;
+			isChanged = true;
+		}
+		if (isChanged) {
+			this.onChange();
+		}
+		return isChanged;
 	}
 }
