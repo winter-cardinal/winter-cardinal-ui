@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartCoordinateTick
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateTick
 
 # Interface: DChartCoordinateTick<CHART\>
 
@@ -7,6 +7,11 @@
 | Name | Type |
 | :------ | :------ |
 | `CHART` | extends [`DBase`](../classes/DBase.md) = [`DBase`](../classes/DBase.md) |
+
+## Implemented by
+
+- [`DChartCoordinateLinearTick`](../classes/DChartCoordinateLinearTick.md)
+- [`DChartCoordinateLogTick`](../classes/DChartCoordinateLogTick.md)
 
 ## Table of contents
 
@@ -18,7 +23,7 @@
 
 ### calculate
 
-▸ **calculate**(`domainFrom`, `domainTo`, `majorCount`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`, `coordinate`): `void`
+▸ **calculate**(`domainFrom`, `domainTo`, `domainVisibleFrom`, `domainVisibleTo`, `majorCount`, `majorCapacity`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`, `coordinate`): `void`
 
 #### Parameters
 
@@ -26,13 +31,16 @@
 | :------ | :------ |
 | `domainFrom` | `number` |
 | `domainTo` | `number` |
+| `domainVisibleFrom` | `number` |
+| `domainVisibleTo` | `number` |
 | `majorCount` | `number` |
+| `majorCapacity` | `number` |
 | `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) |
 | `minorCountPerMajor` | `number` |
 | `minorCount` | `number` |
 | `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
-| `majorResult` | `Float64Array` |
-| `minorResult` | `Float64Array` |
+| `majorResult` | `number`[] |
+| `minorResult` | `number`[] |
 | `coordinate` | [`DChartCoordinate`](DChartCoordinate.md)<`CHART`\> |
 
 #### Returns
@@ -41,4 +49,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts#L20)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts#L20)

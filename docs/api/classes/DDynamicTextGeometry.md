@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DDynamicTextGeometry
+[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextGeometry
 
 # Class: DDynamicTextGeometry
 
@@ -21,6 +21,8 @@
 - [height](DDynamicTextGeometry.md#height)
 - [instanceCount](DDynamicTextGeometry.md#instancecount)
 - [refCount](DDynamicTextGeometry.md#refcount)
+- [scale](DDynamicTextGeometry.md#scale)
+- [scaled](DDynamicTextGeometry.md#scaled)
 - [width](DDynamicTextGeometry.md#width)
 
 ### Methods
@@ -51,7 +53,7 @@ MeshGeometry.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L25)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L28)
 
 ## Properties
 
@@ -61,7 +63,7 @@ MeshGeometry.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L23)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L26)
 
 ___
 
@@ -87,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L22)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L23)
 
 ___
 
@@ -135,13 +137,33 @@ node_modules/pixi.js/pixi.js.d.ts:13810
 
 ___
 
+### scale
+
+• **scale**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L24)
+
+___
+
+### scaled
+
+• **scaled**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L25)
+
+___
+
 ### width
 
 • **width**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L21)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L22)
 
 ## Methods
 
@@ -373,7 +395,7 @@ ___
 
 ### update
 
-▸ **update**(`text`, `atlas`, `clipping`): `void`
+▸ **update**(`text`, `atlas`, `modifier`): `void`
 
 #### Parameters
 
@@ -381,7 +403,7 @@ ___
 | :------ | :------ |
 | `text` | `string` |
 | `atlas` | ``null`` \| [`DynamicFontAtlas`](DynamicFontAtlas.md) |
-| `clipping` | [`DDynamicTextGeometryClipping`](../interfaces/DDynamicTextGeometryClipping.md) |
+| `modifier` | [`DDynamicTextGeometryModifier`](../interfaces/DDynamicTextGeometryModifier.md) |
 
 #### Returns
 
@@ -389,13 +411,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L32)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L37)
 
 ___
 
 ### writeCharacter
 
-▸ `Protected` **writeCharacter**(`vertices`, `uvs`, `indices`, `index`, `x`, `y`, `character`, `width`, `height`): `void`
+▸ `Protected` **writeCharacter**(`vertices`, `uvs`, `indices`, `index`, `x`, `y`, `scale`, `character`, `width`, `height`): `void`
 
 #### Parameters
 
@@ -407,6 +429,7 @@ ___
 | `index` | `number` |
 | `x` | `number` |
 | `y` | `number` |
+| `scale` | `number` |
 | `character` | [`DynamicFontAtlasCharacter`](DynamicFontAtlasCharacter.md) |
 | `width` | `number` |
 | `height` | `number` |
@@ -417,7 +440,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L89)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L99)
 
 ___
 
@@ -440,7 +463,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:144](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L144)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-geometry.ts#L155)
 
 ___
 

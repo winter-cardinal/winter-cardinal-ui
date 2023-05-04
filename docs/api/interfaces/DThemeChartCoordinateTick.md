@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DThemeChartCoordinateTick
+[Winter Cardinal UI - v0.310.1](../index.md) / DThemeChartCoordinateTick
 
 # Interface: DThemeChartCoordinateTick
 
@@ -17,19 +17,21 @@
 
 ### Methods
 
-- [toStepScale](DThemeChartCoordinateTick.md#tostepscale)
+- [toStep](DThemeChartCoordinateTick.md#tostep)
 
 ## Methods
 
-### toStepScale
+### toStep
 
-▸ **toStepScale**(`scale`): `number`
+▸ **toStep**(`domainMin`, `domainMax`, `majorCount`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `scale` | `number` |
+| `domainMin` | `number` |
+| `domainMax` | `number` |
+| `majorCount` | `number` |
 
 #### Returns
 
@@ -37,4 +39,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts#L12)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-tick.ts#L12)

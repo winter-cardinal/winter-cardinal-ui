@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DTreeDataImplParent
+[Winter Cardinal UI - v0.310.1](../index.md) / DTreeDataImplParent
 
 # Interface: DTreeDataImplParent
 
@@ -12,7 +12,13 @@
 
 ### update
 
-▸ **update**(): `void`
+▸ **update**(`forcibly?`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `forcibly?` | `boolean` |
 
 #### Returns
 
@@ -20,4 +26,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-tree-data-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-tree-data-impl.ts#L19)
+[src/main/typescript/wcardinal/ui/d-tree-data-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-tree-data-impl.ts#L19)

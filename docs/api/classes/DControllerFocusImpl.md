@@ -1,6 +1,12 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DControllerFocusImpl
+[Winter Cardinal UI - v0.310.1](../index.md) / DControllerFocusImpl
 
 # Class: DControllerFocusImpl
+
+## Hierarchy
+
+- `EventEmitter`
+
+  ↳ **`DControllerFocusImpl`**
 
 ## Implements
 
@@ -14,8 +20,11 @@
 
 ### Methods
 
+- [addListener](DControllerFocusImpl.md#addlistener)
 - [blur](DControllerFocusImpl.md#blur)
 - [clear](DControllerFocusImpl.md#clear)
+- [emit](DControllerFocusImpl.md#emit)
+- [eventNames](DControllerFocusImpl.md#eventnames)
 - [find](DControllerFocusImpl.md#find)
 - [findNext](DControllerFocusImpl.md#findnext)
 - [findParent](DControllerFocusImpl.md#findparent)
@@ -26,6 +35,13 @@
 - [isFocusRoot](DControllerFocusImpl.md#isfocusroot)
 - [isFocusable](DControllerFocusImpl.md#isfocusable)
 - [isFocusableContainer](DControllerFocusImpl.md#isfocusablecontainer)
+- [listenerCount](DControllerFocusImpl.md#listenercount)
+- [listeners](DControllerFocusImpl.md#listeners)
+- [off](DControllerFocusImpl.md#off)
+- [on](DControllerFocusImpl.md#on)
+- [once](DControllerFocusImpl.md#once)
+- [removeAllListeners](DControllerFocusImpl.md#removealllisteners)
+- [removeListener](DControllerFocusImpl.md#removelistener)
 - [set](DControllerFocusImpl.md#set)
 
 ## Constructors
@@ -34,7 +50,43 @@
 
 • **new DControllerFocusImpl**()
 
+#### Inherited from
+
+utils.EventEmitter.constructor
+
 ## Methods
+
+### addListener
+
+▸ **addListener**(`event`, `fn`, `context?`): [`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+Alias method for `on`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn` | `Function` |
+| `context?` | `any` |
+
+#### Returns
+
+[`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[addListener](../interfaces/DControllerFocus.md#addlistener)
+
+#### Inherited from
+
+utils.EventEmitter.addListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24076
+
+___
 
 ### blur
 
@@ -56,7 +108,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L32)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L36)
 
 ___
 
@@ -74,7 +126,64 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L41)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L46)
+
+___
+
+### emit
+
+▸ **emit**(`event`, ...`args`): `boolean`
+
+Calls each of the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `...args` | `any`[] | Arguments that are passed to registered listeners |
+
+#### Returns
+
+`boolean`
+
+`true` if the event had listeners, else `false`.
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[emit](../interfaces/DControllerFocus.md#emit)
+
+#### Inherited from
+
+utils.EventEmitter.emit
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24022
+
+___
+
+### eventNames
+
+▸ **eventNames**(): (`string` \| `symbol`)[]
+
+Return an array listing the events for which the emitter has registered listeners.
+
+#### Returns
+
+(`string` \| `symbol`)[]
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[eventNames](../interfaces/DControllerFocus.md#eventnames)
+
+#### Inherited from
+
+utils.EventEmitter.eventNames
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:23996
 
 ___
 
@@ -109,7 +218,7 @@ This method assumes the root is the one of the parents of the given target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L69)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L74)
 
 ___
 
@@ -131,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:188](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L188)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L193)
 
 ___
 
@@ -158,7 +267,7 @@ If the specified target is focusable, returns the specified target.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L57)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L62)
 
 ___
 
@@ -180,7 +289,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:225](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L225)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L230)
 
 ___
 
@@ -204,7 +313,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L17)
 
 ___
 
@@ -222,7 +331,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L53)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L58)
 
 ___
 
@@ -242,7 +351,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L283)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:288](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L288)
 
 ___
 
@@ -263,7 +372,7 @@ target is DFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:276](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L276)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:281](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L281)
 
 ___
 
@@ -283,7 +392,7 @@ target is DFocusable
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L262)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L267)
 
 ___
 
@@ -303,7 +412,235 @@ target is DFocusableContainer
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:272](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L272)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:277](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L277)
+
+___
+
+### listenerCount
+
+▸ **listenerCount**(`event`): `number`
+
+Return the number of listeners listening to a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[listenerCount](../interfaces/DControllerFocus.md#listenercount)
+
+#### Inherited from
+
+utils.EventEmitter.listenerCount
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24013
+
+___
+
+### listeners
+
+▸ **listeners**(`event`): `Function`[]
+
+Return the listeners registered for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+`Function`[]
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[listeners](../interfaces/DControllerFocus.md#listeners)
+
+#### Inherited from
+
+utils.EventEmitter.listeners
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24005
+
+___
+
+### off
+
+▸ **off**(`event`, `fn?`, `context?`, `once?`): [`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+Alias method for `removeListener`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` \| `symbol` |
+| `fn?` | `Function` |
+| `context?` | `any` |
+| `once?` | `boolean` |
+
+#### Returns
+
+[`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[off](../interfaces/DControllerFocus.md#off)
+
+#### Inherited from
+
+utils.EventEmitter.off
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24070
+
+___
+
+### on
+
+▸ **on**(`event`, `fn`, `context?`): [`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+Add a listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+[`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+`this`.
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[on](../interfaces/DControllerFocus.md#on)
+
+#### Inherited from
+
+utils.EventEmitter.on
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24033
+
+___
+
+### once
+
+▸ **once**(`event`, `fn`, `context?`): [`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+Add a one-time listener for a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn` | `Function` | The listener function. |
+| `context?` | `any` | The context to invoke the listener with. |
+
+#### Returns
+
+[`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+`this`.
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[once](../interfaces/DControllerFocus.md#once)
+
+#### Inherited from
+
+utils.EventEmitter.once
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24044
+
+___
+
+### removeAllListeners
+
+▸ **removeAllListeners**(`event?`): [`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+Remove all listeners, or those of the specified event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event?` | `string` \| `symbol` | The event name. |
+
+#### Returns
+
+[`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+`this`.
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[removeAllListeners](../interfaces/DControllerFocus.md#removealllisteners)
+
+#### Inherited from
+
+utils.EventEmitter.removeAllListeners
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24064
+
+___
+
+### removeListener
+
+▸ **removeListener**(`event`, `fn?`, `context?`, `once?`): [`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+Remove the listeners of a given event.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `event` | `string` \| `symbol` | The event name. |
+| `fn?` | `Function` | Only remove the listeners that match this function. |
+| `context?` | `any` | Only remove the listeners that have this context. |
+| `once?` | `boolean` | Only remove one-time listeners. |
+
+#### Returns
+
+[`DControllerFocusImpl`](DControllerFocusImpl.md)
+
+`this`.
+
+#### Implementation of
+
+[DControllerFocus](../interfaces/DControllerFocus.md).[removeListener](../interfaces/DControllerFocus.md#removelistener)
+
+#### Inherited from
+
+utils.EventEmitter.removeListener
+
+#### Defined in
+
+node_modules/pixi.js/pixi.js.d.ts:24056
 
 ___
 
@@ -328,4 +665,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L45)
+[src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controller-focus-impl.ts#L50)

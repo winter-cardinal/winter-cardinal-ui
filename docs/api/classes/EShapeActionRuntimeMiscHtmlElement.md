@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / EShapeActionRuntimeMiscHtmlElement
+[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeMiscHtmlElement
 
 # Class: EShapeActionRuntimeMiscHtmlElement<ELEMENT, UTIL\>
 
@@ -46,12 +46,29 @@
 - [newUtil](EShapeActionRuntimeMiscHtmlElement.md#newutil)
 - [newUtilOptions](EShapeActionRuntimeMiscHtmlElement.md#newutiloptions)
 - [onBlur](EShapeActionRuntimeMiscHtmlElement.md#onblur)
+- [onClick](EShapeActionRuntimeMiscHtmlElement.md#onclick)
 - [onDblClick](EShapeActionRuntimeMiscHtmlElement.md#ondblclick)
 - [onDown](EShapeActionRuntimeMiscHtmlElement.md#ondown)
 - [onDowning](EShapeActionRuntimeMiscHtmlElement.md#ondowning)
 - [onFocus](EShapeActionRuntimeMiscHtmlElement.md#onfocus)
+- [onKeyDown](EShapeActionRuntimeMiscHtmlElement.md#onkeydown)
+- [onKeyUp](EShapeActionRuntimeMiscHtmlElement.md#onkeyup)
 - [onMove](EShapeActionRuntimeMiscHtmlElement.md#onmove)
+- [onOut](EShapeActionRuntimeMiscHtmlElement.md#onout)
+- [onOver](EShapeActionRuntimeMiscHtmlElement.md#onover)
+- [onPressed](EShapeActionRuntimeMiscHtmlElement.md#onpressed)
 - [onRender](EShapeActionRuntimeMiscHtmlElement.md#onrender)
+- [onResize](EShapeActionRuntimeMiscHtmlElement.md#onresize)
+- [onRightClick](EShapeActionRuntimeMiscHtmlElement.md#onrightclick)
+- [onRightDown](EShapeActionRuntimeMiscHtmlElement.md#onrightdown)
+- [onRightDowning](EShapeActionRuntimeMiscHtmlElement.md#onrightdowning)
+- [onRightPressed](EShapeActionRuntimeMiscHtmlElement.md#onrightpressed)
+- [onRightUnpressed](EShapeActionRuntimeMiscHtmlElement.md#onrightunpressed)
+- [onRightUp](EShapeActionRuntimeMiscHtmlElement.md#onrightup)
+- [onRightUpOutside](EShapeActionRuntimeMiscHtmlElement.md#onrightupoutside)
+- [onUnpressed](EShapeActionRuntimeMiscHtmlElement.md#onunpressed)
+- [onUp](EShapeActionRuntimeMiscHtmlElement.md#onup)
+- [onUpOutside](EShapeActionRuntimeMiscHtmlElement.md#onupoutside)
 - [toWhen](EShapeActionRuntimeMiscHtmlElement.md#towhen)
 
 ## Constructors
@@ -79,7 +96,7 @@ EShapeActionRuntimeMiscHtmlElementBase&lt;ELEMENT, UTIL\&gt;.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L24)
 
 ## Properties
 
@@ -93,7 +110,7 @@ EShapeActionRuntimeMiscHtmlElementBase.condition
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L36)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L36)
 
 ___
 
@@ -103,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L21)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L21)
 
 ___
 
@@ -113,13 +130,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L22)
 
 ___
 
 ### reset
 
-• **reset**: `number`
+• `Readonly` **reset**: `number`
 
 #### Inherited from
 
@@ -127,7 +144,7 @@ EShapeActionRuntimeMiscHtmlElementBase.reset
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L18)
 
 ___
 
@@ -141,7 +158,7 @@ EShapeActionRuntimeMiscHtmlElementBase.utils
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L37)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L37)
 
 ___
 
@@ -155,7 +172,7 @@ EShapeActionRuntimeMiscHtmlElementBase.WORK
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L35)
 
 ## Methods
 
@@ -168,7 +185,7 @@ EShapeActionRuntimeMiscHtmlElementBase.WORK
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `point` | `Point` |
 
 #### Returns
@@ -181,7 +198,7 @@ EShapeActionRuntimeMiscHtmlElementBase.containsPoint
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L143)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L143)
 
 ___
 
@@ -194,7 +211,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `time` | `number` |
 
 #### Returns
@@ -207,7 +224,7 @@ EShapeActionRuntimeMiscHtmlElementBase.execute
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L28)
 
 ___
 
@@ -232,7 +249,7 @@ EShapeActionRuntimeMiscHtmlElementBase.getClipperExRects
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L190)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:190](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L190)
 
 ___
 
@@ -245,7 +262,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `resolution` | `number` |
 | `point` | `Point` |
 | `result` | `Rectangle` |
@@ -260,7 +277,7 @@ EShapeActionRuntimeMiscHtmlElementBase.getClipperToRect
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L179)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L179)
 
 ___
 
@@ -273,7 +290,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -285,7 +302,7 @@ EShapeActionRuntimeMiscHtmlElementBase.getElementMatrix
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L174)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:174](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L174)
 
 ___
 
@@ -298,7 +315,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `resolution` | `number` |
 | `point` | `Point` |
 | `result` | `Rectangle` |
@@ -313,7 +330,7 @@ EShapeActionRuntimeMiscHtmlElementBase.getElementRect
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L156)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:156](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L156)
 
 ___
 
@@ -326,7 +343,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -338,7 +355,7 @@ EShapeActionRuntimeMiscHtmlElementBase.getPadding
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L152)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:152](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L152)
 
 ___
 
@@ -351,7 +368,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -363,7 +380,7 @@ EShapeActionRuntimeMiscHtmlElementBase.getUtil
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L45)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L45)
 
 ___
 
@@ -376,7 +393,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -388,7 +405,7 @@ EShapeActionRuntimeMiscHtmlElementBase.initialize
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L24)
 
 ___
 
@@ -401,7 +418,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -413,7 +430,7 @@ EShapeActionRuntimeMiscHtmlElementBase.newElementCreator
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L38)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L38)
 
 ___
 
@@ -426,7 +443,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -438,7 +455,7 @@ EShapeActionRuntimeMiscHtmlElementBase.newOperation
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L64)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L64)
 
 ___
 
@@ -451,7 +468,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -463,7 +480,7 @@ EShapeActionRuntimeMiscHtmlElementBase.newUtil
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element.ts#L31)
 
 ___
 
@@ -476,7 +493,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -488,7 +505,7 @@ EShapeActionRuntimeMiscHtmlElementBase.newUtilOptions
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L115)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L115)
 
 ___
 
@@ -501,7 +518,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -513,7 +530,33 @@ EShapeActionRuntimeMiscHtmlElementBase.onBlur
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L228)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L228)
+
+___
+
+### onClick
+
+▸ **onClick**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onClick
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L44)
 
 ___
 
@@ -526,7 +569,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `MouseEvent` \| `TouchEvent` |
 | `interactionManager` | `InteractionManager` |
 
@@ -540,7 +583,7 @@ EShapeActionRuntimeMiscHtmlElementBase.onDblClick
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L240)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L240)
 
 ___
 
@@ -553,7 +596,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `InteractionEvent` \| `KeyboardEvent` |
 
 #### Returns
@@ -566,7 +609,7 @@ EShapeActionRuntimeMiscHtmlElementBase.onDown
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L236)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:236](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L236)
 
 ___
 
@@ -579,7 +622,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `InteractionEvent` \| `KeyboardEvent` |
 
 #### Returns
@@ -592,7 +635,7 @@ EShapeActionRuntimeMiscHtmlElementBase.onDowning
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L232)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L232)
 
 ___
 
@@ -605,7 +648,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -617,7 +660,59 @@ EShapeActionRuntimeMiscHtmlElementBase.onFocus
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L224)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:224](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L224)
+
+___
+
+### onKeyDown
+
+▸ **onKeyDown**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onKeyDown
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L93)
+
+___
+
+### onKeyUp
+
+▸ **onKeyUp**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onKeyUp
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L97)
 
 ___
 
@@ -630,7 +725,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `InteractionEvent` |
 
 #### Returns
@@ -643,7 +738,85 @@ EShapeActionRuntimeMiscHtmlElementBase.onMove
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L65)
+
+___
+
+### onOut
+
+▸ **onOut**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onOut
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L73)
+
+___
+
+### onOver
+
+▸ **onOver**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onOver
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L69)
+
+___
+
+### onPressed
+
+▸ **onPressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onPressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L85)
 
 ___
 
@@ -656,7 +829,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `time` | `number` |
 | `renderer` | `Renderer` |
 
@@ -670,7 +843,292 @@ EShapeActionRuntimeMiscHtmlElementBase.onRender
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L220)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:220](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L220)
+
+___
+
+### onResize
+
+▸ **onResize**(`shape`, `runtime`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onResize
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L32)
+
+___
+
+### onRightClick
+
+▸ **onRightClick**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onRightClick
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L101)
+
+___
+
+### onRightDown
+
+▸ **onRightDown**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onRightDown
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L109)
+
+___
+
+### onRightDowning
+
+▸ **onRightDowning**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onRightDowning
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L105)
+
+___
+
+### onRightPressed
+
+▸ **onRightPressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onRightPressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L121)
+
+___
+
+### onRightUnpressed
+
+▸ **onRightUnpressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onRightUnpressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L125)
+
+___
+
+### onRightUp
+
+▸ **onRightUp**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onRightUp
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L113)
+
+___
+
+### onRightUpOutside
+
+▸ **onRightUpOutside**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onRightUpOutside
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L117)
+
+___
+
+### onUnpressed
+
+▸ **onUnpressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onUnpressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L89)
+
+___
+
+### onUp
+
+▸ **onUp**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onUp
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L77)
+
+___
+
+### onUpOutside
+
+▸ **onUpOutside**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeMiscHtmlElementBase.onUpOutside
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L81)
 
 ___
 
@@ -683,7 +1141,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -695,4 +1153,4 @@ EShapeActionRuntimeMiscHtmlElementBase.toWhen
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L135)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-misc-html-element-base.ts#L135)

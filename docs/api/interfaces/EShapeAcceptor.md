@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / EShapeAcceptor
+[Winter Cardinal UI - v0.310.1](../index.md) / EShapeAcceptor
 
 # Interface: EShapeAcceptor
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L23)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-acceptor.ts#L22)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DBaseOverflowMaskSimple
+[Winter Cardinal UI - v0.310.1](../index.md) / DBaseOverflowMaskSimple
 
 # Class: DBaseOverflowMaskSimple
 
@@ -183,7 +183,7 @@ Graphics.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts#L11)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts#L11)
 
 ## Properties
 
@@ -3253,7 +3253,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts#L21)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts#L21)
 
 ___
 
@@ -3540,7 +3540,7 @@ Graphics.render
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts#L16)
+[src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-overflow-mask-simple.ts#L16)
 
 ___
 

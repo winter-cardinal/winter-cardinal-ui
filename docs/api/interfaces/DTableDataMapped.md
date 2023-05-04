@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataMapped
+[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataMapped
 
 # Interface: DTableDataMapped<ROW\>
 
@@ -14,6 +14,10 @@
 
 ## Table of contents
 
+### Properties
+
+- [rows](DTableDataMapped.md#rows)
+
 ### Methods
 
 - [each](DTableDataMapped.md#each)
@@ -21,6 +25,18 @@
 - [map](DTableDataMapped.md#map)
 - [size](DTableDataMapped.md#size)
 - [unmap](DTableDataMapped.md#unmap)
+
+## Properties
+
+### rows
+
+• `Readonly` **rows**: `ROW`[]
+
+Mapped rows.
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L22)
 
 ## Methods
 
@@ -45,7 +61,7 @@ If called iteratee explicitly returns false, stops an iteration.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L56)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L61)
 
 ___
 
@@ -68,7 +84,7 @@ The index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L46)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L51)
 
 ___
 
@@ -91,7 +107,7 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L25)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L30)
 
 ___
 
@@ -107,7 +123,7 @@ Returns a size of rows.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L38)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L43)
 
 ___
 
@@ -130,4 +146,4 @@ A mapped index is an index on rows filters and sorters are applied.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L33)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L38)

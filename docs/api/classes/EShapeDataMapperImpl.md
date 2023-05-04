@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / EShapeDataMapperImpl
+[Winter Cardinal UI - v0.310.1](../index.md) / EShapeDataMapperImpl
 
 # Class: EShapeDataMapperImpl
 
@@ -40,7 +40,7 @@ An EShape data mapper.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L14)
 
 ## Properties
 
@@ -50,7 +50,7 @@ An EShape data mapper.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L12)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L12)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L11)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L11)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L10)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L10)
 
 ## Methods
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L18)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L80)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L80)
 
 ___
 
@@ -136,4 +136,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L91)
+[src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-data-mapper-impl.ts#L91)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DScalar
+[Winter Cardinal UI - v0.310.1](../index.md) / DScalar
 
 # Interface: DScalar
 
@@ -39,4 +39,4 @@ a calculated scalar value
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-scalar.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-scalar.ts#L19)
+[src/main/typescript/wcardinal/ui/d-scalar.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-scalar.ts#L19)

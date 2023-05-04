@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramSnapshotCleanupOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSnapshotCleanupOptions
 
 # Interface: DDiagramSnapshotCleanupOptions
 
@@ -20,7 +20,7 @@ Options to eliminate the snap grid, the snap targets and the canvas background f
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L58)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L58)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L59)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L59)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L57)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L57)

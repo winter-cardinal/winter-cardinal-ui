@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataListOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataListOptions
 
 # Interface: DTableDataListOptions<ROW\>
 
@@ -38,7 +38,7 @@ A comparator.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L78)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L83)
 
 ___
 
@@ -54,7 +54,7 @@ A filter.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L73)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L78)
 
 ___
 
@@ -70,7 +70,7 @@ Mappings of event names and event handlers.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L83)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L88)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-list.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L17)
+[src/main/typescript/wcardinal/ui/d-table-data-list.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-list.ts#L17)
 
 ___
 
@@ -96,4 +96,4 @@ Selection options.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data.ts#L65)
+[src/main/typescript/wcardinal/ui/d-table-data.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data.ts#L70)

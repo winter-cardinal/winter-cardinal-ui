@@ -1,6 +1,12 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartAxisBaseOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseOptions
 
-# Interface: DChartAxisBaseOptions
+# Interface: DChartAxisBaseOptions<THEME\>
+
+## Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `THEME` | extends [`DThemeChartAxisBase`](DThemeChartAxisBase.md) = [`DThemeChartAxisBase`](DThemeChartAxisBase.md) |
 
 ## Hierarchy
 
@@ -17,6 +23,7 @@
 ### Properties
 
 - [coordinate](DChartAxisBaseOptions.md#coordinate)
+- [guide](DChartAxisBaseOptions.md#guide)
 - [label](DChartAxisBaseOptions.md#label)
 - [padding](DChartAxisBaseOptions.md#padding)
 - [position](DChartAxisBaseOptions.md#position)
@@ -33,17 +40,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L92)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:136](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L136)
+
+___
+
+### guide
+
+• `Optional` **guide**: [`DChartAxisBaseGuideOptions`](DChartAxisBaseGuideOptions.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L139)
 
 ___
 
 ### label
 
-• `Optional` **label**: [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](EShapeTextLike.md)\>
+• `Optional` **label**: [`DChartAxisBaseLabelOptions`](DChartAxisBaseLabelOptions.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L89)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L133)
 
 ___
 
@@ -53,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L93)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:137](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L137)
 
 ___
 
@@ -67,17 +84,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis.ts#L11)
+[src/main/typescript/wcardinal/ui/d-chart-axis.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis.ts#L14)
 
 ___
 
 ### stroke
 
-• `Optional` **stroke**: `Partial`<[`EShapeStrokeLike`](EShapeStrokeLike.md)\>
+• `Optional` **stroke**: [`DChartAxisBaseStrokeOptions`](DChartAxisBaseStrokeOptions.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L91)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:135](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L135)
 
 ___
 
@@ -87,24 +104,24 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L90)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L134)
 
 ___
 
 ### theme
 
-• `Optional` **theme**: [`DThemeChartAxisBase`](DThemeChartAxisBase.md)
+• `Optional` **theme**: `THEME`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:94](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L94)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L138)
 
 ___
 
 ### tick
 
-• `Optional` **tick**: [`DChartAxisBaseTickContainerOptions`](DChartAxisBaseTickContainerOptions.md)
+• `Optional` **tick**: [`DChartAxisBaseTickOptions`](DChartAxisBaseTickOptions.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:88](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L88)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options.ts#L132)

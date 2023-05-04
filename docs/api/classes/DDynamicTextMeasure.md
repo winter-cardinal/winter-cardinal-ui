@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DDynamicTextMeasure
+[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextMeasure
 
 # Class: DDynamicTextMeasure
 
@@ -31,13 +31,13 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L21)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L22)
 
 ## Methods
 
 ### measure
 
-▸ `Static` **measure**(`text`, `atlas`, `clipping`): [`DDynamicTextMeasureResult`](DDynamicTextMeasureResult.md)
+▸ `Static` **measure**(`text`, `atlas`, `modifier`): [`DDynamicTextMeasureResult`](DDynamicTextMeasureResult.md)
 
 #### Parameters
 
@@ -45,7 +45,7 @@
 | :------ | :------ |
 | `text` | `string` |
 | `atlas` | ``null`` \| [`DynamicFontAtlas`](DynamicFontAtlas.md) |
-| `clipping` | [`DDynamicTextMeasureClipping`](../interfaces/DDynamicTextMeasureClipping.md) |
+| `modifier` | [`DDynamicTextMeasureModifier`](../interfaces/DDynamicTextMeasureModifier.md) |
 
 #### Returns
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L23)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L24)
 
 ___
 
@@ -78,4 +78,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L304)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts:309](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure.ts#L309)

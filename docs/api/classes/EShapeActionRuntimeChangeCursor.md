@@ -1,9 +1,8 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / EShapeActionRuntimeChangeCursor
+[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeChangeCursor
 
 # Class: EShapeActionRuntimeChangeCursor
 
-An action runtime.
-Please note that all the action runtimes are shared across shapes.
+A base class of action runtimes.
 
 ## Hierarchy
 
@@ -28,12 +27,29 @@ Please note that all the action runtimes are shared across shapes.
 - [execute](EShapeActionRuntimeChangeCursor.md#execute)
 - [initialize](EShapeActionRuntimeChangeCursor.md#initialize)
 - [onBlur](EShapeActionRuntimeChangeCursor.md#onblur)
+- [onClick](EShapeActionRuntimeChangeCursor.md#onclick)
 - [onDblClick](EShapeActionRuntimeChangeCursor.md#ondblclick)
 - [onDown](EShapeActionRuntimeChangeCursor.md#ondown)
 - [onDowning](EShapeActionRuntimeChangeCursor.md#ondowning)
 - [onFocus](EShapeActionRuntimeChangeCursor.md#onfocus)
+- [onKeyDown](EShapeActionRuntimeChangeCursor.md#onkeydown)
+- [onKeyUp](EShapeActionRuntimeChangeCursor.md#onkeyup)
 - [onMove](EShapeActionRuntimeChangeCursor.md#onmove)
+- [onOut](EShapeActionRuntimeChangeCursor.md#onout)
+- [onOver](EShapeActionRuntimeChangeCursor.md#onover)
+- [onPressed](EShapeActionRuntimeChangeCursor.md#onpressed)
 - [onRender](EShapeActionRuntimeChangeCursor.md#onrender)
+- [onResize](EShapeActionRuntimeChangeCursor.md#onresize)
+- [onRightClick](EShapeActionRuntimeChangeCursor.md#onrightclick)
+- [onRightDown](EShapeActionRuntimeChangeCursor.md#onrightdown)
+- [onRightDowning](EShapeActionRuntimeChangeCursor.md#onrightdowning)
+- [onRightPressed](EShapeActionRuntimeChangeCursor.md#onrightpressed)
+- [onRightUnpressed](EShapeActionRuntimeChangeCursor.md#onrightunpressed)
+- [onRightUp](EShapeActionRuntimeChangeCursor.md#onrightup)
+- [onRightUpOutside](EShapeActionRuntimeChangeCursor.md#onrightupoutside)
+- [onUnpressed](EShapeActionRuntimeChangeCursor.md#onunpressed)
+- [onUp](EShapeActionRuntimeChangeCursor.md#onup)
+- [onUpOutside](EShapeActionRuntimeChangeCursor.md#onupoutside)
 
 ## Constructors
 
@@ -53,7 +69,7 @@ Please note that all the action runtimes are shared across shapes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts#L18)
 
 ## Properties
 
@@ -67,7 +83,7 @@ Please note that all the action runtimes are shared across shapes.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
 
 ___
 
@@ -77,13 +93,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts#L15)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts#L16)
 
 ___
 
 ### reset
 
-• **reset**: `number`
+• `Readonly` **reset**: `number`
 
 #### Inherited from
 
@@ -91,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L18)
 
 ## Methods
 
@@ -99,13 +115,15 @@ ___
 
 ▸ **execute**(`shape`, `runtime`, `time`): `void`
 
+Called to execute this action for the given shape.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
-| `time` | `number` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `time` | `number` | a current time |
 
 #### Returns
 
@@ -117,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-cursor.ts#L23)
 
 ___
 
@@ -125,12 +143,14 @@ ___
 
 ▸ **initialize**(`shape`, `runtime`): `void`
 
+Called to initialize this action runtime for the given shape.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
 
 #### Returns
 
@@ -142,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L24)
 
 ___
 
@@ -150,12 +170,14 @@ ___
 
 ▸ **onBlur**(`shape`, `runtime`): `void`
 
+Called when a shape losees a focuse.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
 
 #### Returns
 
@@ -167,22 +189,52 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L40)
+
+___
+
+### onClick
+
+▸ **onClick**(`shape`, `runtime`, `e`): `void`
+
+Called when a shape is clicked.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onClick](EShapeActionRuntimeConditional.md#onclick)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L44)
 
 ___
 
 ### onDblClick
 
-▸ **onDblClick**(`shape`, `runtime`, `e`, `interactionManager`): `void`
+▸ **onDblClick**(`shape`, `runtime`, `e`, `manager`): `void`
+
+Called when a shape is double clicked.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
-| `e` | `MouseEvent` \| `TouchEvent` |
-| `interactionManager` | `InteractionManager` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `MouseEvent` \| `TouchEvent` | an event object |
+| `manager` | `InteractionManager` | the interaction manager |
 
 #### Returns
 
@@ -194,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L48)
 
 ___
 
@@ -202,13 +254,15 @@ ___
 
 ▸ **onDown**(`shape`, `runtime`, `e`): `void`
 
+Called when a pointer or a key get pressed on a shape.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
 
 #### Returns
 
@@ -220,7 +274,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L61)
 
 ___
 
@@ -228,13 +282,15 @@ ___
 
 ▸ **onDowning**(`shape`, `runtime`, `e`): `void`
 
+Called when a pointer or a key are about to be pressed on a shape.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
-| `e` | `InteractionEvent` \| `KeyboardEvent` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
 
 #### Returns
 
@@ -246,7 +302,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L57)
 
 ___
 
@@ -254,12 +310,14 @@ ___
 
 ▸ **onFocus**(`shape`, `runtime`): `void`
 
+Called when a shape get focused.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
 
 #### Returns
 
@@ -271,7 +329,63 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L36)
+
+___
+
+### onKeyDown
+
+▸ **onKeyDown**(`shape`, `runtime`, `e`): `void`
+
+Called when a key is pressed on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `KeyboardEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onKeyDown](EShapeActionRuntimeConditional.md#onkeydown)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L93)
+
+___
+
+### onKeyUp
+
+▸ **onKeyUp**(`shape`, `runtime`, `e`): `void`
+
+Called when a key is released on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `KeyboardEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onKeyUp](EShapeActionRuntimeConditional.md#onkeyup)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L97)
 
 ___
 
@@ -279,13 +393,15 @@ ___
 
 ▸ **onMove**(`shape`, `runtime`, `e`): `void`
 
+Called when a pointer is moved on a shape.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
-| `e` | `InteractionEvent` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
 
 #### Returns
 
@@ -297,7 +413,91 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L65)
+
+___
+
+### onOut
+
+▸ **onOut**(`shape`, `runtime`, `e`): `void`
+
+Called when a pointer gets out of a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onOut](EShapeActionRuntimeConditional.md#onout)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L73)
+
+___
+
+### onOver
+
+▸ **onOver**(`shape`, `runtime`, `e`): `void`
+
+Called when a pointer gets on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onOver](EShapeActionRuntimeConditional.md#onover)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L69)
+
+___
+
+### onPressed
+
+▸ **onPressed**(`shape`, `runtime`, `e`): `void`
+
+Called when a shape is pressed.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onPressed](EShapeActionRuntimeConditional.md#onpressed)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L85)
 
 ___
 
@@ -305,14 +505,16 @@ ___
 
 ▸ **onRender**(`shape`, `runtime`, `time`, `renderer`): `void`
 
+Called when a shape get rendered.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
-| `time` | `number` |
-| `renderer` | `Renderer` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `time` | `number` | - |
+| `renderer` | `Renderer` | - |
 
 #### Returns
 
@@ -324,4 +526,311 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L129)
+
+___
+
+### onResize
+
+▸ **onResize**(`shape`, `runtime`): `void`
+
+Called when the shape size is changed.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onResize](EShapeActionRuntimeConditional.md#onresize)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L32)
+
+___
+
+### onRightClick
+
+▸ **onRightClick**(`shape`, `runtime`, `e`): `void`
+
+Called when a shape is right-clicked.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRightClick](EShapeActionRuntimeConditional.md#onrightclick)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L101)
+
+___
+
+### onRightDown
+
+▸ **onRightDown**(`shape`, `runtime`, `e`): `void`
+
+Called when a secondary button gets pressed on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRightDown](EShapeActionRuntimeConditional.md#onrightdown)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L109)
+
+___
+
+### onRightDowning
+
+▸ **onRightDowning**(`shape`, `runtime`, `e`): `void`
+
+Called when a secondary button is about to be pressed on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRightDowning](EShapeActionRuntimeConditional.md#onrightdowning)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L105)
+
+___
+
+### onRightPressed
+
+▸ **onRightPressed**(`shape`, `runtime`, `e`): `void`
+
+Called when a secondary button is pressed on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRightPressed](EShapeActionRuntimeConditional.md#onrightpressed)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L121)
+
+___
+
+### onRightUnpressed
+
+▸ **onRightUnpressed**(`shape`, `runtime`, `e`): `void`
+
+Called when a secondary button is released on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRightUnpressed](EShapeActionRuntimeConditional.md#onrightunpressed)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L125)
+
+___
+
+### onRightUp
+
+▸ **onRightUp**(`shape`, `runtime`, `e`): `void`
+
+Called when a secondary button gets released on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRightUp](EShapeActionRuntimeConditional.md#onrightup)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L113)
+
+___
+
+### onRightUpOutside
+
+▸ **onRightUpOutside**(`shape`, `runtime`, `e`): `void`
+
+Called when a secondary button get released outside of a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onRightUpOutside](EShapeActionRuntimeConditional.md#onrightupoutside)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L117)
+
+___
+
+### onUnpressed
+
+▸ **onUnpressed**(`shape`, `runtime`, `e`): `void`
+
+Called when a shape is released.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onUnpressed](EShapeActionRuntimeConditional.md#onunpressed)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L89)
+
+___
+
+### onUp
+
+▸ **onUp**(`shape`, `runtime`, `e`): `void`
+
+Called when a pointer or a key get released on a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onUp](EShapeActionRuntimeConditional.md#onup)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L77)
+
+___
+
+### onUpOutside
+
+▸ **onUpOutside**(`shape`, `runtime`, `e`): `void`
+
+Called when a pointer or a key get released outside of a shape.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) | a shape |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) | a runtime |
+| `e` | `InteractionEvent` \| `KeyboardEvent` | an event object |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeActionRuntimeConditional](EShapeActionRuntimeConditional.md).[onUpOutside](EShapeActionRuntimeConditional.md#onupoutside)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L81)

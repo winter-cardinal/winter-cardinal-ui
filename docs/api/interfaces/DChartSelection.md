@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartSelection
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelection
 
 # Interface: DChartSelection<CHART\>
 
@@ -30,6 +30,7 @@
 - [listeners](DChartSelection.md#listeners)
 - [off](DChartSelection.md#off)
 - [on](DChartSelection.md#on)
+- [onRender](DChartSelection.md#onrender)
 - [once](DChartSelection.md#once)
 - [removeAllListeners](DChartSelection.md#removealllisteners)
 - [removeListener](DChartSelection.md#removelistener)
@@ -82,7 +83,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L27)
 
 ___
 
@@ -246,6 +247,20 @@ node_modules/pixi.js/pixi.js.d.ts:24033
 
 ___
 
+### onRender
+
+▸ **onRender**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L30)
+
+___
+
 ### once
 
 ▸ **once**(`event`, `fn`, `context?`): [`DChartSelection`](DChartSelection.md)<`CHART`\>
@@ -345,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L28)
 
 ___
 
@@ -359,4 +374,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection.ts#L29)

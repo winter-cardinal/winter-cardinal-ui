@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DControllers
+[Winter Cardinal UI - v0.310.1](../index.md) / DControllers
 
 # Class: DControllers
 
@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L14)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L15)
 
 ___
 
@@ -47,17 +47,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L15)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L16)
 
 ___
 
 ### KEYBOARD
 
-▪ `Static` `Protected` **KEYBOARD**: ``null`` \| [`DControllerKeyboard`](DControllerKeyboard.md)
+▪ `Static` `Protected` **KEYBOARD**: ``null`` \| [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L13)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L14)
 
 ## Methods
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L32)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L33)
 
 ___
 
@@ -91,21 +91,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L46)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L47)
 
 ___
 
 ### getKeyboardController
 
-▸ `Static` **getKeyboardController**(): [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ `Static` **getKeyboardController**(): [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
 
 #### Returns
 
-[`DControllerKeyboard`](DControllerKeyboard.md)
+[`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L18)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L19)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L39)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L40)
 
 ___
 
@@ -151,24 +151,24 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L53)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L54)
 
 ___
 
 ### setKeyboardController
 
-▸ `Static` **setKeyboardController**(`instance`): ``null`` \| [`DControllerKeyboard`](DControllerKeyboard.md)
+▸ `Static` **setKeyboardController**(`instance`): ``null`` \| [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `instance` | [`DControllerKeyboard`](DControllerKeyboard.md) |
+| `instance` | [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md) |
 
 #### Returns
 
-``null`` \| [`DControllerKeyboard`](DControllerKeyboard.md)
+``null`` \| [`DControllerKeyboard`](../interfaces/DControllerKeyboard.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-controllers.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-controllers.ts#L25)
+[src/main/typescript/wcardinal/ui/d-controllers.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-controllers.ts#L26)

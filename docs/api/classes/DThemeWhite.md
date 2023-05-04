@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DThemeWhite
+[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhite
 
 # Class: DThemeWhite
 
@@ -21,7 +21,10 @@
 
 - [get](DThemeWhite.md#get)
 - [getAtlas](DThemeWhite.md#getatlas)
+- [getClass](DThemeWhite.md#getclass)
 - [set](DThemeWhite.md#set)
+- [setClass](DThemeWhite.md#setclass)
+- [set](DThemeWhite.md#set-1)
 
 ## Constructors
 
@@ -31,17 +34,17 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L14)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L14)
 
 ## Properties
 
 ### \_instances
 
-• `Protected` **\_instances**: `Record`<`string`, [`DTheme`](../interfaces/DTheme.md)\>
+• `Protected` **\_instances**: `Record`<`string`, `unknown`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L12)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L12)
 
 ___
 
@@ -51,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L11)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L11)
 
 ## Methods
 
@@ -81,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L18)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L18)
 
 ___
 
@@ -99,7 +102,101 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L33)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L52)
+
+___
+
+### getClass
+
+▸ **getClass**<`THEME`\>(`type`): () => `THEME`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `THEME` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `type` | `string` |
+
+#### Returns
+
+`fn`
+
+• **new getClass**()
+
+#### Implementation of
+
+[DTheme](../interfaces/DTheme.md).[getClass](../interfaces/DTheme.md#getclass)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L38)
+
+___
+
+### set
+
+▸ **set**<`THEME`\>(`type`, `instance`): [`DThemeWhite`](DThemeWhite.md)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `THEME` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `type` | `string` |
+| `instance` | `THEME` |
+
+#### Returns
+
+[`DThemeWhite`](DThemeWhite.md)
+
+#### Implementation of
+
+[DTheme](../interfaces/DTheme.md).[set](../interfaces/DTheme.md#set)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L33)
+
+___
+
+### setClass
+
+▸ **setClass**<`THEME`\>(`type`, `themeClass`): [`DThemeWhite`](DThemeWhite.md)
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `THEME` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `type` | `string` |
+| `themeClass` | () => `THEME` |
+
+#### Returns
+
+[`DThemeWhite`](DThemeWhite.md)
+
+#### Implementation of
+
+[DTheme](../interfaces/DTheme.md).[setClass](../interfaces/DTheme.md#setclass)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L47)
 
 ___
 
@@ -126,4 +223,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L37)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white.ts#L56)

@@ -1,6 +1,11 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DThemeChartSelectionShape
+[Winter Cardinal UI - v0.310.1](../index.md) / DThemeChartSelectionShape
 
 # Interface: DThemeChartSelectionShape
+
+## Implemented by
+
+- [`DThemeDarkChartSelectionShape`](../classes/DThemeDarkChartSelectionShape.md)
+- [`DThemeWhiteChartSelectionShape`](../classes/DThemeWhiteChartSelectionShape.md)
 
 ## Table of contents
 
@@ -27,7 +32,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L25)
 
 ___
 
@@ -47,4 +52,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L24)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape.ts#L26)

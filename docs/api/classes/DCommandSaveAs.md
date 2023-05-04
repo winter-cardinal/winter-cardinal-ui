@@ -1,10 +1,12 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DCommandSaveAs
+[Winter Cardinal UI - v0.310.1](../index.md) / DCommandSaveAs
 
 # Class: DCommandSaveAs
 
-## Implements
+## Hierarchy
 
-- [`DCommand`](../interfaces/DCommand.md)
+- [`DCommandBase`](DCommandBase.md)
+
+  ↳ **`DCommandSaveAs`**
 
 ## Table of contents
 
@@ -16,11 +18,19 @@
 
 - [\_name](DCommandSaveAs.md#_name)
 
+### Accessors
+
+- [name](DCommandSaveAs.md#name)
+
 ### Methods
 
 - [destroy](DCommandSaveAs.md#destroy)
 - [execute](DCommandSaveAs.md#execute)
-- [getFlag](DCommandSaveAs.md#getflag)
+- [isClean](DCommandSaveAs.md#isclean)
+- [isClear](DCommandSaveAs.md#isclear)
+- [isMerged](DCommandSaveAs.md#ismerged)
+- [isStorable](DCommandSaveAs.md#isstorable)
+- [merge](DCommandSaveAs.md#merge)
 - [redo](DCommandSaveAs.md#redo)
 - [undo](DCommandSaveAs.md#undo)
 
@@ -36,9 +46,13 @@
 | :------ | :------ |
 | `name` | `string` |
 
+#### Overrides
+
+[DCommandBase](DCommandBase.md).[constructor](DCommandBase.md#constructor)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L13)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L12)
 
 ## Properties
 
@@ -48,7 +62,21 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L11)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L10)
+
+## Accessors
+
+### name
+
+• `get` **name**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L17)
 
 ## Methods
 
@@ -60,84 +88,169 @@
 
 `void`
 
-#### Implementation of
+#### Inherited from
 
-[DCommand](../interfaces/DCommand.md).[destroy](../interfaces/DCommand.md#destroy)
+[DCommandBase](DCommandBase.md).[destroy](DCommandBase.md#destroy)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L29)
+[src/main/typescript/wcardinal/ui/d-command-base.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-base.ts#L41)
 
 ___
 
 ### execute
 
-▸ **execute**(): `boolean` \| `Promise`<`unknown`\>
+▸ **execute**(): `boolean`
 
 Called to executed this command.
 
 #### Returns
 
-`boolean` \| `Promise`<`unknown`\>
+`boolean`
 
-#### Implementation of
+true if executed successfully
 
-[DCommand](../interfaces/DCommand.md).[execute](../interfaces/DCommand.md#execute)
+#### Overrides
+
+[DCommandBase](DCommandBase.md).[execute](DCommandBase.md#execute)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L17)
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L25)
 
 ___
 
-### getFlag
+### isClean
 
-▸ **getFlag**(): `number`
+▸ **isClean**(): `boolean`
 
 #### Returns
 
-`number`
+`boolean`
 
-#### Implementation of
+#### Inherited from
 
-[DCommand](../interfaces/DCommand.md).[getFlag](../interfaces/DCommand.md#getflag)
+[DCommandBase](DCommandBase.md).[isClean](DCommandBase.md#isclean)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L33)
+[src/main/typescript/wcardinal/ui/d-command-base.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-base.ts#L17)
+
+___
+
+### isClear
+
+▸ **isClear**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+[DCommandBase](DCommandBase.md).[isClear](DCommandBase.md#isclear)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-command-base.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-base.ts#L13)
+
+___
+
+### isMerged
+
+▸ **isMerged**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+[DCommandBase](DCommandBase.md).[isMerged](DCommandBase.md#ismerged)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-command-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-base.ts#L29)
+
+___
+
+### isStorable
+
+▸ **isStorable**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Overrides
+
+[DCommandBase](DCommandBase.md).[isStorable](DCommandBase.md#isstorable)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-command-save-as.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L21)
+
+___
+
+### merge
+
+▸ **merge**(`target`): `boolean`
+
+Called to merge the target command and this command.
+Returns true if merged successfully.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `target` | [`DCommand`](../interfaces/DCommand.md) | a command to be merged |
+
+#### Returns
+
+`boolean`
+
+true if merged successfully
+
+#### Inherited from
+
+[DCommandBase](DCommandBase.md).[merge](DCommandBase.md#merge)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-command-base.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-base.ts#L25)
 
 ___
 
 ### redo
 
-▸ **redo**(): `boolean` \| `Promise`<`unknown`\>
+▸ **redo**(): `boolean`
 
 #### Returns
 
-`boolean` \| `Promise`<`unknown`\>
+`boolean`
 
-#### Implementation of
+#### Inherited from
 
-[DCommand](../interfaces/DCommand.md).[redo](../interfaces/DCommand.md#redo)
+[DCommandBase](DCommandBase.md).[redo](DCommandBase.md#redo)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L21)
+[src/main/typescript/wcardinal/ui/d-command-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-base.ts#L33)
 
 ___
 
 ### undo
 
-▸ **undo**(): `boolean` \| `Promise`<`unknown`\>
+▸ **undo**(): `boolean`
 
 #### Returns
 
-`boolean` \| `Promise`<`unknown`\>
+`boolean`
 
-#### Implementation of
+#### Inherited from
 
-[DCommand](../interfaces/DCommand.md).[undo](../interfaces/DCommand.md#undo)
+[DCommandBase](DCommandBase.md).[undo](DCommandBase.md#undo)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-command-save-as.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-command-save-as.ts#L25)
+[src/main/typescript/wcardinal/ui/d-command-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-command-base.ts#L37)

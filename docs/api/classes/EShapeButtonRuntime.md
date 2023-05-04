@@ -1,10 +1,10 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / EShapeButtonRuntime
+[Winter Cardinal UI - v0.310.1](../index.md) / EShapeButtonRuntime
 
 # Class: EShapeButtonRuntime
 
 ## Hierarchy
 
-- [`EShapeRuntime`](EShapeRuntime.md)
+- [`EShapeRuntimeImpl`](EShapeRuntimeImpl.md)
 
   ↳ **`EShapeButtonRuntime`**
 
@@ -26,12 +26,14 @@
 - [isStateChanged](EShapeButtonRuntime.md#isstatechanged)
 - [reset](EShapeButtonRuntime.md#reset)
 - [rotation](EShapeButtonRuntime.md#rotation)
-- [size](EShapeButtonRuntime.md#size)
+- [sizeX](EShapeButtonRuntime.md#sizex)
+- [sizeY](EShapeButtonRuntime.md#sizey)
 - [stroke](EShapeButtonRuntime.md#stroke)
 - [text](EShapeButtonRuntime.md#text)
 - [written](EShapeButtonRuntime.md#written)
 - [x](EShapeButtonRuntime.md#x)
 - [y](EShapeButtonRuntime.md#y)
+- [TRANSIENT\_STATES](EShapeButtonRuntime.md#transient_states)
 
 ### Methods
 
@@ -44,13 +46,17 @@
 - [onDblClick](EShapeButtonRuntime.md#ondblclick)
 - [onDown](EShapeButtonRuntime.md#ondown)
 - [onFocus](EShapeButtonRuntime.md#onfocus)
-- [onInitialize](EShapeButtonRuntime.md#oninitialize)
 - [onKeyDown](EShapeButtonRuntime.md#onkeydown)
 - [onKeyUp](EShapeButtonRuntime.md#onkeyup)
 - [onMove](EShapeButtonRuntime.md#onmove)
 - [onOut](EShapeButtonRuntime.md#onout)
 - [onOver](EShapeButtonRuntime.md#onover)
 - [onRender](EShapeButtonRuntime.md#onrender)
+- [onResize](EShapeButtonRuntime.md#onresize)
+- [onRightClick](EShapeButtonRuntime.md#onrightclick)
+- [onRightDown](EShapeButtonRuntime.md#onrightdown)
+- [onRightUp](EShapeButtonRuntime.md#onrightup)
+- [onRightUpOutside](EShapeButtonRuntime.md#onrightupoutside)
 - [onStateChange](EShapeButtonRuntime.md#onstatechange)
 - [onUp](EShapeButtonRuntime.md#onup)
 - [onUpOutside](EShapeButtonRuntime.md#onupoutside)
@@ -71,11 +77,11 @@
 
 #### Overrides
 
-[EShapeRuntime](EShapeRuntime.md).[constructor](EShapeRuntime.md#constructor)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[constructor](EShapeRuntimeImpl.md#constructor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L19)
 
 ## Properties
 
@@ -85,7 +91,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L17)
 
 ___
 
@@ -95,35 +101,35 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L16)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L16)
 
 ___
 
 ### actions
 
-• **actions**: [`EShapeActionRuntime`](EShapeActionRuntime.md)[]
+• `Readonly` **actions**: [`EShapeActionRuntime`](../interfaces/EShapeActionRuntime.md)[]
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[actions](EShapeRuntime.md#actions)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[actions](EShapeRuntimeImpl.md#actions)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L44)
 
 ___
 
 ### cursor
 
-• **cursor**: `string`
+• `Optional` `Readonly` **cursor**: `string`
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[cursor](EShapeRuntime.md#cursor)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[cursor](EShapeRuntimeImpl.md#cursor)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L64)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L48)
 
 ___
 
@@ -133,39 +139,39 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[effect](EShapeRuntime.md#effect)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[effect](EShapeRuntimeImpl.md#effect)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L69)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L53)
 
 ___
 
 ### fill
 
-• **fill**: [`EShapeFillLike`](../interfaces/EShapeFillLike.md)
+• `Readonly` **fill**: [`EShapeFillLike`](../interfaces/EShapeFillLike.md)
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[fill](EShapeRuntime.md#fill)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[fill](EShapeRuntimeImpl.md#fill)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L61)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L45)
 
 ___
 
 ### interactive
 
-• **interactive**: `boolean`
+• `Readonly` **interactive**: `boolean`
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[interactive](EShapeRuntime.md#interactive)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[interactive](EShapeRuntimeImpl.md#interactive)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L72)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:49](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L49)
 
 ___
 
@@ -175,11 +181,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[isStateChanged](EShapeRuntime.md#isstatechanged)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[isStateChanged](EShapeRuntimeImpl.md#isstatechanged)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:71](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L71)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L54)
 
 ___
 
@@ -189,67 +195,81 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[reset](EShapeRuntime.md#reset)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[reset](EShapeRuntimeImpl.md#reset)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:66](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L66)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L51)
 
 ___
 
 ### rotation
 
-• **rotation**: `number`
+• `Readonly` **rotation**: `number`
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[rotation](EShapeRuntime.md#rotation)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[rotation](EShapeRuntimeImpl.md#rotation)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:59](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L59)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L43)
 
 ___
 
-### size
+### sizeX
 
-• **size**: `Point`
+• `Readonly` **sizeX**: `number`
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[size](EShapeRuntime.md#size)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[sizeX](EShapeRuntimeImpl.md#sizex)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L58)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L41)
+
+___
+
+### sizeY
+
+• `Readonly` **sizeY**: `number`
+
+#### Inherited from
+
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[sizeY](EShapeRuntimeImpl.md#sizey)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L42)
 
 ___
 
 ### stroke
 
-• **stroke**: [`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)
+• `Readonly` **stroke**: [`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[stroke](EShapeRuntime.md#stroke)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[stroke](EShapeRuntimeImpl.md#stroke)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L62)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L46)
 
 ___
 
 ### text
 
-• **text**: [`EShapeTextLike`](../interfaces/EShapeTextLike.md)
+• `Readonly` **text**: [`EShapeTextLike`](../interfaces/EShapeTextLike.md)
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[text](EShapeRuntime.md#text)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[text](EShapeRuntimeImpl.md#text)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L63)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L47)
 
 ___
 
@@ -259,39 +279,53 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[written](EShapeRuntime.md#written)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[written](EShapeRuntimeImpl.md#written)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:67](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L67)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L52)
 
 ___
 
 ### x
 
-• **x**: `number`
+• `Readonly` **x**: `number`
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[x](EShapeRuntime.md#x)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[x](EShapeRuntimeImpl.md#x)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L56)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L39)
 
 ___
 
 ### y
 
-• **y**: `number`
+• `Readonly` **y**: `number`
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[y](EShapeRuntime.md#y)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[y](EShapeRuntimeImpl.md#y)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L57)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L40)
+
+___
+
+### TRANSIENT\_STATES
+
+▪ `Static` `Readonly` **TRANSIENT\_STATES**: `string`[]
+
+#### Inherited from
+
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[TRANSIENT_STATES](EShapeRuntimeImpl.md#transient_states)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L23)
 
 ## Methods
 
@@ -311,11 +345,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[doReset](EShapeRuntime.md#doreset)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[doReset](EShapeRuntimeImpl.md#doreset)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L273)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:484](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L484)
 
 ___
 
@@ -335,11 +369,11 @@ ___
 
 #### Overrides
 
-[EShapeRuntime](EShapeRuntime.md).[initialize](EShapeRuntime.md#initialize)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[initialize](EShapeRuntimeImpl.md#initialize)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L31)
 
 ___
 
@@ -353,11 +387,11 @@ ___
 
 #### Overrides
 
-[EShapeRuntime](EShapeRuntime.md).[isActionable](EShapeRuntime.md#isactionable)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[isActionable](EShapeRuntimeImpl.md#isactionable)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L27)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L27)
 
 ___
 
@@ -377,7 +411,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L64)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L64)
 
 ___
 
@@ -397,11 +431,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onBlur](EShapeRuntime.md#onblur)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onBlur](EShapeRuntimeImpl.md#onblur)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L223)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:327](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L327)
 
 ___
 
@@ -422,11 +456,11 @@ ___
 
 #### Overrides
 
-[EShapeRuntime](EShapeRuntime.md).[onClick](EShapeRuntime.md#onclick)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onClick](EShapeRuntimeImpl.md#onclick)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L40)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L40)
 
 ___
 
@@ -448,11 +482,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onDblClick](EShapeRuntime.md#ondblclick)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onDblClick](EShapeRuntimeImpl.md#ondblclick)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L118)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L112)
 
 ___
 
@@ -473,11 +507,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onDown](EShapeRuntime.md#ondown)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onDown](EShapeRuntimeImpl.md#ondown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L138)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:161](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L161)
 
 ___
 
@@ -497,35 +531,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onFocus](EShapeRuntime.md#onfocus)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onFocus](EShapeRuntimeImpl.md#onfocus)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:216](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L216)
-
-___
-
-### onInitialize
-
-▸ **onInitialize**(`shape`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `shape` | [`EShape`](../interfaces/EShape.md) |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[EShapeRuntime](EShapeRuntime.md).[onInitialize](EShapeRuntime.md#oninitialize)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:100](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L100)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:319](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L319)
 
 ___
 
@@ -546,11 +556,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onKeyDown](EShapeRuntime.md#onkeydown)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onKeyDown](EShapeRuntimeImpl.md#onkeydown)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:182](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L182)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L267)
 
 ___
 
@@ -571,11 +581,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onKeyUp](EShapeRuntime.md#onkeyup)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onKeyUp](EShapeRuntimeImpl.md#onkeyup)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L189)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L283)
 
 ___
 
@@ -596,11 +606,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onMove](EShapeRuntime.md#onmove)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onMove](EShapeRuntimeImpl.md#onmove)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L175)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L259)
 
 ___
 
@@ -621,11 +631,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onOut](EShapeRuntime.md#onout)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onOut](EShapeRuntimeImpl.md#onout)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L134)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L147)
 
 ___
 
@@ -646,11 +656,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onOver](EShapeRuntime.md#onover)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onOver](EShapeRuntimeImpl.md#onover)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:130](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L130)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:133](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L133)
 
 ___
 
@@ -672,11 +682,135 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onRender](EShapeRuntime.md#onrender)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onRender](EShapeRuntimeImpl.md#onrender)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L254)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:465](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L465)
+
+___
+
+### onResize
+
+▸ **onResize**(`shape`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onResize](EShapeRuntimeImpl.md#onresize)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L90)
+
+___
+
+### onRightClick
+
+▸ **onRightClick**(`shape`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onRightClick](EShapeRuntimeImpl.md#onrightclick)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L335)
+
+___
+
+### onRightDown
+
+▸ **onRightDown**(`shape`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onRightDown](EShapeRuntimeImpl.md#onrightdown)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:349](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L349)
+
+___
+
+### onRightUp
+
+▸ **onRightUp**(`shape`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onRightUp](EShapeRuntimeImpl.md#onrightup)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:395](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L395)
+
+___
+
+### onRightUpOutside
+
+▸ **onRightUpOutside**(`shape`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onRightUpOutside](EShapeRuntimeImpl.md#onrightupoutside)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:422](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L422)
 
 ___
 
@@ -698,11 +832,11 @@ ___
 
 #### Overrides
 
-[EShapeRuntime](EShapeRuntime.md).[onStateChange](EShapeRuntime.md#onstatechange)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onStateChange](EShapeRuntimeImpl.md#onstatechange)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L57)
+[src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/variant/e-shape-button-runtime.ts#L57)
 
 ___
 
@@ -723,11 +857,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onUp](EShapeRuntime.md#onup)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onUp](EShapeRuntimeImpl.md#onup)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:164](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L164)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L207)
 
 ___
 
@@ -748,11 +882,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onUpOutside](EShapeRuntime.md#onupoutside)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onUpOutside](EShapeRuntimeImpl.md#onupoutside)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L171)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:234](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L234)
 
 ___
 
@@ -773,11 +907,11 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[onUpdate](EShapeRuntime.md#onupdate)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[onUpdate](EShapeRuntimeImpl.md#onupdate)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:262](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L262)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:473](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L473)
 
 ___
 
@@ -798,8 +932,8 @@ ___
 
 #### Inherited from
 
-[EShapeRuntime](EShapeRuntime.md).[update](EShapeRuntime.md#update)
+[EShapeRuntimeImpl](EShapeRuntimeImpl.md).[update](EShapeRuntimeImpl.md#update)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts:230](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/e-shape-runtime.ts#L230)
+[src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts:447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/e-shape-runtime-impl.ts#L447)

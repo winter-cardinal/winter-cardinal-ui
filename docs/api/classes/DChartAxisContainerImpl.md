@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartAxisContainerImpl
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisContainerImpl
 
 # Class: DChartAxisContainerImpl<CHART\>
 
@@ -36,6 +36,7 @@
 - [destroy](DChartAxisContainerImpl.md#destroy)
 - [get](DChartAxisContainerImpl.md#get)
 - [indexOf](DChartAxisContainerImpl.md#indexof)
+- [onRender](DChartAxisContainerImpl.md#onrender)
 - [size](DChartAxisContainerImpl.md#size)
 - [update](DChartAxisContainerImpl.md#update)
 
@@ -60,7 +61,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L20)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L21)
 
 ## Properties
 
@@ -70,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L18)
 
 ___
 
@@ -80,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L18)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L19)
 
 ___
 
@@ -90,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L17)
 
 ## Accessors
 
@@ -108,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L27)
 
 ___
 
@@ -126,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L31)
 
 ## Methods
 
@@ -150,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L41)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L35)
 
 ___
 
@@ -162,7 +163,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
+| `position` | ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
 
 #### Returns
 
@@ -174,7 +175,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L72)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L69)
 
 ___
 
@@ -192,7 +193,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L101)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L106)
 
 ___
 
@@ -204,7 +205,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
+| `position` | ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
 | `index` | `number` |
 
 #### Returns
@@ -217,7 +218,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L52)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L46)
 
 ___
 
@@ -241,7 +242,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L63)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L60)
+
+___
+
+### onRender
+
+▸ **onRender**(): `void`
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[DChartAxisContainer](../interfaces/DChartAxisContainer.md).[onRender](../interfaces/DChartAxisContainer.md#onrender)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L98)
 
 ___
 
@@ -253,7 +272,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
+| `position` | ``"TOP"`` \| ``"RIGHT"`` \| ``"BOTTOM"`` \| ``"LEFT"`` \| [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
 
 #### Returns
 
@@ -265,7 +284,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L84)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L81)
 
 ___
 
@@ -283,4 +302,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L93)
+[src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-container-impl.ts#L90)

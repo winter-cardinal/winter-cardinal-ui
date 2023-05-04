@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartSelectionShapeBase
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionShapeBase
 
 # Class: DChartSelectionShapeBase<CHART\>
 
@@ -31,6 +31,8 @@
 ### Properties
 
 - [\_isEnabled](DChartSelectionShapeBase.md#_isenabled)
+- [\_newShape](DChartSelectionShapeBase.md#_newshape)
+- [\_options](DChartSelectionShapeBase.md#_options)
 - [\_shape](DChartSelectionShapeBase.md#_shape)
 - [\_state](DChartSelectionShapeBase.md#_state)
 - [\_style](DChartSelectionShapeBase.md#_style)
@@ -69,7 +71,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L32)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L35)
 
 ## Properties
 
@@ -79,7 +81,41 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L26)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L28)
+
+___
+
+### \_newShape
+
+• `Protected` `Optional` **\_newShape**: (`state`: [`DBaseStateSet`](../interfaces/DBaseStateSet.md)) => [`EShape`](../interfaces/EShape.md)
+
+#### Type declaration
+
+▸ (`state`): [`EShape`](../interfaces/EShape.md)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
+
+##### Returns
+
+[`EShape`](../interfaces/EShape.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L30)
+
+___
+
+### \_options
+
+• `Protected` `Optional` **\_options**: [`DChartSelectionShapeOptions`](../interfaces/DChartSelectionShapeOptions.md)<`CHART`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L27)
 
 ___
 
@@ -89,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L27)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L29)
 
 ___
 
@@ -99,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L29)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L32)
 
 ___
 
@@ -109,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L28)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L31)
 
 ___
 
@@ -119,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:30](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L30)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L33)
 
 ## Methods
 
@@ -143,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L42)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L54)
 
 ___
 
@@ -163,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:102](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L102)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L125)
 
 ___
 
@@ -177,18 +213,19 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:106](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L106)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L129)
 
 ___
 
 ### newShape
 
-▸ `Protected` **newShape**(`theme`): [`EShape`](../interfaces/EShape.md)
+▸ `Protected` **newShape**(`state`, `theme`): [`EShape`](../interfaces/EShape.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
+| `state` | [`DBaseStateSet`](../interfaces/DBaseStateSet.md) |
 | `theme` | [`DThemeChartSelectionShape`](../interfaces/DThemeChartSelectionShape.md) |
 
 #### Returns
@@ -197,19 +234,20 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:58](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L58)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L79)
 
 ___
 
 ### set
 
-▸ **set**(`container`, `mappedPosition`, `series`): `void`
+▸ **set**(`container`, `position`, `mappedPosition`, `series`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
 | `series` | [`DChartSeries`](../interfaces/DChartSeries.md)<`CHART`\> |
 
@@ -223,7 +261,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L62)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L83)
 
 ___
 
@@ -245,7 +283,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:75](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L75)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L97)
 
 ___
 
@@ -265,7 +303,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:91](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L91)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L114)
 
 ___
 
@@ -283,7 +321,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L51)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:72](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L72)
 
 ___
 
@@ -301,24 +339,25 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L82)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L101)
 
 ___
 
 ### update
 
-▸ `Abstract` **update**(`container`, `mappedPosition`): `void`
+▸ `Abstract` **update**(`container`, `position`, `mappedPosition`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `position` | `IPoint` |
 | `mappedPosition` | `IPoint` |
 
 #### Returns
 
-`void`
+`boolean`
 
 #### Implementation of
 
@@ -326,4 +365,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L89)
+[src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-shape-base.ts#L108)

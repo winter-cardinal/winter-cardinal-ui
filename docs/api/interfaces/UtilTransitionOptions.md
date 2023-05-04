@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / UtilTransitionOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / UtilTransitionOptions
 
 # Interface: UtilTransitionOptions
 
@@ -16,4 +16,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-transition.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-transition.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-transition.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-transition.ts#L9)

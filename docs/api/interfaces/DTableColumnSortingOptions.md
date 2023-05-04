@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DTableColumnSortingOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / DTableColumnSortingOptions
 
 # Interface: DTableColumnSortingOptions<ROW_VALUE\>
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column-sorting.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-column-sorting.ts#L10)
+[src/main/typescript/wcardinal/ui/d-table-column-sorting.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-sorting.ts#L10)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-column-sorting.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-column-sorting.ts#L9)
+[src/main/typescript/wcardinal/ui/d-table-column-sorting.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-column-sorting.ts#L9)

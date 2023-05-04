@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / UtilGestureEasingHistory
+[Winter Cardinal UI - v0.310.1](../index.md) / UtilGestureEasingHistory
 
 # Class: UtilGestureEasingHistory
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L12)
+[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L12)
 
 ## Properties
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L9)
+[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L9)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L10)
+[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L10)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L7)
+[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L7)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L8)
+[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L8)
 
 ## Methods
 
@@ -99,4 +99,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L19)
+[src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-gesture-easing-history.ts#L19)

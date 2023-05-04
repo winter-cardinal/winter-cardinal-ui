@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramSnapshotEvents
+[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSnapshotEvents
 
 # Interface: DDiagramSnapshotEvents<CANVAS, EMITTER\>
 
@@ -37,7 +37,7 @@ Triggered before taking a snapshot.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L29)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L29)
 
 ___
 
@@ -61,4 +61,4 @@ Triggered when a snapshot is taken successfully or when failed to take.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L38)
+[src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-snapshot.ts#L38)

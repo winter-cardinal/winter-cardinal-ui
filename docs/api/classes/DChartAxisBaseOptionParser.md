@@ -1,6 +1,13 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartAxisBaseOptionParser
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartAxisBaseOptionParser
 
-# Class: DChartAxisBaseOptionParser
+# Class: DChartAxisBaseOptionParser<THEME, OPTIONS\>
+
+## Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `THEME` | extends [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) = [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `OPTIONS` | extends [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\> = [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\> |
 
 ## Table of contents
 
@@ -10,17 +17,9 @@
 
 ### Properties
 
-- [\_bar](DChartAxisBaseOptionParser.md#_bar)
-- [\_coordinateIndex](DChartAxisBaseOptionParser.md#_coordinateindex)
-- [\_label](DChartAxisBaseOptionParser.md#_label)
-- [\_padding](DChartAxisBaseOptionParser.md#_padding)
-- [\_position](DChartAxisBaseOptionParser.md#_position)
-- [\_tick](DChartAxisBaseOptionParser.md#_tick)
-
-### Accessors
-
 - [bar](DChartAxisBaseOptionParser.md#bar)
-- [coordinateIndex](DChartAxisBaseOptionParser.md#coordinateindex)
+- [coordinate](DChartAxisBaseOptionParser.md#coordinate)
+- [guide](DChartAxisBaseOptionParser.md#guide)
 - [label](DChartAxisBaseOptionParser.md#label)
 - [padding](DChartAxisBaseOptionParser.md#padding)
 - [position](DChartAxisBaseOptionParser.md#position)
@@ -30,6 +29,7 @@
 
 - [toBar](DChartAxisBaseOptionParser.md#tobar)
 - [toBarStroke](DChartAxisBaseOptionParser.md#tobarstroke)
+- [toGuide](DChartAxisBaseOptionParser.md#toguide)
 - [toLabel](DChartAxisBaseOptionParser.md#tolabel)
 - [toLabelAlign](DChartAxisBaseOptionParser.md#tolabelalign)
 - [toLabelColor](DChartAxisBaseOptionParser.md#tolabelcolor)
@@ -38,207 +38,150 @@
 - [toLabelOutline](DChartAxisBaseOptionParser.md#tolabeloutline)
 - [toLabelPadding](DChartAxisBaseOptionParser.md#tolabelpadding)
 - [toLabelSpacing](DChartAxisBaseOptionParser.md#tolabelspacing)
-- [toMajorTickFormatter](DChartAxisBaseOptionParser.md#tomajortickformatter)
-- [toMajorTickText](DChartAxisBaseOptionParser.md#tomajorticktext)
-- [toMajorTickTextAlign](DChartAxisBaseOptionParser.md#tomajorticktextalign)
-- [toMajorTickTextColor](DChartAxisBaseOptionParser.md#tomajorticktextcolor)
-- [toMajorTickTextOffset](DChartAxisBaseOptionParser.md#tomajorticktextoffset)
-- [toMajorTickTextOutline](DChartAxisBaseOptionParser.md#tomajorticktextoutline)
-- [toMajorTickTextPadding](DChartAxisBaseOptionParser.md#tomajorticktextpadding)
-- [toMajorTickTextSpacing](DChartAxisBaseOptionParser.md#tomajorticktextspacing)
-- [toMinorTick](DChartAxisBaseOptionParser.md#tominortick)
 - [toPosition](DChartAxisBaseOptionParser.md#toposition)
 - [toStroke](DChartAxisBaseOptionParser.md#tostroke)
-- [toTickContainer](DChartAxisBaseOptionParser.md#totickcontainer)
+- [toStrokeStyle](DChartAxisBaseOptionParser.md#tostrokestyle)
+- [toTick](DChartAxisBaseOptionParser.md#totick)
 - [toTickMajor](DChartAxisBaseOptionParser.md#totickmajor)
+- [toTickMajorFormatter](DChartAxisBaseOptionParser.md#totickmajorformatter)
 - [toTickMajorGridline](DChartAxisBaseOptionParser.md#totickmajorgridline)
 - [toTickMajorGridlineStroke](DChartAxisBaseOptionParser.md#totickmajorgridlinestroke)
 - [toTickMajorStroke](DChartAxisBaseOptionParser.md#totickmajorstroke)
+- [toTickMajorText](DChartAxisBaseOptionParser.md#totickmajortext)
+- [toTickMajorTextAlign](DChartAxisBaseOptionParser.md#totickmajortextalign)
+- [toTickMajorTextColor](DChartAxisBaseOptionParser.md#totickmajortextcolor)
 - [toTickMajorTextDirection](DChartAxisBaseOptionParser.md#totickmajortextdirection)
+- [toTickMajorTextOffset](DChartAxisBaseOptionParser.md#totickmajortextoffset)
+- [toTickMajorTextOutline](DChartAxisBaseOptionParser.md#totickmajortextoutline)
+- [toTickMajorTextPadding](DChartAxisBaseOptionParser.md#totickmajortextpadding)
+- [toTickMajorTextSpacing](DChartAxisBaseOptionParser.md#totickmajortextspacing)
+- [toTickMinor](DChartAxisBaseOptionParser.md#totickminor)
+- [toTickMinorFormatter](DChartAxisBaseOptionParser.md#totickminorformatter)
 - [toTickMinorStroke](DChartAxisBaseOptionParser.md#totickminorstroke)
+- [toTickMinorText](DChartAxisBaseOptionParser.md#totickminortext)
+- [toTickMinorTextAlign](DChartAxisBaseOptionParser.md#totickminortextalign)
+- [toTickMinorTextColor](DChartAxisBaseOptionParser.md#totickminortextcolor)
+- [toTickMinorTextDirection](DChartAxisBaseOptionParser.md#totickminortextdirection)
+- [toTickMinorTextOffset](DChartAxisBaseOptionParser.md#totickminortextoffset)
+- [toTickMinorTextOutline](DChartAxisBaseOptionParser.md#totickminortextoutline)
+- [toTickMinorTextPadding](DChartAxisBaseOptionParser.md#totickminortextpadding)
+- [toTickMinorTextSpacing](DChartAxisBaseOptionParser.md#totickminortextspacing)
 - [toTickPosition](DChartAxisBaseOptionParser.md#totickposition)
 
 ## Constructors
 
 ### constructor
 
-• **new DChartAxisBaseOptionParser**(`theme`, `options?`)
+• **new DChartAxisBaseOptionParser**<`THEME`, `OPTIONS`\>(`theme`, `options?`)
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `THEME` | extends [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) = [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `OPTIONS` | extends [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`, `OPTIONS`\> = [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md)<`THEME`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md) |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L86)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L121)
 
 ## Properties
 
-### \_bar
-
-• `Protected` **\_bar**: [`DChartAxisBaseBar`](../interfaces/DChartAxisBaseBar.md)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:84](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L84)
-
-___
-
-### \_coordinateIndex
-
-• `Protected` **\_coordinateIndex**: `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L79)
-
-___
-
-### \_label
-
-• `Protected` **\_label**: `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L82)
-
-___
-
-### \_padding
-
-• `Protected` **\_padding**: `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L83)
-
-___
-
-### \_position
-
-• `Protected` **\_position**: [`DChartAxisPosition`](../index.md#dchartaxisposition-1)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:80](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L80)
-
-___
-
-### \_tick
-
-• `Protected` **\_tick**: [`DChartAxisBaseTickContainer`](../interfaces/DChartAxisBaseTickContainer.md)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L81)
-
-## Accessors
-
 ### bar
 
-• `get` **bar**(): [`DChartAxisBaseBar`](../interfaces/DChartAxisBaseBar.md)
-
-#### Returns
-
-[`DChartAxisBaseBar`](../interfaces/DChartAxisBaseBar.md)
+• **bar**: [`DChartAxisBaseOptionParserBar`](../interfaces/DChartAxisBaseOptionParserBar.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L107)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L118)
 
 ___
 
-### coordinateIndex
+### coordinate
 
-• `get` **coordinateIndex**(): `number`
-
-#### Returns
-
-`number`
+• **coordinate**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:95](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L95)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L113)
+
+___
+
+### guide
+
+• **guide**: [`DChartAxisBaseOptionParserGuide`](../interfaces/DChartAxisBaseOptionParserGuide.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L119)
 
 ___
 
 ### label
 
-• `get` **label**(): `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
-
-#### Returns
-
-`undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
+• **label**: `undefined` \| [`DeepPartial`](../index.md#deeppartial)<[`EShapeTextLike`](../interfaces/EShapeTextLike.md)\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L115)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L116)
 
 ___
 
 ### padding
 
-• `get` **padding**(): `number`
-
-#### Returns
-
-`number`
+• **padding**: `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:99](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L99)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L117)
 
 ___
 
 ### position
 
-• `get` **position**(): [`DChartAxisPosition`](../index.md#dchartaxisposition-1)
-
-#### Returns
-
-[`DChartAxisPosition`](../index.md#dchartaxisposition-1)
+• **position**: [`DChartAxisPosition`](../index.md#dchartaxisposition-1)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L103)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:114](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L114)
 
 ___
 
 ### tick
 
-• `get` **tick**(): [`DChartAxisBaseTickContainer`](../interfaces/DChartAxisBaseTickContainer.md)
-
-#### Returns
-
-[`DChartAxisBaseTickContainer`](../interfaces/DChartAxisBaseTickContainer.md)
+• **tick**: [`DChartAxisBaseOptionParserTick`](../interfaces/DChartAxisBaseOptionParserTick.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L111)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L115)
 
 ## Methods
 
 ### toBar
 
-▸ `Protected` **toBar**(`theme`, `options?`): [`DChartAxisBaseBar`](../interfaces/DChartAxisBaseBar.md)
+▸ `Protected` **toBar**(`theme`, `options?`): [`DChartAxisBaseOptionParserBar`](../interfaces/DChartAxisBaseOptionParserBar.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md) |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
 
 #### Returns
 
-[`DChartAxisBaseBar`](../interfaces/DChartAxisBaseBar.md)
+[`DChartAxisBaseOptionParserBar`](../interfaces/DChartAxisBaseOptionParserBar.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L132)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:147](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L147)
 
 ___
 
@@ -250,8 +193,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
 
 #### Returns
 
@@ -259,7 +202,28 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L251)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:261](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L261)
+
+___
+
+### toGuide
+
+▸ `Protected` **toGuide**(`theme`, `options?`): [`DChartAxisBaseOptionParserGuide`](../interfaces/DChartAxisBaseOptionParserGuide.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DChartAxisBaseOptionParserGuide`](../interfaces/DChartAxisBaseOptionParserGuide.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:141](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L141)
 
 ___
 
@@ -271,8 +235,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md) |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
 
 #### Returns
 
@@ -280,7 +244,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:495](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L495)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:646](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L646)
 
 ___
 
@@ -292,7 +256,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `theme` | `THEME` |
 | `options?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
 
 #### Returns
@@ -301,7 +265,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:534](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L534)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:682](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L682)
 
 ___
 
@@ -313,7 +277,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `theme` | `THEME` |
 | `options?` | `number` |
 
 #### Returns
@@ -322,7 +286,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:586](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L586)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:734](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L734)
 
 ___
 
@@ -334,8 +298,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`EShapeTextDirection`](../index.md#eshapetextdirection-1) |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTextDirectionOption`](../index.md#dchartaxisbasetextdirectionoption) |
 
 #### Returns
 
@@ -343,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:579](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L579)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:727](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L727)
 
 ___
 
@@ -355,7 +319,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `theme` | `THEME` |
 | `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
@@ -364,7 +328,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:545](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L545)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:693](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L693)
 
 ___
 
@@ -376,7 +340,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `theme` | `THEME` |
 | `options?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
 
 #### Returns
@@ -385,7 +349,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:520](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L520)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:668](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L668)
 
 ___
 
@@ -397,7 +361,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `theme` | `THEME` |
 | `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
@@ -406,7 +370,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:569](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L569)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:717](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L717)
 
 ___
 
@@ -418,7 +382,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `theme` | `THEME` |
 | `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
 
 #### Returns
@@ -427,196 +391,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:557](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L557)
-
-___
-
-### toMajorTickFormatter
-
-▸ `Protected` **toMajorTickFormatter**(`theme`, `options?`): [`NumberFormatter`](../interfaces/NumberFormatter.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseTickMajorOptions`](../interfaces/DChartAxisBaseTickMajorOptions.md) |
-
-#### Returns
-
-[`NumberFormatter`](../interfaces/NumberFormatter.md)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:378](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L378)
-
-___
-
-### toMajorTickText
-
-▸ `Protected` **toMajorTickText**(`theme`, `options?`): `undefined` \| [`DChartAxisBaseTickMajorTextOptions`](../interfaces/DChartAxisBaseTickMajorTextOptions.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseTickMajorTextOptions`](../interfaces/DChartAxisBaseTickMajorTextOptions.md) |
-
-#### Returns
-
-`undefined` \| [`DChartAxisBaseTickMajorTextOptions`](../interfaces/DChartAxisBaseTickMajorTextOptions.md)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:399](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L399)
-
-___
-
-### toMajorTickTextAlign
-
-▸ `Protected` **toMajorTickTextAlign**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
-
-#### Returns
-
-`undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:436](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L436)
-
-___
-
-### toMajorTickTextColor
-
-▸ `Protected` **toMajorTickTextColor**(`theme`, `options?`): `undefined` \| `number`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | `number` |
-
-#### Returns
-
-`undefined` \| `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:488](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L488)
-
-___
-
-### toMajorTickTextOffset
-
-▸ `Protected` **toMajorTickTextOffset**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
-
-#### Returns
-
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:447](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L447)
-
-___
-
-### toMajorTickTextOutline
-
-▸ `Protected` **toMajorTickTextOutline**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
-
-#### Returns
-
-`undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:422](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L422)
-
-___
-
-### toMajorTickTextPadding
-
-▸ `Protected` **toMajorTickTextPadding**(`theme`, `options?`): `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
-
-#### Returns
-
-`Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:471](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L471)
-
-___
-
-### toMajorTickTextSpacing
-
-▸ `Protected` **toMajorTickTextSpacing**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
-
-#### Returns
-
-`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:459](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L459)
-
-___
-
-### toMinorTick
-
-▸ `Protected` **toMinorTick**(`theme`, `options?`): [`DChartAxisBaseTickMinor`](../interfaces/DChartAxisBaseTickMinor.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseTickContainerOptions`](../interfaces/DChartAxisBaseTickContainerOptions.md) |
-
-#### Returns
-
-[`DChartAxisBaseTickMinor`](../interfaces/DChartAxisBaseTickMinor.md)
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:231](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L231)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:705](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L705)
 
 ___
 
@@ -628,8 +403,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md) |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
 
 #### Returns
 
@@ -637,7 +412,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:119](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L119)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L131)
 
 ___
 
@@ -649,8 +424,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `optionsA` | `undefined` \| `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
-| `optionsB` | `undefined` \| `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `optionsA` | `undefined` \| [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
+| `optionsB` | `undefined` \| [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
 | `enable` | `undefined` \| `boolean` |
 | `color` | `undefined` \| `number` |
 | `alpha` | `undefined` \| `number` |
@@ -665,72 +440,113 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:322](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L322)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:332](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L332)
 
 ___
 
-### toTickContainer
+### toStrokeStyle
 
-▸ `Protected` **toTickContainer**(`theme`, `options?`): [`DChartAxisBaseTickContainer`](../interfaces/DChartAxisBaseTickContainer.md)
+▸ `Protected` **toStrokeStyle**(`target?`): `undefined` \| `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseOptions`](../interfaces/DChartAxisBaseOptions.md) |
+| `target?` | `number` \| ``"NONE"`` \| ``"NON_EXPANDING_WIDTH"`` \| ``"NON_SHRINKING_WIDTH"`` \| ``"NON_SCALING_DOT_AND_DASH"`` \| ``"NON_SCALING_MASK"`` \| ``"DOTTED"`` \| ``"DOTTED_DENSELY"`` \| ``"DOTTED_LOOSELY"`` \| ``"DOTTED_MASK"`` \| ``"DASHED"`` \| ``"DASHED_DENSELY"`` \| ``"DASHED_LOOSELY"`` \| ``"DASHED_MASK"`` \| ``"NON_SCALING"`` \| (``"NONE"`` \| ``"NON_EXPANDING_WIDTH"`` \| ``"NON_SHRINKING_WIDTH"`` \| ``"NON_SCALING_DOT_AND_DASH"`` \| ``"NON_SCALING_MASK"`` \| ``"DOTTED"`` \| ``"DOTTED_DENSELY"`` \| ``"DOTTED_LOOSELY"`` \| ``"DOTTED_MASK"`` \| ``"DASHED"`` \| ``"DASHED_DENSELY"`` \| ``"DASHED_LOOSELY"`` \| ``"DASHED_MASK"`` \| ``"NON_SCALING"``)[] |
 
 #### Returns
 
-[`DChartAxisBaseTickContainer`](../interfaces/DChartAxisBaseTickContainer.md)
+`undefined` \| `number`
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L143)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:388](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L388)
+
+___
+
+### toTick
+
+▸ `Protected` **toTick**(`theme`, `options?`): [`DChartAxisBaseOptionParserTick`](../interfaces/DChartAxisBaseOptionParserTick.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `OPTIONS` |
+
+#### Returns
+
+[`DChartAxisBaseOptionParserTick`](../interfaces/DChartAxisBaseOptionParserTick.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:154](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L154)
 
 ___
 
 ### toTickMajor
 
-▸ `Protected` **toTickMajor**(`theme`, `options?`): [`DChartAxisBaseTickMajor`](../interfaces/DChartAxisBaseTickMajor.md)
+▸ `Protected` **toTickMajor**(`theme`, `options?`): [`DChartAxisBaseOptionParserTickMajor`](../interfaces/DChartAxisBaseOptionParserTickMajor.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`DChartAxisBaseTickContainerOptions`](../interfaces/DChartAxisBaseTickContainerOptions.md) |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTickOptions`](../interfaces/DChartAxisBaseTickOptions.md) |
 
 #### Returns
 
-[`DChartAxisBaseTickMajor`](../interfaces/DChartAxisBaseTickMajor.md)
+[`DChartAxisBaseOptionParserTickMajor`](../interfaces/DChartAxisBaseOptionParserTickMajor.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L155)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L163)
+
+___
+
+### toTickMajorFormatter
+
+▸ `Protected` **toTickMajorFormatter**(`theme`, `options?`): `undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTickMajorOptions`](../interfaces/DChartAxisBaseTickMajorOptions.md) |
+
+#### Returns
+
+`undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:406](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L406)
 
 ___
 
 ### toTickMajorGridline
 
-▸ `Protected` **toTickMajorGridline**(`theme`, `options`, `optionsStyle`, `optionsStroke`): [`DChartAxisBaseGridline`](../interfaces/DChartAxisBaseGridline.md)
+▸ `Protected` **toTickMajorGridline**(`theme`, `options`, `optionsStyle`, `optionsStroke`): [`DChartAxisBaseOptionParserGridline`](../interfaces/DChartAxisBaseOptionParserGridline.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
+| `theme` | `THEME` |
 | `options` | `undefined` \| [`DChartAxisBaseTickMajorGridlineOptions`](../interfaces/DChartAxisBaseTickMajorGridlineOptions.md) |
 | `optionsStyle` | `undefined` \| [`EShapePointsStyleOption`](../index.md#eshapepointsstyleoption) |
-| `optionsStroke` | `undefined` \| `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `optionsStroke` | `undefined` \| [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
 
 #### Returns
 
-[`DChartAxisBaseGridline`](../interfaces/DChartAxisBaseGridline.md)
+[`DChartAxisBaseOptionParserGridline`](../interfaces/DChartAxisBaseOptionParserGridline.md)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:181](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L181)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L191)
 
 ___
 
@@ -742,9 +558,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `optionsA?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
-| `optionsB?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `theme` | `THEME` |
+| `optionsA?` | [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
+| `optionsB?` | [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
 
 #### Returns
 
@@ -752,7 +568,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:286](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L286)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:296](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L296)
 
 ___
 
@@ -764,9 +580,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `optionsA?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
-| `optionsB?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `theme` | `THEME` |
+| `optionsA?` | [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
+| `optionsB?` | [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
 
 #### Returns
 
@@ -774,7 +590,70 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:268](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L268)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:278](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L278)
+
+___
+
+### toTickMajorText
+
+▸ `Protected` **toTickMajorText**(`theme`, `options?`): `undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTickTextOptions`](../interfaces/DChartAxisBaseTickTextOptions.md) |
+
+#### Returns
+
+`undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:433](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L433)
+
+___
+
+### toTickMajorTextAlign
+
+▸ `Protected` **toTickMajorTextAlign**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:470](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L470)
+
+___
+
+### toTickMajorTextColor
+
+▸ `Protected` **toTickMajorTextColor**(`theme`, `options?`): `undefined` \| `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `number` |
+
+#### Returns
+
+`undefined` \| `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:522](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L522)
 
 ___
 
@@ -786,8 +665,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `options?` | [`EShapeTextDirection`](../index.md#eshapetextdirection-1) |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTextDirectionOption`](../index.md#dchartaxisbasetextdirectionoption) |
 
 #### Returns
 
@@ -795,7 +674,133 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:481](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L481)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:515](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L515)
+
+___
+
+### toTickMajorTextOffset
+
+▸ `Protected` **toTickMajorTextOffset**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:481](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L481)
+
+___
+
+### toTickMajorTextOutline
+
+▸ `Protected` **toTickMajorTextOutline**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:456](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L456)
+
+___
+
+### toTickMajorTextPadding
+
+▸ `Protected` **toTickMajorTextPadding**(`theme`, `options?`): `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+
+#### Returns
+
+`Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:505](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L505)
+
+___
+
+### toTickMajorTextSpacing
+
+▸ `Protected` **toTickMajorTextSpacing**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:493](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L493)
+
+___
+
+### toTickMinor
+
+▸ `Protected` **toTickMinor**(`theme`, `options?`): [`DChartAxisBaseOptionParserTickMinor`](../interfaces/DChartAxisBaseOptionParserTickMinor.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTickOptions`](../interfaces/DChartAxisBaseTickOptions.md) |
+
+#### Returns
+
+[`DChartAxisBaseOptionParserTickMinor`](../interfaces/DChartAxisBaseOptionParserTickMinor.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:240](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L240)
+
+___
+
+### toTickMinorFormatter
+
+▸ `Protected` **toTickMinorFormatter**(`theme`, `options?`): `undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTickMinorOptions`](../interfaces/DChartAxisBaseTickMinorOptions.md) |
+
+#### Returns
+
+`undefined` \| [`NumberFormatter`](../interfaces/NumberFormatter.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:526](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L526)
 
 ___
 
@@ -807,9 +812,9 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | [`DThemeChartAxisBase`](../interfaces/DThemeChartAxisBase.md) |
-| `optionsA?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
-| `optionsB?` | `Partial`<[`EShapeStrokeLike`](../interfaces/EShapeStrokeLike.md)\> |
+| `theme` | `THEME` |
+| `optionsA?` | [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
+| `optionsB?` | [`DChartAxisBaseStrokeOptions`](../interfaces/DChartAxisBaseStrokeOptions.md) |
 
 #### Returns
 
@@ -817,7 +822,175 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:304](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L304)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:314](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L314)
+
+___
+
+### toTickMinorText
+
+▸ `Protected` **toTickMinorText**(`theme`, `options?`): `undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTickTextOptions`](../interfaces/DChartAxisBaseTickTextOptions.md) |
+
+#### Returns
+
+`undefined` \| [`DChartAxisBaseOptionParserText`](../interfaces/DChartAxisBaseOptionParserText.md)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:553](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L553)
+
+___
+
+### toTickMinorTextAlign
+
+▸ `Protected` **toTickMinorTextAlign**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextAlignLike`](../interfaces/EShapeTextAlignLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:590](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L590)
+
+___
+
+### toTickMinorTextColor
+
+▸ `Protected` **toTickMinorTextColor**(`theme`, `options?`): `undefined` \| `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `number` |
+
+#### Returns
+
+`undefined` \| `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:642](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L642)
+
+___
+
+### toTickMinorTextDirection
+
+▸ `Protected` **toTickMinorTextDirection**(`theme`, `options?`): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | [`DChartAxisBaseTextDirectionOption`](../index.md#dchartaxisbasetextdirectionoption) |
+
+#### Returns
+
+[`EShapeTextDirection`](../index.md#eshapetextdirection-1)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:635](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L635)
+
+___
+
+### toTickMinorTextOffset
+
+▸ `Protected` **toTickMinorTextOffset**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:601](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L601)
+
+___
+
+### toTickMinorTextOutline
+
+▸ `Protected` **toTickMinorTextOutline**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextOutlineLike`](../interfaces/EShapeTextOutlineLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:576](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L576)
+
+___
+
+### toTickMinorTextPadding
+
+▸ `Protected` **toTickMinorTextPadding**(`theme`, `options?`): `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+
+#### Returns
+
+`Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:625](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L625)
+
+___
+
+### toTickMinorTextSpacing
+
+▸ `Protected` **toTickMinorTextSpacing**(`theme`, `options?`): `undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `THEME` |
+| `options?` | `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\> |
+
+#### Returns
+
+`undefined` \| `Partial`<[`EShapeTextOffsetLike`](../interfaces/EShapeTextOffsetLike.md)\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:613](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L613)
 
 ___
 
@@ -837,4 +1010,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:198](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L198)
+[src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-axis-base-options-parser.ts#L207)

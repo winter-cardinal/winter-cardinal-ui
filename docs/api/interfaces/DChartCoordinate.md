@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartCoordinate
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinate
 
 # Interface: DChartCoordinate<CHART\>
 
@@ -10,8 +10,7 @@
 
 ## Implemented by
 
-- [`DChartCoordinateLinear`](../classes/DChartCoordinateLinear.md)
-- [`DChartCoordinateLog`](../classes/DChartCoordinateLog.md)
+- [`DChartCoordinateBase`](../classes/DChartCoordinateBase.md)
 
 ## Table of contents
 
@@ -43,7 +42,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L36)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L36)
 
 ___
 
@@ -55,7 +54,7 @@ Monotonic increasing ID for change detection.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L33)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:33](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L33)
 
 ___
 
@@ -65,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L37)
 
 ___
 
@@ -75,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L34)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L34)
 
 ## Methods
 
@@ -96,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L39)
 
 ___
 
@@ -116,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L56)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:56](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L56)
 
 ___
 
@@ -140,7 +139,7 @@ if the plot area container's localTransform is an identity matrix.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L52)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:52](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L52)
 
 ___
 
@@ -162,7 +161,7 @@ Transforms the given raw value to the untransformed value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L63)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:63](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L63)
 
 ___
 
@@ -190,7 +189,7 @@ Here, i is a non-negative integer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L76)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L76)
 
 ___
 
@@ -211,13 +210,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L54)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L54)
 
 ___
 
 ### ticks
 
-▸ **ticks**(`domainMin`, `domainMax`, `majorCount`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`): `void`
+▸ **ticks**(`domainMin`, `domainMax`, `domainVisibleMin`, `domainVisibleMax`, `majorCount`, `majorCapacity`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`): `void`
 
 Returns major / minor tick positions.
 
@@ -225,15 +224,18 @@ Returns major / minor tick positions.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `domainMin` | `number` | minimum domain |
-| `domainMax` | `number` | maximum domain |
+| `domainMin` | `number` | domain lower bound |
+| `domainMax` | `number` | domain upper bound |
+| `domainVisibleMin` | `number` | visible domain lower bound |
+| `domainVisibleMax` | `number` | visible domain upper bound |
 | `majorCount` | `number` | Expected major tick count |
+| `majorCapacity` | `number` | - |
 | `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) | - |
 | `minorCountPerMajor` | `number` | Expected minor tick count per major ticks |
 | `minorCount` | `number` | Expected total minor tick count |
 | `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) | - |
-| `majorResult` | `Float64Array` | `majorResult.length` must be larger than `majorCount * 3`. |
-| `minorResult` | `Float64Array` | `minorResult.length` must be larger than `minorCount * 3`. |
+| `majorResult` | `number`[] | `majorResult.length` must be larger than `majorCount * 3`. |
+| `minorResult` | `number`[] | `minorResult.length` must be larger than `minorCount * 3`. |
 
 #### Returns
 
@@ -241,7 +243,7 @@ Returns major / minor tick positions.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L109)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L111)
 
 ___
 
@@ -255,7 +257,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L43)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L43)
 
 ___
 
@@ -277,7 +279,7 @@ Transforms the given untransformed value to the raw value.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L83)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L83)
 
 ___
 
@@ -305,4 +307,4 @@ Here, i is a non-negative integer.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L96)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate.ts:96](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate.ts#L96)

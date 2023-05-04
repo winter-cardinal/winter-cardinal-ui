@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / NumberFormatterImpl
+[Winter Cardinal UI - v0.310.1](../index.md) / NumberFormatterImpl
 
 # Class: NumberFormatterImpl
 
@@ -38,7 +38,7 @@ A NumberFormatter implementation class.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L315)
+[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:315](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L315)
 
 ## Properties
 
@@ -48,7 +48,7 @@ A NumberFormatter implementation class.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L312)
+[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:312](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L312)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:313](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L313)
+[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:313](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L313)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:310](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L310)
+[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:310](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L310)
 
 ## Methods
 
@@ -95,4 +95,4 @@ Formats the given number `target`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:321](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L321)
+[src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts:321](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/number-formatter-impl.ts#L321)

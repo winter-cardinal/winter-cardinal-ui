@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DThemeWhiteChartAxisX
+[Winter Cardinal UI - v0.310.1](../index.md) / DThemeWhiteChartAxisX
 
 # Class: DThemeWhiteChartAxisX
 
@@ -24,6 +24,7 @@
 - [getLabelDirection](DThemeWhiteChartAxisX.md#getlabeldirection)
 - [getLabelPaddingHorizontal](DThemeWhiteChartAxisX.md#getlabelpaddinghorizontal)
 - [getLabelPaddingVertical](DThemeWhiteChartAxisX.md#getlabelpaddingvertical)
+- [getMajorTickCapacity](DThemeWhiteChartAxisX.md#getmajortickcapacity)
 - [getMajorTickCount](DThemeWhiteChartAxisX.md#getmajortickcount)
 - [getMajorTickGridlineEnable](DThemeWhiteChartAxisX.md#getmajortickgridlineenable)
 - [getMajorTickGridlineStrokeAlign](DThemeWhiteChartAxisX.md#getmajortickgridlinestrokealign)
@@ -64,6 +65,13 @@
 - [getMinorTickStrokeStyle](DThemeWhiteChartAxisX.md#getminortickstrokestyle)
 - [getMinorTickStrokeWidth](DThemeWhiteChartAxisX.md#getminortickstrokewidth)
 - [getMinorTickStyle](DThemeWhiteChartAxisX.md#getminortickstyle)
+- [getMinorTickTextAlignHorizontal](DThemeWhiteChartAxisX.md#getminorticktextalignhorizontal)
+- [getMinorTickTextAlignVertical](DThemeWhiteChartAxisX.md#getminorticktextalignvertical)
+- [getMinorTickTextColor](DThemeWhiteChartAxisX.md#getminorticktextcolor)
+- [getMinorTickTextDirection](DThemeWhiteChartAxisX.md#getminorticktextdirection)
+- [getMinorTickTextFormat](DThemeWhiteChartAxisX.md#getminorticktextformat)
+- [getMinorTickTextPaddingHorizontal](DThemeWhiteChartAxisX.md#getminorticktextpaddinghorizontal)
+- [getMinorTickTextPaddingVertical](DThemeWhiteChartAxisX.md#getminorticktextpaddingvertical)
 - [getPadding](DThemeWhiteChartAxisX.md#getpadding)
 - [getPosition](DThemeWhiteChartAxisX.md#getposition)
 - [getStrokeAlign](DThemeWhiteChartAxisX.md#getstrokealign)
@@ -108,7 +116,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L27)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L27)
 
 ___
 
@@ -132,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L40)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L40)
 
 ___
 
@@ -150,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L65)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L65)
 
 ___
 
@@ -168,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L61)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L61)
 
 ___
 
@@ -186,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L53)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:53](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L53)
 
 ___
 
@@ -204,7 +212,31 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L57)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L57)
+
+___
+
+### getMajorTickCapacity
+
+▸ **getMajorTickCapacity**(`count`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `count` | `number` |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMajorTickCapacity](DThemeWhiteChartAxisBase.md#getmajortickcapacity)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L109)
 
 ___
 
@@ -222,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L105)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L105)
 
 ___
 
@@ -240,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L199)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L203)
 
 ___
 
@@ -258,7 +290,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L223)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L227)
 
 ___
 
@@ -276,7 +308,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L215)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L219)
 
 ___
 
@@ -294,7 +326,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L211)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:215](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L215)
 
 ___
 
@@ -312,7 +344,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L207)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:211](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L211)
 
 ___
 
@@ -330,7 +362,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:227](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L227)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:231](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L231)
 
 ___
 
@@ -348,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:231](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L231)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L235)
 
 ___
 
@@ -366,7 +398,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:219](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L219)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:223](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L223)
 
 ___
 
@@ -384,7 +416,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:203](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L203)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:207](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L207)
 
 ___
 
@@ -402,7 +434,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L117)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L121)
 
 ___
 
@@ -420,7 +452,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L113)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L117)
 
 ___
 
@@ -438,7 +470,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L109)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L113)
 
 ___
 
@@ -456,7 +488,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L187)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L191)
 
 ___
 
@@ -474,7 +506,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L179)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L183)
 
 ___
 
@@ -492,7 +524,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L175)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:179](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L179)
 
 ___
 
@@ -510,7 +542,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L171)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:175](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L175)
 
 ___
 
@@ -528,7 +560,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:191](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L191)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L195)
 
 ___
 
@@ -546,7 +578,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:195](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L195)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:199](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L199)
 
 ___
 
@@ -564,7 +596,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:183](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L183)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:187](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L187)
 
 ___
 
@@ -582,7 +614,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L121)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L125)
 
 ___
 
@@ -606,7 +638,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L125)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L129)
 
 ___
 
@@ -630,7 +662,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:138](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L138)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:142](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L142)
 
 ___
 
@@ -648,7 +680,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L155)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L159)
 
 ___
 
@@ -666,7 +698,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L151)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:155](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L155)
 
 ___
 
@@ -684,7 +716,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:159](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L159)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L163)
 
 ___
 
@@ -702,7 +734,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:163](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L163)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L167)
 
 ___
 
@@ -720,7 +752,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:167](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L167)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:171](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L171)
 
 ___
 
@@ -738,7 +770,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:235](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L235)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L239)
 
 ___
 
@@ -756,7 +788,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L247)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L251)
 
 ___
 
@@ -774,7 +806,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L243)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:247](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L247)
 
 ___
 
@@ -792,7 +824,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:239](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L239)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L243)
 
 ___
 
@@ -810,7 +842,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:271](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L271)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:303](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L303)
 
 ___
 
@@ -828,7 +860,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L263)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:295](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L295)
 
 ___
 
@@ -846,7 +878,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L259)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:291](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L291)
 
 ___
 
@@ -864,7 +896,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L255)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:287](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L287)
 
 ___
 
@@ -882,7 +914,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L275)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:307](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L307)
 
 ___
 
@@ -900,7 +932,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L279)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:311](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L311)
 
 ___
 
@@ -918,7 +950,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L267)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:299](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L299)
 
 ___
 
@@ -936,7 +968,145 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:251](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L251)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L255)
+
+___
+
+### getMinorTickTextAlignHorizontal
+
+▸ **getMinorTickTextAlignHorizontal**(`position`): [`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
+
+#### Returns
+
+[`EShapeTextAlignHorizontal`](../index.md#eshapetextalignhorizontal-1)
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMinorTickTextAlignHorizontal](DThemeWhiteChartAxisBase.md#getminorticktextalignhorizontal)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:259](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L259)
+
+___
+
+### getMinorTickTextAlignVertical
+
+▸ **getMinorTickTextAlignVertical**(`position`): [`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `position` | [`DChartAxisPosition`](../index.md#dchartaxisposition-1) |
+
+#### Returns
+
+[`EShapeTextAlignVertical`](../index.md#eshapetextalignvertical-1)
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMinorTickTextAlignVertical](DThemeWhiteChartAxisBase.md#getminorticktextalignvertical)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:263](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L263)
+
+___
+
+### getMinorTickTextColor
+
+▸ **getMinorTickTextColor**(): `undefined` \| `number`
+
+#### Returns
+
+`undefined` \| `number`
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMinorTickTextColor](DThemeWhiteChartAxisBase.md#getminorticktextcolor)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:271](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L271)
+
+___
+
+### getMinorTickTextDirection
+
+▸ **getMinorTickTextDirection**(): [`EShapeTextDirection`](../index.md#eshapetextdirection-1)
+
+#### Returns
+
+[`EShapeTextDirection`](../index.md#eshapetextdirection-1)
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMinorTickTextDirection](DThemeWhiteChartAxisBase.md#getminorticktextdirection)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:267](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L267)
+
+___
+
+### getMinorTickTextFormat
+
+▸ **getMinorTickTextFormat**(): `undefined` \| `string`
+
+#### Returns
+
+`undefined` \| `string`
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMinorTickTextFormat](DThemeWhiteChartAxisBase.md#getminorticktextformat)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:275](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L275)
+
+___
+
+### getMinorTickTextPaddingHorizontal
+
+▸ **getMinorTickTextPaddingHorizontal**(): `number`
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMinorTickTextPaddingHorizontal](DThemeWhiteChartAxisBase.md#getminorticktextpaddinghorizontal)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:279](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L279)
+
+___
+
+### getMinorTickTextPaddingVertical
+
+▸ **getMinorTickTextPaddingVertical**(): `number`
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+[DThemeWhiteChartAxisBase](DThemeWhiteChartAxisBase.md).[getMinorTickTextPaddingVertical](DThemeWhiteChartAxisBase.md#getminorticktextpaddingvertical)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:283](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L283)
 
 ___
 
@@ -954,7 +1124,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L23)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L23)
 
 ___
 
@@ -972,7 +1142,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L19)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L19)
 
 ___
 
@@ -990,7 +1160,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L89)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L89)
 
 ___
 
@@ -1008,7 +1178,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L81)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L81)
 
 ___
 
@@ -1026,7 +1196,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L77)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L77)
 
 ___
 
@@ -1044,7 +1214,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L73)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L73)
 
 ___
 
@@ -1062,7 +1232,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L93)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L93)
 
 ___
 
@@ -1080,7 +1250,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L97)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L97)
 
 ___
 
@@ -1098,7 +1268,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L85)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L85)
 
 ___
 
@@ -1116,7 +1286,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L69)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L69)
 
 ___
 
@@ -1134,4 +1304,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L101)
+[src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/theme/white/d-theme-white-chart-axis-base.ts#L101)

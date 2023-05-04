@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartSeriesLinear
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesLinear
 
 # Class: DChartSeriesLinear<CHART\>
 
@@ -28,11 +28,10 @@ A series represents a linear equation `a (x - x0) === b (y - y0)`.
 - [\_coordinate](DChartSeriesLinear.md#_coordinate)
 - [\_domain](DChartSeriesLinear.md#_domain)
 - [\_index](DChartSeriesLinear.md#_index)
+- [\_isShown](DChartSeriesLinear.md#_isshown)
 - [\_line](DChartSeriesLinear.md#_line)
 - [\_options](DChartSeriesLinear.md#_options)
 - [\_parameters](DChartSeriesLinear.md#_parameters)
-- [\_plotAreaSizeXUpdated](DChartSeriesLinear.md#_plotareasizexupdated)
-- [\_plotAreaSizeYUpdated](DChartSeriesLinear.md#_plotareasizeyupdated)
 - [\_range](DChartSeriesLinear.md#_range)
 - [\_regionPointId](DChartSeriesLinear.md#_regionpointid)
 - [\_state](DChartSeriesLinear.md#_state)
@@ -57,22 +56,30 @@ A series represents a linear equation `a (x - x0) === b (y - y0)`.
 - [calcHitPoint](DChartSeriesLinear.md#calchitpoint)
 - [calcHitPointHitTester](DChartSeriesLinear.md#calchitpointhittester)
 - [destroy](DChartSeriesLinear.md#destroy)
+- [doUpdate](DChartSeriesLinear.md#doupdate)
+- [doUpdateLine](DChartSeriesLinear.md#doupdateline)
 - [emit](DChartSeriesLinear.md#emit)
 - [eventNames](DChartSeriesLinear.md#eventnames)
+- [hide](DChartSeriesLinear.md#hide)
 - [hitTest](DChartSeriesLinear.md#hittest)
+- [isHidden](DChartSeriesLinear.md#ishidden)
+- [isShown](DChartSeriesLinear.md#isshown)
 - [listenerCount](DChartSeriesLinear.md#listenercount)
 - [listeners](DChartSeriesLinear.md#listeners)
 - [off](DChartSeriesLinear.md#off)
 - [on](DChartSeriesLinear.md#on)
+- [onHide](DChartSeriesLinear.md#onhide)
+- [onRender](DChartSeriesLinear.md#onrender)
+- [onShow](DChartSeriesLinear.md#onshow)
 - [onStateChange](DChartSeriesLinear.md#onstatechange)
 - [once](DChartSeriesLinear.md#once)
 - [removeAllListeners](DChartSeriesLinear.md#removealllisteners)
 - [removeListener](DChartSeriesLinear.md#removelistener)
+- [show](DChartSeriesLinear.md#show)
 - [toDirty](DChartSeriesLinear.md#todirty)
 - [toThreshold](DChartSeriesLinear.md#tothreshold)
 - [unbind](DChartSeriesLinear.md#unbind)
 - [update](DChartSeriesLinear.md#update)
-- [updateLine](DChartSeriesLinear.md#updateline)
 - [updateRegion](DChartSeriesLinear.md#updateregion)
 
 ## Constructors
@@ -99,7 +106,7 @@ A series represents a linear equation `a (x - x0) === b (y - y0)`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L45)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L43)
 
 ## Properties
 
@@ -113,7 +120,7 @@ A series represents a linear equation `a (x - x0) === b (y - y0)`.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L39)
 
 ___
 
@@ -127,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L37)
 
 ___
 
@@ -141,7 +148,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L42)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L42)
 
 ___
 
@@ -155,7 +162,21 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L40)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L40)
+
+___
+
+### \_isShown
+
+• `Protected` **\_isShown**: `boolean`
+
+#### Inherited from
+
+[DChartSeriesBase](DChartSeriesBase.md).[_isShown](DChartSeriesBase.md#_isshown)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L47)
 
 ___
 
@@ -165,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L38)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L38)
 
 ___
 
@@ -175,7 +196,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L39)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L39)
 
 ___
 
@@ -185,27 +206,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:42](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L42)
-
-___
-
-### \_plotAreaSizeXUpdated
-
-• `Protected` **\_plotAreaSizeXUpdated**: `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L40)
-
-___
-
-### \_plotAreaSizeYUpdated
-
-• `Protected` **\_plotAreaSizeYUpdated**: `number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L41)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L40)
 
 ___
 
@@ -219,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L43)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L43)
 
 ___
 
@@ -233,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L44)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L44)
 
 ___
 
@@ -247,7 +248,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L46)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:46](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L46)
 
 ___
 
@@ -257,7 +258,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L43)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L41)
 
 ___
 
@@ -267,7 +268,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L37)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:37](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L37)
 
 ## Accessors
 
@@ -285,7 +286,7 @@ DChartSeriesBase.container
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L103)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:108](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L108)
 
 ___
 
@@ -303,7 +304,7 @@ DChartSeriesBase.coordinate
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:111](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L111)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:116](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L116)
 
 ___
 
@@ -321,7 +322,7 @@ DChartSeriesBase.domain
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L93)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L98)
 
 ___
 
@@ -339,7 +340,7 @@ DChartSeriesBase.index
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:107](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L107)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L112)
 
 ___
 
@@ -353,7 +354,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L82)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L78)
 
 ___
 
@@ -371,7 +372,7 @@ DChartSeriesBase.range
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:98](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L98)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:103](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L103)
 
 ___
 
@@ -389,7 +390,7 @@ DChartSeriesBase.shape
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L78)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:74](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L74)
 
 ___
 
@@ -407,7 +408,7 @@ DChartSeriesBase.state
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L115)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:120](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L120)
 
 ## Methods
 
@@ -441,7 +442,7 @@ ___
 
 ### bind
 
-▸ **bind**(`container`, `index`): `void`
+▸ **bind**(`container`, `index`): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Parameters
 
@@ -452,7 +453,7 @@ ___
 
 #### Returns
 
-`void`
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Overrides
 
@@ -460,7 +461,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:54](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L54)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:50](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L50)
 
 ___
 
@@ -486,7 +487,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:266](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L266)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:254](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L254)
 
 ___
 
@@ -515,17 +516,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:289](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L289)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:277](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L277)
 
 ___
 
 ### destroy
 
-▸ **destroy**(): `void`
+▸ **destroy**(): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Returns
 
-`void`
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Overrides
 
@@ -533,7 +534,50 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:245](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L245)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:232](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L232)
+
+___
+
+### doUpdate
+
+▸ `Protected` **doUpdate**(`render`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `render` | `boolean` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L97)
+
+___
+
+### doUpdateLine
+
+▸ `Protected` **doUpdateLine**(`line`, `container`, `xcoordinate`, `ycoordinate`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `line` | [`EShapeLine`](EShapeLine.md) |
+| `container` | [`DChartSeriesContainer`](../interfaces/DChartSeriesContainer.md)<`CHART`\> |
+| `xcoordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+| `ycoordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:115](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L115)
 
 ___
 
@@ -586,6 +630,24 @@ node_modules/pixi.js/pixi.js.d.ts:23996
 
 ___
 
+### hide
+
+▸ **hide**(): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
+
+#### Returns
+
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
+
+#### Inherited from
+
+[DChartSeriesBase](DChartSeriesBase.md).[hide](DChartSeriesBase.md#hide)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:143](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L143)
+
+___
+
 ### hitTest
 
 ▸ **hitTest**(`x`, `y`): `boolean`
@@ -607,7 +669,43 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:255](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L255)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:243](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L243)
+
+___
+
+### isHidden
+
+▸ **isHidden**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+[DChartSeriesBase](DChartSeriesBase.md).[isHidden](DChartSeriesBase.md#ishidden)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:158](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L158)
+
+___
+
+### isShown
+
+▸ **isShown**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Inherited from
+
+[DChartSeriesBase](DChartSeriesBase.md).[isShown](DChartSeriesBase.md#isshown)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:139](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L139)
 
 ___
 
@@ -722,6 +820,60 @@ node_modules/pixi.js/pixi.js.d.ts:24033
 
 ___
 
+### onHide
+
+▸ `Protected` **onHide**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[DChartSeriesBase](DChartSeriesBase.md).[onHide](DChartSeriesBase.md#onhide)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:151](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L151)
+
+___
+
+### onRender
+
+▸ **onRender**(): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
+
+#### Returns
+
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
+
+#### Overrides
+
+[DChartSeriesBase](DChartSeriesBase.md).[onRender](DChartSeriesBase.md#onrender)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:92](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L92)
+
+___
+
+### onShow
+
+▸ `Protected` **onShow**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[DChartSeriesBase](DChartSeriesBase.md).[onShow](DChartSeriesBase.md#onshow)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:132](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L132)
+
+___
+
 ### onStateChange
 
 ▸ `Protected` **onStateChange**(`newState`, `oldState`): `void`
@@ -743,7 +895,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:134](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L134)
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:178](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L178)
 
 ___
 
@@ -836,13 +988,31 @@ node_modules/pixi.js/pixi.js.d.ts:24056
 
 ___
 
-### toDirty
+### show
 
-▸ **toDirty**(): `void`
+▸ **show**(): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Returns
 
-`void`
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
+
+#### Inherited from
+
+[DChartSeriesBase](DChartSeriesBase.md).[show](DChartSeriesBase.md#show)
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-series-base.ts:124](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base.ts#L124)
+
+___
+
+### toDirty
+
+▸ **toDirty**(): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
+
+#### Returns
+
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Overrides
 
@@ -850,7 +1020,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L86)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L82)
 
 ___
 
@@ -872,17 +1042,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:285](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L285)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:273](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L273)
 
 ___
 
 ### unbind
 
-▸ **unbind**(): `void`
+▸ **unbind**(): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Returns
 
-`void`
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Overrides
 
@@ -890,17 +1060,17 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L70)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L65)
 
 ___
 
 ### update
 
-▸ **update**(): `void`
+▸ **update**(): [`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Returns
 
-`void`
+[`DChartSeriesLinear`](DChartSeriesLinear.md)<`CHART`\>
 
 #### Overrides
 
@@ -908,31 +1078,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:90](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L90)
-
-___
-
-### updateLine
-
-▸ `Protected` **updateLine**(`line`, `xcoordinate`, `ycoordinate`, `plotAreaSizeX`, `plotAreaSizeY`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `line` | [`EShapeLine`](EShapeLine.md) |
-| `xcoordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
-| `ycoordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
-| `plotAreaSizeX` | `number` |
-| `plotAreaSizeY` | `number` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:127](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L127)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:87](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L87)
 
 ___
 
@@ -950,4 +1096,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:241](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L241)
+[src/main/typescript/wcardinal/ui/d-chart-series-linear.ts:228](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-linear.ts#L228)

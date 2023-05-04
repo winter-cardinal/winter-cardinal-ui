@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramSerializedSnapGridWithoutVisibility
+[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramSerializedSnapGridWithoutVisibility
 
 # Interface: DDiagramSerializedSnapGridWithoutVisibility
 
@@ -21,7 +21,7 @@ Snap on grid (0: Off, 1: On)
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:470](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L470)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:482](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L482)
 
 ___
 
@@ -33,4 +33,4 @@ A grid size.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:473](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L473)
+[src/main/typescript/wcardinal/ui/d-diagram-serialized.ts:485](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-serialized.ts#L485)

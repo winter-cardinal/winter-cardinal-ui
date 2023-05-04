@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DBaseOutlineOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / DBaseOutlineOptions
 
 # Interface: DBaseOutlineOptions
 
@@ -28,7 +28,7 @@ If an align is 1, an outline is rendered completely outside.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:350](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L350)
+[src/main/typescript/wcardinal/ui/d-base.ts:351](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L351)
 
 ___
 
@@ -41,7 +41,7 @@ If a computed value is undefined, falls back to an outline alpha of a theme.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:329](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L329)
+[src/main/typescript/wcardinal/ui/d-base.ts:330](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L330)
 
 ___
 
@@ -55,7 +55,7 @@ If a computed value is null, a background is not rendered.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:323](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L323)
+[src/main/typescript/wcardinal/ui/d-base.ts:324](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L324)
 
 ___
 
@@ -67,7 +67,7 @@ Masked outlines get removed.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:353](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L353)
+[src/main/typescript/wcardinal/ui/d-base.ts:354](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L354)
 
 ___
 
@@ -81,7 +81,7 @@ A outline moves to outside when an offset gets larger.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:342](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L342)
+[src/main/typescript/wcardinal/ui/d-base.ts:343](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L343)
 
 ___
 
@@ -94,4 +94,4 @@ If a computed value is undefined, falls back to an outline width of a theme.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:335](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L335)
+[src/main/typescript/wcardinal/ui/d-base.ts:336](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L336)

@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / UtilFont
+[Winter Cardinal UI - v0.310.1](../index.md) / UtilFont
 
 # Class: UtilFont
 
@@ -11,6 +11,7 @@
 ### Methods
 
 - [measure](UtilFont.md#measure)
+- [toSize](UtilFont.md#tosize)
 
 ## Constructors
 
@@ -36,4 +37,24 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/util/util-font.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/util/util-font.ts#L17)
+[src/main/typescript/wcardinal/ui/util/util-font.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-font.ts#L17)
+
+___
+
+### toSize
+
+▸ `Static` **toSize**(`font`): `number`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `font` | `string` |
+
+#### Returns
+
+`number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/util/util-font.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/util/util-font.ts#L44)

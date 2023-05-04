@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DDiagramCanvasEditorShape
+[Winter Cardinal UI - v0.310.1](../index.md) / DDiagramCanvasEditorShape
 
 # Interface: DDiagramCanvasEditorShape
 
@@ -37,4 +37,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts#L21)
+[src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-diagram-canvas-base-shape.ts#L21)

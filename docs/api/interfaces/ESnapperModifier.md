@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / ESnapperModifier
+[Winter Cardinal UI - v0.310.1](../index.md) / ESnapperModifier
 
 # Interface: ESnapperModifier
 
@@ -585,7 +585,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L18)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L18)
 
 ___
 
@@ -962,7 +962,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L17)
+[src/main/typescript/wcardinal/ui/snapper/e-snapper.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/snapper/e-snapper.ts#L17)
 
 ___
 

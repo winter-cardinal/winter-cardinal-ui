@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DTableDataTreeItemAccessor
+[Winter Cardinal UI - v0.310.1](../index.md) / DTableDataTreeItemAccessor
 
 # Class: DTableDataTreeItemAccessor<NODE\>
 
@@ -16,6 +16,7 @@
 
 ### Properties
 
+- [hasChildren](DTableDataTreeItemAccessor.md#haschildren)
 - [toChildren](DTableDataTreeItemAccessor.md#tochildren)
 - [toParent](DTableDataTreeItemAccessor.md#toparent)
 
@@ -39,52 +40,34 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L23)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:38](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L38)
 
 ## Properties
 
-### toChildren
+### hasChildren
 
-• **toChildren**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`[]
-
-#### Type declaration
-
-▸ (`node`): `undefined` \| ``null`` \| `NODE`[]
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `NODE` |
-
-##### Returns
-
-`undefined` \| ``null`` \| `NODE`[]
+• **hasChildren**: [`DTableDataTreeItemAccessorHasChildren`](../index.md#dtabledatatreeitemaccessorhaschildren)<`NODE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L21)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L36)
+
+___
+
+### toChildren
+
+• **toChildren**: [`DTableDataTreeItemAccessorToChildren`](../index.md#dtabledatatreeitemaccessortochildren)<`NODE`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L35)
 
 ___
 
 ### toParent
 
-• **toParent**: (`node`: `NODE`) => `undefined` \| ``null`` \| `NODE`
-
-#### Type declaration
-
-▸ (`node`): `undefined` \| ``null`` \| `NODE`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `NODE` |
-
-##### Returns
-
-`undefined` \| ``null`` \| `NODE`
+• **toParent**: [`DTableDataTreeItemAccessorToParent`](../index.md#dtabledatatreeitemaccessortoparent)<`NODE`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L20)
+[src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts:34](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-table-data-tree-item-accessor.ts#L34)

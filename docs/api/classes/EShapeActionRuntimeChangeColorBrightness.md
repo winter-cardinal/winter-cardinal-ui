@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / EShapeActionRuntimeChangeColorBrightness
+[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionRuntimeChangeColorBrightness
 
 # Class: EShapeActionRuntimeChangeColorBrightness
 
@@ -25,12 +25,29 @@
 - [execute](EShapeActionRuntimeChangeColorBrightness.md#execute)
 - [initialize](EShapeActionRuntimeChangeColorBrightness.md#initialize)
 - [onBlur](EShapeActionRuntimeChangeColorBrightness.md#onblur)
+- [onClick](EShapeActionRuntimeChangeColorBrightness.md#onclick)
 - [onDblClick](EShapeActionRuntimeChangeColorBrightness.md#ondblclick)
 - [onDown](EShapeActionRuntimeChangeColorBrightness.md#ondown)
 - [onDowning](EShapeActionRuntimeChangeColorBrightness.md#ondowning)
 - [onFocus](EShapeActionRuntimeChangeColorBrightness.md#onfocus)
+- [onKeyDown](EShapeActionRuntimeChangeColorBrightness.md#onkeydown)
+- [onKeyUp](EShapeActionRuntimeChangeColorBrightness.md#onkeyup)
 - [onMove](EShapeActionRuntimeChangeColorBrightness.md#onmove)
+- [onOut](EShapeActionRuntimeChangeColorBrightness.md#onout)
+- [onOver](EShapeActionRuntimeChangeColorBrightness.md#onover)
+- [onPressed](EShapeActionRuntimeChangeColorBrightness.md#onpressed)
 - [onRender](EShapeActionRuntimeChangeColorBrightness.md#onrender)
+- [onResize](EShapeActionRuntimeChangeColorBrightness.md#onresize)
+- [onRightClick](EShapeActionRuntimeChangeColorBrightness.md#onrightclick)
+- [onRightDown](EShapeActionRuntimeChangeColorBrightness.md#onrightdown)
+- [onRightDowning](EShapeActionRuntimeChangeColorBrightness.md#onrightdowning)
+- [onRightPressed](EShapeActionRuntimeChangeColorBrightness.md#onrightpressed)
+- [onRightUnpressed](EShapeActionRuntimeChangeColorBrightness.md#onrightunpressed)
+- [onRightUp](EShapeActionRuntimeChangeColorBrightness.md#onrightup)
+- [onRightUpOutside](EShapeActionRuntimeChangeColorBrightness.md#onrightupoutside)
+- [onUnpressed](EShapeActionRuntimeChangeColorBrightness.md#onunpressed)
+- [onUp](EShapeActionRuntimeChangeColorBrightness.md#onup)
+- [onUpOutside](EShapeActionRuntimeChangeColorBrightness.md#onupoutside)
 - [set](EShapeActionRuntimeChangeColorBrightness.md#set)
 - [toAdjusted](EShapeActionRuntimeChangeColorBrightness.md#toadjusted)
 
@@ -52,7 +69,7 @@ EShapeActionRuntimeChangeColorBase.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L19)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L20)
 
 ## Properties
 
@@ -62,7 +79,7 @@ EShapeActionRuntimeChangeColorBase.constructor
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L18)
 
 ___
 
@@ -76,13 +93,13 @@ EShapeActionRuntimeChangeColorBase.condition
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-conditional.ts#L13)
 
 ___
 
 ### reset
 
-• **reset**: `number`
+• `Readonly` **reset**: `number`
 
 #### Inherited from
 
@@ -90,7 +107,7 @@ EShapeActionRuntimeChangeColorBase.reset
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L17)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L18)
 
 ## Methods
 
@@ -103,7 +120,7 @@ EShapeActionRuntimeChangeColorBase.reset
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `time` | `number` |
 
 #### Returns
@@ -116,7 +133,7 @@ EShapeActionRuntimeChangeColorBase.execute
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L24)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L25)
 
 ___
 
@@ -129,7 +146,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -141,7 +158,7 @@ EShapeActionRuntimeChangeColorBase.initialize
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L23)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:24](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L24)
 
 ___
 
@@ -154,7 +171,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -166,22 +183,48 @@ EShapeActionRuntimeChangeColorBase.onBlur
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:35](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L35)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:40](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L40)
 
 ___
 
-### onDblClick
+### onClick
 
-▸ **onDblClick**(`shape`, `runtime`, `e`, `interactionManager`): `void`
+▸ **onClick**(`shape`, `runtime`, `e`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onClick
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:44](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L44)
+
+___
+
+### onDblClick
+
+▸ **onDblClick**(`shape`, `runtime`, `e`, `manager`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `MouseEvent` \| `TouchEvent` |
-| `interactionManager` | `InteractionManager` |
+| `manager` | `InteractionManager` |
 
 #### Returns
 
@@ -193,7 +236,7 @@ EShapeActionRuntimeChangeColorBase.onDblClick
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L51)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L48)
 
 ___
 
@@ -206,7 +249,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `InteractionEvent` \| `KeyboardEvent` |
 
 #### Returns
@@ -219,7 +262,7 @@ EShapeActionRuntimeChangeColorBase.onDown
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:43](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L43)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L61)
 
 ___
 
@@ -232,7 +275,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `InteractionEvent` \| `KeyboardEvent` |
 
 #### Returns
@@ -245,7 +288,7 @@ EShapeActionRuntimeChangeColorBase.onDowning
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L39)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L57)
 
 ___
 
@@ -258,7 +301,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -270,7 +313,59 @@ EShapeActionRuntimeChangeColorBase.onFocus
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:36](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L36)
+
+___
+
+### onKeyDown
+
+▸ **onKeyDown**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onKeyDown
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:93](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L93)
+
+___
+
+### onKeyUp
+
+▸ **onKeyUp**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onKeyUp
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:97](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L97)
 
 ___
 
@@ -283,7 +378,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `e` | `InteractionEvent` |
 
 #### Returns
@@ -296,7 +391,85 @@ EShapeActionRuntimeChangeColorBase.onMove
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L47)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L65)
+
+___
+
+### onOut
+
+▸ **onOut**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onOut
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:73](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L73)
+
+___
+
+### onOver
+
+▸ **onOver**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onOver
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L69)
+
+___
+
+### onPressed
+
+▸ **onPressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onPressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L85)
 
 ___
 
@@ -309,7 +482,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `time` | `number` |
 | `renderer` | `Renderer` |
 
@@ -323,7 +496,292 @@ EShapeActionRuntimeChangeColorBase.onRender
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts:60](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime.ts#L60)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:129](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L129)
+
+___
+
+### onResize
+
+▸ **onResize**(`shape`, `runtime`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onResize
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L32)
+
+___
+
+### onRightClick
+
+▸ **onRightClick**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onRightClick
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:101](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L101)
+
+___
+
+### onRightDown
+
+▸ **onRightDown**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onRightDown
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:109](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L109)
+
+___
+
+### onRightDowning
+
+▸ **onRightDowning**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onRightDowning
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:105](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L105)
+
+___
+
+### onRightPressed
+
+▸ **onRightPressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onRightPressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:121](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L121)
+
+___
+
+### onRightUnpressed
+
+▸ **onRightUnpressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onRightUnpressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L125)
+
+___
+
+### onRightUp
+
+▸ **onRightUp**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onRightUp
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:113](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L113)
+
+___
+
+### onRightUpOutside
+
+▸ **onRightUpOutside**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onRightUpOutside
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:117](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L117)
+
+___
+
+### onUnpressed
+
+▸ **onUnpressed**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onUnpressed
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:89](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L89)
+
+___
+
+### onUp
+
+▸ **onUp**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onUp
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L77)
+
+___
+
+### onUpOutside
+
+▸ **onUpOutside**(`shape`, `runtime`, `e`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `shape` | [`EShape`](../interfaces/EShape.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
+| `e` | `InteractionEvent` \| `KeyboardEvent` |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+EShapeActionRuntimeChangeColorBase.onUpOutside
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-base.ts#L81)
 
 ___
 
@@ -336,7 +794,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 | `time` | `number` |
 | `brightness` | ``null`` \| `number` |
 
@@ -350,7 +808,7 @@ EShapeActionRuntimeChangeColorBase.set
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:31](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L31)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L32)
 
 ___
 
@@ -371,4 +829,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L61)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts:62](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-runtime-change-color-brightness.ts#L62)

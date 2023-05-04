@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DBaseCornerOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / DBaseCornerOptions
 
 # Interface: DBaseCornerOptions
 
@@ -27,7 +27,7 @@ Masked corners get unrounded.
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:81](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L81)
+[src/main/typescript/wcardinal/ui/d-base.ts:82](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L82)
 
 ___
 
@@ -39,4 +39,4 @@ A radius
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base.ts:78](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base.ts#L78)
+[src/main/typescript/wcardinal/ui/d-base.ts:79](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base.ts#L79)

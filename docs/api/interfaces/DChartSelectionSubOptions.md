@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartSelectionSubOptions
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartSelectionSubOptions
 
 # Interface: DChartSelectionSubOptions<CHART, EMITTER\>
 
@@ -15,6 +15,7 @@
 
 - [enable](DChartSelectionSubOptions.md#enable)
 - [gridline](DChartSelectionSubOptions.md#gridline)
+- [label](DChartSelectionSubOptions.md#label)
 - [marker](DChartSelectionSubOptions.md#marker)
 - [on](DChartSelectionSubOptions.md#on)
 - [point](DChartSelectionSubOptions.md#point)
@@ -28,17 +29,27 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L15)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L15)
 
 ___
 
 ### gridline
 
-• `Optional` **gridline**: [`DChartSelectionGridlineContainerOptions`](DChartSelectionGridlineContainerOptions.md)<`CHART`\>
+• `Optional` **gridline**: [`DChartSelectionContainerOptions`](DChartSelectionContainerOptions.md)<`CHART`\>
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L16)
+
+___
+
+### label
+
+• `Optional` **label**: [`DChartSelectionContainerOptions`](DChartSelectionContainerOptions.md)<`CHART`\>
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L18)
 
 ___
 
@@ -48,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L17)
 
 ___
 
@@ -58,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L19)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L20)
 
 ___
 
@@ -68,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:20](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L20)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:21](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L21)
 
 ___
 
@@ -78,4 +89,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L18)
+[src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-selection-sub.ts#L19)

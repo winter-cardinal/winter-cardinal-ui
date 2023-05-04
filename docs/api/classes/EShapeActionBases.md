@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / EShapeActionBases
+[Winter Cardinal UI - v0.310.1](../index.md) / EShapeActionBases
 
 # Class: EShapeActionBases
 
@@ -32,7 +32,7 @@
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L14)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L15)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L18)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L19)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:22](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L22)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L23)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `shape` | [`EShape`](../interfaces/EShape.md) |
-| `runtime` | [`EShapeRuntime`](EShapeRuntime.md) |
+| `runtime` | [`EShapeRuntime`](../interfaces/EShapeRuntime.md) |
 
 #### Returns
 
@@ -103,4 +103,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:26](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L26)
+[src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts:27](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/shape/action/e-shape-action-bases.ts#L27)

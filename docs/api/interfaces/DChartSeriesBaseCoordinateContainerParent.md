@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartSeriesBaseCoordinateContainerParent
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartSeriesBaseCoordinateContainerParent
 
 # Interface: DChartSeriesBaseCoordinateContainerParent<CHART\>
 
@@ -22,4 +22,4 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L16)
+[src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-series-base-coordinate-container.ts#L16)

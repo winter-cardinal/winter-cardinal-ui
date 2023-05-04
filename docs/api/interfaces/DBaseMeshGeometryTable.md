@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DBaseMeshGeometryTable
+[Winter Cardinal UI - v0.310.1](../index.md) / DBaseMeshGeometryTable
 
 # Interface: DBaseMeshGeometryTable
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L10)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L10)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L11)
+[src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-base-mesh-geometry.ts#L11)

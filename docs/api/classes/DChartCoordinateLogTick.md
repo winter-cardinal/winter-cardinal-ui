@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DChartCoordinateLogTick
+[Winter Cardinal UI - v0.310.1](../index.md) / DChartCoordinateLogTick
 
 # Class: DChartCoordinateLogTick<CHART\>
 
@@ -7,6 +7,10 @@
 | Name | Type |
 | :------ | :------ |
 | `CHART` | extends [`DBase`](DBase.md) = [`DBase`](DBase.md) |
+
+## Implements
+
+- [`DChartCoordinateTick`](../interfaces/DChartCoordinateTick.md)<`CHART`\>
 
 ## Table of contents
 
@@ -20,7 +24,6 @@
 
 ### Methods
 
-- [calcStepMajor](DChartCoordinateLogTick.md#calcstepmajor)
 - [calcStepMinor](DChartCoordinateLogTick.md#calcstepminor)
 - [calcTickMinorPositions](DChartCoordinateLogTick.md#calctickminorpositions)
 - [calculate](DChartCoordinateLogTick.md#calculate)
@@ -50,7 +53,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:19](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L19)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:25](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L25)
 
 ## Properties
 
@@ -60,31 +63,9 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:17](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L17)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L23)
 
 ## Methods
-
-### calcStepMajor
-
-▸ `Protected` **calcStepMajor**(`domainMin`, `domainMax`, `majorCount`): `number`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `domainMin` | `number` |
-| `domainMax` | `number` |
-| `majorCount` | `number` |
-
-#### Returns
-
-`number`
-
-#### Defined in
-
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:41](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L41)
-
-___
 
 ### calcStepMinor
 
@@ -103,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:65](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L65)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:64](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L64)
 
 ___
 
@@ -129,13 +110,13 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:69](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L69)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:68](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L68)
 
 ___
 
 ### calculate
 
-▸ **calculate**(`domainFrom`, `domainTo`, `majorCount`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`, `coordinate`): `void`
+▸ **calculate**(`domainFrom`, `domainTo`, `domainVisibleFrom`, `domainVisibleTo`, `majorCount`, `majorCapacity`, `majorStep`, `minorCountPerMajor`, `minorCount`, `minorStep`, `majorResult`, `minorResult`, `coordinate`): `void`
 
 #### Parameters
 
@@ -143,22 +124,29 @@ ___
 | :------ | :------ |
 | `domainFrom` | `number` |
 | `domainTo` | `number` |
+| `domainVisibleFrom` | `number` |
+| `domainVisibleTo` | `number` |
 | `majorCount` | `number` |
+| `majorCapacity` | `number` |
 | `majorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMajorStepFunction`](../index.md#dchartcoordinatetickmajorstepfunction) |
 | `minorCountPerMajor` | `number` |
 | `minorCount` | `number` |
 | `minorStep` | `undefined` \| `number` \| [`DChartCoordinateTickMinorStepFunction`](../index.md#dchartcoordinatetickminorstepfunction) |
-| `majorResult` | `Float64Array` |
-| `minorResult` | `Float64Array` |
+| `majorResult` | `number`[] |
+| `minorResult` | `number`[] |
 | `coordinate` | [`DChartCoordinate`](../interfaces/DChartCoordinate.md)<`CHART`\> |
 
 #### Returns
 
 `void`
 
+#### Implementation of
+
+[DChartCoordinateTick](../interfaces/DChartCoordinateTick.md).[calculate](../interfaces/DChartCoordinateTick.md#calculate)
+
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:86](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L86)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:85](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L85)
 
 ___
 
@@ -172,7 +160,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L193)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:193](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L193)
 
 ___
 
@@ -186,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L197)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:197](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L197)
 
 ___
 
@@ -209,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:23](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L23)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:29](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L29)
 
 ___
 
@@ -231,7 +219,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:48](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L48)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:47](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L47)
 
 ___
 
@@ -251,4 +239,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L189)
+[src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts:189](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-chart-coordinate-log-tick.ts#L189)

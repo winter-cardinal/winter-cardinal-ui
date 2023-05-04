@@ -1,4 +1,4 @@
-[Winter Cardinal UI - v0.227.0](../index.md) / DDynamicTextMeasureResult
+[Winter Cardinal UI - v0.310.1](../index.md) / DDynamicTextMeasureResult
 
 # Class: DDynamicTextMeasureResult
 
@@ -15,6 +15,8 @@
 - [count](DDynamicTextMeasureResult.md#count)
 - [countPerLine](DDynamicTextMeasureResult.md#countperline)
 - [height](DDynamicTextMeasureResult.md#height)
+- [scale](DDynamicTextMeasureResult.md#scale)
+- [scaled](DDynamicTextMeasureResult.md#scaled)
 - [width](DDynamicTextMeasureResult.md#width)
 - [x](DDynamicTextMeasureResult.md#x)
 - [y](DDynamicTextMeasureResult.md#y)
@@ -22,6 +24,7 @@
 ### Methods
 
 - [end](DDynamicTextMeasureResult.md#end)
+- [fit](DDynamicTextMeasureResult.md#fit)
 - [isPushable](DDynamicTextMeasureResult.md#ispushable)
 - [isPushableAtNewLine](DDynamicTextMeasureResult.md#ispushableatnewline)
 - [newLine](DDynamicTextMeasureResult.md#newline)
@@ -38,7 +41,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L16)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:18](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L18)
 
 ## Properties
 
@@ -48,7 +51,7 @@
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L10)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:10](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L10)
 
 ___
 
@@ -58,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L11)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L13)
 
 ___
 
@@ -68,7 +71,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L6)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:6](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L6)
 
 ___
 
@@ -78,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L7)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:7](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L7)
 
 ___
 
@@ -88,7 +91,27 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L9)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:9](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L9)
+
+___
+
+### scale
+
+• **scale**: `number`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:11](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L11)
+
+___
+
+### scaled
+
+• **scaled**: `boolean`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:12](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L12)
 
 ___
 
@@ -98,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L8)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:8](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L8)
 
 ___
 
@@ -108,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:13](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L13)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:15](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L15)
 
 ___
 
@@ -118,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:14](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L14)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:16](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L16)
 
 ## Methods
 
@@ -139,7 +162,28 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:125](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L125)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:148](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L148)
+
+___
+
+### fit
+
+▸ **fit**(`width`, `height`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `width` | `number` |
+| `height` | `number` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:131](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L131)
 
 ___
 
@@ -160,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:39](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L39)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:45](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L45)
 
 ___
 
@@ -182,7 +226,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:51](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L51)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:57](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L57)
 
 ___
 
@@ -202,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:70](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L70)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:76](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L76)
 
 ___
 
@@ -216,7 +260,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:112](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L112)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:118](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L118)
 
 ___
 
@@ -237,7 +281,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:55](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L55)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:61](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L61)
 
 ___
 
@@ -258,7 +302,7 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:28](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L28)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:32](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L32)
 
 ___
 
@@ -278,4 +322,4 @@ ___
 
 #### Defined in
 
-[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:77](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.227.0/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L77)
+[src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts:83](https://github.com/winter-cardinal/winter-cardinal-ui/blob/v0.310.1/src/main/typescript/wcardinal/ui/d-dynamic-text-measure-result.ts#L83)
