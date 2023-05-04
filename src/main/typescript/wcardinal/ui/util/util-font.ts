@@ -26,6 +26,27 @@ export class UtilFont {
 			return result;
 		}
 
+		this.setup(font);
+
+		const blockRect = this._block!.getBoundingClientRect();
+		const blockRectTop = blockRect.top;
+		const spanRect = this._span!.getBoundingClientRect();
+		const ascent = blockRectTop - spanRect.top;
+		const descent = spanRect.bottom - blockRectTop;
+		result = {
+			ascent: ascent,
+			descent: descent
+		};
+		results.set(font, result);
+		return result;
+	}
+
+	static toSize(font: string): number {
+		this.setup(font);
+		return parseFloat(window.getComputedStyle(this._span!).fontSize);
+	}
+
+	private static setup(font: string): void {
 		let span = this._span;
 		if (span == null) {
 			span = document.createElement("span");
@@ -61,16 +82,5 @@ export class UtilFont {
 		}
 
 		span.style.font = font;
-		const blockRect = block.getBoundingClientRect();
-		const blockRectTop = blockRect.top;
-		const spanRect = span.getBoundingClientRect();
-		const ascent = blockRectTop - spanRect.top;
-		const descent = spanRect.bottom - blockRectTop;
-		result = {
-			ascent: ascent,
-			descent: descent
-		};
-		results.set(font, result);
-		return result;
 	}
 }

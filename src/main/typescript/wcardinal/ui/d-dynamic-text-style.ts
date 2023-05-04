@@ -20,6 +20,7 @@ export interface DDynamicTextStyleOptions {
 	fontWeight?: DFontWeight;
 	fill?: number;
 	clipping?: boolean;
+	fitting?: boolean;
 	wordWrap?: DDynamicTextStyleWordWrap | keyof typeof DDynamicTextStyleWordWrap;
 	lineHeight?: number;
 }
@@ -32,17 +33,22 @@ export class DDynamicTextStyle {
 	protected _fontIdId: number;
 	protected _fontId: string;
 	protected _fontIdApproved: string;
+	protected _fontIdFontSize: number;
 	protected _align: DDynamicTextAlign;
 	protected _fontFamily: string;
 	protected _fontSize: number;
+	protected _fontSizeFitted: number;
+	protected _isFontFitted: boolean;
 	protected _fontStyle: DFontStyle;
 	protected _fontVariant: DFontVariant;
 	protected _fontWeight: DFontWeight;
 	protected _fill: number;
 	protected _fillApproved: number;
 	protected _clipping: boolean;
+	protected _fitting: boolean;
 	protected _wordWrap: DDynamicTextStyleWordWrap;
 	protected _lineHeight: number;
+	protected _lineHeightFitted: number;
 	protected _onChange: () => void;
 
 	constructor(options: DDynamicTextStyleOptions | undefined, onChange: () => void) {
@@ -59,6 +65,7 @@ export class DDynamicTextStyle {
 			this._fontWeight = options.fontWeight ?? defaultOptions.fontWeight;
 			this._fill = options.fill ?? defaultOptions.fill;
 			this._clipping = options.clipping ?? defaultOptions.clipping;
+			this._fitting = options.fitting ?? defaultOptions.fitting;
 			this._wordWrap = toEnum(
 				options.wordWrap ?? defaultOptions.wordWrap,
 				DDynamicTextStyleWordWrap
@@ -73,10 +80,15 @@ export class DDynamicTextStyle {
 			this._fontWeight = defaultOptions.fontWeight;
 			this._fill = defaultOptions.fill;
 			this._clipping = defaultOptions.clipping;
+			this._fitting = defaultOptions.fitting;
 			this._wordWrap = toEnum(defaultOptions.wordWrap, DDynamicTextStyleWordWrap);
 			this._lineHeight = defaultOptions.lineHeight;
 		}
 
+		this._fontSizeFitted = this._fontSize;
+		this._lineHeightFitted = this._lineHeight;
+		this._isFontFitted = false;
+		this._fontIdFontSize = this._fontSize;
 		this._fontIdId = -1;
 		this._fontId = "";
 		this._fontIdApproved = "";
@@ -105,6 +117,7 @@ export class DDynamicTextStyle {
 			fontWeight: "normal",
 			fill: theme.getColor(new DBaseStateSetImpl()),
 			clipping: true,
+			fitting: false,
 			wordWrap: DDynamicTextStyleWordWrap.NONE,
 			lineHeight: theme.getLineHeight()
 		};
@@ -121,6 +134,11 @@ export class DDynamicTextStyle {
 	get fontId(): string {
 		this.update();
 		return this._fontId;
+	}
+
+	get fontIdFontSize(): number {
+		this.update();
+		return this._fontSizeFitted;
 	}
 
 	get fontIdApproved(): string {
@@ -172,8 +190,19 @@ export class DDynamicTextStyle {
 	set fontSize(fontSize: number) {
 		if (this._fontSize !== fontSize) {
 			this._fontSize = fontSize;
+			this._fontSizeFitted = fontSize;
+			this._lineHeightFitted = this._lineHeight;
+			this._isFontFitted = false;
 			this.onChange();
 		}
+	}
+
+	get fontSizeFitted(): number {
+		return this._fontSizeFitted;
+	}
+
+	get isFontFitted(): boolean {
+		return this._isFontFitted;
 	}
 
 	get fontStyle(): DFontStyle {
@@ -212,12 +241,14 @@ export class DDynamicTextStyle {
 	protected update(): void {
 		if (this._fontIdId !== this._id) {
 			this._fontIdId = this._id;
-			this._fontId = this.newFontId();
+			const fontIdFontSize = this._fitting ? this._fontSizeFitted : this._fontSize;
+			this._fontIdFontSize = fontIdFontSize;
+			this._fontId = this.toFontId(fontIdFontSize);
 		}
 	}
 
-	protected newFontId(): string {
-		return `${this._fontStyle} ${this._fontVariant} ${this._fontWeight} ${this._fontSize}px ${this._fontFamily}`;
+	toFontId(fontSize: number): string {
+		return `${this._fontStyle} ${this._fontVariant} ${this._fontWeight} ${fontSize}px ${this._fontFamily}`;
 	}
 
 	get clipping(): boolean {
@@ -227,6 +258,17 @@ export class DDynamicTextStyle {
 	set clipping(clipping: boolean) {
 		if (this._clipping !== clipping) {
 			this._clipping = clipping;
+			this.onChange();
+		}
+	}
+
+	get fitting(): boolean {
+		return this._fitting;
+	}
+
+	set fitting(fitting: boolean) {
+		if (this._fitting !== fitting) {
+			this._fitting = fitting;
 			this.onChange();
 		}
 	}
@@ -249,7 +291,61 @@ export class DDynamicTextStyle {
 	set lineHeight(lineHeight: number) {
 		if (this._lineHeight !== lineHeight) {
 			this._lineHeight = lineHeight;
+			this._fontSizeFitted = this._fontSize;
+			this._lineHeightFitted = lineHeight;
+			this._isFontFitted = false;
 			this.onChange();
 		}
+	}
+
+	get lineHeightFitted(): number {
+		return this._lineHeightFitted;
+	}
+
+	set lineHeightFitted(lineHeightFitted: number) {
+		if (this._lineHeightFitted !== lineHeightFitted) {
+			this._lineHeightFitted = lineHeightFitted;
+			this.onChange();
+		}
+	}
+
+	fit(fontSize: number, lineHeight: number): boolean {
+		let isChanged = false;
+		if (fontSize < this._fontSizeFitted) {
+			this._fontSizeFitted = fontSize;
+			isChanged = true;
+		}
+		if (this._lineHeightFitted !== lineHeight) {
+			this._lineHeightFitted = lineHeight;
+			isChanged = true;
+		}
+		if (this._isFontFitted !== true) {
+			this._isFontFitted = true;
+			isChanged = true;
+		}
+		if (isChanged) {
+			this.onChange();
+		}
+		return isChanged;
+	}
+
+	unfit(): boolean {
+		let isChanged = false;
+		if (this._isFontFitted !== false) {
+			this._isFontFitted = false;
+			isChanged = true;
+		}
+		if (this._fontSizeFitted !== this._fontSize) {
+			this._fontSizeFitted = this._fontSize;
+			isChanged = true;
+		}
+		if (this._lineHeightFitted !== this._lineHeight) {
+			this._lineHeightFitted = this._lineHeight;
+			isChanged = true;
+		}
+		if (isChanged) {
+			this.onChange();
+		}
+		return isChanged;
 	}
 }

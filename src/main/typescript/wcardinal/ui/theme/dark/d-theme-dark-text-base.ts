@@ -32,6 +32,10 @@ export class DThemeDarkTextBase<VALUE = unknown>
 		return true;
 	}
 
+	getTextStyleFitting(): boolean {
+		return false;
+	}
+
 	getTextStyleWordWrap(): DDynamicTextStyleWordWrap {
 		return DDynamicTextStyleWordWrap.NONE;
 	}

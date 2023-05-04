@@ -86,6 +86,7 @@ export interface DThemeTextBase<VALUE = unknown> extends DThemeBase {
 	getTextAlignVertical(): DAlignVertical;
 	getTextAlignHorizontal(): DAlignHorizontal;
 	getTextStyleClipping(): boolean;
+	getTextStyleFitting(): boolean;
 	getTextStyleWordWrap(): DDynamicTextStyleWordWrap;
 	isOverflowMaskEnabled(): boolean;
 }
@@ -109,6 +110,7 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 		const fontStyle = style.fontStyle ?? theme.getFontStyle();
 		const fontVariant = style.fontVariant ?? theme.getFontVariant();
 		const clipping = style.clipping ?? theme.getTextStyleClipping();
+		const fitting = style.fitting ?? theme.getTextStyleFitting();
 		const wordWrap = style.wordWrap ?? theme.getTextStyleWordWrap();
 		const lineHeight = style.lineHeight ?? theme.getLineHeight();
 		return {
@@ -119,6 +121,7 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 			fontStyle,
 			fontVariant,
 			clipping,
+			fitting,
 			wordWrap,
 			lineHeight
 		};
@@ -132,6 +135,7 @@ const toTextStyle = <VALUE, THEME extends DThemeTextBase<VALUE>>(
 		fontStyle: theme.getFontStyle(),
 		fontVariant: theme.getFontVariant(),
 		clipping: theme.getTextStyleClipping(),
+		fitting: theme.getTextStyleFitting(),
 		wordWrap: theme.getTextStyleWordWrap(),
 		lineHeight: theme.getLineHeight()
 	};

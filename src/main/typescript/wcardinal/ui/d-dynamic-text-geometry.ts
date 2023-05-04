@@ -9,8 +9,9 @@ import { DDynamicTextStyleWordWrap } from "./d-dynamic-text-style-word-wrap";
 import { DynamicFontAtlas } from "./util/dynamic-font-atlas";
 import { DynamicFontAtlasCharacter } from "./util/dynamic-font-atlas-character";
 
-export interface DDynamicTextGeometryClipping {
-	enable: boolean;
+export interface DDynamicTextGeometryModifier {
+	clipping: boolean;
+	fitting: boolean;
 	wordWrap: DDynamicTextStyleWordWrap;
 	width: number;
 	height: number;
@@ -20,25 +21,29 @@ export interface DDynamicTextGeometryClipping {
 export class DDynamicTextGeometry extends MeshGeometry {
 	width: number;
 	height: number;
+	scale: number;
+	scaled: boolean;
 	clipped: boolean;
 
 	constructor() {
 		super(new Float32Array(64), new Float32Array(64), new Uint16Array(48));
 		this.width = 0;
 		this.height = 0;
+		this.scale = 1;
+		this.scaled = false;
 		this.clipped = false;
 	}
 
 	update(
 		text: string,
 		atlas: DynamicFontAtlas | null,
-		clipping: DDynamicTextGeometryClipping
+		modifier: DDynamicTextGeometryModifier
 	): void {
 		const vertexBuffer = this.getBuffer("aVertexPosition");
 		const uvBuffer = this.getBuffer("aTextureCoord");
 		const indexBuffer = this.getIndex();
 
-		const result = DDynamicTextMeasure.measure(text, atlas, clipping);
+		const result = DDynamicTextMeasure.measure(text, atlas, modifier);
 		const requiredTextSize = Math.ceil(result.count / 8) << 3;
 		const requiredVertexSize = requiredTextSize << 3;
 		if ((vertexBuffer.data as Float32Array).length < requiredVertexSize) {
@@ -57,6 +62,7 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		if (atlas != null) {
 			const count = result.count;
 			const characters = result.characters;
+			const scale = result.scale;
 			for (let i = 0; i < count; ++i) {
 				const character = characters[i];
 				const cx = character.x;
@@ -64,13 +70,15 @@ export class DDynamicTextGeometry extends MeshGeometry {
 				const cc = character.character;
 				const w = atlas.width;
 				const h = atlas.height;
-				this.writeCharacter(vertices, uvs, indices, i, cx, cy, cc, w, h);
+				this.writeCharacter(vertices, uvs, indices, i, cx, cy, scale, cc, w, h);
 			}
 			for (let i = count, imax = vertices.length >> 3; i < imax; ++i) {
 				this.writeCharacterEmpty(vertices, uvs, indices, i);
 			}
-			this.width = result.width;
-			this.height = result.height;
+			this.width = result.width * scale;
+			this.height = result.height * scale;
+			this.scale = scale;
+			this.scaled = result.scaled;
 			this.clipped = result.clipped;
 		} else {
 			for (let i = 0, imax = vertices.length >> 3; i < imax; ++i) {
@@ -78,6 +86,8 @@ export class DDynamicTextGeometry extends MeshGeometry {
 			}
 			this.width = 0;
 			this.height = 0;
+			this.scale = 1;
+			this.scaled = false;
 			this.clipped = false;
 		}
 
@@ -93,6 +103,7 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		index: number,
 		x: number,
 		y: number,
+		scale: number,
 		character: DynamicFontAtlasCharacter,
 		width: number,
 		height: number
@@ -103,10 +114,10 @@ export class DDynamicTextGeometry extends MeshGeometry {
 		const ch = character.height;
 		const cox = character.origin.x;
 
-		const x0 = x + (cx - cox);
-		const y0 = y;
-		const x1 = x0 + cw;
-		const y1 = y0 + ch;
+		const x0 = (x + (cx - cox)) * scale;
+		const y0 = y * scale;
+		const x1 = x0 + cw * scale;
+		const y1 = y0 + ch * scale;
 
 		const iv = index << 3;
 		vertices[iv + 0] = x0;

@@ -8,6 +8,8 @@ export class DDynamicTextMeasureResult {
 	width: number;
 	height: number;
 	characters: DDynamicTextMeasureResultCharacter[];
+	scale: number;
+	scaled: boolean;
 	clipped: boolean;
 
 	x: number;
@@ -19,6 +21,8 @@ export class DDynamicTextMeasureResult {
 		this.width = 0;
 		this.height = 0;
 		this.characters = [];
+		this.scale = 1;
+		this.scaled = false;
 		this.clipped = false;
 
 		this.x = 0;
@@ -30,6 +34,8 @@ export class DDynamicTextMeasureResult {
 		this.countPerLine = 0;
 		this.width = 0;
 		this.height = 0;
+		this.scale = 1;
+		this.scaled = false;
 		this.clipped = false;
 
 		this.x = 0;
@@ -120,6 +126,23 @@ export class DDynamicTextMeasureResult {
 			return true;
 		}
 		return false;
+	}
+
+	fit(width: number, height: number): void {
+		const w = this.width;
+		const h = this.height;
+		if (1e-4 < w && width < w) {
+			if (1e-4 < h && height < h) {
+				this.scale = Math.min(width / w, height / h);
+				this.scaled = true;
+			} else {
+				this.scale = width / w;
+				this.scaled = true;
+			}
+		} else if (1e-4 < h && height < h) {
+			this.scale = height / h;
+			this.scaled = true;
+		}
 	}
 
 	end(lineHeight: number, fontHeight: number): void {
