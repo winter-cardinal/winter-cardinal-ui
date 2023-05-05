@@ -9,7 +9,6 @@ import { EShape } from "../e-shape";
 import { EShapePoints } from "../e-shape-points";
 import { EShapePointsStyle } from "../e-shape-points-style";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
-import { eShapePointsFormatterCurve } from "../e-shape-points-formatter-curve";
 import { EShapePointsFormatter } from "../e-shape-points-formatter";
 import {
 	EShapePointsFormatted,
@@ -22,6 +21,7 @@ import { EShapeLineBasePointsHitTesterToRange } from "./e-shape-line-base-points
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapePointsMarkerContainer } from "../e-shape-points-marker-container";
 import { EShapePointsMarkerContainerImpl } from "../e-shape-points-marker-container-impl";
+import { EShapePointsFormatters } from "../e-shape-points-formatters";
 
 export type EShapeLinePointsSerialized = [number[], number[], number, number?];
 
@@ -249,13 +249,7 @@ export class EShapeLinePoints implements EShapePoints {
 			this._formattedId = id;
 
 			const style = this._style;
-			let formatter = this._formatter;
-			if (formatter == null) {
-				if (style & EShapePointsStyle.CURVE) {
-					formatter = eShapePointsFormatterCurve;
-				}
-			}
-
+			const formatter = this._formatter || EShapePointsFormatters.find(style);
 			if (formatter != null) {
 				if (result == null) {
 					result = {

@@ -19,6 +19,22 @@ const DASHED_LOOSELY = 512;
 
 const CURVE = 1024;
 
+const FORMATTER_SHIFT = 10;
+
+const FORMATTER_MASK = 0xffc00;
+
+const FORMATTER_EXTENSION_LOWEST = 512;
+
+const FORMATTER_EXTENSION_HIGHEST = 1023;
+
+const FORMATTER_CURVE = 1;
+
+/**
+ * EShape point style.
+ *
+ * * Bits 0 to 9: Bit field of styles.
+ * * Bits 10 to 19: Formatter ID.
+ */
 export const EShapePointsStyle = {
 	NONE: 0,
 
@@ -61,7 +77,16 @@ export const EShapePointsStyle = {
 	DASHED_MASK: DASHED | DASHED_DENSELY | DASHED_LOOSELY,
 
 	CURVE,
-	FORMATTER_MASK: CURVE
+
+	FORMATTER_SHIFT: FORMATTER_SHIFT,
+
+	FORMATTER_MASK: FORMATTER_MASK,
+
+	FORMATTER_EXTENSION_LOWEST: FORMATTER_EXTENSION_LOWEST,
+
+	FORMATTER_EXTENSION_HIGHEST: FORMATTER_EXTENSION_HIGHEST,
+
+	FORMATTER_CURVE
 } as const;
 
 export type EShapePointsStyle = number;
