@@ -249,7 +249,7 @@ export class EShapeLinePoints implements EShapePoints {
 			this._formattedId = id;
 
 			const style = this._style;
-			const formatter = this._formatter || EShapePointsFormatters.find(style);
+			const formatter = this._formatter ?? EShapePointsFormatters.find(style)?.formatter;
 			if (formatter != null) {
 				if (result == null) {
 					result = {
