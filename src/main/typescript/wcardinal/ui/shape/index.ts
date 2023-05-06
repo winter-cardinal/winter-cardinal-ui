@@ -67,6 +67,7 @@ export * from "./e-shape-layout";
 export * from "./e-shape-points-formatted";
 export * from "./e-shape-points-formatter-curve";
 export * from "./e-shape-points-formatter";
+export * from "./e-shape-points-formatters";
 export * from "./e-shape-points-marker-base";
 export * from "./e-shape-points-marker-container-impl-noop";
 export * from "./e-shape-points-marker-container-impl";

@@ -1,0 +1,246 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Line (Formatter extension)</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const acopy = (source, result) => {
+			const sourceLength = source.length;
+			for (let i = 0; i < sourceLength; ++i) {
+				result[i] = source[i];
+			}
+			if (result.length !== sourceLength) {
+				result.length = sourceLength;
+			}
+			return result;
+		};
+
+		const formatter = (length, values, segments, style, result) => {
+			const rvalues = result.values;
+			const rsegments = result.segments;
+
+			// Copy the style
+			result.style = style;
+
+			// If the length is less than 2, just copy the original.
+			if (length <= 1) {
+				acopy(values, rvalues);
+				acopy(segments, rsegments);
+				result.length = length;
+				return result;
+			}
+
+			// Calculate the total length
+			let x0 = values[0];
+			let y0 = values[1];
+			let t = 0;
+			const al = [0];
+			const at = [0];
+			const isClosed = !!(style & wcardinal.ui.EShapePointsStyle.CLOSED);
+			const imax = isClosed ? length + 1 : length;
+			for (let i = 1, iv = 2; i < imax; ++i) {
+				const x1 = values[iv];
+				const y1 = values[iv + 1];
+				const dx = x1 - x0;
+				const dy = y1 - y0;
+				const d = dx * dx + dy * dy;
+				const l = Math.sqrt(d);
+				t += l;
+				al[i] = l;
+				at[i] = t;
+				x0 = x1;
+				y0 = y1;
+				if (isClosed && i === length - 1) {
+					iv = 0;
+				} else {
+					iv += 2;
+				}
+			}
+
+			// Calculate the space at the both edges.
+			const span = 10 / Math.sqrt(3);
+			let space = 0;
+			if (!isClosed) {
+				// If shorter than 4 s, just copy the original.
+				if (t <= 4 * span) {
+					acopy(values, rvalues);
+					acopy(segments, rsegments);
+					result.length = length;
+					return result;
+				}
+
+				const m = Math.floor((t - 4 * span) / (2 * span));
+				space = 0.5 * (t - 2 * m * span);
+			}
+
+			// Fill the first vertex
+			let irv = 0;
+			let irs = 0;
+			if (!isClosed) {
+				rvalues[0] = values[0];
+				rvalues[1] = values[1];
+				irv += 2;
+			}
+
+			// Fill middle vertices
+			let t0 = 0;
+			x0 = values[0];
+			y0 = values[1];
+			const ims = 0;
+			const ime = (t - 2 * space) / span;
+			for (let i = 1, iv = 2; i < imax; i += 1) {
+				const x1 = values[iv];
+				const y1 = values[iv + 1];
+				const l = al[i];
+				const t1 = at[i];
+				if (0 <= wcardinal.ui.toIndexOf(segments, iv >> 1)) {
+					rvalues[irv + 0] = x0;
+					rvalues[irv + 1] = y0;
+					irv += 2;
+					rsegments[irs] = irv >> 1;
+					irs += 1;
+				} else {
+					const dx = x1 - x0;
+					const dy = y1 - y0;
+					const f = 1 / l;
+					const fx = f * dx;
+					const fy = f * dy;
+					const im0 = (t0 - space) / span;
+					const im1 = (t1 - space) / span;
+					for (let im = Math.max(ims, Math.ceil(im0)); im <= im1 && im <= ime; ++im) {
+						const d = span * (im - im0);
+						const x2 = x0 + fx * d;
+						const y2 = y0 + fy * d;
+						if (im % 2 === 0) {
+							rvalues[irv + 0] = x2;
+							rvalues[irv + 1] = y2;
+						} else {
+							rvalues[irv + 0] = x2 + fy * 10;
+							rvalues[irv + 1] = y2 - fx * 10;
+						}
+						irv += 2;
+					}
+				}
+				x0 = x1;
+				y0 = y1;
+				t0 = t1;
+				if (isClosed && i === length - 1) {
+					iv = 0;
+				} else {
+					iv += 2;
+				}
+			}
+
+			// Fill the last vertex
+			if (!isClosed) {
+				const iv = (length - 1) << 1;
+				if (0 <= wcardinal.ui.toIndexOf(segments, length - 1)) {
+					rvalues[irv + 0] = x0;
+					rvalues[irv + 1] = y0;
+					irv += 2;
+					rsegments[irs] = irv >> 1;
+					irs += 1;
+				} else {
+					rvalues[irv + 0] = values[iv + 0];
+					rvalues[irv + 1] = values[iv + 1];
+					irv += 2;
+				}
+			}
+
+			// Remove the remaining vertices
+			rvalues.length = irv;
+			result.length = irv >> 1;
+
+			// Done
+			return result;
+		};
+
+		const ZIGZAG_FORMATTER = wcardinal.ui.EShapePointsStyle.FORMATTER_EXTENSION_LOWEST;
+		const ZIGZAG_STYLE = ZIGZAG_FORMATTER << wcardinal.ui.EShapePointsStyle.FORMATTER_SHIFT;
+		wcardinal.ui.EShapePointsFormatters.set(
+			ZIGZAG_FORMATTER,
+			{
+				name: "Zigzag",
+				formatter: formatter
+			}
+		);
+
+		const newLine = (ix, iy, points, segments, container) => {
+			const style = wcardinal.ui.EShapePointsStyle.CLOSED | ZIGZAG_STYLE;
+			const result = wcardinal.ui.createLine(points, segments, 3, style);
+			result.transform.position.set(100 + 90 * ix, 100 + 150 * iy);
+			result.attach(container);
+			return result;
+		};
+
+		const newPoints = () => {
+			const result = [];
+			for (let i = 0; i <= 4; ++i) {
+				const angle = (2 - i) * Math.PI / 4;
+				result.push(
+					Math.cos(angle) * 60,
+					Math.sin(angle) * 60
+				);
+			}
+			return result;
+		};
+
+		const application = new wcardinal.ui.DApplication();
+		const container = new wcardinal.ui.EShapeContainer();
+
+		// Zero segment
+		newLine(0, 0, newPoints(), [], container);
+
+		// One segment
+		for (let i = 0; i <= 4; ++i) {
+			newLine(i, 1, newPoints(), [i], container);
+		}
+
+		// Two segments
+		let ix = 0;
+		for (let i = 0, ix = 0; i <= 3; ++i) {
+			for (let j = i + 1; j <= 4; ++j) {
+				newLine(ix++, 2, newPoints(), [i, j], container);
+			}
+		}
+
+		// Three segments
+		ix = 0;
+		for (let i = 0; i <= 2; ++i) {
+			for (let j = i + 1; j <= 3; ++j) {
+				for(let k = j + 1; k <= 4; ++k) {
+					newLine(ix++, 3, newPoints(), [i, j, k], container);
+				}
+			}
+		}
+
+		application.stage.addChild( container );
+		application.update();
+	}());
+	</script>
+</body>
+</html>

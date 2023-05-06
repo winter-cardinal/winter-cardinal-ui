@@ -29,6 +29,15 @@ export class EShapePointsFormatters {
 		return this.data.get(index);
 	}
 
+	static each(iteratee: (id: number, datum: EShapePointsFormatterDatum) => void): void {
+		if (this.data == null) {
+			this.data = this.newData();
+		}
+		this.data.forEach((datum, id) => {
+			iteratee(id, datum);
+		});
+	}
+
 	static find(style: EShapePointsStyle): EShapePointsFormatterDatum | undefined {
 		return this.get(
 			(style & EShapePointsStyle.FORMATTER_MASK) >> EShapePointsStyle.FORMATTER_SHIFT
