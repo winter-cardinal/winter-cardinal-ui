@@ -28,6 +28,9 @@
 	(function(){
 		"use strict";
 
+		const al = [0];
+		const at = [0];
+
 		const acopy = (source, result) => {
 			const sourceLength = source.length;
 			for (let i = 0; i < sourceLength; ++i) {
@@ -58,8 +61,6 @@
 			let x0 = values[0];
 			let y0 = values[1];
 			let t = 0;
-			const al = [0];
-			const at = [0];
 			const isClosed = !!(style & wcardinal.ui.EShapePointsStyle.CLOSED);
 			const imax = isClosed ? length + 1 : length;
 			for (let i = 1, iv = 2; i < imax; ++i) {
@@ -111,7 +112,7 @@
 			x0 = values[0];
 			y0 = values[1];
 			const ims = 0;
-			const ime = (t - 2 * space) / span;
+			const ime = Math.round((t - 2 * space) / span);
 			for (let i = 1, iv = 2; i < imax; i += 1) {
 				const x1 = values[iv];
 				const y1 = values[iv + 1];
@@ -173,6 +174,7 @@
 
 			// Remove the remaining vertices
 			rvalues.length = irv;
+			rsegments.length = irs;
 			result.length = irv >> 1;
 
 			// Done

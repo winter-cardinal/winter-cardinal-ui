@@ -68,8 +68,17 @@ export class EShapeBarPoints implements EShapeLineBasePoints {
 		}
 	}
 
+	onSizeChange(): void {
+		this.update();
+	}
+
 	protected update(): void {
-		const parentSize = this._parent.size;
+		const parent = this._parent;
+		if (parent == null) {
+			return;
+		}
+
+		const parentSize = parent.size;
 		const parentSizeX = parentSize.x;
 		const parentSizeY = parentSize.y;
 		const position = this._position;

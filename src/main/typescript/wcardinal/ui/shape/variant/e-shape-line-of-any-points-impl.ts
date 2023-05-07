@@ -125,6 +125,10 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		return this;
 	}
 
+	onSizeChange(): void {
+		// DO NOTHING
+	}
+
 	copy(source: EShapePoints): this {
 		return this.set(source.values, source.segments, source.style);
 	}

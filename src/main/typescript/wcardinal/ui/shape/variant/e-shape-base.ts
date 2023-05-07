@@ -151,6 +151,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this._boundsLocalTransformId = NaN;
 
 		this.onTransformChange_();
+		const points = this._points;
+		if (points != null) {
+			points.onSizeChange();
+		}
 		this.updateUploaded();
 
 		const connector = this._connector;

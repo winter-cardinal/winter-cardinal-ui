@@ -160,6 +160,10 @@ export class EShapeGroupPoints implements EShapePoints {
 		return this;
 	}
 
+	onSizeChange(): void {
+		// DO NOTHING
+	}
+
 	copy(source: EShapePoints): this {
 		const children = this._parent.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
