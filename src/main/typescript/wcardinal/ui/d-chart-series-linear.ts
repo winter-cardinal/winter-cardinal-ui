@@ -219,8 +219,8 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		}
 		line.disallowUploadedUpdate();
 		line.points.set(values, segments);
+		line.points.toFitted(sx, sy);
 		line.size.set(sx, sy);
-		line.points.toFitted();
 		line.transform.position.set(cx, cy);
 		line.allowUploadedUpdate();
 	}

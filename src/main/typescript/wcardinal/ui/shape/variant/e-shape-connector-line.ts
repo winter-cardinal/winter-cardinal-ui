@@ -159,8 +159,8 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 			transform.scale.set(1, 1);
 			transform.rotation = 0;
 			transform.skew.set(0, 0);
+			points.toFitted(sx, sy);
 			this.size.set(sx, sy);
-			points.toFitted();
 			points.set(values);
 			this.allowUploadedUpdate();
 		}
