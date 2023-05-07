@@ -279,6 +279,8 @@
     * [SDF image](./shape/image-sdf.html)
     * [Line](./shape/line.html)
     * [Line (Curve)](./shape/line-curve.html)
+    * [Line (Formatter extension)](./shape/line-formatter-extension.html)
+    * [Line (Formatter function)](./shape/line-formatter-function.html)
     * [Line (Marker)](./shape/line-marker.html)
     * [Text align](./shape/text-align.html)
     * [Text clipping](./shape/text-clipping.html)
