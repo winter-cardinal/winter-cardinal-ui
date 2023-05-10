@@ -26,7 +26,7 @@ const makeCheckerboard = (width: number, height: number): string => {
 };
 
 /* eslint-disable prettier/prettier */
-DThemeWhiteAtlas.add("picker_color_main", 234, 156,
+DThemeWhiteAtlas.add("picker_color_main", 234, 162,
 	`<g>` +
 		`<linearGradient id="fs7w3iusfdnb" x1="0%" y1="0%" x2="100%" y2="0%">` +
 			`<stop stop-color="#FFFFFF" stop-opacity="0" offset="0"/>` +
@@ -36,8 +36,8 @@ DThemeWhiteAtlas.add("picker_color_main", 234, 156,
 			`<stop stop-color="#000000" stop-opacity="0" offset="0"/>` +
 			`<stop stop-color="#000000" stop-opacity="1" offset="1"/>` +
 		`</linearGradient>` +
-		`<rect x="0" y="0" width="234" height="156" fill="url(#fs7w3iusfdnb)" />` +
-		`<rect x="0" y="0" width="234" height="156" fill="url(#2rfcfe9874bw)" />` +
+		`<rect x="0" y="0" width="234" height="162" fill="url(#fs7w3iusfdnb)" />` +
+		`<rect x="0" y="0" width="234" height="162" fill="url(#2rfcfe9874bw)" />` +
 	`</g>`
 );
 

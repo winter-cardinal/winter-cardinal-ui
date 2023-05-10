@@ -20,7 +20,9 @@ import { DPickerColorStandard } from "./d-picker-color-standard";
 import { DSelect } from "./d-select";
 
 export interface DPickerColorOptions<THEME extends DThemePickerColor = DThemePickerColor>
-	extends DBaseOptions<THEME> {}
+	extends DBaseOptions<THEME> {
+	recentColors?: DColorAndAlpha[];
+}
 
 export interface DThemePickerColor extends DThemeBase {
 	getMainWidth(): number;
@@ -383,11 +385,9 @@ export class DPickerColor<
 		const recentColorY =
 			alphaCheckerboardSprite.y + theme.getAlphaHeight() + theme.getRecentMargin();
 		const recentCheckerboardTexture = theme.getRecentCheckerboardTexture();
+		const recentColors = this.options?.recentColors || theme.getRecents().slice(0);
 		if (DPickerColor.RECENT_COLORS == null) {
-			DPickerColor.RECENT_COLORS = new DPickerColorRecent(
-				theme.getRecents().slice(0),
-				recentColorCount
-			);
+			DPickerColor.RECENT_COLORS = new DPickerColorRecent(recentColors, recentColorCount);
 		}
 		const recent = (this._recent = DPickerColor.RECENT_COLORS);
 		recent.on("change", () => {

@@ -39,6 +39,11 @@ export class DPickerColorRecent extends utils.EventEmitter {
 		return null;
 	}
 
+	setRecents(colorAndAlphas: DColorAndAlpha[]): void {
+		this._recents = colorAndAlphas;
+		this.emit("change", this);
+	}
+
 	contains(colorAndAlpha: DColorAndAlpha): boolean {
 		const recents = this._recents;
 		for (let i = 0, imax = recents.length; i < imax; ++i) {
