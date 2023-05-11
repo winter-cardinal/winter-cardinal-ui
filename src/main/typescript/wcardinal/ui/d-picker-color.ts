@@ -18,6 +18,8 @@ import { UtilRgb } from "./util/util-rgb";
 import { DBaseInteractive } from "./d-base-interactive";
 import { DPickerColorStandard } from "./d-picker-color-standard";
 import { DSelect } from "./d-select";
+import { DLayoutHorizontal } from "./d-layout-horizontal";
+import { DColorType } from "./d-color-type";
 
 export interface DPickerColorOptions<THEME extends DThemePickerColor = DThemePickerColor>
 	extends DBaseOptions<THEME> {
@@ -78,6 +80,7 @@ export class DPickerColor<
 	protected _mainSprite!: Sprite;
 	protected _mainPointerSprite!: Sprite;
 	protected _pointerPoint!: Point;
+	protected _mainStandardColor!: DLayoutHorizontal;
 	protected _onMainMoveBound!: (e: InteractionEvent) => void;
 	protected _onMainUpBound!: (e: InteractionEvent) => void;
 
@@ -112,8 +115,8 @@ export class DPickerColor<
 	protected _new!: DColorAndAlpha;
 	protected _newPicker!: DPickerColorAndAlpha;
 
-	protected _colorMode!: string;
-	protected _changeMode!: DSelect;
+	protected _colorType!: string;
+	protected _typeSelector!: DSelect;
 
 	get current(): DColorAndAlpha {
 		return this._currentPicker;
@@ -131,12 +134,12 @@ export class DPickerColor<
 		return this._standardColor;
 	}
 
-	get colorMode(): string {
-		return this._colorMode;
+	get colorType(): string {
+		return this._colorType;
 	}
 
-	set colorMode(value: string) {
-		this._colorMode = value;
+	set colorType(value: string) {
+		this._colorType = value;
 	}
 
 	protected init(options?: OPTIONS): void {
@@ -163,7 +166,7 @@ export class DPickerColor<
 				this.setAlphaCurrent(alpha);
 			}
 		);
-		this._colorMode = "custom";
+		this._colorType = DColorType.CUSTOM;
 
 		const theme = this.theme;
 		const padding = this._padding;
@@ -175,44 +178,44 @@ export class DPickerColor<
 		const mainWidth = theme.getMainWidth();
 		const mainHeight = theme.getMainHeight();
 
-		const changeMode = new DSelect({
+		const typeSelector = new DSelect({
 			parent: this,
-			value: this._colorMode,
+			value: this._colorType,
 			menu: {
 				items: [
 					{
-						value: "custom",
+						value: DColorType.CUSTOM,
 						text: {
-							value: "Custom"
+							value: DColorType.CUSTOM
 						}
 					},
 					{
-						value: "standard",
+						value: DColorType.STANDARD,
 						text: {
-							value: "Standard"
+							value: DColorType.STANDARD
 						}
 					}
 				]
 			},
 			on: {
 				change: (value: string): void => {
-					this.colorMode = value;
-					this.onColorModeChange();
+					this.colorType = value;
+					this.onColorTypeChange();
 				}
 			}
 		});
-		this._changeMode = changeMode;
-		changeMode.x = paddingLeft;
-		changeMode.y = paddingTop;
-		changeMode.width = mainWidth;
-		changeMode.interactive = true;
-		this.addChild(changeMode);
+		this._typeSelector = typeSelector;
+		typeSelector.x = paddingLeft;
+		typeSelector.y = paddingTop;
+		typeSelector.width = mainWidth;
+		typeSelector.interactive = true;
+		this.addChild(typeSelector);
 
 		// Main
 		const mainBaseSprite = new Sprite(Texture.WHITE);
 		this._mainBaseSprite = mainBaseSprite;
 		mainBaseSprite.x = paddingLeft;
-		mainBaseSprite.y = changeMode.y + changeMode.height + theme.getBaseMargin();
+		mainBaseSprite.y = typeSelector.y + typeSelector.height + theme.getBaseMargin();
 		mainBaseSprite.width = mainWidth;
 		mainBaseSprite.height = mainHeight;
 		mainBaseSprite.interactive = true;
@@ -221,7 +224,7 @@ export class DPickerColor<
 		const mainSprite = new Sprite(theme.getMainTexture());
 		this._mainSprite = mainSprite;
 		mainSprite.x = paddingLeft;
-		mainSprite.y = changeMode.y + changeMode.height + theme.getBaseMargin();
+		mainSprite.y = typeSelector.y + typeSelector.height + theme.getBaseMargin();
 		mainSprite.tint = this._base;
 		mainSprite.interactive = false;
 		this.addChild(mainSprite);
@@ -265,7 +268,7 @@ export class DPickerColor<
 		const standardColorWidthHalf = standardColorWidth * 0.5;
 		const standardColorHeightHalf = standardColorHeight * 0.5;
 		const standardColorMargin = theme.getStandardColorMargin();
-		const standardColorY = changeMode.y + changeMode.height + theme.getBaseMargin();
+		const standardColorY = typeSelector.y + typeSelector.height + theme.getBaseMargin();
 		const standardCheckerboardTexture = theme.getStandardCheckerboardTexture();
 		if (this._standardColor == null) {
 			this._standardColor = new DPickerColorStandard(
@@ -296,7 +299,6 @@ export class DPickerColor<
 			checkerboardSprite.buttonMode = true;
 			checkerboardSprite.interactive = true;
 			checkerboardSprite.on(UtilPointerEvent.tap, onStandardClick);
-			this.addChild(checkerboardSprite);
 
 			const sprite = new Sprite(Texture.WHITE);
 			const standardColorAndAlpha = this.standardColor.get(i);
@@ -313,9 +315,17 @@ export class DPickerColor<
 			sprite.anchor.y = 0.5;
 			sprite.interactive = false;
 			checkerboardSprite.addChild(sprite);
-			checkerboardSprite.visible = false;
 			standardColorSprites.push(checkerboardSprite);
 		}
+		const mainStandardColor = new DLayoutHorizontal({
+			width: "auto",
+			height: "auto",
+			row: 8,
+			children: standardColorSprites
+		});
+		this._mainStandardColor = mainStandardColor;
+		mainStandardColor.visible = false;
+		this.addChild(mainStandardColor);
 
 		// Alpha picker
 		const alphaCheckerboardSprite = new Sprite(theme.getAlphaCheckerboardTexture());
@@ -345,7 +355,7 @@ export class DPickerColor<
 		const mainPointerSprite = new Sprite(theme.getMainPointerTexture());
 		this._mainPointerSprite = mainPointerSprite;
 		mainPointerSprite.x = paddingLeft;
-		mainPointerSprite.y = changeMode.y + changeMode.height + theme.getBaseMargin();
+		mainPointerSprite.y = typeSelector.y + typeSelector.height + theme.getBaseMargin();
 		mainPointerSprite.anchor.x = 0.5;
 		mainPointerSprite.anchor.y = 0.5;
 		mainPointerSprite.tint = theme.getMainPointerColor();
@@ -613,7 +623,7 @@ export class DPickerColor<
 	}
 
 	protected onMainPick(global: Point): void {
-		if (this._colorMode === "custom") {
+		if (this._colorType === DColorType.CUSTOM) {
 			const mainBaseSprite = this._mainBaseSprite;
 			const point = this._pointerPoint;
 			const theme = this.theme;
@@ -839,25 +849,20 @@ export class DPickerColor<
 		}
 	}
 
-	protected onColorModeChange(): void {
-		const colorMode = this._colorMode;
-		switch (colorMode) {
-			case "custom":
+	protected onColorTypeChange(): void {
+		const colorType = this._colorType;
+		switch (colorType) {
+			case DColorType.CUSTOM:
 				this._mainSprite.visible = true;
 				this._mainPointerSprite.visible = true;
 				this._baseSprite.visible = true;
-				this._standardColorSprites.forEach((e: Sprite) => {
-					e.visible = false;
-				});
-				// this._alphaCheckerboardSprite.setTransform(10);
+				this._mainStandardColor.visible = false;
 				break;
-			case "standard":
+			case DColorType.STANDARD:
 				this._mainSprite.visible = false;
 				this._mainPointerSprite.visible = false;
 				this._baseSprite.visible = false;
-				this._standardColorSprites.forEach((e: Sprite) => {
-					e.visible = true;
-				});
+				this._mainStandardColor.visible = true;
 				break;
 			default:
 				return;
