@@ -11,11 +11,17 @@ export interface EShapeAcceptorEdgeNormal {
 	y: number;
 }
 
+export interface EShapeAcceptorEdgeSize {
+	x: number;
+	y: number;
+}
+
 export interface EShapeAcceptorEdge {
 	type: EShapeAcceptorType;
 	x: number;
 	y: number;
 	normal: EShapeAcceptorEdgeNormal;
+	size: EShapeAcceptorEdgeSize;
 }
 
 export interface EShapeAcceptor {

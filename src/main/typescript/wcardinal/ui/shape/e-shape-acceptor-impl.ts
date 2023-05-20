@@ -28,14 +28,30 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 		type: EShapeAcceptorType,
 		x: number,
 		y: number,
+		nx: number,
+		ny: number,
+		sx: number,
+		sy: number
+	): boolean;
+	add(
+		id: string,
+		type: EShapeAcceptorType,
+		x: number,
+		y: number,
 		nx?: number,
-		ny?: number
+		ny?: number,
+		sx?: number,
+		sy?: number
 	): boolean {
 		this._edges.set(id, {
 			type,
 			x,
 			y,
-			normal: this.toNormal(x, y, nx, ny)
+			normal: this.toNormal(x, y, nx, ny),
+			size: {
+				x: sx ?? 0,
+				y: sy ?? 0
+			}
 		});
 		return true;
 	}
