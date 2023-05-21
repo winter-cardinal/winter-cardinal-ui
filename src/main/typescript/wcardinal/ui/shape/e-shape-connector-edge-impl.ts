@@ -144,8 +144,10 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	}
 
 	set(
-		shape?: EShape | null,
-		edge?: string | null,
+		acceptorShape?: EShape | null,
+		acceptorEdge?: string | null,
+		acceptorX?: number,
+		acceptorY?: number,
 		margin?: number,
 		x?: number,
 		y?: number,
@@ -153,7 +155,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		ny?: number
 	): this {
 		this.lock();
-		this._acceptor.set(shape, edge);
+		this._acceptor.set(acceptorShape, acceptorEdge, acceptorX, acceptorY);
 
 		const local = this._local;
 		if (x != null && y != null) {
@@ -200,7 +202,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		const local = this._local;
 		const normal = this._normal;
 		return manager.addResource(
-			`[${shapeUuid},${edgeId},${local.x},${local.y},${this._margin},${normal.x},${normal.y}]`
+			`[${shapeUuid},${edgeId},${local.x},${local.y},${this._margin},${normal.x},${normal.y},${acceptor.x},${acceptor.y}]`
 		);
 	}
 
@@ -226,6 +228,8 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			acceptor.shape = shape;
 			const edgeId = parsed[1];
 			acceptor.edge = 0 <= edgeId && edgeId < resources.length ? resources[edgeId] : null;
+			acceptor.x = parsed[7] ?? null;
+			acceptor.y = parsed[8] ?? null;
 			this._local.set(parsed[2], parsed[3]);
 			const normalX = parsed[5];
 			const normalY = parsed[6];
@@ -282,8 +286,8 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 					if (isLocalDirty) {
 						const size = acceptorShape.size;
 						const pivot = acceptorShape.transform.pivot;
-						const lx = pivot.x + size.x * edge.x;
-						const ly = pivot.y + size.y * edge.y;
+						const lx = pivot.x + size.x * (acceptor.x ?? edge.x);
+						const ly = pivot.y + size.y * (acceptor.y ?? edge.y);
 						this._local.set(a * lx + c * ly + tx, b * lx + d * ly + ty);
 					}
 					if (isNormalDirty) {

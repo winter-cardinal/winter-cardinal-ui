@@ -14,11 +14,15 @@ export class EShapeConnectorEdgeAcceptorImpl implements EShapeConnectorEdgeAccep
 	protected _parent: EShapeConnectorEdgeAcceptorImplParent;
 	protected _shape: EShape | null;
 	protected _edge: string | null;
+	protected _x: number | null;
+	protected _y: number | null;
 
 	constructor(parent: EShapeConnectorEdgeAcceptorImplParent) {
 		this._parent = parent;
 		this._shape = null;
 		this._edge = null;
+		this._x = null;
+		this._y = null;
 	}
 
 	get shape(): EShape | null {
@@ -37,11 +41,27 @@ export class EShapeConnectorEdgeAcceptorImpl implements EShapeConnectorEdgeAccep
 		this.set(undefined, edge);
 	}
 
-	copy(source: EShapeConnectorEdgeAcceptor): this {
-		return this.set(source.shape, source.edge);
+	get x(): number | null {
+		return this._x;
 	}
 
-	set(shape?: EShape | null, edge?: string | null): this {
+	set x(x: number | null) {
+		this.set(undefined, undefined, x);
+	}
+
+	get y(): number | null {
+		return this._y;
+	}
+
+	set y(y: number | null) {
+		this.set(undefined, undefined, undefined, y);
+	}
+
+	copy(source: EShapeConnectorEdgeAcceptor): this {
+		return this.set(source.shape, source.edge, source.x, source.y);
+	}
+
+	set(shape?: EShape | null, edge?: string | null, x?: number | null, y?: number | null): this {
 		let isChanged = false;
 
 		if (shape !== undefined && this._shape !== shape) {
@@ -51,6 +71,16 @@ export class EShapeConnectorEdgeAcceptorImpl implements EShapeConnectorEdgeAccep
 
 		if (edge !== undefined && this._edge !== edge) {
 			this._edge = edge;
+			isChanged = true;
+		}
+
+		if (x !== undefined && this._x !== x) {
+			this._x = x;
+			isChanged = true;
+		}
+
+		if (y !== undefined && this._y !== y) {
+			this._y = y;
 			isChanged = true;
 		}
 

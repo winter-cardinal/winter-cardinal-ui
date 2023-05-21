@@ -18,7 +18,9 @@ export type EShapeConnectorEdgeSerialized = [
 	number,
 	number,
 	number?,
-	number?
+	number?,
+	(number | null)?,
+	(number | null)?
 ];
 
 export interface EShapeConnectorEdge {
@@ -33,8 +35,10 @@ export interface EShapeConnectorEdge {
 	lock(): void;
 	unlock(): void;
 	set(
-		shape?: EShape | null,
-		edge?: string | null,
+		acceptorShape?: EShape | null,
+		acceptorEdge?: string | null,
+		acceptorX?: number | null,
+		acceptorY?: number | null,
 		margin?: number,
 		x?: number,
 		y?: number,
