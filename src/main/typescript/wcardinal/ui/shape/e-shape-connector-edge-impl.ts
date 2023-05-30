@@ -146,8 +146,8 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	set(
 		acceptorShape?: EShape | null,
 		acceptorEdge?: string | null,
-		acceptorX?: number,
-		acceptorY?: number,
+		acceptorX?: number | null,
+		acceptorY?: number | null,
 		margin?: number,
 		x?: number,
 		y?: number,
