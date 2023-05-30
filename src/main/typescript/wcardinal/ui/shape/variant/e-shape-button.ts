@@ -4,6 +4,7 @@
  */
 
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShape } from "../e-shape";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
 import { EShapeRectangleRounded } from "./e-shape-rectangle-rounded";
@@ -35,6 +36,15 @@ export class EShapeButton extends EShapeRectangleRounded {
 
 	set isGrouped(isGrouped: boolean) {
 		this._isGrouped = isGrouped;
+	}
+
+	override copy(source: EShape, part?: number): this {
+		super.copy(source, part);
+		if (source instanceof EShapeButton) {
+			this._isToggle = source.isToggle;
+			this._isGrouped = source.isGrouped;
+		}
+		return this;
 	}
 
 	clone(): EShapeRectangleRounded {
