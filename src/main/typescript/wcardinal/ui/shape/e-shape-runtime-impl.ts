@@ -167,7 +167,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 
 		const state = shape.state;
 		if (!state.isDown) {
-			if (state.isPressed) {
+			if (!state.isPressed) {
 				// State
 				state.addAll(EShapeState.DOWN, DBaseState.PRESSED);
 
@@ -187,7 +187,7 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 				}
 			} else {
 				// State
-				state.isDown = false;
+				state.isDown = true;
 
 				// Focus
 				const layer = DApplications.getLayer(shape);
