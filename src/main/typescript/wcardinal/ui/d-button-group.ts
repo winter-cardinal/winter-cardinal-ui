@@ -90,7 +90,7 @@ export class DButtonGroup<
 	set active(newActive: BUTTON | null) {
 		if ((newActive == null || newActive.isToggle) && this._active !== newActive) {
 			const oldActive = this._active;
-			this._active = null;
+			this._active = newActive;
 			const buttons = this._buttons;
 			for (let i = 0, imax = buttons.length; i < imax; ++i) {
 				const button = buttons[i];
