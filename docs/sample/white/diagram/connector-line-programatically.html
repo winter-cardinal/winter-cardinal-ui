@@ -22,20 +22,20 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.315.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.315.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.322.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.322.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var diagram = new wcardinal.ui.DDiagramEditor({
+		const diagram = new wcardinal.ui.DDiagramEditor({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",
 			on: {
-				ready: function() {
+				ready: () => {
 					const circleA = new wcardinal.ui.EShapeCircle();
 					circleA.transform.position.set(100, 250);
 					circleA.attach( diagram.layer );
@@ -48,13 +48,13 @@
 					connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
 					connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
 					connector.points.marker.head.fill.color = 0x909090;
-					connector.edge.tail.set(circleA, "RIGHT", 10);
-					connector.edge.head.set(circleB, "LEFT", 10);
+					connector.edge.tail.set(circleA, "RIGHT", null, null, 10);
+					connector.edge.head.set(circleB, "LEFT", null, null, 10);
 					connector.body.set([0, -0.3]);
 					connector.attach( diagram.layer );
 
-					var update = function () {
-						var t = (Date.now()) / 3000 * Math.PI;
+					const update = () => {
+						const t = (Date.now()) / 3000 * Math.PI;
 						circleA.transform.position.y = 250 + 100 * Math.cos(+t);
 						application.update();
 						setTimeout(update, 16);

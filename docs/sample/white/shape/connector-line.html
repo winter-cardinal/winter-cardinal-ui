@@ -22,37 +22,37 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.315.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.315.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.322.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.322.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var container = new wcardinal.ui.EShapeContainer();
+		const container = new wcardinal.ui.EShapeContainer();
 		container.position.set( 100, 100 );
 
-		var circleA = new wcardinal.ui.EShapeCircle();
+		const circleA = new wcardinal.ui.EShapeCircle();
 		circleA.transform.position.set(100, 250);
 		circleA.attach( container );
 
-		var circleB = new wcardinal.ui.EShapeCircle();
+		const circleB = new wcardinal.ui.EShapeCircle();
 		circleB.transform.position.set(400, 250);
 		circleB.attach( container );
 
-		var connector = new wcardinal.ui.EShapeConnectorLine();
+		const connector = new wcardinal.ui.EShapeConnectorLine();
 		connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
 		connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
 		connector.points.marker.head.fill.color = 0x909090;
 		connector.edge.tail.set(circleA, "RIGHT");
-		connector.edge.head.set(circleB, "CENTER", 20);
+		connector.edge.head.set(circleB, "CENTER", null, null, 20);
 		connector.body.set([-0.1, -0.1, +0.1, +0.1]);
 		connector.attach( container );
 
 		application.stage.addChild( container );
-		var update = function () {
-			var t = (Date.now()) / 3000 * Math.PI;
+		const update = () => {
+			const t = (Date.now()) / 3000 * Math.PI;
 			circleA.transform.position.y = 250 + 100 * Math.cos(+t);
 			application.update();
 			setTimeout(update, 16);
