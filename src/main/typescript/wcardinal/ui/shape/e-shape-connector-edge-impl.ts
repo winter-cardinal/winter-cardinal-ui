@@ -13,6 +13,7 @@ import { EShapeConnectorEdgeAcceptorImpl } from "./e-shape-connector-edge-accept
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
+import { EShapeAcceptorEdgeSide } from "./e-shape-acceptor-edge-side";
 
 export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected static WORK_MATRIX?: Matrix;
@@ -26,6 +27,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected _normalIdRequired: number;
 	protected _normalId: number;
 	protected _normal: IPoint;
+	protected _side: EShapeAcceptorEdgeSide;
 	protected _margin: number;
 	protected _lockCount: number;
 	protected _isAcceptorChanged: boolean;
@@ -49,6 +51,8 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		}, undefined);
 		this._normalIdRequired = 0;
 		this._normalId = 0;
+
+		this._side = EShapeAcceptorEdgeSide.TOP;
 
 		this._margin = 0;
 
@@ -132,6 +136,17 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		return this._normalId;
 	}
 
+	get side(): EShapeAcceptorEdgeSide {
+		return this._side;
+	}
+
+	set side(side: EShapeAcceptorEdgeSide) {
+		if (this._side !== side) {
+			this._side = side;
+			this.onOtherChange();
+		}
+	}
+
 	get margin(): number {
 		return this._margin;
 	}
@@ -152,7 +167,8 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		x?: number,
 		y?: number,
 		nx?: number,
-		ny?: number
+		ny?: number,
+		side?: EShapeAcceptorEdgeSide
 	): this {
 		this.lock();
 		this._acceptor.set(acceptorShape, acceptorEdge, acceptorX, acceptorY);
@@ -175,6 +191,10 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			normal.y = ny;
 		}
 
+		if (side != null) {
+			this.side = side;
+		}
+
 		if (margin != null) {
 			this.margin = margin;
 		}
@@ -188,6 +208,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		this._acceptor.copy(source.acceptor);
 		this._local.copyFrom(source.local);
 		this._normal.copyFrom(source.normal);
+		this.side = source.side;
 		this.margin = source.margin;
 		this.unlock();
 		return this;
@@ -201,8 +222,9 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		const edgeId = edge != null ? manager.addResource(edge) : -1;
 		const local = this._local;
 		const normal = this._normal;
+		const side = this._side;
 		return manager.addResource(
-			`[${shapeUuid},${edgeId},${local.x},${local.y},${this._margin},${normal.x},${normal.y},${acceptor.x},${acceptor.y}]`
+			`[${shapeUuid},${edgeId},${local.x},${local.y},${this._margin},${normal.x},${normal.y},${acceptor.x},${acceptor.y},${side}]`
 		);
 	}
 
@@ -239,6 +261,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			} else {
 				normal.set(1, 0);
 			}
+			this.side = parsed[9] ?? EShapeAcceptorEdgeSide.TOP;
 			this.margin = parsed[4] || 0;
 			this.unlock();
 			if (shape) {

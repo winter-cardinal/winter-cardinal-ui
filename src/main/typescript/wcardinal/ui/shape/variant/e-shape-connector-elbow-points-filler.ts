@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShapeAcceptorEdgeSide } from "../e-shape-acceptor-edge-side";
+
 export class EShapeConnectorElbowPointsFiller {
 	protected _x: number;
 	protected _y: number;
@@ -63,83 +65,105 @@ export class EShapeConnectorElbowPointsFiller {
 		}
 	}
 
-	protected toAxis(dx: number, dy: number, nx: number, ny: number): 0 | 1 | 2 | 3 {
+	protected toSide(x: number, y: number): EShapeAcceptorEdgeSide {
+		// y = +x => 0 = x - y
+		// y = -x => 0 = x + y
+		if (0 <= x - y) {
+			if (0 <= x + y) {
+				return EShapeAcceptorEdgeSide.RIGHT;
+			} else {
+				return EShapeAcceptorEdgeSide.BOTTOM;
+			}
+		} else {
+			if (0 <= x + y) {
+				return EShapeAcceptorEdgeSide.TOP;
+			} else {
+				return EShapeAcceptorEdgeSide.LEFT;
+			}
+		}
+	}
+
+	protected toAxis(
+		dx: number,
+		dy: number,
+		nx: number,
+		ny: number,
+		side: EShapeAcceptorEdgeSide
+	): 0 | 1 | 2 | 3 {
+		// When (nx, ny) === (0, 0), treat as if side === EShapeAcceptorEdgeSide.ALL.
 		const anx = Math.abs(nx);
 		const any = Math.abs(ny);
 		const threshold = this._threshold;
 		if (anx < threshold && any < threshold) {
 			if (Math.abs(dx) < Math.abs(dy)) {
 				if (0 <= dy) {
-					return 2;
+					return 2; // Bottom
 				} else {
-					return 0;
+					return 0; // Top
 				}
 			} else {
 				if (0 <= dx) {
-					return 1;
+					return 1; // Right
 				} else {
-					return 3;
+					return 3; // Left
 				}
 			}
 		}
-		const s = 0.2;
-		if (0 <= nx) {
-			if (0 <= ny) {
-				if (s < anx && s < any) {
-					if (dx < dy) {
-						return 2;
-					} else {
-						return 1;
-					}
-				} else if (s < anx) {
-					return 1;
-				} else {
-					return 2;
-				}
-			} else {
-				if (s < anx && s < any) {
-					if (dx < -dy) {
-						return 0;
-					} else {
-						return 1;
-					}
-				} else if (s < anx) {
-					return 1;
-				} else {
-					return 0;
-				}
-			}
-		} else {
-			if (0 <= ny) {
-				if (s < anx && s < any) {
-					if (-dx < dy) {
-						return 2;
-					} else {
-						return 3;
-					}
-				} else if (s < anx) {
-					return 3;
-				} else {
-					return 2;
-				}
-			} else {
-				if (s < anx && s < any) {
-					if (dy < dx) {
-						return 0;
-					} else {
-						return 3;
-					}
-				} else if (s < anx) {
-					return 3;
-				} else {
-					return 0;
-				}
+
+		let d: number | null = null;
+		let result: 0 | 1 | 2 | 3 = 0;
+
+		// 0 := (0, -1)
+		// | ny,  nx |  0 |
+		// | nx, -ny | -1 |
+		if (side & this.toSide(-nx, ny)) {
+			if (d == null || d < -dy) {
+				d = -dy;
+				result = 0;
 			}
 		}
+
+		// 1 := (1, 0)
+		// | ny,  nx | 1 |
+		// | nx, -ny | 0 |
+		if (side & this.toSide(ny, nx)) {
+			if (d == null || d < dx) {
+				d = dx;
+				result = 1;
+			}
+		}
+
+		// 2 := (0, 1)
+		// | ny,  nx | 0 |
+		// | nx, -ny | 1 |
+		if (side & this.toSide(nx, -ny)) {
+			if (d == null || d < dy) {
+				d = dy;
+				result = 2;
+			}
+		}
+
+		// 3 := (-1, 0)
+		// | ny,  nx | -1 |
+		// | nx, -ny |  0 |
+		if (side & this.toSide(-ny, -nx)) {
+			if (d == null || d < -dx) {
+				d = -dx;
+				result = 3;
+			}
+		}
+
+		return result;
 	}
 
-	protected toTailAxis(x: number, y: number, nx: number, ny: number): 0 | 1 | 2 | 3 {
-		return this.toAxis(x - this.x, y - this.y, nx, ny);
+	protected toTailAxis(
+		x: number,
+		y: number,
+		nx: number,
+		ny: number,
+		side: EShapeAcceptorEdgeSide
+	): 0 | 1 | 2 | 3 {
+		return this.toAxis(x - this.x, y - this.y, nx, ny, side);
 	}
 
 	tail(
@@ -149,9 +173,10 @@ export class EShapeConnectorElbowPointsFiller {
 		ny: number,
 		sxh: number,
 		syh: number,
-		margin: number
+		margin: number,
+		side: EShapeAcceptorEdgeSide
 	): void {
-		switch (this.toTailAxis(x, y, nx, ny)) {
+		switch (this.toTailAxis(x, y, nx, ny, side)) {
 			case 0:
 				if (this.y - margin <= y) {
 					this.y -= Math.max(margin, syh);
@@ -197,8 +222,14 @@ export class EShapeConnectorElbowPointsFiller {
 		}
 	}
 
-	protected toHeadAxis(x: number, y: number, nx: number, ny: number): 0 | 1 | 2 | 3 {
-		return this.toAxis(this.x - x, this.y - y, nx, ny);
+	protected toHeadAxis(
+		x: number,
+		y: number,
+		nx: number,
+		ny: number,
+		side: EShapeAcceptorEdgeSide
+	): 0 | 1 | 2 | 3 {
+		return this.toAxis(this.x - x, this.y - y, nx, ny, side);
 	}
 
 	head(
@@ -208,9 +239,10 @@ export class EShapeConnectorElbowPointsFiller {
 		ny: number,
 		sxh: number,
 		syh: number,
-		margin: number
+		margin: number,
+		side: EShapeAcceptorEdgeSide
 	): void {
-		switch (this.toHeadAxis(x, y, nx, ny)) {
+		switch (this.toHeadAxis(x, y, nx, ny, side)) {
 			case 0:
 				if (y - margin <= this.y) {
 					this.y = y - Math.max(margin, syh);

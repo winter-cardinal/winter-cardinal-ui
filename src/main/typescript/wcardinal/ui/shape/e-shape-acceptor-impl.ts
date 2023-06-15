@@ -4,7 +4,10 @@
  */
 
 import { EShape } from "./e-shape";
-import { EShapeAcceptor, EShapeAcceptorEdge, EShapeAcceptorEdgeNormal } from "./e-shape-acceptor";
+import { EShapeAcceptor } from "./e-shape-acceptor";
+import { EShapeAcceptorEdge } from "./e-shape-acceptor-edge";
+import { EShapeAcceptorEdgeNormal } from "./e-shape-acceptor-edge-normal";
+import { EShapeAcceptorEdgeSide } from "./e-shape-acceptor-edge-side";
 import { EShapeAcceptorType } from "./e-shape-acceptor-type";
 
 export class EShapeAcceptorImpl implements EShapeAcceptor {
@@ -38,10 +41,22 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 		type: EShapeAcceptorType,
 		x: number,
 		y: number,
+		nx: number,
+		ny: number,
+		sx: number,
+		sy: number,
+		side: EShapeAcceptorEdgeSide
+	): boolean;
+	add(
+		id: string,
+		type: EShapeAcceptorType,
+		x: number,
+		y: number,
 		nx?: number,
 		ny?: number,
 		sx?: number,
-		sy?: number
+		sy?: number,
+		side?: EShapeAcceptorEdgeSide
 	): boolean {
 		this._edges.set(id, {
 			type,
@@ -51,7 +66,8 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 			size: {
 				x: sx ?? 0,
 				y: sy ?? 0
-			}
+			},
+			side: side ?? EShapeAcceptorEdgeSide.TOP
 		});
 		return true;
 	}

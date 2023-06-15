@@ -10,6 +10,7 @@ import { EShapeConnectorEdgeAcceptor } from "./e-shape-connector-edge-acceptor";
 import { EShapeResourceManagerDeserialization } from "./e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "./e-shape-resource-manager-serialization";
 import { EShapeUuidMapping } from "./e-shape-uuid-mapping";
+import { EShapeAcceptorEdgeSide } from "./e-shape-acceptor-edge-side";
 
 export type EShapeConnectorEdgeSerialized = [
 	number | null,
@@ -20,7 +21,8 @@ export type EShapeConnectorEdgeSerialized = [
 	number?,
 	number?,
 	(number | null)?,
-	(number | null)?
+	(number | null)?,
+	number?
 ];
 
 export interface EShapeConnectorEdge {
@@ -30,6 +32,7 @@ export interface EShapeConnectorEdge {
 	readonly localId: number;
 	readonly normal: IPoint;
 	readonly normalId: number;
+	side: EShapeAcceptorEdgeSide;
 	margin: number;
 
 	lock(): void;
@@ -43,7 +46,8 @@ export interface EShapeConnectorEdge {
 		x?: number,
 		y?: number,
 		nx?: number,
-		ny?: number
+		ny?: number,
+		side?: EShapeAcceptorEdgeSide
 	): this;
 	copy(source: EShapeConnectorEdge): this;
 	fit(forcibly?: boolean): this;

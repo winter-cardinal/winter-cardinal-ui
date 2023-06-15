@@ -4,25 +4,7 @@
  */
 
 import { EShape } from "./e-shape";
-import { EShapeAcceptorType } from "./e-shape-acceptor-type";
-
-export interface EShapeAcceptorEdgeNormal {
-	x: number;
-	y: number;
-}
-
-export interface EShapeAcceptorEdgeSize {
-	x: number;
-	y: number;
-}
-
-export interface EShapeAcceptorEdge {
-	type: EShapeAcceptorType;
-	x: number;
-	y: number;
-	normal: EShapeAcceptorEdgeNormal;
-	size: EShapeAcceptorEdgeSize;
-}
+import { EShapeAcceptorEdge } from "./e-shape-acceptor-edge";
 
 export interface EShapeAcceptor {
 	get(shape: EShape, id: string): EShapeAcceptorEdge | null;

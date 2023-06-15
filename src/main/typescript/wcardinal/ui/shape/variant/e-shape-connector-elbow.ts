@@ -32,6 +32,7 @@ export class EShapeConnectorElbow extends EShapeConnectorLine {
 		const tailNormal = tail.normal;
 		const tailNormalX = tailNormal.x;
 		const tailNormalY = tailNormal.y;
+		const tailSide = tail.side;
 
 		// Head
 		const headLocal = head.local;
@@ -40,6 +41,7 @@ export class EShapeConnectorElbow extends EShapeConnectorLine {
 		const headNormal = head.normal;
 		const headNormalX = headNormal.x;
 		const headNormalY = headNormal.y;
+		const headSide = head.side;
 
 		// Body
 		const bodyValues = body.values;
@@ -76,7 +78,7 @@ export class EShapeConnectorElbow extends EShapeConnectorLine {
 				const y3 = bodyValues[1];
 				const x4 = cx + c * x3 - s * y3;
 				const y4 = cy + c * y3 + s * x3;
-				filler.tail(x4, y4, tailNormalX, tailNormalY, sxh, syh, tailMargin);
+				filler.tail(x4, y4, tailNormalX, tailNormalY, sxh, syh, tailMargin, tailSide);
 				for (let i = 2; i < bodyValuesLength; i += 2) {
 					const x = bodyValues[i + 0];
 					const y = bodyValues[i + 1];
@@ -84,10 +86,10 @@ export class EShapeConnectorElbow extends EShapeConnectorLine {
 					const y5 = cy + c * y + s * x;
 					filler.middle(x5, y5);
 				}
-				filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin);
+				filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin, headSide);
 			} else {
-				filler.tail(cx, cy, tailNormalX, tailNormalY, sxh, syh, tailMargin);
-				filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin);
+				filler.tail(cx, cy, tailNormalX, tailNormalY, sxh, syh, tailMargin, tailSide);
+				filler.head(x1, y1, headNormalX, headNormalY, sxh, syh, headMargin, headSide);
 			}
 			filler.margin(tailMargin, headMargin);
 		}
