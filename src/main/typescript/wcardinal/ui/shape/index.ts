@@ -9,6 +9,7 @@ export * from "./variant";
 export * from "./e-shape-acceptor-edge-normal";
 export * from "./e-shape-acceptor-edge-side";
 export * from "./e-shape-acceptor-edge-size";
+export * from "./e-shape-acceptor-edge-type";
 export * from "./e-shape-acceptor-edge";
 export * from "./e-shape-acceptor-impl";
 export * from "./e-shape-acceptor-type";

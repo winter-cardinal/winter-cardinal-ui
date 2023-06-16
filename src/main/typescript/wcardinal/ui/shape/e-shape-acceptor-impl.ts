@@ -3,12 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { isNumber } from "../util/is-number";
+import { isString } from "../util/is-string";
+import { toEnum } from "../util/to-enum";
 import { EShape } from "./e-shape";
 import { EShapeAcceptor } from "./e-shape-acceptor";
 import { EShapeAcceptorEdge } from "./e-shape-acceptor-edge";
 import { EShapeAcceptorEdgeNormal } from "./e-shape-acceptor-edge-normal";
 import { EShapeAcceptorEdgeSide } from "./e-shape-acceptor-edge-side";
-import { EShapeAcceptorType } from "./e-shape-acceptor-type";
+import { EShapeAcceptorEdgeType } from "./e-shape-acceptor-edge-type";
 
 export class EShapeAcceptorImpl implements EShapeAcceptor {
 	protected _edges: Map<string, EShapeAcceptorEdge>;
@@ -17,10 +20,15 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 		this._edges = new Map<string, EShapeAcceptorEdge>();
 	}
 
-	add(id: string, type: EShapeAcceptorType, x: number, y: number): boolean;
 	add(
 		id: string,
-		type: EShapeAcceptorType,
+		type: EShapeAcceptorEdgeType | keyof typeof EShapeAcceptorEdgeType,
+		x: number,
+		y: number
+	): boolean;
+	add(
+		id: string,
+		type: EShapeAcceptorEdgeType | keyof typeof EShapeAcceptorEdgeType,
 		x: number,
 		y: number,
 		nx: number,
@@ -28,7 +36,7 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 	): boolean;
 	add(
 		id: string,
-		type: EShapeAcceptorType,
+		type: EShapeAcceptorEdgeType | keyof typeof EShapeAcceptorEdgeType,
 		x: number,
 		y: number,
 		nx: number,
@@ -38,28 +46,34 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 	): boolean;
 	add(
 		id: string,
-		type: EShapeAcceptorType,
+		type: EShapeAcceptorEdgeType | keyof typeof EShapeAcceptorEdgeType,
 		x: number,
 		y: number,
 		nx: number,
 		ny: number,
 		sx: number,
 		sy: number,
-		side: EShapeAcceptorEdgeSide
+		side:
+			| EShapeAcceptorEdgeSide
+			| keyof typeof EShapeAcceptorEdgeSide
+			| Array<keyof typeof EShapeAcceptorEdgeSide>
 	): boolean;
 	add(
 		id: string,
-		type: EShapeAcceptorType,
+		type: EShapeAcceptorEdgeType | keyof typeof EShapeAcceptorEdgeType,
 		x: number,
 		y: number,
 		nx?: number,
 		ny?: number,
 		sx?: number,
 		sy?: number,
-		side?: EShapeAcceptorEdgeSide
+		side?:
+			| EShapeAcceptorEdgeSide
+			| keyof typeof EShapeAcceptorEdgeSide
+			| Array<keyof typeof EShapeAcceptorEdgeSide>
 	): boolean {
 		this._edges.set(id, {
-			type,
+			type: toEnum(type, EShapeAcceptorEdgeType),
 			x,
 			y,
 			normal: this.toNormal(x, y, nx, ny),
@@ -67,7 +81,7 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 				x: sx ?? 0,
 				y: sy ?? 0
 			},
-			side: side ?? EShapeAcceptorEdgeSide.TOP
+			side: this.toSide(side)
 		});
 		return true;
 	}
@@ -92,6 +106,27 @@ export class EShapeAcceptorImpl implements EShapeAcceptor {
 					y: 0
 				};
 			}
+		}
+	}
+
+	protected toSide(
+		side?:
+			| EShapeAcceptorEdgeSide
+			| keyof typeof EShapeAcceptorEdgeSide
+			| Array<keyof typeof EShapeAcceptorEdgeSide>
+	): EShapeAcceptorEdgeSide {
+		if (side == null) {
+			return EShapeAcceptorEdgeSide.TOP;
+		} else if (isNumber(side)) {
+			return side;
+		} else if (isString(side)) {
+			return toEnum(side, EShapeAcceptorEdgeSide);
+		} else {
+			let result: EShapeAcceptorEdgeSide = EShapeAcceptorEdgeSide.NONE;
+			for (let i = 0, imax = side.length; i < imax; ++i) {
+				result |= toEnum(side[i], EShapeAcceptorEdgeSide);
+			}
+			return result;
 		}
 	}
 

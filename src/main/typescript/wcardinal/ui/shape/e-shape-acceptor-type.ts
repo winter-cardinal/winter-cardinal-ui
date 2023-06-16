@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const EShapeAcceptorType = {
-	TAIL: 1,
-	HEAD: 2,
-	ALL: 3
-} as const;
+import { EShapeAcceptorEdgeType } from "./e-shape-acceptor-edge-type";
 
+/**
+ * @deprecated in favor of {@link EShapeAcceptorEdgeType}.
+ */
+export const EShapeAcceptorType = EShapeAcceptorEdgeType;
+
+/**
+ * @deprecated in favor of {@link EShapeAcceptorEdgeType}.
+ */
 export type EShapeAcceptorType = typeof EShapeAcceptorType[keyof typeof EShapeAcceptorType];
