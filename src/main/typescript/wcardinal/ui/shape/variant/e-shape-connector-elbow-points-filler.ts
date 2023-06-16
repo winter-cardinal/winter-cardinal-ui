@@ -114,9 +114,9 @@ export class EShapeConnectorElbowPointsFiller {
 		let result: 0 | 1 | 2 | 3 = 0;
 
 		// 0 := (0, -1)
-		// | ny,  nx |  0 |
-		// | nx, -ny | -1 |
-		if (side & this.toSide(-nx, ny)) {
+		// | ny, -nx |  0 |
+		// | nx,  ny | -1 |
+		if (side & this.toSide(nx, -ny)) {
 			if (d == null || d < -dy) {
 				d = -dy;
 				result = 0;
@@ -124,8 +124,8 @@ export class EShapeConnectorElbowPointsFiller {
 		}
 
 		// 1 := (1, 0)
-		// | ny,  nx | 1 |
-		// | nx, -ny | 0 |
+		// | ny, -nx | 1 |
+		// | nx,  ny | 0 |
 		if (side & this.toSide(ny, nx)) {
 			if (d == null || d < dx) {
 				d = dx;
@@ -134,9 +134,9 @@ export class EShapeConnectorElbowPointsFiller {
 		}
 
 		// 2 := (0, 1)
-		// | ny,  nx | 0 |
-		// | nx, -ny | 1 |
-		if (side & this.toSide(nx, -ny)) {
+		// | ny, -nx | 0 |
+		// | nx,  ny | 1 |
+		if (side & this.toSide(-nx, ny)) {
 			if (d == null || d < dy) {
 				d = dy;
 				result = 2;
@@ -144,8 +144,8 @@ export class EShapeConnectorElbowPointsFiller {
 		}
 
 		// 3 := (-1, 0)
-		// | ny,  nx | -1 |
-		// | nx, -ny |  0 |
+		// | ny, -nx | -1 |
+		// | nx,  ny |  0 |
 		if (side & this.toSide(-ny, -nx)) {
 			if (d == null || d < -dx) {
 				d = -dx;
