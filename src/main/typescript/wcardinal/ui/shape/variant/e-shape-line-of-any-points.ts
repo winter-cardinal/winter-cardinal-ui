@@ -15,6 +15,7 @@ export interface EShapeLineOfAnyPoints extends EShapePoints {
 	readonly offset: EShapeLineOfAnyPointsPoint;
 	readonly fill: EShapeLineOfAnyPointsFill;
 	readonly stroke: EShapeLineOfAnyPointsStroke;
+	toFitted(x: number, y: number): void;
 	calcHitPointAbs<RESULT>(
 		x: number,
 		y: number,

@@ -129,6 +129,10 @@ export class EShapeLineOfAnyPointsImpl implements EShapeLineOfAnyPoints {
 		// DO NOTHING
 	}
 
+	toFitted(x: number, y: number): void {
+		// DO NOTHING
+	}
+
 	copy(source: EShapePoints): this {
 		return this.set(source.values, source.segments, source.style);
 	}

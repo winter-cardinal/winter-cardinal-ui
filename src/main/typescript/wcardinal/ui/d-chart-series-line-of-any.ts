@@ -299,6 +299,7 @@ export abstract class DChartSeriesLineOfAny<
 		values: number[]
 	): void {
 		line.points.set(values);
+		line.points.toFitted(sx, sy);
 		line.size.set(sx, sy);
 		line.transform.position.set(cx, cy);
 	}

@@ -218,8 +218,9 @@ export class DChartSeriesLine<CHART extends DBase = DBase> extends DChartSeriesB
 				values[i + 1] -= cy;
 			}
 
-			line.size.set(sx, sy);
 			line.points.set(values, segments);
+			line.points.toFitted(sx, sy);
+			line.size.set(sx, sy);
 			this._centerX = cx;
 			this._centerY = cy;
 		}
