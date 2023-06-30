@@ -49,7 +49,7 @@ export class DThemeDarkDiagramCanvasEditor
 	}
 
 	getSnapGridMajorWidth(): number {
-		return 1.25;
+		return Math.max(1, 2 / (window.devicePixelRatio ?? 1));
 	}
 
 	getSnapGridMajorStyle(): EShapeStrokeStyle {
