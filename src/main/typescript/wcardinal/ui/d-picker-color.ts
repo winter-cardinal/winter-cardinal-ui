@@ -269,7 +269,6 @@ export class DPickerColor<
 			const sprite = e.currentTarget;
 			if (sprite instanceof Sprite) {
 				this.setColorNew(sprite.tint);
-				this.setAlphaNew(sprite.alpha);
 			}
 		};
 		for (let i = 0; i < standardColorCount; ++i) {
