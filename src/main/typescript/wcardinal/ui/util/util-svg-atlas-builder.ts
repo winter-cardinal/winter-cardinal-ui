@@ -49,7 +49,27 @@ export class UtilSvgAtlasBuilder {
 		return this._margin;
 	}
 
-	add(name: string, width: number, height: number, path: string): boolean {
+	add(name: string, width: number, height: number, path: string): boolean;
+	add(
+		name: string,
+		width: number,
+		height: number,
+		path: string,
+		frameX: number,
+		frameY: number,
+		frameWidth: number,
+		frameHeight: number
+	): boolean;
+	add(
+		name: string,
+		width: number,
+		height: number,
+		path: string,
+		frameX?: number,
+		frameY?: number,
+		frameWidth?: number,
+		frameHeight?: number
+	): boolean {
 		const frames = this._frames;
 		if (!(name in frames)) {
 			// Position
@@ -67,7 +87,12 @@ export class UtilSvgAtlasBuilder {
 			this._nextX = x + width + margin;
 
 			// Frame
-			frames[name] = new Rectangle(x, y, width, height);
+			frames[name] = new Rectangle(
+				x + (frameX ?? 0),
+				y + (frameY ?? 0),
+				frameWidth ?? width,
+				frameHeight ?? height
+			);
 
 			// Svg
 			const ratio = this._ratio;

@@ -4,8 +4,8 @@
  */
 
 export const DColorType = {
-	CUSTOM: "Custom",
-	STANDARD: "Standard"
+	CUSTOM: 0,
+	STANDARD: 1
 } as const;
 
 export type DColorType = typeof DColorType[keyof typeof DColorType];

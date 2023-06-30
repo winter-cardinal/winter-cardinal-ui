@@ -43,6 +43,8 @@ export * from "./d-theme-white-chart-selection-gridline-y";
 export * from "./d-theme-white-chart-selection-marker";
 export * from "./d-theme-white-chart-selection-shape";
 export * from "./d-theme-white-chart";
+export * from "./d-theme-white-color-recent";
+export * from "./d-theme-white-color-standard";
 export * from "./d-theme-white-content";
 export * from "./d-theme-white-diagram-base";
 export * from "./d-theme-white-diagram-canvas-base";

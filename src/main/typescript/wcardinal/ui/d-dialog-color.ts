@@ -7,7 +7,7 @@ import { DisplayObject } from "pixi.js";
 import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DDialogFitted, DDialogFittedOptions, DThemeDialogFitted } from "./d-dialog-fitted";
 import { DPickerColor, DPickerColorOptions } from "./d-picker-color";
-import { DPickerColorRecent } from "./d-picker-color-recent";
+import { DColorRecent } from "./d-color-recent";
 
 export interface DDialogColorOptions<THEME extends DThemeDialogColor = DThemeDialogColor>
 	extends DDialogFittedOptions<DColorAndAlpha, THEME> {
@@ -46,7 +46,7 @@ export class DDialogColor<
 		return this.picker.new;
 	}
 
-	get recent(): DPickerColorRecent {
+	get recent(): DColorRecent {
 		return this.picker.recent;
 	}
 

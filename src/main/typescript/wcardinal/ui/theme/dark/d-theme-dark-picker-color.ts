@@ -6,7 +6,6 @@
 import { Texture } from "pixi.js";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DColorAndAlpha } from "../../d-color-and-alpha";
 import { DThemePickerColor } from "../../d-picker-color";
 import { DThemeDarkAtlas } from "./d-theme-dark-atlas";
 import { DThemeDarkBase } from "./d-theme-dark-base";
@@ -38,6 +37,12 @@ DThemeDarkAtlas.add("picker_color_main", 234, 162,
 		`</linearGradient>` +
 		`<rect x="0" y="0" width="234" height="162" fill="url(#fs7w3iusfdnb)" />` +
 		`<rect x="0" y="0" width="234" height="162" fill="url(#2rfcfe9874bw)" />` +
+	`</g>`
+);
+
+DThemeDarkAtlas.add("picker_color_main_base", 234, 162,
+	`<g>` +
+		`<rect x="0" y="0" width="234" height="164" fill="#fff" />` +
 	`</g>`
 );
 
@@ -77,25 +82,22 @@ DThemeDarkAtlas.add("picker_color_pointer", 25.8, 25.8,
 	`<circle cx="12.9" cy="12.9" r="7.2" stroke="#ffffff" stroke-width="2.4" fill="none" />`
 );
 
-DThemeDarkAtlas.add("picker_color_recent_checkerboard", 18, 18, makeCheckerboard(2, 2));
+DThemeDarkAtlas.add("picker_color_recent_checkerboard", 36, 36, makeCheckerboard(4, 4), 9, 9, 18, 18);
 
-DThemeDarkAtlas.add("picker_color_recent_null", 18, 18,
+DThemeDarkAtlas.add("picker_color_recent", 36, 36,
 	`<g>` +
-		`<rect x="1.2" y="1.2" width="15.6" height="15.6" stroke="#fff" stroke-width="0.8" fill="none" />` +
-		`<line x1="16.8" y1="1.2" x2="1.2" y2="16.8" stroke="#fff" stroke-width="0.8" stroke-linecap="round" />` +
-		`<line x1="1.2" y1="1.2" x2="16.8" y2="16.8" stroke="#fff" stroke-width="0.8" stroke-linecap="round" />` +
+		`<rect x="0" y="0" width="36" height="36" fill="#fff" />` +
+		`<path x="0" y="0" d="M9 9 h18 v18 h-18 v-18 m1 1 v16 h16 v-16 h-16 z" fill="#eee" />` +
 	`</g>`
-);
+, 9, 9, 18, 18);
 
 DThemeDarkAtlas.add("picker_color_sample_checkerboard", 45, 63, makeCheckerboard(5, 7));
 
-DThemeDarkAtlas.add("picker_color_sample_null", 54, 54,
+DThemeDarkAtlas.add("picker_color_sample", 47, 65,
 	`<g>` +
-		`<rect x="3.6" y="3.6" width="46.8" height="46.8" stroke="#fff" stroke-width="2.4" fill="none" />` +
-		`<line x1="50.4" y1="3.6" x2="3.6" y2="50.4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" />` +
-		`<line x1="3.6" y1="3.6" x2="50.4" y2="50.4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" />` +
+		`<rect x="0" y="0" width="47" height="65" fill="#fff" />` +
 	`</g>`
-);
+, 1, 1, 45, 63);
 
 DThemeDarkAtlas.add("picker_color_anchor_outlined", 25.8, 25.8,
 	`<circle cx="12.9" cy="12.9" r="8.4" stroke="none" fill="#ffffff" />` +
@@ -113,7 +115,11 @@ DThemeDarkAtlas.add("picker_color_direction", 12,30,
 	`<rect x="0.6" y="24.6" width="11.4375" height="1.2" rx="0.6" ry="0.6" stroke="none" fill="#5f5f5f" />`
 );
 
-DThemeDarkAtlas.add("picker_color_standard_checkerboard", 18, 18, makeCheckerboard(2, 2));
+DThemeDarkAtlas.add("picker_color_standard", 18, 18,
+	`<g>` +
+		`<rect x="0" y="0" width="18" height="18" fill="#fff" stroke-width="1" stroke="#eee" />` +
+	`</g>`
+);
 /* eslint-enable prettier/prettier */
 
 export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePickerColor {
@@ -127,6 +133,10 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 
 	getMainTexture(): Texture {
 		return DThemeDarkAtlas.mappings.picker_color_main;
+	}
+
+	getMainBaseTexture(): Texture {
+		return DThemeDarkAtlas.mappings.picker_color_main_base;
 	}
 
 	getMainPointerTexture(): Texture {
@@ -217,12 +227,8 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 		return DThemeDarkAtlas.mappings.picker_color_recent_checkerboard;
 	}
 
-	getRecentNullTexture(): Texture {
-		return DThemeDarkAtlas.mappings.picker_color_recent_null;
-	}
-
-	getRecents(): DColorAndAlpha[] {
-		return [];
+	getRecentTexture(): Texture {
+		return DThemeDarkAtlas.mappings.picker_color_recent;
 	}
 
 	getInputMargin(): number {
@@ -233,29 +239,20 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 		return 15;
 	}
 
-	getSampleCheckerboardTexture(): Texture {
+	getSampleCheckerboardOldTexture(): Texture {
 		return DThemeDarkAtlas.mappings.picker_color_sample_checkerboard;
 	}
 
-	getSampleNullTexture(): Texture {
-		return DThemeDarkAtlas.mappings.picker_color_sample_null;
+	getSampleCheckerboardNewTexture(): Texture {
+		return DThemeDarkAtlas.mappings.picker_color_sample_checkerboard;
 	}
 
-	getBackgroundColor(state: DBaseStateSet): number | null {
-		return null;
+	getSampleOldTexture(): Texture {
+		return DThemeDarkAtlas.mappings.picker_color_sample;
 	}
 
-	getBorderColor(state: DBaseStateSet): number | null {
-		return null;
-	}
-
-	getInteractive(): DBaseInteractive {
-		return DBaseInteractive.CHILDREN;
-	}
-
-	newState(state: DBaseStateSet): void {
-		super.newState(state);
-		state.isFocusable = false;
+	getSampleNewTexture(): Texture {
+		return DThemeDarkAtlas.mappings.picker_color_sample;
 	}
 
 	getStandardColorCount(): number {
@@ -274,332 +271,24 @@ export class DThemeDarkPickerColor extends DThemeDarkBase implements DThemePicke
 		return this.getBaseMargin();
 	}
 
-	getStandardCheckerboardTexture(): Texture {
-		return DThemeDarkAtlas.mappings.picker_color_standard_checkerboard;
+	getStandardTexture(): Texture {
+		return DThemeDarkAtlas.mappings.picker_color_standard;
 	}
 
-	getStandardColors(): DColorAndAlpha[] {
-		return [
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			},
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			},
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			},
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			},
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			},
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			},
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			},
-			{
-				color: 16053492,
-				alpha: 1
-			},
-			{
-				color: 15592941,
-				alpha: 1
-			},
-			{
-				color: 13619151,
-				alpha: 1
-			},
-			{
-				color: 16119285,
-				alpha: 1
-			},
-			{
-				color: 3223857,
-				alpha: 1
-			},
-			{
-				color: 8957607,
-				alpha: 1
-			},
-			{
-				color: 10387124,
-				alpha: 1
-			},
-			{
-				color: 16736602,
-				alpha: 1
-			},
-			{
-				color: 13413897,
-				alpha: 1
-			},
-			{
-				color: 6710886,
-				alpha: 1
-			}
-		];
+	getBackgroundColor(state: DBaseStateSet): number | null {
+		return null;
+	}
+
+	getBorderColor(state: DBaseStateSet): number | null {
+		return null;
+	}
+
+	getInteractive(): DBaseInteractive {
+		return DBaseInteractive.CHILDREN;
+	}
+
+	newState(state: DBaseStateSet): void {
+		super.newState(state);
+		state.isFocusable = false;
 	}
 }

@@ -25,6 +25,7 @@ export * from "./load-theme-dark-button-time";
 export * from "./load-theme-dark-button";
 export * from "./load-theme-dark-canvas-container";
 export * from "./load-theme-dark-chart";
+export * from "./load-theme-dark-color";
 export * from "./load-theme-dark-diagram";
 export * from "./load-theme-dark-diagram-editor";
 export * from "./load-theme-dark-dialog-all";

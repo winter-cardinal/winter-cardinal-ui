@@ -9,6 +9,7 @@ import { loadThemeWhiteBoard } from "./load-theme-white-board";
 import { loadThemeWhiteButtonAll } from "./load-theme-white-button-all";
 import { loadThemeWhiteCanvasContainer } from "./load-theme-white-canvas-container";
 import { loadThemeWhiteChart } from "./load-theme-white-chart";
+import { loadThemeWhiteColor } from "./load-theme-white-color";
 import { loadThemeWhiteDiagram } from "./load-theme-white-diagram";
 import { loadThemeWhiteDiagramEditor } from "./load-theme-white-diagram-editor";
 import { loadThemeWhiteDialogAll } from "./load-theme-white-dialog-all";
@@ -45,6 +46,7 @@ export const loadThemeWhiteAll = (): void => {
 	loadThemeWhiteView();
 	loadThemeWhiteCanvasContainer();
 	loadThemeWhiteChart();
+	loadThemeWhiteColor();
 	loadThemeWhiteDiagramEditor();
 	loadThemeWhiteDiagram();
 	loadThemeWhiteDialogAll();

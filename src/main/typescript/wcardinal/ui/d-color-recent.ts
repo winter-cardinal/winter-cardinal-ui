@@ -6,7 +6,12 @@
 import { utils } from "pixi.js";
 import { DColorAndAlpha } from "./d-color-and-alpha";
 
-export class DPickerColorRecent extends utils.EventEmitter {
+export interface DThemeColorRecent {
+	getCapacity(): number;
+	newColors(): DColorAndAlpha[];
+}
+
+export class DColorRecent extends utils.EventEmitter {
 	protected _recents: DColorAndAlpha[];
 	protected _capacity: number;
 
@@ -39,11 +44,6 @@ export class DPickerColorRecent extends utils.EventEmitter {
 		return null;
 	}
 
-	setRecents(colorAndAlphas: DColorAndAlpha[]): void {
-		this._recents = colorAndAlphas;
-		this.emit("change", this);
-	}
-
 	contains(colorAndAlpha: DColorAndAlpha): boolean {
 		const recents = this._recents;
 		for (let i = 0, imax = recents.length; i < imax; ++i) {
@@ -53,6 +53,15 @@ export class DPickerColorRecent extends utils.EventEmitter {
 			}
 		}
 		return false;
+	}
+
+	clear(): this {
+		const recents = this._recents;
+		if (0 < recents.length) {
+			recents.length = 0;
+			this.emit("change", this);
+		}
+		return this;
 	}
 
 	add(colorAndAlpha: DColorAndAlpha): this {
@@ -65,6 +74,56 @@ export class DPickerColorRecent extends utils.EventEmitter {
 			recents.shift();
 		}
 		this.emit("change", this);
+		return this;
+	}
+
+	addAll(colorAndAlphas: DColorAndAlpha[]): this {
+		const length = colorAndAlphas.length;
+		if (0 < length) {
+			const recents = this._recents;
+			for (let i = 0; i < length; ++i) {
+				const colorAndAlpha = colorAndAlphas[i];
+				recents.push({
+					color: colorAndAlpha.color,
+					alpha: colorAndAlpha.alpha
+				});
+				if (this._capacity < recents.length) {
+					recents.shift();
+				}
+			}
+			this.emit("change", this);
+		}
+		return this;
+	}
+
+	clearAndAddAll(colorAndAlphas: DColorAndAlpha[]): this {
+		let isChanged = false;
+
+		const recents = this._recents;
+		if (0 < recents.length) {
+			recents.length = 0;
+			isChanged = true;
+		}
+
+		const length = colorAndAlphas.length;
+		if (0 < length) {
+			for (let i = 0; i < length; ++i) {
+				const colorAndAlpha = colorAndAlphas[i];
+				recents.push({
+					color: colorAndAlpha.color,
+					alpha: colorAndAlpha.alpha
+				});
+				if (this._capacity < recents.length) {
+					recents.shift();
+				}
+			}
+			isChanged = true;
+		}
+
+		if (isChanged) {
+			this.emit("change", this);
+		}
+
 		return this;
 	}
 
