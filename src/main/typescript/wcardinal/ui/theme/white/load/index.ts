@@ -24,6 +24,8 @@ export * from "./load-theme-white-button-secondary";
 export * from "./load-theme-white-button-time";
 export * from "./load-theme-white-button";
 export * from "./load-theme-white-canvas-container";
+export * from "./load-theme-white-chart";
+export * from "./load-theme-white-color";
 export * from "./load-theme-white-diagram-editor";
 export * from "./load-theme-white-diagram";
 export * from "./load-theme-white-dialog-all";

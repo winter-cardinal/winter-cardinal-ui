@@ -6,7 +6,6 @@
 import { Texture } from "pixi.js";
 import { DBaseInteractive } from "../../d-base-interactive";
 import { DBaseStateSet } from "../../d-base-state-set";
-import { DColorAndAlpha } from "../../d-color-and-alpha";
 import { DThemePickerColor } from "../../d-picker-color";
 import { DThemeWhiteAtlas } from "./d-theme-white-atlas";
 import { DThemeWhiteBase } from "./d-theme-white-base";
@@ -14,7 +13,7 @@ import { DThemeWhiteBase } from "./d-theme-white-base";
 const makeCheckerboard = (width: number, height: number): string => {
 	const LIGHT = "#bfbfbf";
 	const DARK = "#a5a5a5";
-	let result = "<g>";
+	let result = `<g>`;
 	for (let ih = 0; ih < height; ++ih) {
 		for (let iw = 0; iw < width; ++iw) {
 			const color = (iw + ih) % 2 === 0 ? LIGHT : DARK;
@@ -26,7 +25,7 @@ const makeCheckerboard = (width: number, height: number): string => {
 };
 
 /* eslint-disable prettier/prettier */
-DThemeWhiteAtlas.add("picker_color_main", 234, 156,
+DThemeWhiteAtlas.add("picker_color_main", 236, 164,
 	`<g>` +
 		`<linearGradient id="fs7w3iusfdnb" x1="0%" y1="0%" x2="100%" y2="0%">` +
 			`<stop stop-color="#FFFFFF" stop-opacity="0" offset="0"/>` +
@@ -36,10 +35,16 @@ DThemeWhiteAtlas.add("picker_color_main", 234, 156,
 			`<stop stop-color="#000000" stop-opacity="0" offset="0"/>` +
 			`<stop stop-color="#000000" stop-opacity="1" offset="1"/>` +
 		`</linearGradient>` +
-		`<rect x="0" y="0" width="234" height="156" fill="url(#fs7w3iusfdnb)" />` +
-		`<rect x="0" y="0" width="234" height="156" fill="url(#2rfcfe9874bw)" />` +
+		`<rect x="0" y="0" width="236" height="164" fill="url(#fs7w3iusfdnb)" />` +
+		`<rect x="0" y="0" width="236" height="164" fill="url(#2rfcfe9874bw)" />` +
 	`</g>`
-);
+	, 1, 1, 234, 162);
+
+DThemeWhiteAtlas.add("picker_color_main_base", 236, 164,
+	`<g>` +
+		`<rect x="0" y="0" width="236" height="164" fill="#fff" />` +
+	`</g>`
+, 1, 1, 234, 162);
 
 DThemeWhiteAtlas.add("picker_color_alpha_checkerboard", 234, 18, makeCheckerboard(26, 2));
 
@@ -77,25 +82,22 @@ DThemeWhiteAtlas.add("picker_color_pointer", 25.8, 25.8,
 	`<circle cx="12.9" cy="12.9" r="7.2" stroke="#ffffff" stroke-width="2.4" fill="none" />`
 );
 
-DThemeWhiteAtlas.add("picker_color_recent_checkerboard", 18, 18, makeCheckerboard(2, 2));
+DThemeWhiteAtlas.add("picker_color_recent_checkerboard", 36, 36, makeCheckerboard(4, 4), 9, 9, 18, 18);
 
-DThemeWhiteAtlas.add("picker_color_recent_null", 18, 18,
+DThemeWhiteAtlas.add("picker_color_recent", 36, 36,
 	`<g>` +
-		`<rect x="1.2" y="1.2" width="15.6" height="15.6" stroke="#fff" stroke-width="0.8" fill="none" />` +
-		`<line x1="16.8" y1="1.2" x2="1.2" y2="16.8" stroke="#fff" stroke-width="0.8" stroke-linecap="round" />` +
-		`<line x1="1.2" y1="1.2" x2="16.8" y2="16.8" stroke="#fff" stroke-width="0.8" stroke-linecap="round" />` +
+		`<rect x="0" y="0" width="36" height="36" fill="#fff" />` +
+		`<path x="0" y="0" d="M9 9 h18 v18 h-18 v-18 m1 1 v16 h16 v-16 h-16 z" fill="#eee" />` +
 	`</g>`
-);
+, 9, 9, 18, 18);
 
 DThemeWhiteAtlas.add("picker_color_sample_checkerboard", 45, 63, makeCheckerboard(5, 7));
 
-DThemeWhiteAtlas.add("picker_color_sample_null", 54, 54,
+DThemeWhiteAtlas.add("picker_color_sample", 47, 65,
 	`<g>` +
-		`<rect x="3.6" y="3.6" width="46.8" height="46.8" stroke="#fff" stroke-width="2.4" fill="none" />` +
-		`<line x1="50.4" y1="3.6" x2="3.6" y2="50.4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" />` +
-		`<line x1="3.6" y1="3.6" x2="50.4" y2="50.4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" />` +
+		`<rect x="0" y="0" width="47" height="65" fill="#fff" />` +
 	`</g>`
-);
+, 1, 1, 45, 63);
 
 DThemeWhiteAtlas.add("picker_color_anchor_outlined", 25.8, 25.8,
 	`<circle cx="12.9" cy="12.9" r="8.4" stroke="none" fill="#ffffff" />` +
@@ -112,6 +114,12 @@ DThemeWhiteAtlas.add("picker_color_direction", 12, 30,
 	`<path d="M8.5125 25.8 A 8.475 8.475 0 0 0 4.275 18.4605" stroke="#5f5f5f" stroke-width="1.2" fill="none" />` +
 	`<rect x="0.6" y="24.6" width="11.4375" height="1.2" rx="0.6" ry="0.6" stroke="none" fill="#5f5f5f" />`
 );
+
+DThemeWhiteAtlas.add("picker_color_standard", 18, 18,
+	`<g>` +
+		`<rect x="0" y="0" width="18" height="18" fill="#fff" stroke-width="1" stroke="#eee" />` +
+	`</g>`
+);
 /* eslint-enable prettier/prettier */
 
 export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePickerColor {
@@ -120,11 +128,15 @@ export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePic
 	}
 
 	getMainHeight(): number {
-		return 156;
+		return 162;
 	}
 
 	getMainTexture(): Texture {
 		return DThemeWhiteAtlas.mappings.picker_color_main;
+	}
+
+	getMainBaseTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.picker_color_main_base;
 	}
 
 	getMainPointerTexture(): Texture {
@@ -215,12 +227,8 @@ export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePic
 		return DThemeWhiteAtlas.mappings.picker_color_recent_checkerboard;
 	}
 
-	getRecentNullTexture(): Texture {
-		return DThemeWhiteAtlas.mappings.picker_color_recent_null;
-	}
-
-	getRecents(): DColorAndAlpha[] {
-		return [];
+	getRecentTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.picker_color_recent;
 	}
 
 	getInputMargin(): number {
@@ -231,12 +239,40 @@ export class DThemeWhitePickerColor extends DThemeWhiteBase implements DThemePic
 		return 15;
 	}
 
-	getSampleCheckerboardTexture(): Texture {
+	getSampleCheckerboardOldTexture(): Texture {
 		return DThemeWhiteAtlas.mappings.picker_color_sample_checkerboard;
 	}
 
-	getSampleNullTexture(): Texture {
-		return DThemeWhiteAtlas.mappings.picker_color_sample_null;
+	getSampleCheckerboardNewTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.picker_color_sample_checkerboard;
+	}
+
+	getSampleOldTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.picker_color_sample;
+	}
+
+	getSampleNewTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.picker_color_sample;
+	}
+
+	getStandardColorCount(): number {
+		return 80;
+	}
+
+	getStandardColorWidth(): number {
+		return this.getBaseHeight();
+	}
+
+	getStandardColorHeight(): number {
+		return this.getStandardColorWidth();
+	}
+
+	getStandardColorMargin(): number {
+		return this.getBaseMargin();
+	}
+
+	getStandardTexture(): Texture {
+		return DThemeWhiteAtlas.mappings.picker_color_standard;
 	}
 
 	getBackgroundColor(state: DBaseStateSet): number | null {
