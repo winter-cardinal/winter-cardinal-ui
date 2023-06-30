@@ -64,7 +64,7 @@ export class DDynamicTextMeasure {
 					break;
 				default:
 					if (cc) {
-						this.measure3(itr, cw, lh, atlas, result);
+						this.measure3(itr, cw, ch, fh, lh, atlas, result);
 					} else {
 						this.measure4(itr, lh, atlas, result);
 					}
@@ -96,7 +96,11 @@ export class DDynamicTextMeasure {
 			const characterPosition = iterator.position;
 			const character = iterator.next();
 			if (character === NEW_LINE) {
-				result.newLine(lineHeight);
+				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
+					result.newLine(lineHeight);
+				} else {
+					this.measure5(iterator, clippingWidth, lineHeight, atlas, result, true);
+				}
 			} else {
 				const a = atlas.get(character);
 				if (a == null) continue;
@@ -130,7 +134,11 @@ export class DDynamicTextMeasure {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
 			if (character === NEW_LINE) {
-				result.newLine(lineHeight);
+				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
+					result.newLine(lineHeight);
+				} else {
+					this.measure5(iterator, clippingWidth, lineHeight, atlas, result, true);
+				}
 			} else {
 				const a = atlas.get(character);
 				if (a == null) continue;
@@ -162,7 +170,11 @@ export class DDynamicTextMeasure {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
 			if (character === NEW_LINE) {
-				result.newLine(lineHeight);
+				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
+					result.newLine(lineHeight);
+				} else {
+					this.measure5(iterator, clippingWidth, lineHeight, atlas, result, true);
+				}
 			} else {
 				const a = atlas.get(character);
 				if (a == null) continue;
@@ -267,6 +279,8 @@ export class DDynamicTextMeasure {
 	private static measure3(
 		iterator: UtilCharacterIterator,
 		clippingWidth: number,
+		clippingHeight: number,
+		fontHeight: number,
 		lineHeight: number,
 		atlas: DynamicFontAtlas,
 		result: DDynamicTextMeasureResult
@@ -274,7 +288,11 @@ export class DDynamicTextMeasure {
 		while (iterator.hasNext()) {
 			const character = iterator.next();
 			if (character === NEW_LINE) {
-				result.newLine(lineHeight);
+				if (result.isPushableAtNewLine(clippingHeight, lineHeight, fontHeight)) {
+					result.newLine(lineHeight);
+				} else {
+					this.measure5(iterator, clippingWidth, lineHeight, atlas, result, true);
+				}
 			} else {
 				const a = atlas.get(character);
 				if (a == null) continue;
