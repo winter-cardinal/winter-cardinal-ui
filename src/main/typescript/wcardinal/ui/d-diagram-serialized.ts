@@ -542,8 +542,11 @@ export interface DDiagramSerialized {
 	version: number;
 	id?: number;
 	name: string;
+	label: string;
 	width: number;
 	height: number;
+	summary: string;
+	description: string;
 	background?: DDiagramSerializedBackground;
 	tile?: DDiagramSerializedTile;
 	resources: string[];
@@ -569,6 +572,9 @@ export interface DDiagramSerializedSimple {
 	version: number;
 	id: number | undefined;
 	name: string;
+	label: string;
+	summary: string;
+	description: string;
 
 	/**
 	 * A stringified {@link DDiagramSerialized#data}.
