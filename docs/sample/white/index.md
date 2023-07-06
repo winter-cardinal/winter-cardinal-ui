@@ -189,6 +189,7 @@
     * [Basics](./input/basics.html)
     * [Fixed point number](./input/fixed-point-number.html)
     * [Formatter](./input/formatter.html)
+    * [Changing values programatically](./input/programatically.html)
     * [Step, min and max](./input/step-min-max.html)
     * [Validation](./input/validation.html)
 * Layout
