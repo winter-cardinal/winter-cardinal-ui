@@ -21,12 +21,15 @@ export class DInputBoolean<
 	THEME extends DThemeInputBoolean = DThemeInputBoolean,
 	OPTIONS extends DInputBooleanOptions<THEME> = DInputBooleanOptions<THEME>
 > extends DLayoutHorizontal<THEME, OPTIONS> {
+	protected _lockCount: number;
+
 	protected _buttonGroup?: DButtonGroup;
 	protected _buttonOn?: DInputBooleanButtonOn;
 	protected _buttonOff?: DInputBooleanButtonOff;
 
 	constructor(options?: OPTIONS) {
 		super(options);
+		this._lockCount = 0;
 		this.addChild(this.getButtonOff());
 		this.addChild(this.getButtonOn());
 
@@ -36,8 +39,10 @@ export class DInputBoolean<
 		}
 
 		this.getButtonGroup().on("active", (): void => {
-			const newValue = this.value;
-			this.emit("change", newValue, !newValue, this);
+			if (this._lockCount <= 0) {
+				const newValue = this.value;
+				this.emit("change", newValue, !newValue, this);
+			}
 		});
 	}
 
@@ -93,11 +98,17 @@ export class DInputBoolean<
 
 	set value(value: boolean) {
 		if (this.value !== value) {
-			if (value) {
-				this.getButtonOn().activate();
-			} else {
-				this.getButtonOff().activate();
+			this._lockCount += 1;
+			try {
+				if (value) {
+					this.getButtonOn().activate();
+				} else {
+					this.getButtonOff().activate();
+				}
+			} catch (e) {
+				// DO NOTHING
 			}
+			this._lockCount -= 1;
 		}
 	}
 
