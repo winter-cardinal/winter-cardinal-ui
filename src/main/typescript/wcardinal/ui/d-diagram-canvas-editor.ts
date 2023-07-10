@@ -86,8 +86,11 @@ export class DDiagramCanvasEditor<
 			version: DDiagramSerializedVersion,
 			id,
 			name: this.name,
+			label: this.labels,
 			width: this.width,
 			height: this.height,
+			summary: this.summary,
+			description: this.description,
 			background: {
 				color: isNumber(backgroundColor) ? backgroundColor : 0xffffff,
 				alpha: isNumber(backgroundAlpha) ? backgroundAlpha : 0

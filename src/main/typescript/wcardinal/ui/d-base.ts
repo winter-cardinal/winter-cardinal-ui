@@ -510,6 +510,15 @@ export interface DBaseOptions<THEME extends DThemeBase = DThemeBase, EMITTER = a
 
 	/** A cursor shape. */
 	cursor?: DStateAwareOrValueMightBe<string>;
+
+	/** A label. */
+	labels?: string;
+
+	/** A summary. */
+	summary?: string;
+
+	/** A description. */
+	description?: string;
 }
 
 /**
@@ -795,6 +804,9 @@ export class DBase<
 	protected _reflowable: DBaseReflowableContainer;
 	protected _lastDownPoint?: Point;
 	protected _cursor?: DStateAwareOrValueMightBe<string>;
+	protected _labels: string;
+	protected _summary: string;
+	protected _description: string;
 
 	constructor(options?: OPTIONS) {
 		super();
@@ -1087,6 +1099,10 @@ export class DBase<
 			this._cursor = cursor;
 		}
 		this.cursor = this.toCursor(cursor, this._state);
+
+		this._labels = options?.labels ?? "";
+		this._summary = options?.summary ?? "";
+		this._description = options?.description ?? "";
 
 		// Done
 		this.emit("init", this);
@@ -2088,5 +2104,29 @@ export class DBase<
 
 		//
 		super.destroy();
+	}
+
+	get labels(): string {
+		return this._labels;
+	}
+
+	set labels(labels: string) {
+		this._labels = labels;
+	}
+
+	get summary(): string {
+		return this._summary;
+	}
+
+	set summary(summary: string) {
+		this._summary = summary;
+	}
+
+	get description(): string {
+		return this._description;
+	}
+
+	set description(description: string) {
+		this._description = description;
 	}
 }
