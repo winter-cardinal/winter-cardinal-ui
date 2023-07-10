@@ -209,8 +209,11 @@ export abstract class DDiagramBase<
 		const isAmbient = this._isAmbient;
 		return {
 			name: serialized.name,
+			label: serialized.label,
 			width: serialized.width,
 			height: serialized.height,
+			summary: serialized.summary,
+			description: serialized.description,
 			background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
 			border: isAmbient ? { color: null } : undefined,
 			outline: isAmbient ? { color: null } : undefined,

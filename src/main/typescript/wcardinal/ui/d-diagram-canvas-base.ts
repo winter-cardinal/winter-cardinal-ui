@@ -19,6 +19,9 @@ export interface DDiagramCanvasBackgroundOptions extends DBaseBackgroundOptions 
 export interface DDiagramCanvasBaseOptions<
 	THEME extends DThemeDiagramCanvasBase = DThemeDiagramCanvasBase
 > extends DCanvasOptions<THEME> {
+	label?: string;
+	summary?: string;
+	description?: string;
 	tile?: DDiagramCanvasTileOptions;
 	background?: DDiagramCanvasBackgroundOptions;
 	ambient?: boolean;
@@ -34,6 +37,9 @@ export class DDiagramCanvasBase<
 	OPTIONS extends DDiagramCanvasBaseOptions<THEME> = DDiagramCanvasBaseOptions<THEME>
 > extends DCanvas<THEME, OPTIONS> {
 	protected _layer: DDiagramLayerContainer;
+	protected _label: string;
+	protected _summary: string;
+	protected _description: string;
 	protected _tile: DDiagramCanvasTile;
 
 	constructor(options?: OPTIONS) {
@@ -53,6 +59,15 @@ export class DDiagramCanvasBase<
 		this._layer = layer;
 		this.addChild(layer);
 
+		// Label
+		this._label = options?.label ?? "";
+
+		// Summary
+		this._summary = options?.summary ?? "";
+
+		// Description
+		this._description = options?.description ?? "";
+
 		// Tile
 		const tile = new DDiagramCanvasTile(this, options?.tile);
 		this._tile = tile;
@@ -65,6 +80,30 @@ export class DDiagramCanvasBase<
 
 	protected toBackgroundBase(theme: THEME, options?: OPTIONS): number | null {
 		return options?.background?.base ?? theme.getBackgroundBase();
+	}
+
+	get label(): string {
+		return this._label;
+	}
+
+	set label(label: string) {
+		this._label = label;
+	}
+
+	get summary(): string {
+		return this._summary;
+	}
+
+	set summary(summary: string) {
+		this._summary = summary;
+	}
+
+	get description(): string {
+		return this._description;
+	}
+
+	set description(description: string) {
+		this._description = description;
 	}
 
 	get tile(): DDiagramCanvasTile {
