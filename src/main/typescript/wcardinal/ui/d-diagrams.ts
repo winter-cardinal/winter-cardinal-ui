@@ -25,9 +25,9 @@ export class DDiagrams {
 			id: serialized.id,
 			name: serialized.name,
 			label: serialized.label,
-			thumbnail: serialized.thumbnail,
 			summary: serialized.summary,
 			description: serialized.description,
+			thumbnail: serialized.thumbnail,
 			data: JSON.stringify({
 				width: serialized.width,
 				height: serialized.height,

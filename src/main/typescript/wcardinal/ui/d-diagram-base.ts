@@ -209,7 +209,7 @@ export abstract class DDiagramBase<
 		const isAmbient = this._isAmbient;
 		return {
 			name: serialized.name,
-			labels: serialized.label,
+			label: serialized.label,
 			width: serialized.width,
 			height: serialized.height,
 			summary: serialized.summary,

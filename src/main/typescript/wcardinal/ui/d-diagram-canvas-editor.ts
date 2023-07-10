@@ -86,7 +86,7 @@ export class DDiagramCanvasEditor<
 			version: DDiagramSerializedVersion,
 			id,
 			name: this.name,
-			label: this.labels,
+			label: this.label,
 			width: this.width,
 			height: this.height,
 			summary: this.summary,
