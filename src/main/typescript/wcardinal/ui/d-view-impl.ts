@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { interaction, IPoint, Point, Rectangle } from "pixi.js";
+import { interaction, IPoint, Point, Rectangle, utils } from "pixi.js";
 import { DBase } from "./d-base";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { UtilGestureModifiers } from "./util/util-gesture-modifiers";
@@ -19,7 +19,7 @@ import { UtilPointerEvent } from "./util/util-pointer-event";
 import { UtilWheelEventDeltas } from "./util/util-wheel-event";
 import { DViewConstraint } from "./d-view-constraint";
 
-export class DViewImpl implements DView {
+export class DViewImpl extends utils.EventEmitter implements DView {
 	protected static CONSTRAINT: DViewConstraint = (target, x, y, scaleX, scaleY): void => {
 		target.scale.set(scaleX, scaleY);
 		target.position.set(x, y);
@@ -56,6 +56,7 @@ export class DViewImpl implements DView {
 	protected _workRect: Rectangle;
 
 	constructor(parent: DBase, toTarget: DViewToTarget, options: DViewOptions | undefined) {
+		super();
 		this._parent = parent;
 		this._toTarget = toTarget;
 		this._constraint = (options && options.constraint) || DViewImpl.CONSTRAINT;
@@ -122,6 +123,19 @@ export class DViewImpl implements DView {
 			this._constraint,
 			this._dblclickZoomDuration
 		);
+
+		// Events
+		if (options != null) {
+			const on = options.on;
+			if (on != null) {
+				for (const name in on) {
+					const handler = on[name];
+					if (handler) {
+						this.on(name, handler);
+					}
+				}
+			}
+		}
 	}
 
 	get gesture(): DViewGesture {

@@ -7,6 +7,7 @@ import { utils } from "pixi.js";
 import {
 	DAnimation,
 	DAnimationOnEnd,
+	DAnimationOnStop,
 	DAnimationOnTime,
 	DAnimationOptions,
 	DAnimationTiming
@@ -26,6 +27,7 @@ export class DAnimationBase<TARGET = unknown>
 	protected _onTimeBaseBound: () => void;
 	protected _onStart: DAnimationOnEnd<TARGET> | undefined;
 	protected _onEnd: DAnimationOnEnd<TARGET> | undefined;
+	protected _onStop: DAnimationOnStop<TARGET> | undefined;
 	protected _timing: DAnimationTiming<TARGET>;
 	protected _target: TARGET | null;
 
@@ -44,6 +46,7 @@ export class DAnimationBase<TARGET = unknown>
 		};
 		this._onStart = options?.onStart;
 		this._onEnd = options?.onEnd;
+		this._onStop = options?.onStop;
 		this._timing = options?.timing ?? DAnimationTimings.ELASTIC;
 
 		// Events
@@ -114,6 +117,14 @@ export class DAnimationBase<TARGET = unknown>
 		this.emit("end", isReverse, this);
 	}
 
+	protected onStop(isReverse: boolean): void {
+		const onStop = this._onStop;
+		if (onStop != null) {
+			onStop(isReverse, this);
+		}
+		this.emit("stop", isReverse, this);
+	}
+
 	isStarted(): boolean {
 		return this._id != null;
 	}
@@ -155,6 +166,9 @@ export class DAnimationBase<TARGET = unknown>
 		if (id != null) {
 			this._id = null;
 			window.clearTimeout(id);
+
+			// OnStop
+			this.onStop(this._reverse);
 		}
 	}
 

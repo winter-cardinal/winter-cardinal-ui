@@ -604,7 +604,7 @@ export * from "./d-view-constraint";
 export * from "./d-view-gesture-impl";
 export * from "./d-view-gesture";
 export * from "./d-view-impl";
-export * from "./d-view-stopper";
+export * from "./d-view-parent";
 export * from "./d-view-to-target";
 export * from "./d-view-transform-impl";
 export * from "./d-view-transform";

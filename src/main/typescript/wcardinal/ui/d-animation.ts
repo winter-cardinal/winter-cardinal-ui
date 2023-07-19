@@ -30,12 +30,20 @@ export type DAnimationOnTime<TARGET> = (
 ) => void;
 
 /**
- * Triggered when an animation stops.
+ * Triggered when an animation ends.
  *
  * @param isReverse true if an animation is playing in reverse
  * @param animation an instance
  */
 export type DAnimationOnEnd<TARGET> = (isReverse: boolean, animation: DAnimation<TARGET>) => void;
+
+/**
+ * Triggered when an animation stops.
+ *
+ * @param isReverse true if an animation is playing in reverse
+ * @param animation an instance
+ */
+export type DAnimationOnStop<TARGET> = (isReverse: boolean, animation: DAnimation<TARGET>) => void;
 
 /**
  * An easing function.
@@ -68,12 +76,20 @@ export interface DAnimationEvents<EMITTER> {
 	time(time: number, isReverse: boolean, elapsedTime: number, emitter: EMITTER): void;
 
 	/**
-	 * Triggered when an animation stops.
+	 * Triggered when an animation ends.
 	 *
 	 * @param isReverse true if an animation is playing in reverse
 	 * @param emitter an emitter
 	 */
 	end(isReverse: boolean, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when an animation stops.
+	 *
+	 * @param isReverse true if an animation is playing in reverse
+	 * @param emitter an emitter
+	 */
+	stop(isReverse: boolean, emitter: EMITTER): void;
 }
 
 /**
@@ -103,9 +119,14 @@ export interface DAnimationOptions<TARGET, EMITTER = DAnimation<TARGET>> {
 	onTime?: DAnimationOnTime<TARGET>;
 
 	/**
-	 * Triggered when an animation stops.
+	 * Triggered when an animation ends.
 	 */
 	onEnd?: DAnimationOnEnd<TARGET>;
+
+	/**
+	 * Triggered when an animation stops.
+	 */
+	onStop?: DAnimationOnStop<TARGET>;
 
 	timing?: DAnimationTiming<TARGET>;
 

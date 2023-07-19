@@ -9,6 +9,8 @@ import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { DThemeViewGesture, DViewGesture, DViewGestureOptions } from "./d-view-gesture";
 import { DViewTargetPoint } from "./d-view-to-target";
 import { DViewConstraint } from "./d-view-constraint";
+import { DOnOptions } from "./d-on-options";
+import { DViewTransform } from "./d-view-transform";
 
 export type DViewChecker = (
 	e: WheelEvent | MouseEvent | TouchEvent,
@@ -108,6 +110,40 @@ export interface DViewTranslationOptions {
 }
 
 /**
+ * {@link DView} events.
+ */
+export interface DViewEvents<EMITTER> {
+	/**
+	 * Triggered when a view operation starts.
+	 *
+	 * @param operation a view operation
+	 * @param emitter an emitter
+	 */
+	start(operation: DViewTransform | DViewGesture, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a view operation ends.
+	 *
+	 * @param operation a view operation
+	 * @param emitter an emitter
+	 */
+	end(operation: DViewTransform | DViewGesture, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a view operation stops.
+	 *
+	 * @param operation a view operation
+	 * @param emitter an emitter
+	 */
+	stop(operation: DViewTransform | DViewGesture, emitter: EMITTER): void;
+}
+
+/**
+ * {@link DView} "on" options.
+ */
+export interface DViewOnOptions<EMITTER> extends Partial<DViewEvents<EMITTER>>, DOnOptions {}
+
+/**
  * {@link DView} options.
  */
 export interface DViewOptions {
@@ -125,6 +161,9 @@ export interface DViewOptions {
 
 	/** Theme */
 	theme?: DThemeView | string;
+
+	/** On options */
+	on?: DViewOnOptions<DView>;
 }
 
 /**

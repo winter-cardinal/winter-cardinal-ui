@@ -7,12 +7,12 @@ import { DAnimation } from "./d-animation";
 import { DAnimationBase } from "./d-animation-base";
 import { DBase } from "./d-base";
 import { DViewConstraint } from "./d-view-constraint";
-import { DViewStopper } from "./d-view-stopper";
+import { DViewParent } from "./d-view-parent";
 import { DViewTarget, DViewToTarget } from "./d-view-to-target";
 import { DViewTransform } from "./d-view-transform";
 
 export class DViewTransformImpl implements DViewTransform {
-	protected _parent: DBase;
+	protected _owner: DBase;
 	protected _toTarget: DViewToTarget;
 	protected _constraint: DViewConstraint;
 	protected _newX: number;
@@ -24,17 +24,18 @@ export class DViewTransformImpl implements DViewTransform {
 	protected _oldScaleX: number;
 	protected _oldScaleY: number;
 	protected _animation: DAnimation;
-	protected _stopper: DViewStopper;
+	protected _parent: DViewParent;
 	protected _duration: number;
+	protected _isStarted: boolean;
 
 	constructor(
-		parent: DBase,
+		owner: DBase,
 		toTarget: DViewToTarget,
-		stopper: DViewStopper,
+		parent: DViewParent,
 		constraint: DViewConstraint,
 		duration: number
 	) {
-		this._parent = parent;
+		this._owner = owner;
 		this._toTarget = toTarget;
 		this._constraint = constraint;
 		this._newScaleX = 1;
@@ -45,14 +46,29 @@ export class DViewTransformImpl implements DViewTransform {
 		this._oldScaleY = 1;
 		this._oldX = 0;
 		this._oldY = 0;
+		this._isStarted = false;
 		this._animation = new DAnimationBase({
+			onStart: () => {
+				this.onStart();
+			},
 			onTime: (time: number): void => {
 				this.onTime(time);
 			},
+			onEnd: () => {
+				this.onEnd();
+			},
+			onStop: () => {
+				this.onStop();
+			},
 			duration
 		});
-		this._stopper = stopper;
+		this._parent = parent;
 		this._duration = duration;
+	}
+
+	protected onStart(): void {
+		const parent = this._parent;
+		parent.emit("start", this, parent);
 	}
 
 	protected onTime(time: number): void {
@@ -64,10 +80,20 @@ export class DViewTransformImpl implements DViewTransform {
 		const x = this._oldX * w0 + this._newX * w1;
 		const y = this._oldY * w0 + this._newY * w1;
 
-		const target = this._toTarget(this._parent);
+		const target = this._toTarget(this._owner);
 		if (target != null) {
 			this._constraint(target, x, y, scaleX, scaleY);
 		}
+	}
+
+	protected onEnd(): void {
+		const parent = this._parent;
+		parent.emit("end", this, parent);
+	}
+
+	protected onStop(): void {
+		const parent = this._parent;
+		parent.emit("stop", this, parent);
 	}
 
 	start(
@@ -79,14 +105,17 @@ export class DViewTransformImpl implements DViewTransform {
 		duration?: number,
 		stop?: boolean
 	): void {
+		const parent = this._parent;
 		if (stop !== false) {
-			this._stopper.stop();
+			parent.stop();
 		}
 		if (duration == null) {
 			duration = this._duration;
 		}
 		if (duration <= 0) {
+			this.onStart();
 			this._constraint(target, x, y, scaleX, scaleY);
+			this.onEnd();
 		} else {
 			const position = target.position;
 			const scale = target.scale;

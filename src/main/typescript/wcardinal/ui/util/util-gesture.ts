@@ -27,6 +27,9 @@ export type UtilGestureOnMove<TARGET> = (
 ) => void;
 export type UtilGestureOnStart<TARGET> = (target: TARGET) => void;
 export type UtilGestureOnEnd<TARGET> = (target: TARGET) => void;
+export type UtilGestureOnStop<TARGET> = (target: TARGET) => void;
+export type UtilGestureOnEasingStart<TARGET> = (target: TARGET) => void;
+export type UtilGestureOnEasingEnd<TARGET> = (target: TARGET) => void;
 export type UtilGestureChecker<TARGET> = (
 	e: InteractionEvent,
 	modifier: UtilGestureModifier,
@@ -38,10 +41,17 @@ export interface UtilGestureCheckerOptions<TARGET> {
 	move?: UtilGestureChecker<TARGET>;
 }
 
+export interface UtilGestureOnEasingOptions<TARGET> {
+	start?: UtilGestureOnEasingStart<TARGET>;
+	end?: UtilGestureOnEasingEnd<TARGET>;
+}
+
 export interface UtilGestureOnOptions<TARGET> {
 	start?: UtilGestureOnStart<TARGET>;
 	move?: UtilGestureOnMove<TARGET>;
 	end?: UtilGestureOnEnd<TARGET>;
+	stop?: UtilGestureOnStop<TARGET>;
+	easing?: UtilGestureOnEasingOptions<TARGET>;
 }
 
 export interface UtilGestureOptions<TARGET> {
@@ -76,6 +86,9 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 	protected _onStart?: UtilGestureOnStart<TARGET>;
 	protected _onMove?: UtilGestureOnMove<TARGET>;
 	protected _onEnd?: UtilGestureOnEnd<TARGET>;
+	protected _onStop?: UtilGestureOnStop<TARGET>;
+	protected _onEasingStart?: UtilGestureOnEasingStart<TARGET>;
+	protected _onEasingEnd?: UtilGestureOnEasingEnd<TARGET>;
 	protected _modifier: UtilGestureModifier;
 	protected _checkerStart: UtilGestureChecker<TARGET>;
 	protected _checkerMove: UtilGestureChecker<TARGET>;
@@ -91,6 +104,12 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 			this._onStart = on.start;
 			this._onMove = on.move;
 			this._onEnd = on.end;
+			this._onStop = on.stop;
+			const easing = on.easing;
+			if (easing != null) {
+				this._onEasingStart = easing.start;
+				this._onEasingEnd = easing.end;
+			}
 		}
 		this._modifier = options?.modifier ?? UtilGestureModifier.NONE;
 		const checker = options.checker;
@@ -314,11 +333,19 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 		}
 
 		// Start the Easing
+		const onEasingStart = this._onEasingStart;
+		if (onEasingStart) {
+			onEasingStart(data.target!);
+		}
 		const easing = data.easing;
 		if (easing) {
 			easing.onEnd(e.data.originalEvent.timeStamp - data.time);
 		} else {
 			this.deleteData(data);
+			const onEasingEnd = this._onEasingEnd;
+			if (onEasingEnd) {
+				onEasingEnd(data.target!);
+			}
 		}
 	}
 
@@ -349,6 +376,10 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 
 	protected onEasingEnd(data: UtilGestureData<TARGET>): void {
 		this.deleteData(data);
+		const onEasingEnd = this._onEasingEnd;
+		if (onEasingEnd) {
+			onEasingEnd(data.target!);
+		}
 	}
 
 	stop(target: TARGET): void {
@@ -358,5 +389,9 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 		}
 		data.easing?.stop();
 		this.deleteData(data);
+		const onStop = this._onStop;
+		if (onStop) {
+			onStop(target);
+		}
 	}
 }

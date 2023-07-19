@@ -8,28 +8,28 @@ import { DBase } from "./d-base";
 import { UtilGestureMode } from "./util/util-gesture-mode";
 import { UtilGestureModifier } from "./util/util-gesture-modifier";
 import { DThemeViewGesture, DViewGesture, DViewGestureOptions } from "./d-view-gesture";
-import { DViewStopper } from "./d-view-stopper";
+import { DViewParent } from "./d-view-parent";
 import { DViewTarget, DViewToTarget } from "./d-view-to-target";
 import { toEnum } from "./util/to-enum";
 import { UtilGesture } from "./util/util-gesture";
 import { DViewConstraint } from "./d-view-constraint";
 
 export class DViewGestureImpl implements DViewGesture {
-	protected _parent: DBase;
-	protected _stopper: DViewStopper;
+	protected _owner: DBase;
+	protected _parent: DViewParent;
 	protected _constraint: DViewConstraint;
 	protected _gestureUtil?: UtilGesture<DBase>;
 
 	constructor(
-		parent: DBase,
+		owner: DBase,
 		toTarget: DViewToTarget,
-		stopper: DViewStopper,
+		parent: DViewParent,
 		constraint: DViewConstraint,
 		theme: DThemeViewGesture,
 		options?: DViewGestureOptions
 	) {
+		this._owner = owner;
 		this._parent = parent;
-		this._stopper = stopper;
 		this._constraint = constraint;
 
 		const mode = toEnum(options?.mode ?? theme.getGestureMode(), UtilGestureMode);
@@ -47,7 +47,7 @@ export class DViewGestureImpl implements DViewGesture {
 				},
 				on: {
 					start: (): void => {
-						this._stopper.stop();
+						this.onStart();
 					},
 					move: (
 						target: DBase,
@@ -57,11 +57,35 @@ export class DViewGestureImpl implements DViewGesture {
 						y: number,
 						ds: number
 					): void => {
-						this.onGestureMove(toTarget(parent), dx, dy, x, y, ds);
+						this.onGestureMove(toTarget(owner), dx, dy, x, y, ds);
+					},
+					easing: {
+						end: (): void => {
+							this.onEnd();
+						}
+					},
+					stop: (): void => {
+						this.onStop();
 					}
 				}
 			});
 		}
+	}
+
+	protected onStart(): void {
+		const parent = this._parent;
+		parent.stop();
+		parent.emit("start", this, parent);
+	}
+
+	protected onEnd(): void {
+		const parent = this._parent;
+		parent.emit("end", this, parent);
+	}
+
+	protected onStop(): void {
+		const parent = this._parent;
+		parent.emit("stop", this, parent);
 	}
 
 	protected onGestureMove(
@@ -74,12 +98,12 @@ export class DViewGestureImpl implements DViewGesture {
 	): void {
 		if (target) {
 			// Scale
-			const stopper = this._stopper;
+			const parent = this._parent;
 			const oldScale = target.scale;
 			const oldScaleX = oldScale.x;
 			const oldScaleY = oldScale.y;
-			let newScaleX = stopper.toNormalizedScale(oldScaleX * ds);
-			let newScaleY = stopper.toNormalizedScale(oldScaleY * ds);
+			let newScaleX = parent.toNormalizedScale(oldScaleX * ds);
+			let newScaleY = parent.toNormalizedScale(oldScaleY * ds);
 
 			const scaleRatioX = newScaleX / oldScaleX;
 			const scaleRatioY = newScaleY / oldScaleY;
@@ -101,10 +125,10 @@ export class DViewGestureImpl implements DViewGesture {
 	}
 
 	stop(): void {
-		this._gestureUtil?.stop(this._parent);
+		this._gestureUtil?.stop(this._owner);
 	}
 
 	onDown(e: interaction.InteractionEvent): void {
-		this._gestureUtil?.onDown(this._parent, e);
+		this._gestureUtil?.onDown(this._owner, e);
 	}
 }

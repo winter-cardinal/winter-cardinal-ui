@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface DViewStopper {
+import { utils } from "pixi.js";
+
+export interface DViewParent extends utils.EventEmitter {
 	stop(): void;
 	toNormalizedScale(scale: number): number;
 }
