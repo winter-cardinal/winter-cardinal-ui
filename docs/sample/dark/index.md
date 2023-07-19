@@ -87,6 +87,7 @@
     * View
         * [Constraint](./chart\view/constraint.html)
         * [Domain](./chart\view/domain.html)
+        * [Event](./chart\view/event.html)
         * [Range](./chart\view/range.html)
 * Diagram
     * [Button](./diagram/button.html)
