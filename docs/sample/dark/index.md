@@ -96,6 +96,7 @@
     * [Canvas gesture checker](./diagram/canvas-gesture-checker.html)
     * [Connector (Elbow)](./diagram/connector-elbow.html)
     * [Connector (Line)](./diagram/connector-line.html)
+    * [Connector (Line, Dangling)](./diagram/connector-line-dangling.html)
     * [Connector (Line, Embedded)](./diagram/connector-line-embedded.html)
     * [Connector (Line, Programatically)](./diagram/connector-line-programatically.html)
     * [Custom action runtime](./diagram/custom-action-runtime.html)
@@ -271,6 +272,7 @@
 * Shape
     * [Basics](./shape/basics.html)
     * [Bulk update](./shape/bulk-update.html)
+    * [Connector (Dangling)](./shape/connector-dangling.html)
     * [Connector (Elbow)](./shape/connector-elbow.html)
     * [Connector (Line)](./shape/connector-line.html)
     * [Corner](./shape/corner.html)
