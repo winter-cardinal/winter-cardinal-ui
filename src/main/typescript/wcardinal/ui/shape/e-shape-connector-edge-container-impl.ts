@@ -30,8 +30,12 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 		const onChangeBound = (): void => {
 			this.onChange();
 		};
-		this._tail = new EShapeConnectorEdgeImpl(parent, onChangeBound);
-		this._head = new EShapeConnectorEdgeImpl(parent, onChangeBound);
+		const tail = new EShapeConnectorEdgeImpl(parent, onChangeBound);
+		const head = new EShapeConnectorEdgeImpl(parent, onChangeBound);
+		tail.other = head;
+		head.other = tail;
+		this._tail = tail;
+		this._head = head;
 	}
 
 	lock(): this {

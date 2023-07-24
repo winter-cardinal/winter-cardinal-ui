@@ -21,6 +21,9 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected _parent: EShapeConnector;
 	protected _onChange: () => void;
 	protected _acceptor: EShapeConnectorEdgeAcceptor;
+	protected _acceptorTransformNew: Matrix;
+	protected _acceptorTransformOld: Matrix;
+	protected _hasAcceptorTransformOld: boolean;
 	protected _localIdRequired: number;
 	protected _localId: number;
 	protected _local: IPoint;
@@ -29,6 +32,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	protected _normal: IPoint;
 	protected _side: EShapeAcceptorEdgeSide;
 	protected _margin: number;
+	protected _other: EShapeConnectorEdge | null;
 	protected _lockCount: number;
 	protected _isAcceptorChanged: boolean;
 	protected _isLocalChanged: boolean;
@@ -39,6 +43,9 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		this._parent = parent;
 		this._onChange = onChange;
 		this._acceptor = new EShapeConnectorEdgeAcceptorImpl(this);
+		this._acceptorTransformNew = new Matrix();
+		this._acceptorTransformOld = new Matrix();
+		this._hasAcceptorTransformOld = false;
 
 		this._local = new ObservablePoint((): void => {
 			this.onLocalChange();
@@ -55,6 +62,8 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		this._side = EShapeAcceptorEdgeSide.TOP;
 
 		this._margin = 0;
+
+		this._other = null;
 
 		this._lockCount = 0;
 		this._isAcceptorChanged = false;
@@ -95,6 +104,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			}
 
 			if (this._isAcceptorChanged) {
+				this._hasAcceptorTransformOld = false;
 				if (!this._isLocalChanged) {
 					this._localIdRequired += 1;
 				}
@@ -156,6 +166,14 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			this._margin = margin;
 			this.onOtherChange();
 		}
+	}
+
+	get other(): EShapeConnectorEdge | null {
+		return this._other;
+	}
+
+	set other(other: EShapeConnectorEdge | null) {
+		this._other = other;
 	}
 
 	set(
@@ -297,35 +315,84 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 					acceptorEdge
 				);
 				if (edge) {
-					const transform = this.toAcceptorTransform(acceptorShape);
-					const a = transform.a;
-					const b = transform.b;
-					const c = transform.c;
-					const d = transform.d;
-					const tx = transform.tx;
-					const ty = transform.ty;
+					const oat = this._acceptorTransformOld;
+					const nat = this._acceptorTransformNew;
+					this.toAcceptorTransform(acceptorShape, nat);
+
+					const other = this._other;
+					const isOtherDangling =
+						this._hasAcceptorTransformOld &&
+						other != null &&
+						other.acceptor.shape == null;
+					const work = (EShapeConnectorEdgeImpl.WORK_MATRIX ??= new Matrix());
+					if (isOtherDangling) {
+						oat.copyTo(work).invert().prepend(nat);
+					}
+					this._acceptorTransformNew = oat;
+					this._acceptorTransformOld = nat;
+					this._hasAcceptorTransformOld = true;
 
 					this.lock();
 					if (isLocalDirty) {
+						const l = this._local;
+						const olx = l.x;
+						const oly = l.y;
 						const size = acceptorShape.size;
 						const pivot = acceptorShape.transform.pivot;
-						const lx = pivot.x + size.x * (acceptor.x ?? edge.x);
-						const ly = pivot.y + size.y * (acceptor.y ?? edge.y);
-						this._local.set(a * lx + c * ly + tx, b * lx + d * ly + ty);
+						const x = pivot.x + size.x * (acceptor.x ?? edge.x);
+						const y = pivot.y + size.y * (acceptor.y ?? edge.y);
+						const nlx = nat.a * x + nat.c * y + nat.tx;
+						const nly = nat.b * x + nat.d * y + nat.ty;
+						l.set(nlx, nly);
+
+						if (isOtherDangling) {
+							const ol = other.local;
+							const oolx = ol.x;
+							const ooly = ol.y;
+							const nolx = work.a * oolx + work.c * ooly + work.tx;
+							const noly = work.b * oolx + work.d * ooly + work.ty;
+							const odx = oolx - olx;
+							const ody = ooly - oly;
+							const ndx = nolx - nlx;
+							const ndy = noly - nly;
+							const od = odx * odx + ody * ody;
+							const nd = ndx * ndx + ndy * ndy;
+							if (0.000001 < nd) {
+								const f = Math.sqrt(od / nd);
+								ol.set(nlx + ndx * f, nly + ndy * f);
+							} else {
+								ol.set(nolx, noly);
+							}
+						}
 					}
 					if (isNormalDirty) {
-						const edgeNormal = edge.normal;
-						const nx = edgeNormal.x;
-						const ny = edgeNormal.y;
-						const x = a * nx + c * ny;
-						const y = b * nx + d * ny;
-						const l = x * x + y * y;
-						const normal = this._normal;
-						if (0.000001 < l) {
-							const f = 1 / Math.sqrt(l);
-							normal.set(x * f, y * f);
+						const en = edge.normal;
+						const enx = en.x;
+						const eny = en.y;
+						const nx = nat.a * enx + nat.c * eny;
+						const ny = nat.b * enx + nat.d * eny;
+						const sd = nx * nx + ny * ny;
+						const n = this._normal;
+						if (0.000001 < sd) {
+							const f = 1 / Math.sqrt(sd);
+							n.set(nx * f, ny * f);
 						} else {
-							normal.set(nx, ny);
+							n.set(enx, eny);
+						}
+
+						if (isOtherDangling) {
+							const on = other.normal;
+							const oonx = on.x;
+							const oony = on.y;
+							const nonx = work.a * oonx + work.c * oony;
+							const nony = work.b * oonx + work.d * oony;
+							const osd = nonx * nonx + nony * nony;
+							if (0.000001 < osd) {
+								const f = 1 / Math.sqrt(osd);
+								on.set(nonx * f, nony * f);
+							} else {
+								on.set(oonx, oony);
+							}
 						}
 					}
 					const result = this._isLocalChanged || this._isNormalChanged;
@@ -337,18 +404,18 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		return false;
 	}
 
-	protected toAcceptorTransform(shape: EShape): Matrix {
+	protected toAcceptorTransform(shape: EShape, result: Matrix): Matrix {
 		shape.updateTransform();
 		const parent = this._parent;
 		const parentParent = parent.parent;
 		if (parentParent) {
 			parent.updateTransform();
-			return (EShapeConnectorEdgeImpl.WORK_MATRIX ??= new Matrix())
+			return result
 				.copyFrom(parentParent.transform.worldTransform)
 				.invert()
 				.append(shape.transform.worldTransform);
 		} else {
-			return shape.transform.worldTransform;
+			return result.copyFrom(shape.transform.worldTransform);
 		}
 	}
 
@@ -359,6 +426,7 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 			this._isAcceptorChanged = true;
 			return;
 		}
+		this._hasAcceptorTransformOld = false;
 		this.fit(true);
 	}
 

@@ -1,0 +1,64 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Connector (Dangling)</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/latest/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set( 100, 100 );
+
+		const circle = new wcardinal.ui.EShapeCircle();
+		circle.transform.position.set(100, 250);
+		circle.attach( container );
+
+		const connector = new wcardinal.ui.EShapeConnectorLine();
+		connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
+		connector.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
+		connector.points.marker.head.fill.color = 0x909090;
+		connector.edge.tail.set(circle, "RIGHT");
+		connector.edge.head.set(null, null, null, null, 10, 400, 250);
+		connector.body.set([-0.1, -0.1, +0.1, +0.1]);
+		connector.attach( container );
+
+		application.stage.addChild( container );
+		const update = () => {
+			const t = (Date.now()) / 3000 * Math.PI;
+			circle.disallowOnTransformChange();
+			circle.transform.position.y = 250 + 100 * Math.cos(+t);
+			circle.transform.rotation += 0.01;
+			circle.transform.scale.x = 1 + 0.5 * Math.sin(t);
+			circle.allowOnTransformChange(true);
+			application.update();
+			setTimeout(update, 16);
+		};
+		update();
+	}());
+	</script>
+</body>
+</html>
