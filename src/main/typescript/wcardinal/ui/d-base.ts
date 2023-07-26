@@ -825,7 +825,8 @@ export class DBase<
 		this._snippet = new DBaseSnippetContainer(this);
 		this._reflowable = new DBaseReflowableContainer();
 		this._clearType = toEnum(options?.clear ?? theme.getClearType(), DLayoutClearType);
-		this._padding = new DBasePadding(theme, options, (): void => {
+		this._padding = this.newPadding(theme, options, (): void => {
+			this.toDirty();
 			this.toParentResized();
 			this.toHierarchyDirty();
 			DApplications.update(this);
@@ -1090,6 +1091,10 @@ export class DBase<
 
 		// Done
 		this.emit("init", this);
+	}
+
+	protected newPadding(theme: THEME, options?: OPTIONS, callback?: () => void): DBasePadding {
+		return new DBasePadding(theme, options, callback);
 	}
 
 	protected toCursor(

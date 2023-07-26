@@ -73,8 +73,15 @@ export class DTreeItemText<
 
 	constructor(data: DTreeData<NODE>, options?: OPTIONS) {
 		super(options);
-		this._padding = new DBasePaddingAdjustable(this._padding);
 		this._data = data;
+	}
+
+	protected override newPadding(
+		theme: THEME,
+		options?: OPTIONS,
+		callback?: () => void
+	): DBasePaddingAdjustable {
+		return new DBasePaddingAdjustable(theme, options, callback);
 	}
 
 	get node(): NODE | undefined {

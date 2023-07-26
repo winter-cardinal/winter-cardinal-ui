@@ -18,9 +18,12 @@ export class DTableBodyCellInputTreeInput<
 > extends DInputText<THEME, OPTIONS> {
 	protected _padding!: DBasePaddingAdjustable;
 
-	constructor(options?: OPTIONS) {
-		super(options);
-		this._padding = new DBasePaddingAdjustable(this._padding);
+	protected override newPadding(
+		theme: THEME,
+		options?: OPTIONS,
+		callback?: () => void
+	): DBasePaddingAdjustable {
+		return new DBasePaddingAdjustable(theme, options, callback);
 	}
 
 	get padding(): DBasePaddingAdjustable {

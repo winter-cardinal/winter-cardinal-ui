@@ -51,7 +51,14 @@ export class DTableBodyCellTree<
 		options?: OPTIONS
 	) {
 		super(columnIndex, column, onChange, DLinks.toStateOptions(options?.link?.target, options));
-		this._padding = new DBasePaddingAdjustable(this._padding);
+	}
+
+	protected override newPadding(
+		theme: THEME,
+		options?: OPTIONS,
+		callback?: () => void
+	): DBasePaddingAdjustable {
+		return new DBasePaddingAdjustable(theme, options, callback);
 	}
 
 	protected onClick(e: interaction.InteractionEvent): void {

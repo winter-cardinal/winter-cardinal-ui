@@ -3,51 +3,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DThemeBase } from "./d-base";
+import { DBaseOptions, DThemeBase } from "./d-base";
 import { DBasePadding } from "./d-base-padding";
-import { DPadding } from "./d-padding";
 
-export interface DBasePaddingAdjuster {
-	left: number;
-	top: number;
-	right: number;
-	bottom: number;
-}
+export class DBasePaddingAdjustable extends DBasePadding {
+	protected _atop: number;
+	protected _aright: number;
+	protected _abottom: number;
+	protected _aleft: number;
 
-export class DBasePaddingAdjustable implements DPadding {
-	protected _target: DPadding;
-	protected _top: number;
-	protected _right: number;
-	protected _bottom: number;
-	protected _left: number;
-	protected _callback?: () => void;
-
-	constructor(target: DPadding) {
-		this._target = target;
-		this._top = 0;
-		this._right = 0;
-		this._bottom = 0;
-		this._left = 0;
-		if (target instanceof DBasePadding) {
-			this._callback = target.getCallback();
-		}
+	constructor(theme: DThemeBase, options?: DBaseOptions<any>, callback?: () => void) {
+		super(theme, options, callback);
+		this._atop = 0;
+		this._aright = 0;
+		this._abottom = 0;
+		this._aleft = 0;
 	}
 
-	getTheme(): DThemeBase {
-		return this._target.getTheme();
+	override getLeft(): number {
+		return super.getLeft() + this._aleft;
 	}
 
-	setTheme(theme: DThemeBase): void {
-		this._target.setTheme(theme);
-	}
-
-	getLeft(): number {
-		return this._target.getLeft() + this._left;
-	}
-
-	adjLeft(left: number): void {
-		if (this._left !== left) {
-			this._left = left;
+	adjLeft(aleft: number): void {
+		if (this._aleft !== aleft) {
+			this._aleft = aleft;
 			const callback = this._callback;
 			if (callback) {
 				callback();
@@ -55,21 +34,13 @@ export class DBasePaddingAdjustable implements DPadding {
 		}
 	}
 
-	get left(): number | undefined {
-		return this._target.left;
+	override getTop(): number {
+		return super.getTop() + this._atop;
 	}
 
-	set left(left: number | undefined) {
-		this._target.left = left;
-	}
-
-	getTop(): number {
-		return this._target.getTop() + this._top;
-	}
-
-	adjTop(top: number): void {
-		if (this._top !== top) {
-			this._top = top;
+	adjTop(atop: number): void {
+		if (this._atop !== atop) {
+			this._atop = atop;
 			const callback = this._callback;
 			if (callback) {
 				callback();
@@ -77,21 +48,13 @@ export class DBasePaddingAdjustable implements DPadding {
 		}
 	}
 
-	get top(): number | undefined {
-		return this._target.top;
+	override getRight(): number {
+		return super.getRight() + this._aright;
 	}
 
-	set top(top: number | undefined) {
-		this._target.top = top;
-	}
-
-	getRight(): number {
-		return this._target.getRight() + this._right;
-	}
-
-	adjRight(right: number): void {
-		if (this._right !== right) {
-			this._right = right;
+	adjRight(aright: number): void {
+		if (this._aright !== aright) {
+			this._aright = aright;
 			const callback = this._callback;
 			if (callback) {
 				callback();
@@ -99,50 +62,17 @@ export class DBasePaddingAdjustable implements DPadding {
 		}
 	}
 
-	get right(): number | undefined {
-		return this._target.right;
+	override getBottom(): number {
+		return super.getBottom() + this._abottom;
 	}
 
-	set right(right: number | undefined) {
-		this._target.right = right;
-	}
-
-	getBottom(): number {
-		return this._target.getBottom() + this._bottom;
-	}
-
-	adjBottom(bottom: number): void {
-		if (this._bottom !== bottom) {
-			this._bottom = bottom;
+	adjBottom(abottom: number): void {
+		if (this._abottom !== abottom) {
+			this._abottom = abottom;
 			const callback = this._callback;
 			if (callback) {
 				callback();
 			}
-		}
-	}
-
-	get bottom(): number | undefined {
-		return this._target.bottom;
-	}
-
-	set bottom(bottom: number | undefined) {
-		this._target.bottom = bottom;
-	}
-
-	set(padding: number): void;
-	set(topAndBottom: number, leftAndRight: number): void;
-	set(top: number, leftAndRight: number, bottom: number): void;
-	set(top: number, right: number, bottom: number, left: number): void;
-	set(top: number, right?: number, bottom?: number, left?: number): void {
-		const target = this._target;
-		if (right == null) {
-			target.set(top);
-		} else if (bottom == null) {
-			target.set(top, right);
-		} else if (left == null) {
-			target.set(top, right, bottom);
-		} else {
-			target.set(top, right, bottom, left);
 		}
 	}
 }
