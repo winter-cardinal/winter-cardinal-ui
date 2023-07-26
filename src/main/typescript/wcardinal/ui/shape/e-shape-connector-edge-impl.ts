@@ -461,7 +461,9 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	attach(): this {
 		const shape = this._acceptor.shape;
 		if (shape) {
-			shape.connector.add(this);
+			if (shape.connector.add(this)) {
+				this.onAcceptorChange();
+			}
 		}
 		return this;
 	}
@@ -469,7 +471,9 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 	detach(): this {
 		const shape = this._acceptor.shape;
 		if (shape) {
-			shape.connector.remove(this);
+			if (shape.connector.remove(this)) {
+				this.onAcceptorChange();
+			}
 		}
 		return this;
 	}
