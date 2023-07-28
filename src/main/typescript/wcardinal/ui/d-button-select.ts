@@ -8,6 +8,7 @@ import { DButton, DButtonEvents, DButtonOptions, DThemeButton } from "./d-button
 import { DDialogOpener } from "./d-dialog";
 import { DDialogSelect, DDialogSelectOptions } from "./d-dialog-select";
 import { DOnOptions } from "./d-on-options";
+import { DDialogSelectWithType, DDialogSelectWithTypeOptions } from "./d-dialog-select-with-type";
 
 /**
  * A dialog to select values.
@@ -73,7 +74,7 @@ export interface DButtonSelectOptions<
 	/**
 	 * A dialog to select values.
 	 */
-	dialog?: DDialogSelectOptions<DIALOG_VALUE> | DIALOG;
+	dialog?: DDialogSelectOptions<DIALOG_VALUE> | DDialogSelectWithTypeOptions<DIALOG_VALUE> | DIALOG;
 
 	on?: DButtonSelectOnOptions<VALUE, EMITTER>;
 }
@@ -173,8 +174,13 @@ export class DButtonSelect<
 			if (options && "open" in options) {
 				dialog = options;
 			} else {
-				// Assumes DIALOG === DDialogSelect<DIALOG_VALUE>.
-				dialog = new DDialogSelect<DIALOG_VALUE>(options) as any as DIALOG;
+				const search = options?.controller?.search;
+				if ((search as Function).length === 1) {
+					dialog = new DDialogSelect<DIALOG_VALUE>(options as DDialogSelectOptions<DIALOG_VALUE>) as any as DIALOG;
+				} else {
+					dialog = new DDialogSelectWithType<DIALOG_VALUE>(options as DDialogSelectWithTypeOptions<DIALOG_VALUE>) as any as DIALOG;
+				}
+				
 			}
 			this._dialog = dialog;
 		}

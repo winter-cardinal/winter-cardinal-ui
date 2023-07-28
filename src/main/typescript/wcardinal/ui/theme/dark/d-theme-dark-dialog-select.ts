@@ -5,12 +5,12 @@
 
 import { DCoordinateSize } from "../../d-coordinate";
 import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
-import { DThemeDialogSelect } from "../../d-dialog-select";
+import { DThemeDialogSelectBase } from "../../d-dialog-select-base";
 import { DThemeDarkDialogLayered } from "./d-theme-dark-dialog-layered";
 
 export class DThemeDarkDialogSelect<VALUE>
 	extends DThemeDarkDialogLayered
-	implements DThemeDialogSelect<VALUE>
+	implements DThemeDialogSelectBase<VALUE>
 {
 	getWidth(): DCoordinateSize {
 		return 480;

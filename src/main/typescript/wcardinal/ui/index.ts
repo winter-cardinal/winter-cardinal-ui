@@ -503,6 +503,7 @@ export * from "./d-scroll-bar-vertical";
 export * from "./d-scroll-bar";
 export * from "./d-select-multiple";
 export * from "./d-select";
+export * from "./d-dialog-select-with-type";
 export * from "./d-shadow-impl";
 export * from "./d-shadow";
 export * from "./d-slider-horizontal";
