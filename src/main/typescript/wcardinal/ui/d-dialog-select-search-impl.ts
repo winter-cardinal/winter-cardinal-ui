@@ -6,15 +6,15 @@
 import { utils } from "pixi.js";
 import { DDialogSelectSearch } from "./d-dialog-select-search";
 
-export class DDialogSelectSearhImpl<VALUE>
+export class DDialogSelectSearhImpl<VALUE, CATEGORY, CATEGORY_ID>
 	extends utils.EventEmitter
-	implements DDialogSelectSearch<VALUE>
+	implements DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>
 {
-	protected _search: (word: string) => Promise<VALUE[]>;
+	protected _search: (word: string, categoryId: CATEGORY_ID) => Promise<VALUE[]>;
 	protected _id: number;
 	protected _idCompleted: number;
 
-	constructor(search?: (word: string) => Promise<VALUE[]>) {
+	constructor(search?: (word: string, categoryId: CATEGORY_ID) => Promise<VALUE[]>) {
 		super();
 
 		this._search = search || ((_: string) => Promise.resolve([]));
@@ -22,9 +22,9 @@ export class DDialogSelectSearhImpl<VALUE>
 		this._idCompleted = 0;
 	}
 
-	create(args: [string]): void {
+	create(args: [string, CATEGORY_ID]): void {
 		const id = ++this._id;
-		this._search(args[0]).then(
+		this._search(args[0], args[1]).then(
 			(searchResult: VALUE[]) => {
 				if (this._id === id) {
 					this._idCompleted = id;

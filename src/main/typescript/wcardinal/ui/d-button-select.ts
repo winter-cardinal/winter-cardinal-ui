@@ -55,6 +55,8 @@ export interface DButtonSelectOnOptions<VALUE, EMITTER>
 export interface DButtonSelectOptions<
 	VALUE = unknown,
 	DIALOG_VALUE = unknown,
+	DIALOG_CATEGORY = unknown,
+	DIALOG_CATEGORY_ID = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
 	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
 	EMITTER = any
@@ -73,7 +75,7 @@ export interface DButtonSelectOptions<
 	/**
 	 * A dialog to select values.
 	 */
-	dialog?: DDialogSelectOptions<DIALOG_VALUE> | DIALOG;
+	dialog?: DDialogSelectOptions<DIALOG_VALUE, DIALOG_CATEGORY, DIALOG_CATEGORY_ID> | DIALOG;
 
 	on?: DButtonSelectOnOptions<VALUE, EMITTER>;
 }
@@ -92,50 +94,25 @@ const defaultSetter = (): void => {
 	// DO NOTHING
 };
 
-const toOptions = <OPTIONS extends DButtonSelectOptions<any, any, any, any>>(
-	options?: OPTIONS
-): OPTIONS | undefined => {
-	if (options) {
-		// Try to copy text.formatter to dialog.item.text.formatter at first
-		const formatter = options.text?.formatter;
-		if (formatter !== undefined) {
-			let dialog = options.dialog;
-			if (!(dialog && "open" in dialog)) {
-				dialog = dialog || {};
-				const item = (dialog.item = dialog.item || {});
-				const text = (item.text = item.text || {});
-				if (text.formatter === undefined) {
-					// Assumes formatter is ( value: DIALOG_VALUE | null, caller: any ) => string.
-					text.formatter = formatter as any;
-				}
-			}
-		} else {
-			// Try to copy dialog.item.text.formatter to text.formatter
-			const dialog = options.dialog;
-			if (!(dialog && "open" in dialog)) {
-				const dialogFormatter = dialog?.item?.text?.formatter;
-				if (dialogFormatter !== undefined) {
-					const text = options.text || {};
-					options.text = text;
-					if (text.formatter === undefined) {
-						// Assumes dialogFormatter is ( value: VALUE | null, caller: any ) => string.
-						text.formatter = dialogFormatter as any;
-					}
-				}
-			}
-		}
-	}
-	return options;
-};
-
 export class DButtonSelect<
 	VALUE = unknown,
 	DIALOG_VALUE = unknown,
+	DIALOG_CATEGORY = unknown,
+	DIALOG_CATEGORY_ID = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
 	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
-	OPTIONS extends DButtonSelectOptions<VALUE, DIALOG_VALUE, DIALOG, THEME> = DButtonSelectOptions<
+	OPTIONS extends DButtonSelectOptions<
 		VALUE,
 		DIALOG_VALUE,
+		DIALOG_CATEGORY,
+		DIALOG_CATEGORY_ID,
+		DIALOG,
+		THEME
+	> = DButtonSelectOptions<
+		VALUE,
+		DIALOG_VALUE,
+		DIALOG_CATEGORY,
+		DIALOG_CATEGORY_ID,
 		DIALOG,
 		THEME
 	>
@@ -145,7 +122,7 @@ export class DButtonSelect<
 	protected _dialogSetter: DButtonSelectSetter<VALUE, DIALOG>;
 
 	constructor(options?: OPTIONS) {
-		super(toOptions(options));
+		super(options);
 		this._dialogGetter = options?.getter ?? defaultGetter;
 		this._dialogSetter = options?.setter ?? defaultSetter;
 	}
@@ -173,8 +150,10 @@ export class DButtonSelect<
 			if (options && "open" in options) {
 				dialog = options;
 			} else {
-				// Assumes DIALOG === DDialogSelect<DIALOG_VALUE>.
-				dialog = new DDialogSelect<DIALOG_VALUE>(options) as any as DIALOG;
+				// Assumes DIALOG === DDialogSelect<DIALOG_VALUE, DIALOG_CATEGORY, DIALOG_CATEGORY_ID>.
+				dialog = new DDialogSelect<DIALOG_VALUE, DIALOG_CATEGORY, DIALOG_CATEGORY_ID>(
+					options
+				) as any as DIALOG;
 			}
 			this._dialog = dialog;
 		}

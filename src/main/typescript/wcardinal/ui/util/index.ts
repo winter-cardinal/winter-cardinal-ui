@@ -36,6 +36,7 @@ export * from "./number-formatters";
 export * from "./to-ceiling-index";
 export * from "./to-cloned";
 export * from "./to-enum";
+export * from "./to-id";
 export * from "./to-index-of";
 export * from "./to-label";
 export * from "./to-merged";

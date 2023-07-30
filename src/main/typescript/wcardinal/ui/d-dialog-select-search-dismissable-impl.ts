@@ -11,19 +11,19 @@ import {
 	DDialogSelectSearhDismissableOptions
 } from "./d-dialog-select-search-dismissable";
 
-export class DDialogSelectSearhDismissableImpl<VALUE>
+export class DDialogSelectSearhDismissableImpl<VALUE, CATEGORY, CATEGORY_ID>
 	extends utils.EventEmitter
-	implements DDialogSelectSearchDismissable<VALUE>
+	implements DDialogSelectSearchDismissable<VALUE, CATEGORY, CATEGORY_ID>
 {
-	protected _target: DDialogSelectSearch<VALUE>;
+	protected _target: DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>;
 
-	protected _args?: [string];
+	protected _args?: [string, CATEGORY_ID | null];
 	protected _value?: VALUE;
-	protected _filter?: DDialogSelectSearhDismissableFilter<VALUE>;
+	protected _filter?: DDialogSelectSearhDismissableFilter<VALUE, CATEGORY, CATEGORY_ID>;
 
 	constructor(
-		target: DDialogSelectSearch<VALUE>,
-		options: DDialogSelectSearhDismissableOptions<VALUE>
+		target: DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>,
+		options: DDialogSelectSearhDismissableOptions<VALUE, CATEGORY, CATEGORY_ID>
 	) {
 		super();
 
@@ -42,7 +42,7 @@ export class DDialogSelectSearhDismissableImpl<VALUE>
 		});
 	}
 
-	protected toDismissValue(args?: [string]): VALUE | undefined {
+	protected toDismissValue(args?: [string, CATEGORY_ID | null]): VALUE | undefined {
 		if (args == null) {
 			return;
 		}
@@ -70,7 +70,7 @@ export class DDialogSelectSearhDismissableImpl<VALUE>
 		return result;
 	}
 
-	create(args: [string]): void {
+	create(args: [string, CATEGORY_ID | null]): void {
 		this._args = args;
 		this._target.create(args);
 	}

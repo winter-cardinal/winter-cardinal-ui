@@ -6,6 +6,8 @@
 import { DCoordinateSize } from "../../d-coordinate";
 import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogSelect } from "../../d-dialog-select";
+import { toId } from "../../util/to-id";
+import { toLabel } from "../../util/to-label";
 import { DThemeDarkDialogLayered } from "./d-theme-dark-dialog-layered";
 
 export class DThemeDarkDialogSelect<VALUE>
@@ -21,6 +23,14 @@ export class DThemeDarkDialogSelect<VALUE>
 	}
 
 	getInputMargin(): number {
-		return 32;
+		return 19;
+	}
+
+	toCategoryId(category: unknown): unknown {
+		return toId(category);
+	}
+
+	toCategoryLabel(category: unknown): string {
+		return toLabel(category);
 	}
 }
