@@ -38,7 +38,7 @@ export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 /**
  * {@link DDialogSelect} search function.
  */
-export type DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID> = (
+export type DDialogSelectSearchFunction<VALUE, CATEGORY = unknown, CATEGORY_ID = unknown> = (
 	word: string,
 	categoryId: CATEGORY_ID
 ) => Promise<VALUE[]>;
@@ -46,7 +46,7 @@ export type DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID> = (
 /**
  * {@link DDialogSelect} controller.
  */
-export interface DDialogSelectController<VALUE, CATEGORY, CATEGORY_ID> {
+export interface DDialogSelectController<VALUE, CATEGORY = unknown, CATEGORY_ID = unknown> {
 	search:
 		| DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>
 		| DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID>;
