@@ -17,6 +17,7 @@ import { EShape } from "../e-shape";
 import { EShapeDataValueState } from "../e-shape-data-value-state";
 import { EShapeEmbedded } from "../variant/e-shape-embedded";
 import { EShapeActionOpenOpeners } from "./e-shape-action-open-openers";
+import { isString } from "../../util/is-string";
 
 export interface EShapeActionsContainer extends DCanvasContainer {
 	readonly shape: utils.EventEmitter;
@@ -49,13 +50,13 @@ export class EShapeActions {
 	static open(
 		shape: EShape,
 		type: DDiagramBaseControllerOpenType,
-		target: string,
+		target: unknown,
 		inNewWindow: boolean
 	): void {
 		const opener = EShapeActionOpenOpeners[type];
 		if (opener != null) {
 			opener(target, inNewWindow, shape);
-		} else {
+		} else if (isString(target)) {
 			switch (type) {
 				case DDiagramBaseControllerOpenType.DIAGRAM:
 					const container = this.toContainer(shape);

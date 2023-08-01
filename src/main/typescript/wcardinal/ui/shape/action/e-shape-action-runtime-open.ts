@@ -17,7 +17,7 @@ import { EShapeActionValueOpenExtension } from "./e-shape-action-value-open-exte
 
 export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 	protected subtype: number;
-	protected readonly target: EShapeActionExpression<string | null>;
+	protected readonly target: EShapeActionExpression<unknown>;
 	protected inNewWindow: boolean;
 
 	constructor(
@@ -26,7 +26,7 @@ export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 	) {
 		super(value, EShapeRuntimeReset.NONE);
 		this.subtype = subtype;
-		this.target = EShapeActionExpressions.ofStringOrNull(value.target);
+		this.target = EShapeActionExpressions.ofUnknown(value.target);
 		this.inNewWindow = value.inNewWindow;
 	}
 
