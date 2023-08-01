@@ -375,10 +375,11 @@ export class UtilGesture<TARGET extends UtilGestureTarget> {
 	}
 
 	protected onEasingEnd(data: UtilGestureData<TARGET>): void {
+		const target = data.target;
 		this.deleteData(data);
 		const onEasingEnd = this._onEasingEnd;
-		if (onEasingEnd) {
-			onEasingEnd(data.target!);
+		if (onEasingEnd && target != null) {
+			onEasingEnd(target);
 		}
 	}
 

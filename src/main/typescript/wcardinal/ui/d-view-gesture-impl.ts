@@ -46,8 +46,8 @@ export class DViewGestureImpl implements DViewGesture {
 					duration: options?.duration
 				},
 				on: {
-					start: (): void => {
-						this.onStart();
+					start: (target): void => {
+						this.onStart(target);
 					},
 					move: (
 						target: DBase,
@@ -60,32 +60,32 @@ export class DViewGestureImpl implements DViewGesture {
 						this.onGestureMove(toTarget(owner), dx, dy, x, y, ds);
 					},
 					easing: {
-						end: (): void => {
-							this.onEnd();
+						end: (target): void => {
+							this.onEnd(target);
 						}
 					},
-					stop: (): void => {
-						this.onStop();
+					stop: (target): void => {
+						this.onStop(target);
 					}
 				}
 			});
 		}
 	}
 
-	protected onStart(): void {
+	protected onStart(target: DBase): void {
 		const parent = this._parent;
 		parent.stop();
-		parent.emit("start", this, parent);
+		parent.emit("start", target, parent);
 	}
 
-	protected onEnd(): void {
+	protected onEnd(target: DBase): void {
 		const parent = this._parent;
-		parent.emit("end", this, parent);
+		parent.emit("end", target, parent);
 	}
 
-	protected onStop(): void {
+	protected onStop(target: DBase): void {
 		const parent = this._parent;
-		parent.emit("stop", this, parent);
+		parent.emit("stop", target, parent);
 	}
 
 	protected onGestureMove(
