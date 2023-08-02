@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.333.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.333.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.336.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.336.0/wcardinal-ui-theme-white.min.js"></script>
 	<script src="../../../resource/chart/updater.js"></script>
 	<script>
 	(function(){
@@ -63,16 +63,40 @@
 				},
 				view: {
 					on: {
-						start: (target, emitter) => {
-							console.log("start", target, emitter);
+						gesturestart: (target, emitter) => {
+							console.log("gesture start", target, emitter);
 						},
 
-						end: (target, emitter) => {
-							console.log("end", target, emitter);
+						gestureend: (target, emitter) => {
+							console.log("gesture end", target, emitter);
 						},
 
-						stop: (target, emitter) => {
-							console.log("stop", target, emitter);
+						gesturestop: (target, emitter) => {
+							console.log("gesture stop", target, emitter);
+						},
+
+						transformstart: (target, emitter) => {
+							console.log("transform start", target, emitter);
+						},
+
+						transformend: (target, emitter) => {
+							console.log("transform end", target, emitter);
+						},
+
+						transformstop: (target, emitter) => {
+							console.log("transform stop", target, emitter);
+						},
+
+						wheeltranslationstart: (target, emitter) => {
+							console.log("wheel translation start", target, emitter);
+						},
+
+						wheeltranslationend: (target, emitter) => {
+							console.log("wheel translation end", target, emitter);
+						},
+
+						wheeltranslationstop: (target, emitter) => {
+							console.log("wheel translation stop", target, emitter);
 						}
 					}
 				}

@@ -167,6 +167,7 @@
     * [Mode (Modeless)](./dialog/mode-modeless.html)
     * [Processing dialog](./dialog/processing.html)
     * [Select dialog](./dialog/select.html)
+    * [Select dialog (Category)](./dialog/select-category.html)
     * [Select dialog (Dismissable)](./dialog/select-dismissable.html)
     * [Select dialog (Errors)](./dialog/select-error.html)
     * [Select dialog (Images)](./dialog/select-image.html)

@@ -1,0 +1,80 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Select dialog (Category)</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #2e2e2e;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.336.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.336.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		var application = new wcardinal.ui.DApplication();
+
+		var dialog = new wcardinal.ui.DDialogSelect({
+			controller: {
+				search: (word, category) => {
+					return Promise.resolve([
+						{ name: "Apple", category: 1 },
+						{ name: "Orange", category: 1 },
+						{ name: "Pineapple", category: 1 },
+						{ name: "Potato", category: 2 },
+						{ name: "Tomato", category: 2 },
+						{ name: "Cabbage", category: 2 }
+					].filter(function (item) {
+						return (category == null || category === 0 || item.category === category) &&
+							(word.length <= 0 || 0 <= item.name.indexOf(word));
+					}));
+				},
+
+				getCategories: () => {
+					return Promise.resolve([
+						{ id: 0, label: "All" },
+						{ id: 1, label: "Custom" },
+						{ id: 2, label: "Standard" }
+					]);
+				}
+			}
+		});
+
+		new wcardinal.ui.DButton({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 300,
+			text: {
+				value: "Open"
+			},
+			on: {
+				active: function (emitter) {
+					dialog.open(emitter).then(function(value){
+						console.log(value);
+					})
+					.catch(function() {
+						console.log("Canceled");
+					});
+				}
+			}
+		});
+	}());
+	</script>
+</body>
+</html>
