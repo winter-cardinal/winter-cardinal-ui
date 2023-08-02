@@ -10,7 +10,6 @@ import { DThemeViewGesture, DViewGesture, DViewGestureOptions } from "./d-view-g
 import { DViewTargetPoint } from "./d-view-to-target";
 import { DViewConstraint } from "./d-view-constraint";
 import { DOnOptions } from "./d-on-options";
-import { DViewTransform } from "./d-view-transform";
 
 export type DViewChecker = (
 	e: WheelEvent | MouseEvent | TouchEvent,
@@ -114,28 +113,76 @@ export interface DViewTranslationOptions {
  */
 export interface DViewEvents<EMITTER> {
 	/**
-	 * Triggered when a view operation starts.
+	 * Triggered when a gesture starts.
 	 *
-	 * @param operation a view operation
+	 * @param target an operation target
 	 * @param emitter an emitter
 	 */
-	start(operation: DViewTransform | DViewGesture, emitter: EMITTER): void;
+	gesturestart(target: DBase, emitter: EMITTER): void;
 
 	/**
-	 * Triggered when a view operation ends.
+	 * Triggered when a gesture ends.
 	 *
-	 * @param operation a view operation
+	 * @param target an operation target
 	 * @param emitter an emitter
 	 */
-	end(operation: DViewTransform | DViewGesture, emitter: EMITTER): void;
+	gestureend(target: DBase, emitter: EMITTER): void;
 
 	/**
-	 * Triggered when a view operation stops.
+	 * Triggered when a gesture stops.
 	 *
-	 * @param operation a view operation
+	 * @param target an operation target
 	 * @param emitter an emitter
 	 */
-	stop(operation: DViewTransform | DViewGesture, emitter: EMITTER): void;
+	gesturestop(target: DBase, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a transform starts.
+	 *
+	 * @param target an operation target
+	 * @param emitter an emitter
+	 */
+	transformstart(target: DBase, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a transform ends.
+	 *
+	 * @param target an operation target
+	 * @param emitter an emitter
+	 */
+	transformend(target: DBase, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a transform stops.
+	 *
+	 * @param target an operation target
+	 * @param emitter an emitter
+	 */
+	transformstop(target: DBase, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a wheel translation starts.
+	 *
+	 * @param target an operation target
+	 * @param emitter an emitter
+	 */
+	wheeltranslationstart(target: DBase, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a wheel translation ends.
+	 *
+	 * @param target an operation target
+	 * @param emitter an emitter
+	 */
+	wheeltranslationend(target: DBase, emitter: EMITTER): void;
+
+	/**
+	 * Triggered when a wheel translation stops.
+	 *
+	 * @param target an operation target
+	 * @param emitter an emitter
+	 */
+	wheeltranslationstop(target: DBase, emitter: EMITTER): void;
 }
 
 /**

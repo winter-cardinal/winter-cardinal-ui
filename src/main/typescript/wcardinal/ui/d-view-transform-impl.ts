@@ -68,7 +68,7 @@ export class DViewTransformImpl implements DViewTransform {
 
 	protected onStart(): void {
 		const parent = this._parent;
-		parent.emit("start", this._owner, parent);
+		parent.emit("transformstart", this._owner, parent);
 	}
 
 	protected onTime(time: number): void {
@@ -88,12 +88,12 @@ export class DViewTransformImpl implements DViewTransform {
 
 	protected onEnd(): void {
 		const parent = this._parent;
-		parent.emit("end", this._owner, parent);
+		parent.emit("transformend", this._owner, parent);
 	}
 
 	protected onStop(): void {
 		const parent = this._parent;
-		parent.emit("stop", this._owner, parent);
+		parent.emit("transformstop", this._owner, parent);
 	}
 
 	start(

@@ -75,17 +75,17 @@ export class DViewGestureImpl implements DViewGesture {
 	protected onStart(target: DBase): void {
 		const parent = this._parent;
 		parent.stop();
-		parent.emit("start", target, parent);
+		parent.emit("gesturestart", target, parent);
 	}
 
 	protected onEnd(target: DBase): void {
 		const parent = this._parent;
-		parent.emit("end", target, parent);
+		parent.emit("gestureend", target, parent);
 	}
 
 	protected onStop(target: DBase): void {
 		const parent = this._parent;
-		parent.emit("stop", target, parent);
+		parent.emit("gesturestop", target, parent);
 	}
 
 	protected onGestureMove(

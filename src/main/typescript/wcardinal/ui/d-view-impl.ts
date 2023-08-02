@@ -360,14 +360,14 @@ export class DViewImpl extends utils.EventEmitter implements DView {
 			const target = this._toTarget(this._parent);
 			if (target) {
 				this.stop();
-				this.emit("start", this._parent, this);
+				this.emit("wheeltranslationstart", this._parent, this);
 				const speed = deltas.lowest * this._wheelTranslationSpeed;
 				const targetPosition = target.position;
 				const newX = targetPosition.x - deltas.deltaX * speed;
 				const newY = targetPosition.y + deltas.deltaY * speed;
 				const targetScale = target.scale;
 				this._constraint(target, newX, newY, targetScale.x, targetScale.y);
-				this.emit("end", this._parent, this);
+				this.emit("wheeltranslationend", this._parent, this);
 				return true;
 			}
 		}
