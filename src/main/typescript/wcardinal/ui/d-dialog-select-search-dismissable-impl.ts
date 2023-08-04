@@ -17,7 +17,7 @@ export class DDialogSelectSearhDismissableImpl<VALUE, CATEGORY, CATEGORY_ID>
 {
 	protected _target: DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>;
 
-	protected _args?: [string, CATEGORY_ID | null];
+	protected _args?: [string] | [string, CATEGORY_ID | null];
 	protected _value?: VALUE;
 	protected _filter?: DDialogSelectSearhDismissableFilter<VALUE, CATEGORY, CATEGORY_ID>;
 
@@ -42,7 +42,7 @@ export class DDialogSelectSearhDismissableImpl<VALUE, CATEGORY, CATEGORY_ID>
 		});
 	}
 
-	protected toDismissValue(args?: [string, CATEGORY_ID | null]): VALUE | undefined {
+	protected toDismissValue(args?: [string] | [string, CATEGORY_ID | null]): VALUE | undefined {
 		if (args == null) {
 			return;
 		}
@@ -70,7 +70,7 @@ export class DDialogSelectSearhDismissableImpl<VALUE, CATEGORY, CATEGORY_ID>
 		return result;
 	}
 
-	create(args: [string, CATEGORY_ID | null]): void {
+	create(args: [string] | [string, CATEGORY_ID | null]): void {
 		this._args = args;
 		this._target.create(args);
 	}

@@ -30,18 +30,11 @@ import { DDialogSelectSearhDismissableImpl } from "./d-dialog-select-search-dism
 import { DSelect, DSelectOptions } from "./d-select";
 import { DMenu } from "./d-menu";
 import { isArray } from "./util/is-array";
+import { DDialogSelectSearchFunction } from "./d-dialog-select-search-function";
 
 export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 	margin?: number;
 }
-
-/**
- * {@link DDialogSelect} search function.
- */
-export type DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID> = (
-	word: string,
-	categoryId?: CATEGORY_ID | null
-) => Promise<VALUE[]>;
 
 /**
  * {@link DDialogSelect} controller.
@@ -299,7 +292,12 @@ export class DDialogSelect<
 	}
 
 	protected onInputInput(value: string): void {
-		this.search.create([value, this.selectCategory?.value ?? null]);
+		const selectCategory = this.selectCategory;
+		if (selectCategory != null) {
+			this.search.create([value, selectCategory.value]);
+		} else {
+			this.search.create([value]);
+		}
 	}
 
 	get list(): DDialogSelectList<VALUE> {
@@ -491,7 +489,7 @@ export class DDialogSelect<
 				this.search.create([this.input.value, selectCategory.value]);
 			}
 		} else {
-			this.search.create([this.input.value, null]);
+			this.search.create([this.input.value]);
 		}
 	}
 
