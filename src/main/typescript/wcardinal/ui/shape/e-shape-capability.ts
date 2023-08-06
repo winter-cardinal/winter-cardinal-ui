@@ -34,13 +34,17 @@ const CHILDREN		= 0x80000;
 
 const DATA_MAPPING	= 0x100000;
 
+const LINE			= 0x200000;
+const LINE_TAIL		= 0x400000;
+const LINE_HEAD		= 0x800000;
+
 const COORDINATE	= POSITION | WIDTH | HEIGHT | ROTATION | SKEW;
-const SHAPE			= REPLACING | GROUPING | FILL | STROKE;
+const SHAPE			= REPLACING | GROUPING | FILL | STROKE | LINE | LINE_TAIL | LINE_HEAD;
 const LAYER			= ORDER_IN_LAYER;
 const PRIMITIVE		= ID | COORDINATE | SHAPE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
 const GROUP			= PRIMITIVE | UNGROUPING;
 const EMBEDDED		= ID | COORDINATE | REPLACING | GROUPING | TEXT | DATA | ACTION | LAYER | DATA_MAPPING;
-const CONNECTOR		= ID | REPLACING | FILL | STROKE | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
+const CONNECTOR		= ID | REPLACING | FILL | STROKE | LINE | LINE_TAIL | LINE_HEAD | TEXT | TEXTURE | DATA | ACTION | CURSOR | LAYER | CHILDREN;
 const ALL			= PRIMITIVE | STROKE_SIDE | BORDER_RADIUS | DATA_MAPPING | UNGROUPING;
 
 export const EShapeCapability = {
@@ -156,6 +160,21 @@ export const EShapeCapability = {
 	 * Allows shape children to be modified.
 	 */
 	CHILDREN,
+
+	/**
+	 * Allows shape line to be modified.
+	 */
+	LINE,
+
+	/**
+	 * Allows shape line tail to be modified.
+	 */
+	LINE_TAIL,
+
+	/**
+	 * Allows shape line head to be modified.
+	 */
+	LINE_HEAD,
 
 	COORDINATE,
 	SHAPE,
