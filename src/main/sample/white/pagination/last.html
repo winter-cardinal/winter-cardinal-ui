@@ -33,13 +33,11 @@
 		new wcardinal.ui.DPagination({
 			parent: application.stage,
 			x: "center", y: "center",
-			size: 15,
-			value: 0,
 			button: {
 				last: true
 			},
 			on: {
-				change: function(newIndex, oldIndex, emitter) {
+				change: (newIndex, oldIndex, emitter) => {
 					console.log(newIndex, oldIndex, emitter);
 				}
 			}

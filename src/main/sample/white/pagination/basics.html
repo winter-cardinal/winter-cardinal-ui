@@ -34,7 +34,7 @@
 			parent: application.stage,
 			x: "center", y: "center",
 			on: {
-				change: function(newIndex, oldIndex, emitter) {
+				change: (newIndex, oldIndex, emitter) => {
 					console.log(newIndex, oldIndex, emitter);
 				}
 			}

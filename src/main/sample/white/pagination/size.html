@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Number of pages</title>
+	<title>Size</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -30,16 +30,20 @@
 
 		const application = new wcardinal.ui.DApplication();
 
-		new wcardinal.ui.DPagination({
+		const pagination = new wcardinal.ui.DPagination({
 			parent: application.stage,
 			x: "center", y: "center",
 			size: 15,
 			on: {
-				change: function(newIndex, oldIndex, emitter) {
+				change: (newIndex, oldIndex, emitter) => {
 					console.log(newIndex, oldIndex, emitter);
 				}
 			}
-		})
+		});
+
+		setInterval(() => {
+			pagination.size = (pagination.size + 1) % 20;
+		}, 1000);
 	}());
 	</script>
 </body>

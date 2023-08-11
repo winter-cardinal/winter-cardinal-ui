@@ -20,8 +20,9 @@ import {
 import { DPaginationButtonTop, DPaginationButtonTopOptions } from "./d-pagination-button-top";
 import { isNumber } from "./util/is-number";
 import { DPaginationPage, DPaginationPageOptions } from "./d-pagination-page";
-import { DLayoutSpace } from "./d-layout-space";
+import { DLayoutSpace, DLayoutSpaceOptions } from "./d-layout-space";
 import { DImageBase } from "./d-image-base";
+import { DApplications } from "./d-applications";
 
 export interface DPaginationButtonOptions {
 	/**
@@ -52,7 +53,7 @@ export interface DPaginationButtonOptions {
 	/**
 	 * A space between page buttons and next / previous buttons.
 	 */
-	space?: number;
+	space?: DLayoutSpaceOptions | boolean | number | null;
 }
 
 export interface DPaginationOptions<THEME extends DThemePagination>
@@ -105,11 +106,13 @@ export class DPagination<
 
 	protected _buttonTop?: DButton<string> | null;
 	protected _buttonPrevious?: DButton<string> | null;
+	protected _spaceLeft?: DLayoutSpace | null;
 	protected _dots0?: DPaginationDots;
 	protected _buttonPages0?: DButton<number>[];
 	protected _page?: DPaginationPage;
 	protected _buttonPages1?: DButton<number>[];
 	protected _dots1?: DPaginationDots;
+	protected _spaceRight?: DLayoutSpace | null;
 	protected _buttonNext?: DButton<string> | null;
 	protected _buttonLast?: DButton<string> | null;
 
@@ -125,21 +128,22 @@ export class DPagination<
 		}
 
 		const buttonTop = this.buttonTop;
-		const buttonPrevious = this.buttonPrevious;
 		if (buttonTop != null) {
 			this.addChild(buttonTop);
 		}
+		const buttonPrevious = this.buttonPrevious;
 		if (buttonPrevious != null) {
 			this.addChild(buttonPrevious);
 		}
-		if (buttonTop != null || buttonPrevious != null) {
-			this.addChild(this.newSpace());
+		const spaceLeft = this.spaceLeft;
+		if (spaceLeft != null) {
+			this.addChild(spaceLeft);
 		}
 		const buttonPages0 = this.buttonPages0;
 		const buttonPages0Length = buttonPages0.length;
-		this.addChild(buttonPages0[buttonPages0Length - 1]);
+		this.addChild(buttonPages0[0]);
 		this.addChild(this.dots0);
-		for (let i = buttonPages0Length - 2; 0 <= i; --i) {
+		for (let i = 1; i < buttonPages0Length; ++i) {
 			this.addChild(buttonPages0[i]);
 		}
 		this.addChild(this.page);
@@ -150,25 +154,18 @@ export class DPagination<
 		}
 		this.addChild(this.dots1);
 		this.addChild(buttonPages1[buttonPages1Length - 1]);
-		const buttonNext = this.buttonNext;
-		const buttonLast = this.buttonLast;
-		if (buttonNext != null || buttonLast != null) {
-			this.addChild(this.newSpace());
+		const spaceRight = this.spaceRight;
+		if (spaceRight != null) {
+			this.addChild(spaceRight);
 		}
+		const buttonNext = this.buttonNext;
 		if (buttonNext != null) {
 			this.addChild(buttonNext);
 		}
+		const buttonLast = this.buttonLast;
 		if (buttonLast != null) {
 			this.addChild(buttonLast);
 		}
-
-		this.update();
-	}
-
-	protected newSpace(): DLayoutSpace {
-		return new DLayoutSpace({
-			width: this._options?.button?.space ?? this.theme.getButtonSpace()
-		});
 	}
 
 	/**
@@ -179,7 +176,8 @@ export class DPagination<
 	set value(value: number) {
 		if (0 <= value && value < this._size && this._value !== value) {
 			this._value = value;
-			this.update();
+			this.toDirty();
+			DApplications.update(this);
 		}
 	}
 
@@ -225,7 +223,8 @@ export class DPagination<
 			} else {
 				this._value = Math.max(0, Math.min(this._size - 1, this._value));
 			}
-			this.update();
+			this.toDirty();
+			DApplications.update(this);
 		}
 	}
 
@@ -310,7 +309,8 @@ export class DPagination<
 			const oldIndex = this._value;
 			this._value = index;
 			this.emit("change", index, oldIndex, this);
-			this.update();
+			this.toDirty();
+			DApplications.update(this);
 		}
 	}
 
@@ -415,6 +415,17 @@ export class DPagination<
 		];
 	}
 
+	protected allocButtonPages0(size: number): void {
+		const buttonPages0 = this.buttonPages0;
+		const buttonPages0Length = buttonPages0.length;
+		const index = this.getChildIndex(buttonPages0[buttonPages0Length - 1]) + 1;
+		for (let i = 0, imax = size - buttonPages0Length; i < imax; ++i) {
+			const buttonPage = this.newButtonPage();
+			this.addChildAt(buttonPage, index + i);
+			buttonPages0.push(buttonPage);
+		}
+	}
+
 	protected get buttonPages1(): DButton<number>[] {
 		let result = this._buttonPages1;
 		if (result == null) {
@@ -431,6 +442,17 @@ export class DPagination<
 			this.newButtonPage(),
 			this.newButtonPage()
 		];
+	}
+
+	protected allocButtonPages1(size: number): void {
+		const buttonPages1 = this.buttonPages1;
+		const buttonPages1Length = buttonPages1.length;
+		const index = this.getChildIndex(buttonPages1[0]);
+		for (let i = 0, imax = size - buttonPages1Length; i < imax; ++i) {
+			const buttonPage = this.newButtonPage();
+			this.addChildAt(buttonPage, index);
+			buttonPages1.unshift(buttonPage);
+		}
 	}
 
 	protected get page(): DPaginationPage {
@@ -457,126 +479,369 @@ export class DPagination<
 		}
 	}
 
+	protected get spaceLeft(): DLayoutSpace | null {
+		let result = this._spaceLeft;
+		if (result === undefined) {
+			result = this.newSpaceLeft();
+			this._spaceLeft = result;
+		}
+		return result;
+	}
+
+	protected newSpaceLeft(): DLayoutSpace | null {
+		if (this.buttonTop != null || this.buttonPrevious != null) {
+			return this.newSpace();
+		}
+		return null;
+	}
+
+	protected get spaceRight(): DLayoutSpace | null {
+		let result = this._spaceRight;
+		if (result === undefined) {
+			result = this.newSpaceRight();
+			this._spaceRight = result;
+		}
+		return result;
+	}
+
+	protected newSpaceRight(): DLayoutSpace | null {
+		if (this.buttonLast != null || this.buttonNext != null) {
+			return this.newSpace();
+		}
+		return null;
+	}
+
+	protected newSpace(): DLayoutSpace | null {
+		const space = this._options?.button?.space;
+		if (space !== null && space !== false) {
+			if (space === true || space === undefined) {
+				return new DLayoutSpace({
+					weight: 1
+				});
+			} else if (isNumber(space)) {
+				return new DLayoutSpace({
+					width: space
+				});
+			} else {
+				return new DLayoutSpace(space);
+			}
+		}
+		return null;
+	}
+
+	protected onReflow(): void {
+		this.update();
+		super.onReflow();
+	}
+
 	protected update(): void {
 		const size = this._size;
 		const value = this._value;
 		if (size <= 0) {
-			const buttonTop = this.buttonTop;
-			if (buttonTop != null) {
-				buttonTop.state.isEnabled = false;
-			}
-			const buttonPrevious = this.buttonPrevious;
-			if (buttonPrevious != null) {
-				buttonPrevious.state.isEnabled = false;
-			}
-
-			this.hideDots(this.dots0);
-
-			const buttonPages0 = this.buttonPages0;
-			for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
-				this.hidePage(buttonPages0[i]);
-			}
-
-			this.hidePage(this.page);
-
-			const buttonPages1 = this.buttonPages1;
-			for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
-				this.hidePage(buttonPages1[i]);
-			}
-
-			this.hideDots(this.dots1);
-
-			const buttonNext = this.buttonNext;
-			if (buttonNext != null) {
-				buttonNext.state.isEnabled = false;
-			}
-			const buttonLast = this.buttonLast;
-			if (buttonLast) {
-				buttonLast.state.isEnabled = false;
-			}
+			this.doUpdate0(value, size);
 		} else {
-			let from = value - 2;
-			let to = value + 2;
-			if (from < 0) {
-				to = to - from;
-				from = 0;
-			} else if (size <= to) {
-				const delta = to - size + 1;
-				to -= delta;
-				from -= delta;
-			}
-			let top = false;
-			if (0 < from) {
-				top = true;
-				from = Math.min(from + 1, value);
-			}
-			let last = false;
-			if (to < size - 1) {
-				last = true;
-				to = Math.max(to - 1, value);
-			}
-
-			const buttonTop = this.buttonTop;
-			if (buttonTop != null) {
-				buttonTop.state.isEnabled = 0 < value;
-			}
-			const buttonPrevious = this.buttonPrevious;
-			if (buttonPrevious != null) {
-				buttonPrevious.state.isEnabled = 0 < value;
-			}
-
-			if (top) {
-				this.showDots(this.dots0, 1, from - 1);
+			if (this._auto.width.isOn) {
+				this.doUpdate2(value, size, 0, 0, 0, 0);
 			} else {
-				this.hideDots(this.dots0);
+				this.doUpdate1(value, size);
 			}
+		}
+	}
 
+	protected doUpdate0(value: number, size: number): void {
+		const buttonTop = this.buttonTop;
+		if (buttonTop != null) {
+			buttonTop.state.isEnabled = false;
+		}
+		const buttonPrevious = this.buttonPrevious;
+		if (buttonPrevious != null) {
+			buttonPrevious.state.isEnabled = false;
+		}
+
+		this.hideDots(this.dots0);
+
+		const buttonPages0 = this.buttonPages0;
+		for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
+			this.hidePage(buttonPages0[i]);
+		}
+
+		this.hidePage(this.page);
+
+		const buttonPages1 = this.buttonPages1;
+		for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
+			this.hidePage(buttonPages1[i]);
+		}
+
+		this.hideDots(this.dots1);
+
+		const buttonNext = this.buttonNext;
+		if (buttonNext != null) {
+			buttonNext.state.isEnabled = false;
+		}
+		const buttonLast = this.buttonLast;
+		if (buttonLast) {
+			buttonLast.state.isEnabled = false;
+		}
+	}
+
+	protected doUpdate1(value: number, size: number): void {
+		let required = 0;
+		let nrequired = 0;
+
+		const buttonTop = this.buttonTop;
+		if (buttonTop != null) {
+			required += buttonTop.width;
+			nrequired += 1;
+		}
+		const buttonPrevious = this.buttonPrevious;
+		if (buttonPrevious != null) {
+			required += buttonPrevious.width;
+			nrequired += 1;
+		}
+
+		const spaceLeft = this.spaceLeft;
+		if (spaceLeft != null) {
+			if (spaceLeft.weight < 0) {
+				required += spaceLeft.width;
+			}
+			nrequired += 1;
+		}
+
+		const page = this.page;
+		required += page.width;
+		nrequired += 1;
+
+		const spaceRight = this.spaceRight;
+		if (spaceRight != null) {
+			if (spaceRight.weight < 0) {
+				required += spaceRight.width;
+			}
+			nrequired += 1;
+		}
+
+		const buttonNext = this.buttonNext;
+		if (buttonNext != null) {
+			required += buttonNext.width;
+			nrequired += 1;
+		}
+		const buttonLast = this.buttonLast;
+		if (buttonLast) {
+			required += buttonLast.width;
+			nrequired += 1;
+		}
+
+		const marginHorizontal = this._margin.horizontal;
+		if (2 <= nrequired) {
+			required += (nrequired - 1) * marginHorizontal;
+		}
+
+		const padding = this.padding;
+		const space = this.width - (padding.getLeft() + padding.getRight());
+		if (space <= required) {
+			this.doUpdate2(value, size, 4, 4, 0, 0);
+		} else {
 			const buttonPages0 = this.buttonPages0;
-			for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
-				const index = value - i - 1;
-				const buttonPage = buttonPages0[i];
-				if (from <= index && index <= to && 0 <= index) {
-					this.showPage(buttonPage, index);
-				} else {
-					if (top && i === imax - 1) {
-						this.showPage(buttonPage, 0);
-					} else {
-						this.hidePage(buttonPage);
-					}
-				}
-			}
-
-			this.showPage(this.page, value);
+			const buttonPage0Width = buttonPages0[0].width;
+			const nrequired0 = value;
+			const required0 = nrequired0 * (buttonPage0Width + marginHorizontal);
 
 			const buttonPages1 = this.buttonPages1;
-			for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
-				const index = value + i + 1;
-				const buttonPage = buttonPages1[i];
-				if (from <= index && index <= to && index < size) {
-					this.showPage(buttonPage, index);
-				} else {
-					if (last && i === imax - 1) {
-						this.showPage(buttonPage, size - 1);
+			const buttonPage1Width = buttonPages1[0].width;
+			const nrequired1 = size - (value + 1);
+			const required1 = nrequired1 * (buttonPage1Width + marginHorizontal);
+
+			if (required + required0 + required1 <= space) {
+				this.doUpdate2(value, size, 0, 0, 0, 0);
+			} else {
+				const dots1 = this.dots1;
+				const dots1Width = dots1.width;
+				const dots0 = this.dots0;
+				const dots0Width = dots0.width;
+				const m0 = marginHorizontal + buttonPage0Width;
+				const m1 = marginHorizontal + buttonPage1Width;
+				const required0n = dots0Width + m0;
+				const required1n = dots1Width + m1;
+				const required0m = required0n + m0;
+				const required1m = required1n + m1;
+				if (required0 <= required1) {
+					if (3 <= nrequired1 && required + required0 + required1m <= space) {
+						const n1 = Math.floor((space - (required + required0 + required1m)) / m1);
+						this.doUpdate2(value, size, 0, 1, 0, n1);
+					} else if (2 <= nrequired1 && required + required0 + required1n <= space) {
+						this.doUpdate2(value, size, 0, 2, 0, 0);
+					} else if (
+						3 <= nrequired0 &&
+						2 <= nrequired1 &&
+						required + required0m + required1n <= space
+					) {
+						this.doUpdate2(value, size, 1, 2, 0, 0);
+					} else if (
+						2 <= nrequired0 &&
+						2 <= nrequired1 &&
+						required + required0n + required1n <= space
+					) {
+						this.doUpdate2(value, size, 2, 2, 0, 0);
+					} else if (
+						1 <= nrequired0 &&
+						1 <= nrequired1 &&
+						required + dots0Width + dots1Width <= space
+					) {
+						this.doUpdate2(value, size, 3, 3, 0, 0);
 					} else {
-						this.hidePage(buttonPage);
+						this.doUpdate2(value, size, 4, 4, 0, 0);
+					}
+				} else {
+					if (3 <= nrequired0 && required + required0m + required1 <= space) {
+						const n0 = Math.floor((space - (required + required0m + required1)) / m0);
+						this.doUpdate2(value, size, 1, 0, n0, 0);
+					} else if (2 <= nrequired0 && required + required0n + required1 <= space) {
+						this.doUpdate2(value, size, 2, 0, 0, 0);
+					} else if (
+						2 <= nrequired0 &&
+						3 <= nrequired1 &&
+						required + required0n + required1m <= space
+					) {
+						this.doUpdate2(value, size, 2, 1, 0, 0);
+					} else if (
+						2 <= nrequired0 &&
+						2 <= nrequired1 &&
+						required + required0n + required1n <= space
+					) {
+						this.doUpdate2(value, size, 2, 2, 0, 0);
+					} else if (
+						1 <= nrequired0 &&
+						1 <= nrequired1 &&
+						required + dots0Width + dots1Width <= space
+					) {
+						this.doUpdate2(value, size, 3, 3, 0, 0);
+					} else {
+						this.doUpdate2(value, size, 4, 4, 0, 0);
 					}
 				}
 			}
+		}
+	}
 
-			if (last) {
-				this.showDots(this.dots1, to + 1, size - 2);
-			} else {
+	protected doUpdate2(
+		value: number,
+		size: number,
+		left: 0 | 1 | 2 | 3 | 4,
+		right: 0 | 1 | 2 | 3 | 4,
+		nleft1: number,
+		nright1: number
+	): void {
+		const buttonTop = this.buttonTop;
+		if (buttonTop != null) {
+			buttonTop.state.isEnabled = 0 < value;
+		}
+		const buttonPrevious = this.buttonPrevious;
+		if (buttonPrevious != null) {
+			buttonPrevious.state.isEnabled = 0 < value;
+		}
+
+		const buttonPages0 = this.buttonPages0;
+		switch (left) {
+			case 0:
+				this.hideDots(this.dots0);
+				this.allocButtonPages0(value);
+				for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
+					if (i < value) {
+						this.showPage(buttonPages0[i], i);
+					} else {
+						this.hidePage(buttonPages0[i]);
+					}
+				}
+				break;
+			case 1:
+				this.showDots(this.dots0, 1, value - 2);
+				this.allocButtonPages0(2 + nleft1);
+				this.showPage(buttonPages0[0], 0);
+				for (let i = 1, imax = buttonPages0.length - nleft1 - 1; i < imax; ++i) {
+					this.hidePage(buttonPages0[i]);
+				}
+				for (let i = 0, imax = 1 + nleft1; i < imax; ++i) {
+					this.showPage(
+						buttonPages0[buttonPages0.length - imax + i],
+						value - 1 - (imax - 1) + i
+					);
+				}
+				break;
+			case 2:
+				this.showDots(this.dots0, 0, value - 2);
+				for (let i = 0, imax = buttonPages0.length - 1; i < imax; ++i) {
+					this.hidePage(buttonPages0[i]);
+				}
+				this.showPage(buttonPages0[buttonPages0.length - 1], value - 1);
+				break;
+			case 3:
+				this.showDots(this.dots0, 0, value - 1);
+				for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
+					this.hidePage(buttonPages0[i]);
+				}
+				break;
+			case 4:
+				this.hideDots(this.dots0);
+				for (let i = 0, imax = buttonPages0.length; i < imax; ++i) {
+					this.hidePage(buttonPages0[i]);
+				}
+				break;
+		}
+
+		this.showPage(this.page, value);
+
+		const buttonPages1 = this.buttonPages1;
+		switch (right) {
+			case 0:
+				this.allocButtonPages1(size - (value + 1));
+				for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
+					const j = value + 1 + i;
+					if (j < size) {
+						this.showPage(buttonPages1[i], j);
+					} else {
+						this.hidePage(buttonPages1[i]);
+					}
+				}
 				this.hideDots(this.dots1);
-			}
+				break;
+			case 1:
+				this.allocButtonPages1(2 + nright1);
+				for (let i = 0, imax = 1 + nright1; i < imax; ++i) {
+					this.showPage(buttonPages1[i], value + 1 + i);
+				}
+				for (let i = 1 + nright1, imax = buttonPages1.length - 1; i < imax; ++i) {
+					this.hidePage(buttonPages1[i]);
+				}
+				this.showPage(buttonPages1[buttonPages1.length - 1], size - 1);
+				this.showDots(this.dots1, value + 2, size - 2);
+				break;
+			case 2:
+				this.showPage(buttonPages1[0], value + 1);
+				for (let i = 1, imax = buttonPages1.length; i < imax; ++i) {
+					this.hidePage(buttonPages1[i]);
+				}
+				this.showDots(this.dots1, value + 2, size - 1);
+				break;
+			case 3:
+				for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
+					this.hidePage(buttonPages1[i]);
+				}
+				this.showDots(this.dots1, value + 1, size - 1);
+				break;
+			case 4:
+				for (let i = 0, imax = buttonPages1.length; i < imax; ++i) {
+					this.hidePage(buttonPages1[i]);
+				}
+				this.hideDots(this.dots1);
+				break;
+		}
 
-			const buttonNext = this.buttonNext;
-			if (buttonNext != null) {
-				buttonNext.state.isEnabled = value < size - 1;
-			}
-			const buttonLast = this.buttonLast;
-			if (buttonLast != null) {
-				buttonLast.state.isEnabled = value < size - 1;
-			}
+		const buttonNext = this.buttonNext;
+		if (buttonNext != null) {
+			buttonNext.state.isEnabled = value < size - 1;
+		}
+		const buttonLast = this.buttonLast;
+		if (buttonLast != null) {
+			buttonLast.state.isEnabled = value < size - 1;
 		}
 	}
 
