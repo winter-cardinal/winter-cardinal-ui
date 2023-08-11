@@ -262,9 +262,9 @@
     * [Last button](./pagination/last.html)
     * [No next button](./pagination/no-next.html)
     * [No previous button](./pagination/no-previous.html)
-    * [Number of pages](./pagination/size.html)
+    * [Size](./pagination/size.html)
     * [Top button](./pagination/top.html)
-    * [Default page](./pagination/value.html)
+    * [Value](./pagination/value.html)
 * Pane
     * [Basics](./pane/basics.html)
 * Select
