@@ -753,7 +753,7 @@ export class DPagination<
 				}
 				break;
 			case 1:
-				this.showDots(this.dots0, 1, value - 2);
+				this.showDots(this.dots0, 1, value - 2 - nleft1);
 				this.allocButtonPages0(2 + nleft1);
 				this.showPage(buttonPages0[0], 0);
 				for (let i = 1, imax = buttonPages0.length - nleft1 - 1; i < imax; ++i) {
@@ -812,7 +812,7 @@ export class DPagination<
 					this.hidePage(buttonPages1[i]);
 				}
 				this.showPage(buttonPages1[buttonPages1.length - 1], size - 1);
-				this.showDots(this.dots1, value + 2, size - 2);
+				this.showDots(this.dots1, value + 2 + nright1, size - 2);
 				break;
 			case 2:
 				this.showPage(buttonPages1[0], value + 1);
