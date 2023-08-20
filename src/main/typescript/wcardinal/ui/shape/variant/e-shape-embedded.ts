@@ -1,8 +1,11 @@
 import { DDiagramSerializedItem } from "../../d-diagram-serialized";
+import { EShapeAcceptorEdge } from "../e-shape-acceptor-edge";
+import { EShapeAcceptorEdgeNormal } from "../e-shape-acceptor-edge-normal";
 import { EShapeDefaults } from "../e-shape-defaults";
 import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeType } from "../e-shape-type";
+import { EShapeEmbeddedAcceptorEdge } from "./e-shape-embedded-acceptor-edge";
 import { EShapeGroupSize } from "./e-shape-group-size";
 import { EShapeGroupSizeEditor } from "./e-shape-group-size-editor";
 import { EShapeGroupSizeViewer } from "./e-shape-group-size-viewer";
@@ -10,6 +13,7 @@ import { EShapeGroupViewer } from "./e-shape-group-viewer";
 
 export class EShapeEmbedded extends EShapeGroupViewer {
 	protected _name: string;
+	protected _edges?: Map<string, EShapeAcceptorEdge>;
 
 	constructor(
 		name: string,
@@ -24,6 +28,70 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 
 	get name(): string {
 		return this._name;
+	}
+
+	get edges(): Map<string, EShapeAcceptorEdge> {
+		return (this._edges ??= this.newEdges());
+	}
+
+	protected newEdges(): Map<string, EShapeAcceptorEdge> {
+		const result = new Map<string, EShapeAcceptorEdge>();
+		const layers = this.children;
+		if (layers != null) {
+			const s = this.size;
+			const sx = s.x;
+			const sy = s.y;
+			const sxh = sx * 0.5;
+			const syh = sy * 0.5;
+			for (let i = 0, imax = layers.length; i < imax; ++i) {
+				const layer = layers[i];
+				const lp = layer.transform.position;
+				const lpx = lp.x;
+				const lpy = lp.y;
+				const children = layer.children;
+				for (let j = 0, jmax = children.length; j < jmax; ++j) {
+					const child = children[j];
+					if (child instanceof EShapeEmbeddedAcceptorEdge) {
+						child.transform.updateLocalTransform();
+						const clt = child.transform.localTransform;
+						result.set(child.id, {
+							type: child.subtype,
+							x: this.toEedgePosition(lpx, clt.tx, sxh, sx),
+							y: this.toEedgePosition(lpy, clt.ty, syh, sy),
+							normal: this.toEedgeNormal(clt.c, clt.d),
+							size: {
+								x: 0,
+								y: 0
+							},
+							side: child.side
+						});
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	protected toEedgePosition(lp: number, cp: number, sh: number, s: number): number {
+		if (0.00001 < Math.abs(s)) {
+			return (lp + cp - sh) / s;
+		}
+		return 0;
+	}
+
+	protected toEedgeNormal(x: number, y: number): EShapeAcceptorEdgeNormal {
+		const d = x * x + y * y;
+		if (0.00001 < d) {
+			const f = 1 / d;
+			return {
+				x: x * f,
+				y: y * f
+			};
+		}
+		return {
+			x: 0,
+			y: 1
+		};
 	}
 
 	protected isGroupSizeFittable(): boolean {
