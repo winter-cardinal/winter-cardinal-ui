@@ -46,8 +46,8 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 			for (let i = 0, imax = layers.length; i < imax; ++i) {
 				const layer = layers[i];
 				const lp = layer.transform.position;
-				const lpx = lp.x;
-				const lpy = lp.y;
+				const lpx = lp.x + sxh;
+				const lpy = lp.y + syh;
 				const children = layer.children;
 				for (let j = 0, jmax = children.length; j < jmax; ++j) {
 					const child = children[j];
