@@ -66,7 +66,7 @@ export class EShapeEmbeddedAcceptorEdge extends EShapeCircle {
 
 	override serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem {
 		const result = super.serialize(manager);
-		result[15] = this._subtype + (this._side << 2) + (this._vvisible ? 1 << 6 : 0);
+		result[15] = this._subtype | (this._side << 2) | (this._vvisible ? 1 << 6 : 0);
 		return result;
 	}
 }

@@ -20,11 +20,11 @@ const toSubtype = (target: number): EShapeAcceptorEdgeType => {
 };
 
 const toSide = (target: number): EShapeAcceptorEdgeSide => {
-	return (EShapeAcceptorEdgeSide.ALL & (target << 2)) as EShapeAcceptorEdgeSide;
+	return (EShapeAcceptorEdgeSide.ALL & (target >> 2)) as EShapeAcceptorEdgeSide;
 };
 
 const toVvisible = (target: number): boolean => {
-	return 0 < (0x1 & (target << 6));
+	return 0 < (0x1 & (target >> 6));
 };
 
 export const deserializeEmbeddedAcceptorEdge = (
