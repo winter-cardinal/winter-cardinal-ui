@@ -209,6 +209,7 @@ export * from "./d-command-clear";
 export * from "./d-command-create";
 export * from "./d-command-save-as";
 export * from "./d-command-save";
+export * from "./d-command-secret-save";
 export * from "./d-command";
 export * from "./d-content";
 export * from "./d-controller-command-impl";

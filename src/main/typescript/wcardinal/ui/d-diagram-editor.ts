@@ -253,6 +253,35 @@ export class DDiagramEditor<
 		return Promise.resolve();
 	}
 
+	secretSave(standard: boolean): Promise<unknown> {
+		const serialized = this.serialize();
+		if (serialized != null) {
+			const controller = this._controller;
+			if (controller) {
+				serialized.standard = standard;
+				const simple = DDiagrams.toSimple(serialized);
+				this.emit("saving", simple, this);
+				return controller.secretSave(simple).then(
+					(newId: number): void => {
+						this._isChanged = false;
+						serialized.id = newId;
+						this._serialized = serialized;
+						this.emit("change", this);
+						this.emit("saved", null, this);
+					},
+					(reason: string): void => {
+						this.emit("saved", reason, this);
+					}
+				);
+			} else {
+				this.emit("saved", "no-controller", this);
+				return Promise.reject();
+			}
+		}
+		this.emit("saved", null, this);
+		return Promise.resolve();
+	}
+
 	saveAs(name: string): Promise<unknown> {
 		const serialized = this.serialize();
 		if (serialized != null) {

@@ -558,6 +558,7 @@ export interface DDiagramSerialized {
 	items: DDiagramSerializedItem[];
 	snap?: DDiagramSerializedSnap;
 	thumbnail?: string;
+	standard?: boolean;
 }
 
 export type DDiagramSerializedSimpleData = Omit<
@@ -575,6 +576,7 @@ export interface DDiagramSerializedSimple {
 	label?: string;
 	summary?: string;
 	description?: string;
+	standard?: boolean;
 
 	/**
 	 * A stringified {@link DDiagramSerialized#data}.

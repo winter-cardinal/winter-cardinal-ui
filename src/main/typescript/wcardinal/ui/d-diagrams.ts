@@ -20,7 +20,7 @@ import { EShapeEmbeddedLayerContainer } from "./shape/variant/e-shape-embedded-l
 
 export class DDiagrams {
 	static toSimple(serialized: DDiagramSerialized): DDiagramSerializedSimple {
-		return {
+				return {
 			version: serialized.version,
 			id: serialized.id,
 			name: serialized.name,
@@ -39,7 +39,8 @@ export class DDiagrams {
 				layers: serialized.layers,
 				items: serialized.items,
 				snap: serialized.snap
-			})
+			}),
+			standard: serialized.standard
 		};
 	}
 

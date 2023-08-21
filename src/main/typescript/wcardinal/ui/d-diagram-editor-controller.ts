@@ -17,5 +17,6 @@ export interface DDiagramEditorPieceController extends DDiagramBasePieceControll
 export interface DDiagramEditorController extends DDiagramBaseController {
 	get(id: number): Promise<DDiagramSerializedSimple | DDiagramSerialized>;
 	save(simple: DDiagramSerializedSimple): Promise<number>;
+	secretSave(simple: DDiagramSerializedSimple): Promise<number>;
 	delete(id: number): Promise<void>;
 }

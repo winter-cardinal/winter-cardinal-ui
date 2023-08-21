@@ -12,5 +12,6 @@ export interface DControllerDocument<DOCUMENT extends DDocument> {
 	getName(): string | null;
 	save(): Promise<unknown>;
 	saveAs(name: string): Promise<unknown>;
+	secretSave(standard: boolean): Promise<unknown>;
 	delete(): Promise<unknown>;
 }
