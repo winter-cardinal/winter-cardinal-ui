@@ -665,8 +665,18 @@ export class DPagination<
 				const required1m = required1n + m1;
 				if (required0 <= required1) {
 					if (3 <= nrequired1 && required + required0 + required1m <= space) {
-						const n1 = Math.floor((space - (required + required0 + required1m)) / m1);
+						const l = space - (required + required0 + required1m);
+						const n1 = Math.floor(l / m1);
 						this.doUpdate2(value, size, 0, 1, 0, n1);
+					} else if (
+						3 <= nrequired0 &&
+						3 <= nrequired1 &&
+						required + required0m + required1m <= space
+					) {
+						const l = space - (required + required0m + required1m);
+						const n1 = Math.floor((l * 0.5) / m1);
+						const n0 = Math.floor((l - n1 * m1) / m0);
+						this.doUpdate2(value, size, 1, 1, n0, n1);
 					} else if (2 <= nrequired1 && required + required0 + required1n <= space) {
 						this.doUpdate2(value, size, 0, 2, 0, 0);
 					} else if (
@@ -674,7 +684,9 @@ export class DPagination<
 						2 <= nrequired1 &&
 						required + required0m + required1n <= space
 					) {
-						this.doUpdate2(value, size, 1, 2, 0, 0);
+						const l = space - (required + required0m + required1n);
+						const n0 = Math.floor(l / m0);
+						this.doUpdate2(value, size, 1, 2, n0, 0);
 					} else if (
 						2 <= nrequired0 &&
 						2 <= nrequired1 &&
@@ -692,8 +704,18 @@ export class DPagination<
 					}
 				} else {
 					if (3 <= nrequired0 && required + required0m + required1 <= space) {
-						const n0 = Math.floor((space - (required + required0m + required1)) / m0);
+						const l = space - (required + required0m + required1);
+						const n0 = Math.floor(l / m0);
 						this.doUpdate2(value, size, 1, 0, n0, 0);
+					} else if (
+						3 <= nrequired0 &&
+						3 <= nrequired1 &&
+						required + required0m + required1m <= space
+					) {
+						const l = space - (required + required0m + required1m);
+						const n0 = Math.floor((l * 0.5) / m0);
+						const n1 = Math.floor((l - n0 * m0) / m1);
+						this.doUpdate2(value, size, 1, 1, n0, n1);
 					} else if (2 <= nrequired0 && required + required0n + required1 <= space) {
 						this.doUpdate2(value, size, 2, 0, 0, 0);
 					} else if (
@@ -701,7 +723,9 @@ export class DPagination<
 						3 <= nrequired1 &&
 						required + required0n + required1m <= space
 					) {
-						this.doUpdate2(value, size, 2, 1, 0, 0);
+						const l = space - (required + required0n + required1m);
+						const n1 = Math.floor(l / m1);
+						this.doUpdate2(value, size, 2, 1, 0, n1);
 					} else if (
 						2 <= nrequired0 &&
 						2 <= nrequired1 &&
