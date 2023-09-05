@@ -875,6 +875,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	copy(source: EShape, part: EShapeCopyPart = EShapeCopyPart.ALL): this {
 		this.id = source.id;
 		this.uuid = source.uuid;
+		this.visible = source.visible;
 		if (part & EShapeCopyPart.TRANSFORM) {
 			const transform = this.transform;
 			const sourceTransform = source.transform;
