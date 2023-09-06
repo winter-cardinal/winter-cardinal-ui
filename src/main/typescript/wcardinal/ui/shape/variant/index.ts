@@ -119,6 +119,7 @@ export * from "./e-shape-connector-elbow-points-filler";
 export * from "./e-shape-connector-elbow";
 export * from "./e-shape-connector-line";
 export * from "./e-shape-embedded-acceptor-edge";
+export * from "./e-shape-embedded-acceptor";
 export * from "./e-shape-embedded-datum";
 export * from "./e-shape-embedded-layer-container";
 export * from "./e-shape-embedded-layer";
