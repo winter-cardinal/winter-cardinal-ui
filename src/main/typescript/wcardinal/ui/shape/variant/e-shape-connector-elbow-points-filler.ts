@@ -112,36 +112,40 @@ export class EShapeConnectorElbowPointsFiller {
 
 		let d: number | null = null;
 		let result: 0 | 1 | 2 | 3 = 0;
-
-		const d0 = nx * dx + ny * dy;
-		const d1 = -ny * dx + nx * dy;
-		const d2 = -d0;
-		const d3 = -d1;
-		if (side & EShapeAcceptorEdgeSide.TOP) {
-			if (d == null || d < d0) {
-				d = d0;
-				result = this.toSide(nx, ny);
+		const dd = dx * dx + dy * dy;
+		if (this._threshold < dd) {
+			const f = 1 / Math.sqrt(dd);
+			const fx = dx * f;
+			const fy = dy * f;
+			const d0 = +nx * fx + ny * fy;
+			const d1 = -ny * fx + nx * fy;
+			const d2 = -d0;
+			const d3 = -d1;
+			if (side & EShapeAcceptorEdgeSide.TOP) {
+				if (d == null || d < d0) {
+					d = d0;
+					result = this.toSide(nx, ny);
+				}
+			}
+			if (side & EShapeAcceptorEdgeSide.RIGHT) {
+				if (d == null || d < d1) {
+					d = d1;
+					result = this.toSide(-ny, nx);
+				}
+			}
+			if (side & EShapeAcceptorEdgeSide.BOTTOM) {
+				if (d == null || d < d2) {
+					d = d2;
+					result = this.toSide(-nx, -ny);
+				}
+			}
+			if (side & EShapeAcceptorEdgeSide.LEFT) {
+				if (d == null || d < d3) {
+					d = d3;
+					result = this.toSide(ny, -nx);
+				}
 			}
 		}
-		if (side & EShapeAcceptorEdgeSide.RIGHT) {
-			if (d == null || d < d1) {
-				d = d1;
-				result = this.toSide(-ny, nx);
-			}
-		}
-		if (side & EShapeAcceptorEdgeSide.BOTTOM) {
-			if (d == null || d < d2) {
-				d = d2;
-				result = this.toSide(-nx, -ny);
-			}
-		}
-		if (side & EShapeAcceptorEdgeSide.LEFT) {
-			if (d == null || d < d3) {
-				d = d3;
-				result = this.toSide(ny, -nx);
-			}
-		}
-
 		return result;
 	}
 
