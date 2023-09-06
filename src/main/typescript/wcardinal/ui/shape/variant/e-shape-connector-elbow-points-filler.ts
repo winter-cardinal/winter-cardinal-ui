@@ -65,20 +65,20 @@ export class EShapeConnectorElbowPointsFiller {
 		}
 	}
 
-	protected toSide(x: number, y: number): EShapeAcceptorEdgeSide {
+	protected toSide(x: number, y: number): 0 | 1 | 2 | 3 {
 		// y = +x => 0 = x - y
 		// y = -x => 0 = x + y
 		if (0 <= x - y) {
 			if (0 <= x + y) {
-				return EShapeAcceptorEdgeSide.RIGHT;
+				return 1;
 			} else {
-				return EShapeAcceptorEdgeSide.BOTTOM;
+				return 0;
 			}
 		} else {
 			if (0 <= x + y) {
-				return EShapeAcceptorEdgeSide.TOP;
+				return 2;
 			} else {
-				return EShapeAcceptorEdgeSide.LEFT;
+				return 3;
 			}
 		}
 	}
@@ -113,43 +113,32 @@ export class EShapeConnectorElbowPointsFiller {
 		let d: number | null = null;
 		let result: 0 | 1 | 2 | 3 = 0;
 
-		// 0 := (0, -1)
-		// | ny, -nx |  0 |
-		// | nx,  ny | -1 |
-		if (side & this.toSide(nx, -ny)) {
-			if (d == null || d < -dy) {
-				d = -dy;
-				result = 0;
+		const d0 = nx * dx + ny * dy;
+		const d1 = -ny * dx + nx * dy;
+		const d2 = -d0;
+		const d3 = -d1;
+		if (side & EShapeAcceptorEdgeSide.TOP) {
+			if (d == null || d < d0) {
+				d = d0;
+				result = this.toSide(nx, ny);
 			}
 		}
-
-		// 1 := (1, 0)
-		// | ny, -nx | 1 |
-		// | nx,  ny | 0 |
-		if (side & this.toSide(ny, nx)) {
-			if (d == null || d < dx) {
-				d = dx;
-				result = 1;
+		if (side & EShapeAcceptorEdgeSide.RIGHT) {
+			if (d == null || d < d1) {
+				d = d1;
+				result = this.toSide(-ny, nx);
 			}
 		}
-
-		// 2 := (0, 1)
-		// | ny, -nx | 0 |
-		// | nx,  ny | 1 |
-		if (side & this.toSide(-nx, ny)) {
-			if (d == null || d < dy) {
-				d = dy;
-				result = 2;
+		if (side & EShapeAcceptorEdgeSide.BOTTOM) {
+			if (d == null || d < d2) {
+				d = d2;
+				result = this.toSide(-nx, -ny);
 			}
 		}
-
-		// 3 := (-1, 0)
-		// | ny, -nx | -1 |
-		// | nx,  ny |  0 |
-		if (side & this.toSide(-ny, -nx)) {
-			if (d == null || d < -dx) {
-				d = -dx;
-				result = 3;
+		if (side & EShapeAcceptorEdgeSide.LEFT) {
+			if (d == null || d < d3) {
+				d = d3;
+				result = this.toSide(ny, -nx);
 			}
 		}
 

@@ -56,9 +56,9 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 						const clt = child.transform.localTransform;
 						result.set(child.id, {
 							type: child.subtype,
-							x: this.toEedgePosition(lpx, clt.tx, sxh, sx),
-							y: this.toEedgePosition(lpy, clt.ty, syh, sy),
-							normal: this.toEedgeNormal(clt.c, clt.d),
+							x: this.toEdgePosition(lpx, clt.tx, sxh, sx),
+							y: this.toEdgePosition(lpy, clt.ty, syh, sy),
+							normal: this.toEdgeNormal(-clt.c, -clt.d),
 							size: {
 								x: 0,
 								y: 0
@@ -72,14 +72,14 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 		return result;
 	}
 
-	protected toEedgePosition(lp: number, cp: number, sh: number, s: number): number {
+	protected toEdgePosition(lp: number, cp: number, sh: number, s: number): number {
 		if (0.00001 < Math.abs(s)) {
 			return (lp + cp - sh) / s;
 		}
 		return 0;
 	}
 
-	protected toEedgeNormal(x: number, y: number): EShapeAcceptorEdgeNormal {
+	protected toEdgeNormal(x: number, y: number): EShapeAcceptorEdgeNormal {
 		const d = x * x + y * y;
 		if (0.00001 < d) {
 			const f = 1 / d;
@@ -90,7 +90,7 @@ export class EShapeEmbedded extends EShapeGroupViewer {
 		}
 		return {
 			x: 0,
-			y: 1
+			y: -1
 		};
 	}
 
