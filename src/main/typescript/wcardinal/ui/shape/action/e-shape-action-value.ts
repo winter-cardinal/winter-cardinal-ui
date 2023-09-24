@@ -10,6 +10,8 @@ import { EShapeActionValueBlinkType } from "./e-shape-action-value-blink-type";
 import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-color-type";
 import { EShapeActionValueChangeTextType } from "./e-shape-action-value-change-text-type";
+import { EShapeActionValueGestureOperationType } from "./e-shape-action-value-gesture-operation-type";
+import { EShapeActionValueGestureType } from "./e-shape-action-value-gesture-type";
 import { EShapeActionValueMiscType } from "./e-shape-action-value-misc-type";
 import { EShapeActionValueOnInputAction } from "./e-shape-action-value-on-input-action";
 import { EShapeActionValueOpenDialogType } from "./e-shape-action-value-open-dialog-type";
@@ -36,6 +38,8 @@ export interface EThemeShapeActionValue {
 	toChangeTextTypeLabel(type: EShapeActionValueChangeTextType): string;
 	toOpenTypeLabel(type: EShapeActionValueOpenType): string;
 	toOpenDialogTypeLabel(type: EShapeActionValueOpenDialogType): string;
+	toGestureTypeLabel(type: EShapeActionValueGestureType): string;
+	toGestureOperationTypeLabel(type: EShapeActionValueGestureOperationType): string;
 	toMiscTypeLabel(type: EShapeActionValueMiscType): string;
 	toHtmlElementWhenLabel(when: UtilHtmlElementWhen): string;
 	toOnInputActionLabel(type: EShapeActionValueOnInputAction): string;

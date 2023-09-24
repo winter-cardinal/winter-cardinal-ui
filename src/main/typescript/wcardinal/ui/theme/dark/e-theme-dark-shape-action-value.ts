@@ -10,6 +10,7 @@ import { EShapeActionValueBlinkType } from "../../shape/action/e-shape-action-va
 import { EShapeActionValueChangeColorTarget } from "../../shape/action/e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeColorType } from "../../shape/action/e-shape-action-value-change-color-type";
 import { EShapeActionValueChangeTextType } from "../../shape/action/e-shape-action-value-change-text-type";
+import { EShapeActionValueGestureOperationType } from "../../shape/action/e-shape-action-value-gesture-operation-type";
 import { EShapeActionValueGestureType } from "../../shape/action/e-shape-action-value-gesture-type";
 import { EShapeActionValueMiscType } from "../../shape/action/e-shape-action-value-misc-type";
 import { EShapeActionValueOnInputAction } from "../../shape/action/e-shape-action-value-on-input-action";
@@ -346,6 +347,16 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 			case EShapeActionValueGestureType.LAYER:
 				return "Layer";
 		}
+	}
+
+	toGestureOperationTypeLabel(type: EShapeActionValueGestureOperationType): string {
+		switch (type) {
+			case EShapeActionValueGestureOperationType.DRAG:
+				return "Drag";
+			case EShapeActionValueGestureOperationType.PINCH:
+				return "Pinch";
+		}
+		return "Unknown";
 	}
 
 	toMiscTypeLabel(type: EShapeActionValueMiscType): string {
