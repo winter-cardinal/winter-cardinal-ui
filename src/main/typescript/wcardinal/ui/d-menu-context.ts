@@ -3,25 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject } from "pixi.js";
+import { DMenuCloseable } from "./d-menu-closeable";
 
-export interface Owner {
-	focus(): void;
+export interface DMenuContextOwner {
+	// focus(): void;
 }
 
-export interface Parent {
+export interface DMenuContextParent {
 	parent: unknown;
 }
 
-export interface Closeable extends DisplayObject {
-	close(): void;
-}
-
 export class DMenuContext {
-	protected _owner: Owner;
-	protected _closeables: Closeable[];
+	protected _owner: DMenuContextOwner;
+	protected _closeables: DMenuCloseable[];
 
-	constructor(owner: Owner) {
+	constructor(owner: DMenuContextOwner) {
 		this._owner = owner;
 		this._closeables = [];
 	}
@@ -38,15 +34,15 @@ export class DMenuContext {
 		}
 	}
 
-	add(closeable: Closeable): void {
+	add(closeable: DMenuCloseable): void {
 		this._closeables.push(closeable);
 	}
 
-	trim(closeable: Closeable | null): void {
+	trim(closeable: DMenuCloseable | null): void {
 		this.close(this.indexOf(closeable) + 1);
 	}
 
-	remove(closeable: Closeable): void {
+	remove(closeable: DMenuCloseable): void {
 		const index = this.indexOf(closeable);
 		if (0 <= index) {
 			this.close(index + 1);

@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DisplayObject, Point } from "pixi.js";
+import { DisplayObject, Point, Rectangle } from "pixi.js";
 import { DApplications } from "./d-applications";
 import { DBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DFocusable } from "./d-controller-focus";
 import { DLayoutVertical, DLayoutVerticalOptions, DThemeLayoutVertical } from "./d-layout-vertical";
 import { DMenuAlign } from "./d-menu-align";
-import { Closeable, DMenuContext } from "./d-menu-context";
+import { DMenuContext } from "./d-menu-context";
 import { DMenuItem } from "./d-menu-item";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenus } from "./d-menus";
@@ -19,6 +19,8 @@ import { UtilAttach } from "./util/util-attach";
 import { UtilClickOutside } from "./util/util-click-outside";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
 import { UtilOverlay } from "./util/util-overlay";
+import { DMenuOpener } from "./d-menu-opener";
+import { DMenuCloseable } from "./d-menu-closeable";
 
 export interface DMenuOptions<VALUE = unknown, THEME extends DThemeMenu = DThemeMenu>
 	extends DLayoutVerticalOptions<THEME> {
@@ -38,11 +40,13 @@ export class DMenu<
 	THEME extends DThemeMenu = DThemeMenu,
 	OPTIONS extends DMenuOptions<VALUE, THEME> = DMenuOptions<VALUE, THEME>
 > extends DLayoutVertical<THEME, OPTIONS> {
+	protected static WORK_BOUNDS?: Rectangle;
+
 	protected _align!: DMenuAlign;
 	protected _fit!: boolean;
 	protected _sticky!: boolean;
 	protected _sub!: boolean;
-	protected _owner!: DBase<any, any> | null;
+	protected _owner!: DMenuOpener | null;
 	protected _context!: DMenuContext | null;
 	protected _overlay!: UtilOverlay;
 	protected _onPrerenderBound!: () => void;
@@ -101,13 +105,13 @@ export class DMenu<
 		return this._context;
 	}
 
-	getCloseable(): Closeable | null {
+	getCloseable(): DMenuCloseable | null {
 		return this;
 	}
 
 	open(
-		owner: DBase<any, any>,
-		closeable?: Closeable | null,
+		owner: DMenuOpener,
+		closeable?: DMenuCloseable | null,
 		context?: DMenuContext | null
 	): this {
 		if (this.isHidden()) {
@@ -132,7 +136,7 @@ export class DMenu<
 				renderer.once("prerender", onPrerenderBound);
 			}
 			if (this._fit) {
-				const bounds = owner.getBounds();
+				const bounds = owner.getBounds(false, (DMenu.WORK_BOUNDS ??= new Rectangle()));
 				if (bounds != null) {
 					this.width = bounds.width;
 				}
@@ -166,7 +170,7 @@ export class DMenu<
 	protected onPrerender(): void {
 		const owner = this._owner;
 		if (owner) {
-			const bounds = owner.getBounds();
+			const bounds = owner.getBounds(false, (DMenu.WORK_BOUNDS ??= new Rectangle()));
 			if (bounds) {
 				if (this._fit) {
 					this.width = bounds.width;

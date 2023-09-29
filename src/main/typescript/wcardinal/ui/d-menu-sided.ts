@@ -5,13 +5,14 @@
 
 import { DisplayObject } from "pixi.js";
 import { DBase, DBaseOptions } from "./d-base";
-import { Closeable, DMenuContext } from "./d-menu-context";
+import { DMenuContext } from "./d-menu-context";
 import { DMenuItemOptionsUnion } from "./d-menu-item-options-union";
 import { DMenuSidedContent, DMenuSidedContentOptions } from "./d-menu-sided-content";
 import { DMenuSidedSelection, DMenuSidedSelectionOptions } from "./d-menu-sided-selection";
 import { DMenuSideds } from "./d-menu-sideds";
 import { DPane, DPaneOptions, DThemePane } from "./d-pane";
 import { UtilKeyboardEvent } from "./util/util-keyboard-event";
+import { DMenuCloseable } from "./d-menu-closeable";
 
 export interface DMenuSidedOptions<
 	VALUE = unknown,
@@ -87,7 +88,7 @@ export class DMenuSided<
 		return this._context;
 	}
 
-	getCloseable(): Closeable | null {
+	getCloseable(): DMenuCloseable | null {
 		return this;
 	}
 

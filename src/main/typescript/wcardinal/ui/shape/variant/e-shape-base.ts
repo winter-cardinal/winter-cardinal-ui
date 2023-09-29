@@ -671,7 +671,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		return result;
 	}
 
-	getBounds(skipUpdate: boolean, result: Rectangle): Rectangle {
+	getBounds(skipUpdate?: boolean, result?: Rectangle): Rectangle {
 		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
@@ -682,11 +682,12 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this._boundsTransformId = worldId;
 			this.getBounds_(this.transform.worldTransform, bounds);
 		}
+		result ??= new Rectangle();
 		result.copyFrom(bounds);
 		return result;
 	}
 
-	getBoundsInternal(skipUpdate: boolean, result: Rectangle): Rectangle {
+	getBoundsInternal(skipUpdate?: boolean, result?: Rectangle): Rectangle {
 		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
@@ -697,11 +698,12 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this._boundsInternalTransformId = currentLocalId;
 			this.getBounds_(this.transform.internalTransform, boundsInternal);
 		}
+		result ??= new Rectangle();
 		result.copyFrom(boundsInternal);
 		return result;
 	}
 
-	getBoundsLocal(skipUpdate: boolean, result: Rectangle): Rectangle {
+	getBoundsLocal(skipUpdate?: boolean, result?: Rectangle): Rectangle {
 		if (skipUpdate !== true) {
 			this.updateTransform();
 		}
@@ -712,6 +714,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 			this._boundsLocalTransformId = currentLocalId;
 			this.getBounds_(this.transform.localTransform, boundsLocal);
 		}
+		result ??= new Rectangle();
 		result.copyFrom(boundsLocal);
 		return result;
 	}

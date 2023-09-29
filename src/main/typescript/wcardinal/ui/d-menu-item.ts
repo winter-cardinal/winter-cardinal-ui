@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Closeable, DMenuContext } from "./d-menu-context";
+import { DMenuCloseable } from "./d-menu-closeable";
+import { DMenuContext } from "./d-menu-context";
 import { DMenuItemBase, DMenuItemBaseOptions, DThemeMenuItemBase } from "./d-menu-item-base";
 
 export interface DMenuItemOptions<VALUE = unknown, THEME extends DThemeMenuItem = DThemeMenuItem>
@@ -27,7 +28,7 @@ export class DMenuItem<
 		return null;
 	}
 
-	getCloseable(): Closeable | null {
+	getCloseable(): DMenuCloseable | null {
 		let parent = this.parent as any;
 		while (parent) {
 			if (parent.getCloseable) {

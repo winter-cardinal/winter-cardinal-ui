@@ -93,7 +93,7 @@ export interface DThemeDialog extends DThemeBase {
 }
 
 export interface DDialogOpener {
-	getBounds(skipUpdate: boolean, result: Rectangle): Rectangle;
+	getBounds(skipUpdate?: boolean, rect?: PIXI.Rectangle): Rectangle;
 }
 
 /**
