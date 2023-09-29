@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.349.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.349.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.351.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.351.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTable({
 			parent: application.stage,
@@ -41,15 +41,23 @@
 			body: {
 				row: {
 					on: {
-						down: function ( e, row ) {
+						set: (rowValue, rowIndex, row) => {
+							console.log("set", rowValue, rowIndex, row);
+						},
+
+						unset: (row) => {
+							console.log("unset", row);
+						},
+
+						down: (e, row) => {
 							console.log( e.type, row.value, row.index );
 						},
 
-						up: function ( e, row ) {
+						up: (e, row) => {
 							console.log( e.type, row.value, row.index );
 						},
 
-						over: function ( e, row ) {
+						over: (e, row) => {
 							console.log( e.type, row.value, row.index );
 						}
 					}
