@@ -109,11 +109,13 @@ export class DynamicFontAtlas {
 				const width = Math.ceil(padding + advance + padding);
 				const height = this.font.height;
 				characters[id] = new DynamicFontAtlasCharacter(
+					type,
 					character,
-					advance,
+					-width, // Setting X and Y to zeros leads to render the letter at the UV coordinate (0, 0).
+					-height,
 					width,
 					height,
-					type
+					advance
 				);
 				this._length += 1;
 				this._revision += 1;
@@ -262,7 +264,7 @@ export class DynamicFontAtlas {
 				}
 				const height = (this._height = y + fontHeight);
 
-				// Make a input canvas
+				// Make an input canvas
 				// Here, we need to reset the context because
 				// context settings will be lost when we set the width/height.
 				const baseTexture = this._texture.baseTexture;

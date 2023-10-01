@@ -19,17 +19,19 @@ export class DynamicFontAtlasCharacter {
 	type: DynamicFontAtlasCharacterType;
 
 	constructor(
+		type: DynamicFontAtlasCharacterType,
 		character: string,
-		advance: number,
+		x: number,
+		y: number,
 		width: number,
 		height: number,
-		type: DynamicFontAtlasCharacterType
+		advance: number
 	) {
 		this.ref = 1;
 		this.life = 10;
 		this.character = character;
-		this.x = 0;
-		this.y = 0;
+		this.x = x;
+		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.advance = advance;

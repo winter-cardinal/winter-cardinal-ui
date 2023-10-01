@@ -129,7 +129,7 @@ export class DynamicSDFFontAtlas {
 				}
 				data.ref += 1;
 			} else {
-				characters[id] = new DynamicFontAtlasCharacter(character, 0, 1, 1, type);
+				characters[id] = new DynamicFontAtlasCharacter(type, character, 0, 0, 1, 1, 0);
 				this._length += 1;
 				this._isDirty = true;
 			}
