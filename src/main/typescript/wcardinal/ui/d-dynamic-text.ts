@@ -35,14 +35,13 @@ export class DDynamicText extends Mesh {
 	protected _isGeometryDirty: boolean;
 	protected _atlas: DynamicFontAtlas | null;
 	protected _atlasRevisionUpdated: number;
-	protected _onAtlasTextureUpdateBound: () => void;
 	protected _width: number;
 	protected _height: number;
 	protected _modifier: DDynamicTextModifier;
 
 	readonly geometry!: DDynamicTextGeometry;
 
-	constructor(text: string, options?: DDynamicTextStyleOptions) {
+	constructor(options?: DDynamicTextStyleOptions) {
 		super(new DDynamicTextGeometry(), new MeshMaterial(Texture.EMPTY));
 
 		this._style = new DDynamicTextStyle(options, (): void => {
@@ -51,15 +50,12 @@ export class DDynamicText extends Mesh {
 			this._atlas = null;
 			this.update_();
 		});
-		this._text = text;
+		this._text = "";
 		this._textApproved = "";
 		this._isDirty = true;
 		this._isGeometryDirty = true;
 		this._atlas = null;
 		this._atlasRevisionUpdated = 0;
-		this._onAtlasTextureUpdateBound = () => {
-			DApplications.update(this);
-		};
 		this._width = 0;
 		this._height = 0;
 		this._modifier = {
@@ -74,7 +70,6 @@ export class DDynamicText extends Mesh {
 				height: 0
 			}
 		};
-		this.update_();
 	}
 
 	protected update_(): void {
@@ -169,7 +164,6 @@ export class DDynamicText extends Mesh {
 					this._atlasRevisionUpdated = atlas.getRevisionUpdate();
 					this._atlas = atlas;
 					this.texture = atlas.texture;
-					this.texture.on("update", this._onAtlasTextureUpdateBound);
 					this._isGeometryDirty = true;
 				}
 			}

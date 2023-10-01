@@ -228,7 +228,7 @@ export class DTextBase<
 			const text = this._text;
 			if (text == null) {
 				if (0 < formatted.length) {
-					const newText = this.createText(formatted);
+					const newText = this.newText();
 					newText.visible = this._isTextVisible;
 					this._text = newText;
 					this.addChild(newText);
@@ -237,6 +237,7 @@ export class DTextBase<
 					if (overflowMask) {
 						newText.mask = overflowMask;
 					}
+					newText.text = formatted;
 					this.toDirty();
 					DApplications.update(this);
 				}
@@ -248,8 +249,8 @@ export class DTextBase<
 		}
 	}
 
-	protected createText(formatted: string): DDynamicText {
-		return new DDynamicText(formatted, this._textStyle);
+	protected newText(): DDynamicText {
+		return new DDynamicText(this._textStyle);
 	}
 
 	getOverflowMask(): Graphics | null {

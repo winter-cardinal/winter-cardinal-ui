@@ -52,9 +52,10 @@ export class DMenuItemText<
 		const shortcuts = this._shortcuts;
 		if (shortcuts != null && 0 < shortcuts.length) {
 			const shortcut = shortcuts[0];
-			const shortcutTextValue = UtilKeyboardEvent.toString(shortcut);
-			this._shortcutText = this.createText(shortcutTextValue);
+			const shortcutText = this.newText();
+			this._shortcutText = shortcutText;
 			this.snippet.add(this._shortcutText, true);
+			shortcutText.text = UtilKeyboardEvent.toString(shortcut);
 		} else {
 			this._shortcutText = null;
 		}
