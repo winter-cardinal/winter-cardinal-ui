@@ -545,6 +545,7 @@ export interface DDiagramSerialized {
 	label?: string;
 	width: number;
 	height: number;
+	category?: string;
 	summary?: string;
 	description?: string;
 	background?: DDiagramSerializedBackground;
@@ -573,6 +574,7 @@ export interface DDiagramSerializedSimple {
 	id: number | undefined;
 	name: string;
 	label?: string;
+	category?: string;
 	summary?: string;
 	description?: string;
 
