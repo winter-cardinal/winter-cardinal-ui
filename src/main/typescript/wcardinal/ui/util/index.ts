@@ -38,6 +38,7 @@ export * from "./to-cloned";
 export * from "./to-enum";
 export * from "./to-id";
 export * from "./to-index-of";
+export * from "./to-label-with";
 export * from "./to-label";
 export * from "./to-merged";
 export * from "./to-padded";
