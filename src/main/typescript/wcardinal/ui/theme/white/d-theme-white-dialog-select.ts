@@ -31,6 +31,9 @@ export class DThemeWhiteDialogSelect<VALUE>
 	}
 
 	toCategoryLabel(category: unknown): string {
+		if (category == null) {
+			return "All";
+		}
 		return toLabel(category);
 	}
 }

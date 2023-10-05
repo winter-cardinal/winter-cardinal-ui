@@ -100,15 +100,10 @@ export class DSelect<
 
 		// Update the value
 		const value = this._value;
-		if (value != null) {
-			const item = this.findMenuItem(newMenu, value);
-			if (item != null) {
-				this._value = value;
-				this.text = item;
-			} else {
-				this._value = null;
-				this.text = null;
-			}
+		const item = this.findMenuItem(newMenu, value);
+		if (item != null) {
+			this._value = value;
+			this.text = item;
 		} else {
 			this._value = null;
 			this.text = null;
