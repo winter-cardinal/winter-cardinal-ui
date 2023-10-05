@@ -43,7 +43,7 @@ export interface DDialogSelectController<VALUE, CATEGORY = unknown, CATEGORY_ID 
 	search:
 		| DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>
 		| DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID>;
-	getCategories?: () => Promise<CATEGORY[]>;
+	getCategories?: () => CATEGORY[] | Promise<CATEGORY[]>;
 }
 
 /**
