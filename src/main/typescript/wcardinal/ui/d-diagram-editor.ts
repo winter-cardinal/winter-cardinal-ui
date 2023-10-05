@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DControllerDocument } from "./d-controller-document";
 import { DControllers } from "./d-controllers";
 import {
@@ -130,13 +131,26 @@ export interface DDiagramEditorOptions<
 	snapper?: ESnapperOptions;
 }
 
+export interface DDiagramEditorCreateOptions {
+	name: string;
+	label?: string;
+	width: number;
+	height: number;
+	category?: string | null;
+	summary?: string;
+	description?: string;
+	background?: DColorAndAlpha;
+}
+
 /**
  * {@link DDiagramEditor} theme.
  */
 export interface DThemeDiagramEditor
 	extends DThemeDiagramBase,
 		DThemeDiagramEditorThumbnail,
-		EThemeSnapper {}
+		EThemeSnapper {
+	getBaseLayerLabel(): string;
+}
 
 export class DDiagramEditor<
 		THEME extends DThemeDiagramEditor = DThemeDiagramEditor,
@@ -314,16 +328,21 @@ export class DDiagramEditor<
 		return Promise.resolve(null);
 	}
 
-	create(name: string, width: number, height: number): Promise<DDiagramCanvasEditor> {
+	create(options: DDiagramEditorCreateOptions): Promise<DDiagramCanvasEditor> {
 		return this.set({
 			version: DDiagramSerializedVersion,
 			id: undefined,
-			name,
-			width,
-			height,
+			name: options.name,
+			label: options.label,
+			width: options.width,
+			height: options.height,
+			category: options.category,
+			summary: options.summary,
+			description: options.description,
+			background: options.background,
 			resources: [],
 			data: [],
-			layers: [["Default layer"]],
+			layers: [[this.theme.getBaseLayerLabel()]],
 			items: [],
 			snap: undefined
 		});

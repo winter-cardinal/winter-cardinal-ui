@@ -45,4 +45,8 @@ export class DThemeWhiteDiagramEditor
 	isSnapTargetEnabled(): boolean {
 		return true;
 	}
+
+	getBaseLayerLabel(): string {
+		return "Base Layer";
+	}
 }

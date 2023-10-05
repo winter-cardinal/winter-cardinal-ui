@@ -89,6 +89,7 @@ export class DDiagramCanvasEditor<
 			label: this.label,
 			width: this.width,
 			height: this.height,
+			category: this.category,
 			summary: this.summary,
 			description: this.description,
 			background: {

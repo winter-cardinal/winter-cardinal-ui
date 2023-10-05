@@ -42,4 +42,8 @@ export class DThemeDarkDiagramEditor extends DThemeDarkDiagramBase implements DT
 	isSnapTargetEnabled(): boolean {
 		return true;
 	}
+
+	getBaseLayerLabel(): string {
+		return "Base Layer";
+	}
 }
