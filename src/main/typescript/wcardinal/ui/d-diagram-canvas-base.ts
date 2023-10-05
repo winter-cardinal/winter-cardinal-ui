@@ -20,7 +20,7 @@ export interface DDiagramCanvasBaseOptions<
 	THEME extends DThemeDiagramCanvasBase = DThemeDiagramCanvasBase
 > extends DCanvasOptions<THEME> {
 	label?: string;
-	category?: string;
+	category?: string | null;
 	summary?: string;
 	description?: string;
 	tile?: DDiagramCanvasTileOptions;
@@ -39,7 +39,7 @@ export class DDiagramCanvasBase<
 > extends DCanvas<THEME, OPTIONS> {
 	protected _layer: DDiagramLayerContainer;
 	protected _label: string;
-	protected _category: string;
+	protected _category: string | null;
 	protected _summary: string;
 	protected _description: string;
 	protected _tile: DDiagramCanvasTile;
@@ -64,12 +64,12 @@ export class DDiagramCanvasBase<
 		// Label, Category, Summary and Description
 		if (options != null) {
 			this._label = options.label ?? "";
-			this._category = options.category ?? "";
+			this._category = options.category ?? null;
 			this._summary = options.summary ?? "";
 			this._description = options.description ?? "";
 		} else {
 			this._label = "";
-			this._category = "";
+			this._category = null;
 			this._summary = "";
 			this._description = "";
 		}
@@ -96,11 +96,11 @@ export class DDiagramCanvasBase<
 		this._label = label;
 	}
 
-	get category(): string {
+	get category(): string | null {
 		return this._category;
 	}
 
-	set category(category: string) {
+	set category(category: string | null) {
 		this._category = category;
 	}
 
