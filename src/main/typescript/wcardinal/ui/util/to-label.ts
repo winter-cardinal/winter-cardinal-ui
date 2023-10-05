@@ -6,7 +6,7 @@
 import { isNumber } from "./is-number";
 import { isString } from "./is-string";
 
-export const toLabel = (target: any): string => {
+export const toLabelWith = (target: any, def: string): string => {
 	if (target != null) {
 		if (isString(target)) {
 			return target;
@@ -20,5 +20,9 @@ export const toLabel = (target: any): string => {
 			return target.id;
 		}
 	}
-	return "";
+	return def;
+};
+
+export const toLabel = (target: any): string => {
+	return toLabelWith(target, "");
 };
