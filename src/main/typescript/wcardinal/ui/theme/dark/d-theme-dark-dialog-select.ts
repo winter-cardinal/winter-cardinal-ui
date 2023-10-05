@@ -7,7 +7,7 @@ import { DCoordinateSize } from "../../d-coordinate";
 import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogSelect } from "../../d-dialog-select";
 import { toId } from "../../util/to-id";
-import { toLabelWith } from "../../util/to-label";
+import { toLabelWith } from "../../util/to-label-with";
 import { DThemeDarkDialogLayered } from "./d-theme-dark-dialog-layered";
 
 export class DThemeDarkDialogSelect<VALUE>
