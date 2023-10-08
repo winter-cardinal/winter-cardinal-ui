@@ -10,15 +10,15 @@ import {
 } from "./d-dialog-select-search-function";
 import { DDialogSelectSearch } from "./d-dialog-select-search";
 
-export class DDialogSelectSearhImpl<VALUE, CATEGORY, CATEGORY_ID>
+export class DDialogSelectSearhImpl<VALUE, CATEGORY_ID>
 	extends utils.EventEmitter
-	implements DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>
+	implements DDialogSelectSearch<VALUE, CATEGORY_ID>
 {
-	protected _search: DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID>;
+	protected _search: DDialogSelectSearchFunction<VALUE, CATEGORY_ID>;
 	protected _id: number;
 	protected _idCompleted: number;
 
-	constructor(search?: DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID>) {
+	constructor(search?: DDialogSelectSearchFunction<VALUE, CATEGORY_ID>) {
 		super();
 
 		this._search = DDialogSelectSearchFunctions.toCategorized(search);

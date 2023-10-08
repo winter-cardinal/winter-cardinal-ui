@@ -6,8 +6,6 @@
 import { DCoordinateSize } from "../../d-coordinate";
 import { DDialogLayeredFooterOptions } from "../../d-dialog-layered-footer";
 import { DThemeDialogSelect } from "../../d-dialog-select";
-import { toId } from "../../util/to-id";
-import { toLabelWith } from "../../util/to-label-with";
 import { DThemeWhiteDialogLayered } from "./d-theme-white-dialog-layered";
 
 export class DThemeWhiteDialogSelect<VALUE>
@@ -26,11 +24,11 @@ export class DThemeWhiteDialogSelect<VALUE>
 		return 19;
 	}
 
-	toCategoryId(category: unknown): unknown {
-		return toId(category);
+	isCategoryDismissable(): boolean {
+		return true;
 	}
 
-	toCategoryLabel(category: unknown): string {
-		return toLabelWith(category, "All");
+	getCategoryDismissLabel(): string {
+		return "All";
 	}
 }

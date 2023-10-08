@@ -55,7 +55,6 @@ export interface DButtonSelectOnOptions<VALUE, EMITTER>
 export interface DButtonSelectOptions<
 	VALUE = unknown,
 	DIALOG_VALUE = unknown,
-	DIALOG_CATEGORY = unknown,
 	DIALOG_CATEGORY_ID = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
 	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
@@ -75,7 +74,7 @@ export interface DButtonSelectOptions<
 	/**
 	 * A dialog to select values.
 	 */
-	dialog?: DDialogSelectOptions<DIALOG_VALUE, DIALOG_CATEGORY, DIALOG_CATEGORY_ID> | DIALOG;
+	dialog?: DDialogSelectOptions<DIALOG_VALUE, DIALOG_CATEGORY_ID> | DIALOG;
 
 	on?: DButtonSelectOnOptions<VALUE, EMITTER>;
 }
@@ -97,25 +96,16 @@ const defaultSetter = (): void => {
 export class DButtonSelect<
 	VALUE = unknown,
 	DIALOG_VALUE = unknown,
-	DIALOG_CATEGORY = unknown,
 	DIALOG_CATEGORY_ID = unknown,
 	DIALOG extends DButtonSelectDialog<DIALOG_VALUE> = DButtonSelectDialog<DIALOG_VALUE>,
 	THEME extends DThemeButtonSelect<VALUE> = DThemeButtonSelect<VALUE>,
 	OPTIONS extends DButtonSelectOptions<
 		VALUE,
 		DIALOG_VALUE,
-		DIALOG_CATEGORY,
 		DIALOG_CATEGORY_ID,
 		DIALOG,
 		THEME
-	> = DButtonSelectOptions<
-		VALUE,
-		DIALOG_VALUE,
-		DIALOG_CATEGORY,
-		DIALOG_CATEGORY_ID,
-		DIALOG,
-		THEME
-	>
+	> = DButtonSelectOptions<VALUE, DIALOG_VALUE, DIALOG_CATEGORY_ID, DIALOG, THEME>
 > extends DButton<VALUE | null, THEME, OPTIONS> {
 	protected _dialog?: DIALOG;
 	protected _dialogGetter: DButtonSelectGetter<VALUE, DIALOG>;
@@ -150,8 +140,8 @@ export class DButtonSelect<
 			if (options && "open" in options) {
 				dialog = options;
 			} else {
-				// Assumes DIALOG === DDialogSelect<DIALOG_VALUE, DIALOG_CATEGORY, DIALOG_CATEGORY_ID>.
-				dialog = new DDialogSelect<DIALOG_VALUE, DIALOG_CATEGORY, DIALOG_CATEGORY_ID>(
+				// Assumes DIALOG === DDialogSelect<DIALOG_VALUE, DIALOG_CATEGORY_ID>.
+				dialog = new DDialogSelect<DIALOG_VALUE, DIALOG_CATEGORY_ID>(
 					options
 				) as any as DIALOG;
 			}

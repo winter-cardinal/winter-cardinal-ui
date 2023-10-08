@@ -29,9 +29,7 @@ import { DDialogSelectSearhDismissableOptions } from "./d-dialog-select-search-d
 import { DDialogSelectSearhDismissableImpl } from "./d-dialog-select-search-dismissable-impl";
 import { DSelect, DSelectOptions } from "./d-select";
 import { DMenu } from "./d-menu";
-import { isArray } from "./util/is-array";
 import { DDialogSelectSearchFunction } from "./d-dialog-select-search-function";
-import { DBaseState } from "./d-base-state";
 
 export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 	margin?: number;
@@ -40,11 +38,10 @@ export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 /**
  * {@link DDialogSelect} controller.
  */
-export interface DDialogSelectController<VALUE, CATEGORY = unknown, CATEGORY_ID = unknown> {
+export interface DDialogSelectController<VALUE, CATEGORY_ID> {
 	search:
-		| DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>
-		| DDialogSelectSearchFunction<VALUE, CATEGORY, CATEGORY_ID>;
-	getCategories?: () => CATEGORY[] | Promise<CATEGORY[]>;
+		| DDialogSelectSearch<VALUE, CATEGORY_ID>
+		| DDialogSelectSearchFunction<VALUE, CATEGORY_ID>;
 }
 
 /**
@@ -68,12 +65,25 @@ export interface DDialogSelectEvents<VALUE, EMITTER> extends DDialogLayeredEvent
 }
 
 /**
+ * {@link DDialogSelect} category dismiss options.
+ */
+export interface DDialogSelectCategoryDismissOptions {
+	enable?: boolean;
+	label?: string;
+}
+
+export interface DDialogSelectCategory<CATEGORY_ID> {
+	id: CATEGORY_ID;
+	label: string;
+}
+
+/**
  * {@link DDialogSelect} category options.
  */
-export interface DDialogSelectCategoryOptions<VALUE, CATEGORY, CATEGORY_ID>
+export interface DDialogSelectCategoryOptions<VALUE, CATEGORY_ID>
 	extends DSelectOptions<CATEGORY_ID | null> {
-	toId?: (category: CATEGORY) => CATEGORY_ID;
-	toLabel?: (category: CATEGORY | null) => string;
+	dismiss?: DDialogSelectCategoryDismissOptions;
+	items?: DDialogSelectCategory<CATEGORY_ID>[];
 }
 
 /**
@@ -88,18 +98,13 @@ export interface DDialogSelectOnOptions<VALUE, EMITTER>
  */
 export interface DDialogSelectOptions<
 	VALUE,
-	CATEGORY = unknown,
 	CATEGORY_ID = unknown,
-	THEME extends DThemeDialogSelect<VALUE, CATEGORY, CATEGORY_ID> = DThemeDialogSelect<
-		VALUE,
-		CATEGORY,
-		CATEGORY_ID
-	>,
+	THEME extends DThemeDialogSelect<VALUE, CATEGORY_ID> = DThemeDialogSelect<VALUE, CATEGORY_ID>,
 	EMITTER = any
 > extends DDialogLayeredOptions<VALUE, THEME> {
-	controller?: DDialogSelectController<VALUE, CATEGORY, CATEGORY_ID>;
-	category?: DDialogSelectCategoryOptions<VALUE, CATEGORY, CATEGORY_ID>;
-	dismiss?: DDialogSelectSearhDismissableOptions<VALUE, CATEGORY, CATEGORY_ID>;
+	controller?: DDialogSelectController<VALUE, CATEGORY_ID>;
+	category?: DDialogSelectCategoryOptions<VALUE, CATEGORY_ID>;
+	dismiss?: DDialogSelectSearhDismissableOptions<VALUE, CATEGORY_ID>;
 	input?: DDialogSelectInputOpitons;
 	list?: DListOptions<VALUE>;
 	note?: DDialogSelectNoteOptions;
@@ -109,38 +114,33 @@ export interface DDialogSelectOptions<
 /**
  * {@link DDialogSelect} theme.
  */
-export interface DThemeDialogSelect<VALUE = unknown, CATEGORY = unknown, CATEGORY_ID = unknown>
+export interface DThemeDialogSelect<VALUE = unknown, CATEGORY_ID = unknown>
 	extends DThemeDialogLayered {
 	getInputMargin(): number;
-	toCategoryId(category: CATEGORY): CATEGORY_ID;
-	toCategoryLabel(category: CATEGORY | null): string;
+	isCategoryDismissable(): boolean;
+	getCategoryDismissLabel(): string;
 }
 
 export class DDialogSelect<
 	VALUE = unknown,
-	CATEGORY = unknown,
 	CATEGORY_ID = unknown,
-	THEME extends DThemeDialogSelect<VALUE, CATEGORY, CATEGORY_ID> = DThemeDialogSelect<
+	THEME extends DThemeDialogSelect<VALUE, CATEGORY_ID> = DThemeDialogSelect<VALUE, CATEGORY_ID>,
+	OPTIONS extends DDialogSelectOptions<VALUE, CATEGORY_ID, THEME> = DDialogSelectOptions<
 		VALUE,
-		CATEGORY,
-		CATEGORY_ID
-	>,
-	OPTIONS extends DDialogSelectOptions<
-		VALUE,
-		CATEGORY,
 		CATEGORY_ID,
 		THEME
-	> = DDialogSelectOptions<VALUE, CATEGORY, CATEGORY_ID, THEME>
+	>
 > extends DDialogLayered<VALUE | null, THEME, OPTIONS> {
 	protected _value: VALUE | null;
 	protected _spaceLeft?: DLayoutSpace;
 	protected _spaceRight?: DLayoutSpace;
-	protected _selectCategory?: DSelect<CATEGORY_ID | null> | null;
+	protected _selectCategory?: DSelect<CATEGORY_ID | null>;
 	protected _isCategoryFetched?: boolean;
+	protected _categories: DDialogSelectCategory<CATEGORY_ID>[];
 	protected _input?: DInputSearch;
 	protected _inputLayout?: DLayoutHorizontal;
 	protected _list?: DDialogSelectList<VALUE>;
-	protected _search?: DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>;
+	protected _search?: DDialogSelectSearch<VALUE, CATEGORY_ID>;
 	protected _noteError?: DNote | null;
 	protected _noteNoItemsFound?: DNote | null;
 	protected _noteSearching?: DNote | null;
@@ -148,7 +148,15 @@ export class DDialogSelect<
 	constructor(options?: OPTIONS) {
 		super(options);
 
+		// Value
 		this._value = null;
+
+		// Categories
+		const categories = options?.category?.items ?? [];
+		this._categories = categories;
+		if (0 < categories.length) {
+			this.onCategoriesChange(categories);
+		}
 
 		// Controller binding
 		const transition = new UtilTransition();
@@ -222,30 +230,23 @@ export class DDialogSelect<
 		});
 	}
 
-	protected get selectCategory(): DSelect<CATEGORY_ID | null> | null {
+	protected get selectCategory(): DSelect<CATEGORY_ID | null> {
 		let result = this._selectCategory;
-		if (result === undefined) {
+		if (result == null) {
 			result = this.newSelectCategory();
 			this._selectCategory = result;
 		}
 		return result;
 	}
 
-	protected newSelectCategory(): DSelect<CATEGORY_ID | null> | null {
-		const options = this._options;
-		if (options != null) {
-			const controller = options.controller;
-			if (controller != null && controller.getCategories != null) {
-				const result = new DSelect<CATEGORY_ID | null>(
-					this.toSelectCategoryOptions(this.theme, this._options)
-				);
-				result.on("change", (value: CATEGORY_ID) => {
-					this.onSelectCategoryChange(value);
-				});
-				return result;
-			}
-		}
-		return null;
+	protected newSelectCategory(): DSelect<CATEGORY_ID | null> {
+		const result = new DSelect<CATEGORY_ID | null>(
+			this.toSelectCategoryOptions(this.theme, this._options)
+		);
+		result.on("change", (value: CATEGORY_ID) => {
+			this.onSelectCategoryChange(value);
+		});
+		return result;
 	}
 
 	protected toSelectCategoryOptions(
@@ -256,8 +257,8 @@ export class DDialogSelect<
 		if (result.width === undefined && result.weight === undefined) {
 			result.width = 140;
 		}
-		if (result.state === undefined) {
-			result.state = DBaseState.DISABLED;
+		if (result.visible === undefined) {
+			result.visible = false;
 		}
 		return result;
 	}
@@ -417,7 +418,7 @@ export class DDialogSelect<
 		};
 	}
 
-	protected get search(): DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID> {
+	protected get search(): DDialogSelectSearch<VALUE, CATEGORY_ID> {
 		let result = this._search;
 		if (result == null) {
 			result = this.newSearch();
@@ -426,7 +427,7 @@ export class DDialogSelect<
 		return result;
 	}
 
-	protected newSearch(): DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID> {
+	protected newSearch(): DDialogSelectSearch<VALUE, CATEGORY_ID> {
 		const options = this._options;
 		if (options) {
 			const controller = options.controller;
@@ -473,101 +474,53 @@ export class DDialogSelect<
 	protected onOpen(): void {
 		super.onOpen();
 		this.list.selection.clear();
-		const selectCategory = this.selectCategory;
-		if (selectCategory != null) {
-			if (this._isCategoryFetched !== true) {
-				this._isCategoryFetched = true;
-				const categoriesOrPromise = this.findCategories();
-				if (categoriesOrPromise == null) {
-					this.search.create([this.input.value, null]);
-				} else if (isArray(categoriesOrPromise)) {
-					this.onCategoryFetched(selectCategory, categoriesOrPromise);
-				} else {
-					categoriesOrPromise.then((categories) => {
-						this.onCategoryFetched(selectCategory, categories);
-					});
-				}
-			} else {
-				this.search.create([this.input.value, selectCategory.value]);
-			}
+		if (0 < this._categories.length) {
+			this.search.create([this.input.value, this.selectCategory.value]);
 		} else {
 			this.search.create([this.input.value]);
 		}
 	}
 
-	protected onCategoryFetched(
-		selectCategory: DSelect<CATEGORY_ID | null>,
-		categories: CATEGORY[]
-	): void {
-		const items = [];
-		const toId = this.newToCategoryId();
-		const toLabel = this.newToCategoryLabel();
-		items.push({
-			value: null,
-			text: {
-				value: toLabel(null)
+	get categories(): DDialogSelectCategory<CATEGORY_ID>[] {
+		return this._categories;
+	}
+
+	set categories(categories: DDialogSelectCategory<CATEGORY_ID>[]) {
+		this._categories = categories;
+		this.onCategoriesChange(categories);
+	}
+
+	protected onCategoriesChange(categories: DDialogSelectCategory<CATEGORY_ID>[]): void {
+		const selectCategory = this.selectCategory;
+		if (0 < categories.length) {
+			const items = [];
+			const theme = this.theme;
+			const options = this.options?.category?.dismiss ?? {};
+			if (options.enable ?? theme.isCategoryDismissable()) {
+				items.push({
+					value: null,
+					text: {
+						value: options.label ?? theme.getCategoryDismissLabel()
+					}
+				});
 			}
-		});
-		for (let i = 0, imax = categories.length; i < imax; ++i) {
-			const category = categories[i];
-			items.push({
-				value: toId(category),
-				text: {
-					value: toLabel(category)
-				}
+			for (let i = 0, imax = categories.length; i < imax; ++i) {
+				const category = categories[i];
+				items.push({
+					value: category.id,
+					text: {
+						value: category.label
+					}
+				});
+			}
+			selectCategory.menu = new DMenu<CATEGORY_ID | null>({
+				fit: true,
+				items
 			});
+			selectCategory.show();
+		} else {
+			selectCategory.hide();
 		}
-		selectCategory.menu = new DMenu<CATEGORY_ID | null>({
-			fit: true,
-			items
-		});
-		selectCategory.state.isEnabled = true;
-		this.search.create([this.input.value, null]);
-	}
-
-	protected newToCategoryId(): (category: CATEGORY) => CATEGORY_ID {
-		const options = this._options;
-		if (options != null) {
-			const category = options.category;
-			if (category != null) {
-				const toId = category.toId;
-				if (toId != null) {
-					return toId;
-				}
-			}
-		}
-		const theme = this.theme;
-		return (category: CATEGORY): CATEGORY_ID => {
-			return theme.toCategoryId(category);
-		};
-	}
-
-	protected newToCategoryLabel(): (category: CATEGORY | null) => string {
-		const options = this._options;
-		if (options != null) {
-			const category = options.category;
-			if (category != null) {
-				const toLabel = category.toLabel;
-				if (toLabel != null) {
-					return toLabel;
-				}
-			}
-		}
-		const theme = this.theme;
-		return (category: CATEGORY | null): string => {
-			return theme.toCategoryLabel(category);
-		};
-	}
-
-	protected findCategories(): Promise<CATEGORY[]> | CATEGORY[] | null {
-		const options = this._options;
-		if (options != null) {
-			const controller = options.controller;
-			if (controller != null && controller.getCategories != null) {
-				return controller.getCategories();
-			}
-		}
-		return null;
 	}
 
 	protected onOk(value: VALUE | null | PromiseLike<VALUE | null>): void {

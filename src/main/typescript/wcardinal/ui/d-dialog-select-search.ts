@@ -6,7 +6,7 @@
 /**
  * {@link DDialogSelect} search object.
  */
-export interface DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID> {
+export interface DDialogSelectSearch<VALUE, CATEGORY_ID> {
 	create(args: [string] | [string, CATEGORY_ID | null]): void;
 	on(event: "success", handler: (e: unknown, searchResults: VALUE[]) => void): void;
 	on(event: "fail", handler: () => void): void;

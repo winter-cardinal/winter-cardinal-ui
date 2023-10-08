@@ -11,19 +11,19 @@ import {
 	DDialogSelectSearhDismissableOptions
 } from "./d-dialog-select-search-dismissable";
 
-export class DDialogSelectSearhDismissableImpl<VALUE, CATEGORY, CATEGORY_ID>
+export class DDialogSelectSearhDismissableImpl<VALUE, CATEGORY_ID>
 	extends utils.EventEmitter
-	implements DDialogSelectSearchDismissable<VALUE, CATEGORY, CATEGORY_ID>
+	implements DDialogSelectSearchDismissable<VALUE, CATEGORY_ID>
 {
-	protected _target: DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>;
+	protected _target: DDialogSelectSearch<VALUE, CATEGORY_ID>;
 
 	protected _args?: [string] | [string, CATEGORY_ID | null];
 	protected _value?: VALUE;
-	protected _filter?: DDialogSelectSearhDismissableFilter<VALUE, CATEGORY, CATEGORY_ID>;
+	protected _filter?: DDialogSelectSearhDismissableFilter<VALUE, CATEGORY_ID>;
 
 	constructor(
-		target: DDialogSelectSearch<VALUE, CATEGORY, CATEGORY_ID>,
-		options: DDialogSelectSearhDismissableOptions<VALUE, CATEGORY, CATEGORY_ID>
+		target: DDialogSelectSearch<VALUE, CATEGORY_ID>,
+		options: DDialogSelectSearhDismissableOptions<VALUE, CATEGORY_ID>
 	) {
 		super();
 

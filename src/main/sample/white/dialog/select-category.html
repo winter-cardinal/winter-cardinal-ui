@@ -31,6 +31,12 @@
 		var application = new wcardinal.ui.DApplication();
 
 		var dialog = new wcardinal.ui.DDialogSelect({
+			category: {
+				items: [
+					{ id: "FRUIT", label: "Fruit" },
+					{ id: "VEGETABLE", label: "Vegetable" }
+				]
+			},
 			controller: {
 				search: (word, category) => {
 					return Promise.resolve([
@@ -44,13 +50,6 @@
 						return (category == null || item.category === category) &&
 							(word.length <= 0 || 0 <= item.name.indexOf(word));
 					}));
-				},
-
-				getCategories: () => {
-					return Promise.resolve([
-						{ id: "FRUIT", label: "Fruit" },
-						{ id: "VEGETABLE", label: "Vegetable" }
-					]);
 				}
 			}
 		});
