@@ -38,7 +38,7 @@ export interface DDialogSelectInputOpitons extends DInputSearchOptions {
 /**
  * {@link DDialogSelect} controller.
  */
-export interface DDialogSelectController<VALUE, CATEGORY_ID> {
+export interface DDialogSelectController<VALUE, CATEGORY_ID = unknown> {
 	search:
 		| DDialogSelectSearch<VALUE, CATEGORY_ID>
 		| DDialogSelectSearchFunction<VALUE, CATEGORY_ID>;
