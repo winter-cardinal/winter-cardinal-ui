@@ -22,8 +22,8 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.355.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.355.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.363.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.363.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
@@ -31,27 +31,25 @@
 		var application = new wcardinal.ui.DApplication();
 
 		var dialog = new wcardinal.ui.DDialogSelect({
+			category: {
+				items: [
+					{ id: "FRUIT", label: "Fruit" },
+					{ id: "VEGETABLE", label: "Vegetable" }
+				]
+			},
 			controller: {
 				search: (word, category) => {
 					return Promise.resolve([
-						{ name: "Apple", category: 1 },
-						{ name: "Orange", category: 1 },
-						{ name: "Pineapple", category: 1 },
-						{ name: "Potato", category: 2 },
-						{ name: "Tomato", category: 2 },
-						{ name: "Cabbage", category: 2 }
+						{ name: "Apple", category: "FRUIT" },
+						{ name: "Orange", category: "FRUIT" },
+						{ name: "Pineapple", category: "FRUIT" },
+						{ name: "Potato", category: "VEGETABLE" },
+						{ name: "Tomato", category: "VEGETABLE" },
+						{ name: "Cabbage", category: "VEGETABLE" }
 					].filter(function (item) {
-						return (category == null || category === 0 || item.category === category) &&
+						return (category == null || item.category === category) &&
 							(word.length <= 0 || 0 <= item.name.indexOf(word));
 					}));
-				},
-
-				getCategories: () => {
-					return Promise.resolve([
-						{ id: 0, label: "All" },
-						{ id: 1, label: "Custom" },
-						{ id: 2, label: "Standard" }
-					]);
 				}
 			}
 		});
