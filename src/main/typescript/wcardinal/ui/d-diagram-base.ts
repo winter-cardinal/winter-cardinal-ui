@@ -212,6 +212,7 @@ export abstract class DDiagramBase<
 			label: serialized.label,
 			width: serialized.width,
 			height: serialized.height,
+			category: serialized.category,
 			summary: serialized.summary,
 			description: serialized.description,
 			background: this.toCanvasBaseBackgroundOptions(serialized, theme, isAmbient),
