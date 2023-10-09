@@ -297,9 +297,8 @@ export class DDialogSelect<
 	}
 
 	protected onInputInput(value: string): void {
-		const selectCategory = this.selectCategory;
-		if (selectCategory != null) {
-			this.search.create([value, selectCategory.value]);
+		if (0 < this._categories.length) {
+			this.search.create([value, this.selectCategory.value]);
 		} else {
 			this.search.create([value]);
 		}

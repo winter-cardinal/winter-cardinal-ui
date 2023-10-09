@@ -24,7 +24,7 @@ export type DDialogSelectSearchFunction<VALUE, CATEGORY_ID> =
 	| DDialogSelectSearchFunctionCategorized<VALUE, CATEGORY_ID>;
 
 export const DDialogSelectSearchFunctions = {
-	isCategorized<VALUE, CATEGORY_ID>(
+	isUncategorized<VALUE, CATEGORY_ID>(
 		search: DDialogSelectSearchFunction<VALUE, CATEGORY_ID>
 	): search is DDialogSelectSearchFunctionUncategorized<VALUE> {
 		return search.length <= 1;
@@ -35,7 +35,7 @@ export const DDialogSelectSearchFunctions = {
 	): DDialogSelectSearchFunctionCategorized<VALUE, CATEGORY_ID> {
 		if (search == null) {
 			return (word: string, categoryId: CATEGORY_ID | null) => Promise.resolve([]);
-		} else if (this.isCategorized(search)) {
+		} else if (this.isUncategorized(search)) {
 			return (word: string, categoryId: CATEGORY_ID | null) => {
 				return search(word);
 			};
