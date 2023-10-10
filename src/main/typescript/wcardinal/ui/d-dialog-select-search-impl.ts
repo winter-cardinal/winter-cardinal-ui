@@ -4,10 +4,7 @@
  */
 
 import { utils } from "pixi.js";
-import {
-	DDialogSelectSearchFunction,
-	DDialogSelectSearchFunctions
-} from "./d-dialog-select-search-function";
+import { DDialogSelectSearchFunction } from "./d-dialog-select-search-function";
 import { DDialogSelectSearch } from "./d-dialog-select-search";
 
 export class DDialogSelectSearhImpl<VALUE, CATEGORY_ID>
@@ -21,14 +18,16 @@ export class DDialogSelectSearhImpl<VALUE, CATEGORY_ID>
 	constructor(search?: DDialogSelectSearchFunction<VALUE, CATEGORY_ID>) {
 		super();
 
-		this._search = DDialogSelectSearchFunctions.toCategorized(search);
+		this._search =
+			search ?? ((word: string, categoryId?: CATEGORY_ID | null) => Promise.resolve([]));
 		this._id = 0;
 		this._idCompleted = 0;
 	}
 
 	create(args: [string] | [string, CATEGORY_ID | null]): void {
 		const id = ++this._id;
-		this._search(args[0], args[1] ?? null).then(
+		const search = this._search;
+		(args.length <= 1 ? search(args[0]) : search(args[0], args[1])).then(
 			(searchResult: VALUE[]) => {
 				if (this._id === id) {
 					this._idCompleted = id;
