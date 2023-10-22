@@ -4,7 +4,12 @@
  */
 
 import { utils } from "pixi.js";
-import { DTableData, DTableDataMapped, DTableDataParent } from "./d-table-data";
+import {
+	DTableData,
+	DTableDataMapped,
+	DTableDataParent,
+	DTableDataSupplimental
+} from "./d-table-data";
 import { DTableDataFilter, DTableDataFilterer } from "./d-table-data-filter";
 import { DTableDataTreeFilter } from "./d-table-data-tree-filter";
 import { DTableDataListMapped } from "./d-table-data-list-mapped";
@@ -103,7 +108,7 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 	protected _nodes?: NODE[];
 	protected _rows: NODE[];
 	protected _isRowsDirty: boolean;
-	protected _supplimentals: number[];
+	protected _supplimentals: DTableDataSupplimental[];
 	protected _flags: WeakMap<NODE, number>;
 	protected _filter: DTableDataTreeFilter<NODE>;
 	protected _sorter: DTableDataTreeSorter<NODE>;
@@ -198,7 +203,7 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		return this._rows;
 	}
 
-	get supplimentals(): number[] {
+	get supplimentals(): DTableDataSupplimental[] {
 		return this._supplimentals;
 	}
 
@@ -233,7 +238,11 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		}
 	}
 
-	protected toSupplimental(ilevel: number, hasChildren: boolean, isOpened: boolean): number {
+	protected toSupplimental(
+		ilevel: number,
+		hasChildren: boolean,
+		isOpened: boolean
+	): DTableDataSupplimental {
 		return (ilevel << 2) | (hasChildren ? 2 : 0) | (isOpened ? 1 : 0);
 	}
 
@@ -242,7 +251,7 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		irows: number,
 		ilevel: number,
 		rows: NODE[],
-		supplimentals: number[],
+		supplimentals: DTableDataSupplimental[],
 		flags: WeakMap<NODE, number>,
 		reverse: boolean,
 		toChildren: DTableDataTreeItemAccessorToChildren<NODE>,

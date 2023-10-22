@@ -44,6 +44,7 @@ import { DTableColumnGetter } from "./d-table-column-getter";
 import { DTableColumnSetter } from "./d-table-column-setter";
 import { DTableColumnRenderable } from "./d-table-column-renderable";
 import { DTableColumnState } from "./d-table-column-state";
+import { DTableColumnUpdate } from "./d-table-column-update";
 
 export interface DTableOptions<
 	ROW,
@@ -432,7 +433,9 @@ const toColumn = <ROW, CELL>(
 		frozen: options.frozen,
 		offset: 0.0,
 
-		link: options.link
+		link: options.link,
+
+		update: toEnum(options.update ?? DTableColumnUpdate.CELL, DTableColumnUpdate)
 	};
 };
 

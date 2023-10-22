@@ -9,6 +9,7 @@ import { DMenuItem } from "./d-menu-item";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
+import { DTableDataSupplimental } from "./d-table-data";
 
 export interface DTableBodyCellActionMenuOptions<
 	ROW = unknown,
@@ -56,9 +57,10 @@ export class DTableBodyCellActionMenu<
 		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter(row, columnIndex, selected);
+			const column = this._column;
+			column.setter(row, columnIndex, selected);
 			super.onMenuSelect(selected, item, menu);
-			this._onChange(selected, null, row, rowIndex, columnIndex, this);
+			this._onChange(selected, null, row, rowIndex, columnIndex, column, this);
 		}
 	}
 
@@ -85,7 +87,7 @@ export class DTableBodyCellActionMenu<
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean

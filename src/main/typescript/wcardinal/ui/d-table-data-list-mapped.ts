@@ -1,8 +1,13 @@
-import { DTableData, DTableDataMapped, DTableDataMappedEachIteratee } from "./d-table-data";
+import {
+	DTableData,
+	DTableDataMapped,
+	DTableDataMappedEachIteratee,
+	DTableDataSupplimental
+} from "./d-table-data";
 
 export interface DTableDataListMappedParent<ROW> extends DTableData<ROW> {
 	readonly rows: ROW[];
-	readonly supplimentals?: unknown[];
+	readonly supplimentals?: DTableDataSupplimental[];
 }
 
 export class DTableDataListMapped<ROW> implements DTableDataMapped<ROW> {

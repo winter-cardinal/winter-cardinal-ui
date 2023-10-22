@@ -23,6 +23,7 @@ import { DTableColumnSetter } from "./d-table-column-setter";
 import { DTableColumnSorting, DTableColumnSortingOptions } from "./d-table-column-sorting";
 import { DTableColumnState, DTableColumnStateModifier } from "./d-table-column-state";
 import { DTableColumnType } from "./d-table-column-type";
+import { DTableColumnUpdate } from "./d-table-column-update";
 import { DTableHeaderCellOptions } from "./d-table-header-cell";
 
 export interface DTableColumnOptions<
@@ -89,6 +90,15 @@ export interface DTableColumnOptions<
 	frozen?: boolean;
 
 	link?: DTableBodyCellLinkLinkOptions<ROW_VALUE, CELL_VALUE>;
+
+	/**
+	 * An update region when cells get edited.
+	 *
+	 * * CELL: Edited cells (Default).
+	 * * ROW: Rows that edited cells belongs to.
+	 * * ALL: All the rows.
+	 */
+	update?: keyof typeof DTableColumnUpdate | DTableColumnUpdate;
 }
 
 export interface DTableColumn<
@@ -122,4 +132,6 @@ export interface DTableColumn<
 	offset: number;
 
 	link?: DTableBodyCellLinkLinkOptions<ROW_VALUE, CELL_VALUE>;
+
+	update: DTableColumnUpdate;
 }

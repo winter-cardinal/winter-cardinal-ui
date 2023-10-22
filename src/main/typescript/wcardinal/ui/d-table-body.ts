@@ -9,7 +9,7 @@ import { DBase, DBaseEvents, DBaseOptions, DThemeBase } from "./d-base";
 import { DBaseState } from "./d-base-state";
 import { DTableBodyRow, DTableBodyRowOnChange, DTableBodyRowOptions } from "./d-table-body-row";
 import { DTableColumn } from "./d-table-column";
-import { DTableData, DTableDataOptions } from "./d-table-data";
+import { DTableData, DTableDataOptions, DTableDataSupplimental } from "./d-table-data";
 import { DTableDataList, DTableDataListOptions } from "./d-table-data-list";
 import { DTableDataSelection, DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableBodyCell } from "./d-table-body-cell";
@@ -18,6 +18,7 @@ import { DTableBodyCellOptions } from "./d-table-body-cell-options";
 import { DOnOptions } from "./d-on-options";
 import { DApplications } from "./d-applications";
 import { isNumber } from "./util/is-number";
+import { DTableColumnUpdate } from "./d-table-column-update";
 
 /**
  * {@link DTableBody} events.
@@ -141,11 +142,26 @@ export class DTableBody<
 		this._isUpdateRowsCalled = false;
 		this._isUpdateRowsCalledForcibly = false;
 		this._workRows = [];
-		this._onRowChangeBound = (newValue, oldValue, row, rowIndex, columnIndex): void => {
-			data.emit("change", newValue, oldValue, row, rowIndex, columnIndex, data);
+		this._onRowChangeBound = (newValue, oldValue, row, rowIndex, columnIndex, column): void => {
+			this.onRowChange(newValue, oldValue, row, rowIndex, columnIndex, column);
 		};
 		this._columnIndexToCellOptions = new Map<number, DTableBodyCellOptions<ROW>>();
 		this._data.emit("init", this._data);
+	}
+
+	protected onRowChange(
+		newValue: unknown,
+		oldValue: unknown,
+		row: ROW,
+		rowIndex: number,
+		columnIndex: number,
+		column: DTableColumn<ROW, unknown>
+	): void {
+		const data = this._data;
+		data.emit("change", newValue, oldValue, row, rowIndex, columnIndex, data);
+		if (column.update === DTableColumnUpdate.ALL) {
+			this.update(true);
+		}
 	}
 
 	protected toData(options?: DATA | DTableDataListOptions<ROW>): DATA {
@@ -294,7 +310,7 @@ export class DTableBody<
 		data.mapped.each(
 			(
 				datum: ROW,
-				supplimental: unknown,
+				supplimental: DTableDataSupplimental | null,
 				index: number,
 				unmappedIndex: number
 			): void | boolean => {

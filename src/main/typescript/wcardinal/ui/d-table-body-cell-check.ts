@@ -9,7 +9,10 @@ import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
 import { DTableColumnType } from "./d-table-column-type";
-import { DTableData } from "./d-table-data";
+import { DTableColumnUpdate } from "./d-table-column-update";
+import type { DTableBody } from "./d-table-body";
+import type { DTableBodyRow } from "./d-table-body-row";
+import { DTableDataSupplimental } from "./d-table-data";
 
 export interface DTableBodyCellCheckOptions<
 	ROW = unknown,
@@ -72,7 +75,7 @@ export class DTableBodyCellCheck<
 			column.setter(row, columnIndex, newValue);
 			this.emit("change", newValue, oldValue, this);
 			const onChange = this._onChange;
-			onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+			onChange(newValue, oldValue, row, rowIndex, columnIndex, column, this);
 			if (newValue && column.type === DTableColumnType.CHECK_SINGLE) {
 				this.onChangeSingle(rowIndex, columnIndex, column, onChange);
 			}
@@ -85,24 +88,24 @@ export class DTableBodyCellCheck<
 		column: DTableColumn<ROW, boolean>,
 		onChange: DTableBodyCellOnChange<ROW, boolean>
 	): void {
-		const tableBodyRow = this.parent;
-		if (tableBodyRow) {
-			const tableBody = tableBodyRow.parent as any;
-			if (tableBody) {
+		const tableBodyRow = this.parent as DTableBodyRow<ROW> | null;
+		if (tableBodyRow != null) {
+			const tableBody = tableBodyRow.parent as DTableBody<ROW> | null;
+			if (tableBody != null) {
 				let isChanged = false;
 				const getter = column.getter;
 				const setter = column.setter;
-				const data = tableBody.data as DTableData<ROW>;
+				const data = tableBody.data;
 				data.each((row: ROW, index: number): boolean => {
 					if (rowIndex !== index && getter(row, columnIndex)) {
 						setter(row, columnIndex, false);
 						isChanged = true;
-						onChange(false, true, row, index, columnIndex, this);
+						onChange(false, true, row, index, columnIndex, column, this);
 						return false;
 					}
 					return true;
 				});
-				if (isChanged) {
+				if (isChanged && column.update !== DTableColumnUpdate.ALL) {
 					tableBody.update(true);
 				}
 			}
@@ -128,7 +131,7 @@ export class DTableBodyCellCheck<
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean

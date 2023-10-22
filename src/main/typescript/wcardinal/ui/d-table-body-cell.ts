@@ -6,6 +6,7 @@
 import { interaction, Point } from "pixi.js";
 import { DBase } from "./d-base";
 import { DTableColumn } from "./d-table-column";
+import { DTableDataSupplimental } from "./d-table-data";
 
 export type DTableBodyCellOnChange<ROW, VALUE, EMITTER = any> = (
 	newValue: VALUE,
@@ -13,6 +14,7 @@ export type DTableBodyCellOnChange<ROW, VALUE, EMITTER = any> = (
 	row: ROW,
 	rowIndex: number,
 	columnIndex: number,
+	column: DTableColumn<ROW, VALUE>,
 	emitter: EMITTER
 ) => void;
 
@@ -46,7 +48,7 @@ export interface DTableBodyCell<ROW, VALUE> extends DBase {
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean

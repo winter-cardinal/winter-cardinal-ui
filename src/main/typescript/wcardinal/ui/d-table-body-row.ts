@@ -30,6 +30,8 @@ import { DTableBodyCellTime } from "./d-table-body-cell-time";
 import { DTableBodyCellTree } from "./d-table-body-cell-tree";
 import { DTableColumn } from "./d-table-column";
 import { DTableColumnType } from "./d-table-column-type";
+import { DTableColumnUpdate } from "./d-table-column-update";
+import { DTableDataSupplimental } from "./d-table-data";
 import { DTableDataSelectionType } from "./d-table-data-selection";
 import { DTableRow, DTableRowOptions, DThemeTableRow } from "./d-table-row";
 import { DTableState } from "./d-table-state";
@@ -54,6 +56,7 @@ export type DTableBodyRowOnChange<ROW, VALUE, EMITTER = any> = (
 	row: ROW,
 	rowIndex: number,
 	columnIndex: number,
+	column: DTableColumn<ROW, VALUE>,
 	emitter: EMITTER
 ) => void;
 
@@ -63,8 +66,10 @@ export class DTableBodyRow<
 	OPTIONS extends DTableBodyRowOptions<ROW, THEME> = DTableBodyRowOptions<ROW, THEME>
 > extends DTableRow<ROW, DTableColumn<ROW, unknown>, THEME, OPTIONS> {
 	protected _value?: ROW;
+	protected _supplimental?: DTableDataSupplimental | null;
 	protected _index: number;
-	protected _onCellChangeBound: DTableBodyCellOnChange<ROW, unknown>;
+	protected _onChange: DTableBodyRowOnChange<ROW, unknown>;
+	protected _onCellChangeBound: DTableBodyCellOnChange<ROW, any>;
 	protected _columnIndexToCellOptions: Map<number, DTableBodyCellOptions<ROW>>;
 
 	constructor(
@@ -76,13 +81,40 @@ export class DTableBodyRow<
 		super(options);
 
 		this._index = -1;
-		this._onCellChangeBound = (newValue, oldValue, row, rowIndex, columnIndex): void => {
-			this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, this);
-			onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+		this._onChange = onChange;
+		this._onCellChangeBound = (
+			newValue,
+			oldValue,
+			row,
+			rowIndex,
+			columnIndex,
+			column
+		): void => {
+			this.onCellChange(newValue, oldValue, row, rowIndex, columnIndex, column);
 		};
 		this._columnIndexToCellOptions = columnIndexToCellOptions;
 		this.state.isAlternated = !isEven;
 		this.initCells(options, this._columns, this._frozen);
+	}
+
+	protected onCellChange(
+		newValue: unknown,
+		oldValue: unknown,
+		row: ROW,
+		rowIndex: number,
+		columnIndex: number,
+		column: DTableColumn<ROW, unknown>
+	): void {
+		this.emit("change", newValue, oldValue, row, rowIndex, columnIndex, this);
+		if (column.update === DTableColumnUpdate.ROW) {
+			const value = this._value;
+			const supplimental = this._supplimental;
+			const index = this._index;
+			if (value !== undefined && supplimental !== undefined) {
+				this.set(value, supplimental, index, true);
+			}
+		}
+		this._onChange(newValue, oldValue, row, rowIndex, columnIndex, column, this);
 	}
 
 	protected newCell(
@@ -112,7 +144,7 @@ export class DTableBodyRow<
 	protected newCellEditable(
 		columnIndex: number,
 		column: DTableColumn<ROW, any>,
-		onChange: DTableBodyCellOnChange<ROW, unknown>,
+		onChange: DTableBodyCellOnChange<ROW, any>,
 		options: any
 	): DBase {
 		switch (column.type) {
@@ -153,7 +185,7 @@ export class DTableBodyRow<
 	protected newCellUnediable(
 		columnIndex: number,
 		column: DTableColumn<ROW, any>,
-		onChange: DTableBodyCellOnChange<ROW, unknown>,
+		onChange: DTableBodyCellOnChange<ROW, any>,
 		options: any
 	): DBase {
 		switch (column.type) {
@@ -194,7 +226,7 @@ export class DTableBodyRow<
 	protected newCellSelect(
 		columnIndex: number,
 		column: DTableColumn<ROW, any>,
-		onChange: DTableBodyCellOnChange<ROW, unknown>,
+		onChange: DTableBodyCellOnChange<ROW, any>,
 		options: any
 	): DBase {
 		const selecting = column.selecting;
@@ -214,7 +246,7 @@ export class DTableBodyRow<
 	protected newCellAction(
 		columnIndex: number,
 		column: DTableColumn<ROW, any>,
-		onChange: DTableBodyCellOnChange<ROW, unknown>,
+		onChange: DTableBodyCellOnChange<ROW, any>,
 		options: any
 	): DBase {
 		const selecting = column.selecting;
@@ -324,9 +356,20 @@ export class DTableBodyRow<
 		return target != null && "set" in target;
 	}
 
-	set(value: ROW, supplimental: unknown, rowIndex: number, forcibly?: boolean): void {
-		if (forcibly || this._value !== value || this._index !== rowIndex) {
+	set(
+		value: ROW,
+		supplimental: DTableDataSupplimental | null,
+		rowIndex: number,
+		forcibly?: boolean
+	): void {
+		if (
+			forcibly ||
+			this._value !== value ||
+			this._supplimental !== supplimental ||
+			this._index !== rowIndex
+		) {
 			this._value = value;
+			this._supplimental = supplimental;
 			this._index = rowIndex;
 
 			const cells = this.children;

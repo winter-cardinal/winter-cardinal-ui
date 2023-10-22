@@ -7,6 +7,7 @@ import { DImageBase, DImageBaseOptions, DThemeImageBase } from "./d-image-base";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
+import { DTableDataSupplimental } from "./d-table-data";
 
 export interface DTableBodyCellTextOptions<
 	ROW,
@@ -68,7 +69,7 @@ export class DTableBodyCellText<
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean

@@ -556,6 +556,7 @@ export * from "./d-table-column-setter";
 export * from "./d-table-column-sorting";
 export * from "./d-table-column-state";
 export * from "./d-table-column-type";
+export * from "./d-table-column-update";
 export * from "./d-table-column";
 export * from "./d-table-data-filter";
 export * from "./d-table-data-list-filter";

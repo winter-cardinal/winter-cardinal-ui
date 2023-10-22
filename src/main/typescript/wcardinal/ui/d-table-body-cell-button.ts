@@ -81,8 +81,9 @@ export class DTableBodyCellButton<
 		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
+			const column = this._column;
 			this.emit("change", null, null, this);
-			this._onChange(null, null, row, rowIndex, columnIndex, this);
+			this._onChange(null, null, row, rowIndex, columnIndex, column, this);
 		}
 	}
 

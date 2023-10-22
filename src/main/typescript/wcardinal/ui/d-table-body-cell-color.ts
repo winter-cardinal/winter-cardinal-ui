@@ -8,6 +8,7 @@ import { DColorAndAlpha } from "./d-color-and-alpha";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
+import { DTableDataSupplimental } from "./d-table-data";
 import { isNumber } from "./util/is-number";
 import { isString } from "./util/is-string";
 
@@ -54,9 +55,10 @@ export class DTableBodyCellColor<
 		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter(row, columnIndex, newValue);
+			const column = this._column;
+			column.setter(row, columnIndex, newValue);
 			super.onValueChange(newValue, oldValue);
-			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, column, this);
 		} else {
 			super.onValueChange(newValue, oldValue);
 		}
@@ -81,7 +83,7 @@ export class DTableBodyCellColor<
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean

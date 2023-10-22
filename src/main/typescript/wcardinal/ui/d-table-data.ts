@@ -8,9 +8,11 @@ import {
 } from "./d-table-data-selection";
 import { DTableDataComparator, DTableDataSorter } from "./d-table-data-sorter";
 
+export type DTableDataSupplimental = number;
+
 export type DTableDataMappedEachIteratee<ROW> = (
 	row: ROW,
-	supplimental: unknown,
+	supplimental: DTableDataSupplimental | null,
 	index: number,
 	unmappedIndex: number
 ) => void | boolean;

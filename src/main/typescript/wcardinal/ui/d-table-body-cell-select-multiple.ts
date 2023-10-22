@@ -8,6 +8,7 @@ import { DSelectMultiple, DSelectMultipleOptions, DThemeSelectMultiple } from ".
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableColumn } from "./d-table-column";
+import { DTableDataSupplimental } from "./d-table-data";
 
 export interface DTableBodyCellSelectMultipleOptions<
 	ROW = unknown,
@@ -60,9 +61,10 @@ export class DTableBodyCellSelectMultiple<
 		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter(row, columnIndex, newValues);
+			const column = this._column;
+			column.setter(row, columnIndex, newValues);
 			super.onValueChange(newValues, oldValues, items);
-			this._onChange(newValues, oldValues, row, rowIndex, columnIndex, this);
+			this._onChange(newValues, oldValues, row, rowIndex, columnIndex, column, this);
 		}
 	}
 
@@ -89,7 +91,7 @@ export class DTableBodyCellSelectMultiple<
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean

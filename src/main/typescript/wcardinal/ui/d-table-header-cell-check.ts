@@ -1,4 +1,5 @@
 import { DTableColumn } from "./d-table-column";
+import { DTableDataSupplimental } from "./d-table-data";
 import { DTableHeaderTable } from "./d-table-header";
 import { DTableHeaderCellHeader } from "./d-table-header-cell";
 
@@ -98,7 +99,7 @@ export class DTableHeaderCellCheck<ROW> {
 					table.data.mapped.each(
 						(
 							row: ROW,
-							supplimental: unknown,
+							supplimental: DTableDataSupplimental | null,
 							index: number,
 							unmappedIndex: number
 						): void => {

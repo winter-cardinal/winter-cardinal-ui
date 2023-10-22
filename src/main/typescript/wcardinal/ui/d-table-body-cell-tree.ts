@@ -16,8 +16,8 @@ import { DTableBodyCellLinkLinkOptions, toLinkOptions } from "./d-table-body-cel
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
-import { isNumber } from "./util/is-number";
 import { DTableBodyCellOnChange } from "./d-table-body-cell";
+import { DTableDataSupplimental } from "./d-table-data";
 
 export interface DTableBodyCellTreeOptions<
 	ROW,
@@ -135,7 +135,7 @@ export class DTableBodyCellTree<
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean
@@ -148,7 +148,7 @@ export class DTableBodyCellTree<
 
 		const link = this.link;
 		const padding = this._padding;
-		if (isNumber(supplimental)) {
+		if (supplimental != null) {
 			const isOpened = !!(supplimental & 0x1);
 			const hasChildren = !!(supplimental & 0x2);
 			const level = supplimental >> 2;

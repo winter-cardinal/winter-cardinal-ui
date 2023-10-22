@@ -14,8 +14,8 @@ import { DTableBodyCellInputTreeMarker } from "./d-table-body-cell-input-tree-ma
 import { DTableBodyCells } from "./d-table-body-cells";
 import { DTableState } from "./d-table-state";
 import { DTableColumn } from "./d-table-column";
-import { isNumber } from "./util/is-number";
 import { DTableBodyCell, DTableBodyCellOnChange } from "./d-table-body-cell";
+import { DTableDataSupplimental } from "./d-table-data";
 
 export interface DThemeTableBodyCellInputTree extends DThemeBase {
 	getLevelPadding(level: number): number;
@@ -96,9 +96,10 @@ export class DTableBodyCellInputTree<
 		if (row !== undefined) {
 			const rowIndex = this._rowIndex;
 			const columnIndex = this._columnIndex;
-			this._column.setter(row, columnIndex, newValue);
+			const column = this._column;
+			column.setter(row, columnIndex, newValue);
 			this.emit("change", newValue, oldValue, this);
-			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, this);
+			this._onChange(newValue, oldValue, row, rowIndex, columnIndex, column, this);
 		}
 	}
 
@@ -174,7 +175,7 @@ export class DTableBodyCellInputTree<
 	set(
 		value: unknown,
 		row: ROW,
-		supplimental: unknown,
+		supplimental: DTableDataSupplimental | null,
 		rowIndex: number,
 		columnIndex: number,
 		forcibly?: boolean
@@ -186,7 +187,7 @@ export class DTableBodyCellInputTree<
 		input.text = String(value);
 
 		const marker = this._marker;
-		if (isNumber(supplimental)) {
+		if (supplimental != null) {
 			const isOpened = !!(supplimental & 0x1);
 			const hasChildren = !!(supplimental & 0x2);
 			const level = supplimental >> 2;
