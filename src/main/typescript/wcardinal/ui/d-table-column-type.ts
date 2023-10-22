@@ -18,7 +18,8 @@ export const DTableColumnType = {
 	TIME: 11,
 	ACTION: 12,
 	LINK: 13,
-	TREE: 14
+	TREE: 14,
+	TEXT_AREA: 15
 } as const;
 
 export type DTableColumnType = typeof DTableColumnType[keyof typeof DTableColumnType];

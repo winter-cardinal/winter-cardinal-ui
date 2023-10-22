@@ -18,6 +18,7 @@ import { DTableBodyCellIndex } from "./d-table-body-cell-index";
 import { DTableBodyCellInputInteger } from "./d-table-body-cell-input-integer";
 import { DTableBodyCellInputReal } from "./d-table-body-cell-input-real";
 import { DTableBodyCellInputText } from "./d-table-body-cell-input-text";
+import { DTableBodyCellInputTextArea } from "./d-table-body-cell-input-text-area";
 import { DTableBodyCellInputTree } from "./d-table-body-cell-input-tree";
 import { DTableBodyCellLink } from "./d-table-body-cell-link";
 import { DTableBodyCellOptions } from "./d-table-body-cell-options";
@@ -26,6 +27,7 @@ import { DTableBodyCellSelectMenu } from "./d-table-body-cell-select-menu";
 import { DTableBodyCellSelectMultiple } from "./d-table-body-cell-select-multiple";
 import { DTableBodyCellSelectPromise } from "./d-table-body-cell-select-promise";
 import { DTableBodyCellText } from "./d-table-body-cell-text";
+import { DTableBodyCellTextArea } from "./d-table-body-cell-text-area";
 import { DTableBodyCellTime } from "./d-table-body-cell-time";
 import { DTableBodyCellTree } from "./d-table-body-cell-tree";
 import { DTableColumn } from "./d-table-column";
@@ -152,6 +154,8 @@ export class DTableBodyRow<
 				return new DTableBodyCellIndex(columnIndex, column, onChange, options);
 			case DTableColumnType.TEXT:
 				return new DTableBodyCellInputText(columnIndex, column, onChange, options);
+			case DTableColumnType.TEXT_AREA:
+				return new DTableBodyCellInputTextArea(columnIndex, column, onChange, options);
 			case DTableColumnType.TREE:
 				return new DTableBodyCellInputTree(columnIndex, column, onChange, options);
 			case DTableColumnType.INTEGER:
@@ -193,6 +197,8 @@ export class DTableBodyRow<
 				return new DTableBodyCellIndex(columnIndex, column, onChange, options);
 			case DTableColumnType.TEXT:
 				return new DTableBodyCellText(columnIndex, column, onChange, options);
+			case DTableColumnType.TEXT_AREA:
+				return new DTableBodyCellTextArea(columnIndex, column, onChange, options);
 			case DTableColumnType.TREE:
 				return new DTableBodyCellTree(columnIndex, column, onChange, options);
 			case DTableColumnType.INTEGER:

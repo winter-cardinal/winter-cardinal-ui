@@ -18,6 +18,7 @@ import { DThemeDarkTableBodyCellIndex } from "../d-theme-dark-table-body-cell-in
 import { DThemeDarkTableBodyCellInputInteger } from "../d-theme-dark-table-body-cell-input-integer";
 import { DThemeDarkTableBodyCellInputReal } from "../d-theme-dark-table-body-cell-input-real";
 import { DThemeDarkTableBodyCellInputText } from "../d-theme-dark-table-body-cell-input-text";
+import { DThemeDarkTableBodyCellInputTextArea } from "../d-theme-dark-table-body-cell-input-text-area";
 import { DThemeDarkTableBodyCellInputTree } from "../d-theme-dark-table-body-cell-input-tree";
 import { DThemeDarkTableBodyCellInputTreeInput } from "../d-theme-dark-table-body-cell-input-tree-input";
 import { DThemeDarkTableBodyCellInputTreeMarker } from "../d-theme-dark-table-body-cell-input-tree-marker";
@@ -27,6 +28,7 @@ import { DThemeDarkTableBodyCellSelectMenu } from "../d-theme-dark-table-body-ce
 import { DThemeDarkTableBodyCellSelectMultiple } from "../d-theme-dark-table-body-cell-select-multiple";
 import { DThemeDarkTableBodyCellSelectPromise } from "../d-theme-dark-table-body-cell-select-promise";
 import { DThemeDarkTableBodyCellText } from "../d-theme-dark-table-body-cell-text";
+import { DThemeDarkTableBodyCellTextArea } from "../d-theme-dark-table-body-cell-text-area";
 import { DThemeDarkTableBodyCellTime } from "../d-theme-dark-table-body-cell-time";
 import { DThemeDarkTableBodyCellTree } from "../d-theme-dark-table-body-cell-tree";
 import { DThemeDarkTableBodyRow } from "../d-theme-dark-table-body-row";
@@ -43,6 +45,7 @@ import { loadThemeDarkDialogSelect } from "./load-theme-dark-dialog-select";
 import { loadThemeDarkInputInteger } from "./load-theme-dark-input-integer";
 import { loadThemeDarkInputReal } from "./load-theme-dark-input-real";
 import { loadThemeDarkInputText } from "./load-theme-dark-input-text";
+import { loadThemeDarkInputTextArea } from "./load-theme-dark-input-text-area";
 import { loadThemeDarkMenu } from "./load-theme-dark-menu";
 
 export const loadThemeDarkTable = (): void => {
@@ -57,6 +60,7 @@ export const loadThemeDarkTable = (): void => {
 	DThemeDark.set("DTableBodyCellIndex", DThemeDarkTableBodyCellIndex);
 	DThemeDark.set("DTableBodyCellInputInteger", DThemeDarkTableBodyCellInputInteger);
 	DThemeDark.set("DTableBodyCellInputReal", DThemeDarkTableBodyCellInputReal);
+	DThemeDark.set("DTableBodyCellInputTextArea", DThemeDarkTableBodyCellInputTextArea);
 	DThemeDark.set("DTableBodyCellInputText", DThemeDarkTableBodyCellInputText);
 	DThemeDark.set("DTableBodyCellInputTreeMarker", DThemeDarkTableBodyCellInputTreeMarker);
 	DThemeDark.set("DTableBodyCellInputTreeInput", DThemeDarkTableBodyCellInputTreeInput);
@@ -66,6 +70,7 @@ export const loadThemeDarkTable = (): void => {
 	DThemeDark.set("DTableBodyCellSelectMenu", DThemeDarkTableBodyCellSelectMenu);
 	DThemeDark.set("DTableBodyCellSelectMultiple", DThemeDarkTableBodyCellSelectMultiple);
 	DThemeDark.set("DTableBodyCellSelectPromise", DThemeDarkTableBodyCellSelectPromise);
+	DThemeDark.set("DTableBodyCellTextArea", DThemeDarkTableBodyCellTextArea);
 	DThemeDark.set("DTableBodyCellText", DThemeDarkTableBodyCellText);
 	DThemeDark.set("DTableBodyCellTree", DThemeDarkTableBodyCellTree);
 	DThemeDark.set("DTableBodyCellTime", DThemeDarkTableBodyCellTime);
@@ -83,6 +88,7 @@ export const loadThemeDarkTable = (): void => {
 	loadThemeDarkButtonDatetime();
 	loadThemeDarkInputInteger();
 	loadThemeDarkInputReal();
+	loadThemeDarkInputTextArea();
 	loadThemeDarkInputText();
 	loadThemeDarkDialogSelect();
 	loadThemeDarkMenu();

@@ -137,6 +137,7 @@ const toColumnAlign = <ROW, CELL>(
 	}
 	switch (type) {
 		case DTableColumnType.TEXT:
+		case DTableColumnType.TEXT_AREA:
 			return DAlignHorizontal.LEFT;
 		case DTableColumnType.REAL:
 		case DTableColumnType.INTEGER:
