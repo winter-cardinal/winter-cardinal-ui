@@ -380,7 +380,10 @@ export class DDialog<
 		}
 		const align = this._align;
 		const opener = this._opener;
-		if (align != null && opener != null) {
+		if (align == DDialogAlign.NONE) {
+			this.position.set(this.x, this.y);
+		}
+		else if (align != null && opener != null) {
 			const mode = this._mode;
 			const bounds = opener.getBounds(false, (DDialog.WORK_BOUNDS ??= new Rectangle()));
 			const theme = this.theme;
