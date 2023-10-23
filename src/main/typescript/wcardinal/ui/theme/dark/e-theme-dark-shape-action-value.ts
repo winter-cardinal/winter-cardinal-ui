@@ -6,6 +6,7 @@
 import { EShapeActionOpenDialogExtensions } from "../../shape/action/e-shape-action-open-dialog-extensions";
 import { EShapeActionOpenExtensions } from "../../shape/action/e-shape-action-open-extensions";
 import { EShapeActionValue, EThemeShapeActionValue } from "../../shape/action/e-shape-action-value";
+import { EShapeActionValueAlignmentType } from "../../shape/action/e-shape-action-value-alignment-type";
 import { EShapeActionValueBlinkType } from "../../shape/action/e-shape-action-value-blink-type";
 import { EShapeActionValueChangeColorTarget } from "../../shape/action/e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeColorType } from "../../shape/action/e-shape-action-value-change-color-type";
@@ -414,6 +415,16 @@ export class EThemeDarkShapeActionValue implements EThemeShapeActionValue {
 				return "Write (Local)";
 			case EShapeActionValueOnInputAction.WRITE_REMOTE:
 				return "Write (Remote)";
+		}
+		return "Unknown";
+	}
+
+	toAlignmentTypeLabel(type: EShapeActionValueAlignmentType): string {
+		switch (type) {
+			case EShapeActionValueAlignmentType.LEFT:
+				return "Left";
+			case EShapeActionValueAlignmentType.RIGHT:
+				return "Right";
 		}
 		return "Unknown";
 	}

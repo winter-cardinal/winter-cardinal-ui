@@ -12,22 +12,20 @@ import { EShapeActionExpression } from "./e-shape-action-expression";
 import { EShapeActionExpressions } from "./e-shape-action-expressions";
 import { EShapeActionRuntimeConditional } from "./e-shape-action-runtime-conditional";
 import { EShapeActions } from "./e-shape-actions";
-import { EShapeActionValueOpen } from "./e-shape-action-value-open";
 import { EShapeActionValueOpenExtension } from "./e-shape-action-value-open-extension";
 import { EShapeActionValueAlignmentType } from "./e-shape-action-value-alignment-type";
 
-export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
+export class EShapeActionRuntimeOpenExtension extends EShapeActionRuntimeConditional {
 	protected subtype: number;
 	protected readonly target: EShapeActionExpression<unknown>;
+	protected alignment: EShapeActionValueAlignmentType;
 	protected inNewWindow: boolean;
 
-	constructor(
-		value: EShapeActionValueOpen | EShapeActionValueOpenExtension,
-		subtype: DDiagramBaseControllerOpenType
-	) {
+	constructor(value: EShapeActionValueOpenExtension, subtype: DDiagramBaseControllerOpenType) {
 		super(value, EShapeRuntimeReset.NONE);
 		this.subtype = subtype;
 		this.target = EShapeActionExpressions.ofUnknown(value.target);
+		this.alignment = value.alignment;
 		this.inNewWindow = value.inNewWindow;
 	}
 
@@ -35,13 +33,7 @@ export class EShapeActionRuntimeOpen extends EShapeActionRuntimeConditional {
 		if (this.condition(shape, time, EShapeActionEnvironment)) {
 			const target = this.target(shape, time, EShapeActionEnvironment);
 			if (target != null) {
-				EShapeActions.open(
-					shape,
-					this.subtype,
-					target,
-					EShapeActionValueAlignmentType.LEFT,
-					this.inNewWindow
-				);
+				EShapeActions.open(shape, this.subtype, target, this.alignment, this.inNewWindow);
 			}
 		}
 	}

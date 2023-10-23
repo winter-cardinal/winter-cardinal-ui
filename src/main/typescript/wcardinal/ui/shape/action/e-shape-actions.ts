@@ -18,6 +18,7 @@ import { EShapeDataValueState } from "../e-shape-data-value-state";
 import { EShapeEmbedded } from "../variant/e-shape-embedded";
 import { EShapeActionOpenOpeners } from "./e-shape-action-open-openers";
 import { isString } from "../../util/is-string";
+import { EShapeActionValueAlignmentType } from "./e-shape-action-value-alignment-type";
 
 export interface EShapeActionsContainer extends DCanvasContainer {
 	readonly shape: utils.EventEmitter;
@@ -51,11 +52,12 @@ export class EShapeActions {
 		shape: EShape,
 		type: DDiagramBaseControllerOpenType,
 		target: unknown,
+		alignment: EShapeActionValueAlignmentType,
 		inNewWindow: boolean
 	): void {
 		const opener = EShapeActionOpenOpeners[type];
 		if (opener != null) {
-			opener(target, inNewWindow, shape);
+			opener(target, alignment, inNewWindow, shape);
 		} else if (isString(target)) {
 			switch (type) {
 				case DDiagramBaseControllerOpenType.DIAGRAM:

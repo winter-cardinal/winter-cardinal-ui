@@ -6,6 +6,7 @@
 import { UtilHtmlElementWhen } from "../../util/util-html-element-when";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionRuntime } from "./e-shape-action-runtime";
+import { EShapeActionValueAlignmentType } from "./e-shape-action-value-alignment-type";
 import { EShapeActionValueBlinkType } from "./e-shape-action-value-blink-type";
 import { EShapeActionValueChangeColorTarget } from "./e-shape-action-value-change-color-target";
 import { EShapeActionValueChangeColorType } from "./e-shape-action-value-change-color-type";
@@ -43,6 +44,7 @@ export interface EThemeShapeActionValue {
 	toMiscTypeLabel(type: EShapeActionValueMiscType): string;
 	toHtmlElementWhenLabel(when: UtilHtmlElementWhen): string;
 	toOnInputActionLabel(type: EShapeActionValueOnInputAction): string;
+	toAlignmentTypeLabel(type: EShapeActionValueAlignmentType): string;
 }
 
 export interface EShapeActionValue {
