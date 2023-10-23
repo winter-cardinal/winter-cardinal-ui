@@ -4,5 +4,11 @@
  */
 
 import { EShape } from "../e-shape";
+import { EShapeActionValueAlignmentType } from "./e-shape-action-value-alignment-type";
 
-export type EShapeActionOpenOpener = (target: unknown, inNewWindow: boolean, shape: EShape) => void;
+export type EShapeActionOpenOpener = (
+	target: unknown,
+	alignment: EShapeActionValueAlignmentType,
+	inNewWindow: boolean,
+	shape: EShape
+) => void;

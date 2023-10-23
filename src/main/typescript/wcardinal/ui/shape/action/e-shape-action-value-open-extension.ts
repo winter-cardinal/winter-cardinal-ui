@@ -6,20 +6,40 @@
 import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manager-deserialization";
 import { EShapeResourceManagerSerialization } from "../e-shape-resource-manager-serialization";
 import { EShapeActionOpenExtensions } from "./e-shape-action-open-extensions";
+import { EShapeActionRuntime } from "./e-shape-action-runtime";
 import { EShapeActionRuntimeOpen } from "./e-shape-action-runtime-open";
+import { EShapeActionRuntimeOpenExtension } from "./e-shape-action-runtime-open-extension";
 import { EShapeActionValue } from "./e-shape-action-value";
+import { EShapeActionValueAlignmentType } from "./e-shape-action-value-alignment-type";
 import { EShapeActionValueOpenSerializedNew } from "./e-shape-action-value-open";
+import { EShapeActionValueOpenType } from "./e-shape-action-value-open-type";
 import { EShapeActionValueSubtyped } from "./e-shape-action-value-subtyped";
 import { EShapeActionValueType } from "./e-shape-action-value-type";
 import { EShapeActionValues } from "./e-shape-action-values";
 
+export type EShapeActionValueOpenExtensionSerialized= [
+	typeof EShapeActionValueType.OPEN,
+	number,
+	number,
+	number,
+	0 | 1,
+	EShapeActionValueAlignmentType
+];
 export class EShapeActionValueOpenExtension extends EShapeActionValueSubtyped<number> {
 	readonly target: string;
+	readonly alignment: EShapeActionValueAlignmentType;
 	readonly inNewWindow: boolean;
 
-	constructor(subtype: number, condition: string, target: string, inNewWindow: boolean) {
+	constructor(
+		subtype: number,
+		condition: string,
+		target: string,
+		alignment: EShapeActionValueAlignmentType,
+		inNewWindow: boolean
+	) {
 		super(EShapeActionValueType.OPEN, condition, subtype);
 		this.target = target;
+		this.alignment = alignment;
 		this.inNewWindow = inNewWindow;
 	}
 
@@ -28,12 +48,13 @@ export class EShapeActionValueOpenExtension extends EShapeActionValueSubtyped<nu
 			super.isEquals(value) &&
 			value instanceof EShapeActionValueOpenExtension &&
 			this.target === value.target &&
+			this.alignment === value.alignment &&
 			this.inNewWindow === value.inNewWindow
 		);
 	}
 
-	toRuntime(): EShapeActionRuntimeOpen {
-		return new EShapeActionRuntimeOpen(this, this.subtype);
+	toRuntime(): EShapeActionRuntime {
+		return new EShapeActionRuntimeOpenExtension(this, this.subtype);
 	}
 
 	toLabel(): string {
@@ -47,12 +68,12 @@ export class EShapeActionValueOpenExtension extends EShapeActionValueSubtyped<nu
 		const targetId = manager.addResource(this.target);
 		const inNewWindow = this.inNewWindow ? 1 : 0;
 		return manager.addResource(
-			`[${this.type},${conditionId},${this.subtype},${targetId},${inNewWindow}]`
+			`[${this.type},${conditionId},${this.subtype},${targetId},${inNewWindow},${this.alignment}]`
 		);
 	}
 
 	static deserialize(
-		serialized: EShapeActionValueOpenSerializedNew,
+		serialized: EShapeActionValueOpenExtensionSerialized,
 		manager: EShapeResourceManagerDeserialization
 	): EShapeActionValueOpenExtension {
 		const condition = EShapeActionValues.toResource(1, serialized, manager.resources);
@@ -61,6 +82,7 @@ export class EShapeActionValueOpenExtension extends EShapeActionValueSubtyped<nu
 			serialized[2],
 			condition,
 			target,
+			serialized[5],
 			!!serialized[4]
 		);
 	}
