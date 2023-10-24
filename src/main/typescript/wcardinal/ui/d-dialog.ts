@@ -379,6 +379,9 @@ export class DDialog<
 			return;
 		}
 		const align = this._align;
+		if (align === DDialogAlign.NONE) {
+			return;
+		}
 		const opener = this._opener;
 		if (align != null && opener != null) {
 			const mode = this._mode;

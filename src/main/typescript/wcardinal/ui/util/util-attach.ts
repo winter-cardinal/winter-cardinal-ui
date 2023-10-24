@@ -32,7 +32,9 @@ export const UtilAttachAlign = {
 	BOTTOM_CENTER: 14,
 	BOTTOM_RIGHT: 15,
 
-	OVER: 16
+	OVER: 16,
+
+	NONE: 17
 } as const;
 
 export type UtilAttachAlign = typeof UtilAttachAlign[keyof typeof UtilAttachAlign];
@@ -47,6 +49,10 @@ export class UtilAttach {
 		clippingHeight: number,
 		align: UtilAttachAlign
 	): void {
+		if (align === UtilAttachAlign.NONE) {
+			return;
+		}
+
 		const width = target.width;
 		const height = target.height;
 
