@@ -117,7 +117,16 @@ export interface DTableData<ROW> extends utils.EventEmitter {
 	 */
 	readonly mapped: DTableDataMapped<ROW>;
 
+	/** A list of rows. */
+	readonly rows: ROW[];
+
 	bind(parent: DTableDataParent): void;
+
+	update(forcibly?: boolean): void;
+
+	lock(): void;
+
+	unlock(callIfNeeded: boolean): void;
 
 	/**
 	 * Returns a size of rows.

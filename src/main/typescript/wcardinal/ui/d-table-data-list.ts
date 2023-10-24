@@ -96,10 +96,10 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		return this._rows;
 	}
 
-	update(): void {
+	update(forcibly?: boolean): void {
 		const parent = this._parent;
 		if (parent) {
-			parent.update();
+			parent.update(forcibly);
 		}
 	}
 
@@ -110,11 +110,10 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		}
 	}
 
-	unlock(): void {
+	unlock(callIfNeeded: boolean): void {
 		const parent = this._parent;
 		if (parent) {
-			parent.unlock(false);
-			parent.update();
+			parent.unlock(callIfNeeded);
 		}
 	}
 
@@ -130,7 +129,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 			this._selection.clear();
 			this._sorter.toDirty();
 			this._filter.toDirty();
-			this.unlock();
+			this.update();
+			this.unlock(true);
 		}
 	}
 
@@ -142,7 +142,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		this._selection.clear();
 		this._sorter.toDirty();
 		this._filter.toDirty();
-		this.unlock();
+		this.update();
+		this.unlock(true);
 	}
 
 	clearAndAddAll(newRows: ROW[]): void {
@@ -155,7 +156,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 		this._selection.clear();
 		this._sorter.toDirty();
 		this._filter.toDirty();
-		this.unlock();
+		this.update();
+		this.unlock(true);
 	}
 
 	add(row: ROW, index?: number): void {
@@ -168,14 +170,16 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 			this.lock();
 			sorter.toDirty();
 			filter.toDirty();
-			this.unlock();
+			this.update();
+			this.unlock(true);
 		} else if (0 <= index && index < rows.length) {
 			rows.splice(index, 0, row);
 			this.lock();
 			selection.shift(index, 1);
 			sorter.toDirty();
 			filter.toDirty();
-			this.unlock();
+			this.update();
+			this.unlock(true);
 		}
 	}
 
@@ -193,7 +197,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 			this.lock();
 			sorter.toDirty();
 			filter.toDirty();
-			this.unlock();
+			this.update();
+			this.unlock(true);
 		} else if (0 <= index && index < rowsLength) {
 			const newRowsLength = newRows.length;
 			for (let i = 0; i < newRowsLength; ++i) {
@@ -203,7 +208,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 			selection.shift(index, newRowsLength);
 			sorter.toDirty();
 			filter.toDirty();
-			this.unlock();
+			this.update();
+			this.unlock(true);
 		}
 	}
 
@@ -223,7 +229,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 			this.lock();
 			this._sorter.toDirty();
 			this._filter.toDirty();
-			this.unlock();
+			this.update();
+			this.unlock(true);
 			return result;
 		}
 		return null;
@@ -237,7 +244,8 @@ export class DTableDataList<ROW> extends utils.EventEmitter implements DTableDat
 			this._selection.remove(index);
 			this._sorter.toDirty();
 			this._filter.toDirty();
-			this.unlock();
+			this.update();
+			this.unlock(true);
 			return result;
 		}
 		return null;

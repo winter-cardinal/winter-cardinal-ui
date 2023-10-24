@@ -298,6 +298,20 @@ export class DTableDataTree<NODE extends DTableDataTreeNode<NODE, NODE>>
 		}
 	}
 
+	lock(): void {
+		const parent = this._parent;
+		if (parent) {
+			parent.lock();
+		}
+	}
+
+	unlock(callIfNeeded: boolean): void {
+		const parent = this._parent;
+		if (parent) {
+			parent.unlock(callIfNeeded);
+		}
+	}
+
 	size(): number {
 		return this.rows.length;
 	}
