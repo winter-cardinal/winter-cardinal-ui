@@ -22,15 +22,15 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.365.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.365.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.369.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.369.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
 	(function(){
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var table = new wcardinal.ui.DTable({
+		const table = new wcardinal.ui.DTable({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
@@ -40,11 +40,11 @@
 			}]
 		});
 
-		var add = function () {
-			var size = table.data.size();
-			table.data.add([ "Row" + size ]);
-			if( size < 20 ) {
-				setTimeout( add, 1000 );
+		const add = function () {
+			const size = table.data.size();
+			table.data.add(["Row" + size]);
+			if (size < 20) {
+				setTimeout(add, 1000);
 			}
 		};
 		add();

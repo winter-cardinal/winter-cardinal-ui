@@ -145,6 +145,7 @@
 * Dialog
     * [Align (Bottom)](./dialog/align-bottom.html)
     * [Align (Left)](./dialog/align-left.html)
+    * [Align (None)](./dialog/align-none.html)
     * [Align (Null)](./dialog/align-null.html)
     * [Align (Over)](./dialog/align-over.html)
     * [Align (Right)](./dialog/align-right.html)
@@ -314,10 +315,13 @@
         * [Cell style](./table\cell/style.html)
         * [Textual cell](./table\cell/text.html)
         * [Text align](./table\cell/text-align.html)
+        * [Text area cell](./table\cell/text-area.html)
+        * [Update region](./table\cell/update.html)
     * Column
         * [Background](./table\column/background.html)
         * [Category header](./table\column/category.html)
         * [Event](./table\column/event.html)
+        * [Formatter](./table\column/formatter.html)
         * [Frozen](./table\column/frozen.html)
         * [Header less](./table\column/header-less.html)
         * [Image](./table\column/image.html)

@@ -1,0 +1,66 @@
+<!--
+ Copyright (C) 2019 Toshiba Corporation
+ SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Update region</title>
+	<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: #eeeeee;
+	}
+	</style>
+</head>
+<body>
+	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.369.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.369.0/wcardinal-ui-theme-white.min.js"></script>
+	<script>
+	(function(){
+		"use strict";
+
+		const application = new wcardinal.ui.DApplication();
+
+		new wcardinal.ui.DTable({
+			parent: application.stage,
+			x: "center", y: "center",
+			width: 500, height: 500,
+			columns: [{
+				label: "Name",
+				type: "TEXT",
+				editable: true,
+				update: "ROW"
+			}, {
+				label: "Year",
+				type: "INTEGER",
+				editable: true,
+				update: "ROW"
+			}, {
+				label: "Label",
+				type: "TEXT",
+				editable: false,
+				getter: (rowValue, columnIndex) => {
+					return rowValue[0] + " " + rowValue[1];
+				}
+			}],
+			data: {
+				rows: [
+					[ "Apple", 2000 ],
+					[ "Orange", 2001 ],
+					[ "Pineapple", 2002 ]
+				]
+			}
+		});
+	}());
+	</script>
+</body>
+</html>
