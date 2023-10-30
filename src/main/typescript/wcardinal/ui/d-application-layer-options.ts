@@ -46,6 +46,8 @@ export class DApplicationLayerOptions {
 	private _pixi: PixiApplicationOptions;
 	private _padding: DPadding;
 	private _overlay: boolean;
+	private _isWidthFixed: boolean;
+	private _isHeightFixed: boolean;
 
 	constructor(options: DApplicationLayerOptionsOptions) {
 		// Root
@@ -82,6 +84,8 @@ export class DApplicationLayerOptions {
 			width = bbox.width;
 			height = bbox.height;
 		}
+		this._isWidthFixed = options.width != null;
+		this._isHeightFixed = options.height != null;
 
 		// Background color
 		const background = options?.background;
@@ -160,6 +164,25 @@ export class DApplicationLayerOptions {
 	}
 
 	/**
+	 * Returns true if the width is fixed.
+	 *
+	 * @returns true if the width is fixed.
+	 */
+	isWidthFixed(): boolean {
+		return this._isWidthFixed;
+	}
+
+	/**
+	 * Makes the canvas width fixed.
+	 *
+	 * @param fixed true to make the canvas width fixed
+	 */
+	setWidthFixed(fixed: boolean): this {
+		this._isWidthFixed = fixed;
+		return this;
+	}
+
+	/**
 	 * Returns a canvas height.
 	 */
 	getHeight(): number {
@@ -173,6 +196,25 @@ export class DApplicationLayerOptions {
 	 */
 	setHeight(height: number): this {
 		this._pixi.height = height;
+		return this;
+	}
+
+	/**
+	 * Returns true if the height is fixed.
+	 *
+	 * @returns true if the height is fixed.
+	 */
+	isHeightFixed(): boolean {
+		return this._isHeightFixed;
+	}
+
+	/**
+	 * Makes the canvas height fixed.
+	 *
+	 * @param fixed true to make the canvas height fixed
+	 */
+	setHeightFixed(fixed: boolean): this {
+		this._isHeightFixed = fixed;
 		return this;
 	}
 

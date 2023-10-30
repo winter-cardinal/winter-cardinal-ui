@@ -171,25 +171,35 @@ export class DApplicationLayer extends Application implements DApplicationLayerL
 	}
 
 	protected initResizeHandling(): void {
-		const onResizeBound = (): void => {
-			this.onResize();
-		};
-		window.addEventListener("resize", onResizeBound);
-		window.addEventListener("orientationchange", onResizeBound);
+		const options = this._options;
+		const isWidthFixed = options.isWidthFixed();
+		const isHeightFixed = options.isHeightFixed();
+		if (!isWidthFixed || !isHeightFixed) {
+			const onResizeBound = (): void => {
+				this.onResize();
+			};
+			if (window.ResizeObserver != null) {
+				new ResizeObserver(onResizeBound).observe(this._rootElement);
+			} else {
+				window.addEventListener("resize", onResizeBound);
+				window.addEventListener("orientationchange", onResizeBound);
+			}
+		}
 	}
 
 	protected onResize(): void {
+		const options = this._options;
 		const bbox = this._rootElement.getBoundingClientRect();
-		const bboxWidth = bbox.width;
-		const bboxHeight = bbox.height;
-		this.renderer.resize(bboxWidth, bboxHeight);
+		const newWidth = options.isWidthFixed() ? options.getWidth() : bbox.width;
+		const newHeight = options.isHeightFixed() ? options.getHeight() : bbox.height;
+		this.renderer.resize(newWidth, newHeight);
 
 		const padding = this._padding;
 		const children = this.stage.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
 			const child = children[i];
 			if (child instanceof DBase) {
-				child.onParentResize(bboxWidth, bboxHeight, padding);
+				child.onParentResize(newWidth, newHeight, padding);
 			}
 		}
 
