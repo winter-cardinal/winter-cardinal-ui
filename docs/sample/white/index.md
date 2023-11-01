@@ -389,6 +389,7 @@
     * [Custom updater](./tree/updater.html)
 * Utility
     * [Downloading a file](./utility/download.html)
+    * [Number Formatter (Date)](./utility/number-formatter-date.html)
     * [Scalar expression](./utility/scalar.html)
     * [Shortcut expression](./utility/shortcut.html)
 
