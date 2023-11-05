@@ -463,14 +463,29 @@ export class DTableBody<
 		return true;
 	}
 
-	protected toRowIndexMapped(local: Point): number {
-		if (0 <= this.parent.position.y + local.y) {
-			return Math.floor(local.y / this._rowHeight);
+	/**
+	 * Returns a mapped row index at the given local Y position or -1.
+	 *
+	 * @param localY a local Y position
+	 * @returns a mapped row index at the given local Y position or -1.
+	 */
+	toRowIndexMapped(localY: number): number {
+		if (0 <= this.parent.position.y + localY) {
+			const result = Math.floor(localY / this._rowHeight);
+			if (0 <= result && result < this._data.mapped.size()) {
+				return result;
+			}
 		}
 		return -1;
 	}
 
-	protected toRow(rowIndexMapped: number): DTableBodyRow<ROW> | null {
+	/**
+	 * Returns a row at the given mapped row index or null if not exits.
+	 *
+	 * @param rowIndexMapped a mapped row index
+	 * @returns a row at the given mapped row index or null if not exists.
+	 */
+	toRow(rowIndexMapped: number): DTableBodyRow<ROW> | null {
 		const index = rowIndexMapped - this._rowIndexMappedStart;
 		const rows = this.children as Array<DTableBodyRow<ROW>>;
 		if (0 <= index && index < rows.length) {
@@ -479,14 +494,22 @@ export class DTableBody<
 		return null;
 	}
 
-	protected toCell(row: DTableBodyRow<ROW>, local: Point): DTableBodyCell<ROW, unknown> | null {
+	/**
+	 * Returns a cell at the given local X position or null if not exits.
+	 * This method assumes the given local X position is on the given row.
+	 *
+	 * @param row a row
+	 * @param localX a local X position
+	 * @returns a cell at the given local X position or null if not exits
+	 */
+	toCell(row: DTableBodyRow<ROW>, localX: number): DTableBodyCell<ROW, unknown> | null {
 		const cells = row.children as Array<DTableBodyCell<ROW, unknown>>;
 		const cellsLength = cells.length;
 		const columns = this._columns;
 		const columnsLength = columns.length;
 		for (let i = 0, imax = Math.min(cellsLength, columnsLength); i < imax; ++i) {
 			const cell = cells[cellsLength - i - 1];
-			const x = local.x - cell.position.x;
+			const x = localX - cell.position.x;
 			if (0 <= x && x <= cell.width) {
 				return cell;
 			}
@@ -499,12 +522,12 @@ export class DTableBody<
 			const local = DTableBody.WORK_ON_CLICK;
 			local.copyFrom(e.data.global);
 			this.toLocal(local, undefined, local, false);
-			const rowIndexMapped = this.toRowIndexMapped(local);
-			if (0 <= rowIndexMapped && rowIndexMapped < this._data.mapped.size()) {
+			const rowIndexMapped = this.toRowIndexMapped(local.y);
+			if (0 <= rowIndexMapped) {
 				// Delegate to the cell at first
 				const row = this.toRow(rowIndexMapped);
 				if (row) {
-					const cell = this.toCell(row, local);
+					const cell = this.toCell(row, local.x);
 					if (cell && cell.onRowSelect && cell.onRowSelect(e, local)) {
 						return;
 					}
