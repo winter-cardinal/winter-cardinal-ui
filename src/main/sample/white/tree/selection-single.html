@@ -25,10 +25,10 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTree({
 			parent: application.stage,
@@ -38,7 +38,7 @@
 				selection: {
 					type: "SINGLE",
 					on: {
-						change: function(selection) {
+						change: (selection) => {
 							console.log(selection.toArray());
 						}
 					}
@@ -48,7 +48,7 @@
 						name: "Apple",
 						children: [
 							{
-								name: "Apple leaf"
+								name: "Apple Leaf"
 							}
 						]
 					},
@@ -56,7 +56,7 @@
 						name: "Orange",
 						children: [
 							{
-								name: "Orange leaf"
+								name: "Orange Leaf"
 							}
 						]
 					},
@@ -64,14 +64,14 @@
 						name: "Pineapple",
 						children: [
 							{
-								name: "Pineapple leaf"
+								name: "Pineapple Leaf"
 							}
 						]
 					}
 				]
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

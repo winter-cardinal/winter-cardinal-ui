@@ -25,9 +25,9 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTree({
 			parent: application.stage,
@@ -36,37 +36,37 @@
 			value: [
 				{
 					name: "Apple",
-					title: "Apple's title",
+					title: "Apple Title",
 					children: [
 						{
-							name: "Apple leaf",
-							title: "Apple leaf's title"
+							name: "Apple Leaf",
+							title: "Apple Leaf Title"
 						}
 					]
 				},
 				{
 					name: "Orange",
-					title: "Orange's title",
+					title: "Orange Title",
 					children: [
 						{
-							name: "Orange leaf",
-							title: "Orange leaf's title"
+							name: "Orange Leaf",
+							title: "Orange Leaf Title"
 						}
 					]
 				},
 				{
 					name: "Pineapple",
-					title: "Pineapple's title",
+					title: "Pineapple Title",
 					children: [
 						{
-							name: "Pineapple leaf",
-							title: "Pineapple leaf's title"
+							name: "Pineapple Leaf",
+							title: "Pineapple Leaf Title"
 						}
 					]
 				}
 			]
 		});
-	}() );
+	})();
 	</script>
 </body>
 

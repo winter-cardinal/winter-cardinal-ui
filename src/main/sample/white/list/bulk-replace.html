@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Bulk item replacement</title>
+	<title>Bulk Item Replacement</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -20,15 +20,15 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var counter = 0;
-		var newItems = function() {
-			var result = [];
-			for (var i = 0; i < 10; ++i) {
+		let counter = 0;
+		const newItems = () => {
+			const result = [];
+			for (let i = 0; i < 10; ++i) {
 				result.push({
 					id: i,
 					name: "Item " + (++counter),
@@ -37,31 +37,31 @@
 			return result;
 		};
 
-		var list = new wcardinal.ui.DList({
+		const list = new wcardinal.ui.DList({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
 			data: {
 				items: newItems(),
-				toLabel: function(item) {
+				toLabel: (item) => {
 					return item.name;
 				},
 				// This is to maintain the item selection state.
 				// Without this, every time the data is updated,
 				// the item selection state gets lost.
-				toId: function(item) {
+				toId: (item) => {
 					return item.id;
 				}
 			}
 		});
 
-		var update = function() {
+		const update = () => {
 			// Replaces all items.
 			list.data.items = newItems();
-			setTimeout( update, 1000 );
+			setTimeout(update, 1000);
 		};
 		update();
-	}());
+	})();
 	</script>
 </body>
 </html>

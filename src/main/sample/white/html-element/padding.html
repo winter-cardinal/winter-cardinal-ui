@@ -25,15 +25,15 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var creator = function ( container ) {
-			var result = document.createElement( "input" );
+		const creator = (container) => {
+			const result = document.createElement("input");
 			result.value = "HTMLInputElement";
-			container.appendChild( result );
+			container.appendChild(result);
 			return result;
 		};
 
@@ -104,7 +104,7 @@
 				})
 			]
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

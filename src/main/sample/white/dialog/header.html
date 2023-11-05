@@ -25,12 +25,12 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogMessage({
+		const dialog = new wcardinal.ui.DDialogMessage({
 			header: {
 				text: {
 					value: "Apple"
@@ -50,17 +50,17 @@
 				enable: true
 			},
 			on: {
-				active: function (emitter) {
-					dialog.open(emitter).then(function (date) {
+				active: (emitter) => {
+					dialog.open(emitter).then((date) => {
 						console.log(date);
 					})
-					.catch(function() {
+					.catch(() => {
 						console.log("Canceled");
 					});
 				}
 			}
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

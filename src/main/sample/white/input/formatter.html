@@ -25,30 +25,30 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DInputReal({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 200,
 			text: {
-				formatter: function ( value ) {
-					return (value * 100).toFixed( 2 );
+				formatter: (value) => {
+					return (value * 100).toFixed(2);
 				}
 			},
 			editing: {
-				formatter: function ( value ) {
-					return (value * 100).toFixed( 3 );
+				formatter: (value) => {
+					return (value * 100).toFixed(3);
 				},
-				unformatter: function ( value ) {
+				unformatter: (value) => {
 					return value / 100;
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Nesting menus</title>
+	<title>Nesting Menus</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,10 +25,10 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DMenuBar({
 			parent: application.stage,
@@ -81,12 +81,12 @@
 				}
 			}],
 			on: {
-				select: function ( value, item, menuBar ) {
-					console.log( value, item, menuBar );
+				select: (value, item, menuBar) => {
+					console.log(value, item, menuBar);
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

@@ -25,178 +25,178 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-		(function () {
-			"use strict";
-			const application = new wcardinal.ui.DApplication();
+	(() => {
+		"use strict";
+		const application = new wcardinal.ui.DApplication();
 
-			// Sliders
-			const horizontalSlider = new wcardinal.ui.DSliderHorizontal({
-				min: {
-					value: 0
-				},
-				max: {
-					value: 100
-				},
-				value: {
-					precision: 2,
-					value: 50
-				}
-			});
-
-			const verticalSlider = new wcardinal.ui.DSliderVertical( {
-				min: {
-					value: 0
-				},
-				max: {
-					value: 100
-				},
-				value: {
-					precision: 2,
-					value: 50
-				}
-			});
-
-			// Formatter
-			const formatter = function ( value ) {
-				return `H: ${ value[ 0 ].toFixed(2) }, V: ${ value[ 1 ].toFixed(2) }`;
+		// Sliders
+		const horizontalSlider = new wcardinal.ui.DSliderHorizontal({
+			min: {
+				value: 0
+			},
+			max: {
+				value: 100
+			},
+			value: {
+				precision: 2,
+				value: 50
 			}
+		});
 
-			// Current value
-			const labelValue = new wcardinal.ui.DText({
-				width: 200,
-				text: {
-					value: [ horizontalSlider.value, verticalSlider.value ],
-					formatter: formatter
-				}
-			});
-			const buttonValue = new wcardinal.ui.DButtonPrimary({
-				text: {
-					value: "Get Value"
-				},
-				on: {
-					active: function ( btn ) {
-						labelValue.text = [ horizontalSlider.value, verticalSlider.value ];
-					}
-				}
-			});
-			const inputValue = new wcardinal.ui.DInputReal({
-				width: 200,
-				on: {
-					change: function ( value ) {
-						horizontalSlider.value = value;
-						verticalSlider.value = value;
-					}
-				}
-			});
+		const verticalSlider = new wcardinal.ui.DSliderVertical({
+			min: {
+				value: 0
+			},
+			max: {
+				value: 100
+			},
+			value: {
+				precision: 2,
+				value: 50
+			}
+		});
 
-			// Minimum value
-			const labelMin = new wcardinal.ui.DText({
-				width: 200,
-				text: {
-					value: [ horizontalSlider.min, verticalSlider.min ],
-					formatter: formatter
-				}
-			});
-			const buttonMin = new wcardinal.ui.DButtonPrimary({
-				text: {
-					value: "Get Min"
-				},
-				on: {
-					active: function ( btn ) {
-						labelMin.text = [ horizontalSlider.min, verticalSlider.min ];
-					}
-				}
-			});
-			const inputMin = new wcardinal.ui.DInputReal({
-				width: 200,
-				on: {
-					change: function ( value ) {
-						horizontalSlider.min = value;
-						verticalSlider.min = value;
-					}
-				}
-			});
+		// Formatter
+		const formatter = (value) => {
+			return `H: ${ value[0].toFixed(2) }, V: ${ value[1].toFixed(2) }`;
+		}
 
-			// Maximum value
-			const labelMax = new wcardinal.ui.DText({
-				width: 200,
-				text: {
-					value: [ horizontalSlider.max, verticalSlider.max ],
-					formatter: formatter
+		// Current value
+		const labelValue = new wcardinal.ui.DText({
+			width: 200,
+			text: {
+				value: [horizontalSlider.value, verticalSlider.value],
+				formatter: formatter
+			}
+		});
+		const buttonValue = new wcardinal.ui.DButtonPrimary({
+			text: {
+				value: "Get Value"
+			},
+			on: {
+				active: (btn) => {
+					labelValue.text = [horizontalSlider.value, verticalSlider.value];
 				}
-			});
-			const buttonMax = new wcardinal.ui.DButtonPrimary({
-				text: {
-					value: "Get Max"
-				},
-				on: {
-					active: function ( btn ) {
-						labelMax.text = [ horizontalSlider.max, verticalSlider.max ];
-					}
+			}
+		});
+		const inputValue = new wcardinal.ui.DInputReal({
+			width: 200,
+			on: {
+				change: (value) => {
+					horizontalSlider.value = value;
+					verticalSlider.value = value;
 				}
-			});
-			const inputMax = new wcardinal.ui.DInputReal({
-				width: 200,
-				on: {
-					change: function ( value ) {
-						horizontalSlider.max = value;
-						verticalSlider.max = value;
-					}
-				}
-			});
+			}
+		});
 
-			// Layout
-			new wcardinal.ui.DLayoutVertical({
-				parent: application.stage,
-				x: 50, y: 50,
-				width: "100% - 100",
-				height: "100% - 100",
-				children: [
-					new wcardinal.ui.DLayoutHorizontal({
-						width: "100%", height: "auto",
-						margin: 100,
-						children: [
-							horizontalSlider,
-							verticalSlider
-						]
-					}),
-					new wcardinal.ui.DLayoutVertical({
-						width: "100%", height: "auto",
-						column: 3,
-						children: [
-							new wcardinal.ui.DButtonCheck({
-								width: 200,
-								text: {
-									value: "Disable sliders"
+		// Minimum value
+		const labelMin = new wcardinal.ui.DText({
+			width: 200,
+			text: {
+				value: [horizontalSlider.min, verticalSlider.min],
+				formatter: formatter
+			}
+		});
+		const buttonMin = new wcardinal.ui.DButtonPrimary({
+			text: {
+				value: "Get Min"
+			},
+			on: {
+				active: (btn) => {
+					labelMin.text = [horizontalSlider.min, verticalSlider.min];
+				}
+			}
+		});
+		const inputMin = new wcardinal.ui.DInputReal({
+			width: 200,
+			on: {
+				change: (value) => {
+					horizontalSlider.min = value;
+					verticalSlider.min = value;
+				}
+			}
+		});
+
+		// Maximum value
+		const labelMax = new wcardinal.ui.DText({
+			width: 200,
+			text: {
+				value: [horizontalSlider.max, verticalSlider.max],
+				formatter: formatter
+			}
+		});
+		const buttonMax = new wcardinal.ui.DButtonPrimary({
+			text: {
+				value: "Get Max"
+			},
+			on: {
+				active: (btn) => {
+					labelMax.text = [horizontalSlider.max, verticalSlider.max];
+				}
+			}
+		});
+		const inputMax = new wcardinal.ui.DInputReal({
+			width: 200,
+			on: {
+				change: (value) => {
+					horizontalSlider.max = value;
+					verticalSlider.max = value;
+				}
+			}
+		});
+
+		// Layout
+		new wcardinal.ui.DLayoutVertical({
+			parent: application.stage,
+			x: 50, y: 50,
+			width: "100% - 100",
+			height: "100% - 100",
+			children: [
+				new wcardinal.ui.DLayoutHorizontal({
+					width: "100%", height: "auto",
+					margin: 100,
+					children: [
+						horizontalSlider,
+						verticalSlider
+					]
+				}),
+				new wcardinal.ui.DLayoutVertical({
+					width: "100%", height: "auto",
+					column: 3,
+					children: [
+						new wcardinal.ui.DButtonCheck({
+							width: 200,
+							text: {
+								value: "Disable sliders"
+							},
+							on: {
+								active: (btn) => {
+									horizontalSlider.state.isDisabled = true;
+									verticalSlider.state.isDisabled = true;
 								},
-								on: {
-									active: function ( btn ) {
-										horizontalSlider.state.isDisabled = true;
-										verticalSlider.state.isDisabled = true;
-									},
 
-									inactive: function ( btn ) {
-										horizontalSlider.state.isDisabled = false;
-										verticalSlider.state.isDisabled = false;
-									}
+								inactive: (btn) => {
+									horizontalSlider.state.isDisabled = false;
+									verticalSlider.state.isDisabled = false;
 								}
-							}),
-							new wcardinal.ui.DLayoutSpace(),
-							labelValue,
-							buttonValue,
-							inputValue,
-							labelMin,
-							buttonMin,
-							inputMin,
-							labelMax,
-							buttonMax,
-							inputMax
-						]
-					})
-				]
-			});
+							}
+						}),
+						new wcardinal.ui.DLayoutSpace(),
+						labelValue,
+						buttonValue,
+						inputValue,
+						labelMin,
+						buttonMin,
+						inputMin,
+						labelMax,
+						buttonMax,
+						inputMax
+					]
+				})
+			]
+		});
 
-		}());
+	})();
 	</script>
 </body>
 

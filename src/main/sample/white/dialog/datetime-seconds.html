@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Datetime dialog with seconds</title>
+	<title>Datetime Dialog with Seconds</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,7 +25,7 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -44,17 +44,17 @@
 				value: "Open"
 			},
 			on: {
-				active: function (emitter) {
-					dialog.open(emitter).then(function (date) {
+				active: (emitter) => {
+					dialog.open(emitter).then((date) => {
 						console.log(date);
 					})
-					.catch(function() {
+					.catch(() => {
 						console.log("Canceled");
 					});
 				}
 			}
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

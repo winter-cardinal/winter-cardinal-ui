@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Embedded shapes from files</title>
+	<title>Embedded Shapes from Files</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,37 +25,37 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
 		const container = new wcardinal.ui.EShapeContainer();
-		container.position.set( 300, 300 );
+		container.position.set(300, 300);
 
 		const controller = {
 			piece: {
-				getByName( name ) {
-					return fetch( "../../resource/diagram/" + name + ".json" ).then(function( response ) {
-						return response.json().then(function ( json ) {
+				getByName(name) {
+					return fetch("../../resource/diagram/" + name + ".json").then((response) => {
+						return response.json().then((json) => {
 							return json;
 						})
 					});
 				}
 			}
 		};
-		fetch( "../../resource/diagram/embedding-nested.json" ).then(function ( response ) {
-			response.json().then(function ( json ) {
-				wcardinal.ui.EShapeEmbeddeds.from( json, controller, false ).then(function ( shape ) {
-					shape.attach( container );
+		fetch("../../resource/diagram/embedding-nested.json").then((response) => {
+			response.json().then((json) => {
+				wcardinal.ui.EShapeEmbeddeds.from(json, controller, false).then((shape) => {
+					shape.attach(container);
 					application.update();
 				});
 			});
 		});
 
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 		application.update();
-	}());
+	})();
 	</script>
 </body>
 </html>

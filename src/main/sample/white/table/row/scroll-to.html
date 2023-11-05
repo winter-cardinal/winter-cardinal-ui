@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Scroll to row</title>
+	<title>Scroll to Row</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,17 +25,17 @@
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.js"></script>
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var rows = [];
+		const rows = [];
 		for (let i = 1; i <= 300; ++i) {
 			rows.push(["Row " + i, (1 + i % 5) * 100]);
 		}
 
-		var table = new wcardinal.ui.DTable({
+		const table = new wcardinal.ui.DTable({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
@@ -51,7 +51,7 @@
 			data: rows
 		});
 
-		var button = new wcardinal.ui.DInputIntegerAndLabel({
+		const button = new wcardinal.ui.DInputIntegerAndLabel({
 			parent: application.stage,
 			x: "center", y: (p, s) => 0.5 * (p - s) - 310,
 			width: 500,
@@ -82,7 +82,7 @@
 				width: 100
 			}
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

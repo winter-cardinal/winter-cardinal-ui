@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Fitting with an animation</title>
+	<title>Fitting with Animation</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -26,7 +26,7 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script src="../../resource/chart/updater.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -64,10 +64,10 @@
 			}
 		});
 
-		new ChartUpdater(application, chart).speed(400).interval(400).capacity(32).fitter(function() {
+		new ChartUpdater(application, chart).speed(400).interval(400).capacity(32).fitter(() => {
 			chart.plotArea.fit();
 		}).start();
-	}());
+	})();
 	</script>
 </body>
 </html>

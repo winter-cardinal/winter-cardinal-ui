@@ -25,12 +25,12 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogInputInteger({
+		const dialog = new wcardinal.ui.DDialogInputInteger({
 			align: "RIGHT"
 		});
 
@@ -42,12 +42,12 @@
 				value: "Open"
 			},
 			on: {
-				active: function (emitter) {
+				active: (emitter) => {
 					dialog.open(emitter);
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

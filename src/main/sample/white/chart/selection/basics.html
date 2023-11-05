@@ -26,12 +26,12 @@
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script src="../../../resource/chart/filler.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var chart = new wcardinal.ui.DChart({
+		const chart = new wcardinal.ui.DChart({
 			parent: application.stage,
 			x: 100, y: 50,
 			width: 500, height: 400,
@@ -49,15 +49,15 @@
 					selection: new wcardinal.ui.DChartSelectionSimple({
 						selected: {
 							on: {
-								change: function ( selected ) {
-									console.log( "selected", selected.series, selected.position );
+								change: (selected) => {
+									console.log("selected", selected.series, selected.position);
 								}
 							}
 						},
 						hovered: {
 							on: {
-								change: function ( selected ) {
-									console.log( "hovered", selected.series, selected.position );
+								change: (selected) => {
+									console.log("hovered", selected.series, selected.position);
 								}
 							}
 						}
@@ -81,7 +81,7 @@
 		});
 
 		new ChartFiller(application, chart).fill(256);
-	}());
+	})();
 	</script>
 </body>
 </html>

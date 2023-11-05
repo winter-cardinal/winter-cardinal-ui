@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Multi selection with selectable cells</title>
+	<title>Multi Selection with Selectable Cells</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,10 +25,10 @@
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTable({
 			parent: application.stage,
@@ -39,12 +39,12 @@
 				type: "SELECT",
 				editable: true,
 				selecting: {
-					getter: function ( dialog ) {
+					getter: (dialog) => {
 						return dialog.value.id;
 					},
 					dialog: {
 						controller: {
-							search: function ( word ) {
+							search: (word) => {
 								return Promise.resolve([{
 									id: "Apple",
 									label: "Apple"
@@ -54,8 +54,8 @@
 								},{
 									id: "Pineapple",
 									label: "Pineapple"
-								}].filter(function( item ) {
-									return word.length <= 0 || 0 <= item.label.indexOf( word )
+								}].filter((item) => {
+									return word.length <= 0 || 0 <= item.label.indexOf(word)
 								}));
 							}
 						}
@@ -66,8 +66,8 @@
 				type: "SELECT",
 				editable: true,
 				selecting: {
-					promise: function () {
-						return Promise.resolve( "Orange" );
+					promise: () => {
+						return Promise.resolve("Orange");
 					}
 				}
 			},{
@@ -134,18 +134,18 @@
 					}
 				},
 				rows: [
-					[ "Apple", "Apple", "Apple", "Apple" ],
-					[ "Orange", "Orange", "Orange", "Orange" ],
-					[ "Pineapple", "Pineapple", "Pineapple", "Pineapple" ]
+					["Apple", "Apple", "Apple", "Apple"],
+					["Orange", "Orange", "Orange", "Orange"],
+					["Pineapple", "Pineapple", "Pineapple", "Pineapple"]
 				],
 				on: {
-					change: function ( newValue, oldValue, row, rowIndex, columnIndex, data ) {
-						console.log( newValue, oldValue, row, rowIndex, columnIndex, data );
+					change: (newValue, oldValue, row, rowIndex, columnIndex, data) => {
+						console.log(newValue, oldValue, row, rowIndex, columnIndex, data);
 					}
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

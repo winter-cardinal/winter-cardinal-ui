@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Replacing a menu</title>
+	<title>Replacing Menu</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,10 +25,10 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DDropdown({
 			parent: application.stage,
@@ -56,12 +56,12 @@
 				}]
 			},
 			on: {
-				select: function( value, item, dropdown ) {
-					console.log( value, item, dropdown );
+				select: (value, item, dropdown) => {
+					console.log(value, item, dropdown);
 
 					// Replace a menu
-					setTimeout(function() {
-						var menu = dropdown.menu;
+					setTimeout(() => {
+						const menu = dropdown.menu;
 						dropdown.menu = new wcardinal.ui.DMenu({
 							fit: true,
 							items: [{
@@ -76,7 +76,7 @@
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

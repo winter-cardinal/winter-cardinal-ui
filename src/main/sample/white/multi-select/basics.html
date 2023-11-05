@@ -20,10 +20,10 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DSelectMultiple({
 			parent: application.stage,
@@ -57,12 +57,12 @@
 				}]
 			},
 			on: {
-				change: function ( newValues, oldValues, items, select ) {
-					console.log( "change", newValues, oldValues, items, select );
+				change: (newValues, oldValues, items, select) => {
+					console.log("change", newValues, oldValues, items, select);
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

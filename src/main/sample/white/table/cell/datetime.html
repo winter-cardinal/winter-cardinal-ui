@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Datetime cell</title>
+	<title>Datetime Cell</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,10 +25,10 @@
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTable({
 			parent: application.stage,
@@ -49,17 +49,17 @@
 			}],
 			data: {
 				rows: [
-					[ Date.now(), Date.now(), Date.now() ],
-					[ 0, 0, 0 ]
+					[Date.now(), Date.now(), Date.now()],
+					[0, 0, 0]
 				],
 				on: {
-					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
-						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					change: (newValue, oldValue, rowValue, rowIndex, columnIndex, data) => {
+						console.log(newValue, oldValue, rowValue, rowIndex, columnIndex, data);
 					}
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

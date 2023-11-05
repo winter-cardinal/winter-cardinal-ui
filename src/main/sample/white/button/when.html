@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>When to activate</title>
+	<title>When to Activate</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,10 +25,10 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
@@ -40,11 +40,11 @@
 					width: "100%",
 					when: "CLICKED",
 					text: {
-						value: "Click me"
+						value: "Click Me"
 					},
 					on: {
-						active: function( button ) {
-							console.log( "active", button );
+						active: (button) => {
+							console.log("active", button);
 						}
 					}
 				}),
@@ -52,17 +52,17 @@
 					width: "100%",
 					when: "DOUBLE_CLICKED",
 					text: {
-						value: "Double click me"
+						value: "Double Click Me"
 					},
 					on: {
-						active: function( button ) {
-							console.log( "active", button );
+						active: (button) => {
+							console.log("active", button);
 						}
 					}
 				})
 			]
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

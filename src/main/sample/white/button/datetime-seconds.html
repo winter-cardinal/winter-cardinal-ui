@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Datetime with seconds</title>
+	<title>Datetime with Seconds</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,7 +25,7 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -35,12 +35,14 @@
 			x: "center", y: "center",
 			width: 200,
 			dialog: {
+				mode: "MENU",
+				sticky: true,
 				picker: {
 					mask: wcardinal.ui.DPickerDatetimeMask.ALL
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

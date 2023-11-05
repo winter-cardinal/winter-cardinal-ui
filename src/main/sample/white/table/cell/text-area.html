@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Text area cell</title>
+	<title>Text Area Cell</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,7 +25,7 @@
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -44,11 +44,11 @@
 			}],
 			data: {
 				rows: [
-					[ "Apple\nOrange\nPineapple", "Apple\nOrange\nPineapple" ]
+					["Apple\nOrange\nPineapple", "Apple\nOrange\nPineapple"]
 				],
 				on: {
-					change: ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) => {
-						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					change: (newValue, oldValue, rowValue, rowIndex, columnIndex, data) => {
+						console.log(newValue, oldValue, rowValue, rowIndex, columnIndex, data);
 					}
 				}
 			},
@@ -58,7 +58,7 @@
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

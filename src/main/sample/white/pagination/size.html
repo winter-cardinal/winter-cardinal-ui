@@ -25,7 +25,7 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -44,7 +44,7 @@
 		setInterval(() => {
 			pagination.size = (pagination.size + 1) % 20;
 		}, 1000);
-	}());
+	})();
 	</script>
 </body>
 </html>

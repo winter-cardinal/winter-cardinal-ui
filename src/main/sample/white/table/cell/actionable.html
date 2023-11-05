@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Actionable cell</title>
+	<title>Actionable Cell</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,10 +25,10 @@
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTable({
 			parent: application.stage,
@@ -41,15 +41,15 @@
 				selecting: {
 					dialog: {
 						controller: {
-							search: function ( word ) {
+							search: (word) => {
 								return Promise.resolve([{
 									id: "Apple"
 								},{
 									id: "Orange"
 								},{
 									id: "Pineapple"
-								}].filter(function ( item ){
-									return word.length <= 0 || 0 <= item.id.indexOf( word );
+								}].filter((item) => {
+									return word.length <= 0 || 0 <= item.id.indexOf(word);
 								}));
 							}
 						}
@@ -60,8 +60,8 @@
 				type: "ACTION",
 				editable: true,
 				selecting: {
-					promise: function () {
-						return Promise.resolve( "Orange" );
+					promise: () => {
+						return Promise.resolve("Orange");
 					}
 				}
 			},{
@@ -92,18 +92,18 @@
 			}],
 			data: {
 				rows: [
-					[ "Apple", 2000, 0.123 ],
-					[ "Orange", 2001, 0.250 ],
-					[ "Pineapple", 2002, 0.500 ]
+					["Apple", 2000, 0.123],
+					["Orange", 2001, 0.250],
+					["Pineapple", 2002, 0.500]
 				],
 				on: {
-					change: function ( result, _, rowValue, rowIndex, columnIndex, data ) {
-						console.log( result, rowValue, rowIndex, columnIndex, data );
+					change: (result, _, rowValue, rowIndex, columnIndex, data) => {
+						console.log(result, rowValue, rowIndex, columnIndex, data);
 					}
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

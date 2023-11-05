@@ -25,14 +25,14 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication({
+		const application = new wcardinal.ui.DApplication({
 			resolution: 0.5
 		});
 
-		var dialog = new wcardinal.ui.DDialogMessage({
+		const dialog = new wcardinal.ui.DDialogMessage({
 			message: "Apple"
 		});
 
@@ -44,12 +44,12 @@
 				value: "Open"
 			},
 			on: {
-				active: function () {
+				active: () => {
 					dialog.open();
 				}
 			}
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

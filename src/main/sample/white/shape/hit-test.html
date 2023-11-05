@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Hit test</title>
+	<title>Hit Test</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,75 +25,75 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var container = new wcardinal.ui.EShapeContainer();
+		const container = new wcardinal.ui.EShapeContainer();
 		container.position.set(50, 50);
 
-		var bar = new wcardinal.ui.EShapeBar();
+		const bar = new wcardinal.ui.EShapeBar();
 		bar.points.position = wcardinal.ui.EShapeBarPosition.TOP;
 		bar.stroke.width = 10;
 		bar.transform.position.set(100, 100);
-		bar.attach( container );
+		bar.attach(container);
 
-		var line1 = wcardinal.ui.createLine([-40, -40, +10, -10, +40, +40], [], 10, wcardinal.ui.EShapePointsStyle.NONE);
+		const line1 = wcardinal.ui.createLine([-40, -40, +10, -10, +40, +40], [], 10, wcardinal.ui.EShapePointsStyle.NONE);
 		line1.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
 		line1.points.marker.head.size.set(40, 40);
 		line1.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
 		line1.points.marker.tail.size.set(40, 40);
 		line1.transform.position.set(250, 100);
-		line1.attach( container );
+		line1.attach(container);
 
-		var line2 = wcardinal.ui.createLine([-40, -40, +10, -10, +40, +40], [], 10, wcardinal.ui.EShapePointsStyle.NONE);
+		const line2 = wcardinal.ui.createLine([-40, -40, +10, -10, +40, +40], [], 10, wcardinal.ui.EShapePointsStyle.NONE);
 		line2.points.marker.head.type = wcardinal.ui.EShapePointsMarkerType.RECTANGLE;
 		line2.points.marker.head.size.set(40, 40);
 		line2.transform.position.set(400, 100);
-		line2.attach( container );
+		line2.attach(container);
 
-		var rectangle = new wcardinal.ui.EShapeRectangle();
+		const rectangle = new wcardinal.ui.EShapeRectangle();
 		rectangle.transform.position.set(100, 250);
 		rectangle.stroke.width = 10;
-		rectangle.attach( container );
+		rectangle.attach(container);
 
-		var rectangleRounded = new wcardinal.ui.EShapeRectangleRounded();
+		const rectangleRounded = new wcardinal.ui.EShapeRectangleRounded();
 		rectangleRounded.transform.position.set(250, 250);
 		rectangleRounded.stroke.width = 10;
-		rectangleRounded.attach( container );
+		rectangleRounded.attach(container);
 
-		var circle = new wcardinal.ui.EShapeCircle();
+		const circle = new wcardinal.ui.EShapeCircle();
 		circle.transform.position.set(400, 250);
 		circle.stroke.width = 10;
-		circle.attach( container );
+		circle.attach(container);
 
-		var triangle = new wcardinal.ui.EShapeTriangle();
+		const triangle = new wcardinal.ui.EShapeTriangle();
 		triangle.transform.position.set(100, 400);
 		triangle.stroke.width = 10;
-		triangle.attach( container );
+		triangle.attach(container);
 
-		var triangleRounded = new wcardinal.ui.EShapeTriangleRounded();
+		const triangleRounded = new wcardinal.ui.EShapeTriangleRounded();
 		triangleRounded.transform.position.set(250, 400);
 		triangleRounded.stroke.width = 10;
-		triangleRounded.attach( container );
+		triangleRounded.attach(container);
 
-		application.stage.on( "pointermove", function ( e ) {
-			var global = e.data.global;
-			var children = container.children;
+		application.stage.on("pointermove", (e) => {
+			const global = e.data.global;
+			const children = container.children;
 			for (let i = 0, imax = children.length; i < imax; ++i) {
-				var child = children[i];
-				var local = child.toLocal(global);
+				const child = children[i];
+				const local = child.toLocal(global);
 				if (child.contains(local.x, local.y)) {
-					var part = child.calcHitPart != null ? child.calcHitPart(local.x, local.y) : 0;
-					console.log( i, child.constructor.name, global.x, global.y, part );
+					const part = child.calcHitPart != null ? child.calcHitPart(local.x, local.y) : 0;
+					console.log(i, child.constructor.name, global.x, global.y, part);
 				}
 			}
 		});
 
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 		application.update();
-	}());
+	})();
 	</script>
 </body>
 </html>

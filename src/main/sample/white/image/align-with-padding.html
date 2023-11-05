@@ -9,6 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Align with Padding</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -24,10 +25,10 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		const makeImage = function ( parent, textAlign, imageAlign, secondaryImageAlign, superClass ) {
+		const makeImage = (parent, textAlign, imageAlign, secondaryImageAlign, superClass) => {
 			class DThemeImageNew extends superClass {
 				getTextAlignHorizontal() {
 					return textAlign;
@@ -131,13 +132,13 @@
 			wcardinal.ui.DAlignHorizontal.RIGHT
 		];
 
-		for( let j = 0, jmax = IMAGE_ALIGNS.length; j < jmax; ++j ) {
+		for (let j = 0, jmax = IMAGE_ALIGNS.length; j < jmax; ++j) {
 			new wcardinal.ui.DLayoutSpace({ parent: layout });
-			for( let k = 0, kmax = IMAGE_ALIGNS.length; k < kmax; ++k ) {
-				makeImage( layout, TEXT_ALIGN, IMAGE_ALIGNS[ j ], IMAGE_ALIGNS[ k ], DThemeImageBase );
+			for (let k = 0, kmax = IMAGE_ALIGNS.length; k < kmax; ++k) {
+				makeImage(layout, TEXT_ALIGN, IMAGE_ALIGNS[j], IMAGE_ALIGNS[k], DThemeImageBase);
 			}
 		}
-	}());
+	})();
 	</script>
 </body>
 </html>

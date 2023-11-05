@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Expanding/collapsing nodes (1)</title>
+	<title>Expanding/Collapsing Nodes (1)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,11 +25,11 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var tree = new wcardinal.ui.DTree({
+		const tree = new wcardinal.ui.DTree({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
@@ -38,7 +38,7 @@
 					name: "Apple",
 					children: [
 						{
-							name: "Apple leaf"
+							name: "Apple Leaf"
 						}
 					]
 				},
@@ -46,7 +46,7 @@
 					name: "Orange",
 					children: [
 						{
-							name: "Orange leaf"
+							name: "Orange Leaf"
 						}
 					]
 				},
@@ -54,15 +54,15 @@
 					name: "Pineapple",
 					children: [
 						{
-							name: "Pineapple leaf"
+							name: "Pineapple Leaf"
 						}
 					]
 				}
 			]
 		});
 
-		var apple = tree.data.nodes[0];
-		var update = function() {
+		const apple = tree.data.nodes[0];
+		const update = () => {
 			if (tree.data.isExpanded(apple)) {
 				tree.data.collapse(apple);
 			} else {
@@ -71,7 +71,7 @@
 			setTimeout(update, 1000);
 		};
 		update();
-	}() );
+	})();
 	</script>
 </body>
 

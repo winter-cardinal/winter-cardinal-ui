@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Fully custom data</title>
+	<title>Fully Custom Data</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -25,11 +25,11 @@
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui.min.js"></script>
 	<script src="../../js/wcardinal-ui/latest/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var tree = new wcardinal.ui.DTree({
+		const tree = new wcardinal.ui.DTree({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500,
@@ -40,7 +40,7 @@
 						id: "Apple",
 						items: [
 							{
-								id: "Apple leaf"
+								id: "Apple Leaf"
 							}
 						]
 					},
@@ -48,7 +48,7 @@
 						id: "Orange",
 						items: [
 							{
-								id: "Orange leaf"
+								id: "Orange Leaf"
 							}
 						]
 					},
@@ -56,26 +56,26 @@
 						id: "Pineapple",
 						items: [
 							{
-								id: "Pineapple leaf"
+								id: "Pineapple Leaf"
 							}
 						]
 					}
 				],
-				toLabel: function(node) {
+				toLabel: (node) => {
 					return node.id;
 				},
-				toTitle: function(node) {
+				toTitle: (node) => {
 					return undefined;
 				},
-				toImage: function(node) {
+				toImage: (node) => {
 					return undefined;
 				},
-				toChildren: function(node) {
+				toChildren: (node) => {
 					return node.items;
 				}
 			}
 		});
-	}() );
+	})();
 	</script>
 </body>
 
