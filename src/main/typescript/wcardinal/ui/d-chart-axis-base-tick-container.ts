@@ -79,15 +79,15 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	update(): boolean {
+		const parser = this._parser;
 		const container = this._container;
 		const majorShapes = this._major.shapes;
 		const minorShapes = this._minor.shapes;
-		if (container != null && majorShapes && minorShapes) {
+		if (parser.tick.enable && container != null && majorShapes && minorShapes) {
 			const plotArea = container.plotArea;
 			const transform = plotArea.container.transform.localTransform;
 			const gridlineShapes = this._major.gridline.shapes;
 
-			const parser = this._parser;
 			const offset = parser.padding * this._index;
 			const work = this._work;
 			let coordinate: DChartCoordinate<CHART> | null;
