@@ -22,21 +22,21 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var diagram = new wcardinal.ui.DDiagramEditor({
+		const diagram = new wcardinal.ui.DDiagramEditor({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",
 			on: {
-				ready: function() {
-					var newMarkerType = function() {
+				ready: () => {
+					const newMarkerType = () => {
 						return [
 							wcardinal.ui.EShapePointsMarkerType.NONE,
 							wcardinal.ui.EShapePointsMarkerType.CIRCLE,
@@ -45,21 +45,21 @@
 						][Math.floor(Math.random() * 4)];
 					};
 
-					var newMarkerSize = function() {
+					const newMarkerSize = () => {
 						return 15 + Math.round((Math.random() - 0.5) * 5);
 					};
 
-					var newLine = function(ix, iy) {
-						var points = [-40, -40, +10, -10, +40, +40];
-						var style = wcardinal.ui.EShapePointsStyle.NONE;
-						var result = wcardinal.ui.createLine(points, [], 3, style);
-						var marker = result.points.marker;
+					const newLine = (ix, iy) => {
+						const points = [-40, -40, +10, -10, +40, +40];
+						const style = wcardinal.ui.EShapePointsStyle.NONE;
+						const result = wcardinal.ui.createLine(points, [], 3, style);
+						const marker = result.points.marker;
 						marker.head.type = newMarkerType();
 						marker.head.size.set(newMarkerSize(), newMarkerSize());
 						marker.tail.type = newMarkerType();
 						marker.tail.size.set(newMarkerSize(), newMarkerSize());
 						result.transform.position.set(100 * ix + 50, 100 * iy + 50);
-						result.attach( diagram.layer );
+						result.attach(diagram.layer);
 						return result;
 					};
 
@@ -74,8 +74,12 @@
 			}
 		});
 
-		diagram.create("Line Marker", 500, 500);
-	}());
+		diagram.create({
+			name: "Line Marker",
+			width: 500,
+			height: 500
+		});
+	})();
 	</script>
 </body>
 </html>

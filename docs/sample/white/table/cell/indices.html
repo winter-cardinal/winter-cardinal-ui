@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Index cell</title>
+	<title>Index Cell</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTable({
 			parent: application.stage,
@@ -41,20 +41,20 @@
 				label: "Index by formatter",
 				type: "TEXT",
 				align: "CENTER",
-				getter: function( row ) {
+				getter: (row) => {
 					return row;
 				},
-				formatter: function(cell, emitter) {
+				formatter: (cell, emitter) => {
 					return String(emitter.rowIndex + 1);
 				}
 			}],
 			data: [
-				[ "Apple", "Apple" ],
-				[ "Orange", "Orange" ],
-				[ "Pineapple", "Pineapple" ]
+				["Apple", "Apple"],
+				["Orange", "Orange"],
+				["Pineapple", "Pineapple"]
 			]
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

@@ -22,22 +22,22 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogInputInteger({
+		const dialog = new wcardinal.ui.DDialogInputInteger({
 			mode: "MENU",
 			on: {
-				ok: function (value, input) {
+				ok: (value, input) => {
 					console.log(value, input);
 				},
 
-				cancel: function (reason, input) {
+				cancel: (reason, input) => {
 					console.log(reason, input);
 				}
 			}
@@ -51,17 +51,17 @@
 				value: "Open"
 			},
 			on: {
-				active: function (emitter) {
-					dialog.open(emitter).then(function(value){
-						console.log( value );
+				active: (emitter) => {
+					dialog.open(emitter).then((value) => {
+						console.log(value);
 					})
-					.catch(function() {
+					.catch(() => {
 						console.log("Canceled");
 					});
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

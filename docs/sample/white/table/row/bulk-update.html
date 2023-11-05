@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Bulk row update</title>
+	<title>Bulk Row Update</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,15 +22,15 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var table = new wcardinal.ui.DTable({
+		const table = new wcardinal.ui.DTable({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
@@ -40,29 +40,29 @@
 				editable: true
 			}],
 			data: [
-				[ true ],
-				[ false ],
-				[ true ],
-				[ false ],
-				[ true ],
-				[ false ]
+				[true],
+				[false],
+				[true],
+				[false],
+				[true],
+				[false]
 			]
 		});
 
-		var update = function() {
-			table.data.each( function ( row ) {
-				row[ 0 ] = !row[ 0 ];
+		const update = () => {
+			table.data.each((row) => {
+				row[0] = !row[0];
 			});
 
 			// Update DTable forcibly.
 			// Because the data are changed outside of DTable,
 			// DTable has no idea the data are changed.
-			table.body.update( true );
+			table.body.update(true);
 
-			setTimeout( update, 1000 );
+			setTimeout(update, 1000);
 		};
 		update();
-	}());
+	})();
 	</script>
 </body>
 </html>

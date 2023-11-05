@@ -22,11 +22,11 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script src="../../resource/chart/updater.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -43,13 +43,13 @@
 				series: {
 					list: [
 						new wcardinal.ui.DChartSeriesLine({
-							points: [ 0, 0, 1, 1, 2, 3, 3, 1, 4, 0 ]
+							points: [0, 0, 1, 1, 2, 3, 3, 1, 4, 0]
 						}),
 						new wcardinal.ui.DChartSeriesBar({
-							points: [ 0, 1, 1, 2, 2, 3, 3, 2, 4, 1 ]
+							points: [0, 1, 1, 2, 2, 3, 3, 2, 4, 1]
 						}),
 						new wcardinal.ui.DChartSeriesBar({
-							points: [ 0, 2, 1, 3, 2, 4, 3, 5, 4, 4 ]
+							points: [0, 2, 1, 3, 2, 4, 3, 5, 4, 4]
 						}),
 					]
 				},
@@ -69,10 +69,10 @@
 				}
 			}
 		});
-		chart.plotArea.coordinate.fit( 0, 2.5 );
+		chart.plotArea.coordinate.fit(0, 2.5);
 		chart.plotArea.axis.update();
 		chart.plotArea.series.update();
-	}());
+	})();
 	</script>
 </body>
 </html>

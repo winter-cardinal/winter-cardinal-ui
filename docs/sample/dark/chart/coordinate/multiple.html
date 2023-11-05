@@ -22,11 +22,11 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script src="../../../resource/chart/updater.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -99,7 +99,7 @@
 			x: 80, y: 520,
 			width: 300,
 			text: {
-				value: "Change 2nd series' coordinate"
+				value: "Change 2nd Series' Coordinate"
 			},
 			on: {
 				active: () => {
@@ -115,7 +115,7 @@
 		new ChartUpdater(application, chart).fitter(() => {
 			chart.plotArea.fit();
 		}).start();
-	}());
+	})();
 	</script>
 </body>
 </html>

@@ -22,10 +22,10 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -38,11 +38,11 @@
 				ready: () => {
 					const circleA = new wcardinal.ui.EShapeCircle();
 					circleA.transform.position.set(100, 250);
-					circleA.attach( diagram.layer );
+					circleA.attach(diagram.layer);
 
 					const circleB = new wcardinal.ui.EShapeCircle();
 					circleB.transform.position.set(400, 250);
-					circleB.attach( diagram.layer );
+					circleB.attach(diagram.layer);
 
 					const connector = new wcardinal.ui.EShapeConnectorLine();
 					connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.TRIANGLE;
@@ -51,7 +51,7 @@
 					connector.edge.tail.set(circleA, "RIGHT", null, null, 10);
 					connector.edge.head.set(circleB, "LEFT", null, null, 10);
 					connector.body.set([0, -0.3]);
-					connector.attach( diagram.layer );
+					connector.attach(diagram.layer);
 
 					const update = () => {
 						const t = (Date.now()) / 3000 * Math.PI;
@@ -64,8 +64,12 @@
 			}
 		});
 
-		diagram.create("Connector", 500, 500);
-	}());
+		diagram.create({
+			name: "Connector",
+			width: 500,
+			height: 500
+		});
+	})();
 	</script>
 </body>
 </html>

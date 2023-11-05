@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Expanding/collapsing nodes (2)</title>
+	<title>Expanding/Collapsing Nodes (2)</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,14 +22,14 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var tree = new wcardinal.ui.DTree({
+		const tree = new wcardinal.ui.DTree({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
@@ -38,7 +38,7 @@
 					name: "Apple",
 					children: [
 						{
-							name: "Apple leaf"
+							name: "Apple Leaf"
 						}
 					]
 				},
@@ -46,7 +46,7 @@
 					name: "Orange",
 					children: [
 						{
-							name: "Orange leaf"
+							name: "Orange Leaf"
 						}
 					]
 				},
@@ -54,20 +54,20 @@
 					name: "Pineapple",
 					children: [
 						{
-							name: "Pineapple leaf"
+							name: "Pineapple Leaf"
 						}
 					]
 				}
 			]
 		});
 
-		var apple = tree.data.nodes[0];
-		var update = function() {
+		const apple = tree.data.nodes[0];
+		const update = () => {
 			tree.data.toggle(apple);
 			setTimeout(update, 1000);
 		};
 		update();
-	}() );
+	})();
 	</script>
 </body>
 

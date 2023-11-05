@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Custom updater</title>
+	<title>Custom Updater</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTree({
 			parent: application.stage,
@@ -39,7 +39,7 @@
 					name: "Apple",
 					children: [
 						{
-							name: "Apple leaf"
+							name: "Apple Leaf"
 						}
 					]
 				},
@@ -47,7 +47,7 @@
 					name: "Orange",
 					children: [
 						{
-							name: "Orange leaf"
+							name: "Orange Leaf"
 						}
 					]
 				},
@@ -55,7 +55,7 @@
 					name: "Pineapple",
 					children: [
 						{
-							name: "Pineapple leaf"
+							name: "Pineapple Leaf"
 						}
 					]
 				}
@@ -66,14 +66,14 @@
 			// number of items every time their container size changes and creates items
 			// if needed. The function `newItem` is called to create items.
 			updater: {
-				newItem: function(data) {
+				newItem: (data) => {
 					return new wcardinal.ui.DTreeItemNonEditable(data, {
 						on: {
-							set: function(value, index) {
+							set: (value, index) => {
 								console.log("set", value, index);
 							},
 
-							unset: function() {
+							unset:() => {
 								console.log("unset");
 							}
 						}
@@ -81,7 +81,7 @@
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

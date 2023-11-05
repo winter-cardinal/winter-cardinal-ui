@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gradient color dialog</title>
+	<title>Gradient Color Dialog</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,15 +22,15 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var dialog = new wcardinal.ui.DDialogColorGradient();
+		const dialog = new wcardinal.ui.DDialogColorGradient();
 
 		new wcardinal.ui.DButton({
 			parent: application.stage,
@@ -40,17 +40,17 @@
 				value: "Open"
 			},
 			on: {
-				active: function (emitter) {
-					dialog.open(emitter).then(function (date) {
+				active: (emitter) => {
+					dialog.open(emitter).then((date) => {
 						console.log(date);
 					})
-					.catch(function() {
+					.catch(() => {
 						console.log("Canceled");
 					});
 				}
 			}
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

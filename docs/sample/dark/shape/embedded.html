@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Embedded shape</title>
+	<title>Embedded Shape</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,41 +22,41 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
 		const container = new wcardinal.ui.EShapeContainer();
-		container.position.set( 200, 200 );
+		container.position.set(200, 200);
 
-		const embedded = new wcardinal.ui.EShapeEmbedded( "", false );
+		const embedded = new wcardinal.ui.EShapeEmbedded("", false);
 		const rectangleA = new wcardinal.ui.EShapeRectangle();
-		rectangleA.transform.position.set( -50, -50 );
-		rectangleA.attach( embedded );
+		rectangleA.transform.position.set(-50, -50);
+		rectangleA.attach(embedded);
 		const rectangleB = new wcardinal.ui.EShapeRectangle();
-		rectangleB.transform.position.set( +50, +50 );
-		rectangleB.attach( embedded );
+		rectangleB.transform.position.set(+50, +50);
+		rectangleB.attach(embedded);
 		embedded.size.init();
-		embedded.attach( container );
+		embedded.attach(container);
 
-		application.stage.on( "pointermove", function ( e ) {
+		application.stage.on("pointermove", (e) => {
 			const global = e.data.global;
-			const local = embedded.toLocal( global );
-			console.log( local.x, local.y, embedded.contains( local.x, local.y ) );
+			const local = embedded.toLocal(global);
+			console.log(local.x, local.y, embedded.contains(local.x, local.y));
 		});
 
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 		application.update();
-		setInterval(function () {
+		setInterval(() => {
 			embedded.transform.rotation += 0.01;
 			embedded.transform.scale.x = 1 + (Date.now() % 10000) / 10000;
 			application.render();
 		}, 32);
-	}());
+	})();
 	</script>
 </body>
 </html>

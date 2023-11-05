@@ -22,17 +22,17 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var resolution = window.devicePixelRatio || 1;
-		var size = 24 * resolution;
-		var tooLow = wcardinal.ui.toSvgTexture(
+		const resolution = window.devicePixelRatio || 1;
+		const size = 24 * resolution;
+		const tooLow = wcardinal.ui.toSvgTexture(
 			'<svg xmlns="http://www.w3.org/2000/svg" height="' + size + 'px" width="' + size + 'px" viewBox="0 0 24 24" fill="#ffffff">' +
 				'<path d="M12 17q.425 0 .713-.288Q13 16.425 13 16t-.287-.713Q12.425 15 12 15t-.712.287Q11 15.575 11 16t.288.712Q11.575' +
 				' 17 12 17Zm-1-4h2V7h-2Zm1 9q-2.075 0-3.9-.788-1.825-.787-3.175-2.137-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.78' +
@@ -61,7 +61,7 @@
 				weight: 1,
 				body: {
 					image: {
-						source: function (state) {
+						source: (state) => {
 							return state.is("too-low") ? tooLow : null;
 						},
 						align: {
@@ -70,17 +70,17 @@
 						}
 					}
 				},
-				state: function (row, columnIndex, state) {
+				state: (row, columnIndex, state) => {
 					state.set("too-low", row[columnIndex] <= 0.25);
 				}
 			}],
 			data: [
-				[ "Apple", 2000, 0.123 ],
-				[ "Orange", 2001, 0.250 ],
-				[ "Pineapple", 2002, 0.500 ]
+				["Apple", 2000, 0.123],
+				["Orange", 2001, 0.250],
+				["Pineapple", 2002, 0.500]
 			]
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

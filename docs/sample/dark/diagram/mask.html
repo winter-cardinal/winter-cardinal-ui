@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Overflow mask</title>
+	<title>Overflow Mask</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,38 +22,38 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var diagram1 = new wcardinal.ui.DDiagram({
+		const diagram1 = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "50%", height: "100%",
 			mask: true
 		});
 
-		var diagram2 = new wcardinal.ui.DDiagram({
+		const diagram2 = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: "50%", y: 0,
 			width: "50%", height: "100%",
 			mask: true
 		});
 
-		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
-			response.json().then(function( json ) {
-				diagram1.set( json );
+		fetch("../../resource/diagram/text.json").then((response) => {
+			response.json().then((json) => {
+				diagram1.set(json);
 				diagram1.view.fit();
 
-				diagram2.set( json );
+				diagram2.set(json);
 				diagram2.view.fit();
 			});
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

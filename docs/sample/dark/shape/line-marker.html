@@ -22,17 +22,17 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var container = new wcardinal.ui.EShapeContainer();
+		const container = new wcardinal.ui.EShapeContainer();
 
-		var newMarkerType = function() {
+		const newMarkerType = () => {
 			return [
 				wcardinal.ui.EShapePointsMarkerType.NONE,
 				wcardinal.ui.EShapePointsMarkerType.CIRCLE,
@@ -41,21 +41,21 @@
 			][Math.floor(Math.random() * 4)];
 		};
 
-		var newMarkerSize = function() {
+		const newMarkerSize = () => {
 			return 15 + Math.round((Math.random() - 0.5) * 5);
 		};
 
-		var newLine = function(ix, iy) {
-			var points = [-40, -40, +10, -10, +40, +40];
-			var style = wcardinal.ui.EShapePointsStyle.NONE;
-			var result = wcardinal.ui.createLine(points, [], 3, style);
-			var marker = result.points.marker;
+		const newLine = (ix, iy) => {
+			const points = [-40, -40, +10, -10, +40, +40];
+			const style = wcardinal.ui.EShapePointsStyle.NONE;
+			const result = wcardinal.ui.createLine(points, [], 3, style);
+			const marker = result.points.marker;
 			marker.head.type = newMarkerType();
 			marker.head.size.set(newMarkerSize(), newMarkerSize());
 			marker.tail.type = newMarkerType();
 			marker.tail.size.set(newMarkerSize(), newMarkerSize());
 			result.transform.position.set(100 + 150 * ix, 100 + 150 * iy);
-			result.attach( container );
+			result.attach(container);
 			return result;
 		};
 
@@ -65,19 +65,19 @@
 			}
 		}
 
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 		application.update();
-		setInterval(function () {
-			var children = container.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				var child = children[ i ];
-				var marker = child.points.marker;
+		setInterval(() => {
+			const children = container.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				const marker = child.points.marker;
 				marker.head.type = newMarkerType();
 				marker.tail.type = newMarkerType();
 			}
 			application.update();
 		}, 1000);
-	}());
+	})();
 	</script>
 </body>
 </html>

@@ -22,55 +22,55 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const now = new Date("2001/02/03 14:25:36.007");
 		const tests = [
-			[ "%Y", "2001" ],
-			[ "%y", "01" ],
+			["%Y", "2001"],
+			["%y", "01"],
 
-			[ "%M", "02" ],
-			[ "%_M", " 2" ],
-			[ "%-M", "2" ],
+			["%M", "02"],
+			["%_M", " 2"],
+			["%-M", "2"],
 
-			[ "%D", "03" ],
-			[ "%_D", " 3" ],
-			[ "%-D", "3" ],
+			["%D", "03"],
+			["%_D", " 3"],
+			["%-D", "3"],
 
-			[ "%H", "14" ],
-			[ "%_H", "14" ],
-			[ "%-H", "14" ],
+			["%H", "14"],
+			["%_H", "14"],
+			["%-H", "14"],
 
-			[ "%h", "02" ],
-			[ "%_h", " 2" ],
-			[ "%-h", "2" ],
+			["%h", "02"],
+			["%_h", " 2"],
+			["%-h", "2"],
 
-			[ "%m", "25" ],
-			[ "%_m", "25" ],
-			[ "%-m", "25" ],
+			["%m", "25"],
+			["%_m", "25"],
+			["%-m", "25"],
 
-			[ "%s", "36" ],
-			[ "%_s", "36" ],
-			[ "%-s", "36" ],
+			["%s", "36"],
+			["%_s", "36"],
+			["%-s", "36"],
 
-			[ "%mi", "007" ],
-			[ "%_mi", "  7" ],
-			[ "%-mi", "7" ],
+			["%mi", "007"],
+			["%_mi", "  7"],
+			["%-mi", "7"],
 		];
-		for( let i = 0, imax = tests.length; i < imax; ++i ) {
+		for (let i = 0, imax = tests.length; i < imax; ++i) {
 			const test = tests[i];
 			const result = new wcardinal.ui.NumberFormatters.create(test[0]).format(now, 1);
-			if(Math.abs(test[1] - result) <  0.0001) {
-				console.log("OK", test[ 0 ], "=", result);
+			if (Math.abs(test[1] - result) <  0.0001) {
+				console.log("OK", test[0], "=", result);
 			} else {
-				console.error("NG", test[ 0 ], "=", result);
+				console.error("NG", test[0], "=", result);
 			}
 		}
-	}());
+	})();
 	</script>
 </body>
 </html>

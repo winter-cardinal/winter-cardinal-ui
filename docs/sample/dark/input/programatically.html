@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Changing values programatically</title>
+	<title>Changing Values Programatically</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,10 +22,10 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -36,11 +36,11 @@
 				value: "Apple"
 			},
 			on: {
-				input: function (newValue, input) {
+				input: (newValue, input) => {
 					console.log("input", newValue, input)
 				},
 
-				change: function (newValue, oldValue, input) {
+				change: (newValue, oldValue, input) => {
 					console.log("change", newValue, oldValue, input);
 				}
 			}
@@ -52,11 +52,11 @@
 				value: 123
 			},
 			on: {
-				input: function (newValue, input) {
+				input: (newValue, input) => {
 					console.log("input", newValue, input)
 				},
 
-				change: function (newValue, oldValue, input) {
+				change: (newValue, oldValue, input) => {
 					console.log("change", newValue, oldValue, input);
 				}
 			}
@@ -68,11 +68,11 @@
 				value: 1.23
 			},
 			on: {
-				input: function (newValue, input) {
+				input: (newValue, input) => {
 					console.log("input", newValue, input)
 				},
 
-				change: function (newValue, oldValue, input) {
+				change: (newValue, oldValue, input) => {
 					console.log("change", newValue, oldValue, input);
 				}
 			}
@@ -82,7 +82,7 @@
 			width: "100%",
 			value: true,
 			on: {
-				change: function (newValue, oldValue, input) {
+				change: (newValue, oldValue, input) => {
 					console.log("change", newValue, oldValue, input);
 				}
 			}
@@ -94,11 +94,11 @@
 				value: "Apple Orange Pineapple Melon Strawberry"
 			},
 			on: {
-				input: function (newValue, input) {
+				input: (newValue, input) => {
 					console.log("input", newValue, input)
 				},
 
-				change: function (newValue, oldValue, input) {
+				change: (newValue, oldValue, input) => {
 					console.log("change", newValue, oldValue, input);
 				}
 			}
@@ -110,11 +110,11 @@
 				value: "Apple"
 			},
 			on: {
-				input: function (newValue, input) {
+				input: (newValue, input) => {
 					console.log("input", newValue, input)
 				},
 
-				change: function (newValue, oldValue, input) {
+				change: (newValue, oldValue, input) => {
 					console.log("change", newValue, oldValue, input);
 				}
 			}
@@ -145,7 +145,7 @@
 			textArea.value = ["Apple", "Orange", "Pineapple", "Melon"][counter];
 			search.value = ["Apple", "Orange", "Pineapple", "Melon"][counter];
 		}, 1000);
-	}());
+	})();
 	</script>
 </body>
 </html>

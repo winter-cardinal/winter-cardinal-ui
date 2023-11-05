@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Adding root nodes</title>
+	<title>Adding Root Nodes</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,27 +22,27 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var tree = new wcardinal.ui.DTree({
+		const tree = new wcardinal.ui.DTree({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500
 		});
 
-		var counter = 0;
-		var update = function() {
+		let counter = 0;
+		const update = () => {
 			counter += 1;
-			var name = ["Apple", "Orange", "Pineapple", "Melon", "Cherry"][counter % 5];
+			const name = ["Apple", "Orange", "Pineapple", "Melon", "Cherry"][counter % 5];
 			tree.data.add({
 				name: name,
 				children: [{
-					name: name + " leaf"
+					name: name + " Leaf"
 				}]
 			});
 			if (counter <= 100) {
@@ -50,7 +50,7 @@
 			}
 		};
 		update();
-	}() );
+	})();
 	</script>
 </body>
 

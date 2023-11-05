@@ -22,39 +22,39 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var diagram = new wcardinal.ui.DDiagramEditor({
+		const diagram = new wcardinal.ui.DDiagramEditor({
 			x: 0, y: 0,
 			width: "padding", weight: 1,
 			snapshot: {
 				on: {
 					// Triggered before taking a snapshot.
-					taking: function(canvas, emitter) {
+					taking: (canvas, emitter) => {
 						console.log("Taking", canvas, emitter);
 					},
 
 					// Triggered when a snapshot is taken successfully or when failed to take.
-					took: function(canvas, reason, emitter) {
+					took: (canvas, reason, emitter) => {
 						console.log("Took", canvas, reason, emitter);
 					}
 				}
 			}
 		});
 
-		var button = new wcardinal.ui.DButton({
+		const button = new wcardinal.ui.DButton({
 			width: "padding",
 			text: {
 				value: "Take a snapshot"
 			},
 			on: {
-				active: function() {
+				active: () => {
 					diagram.snapshot.createAsFile("snapshot.png");
 				}
 			}
@@ -71,13 +71,13 @@
 			]
 		});
 
-		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
-			response.json().then(function( json ) {
-				diagram.set( json );
+		fetch("../../resource/diagram/text.json").then((response) => {
+			response.json().then((json) => {
+				diagram.set(json);
 				diagram.view.fit();
 			});
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

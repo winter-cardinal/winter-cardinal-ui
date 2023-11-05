@@ -22,18 +22,18 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DExpandable({
 			parent: application.stage,
-			x: 100, y: 50,
-			width: 200,
+			x: "center", y: "center",
+			width: 300,
 			header: {
 				text: {
 					value: "Header",
@@ -55,7 +55,7 @@
 				]
 			})
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

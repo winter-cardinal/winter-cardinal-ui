@@ -22,23 +22,23 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var diagram = new wcardinal.ui.DDiagram({
+		const diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",
 			controller: {
 				piece: {
-					getByName: function( name ) {
-						return fetch( "../../resource/diagram/" + name + ".json" ).then(function( response ) {
-							return response.json().then(function( json ) {
+					getByName: (name) => {
+						return fetch("../../resource/diagram/" + name + ".json").then((response) => {
+							return response.json().then((json) => {
 								return json;
 							})
 						});
@@ -47,13 +47,13 @@
 			}
 		});
 
-		fetch( "../../resource/diagram/write-local-embedding.json" ).then(function( response ) {
-			response.json().then(function( json ) {
-				diagram.set( json );
+		fetch("../../resource/diagram/write-local-embedding.json").then((response) => {
+			response.json().then((json) => {
+				diagram.set(json);
 				diagram.view.fit();
 			});
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

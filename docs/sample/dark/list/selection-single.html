@@ -17,13 +17,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DList({
 			parent: application.stage,
@@ -33,7 +33,7 @@
 				selection: {
 					type: "SINGLE",
 					on: {
-						change: function(selection) {
+						change: (selection) => {
 							console.log(selection.toArray());
 						}
 					}
@@ -51,7 +51,7 @@
 				]
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

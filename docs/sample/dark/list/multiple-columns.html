@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Multiple columns</title>
+	<title>Multiple Columns</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -17,18 +17,18 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var imageSize = 128;
-		var resolution = window.devicePixelRatio || 1;
-		var svgSize = imageSize * resolution;
-		var imageCloud = wcardinal.ui.toSvgTexture(
+		const imageSize = 128;
+		const resolution = window.devicePixelRatio || 1;
+		const svgSize = imageSize * resolution;
+		const imageCloud = wcardinal.ui.toSvgTexture(
 			'<svg xmlns="http://www.w3.org/2000/svg" height="' + svgSize + 'px" width="' + svgSize + 'px" viewBox="0 0 24 24" fill="#ffffff">' +
 				'<path d="M12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3H6c-2.21 0-4-1.79-4-' +
 				'4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6m0-2C9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 ' +
@@ -37,7 +37,7 @@
 			resolution
 		);
 
-		var items = [];
+		const items = [];
 		for (let i = 0; i < 10; ++i) {
 			items.push({
 				name: "Cloud " + i,
@@ -45,10 +45,10 @@
 			});
 		}
 
-		var itemPadding = 24;
-		var itemLabelHeight = 30;
-		var itemWidth = itemPadding + imageSize + itemPadding;
-		var itemHeight = itemPadding + imageSize + itemLabelHeight + itemPadding;
+		const itemPadding = 24;
+		const itemLabelHeight = 30;
+		const itemWidth = itemPadding + imageSize + itemPadding;
+		const itemHeight = itemPadding + imageSize + itemLabelHeight + itemPadding;
 		new wcardinal.ui.DList({
 			parent: application.stage,
 			x: "center", y: "center",
@@ -56,18 +56,18 @@
 			data: {
 				selection: {
 					on: {
-						change: function(selection) {
+						change: (selection) => {
 							console.log(selection.toArray());
 						}
 					}
 				},
 				items: items,
-				toLabel: function(item) {
+				toLabel: (item) => {
 					return item.name;
 				}
 			},
 			updater: {
-				newItem: function(data) {
+				newItem: (data) => {
 					return new wcardinal.ui.DListItemAmbient(data, {
 						width: itemWidth,
 						height: itemHeight,
@@ -97,7 +97,7 @@
 				stripe: false
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

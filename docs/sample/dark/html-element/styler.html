@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Fully custom style</title>
+	<title>Fully Custom Style</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,27 +22,27 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var creator = function ( container ) {
-			var result = document.createElement( "input" );
+		const creator = (container) => {
+			const result = document.createElement("input");
 			result.value = "HTMLInputElement";
-			container.appendChild( result );
+			container.appendChild(result);
 			return result;
 		};
 
-		var styler = function ( target, state, padding, elementRect, elementMatrix, clipperRect ) {
-			var x = elementRect.x - clipperRect.x;
-			var y = elementRect.y - clipperRect.y;
-			var w = elementRect.width;
-			var h = elementRect.height;
-			target.setAttribute( "style",
+		const styler = (target, state, padding, elementRect, elementMatrix, clipperRect) => {
+			const x = elementRect.x - clipperRect.x;
+			const y = elementRect.y - clipperRect.y;
+			const w = elementRect.width;
+			const h = elementRect.height;
+			target.setAttribute("style",
 				"pointer-events: auto;" +
 				"background-color: transparent;" +
 				"border: none;" +
@@ -114,7 +114,7 @@
 				})
 			]
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

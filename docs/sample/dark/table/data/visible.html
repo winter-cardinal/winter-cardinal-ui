@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Visible data</title>
+	<title>Visible Data</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,15 +22,15 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var table = new wcardinal.ui.DTable({
+		const table = new wcardinal.ui.DTable({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 500, height: 500,
@@ -39,27 +39,27 @@
 				type: "TEXT"
 			}],
 			data: [
-				[ "Row 00" ], [ "Row 01" ], [ "Row 02" ],
-				[ "Row 03" ], [ "Row 04" ], [ "Row 05" ],
-				[ "Row 06" ], [ "Row 07" ], [ "Row 08" ],
-				[ "Row 09" ], [ "Row 10" ], [ "Row 11" ],
-				[ "Row 12" ], [ "Row 13" ], [ "Row 14" ],
-				[ "Row 15" ], [ "Row 16" ], [ "Row 17" ],
-				[ "Row 18" ], [ "Row 19" ], [ "Row 20" ],
-				[ "Row 21" ], [ "Row 22" ], [ "Row 23" ]
+				["Row 00"], ["Row 01"], ["Row 02"],
+				["Row 03"], ["Row 04"], ["Row 05"],
+				["Row 06"], ["Row 07"], ["Row 08"],
+				["Row 09"], ["Row 10"], ["Row 11"],
+				["Row 12"], ["Row 13"], ["Row 14"],
+				["Row 15"], ["Row 16"], ["Row 17"],
+				["Row 18"], ["Row 19"], ["Row 20"],
+				["Row 21"], ["Row 22"], ["Row 23"]
 			],
 			body: {
 				on: {
-					update: function (from, to, body) {
+					update: (from, to, body) => {
 						console.log("update", from, to);
-						body.data.mapped.each(function (datum, supplimental, index, unmappedIndex) {
+						body.data.mapped.each((datum, supplimental, index, unmappedIndex) => {
 							console.log(datum, supplimental, index, unmappedIndex);
 						}, Math.ceil(from), Math.floor(to));
 					}
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DMenuBar({
 			parent: application.stage,
@@ -58,12 +58,12 @@
 				}
 			}],
 			on: {
-				select: function ( value, item, menuBar ) {
-					console.log( value, item, menuBar );
+				select: (value, item, menuBar) => {
+					console.log(value, item, menuBar);
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

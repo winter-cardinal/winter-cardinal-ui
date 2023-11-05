@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Non-checkable menu items</title>
+	<title>Non-Checkable Menu Items</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -17,13 +17,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DSelectMultiple({
 			parent: application.stage,
@@ -63,16 +63,16 @@
 				}]
 			},
 			on: {
-				select: function ( value, item, select ) {
-					console.log( "select", value, item, select );
+				select: (value, item, select) => {
+					console.log("select", value, item, select);
 				},
 
-				change: function ( newValues, oldValues, items, select ) {
-					console.log( "change", newValues, oldValues, items, select );
+				change: (newValues, oldValues, items, select) => {
+					console.log("change", newValues, oldValues, items, select);
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

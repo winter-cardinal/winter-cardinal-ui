@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DButton({
 			parent: application.stage,
@@ -38,12 +38,12 @@
 				value: "Open"
 			},
 			on: {
-				active: function (emitter) {
+				active: (emitter) => {
 					if (!dialog.isOpened()) {
-						dialog.open(emitter).then(function(value){
-							console.log( value );
+						dialog.open(emitter).then((value) => {
+							console.log(value);
 						})
-						.catch(function() {
+						.catch(() => {
 							console.log("Canceled");
 						});
 					}
@@ -51,15 +51,15 @@
 			}
 		});
 
-		var dialog = new wcardinal.ui.DDialogInputInteger({
+		const dialog = new wcardinal.ui.DDialogInputInteger({
 			parent: application.stage,
 			mode: "MODELESS",
 			on: {
-				ok: function (value, input) {
+				ok: (value, input) => {
 					console.log(value, input);
 				},
 
-				cancel: function (reason, input) {
+				cancel: (reason, input) => {
 					console.log(reason, input);
 				}
 			}
@@ -69,7 +69,7 @@
 		// This is because some dialogs do their initializations when
 		// they are opened.
 		dialog.open();
-	}());
+	})();
 	</script>
 </body>
 </html>

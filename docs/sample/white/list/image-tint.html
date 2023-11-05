@@ -17,17 +17,17 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var resolution = window.devicePixelRatio || 1;
-		var size = 24 * resolution;
-		var folder = wcardinal.ui.toSvgTexture(
+		const resolution = window.devicePixelRatio || 1;
+		const size = 24 * resolution;
+		const folder = wcardinal.ui.toSvgTexture(
 			'<svg xmlns="http://www.w3.org/2000/svg" height="' + size + 'px" width="' + size + 'px" viewBox="0 0 24 24" fill="#ffffff">' +
 				'<path d="M9.17 6l2 2H20v10H4V6h5.17M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>' +
 			'</svg>',
@@ -53,7 +53,7 @@
 				}
 			],
 			updater: {
-				newItem: function(data) {
+				newItem: (data) => {
 					return new wcardinal.ui.DListItem(data, {
 						image: {
 							tint: {
@@ -64,7 +64,7 @@
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

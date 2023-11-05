@@ -22,23 +22,24 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
+
 		new wcardinal.ui.DButtonLink({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 200,
 			url: "../",
 			text: {
-				value: "Click me to go back"
+				value: "Click Me to Go Back"
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

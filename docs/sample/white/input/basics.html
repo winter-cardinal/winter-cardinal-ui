@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DLayoutVertical({
 			parent: application.stage,
@@ -43,11 +43,11 @@
 						value: "Apple"
 					},
 					on: {
-						input: function (newValue, input) {
+						input: (newValue, input) => {
 							console.log("input", newValue, input)
 						},
 
-						change: function (newValue, oldValue, input) {
+						change: (newValue, oldValue, input) => {
 							console.log("change", newValue, oldValue, input);
 						}
 					}
@@ -60,11 +60,11 @@
 						value: 123
 					},
 					on: {
-						input: function (newValue, input) {
+						input: (newValue, input) => {
 							console.log("input", newValue, input)
 						},
 
-						change: function (newValue, oldValue, input) {
+						change: (newValue, oldValue, input) => {
 							console.log("change", newValue, oldValue, input);
 						}
 					}
@@ -77,11 +77,11 @@
 						value: 1.23
 					},
 					on: {
-						input: function (newValue, input) {
+						input: (newValue, input) => {
 							console.log("input", newValue, input)
 						},
 
-						change: function (newValue, oldValue, input) {
+						change: (newValue, oldValue, input) => {
 							console.log("change", newValue, oldValue, input);
 						}
 					}
@@ -92,7 +92,7 @@
 					width: "100%",
 					value: true,
 					on: {
-						change: function (newValue, oldValue, input) {
+						change: (newValue, oldValue, input) => {
 							console.log("change", newValue, oldValue, input);
 						}
 					}
@@ -105,11 +105,11 @@
 						value: "Apple Orange Pineapple Melon Strawberry"
 					},
 					on: {
-						input: function (newValue, input) {
+						input: (newValue, input) => {
 							console.log("input", newValue, input)
 						},
 
-						change: function (newValue, oldValue, input) {
+						change: (newValue, oldValue, input) => {
 							console.log("change", newValue, oldValue, input);
 						}
 					}
@@ -122,18 +122,18 @@
 						value: "Apple"
 					},
 					on: {
-						input: function (newValue, input) {
+						input: (newValue, input) => {
 							console.log("input", newValue, input)
 						},
 
-						change: function (newValue, oldValue, input) {
+						change: (newValue, oldValue, input) => {
 							console.log("change", newValue, oldValue, input);
 						}
 					}
 				})
 			]
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

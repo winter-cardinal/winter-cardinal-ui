@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Text fitting</title>
+	<title>Text Fitting</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,61 +22,61 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
 		const container = new wcardinal.ui.EShapeContainer();
-		container.position.set( 200, 100 );
-		application.stage.addChild( container );
+		container.position.set(200, 100);
+		application.stage.addChild(container);
 		application.update();
 
 		const rectangle1 = new wcardinal.ui.EShapeRectangle();
 		rectangle1.size.y = 50;
-		rectangle1.transform.position.set( 0, 75 * 0 );
+		rectangle1.transform.position.set(0, 75 * 0);
 		rectangle1.text.spacing.horizontal = 0;
 		rectangle1.text.spacing.vertical = 0;
 		rectangle1.text.padding.horizontal = 0;
 		rectangle1.text.padding.vertical = 0;
 		rectangle1.text.fitting = true;
 		rectangle1.text.value = "😴😄😃⛔🎠🚓🚇❤️❤️❤️❤️❤️❤️";
-		rectangle1.attach( container );
+		rectangle1.attach(container);
 
 		const rectangle2 = new wcardinal.ui.EShapeRectangle();
 		rectangle2.size.y = 50;
-		rectangle2.transform.position.set( 0, 75 * 1 );
+		rectangle2.transform.position.set(0, 75 * 1);
 		rectangle2.text.padding.horizontal = 0;
 		rectangle2.text.padding.vertical = 0;
 		rectangle2.text.fitting = true;
 		rectangle2.text.value = "😴😄😃⛔🎠🚓🚇\n❤️❤️❤️❤️❤️❤️";
-		rectangle2.attach( container );
+		rectangle2.attach(container);
 
 		const rectangle3 = new wcardinal.ui.EShapeRectangle();
 		rectangle3.size.y = 50;
-		rectangle3.transform.position.set( 0, 75 * 2 );
+		rectangle3.transform.position.set(0, 75 * 2);
 		rectangle3.text.padding.horizontal = 0;
 		rectangle3.text.padding.vertical = 0;
 		rectangle3.text.fitting = true;
 		rectangle3.text.value = "😴😄😃\n⛔🎠\n🚓🚇❤️❤️❤️❤️❤️❤️";
-		rectangle3.attach( container );
+		rectangle3.attach(container);
 
 		const rectangle4 = new wcardinal.ui.EShapeRectangle();
 		rectangle4.size.y = 50;
-		rectangle4.transform.position.set( 0, 75 * 3 );
+		rectangle4.transform.position.set(0, 75 * 3);
 		rectangle4.text.padding.horizontal = 0;
 		rectangle4.text.padding.vertical = 0;
 		rectangle4.text.fitting = true;
 		rectangle4.text.value = "😴😄\n😃⛔🎠🚓🚇❤️❤️❤️❤️❤️❤️";
 		rectangle4.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.LEFT;
-		rectangle4.attach( container );
+		rectangle4.attach(container);
 
 		const rectangle5 = new wcardinal.ui.EShapeRectangle();
 		rectangle5.size.y = 50;
-		rectangle5.transform.position.set( 0, 75 * 4 );
+		rectangle5.transform.position.set(0, 75 * 4);
 		rectangle5.text.spacing.horizontal = 0;
 		rectangle5.text.spacing.vertical = 0;
 		rectangle5.text.padding.horizontal = 0;
@@ -84,11 +84,11 @@
 		rectangle5.text.fitting = true;
 		rectangle5.text.value = "😴😄\n😃⛔🎠🚓🚇❤️❤️❤️❤️❤️❤️";
 		rectangle5.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.RIGHT;
-		rectangle5.attach( container );
+		rectangle5.attach(container);
 
 		const rectangle6 = new wcardinal.ui.EShapeRectangle();
 		rectangle6.size.y = 50;
-		rectangle6.transform.position.set( 0, 75 * 5 );
+		rectangle6.transform.position.set(0, 75 * 5);
 		rectangle6.text.spacing.horizontal = 0;
 		rectangle6.text.spacing.vertical = 0;
 		rectangle6.text.padding.horizontal = 0;
@@ -97,11 +97,11 @@
 		rectangle6.text.value = "😴😄\n😃⛔🎠\n🚓🚇❤️❤️❤️❤️❤️❤️";
 		rectangle6.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.LEFT;
 		rectangle6.text.align.vertical = wcardinal.ui.EShapeTextAlignVertical.TOP;
-		rectangle6.attach( container );
+		rectangle6.attach(container);
 
 		const rectangle7 = new wcardinal.ui.EShapeRectangle();
 		rectangle7.size.y = 50;
-		rectangle7.transform.position.set( 0, 75 * 6 );
+		rectangle7.transform.position.set(0, 75 * 6);
 		rectangle7.text.spacing.horizontal = 0;
 		rectangle7.text.spacing.vertical = 0;
 		rectangle7.text.padding.horizontal = 0;
@@ -110,11 +110,11 @@
 		rectangle7.text.value = "😴😄\n😃⛔🎠\n🚓🚇❤️❤️❤️❤️❤️❤️";
 		rectangle7.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.RIGHT;
 		rectangle7.text.align.vertical = wcardinal.ui.EShapeTextAlignVertical.OUTSIDE_BOTTOM;
-		rectangle7.attach( container );
+		rectangle7.attach(container);
 
 		const rectangle8 = new wcardinal.ui.EShapeRectangle();
 		rectangle8.size.x = 50;
-		rectangle8.transform.position.set( 250, 150 * 0 );
+		rectangle8.transform.position.set(250, 150 * 0);
 		rectangle8.text.spacing.horizontal = 0;
 		rectangle8.text.spacing.vertical = 0;
 		rectangle8.text.padding.horizontal = 0;
@@ -124,11 +124,11 @@
 		rectangle8.text.direction = wcardinal.ui.EShapeTextDirection.BOTTOM_TO_TOP;
 		rectangle8.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
 		rectangle8.text.align.vertical = wcardinal.ui.EShapeTextAlignVertical.TOP;
-		rectangle8.attach( container );
+		rectangle8.attach(container);
 
 		const rectangle9 = new wcardinal.ui.EShapeRectangle();
 		rectangle9.size.x = 50;
-		rectangle9.transform.position.set( 250, 150 * 1 );
+		rectangle9.transform.position.set(250, 150 * 1);
 		rectangle9.text.spacing.horizontal = 0;
 		rectangle9.text.spacing.vertical = 0;
 		rectangle9.text.padding.horizontal = 0;
@@ -137,11 +137,11 @@
 		rectangle9.text.value = "😴😄\n😃⛔🎠\n🚓🚇❤️❤️❤️❤️❤️❤️";
 		rectangle9.text.direction = wcardinal.ui.EShapeTextDirection.BOTTOM_TO_TOP;
 		rectangle9.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
-		rectangle9.attach( container );
+		rectangle9.attach(container);
 
 		const rectangle10 = new wcardinal.ui.EShapeRectangle();
 		rectangle10.size.x = 50;
-		rectangle10.transform.position.set( 250, 150 * 2 );
+		rectangle10.transform.position.set(250, 150 * 2);
 		rectangle10.text.spacing.horizontal = 0;
 		rectangle10.text.spacing.vertical = 0;
 		rectangle10.text.padding.horizontal = 0;
@@ -151,17 +151,17 @@
 		rectangle10.text.direction = wcardinal.ui.EShapeTextDirection.BOTTOM_TO_TOP;
 		rectangle10.text.align.horizontal = wcardinal.ui.EShapeTextAlignHorizontal.OUTSIDE_LEFT;
 		rectangle10.text.align.vertical = wcardinal.ui.EShapeTextAlignVertical.BOTTOM;
-		rectangle10.attach( container );
+		rectangle10.attach(container);
 
-		setInterval(function () {
+		setInterval(() => {
 			const children = container.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
 				child.text.fitting = ! child.text.fitting;
 			}
 			application.update();
 		}, 1000);
-	}());
+	})();
 	</script>
 </body>
 </html>

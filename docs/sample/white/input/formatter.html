@@ -22,33 +22,33 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DInputReal({
 			parent: application.stage,
 			x: "center", y: "center",
 			width: 200,
 			text: {
-				formatter: function ( value ) {
-					return (value * 100).toFixed( 2 );
+				formatter: (value) => {
+					return (value * 100).toFixed(2);
 				}
 			},
 			editing: {
-				formatter: function ( value ) {
-					return (value * 100).toFixed( 3 );
+				formatter: (value) => {
+					return (value * 100).toFixed(3);
 				},
-				unformatter: function ( value ) {
+				unformatter: (value) => {
 					return value / 100;
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

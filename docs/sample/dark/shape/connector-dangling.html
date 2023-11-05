@@ -22,20 +22,20 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
 		const container = new wcardinal.ui.EShapeContainer();
-		container.position.set( 100, 100 );
+		container.position.set(100, 100);
 
 		const circle = new wcardinal.ui.EShapeCircle();
 		circle.transform.position.set(100, 250);
-		circle.attach( container );
+		circle.attach(container);
 
 		const connector = new wcardinal.ui.EShapeConnectorLine();
 		connector.points.marker.tail.type = wcardinal.ui.EShapePointsMarkerType.CIRCLE;
@@ -44,9 +44,9 @@
 		connector.edge.tail.set(circle, "RIGHT");
 		connector.edge.head.set(null, null, null, null, 10, 400, 250);
 		connector.body.set([-0.1, -0.1, +0.1, +0.1]);
-		connector.attach( container );
+		connector.attach(container);
 
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 		const update = () => {
 			const t = (Date.now()) / 3000 * Math.PI;
 			circle.disallowOnTransformChange();
@@ -58,7 +58,7 @@
 			setTimeout(update, 16);
 		};
 		update();
-	}());
+	})();
 	</script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basics</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -21,13 +22,13 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DCanvasContainer({
 			parent: application.stage,
@@ -37,14 +38,14 @@
 				height: 500
 			}),
 			on: {
-				set: function ( canvas, container ) {
-					setTimeout( function() {
+				set: (canvas, container) => {
+					setTimeout(() => {
 						container.view.fit();
 					}, 1000);
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

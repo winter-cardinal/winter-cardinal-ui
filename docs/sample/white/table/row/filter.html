@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Filtering rows</title>
+	<title>Filtering Rows</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,28 +22,28 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var table = new wcardinal.ui.DTable({
+		const table = new wcardinal.ui.DTable({
 			width: 500, height: 500,
 			columns: [{
 				label: "Text",
 				type: "TEXT"
 			}],
 			data: [
-				[ "Apple" ],
-				[ "Orange" ],
-				[ "Pineapple" ]
+				["Apple"],
+				["Orange"],
+				["Pineapple"]
 			]
 		});
 
-		var input = new wcardinal.ui.DInputText({
+		const input = new wcardinal.ui.DInputText({
 			width: 500
 		});
 
@@ -57,24 +57,24 @@
 			]
 		})
 
-		var filter = {
+		const filter = {
 			word: "",
-			test: function ( row ) {
-				return 0 <= row[ 0 ].indexOf( this.word );
+			test(row) {
+				return 0 <= row[0].indexOf(this.word);
 			}
 		};
 
-		input.on( "input", function ( value ) {
+		input.on("input", (value) => {
 			filter.word = value.trim();
-			if( 0 < filter.word.length ) {
+			if (0 < filter.word.length) {
 				table.data.filter.apply();
 			} else {
 				table.data.filter.unapply();
 			}
 		});
 
-		table.data.filter.set( filter );
-	}());
+		table.data.filter.set(filter);
+	})();
 	</script>
 </body>
 </html>

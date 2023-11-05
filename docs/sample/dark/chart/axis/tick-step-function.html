@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tick step function</title>
+	<title>Tick Step Function</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,11 +22,11 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script src="../../../resource/chart/updater.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -67,8 +67,8 @@
 									// The 1st argument domainMin is a y-coordinate position of the top of the plot area.
 									// The 2nd argument domainMax is a y-coordinate position of the bottom of the plot area.
 									// The 3rd argument majorCounr is a number of major ticks allocated.
-									step: function (domainMin, domainMax, majorCount) {
-										var span = Math.abs(domainMax - domainMin) / 4;
+									step: (domainMin, domainMax, majorCount) => {
+										const span = Math.abs(domainMax - domainMin) / 4;
 										return Math.round(span * 10) / 10;
 									}
 								}
@@ -80,7 +80,7 @@
 		});
 
 		new ChartUpdater(application, chart).start();
-	}());
+	})();
 	</script>
 </body>
 </html>

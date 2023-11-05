@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SDF image</title>
+	<title>SDF Image</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,66 +22,63 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var container = new wcardinal.ui.EShapeContainer();
-		container.position.set( 100, 100 );
+		const container = new wcardinal.ui.EShapeContainer();
+		container.position.set(100, 100);
 
-		var image = wcardinal.ui.toSvgUrl(
+		const image = wcardinal.ui.toSvgUrl(
 			`<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">` +
 				`<circle cx="32" cy="32" r="26" fill="#fff" />` +
 			`</svg>`
 		);
-		wcardinal.ui.createImageSdf( image, true )
-		.then(function ( shape ) {
+		wcardinal.ui.createImageSdf(image, true).then((shape) => {
 			shape.stroke.enable = true;
 			shape.stroke.width = 12;
 			shape.stroke.align = 0;
-			shape.size.set( 50, 100 );
-			shape.attach( container );
+			shape.size.set(50, 100);
+			shape.attach(container);
 		});
-		wcardinal.ui.createImageSdf( image, true )
-		.then(function ( shape ) {
+		wcardinal.ui.createImageSdf(image, true).then((shape) => {
 			shape.stroke.enable = true;
 			shape.stroke.width = 50;
 			shape.stroke.align = 1;
-			shape.size.set( 50, 100 );
-			shape.transform.position.set( 100, 0 );
-			shape.attach( container );
+			shape.size.set(50, 100);
+			shape.transform.position.set(100, 0);
+			shape.attach(container);
 		});
-		wcardinal.ui.createImageSdf( image, true )
-		.then(function ( shape ) {
+		wcardinal.ui.createImageSdf(image, true).then((shape) => {
 			shape.stroke.enable = false;
 			shape.stroke.width = 50;
 			shape.stroke.align = 1;
-			shape.size.set( 50, 100 );
+			shape.size.set(50, 100);
 			shape.fill.color = 0xff0000;
-			shape.transform.position.set( 200, 0 );
-			shape.attach( container );
+			shape.transform.position.set(200, 0);
+			shape.attach(container);
 		});
 
-		application.stage.on( "pointermove", function ( e ) {
-			container.hitTest( e.data.global, function ( shape ) {
-				console.log( shape );
+		application.stage.on("pointermove", (e) => {
+			container.hitTest(e.data.global, (shape) => {
+				console.log(shape);
 			});
 		});
 
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 		application.update();
-		setInterval(function () {
-			var children = container.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				children[ i ].transform.rotation += 0.01;
+		setInterval(() => {
+			const children = container.children;
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				children[i].transform.rotation += 0.01;
 			}
 			application.render();
 		}, 32);
-	}());
+	})();
 	</script>
 </body>
 </html>

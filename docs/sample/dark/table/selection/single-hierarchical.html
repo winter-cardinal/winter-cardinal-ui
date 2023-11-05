@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Single selection with hierarchical data</title>
+	<title>Single Selection with Hierarchical Data</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTable({
 			parent: application.stage,
@@ -53,13 +53,13 @@
 			data: new wcardinal.ui.DTableDataTree({
 				nodes: [
 					{ id: "APPLE", name: "Apple", children: [
-						{ id: "APPLE_LEAF", name: "Apple leaf", data: 100 }
+						{ id: "APPLE_LEAF", name: "Apple Leaf", data: 100 }
 					]},
 					{ id: "ORANGE", name: "Orange", children: [
-						{ id: "ORANGE_LEAF", name: "Orange leaf", data: 200 }
+						{ id: "ORANGE_LEAF", name: "Orange Leaf", data: 200 }
 					]},
 					{ id: "PINEAPPLE", name: "Pineapple", children: [
-						{ id: "PINEAPPLE_LEAF", name: "Pineapple leaf", data: 300 }
+						{ id: "PINEAPPLE_LEAF", name: "Pineapple Leaf", data: 300 }
 					]}
 				],
 				selection: {
@@ -71,21 +71,21 @@
 					}
 				},
 				on: {
-					change: function (newValue, oldValue, node, rowIndex, columnIndex, data) {
+					change: (newValue, oldValue, node, rowIndex, columnIndex, data) => {
 						console.log("change", newValue, oldValue, node, rowIndex, columnIndex, data);
 					},
-					
-					expand: function (node, data) {
+
+					expand: (node, data) => {
 						console.log("expand", node, data);
 					},
-					
-					collapse: function (node, data) {
+
+					collapse: (node, data) => {
 						console.log("collapse", node, data);
 					}
 				}
 			})
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

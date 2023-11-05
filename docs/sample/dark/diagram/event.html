@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Life-cicle events</title>
+	<title>Life-Cicle Events</title>
 	<style>
 	html, body {
 		width: 100%;
@@ -22,49 +22,49 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var diagram = new wcardinal.ui.DDiagram({
+		const diagram = new wcardinal.ui.DDiagram({
 			parent: application.stage,
 			x: 0, y: 0,
 			width: "100%", height: "100%",
 			on: {
-				set: function( canvas, diagram ) {
+				set: (canvas, diagram) => {
 					// Triggered when a canvas is set.
-					console.log( "Set", canvas, diagram );
+					console.log("Set", canvas, diagram);
 				},
 
-				unset: function( canvas, diagram ) {
+				unset: (canvas, diagram) => {
 					// Triggered when a canvas is removed.
-					console.log( "Unset", canvas, diagram )
+					console.log("Unset", canvas, diagram)
 				},
 
-				ready: function( diagram ) {
+				ready: (diagram) => {
 					// Triggered immediately after a diagram is loaded and
 					// all the shapes are initialized.
-					console.log( "Ready", diagram );
+					console.log("Ready", diagram);
 				}
 			}
 		});
 
-		fetch( "../../resource/diagram/text.json" ).then(function( response ) {
-			response.json().then(function( json ) {
-				console.log( "Before #set call" );
-				diagram.set( json ).then(function( canvas ) {
+		fetch("../../resource/diagram/text.json").then((response) => {
+			response.json().then((json) => {
+				console.log("Before #set call");
+				diagram.set(json).then((canvas) => {
 					// Gets fulfilled after a diagram is loaded and all the shapes are initialized.
-					console.log( "Fulfilled", canvas );
+					console.log("Fulfilled", canvas);
 				});
-				console.log( "After #set call" );
+				console.log("After #set call");
 				diagram.view.fit();
 			});
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

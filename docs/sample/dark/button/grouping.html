@@ -22,15 +22,15 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
-		var group = new wcardinal.ui.DButtonGroup();
+		const group = new wcardinal.ui.DButtonGroup();
 
 		new wcardinal.ui.DLayoutHorizontal({
 			parent: application.stage,
@@ -47,8 +47,8 @@
 						value: "A"
 					},
 					on: {
-						active: function( button ) {
-							console.log( "active", button );
+						active: (button) => {
+							console.log("active", button);
 						}
 					}
 				}),
@@ -60,8 +60,8 @@
 						value: "B"
 					},
 					on: {
-						active: function( button ) {
-							console.log( "active", button );
+						active: (button) => {
+							console.log("active", button);
 						}
 					}
 				}),
@@ -73,14 +73,14 @@
 						value: "C"
 					},
 					on: {
-						active: function( button ) {
-							console.log( "active", button );
+						active: (button) => {
+							console.log("active", button);
 						}
 					}
 				})
 			]
 		})
-	}());
+	})();
 	</script>
 </body>
 </html>

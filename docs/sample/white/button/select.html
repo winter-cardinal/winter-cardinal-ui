@@ -22,10 +22,10 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
@@ -36,21 +36,21 @@
 			width: 200,
 			dialog: {
 				controller: {
-					search: function ( word ) {
+					search: (word) => {
 						return Promise.resolve([{
 							id: "Apple"
 						}, {
 							id: "Orange"
 						}, {
 							id: "Pineapple"
-						}].filter(function( item ) {
-							return word.length <= 0 || 0 <= item.id.indexOf( word )
+						}].filter((item) => {
+							return word.length <= 0 || 0 <= item.id.indexOf(word)
 						}));
 					}
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>

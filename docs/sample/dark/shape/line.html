@@ -22,24 +22,24 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-dark.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-dark.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var newLine = function(ix, iy, points, segments, container) {
-			var style = wcardinal.ui.EShapePointsStyle.CLOSED;
-			var result = wcardinal.ui.createLine(points, segments, 3, style);
+		const newLine = (ix, iy, points, segments, container) => {
+			const style = wcardinal.ui.EShapePointsStyle.CLOSED;
+			const result = wcardinal.ui.createLine(points, segments, 3, style);
 			result.transform.position.set(100 + 90 * ix, 100 + 150 * iy);
-			result.attach( container );
+			result.attach(container);
 			return result;
 		};
 
-		var newPoints = function() {
-			var result = [];
-			for (var i = 0; i <= 4; ++i) {
-				var angle = (2 - i) * Math.PI / 4;
+		const newPoints = () => {
+			const result = [];
+			for (let i = 0; i <= 4; ++i) {
+				const angle = (2 - i) * Math.PI / 4;
 				result.push(
 					Math.cos(angle) * 60,
 					Math.sin(angle) * 60
@@ -48,38 +48,38 @@
 			return result;
 		};
 
-		var application = new wcardinal.ui.DApplication();
-		var container = new wcardinal.ui.EShapeContainer();
+		const application = new wcardinal.ui.DApplication();
+		const container = new wcardinal.ui.EShapeContainer();
 
 		// Zero segment
 		newLine(0, 0, newPoints(), [], container);
 
 		// One segment
-		for (var i = 0; i <= 4; ++i) {
+		for (let i = 0; i <= 4; ++i) {
 			newLine(i, 1, newPoints(), [i], container);
 		}
 
 		// Two segments
-		var ix = 0;
-		for (var i = 0, ix = 0; i <= 3; ++i) {
-			for (var j = i + 1; j <= 4; ++j) {
+		let ix = 0;
+		for (let i = 0, ix = 0; i <= 3; ++i) {
+			for (let j = i + 1; j <= 4; ++j) {
 				newLine(ix++, 2, newPoints(), [i, j], container);
 			}
 		}
 
 		// Three segments
 		ix = 0;
-		for (var i = 0; i <= 2; ++i) {
-			for (var j = i + 1; j <= 3; ++j) {
-				for(var k = j + 1; k <= 4; ++k) {
+		for (let i = 0; i <= 2; ++i) {
+			for (let j = i + 1; j <= 3; ++j) {
+				for (let k = j + 1; k <= 4; ++k) {
 					newLine(ix++, 3, newPoints(), [i, j, k], container);
 				}
 			}
 		}
 
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 		application.update();
-	}());
+	})();
 	</script>
 </body>
 </html>

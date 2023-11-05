@@ -22,37 +22,37 @@
 </head>
 <body>
 	<script src="../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
 		const application = new wcardinal.ui.DApplication();
 
 		const container = new wcardinal.ui.EShapeContainer();
-		application.stage.addChild( container );
+		application.stage.addChild(container);
 
 		const rectangle = new wcardinal.ui.EShapeRectangleRounded();
-		rectangle.transform.position.set( 150, 150 );
+		rectangle.transform.position.set(150, 150);
 		rectangle.radius = 0.5;
-		rectangle.attach( container );
+		rectangle.attach(container);
 
 		const triangle = new wcardinal.ui.EShapeTriangleRounded();
-		triangle.transform.position.set( 300, 150 );
+		triangle.transform.position.set(300, 150);
 		triangle.radius = 0.5;
-		triangle.attach( container );
+		triangle.attach(container);
 
 		application.update();
-		setInterval(function () {
+		setInterval(() => {
 			const children = container.children;
-			for( let i = 0, imax = children.length; i < imax; ++i ) {
-				const child = children[ i ];
-				child.corner = ( child.corner + 1 ) % ( wcardinal.ui.EShapeCorner.ALL + 1 );
+			for (let i = 0, imax = children.length; i < imax; ++i) {
+				const child = children[i];
+				child.corner = (child.corner + 1) % (wcardinal.ui.EShapeCorner.ALL + 1);
 			}
 			application.render();
 		}, 1000);
-	}());
+	})();
 	</script>
 </body>
 </html>

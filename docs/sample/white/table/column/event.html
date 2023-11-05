@@ -22,13 +22,13 @@
 </head>
 <body>
 	<script src="../../../js/pixi/5.2.5/pixi.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui.min.js"></script>
-	<script src="../../../js/wcardinal-ui/0.370.0/wcardinal-ui-theme-white.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui.min.js"></script>
+	<script src="../../../js/wcardinal-ui/0.371.0/wcardinal-ui-theme-white.min.js"></script>
 	<script>
-	(function(){
+	(() => {
 		"use strict";
 
-		var application = new wcardinal.ui.DApplication();
+		const application = new wcardinal.ui.DApplication();
 
 		new wcardinal.ui.DTable({
 			parent: application.stage,
@@ -40,7 +40,7 @@
 				editable: true,
 				body: {
 					on: {
-						active: function(cell) {
+						active: (cell) => {
 							console.log("Activated", cell);
 						}
 					}
@@ -48,18 +48,18 @@
 			}],
 			data: {
 				rows: [
-					[ "Apple" ],
-					[ "Orange" ],
-					[ "Pineapple" ]
+					["Apple"],
+					["Orange"],
+					["Pineapple"]
 				],
 				on: {
-					change: function ( newValue, oldValue, rowValue, rowIndex, columnIndex, data ) {
-						console.log( newValue, oldValue, rowValue, rowIndex, columnIndex, data );
+					change: (newValue, oldValue, rowValue, rowIndex, columnIndex, data) => {
+						console.log(newValue, oldValue, rowValue, rowIndex, columnIndex, data);
 					}
 				}
 			}
 		});
-	}());
+	})();
 	</script>
 </body>
 </html>
