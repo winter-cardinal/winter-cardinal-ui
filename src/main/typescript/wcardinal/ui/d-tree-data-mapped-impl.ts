@@ -4,15 +4,16 @@
  */
 
 import { DTreeDataMapped } from "./d-tree-data-mapped";
+import { DTreeNode } from "./d-tree-node";
 import { DTreeNodeAccessor } from "./d-tree-node-accessor";
 
-export interface DTreeDataMppedImplParent<NODE> {
+export interface DTreeDataMppedImplParent<NODE extends DTreeNode> {
 	readonly nodes: NODE[];
 	readonly accessor: DTreeNodeAccessor<NODE>;
 	isExpanded(node: NODE): boolean;
 }
 
-export class DTreeDataMappedImpl<NODE> implements DTreeDataMapped<NODE> {
+export class DTreeDataMappedImpl<NODE extends DTreeNode> implements DTreeDataMapped<NODE> {
 	protected readonly _parent: DTreeDataMppedImplParent<NODE>;
 	protected readonly _nodes: NODE[];
 	protected readonly _levels: number[];

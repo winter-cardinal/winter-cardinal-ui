@@ -228,7 +228,15 @@ export class DynamicSDFFontGenerator {
 		}
 	}
 
-	updateTexture(source: TexImageSource): WebGLTexture | null {
+	updateTexture(
+		source:
+			| ImageBitmap
+			| ImageData
+			| HTMLImageElement
+			| HTMLCanvasElement
+			| HTMLVideoElement
+			| OffscreenCanvas
+	): WebGLTexture | null {
 		const gl = this._gl;
 		const canvas = this._canvas;
 		if (gl != null && gl.isContextLost() !== true && canvas != null) {
