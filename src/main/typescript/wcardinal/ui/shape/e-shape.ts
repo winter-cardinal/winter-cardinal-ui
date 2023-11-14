@@ -25,6 +25,7 @@ import { EShapeType } from "./e-shape-type";
 import { EShapeUploaded } from "./e-shape-uploaded";
 import { EShapeConnectorContainer } from "./e-shape-connector-container";
 import { EShapeCapabilityContainer } from "./e-shape-capability-container";
+import { EShapeLockPart } from "./variant/e-shape-lock-part";
 
 export interface EShape extends utils.EventEmitter {
 	id: string; // Used to identity a shape by users
@@ -85,8 +86,8 @@ export interface EShape extends utils.EventEmitter {
 	toDirty(): void;
 	attach(parent: EShapeContainer | EShape, at?: number): this;
 	onAttach(): void;
-	detach(): this;
-	onDetach(): void;
+	detach(exceptions?: Set<EShape>): this;
+	onDetach(exceptions?: Set<EShape>): void;
 	copy(source: EShape): this;
 	copy(source: EShape, part: EShapeCopyPart): this;
 	clone(): EShape;
@@ -103,19 +104,18 @@ export interface EShape extends utils.EventEmitter {
 	update(time: number): void;
 	onRender(time: number, renderer: Renderer): void;
 
+	// Lock & unlock
+	lock(part: EShapeLockPart): this;
+	unlock(part: EShapeLockPart, invoke: boolean): this;
+
 	// Transform
 	updateTransform(): void;
-	disallowOnTransformChange(): void;
-	allowOnTransformChange(invokeOnTransformChange: boolean): void;
 	onTransformChange(): void;
 	onParentTransformChange(): void;
 	onChildTransformChange(): void;
 
 	// Uploaded
-	disallowUploadedUpdate(): void;
-	allowUploadedUpdate(): void;
-	updateUploaded(): void;
-	updateUploadedRecursively(): void;
+	updateUploaded(recursively?: boolean): void;
 
 	// Serialization
 	serialize(manager: EShapeResourceManagerSerialization): DDiagramSerializedItem;

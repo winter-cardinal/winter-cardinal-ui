@@ -24,6 +24,7 @@ import { EShapeGroupStrokeEditor } from "./e-shape-group-stroke-editor";
 import { EShapeDataImpl } from "../e-shape-data-impl";
 import { EShapeTextImpl } from "./e-shape-text-impl";
 import { EShapeResourceManagerDeserializationMode } from "../e-shape-resource-manager-deserialization-mode";
+import { EShapeConnectors } from "../e-shape-connectors";
 
 export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent {
 	size: EShapeGroupSize;
@@ -197,6 +198,7 @@ export class EShapeGroup extends EShapeBase implements EShapeGroupPropertyParent
 			clone.parent = result;
 			result.children.push(clone);
 		}
+		EShapeConnectors.moveAll(children, result.children, children, result.children);
 		result.onChildTransformChange();
 		result.toDirty();
 		return result;

@@ -9,6 +9,7 @@ import { EShapeEditor } from "./e-shape-editor";
 import { EShapeBase } from "./variant/e-shape-base";
 import { toSizeNormalized } from "./variant/to-size-normalized";
 import { EShapeCapability } from "./e-shape-capability";
+import { EShapeLockPart } from "./variant/e-shape-lock-part";
 
 export class EShapeTransforms {
 	static prepare(shape: EShape): void {
@@ -34,11 +35,11 @@ export class EShapeTransforms {
 		editor.size.copyFrom(shape.size);
 
 		//
-		shape.disallowOnTransformChange();
+		shape.lock(EShapeLockPart.TRANSFORM);
 	}
 
 	static finalize(shape: EShape): void {
-		shape.allowOnTransformChange(true);
+		shape.unlock(EShapeLockPart.TRANSFORM, true);
 	}
 
 	static apply(shape: EShape, transform: Matrix, capability: EShapeCapability): void {
@@ -59,7 +60,7 @@ export class EShapeTransforms {
 		capability: EShapeCapability,
 		size?: IPoint
 	): void {
-		shape.disallowUploadedUpdate();
+		shape.lock(EShapeLockPart.UPLOADED);
 
 		// Reconstruct the position, the rotation and the size
 		const a = localTransform.a;
@@ -125,6 +126,6 @@ export class EShapeTransforms {
 		}
 
 		//
-		shape.allowUploadedUpdate();
+		shape.unlock(EShapeLockPart.UPLOADED, true);
 	}
 }

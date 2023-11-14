@@ -15,6 +15,7 @@ import { DChartPlotArea } from "./d-chart-plot-area";
 import { DChartRegion } from "./d-chart-region";
 import { DChartRegionImpl } from "./d-chart-region-impl";
 import { EShape } from "./shape/e-shape";
+import { EShapeLockPart } from "./shape/variant/e-shape-lock-part";
 
 export interface DChartAxisBaseTickContainerOptions {}
 
@@ -434,11 +435,11 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected showMajor(shape: EShape, x: number, y: number, text?: string): void {
-		shape.disallowUploadedUpdate();
+		shape.lock(EShapeLockPart.UPLOADED);
 		shape.visible = true;
 		shape.transform.position.set(x, y);
 		shape.text.value = text != null ? text : "";
-		shape.allowUploadedUpdate();
+		shape.unlock(EShapeLockPart.UPLOADED, true);
 	}
 
 	protected showMajorGridline(
@@ -449,11 +450,11 @@ export class DChartAxisBaseTickContainer<
 		sx: number,
 		sy: number
 	): void {
-		shape.disallowUploadedUpdate();
+		shape.lock(EShapeLockPart.UPLOADED);
 		shape.visible = true;
 		shape.transform.position.set(x, y);
 		shape.size.set(sx, sy);
-		shape.allowUploadedUpdate();
+		shape.unlock(EShapeLockPart.UPLOADED, true);
 	}
 
 	protected hideMajor(shape: EShape): void {
@@ -465,11 +466,11 @@ export class DChartAxisBaseTickContainer<
 	}
 
 	protected showMinor(shape: EShape, x: number, y: number, text?: string): void {
-		shape.disallowUploadedUpdate();
+		shape.lock(EShapeLockPart.UPLOADED);
 		shape.visible = true;
 		shape.transform.position.set(x, y);
 		shape.text.value = text != null ? text : "";
-		shape.allowUploadedUpdate();
+		shape.unlock(EShapeLockPart.UPLOADED, true);
 	}
 
 	protected hideMinor(shape: EShape): void {

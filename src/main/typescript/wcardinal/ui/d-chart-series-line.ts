@@ -16,6 +16,7 @@ import {
 } from "./d-chart-series-stroke-computed";
 import { EShapeLine } from "./shape/variant/e-shape-line";
 import { toCeilingIndex } from "./util/to-ceiling-index";
+import { EShapeLockPart } from "./shape/variant/e-shape-lock-part";
 
 /**
  * {@link DChartSeriesLine} options.
@@ -142,7 +143,7 @@ export class DChartSeriesLine<CHART extends DBase = DBase> extends DChartSeriesB
 		ycoordinate: DChartCoordinate<CHART>,
 		isPointsDirty: boolean
 	): void {
-		line.disallowUploadedUpdate();
+		line.lock(EShapeLockPart.UPLOADED);
 		if (isPointsDirty) {
 			const values = line.points.values;
 			const segments = line.points.segments;
@@ -231,7 +232,7 @@ export class DChartSeriesLine<CHART extends DBase = DBase> extends DChartSeriesB
 		);
 		line.transform.scale.set(xcoordinate.transform.scale, ycoordinate.transform.scale);
 
-		line.allowUploadedUpdate();
+		line.unlock(EShapeLockPart.UPLOADED, true);
 	}
 
 	protected updateRegion(): void {

@@ -49,11 +49,11 @@
 		application.stage.addChild(container);
 		const update = () => {
 			const t = (Date.now()) / 3000 * Math.PI;
-			circle.disallowOnTransformChange();
+			circle.lock(wcardinal.ui.EShapeLockPart.TRANSFORM);
 			circle.transform.position.y = 250 + 100 * Math.cos(+t);
 			circle.transform.rotation += 0.01;
 			circle.transform.scale.x = 1 + 0.5 * Math.sin(t);
-			circle.allowOnTransformChange(true);
+			circle.unlock(wcardinal.ui.EShapeLockPart.TRANSFORM, true);
 			application.update();
 			setTimeout(update, 16);
 		};

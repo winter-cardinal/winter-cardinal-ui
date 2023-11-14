@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShape } from "./e-shape";
 import { EShapeConnector } from "./e-shape-connector";
 import { EShapeConnectorEdge } from "./e-shape-connector-edge";
 import {
@@ -127,10 +128,10 @@ export class EShapeConnectorEdgeContainerImpl implements EShapeConnectorEdgeCont
 		return this;
 	}
 
-	detach(): this {
+	detach(exceptions?: Set<EShape>): this {
 		this.lock();
-		this._tail.detach();
-		this._head.detach();
+		this._tail.detach(exceptions);
+		this._head.detach(exceptions);
 		this.unlock();
 		return this;
 	}

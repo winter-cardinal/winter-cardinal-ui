@@ -46,6 +46,8 @@ import { toGradientSerialized } from "./to-gradient-serialized";
 import { EShapeCapabilityContainer } from "../e-shape-capability-container";
 import { EShapeCapabilityContainerImpl } from "../e-shape-capability-container-impl";
 import { EShapeCapability } from "../e-shape-capability";
+import { EShapeLock } from "./e-shape-lock";
+import { EShapeLockPart } from "./e-shape-lock-part";
 
 export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected static WORK_HIT_TEST_DATA?: EShapeBaseHitTestData;
@@ -76,11 +78,10 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	protected _connector?: EShapeConnectorContainer;
 
 	protected _visible: boolean;
-	protected _onTransformChangeLock: number;
-	protected _isOnTransformChanged: boolean;
-	protected _uploadedUpdateLock: number;
-	protected _isUploadedUpdated: boolean;
-	protected _isUploadedUpdatedRecursively: boolean;
+
+	protected _lockTransform: EShapeLock;
+	protected _lockTransformParent: EShapeLock;
+	protected _lockUploaded: EShapeLock;
 
 	protected _bounds?: Rectangle;
 	protected _boundsTransformId: number;
@@ -117,13 +118,12 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		this.uuid = 0;
 		this.type = type;
 		this.transform = this.newTransform();
-		this._onTransformChangeLock = 0;
-		this._isOnTransformChanged = false;
 		this.action = new EShapeAction();
 		this._visible = true;
-		this._uploadedUpdateLock = 0;
-		this._isUploadedUpdated = false;
-		this._isUploadedUpdatedRecursively = false;
+
+		this._lockTransform = new EShapeLock();
+		this._lockTransformParent = new EShapeLock();
+		this._lockUploaded = new EShapeLock();
 
 		this._boundsTransformId = NaN;
 		this._boundsInternalTransformId = NaN;
@@ -174,6 +174,9 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	onParentTransformChange(): void {
+		if (this._lockTransformParent.isLocked()) {
+			return;
+		}
 		this.updateUploaded();
 		const connector = this._connector;
 		if (connector != null) {
@@ -186,81 +189,65 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	}
 
 	protected onTransformChange_(): void {
-		if (this._onTransformChangeLock === 0) {
-			const parent = this.parent;
-			if (parent != null) {
-				parent.onChildTransformChange();
-			}
-		} else {
-			this._isOnTransformChanged = true;
+		if (this._lockTransform.isLocked()) {
+			return;
+		}
+		const parent = this.parent;
+		if (parent != null) {
+			parent.onChildTransformChange();
 		}
 	}
 
-	disallowOnTransformChange(): void {
-		this._onTransformChangeLock += 1;
-		if (this._onTransformChangeLock === 1) {
-			this._isOnTransformChanged = false;
+	lock(part: EShapeLockPart): this {
+		if (part & EShapeLockPart.TRANSFORM) {
+			this._lockTransform.lock();
 		}
+		if (part & EShapeLockPart.TRANSFORM_PARENT) {
+			this._lockTransformParent.lock();
+		}
+		if (part & EShapeLockPart.UPLOADED) {
+			this._lockUploaded.lock();
+		}
+		return this;
 	}
 
-	allowOnTransformChange(invokeOnTransformChange: boolean): void {
-		this._onTransformChangeLock -= 1;
-		if (this._onTransformChangeLock === 0) {
-			if (this._isOnTransformChanged) {
-				this._isOnTransformChanged = false;
-				if (invokeOnTransformChange) {
-					this.onTransformChange();
-				}
+	unlock(part: EShapeLockPart, invoke: boolean): this {
+		if (part & EShapeLockPart.UPLOADED) {
+			const lockUploaded = this._lockUploaded;
+			if (lockUploaded.unlock() && invoke) {
+				this.updateUploaded(lockUploaded.isHigh());
 			}
 		}
+		if (part & EShapeLockPart.TRANSFORM_PARENT) {
+			if (this._lockTransformParent.unlock() && invoke) {
+				this.onParentTransformChange();
+			}
+		}
+		if (part & EShapeLockPart.TRANSFORM) {
+			if (this._lockTransform.unlock() && invoke) {
+				this.onTransformChange();
+			}
+		}
+		return this;
 	}
 
 	onChildTransformChange(): void {
 		//
 	}
 
-	disallowUploadedUpdate(): void {
-		this._uploadedUpdateLock += 1;
-		if (this._uploadedUpdateLock === 1) {
-			this._isUploadedUpdated = false;
-			this._isUploadedUpdatedRecursively = false;
+	updateUploaded(recursively?: boolean): void {
+		if (this._lockUploaded.isLocked()) {
+			return;
 		}
-	}
-
-	allowUploadedUpdate(): void {
-		this._uploadedUpdateLock -= 1;
-		if (this._uploadedUpdateLock === 0) {
-			if (this._isUploadedUpdatedRecursively) {
-				this._isUploadedUpdatedRecursively = false;
-				this._isUploadedUpdated = false;
-				this.updateUploadedRecursively();
-			} else if (this._isUploadedUpdated) {
-				this._isUploadedUpdated = false;
-				this.updateUploaded();
-			}
+		const uploaded = this.uploaded;
+		if (uploaded != null) {
+			uploaded.update(this);
 		}
-	}
-
-	updateUploadedRecursively(): void {
-		if (this._uploadedUpdateLock === 0) {
-			this.updateUploaded();
+		if (recursively === true) {
 			const children = this.children;
 			for (let i = 0, imax = children.length; i < imax; ++i) {
-				children[i].updateUploadedRecursively();
+				children[i].updateUploaded(true);
 			}
-		} else {
-			this._isUploadedUpdatedRecursively = true;
-		}
-	}
-
-	updateUploaded(): void {
-		if (this._uploadedUpdateLock === 0) {
-			const uploaded = this.uploaded;
-			if (uploaded != null) {
-				uploaded.update(this);
-			}
-		} else {
-			this._isUploadedUpdated = true;
 		}
 	}
 
@@ -307,7 +294,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 	set visible(visible: boolean) {
 		if (this._visible !== visible) {
 			this._visible = visible;
-			this.updateUploadedRecursively();
+			this.updateUploaded(true);
 		}
 	}
 
@@ -362,7 +349,7 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 		}
 	}
 
-	detach(): this {
+	detach(exceptions?: Set<EShape>): this {
 		const parent = this.parent;
 		if (parent) {
 			this.parent = null;
@@ -372,21 +359,21 @@ export abstract class EShapeBase extends utils.EventEmitter implements EShape {
 				children.splice(index, 1);
 				parent.onChildTransformChange();
 				parent.toDirty();
-				this.onDetach();
+				this.onDetach(exceptions);
 			}
 		}
 		return this;
 	}
 
-	onDetach(): void {
+	onDetach(exceptions?: Set<EShape>): void {
 		this.uploaded = undefined;
 		const connector = this._connector;
 		if (connector) {
-			connector.detach();
+			connector.detach(exceptions);
 		}
 		const children = this.children;
 		for (let i = 0, imax = children.length; i < imax; ++i) {
-			children[i].onDetach();
+			children[i].onDetach(exceptions);
 		}
 	}
 

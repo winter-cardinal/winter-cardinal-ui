@@ -58,5 +58,5 @@ export interface EShapeConnectorEdge {
 		manager: EShapeResourceManagerDeserialization
 	): void;
 	attach(): this;
-	detach(): this;
+	detach(exceptions?: Set<EShape>): this;
 }

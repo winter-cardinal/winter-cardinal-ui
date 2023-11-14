@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { EShape } from "./e-shape";
 import { EShapeConnectorEdge } from "./e-shape-connector-edge";
 
 export interface EShapeConnectorContainer {
@@ -15,5 +16,5 @@ export interface EShapeConnectorContainer {
 	size(): number;
 	fit(forcibly?: boolean): void;
 	attach(): this;
-	detach(): this;
+	detach(exceptions?: Set<EShape>): this;
 }

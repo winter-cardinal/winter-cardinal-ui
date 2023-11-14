@@ -12,6 +12,7 @@ import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
 import { ESnapper } from "./snapper/e-snapper";
 import { ESnapperTargetValueType } from "./snapper/e-snapper-target-value";
+import { EShapeLockPart } from "./shape/variant/e-shape-lock-part";
 
 export interface DDiagramCanvasEditorSnapGridMajorOptions {
 	interval?: number;
@@ -282,7 +283,7 @@ export class DDiagramCanvasEditorSnap {
 		let shape = null;
 		if (index < shapes.length) {
 			shape = shapes[index];
-			shape.disallowUploadedUpdate();
+			shape.lock(EShapeLockPart.UPLOADED);
 			shape.points.position = position;
 			shape.transform.position.set(x, y);
 			shape.stroke.set(
@@ -296,10 +297,10 @@ export class DDiagramCanvasEditorSnap {
 			);
 			shape.size.set(w, h);
 			shape.visible = true;
-			shape.allowUploadedUpdate();
+			shape.unlock(EShapeLockPart.UPLOADED, true);
 		} else {
 			shape = new EShapeBar();
-			shape.disallowUploadedUpdate();
+			shape.lock(EShapeLockPart.UPLOADED);
 			shape.points.position = position;
 			shape.transform.position.set(x, y);
 			shape.stroke.set(
@@ -313,7 +314,7 @@ export class DDiagramCanvasEditorSnap {
 			);
 			shape.size.set(w, h);
 			shape.visible = true;
-			shape.allowUploadedUpdate();
+			shape.unlock(EShapeLockPart.UPLOADED, true);
 			shape.attach(container);
 		}
 	}

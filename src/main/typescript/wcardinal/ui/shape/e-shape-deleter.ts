@@ -8,6 +8,17 @@ import { EShapeContainer } from "./e-shape-container";
 import { EShapeSearch } from "./e-shape-search";
 
 export class EShapeDeleter {
+	private static EXCEPTIONS?: Set<EShape>;
+
+	private static addAll(shapes: EShape[], result: Set<EShape>): Set<EShape> {
+		for (let i = 0, imax = shapes.length; i < imax; ++i) {
+			const shape = shapes[i];
+			result.add(shape);
+			this.addAll(shape.children, result);
+		}
+		return result;
+	}
+
 	static delete(
 		parent: EShape | EShapeContainer,
 		shapes?: EShape[],
@@ -17,10 +28,13 @@ export class EShapeDeleter {
 		const length = children.length;
 
 		// Update indices
+		const exceptions = (EShapeDeleter.EXCEPTIONS ??= new Set<EShape>());
 		for (let i = 0; i < length; ++i) {
 			const child = children[i];
 			if (child.selected) {
 				child.index = length + i;
+				exceptions.add(child);
+				this.addAll(child.children, exceptions);
 			} else {
 				child.index = i;
 			}
@@ -38,8 +52,9 @@ export class EShapeDeleter {
 					child.parent = null;
 					child.selected = false;
 					child.uploaded = undefined;
-					child.onDetach();
+					child.onDetach(exceptions);
 				} else {
+					exceptions.clear();
 					const size = children.length - (i + 1);
 					if (0 < size) {
 						const result = children.splice(i + 1, size);
@@ -57,6 +72,7 @@ export class EShapeDeleter {
 					}
 				}
 			}
+			exceptions.clear();
 			if (0 < children.length) {
 				const result = children.splice(0, children.length);
 				if (shapes != null) {
@@ -78,8 +94,9 @@ export class EShapeDeleter {
 					child.parent = null;
 					child.selected = false;
 					child.uploaded = undefined;
-					child.onDetach();
+					child.onDetach(exceptions);
 				} else {
+					exceptions.clear();
 					children.length = i + 1;
 					if (shapes != null) {
 						shapes.length = 0;
@@ -89,6 +106,7 @@ export class EShapeDeleter {
 					return null;
 				}
 			}
+			exceptions.clear();
 			if (0 < children.length) {
 				children.length = 0;
 				if (shapes != null) {

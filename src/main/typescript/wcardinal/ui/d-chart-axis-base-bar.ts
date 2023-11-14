@@ -12,6 +12,7 @@ import { EShape } from "./shape/e-shape";
 import { EShapePointsStyle } from "./shape/e-shape-points-style";
 import { EShapeBar } from "./shape/variant/e-shape-bar";
 import { EShapeBarPosition } from "./shape/variant/e-shape-bar-position";
+import { EShapeLockPart } from "./shape/variant/e-shape-lock-part";
 
 export class DChartAxisBaseBar<CHART extends DBase = DBase> implements DChartAxisBar<CHART> {
 	protected _parser: DChartAxisBaseOptionParser;
@@ -78,7 +79,7 @@ export class DChartAxisBaseBar<CHART extends DBase = DBase> implements DChartAxi
 			const plotAreaWidth = plotArea.width;
 			const plotAreaHeight = plotArea.height;
 			const offset = this._parser.padding * index;
-			shape.disallowUploadedUpdate();
+			shape.lock(EShapeLockPart.UPLOADED);
 			const position = shape.transform.position;
 			const size = shape.size;
 			switch (this._parser.position) {
@@ -99,7 +100,7 @@ export class DChartAxisBaseBar<CHART extends DBase = DBase> implements DChartAxi
 					size.set(0, plotAreaHeight);
 					break;
 			}
-			shape.allowUploadedUpdate();
+			shape.unlock(EShapeLockPart.UPLOADED, true);
 			return true;
 		}
 		return false;

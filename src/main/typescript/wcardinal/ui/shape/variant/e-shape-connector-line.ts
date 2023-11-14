@@ -18,6 +18,8 @@ import { toPointsBoundary } from "../e-shape-points-formatted";
 import { EShapeConnectorBody } from "../e-shape-connector-body";
 import { EShapeConnectorBodyImpl } from "../e-shape-connector-body-impl";
 import { EShapeConnectorEdge } from "../e-shape-connector-edge";
+import { EShapeLockPart } from "./e-shape-lock-part";
+import { EShapeLock } from "./e-shape-lock";
 
 export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnector {
 	protected static WORK_BOUNDARY: [number, number, number, number];
@@ -31,8 +33,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 	protected _headNormalId: number;
 	protected _headMargin: number;
 	protected _bodyId: number;
-	protected _lockCount: number;
-	protected _isChanged: boolean;
+	protected _lockChange: EShapeLock;
 
 	constructor(type: EShapeType = EShapeType.CONNECTOR_LINE) {
 		super(type);
@@ -43,8 +44,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		this._headNormalId = 0;
 		this._headMargin = 0;
 		this._bodyId = 0;
-		this._lockCount = 0;
-		this._isChanged = false;
+		this._lockChange = new EShapeLock();
 		const sx = EShapeDefaults.SIZE_X;
 		const sy = EShapeDefaults.SIZE_Y;
 		const hx = sx * 0.5;
@@ -57,21 +57,21 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		this._body = new EShapeConnectorBodyImpl(this, onChangeBound);
 	}
 
-	lock(): void {
-		this._lockCount += 1;
-		if (this._lockCount === 1) {
-			this._isChanged = false;
+	override lock(part: EShapeLockPart): this {
+		super.lock(part);
+		if (part & EShapeLockPart.CONNECTOR) {
+			this._lockChange.lock();
 		}
+		return this;
 	}
 
-	unlock(): void {
-		this._lockCount -= 1;
-		if (this._lockCount === 0) {
-			if (this._isChanged) {
+	override unlock(part: EShapeLockPart, invoke: boolean): this {
+		if (part & EShapeLockPart.CONNECTOR) {
+			if (this._lockChange.unlock() && invoke) {
 				this.onChange();
 			}
-			this._isChanged = false;
 		}
+		return super.unlock(part, invoke);
 	}
 
 	get points(): EShapeLinePoints {
@@ -91,14 +91,13 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 		this._edge.attach();
 	}
 
-	onDetach(): void {
-		this._edge.detach();
-		super.onDetach();
+	onDetach(exceptions?: Set<EShape>): void {
+		this._edge.detach(exceptions);
+		super.onDetach(exceptions);
 	}
 
 	protected onChange(): void {
-		if (0 < this._lockCount) {
-			this._isChanged = true;
+		if (this._lockChange.isLocked()) {
 			return;
 		}
 
@@ -154,7 +153,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 				values[i + 1] -= cy;
 			}
 
-			this.disallowUploadedUpdate();
+			this.lock(EShapeLockPart.TRANSFORM_AND_UPLOADED);
 			transformPosition.set(px + cx, py + cy);
 			transform.scale.set(1, 1);
 			transform.rotation = 0;
@@ -162,7 +161,7 @@ export class EShapeConnectorLine extends EShapeLineBase implements EShapeConnect
 			points.toFitted(sx, sy);
 			this.size.set(sx, sy);
 			points.set(values);
-			this.allowUploadedUpdate();
+			this.unlock(EShapeLockPart.TRANSFORM_AND_UPLOADED, true);
 		}
 	}
 

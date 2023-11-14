@@ -27,6 +27,7 @@ import {
 import { EShapeLineOfAny } from "./shape/variant/e-shape-line-of-any";
 import { EShapeLineOfCircles } from "./shape/variant/e-shape-line-of-circles";
 import { toCeilingIndex } from "./util/to-ceiling-index";
+import { EShapeLockPart } from "./shape/variant/e-shape-lock-part";
 
 /**
  * {@link DChartSeriesLineOfAny} options.
@@ -269,9 +270,9 @@ export abstract class DChartSeriesLineOfAny<
 			values[i + 1] -= cy;
 		}
 
-		line.disallowUploadedUpdate();
+		line.lock(EShapeLockPart.UPLOADED);
 		this.applyLine(line, xcoordinate, ycoordinate, sx, sy, cx, cy, values);
-		line.allowUploadedUpdate();
+		line.unlock(EShapeLockPart.UPLOADED, true);
 	}
 
 	protected adjustLineRegion(

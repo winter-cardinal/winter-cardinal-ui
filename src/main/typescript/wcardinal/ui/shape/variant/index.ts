@@ -171,6 +171,8 @@ export * from "./e-shape-line-of-triangle-roundeds";
 export * from "./e-shape-line-of-triangles";
 export * from "./e-shape-line-points";
 export * from "./e-shape-line";
+export * from "./e-shape-lock-part";
+export * from "./e-shape-lock";
 export * from "./e-shape-null";
 export * from "./e-shape-primitive";
 export * from "./e-shape-rectangle-pivoted";

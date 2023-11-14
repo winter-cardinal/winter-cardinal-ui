@@ -20,6 +20,7 @@ import {
 	DChartSeriesStrokeComputedOptions
 } from "./d-chart-series-stroke-computed";
 import { EShapeLine } from "./shape/variant/e-shape-line";
+import { EShapeLockPart } from "./shape/variant/e-shape-lock-part";
 
 /**
  * {@link DChartSeriesLinear} options.
@@ -217,12 +218,12 @@ export class DChartSeriesLinear<CHART extends DBase = DBase> extends DChartSerie
 		if (0 < segments.length) {
 			segments.length = 0;
 		}
-		line.disallowUploadedUpdate();
+		line.lock(EShapeLockPart.UPLOADED);
 		line.points.set(values, segments);
 		line.points.toFitted(sx, sy);
 		line.size.set(sx, sy);
 		line.transform.position.set(cx, cy);
-		line.allowUploadedUpdate();
+		line.unlock(EShapeLockPart.UPLOADED, true);
 	}
 
 	protected updateRegion(): void {

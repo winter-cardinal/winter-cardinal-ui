@@ -22,6 +22,7 @@ import { EShapeTextDirection } from "./shape/e-shape-text-direction";
 import { EShapeTextAlignLike } from "./shape/e-shape-text-align";
 import { EShapeTextAlignHorizontal } from "./shape/e-shape-text-align-horizontal";
 import { EShapeTextAlignVertical } from "./shape/e-shape-text-align-vertical";
+import { EShapeLockPart } from "./shape/variant/e-shape-lock-part";
 
 export class DChartAxisGuideSimpleShapeImpl<CHART extends DBase = DBase>
 	implements DChartAxisGuideSimpleShape<CHART>
@@ -259,7 +260,7 @@ export class DChartAxisGuideSimpleShapeImpl<CHART extends DBase = DBase>
 	): boolean {
 		const bar = this._bar;
 		if (bar != null) {
-			bar.disallowUploadedUpdate();
+			bar.lock(EShapeLockPart.UPLOADED);
 			switch (position) {
 				case DChartAxisPosition.TOP:
 					bar.transform.position.set(x, y);
@@ -282,7 +283,7 @@ export class DChartAxisGuideSimpleShapeImpl<CHART extends DBase = DBase>
 					bar.visible = visible;
 					break;
 			}
-			bar.allowUploadedUpdate();
+			bar.unlock(EShapeLockPart.UPLOADED, true);
 		}
 		const label = this._label;
 		if (label != null) {
@@ -290,7 +291,7 @@ export class DChartAxisGuideSimpleShapeImpl<CHART extends DBase = DBase>
 			const s = label.size;
 			const ox = offset + s.x * 0.5 + m;
 			const oy = offset + s.y * 0.5 + m;
-			label.disallowUploadedUpdate();
+			label.lock(EShapeLockPart.UPLOADED);
 			switch (position) {
 				case DChartAxisPosition.TOP:
 					label.transform.position.set(x, -oy);
@@ -309,7 +310,7 @@ export class DChartAxisGuideSimpleShapeImpl<CHART extends DBase = DBase>
 					label.visible = visible;
 					break;
 			}
-			label.allowUploadedUpdate();
+			label.unlock(EShapeLockPart.UPLOADED, true);
 		}
 		const tick = this._tick;
 		if (tick != null) {
@@ -317,7 +318,7 @@ export class DChartAxisGuideSimpleShapeImpl<CHART extends DBase = DBase>
 			const s = tick.size;
 			const ox = offset + s.x * 0.5 + m;
 			const oy = offset + s.y * 0.5 + m;
-			tick.disallowUploadedUpdate();
+			tick.lock(EShapeLockPart.UPLOADED);
 			switch (position) {
 				case DChartAxisPosition.TOP:
 					tick.transform.position.set(x, -oy);
@@ -336,7 +337,7 @@ export class DChartAxisGuideSimpleShapeImpl<CHART extends DBase = DBase>
 					tick.visible = visible;
 					break;
 			}
-			tick.allowUploadedUpdate();
+			tick.unlock(EShapeLockPart.UPLOADED, true);
 		}
 		return true;
 	}

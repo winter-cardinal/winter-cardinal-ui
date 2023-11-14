@@ -9,6 +9,7 @@ import { EShapeCapabilities } from "../e-shape-capabilities";
 import { EShapeCapability } from "../e-shape-capability";
 import { EShapeLayout } from "../e-shape-layout";
 import { EShapeTransforms } from "../e-shape-transforms";
+import { EShapeLockPart } from "./e-shape-lock-part";
 
 export class EShapeGroupSizeLayout implements EShapeLayout {
 	protected static WORK_TRANSFORM: Matrix = new Matrix();
@@ -73,8 +74,8 @@ export class EShapeGroupSizeLayout implements EShapeLayout {
 			.translate(-pivotX, -pivotY)
 			.scale(sx, sy)
 			.translate(+pivotX, +pivotY);
-		shape.disallowOnTransformChange();
+		shape.lock(EShapeLockPart.TRANSFORM);
 		EShapeTransforms.applyLocal(shape, transform, EShapeCapability.ALL, childBase);
-		shape.allowOnTransformChange(false);
+		shape.unlock(EShapeLockPart.TRANSFORM, false);
 	}
 }

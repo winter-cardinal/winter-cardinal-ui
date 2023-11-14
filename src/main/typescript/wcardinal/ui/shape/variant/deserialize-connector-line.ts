@@ -10,6 +10,7 @@ import { EShapeResourceManagerDeserialization } from "../e-shape-resource-manage
 import { EShapeUuidMapping } from "../e-shape-uuid-mapping";
 import { deserializeBase } from "./deserialize-base";
 import { EShapeConnectorLine } from "./e-shape-connector-line";
+import { EShapeLockPart } from "./e-shape-lock-part";
 
 export const deserializeConnectorLine = (
 	item: DDiagramSerializedItem,
@@ -36,7 +37,7 @@ export const onDeserializedConnectorLine = (
 			}
 
 			// Lock
-			shape.lock();
+			shape.lock(EShapeLockPart.CONNECTOR);
 
 			// Points
 			const points = shape.points;
@@ -59,7 +60,7 @@ export const onDeserializedConnectorLine = (
 			}
 
 			// Unlock
-			shape.unlock();
+			shape.unlock(EShapeLockPart.CONNECTOR, true);
 		}
 	}
 };

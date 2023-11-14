@@ -9,6 +9,7 @@ import { EShapeLayout } from "../e-shape-layout";
 import { EShapeGroupSize } from "./e-shape-group-size";
 import { EShapeGroupSizeLayout } from "./e-shape-group-size-layout";
 import { EShapeGroupSizeParent } from "./e-shape-group-size-parent";
+import { EShapeLockPart } from "./e-shape-lock-part";
 
 export class EShapeGroupSizeEditor implements EShapeGroupSize {
 	protected _parent: EShapeGroupSizeParent;
@@ -114,7 +115,7 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 
 	protected doFit(): void {
 		const parent = this._parent;
-		parent.disallowOnTransformChange();
+		parent.lock(EShapeLockPart.TRANSFORM | EShapeLockPart.TRANSFORM_PARENT);
 
 		// Calculate the rect
 		const rect = this.calcRect(this._workRectForFit);
@@ -123,35 +124,37 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		const size = this._size;
 		size.set(rect.width, rect.height);
 
-		// Position & Pivot
-		// rx := rect.x
-		// ry := rect.y
+		// Calculating new position & pivot
 		//
-		// | a c tx | | 1 0 +rx | | 1 0 -rx |   | a c tx + (a * rx + c * ry) | | 1 0 -rx |
-		// | b d ty | | 0 1 +ry | | 0 1 -ry | = | b d ty + (b * rx + d * ry) | | 0 1 -ry |
-		// | 0 0 1  | | 0 0  1  | | 0 0  1  |   | 0 0 1                      | | 0 0  1  |
+		// cx := rect.x + rect.width * 0.5
+		// cy := rect.y + rect.height * 0.5
 		//
-		// tx -> tx + (a * rx + c * ry) = poxition.x - (a * pivot.x + c * pivot.y)
-		// ty -> ty + (b * rx + d * ry) = poxition.y - (b * pivot.x + d * pivot.y)
-		// position.x -> position.x + (a * rx + c * ry) - (a * pivot.x + c * pivot.y)
-		// position.y -> position.y + (b * rx + d * ry) - (b * pivot.x + d * pivot.y)
-		// pivot.x -> 0
-		// pivot.y -> 0
+		// Since the local transform need to be unchanged:
 		//
-		// a -> a', b -> b', c -> c', tx -> tx', ty -> ty'
+		// | a c tx |   | a c px' - (a * pvx' + c * pvy') |
+		// | b d ty | = | b d py' - (b * pvx' + d * pvy') |
+		// | 0 0 1  |   | 0 0 1                           |
 		//
-		// | a' c' tx' | | 1 0 -rx |   | a' c' tx' - (a' * rx + c' * ry) |
-		// | b' d' ty' | | 0 1 -ry | = | b' d' ty' - (b' * rx + d' * ry) |
-		// | 0  0  1   | | 0 0  1  |   | 0  0  1                         |
+		// Here, (px', py') and (pvx', pvy') are the new position
+		// and the new pivot, respectively.
 		//
-		// tx' -> tx' - (a' * rx + c' * ry) = poxition.x - (a' * pivot.x + c' * pivot.y)
-		// ty' -> ty' - (b' * rx + d' * ry) = poxition.y - (b' * pivot.x + d' * pivot.y)
-		// pivot.x -> pivot.x + rx
-		// pivot.y -> pivot.y + ry
+		// Setting the new pivot (pvx', pvy') to (cx, cy) leads to
+		//
+		// | a c tx |   | a c px' - (a * cx + c * cy) |
+		// | b d ty | = | b d py' - (b * cx + d * cy) |
+		// | 0 0 1  |   | 0 0 1                       |
+		//
+		// tx = px - (a * pvx + c * pvy) = px' - (a * cx + c * cy)
+		// ty = py - (b * pvx + d * pvy) = py' - (b * cx + d * cy)
+		//
+		// Thus, the new position (px', py') is
+		//
+		// px' = px + (a * (cx - pvx) + c * (cy - pvy))
+		// py' = py + (b * (cy - pvx) + d * (cy - pvy))
 		parent.updateTransform();
 		const transform = parent.transform;
-		const x = rect.x + rect.width * 0.5;
-		const y = rect.y + rect.height * 0.5;
+		const cx = rect.x + rect.width * 0.5;
+		const cy = rect.y + rect.height * 0.5;
 		const position = transform.position;
 		const localTransform = transform.localTransform;
 		const a = localTransform.a;
@@ -159,17 +162,18 @@ export class EShapeGroupSizeEditor implements EShapeGroupSize {
 		const c = localTransform.c;
 		const d = localTransform.d;
 		const pivot = transform.pivot;
-		position.set(
-			position.x + (a * x + c * y) - (a * pivot.x + c * pivot.y),
-			position.y + (b * x + d * y) - (b * pivot.x + d * pivot.y)
-		);
-		pivot.set(x, y);
+		const pvx = pivot.x;
+		const pvy = pivot.y;
+		const dpvx = cx - pvx;
+		const dpvy = cy - pvy;
+		position.set(position.x + (a * dpvx + c * dpvy), position.y + (b * dpvx + d * dpvy));
+		pivot.set(cx, cy);
 
 		// Reset the data
 		this.reset(parent.children, this._layouts, size);
 
 		//
-		parent.allowOnTransformChange(true);
+		parent.unlock(EShapeLockPart.TRANSFORM | EShapeLockPart.TRANSFORM_PARENT, true);
 	}
 
 	protected reset(children: EShape[], layouts: EShapeLayout[], size: IPoint): void {

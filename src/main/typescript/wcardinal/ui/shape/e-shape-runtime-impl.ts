@@ -18,6 +18,7 @@ import { DBaseState } from "../d-base-state";
 import { DBaseStateSet } from "../d-base-state-set";
 import { EShapeRuntime } from "./e-shape-runtime";
 import { EShapeRuntimeReset } from "./e-shape-runtime-reset";
+import { EShapeLockPart } from "./variant/e-shape-lock-part";
 
 export class EShapeRuntimeImpl implements EShapeRuntime {
 	static readonly TRANSIENT_STATES = [
@@ -75,12 +76,12 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 	}
 
 	initialize(shape: EShape): void {
-		shape.disallowUploadedUpdate();
+		shape.lock(EShapeLockPart.UPLOADED);
 		const actions = this.actions;
 		for (let i = 0, imax = actions.length; i < imax; ++i) {
 			actions[i].initialize(shape, this);
 		}
-		shape.allowUploadedUpdate();
+		shape.unlock(EShapeLockPart.UPLOADED, true);
 	}
 
 	isActionable(): boolean {
@@ -453,9 +454,9 @@ export class EShapeRuntimeImpl implements EShapeRuntime {
 			if (isEffectTimeUp) {
 				this.effect = NaN;
 			}
-			shape.disallowUploadedUpdate();
+			shape.lock(EShapeLockPart.UPLOADED);
 			this.onUpdate(shape, time);
-			shape.allowUploadedUpdate();
+			shape.unlock(EShapeLockPart.UPLOADED, true);
 			const wasStateChanged = this.isStateChanged;
 			shape.state.removeAll(EShapeRuntimeImpl.TRANSIENT_STATES);
 			this.isStateChanged = wasStateChanged;

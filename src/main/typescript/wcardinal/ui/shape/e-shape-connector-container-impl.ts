@@ -102,9 +102,11 @@ export class EShapeConnectorContainerImpl implements EShapeConnectorContainer {
 		return this;
 	}
 
-	detach(): this {
+	detach(exceptions?: Set<EShape>): this {
 		this._edges.forEach((edge: EShapeConnectorEdge): void => {
-			edge.set(null);
+			if (exceptions == null || !exceptions.has(edge.parent)) {
+				edge.set(null);
+			}
 		});
 		return this;
 	}

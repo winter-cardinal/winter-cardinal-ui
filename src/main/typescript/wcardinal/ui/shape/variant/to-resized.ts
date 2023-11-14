@@ -9,6 +9,7 @@ import { toSizeNormalized } from "./to-size-normalized";
 import { toSizeRounded } from "./to-size-rounded";
 import { EShapeCapabilities } from "../e-shape-capabilities";
 import { EShapeCapability } from "../e-shape-capability";
+import { EShapeLockPart } from "./e-shape-lock-part";
 
 export const toResized = (
 	shape: EShape,
@@ -20,7 +21,7 @@ export const toResized = (
 	const cposition = EShapeCapabilities.contains(shape, EShapeCapability.POSITION);
 	const cwidth = EShapeCapabilities.contains(shape, EShapeCapability.WIDTH);
 	const cheight = EShapeCapabilities.contains(shape, EShapeCapability.HEIGHT);
-	shape.disallowUploadedUpdate();
+	shape.lock(EShapeLockPart.UPLOADED);
 	const position = shape.transform.position;
 	if (centerMode) {
 		const dx = Math.abs(to.x - from.x);
@@ -106,5 +107,5 @@ export const toResized = (
 			}
 		}
 	}
-	shape.allowUploadedUpdate();
+	shape.unlock(EShapeLockPart.UPLOADED, true);
 };

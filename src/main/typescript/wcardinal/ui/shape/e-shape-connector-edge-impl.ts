@@ -468,9 +468,9 @@ export class EShapeConnectorEdgeImpl implements EShapeConnectorEdge {
 		return this;
 	}
 
-	detach(): this {
+	detach(exceptions?: Set<EShape>): this {
 		const shape = this._acceptor.shape;
-		if (shape) {
+		if (shape != null && (exceptions == null || !exceptions.has(shape))) {
 			if (shape.connector.remove(this)) {
 				this.onAcceptorChange();
 			}
